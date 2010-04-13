@@ -507,6 +507,7 @@ class HTML_FlexyFramework {
         
         $classobj->baseURL = $this->baseURL;
         $classobj->rootURL = $this->rootURL;
+        $classobj->rootDir = $this->rootDir;
         $classobj->bootLoader  = $this;
         $classobj->request = $newRequest;
         $classobj->timer = &$this->timer;
