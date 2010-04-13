@@ -164,6 +164,7 @@ class HTML_FlexyFramework {
         $bits = explode(basename($_SERVER["SCRIPT_FILENAME"]), $_SERVER["SCRIPT_NAME"]);
         $this->baseURL = $bits[0] . basename($_SERVER["SCRIPT_FILENAME"]);
         $this->baseDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"])) .'/'. $this->project;
+        $this->rootDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
         $this->rootURL = dirname($this->baseURL);
         $this->rootURL = ($this->rootURL == '/') ? '' : $this->rootURL;
         
