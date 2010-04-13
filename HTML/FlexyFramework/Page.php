@@ -98,6 +98,13 @@ class HTML_FlexyFramework_Page  {
     */
     var $rootURL; 
     /**
+    * rootDir, the base installation directory - can be used to find relative files.
+    * (set by page loader)
+    * @var string
+    * @access public
+    */
+    var $rootDir; 
+    /**
     * the full request string used by the getCacheID().
     * (set by page loader)
     * @var string
