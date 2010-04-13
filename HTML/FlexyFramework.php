@@ -86,8 +86,10 @@ class HTML_FlexyFramework {
     var $run = false; // from cli
     var $enableArray = false; // from enable.
     var $classPrefix = false; // from prject.
+    var $baseDir = false ; // (directory+project)
+    var $rootDir = false ; // (directory that index.php is in!)
     var $baseURL = false;
-    var $baseDir = false ; // (directory+roject)
+    
     var $rootURL = false ; // basename($baseURL)
     
     var $timer = false; // the debug timer
@@ -163,8 +165,9 @@ class HTML_FlexyFramework {
     
         $bits = explode(basename($_SERVER["SCRIPT_FILENAME"]), $_SERVER["SCRIPT_NAME"]);
         $this->baseURL = $bits[0] . basename($_SERVER["SCRIPT_FILENAME"]);
-        $this->baseDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"])) .'/'. $this->project;
+        
         $this->rootDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
+        $this->baseDir = $this->rootDir .'/'. $this->project;
         $this->rootURL = dirname($this->baseURL);
         $this->rootURL = ($this->rootURL == '/') ? '' : $this->rootURL;
         
