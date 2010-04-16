@@ -99,8 +99,13 @@ class HTML_FlexyFramework {
     /**
      * 
      * Constructor - with assoc. array of props as option
+     * And BC version!!!!
      * 
      */
+    
+    function HTML_FlexyFramework($config) {
+        return $this->__construct($config);
+    }
     
     function __construct($config)
     {
