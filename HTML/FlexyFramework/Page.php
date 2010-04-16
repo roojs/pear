@@ -353,7 +353,8 @@ class HTML_FlexyFramework_Page  {
     function getTime() {
          
         $m = explode(' ',microtime());
-        return sprintf('%0.2fs',($m[0] + $m[1]) -  HTML_FlexyFramework::get()->start)
+        $ff =  HTML_FlexyFramework::get();
+        return sprintf('%0.2fs',($m[0] + $m[1]) -  $ff->start)
                 . '/ Files ' . count(get_included_files());
     
     
