@@ -112,7 +112,7 @@ class HTML_FlexyFramework {
         if (isset($GLOBALS[__CLASS__])) {
             trigger_error("FlexyFramework Construct called twice!", E_ERROR);
         }
-        $GLOBALS[__CLASS__] = $this;
+        $GLOBALS[__CLASS__] = &$this;
         
         $this->calls = 0;
 
