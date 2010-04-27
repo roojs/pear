@@ -844,7 +844,7 @@ class HTML_FlexyFramework {
   
     function debug($output) {
        
-        if (!$this->debug) {  
+        if (empty($this->debug)) {  
             return;
         }
         echo $this->cli ? 
