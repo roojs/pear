@@ -673,9 +673,9 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         // TODO: possible class value 0,1,2 check Formula.pm
         // Split the range into 2 cell refs
         if (preg_match("/^([A-Ia-i]?[A-Za-z])(\d+)\:([A-Ia-i]?[A-Za-z])(\d+)$/", $range)) {
-            list($cell1, $cell2) = split(':', $range);
+            list($cell1, $cell2) = explode(':', $range);
         } elseif (preg_match("/^([A-Ia-i]?[A-Za-z])(\d+)\.\.([A-Ia-i]?[A-Za-z])(\d+)$/", $range)) {
-            list($cell1, $cell2) = split('\.\.', $range);
+            list($cell1, $cell2) = explode('\.\.', $range);
 
         } else {
             // TODO: use real error codes
