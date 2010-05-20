@@ -335,7 +335,7 @@ class HTTP_Upload extends HTTP_Upload_Error
             if (PEAR::isError($files)) {
                 // there was an error with the form.
                 // Create a faked upload embedding the error
-                $this->files['_error'] =  &new HTTP_Upload_File(
+                $this->files['_error'] =  new HTTP_Upload_File(
                                                        '_error', null,
                                                        null, null,
                                                        null, $files->getCode(),
