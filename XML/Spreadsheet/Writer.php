@@ -21,9 +21,9 @@ class XML_Spreadsheet_Writer
     function &load($string)
     {
         
-        if (!extension_loaded('domxml')) {
-            dl('domxml.'. PHP_SHLIB_SUFFIX);
-        }
+        //if (!extension_loaded('domxml')) {
+        //    dl('domxml.'. PHP_SHLIB_SUFFIX);
+        //}
         $dom = domxml_open_mem($string);
         if (!$dom) { 
             echo '<code>';echo htmlspecialchars($string);exit;
