@@ -242,8 +242,8 @@ class XML_Spreadsheet_Writer
     {
         $ar = $node->attributes;
         $ret = array();
-        foreach($ar as $name =>$value) {
-            $ret[$name] = str_replace('&quot;','"',$value);
+        foreach($ar as $a) {
+            $ret[$a->name] = str_replace('&quot;','"',$a->value);
         }
         $this->debug(print_r($ret,true));
         return $ret;
