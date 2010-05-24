@@ -240,10 +240,10 @@ class XML_Spreadsheet_Writer
     
     function _attributesToArray($node) 
     {
-        $ar = $node->attributes();
+        $ar = $node->attributes;
         $ret = array();
-        foreach($ar as $anode) {
-            $ret[$anode->name] = str_replace('&quot;','"',$anode->value);
+        foreach($ar as $name =>$value) {
+            $ret[$name] = str_replace('&quot;','"',$value);
         }
         $this->debug(print_r($ret,true));
         return $ret;
@@ -251,9 +251,9 @@ class XML_Spreadsheet_Writer
     function _innerText($node) 
     {
         $ret = '';
-        foreach($node->child_nodes() as $cnode) {
+        foreach($node->childNodes as $cnode) {
             if (is_a($cnode,'DomText')) {
-                $ret .= $cnode->node_value();
+                $ret .= $cnode->nodeValue;
             }
         }
         return $ret;
