@@ -24,11 +24,13 @@ class XML_Spreadsheet_Writer
         //if (!extension_loaded('domxml')) {
         //    dl('domxml.'. PHP_SHLIB_SUFFIX);
         //}
-        $dom = domxml_open_mem($string);
+        $dom = new DomDocument();
+        
+        $dom->loadXML($string);
         if (!$dom) { 
             echo '<code>';echo htmlspecialchars($string);exit;
         }
-        $root = $dom->document_element();
+        $root = $dom->documentElement;
         
         $writer = new XML_Spreadsheet_Writer;
         $writer->handle($root);
@@ -45,14 +47,14 @@ class XML_Spreadsheet_Writer
     
     function handle($node) 
     {
-        $this->debug($node->tagname);
-        $method = 'handle'.$node->tagname;
-        $this->debug( "SEND: $method : {$node->tagname}<BR>");
+        $this->debug($node->tagName);
+        $method = 'handle'.$node->tagName;
+        $this->debug( "SEND: $method : {$node->tagName}<BR>");
         $this->$method($node);
-        if (!$node->child_nodes()) {
+        if (!$node->childNodes) {
             return;
         }
-        foreach($node->child_nodes() as $cnode) {
+        foreach($node->childNodes as $cnode) {
             if (is_a($cnode,'DomElement')) {
                 $this->handle($cnode);
             }
@@ -63,7 +65,7 @@ class XML_Spreadsheet_Writer
     {
         require_once 'Spreadsheet/Excel/Writer.php';
         $this->workbook = new Spreadsheet_Excel_Writer();
-        $this->filename = $node->get_attribute('filename');
+        $this->filename = $node->getAttribute('filename');
     }
     
     function handleWorkSheet($node) 
@@ -71,16 +73,16 @@ class XML_Spreadsheet_Writer
         if (isset($this->worksheet)) {
             unset($this->worksheet);
         }
-        $this->worksheet = &$this->workbook->addWorksheet($node->get_attribute("name"));
+        $this->worksheet = &$this->workbook->addWorksheet($node->getAttribute("name"));
         if (!is_a($this->worksheet,'PEAR_Error')) {
-            $this->worksheetNames[] = $node->get_attribute("name");
+            $this->worksheetNames[] = $node->getAttribute("name");
         } else {
             $name = 'Page ' . count($this->worksheetNames);
             $this->worksheet = &$this->workbook->addWorksheet($name);
             $this->worksheetNames[] = $name;
         }
         
-        if ($node->get_attribute("active") == "true") {
+        if ($node->getAttribute("active") == "true") {
            // print_r($this->worksheet);
             $this->worksheet->activate();
             $this->worksheet->select();
