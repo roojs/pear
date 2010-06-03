@@ -543,14 +543,14 @@ class File_Convert_Solution
         
         $cmd = $conv .' -n ' . escapeshellarg($fn) . ' ' .escapeshellarg($target);
         $this->cmd = $cmd;
-        echo $cmd;
+       
         $res = `$cmd`;
         clearstatcache();
         
         if (!file_exists($target) ) {
             // try with X wrapper..Xvfb
         
-            $xvfb = System::which('xvfb');
+            $xvfb = System::which('xvfb-run');
             if (empty($xvfb) || !file_exists($xvfb)) {
                 return false;
             }
