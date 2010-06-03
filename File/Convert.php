@@ -543,9 +543,10 @@ class File_Convert_Solution
         
         $cmd = $conv .' -n ' . escapeshellarg($fn) . ' ' .escapeshellarg($target);
         $this->cmd = $cmd;
-       // echo $cmd;
+        echo $cmd;
         $res = `$cmd`;
         clearstatcache();
+        
         if (!file_exists($target) ) {
             // try with X wrapper..Xvfb
         
