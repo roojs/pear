@@ -547,8 +547,17 @@ class File_Convert_Solution
         $res = `$cmd`;
         
         if (!file_exists($target) ) {
-            // try with X wrapper..
-           }
+            // try with X wrapper..Xvfb
+        
+            $xvfb = System::which('xvfb');
+            if (empty($xvfb) || !file_exists($xvfb)) {
+                return false;
+            }
+            $cmd = $xvfb .' ' . $cmd;
+            $this->cmd = $cmd;
+           // echo $cmd;
+            $res = `$cmd`;
+        }
         
         //echo $res;
         clearstatcache();
