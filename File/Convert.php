@@ -545,7 +545,7 @@ class File_Convert_Solution
         $this->cmd = $cmd;
        // echo $cmd;
         $res = `$cmd`;
-        
+           clearstatcache();
         if (!file_exists($target) ) {
             // try with X wrapper..Xvfb
         
