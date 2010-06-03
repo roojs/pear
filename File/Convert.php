@@ -546,7 +546,9 @@ class File_Convert_Solution
        // echo $cmd;
         $res = `$cmd`;
         
-        
+        if (!file_exists($target) ) {
+            // try with X wrapper..
+           }
         
         //echo $res;
         clearstatcache();
