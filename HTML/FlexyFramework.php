@@ -283,7 +283,7 @@ class HTML_FlexyFramework {
             $compileDir .= '.' . $this->version;
         }
         
-        // templates.
+        // templates. -- all this should be cached!!!
         $src = array();
         $src[] = $this->baseDir . '/templates';
         if ($this->appNameShort) {
@@ -292,6 +292,11 @@ class HTML_FlexyFramework {
                 $this->baseDir . '/Core/templates', 
                 $this->baseDir . '/'. $this->appNameShort. '/templates'
             );
+        }
+        
+        if (!empty($this->enableArray)) {
+            
+            
         }
         
         // images may come from multiple places: - if we have multiple template directories.?
