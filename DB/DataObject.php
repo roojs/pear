@@ -18,7 +18,7 @@
  * @version    CVS: $Id: DataObject.php 298561 2010-04-25 23:12:27Z alan_k $
  * @link       http://pear.php.net/package/DB_DataObject
  */
-  
+
 
 /* =========================================================================== 
  *
