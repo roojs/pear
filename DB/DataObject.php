@@ -717,6 +717,12 @@ class DB_DataObject extends DB_DataObject_Overload
     */
     function whereAddIn($key, $list, $type, $logic = 'AND') 
     {
+        
+        $not = '';
+        if ($key[0] == '!') {
+            $not = 'NOT ';
+            $key = substr($key, 1);
+        }
         // fix type for short entry.
         $type = $type == 'int' ? 'integer' : $type; 
 
@@ -726,14 +732,10 @@ class DB_DataObject extends DB_DataObject_Overload
             $ar[] = $type =='string' ? $this->escape($k) : $k;
         }
         if (!$ar) {
-            return;
+            return $not ? $this->_query['condition'] : $this->whereAdd("1=0");
         }
-        $not = '';
-        if ($key[0] == '!') {
-            $key = substr(1, strlen($k));
-            $not = 'NOT';
-        }
-        // this might need 
+        
+        // this might bed need ed
         if (!empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers'])) {
             $this->_connect();
             $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
