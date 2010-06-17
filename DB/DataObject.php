@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id: DataObject.php 293570 2010-01-15 07:10:44Z alan_k $
+ * @version    CVS: $Id: DataObject.php 298561 2010-04-25 23:12:27Z alan_k $
  * @link       http://pear.php.net/package/DB_DataObject
  */
   
@@ -235,7 +235,7 @@ class DB_DataObject extends DB_DataObject_Overload
     * @access   private
     * @var      string
     */
-    var $_DB_DataObject_version = "1.9.3";
+    var $_DB_DataObject_version = "@version@";
 
     /**
      * The Database table (used by table extends)
@@ -370,6 +370,32 @@ class DB_DataObject extends DB_DataObject_Overload
     }
 
     /**
+     * build the basic select query.
+     * 
+     * @access private
+     */
+    
+    function _build_select()
+    {
+        global $_DB_DATAOBJECT;
+        $quoteIdentifiers = !empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers']);
+        if ($quoteIdentifiers) {
+            $this->_connect();
+            $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+        }
+        $sql = 'SELECT ' .
+            $this->_query['data_select'] . " \n" .
+            ' FROM ' . ($quoteIdentifiers ? $DB->quoteIdentifier($this->__table) : $this->__table) . " \n" .
+            $this->_join . " \n" .
+            $this->_query['condition'] . " \n" .
+            $this->_query['group_by'] . " \n" .
+            $this->_query['having'] . " \n";
+                 
+        return $sql;
+    }
+
+     
+    /**
      * find results, either normal or crosstable
      *
      * for example
@@ -411,20 +437,21 @@ class DB_DataObject extends DB_DataObject_Overload
         $query_before = $this->_query;
         $this->_build_condition($this->table()) ;
         
-        $quoteIdentifiers = !empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers']);
+       
         $this->_connect();
         $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
        
-        /* We are checking for method modifyLimitQuery as it is PEAR DB specific */
-        $sql = 'SELECT ' .
-            $this->_query['data_select'] . " \n" .
-            ' FROM ' . ($quoteIdentifiers ? $DB->quoteIdentifier($this->__table) : $this->__table) . " \n" .
-            $this->_join . " \n" .
-            $this->_query['condition'] . " \n" .
-            $this->_query['group_by']  . " \n" .
-            $this->_query['having']    . " \n" .
-            $this->_query['order_by']  . " \n";
         
+        $sql = $this->_build_select();
+        
+        foreach ($this->_query['unions'] as $union_ar) {  
+            $sql .=   $union_ar[1] .   $union_ar[0]->_build_select() . " \n";
+        }
+        
+        $sql .=  $this->_query['order_by']  . " \n";
+        
+        
+        /* We are checking for method modifyLimitQuery as it is PEAR DB specific */
         if ((!isset($_DB_DATAOBJECT['CONFIG']['db_driver'])) || 
             ($_DB_DATAOBJECT['CONFIG']['db_driver'] == 'DB')) {
             /* PEAR DB specific */
@@ -717,13 +744,12 @@ class DB_DataObject extends DB_DataObject_Overload
     */
     function whereAddIn($key, $list, $type, $logic = 'AND') 
     {
-        
         $not = '';
         if ($key[0] == '!') {
             $not = 'NOT ';
             $key = substr($key, 1);
         }
-        // fix type for short entry.
+        // fix type for short entry. 
         $type = $type == 'int' ? 'integer' : $type; 
 
         $ar = array();
@@ -734,17 +760,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (!$ar) {
             return $not ? $this->_query['condition'] : $this->whereAdd("1=0");
         }
-        
-        // this might bed need ed
-        if (!empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers'])) {
-            $this->_connect();
-            $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
-            // handles db.table format???
-            $key      = $DB->quoteIdentifier($key);
-          
-            
-        }
-        return $this->whereAdd("$key $not IN (". implode(',', $ar). ')', $logic );
+        return $this->whereAdd("$key $not IN (". implode(',', $ar). ')', $logic );    
     }
 
     
@@ -1797,6 +1813,7 @@ class DB_DataObject extends DB_DataObject_Overload
         'limit_start' => '', // the LIMIT condition
         'limit_count' => '', // the LIMIT condition
         'data_select' => '*', // the columns to be SELECTed
+        'unions'      => array(), // the added unions
     );
         
     
@@ -2159,9 +2176,9 @@ class DB_DataObject extends DB_DataObject_Overload
         $seqname = false;
         
         if (!empty($_DB_DATAOBJECT['CONFIG']['sequence_'.$this->__table])) {
-            $usekey = $_DB_DATAOBJECT['CONFIG']['sequence_'.$this->__table];
-            if (strpos($usekey,':') !== false) {
-                list($usekey,$seqname) = explode(':',$usekey);
+            $seqname = $_DB_DATAOBJECT['CONFIG']['sequence_'.$this->__table];
+            if (strpos($seqname,':') !== false) {
+                list($usekey,$seqname) = explode(':',$seqname);
             }
         }  
         
@@ -3195,9 +3212,9 @@ class DB_DataObject extends DB_DataObject_Overload
     }
 
     /**
-     * IS THIS SUPPORTED/USED ANYMORE???? 
-     *return a list of options for a linked table
-     *
+     * getLinkArray
+     * Fetch an array of related objects. This should be used in conjunction with a <dbname>.links.ini file configuration (see the introduction on linking for details on this).
+     * You may also use this with all parameters to specify, the column and related table.
      * This is highly dependant on naming columns 'correctly' :)
      * using colname = xxxxx_yyyyyy
      * xxxxxx = related table; (yyyyy = user defined..)
@@ -3205,7 +3222,21 @@ class DB_DataObject extends DB_DataObject_Overload
      * stores it in $this->_xxxxx_yyyyy
      *
      * @access public
-     * @return array of results (empty array on failure)
+     * @param string $column - either column or column.xxxxx
+     * @param string $table - name of table to look up value in
+     * @return array - array of results (empty array on failure)
+     * 
+     * Example - Getting the related objects
+     * 
+     * $person = new DataObjects_Person;
+     * $person->get(12);
+     * $children = $person->getLinkArray('children');
+     * 
+     * echo 'There are ', count($children), ' descendant(s):<br />';
+     * foreach ($children as $child) {
+     *     echo $child->name, '<br />';
+     * }
+     * 
      */
     function &getLinkArray($row, $table = null)
     {
@@ -3250,6 +3281,46 @@ class DB_DataObject extends DB_DataObject_Overload
         return $ret;
     }
 
+     /**
+     * unionAdd - adds another dataobject to this, building a unioned query.
+     *
+     * usage:  
+     * $doTable1 = DB_DataObject::factory("table1");
+     * $doTable2 = DB_DataObject::factory("table2");
+     * 
+     * $doTable1->selectAdd();
+     * $doTable1->selectAdd("col1,col2");
+     * $doTable1->whereAdd("col1 > 100");
+     * $doTable1->orderBy("col1");
+     *
+     * $doTable2->selectAdd();
+     * $doTable2->selectAdd("col1, col2");
+     * $doTable2->whereAdd("col2 = 'v'");
+     * 
+     * $doTable1->unionAdd($doTable2);
+     * $doTable1->find();
+      * 
+     * Note: this model may be a better way to implement joinAdd?, eg. do the building in find?
+     * 
+     * 
+     * @param             $obj       object|false the union object or false to reset
+     * @param    optional $is_all    string 'ALL' to do all.
+     * @returns           $obj       object|array the added object, or old list if reset.
+     */
+    
+    function unionAdd($obj,$is_all= '')
+    {
+        if ($obj === false) {
+            $ret = $this->_query['unions'];
+            $this->_query['unions'] = array();
+            return $ret;
+        }
+        $this->_query['unions'][] = array($obj, 'UNION ' . $is_all . ' ') ;
+        return $obj;
+    }
+
+    
+    
     /**
      * The JOIN condition
      *
@@ -3375,31 +3446,46 @@ class DB_DataObject extends DB_DataObject_Overload
         /* otherwise see if there are any links from this table to the obj. */
         //print_r($this->links());
         if (($ofield === false) && ($links = $this->links())) {
-            foreach ($links as $k => $v) {
-                /* link contains {this column} = {linked table}:{linked column} */
-                $ar = explode(':', $v);
-                // Feature Request #4266 - Allow joins with multiple keys
-                if (strpos($k, ',') !== false) {
-                    $k = explode(',', $k);
+            // this enables for support for arrays of links in ini file.
+            // link contains this_column[] =  linked_table:linked_column
+            // or standard way.
+            // link contains this_column =  linked_table:linked_column
+            foreach ($links as $k => $linkVar) {
+            
+                if (!is_array($linkVar)) {
+                    $linkVar  = array($linkVar);
                 }
-                if (strpos($ar[1], ',') !== false) {
-                    $ar[1] = explode(',', $ar[1]);
-                }
+                foreach($linkVar as $v) {
 
-                if ($ar[0] == $obj->__table) {
+                    
+                    
+                    /* link contains {this column} = {linked table}:{linked column} */
+                    $ar = explode(':', $v);
+                    // Feature Request #4266 - Allow joins with multiple keys
+                    if (strpos($k, ',') !== false) {
+                        $k = explode(',', $k);
+                    }
+                    if (strpos($ar[1], ',') !== false) {
+                        $ar[1] = explode(',', $ar[1]);
+                    }
+
+                    if ($ar[0] != $obj->__table) {
+                        continue;
+                    }
                     if ($joinCol !== false) {
                         if ($k == $joinCol) {
+                            // got it!?
                             $tfield = $k;
                             $ofield = $ar[1];
                             break;
-                        } else {
-                            continue;
-                        }
-                    } else {
-                        $tfield = $k;
-                        $ofield = $ar[1];
-                        break;
-                    }
+                        } 
+                        continue;
+                        
+                    } 
+                    $tfield = $k;
+                    $ofield = $ar[1];
+                    break;
+                        
                 }
             }
         }
@@ -3407,23 +3493,30 @@ class DB_DataObject extends DB_DataObject_Overload
         //print_r($obj->links());
         if (!$ofield && ($olinks = $obj->links())) {
             
-            foreach ($olinks as $k => $v) {
-                /* link contains {this column} = {linked table}:{linked column} */
-                $ar = explode(':', $v);
-                
-                // Feature Request #4266 - Allow joins with multiple keys
-                
-                $links_key_array = strpos($k,',');
-                if ($links_key_array !== false) {
-                    $k = explode(',', $k);
+            foreach ($olinks as $k => $linkVar) {
+                /* link contains {this column} = array ( {linked table}:{linked column} )*/
+                if (!is_array($linkVar)) {
+                    $linkVar  = array($linkVar);
                 }
-                
-                $ar_array = strpos($ar[1],',');
-                if ($ar_array !== false) {
-                    $ar[1] = explode(',', $ar[1]);
-                }
-             
-                if ($ar[0] == $this->__table) {
+                foreach($linkVar as $v) {
+                    
+                    /* link contains {this column} = {linked table}:{linked column} */
+                    $ar = explode(':', $v);
+                    
+                    // Feature Request #4266 - Allow joins with multiple keys
+                    $links_key_array = strpos($k,',');
+                    if ($links_key_array !== false) {
+                        $k = explode(',', $k);
+                    }
+                    
+                    $ar_array = strpos($ar[1],',');
+                    if ($ar_array !== false) {
+                        $ar[1] = explode(',', $ar[1]);
+                    }
+                 
+                    if ($ar[0] != $this->__table) {
+                        continue;
+                    }
                     
                     // you have explictly specified the column
                     // and the col is listed here..
@@ -3442,6 +3535,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     $ofield = $k;
                     $tfield = $ar[1];
                     break;
+                    
                 }
             }
         }
@@ -3700,7 +3794,14 @@ class DB_DataObject extends DB_DataObject_Overload
             if (!$k) {
                 continue; // ignore empty keys!!! what
             }
-            if (is_object($from) && isset($from->{sprintf($format,$k)})) {
+            
+            $chk = is_object($from) &&  
+                (version_compare(phpversion(), "5.1.0" , ">=") ? 
+                    property_exists($from, sprintf($format,$k)) :  // php5.1
+                    array_key_exists( sprintf($format,$k), get_class_vars($from)) //older
+                );
+            // if from has property ($format($k)      
+            if ($chk) {
                 $kk = (strtolower($k) == 'from') ? '_from' : $k;
                 if (method_exists($this,'set'.$kk)) {
                     $ret = $this->{'set'.$kk}($from->{sprintf($format,$k)});
