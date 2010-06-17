@@ -732,11 +732,15 @@ class DB_DataObject extends DB_DataObject_Overload
         if ($key[0] == '!') {
             $key = substr(1, strlen($k));
             $not = 'NOT';
-        }       
+        }
+        // this might need 
         if (!empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers'])) {
             $this->_connect();
             $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+            // handles db.table format???
             $key      = $DB->quoteIdentifier($key);
+          
+            
         }
         return $this->whereAdd("$key $not IN (". implode(',', $ar). ')', $logic );
     }
