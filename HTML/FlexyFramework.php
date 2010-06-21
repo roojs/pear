@@ -523,8 +523,7 @@ class HTML_FlexyFramework {
         $classobj->request = $newRequest;
         $classobj->timer = &$this->timer;
         
-        
-        
+        $this->page = $classobj;
         
         if (!method_exists($classobj, 'getAuth')) {
             $this->fatalError("class $classname does not have a getAuth Method");
