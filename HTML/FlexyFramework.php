@@ -88,10 +88,11 @@ class HTML_FlexyFramework {
     var $classPrefix = false; // from prject.
     var $baseDir = false ; // (directory+project)
     var $rootDir = false ; // (directory that index.php is in!)
-    var $baseURL = false;
     
+    var $baseURL = false;
     var $rootURL = false ; // basename($baseURL)
     
+    var $page = false; // active page..
     var $timer = false; // the debug timer
     var $calls = false; // the number of calls made to run!
     var $start = false; // the start tiem.
