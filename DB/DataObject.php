@@ -15,10 +15,10 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id: DataObject.php 298561 2010-04-25 23:12:27Z alan_k $
+ * @version    CVS: $Id: DataObject.php 301030 2010-07-07 02:26:31Z alan_k $
  * @link       http://pear.php.net/package/DB_DataObject
  */
-
+  
 
 /* =========================================================================== 
  *
@@ -752,10 +752,14 @@ class DB_DataObject extends DB_DataObject_Overload
         // fix type for short entry. 
         $type = $type == 'int' ? 'integer' : $type; 
 
+        if ($type == 'string') {
+            $this->_connect();
+        }
+
         $ar = array();
         foreach($list as $k) {
             settype($k, $type);
-            $ar[] = $type =='string' ? $this->escape($k) : $k;
+            $ar[] = $type =='string' ? $this->_quote($k) : $k;
         }
         if (!$ar) {
             return $not ? $this->_query['condition'] : $this->whereAdd("1=0");
@@ -1318,7 +1322,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $seq    = $this->sequenceKey();
         if ($seq[0] !== false) {
             $keys = array($seq[0]);
-            if (empty($this->{$keys[0]}) && $dataObject !== true) {
+            if (!isset($this->{$keys[0]}) && $dataObject !== true) {
                 $this->raiseError("update: trying to perform an update without 
                         the key set, and argument to update is not 
                         DB_DATAOBJECT_WHEREADD_ONLY
