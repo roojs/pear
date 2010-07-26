@@ -2036,7 +2036,10 @@ class DB_DataObject extends DB_DataObject_Overload
         $args = func_get_args();
         if (count($args)) {
             $this->_database = $args[0];
+        } else {
+            $this->_connect();
         }
+        
         return $this->_database;
     }
   
