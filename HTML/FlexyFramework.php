@@ -881,7 +881,8 @@ class HTML_FlexyFramework {
             
             print_r($this);
         }
-    
+        $ff = HTML_FlexyFramework::get();
+        $ff->debug($msg);
         exit;
     }    
 }
