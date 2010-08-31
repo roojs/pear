@@ -25,13 +25,13 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             
             
         }
-        echo '<PRE>';print_r($out);exit;
+        //echo '<PRE>';print_r($out);exit;
         $tmpname = tempnam(session_save_path(),'reader');
         file_put_contents($tmpname, serialize($out));
         
         $perms = 0755;
         $target = $options["ini_{$this->_database}"] . '.reader.serial';
-            
+            echo '<PRE>';print_r($target);exit;
         // windows can fail doing this. - not a perfect solution but otherwise it's getting really kludgy..
         if (!@rename($tmpname, $target)) {
             unlink($target); 
