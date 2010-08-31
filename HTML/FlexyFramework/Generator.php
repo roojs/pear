@@ -121,7 +121,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
                 
                 
                 case 'DATE':    
-                    $ret[$table.'.'.$t->name] = array('type' => 'data', 'dateFormat' => 'Y-m-d'); //???
+                    $ret[$table.'.'.$t->name] = array('type' => 'date', 'dateFormat' => 'Y-m-d'); //???
                     break;
                     
                 case 'TIME':    
