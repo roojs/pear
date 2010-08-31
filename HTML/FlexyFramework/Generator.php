@@ -21,7 +21,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         foreach($this->tables as $this->table) {
             $this->table        = trim($this->table);
             
-            $out = array_merge($out, $this->_generateReader($table));
+            $out = array_merge($out, $this->_generateReader($this->table));
             
             
         }
