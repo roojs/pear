@@ -251,14 +251,15 @@ class HTML_FlexyFramework {
         }
         $iniCache .= '.ini';
         
-        // we now have the configuration file name..
-        if (!file_exists($iniCache)) {
-            $this->_generateDataobjectsCache(true);
-        }
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
         //override ini setting...
         $this->DB_DataObject[$dbini] =   $iniCache;
+        // we now have the configuration file name..
+        if (!file_exists($iniCache)) {
+            $this->_generateDataobjectsCache(true);
+        }
+     
         
     }
     /**
@@ -274,6 +275,7 @@ class HTML_FlexyFramework {
     {
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
+        
         $iniCache = $this->DB_DataObject[$dbini];
         // has it expired..
         if (!$force && (filemtime($iniCache) + $this->dataObjectsCacheExpires) < time()) {
@@ -282,7 +284,7 @@ class HTML_FlexyFramework {
         // no...
         require_once 'DB/DataObject/Generator.php';
           
-
+        
         DB_DataObject::debugLevel(1);      
         $generator = new DB_DataObject_Generator;
         $generator->start();
