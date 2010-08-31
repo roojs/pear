@@ -257,7 +257,7 @@ class HTML_FlexyFramework {
         $this->DB_DataObject[$dbini] =   $iniCache;
         // we now have the configuration file name..
         if (true || !file_exists($iniCache)) {
-            $this->_generateDataobjectsCache(true);
+            $this->generateDataobjectsCache(true);
         }
      
         
@@ -271,7 +271,7 @@ class HTML_FlexyFramework {
      * 
      */
      
-    function _generateDataobjectsCache($force = false)
+    function generateDataobjectsCache($force = false)
     {
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
@@ -337,7 +337,7 @@ class HTML_FlexyFramework {
             }
             rename($iniLinksCache. '.tmp', $iniLinksCache);
         }
-        
+        // reset the cache to the correct lcoation.
         $this->DB_DataObject[$dbini] = $iniCache;
         
         //die("done");
