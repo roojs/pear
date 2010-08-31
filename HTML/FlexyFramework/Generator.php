@@ -41,5 +41,8 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             
         chmod($target, $perms);
     }
-    
+    function _generateReader($table)
+    {
+        
+    }
 }
