@@ -313,6 +313,16 @@ class HTML_FlexyFramework {
             rename($iniCacheTmp, $iniCache);
         }
         
+        // readers..
+        if (filesize($iniCacheTmp.'.reader')) {
+            if (file_exists($iniCache.'.reader')) {
+                unlink($iniCache.'.reader');
+            }
+            rename($iniCacheTmp.'.reader', $iniCache.'.reader');
+        }
+        
+        
+        
         // merge and set links..
         
         $inis = explode(PATH_SEPARATOR,$calc_ini);
