@@ -186,6 +186,10 @@ class HTML_FlexyFramework {
         
         $this->classPrefix   = $this->project . '_';
         
+        if ($this->dataObjectsCache) {
+             $this->_configDataObjectsCache();
+        }
+        
         $this->_parseConfigDataObjects();
         $this->_parseConfigTemplate();
         $this->_parseConfigMail();
@@ -218,6 +222,40 @@ class HTML_FlexyFramework {
          //       $this->$prop->$k = $v;
           //  }
        // }
+    }
+    
+    /**
+     * DataObject cache 
+     * - if turned on (dataObjectsCache = true) then 
+     *  a) ini file points to a parsed version of the structure.
+     *  b) links.ini is a merged version of the configured link files.
+     * 
+     * This only will force a generation if no file exists at all.. - after that it has to be called manually 
+     * from the core page.. - which uses the Expires time to determine if regeneration is needed..
+     * 
+     * 
+     */
+    
+    function _configDataObjectsCache()
+    {
+        // cli works under different users... it may cause problems..
+        
+        $iniCache = ini_get('session.save_path') .'/' . 
+                ($this->cli ? $_ENV["USER"].'_' : '') . 'dbcfg_' . $this->project ;
+     
+        if ($this->appNameShort) {
+            $iniCache .= '_' . $this->appNameShort;
+        }
+        if ($this->version) {
+            $iniCache .= '.' . $this->version;
+        }
+        $iniCache .= '.ini';
+        
+        // we now have the configuration file name..
+        
+        
+        
+        
     }
     
     /**
@@ -279,7 +317,7 @@ class HTML_FlexyFramework {
         
         // compile.
         $compileDir = ini_get('session.save_path') .'/' . 
-                ($this->cli ? 'cli_' : '') . 'compiled_templates_' . $this->project;
+                ($this->cli ? $_ENV["USER"]. '_' : '') . 'compiled_templates_' . $this->project;
         
         if ($this->appNameShort) {
             $compileDir .= '_' . $this->appNameShort;
