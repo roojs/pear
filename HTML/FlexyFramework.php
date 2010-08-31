@@ -310,18 +310,21 @@ class HTML_FlexyFramework {
         
         // only unpdate if nothing went wrong.
         if (filesize($iniCacheTmp)) {
-            if (file_exists($iniCache)) {
-                unlink($iniCache);
+            if (!@rename($iniCacheTmp, $iniCache)) { 
+                unlink($iniCache); 
+                rename($iniCacheTmp, $iniCache);
             }
-            rename($iniCacheTmp, $iniCache);
+            
         }
         
         // readers..
         if (filesize($iniCacheTmp.'.reader')) {
-            if (file_exists($iniCache.'.reader')) {
+            
+            if (!@rename($iniCacheTmp.'.reader', $iniCache.'.reader')) { 
                 unlink($iniCache.'.reader');
+                rename($iniCacheTmp.'.reader', $iniCache.'.reader');
             }
-            rename($iniCacheTmp.'.reader', $iniCache.'.reader');
+            
         }
         
         
