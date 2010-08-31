@@ -25,8 +25,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             
             
         }
-        print_r($out);
-        exit;
+        echo '<PRE>';print_r($out);exit;
         $tmpname = tempnam(session_save_path(),'reader');
         file_put_contents($tmpname, serialize($out));
         
