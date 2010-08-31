@@ -282,19 +282,18 @@ class HTML_FlexyFramework {
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
         
-        $iniCache = $this->DB_DataObject[$dbini];
+        
+        $iniCache = $this->iniCache;
         $iniCacheTmp = $iniCache . '.tmp';
         // has it expired..
         if (!$force && (filemtime($iniCache) + $this->dataObjectsCacheExpires) < time()) {
             return;
         }
         
-       
-        
-        unset($this->DB_DataObject[$dbini]);
+        $calc_ini = $this->DB_DataObject[$dbini];
           
         $this->_parseConfigDataObjects();
-        $calc_ini = $this->DB_DataObject[$dbini];
+        
         $this->DB_DataObject[$dbini] = $iniCacheTmp;
         
         $this->_exposeToPear();
