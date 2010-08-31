@@ -290,9 +290,11 @@ class HTML_FlexyFramework {
             return;
         }
         
-        $calc_ini = $this->DB_DataObject[$dbini];
+        
           
         $this->_parseConfigDataObjects();
+        $calc_ini = $this->DB_DataObject[$dbini];
+        
         
         $this->DB_DataObject[$dbini] = $iniCacheTmp;
         
