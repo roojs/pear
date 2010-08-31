@@ -270,7 +270,15 @@ class HTML_FlexyFramework {
      * 
      */
      
-     
+    function _generateDataobjectsCache()
+    {
+        $dburl = parse_url($this->database);
+        $dbini = 'ini_'. basename($dburl['path']);
+        $iniCache = $this->DB_DataObject[$dbini];
+        
+        
+        
+    }
     /**
      * DataObject Configuration:
      * Always in Project/DataObjects
