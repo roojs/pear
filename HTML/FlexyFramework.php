@@ -273,6 +273,10 @@ class HTML_FlexyFramework {
      
     function generateDataobjectsCache($force = false)
     {
+        if (!$this->dataObjectsCache) { // does not use dataObjects Caching..
+            return;
+        }
+        
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
         
