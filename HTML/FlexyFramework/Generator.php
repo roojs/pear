@@ -42,7 +42,8 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
     }
     function _generateReader($table)
     {
-        
+         $DB = $this->getDatabaseConnection();
+        $dbtype = $DB->phptype;
         $def = $this->_definitions[$table] ;
         $ret = array();
         foreach($def as $t) {
