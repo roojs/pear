@@ -252,12 +252,25 @@ class HTML_FlexyFramework {
         $iniCache .= '.ini';
         
         // we now have the configuration file name..
-        
-        
-        
+        if (!file_exists($iniCache)) {
+            $this->_generateDataobjectsCache();
+        }
+        $dburl = parse_url($this->database);
+        $dbini = 'ini_'. basename($dburl['path']);
+        //override ini setting...
+        $this->DB_DataObject[$dbini] =   $iniCache;
         
     }
-    
+    /**
+     *  _generateDataobjectsCache:
+     * 
+     * create xxx.ini and xxx.links.ini 
+     * 
+     * 
+     * 
+     */
+     
+     
     /**
      * DataObject Configuration:
      * Always in Project/DataObjects
