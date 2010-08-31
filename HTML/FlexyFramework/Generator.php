@@ -43,6 +43,6 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
     }
     function _generateReader($table)
     {
-        
+        echo '<PRE>'; print_r( $this->_definitions[$table] ); exit;
     }
 }
