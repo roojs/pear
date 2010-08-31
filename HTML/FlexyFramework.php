@@ -325,7 +325,7 @@ class HTML_FlexyFramework {
         
         
         // merge and set links..
-        var_dump($calc_ini);exit;
+        //var_dump($calc_ini);exit;
         $inis = explode(PATH_SEPARATOR,$calc_ini);
         $links = array();
         foreach($inis as $ini) {
