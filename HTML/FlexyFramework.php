@@ -258,7 +258,7 @@ class HTML_FlexyFramework {
         $this->iniCache = $iniCache;
         
         // we now have the configuration file name..
-        if (true || !file_exists($iniCache)) {
+        if (!file_exists($iniCache)) {
             $this->generateDataobjectsCache(true);
         }
         $this->DB_DataObject[$dbini] =   $iniCache;
