@@ -254,12 +254,14 @@ class HTML_FlexyFramework {
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
         //override ini setting...
-        $this->DB_DataObject[$dbini] =   $iniCache;
+        
+        $this->iniCache = $iniCache;
+        
         // we now have the configuration file name..
         if (true || !file_exists($iniCache)) {
             $this->generateDataobjectsCache(true);
         }
-     
+        $this->DB_DataObject[$dbini] =   $iniCache;
         
     }
     /**
