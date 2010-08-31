@@ -352,10 +352,12 @@ class HTML_FlexyFramework {
         }
         if (count($out)) {
             file_put_contents($iniLinksCache. '.tmp', implode("\n", $out));
-            if (file_exists($iniLinksCache)) {
+            
+            if (!@rename($iniLinksCache. '.tmp', $iniLinksCache)) { 
                 unlink($iniLinksCache);
+                rename($iniLinksCache. '.tmp', $iniLinksCache);
             }
-            rename($iniLinksCache. '.tmp', $iniLinksCache);
+            
         }
         // reset the cache to the correct lcoation.
         $this->DB_DataObject[$dbini] = $iniCache;
