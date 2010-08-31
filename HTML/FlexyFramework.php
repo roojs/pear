@@ -81,7 +81,7 @@ class HTML_FlexyFramework {
     var $nodatabase = false; // set to true to block db config and testing.
     var $fatalAction = false; // page to redirct to on failure. (eg. databse down etc.)
     var $charset = false; // default UTF8
-    var $dataObjectsCache = true;  // use dataobjects ini cache..
+    var $dataObjectsCache = true;  // use dataobjects ini cache.. - let's try this as the default behaviour...
     var $dataObjectsCacheExpires = 3600; // 1 houre..
     
     
