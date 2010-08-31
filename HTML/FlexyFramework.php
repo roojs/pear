@@ -283,11 +283,11 @@ class HTML_FlexyFramework {
         require_once 'DB/DataObject/Generator.php';
           
 
-              
+        DB_DataObject::debugLevel(1);      
         $generator = new DB_DataObject_Generator;
         $generator->start();
         
-        
+        die("done");
         
     }
     /**
