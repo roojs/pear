@@ -33,7 +33,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         $perms = 0755;
         $target = $options["ini_{$this->_database}"] . '.reader.serial';
             
-            // windows can fail doing this. - not a perfect solution but otherwise it's getting really kludgy..
+        // windows can fail doing this. - not a perfect solution but otherwise it's getting really kludgy..
         if (!@rename($tmpname, $target)) {
             unlink($target); 
             rename($tmpname, $target);
