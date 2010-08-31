@@ -256,7 +256,7 @@ class HTML_FlexyFramework {
         //override ini setting...
         $this->DB_DataObject[$dbini] =   $iniCache;
         // we now have the configuration file name..
-        if (!file_exists($iniCache)) {
+        if (true || !file_exists($iniCache)) {
             $this->_generateDataobjectsCache(true);
         }
      
@@ -277,19 +277,70 @@ class HTML_FlexyFramework {
         $dbini = 'ini_'. basename($dburl['path']);
         
         $iniCache = $this->DB_DataObject[$dbini];
+        $iniCacheTmp = $iniCache . '.tmp';
         // has it expired..
         if (!$force && (filemtime($iniCache) + $this->dataObjectsCacheExpires) < time()) {
             return;
         }
-        // no...
-        require_once 'DB/DataObject/Generator.php';
-          
         
-        DB_DataObject::debugLevel(1);      
-        $generator = new DB_DataObject_Generator;
+       
+        
+        unset($this->DB_DataObject[$dbini]);
+          
+        $this->_parseConfigDataObjects();
+        $calc_ini = $this->DB_DataObject[$dbini];
+        $this->DB_DataObject[$dbini] = $iniCacheTmp;
+        
+        $this->_exposeToPear();
+        
+        require_once 'HTML/FlexyFramework/Generator.php';
+        
+        
+        
+       // DB_DataObject::debugLevel(1);      
+        $generator = new HTML_FlexyFramework_Generator;
         $generator->start();
         
-        die("done");
+        // only unpdate if nothing went wrong.
+        if (filesize($iniCacheTmp)) {
+            if (file_exists($iniCache)) {
+                unlink($iniCache);
+            }
+            rename($iniCacheTmp, $iniCache);
+        }
+        
+        // merge and set links..
+        
+        $inis = explode(PATH_SEPARATOR,$calc_ini);
+        $links = array();
+        foreach($inis as $ini) {
+            $ini = preg_replace('/\.ini$/', '.links.ini', $ini);
+            if (!file_exists($ini)) {
+                continue;
+            }
+            $links = array_merge_recursive($links , parse_ini_file($ini, true));
+            
+        }
+        $iniLinksCache = preg_replace('/\.ini$/', '.links.ini', $iniCache);
+        $out = array();
+        foreach($links as $tbl=>$ar) {
+            $out[] = '['. $tbl  .']';
+            foreach ($ar as $k=>$v) {
+                $out[] = $k . '=' .$v;
+            }
+            $out[] = '';
+        }
+        if (count($out)) {
+            file_put_contents($iniLinksCache. '.tmp', implode("\n", $out));
+            if (file_exists($iniLinksCache)) {
+                unlink($iniLinksCache);
+            }
+            rename($iniLinksCache. '.tmp', $iniLinksCache);
+        }
+        
+        $this->DB_DataObject[$dbini] = $iniCache;
+        
+        //die("done");
         
     }
     /**
