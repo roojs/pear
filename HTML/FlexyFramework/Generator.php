@@ -51,7 +51,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         }
         
         
-        echo '<PRE>'; print_r( $ret] ); exit;
+        echo '<PRE>'; print_r( $ret  ); exit;
         
     }
 }
