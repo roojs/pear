@@ -26,7 +26,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             
         }
         //echo '<PRE>';print_r($out);exit;
-        print_r($options);exit;
+         
         file_put_contents($options["ini_{$this->_database}"] . '.reader', serialize($out));
          
     }
