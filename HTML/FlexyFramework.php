@@ -181,7 +181,9 @@ class HTML_FlexyFramework {
         
         
         
-        
+        if (!isset($this->database) && isset($this->DB_DataObject['database'])) {
+            $this->database = $this->DB_DataObject['database'];
+        }
         $this->classPrefix   = $this->project . '_';
         
         if ($this->dataObjectsCache) {
