@@ -256,10 +256,14 @@ class HTML_FlexyFramework {
         //override ini setting...
         $this->DB_DataObject[$dbini] =   $iniCache;
         // we now have the configuration file name..
+        
+        
         if (!file_exists($iniCache)) {
             $this->generateDataobjectsCache(true);
+            return;
         }
      
+        
         
     }
     /**
