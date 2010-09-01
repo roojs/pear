@@ -260,8 +260,8 @@ class HTML_FlexyFramework {
         
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
-        //override ini setting...
         
+        //override ini setting... - store original..
         if (isset($this->DB_DataObject[$dbini])) {
             $this->dataObjectsOriginalIni = $this->DB_DataObject[$dbini];
         }
@@ -297,6 +297,7 @@ class HTML_FlexyFramework {
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
         
+        
         $iniCache = $this->DB_DataObject[$dbini];
         $iniCacheTmp = $iniCache . '.tmp';
         // has it expired..
@@ -304,25 +305,15 @@ class HTML_FlexyFramework {
             return;
         }
         
-       
-        
-        unset($this->DB_DataObject[$dbini]);
-          
-        $this->_parseConfigDataObjects();
         
         // force quoting of column names..
         $this->DB_DataObject['quote_identifiers_tableinfo'] = true;
-        
-        $calc_ini = $this->DB_DataObject[$dbini];
         $this->DB_DataObject[$dbini] = $iniCacheTmp;
-        
         $this->_exposeToPear();
         
+        
+        // DB_DataObject::debugLevel(1);      
         require_once 'HTML/FlexyFramework/Generator.php';
-        
-        
-        
-       // DB_DataObject::debugLevel(1);      
         $generator = new HTML_FlexyFramework_Generator();
         $generator->start();
         
@@ -343,10 +334,9 @@ class HTML_FlexyFramework {
         }
         
         
-        
         // merge and set links..
         
-        $inis = explode(PATH_SEPARATOR,$calc_ini);
+        $inis = explode(PATH_SEPARATOR,$this->dataObjectsOriginalIni);
         $links = array();
         foreach($inis as $ini) {
             $ini = preg_replace('/\.ini$/', '.links.ini', $ini);
