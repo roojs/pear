@@ -354,8 +354,8 @@ class HTML_FlexyFramework {
         }
         // reset the cache to the correct lcoation.
         $this->DB_DataObject[$dbini] = $iniCache;
-          $this->_exposeToPear();
-        //die("done");
+        $this->_exposeToPear();
+        die("done");
         
     }
     /**
