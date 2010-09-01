@@ -273,6 +273,8 @@ class HTML_FlexyFramework {
      
     function generateDataobjectsCache($force = false)
     {
+        DB_DataObject::debugLevel(5);
+        
         if (!$this->dataObjectsCache) { // does not use dataObjects Caching..
             return;
         }
