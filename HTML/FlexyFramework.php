@@ -302,7 +302,7 @@ class HTML_FlexyFramework {
         
         
         
-        DB_DataObject::debugLevel(1);      
+       // DB_DataObject::debugLevel(1);      
         $generator = new HTML_FlexyFramework_Generator();
         $generator->start();
         
