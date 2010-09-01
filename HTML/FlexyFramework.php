@@ -82,6 +82,7 @@ class HTML_FlexyFramework {
     var $dataObjectsCache = true;  // use dataobjects ini cache.. - let's try this as the default behaviour...
     var $dataObjectsCacheExpires = 3600; // 1 houre..
     
+
     
     // derived.
     var $cli = false; // from cli 
@@ -99,6 +100,8 @@ class HTML_FlexyFramework {
     var $calls = false; // the number of calls made to run!
     var $start = false; // the start tiem.
     
+    
+    var $dataObjectsOriginalIni = ''; // 1 houre..
     /**
      * 
      * Constructor - with assoc. array of props as option
@@ -186,11 +189,15 @@ class HTML_FlexyFramework {
         }
         $this->classPrefix   = $this->project . '_';
         
-        if ($this->dataObjectsCache) {
-             $this->_configDataObjectsCache();
-        }
+        
         
         $this->_parseConfigDataObjects();
+        
+        if ($this->dataObjectsCache) {
+            $this->_configDataObjectsCache();
+        }
+        
+        
         $this->_parseConfigTemplate();
         $this->_parseConfigMail();
         
@@ -254,6 +261,11 @@ class HTML_FlexyFramework {
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
         //override ini setting...
+        
+        if (isset($this->DB_DataObject[$dbini])) {
+            $this->dataObjectsOriginalIni = $this->DB_DataObject[$dbini];
+        }
+        
         $this->DB_DataObject[$dbini] =   $iniCache;
         // we now have the configuration file name..
         
