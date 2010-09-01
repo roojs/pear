@@ -271,6 +271,7 @@ class HTML_FlexyFramework {
      
     function generateDataobjectsCache($force = false)
     {
+        require_once 'DB/DataObject.php';
         DB_DataObject::debugLevel(5);
         
         if (!$this->dataObjectsCache) { // does not use dataObjects Caching..
