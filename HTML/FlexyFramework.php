@@ -254,12 +254,14 @@ class HTML_FlexyFramework {
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
         //override ini setting...
-        $this->DB_DataObject[$dbini] =   $iniCache;
+        
+        $this->iniCache = $iniCache;
+        
         // we now have the configuration file name..
-        if (true || !file_exists($iniCache)) {
+        if (!file_exists($iniCache)) {
             $this->generateDataobjectsCache(true);
         }
-     
+        $this->DB_DataObject[$dbini] =   $iniCache;
         
     }
     /**
@@ -282,19 +284,20 @@ class HTML_FlexyFramework {
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
         
-        $iniCache = $this->DB_DataObject[$dbini];
+        
+        $iniCache = $this->iniCache;
         $iniCacheTmp = $iniCache . '.tmp';
         // has it expired..
         if (!$force && (filemtime($iniCache) + $this->dataObjectsCacheExpires) < time()) {
             return;
         }
         
-       
         
-        unset($this->DB_DataObject[$dbini]);
           
         $this->_parseConfigDataObjects();
         $calc_ini = $this->DB_DataObject[$dbini];
+        
+        
         $this->DB_DataObject[$dbini] = $iniCacheTmp;
         
         $this->_exposeToPear();
@@ -309,24 +312,27 @@ class HTML_FlexyFramework {
         
         // only unpdate if nothing went wrong.
         if (filesize($iniCacheTmp)) {
-            if (file_exists($iniCache)) {
-                unlink($iniCache);
+            if (!@rename($iniCacheTmp, $iniCache)) { 
+                unlink($iniCache); 
+                rename($iniCacheTmp, $iniCache);
             }
-            rename($iniCacheTmp, $iniCache);
+            
         }
         
         // readers..
         if (filesize($iniCacheTmp.'.reader')) {
-            if (file_exists($iniCache.'.reader')) {
+            
+            if (!@rename($iniCacheTmp.'.reader', $iniCache.'.reader')) { 
                 unlink($iniCache.'.reader');
+                rename($iniCacheTmp.'.reader', $iniCache.'.reader');
             }
-            rename($iniCacheTmp.'.reader', $iniCache.'.reader');
+            
         }
         
         
         
         // merge and set links..
-        
+        //var_dump($calc_ini);exit;
         $inis = explode(PATH_SEPARATOR,$calc_ini);
         $links = array();
         foreach($inis as $ini) {
@@ -348,10 +354,12 @@ class HTML_FlexyFramework {
         }
         if (count($out)) {
             file_put_contents($iniLinksCache. '.tmp', implode("\n", $out));
-            if (file_exists($iniLinksCache)) {
+            
+            if (!@rename($iniLinksCache. '.tmp', $iniLinksCache)) { 
                 unlink($iniLinksCache);
+                rename($iniLinksCache. '.tmp', $iniLinksCache);
             }
-            rename($iniLinksCache. '.tmp', $iniLinksCache);
+            
         }
         // reset the cache to the correct lcoation.
         $this->DB_DataObject[$dbini] = $iniCache;
