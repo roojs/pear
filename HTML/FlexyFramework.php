@@ -293,6 +293,10 @@ class HTML_FlexyFramework {
         unset($this->DB_DataObject[$dbini]);
           
         $this->_parseConfigDataObjects();
+        
+        // force quoting of column names..
+        $this->DB_DataObject['quote_identifiers_tableinfo'] = true;
+        
         $calc_ini = $this->DB_DataObject[$dbini];
         $this->DB_DataObject[$dbini] = $iniCacheTmp;
         
