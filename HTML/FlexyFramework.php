@@ -353,7 +353,7 @@ class HTML_FlexyFramework {
         }
         // reset the cache to the correct lcoation.
         $this->DB_DataObject[$dbini] = $iniCache;
-        
+          $this->_exposeToPear();
         //die("done");
         
     }
@@ -476,6 +476,9 @@ class HTML_FlexyFramework {
     {
         $cls = array_keys(get_class_vars(__CLASS__));
         $base = array();
+        
+        // anything that get's set, that's not in our default properties
+        // is assumed to be an option set .
         foreach(get_object_vars($this) as $k=>$v) {
             if (in_array($k,$cls)) {
                 $base[$k] = $v;
