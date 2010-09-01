@@ -304,7 +304,7 @@ class HTML_FlexyFramework {
         
         
        // DB_DataObject::debugLevel(1);      
-        $generator = new HTML_FlexyFramework_Generator;
+        $generator = new HTML_FlexyFramework_Generator();
         $generator->start();
         
         // only unpdate if nothing went wrong.
