@@ -950,7 +950,7 @@ class HTML_FlexyFramework {
         $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
         $pr = $this->project;
         foreach(scandir("$p/$pr") as $d) {
-            
+            print_r("$p/$pr/$d");
             if (!strlen($d) || $d[0] == '.') {
                 continue;
             }
