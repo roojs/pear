@@ -3458,7 +3458,6 @@ class DB_DataObject extends DB_DataObject_Overload
             // link contains this_column[] =  linked_table:linked_column
             // or standard way.
             // link contains this_column =  linked_table:linked_column
-             print_r($links);
             foreach ($links as $k => $linkVar) {
             
                 if (!is_array($linkVar)) {
