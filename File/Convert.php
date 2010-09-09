@@ -732,7 +732,7 @@ class File_Convert_Solution
                 $scale = "{$x}x>";
                 break;
             default: 
-                $scale = "{$x}x{$y}>"; 
+                $scale = "{$x}x{$y}"; 
                 $extent ="-extent {$x}x{$y} -gravity center -background white";
                 break;
         }
