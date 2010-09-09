@@ -740,7 +740,7 @@ class File_Convert_Solution
         $CONVERT = System::which("convert");
         if ($CONVERT) {
             $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 80 ". 
-                $extent . " -resize '{$scale}' '{$fn}' '{$target}'";
+                $extent . " -thumbnail '{$scale}' '{$fn}' '{$target}'";
              $cmdres  = `$cmd`;
             `$cmd`;
         } else {
