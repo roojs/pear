@@ -783,6 +783,9 @@ class File_Convert_Solution
             //    'scalex' => $scalex , 'scaley' => $scaley ,  'padx' => $padx,  'pady' => $pady ));
             //exit;
             $thumb = imagecreatetruecolor($newwidth, $newheight);
+            $white = imagecolorallocate ( $thumb , 255, 255, 255);
+
+            imagefill($thumb, 0,0,  $white);
             $source = imagecreatefromjpeg($fn);
             // Resize
             //resource $dst_image , resource $src_image , 
