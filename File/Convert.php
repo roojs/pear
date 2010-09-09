@@ -741,7 +741,7 @@ class File_Convert_Solution
         if ($CONVERT) {
             $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 80 ". 
                 $extent . " -resize '{$scale}' '{$fn}' '{$target}'";
-             echo $cmd;exit;
+             
              $cmdres  = `$cmd`;
             `$cmd`;
         } else {
