@@ -779,9 +779,9 @@ class File_Convert_Solution
                 
             }
             
-            echo '<PRE>';print_r(array(  'x' => $x, 'y' => $y,  'newwidth' => $newwidth , 'newheight' => $newheight , 'width' => $width , 'height' => $height ,
-                'scalex' => $scalex , 'scaley' => $scaley ,  'padx' => $padx,  'pady' => $pady ));
-            exit;
+            //echo '<PRE>';print_r(array(  'x' => $x, 'y' => $y,  'newwidth' => $newwidth , 'newheight' => $newheight , 'width' => $width , 'height' => $height ,
+            //    'scalex' => $scalex , 'scaley' => $scaley ,  'padx' => $padx,  'pady' => $pady ));
+            //exit;
             $thumb = imagecreatetruecolor($newwidth, $newheight);
             $source = imagecreatefromjpeg($fn);
             // Resize
