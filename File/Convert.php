@@ -754,26 +754,36 @@ class File_Convert_Solution
             if ( (empty($y) && $x > $width && $x >  $height)  || (!empty($y) && $x > $width && $y > $height)) {
                 $newwidth =  $x;
                 $newheight = empty($y) ? $x : $y;
+                // pad..
+                $padx = floor(($newwidth - $width) /2);
+                $pady = floor(($newheight - $height) /2);
                 
-                
+                $scalex = $width;
+                $scaley = $height;
                 
             } else {
             
                 $percent = $x/$width;
-                
-                
                 if (!empty($y)) {
                     $percent = max($percent, $y/$height);
                 }
+                $newwidth =  $x;
+                $newheight = empty($y) ? $x : $y;
                 
-                $newwidth = $width * $percent;
-                $newheight = $height * $percent;
+                $scalex = $width * $percent;
+                $scaley = $height * $percent;
+                
+                $padx = floor(($newwidth - $scalex) /2);
+                $pady = floor(($newheight - $scaley) /2);
+                
                 
             }
             $thumb = imagecreatetruecolor($newwidth, $newheight);
             $source = imagecreatefromjpeg($fn);
             // Resize
-            imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+            //resource $dst_image , resource $src_image , 
+                // int $dst_x , int $dst_y , int $src_x , int $src_y , int $dst_w , int $dst_h , int $src_w , int $src_h 
+            imagecopyresampled($thumb, $source, $padx, $pady, 0, 0, $scalex, $scaley, $width, $height);
             imagejpeg($thumb,$target);
         }
         
