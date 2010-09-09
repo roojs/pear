@@ -747,11 +747,27 @@ class File_Convert_Solution
             `$cmd`;
         } else {
             // handle x only!!!
-            list($width, $height) = getimagesize($fn);
-            $percent = $x/$width;
             
-            $newwidth = $width * $percent;
-            $newheight = $height * $percent;
+            
+            list($width, $height) = getimagesize($fn);
+            
+            if (empty($y) && $x > $width)  || ((!empty($y) $x > $width && $y > $height) {
+                
+                
+                
+            } else {
+            
+                $percent = $x/$width;
+                
+                
+                if (!empty($y)) {
+                    $percent = max($percent, $y/$height);
+                }
+                
+                $newwidth = $width * $percent;
+                $newheight = $height * $percent;
+                
+            }
             $thumb = imagecreatetruecolor($newwidth, $newheight);
             $source = imagecreatefromjpeg($fn);
             // Resize
