@@ -723,6 +723,7 @@ class File_Convert_Solution
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
+        $extent = '';
         switch (true) { // what about fit/pad etc...
             case (empty($x)) :
                 $scale = "x{$y}>";
@@ -731,14 +732,15 @@ class File_Convert_Solution
                 $scale = "{$x}x>";
                 break;
             default: 
-                $scale = "{$x}x{$y}>";
+                $scale = "{$x}x{$y}>"; 
+                $extent ="-extent {$x}x{$y} -gravity center -background white"
                 break;
         }
         require_once 'System.php';
         $CONVERT = System::which("convert");
         if ($CONVERT) {
             $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 80 ". 
-                " -resize '{$scale}' '{$fn}' '{$target}'";
+                $extent . " -resize '{$scale}' '{$fn}' '{$target}'";
              $cmdres  = `$cmd`;
             `$cmd`;
         } else {
