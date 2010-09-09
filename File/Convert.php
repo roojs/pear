@@ -733,7 +733,7 @@ class File_Convert_Solution
                 break;
             default: 
                 $scale = "{$x}x{$y}>"; 
-                $extent ="-extent '{$x}x{$y}>' -gravity center -background white";
+                $extent ="-extent '{$x}x{$y}>' -gravity center -background white -define jpeg:size={$x}x{$y}";
                 break;
         }
         require_once 'System.php';
