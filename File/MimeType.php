@@ -117,7 +117,7 @@ $y = new File_MimeType();
 //var_dump($y->fromExt('doc'));
 
 $y = new File_MimeType();
-//var_dump($y->fromFilename('doc'));
+//var_dump($y->fromFilename('fred.doc'));
 
 
 $y = new File_MimeType();
