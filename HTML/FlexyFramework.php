@@ -316,8 +316,8 @@ class HTML_FlexyFramework {
         require_once 'HTML/FlexyFramework/Generator.php';
         $generator = new HTML_FlexyFramework_Generator();
         $generator->start();
-        var_dump($iniCacheTmp);
-        echo '<PRE>';echo file_get_contents($iniCacheTmp);exit;
+       //var_dump($iniCacheTmp);
+       // echo '<PRE>';echo file_get_contents($iniCacheTmp);exit;
         // only unpdate if nothing went wrong.
         if (filesize($iniCacheTmp)) {
             if (file_exists($iniCache)) {
