@@ -304,7 +304,7 @@ class HTML_FlexyFramework {
         if (!$force && (filemtime($iniCache) + $this->dataObjectsCacheExpires) < time()) {
             return;
         }
-        
+        echo "GENERATE?";
         
         // force quoting of column names..
         $this->DB_DataObject['quote_identifiers_tableinfo'] = true;
@@ -950,7 +950,7 @@ class HTML_FlexyFramework {
         $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
         $pr = $this->project;
         foreach(scandir("$p/$pr") as $d) {
-            print_r("$p/$pr/$d");
+            //print_r("$p/$pr/$d");
             if (!strlen($d) || $d[0] == '.') {
                 continue;
             }
