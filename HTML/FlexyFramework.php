@@ -317,7 +317,7 @@ class HTML_FlexyFramework {
         $generator = new HTML_FlexyFramework_Generator();
         $generator->start();
         var_dump($iniCacheTmp);
-        echo file_get_contents($iniCacheTmp);exit;
+        echo '<PRE>';echo file_get_contents($iniCacheTmp);exit;
         // only unpdate if nothing went wrong.
         if (filesize($iniCacheTmp)) {
             if (file_exists($iniCache)) {
