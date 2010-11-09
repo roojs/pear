@@ -694,7 +694,11 @@ class File_Convert_Solution
         $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 ". 
                         "-quality 80  -resize '". $xscale . "x>' ". escapeshellarg($fn) . "[0] " . escapeshellarg($target);
         
-        `$cmd`;
+       if ($this->debug) {
+           echo "$cmd <br/>";
+           
+          }
+       `$cmd`;
         $this->cmd = $cmd;
         clearstatcache();
         return  file_exists($target)  && filesize($target) ? $target : false;
