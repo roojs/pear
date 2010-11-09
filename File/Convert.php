@@ -379,7 +379,7 @@ class File_Convert_Solution_Stack
         }
         foreach($this->list as $s) {
             $s->debug =$this->debug;
-            //print_r("run {$s->method}<BR>");
+              
             $fn = $s->runconvert($fn, $x, $y);
             $this->last = $s;
             if (!$fn) {
