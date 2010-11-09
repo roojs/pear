@@ -680,7 +680,7 @@ class File_Convert_Solution
         
         $ext = $this->ext;
         $target = $fn . '.' . $ext;
-        if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
+        if (!$this->debug && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
         require_once 'System.php';
