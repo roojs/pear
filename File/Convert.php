@@ -677,18 +677,18 @@ class File_Convert_Solution
     function convert800mp($fn, $x, $y)
     {
         
-        
+         $xscale = 400;
+        if (!empty($x) && $x> $xscale ) {
+            $xscale = $x;
+        }
         $ext = $this->ext;
-        $target = $fn . '.' . $ext;
+        $target = $fn . '-' . $xscale . '.' .  $ext;
         if (!$this->debug && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
         require_once 'System.php';
         
-        $xscale = 400;
-        if (!empty($x) && $x> $xscale ) {
-            $xscale = $x;
-        }
+       
         
         $CONVERT = System::which("convert");
         $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 ". 
