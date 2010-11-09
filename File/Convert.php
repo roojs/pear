@@ -33,6 +33,7 @@ class File_Convert
     var $fn = ''; // filename
     var $mimetype = '';
     // for results..
+    var $debug = false; // set to true to turn on deubgging
     var $to;
     var $target;
     var $lastaction = false;
@@ -56,7 +57,7 @@ class File_Convert
             if (!$action) {
                 return false;
             }
-            //$action->debug = true;
+            $action->debug = $this->debug;
             $fn = $action->runconvert($this->fn, $x, $y);
             if (!$fn) {
                 $this->to = $toMimetype;
