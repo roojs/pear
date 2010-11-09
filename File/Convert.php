@@ -57,7 +57,7 @@ class File_Convert
                 return false;
             }
             //$action->debug = true;
-            $fn = $action->runconvert($this->fn);
+            $fn = $action->runconvert($this->fn, $x, $y);
             if (!$fn) {
                 $this->to = $toMimetype;
                 $this->lastaction = $action->last; // what failed.
@@ -370,7 +370,7 @@ class File_Convert_Solution_Stack
     {
         return count($this->list);
     }
-    function runconvert($fn)
+    function runconvert($fn, $x, $y)
     {
         if ($this->debug) {
             echo "<PRE>RUNNING LIST<BR>";
@@ -378,7 +378,7 @@ class File_Convert_Solution_Stack
         foreach($this->list as $s) {
             $s->debug =$this->debug;
             //print_r("run {$s->method}<BR>");
-            $fn = $s->runconvert($fn);
+            $fn = $s->runconvert($fn, $x, $y);
             $this->last = $s;
             if (!$fn) {
                 return $fn; // failure..
@@ -672,7 +672,7 @@ class File_Convert_Solution
         return  file_exists($target)  && filesize($target) ? $target : false;
         
     }
-    function convert800mp($fn)
+    function convert800mp($fn, $x, $y)
     {
         
         
@@ -682,9 +682,15 @@ class File_Convert_Solution
             return $target;
         }
         require_once 'System.php';
+        
+        $xscale = 400;
+        if (!empty($x) && $x> $xscale ) {
+            $xscale = $x;
+        }
+        
         $CONVERT = System::which("convert");
         $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 ". 
-                        "-quality 80  -resize '400x>' ". escapeshellarg($fn) . "[0] " . escapeshellarg($target);
+                        "-quality 80  -resize '". $xscale . "x>' ". escapeshellarg($fn) . "[0] " . escapeshellarg($target);
         
         `$cmd`;
         $this->cmd = $cmd;
