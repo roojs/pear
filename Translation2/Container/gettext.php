@@ -163,7 +163,7 @@ class Translation2_Container_gettext extends Translation2_Container
     function _switchLang($langID)
     {
         $langID  = $this->_getLangID($langID);
-        $oldLang = $this->currentLang['id'];
+        $oldLang = isset($this->currentLang['id']) ? $this->currentLang['id'] : 'en';
         $this->setLang($langID);
         return $oldLang;
     }
