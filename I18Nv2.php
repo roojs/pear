@@ -171,10 +171,10 @@ class I18Nv2
      * @param   string  $locale     The locale to use.
      * @param   bool    $paranoid   Whether to operate in paranoid mode.
      */
-    function &createLocale($locale = null, $paranoid = false)
+    function createLocale($locale = null, $paranoid = false)
     {
         require_once 'I18Nv2/Locale.php';
-        $obj = &new I18Nv2_Locale($locale, $paranoid);
+        $obj = new I18Nv2_Locale($locale, $paranoid);
         return $obj;
     }
     
