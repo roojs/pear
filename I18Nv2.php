@@ -188,10 +188,10 @@ class I18Nv2
      * @param   string  $defEnc         default encoding
      * @param   string  $defCtry        default country
      */
-    function &createNegotiator($defLang = 'en', $defEnc = 'iso-8859-1', $defCtry = '')
+    function createNegotiator($defLang = 'en', $defEnc = 'iso-8859-1', $defCtry = '')
     {
         require_once 'I18Nv2/Negotiator.php';
-        $obj = &new I18Nv2_Negotiator($defLang, $defEnc, $defCtry);
+        $obj = new I18Nv2_Negotiator($defLang, $defEnc, $defCtry);
         return $obj;
     }
     
