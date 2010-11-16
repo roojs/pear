@@ -216,7 +216,7 @@ class Translation2_Container_gettext extends Translation2_Container
     function getPage($pageID = null, $langID = null)
     {
         $oldLang = $this->_switchLang($langID);
-        $curLang = $this->currentLang['id'];
+        $curLang = isset($this->currentLang['id']) ? $this->currentLang['id'] : 'en';
         
         if (empty($pageID) || $pageID == TRANSLATION2_DEFAULT_PAGEID) {
             $pageID = $this->options['default_domain'];
