@@ -323,64 +323,7 @@ class HTML_FlexyFramework {
         $generator = new HTML_FlexyFramework_Generator();
         $generator->start();
         
-        
-        
-        
-       //var_dump($iniCacheTmp);
-       // echo '<PRE>';echo file_get_contents($iniCacheTmp);exit;
-        // only unpdate if nothing went wrong.
-        if (filesize($iniCacheTmp)) {
-            if (file_exists($iniCache)) {
-                unlink($iniCache);
-            }
-            rename($iniCacheTmp, $iniCache);
-        }
-        
-        // readers..
-        if (filesize($iniCacheTmp.'.reader')) {
-            if (file_exists($iniCache.'.reader')) {
-                unlink($iniCache.'.reader');
-            }
-            rename($iniCacheTmp.'.reader', $iniCache.'.reader');
-        }
-        
-        
-        // merge and set links..
-        
-        $inis = explode(PATH_SEPARATOR,$this->dataObjectsOriginalIni);
-        $links = array();
-        foreach($inis as $ini) {
-            $ini = preg_replace('/\.ini$/', '.links.ini', $ini);
-            if (!file_exists($ini)) {
-                // try scanning the directory for another ini file..
-                $ar = glob(dirname($ini).'/*.ini');
-                if (empty($ar)) {
-                    continue;
-                }
-                sort($ar);
-                // first file.. = with links removed..
-                $ini = preg_replace('/\.links\./' , '.', $ar[0]);
-                $ini = preg_replace('/\.ini$/', '.links.ini', $ini);
-            }
-            $links = array_merge_recursive($links , parse_ini_file($ini, true));
-            
-        }
-        $iniLinksCache = preg_replace('/\.ini$/', '.links.ini', $iniCache);
-        $out = array();
-        foreach($links as $tbl=>$ar) {
-            $out[] = '['. $tbl  .']';
-            foreach ($ar as $k=>$v) {
-                $out[] = $k . '=' .$v;
-            }
-            $out[] = '';
-        }
-        if (count($out)) {
-            file_put_contents($iniLinksCache. '.tmp', implode("\n", $out));
-            if (file_exists($iniLinksCache)) {
-                unlink($iniLinksCache);
-            }
-            rename($iniLinksCache. '.tmp', $iniLinksCache);
-        }
+        HTML_FlexyFramework_Generator::writeCache($iniCacheTmp, $iniCache); 
         // reset the cache to the correct lcoation.
         $this->DB_DataObject[$dbini] = $iniCache;
         $this->_exposeToPear();
