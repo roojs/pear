@@ -1010,7 +1010,7 @@ class HTML_FlexyFramework {
         $cli = "#php $fn";
         $cls = preg_replace('/\.php$/', '', $path);
         $cls = str_replace('/', '_', $cls);
-        include "$top/$path";
+        include empty($top) ? $path : "$top/$path";
         $x = new $cls;
         echo "-------------------------------------------------\n";
         echo "From: $top/$path\n";
