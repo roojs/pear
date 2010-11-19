@@ -186,7 +186,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         
         // merge and set links..
         
-        $inis = explode(PATH_SEPARATOR,$this->dataObjectsOriginalIni);
+        $inis = explode(PATH_SEPARATOR,$ff->dataObjectsOriginalIni);
         $links = array();
         foreach($inis as $ini) {
             $ini = preg_replace('/\.ini$/', '.links.ini', $ini);
