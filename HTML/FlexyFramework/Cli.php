@@ -1,7 +1,7 @@
 <?php
 
 
-function HTML_FlexyFramework_Cli
+class HTML_FlexyFramework_Cli
 {
     
     function help()
