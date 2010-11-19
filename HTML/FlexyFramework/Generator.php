@@ -167,7 +167,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
     {
          
         $ff = HTML_FlexyFramework::get();
-        
+        $d = new DB_DataObject();
        //var_dump($iniCacheTmp);
        // echo '<PRE>';echo file_get_contents($iniCacheTmp);exit;
         // only unpdate if nothing went wrong.
