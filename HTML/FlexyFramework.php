@@ -310,7 +310,7 @@ class HTML_FlexyFramework {
         if (!$force && (filemtime($iniCache) + $this->dataObjectsCacheExpires) < time()) {
             return;
         }
-       // echo "GENERATE?";
+       echo "GENERATE?";
         
         // force quoting of column names..
         $this->DB_DataObject['quote_identifiers_tableinfo'] = true;
