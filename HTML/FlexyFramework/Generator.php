@@ -167,15 +167,14 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
     {
          
         $ff = HTML_FlexyFramework::get();
-        $d = new DB_DataObject();
-       //var_dump($iniCacheTmp);
+        /var_dump($iniCacheTmp);
        // echo '<PRE>';echo file_get_contents($iniCacheTmp);exit;
         // only unpdate if nothing went wrong.
         if (filesize($iniCacheTmp)) {
             if (file_exists($iniCache)) {
                 unlink($iniCache);
             }
-            $this->debug("Writing merged ini file : $iniCache\n");
+            $ff->debug("Writing merged ini file : $iniCache\n");
             rename($iniCacheTmp, $iniCache);
         }
         
@@ -184,7 +183,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             if (file_exists($iniCache.'.reader')) {
                 unlink($iniCache.'.reader');
             }
-            $this->debug("Writing merged reader file : $iniCache.reader\n");
+            $ff->debug("Writing merged reader file : $iniCache.reader\n");
             rename($iniCacheTmp.'.reader', $iniCache.'.reader');
         }
         
@@ -219,7 +218,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             $out[] = '';
         }
         if (count($out)) {
-            $this->debug("Writing merged Links file : $iniLinksCache \n");
+            $ff->debug("Writing merged Links file : $iniLinksCache \n");
 
             file_put_contents($iniLinksCache. '.tmp', implode("\n", $out));
             if (file_exists($iniLinksCache)) {
