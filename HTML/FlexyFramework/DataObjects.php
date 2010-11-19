@@ -13,6 +13,8 @@ class HTML_FlexyFramework_DataObjects extends HTML_FlexyFramework_Page {
         require_once 'HTML/FlexyFramework/Generator.php';
         HTML_FlexyFramework_Generator::$generateClasses = true;
         DB_DataObject::debugLevel(1);
+        
+        HTML_FlexyFramework::get()->dataObjectsCache =true;
         $ff = HTML_FlexyFramework::get()->generateDataobjectsCache(true);
         die("Generation done..");
     }
