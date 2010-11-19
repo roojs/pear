@@ -10,7 +10,7 @@ class HTML_FlexyFramework_Cli
 
     $cli DataObjects
 
-    Run Basic DataObjects Generator (used to generate plain Framework projects)
+    Run Basic DataObjects Generator (used to generate plain HTML_FlexyFramework projects)
         
 ";
     }
