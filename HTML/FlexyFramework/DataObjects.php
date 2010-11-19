@@ -14,7 +14,7 @@ class HTML_FlexyFramework_DataObjects extends HTML_FlexyFramework_Page {
         $generator = new HTML_FlexyFramework_Generator();
         $generator->generateClasses = true;
         $generator->start();
-        die("dataobject genertor");
+        die("Generation done..");
     }
     
     
