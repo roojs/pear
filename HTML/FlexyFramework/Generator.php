@@ -15,7 +15,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         if (!HTML_FlexyFramework_Generator::$generateClasses ) {
             return;
         }
-        DB_DataObject::debugLevel(5);
+       
         //echo "GENERATE CLASSES?";
         parent::generateClasses();
     }
