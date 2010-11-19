@@ -969,7 +969,7 @@ class HTML_FlexyFramework {
         $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
         $pr = $this->project;
         
-        $this->cliRunHelp($p, "HTML/FlexyFramework/Cli");
+        $this->cliRunHelp($p, "HTML/FlexyFramework/Cli.php");
         
         foreach(scandir("$p/$pr") as $d) {
             //print_r("$p/$pr/$d");
