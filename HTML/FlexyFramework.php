@@ -170,6 +170,9 @@ class HTML_FlexyFramework {
             $this->cliHelp();
             exit;
         }
+        
+        
+        
         $this->run = $this->cli ? $_SERVER['argv'][1] : false;
     
         // will these work ok with cli?
@@ -865,7 +868,11 @@ class HTML_FlexyFramework {
        //     return array("HTML_FlexyFramework_Error","");
        // }
         
-       
+        // special classes ::
+        if ($this->cli && in_array($request, array('DataObjects'))) {
+            return array('HTML_FlexyFramework_'. $request,'');
+        }
+        
         
         $request_array=explode("/",$request);
         $original_request_array = $request_array;
