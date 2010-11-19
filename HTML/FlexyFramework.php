@@ -265,6 +265,9 @@ class HTML_FlexyFramework {
         if (isset($this->DB_DataObject[$dbini])) {
             $this->dataObjectsOriginalIni = $this->DB_DataObject[$dbini];
         }
+        // 
+        
+        
         
         $this->DB_DataObject[$dbini] =   $iniCache;
         // we now have the configuration file name..
@@ -342,7 +345,15 @@ class HTML_FlexyFramework {
         foreach($inis as $ini) {
             $ini = preg_replace('/\.ini$/', '.links.ini', $ini);
             if (!file_exists($ini)) {
-                continue;
+                // try scanning the directory for another ini file..
+                $ar = glob(dirname($ini).'/*.ini');
+                if (empty($ar)) {
+                    continue;
+                }
+                sort($ar);
+                // first file.. = with links removed..
+                $ini = preg_replace('/\.links\./' , '.', $ar[0]);
+                $ini = preg_replace('/\.ini$/', '.links.ini', $ini);
             }
             $links = array_merge_recursive($links , parse_ini_file($ini, true));
             
@@ -400,8 +411,14 @@ class HTML_FlexyFramework {
                 $dbreq[] = $this->baseDir.'/'.$m.'/DataObjects';
             }
         } else {
+            
+            if (isset($this->DB_DataObject['schema_location'])) {
+                $dbinis[] = $this->DB_DataObject['schema_location'] .'/'.basename($dburl['path']).'.ini';
+            } else {
+                $dbinis[] = $this->baseDir.'/DataObjects/'.basename($dburl['path']).'.ini';
+            }
             // non modular.
-            $dbinis[] = $this->baseDir.'/DataObjects/'.basename($dburl['path']).'.ini';
+            
             $dbcls[] = $this->project .'_DataObjects_';
             $dbreq[] = $this->baseDir.'/DataObjects';
         }
@@ -948,8 +965,12 @@ class HTML_FlexyFramework {
             "\n";
             
         
+        
         $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
         $pr = $this->project;
+        
+        $this->cliRunHelp($p, "HTML/FlexyFramework/Cli");
+        
         foreach(scandir("$p/$pr") as $d) {
             //print_r("$p/$pr/$d");
             if (!strlen($d) || $d[0] == '.') {
