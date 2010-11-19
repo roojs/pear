@@ -17,6 +17,9 @@ class HTML_FlexyFramework_DataObjects extends HTML_FlexyFramework_Page {
 
         $ff->DB_DataObject['debug'] = 1;
         $ff->debug = 1;
+        if (empty($ff->dataObjectsCache)) {
+            die("make sure dataObjectsCache in set to true the index file");
+        }
         // make sure the cache generator is on..
         $ff->dataObjectsCache = true;
         $ff->generateDataobjectsCache(true);
