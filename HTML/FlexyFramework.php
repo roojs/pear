@@ -870,6 +870,7 @@ class HTML_FlexyFramework {
         
         // special classes ::
         if ($this->cli && in_array($request, array('DataObjects'))) {
+            require_once 'HTML/FlexyFramework/'. $request . '.php';
             return array('HTML_FlexyFramework_'. $request,'');
         }
         
