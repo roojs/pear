@@ -4,7 +4,7 @@
 class HTML_FlexyFramework_Cli
 {
     
-    function help()
+    function help($cli)
     {
              echo "
 
