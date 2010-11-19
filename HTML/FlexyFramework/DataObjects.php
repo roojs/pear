@@ -16,6 +16,7 @@ class HTML_FlexyFramework_DataObjects extends HTML_FlexyFramework_Page {
         $ff = HTML_FlexyFramework::get();
 
         $ff->DB_DataObject['debug'] = 1;
+        $ff->debug = 1;
         // make sure the cache generator is on..
         $ff->dataObjectsCache = true;
         $ff->generateDataobjectsCache(true);
