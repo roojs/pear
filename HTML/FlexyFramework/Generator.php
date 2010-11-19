@@ -7,11 +7,11 @@ require_once 'DB/DataObject/Generator.php';
 class HTML_FlexyFramework_Generator extends DB_DataObject_Generator 
 {
     // block class generation.
-    var $generateClasses = false;
+    static $generateClasses = false;
     
     function generateClasses()
     {
-        if (!$this->generateClasses) {
+        if (!HTML_FlexyFramework_Generator::$generateClasses) {
             return;
         }
         parent::generateClasses();
