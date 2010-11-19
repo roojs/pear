@@ -220,7 +220,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             }
             rename($iniLinksCache. '.tmp', $iniLinksCache);
         }
-       }
+    }
     
     
 }
