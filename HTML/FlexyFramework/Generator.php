@@ -163,7 +163,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
     static function writeCache($iniCacheTmp, $iniCache)
     {
         
-        $ff = FlexyFramework::get();
+        $ff = HTML_FlexyFramework::get();
         
        //var_dump($iniCacheTmp);
        // echo '<PRE>';echo file_get_contents($iniCacheTmp);exit;
