@@ -1,7 +1,7 @@
 <?php
 
 
-class HTML_FlexyFramework_DataObjects {
+class HTML_FlexyFramework_DataObjects extend HTML_FlexyFramework_Page {
     
     function getAuth()
     {
