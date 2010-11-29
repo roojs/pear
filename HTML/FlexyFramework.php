@@ -251,7 +251,7 @@ class HTML_FlexyFramework {
         // cli works under different users... it may cause problems..
         if (function_exists('posix_getpwuid')) {
             $uinfo = posix_getpwuid( posix_getuid () ); 
-            print_R($uinfo);
+         
             $user = $uinfo['name'];
         } else {
             $user = getenv('USERNAME'); // windows.
