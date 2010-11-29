@@ -401,8 +401,16 @@ class HTML_FlexyFramework {
     {
         
         // compile.
+        if (function_exists('posix_getpwuid')) {
+            $uinfo = posix_getpwuid( posix_getuid () ); 
+         
+            $user = $uinfo['name'];
+        } else {
+            $user = getenv('USERNAME'); // windows.
+        }
+        
         $compileDir = ini_get('session.save_path') .'/' . 
-                ($this->cli ? $_ENV["USER"]. '_' : '') . 'compiled_templates_' . $this->project;
+            $user . '_compiled_templates_' . $this->project;
         
         if ($this->appNameShort) {
             $compileDir .= '_' . $this->appNameShort;
