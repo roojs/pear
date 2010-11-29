@@ -249,7 +249,12 @@ class HTML_FlexyFramework {
     function _configDataObjectsCache()
     {
         // cli works under different users... it may cause problems..
-        
+        if (function_exists('posix_getpwuid')) {
+            $uinfo = posix_getpwuid( posix_getuid () ); 
+            $user = $uinfo['name'];
+        } else {
+            $user = getenv('USERNAME'); // windows.
+        }
         $iniCache = ini_get('session.save_path') .'/' . 
                 ($this->cli ? $_ENV["USER"].'_' : '') . 'dbcfg_' . $this->project ;
      
