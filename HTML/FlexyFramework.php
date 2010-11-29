@@ -256,7 +256,7 @@ class HTML_FlexyFramework {
             $user = getenv('USERNAME'); // windows.
         }
         $iniCache = ini_get('session.save_path') .'/' . 
-                ($this->cli ? $_ENV["USER"].'_' : '') . 'dbcfg_' . $this->project ;
+                $user . '_dbcfg_' . $this->project ;
      
         if ($this->appNameShort) {
             $iniCache .= '_' . $this->appNameShort;
@@ -312,6 +312,7 @@ class HTML_FlexyFramework {
         $iniCache = $this->DB_DataObject[$dbini];
         $iniCacheTmp = $iniCache . '.tmp';
         // has it expired..
+        $force = $force ? $force : !file_exists($iniCache);
         if (!$force && (filemtime($iniCache) + $this->dataObjectsCacheExpires) < time()) {
             return;
         }
