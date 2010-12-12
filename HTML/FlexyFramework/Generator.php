@@ -205,8 +205,10 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
                 $ini = preg_replace('/\.links\./' , '.', $ar[0]);
                 $ini = preg_replace('/\.ini$/', '.links.ini', $ini);
             }
-            $links = array_merge_recursive($links , parse_ini_file($ini, true));
-            
+            if (!file_exists($ini)) {
+                continue;
+            }
+            $links = array_merge_recursive($links , parse_ini_file($ini, true));   
         }
         $iniLinksCache = preg_replace('/\.ini$/', '.links.ini', $iniCache);
         $out = array();
