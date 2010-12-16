@@ -238,7 +238,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         }
     }
     /* bit like merge recursive, but it avoids doing stuff with arrays.. */
-    static mergeIni($new, $old) 
+    static function mergeIni($new, $old) 
     {
         foreach($new as $g => $ar) {
             if (!isset($old[$g])) {
