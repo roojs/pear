@@ -360,13 +360,25 @@ class HTML_FlexyFramework {
         if (!empty($this->enableArray)) {
                 
             foreach($this->enableArray as $m) {
-                if (!file_exists($this->baseDir.'/'.$m.'/DataObjects')) {
+                // look in Pman/MODULE/DataObjects/*
+                if (file_exists($this->baseDir.'/'.$m.'/DataObjects')) {
+                    $dbinis[] = $this->baseDir.'/'.$m.'/DataObjects/'. strtolower($this->project).'.ini';
+                    $dbcls[] = $this->project .'_'. $m . '_DataObjects_';
+                    $dbreq[] = $this->baseDir.'/'.$m.'/DataObjects';
                     continue;
                 }
-                $dbinis[] = $this->baseDir.'/'.$m.'/DataObjects/'. strtolower($this->project).'.ini';
-                $dbcls[] = $this->project .'_'. $m . '_DataObjects_';
-                $dbreq[] = $this->baseDir.'/'.$m.'/DataObjects';
+                // look in MODULE/DataObjec
+                if (file_exists($this->baseDir.'/../'.$m.'/DataObjects')) {
+                    $dbinis[] = $this->baseDir.'/../'.$m.'/DataObjects/'. strtolower($this->project).'.ini';
+                    $dbcls[] = $m . '_DataObjects_';
+                    $dbreq[] = $this->baseDir.'/../'.$m.'/DataObjects';
+                }
+                    
+                    
+                  
             }
+                
+                
         } else {
             
             if (isset($this->DB_DataObject['schema_location'])) {
@@ -392,6 +404,7 @@ class HTML_FlexyFramework {
          
            //   'debug' => 5,
         ));
+      //  print_r($this->DB_DataObject);exit;
     }
     /**
      Set up thetemplate
