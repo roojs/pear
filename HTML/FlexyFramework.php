@@ -928,6 +928,52 @@ class HTML_FlexyFramework {
               
      
     }
+    
+    /**
+    * ensure Single CLi process 
+    * usage:
+    * HTML_FlexyFramework::ensureSingle(__FILE__, $this);
+    *
+    */
+      
+    static function ensureSingle($sig, $class) 
+    {
+        $ff = HTML_FlexyFramework::get();
+        if (function_exists('posix_getpwuid')) {
+            $uinfo = posix_getpwuid( posix_getuid () ); 
+            $user = $uinfo['name'];
+        } else {
+            $user = getenv('USERNAME'); // windows.
+        }
+        $fdir = ini_get('session.save_path') .'/' . 
+                $user . '_cli_' . $ff->project ;
+     
+        
+        if (!file_exists($fdir)) {
+            mkdir($fdir, 0777);
+        }
+        $lock = $fdir.'/'. md5($sig);
+        if (!file_exists($lock)) {
+            file_put_contents($lock, getmypid());
+            return true;
+        }
+        $oldpid = file_get_contents($lock);
+        if (!file_exists('/proc/' . $oldpid)) {
+            file_put_contents($lock, getmypid());
+            return true;
+        }
+        // file exists, but process might not be the same..
+        $name = array_pop(explode('_', get_class($class)));
+        $cmd = file_get_contents('/proc/' . $oldpid.'/cmdline');
+        if (!preg_match('/php/i',$cmd) || !preg_match('/'.$name.'/i',$cmd)) {
+            file_put_contents($lock, getmypid());
+            return true;
+        }
+        die("process already running");
+        
+    }
+    
+    
     /**
     * looks for Cli.php files and runs help() on them
     *
