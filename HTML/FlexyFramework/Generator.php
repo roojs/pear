@@ -38,6 +38,10 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         file_put_contents($options["ini_{$this->_database}"] . '.reader', serialize($out));
          
     }
+    /**
+     * Generate the cached readers used for meta data in the queries.
+     * 
+     */
     function _generateReader($table)
     {
         $DB = $this->getDatabaseConnection();
