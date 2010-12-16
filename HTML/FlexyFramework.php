@@ -970,7 +970,7 @@ class HTML_FlexyFramework {
             file_put_contents($lock, getmypid());
             return true;
         }
-        die("process already running");
+        die("process already running\n");
         
     }
     
