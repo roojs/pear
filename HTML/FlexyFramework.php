@@ -933,7 +933,8 @@ class HTML_FlexyFramework {
     * ensure Single CLi process 
     * usage:
     * HTML_FlexyFramework::ensureSingle(__FILE__, $this);
-    *
+    * @param string filename of running class
+    * @param object class
     */
       
     static function ensureSingle($sig, $class) 
