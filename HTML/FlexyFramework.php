@@ -377,8 +377,7 @@ class HTML_FlexyFramework {
                     
                   
             }
-                
-                
+                 
         } else {
             
             if (isset($this->DB_DataObject['schema_location'])) {
