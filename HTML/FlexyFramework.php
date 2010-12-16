@@ -367,7 +367,7 @@ class HTML_FlexyFramework {
                     $dbreq[] = $this->baseDir.'/'.$m.'/DataObjects';
                     continue;
                 }
-                // look in MODULE/DataObjec
+                // look in MODULE/DataObjects
                 if (file_exists($this->baseDir.'/../'.$m.'/DataObjects')) {
                     $dbinis[] = $this->baseDir.'/../'.$m.'/DataObjects/'. strtolower($this->project).'.ini';
                     $dbcls[] = $m . '_DataObjects_';
