@@ -166,7 +166,10 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         
         
     }
-
+    /**
+     * Generate the cached *.ini and links.ini files (merged for all components)
+     * 
+     */
     static function writeCache($iniCacheTmp, $iniCache)
     {
          
