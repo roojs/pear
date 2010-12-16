@@ -215,6 +215,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             if (!file_exists($ini)) {
                 continue;
             }
+            // prefer first ?
             $links = array_merge_recursive( parse_ini_file($ini, true), $links);   
         }
         $iniLinksCache = preg_replace('/\.ini$/', '.links.ini', $iniCache);
@@ -236,6 +237,24 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             rename($iniLinksCache. '.tmp', $iniLinksCache);
         }
     }
-    
+    /* bit like merge recursive, but it avoids doing stuff with arrays.. */
+    static mergeIni($new, $old) 
+    {
+        foreach($new as $g => $ar) {
+            if (!isset($old[$g])) {
+                $old[$g] = $ar;
+                continue;
+            }
+            foreach($ar as $k=>$v) {
+                if (isset($old[$g][$k])) {
+                    continue;
+                }
+                $old[$g][$k] = $v;
+            }
+        }
+        return $old;
+        
+        
+    }
     
 }
