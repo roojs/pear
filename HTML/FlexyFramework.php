@@ -691,7 +691,7 @@ class HTML_FlexyFramework {
             return $this->_run($redirect,TRUE);
         }
         // used HTML_FlexyFramework::run();
-                 echo '<PRE>'; print_r($this);exit;
+                 
 
         if ($redirect === false) {
             $this->debug("GOT AUTH FALSE");    
