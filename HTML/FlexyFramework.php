@@ -691,7 +691,8 @@ class HTML_FlexyFramework {
             return $this->_run($redirect,TRUE);
         }
         // used HTML_FlexyFramework::run();
-        
+                 echo '<PRE>'; print_r($this);exit;
+
         if ($redirect === false) {
             $this->debug("GOT AUTH FALSE");    
             return false; /// Access deined!!! - 
@@ -705,7 +706,6 @@ class HTML_FlexyFramework {
                 return $result;
             }
         }
-         echo '<PRE>'; print_r($this);exit;
         /* allow redirect from start */
         if (method_exists($classobj,"start")) {
             if (is_string($redirect = $classobj->start($subRequest,$isRedirect,$args)))  {
