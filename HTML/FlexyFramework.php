@@ -130,7 +130,7 @@ class HTML_FlexyFramework {
         }
         $this->_parseConfig();
         
-       echo '<PRE>'; print_r($this);exit;
+      // echo '<PRE>'; print_r($this);exit;
         if ($this->cli) {
             $args = $_SERVER['argv'];
             array_shift($args );
@@ -499,7 +499,8 @@ class HTML_FlexyFramework {
     }
     
     
-    function _validateEnv() {
+    function _validateEnv() 
+    {
         /* have I been initialized */
         
         
@@ -675,6 +676,8 @@ class HTML_FlexyFramework {
         $classobj->timer = &$this->timer;
         
         $this->page = $classobj;
+        
+        echo '<PRE>'; print_r($this);exit;
       //  echo "CHECK GET AUTH?";
         if (!method_exists($classobj, 'getAuth')) {
         //    echo "NO GET AUTH?";
