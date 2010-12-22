@@ -185,7 +185,7 @@ class HTML_FlexyFramework {
         $this->rootURL = dirname($this->baseURL);
         $this->rootURL = ($this->rootURL == '/') ? '' : $this->rootURL;
         
-        var_dump($this->baseURL);
+        //var_dump($this->baseURL);
         
         if (!isset($this->database) && isset($this->DB_DataObject['database'])) {
             $this->database = $this->DB_DataObject['database'];
