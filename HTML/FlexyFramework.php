@@ -729,7 +729,7 @@ class HTML_FlexyFramework {
             $this->timer->setMarker("After $request loadModules Modules"); 
         }
         
-        
+         echo '<PRE>'; print_r($this);exit;
         /* output it */
         
         if (method_exists($classobj,'output')) {
