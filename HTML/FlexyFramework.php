@@ -178,7 +178,11 @@ class HTML_FlexyFramework {
         // will these work ok with cli?
     
         $bits = explode(basename($_SERVER["SCRIPT_FILENAME"]), $_SERVER["SCRIPT_NAME"]);
-        $this->baseURL = $bits[0] . basename($_SERVER["SCRIPT_FILENAME"]);
+        if (!$this->cli) {
+            $this->baseURL = $bits[0] . basename($_SERVER["SCRIPT_FILENAME"]);
+        }
+        // if cli - you have to have set baseURL...
+        
         
         $this->rootDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
         $this->baseDir = $this->rootDir .'/'. $this->project;
