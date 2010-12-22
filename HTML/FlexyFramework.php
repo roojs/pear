@@ -705,7 +705,7 @@ class HTML_FlexyFramework {
                 return $result;
             }
         }
-        
+         echo '<PRE>'; print_r($this);exit;
         /* allow redirect from start */
         if (method_exists($classobj,"start")) {
             if (is_string($redirect = $classobj->start($subRequest,$isRedirect,$args)))  {
@@ -716,7 +716,7 @@ class HTML_FlexyFramework {
                 return false;
             }
         }
-                 echo '<PRE>'; print_r($this);exit;
+                
 
          // used HTML_FlexyFramework::run();
         
