@@ -677,7 +677,7 @@ class HTML_FlexyFramework {
         
         $this->page = $classobj;
         
-        echo '<PRE>'; print_r($this);exit;
+        //echo '<PRE>'; print_r($this);exit;
       //  echo "CHECK GET AUTH?";
         if (!method_exists($classobj, 'getAuth')) {
         //    echo "NO GET AUTH?";
