@@ -130,7 +130,7 @@ class HTML_FlexyFramework {
         }
         $this->_parseConfig();
         
-      // echo '<PRE>'; print_r($this);exit;
+       echo '<PRE>'; print_r($this);exit;
         if ($this->cli) {
             $args = $_SERVER['argv'];
             array_shift($args );
