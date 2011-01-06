@@ -272,7 +272,7 @@ class HTML_FlexyFramework {
         
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
-        
+        $this->debug(__METHOD__ . " : ini file : $dbini");
         //override ini setting... - store original..
         if (isset($this->DB_DataObject[$dbini])) {
             $this->dataObjectsOriginalIni = $this->DB_DataObject[$dbini];
