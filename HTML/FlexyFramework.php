@@ -199,8 +199,7 @@ class HTML_FlexyFramework {
         
         
         $this->_parseConfigDataObjects();
-        var_dump($this->dataObjectsCache);
-        if ($this->dataObjectsCache) {
+         if ($this->dataObjectsCache) {
             $this->_configDataObjectsCache();
         }
         
