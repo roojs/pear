@@ -253,9 +253,9 @@ class HTML_FlexyFramework {
     function _configDataObjectsCache()
     {
         // cli works under different users... it may cause problems..
+        $this->debug(__METHOD__);
         if (function_exists('posix_getpwuid')) {
             $uinfo = posix_getpwuid( posix_getuid () ); 
-         
             $user = $uinfo['name'];
         } else {
             $user = getenv('USERNAME'); // windows.
