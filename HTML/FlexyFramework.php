@@ -269,6 +269,7 @@ class HTML_FlexyFramework {
             $iniCache .= '.' . $this->version;
         }
         $iniCache .= '.ini';
+        $this->debug(__METHOD__ . " : ini cache : $iniCache");
         
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
