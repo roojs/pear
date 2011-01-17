@@ -282,6 +282,14 @@ class File_Convert
                     
                 )
             ),
+            array( 'abiword',
+                array( // source
+                    'text/html'
+                ),    // targets
+                array( 
+                    'application/msword'
+                )
+            ),
             
         ); 
     
