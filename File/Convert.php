@@ -631,7 +631,7 @@ class File_Convert_Solution
         require_once 'System.php';
         $abiword= System::which('abiword');
         
-        $cmd = "$abiword " . " --to=" . escapeshellarg($target) . ' ' .escapeshellarg($fn) . 
+        $cmd = "$abiword   --to=" . escapeshellarg($target) . ' ' .escapeshellarg($fn) . 
         ///echo $cmd;
         `$cmd`;
         $this->cmd = $cmd;
