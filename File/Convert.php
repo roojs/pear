@@ -634,7 +634,7 @@ class File_Convert_Solution
             $this->cmd = "Missing abiword";
             return false;
         }
-        $cmd = "$abiword   --to=" . escapeshellarg($target) . ' ' .escapeshellarg($fn) . 
+        $cmd = "$abiword   --to=" . escapeshellarg($target) . ' ' .escapeshellarg($fn);
         ///echo $cmd;
         `$cmd`;
         $this->cmd = $cmd;
