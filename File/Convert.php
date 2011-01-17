@@ -630,7 +630,10 @@ class File_Convert_Solution
         }
         require_once 'System.php';
         $abiword= System::which('abiword');
-        
+        if (empty($abiword)) {
+            $this->cmd = "Missing abiword";
+            return false;
+        }
         $cmd = "$abiword   --to=" . escapeshellarg($target) . ' ' .escapeshellarg($fn) . 
         ///echo $cmd;
         `$cmd`;
