@@ -621,6 +621,25 @@ class File_Convert_Solution
         
     }
     
+    function abiword($fn)
+    {
+        $ext = $this->ext;
+        $target = $fn . '.' . $ext;
+        if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
+            return $target;
+        }
+        require_once 'System.php';
+        $abiword= System::which('abiword');
+        
+        $cmd = "$abiword " . " --to=" . escapeshellarg($target) . ' ' .escapeshellarg($fn) . 
+        ///echo $cmd;
+        `$cmd`;
+        $this->cmd = $cmd;
+        clearstatcache();
+        
+        return  file_exists($target)  && filesize($target) ? $target : false;
+       }
+    
     
     function acad2svg($fn)
     {
