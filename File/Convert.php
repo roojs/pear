@@ -284,7 +284,7 @@ class File_Convert
             ),
             array( 'abiword',
                 array( // source
-                    'text/html'
+                    'application/x-abiword'
                 ),    // targets
                 array( 
                     'application/msword'
