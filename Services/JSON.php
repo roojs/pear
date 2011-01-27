@@ -50,7 +50,7 @@
  * @author      Matt Knapp <mdknapp[at]gmail[dot]com>
  * @author      Brett Stimmerman <brettstimmerman[at]gmail[dot]com>
  * @copyright   2005 Michal Migurski
- * @version     CVS: $Id: JSON.php 305021 2010-11-02 03:09:07Z alan_k $
+ * @version     CVS: $Id: JSON.php 305040 2010-11-02 23:19:03Z alan_k $
  * @license     http://www.opensource.org/licenses/bsd-license.php
  * @link        http://pear.php.net/pepr/pepr-proposal-show.php?id=198
  */
@@ -133,15 +133,24 @@ class Services_JSON
     *                                   By default, a deeply-nested resource will
     *                                   bubble up with an error, so all return values
     *                                   from encode() should be checked with isError()
-    *                           - SERVICES_JSON_USE_TO_JSON:  use toJSON on objects
-    *                                   Uses return value from toJSON on objects to determine
-    *                                   what to serialize. toJSON should return an associative array.
+    *                           - SERVICES_JSON_USE_TO_JSON:  call toJSON when serializing objects
+    *                                   It serializes the return value from the toJSON call rather 
+    *                                   than the object it'self,  toJSON can return associative arrays, 
+    *                                   strings or numbers, if you return an object, make sure it does
+    *                                   not have a toJSON method, otherwise an error will occur.
     */
     function Services_JSON($use = 0)
     {
         $this->use = $use;
+        $this->_mb_strlen            = function_exists('mb_strlen');
+        $this->_mb_convert_encoding  = function_exists('mb_convert_encoding');
+        $this->_mb_substr            = function_exists('mb_substr');
     }
-
+    // private - cache the mbstring lookup results..
+    var $_mb_strlen = false;
+    var $_mb_substr = false;
+    var $_mb_convert_encoding = false;
+    
    /**
     * convert a string from one UTF-16 char to one UTF-8 char
     *
@@ -156,7 +165,7 @@ class Services_JSON
     function utf162utf8($utf16)
     {
         // oh please oh please oh please oh please oh please
-        if(function_exists('mb_convert_encoding')) {
+        if($this->_mb_convert_encoding) {
             return mb_convert_encoding($utf16, 'UTF-8', 'UTF-16');
         }
 
@@ -200,7 +209,7 @@ class Services_JSON
     function utf82utf16($utf8)
     {
         // oh please oh please oh please oh please oh please
-        if(function_exists('mb_convert_encoding')) {
+        if($this->_mb_convert_encoding) {
             return mb_convert_encoding($utf8, 'UTF-16', 'UTF-8');
         }
 
@@ -474,12 +483,24 @@ class Services_JSON
             
                 // support toJSON methods.
                 if (($this->use & SERVICES_JSON_USE_TO_JSON) && method_exists($var, 'toJSON')) {
-                    $vars = $var->toJSON();
-                } else {
-                    $vars = get_object_vars($var);
-                }
-             
-
+                    // this may end up allowing unlimited recursion
+                    // so we check the return value to make sure it's not got the same method.
+                    $recode = $var->toJSON();
+                    
+                    if (method_exists($recode, 'toJSON')) {
+                        
+                        return ($this->use & SERVICES_JSON_SUPPRESS_ERRORS)
+                        ? 'null'
+                        : new Services_JSON_Error(class_name($var).
+                            " toJSON returned an object with a toJSON method.");
+                            
+                    }
+                    
+                    return $this->_encode( $recode );
+                } 
+                
+                $vars = get_object_vars($var);
+                
                 $properties = array_map(array($this, 'name_value'),
                                         array_keys($vars),
                                         array_values($vars));
@@ -858,7 +879,7 @@ class Services_JSON
     */
     function strlen8( $str ) 
     {
-        if ( function_exists( "mb_strlen" ) ) {
+        if ( $this->_mb_strlen ) {
             return mb_strlen( $str, "8bit" );
         }
         return strlen( $str );
@@ -876,7 +897,7 @@ class Services_JSON
         if ( $length === false ) {
             $length = $this->strlen8( $string ) - $start;
         }
-        if ( function_exists( "mb_substr" ) ) {
+        if ( $this->_mb_substr ) {
             return mb_substr( $string, $start, $length, "8bit" );
         }
         return substr( $string, $start, $length );
