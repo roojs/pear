@@ -177,7 +177,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         //var_dump($iniCacheTmp);
        // echo '<PRE>';echo file_get_contents($iniCacheTmp);exit;
         // only unpdate if nothing went wrong.
-        if (filesize($iniCacheTmp)) {
+        if (file_exists($iniCacheTmp) && filesize($iniCacheTmp)) {
             if (file_exists($iniCache)) {
                 unlink($iniCache);
             }
