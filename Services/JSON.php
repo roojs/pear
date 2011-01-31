@@ -243,19 +243,9 @@ class Services_JSON
         return '';
     }
 
-     /**
-    * stringfy an arbitrary variable into JSON format (and sends JSON Header)
-    *
-    * @param    mixed   $var    any number, boolean, string, array, or object to be encoded.
-    *                           see argument 1 to Services_JSON() above for array-parsing behavior.
-    *                           if var is a strng, note that encode() always expects it
-    *                           to be in ASCII or UTF-8 format!
-    *
-    * @return   mixed   JSON string representation of input var or an error if a problem occurs
-    * @access   public
-    */
+    
    /**
-    * encodes an arbitrary variable into JSON format (and sends JSON Header)
+    * stringfy an arbitrary variable into JSON format (and sends JSON Header)
     * UNSAFE - does not send HTTP headers (to be compatible with Javsacript Spec)
     *
     * @param    mixed   $var    any number, boolean, string, array, or object to be encoded.
