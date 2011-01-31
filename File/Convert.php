@@ -103,7 +103,7 @@ class File_Convert
        
         
         $fn = $this->target;
-        $isIE = preg_match('#msie [0-9.]+#i', $_SERVER['HTTP_USER_AGENT']);
+        $isIE = preg_match('#msie [0-9.]+#i', isset($_SERVER['HTTP_USER_AGENT']) ? isset($_SERVER['HTTP_USER_AGENT'])  : '');
         
         $ts = filemtime($fn);
         
