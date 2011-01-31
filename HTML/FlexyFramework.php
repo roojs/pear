@@ -100,6 +100,7 @@ class HTML_FlexyFramework {
     var $calls = false; // the number of calls made to run!
     var $start = false; // the start tiem.
     
+    var $baseRequest = '';
     
     var $dataObjectsOriginalIni = ''; // 1 houre..
     /**
@@ -796,6 +797,7 @@ class HTML_FlexyFramework {
         $request = preg_replace('/^[\/]*/','',$request);
         $request = preg_replace('/\?.*$/','',$request);
         $request = preg_replace('/[\/]*$/','',$request);
+        $this->baseRequest = $request;
         $request = preg_replace('/\.([a-z]+)$/','',$request);
         
         // REDIRECT ROO to index.php! for example..
