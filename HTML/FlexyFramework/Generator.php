@@ -186,7 +186,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         }
         
         // readers..
-        if (filesize($iniCacheTmp.'.reader')) {
+        if (file_exists($iniCacheTmp) &&  filesize($iniCacheTmp.'.reader')) {
             if (file_exists($iniCache.'.reader')) {
                 unlink($iniCache.'.reader');
             }
