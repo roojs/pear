@@ -773,8 +773,7 @@ class HTML_FlexyFramework {
         }
         
         $startRequest = $request;
-        $rr = explode('?', $request);
-        $request = $rr[0];
+        $request = array_shift(explode('?', $request));
         $this->debug("INPUT REQUEST $request<BR>");
         if (!$isRedirect) {
             // check that request forms contains baseurl????
