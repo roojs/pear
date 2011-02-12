@@ -1126,6 +1126,44 @@ class SQL_Parser
     }
     // }}}
 
+    
+    public function parseAlter()
+    {
+        $tree = array();
+
+    $this->getTok();
+        switch ($this->token) {
+            case 'table':
+                $tree['command'] = 'create_table';
+                $this->getTok();
+                if ($this->token != 'ident') {
+                    $this->raiseError('Expected table name');
+                }
+                $tree['table_names'][] = $this->lexer->tokText;
+                $fields = $this->parseFieldList();
+                if (false === $fields) {
+                    return $fields;
+                }
+                $tree['column_defs'] = $fields;
+                // $tree['column_names'] = array_keys($fields);'
+                $this->getTok();
+                return $tree;
+                break;
+            case 'index':
+                $tree['command'] = 'alter_index';
+                break;
+            case 'constraint':
+                $tree['command'] = 'alter_constraint';
+                break;
+            case 'sequence':
+                $tree['command'] = 'alter_sequence';
+                break;
+            default:
+                $this->raiseError('Unknown object to create');
+        }
+        throw new Exception("Can not handle ". $tree['command'] . " yet");
+    }
+    
     // {{{ parseInsert()
     // INSERT INTO tablename
     /**
