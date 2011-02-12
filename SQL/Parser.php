@@ -1166,7 +1166,7 @@ class SQL_Parser
                                 $action['from'] = $this->lexer->tokText;
                             }
                             print_r($action);
-                            $fields = $this->parseFieldList(false);
+                            $fields = $this->parseFieldList(false, false);
                             foreach($fields as $k=>$v) {
                                 $action['name'] = $k;
                                 $action['field'] = $v;
