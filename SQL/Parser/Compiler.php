@@ -27,6 +27,9 @@ require_once 'PEAR.php';
 
 /**
  * A SQL parse tree compiler.
+ * 
+ * This is really a skeleton, you should really extend this 
+ * and implement it for different databases - eg. SQL_Parser_Compiler_SQLite.. etc..
  *
  * @author  John Griffin <jgriffin316@netscape.net>
  * @version 0.1
