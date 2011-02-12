@@ -348,7 +348,7 @@ class SQL_Parser_Compiler
         
         
         
-        $sql .= implode(",\n", $body) . ");"
+        $sql .= implode(",\n", $body) . ");";
         return $sql;
     }
     
