@@ -320,18 +320,28 @@ class SQL_Parser_Compiler
 
     function compileCreate()
     {
-        $sql = "CREATE TABLE " . $this->tree['table_names'][0].' (';
-        $number_of_pk = 0;
+        $sql = "CREATE TABLE " . $this->tree['table_names'][0]. " (\n";
+        $pk =  array();
         foreach($this->tree['column_defs'] as $k=>$type) {
             foreach($type['constraints'] as $c) {
                 if ($c->type = 'primary_key') {
-                    $number_of_pk++;
+                    $pk[] = $k ;
+                    break;
                 }
             }
         }
         // if we have more than one primary key... - then we have to use a line at the end..
+        $body = array();
+        foreach($this->tree['column_defs'] as $name=>$type) {
+            $body[] = "   " . $this->typeToSQL($name, $type, $number_of_pk > 1 ? true : false);
+        }
+        if ($number_of_pk > 1) {
+            
+           }
         
         
+        
+        $sql. = implode(",\n", $body) . ")"
         
         
         
