@@ -375,7 +375,7 @@ class SQL_Parser_Compiler
                     break;
                     
                 case 'default_value': 
-                    $ret .= " " . $c['value']; 
+                    $ret .= " DEFAULT" . $c['value']; 
                     break;
                 
                 case 'primary_key': 
