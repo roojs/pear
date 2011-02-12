@@ -1163,7 +1163,7 @@ class SQL_Parser
                         case 'column': // add / remove / 
                             if ($action['action'] == 'change') {
                                 $this->getTok();
-                                $action['from'] = $this->lexer->tokText
+                                $action['from'] = $this->lexer->tokText;
                             }
                             $fields = $this->parseFieldList(false);
                             foreach($fields as $k=>$v) {
