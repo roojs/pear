@@ -1131,10 +1131,10 @@ class SQL_Parser
     {
         $tree = array();
 
-    $this->getTok();
+        $this->getTok();
         switch ($this->token) {
             case 'table':
-                $tree['command'] = 'create_table';
+                $tree['command'] = 'alter_table';
                 $this->getTok();
                 if ($this->token != 'ident') {
                     $this->raiseError('Expected table name');
