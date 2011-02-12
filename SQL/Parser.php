@@ -905,19 +905,35 @@ class SQL_Parser
                 if ($this->token != '(') {
                     $this->raiseError('Expected (');
                 }
-                $this->getTok();
-                if ($this->token != 'ident') {
-                    $this->raiseError('Expected identifier');
-                }
-                $name = $this->lexer->tokText;
-                $this->getTok();
-                if ($this->token != ')') {
+                while (1) {
+                         
+                    
+                    $this->getTok();
+                    if ($this->token != 'ident') {
+                        $this->raiseError('Expected identifier');
+                    }
+                    $name = $this->lexer->tokText;
+                    $this->getTok();
+                
+                    if ($this->token == ')') {
+                        $fields[$name]['constraints'][] = array(
+                            'type'  => 'primary_key',
+                            'value' => true,
+                        );
+                        break;
+                    }
+                    if ($this->token == ',') {
+                        $fields[$name]['constraints'][] = array(
+                            'type'  => 'primary_key',
+                            'value' => true,
+                        );
+                        continue;
+                    }
                     $this->raiseError('Expected )');
+                    
                 }
-                $fields[$name]['constraints'][] = array(
-                    'type'  => 'primary_key',
-                    'value' => true,
-                );
+                
+               
                 continue;
             } elseif ($this->token == 'key') {
                 $this->getTok();
