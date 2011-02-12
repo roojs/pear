@@ -590,6 +590,7 @@ $dialect = array(
         'desc' => 'desc',
         'date' => 'date',
         'time' => 'time',
+        'datetime' => 'datetime'
     ),
 
     'lexeropts' => array(
