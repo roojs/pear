@@ -1179,7 +1179,7 @@ class SQL_Parser
                     
                     
                 }
-                // we never get here.. it should return from insind th eloop.
+                // we never get here.. it should return from insind the loop.
                 break;
             case 'index':
                 $tree['command'] = 'alter_index';
