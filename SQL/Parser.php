@@ -1713,6 +1713,7 @@ class SQL_Parser
 
         // get query action
         $this->getTok();
+        var_Dump($this->token);
         while (1) {
             $branch = array();
             switch ($this->token) {
