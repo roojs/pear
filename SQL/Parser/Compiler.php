@@ -405,7 +405,7 @@ class SQL_Parser_Compiler
             case 'insert':
                 return $this->compileInsert();
                 break;
-            case 'create':
+            case 'create_table':
                 return $this->compileCreate();
             case 'drop':
             case 'alter':
