@@ -334,9 +334,8 @@ class SQL_Parser_Compiler
         // if we have more than one primary key... - then we have to use a line at the end..
         $body = array();
         foreach($this->tree['column_defs'] as $name=>$type) {
-            $body[] = "    " . 
+            $body[] = "    {$iquote}$name{$iquote} " . 
                 $this->typeToSQL(
-                    $name, 
                     $type, 
                     count($pk) > 1 ? true : false
                 );
@@ -350,10 +349,14 @@ class SQL_Parser_Compiler
         
         
         $sql. = implode(",\n", $body) . ")"
-        
-        
-        
+         
     }
+    
+    function typeToSQL($data, $add_primary_key) 
+    {
+            
+    }
+    
     function compileDrop()
     {
         
