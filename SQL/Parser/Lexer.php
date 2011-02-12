@@ -277,7 +277,7 @@ class SQL_Parser_Lexer
                         }
                     }
 
-                    print_R($this->comments);
+                    //print_R($this->comments);
                     // comments
                     foreach ($this->comments as $comment_start => $comment_end) {
                          
