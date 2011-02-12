@@ -1153,7 +1153,7 @@ class SQL_Parser
                 $action = array();
                 while (1) {
                     $this->getTok();
-                    if ($this->tok == ';') {
+                    if ($this->token == ';') {
                         $tree['table_actions'][] = $action;
                         return $tree;
                     }
