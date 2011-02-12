@@ -118,6 +118,7 @@ $dialect = array(
         'set',
         'enum',
         'text',
+        'longtext'
     ),
 
     'conjunctions' => array(
