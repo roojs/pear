@@ -419,7 +419,7 @@ class SQL_Parser_Compiler
                 return $this->compileInsert();
                 break;
             case 'create_table':
-                return $this->compileCreate();
+                return $this->compileCreateTable();
             case 'drop':
             case 'alter':
             default:
