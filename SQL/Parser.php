@@ -1146,7 +1146,7 @@ class SQL_Parser
                 $tree['table_names'] = array( $this->lexer->tokText );
                 $tree['table_actions'] = array();
                 
-                $action = array()
+                $action = array();
                 while (1) {
                     $this->getTok();
                     if ($this->tok == ';') {
