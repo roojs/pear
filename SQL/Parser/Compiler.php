@@ -406,6 +406,7 @@ class SQL_Parser_Compiler
                 return $this->compileInsert();
                 break;
             case 'create':
+                return $this->compileCreate();
             case 'drop':
             case 'alter':
             default:
