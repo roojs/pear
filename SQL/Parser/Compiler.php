@@ -320,6 +320,7 @@ class SQL_Parser_Compiler
 
     function compileCreate()
     {
+        $iquote = '`';
         $sql = "CREATE TABLE " . $this->tree['table_names'][0]. " (\n";
         $pk =  array();
         foreach($this->tree['column_defs'] as $k=>$type) {
@@ -333,11 +334,13 @@ class SQL_Parser_Compiler
         // if we have more than one primary key... - then we have to use a line at the end..
         $body = array();
         foreach($this->tree['column_defs'] as $name=>$type) {
-            $body[] = "   " . $this->typeToSQL($name, $type, $number_of_pk > 1 ? true : false);
+            $body[] = "    " . $this->typeToSQL($name, $type, count($pk) > 1 ? true : false);
         }
-        if ($number_of_pk > 1) {
-            
-           }
+        if (count($pk) >  1) {
+            $body[] = "    PRIMARY KEY ({$iquote}" . 
+                implode("{$iquote},{$iquote}", $pk) .
+                "{$iquote})"
+        }
         
         
         
