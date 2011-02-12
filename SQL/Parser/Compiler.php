@@ -360,13 +360,23 @@ class SQL_Parser_Compiler
         }
         foreach($data['constraints']) as $c) {
             switch($c['type']) {
-                case 'not_null': $ret .= " NOT NULL"; break;
+                case 'not_null': 
+                    $ret .= " NOT NULL"; 
+                    break;
                     
-                case 'auto_increment': $ret .= " AUTO_INCREMENT"; break;
-                case 'default_value': $ret .= " " . $c['value']; break;
-               }
+                case 'auto_increment': 
+                    $ret .= " AUTO_INCREMENT"; 
+                    break;
+                    
+                case 'default_value': 
+                    $ret .= " " . $c['value']; 
+                    break;
+                
+                default: 
+                    throw new Exception("FIXME - need to handle type" . $c['type']);
+            }
         }
-        
+        return $ret;
     }
     
     function compileDrop()
