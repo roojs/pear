@@ -360,7 +360,7 @@ class SQL_Parser_Compiler
         }
         if (empty($data['constraints'])) {
             return $ret;
-           }
+        }
         foreach($data['constraints'] as $c) {
             switch($c['type']) {
                 case 'not_null': 
