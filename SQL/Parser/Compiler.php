@@ -423,6 +423,7 @@ class SQL_Parser_Compiler
             case 'drop':
             case 'alter':
             default:
+                throw new Exception("FIXME - need to handle type" . print_r($this->tree, true));
                 return PEAR::raiseError('Unknown action: '.$this->tree['command']);
         }    // switch ($this->_tree["command"])
 
