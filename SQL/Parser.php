@@ -1162,9 +1162,9 @@ class SQL_Parser
                     $action['action'] = $this->token;
                     $this->getTok();
                     // alter table ADD COLUMN....
-                    $action['on'] = $this->token;
+                    $action['what'] = $this->token;
                      
-                    switch ($action['on']) {
+                    switch ($action['what']) {
                         case 'column': // add / remove / 
                             if ($action['action'] == 'change') {
                                 $this->getTok();
@@ -1180,7 +1180,7 @@ class SQL_Parser
                             break;
                         
                         default: 
-                            throw new Exception("do not know how to handle: " . $action['on']);
+                            throw new Exception("do not know how to handle: " . $action['what']);
                     }
                     
                     
