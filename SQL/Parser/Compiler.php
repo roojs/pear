@@ -325,7 +325,7 @@ class SQL_Parser_Compiler
         $pk =  array();
         foreach($this->tree['column_defs'] as $k=>$type) {
             foreach($type['constraints'] as $c) {
-                if ($c->type = 'primary_key') {
+                if ($c['type'] = 'primary_key') {
                     $pk[] = $k ;
                     break;
                 }
