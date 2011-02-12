@@ -92,7 +92,7 @@ $dialect = array(
         'or',
     ),
 
-    'types' => array(
+    'types' => array( // add here - you probably need to ad to synonyms
         'character',
         'char',
         'varchar',
@@ -580,6 +580,7 @@ $dialect = array(
         'set' => 'set',
         'enum' => 'enum',
         'text' => 'text',
+        'longtext' => 'longtext',
         'char' => 'char',
         'character' => 'char',
         'varchar' => 'varchar',
