@@ -896,7 +896,8 @@ class SQL_Parser
                 if ($allow_multiple) {
                     continue;
                 }
-                
+                // parsing alter field list - have to break on ','
+                return $fields;
             }
             // In this context, field names can be reserved words or function names
             if ($this->token == 'primary') {
