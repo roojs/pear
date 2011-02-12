@@ -320,6 +320,20 @@ class SQL_Parser_Compiler
 
     function compileCreate()
     {
+        $sql = "CREATE TABLE " . $this->tree['table_names'][0].' (';
+        $number_of_pk = 0;
+        foreach($this->tree['column_defs'] as $k=>$type) {
+            foreach($type['constraints'] as $c) {
+                if ($c->type = 'primary_key') {
+                    $number_of_pk++;
+                }
+            }
+        }
+        // if we have more than one primary key... - then we have to use a line at the end..
+        
+        
+        
+        
         
     }
     function compileDrop()
