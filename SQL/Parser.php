@@ -48,7 +48,16 @@ require_once 'SQL/Parser/Lexer.php';
 
 /**
  * A sql parser
+ * 
+ * 
+ * @example
+ * 
+require_once 'SQL/Parser.php';
+$parser = new SQL_Parser();
+$struct = $parser->parse("SELECT a,b,c FROM Foo");
+print_r($struct);
  *
+ * @see       http://www.sjhannah.com/blog/?p=16
  * @category  Database
  * @package   SQL_Parser
  * @author    Brent Cook <busterbcook@yahoo.com>
