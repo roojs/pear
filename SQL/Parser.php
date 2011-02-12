@@ -899,6 +899,10 @@ class SQL_Parser
                 // parsing alter field list - have to break on ','
                 return $fields;
             }
+            if ($this->token == ';') {
+                return $fields;
+            }
+            
             // In this context, field names can be reserved words or function names
             if ($this->token == 'primary') {
                 $this->getTok();
