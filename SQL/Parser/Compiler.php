@@ -339,7 +339,7 @@ class SQL_Parser_Compiler
         if (count($pk) >  1) {
             $body[] = "    PRIMARY KEY ({$iquote}" . 
                 implode("{$iquote},{$iquote}", $pk) .
-                "{$iquote})"
+                "{$iquote})";
         }
         
         
