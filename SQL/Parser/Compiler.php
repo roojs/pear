@@ -359,11 +359,11 @@ class SQL_Parser_Compiler
             $ret.='('.$data['length'].')';
         }
         foreach($data['constraints']) as $c) {
-            switch($c->type) {
+            switch($c['type']) {
                 case 'not_null': $ret .= " NOT NULL"; break;
                     
                 case 'auto_increment': $ret .= " AUTO_INCREMENT"; break;
-                
+                case 'default_value': $ret .= " " . $c['type']; break;
                }
         }
         
