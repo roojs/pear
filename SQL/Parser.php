@@ -1158,13 +1158,14 @@ class SQL_Parser
                     $this->getTok();
                     // alter table ADD COLUMN....
                     $action['on'] = $this->token;
-                     print_r($action);
+                     
                     switch ($action['on']) {
                         case 'column': // add / remove / 
                             if ($action['action'] == 'change') {
                                 $this->getTok();
                                 $action['from'] = $this->lexer->tokText;
                             }
+                            print_r($action);
                             $fields = $this->parseFieldList(false);
                             foreach($fields as $k=>$v) {
                                 $action['name'] = $k;
