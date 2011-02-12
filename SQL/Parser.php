@@ -885,7 +885,7 @@ class SQL_Parser
         $fields = array();
 
         $this->getTok();
-        if ($this->token != '(') {
+        if ($expect !== false && $this->token != $expect) {
             $this->raiseError('Expected (');
         }
 
