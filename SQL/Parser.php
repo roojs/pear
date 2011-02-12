@@ -1751,6 +1751,9 @@ class SQL_Parser
                 case 'create':
                     $branch = $this->parseCreate();
                     break;
+                case 'create':
+                    $branch = $this->parseCreate();
+                    break;
                 case 'drop':
                     $branch = $this->parseDrop();
                     break;
