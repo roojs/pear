@@ -880,7 +880,7 @@ class SQL_Parser
      * @access  public
      * @return mixed array parsed field list on success, otherwise Error
      */
-    public function parseFieldList()
+    public function parseFieldList($allow_multiple = true)
     {
         $fields = array();
 
@@ -893,7 +893,10 @@ class SQL_Parser
             // parse field identifier
             $this->getTok();
             if ($this->token == ',') {
-                continue;
+                if ($allow_multiple) {
+                    continue;
+                }
+                
             }
             // In this context, field names can be reserved words or function names
             if ($this->token == 'primary') {
@@ -1142,7 +1145,29 @@ class SQL_Parser
                 $tree['table_names'] = array( $this->lexer->tokText );
                 $tree['table_actions'] = array();
                 
+                $action = array()
                 while (1) {
+                    $this->getTok();
+                    if ($this->tok == ';') {
+                        $tree['table_actions'][] = $action;
+                        return $tree;
+                    }
+                    // alter table ADD|CHANGE|..
+                    $action['action'] = $this->token;
+                    $this->getTok();
+                    // alter table ADD COLUMN....
+                    $action['on'] = $this->token;
+                     
+                    switch ($action['on']) {
+                        case 'column': // add / remove / 
+                            if ($action['action'] == 'change') {
+                                $this->getTok();
+                                $action['from'] = $this->lexer->tokText
+                               }
+                       }
+                    
+                    
+                    
                     
                 }
                 
