@@ -1179,15 +1179,7 @@ class SQL_Parser
                     
                     
                 }
-                
-                $fields = $this->parseFieldList();
-                if (false === $fields) {
-                    return $fields;
-                }
-                $tree['column_defs'] = $fields;
-                // $tree['column_names'] = array_keys($fields);'
-                $this->getTok();
-                return $tree;
+                // we never get here.. it should return from insind th eloop.
                 break;
             case 'index':
                 $tree['command'] = 'alter_index';
