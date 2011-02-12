@@ -324,6 +324,9 @@ class SQL_Parser_Compiler
         $sql = "CREATE TABLE " . $this->tree['table_names'][0]. " (\n";
         $pk =  array();
         foreach($this->tree['column_defs'] as $k=>$type) {
+            if (empty($data['constraints'])) {
+                continue ;
+            }
             foreach($type['constraints'] as $c) {
                 if ($c['type'] = 'primary_key') {
                     $pk[] = $k ;
