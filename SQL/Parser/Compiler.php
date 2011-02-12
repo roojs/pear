@@ -328,7 +328,7 @@ class SQL_Parser_Compiler
                 continue ;
             }
             foreach($type['constraints'] as $c) {
-                if ($c['type'] = 'primary_key') {
+                if ($c['type'] == 'primary_key') {
                     $pk[] = $k ;
                     break;
                 }
