@@ -372,6 +372,13 @@ class SQL_Parser_Compiler
                     $ret .= " " . $c['value']; 
                     break;
                 
+                case 'primary_key': 
+                    if (!$add_primary_key) {
+                        continue;
+                    }
+                    $ret .= " PRIMARY KEY"; 
+                    break;
+                
                 default: 
                     throw new Exception("FIXME - need to handle type" . $c['type']);
             }
