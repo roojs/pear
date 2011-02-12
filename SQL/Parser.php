@@ -1158,7 +1158,7 @@ class SQL_Parser
                     $this->getTok();
                     // alter table ADD COLUMN....
                     $action['on'] = $this->token;
-                     
+                     print_r($action);
                     switch ($action['on']) {
                         case 'column': // add / remove / 
                             if ($action['action'] == 'change') {
