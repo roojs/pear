@@ -318,7 +318,7 @@ class SQL_Parser_Compiler
     }
 //    }}}
 
-    function compileCreate()
+    function compileCreateTable()
     {
         $iquote = '`';
         $sql = "CREATE TABLE " . $this->tree['table_names'][0]. " (\n";
