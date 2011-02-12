@@ -451,7 +451,7 @@ class SQL_Parser
         // parse field options
         $namedConstraint = false;
         $options         = array();
-        while ($this->token != ',' && $this->token != ')' && $this->token != null ) {
+        while ($this->token != ',' && $this->token != ';' && $this->token != ')' && $this->token != null ) {
             $option    = $this->token;
             $haveValue = true;
             switch ($option) {
