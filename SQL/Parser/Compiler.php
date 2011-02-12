@@ -358,6 +358,9 @@ class SQL_Parser_Compiler
         if (!empty($data['length'])) {
             $ret.='('.$data['length'].')';
         }
+        if (empty($data['constraints']) {
+            return $ret;
+           }
         foreach($data['constraints'] as $c) {
             switch($c['type']) {
                 case 'not_null': 
