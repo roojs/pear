@@ -44,7 +44,7 @@
 /**
  *
  */
-require_once dirname(__FILE__) . '/Parser/Lexer.php';
+require_once 'SQL/Parser/Lexer.php';
 
 /**
  * A sql parser
