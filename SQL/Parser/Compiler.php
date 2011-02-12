@@ -319,8 +319,14 @@ class SQL_Parser_Compiler
     {
         
     }
-
-
+    function compileDrop()
+    {
+        
+    }
+    function compileAlter()
+    {
+        
+    }
 //    {{{ function compile($array = null)
     function compile($array = null)
     {
