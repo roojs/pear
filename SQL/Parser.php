@@ -880,7 +880,7 @@ class SQL_Parser
      * @access  public
      * @return mixed array parsed field list on success, otherwise Error
      */
-    public function parseFieldList($allow_multiple = true)
+    public function parseFieldList($allow_multiple = true, $expect '(')
     {
         $fields = array();
 
