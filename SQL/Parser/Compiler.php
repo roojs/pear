@@ -363,7 +363,7 @@ class SQL_Parser_Compiler
                 case 'not_null': $ret .= " NOT NULL"; break;
                     
                 case 'auto_increment': $ret .= " AUTO_INCREMENT"; break;
-                case 'default_value': $ret .= " " . $c['type']; break;
+                case 'default_value': $ret .= " " . $c['value']; break;
                }
         }
         
