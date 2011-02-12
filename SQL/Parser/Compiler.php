@@ -334,7 +334,12 @@ class SQL_Parser_Compiler
         // if we have more than one primary key... - then we have to use a line at the end..
         $body = array();
         foreach($this->tree['column_defs'] as $name=>$type) {
-            $body[] = "    " . $this->typeToSQL($name, $type, count($pk) > 1 ? true : false);
+            $body[] = "    " . 
+                $this->typeToSQL(
+                    $name, 
+                    $type, 
+                    count($pk) > 1 ? true : false
+                );
         }
         if (count($pk) >  1) {
             $body[] = "    PRIMARY KEY ({$iquote}" . 
