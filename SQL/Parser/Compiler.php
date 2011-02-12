@@ -354,6 +354,18 @@ class SQL_Parser_Compiler
     
     function typeToSQL($data, $add_primary_key) 
     {
+        $ret = $data['type'];
+        if (!empty($data['length'])) {
+            $ret.='('.$data['length'].')';
+        }
+        foreach($data['constraints']) as $c) {
+            switch($c->type) {
+                case 'not_null': $ret .= " NOT NULL"; break;
+                    
+                case 'auto_increment': $ret .= " AUTO INCREMENT"; break;
+                
+               }
+        }
         
     }
     
