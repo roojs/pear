@@ -340,7 +340,7 @@ class SQL_Parser_Compiler
             $body[] = "    {$iquote}$name{$iquote} " . 
                 $this->typeToSQL(
                     $type, 
-                    count($pk) > 1 ? true : false
+                    count($pk) > 1 ? false : true
                 );
         }
         if (count($pk) >  1) {
