@@ -1139,7 +1139,7 @@ class SQL_Parser
                 if ($this->token != 'ident') {
                     $this->raiseError('Expected table name');
                 }
-                $tree['table_names'][] = $this->lexer->tokText;
+                $tree['table_names'] = array( $this->lexer->tokText );
                 $tree['table_actions'] = array();
                 
                 while (1) {
