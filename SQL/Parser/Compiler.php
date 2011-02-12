@@ -315,6 +315,12 @@ class SQL_Parser_Compiler
     }
 //    }}}
 
+    function compileCreate()
+    {
+        
+    }
+
+
 //    {{{ function compile($array = null)
     function compile($array = null)
     {
