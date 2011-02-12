@@ -1140,6 +1140,12 @@ class SQL_Parser
                     $this->raiseError('Expected table name');
                 }
                 $tree['table_names'][] = $this->lexer->tokText;
+                $tree['table_actions'] = array();
+                
+                while (1) {
+                    
+                }
+                
                 $fields = $this->parseFieldList();
                 if (false === $fields) {
                     return $fields;
