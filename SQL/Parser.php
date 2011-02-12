@@ -1752,7 +1752,7 @@ class SQL_Parser
                     $branch = $this->parseCreate();
                     break;
                 case 'alter':
-                    $branch = $this->parseCreate();
+                    $branch = $this->parseAlter();
                     break;
                 case 'drop':
                     $branch = $this->parseDrop();
