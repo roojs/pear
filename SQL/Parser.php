@@ -883,12 +883,12 @@ class SQL_Parser
     public function parseFieldList($allow_multiple = true, $expect = '(')
     {
         $fields = array();
-
-        $this->getTok();
-        if ($expect !== false && $this->token != $expect) {
-            $this->raiseError('Expected (');
+        if ($expect !== false) {
+            $this->getTok();
+            if ($this->token != $expect) {
+                $this->raiseError('Expected (');
+            }
         }
-
         while (1) {
             // parse field identifier
             $this->getTok();
