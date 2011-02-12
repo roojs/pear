@@ -1178,7 +1178,7 @@ class SQL_Parser
                             break;
                         
                         default: 
-                            throw("do not know how to handle: " . $action['on']);
+                            throw new Exception("do not know how to handle: " . $action['on']);
                     }
                     
                     
