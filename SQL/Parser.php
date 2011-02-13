@@ -1380,7 +1380,7 @@ class SQL_Parser
             }
 
             $this->getTok();
-            $set['column'] = $this->parseCondition();
+            $set['value'] = $this->parseCondition();
 
             $tree['sets'][] = $set;
 
