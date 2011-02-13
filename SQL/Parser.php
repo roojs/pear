@@ -1199,6 +1199,10 @@ class SQL_Parser
                             }
                             print_r($action);
                             break;
+                        case 'index':
+                            // alter table xxx add index(a,b,c);
+                            
+                
                         
                         default: 
                             throw new Exception("do not know how to handle: " . $action['what']);
@@ -1211,6 +1215,9 @@ class SQL_Parser
                 break;
             case 'index':
                 $tree['command'] = 'alter_index';
+                
+                
+                
                 break;
             case 'constraint':
                 $tree['command'] = 'alter_constraint';
