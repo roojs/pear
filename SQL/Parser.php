@@ -1208,7 +1208,7 @@ class SQL_Parser
                                 $action['field'] = $v;
                             }
                             if ($this->token != ';' && $this->token != ',') {
-                                $this->raiseError("expection ', or ;' got " $this->token);
+                                $this->raiseError("expection ', or ;' got " . $this->token);
                             }
                             continue;
                             //print_r($action);
