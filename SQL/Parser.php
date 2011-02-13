@@ -1227,7 +1227,7 @@ class SQL_Parser
                                 if ($this->token ==')') {
                                     break;
                                 }
-                                $this->raiseError("Expecting ', or )' got " + $this-.token);
+                                $this->raiseError("Expecting ', or )' got " . $this->token);
                             }
                             // @ )
                             $this->
