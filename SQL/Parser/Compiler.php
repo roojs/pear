@@ -392,11 +392,11 @@ class SQL_Parser_Compiler
         return $ret;
     }
     
-    function compileDrop()
+    function compileDropTable()
     {
         
     }
-    function compileAlter()
+    function compileAlterTable()
     {
         
     }
@@ -419,6 +419,8 @@ class SQL_Parser_Compiler
                 return $this->compileInsert();
                 break;
             case 'create_table':
+                return $this->compileCreateTable();
+            case 'alter_table':
                 return $this->compileCreateTable();
             case 'drop':
             case 'alter':
