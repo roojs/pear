@@ -420,7 +420,7 @@ class SQL_Parser_Compiler
                                 $a['field'], 
                                 true ///
                             );
-                            var_dump($line);exit;
+                            //var_dump($line);exit;
                             break;
                         
                         default:
