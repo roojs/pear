@@ -1208,7 +1208,13 @@ class SQL_Parser
                             //print_r($action);
                             break;
                         case 'index':
-                            // alter table xxx add index(a,b,c);
+                            // alter table xxx add index indexname(a,b,c);
+                            $this->getTok();
+                            $action['name'] = $this->lexer->tokText;
+                            $this->getTok();
+                            if ($this->token != '(') {
+                                $this->raiseError("Expecting '(', got : ". $this->token);
+                            }
                             
                 
                         
