@@ -421,7 +421,7 @@ class SQL_Parser_Compiler
             case 'create_table':
                 return $this->compileCreateTable();
             case 'alter_table':
-                return $this->compileCreateTable();
+                return $this->compileAlterTable();
             case 'drop':
             case 'alter':
             default:
