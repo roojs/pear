@@ -894,7 +894,7 @@ class SQL_Parser
             $this->getTok();
             if ($this->token == ',') {
                 if ($allow_multiple) {
-                    return $fields;
+                    continue;
                 }
                 // parsing alter field list - have to break on ','
                 return $fields;
