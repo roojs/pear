@@ -321,7 +321,7 @@ class SQL_Parser_Compiler
     function compileCreateTable()
     {
         $qi = $this->quote_identifier;
-        $sql = "CREATE TABLE " . $this->tree['table_names'][0]. " (\n";
+        $sql = "CREATE TABLE {$qi}" . $this->tree['table_names'][0]. "{$qi} (\n";
         $pk =  array();
         foreach($this->tree['column_defs'] as $k=>$type) {
             if (empty($type['constraints'])) {
