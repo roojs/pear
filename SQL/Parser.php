@@ -1195,7 +1195,7 @@ class SQL_Parser
                                 if ($this->token != ';' && $this->token != ',') {
                                     $this->raiseError("expection ', or ;' got ".  $this->token);
                                 }
-                                continue;
+                                break;
                             }
                             
                             if ($action['action'] == 'change') {
@@ -1212,7 +1212,7 @@ class SQL_Parser
                                 $this->raiseError("expection ', or ;' got " . $this->token);
                             }
                             
-                            continue;
+                            break;
                             
                             
                             
@@ -1246,14 +1246,13 @@ class SQL_Parser
                                 $this->raiseError("expection ', or ;' got " . $this->token);
                             }
                             
-                            continue;
+                            break;
                             
                         
                         default: 
                             throw new Exception("do not know how to handle: " . $action['what']);
                     }// end switch..
                     
-                    throw new Exception("We should not get here");
                     
                     
                     
