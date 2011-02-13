@@ -320,7 +320,7 @@ class SQL_Parser_Compiler
 
     function compileCreateTable()
     {
-        $iquote = '`';
+        $qi = $this->quote_identifier;
         $sql = "CREATE TABLE " . $this->tree['table_names'][0]. " (\n";
         $pk =  array();
         foreach($this->tree['column_defs'] as $k=>$type) {
@@ -337,16 +337,16 @@ class SQL_Parser_Compiler
         // if we have more than one primary key... - then we have to use a line at the end..
         $body = array();
         foreach($this->tree['column_defs'] as $name=>$type) {
-            $body[] = "    {$iquote}$name{$iquote} " . 
+            $body[] = "    {$qi}$name{$qi} " . 
                 $this->typeToSQL(
                     $type, 
                     count($pk) > 1 ? false : true
                 );
         }
         if (count($pk) >  1) {
-            $body[] = "    PRIMARY KEY ({$iquote}" . 
-                implode("{$iquote},{$iquote}", $pk) .
-                "{$iquote})";
+            $body[] = "    PRIMARY KEY ({$qi}" . 
+                implode("{$qi},{$qi}", $pk) .
+                "{$qi})";
         }
         
         
@@ -420,7 +420,9 @@ class SQL_Parser_Compiler
                     break;
                 
                 case 'index': 
-                    
+                    $line .= " {$qi}{$a['name']}{$qi}" . 
+                        implode("{$qi},{$qi}", $a['indexes']) .
+                        "{$qi})";
                 
             $sa[] = $line;
         }
