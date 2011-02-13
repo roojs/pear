@@ -289,6 +289,8 @@ class SQL_Parser_Compiler
             $set_columns[] = $this->tree['column_names'][$i].' = '.$this->getWhereValue($this->tree['values'][$i]);
         }
         */
+        
+        print_r($this->tree['sets']);
         foreach($this->tree['sets'] as $s) {
             // FIXME - parser handles more complex than this does...
             $set_columns[] = $s['name']['column'].' = '.$this->getWhereValue($s['value'][0]);
