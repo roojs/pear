@@ -1166,9 +1166,6 @@ class SQL_Parser
                 $tree['table_actions'] = array();
                 
                 $action = array();
-                
-                    
-                    
                     
                     
                 while (1) {
