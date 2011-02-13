@@ -423,7 +423,7 @@ class SQL_Parser_Compiler
                             break;
                         */
                         default:
-                            throw new Exception("FIXME - need to handle column action" . print_r($this->tree, true));
+                            throw new Exception("FIXME - need to handle column action" . print_r($a, true));
                     }
                     break;
                 
