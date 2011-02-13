@@ -1234,7 +1234,8 @@ class SQL_Parser
                                 }
                                 $this->raiseError("Expecting ', or )' got " . $this->token);
                             }
-                            // @ )
+                            // @ ), or ;
+                            
                             $this->getTok();
                               if ($this->token != ';' && $this->token != ',') {
                                 $this->raiseError("expection ', or ;' got " . $this->token);
