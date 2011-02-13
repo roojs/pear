@@ -1001,7 +1001,10 @@ class SQL_Parser
                 }
                 $this->getTok();
             }
+            
+            
             $fields[$name]['type'] = $this->synonyms[$type];
+            
             // parse type parameters
             if ($this->token == '(') {
                 $results = $this->getParams($values, $types);
@@ -1049,17 +1052,20 @@ class SQL_Parser
                 }
                 $this->getTok();
             }
-
+            // parse field options..
             $options = $this->parseFieldOptions();
             if (false === $options) {
                 return $options;
             }
 
             $fields[$name] += $options;
-
+            
+            var_Dump($this->token);
+            
             if ($this->token == ')') {
                 return $fields;
-            } elseif ($this->token == ';' || is_null($this->token)) {
+            } 
+            if ($this->token == ';' || is_null($this->token)) {
                 return $fields;
             }
         }
