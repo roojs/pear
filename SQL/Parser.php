@@ -1211,8 +1211,7 @@ class SQL_Parser
                                 $this->raiseError("expection ', or ;' got " . $this->token);
                             }
                             continue;
-                            //print_r($action);
-                            break;
+                            
                         case 'index':
                             // alter table xxx add index indexname(a,b,c);
                             $this->getTok();
@@ -1239,7 +1238,6 @@ class SQL_Parser
                             $this->getTok();
                             continue;
                             
-                
                         
                         default: 
                             throw new Exception("do not know how to handle: " . $action['what']);
