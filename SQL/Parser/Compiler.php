@@ -437,6 +437,7 @@ class SQL_Parser_Compiler
                 default:
                     throw new Exception("FIXME - need to handle alter table" . print_r($this->tree, true));
             }
+            
             $sa[] = $line;
         }
         return $sql . implode(",\n    ", $sa). ";";
