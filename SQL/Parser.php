@@ -1182,7 +1182,7 @@ class SQL_Parser
                     $this->getTok();
                     // alter table ADD COLUMN....
                     $action['what'] = $this->token;
-                     
+                    var_dump($action['what']);
                     switch ($action['what']) {
                         
                         case 'column': // add / remove / 
