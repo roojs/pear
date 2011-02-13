@@ -449,20 +449,22 @@ class SQL_Parser_Compiler
         switch ($this->tree['command']) {
             case 'select':
                 return $this->compileSelect();
-                break;
+                
             case 'update':
                 return $this->compileUpdate();
-                break;
+                
             case 'delete':
                 return $this->compileDelete();
-                break;
+                
             case 'insert':
                 return $this->compileInsert();
-                break;
+                
             case 'create_table':
                 return $this->compileCreateTable();
+                
             case 'alter_table':
                 return $this->compileAlterTable();
+                
             case 'drop':
             case 'alter':
             default:
