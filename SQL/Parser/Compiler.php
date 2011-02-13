@@ -121,20 +121,19 @@ class SQL_Parser_Compiler
 //    {{{ function compileSearchClause
     function compileSearchClause($where_clause)
     {
-        $value = '';
-        // FIXME = nested
+        // FIXME = nested - and a better interpretter
         
         // args + ops == nested...
-        
+        $sql = '';
         for($i = 0; $i < count($where_clause['args']); $i+=2) {
-            $sql = $where_clause['args'][$i]['column'] . 
+            $sql = ' ' . $where_clause['args'][$i]['column'] . 
                 ' ' .
                 $where_clause['ops'][floor($i/2)] .
                 ' ' .
                 $this->getWhereValue ($where_clause['args'][$i+1]);
             
         }
-        
+        return $sql;
         
         
         if (isset ($where_clause['arg_1']['value'])) {
