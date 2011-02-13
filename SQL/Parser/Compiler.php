@@ -429,7 +429,7 @@ class SQL_Parser_Compiler
                     break;
                 
                 case 'index': 
-                    $line .= " {$qi}{$a['name']}{$qi}" . 
+                    $line .= " {$qi}{$a['name']}{$qi} (" . 
                         implode("{$qi},{$qi}", $a['indexes']) .
                         "{$qi})";
                     break;
