@@ -1185,6 +1185,12 @@ class SQL_Parser
                                 $this->getTok();
                                 $action['from'] = $this->lexer->tokText;
                             }
+                            if ($action['action'] == 'change') {
+                                $this->getTok();
+                                $action['name'] = $this->lexer->tokText;
+                                continue;
+                                
+                            }
                             
                             $fields = $this->parseFieldList(false, false);
                             foreach($fields as $k=>$v) {
