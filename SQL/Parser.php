@@ -1204,8 +1204,6 @@ class SQL_Parser
                             }
                             if ($this->token == ',') {
                                 $this->getTok();
-                                $tree['table_actions'][] = $action;
-                                $action = array();
                                 continue;
                             }
                             print_r($action);
