@@ -1060,7 +1060,7 @@ class SQL_Parser
 
             $fields[$name] += $options;
             
-            var_Dump($this->token);
+           // var_Dump($this->token);
             
             if ($this->token == ')') {
                 return $fields;
