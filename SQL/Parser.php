@@ -1215,12 +1215,29 @@ class SQL_Parser
                             if ($this->token != '(') {
                                 $this->raiseError("Expecting '(', got : ". $this->token);
                             }
+                            // this needs more work.. let's start with just handling a lit of toeksn..
+                            $action['indexes'] = array();
+                            while(1) {
+                                $this->getTok();
+                                $action['indexes'][] = $this->lexer->tokText;
+                                $this->getTok();
+                                if ($this->token ==',') {
+                                    continue;
+                                }
+                                if ($this->token ==')') {
+                                    break;
+                                }
+                                $this->raiseError("Expecting ', or )' got " + $this-.token);
+                            }
+                            // @ )
+                            $this->
                             
                 
                         
                         default: 
                             throw new Exception("do not know how to handle: " . $action['what']);
                     }
+                    break; // end loop...
                     
                     
                     
