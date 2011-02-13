@@ -430,7 +430,7 @@ class SQL_Parser_Compiler
             }
             $sa[] = $line;
         }
-        $sql . = implode(",\n    ", $sa). ";"
+        $sql . = implode(",\n    ", $sa). ";";
     }
 //    {{{ function compile($array = null)
     function compile($array = null)
