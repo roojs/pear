@@ -1373,7 +1373,7 @@ class SQL_Parser
 
         while (true) {
             $this->getTok();
-            $set['column'] = $this->parseIdentifier();
+            $set['name'] = $this->parseIdentifier();
 
             if ($this->token != '=') {
                 $this->raiseError('Expected =');
