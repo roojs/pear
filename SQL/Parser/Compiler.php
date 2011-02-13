@@ -39,7 +39,7 @@ require_once 'PEAR.php';
 class SQL_Parser_Compiler
 {
     var $tree;
-
+    var $quote_identifier = '`';
 // {{{ function SQL_Parser_Compiler($array = null)
     function SQL_Parser_Compiler($array = null)
     {
@@ -398,7 +398,32 @@ class SQL_Parser_Compiler
     }
     function compileAlterTable()
     {
-        
+        $sql = 'ALTER TABLE ' . $this->tree['table_names'][0] . ' ';
+        $sa = array();
+        foreach($this->tree['table_actions'] as $a) {
+            $line = $a['action'] . $a['what'];
+            
+            switch($a['what']) {
+                case 'column': 
+                    switch($a['action']) {
+                        case 'drop':
+                            $line .= $a['name'];
+                            break;
+                        
+                        case 'add':
+                //            $line .= $a['name'];          
+                //            break;
+                        }
+                        default:
+                            throw new Exception("FIXME - need to handle column action" . print_r($this->tree, true));
+                    }
+                    break;
+                
+                case 'index': 
+                    
+                
+            $sa[] = $line;
+        }
     }
 //    {{{ function compile($array = null)
     function compile($array = null)
