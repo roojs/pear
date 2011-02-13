@@ -261,7 +261,11 @@ class SQL_Parser_Compiler
 //    {{{ function compileUpdate()
     function compileUpdate()
     {
-        $sql = 'update '.implode(', ', $this->tree['table_names']);
+        
+        $sql = 'update ';
+        foreach($this->tree['tables'] as $t) {
+            $sql .= ' ' . $t['table']; //database & alias missing..
+        }
 
         // save the set clause
         $cols = count($this->tree['column_names']);
