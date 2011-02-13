@@ -413,7 +413,7 @@ class SQL_Parser_Compiler
                         case 'add':
                 //            $line .= $a['name'];          
                 //            break;
-                        }
+                        
                         default:
                             throw new Exception("FIXME - need to handle column action" . print_r($this->tree, true));
                     }
@@ -423,7 +423,7 @@ class SQL_Parser_Compiler
                     $line .= " {$qi}{$a['name']}{$qi}" . 
                         implode("{$qi},{$qi}", $a['indexes']) .
                         "{$qi})";
-                
+            }
             $sa[] = $line;
         }
         $sql . = implode(",\n    ", $sa). ";"
