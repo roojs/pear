@@ -129,6 +129,8 @@ class SQL_Parser_Compiler
         for($i = 0; $i < count($where_clause['args']); $i+=2) {
             $sql = $where_clause['args'][$i]['column'] . 
                 ' ' .
+                $where_clause['ops'][floor($i/2)] .
+                ' ' .
                 $this->getWhereValue ($where_clause['args'][$i+1]);
             
         }
