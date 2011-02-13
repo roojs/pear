@@ -1224,6 +1224,7 @@ class SQL_Parser
                             // alter table xxx add index indexname(a,b,c);
                             $this->getTok();
                             $action['name'] = $this->lexer->tokText;
+                            
                             $this->getTok();
                             if ($this->token != '(') {
                                 $this->raiseError("Expecting '(', got : ". $this->token);
@@ -1586,6 +1587,26 @@ class SQL_Parser
             case 'sequence':
                 $tree = array('command' => 'drop_sequence');
                 break;
+            
+            case 'function':
+                $tree = array('command' => 'drop_function');
+                $this->getTok();
+                if ($this->token != 'ident') {
+                    $this->raiseError('Expected a table name');
+                }
+                $tree['name'][= $this->lexer->tokText;
+                $this->getTok();
+                if ($this->token == ';') {
+                    return;
+                }
+                var_dump($this->token);exit;
+                if ($this->token == 'if') {
+                    return;
+                }
+                
+                
+                
+                break;                
             default:
                 $this->raiseError('Unknown object to drop');
         }
