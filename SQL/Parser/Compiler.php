@@ -268,9 +268,14 @@ class SQL_Parser_Compiler
         }
 
         // save the set clause
+        /*
         $cols = count($this->tree['sets']);
         for ($i = 0; $i < $cols; $i++) {
             $set_columns[] = $this->tree['column_names'][$i].' = '.$this->getWhereValue($this->tree['values'][$i]);
+        }
+        */
+        foreach($this->tree['sets'] as $s) {
+            $set_columns[] = $a['name']['column'].' = '.$this->getWhereValue($a['value'][0]);
         }
         $sql .= ' set '.implode (', ', $set_columns);
 
