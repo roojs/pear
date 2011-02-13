@@ -1169,6 +1169,7 @@ class SQL_Parser
                     
                     
                 while (1) {
+                    
                     if ($this->token == ';' || $this->token == ',') {
                         $tree['table_actions'][] = $action;
                         $action = array();
@@ -1184,7 +1185,7 @@ class SQL_Parser
                     $this->getTok();
                     // alter table ADD COLUMN....
                     $action['what'] = $this->token;
-                    var_dump($action['what']);
+                   // var_dump($action['what']);
                     switch ($action['what']) {
                         
                         case 'column': // add / remove / 
@@ -1210,7 +1211,7 @@ class SQL_Parser
                                 $action['name'] = $k;
                                 $action['field'] = $v;
                             }
-                            var_dump($this->token);
+                            //var_dump($this->token);
                             if ($this->token != ';' && $this->token != ',') {
                                 $this->raiseError("expection ', or ;' got " . $this->token);
                             }
