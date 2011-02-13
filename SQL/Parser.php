@@ -1236,6 +1236,10 @@ class SQL_Parser
                             }
                             // @ )
                             $this->getTok();
+                              if ($this->token != ';' && $this->token != ',') {
+                                $this->raiseError("expection ', or ;' got " . $this->token);
+                            }
+                            
                             continue;
                             
                         
