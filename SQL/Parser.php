@@ -1186,7 +1186,7 @@ class SQL_Parser
                     switch ($action['what']) {
                         case 'column': // add / remove / 
                             
-                            if ($action['action'] == 'change') {
+                            if ($action['action'] == 'drop') {
                                 $this->getTok();
                                 $action['name'] = $this->lexer->tokText;
                                 // fixmen check...
