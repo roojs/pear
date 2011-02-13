@@ -940,10 +940,11 @@ class SQL_Parser
                     $this->raiseError('Expected )');
                     
                 }
-                
-               
                 continue;
-            } elseif ($this->token == 'key') {
+            }
+            
+            
+            if ($this->token == 'key') {
                 $this->getTok();
                 if ($this->token != 'ident') {
                     $this->raiseError('Expected identifier');
@@ -967,15 +968,17 @@ class SQL_Parser
                     $this->getTok();
                 }
                 continue;
-            } elseif ($this->token == 'ident' || $this->isFunc()
-             || $this->isReserved()) {
-                $name = $this->lexer->tokText;
-            } elseif ($this->token == ')') {
+            } 
+            
+            if ($this->token == ')') {
                 return $fields;
-            } else {
-                //$this->raiseError('Expected identifier');
             }
-
+            
+            if ($this->token == 'ident' || $this->isFunc() || $this->isReserved()) {
+                $name = $this->lexer->tokText;
+            }
+            // else ??    //$this->raiseError('Expected identifier');
+            
             // parse field type
             $this->getTok();
             if (! $this->isType($this->token)) {
