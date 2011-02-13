@@ -127,7 +127,9 @@ class SQL_Parser_Compiler
         // args + ops == nested...
         
         for($i = 0; $i < count($where_clause['args']); $i+=2) {
-            $value = $this->compileSearchClause ($where_clause['arg_1']);
+            $sql = $where_clause['args'][$i]['column'] . 
+                ' ' .
+                $this->getWhereValue ($where_clause['args'][$i+1]);
             
         }
         
