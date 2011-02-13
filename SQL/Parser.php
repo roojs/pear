@@ -1250,7 +1250,7 @@ class SQL_Parser
                             
                         
                         default: 
-                            throw new Exception("do not know how to handle: " . $action['what']);
+                            $this->raiseError("do not know how to handle: " . $action['what']);
                     }// end switch..
                     
                     
