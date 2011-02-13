@@ -417,7 +417,7 @@ class SQL_Parser_Compiler
                         
                         case 'add':
                             $line .= ' ' . $qi . $a['name'] . $qi;
-                            $line .= $this->typeToSQL(
+                            $line .= ' ' . $this->typeToSQL(
                                 $a['field'], 
                                 true ///
                             );
