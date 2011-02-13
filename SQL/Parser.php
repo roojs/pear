@@ -1185,16 +1185,21 @@ class SQL_Parser
                      
                     switch ($action['what']) {
                         case 'column': // add / remove / 
-                            if ($action['action'] == 'change') {
-                                $this->getTok();
-                                $action['from'] = $this->lexer->tokText;
-                            }
+                            
                             if ($action['action'] == 'change') {
                                 $this->getTok();
                                 $action['name'] = $this->lexer->tokText;
                                 // fixmen check...
                                 $this->getTok(); // comma or ;
+                                if ($this->token != ';' && $this->token != ',') {
+                                    $this->raiseError("expection ', or ;' got " $this->token);
+                                }
                                 continue;
+                            }
+                            
+                            if ($action['action'] == 'change') {
+                                $this->getTok();
+                                $action['from'] = $this->lexer->tokText;
                             }
                             
                             $fields = $this->parseFieldList(false, false);
@@ -1202,9 +1207,10 @@ class SQL_Parser
                                 $action['name'] = $k;
                                 $action['field'] = $v;
                             }
-                            if ($this->token == ',') {
-                                continue;
+                            if ($this->token != ';' && $this->token != ',') {
+                                $this->raiseError("expection ', or ;' got " $this->token);
                             }
+                            continue;
                             //print_r($action);
                             break;
                         case 'index':
@@ -1230,7 +1236,8 @@ class SQL_Parser
                                 $this->raiseError("Expecting ', or )' got " . $this->token);
                             }
                             // @ )
-                            $this->
+                            $this->getTok();
+                            continue;
                             
                 
                         
