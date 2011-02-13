@@ -304,8 +304,8 @@ class SQL_Parser_Compiler
                 return $search_string;
             }
             $sql .= ' where '.$search_string;
-        }
-        return $sql;
+        } 
+        return $sql . ';';
     }
 //    }}}
 
