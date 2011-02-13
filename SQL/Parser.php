@@ -1205,7 +1205,7 @@ class SQL_Parser
                             if ($this->token == ',') {
                                 continue;
                             }
-                            print_r($action);
+                            //print_r($action);
                             break;
                         case 'index':
                             // alter table xxx add index(a,b,c);
