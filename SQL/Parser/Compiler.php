@@ -408,8 +408,12 @@ class SQL_Parser_Compiler
                 case 'column': 
                     switch($a['action']) {
                         case 'drop':
-                            $line .= $a['name'];
+                            $line .= $qi . $a['name'] . $qi;
                             break;
+                        
+                        case 'change':
+                            $line .= $qi . $a['from'] . $qi;
+                            // no break.. continue thru to add..
                         
                         case 'add':
                 //            $line .= $a['name'];          
