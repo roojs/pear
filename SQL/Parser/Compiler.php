@@ -291,7 +291,7 @@ class SQL_Parser_Compiler
         */
         foreach($this->tree['sets'] as $s) {
             // FIXME - parser handles more complex than this does...
-            $set_columns[] = $a['name']['column'].' = '.$this->getWhereValue($a['value'][0]);
+            $set_columns[] = $s['name']['column'].' = '.$this->getWhereValue($s['value'][0]);
         }
         $sql .= ' set '.implode (', ', $set_columns);
 
