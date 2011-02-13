@@ -122,6 +122,17 @@ class SQL_Parser_Compiler
     function compileSearchClause($where_clause)
     {
         $value = '';
+        // FIXME = nested
+        
+        // args + ops == nested...
+        
+        for($i = 0; $i < count($where_clause['args']); $i+=2) {
+            $value = $this->compileSearchClause ($where_clause['arg_1']);
+            
+        }
+        
+        
+        
         if (isset ($where_clause['arg_1']['value'])) {
             $value = $this->getWhereValue ($where_clause['arg_1']);
             if (PEAR::isError($value)) {
