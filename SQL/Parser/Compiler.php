@@ -420,7 +420,6 @@ class SQL_Parser_Compiler
                                 $a['field'], 
                                 true ///
                             );
-                            
                             break;
                         
                         default:
