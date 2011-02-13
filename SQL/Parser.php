@@ -1203,7 +1203,6 @@ class SQL_Parser
                                 $action['field'] = $v;
                             }
                             if ($this->token == ',') {
-                                $this->getTok();
                                 continue;
                             }
                             print_r($action);
