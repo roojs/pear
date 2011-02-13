@@ -398,6 +398,7 @@ class SQL_Parser_Compiler
     }
     function compileAlterTable()
     {
+        $qi = $this->quote_identifier;
         $sql = 'ALTER TABLE ' . $this->tree['table_names'][0] . ' ';
         $sa = array();
         foreach($this->tree['table_actions'] as $a) {
