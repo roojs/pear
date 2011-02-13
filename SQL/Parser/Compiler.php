@@ -418,7 +418,7 @@ class SQL_Parser_Compiler
                         case 'add':
                             $line .= $this->typeToSQL(
                                 $type, 
-                                count($pk) > 1 ? false : true
+                                true ///
                             );
                             
                 //            $line .= $a['name'];          
