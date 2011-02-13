@@ -410,7 +410,7 @@ class SQL_Parser_Compiler
                         case 'drop':
                             $line .= $qi . $a['name'] . $qi;
                             break;
-                        
+                        /*
                         case 'change':
                             $line .= $qi . $a['from'] . $qi;
                             // no break.. continue thru to add..
@@ -421,7 +421,7 @@ class SQL_Parser_Compiler
                                 true ///
                             );
                             break;
-                        
+                        */
                         default:
                             throw new Exception("FIXME - need to handle column action" . print_r($this->tree, true));
                     }
