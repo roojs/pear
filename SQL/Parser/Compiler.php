@@ -423,6 +423,10 @@ class SQL_Parser_Compiler
                     $line .= " {$qi}{$a['name']}{$qi}" . 
                         implode("{$qi},{$qi}", $a['indexes']) .
                         "{$qi})";
+                    break;
+                    
+                default:
+                    throw new Exception("FIXME - need to handle alter table" . print_r($this->tree, true));
             }
             $sa[] = $line;
         }
