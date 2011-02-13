@@ -1212,6 +1212,8 @@ class SQL_Parser
                             }
                             continue;
                             
+                            
+                            
                         case 'index':
                             // alter table xxx add index indexname(a,b,c);
                             $this->getTok();
@@ -1234,10 +1236,11 @@ class SQL_Parser
                                 }
                                 $this->raiseError("Expecting ', or )' got " . $this->token);
                             }
+                            
                             // @ ), or ;
                             
                             $this->getTok();
-                              if ($this->token != ';' && $this->token != ',') {
+                            if ($this->token != ';' && $this->token != ',') {
                                 $this->raiseError("expection ', or ;' got " . $this->token);
                             }
                             
@@ -1247,7 +1250,8 @@ class SQL_Parser
                         default: 
                             throw new Exception("do not know how to handle: " . $action['what']);
                     }
-                    break; // end loop...
+                    
+                    throw new Exception("We should not get here");
                     
                     
                     
@@ -1269,6 +1273,8 @@ class SQL_Parser
             default:
                 $this->raiseError('Unknown object to create');
         }
+        
+        
         throw new Exception("Can not handle ". $tree['command'] . " yet");
     }
     
