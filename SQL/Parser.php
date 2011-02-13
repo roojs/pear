@@ -1192,7 +1192,7 @@ class SQL_Parser
                                 // fixmen check...
                                 $this->getTok(); // comma or ;
                                 if ($this->token != ';' && $this->token != ',') {
-                                    $this->raiseError("expection ', or ;' got " $this->token);
+                                    $this->raiseError("expection ', or ;' got ".  $this->token);
                                 }
                                 continue;
                             }
