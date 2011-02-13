@@ -1188,9 +1188,9 @@ class SQL_Parser
                             if ($action['action'] == 'change') {
                                 $this->getTok();
                                 $action['name'] = $this->lexer->tokText;
+                                // fixmen check...
                                 $this->getTok(); // comma or ;
                                 continue;
-                                
                             }
                             
                             $fields = $this->parseFieldList(false, false);
