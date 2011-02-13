@@ -402,7 +402,7 @@ class SQL_Parser_Compiler
         $sql = "ALTER TABLE {$qi}". $this->tree['table_names'][0] . "{$qi} ";
         $sa = array();
         foreach($this->tree['table_actions'] as $a) {
-            $line = $a['action'] . $a['what'];
+            $line = $a['action'] . ' '. $a['what'];
             
             switch($a['what']) {
                 case 'column': 
