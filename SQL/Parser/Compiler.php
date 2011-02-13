@@ -417,12 +417,11 @@ class SQL_Parser_Compiler
                         
                         case 'add':
                             $line .= $this->typeToSQL(
-                                $type, 
+                                $a['field'], 
                                 true ///
                             );
                             
-                //            $line .= $a['name'];          
-                //            break;
+                            break;
                         
                         default:
                             throw new Exception("FIXME - need to handle column action" . print_r($this->tree, true));
