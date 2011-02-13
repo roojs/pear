@@ -1169,8 +1169,12 @@ class SQL_Parser
                 $this->getTok();
                     
                 while (1) {
-                    if ($this->token == ';') {
+                    if ($this->token == ';' || $this->token == ',') {
                         $tree['table_actions'][] = $action;
+                        $action = array();
+                    }
+                    
+                    if ($this->token == ';') {
                         return $tree;
                     }
                     // alter table ADD|CHANGE|..
