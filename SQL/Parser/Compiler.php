@@ -135,7 +135,7 @@ class SQL_Parser_Compiler
         }
         return $sql;
         
-        
+        /*
         if (isset ($where_clause['arg_1']['value'])) {
             $value = $this->getWhereValue ($where_clause['arg_1']);
             if (PEAR::isError($value)) {
@@ -180,6 +180,7 @@ class SQL_Parser_Compiler
             }
         }
         return $sql;
+        */
     }
 //    }}}
 
