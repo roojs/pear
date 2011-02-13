@@ -1068,6 +1068,12 @@ class SQL_Parser
             if ($this->token == ';' || is_null($this->token)) {
                 return $fields;
             }
+            
+            if (($this->token == ',')  && !$allow_multiple) {
+                // parsing alter field list - have to break on ','
+                return $fields;
+            }
+            
         }
 
         return $fields;
