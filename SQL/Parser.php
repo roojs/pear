@@ -1184,6 +1184,7 @@ class SQL_Parser
                     $action['what'] = $this->token;
                      
                     switch ($action['what']) {
+                        
                         case 'column': // add / remove / 
                             
                             if ($action['action'] == 'drop') {
@@ -1249,7 +1250,7 @@ class SQL_Parser
                         
                         default: 
                             throw new Exception("do not know how to handle: " . $action['what']);
-                    }
+                    }// end switch..
                     
                     throw new Exception("We should not get here");
                     
