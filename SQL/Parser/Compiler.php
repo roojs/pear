@@ -416,6 +416,11 @@ class SQL_Parser_Compiler
                             // no break.. continue thru to add..
                         
                         case 'add':
+                            $line .= $this->typeToSQL(
+                                $type, 
+                                count($pk) > 1 ? false : true
+                            );
+                            
                 //            $line .= $a['name'];          
                 //            break;
                         
