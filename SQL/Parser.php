@@ -1560,53 +1560,61 @@ class SQL_Parser
     public function parseDrop()
     {
         $this->getTok();
+        
+        
+        $tree = array('command' => 'drop');
+        while (null !== $this->token) {
+            switch ($this->token) {
+                case 'table':
+                    $tree['command'] .= '_table';
+                    $this->parseDropTable($tree);
+                    break;
+                case 'index':
+                    $tree['command'] .= '_index';
+                    break;
+                case 'constraint':
+                    $tree['command'] .= '_constraint';
+                    break;
+                case 'sequence':
+                    $tree['command'] .= '_sequence';
+                    break;
+                default:
+                    if ($option = $this->_parseOption($this->drop_options)) {
+                        $tree['command_options'][] = $option;
+                    } else {
+                        $tree['unknown'][] = $this->lexer->tokText;
+                    }
+            }
+            $this->getTok();
+            
+         }
+ 
         switch ($this->token) {
             case 'table':
                 $tree = array('command' => 'drop_table');
-                $this->getTok();
-                if ($this->token != 'ident') {
-                    $this->raiseError('Expected a table name');
-                }
-                $tree['table_names'][] = $this->lexer->tokText;
-
-                $this->getTok();
-                if ($this->token == 'restrict'
-                 || $this->token == 'cascade')
-                {
-                    $tree['drop_behavior'] = $this->token;
-                    $this->getTok();
-                }
-                return $tree;
+                $this->parseDropTable($tree);
+                
                 break;
             case 'index':
                 $tree = array('command' => 'drop_index');
+                $this->raiseError('DROP ' . $this->token . ' not supported yet');
                 break;
             case 'constraint':
                 $tree = array('command' => 'drop_constraint');
+                $this->raiseError('DROP ' . $this->token . ' not supported yet');
                 break;
             case 'sequence':
                 $tree = array('command' => 'drop_sequence');
+                $this->raiseError('DROP ' . $this->token . ' not supported yet');
                 break;
             
             case 'function':
                 $tree = array('command' => 'drop_function');
-                $this->getTok();
-                if ($this->token != 'ident') {
-                    $this->raiseError('Expected a table name');
-                }
-                $tree['name'] = $this->lexer->tokText;
-                $this->getTok();
-                if ($this->token == ';') {
-                    return;
-                }
-                var_dump($this->token);exit;
-                if ($this->token == 'if') {
-                    return;
-                }
+              
                 
                 
                 
-                break;                
+                            
             default:
                 $this->raiseError('Unknown object to drop');
         }
