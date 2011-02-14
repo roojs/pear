@@ -329,8 +329,11 @@ class SQL_Parser_Compiler
 //    {{{ function compileInsert()
     function compileInsert()
     {
-        $sql = 'insert into '.$this->tree['table_names'][0].' ('.
-                implode(', ', $this->tree['column_names']).') values (';
+        $sql = 'insert into ' . $this->tree['table_names'][0] .
+                (isset($this->tree['column_names']) ? 
+                    ' (' . implode(', ', $this->tree['column_names']) . ')' : 
+                    ''
+                ) . ' values (';
 
         $c_vals = count($this->tree['values']);
         for ($i = 0; $i < $c_vals; $i++) {
