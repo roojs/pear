@@ -1593,16 +1593,18 @@ class SQL_Parser
             case 'table':
                 $tree = array('command' => 'drop_table');
                 $this->parseDropTable($tree);
-                
                 break;
+                
             case 'index':
                 $tree = array('command' => 'drop_index');
                 $this->raiseError('DROP ' . $this->token . ' not supported yet');
                 break;
+                
             case 'constraint':
                 $tree = array('command' => 'drop_constraint');
                 $this->raiseError('DROP ' . $this->token . ' not supported yet');
                 break;
+                
             case 'sequence':
                 $tree = array('command' => 'drop_sequence');
                 $this->raiseError('DROP ' . $this->token . ' not supported yet');
@@ -1610,7 +1612,9 @@ class SQL_Parser
             
             case 'function':
                 $tree = array('command' => 'drop_function');
-              
+                $this->raiseError('DROP ' . $this->token . ' not supported yet');
+                break;
+            
                 
                 
                 
