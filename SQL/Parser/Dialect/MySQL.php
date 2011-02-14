@@ -596,8 +596,16 @@ $dialect = array(
     'lexeropts' => array(
         'allowIdentFirstDigit' => true,
     ),
-
-    'parseropts' => array(
+    'parseropts' => array(),
+    
+    'drop_options'  => array(
+        'temporary' => 'TEMPORARY',
+    ),
+    
+    'drop_table_options' => array(
+        'if' => array(
+            'exists' => 'IF EXISTS',
+        ),
     ),
 
     'comments' => array(
@@ -611,4 +619,6 @@ $dialect = array(
         '"' => 'string',
         '`' => 'ident',
     ),
+
+
 );
