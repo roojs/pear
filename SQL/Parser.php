@@ -1561,34 +1561,6 @@ class SQL_Parser
     {
         $this->getTok();
         
-        
-        $tree = array('command' => 'drop');
-        while (null !== $this->token) {
-            switch ($this->token) {
-                case 'table':
-                    $tree['command'] .= '_table';
-                    $this->parseDropTable($tree);
-                    break;
-                case 'index':
-                    $tree['command'] .= '_index';
-                    break;
-                case 'constraint':
-                    $tree['command'] .= '_constraint';
-                    break;
-                case 'sequence':
-                    $tree['command'] .= '_sequence';
-                    break;
-                default:
-                    if ($option = $this->_parseOption($this->drop_options)) {
-                        $tree['command_options'][] = $option;
-                    } else {
-                        $tree['unknown'][] = $this->lexer->tokText;
-                    }
-            }
-            $this->getTok();
-            
-         }
- 
         switch ($this->token) {
             case 'table':
                 $tree = array('command' => 'drop_table');
