@@ -1614,10 +1614,7 @@ class SQL_Parser
                 $tree = array('command' => 'drop_function');
                 $this->raiseError('DROP ' . $this->token . ' not supported yet');
                 break;
-            
-                
-                
-                
+              
                             
             default:
                 $this->raiseError('Unknown object to drop');
