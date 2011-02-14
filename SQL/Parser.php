@@ -1622,7 +1622,7 @@ class SQL_Parser
                     break;
                 default:
                     $token_text = $this->lexer->tokText;
-                    if ($option = $this->_parseOption($this->drop_table_options)) {
+                    if ($option = $this->parseOption($this->drop_table_options)) {
                         $tree['command_options'][] = $option;
                     } elseif ($table_names_valid) {
                         $tree['table_names'][] = $token_text;
