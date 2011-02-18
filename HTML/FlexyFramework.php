@@ -799,6 +799,7 @@ class HTML_FlexyFramework {
         $request = preg_replace('/[\/]*$/','',$request);
         $this->baseRequest = $request;
         $request = preg_replace('/\.([a-z]+)$/','',$request);
+        $this->ext = substr($this->baseRequest , strlen($request));
         
         // REDIRECT ROO to index.php! for example..
         
