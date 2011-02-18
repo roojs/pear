@@ -101,6 +101,7 @@ class HTML_FlexyFramework {
     var $start = false; // the start tiem.
     
     var $baseRequest = '';
+    var $ext; // the striped extention.
     
     var $dataObjectsOriginalIni = ''; // 1 houre..
     /**
