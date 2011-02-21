@@ -2976,8 +2976,8 @@ class DB_DataObject extends DB_DataObject_Overload
     * @return   array|null    
     *           array       = if there are links defined for this table.
     *           empty array - if there is a links.ini file, but no links on this table
-    *           null        - if no links.ini exists for this database (hence try auto_links).
-    * @access   public
+    *           false       - if no links.ini exists for this database (hence try auto_links).
+   * @access   public
     * @see      DB_DataObject::getLinks(), DB_DataObject::getLink()
     */
     
