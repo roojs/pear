@@ -2989,10 +2989,15 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         // have to connect.. -> otherwise things break later.
         $this->_connect();
-        
-        if (isset($_DB_DATAOBJECT['LINKS'][$this->_database][$this->__table])) {
-            return $_DB_DATAOBJECT['LINKS'][$this->_database][$this->__table];
-        }
+        // alias for shorter code..
+        $lcfg = &$_DB_DATAOBJECT['LINKS'];
+        $cfg  = &$_DB_DATAOBJECT['CONFIG'];
+
+        // loaded and available.
+        if (isset($lcfg[$this->_database][$this->__table])) {
+            return $lcfg[$this->_database][$this->__table];
+
+         
         
         
         
