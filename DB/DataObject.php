@@ -2094,7 +2094,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * or you do not want to use ini tables, you can override this.
      * @param  string optional set the key
      * @param  *   optional  set more keys
-     * @access private
+     * @access public
      * @return array
      */
     function keys()
