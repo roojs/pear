@@ -2134,7 +2134,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * @param  string  optional the key sequence/autoinc. key
      * @param  boolean optional use native increment. default false 
      * @param  false|string optional native sequence name
-     * @access private
+     * @access public
      * @return array (column,use_native,sequence_name)
      */
     function sequenceKey()
