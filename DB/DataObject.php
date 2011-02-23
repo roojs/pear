@@ -3785,7 +3785,7 @@ class DB_DataObject extends DB_DataObject_Overload
     }
 
     /**
-     * autoJoin - using the links.ini file, it builds a query will all the joins 
+     * autoJoin - using the links.ini file, it builds a query with all the joins 
      *
      
      * @return   array      info about joins
