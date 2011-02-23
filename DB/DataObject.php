@@ -3796,13 +3796,12 @@ class DB_DataObject extends DB_DataObject_Overload
     function autoJoin()
     {
           
-          
         $map = $this->links();
         
         $tabdef = $this->table();
          
-        
-        $this->selectAdd(); // we need this as normally it's only cleared by an empty selectAs call.
+        // we need this as normally it's only cleared by an empty selectAs call.
+        $this->selectAdd(); 
         
         $selectAs = array(array( array_keys($tabdef) , '%s', false));
         
