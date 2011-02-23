@@ -3789,8 +3789,8 @@ class DB_DataObject extends DB_DataObject_Overload
      *
      
      * @return   array      info about joins
-     *                      cols => map of resulting anme => table.colname
-     *                      join_names => localc_col
+     *                      cols => map of resulting {joined_tablename}.{joined_table_column_name}
+     *                      join_names => map of resulting {join_name_as}.{joined_table_column_name}
      * @access   public
      */
     function autoJoin()
