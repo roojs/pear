@@ -3810,8 +3810,7 @@ class DB_DataObject extends DB_DataObject_Overload
             'join_names' => array()
         );
         
-        $ret_colsJoinName =array();
-        foreach($xx as $k) {
+         foreach(array_keys($tabdef) as $k) {
             $ret['cols'][$k] = $do->tableName(). '.' . $k;
         }
         
