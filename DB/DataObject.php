@@ -3789,7 +3789,8 @@ class DB_DataObject extends DB_DataObject_Overload
      *
      
      * @return   array      info about joins
-     *                      cols => the column from selectas , 
+     *                      cols => map of resulting anme => table.colname
+     *                      join_names =>
      * @access   public
      */
     function autoJoin()
@@ -3810,7 +3811,6 @@ class DB_DataObject extends DB_DataObject_Overload
             'join_names' => array()
         );
         
-        
         $ret_colsJoinName =array();
         foreach($xx as $k) {
             $ret['cols'][$k] = $do->tableName(). '.' . $k;
@@ -3826,7 +3826,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 continue;
             }
             // this is borked ... for multiple jions..
-            $do->joinAdd($xx, 'LEFT', 'join_'.$ocl.'_'. $col, $ocl);
+            $this->joinAdd($xx, 'LEFT', 'join_'.$ocl.'_'. $col, $ocl);
             $tabdef = $xx->table();
             $table = $xx->tableName();
             
@@ -3836,17 +3836,14 @@ class DB_DataObject extends DB_DataObject_Overload
               
             foreach($keys as $k) {
                 $ret['cols'][sprintf($ocl.'_%s', $k)] = $tab.'.'.$k;
-                $ret['join_names'][sprintf($ocl.'_%s', $k)] = 'join_'.$ocl.'_'.$col.'.'.$k;
+                $ret['join_names'][sprintf('%s_%s', $ocl, $k)] = sprintf('join_%s_%s.%s',$ocl, $col, $k);
             }
              
         }
          
-        //DB_DataObject::debugLevel(1);
-        // we do select as after everything else as we need to plop distinct at the beginning??
-        /// well I assume..
-       // echo '<PRE>';print_r($this->colsJname);exit;
+         
         foreach($selectAs as $ar) {
-            $do->selectAs($ar[0], $ar[1], $ar[2]);
+            $this->selectAs($ar[0], $ar[1], $ar[2]);
         }
         
         return $ret;
