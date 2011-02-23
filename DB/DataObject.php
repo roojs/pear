@@ -3786,8 +3786,26 @@ class DB_DataObject extends DB_DataObject_Overload
 
     /**
      * autoJoin - using the links.ini file, it builds a query with all the joins 
-     *
-     
+     * usage: 
+     * $x = DB_DataObject::factory('mytable');
+     * $x->autoJoin();
+     * $x->get(123); 
+     *   will result in all of the joined data being added to the fetched object..
+     * 
+     * $x = DB_DataObject::factory('mytable');
+     * $x->autoJoin();
+     * $ar = $x->fetchAll();
+     *   will result in an array containing all the data from the table, and any joined tables..
+     * 
+     * $x = DB_DataObject::factory('mytable');
+     * $jdata = $x->autoJoin();
+     * $x->selectAdd(); //reset..
+     * foreach($_REQUEST['requested_cols'] as $c) {
+     *    if (!isset($jdata[$c])) continue; // ignore columns not available..
+     *    $x->selectAdd( $jdata[$c] . ' as ' . $c);
+     * }
+     * $ar = $x->fetchAll(); 
+     *   will result in only the columns requested being fetched...
      * @return   array      info about joins
      *                      cols => map of resulting {joined_tablename}.{joined_table_column_name}
      *                      join_names => map of resulting {join_name_as}.{joined_table_column_name}
