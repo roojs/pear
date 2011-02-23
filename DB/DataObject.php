@@ -3790,7 +3790,7 @@ class DB_DataObject extends DB_DataObject_Overload
      
      * @return   array      info about joins
      *                      cols => map of resulting anme => table.colname
-     *                      join_names =>
+     *                      join_names => localc_col
      * @access   public
      */
     function autoJoin()
@@ -3835,7 +3835,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $selectAs[] = array($keys, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
               
             foreach($keys as $k) {
-                $ret['cols'][sprintf($ocl.'_%s', $k)] = $tab.'.'.$k;
+                $ret['cols'][sprintf('%s_%s', $ocl, $k)] = $tab.'.'.$k;
                 $ret['join_names'][sprintf('%s_%s', $ocl, $k)] = sprintf('join_%s_%s.%s',$ocl, $col, $k);
             }
              
