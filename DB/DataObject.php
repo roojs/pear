@@ -3811,7 +3811,7 @@ class DB_DataObject extends DB_DataObject_Overload
         );
         
          foreach(array_keys($tabdef) as $k) {
-            $ret['cols'][$k] = $do->tableName(). '.' . $k;
+            $ret['cols'][$k] = $this->tableName(). '.' . $k;
         }
         
         
