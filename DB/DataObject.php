@@ -3804,7 +3804,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         $this->selectAdd(); // we need this as normally it's only cleared by an empty selectAs call.
         
-        $selectAs = array(array(   array_keys($tabdef) , '%s', false));
+        $selectAs = array(array( array_keys($tabdef) , '%s', false));
         
         $ret = array(
             'cols' => array(),
