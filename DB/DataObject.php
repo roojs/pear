@@ -3785,6 +3785,75 @@ class DB_DataObject extends DB_DataObject_Overload
     }
 
     /**
+     * autoJoin - using the links.ini file, it builds a query will all the joins 
+     *
+     
+     * @return   array      info about joins
+     *                      cols => the column from selectas , 
+     * @access   public
+     */
+    function autoJoin()
+    {
+          
+          
+        $map = $this->links();
+        
+        $tabdef = $this->table();
+         
+        
+        $this->selectAdd(); // we need this as normally it's only cleared by an empty selectAs call.
+        
+        $selectAs = array(array(   array_keys($tabdef) , '%s', false));
+        
+        $ret = array(
+            'cols' => array(),
+            'join_names' => array()
+        );
+        
+        
+        $ret_colsJoinName =array();
+        foreach($xx as $k) {
+            $ret['cols'][$k] = $do->tableName(). '.' . $k;
+        }
+        
+        
+        foreach($map as $ocl=>$info) {
+            
+            list($tab,$col) = explode(':', $info);
+            // what about multiple joins on the same table!!!
+            $xx = DB_DataObject::factory($tab);
+            if (!is_a($xx, 'DB_DataObject')) {
+                continue;
+            }
+            // this is borked ... for multiple jions..
+            $do->joinAdd($xx, 'LEFT', 'join_'.$ocl.'_'. $col, $ocl);
+            $tabdef = $xx->table();
+            $table = $xx->tableName();
+            
+            $keys = array_keys($tabdef);
+             
+            $selectAs[] = array($keys, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
+              
+            foreach($keys as $k) {
+                $ret['cols'][sprintf($ocl.'_%s', $k)] = $tab.'.'.$k;
+                $ret['join_names'][sprintf($ocl.'_%s', $k)] = 'join_'.$ocl.'_'.$col.'.'.$k;
+            }
+             
+        }
+         
+        //DB_DataObject::debugLevel(1);
+        // we do select as after everything else as we need to plop distinct at the beginning??
+        /// well I assume..
+       // echo '<PRE>';print_r($this->colsJname);exit;
+        foreach($selectAs as $ar) {
+            $do->selectAs($ar[0], $ar[1], $ar[2]);
+        }
+        
+        return $ret;
+        
+    }
+    
+    /**
      * Copies items that are in the table definitions from an
      * array or object into the current object
      * will not override key values.
