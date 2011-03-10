@@ -3982,10 +3982,15 @@ class DB_DataObject extends DB_DataObject_Overload
     {
         global $_DB_DATAOBJECT;
         $ret = array();
+        
+        // result fileds property is available on the last row...
         $rf = ($this->_resultFields !== false) ? $this->_resultFields : 
                 (isset($_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid]) ? $_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid] : false);
+        
+        // should this happen - if we use results fields then why bother merging..
+        // 
         $ar = ($rf !== false) ?
-            array_merge($_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid],$this->table()) :
+            array_merge($rf,$this->table()) :
             $this->table();
 
         foreach($ar as $k=>$v) {
