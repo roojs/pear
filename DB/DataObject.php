@@ -3988,11 +3988,13 @@ class DB_DataObject extends DB_DataObject_Overload
                 (isset($_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid]) ? $_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid] : false);
         
         // should this happen - if we use results fields then why bother merging..
-        // 
+        
+        
         $ar = ($rf !== false) ?
             array_merge($rf,$this->table()) :
             $this->table();
 
+        var_Dump($hideEmpty); var_dump($rf);
         if ($hideEmpty) {
             $ar = $rf; // if we are hiding empty, we do not want to include properies of this object..
         }
