@@ -3994,7 +3994,7 @@ class DB_DataObject extends DB_DataObject_Overload
             array_merge($rf,$this->table()) :
             $this->table();
 
-        var_Dump($hideEmpty); var_dump($rf);
+        echo '<PRE>';var_Dump($hideEmpty); var_dump($rf);
         if ($hideEmpty) {
             $ar = $rf; // if we are hiding empty, we do not want to include properies of this object..
         }
