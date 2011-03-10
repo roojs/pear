@@ -3993,6 +3993,10 @@ class DB_DataObject extends DB_DataObject_Overload
             array_merge($rf,$this->table()) :
             $this->table();
 
+        if ($hideEmpty) {
+            $ar = $rf; // if we are hiding empty, we do not want to include properies of this object..
+        }
+        
         foreach($ar as $k=>$v) {
              
             if (!isset($this->$k)) {
