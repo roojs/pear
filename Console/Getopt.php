@@ -1,40 +1,32 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
-/**
- * PHP Version 5
- *
- * Copyright (c) 1997-2004 The PHP Group
- *
- * This source file is subject to version 3.0 of the PHP license,
- * that is bundled with this package in the file LICENSE, and is
- * available through the world-wide-web at the following url:
- * http://www.php.net/license/3_0.txt.
- * If you did not receive a copy of the PHP license and are unable to
- * obtain it through the world-wide-web, please send a note to
- * license@php.net so we can mail you a copy immediately.
- *
- * @category Console
- * @package  Console_Getopt
- * @author   Andrei Zmievski <andrei@php.net>
- * @license  http://www.php.net/license/3_0.txt PHP 3.0
- * @version  CVS: $Id$
- * @link     http://pear.php.net/package/Console_Getopt
- */
+// +----------------------------------------------------------------------+
+// | PHP Version 5                                                        |
+// +----------------------------------------------------------------------+
+// | Copyright (c) 1997-2004 The PHP Group                                |
+// +----------------------------------------------------------------------+
+// | This source file is subject to version 3.0 of the PHP license,       |
+// | that is bundled with this package in the file LICENSE, and is        |
+// | available through the world-wide-web at the following url:           |
+// | http://www.php.net/license/3_0.txt.                                  |
+// | If you did not receive a copy of the PHP license and are unable to   |
+// | obtain it through the world-wide-web, please send a note to          |
+// | license@php.net so we can mail you a copy immediately.               |
+// +----------------------------------------------------------------------+
+// | Author: Andrei Zmievski <andrei@php.net>                             |
+// +----------------------------------------------------------------------+
+//
+// $Id: Getopt.php,v 1.4 2007/06/12 14:58:56 cellog Exp $
 
 require_once 'PEAR.php';
 
 /**
  * Command-line options parsing class.
  *
- * @category Console
- * @package  Console_Getopt
- * @author   Andrei Zmievski <andrei@php.net>
- * @license  http://www.php.net/license/3_0.txt PHP 3.0
- * @link     http://pear.php.net/package/Console_Getopt
+ * @author Andrei Zmievski <andrei@php.net>
+ *
  */
-class Console_Getopt
-{
-
+class Console_Getopt {
     /**
      * Parses the command-line options.
      *
@@ -61,60 +53,45 @@ class Console_Getopt
      *
      * Most of the semantics of this function are based on GNU getopt_long().
      *
-     * @param array  $args          an array of command-line arguments
-     * @param string $short_options specifies the list of allowed short options
-     * @param array  $long_options  specifies the list of allowed long options
-     * @param boolean $skip_unknown suppresses Console_Getopt: unrecognized option
+     * @param array  $args           an array of command-line arguments
+     * @param string $short_options  specifies the list of allowed short options
+     * @param array  $long_options   specifies the list of allowed long options
      *
      * @return array two-element array containing the list of parsed options and
      * the non-option arguments
+     *
      * @access public
+     *
      */
-    function getopt2($args, $short_options, $long_options = null, $skip_unknown = false)
+    function getopt2($args, $short_options, $long_options = null)
     {
-        return Console_Getopt::doGetopt(2, $args, $short_options, $long_options, $skip_unknown);
+        return Console_Getopt::doGetopt(2, $args, $short_options, $long_options);
     }
 
     /**
      * This function expects $args to start with the script name (POSIX-style).
      * Preserved for backwards compatibility.
-     *
-     * @param array  $args          an array of command-line arguments
-     * @param string $short_options specifies the list of allowed short options
-     * @param array  $long_options  specifies the list of allowed long options
-     *
      * @see getopt2()
-     * @return array two-element array containing the list of parsed options and
-     * the non-option arguments
-     */
-    function getopt($args, $short_options, $long_options = null, $skip_unknown = false)
+     */    
+    function getopt($args, $short_options, $long_options = null)
     {
-        return Console_Getopt::doGetopt(1, $args, $short_options, $long_options, $skip_unknown);
+        return Console_Getopt::doGetopt(1, $args, $short_options, $long_options);
     }
 
     /**
      * The actual implementation of the argument parsing code.
-     *
-     * @param int    $version       Version to use
-     * @param array  $args          an array of command-line arguments
-     * @param string $short_options specifies the list of allowed short options
-     * @param array  $long_options  specifies the list of allowed long options
-     * @param boolean $skip_unknown suppresses Console_Getopt: unrecognized option
-     *
-     * @return array
      */
-    function doGetopt($version, $args, $short_options, $long_options = null, $skip_unknown = false)
+    function doGetopt($version, $args, $short_options, $long_options = null)
     {
         // in case you pass directly readPHPArgv() as the first arg
         if (PEAR::isError($args)) {
             return $args;
         }
-
         if (empty($args)) {
             return array(array(), array());
         }
-
-        $non_opts = $opts = array();
+        $opts     = array();
+        $non_opts = array();
 
         settype($args, 'array');
 
@@ -134,6 +111,7 @@ class Console_Getopt
 
         reset($args);
         while (list($i, $arg) = each($args)) {
+
             /* The special element '--' means explicit end of
                options. Treat the rest of the arguments as non-options
                and end the loop. */
@@ -146,27 +124,17 @@ class Console_Getopt
                 $non_opts = array_merge($non_opts, array_slice($args, $i));
                 break;
             } elseif (strlen($arg) > 1 && $arg{1} == '-') {
-                $error = Console_Getopt::_parseLongOption(substr($arg, 2),
-                                                          $long_options,
-                                                          $opts,
-                                                          $args,
-                                                          $skip_unknown);
-                if (PEAR::isError($error)) {
+                $error = Console_Getopt::_parseLongOption(substr($arg, 2), $long_options, $opts, $args);
+                if (PEAR::isError($error))
                     return $error;
-                }
             } elseif ($arg == '-') {
                 // - is stdin
                 $non_opts = array_merge($non_opts, array_slice($args, $i));
                 break;
             } else {
-                $error = Console_Getopt::_parseShortOption(substr($arg, 1),
-                                                           $short_options,
-                                                           $opts,
-                                                           $args,
-                                                           $skip_unknown);
-                if (PEAR::isError($error)) {
+                $error = Console_Getopt::_parseShortOption(substr($arg, 1), $short_options, $opts, $args);
+                if (PEAR::isError($error))
                     return $error;
-                }
             }
         }
 
@@ -174,31 +142,19 @@ class Console_Getopt
     }
 
     /**
-     * Parse short option
-     *
-     * @param string     $arg           Argument
-     * @param string[]   $short_options Available short options
-     * @param string[][] &$opts
-     * @param string[]   &$args
-     * @param boolean    $skip_unknown suppresses Console_Getopt: unrecognized option
-     *
      * @access private
-     * @return void
+     *
      */
-    function _parseShortOption($arg, $short_options, &$opts, &$args, $skip_unknown)
+    function _parseShortOption($arg, $short_options, &$opts, &$args)
     {
         for ($i = 0; $i < strlen($arg); $i++) {
-            $opt     = $arg{$i};
+            $opt = $arg{$i};
             $opt_arg = null;
 
             /* Try to find the short option in the specifier string. */
-            if (($spec = strstr($short_options, $opt)) === false || $arg{$i} == ':') {
-                if ($skip_unknown === true) {
-                    break;
-                }
-
-                $msg = "Console_Getopt: unrecognized option -- $opt";
-                return PEAR::raiseError($msg);
+            if (($spec = strstr($short_options, $opt)) === false || $arg{$i} == ':')
+            {
+                return PEAR::raiseError("Console_Getopt: unrecognized option -- $opt");
             }
 
             if (strlen($spec) > 1 && $spec{1} == ':') {
@@ -217,14 +173,11 @@ class Console_Getopt
                         break;
                     } else if (list(, $opt_arg) = each($args)) {
                         /* Else use the next argument. */;
-                        if (Console_Getopt::_isShortOpt($opt_arg)
-                            || Console_Getopt::_isLongOpt($opt_arg)) {
-                            $msg = "option requires an argument --$opt";
-                            return PEAR::raiseError("Console_Getopt:" . $msg);
+                        if (Console_Getopt::_isShortOpt($opt_arg) || Console_Getopt::_isLongOpt($opt_arg)) {
+                            return PEAR::raiseError("Console_Getopt: option requires an argument -- $opt");
                         }
                     } else {
-                        $msg = "option requires an argument --$opt";
-                        return PEAR::raiseError("Console_Getopt:" . $msg);
+                        return PEAR::raiseError("Console_Getopt: option requires an argument -- $opt");
                     }
                 }
             }
@@ -234,59 +187,36 @@ class Console_Getopt
     }
 
     /**
-     * Checks if an argument is a short option
-     *
-     * @param string $arg Argument to check
-     *
      * @access private
-     * @return bool
+     *
      */
     function _isShortOpt($arg)
     {
-        return strlen($arg) == 2 && $arg[0] == '-'
-               && preg_match('/[a-zA-Z]/', $arg[1]);
+        return strlen($arg) == 2 && $arg[0] == '-' && preg_match('/[a-zA-Z]/', $arg[1]);
     }
 
     /**
-     * Checks if an argument is a long option
-     *
-     * @param string $arg Argument to check
-     *
      * @access private
-     * @return bool
+     *
      */
     function _isLongOpt($arg)
     {
         return strlen($arg) > 2 && $arg[0] == '-' && $arg[1] == '-' &&
-               preg_match('/[a-zA-Z]+$/', substr($arg, 2));
+            preg_match('/[a-zA-Z]+$/', substr($arg, 2));
     }
 
     /**
-     * Parse long option
-     *
-     * @param string     $arg          Argument
-     * @param string[]   $long_options Available long options
-     * @param string[][] &$opts
-     * @param string[]   &$args
-     *
      * @access private
-     * @return void|PEAR_Error
+     *
      */
-    function _parseLongOption($arg, $long_options, &$opts, &$args, $skip_unknown)
+    function _parseLongOption($arg, $long_options, &$opts, &$args)
     {
-        $opt = false;
-        $opt_arg = false;
-        $opt_len = 0;
-        if ($arg !== false) { 
-            @list($opt, $opt_arg) = explode('=', $arg, 2);
-            $opt_len = strlen($opt);
-        }
-        
+        @list($opt, $opt_arg) = explode('=', $arg, 2);
+        $opt_len = strlen($opt);
 
         for ($i = 0; $i < count($long_options); $i++) {
             $long_opt  = $long_options[$i];
             $opt_start = substr($long_opt, 0, $opt_len);
-
             $long_opt_name = str_replace('=', '', $long_opt);
 
             /* Option doesn't match. Go on to the next one. */
@@ -294,7 +224,7 @@ class Console_Getopt
                 continue;
             }
 
-            $opt_rest = substr($long_opt, $opt_len);
+            $opt_rest  = substr($long_opt, $opt_len);
 
             /* Check that the options uniquely matches one of the allowed
                options. */
@@ -303,15 +233,12 @@ class Console_Getopt
             } else {
                 $next_option_rest = '';
             }
-
             if ($opt_rest != '' && $opt{0} != '=' &&
                 $i + 1 < count($long_options) &&
                 $opt == substr($long_options[$i+1], 0, $opt_len) &&
                 $next_option_rest != '' &&
                 $next_option_rest{0} != '=') {
-
-                $msg = "Console_Getopt: option --$opt is ambiguous";
-                return PEAR::raiseError($msg);
+                return PEAR::raiseError("Console_Getopt: option --$opt is ambiguous");
             }
 
             if (substr($long_opt, -1) == '=') {
@@ -319,26 +246,17 @@ class Console_Getopt
                     /* Long option requires an argument.
                        Take the next argument if one wasn't specified. */;
                     if (!strlen($opt_arg) && !(list(, $opt_arg) = each($args))) {
-                        $msg = "Console_Getopt: option requires an argument --$opt";
-                        return PEAR::raiseError($msg);
+                        return PEAR::raiseError("Console_Getopt: option --$opt requires an argument");
                     }
-
-                    if (Console_Getopt::_isShortOpt($opt_arg)
-                        || Console_Getopt::_isLongOpt($opt_arg)) {
-                        $msg = "Console_Getopt: option requires an argument --$opt";
-                        return PEAR::raiseError($msg);
+                    if (Console_Getopt::_isShortOpt($opt_arg) || Console_Getopt::_isLongOpt($opt_arg)) {
+                        return PEAR::raiseError("Console_Getopt: option requires an argument --$opt");
                     }
                 }
             } else if ($opt_arg) {
-                $msg = "Console_Getopt: option --$opt doesn't allow an argument";
-                return PEAR::raiseError($msg);
+                return PEAR::raiseError("Console_Getopt: option --$opt doesn't allow an argument");
             }
 
             $opts[] = array('--' . $opt, $opt_arg);
-            return;
-        }
-
-        if ($skip_unknown === true) {
             return;
         }
 
@@ -346,20 +264,19 @@ class Console_Getopt
     }
 
     /**
-     * Safely read the $argv PHP array across different PHP configurations.
-     * Will take care on register_globals and register_argc_argv ini directives
-     *
-     * @access public
-     * @return mixed the $argv PHP array or PEAR error if not registered
-     */
+    * Safely read the $argv PHP array across different PHP configurations.
+    * Will take care on register_globals and register_argc_argv ini directives
+    *
+    * @access public
+    * @return mixed the $argv PHP array or PEAR error if not registered
+    */
     function readPHPArgv()
     {
         global $argv;
         if (!is_array($argv)) {
             if (!@is_array($_SERVER['argv'])) {
                 if (!@is_array($GLOBALS['HTTP_SERVER_VARS']['argv'])) {
-                    $msg = "Could not read cmd args (register_argc_argv=Off?)";
-                    return PEAR::raiseError("Console_Getopt: " . $msg);
+                    return PEAR::raiseError("Console_Getopt: Could not read cmd args (register_argc_argv=Off?)");
                 }
                 return $GLOBALS['HTTP_SERVER_VARS']['argv'];
             }
@@ -369,3 +286,5 @@ class Console_Getopt
     }
 
 }
+
+ 
