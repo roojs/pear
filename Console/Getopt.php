@@ -277,7 +277,7 @@ class Console_Getopt
         $opt = false;
         $opt_arg = false;
         $opt_len = 0;
-        if ($arg !== false) {}
+        if ($arg !== false) { 
             @list($opt, $opt_arg) = explode('=', $arg, 2);
             $opt_len = strlen($opt);
         }
