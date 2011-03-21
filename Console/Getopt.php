@@ -274,9 +274,13 @@ class Console_Getopt
      */
     function _parseLongOption($arg, $long_options, &$opts, &$args, $skip_unknown)
     {
-        @list($opt, $opt_arg) = explode('=', $arg, 2);
-
-        $opt_len = strlen($opt);
+        $opt = false;
+        $opt_arg = false;
+        if ($arg !== false) {}
+            @list($opt, $opt_arg) = explode('=', $arg, 2);
+            $opt_len = strlen($opt);
+        }
+        
 
         for ($i = 0; $i < count($long_options); $i++) {
             $long_opt  = $long_options[$i];
