@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id: DataObject.php 301030 2010-07-07 02:26:31Z alan_k $
+ * @version    CVS: $Id: DataObject.php 309074 2011-03-10 15:48:43Z alan_k $
  * @link       http://pear.php.net/package/DB_DataObject
  */
   
@@ -2361,7 +2361,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $dsn = isset($this->_database_dsn) ? $this->_database_dsn : null;
         
         if (!$dsn) {
-            if (!$this->_database && !empty($this->__table)) {
+            if (!$this->_database) {
                 $this->_database = isset($options["table_{$this->__table}"]) ? $options["table_{$this->__table}"] : null;
             }
             if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
@@ -3982,22 +3982,12 @@ class DB_DataObject extends DB_DataObject_Overload
     {
         global $_DB_DATAOBJECT;
         $ret = array();
-        
-        // result fileds property is available on the last row...
         $rf = ($this->_resultFields !== false) ? $this->_resultFields : 
                 (isset($_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid]) ? $_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid] : false);
-        
-        // should this happen - if we use results fields then why bother merging..
-        
-        
         $ar = ($rf !== false) ?
-            array_merge($rf,$this->table()) :
+            array_merge($_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid],$this->table()) :
             $this->table();
 
-        //if ($hideEmpty) {
-        //    $ar = $rf; // if we are hiding empty, we do not want to include properies of this object..
-        //}
-        
         foreach($ar as $k=>$v) {
              
             if (!isset($this->$k)) {
