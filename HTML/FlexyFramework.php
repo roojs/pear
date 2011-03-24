@@ -319,7 +319,7 @@ class HTML_FlexyFramework {
         $iniCache = $this->DB_DataObject[$dbini];
         $iniCacheTmp = $iniCache . '.tmp';
         // has it expired..
-        $force = $force ? $force : !file_exists($iniCache);
+        $force = ($force ? $force : !file_exists($iniCache)) || !$this->dataObjectsCacheExpires;
         if (!$force && (filemtime($iniCache) + $this->dataObjectsCacheExpires) < time()) {
             return;
         }
