@@ -205,8 +205,8 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         //print_r($inis);exit;
         $links = array();
         
-        foreach($inis as $ini) {
-            $ini .= '/'. strtolower($ini) . $ff->project . '.links.ini';
+        foreach($inis as $path) {
+            $ini = $path . '/'. strtolower( $ff->project) . '.links.ini';
             //var_dump($ini);
             if (!file_exists($ini)) {
                 // try scanning the directory for another ini file..
