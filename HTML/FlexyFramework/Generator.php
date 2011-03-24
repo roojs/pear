@@ -201,6 +201,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         
         $inis = explode(PATH_SEPARATOR,$ff->dataObjectsOriginalIni);
         $links = array();
+        print_R($inis);
         foreach($inis as $ini) {
             $ini = preg_replace('/\.ini$/', '.links.ini', $ini);
             if (!file_exists($ini)) {
