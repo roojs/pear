@@ -279,6 +279,7 @@ class HTML_FlexyFramework {
         //override ini setting... - store original..
         if (isset($this->DB_DataObject[$dbini])) {
             $this->dataObjectsOriginalIni = $this->DB_DataObject[$dbini];
+            print_r($this->DB_DataObject);exit;
         }
         // 
         
