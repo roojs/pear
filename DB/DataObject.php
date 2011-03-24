@@ -3989,7 +3989,7 @@ class DB_DataObject extends DB_DataObject_Overload
                  $_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid] : false);
         
         $ar = ($rf !== false) ?
-            ($hideEmpty === 0) ? $rf : array_merge($rf,$this->table()) :
+            (($hideEmpty === 0) ? $rf : array_merge($rf, $this->table())) :
             $this->table();
 
         foreach($ar as $k=>$v) {
