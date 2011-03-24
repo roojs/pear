@@ -172,8 +172,10 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
      */
     static function writeCache($iniCacheTmp, $iniCache)
     {
-         
+        
         $ff = HTML_FlexyFramework::get();
+        $ff->debug('Framework Generator:writeCache ' . $iniCacheTmp .  ' ' . $iniCache);
+        
         //var_dump($iniCacheTmp);
        // echo '<PRE>';echo file_get_contents($iniCacheTmp);exit;
         // only unpdate if nothing went wrong.
