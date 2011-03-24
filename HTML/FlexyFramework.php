@@ -309,6 +309,7 @@ class HTML_FlexyFramework {
     {
           
         if (!$this->dataObjectsCache) { // does not use dataObjects Caching..
+            $this->debug('generateDataobjectsCache', 'no cache needed')
             return;
         }
         
