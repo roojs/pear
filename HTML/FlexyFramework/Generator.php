@@ -205,14 +205,14 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             $ini = preg_replace('/\.ini$/', '.links.ini', $ini);
             if (!file_exists($ini)) {
                 // try scanning the directory for another ini file..
-                $ar = glob(dirname($ini).'/*.ini');
+                $ar = glob(dirname($ini).'/*.links.ini');
                 if (empty($ar)) {
                     continue;
                 }
                 sort($ar);
                 // first file.. = with links removed..
-                $ini = preg_replace('/\.links\./' , '.', $ar[0]);
-                $ini = preg_replace('/\.ini$/', '.links.ini', $ini);
+                //$ini = preg_replace('/\.links\./' , '.', $ar[0]);
+                //$ini = preg_replace('/\.ini$/', '.links.ini', $ini);
             }
             if (!file_exists($ini)) {
                 continue;
