@@ -288,7 +288,7 @@ class HTML_FlexyFramework {
         // we now have the configuration file name..
         
         
-        if (!file_exists($iniCache)) {
+        if (!file_exists($iniCache) || empty( $this->dataObjectsCacheExpires)) {
             $this->generateDataobjectsCache(true);
             return;
         }
