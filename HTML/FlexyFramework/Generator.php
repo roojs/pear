@@ -199,6 +199,8 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         
         // merge and set links..
         
+        // we are going to use the DataObject directories..
+        
         $inis = explode(PATH_SEPARATOR,$ff->dataObjectsOriginalIni);
         $links = array();
         
