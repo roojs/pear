@@ -198,14 +198,14 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         
         
         // merge and set links..
-        
+        ;
         // we are going to use the DataObject directories..
         
-        $inis = explode(PATH_SEPARATOR,$ff->dataObjectsOriginalIni);
+        $inis = explode(PATH_SEPARATOR,$ff->DB_DataObject['class_location']);
         $links = array();
         
         foreach($inis as $ini) {
-            $ini = preg_replace('/\.ini$/', '.links.ini', $ini);
+            $ini .= '/'. strtolower($ini) . $ff->project . '.links.ini';
             if (!file_exists($ini)) {
                 // try scanning the directory for another ini file..
                 $ar = glob(dirname($ini).'/*.links.ini');
