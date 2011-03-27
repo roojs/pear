@@ -2853,7 +2853,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
         }
  
-        $ret = new $rclass;
+        $ret = new $rclass();
  
         if (!empty($database)) {
             DB_DataObject::debug("Setting database to $database","FACTORY",1);
