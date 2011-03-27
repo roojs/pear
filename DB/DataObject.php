@@ -2852,11 +2852,9 @@ class DB_DataObject extends DB_DataObject_Overload
                 "from $table",
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
         }
-         var_dump($rclass);
-
+ 
         $ret = new $rclass;
-                var_dump($ret);
-
+ 
         if (!empty($database)) {
             DB_DataObject::debug("Setting database to $database","FACTORY",1);
             $ret->database($database);
