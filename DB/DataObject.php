@@ -2823,7 +2823,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         
         $rclass = $ce ? $class  : DB_DataObject::_autoloadClass($class, $table);
-        
+        var_dump($rclass);
         // proxy = full|light
         if (!$rclass && isset($_DB_DATAOBJECT['CONFIG']['proxy'])) { 
         
