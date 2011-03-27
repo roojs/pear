@@ -2823,7 +2823,6 @@ class DB_DataObject extends DB_DataObject_Overload
         
         
         $rclass = $ce ? $class  : DB_DataObject::_autoloadClass($class, $table);
-        var_dump($rclass);
         // proxy = full|light
         if (!$rclass && isset($_DB_DATAOBJECT['CONFIG']['proxy'])) { 
         
@@ -2853,7 +2852,11 @@ class DB_DataObject extends DB_DataObject_Overload
                 "from $table",
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
         }
+         var_dump($rclass);
+
         $ret = new $rclass;
+                var_dump($ret);
+
         if (!empty($database)) {
             DB_DataObject::debug("Setting database to $database","FACTORY",1);
             $ret->database($database);
