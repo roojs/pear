@@ -2845,7 +2845,7 @@ class DB_DataObject extends DB_DataObject_Overload
             return $x->$proxyMethod( $d->_database, $table);
         }
         
-        if (!$rclass) {
+        if (!$rclass || !class_exists($rclass)) {
             return DB_DataObject::raiseError(
                 "factory could not find class " . 
                 (is_array($class) ? implode(PATH_SEPARATOR, $class)  : $class  ). 
