@@ -236,8 +236,7 @@ class HTML_Template_Flexy
         if (class_exists('PEAR5',false)) {
             $baseoptions = &PEAR5::getStaticProperty('HTML_Template_Flexy','options');
         }
-        else 
-        if (class_exists('PEAR')) {
+        if (empty($baseoptions) && class_exists('PEAR')) {
             $baseoptions = &PEAR::getStaticProperty('HTML_Template_Flexy','options');
         }
         if ($baseoptions ) {
