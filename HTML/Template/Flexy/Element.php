@@ -17,7 +17,7 @@
 // | Based on HTML_Common by: Adam Daniel <adaniel1@eesus.jnj.com>        |
 // +----------------------------------------------------------------------+
 //
-// $Id: Element.php,v 1.52 2009/03/02 07:58:38 alan_k Exp $
+// $Id: Element.php 299896 2010-05-28 06:03:39Z alan_k $
 
 /**
  * Lightweight HTML Element builder and render
@@ -112,6 +112,15 @@ class HTML_Template_Flexy_Element {
      * @access   public
      */
     var $value = null;
+    /**
+     * If an input element has a label element associated to it
+     * *and* the 'useElementLabels' option is true, then you can
+     * optionally set the text of this label. This permits
+     * to set custom strings for doing translations.
+     * @var string | null
+     * @access   public
+     */
+    var $label = null;
     /**
      * Class constructor
      * @param    mixed   $attributes     Associative array of table tag attributes 
@@ -684,6 +693,62 @@ class HTML_Template_Flexy_Element {
     } // end func toHtml
     
      
+    /**
+     * merge this element with another
+     * originally was in  main engine
+     *
+     * @param    HTML_Template_Flexy_Element   $new (with data to replace/merge)
+     * @return   HTML_Template_Flexy_Element   the combined/merged data.
+     * @static
+     * @access   public
+     */
+    function merge($new)
+    {
+        // Clone objects is possible to avoid creating references between elements
+        $original = clone($this);
+        // no new - return original
+        if (!$new) {
+            return $original;
+        }
+
+        $new = clone($new); 
+        
+        // If the properties of $original differ from those of $new and 
+        // they are set on $new, set them to $new's. Otherwise leave them 
+        // as they are.
+
+        if ($new->tag && ($new->tag != $original->tag)) {
+            $original->tag = $new->tag;
+        }
+        
+        if ($new->override !== false) {
+            $original->override = $new->override;
+        }
+        
+        if (count($new->children)) {
+            //echo "<PRE> COPY CHILDREN"; print_r($from->children);
+            $original->children = $new->children;
+        }
+        
+        if (is_array($new->attributes)) {
+        
+            foreach ($new->attributes as $key => $value) {
+                $original->attributes[$key] = $value;
+            }
+        }
+        // originals never have prefixes or suffixes..
+        $original->prefix = $new->prefix;
+        $original->suffix = $new->suffix;  
+
+        if ($new->value !== null) {
+            $original->setValue($new->value);
+        } 
+        if ($new->label !== null) {
+            $original->label = $new->label;
+        }
+        return $original;
+        
+    }  
     
     
     
