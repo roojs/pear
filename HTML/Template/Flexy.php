@@ -150,8 +150,12 @@ class HTML_Template_Flexy
                                         // set to:
                                         //  'Translation2' => array(
                                         //         'driver' => 'dataobjectsimple',
+                                        //         'CommonPageID' => true    
                                         //         'options' => array()
                                         //  );
+                                        //
+                                        // Note: CommonPageID : to use a single page id for all templates
+                                        //
                                         // or the slower way.. 
                                         //   = as it requires loading the code..
                                         //
