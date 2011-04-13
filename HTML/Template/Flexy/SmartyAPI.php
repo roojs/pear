@@ -164,7 +164,7 @@ class HTML_Template_Flexy_SmartyAPI {
         if (class_exists('PEAR5',false)) {
             $o = PEAR5::getStaticProperty('HTML_Template_Flexy','options');
         }
-        else {
+        if (empty($o)) {
             $o = PEAR::getStaticProperty('HTML_Template_Flexy','options');
         }
          
