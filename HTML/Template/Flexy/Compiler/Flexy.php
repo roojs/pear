@@ -16,7 +16,7 @@
 // | Authors: Alan Knowles <alan@akbkhome.com>                            |
 // +----------------------------------------------------------------------+
 //
-// $Id: Flexy.php,v 1.26 2009/03/02 08:16:14 alan_k Exp $
+// $Id: Flexy.php 299896 2010-05-28 06:03:39Z alan_k $
 //
 //  Base Compiler Class
 //  Standard 'Original Flavour' Flexy compiler
@@ -245,21 +245,15 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
                 
         if (is_a($this->options['Translation2'], 'Translation2')) {
             $this->options['Translation2']->setLang($this->options['locale']);
-             
-            if(empty($this->options['Translation2']['CommonPageID'])) {
-		// fixme - needs to be more specific to which template to use..
-    	        foreach ($this->options['templateDir'] as $tt) {
-        	        $n = basename($this->currentTemplate);
-            	    if (substr($this->currentTemplate, 0, strlen($tt)) == $tt) {
-                	    $n = substr($this->currentTemplate, strlen($tt)+1);
-                	}
-                	//echo $n;
-            	}
-            	$this->options['Translation2']->setPageID($n);
-            } else {
-                $this->options['Translation2']->setPageID($this->options['Translation2']['CommonPageID']);
+            // fixme - needs to be more specific to which template to use..
+            foreach ($this->options['templateDir'] as $tt) {
+                $n = basename($this->currentTemplate);
+                if (substr($this->currentTemplate, 0, strlen($tt)) == $tt) {
+                    $n = substr($this->currentTemplate, strlen($tt)+1);
+                }
+                //echo $n;
             }
-             
+            $this->options['Translation2']->setPageID($n);
         } elseif (defined('LC_ALL'))  {
             // not sure what we should really use here... - used to be LC_MESSAGES.. but that did not make sense...
             setlocale(LC_ALL, $this->options['locale']);
@@ -798,10 +792,9 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
     
     function addStringToGettext($string) 
     {
-    
-        
-        
-        
+        if (!empty($this->options['disableTranslate'])) {
+            return;
+        }
         if (!is_string($string)) {
             return;
         }
@@ -834,8 +827,10 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
   
     function translateString($string)
     {
-         
         
+        if (!empty($this->options['disableTranslate'])) {
+            return $string;
+        }
         
         if (is_a($this->options['Translation2'], 'Translation2')) {
             $result = $this->options['Translation2']->get($string);
