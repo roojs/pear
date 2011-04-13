@@ -245,7 +245,22 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
                 
         if (is_a($this->options['Translation2'], 'Translation2')) {
             $this->options['Translation2']->setLang($this->options['locale']);
-            // fixme - needs to be more specific to which template to use..
+             
+            if(empty($this->options['Translation2']['CommonPageID'])) {
+		// fixme - needs to be more specific to which template to use..
+    	        foreach ($this->options['templateDir'] as $tt) {
+        	        $n = basename($this->currentTemplate);
+            	    if (substr($this->currentTemplate, 0, strlen($tt)) == $tt) {
+                	    $n = substr($this->currentTemplate, strlen($tt)+1);
+                	}
+                	//echo $n;
+            	}
+            	$this->options['Translation2']->setPageID($n);
+            } else {
+                $this->options['Translation2']->setPageID($this->options['Translation2']['CommonPageID']);
+            }
+            
+            
             foreach ($this->options['templateDir'] as $tt) {
                 $n = basename($this->currentTemplate);
                 if (substr($this->currentTemplate, 0, strlen($tt)) == $tt) {
