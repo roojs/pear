@@ -260,15 +260,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
                 $this->options['Translation2']->setPageID($this->options['Translation2']['CommonPageID']);
             }
             
-            
-            foreach ($this->options['templateDir'] as $tt) {
-                $n = basename($this->currentTemplate);
-                if (substr($this->currentTemplate, 0, strlen($tt)) == $tt) {
-                    $n = substr($this->currentTemplate, strlen($tt)+1);
-                }
-                //echo $n;
-            }
-            $this->options['Translation2']->setPageID($n);
+             
         } elseif (defined('LC_ALL'))  {
             // not sure what we should really use here... - used to be LC_MESSAGES.. but that did not make sense...
             setlocale(LC_ALL, $this->options['locale']);
