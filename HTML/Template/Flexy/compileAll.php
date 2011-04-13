@@ -16,7 +16,7 @@
 // | Author:  Alan Knowles <alan@akbkhome.com>
 // +----------------------------------------------------------------------+
 //
-// $Id: compileAll.php,v 1.3 2003/08/01 08:50:27 alan_k Exp $
+// $Id: compileAll.php 307254 2011-01-08 05:47:06Z alan_k $
 //
 
 @include 'HTML/Template/Flexy.php';
@@ -37,8 +37,12 @@ if (!@$_SERVER['argv'][1]) {
 }
 
 $config = parse_ini_file($_SERVER['argv'][1], true);
-
-$options = &PEAR::getStaticProperty('HTML_Template_Flexy','options');
+if (class_exists('PEAR5',false)) {
+    $options = &PEAR5::getStaticProperty('HTML_Template_Flexy','options');
+}
+else {
+    $options = &PEAR::getStaticProperty('HTML_Template_Flexy','options');
+}
 $options = $config['HTML_Template_Flexy'];
 
 if (!$options) {
