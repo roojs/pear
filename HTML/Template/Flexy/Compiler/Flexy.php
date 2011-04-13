@@ -259,7 +259,6 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             } else {
                 $this->options['Translation2']->setPageID($this->options['Translation2']['CommonPageID']);
             }
-            
              
         } elseif (defined('LC_ALL'))  {
             // not sure what we should really use here... - used to be LC_MESSAGES.. but that did not make sense...
