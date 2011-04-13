@@ -16,7 +16,7 @@
 // | Authors:  nobody <nobody@localhost>                                  |
 // +----------------------------------------------------------------------+
 //
-// $Id: Translator.php,v 1.10 2006/11/24 07:03:59 alan_k Exp $
+// $Id: Translator.php 307254 2011-01-08 05:47:06Z alan_k $
 //
 //  Controller Type Class providing translation faciliites
 //
@@ -107,7 +107,12 @@ class HTML_Template_Flexy_Translator {
         if (!in_array($this->options['baseLang'], $this->options['targetLangs'])) {
             $this->options['targetLangs'][] = $this->options['baseLang'];
         }
-        $o = PEAR::getStaticProperty('HTML_Template_Flexy','options');
+        if (class_exists('PEAR5',false)) {
+            $o = PEAR5::getStaticProperty('HTML_Template_Flexy','options');
+        }
+        else {
+            $o = PEAR::getStaticProperty('HTML_Template_Flexy','options');
+        }
         if (!strlen($this->options['templateDir'])) {
             $this->options['templateDir'] = $o['templateDir'];
         }
