@@ -150,7 +150,7 @@ class HTML_Template_Flexy
                                         // set to:
                                         //  'Translation2' => array(
                                         //         'driver' => 'dataobjectsimple',
-                                        //         'CommonPageID' => true    
+                                        //         'CommonPageID' => 'page.id'    
                                         //         'options' => array()
                                         //  );
                                         //
