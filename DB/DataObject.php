@@ -2176,8 +2176,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
  
 
-        $table =  isset($_DB_DATAOBJECT['INI'][$this->_database][$this->__table]) ?   
-            $_DB_DATAOBJECT['INI'][$this->_database][$this->__table] : $this->table();
+        $table =  $this->table();
        
         $dbtype    = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->dsn['phptype'];
         
