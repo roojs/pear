@@ -1320,8 +1320,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         $original_query =  $this->_query;
         
-        $items =  isset($_DB_DATAOBJECT['INI'][$this->_database][$this->__table]) ?   
-            $_DB_DATAOBJECT['INI'][$this->_database][$this->__table] : $this->table();
+        $items = $this->table();
         
         // only apply update against sequence key if it is set?????
         
