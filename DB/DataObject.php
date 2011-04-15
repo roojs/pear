@@ -1051,7 +1051,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
          
-        $items =   $this->table();
+        $items = $this->table();
             
         if (!$items) {
             $this->raiseError("insert:No table definition for {$this->__table}",
