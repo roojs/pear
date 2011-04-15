@@ -2075,7 +2075,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (!isset($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5])) {
             $this->_connect();
         }
-        
+          
         if (isset($_DB_DATAOBJECT['INI'][$this->_database][$this->__table])) {
             return $_DB_DATAOBJECT['INI'][$this->_database][$this->__table];
         }
