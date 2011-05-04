@@ -718,12 +718,13 @@ class File_Convert_Solution
         }
         require_once 'System.php';
         
-       
+        $density = $xscale > 800 ? 300: 150; 
         
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 ". 
-                        "-quality 80  -resize '". $xscale . "x>' ". escapeshellarg($fn) . "[0] " . escapeshellarg($target);
+        $cmd = "$CONVERT -colorspace RGB -interlace none -density $density ". 
+                        "-quality 90  -resize '". $xscale . "x>' ". escapeshellarg($fn) . "[0] " . escapeshellarg($target);
         
+
         if ($this->debug) {
            echo "$cmd <br/>";
            
