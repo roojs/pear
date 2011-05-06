@@ -986,10 +986,93 @@ class HTML_FlexyFramework {
         die("process " . $sig . " already running\n");
         
     }
+    /**
+      * looks for Cli.php files and runs available() on them
+     * this should return a list of classes that can be used.
+     * - we should the load each one, and find the summary..
+     *
+     *
+     */
+    function cliHelp2()
+    {
+     
+        $fn = basename($_SERVER["SCRIPT_FILENAME"]);
+      
+        echo "\n-------------------------------------------------
+FlexyFramework Cli Application Usage:
+
+#php -d include_path=.:/var/www/pear $fn
+or
+#php  $fn
+
+-------------------------------------------------
+Available commands:
+
+";
+      
+        $this->cliShortHelp('HTML/FlexyFramework/Cli');
+        
+        
+        $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
+        $pr = $this->project;
+        
+        foreach(scandir("$p/$pr") as $d) {
+            //print_r("$p/$pr/$d");
+            if (!strlen($d) || $d[0] == '.') {
+                continue;
+            }
+            
+            if (!is_dir("$p/$pr/$d")) {
+                if ($d == 'Cli.php') {
+                    $this->cliShortHelp("$pr/Cli");
+                }
+                continue;
+            }
+            // got dir.. - scan subdirectories of that..
+            foreach(scandir("$p/$pr/$d") as $f) {
+                if ($f == 'Cli.php') {
+                    $this->cliRunHelp("$pr/$d/Cli");
+                    break;
+                }
+                
+            }
+            
+        }
+        
+        exit;
+        
+    }
+    function cliShortHelp($p) { 
+    
+        list($classname,$subRequest) = $this->requestToClassName($p,FALSE);
+        $classobj =  new  $classname();
+        $avail = $classobj->available();
+        foreach($avail as $a) {
+            list($classname,$subRequest) = $this->requestToClassName($p,FALSE);
+            $classobj =  new  $classname();
+            
+            
+            
+        }
+    }
+    
+    
     
     
     /**
-    * looks for Cli.php files and runs help() on them
+    * cliHelp.. 
+    * 
+    *
+    * looks for Cli.php files and runs available() on them
+    * this should return a list of classes that can be used.
+    * - we should the load each one, and find the summary..
+    *
+    * 
+    * php index.php Some/Component
+    * 
+    *   
+    *
+    * 
     *
     */
   
