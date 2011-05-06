@@ -993,7 +993,7 @@ class HTML_FlexyFramework {
      *
      *
      */
-    function cliHelp2()
+    function cliHelp()
     {
      
         $fn = basename($_SERVER["SCRIPT_FILENAME"]);
