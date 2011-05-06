@@ -1048,9 +1048,16 @@ Available commands:
         $classobj =  new  $classname();
         $avail = $classobj->available();
         foreach($avail as $a) {
-            list($classname,$subRequest) = $this->requestToClassName($p,FALSE);
+            list($classname,$subRequest) = $this->requestToClassName($a,FALSE);
             $classobj =  new  $classname();
-            
+            if (preg_match('/^HTML_FlexyFramework_/', $p)) {
+                $name = preg_replace('#^HTML/FlexyFramework#', '', $a);
+            } else {
+                // remove the project name.
+                $pr = array_shift(explode('/', $a));
+                $name = substr($a, strlen($pr+1));
+            }
+            echo "  " . str_pad($name, 40, " ") .' ' . $classobj->cli_description;
             
             
         }
