@@ -5,7 +5,7 @@ class HTML_FlexyFramework_Cli
 {
     var $available = array(
         'HTML/FlexyFramework/Database'
-    )
+    );
     function help($cli)
     {
              echo "
