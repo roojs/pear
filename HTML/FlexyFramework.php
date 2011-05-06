@@ -1031,7 +1031,7 @@ Available commands:
             // got dir.. - scan subdirectories of that..
             foreach(scandir("$p/$pr/$d") as $f) {
                 if ($f == 'Cli.php') {
-                    $this->cliRunHelp("$pr/$d/Cli");
+                    $this->cliShortHelp("$pr/$d/Cli");
                     break;
                 }
                 
@@ -1058,7 +1058,6 @@ Available commands:
                 $name = substr($a, strlen($pr+1));
             }
             echo "  " . str_pad($name, 40, " ") .' ' . $classobj->cli_description;
-            
             
         }
     }
