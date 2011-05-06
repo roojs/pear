@@ -1085,7 +1085,7 @@ Available commands:
     * 
     *
     */
-  
+  /*
     function cliHelp()
     {
      
@@ -1131,6 +1131,7 @@ Available commands:
         exit;
         
     }
+  */
      
       /**
     * given a path to a Cli file, loads it and runs the help method.
@@ -1138,6 +1139,7 @@ Available commands:
     * @param subpath
     * 
     */
+      /*
     function cliRunHelp($top, $path)
     {
        //  print_r(array($top, $path));
@@ -1151,7 +1153,7 @@ Available commands:
         echo "From: $top/$path\n";
         $x->help($cli);
     }
-    
+      */
     
     /**
     * Debugging 
