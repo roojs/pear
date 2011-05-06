@@ -1042,6 +1042,10 @@ Available commands:
         exit;
         
     }
+    /**
+     * creates an instance of all the CLI classes and prints out class + title..
+     *
+     */
     function cliShortHelp($p) { 
     
         list($classname,$subRequest) = $this->requestToClassName($p,FALSE);
