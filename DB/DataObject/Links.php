@@ -71,11 +71,12 @@ function company()
         }
         $this->company_id = $val;
     }
-    $this->loadLinks(array(
+    $r = new DB_DataObject_Links(array(
             'load' =>array('company'), 
             'scanf' => '%s_id',
             'cached' => true
     ));
+    return $r->props['company'];
     
 }
  *
