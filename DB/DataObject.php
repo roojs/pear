@@ -3083,10 +3083,10 @@ class DB_DataObject extends DB_DataObject_Overload
      * @access public
      * @return boolean , true on success
      */
-    function loadLinks($cfg_in)
+    function loadLinks($cfg)
     {
         require_once 'DB/DataObject/Links.php';
-        $li = new DB_DataObject_Links( array_merge($cfg_in, array(
+        $li = new DB_DataObject_Links( array_merge($cfg, array(
             'load' => 'all',
             'scanf' => false,
             'printf' => $cfg['apply'] ? '%s_link' : '%s',
