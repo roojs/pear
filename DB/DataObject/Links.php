@@ -51,12 +51,14 @@ $person->loadLinks( array(
 
 getLinks would then be:
 function getLinks($format =  '_%s')
-        $this->loadLinks(array(
+        $r = new DB_DataObject_Links(array(
                 'load' => all',
                 'scanf' => false,
                 'printf' => $format
-                'cached' => false
+                'cached' => false,
+                'do' => $this
         ));
+        return $r->props;
 }
 
 May also be used by the generator to generate hook methods that look like this:
@@ -74,7 +76,8 @@ function company()
     $r = new DB_DataObject_Links(array(
             'load' =>array('company'), 
             'scanf' => '%s_id',
-            'cached' => true
+            'cached' => true,
+            'do' => $this
     ));
     return $r->props['company'];
     
