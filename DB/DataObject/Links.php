@@ -58,7 +58,7 @@ function getLinks($format =  '_%s')
                 'cached' => false,
                 'do' => $this
         ));
-        return $r->props;
+        return $r->links;
 }
 
 May also be used by the generator to generate hook methods that look like this:
@@ -79,7 +79,7 @@ function company()
             'cached' => true,
             'do' => $this
     ));
-    return $r->props['company'];
+    return $r->links['company'];
     
 }
  *
