@@ -3069,6 +3069,39 @@ class DB_DataObject extends DB_DataObject_Overload
         
         return array();
     }
+    
+    /**
+     * loadLinks
+     *
+     * This is a replacement for the getLinks / getLink code... eventually.
+     * see @DB_DataObject_Links
+     * 
+     * @param  {Array} config   The config (@see DB_DataObject_Links) 
+     * @return  {Array|PEAR_Error}  the key=>value array of columns=>objects, or PEAR_Error
+     * 
+     * @author Alan Knowles <alan@akbkhome.com>
+     * @access public
+     * @return boolean , true on success
+     */
+    function loadLinks($cfg_in)
+    {
+        require_once 'DB/DataObject/Links.php';
+        $li = new DB_DataObject_Links( array_merge($cfg_in, array(
+            'load' => 'all',
+            'scanf' => false,
+            'printf' => $cfg['apply'] ? '%s_link' : '%s',
+            'cached' => false,
+            'apply' => true,
+            'do' => $this
+        )));
+        
+        return $li->props;
+        
+        
+    }
+    
+    
+    
     /**
      * load related objects
      *
