@@ -3095,7 +3095,7 @@ class DB_DataObject extends DB_DataObject_Overload
             'do' => $this
         )));
         
-        return $li->props;
+        return $li->links;
         
         
     }
