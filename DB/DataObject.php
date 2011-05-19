@@ -1862,6 +1862,7 @@ class DB_DataObject extends DB_DataObject_Overload
         'limit_start' => '', // the LIMIT condition
         'limit_count' => '', // the LIMIT condition
         'data_select' => '*', // the columns to be SELECTed
+        'index_hint' => '', // the index hint (mysql only probably)
         'unions'      => array(), // the added unions
     );
         
