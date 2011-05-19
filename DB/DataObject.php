@@ -392,6 +392,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $sql = 'SELECT ' .
             $this->_query['data_select'] . " \n" .
             ' FROM ' . ($quoteIdentifiers ? $DB->quoteIdentifier($this->__table) : $this->__table) . " \n" .
+            $this->_query['index_hint']  . " \n";
             $this->_join . " \n" .
             $this->_query['condition'] . " \n" .
             $this->_query['group_by'] . " \n" .
