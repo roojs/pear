@@ -717,8 +717,9 @@ class DB_DataObject extends DB_DataObject_Overload
             return false;
         }
         if ($hint === false) {
+            $oldhint = $this->_query['index_hint'];
             $this->_query['index_hint'] = '';
-            return;
+            return $oldhint;
         }
         // check input...= 0 or '    ' == error!
         if (!trim($hint)) {
