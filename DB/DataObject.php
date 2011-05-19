@@ -698,7 +698,7 @@ class DB_DataObject extends DB_DataObject_Overload
      *
      * @see http://dev.mysql.com/doc/refman/5.1/en/index-hints.html
      
-     * $object->indexHint('USE INDEX (myindex)');
+     * $object->indexHint(); // returns current hint..
      * $object->indexHint('USE INDEX (myindex)'); 
      * $object->whereAdd("ID > 20");
      * $object->whereAdd("age > 20","OR");
