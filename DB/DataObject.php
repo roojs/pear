@@ -691,6 +691,50 @@ class DB_DataObject extends DB_DataObject_Overload
     
     
     /**
+     * indexHint
+     *
+     * Not sure if this is mysql specific..
+     * Only supports main table at present.. could be added to joins
+     *
+     * @see http://dev.mysql.com/doc/refman/5.1/en/index-hints.html
+     
+     * $object->indexHint('USE INDEX (myindex)');
+     * $object->indexHint('USE INDEX (myindex)'); 
+     * $object->whereAdd("ID > 20");
+     * $object->whereAdd("age > 20","OR");
+     *
+     * @param    string  $cond  condition
+     * @param    string  $logic optional logic "OR" (defaults to "AND")
+     * @access   public
+     * @return   string|PEAR::Error - previous condition or Error when invalid args found
+     */
+    function indexHint($hint = false)
+    {
+        if ($this->_query === false) {
+            $this->raiseError(
+                "You cannot do two queries on the same object (copy it before finding)", 
+                DB_DATAOBJECT_ERROR_INVALIDARGS);
+            return false;
+        }
+        if ($hint === false) {
+            $this->_query['index_hint'] = '';
+            return;
+        }
+        // check input...= 0 or '    ' == error!
+        if (!trim($hint)) {
+            return $this->raiseError("indexHint: No Valid Arguments", DB_DATAOBJECT_ERROR_INVALIDARGS);
+        }
+        
+        if (!$this->_query['order_by']) {
+            $this->_query['order_by'] = " ORDER BY {$order} ";
+            return;
+        }
+        $this->_query['order_by'] .= " , {$order}";
+    }
+    }
+
+    
+    /**
      * Adds a condition to the WHERE statement, defaults to AND
      *
      * $object->whereAdd(); //reset or cleaer ewhwer
