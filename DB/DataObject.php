@@ -700,13 +700,10 @@ class DB_DataObject extends DB_DataObject_Overload
      
      * $object->indexHint(); // returns current hint..
      * $object->indexHint('USE INDEX (myindex)'); 
-     * $object->whereAdd("ID > 20");
-     * $object->whereAdd("age > 20","OR");
      *
-     * @param    string  $cond  condition
-     * @param    string  $logic optional logic "OR" (defaults to "AND")
+     * @param    string  $hint optional hint to set, or empty to return current hint.
      * @access   public
-     * @return   string|PEAR::Error - previous condition or Error when invalid args found
+     * @return   string|PEAR::Error - previous hint or Error when invalid args found
      */
     function indexHint($hint = false)
     {
