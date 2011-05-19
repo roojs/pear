@@ -725,12 +725,9 @@ class DB_DataObject extends DB_DataObject_Overload
             return $this->raiseError("indexHint: No Valid Arguments", DB_DATAOBJECT_ERROR_INVALIDARGS);
         }
         
-        if (!$this->_query['order_by']) {
-            $this->_query['order_by'] = " ORDER BY {$order} ";
-            return;
-        }
-        $this->_query['order_by'] .= " , {$order}";
-    }
+        $this->_query['index_hint'] = $hint
+        
+    
     }
 
     
