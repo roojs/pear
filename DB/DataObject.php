@@ -1740,7 +1740,8 @@ class DB_DataObject extends DB_DataObject_Overload
 
         if (empty($keys[0]) && (!is_string($countWhat) || (strtoupper($countWhat) == 'DISTINCT'))) {
             $this->raiseError(
-                "You cannot do run count without keys - use \${$this->tableName()}->count('id'), or use \${$this->tableName()}->count('distinct id')';", 
+                "You cannot do run count without keys - use \$" . $this->tableName() . "->count('id'), ".
+                "or use \${" . $this->tableName() ."}->count('distinct id')';", 
                 DB_DATAOBJECT_ERROR_INVALIDARGS,PEAR_ERROR_DIE);
             return false;
             
