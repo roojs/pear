@@ -183,6 +183,7 @@ class Translation2_Container_gettext extends Translation2_Container
         foreach ((array) $this->langs as $id => $lang) {
             $this->langs[$id]['id'] = $id;
         }
+        
     }
 
     // }}}
