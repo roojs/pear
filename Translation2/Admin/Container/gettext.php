@@ -370,6 +370,7 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
      */
     function _add(&$bulk)
     {
+        var_dump($bulk);
         include_once 'File/Gettext.php';
         $gtFile = &File_Gettext::factory($this->options['file_type']);
         $langs  = $this->getLangs('array');
