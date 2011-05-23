@@ -373,7 +373,7 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
         include_once 'File/Gettext.php';
         $gtFile = &File_Gettext::factory($this->options['file_type']);
         $langs  = $this->getLangs('array');
-
+        print_R($bulk);
         foreach ((array) $bulk as $pageID => $languages) {
             //create the new domain on demand
             if (!isset($this->_domains[$pageID])) {
