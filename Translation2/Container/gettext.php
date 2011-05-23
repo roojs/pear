@@ -178,7 +178,7 @@ class Translation2_Container_gettext extends Translation2_Container
      */
     function fetchLangs()
     {
-        $this->langs = @parse_ini_file($this->options['langs_avail_file'], true);
+        $this->langs = parse_ini_file($this->options['langs_avail_file'], true);
         foreach ((array) $this->langs as $id => $lang) {
             $this->langs[$id]['id'] = $id;
         }
