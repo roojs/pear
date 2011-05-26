@@ -276,6 +276,7 @@ class File_Convert
                 array(
                     'video/mp4',
                     'video/x-msvideo',
+                    'video/quicktime',
                 ),
                 array(
                     'image/jpeg',
