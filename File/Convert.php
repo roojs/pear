@@ -146,7 +146,7 @@ class File_Convert
        // }
         
         if ($_SERVER["REQUEST_METHOD"] == 'HEAD') {
-            fclose($fh);
+            //fclose($fh);
             exit;
         }
         $fh = fopen($fn, 'r');
