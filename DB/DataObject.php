@@ -3896,6 +3896,10 @@ class DB_DataObject extends DB_DataObject_Overload
           
         $map = $this->links();
         
+        if (empty($map)) {
+            return;
+        }
+        
         $tabdef = $this->table();
          
         // we need this as normally it's only cleared by an empty selectAs call.
