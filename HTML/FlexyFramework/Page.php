@@ -145,7 +145,7 @@ class HTML_FlexyFramework_Page  {
         if (!$isRedirect && !empty($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             return $this->post($request,$args);
         } else {
-            return $this->get($request,$args);
+            return $this->get($request,$args,$isRedirect);
         }
     }
     /**
