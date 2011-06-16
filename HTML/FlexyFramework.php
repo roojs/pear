@@ -797,10 +797,13 @@ class HTML_FlexyFramework {
         // strip end
         // strip valid html stuff
         //$request = preg_replace('/\/[.]+/','',$request);
+        
+
         $request = preg_replace('/^[\/]*/','',$request);
         $request = preg_replace('/\?.*$/','',$request);
         $request = preg_replace('/[\/]*$/','',$request);
         $this->baseRequest = $request;
+        $request = str_replace('&','',$request); // any other invalid characters???
         $request = preg_replace('/\.([a-z]+)$/','',$request);
         $this->ext = substr($this->baseRequest , strlen($request));
         
