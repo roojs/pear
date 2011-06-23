@@ -526,7 +526,7 @@ class File_Convert_Solution
         
         $cmd = "$html2text  " . escapeshellarg($fn) . " -o " . escapeshellarg($target);
         if ($this->debug) {
-            echo $cmd;
+            echo $cmd ."\n";
         }
         `$cmd`;
         $this->cmd = $cmd;
