@@ -439,14 +439,14 @@ class File_Convert_Solution
             $this->cmd = "ERROR:". $fn . " does not exist";
             return false;
         }
-        
+        require_once 'File/MimeType.php';
+        $mt = new File_MimeType();
+        $this->ext = $mt->toExt($this->to);
         if ($this->debug) {
             print_r(array('runconvert', func_get_args()));
             print_r($this);
         }
-        require_once 'File/MimeType.php';
-        $mt = new File_MimeType();
-        $this->ext = $mt->toExt($this->to);
+        
         if (!$this->ext) {
             return false;
         }
