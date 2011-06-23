@@ -525,7 +525,9 @@ class File_Convert_Solution
         $html2text= System::which('html2text');
         
         $cmd = "$html2text  " . escapeshellarg($fn) . " -o " . escapeshellarg($target);
-        ///echo $cmd;
+        if ($this->debug) {
+            echo $cmd;
+        }
         `$cmd`;
         $this->cmd = $cmd;
         clearstatcache();
