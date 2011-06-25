@@ -142,7 +142,8 @@ class HTML_FlexyFramework_Page  {
   
     function start($request,$isRedirect=false,$args=array()) 
     { 
-        if (!$isRedirect && !empty($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
+        $cli= HTML_Flexyframework::get()->cli;
+        if (!$cli && !$isRedirect && !empty($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             return $this->post($request,$args);
         } else {
             return $this->get($request,$args,$isRedirect);
