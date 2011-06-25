@@ -166,7 +166,7 @@ class HTML_FlexyFramework {
         }
  
         // are we running cli?
-        $this->cli = !isset($_SERVER['HTTP_HOST']);
+        $this->cli = php_sapi_name() == 'cli'; 
         
         if ($this->cli && empty($_SERVER['argv'][1])) {
             $this->cliHelp();
