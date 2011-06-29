@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id: DataObject.php 309074 2011-03-10 15:48:43Z alan_k $
+ * @version    CVS: $Id: DataObject.php 312374 2011-06-22 09:09:01Z alan_k $
  * @link       http://pear.php.net/package/DB_DataObject
  */
   
@@ -392,7 +392,6 @@ class DB_DataObject extends DB_DataObject_Overload
         $sql = 'SELECT ' .
             $this->_query['data_select'] . " \n" .
             ' FROM ' . ($quoteIdentifiers ? $DB->quoteIdentifier($this->__table) : $this->__table) . " \n" .
-            $this->_query['index_hint']  . " \n" .
             $this->_join . " \n" .
             $this->_query['condition'] . " \n" .
             $this->_query['group_by'] . " \n" .
@@ -591,10 +590,9 @@ class DB_DataObject extends DB_DataObject_Overload
             // note: we dont declare this to keep the print_r size down.
             $_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid]= array_flip(array_keys($array));
         }
-        
+        $replace = array('.', ' ');
         foreach($array as $k=>$v) {
-            $kk = str_replace(".", "_", $k);
-            $kk = str_replace(" ", "_", $kk);
+            $kk = str_replace($replace, '_', $k);
             if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
                 $this->debug("$kk = ". $array[$k], "fetchrow LINE", 3);
             }
@@ -690,45 +688,6 @@ class DB_DataObject extends DB_DataObject_Overload
          
     }
     
-    
-    /**
-     * indexHint
-     *
-     * Not sure if this is mysql specific..
-     * Only supports main table at present.. could be added to joins
-     *
-     * @see http://dev.mysql.com/doc/refman/5.1/en/index-hints.html
-     
-     * $object->indexHint(); // returns current hint..
-     * $object->indexHint('USE INDEX (myindex)'); 
-     *
-     * @param    string  $hint optional hint to set, or empty to return current hint.
-     * @access   public
-     * @return   string|PEAR::Error - previous hint or Error when invalid args found
-     */
-    function indexHint($hint = false)
-    {
-        if ($this->_query === false) {
-            $this->raiseError(
-                "You cannot do two queries on the same object (copy it before finding)", 
-                DB_DATAOBJECT_ERROR_INVALIDARGS);
-            return false;
-        }
-        if ($hint === false) {
-            $oldhint = $this->_query['index_hint'];
-            $this->_query['index_hint'] = '';
-            return $oldhint;
-        }
-        // check input...= 0 or '    ' == error!
-        if (!trim($hint)) {
-            return $this->raiseError("indexHint: No Valid Arguments", DB_DATAOBJECT_ERROR_INVALIDARGS);
-        }
-        
-        $this->_query['index_hint'] = $hint;
-        
-    
-    }
-
     
     /**
      * Adds a condition to the WHERE statement, defaults to AND
@@ -1666,9 +1625,9 @@ class DB_DataObject extends DB_DataObject_Overload
             $this->raiseError("fetchrow: No results available", DB_DATAOBJECT_ERROR_NODATA);
             return false;
         }
-
+        $replace = array('.', ' ');
         foreach($array as $k => $v) {
-            $kk = str_replace(".", "_", $k);
+            $kk = str_replace($replace, '_', $k);
             if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
                 $this->debug("$kk = ". $array[$k], "fetchrow LINE", 3);
             }
@@ -1740,8 +1699,7 @@ class DB_DataObject extends DB_DataObject_Overload
 
         if (empty($keys[0]) && (!is_string($countWhat) || (strtoupper($countWhat) == 'DISTINCT'))) {
             $this->raiseError(
-                "You cannot do run count without keys - use \$" . $this->tableName() . "->count('id'), ".
-                "or use \$" . $this->tableName() ."->count('distinct id')';", 
+                "You cannot do run count without keys - use \$do->count('id'), or use \$do->count('distinct id')';", 
                 DB_DATAOBJECT_ERROR_INVALIDARGS,PEAR_ERROR_DIE);
             return false;
             
@@ -1863,7 +1821,6 @@ class DB_DataObject extends DB_DataObject_Overload
         'limit_start' => '', // the LIMIT condition
         'limit_count' => '', // the LIMIT condition
         'data_select' => '*', // the columns to be SELECTed
-        'index_hint' => '', // the index hint (mysql only probably)
         'unions'      => array(), // the added unions
     );
         
@@ -2805,8 +2762,7 @@ class DB_DataObject extends DB_DataObject_Overload
     
     
 
-    function factory($table = '')
-    {
+    function factory($table = '') {
         global $_DB_DATAOBJECT;
         
         
@@ -3111,39 +3067,6 @@ class DB_DataObject extends DB_DataObject_Overload
         
         return array();
     }
-    
-    /**
-     * loadLinks
-     *
-     * This is a replacement for the getLinks / getLink code... eventually.
-     * see @DB_DataObject_Links
-     * 
-     * @param  {Array} config   The config (@see DB_DataObject_Links) 
-     * @return  {Array|PEAR_Error}  the key=>value array of columns=>objects, or PEAR_Error
-     * 
-     * @author Alan Knowles <alan@akbkhome.com>
-     * @access public
-     * @return boolean , true on success
-     */
-    function loadLinks($cfg)
-    {
-        require_once 'DB/DataObject/Links.php';
-        $li = new DB_DataObject_Links( array_merge($cfg, array(
-            'load' => 'all',
-            'scanf' => false,
-            'printf' => $cfg['apply'] ? '%s_link' : '%s',
-            'cached' => false,
-            'apply' => true,
-            'do' => $this
-        )));
-        
-        return $li->links;
-        
-        
-    }
-    
-    
-    
     /**
      * load related objects
      *
@@ -3896,10 +3819,6 @@ class DB_DataObject extends DB_DataObject_Overload
           
         $map = $this->links();
         
-        if (empty($map)) {
-            return;
-        }
-        
         $tabdef = $this->table();
          
         // we need this as normally it's only cleared by an empty selectAs call.
@@ -4061,6 +3980,10 @@ class DB_DataObject extends DB_DataObject_Overload
     function toArray($format = '%s', $hideEmpty = false) 
     {
         global $_DB_DATAOBJECT;
+        
+        // we use false to ignore sprintf.. (speed up..)
+        $format = $format == '%s' ? false : $format;
+        
         $ret = array();
         $rf = ($this->_resultFields !== false) ? $this->_resultFields : 
                 (isset($_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid]) ?
@@ -4074,23 +3997,23 @@ class DB_DataObject extends DB_DataObject_Overload
              
             if (!isset($this->$k)) {
                 if (!$hideEmpty) {
-                    $ret[sprintf($format,$k)] = '';
+                    $ret[$format === false ? $k : sprintf($format,$k)] = '';
                 }
                 continue;
             }
             // call the overloaded getXXXX() method. - except getLink and getLinks
             if (method_exists($this,'get'.$k) && !in_array(strtolower($k),array('links','link'))) {
-                $ret[sprintf($format,$k)] = $this->{'get'.$k}();
+                $ret[$format === false ? $k : sprintf($format,$k)] = $this->{'get'.$k}();
                 continue;
             }
             // should this call toValue() ???
-            $ret[sprintf($format,$k)] = $this->$k;
+            $ret[$format === false ? $k : sprintf($format,$k)] = $this->$k;
         }
         if (!$this->_link_loaded) {
             return $ret;
         }
         foreach($this->_link_loaded as $k) {
-            $ret[sprintf($format,$k)] = $this->$k->toArray();
+            $ret[$format === false ? $k : sprintf($format,$k)] = $this->$k->toArray();
         
         }
         
