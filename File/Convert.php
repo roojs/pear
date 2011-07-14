@@ -524,7 +524,13 @@ class File_Convert_Solution
         require_once 'System.php';
         $html2text= System::which('html2text');
         
-        $cmd = "$html2text -o " . escapeshellarg($target) . "  " . escapeshellarg($fn);
+        $opts = array();
+        if (isset($this->opts['width'])) {
+            $opts[] = '-width ' . (int) $this->opts['width'];
+            
+        }
+        
+        $cmd = "$html2text " . implode(' ', $opts)  ." -o " . escapeshellarg($target) . "  " . escapeshellarg($fn);
         if ($this->debug) {
             echo $cmd ."\n";
         }
