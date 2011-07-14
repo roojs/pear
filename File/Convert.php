@@ -513,7 +513,7 @@ class File_Convert_Solution
          return  file_exists($target)  && filesize($target) ? $target : false;
      
     }
-    function html2text($fn) 
+    function html2text($fn, $opt_ar) 
     {
         
         $ext = $this->ext;
@@ -525,8 +525,8 @@ class File_Convert_Solution
         $html2text= System::which('html2text');
         
         $opts = array();
-        if (isset($this->opts['width'])) {
-            $opts[] = '-width ' . (int) $this->opts['width'];
+        if (is_array($opt_ar) && isset($opt_ar['width'])) {
+            $opts[] = '-width ' . ((int) $opt_ar['width']);
             
         }
         
