@@ -513,7 +513,7 @@ class File_Convert_Solution
          return  file_exists($target)  && filesize($target) ? $target : false;
      
     }
-    function html2text($fn, $opt_ar) 
+    function html2text($fn, $opt_ar=array()) 
     {
         
         $ext = $this->ext;
