@@ -530,7 +530,8 @@ class File_Convert_Solution
             
         }
         
-        $cmd = "$html2text " . implode(' ', $opts)  ." -o " . escapeshellarg($target) . "  " . escapeshellarg($fn);
+        $cmd = "$html2text " . implode(' ', $opts)
+            . " -o " . escapeshellarg($target) . "  " . escapeshellarg($fn);
         if ($this->debug) {
             echo $cmd ."\n";
         }
