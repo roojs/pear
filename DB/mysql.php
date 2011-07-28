@@ -381,8 +381,7 @@ class DB_mysql extends DB_common
         }
         if ($fetchmode & DB_FETCHMODE_ASSOC) {
             $arr = @mysql_fetch_array($result, MYSQL_ASSOC);
-                        print_R($arr); 
-
+ 
             if ($this->options['portability'] & DB_PORTABILITY_LOWERCASE && $arr) {
                 $arr = array_change_key_case($arr, CASE_LOWER);
             }
