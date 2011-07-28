@@ -386,6 +386,7 @@ class DB_mysql extends DB_common
             }
         } else {
             $arr = @mysql_fetch_row($result);
+            print_R($arr);exit;
         }
         if (!$arr) {
             return null;
