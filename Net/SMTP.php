@@ -812,7 +812,7 @@ class Net_SMTP
      */
     function mailFrom($sender, $params = null)
     {
-        $args = "FROM:<$sender>";
+        $args = "FROM: <$sender>";
 
         /* Support the deprecated array form of $params. */
         if (is_array($params) && isset($params['verp'])) {
