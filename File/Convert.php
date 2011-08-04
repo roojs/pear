@@ -517,8 +517,9 @@ class File_Convert_Solution
      * html2text wrapper
      *
      * 
-     *
-     *
+     * 
+     * @param {String} $fn source_filename
+     * @param {Array} $opt_ar  option arrray - supports 'width', 'style'
      */
     function html2text($fn, $opt_ar=array()) 
     {
