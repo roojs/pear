@@ -513,6 +513,13 @@ class File_Convert_Solution
          return  file_exists($target)  && filesize($target) ? $target : false;
      
     }
+    /**
+     * html2text wrapper
+     *
+     * 
+     *
+     *
+     */
     function html2text($fn, $opt_ar=array()) 
     {
         
@@ -523,13 +530,16 @@ class File_Convert_Solution
         }
         require_once 'System.php';
         $html2text= System::which('html2text');
+        if (!$html2text) {
+            die("html2text is not installed");
+        }
         
         $opts = array();
         if (is_array($opt_ar) && isset($opt_ar['width'])) {
             $opts[] = '-width ' . ((int) $opt_ar['width']);
             
         }
-         if (is_array($opt_ar) && isset($opt_ar['style'])) {
+        if (is_array($opt_ar) && isset($opt_ar['style'])) {
             $opts[] = '-style ' .  escapeshellarg($opt_ar['style']);
             
         }
