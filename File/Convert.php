@@ -531,6 +531,7 @@ class File_Convert_Solution
         require_once 'System.php';
         $html2text= System::which('html2text');
         if (!$html2text) {
+            // eak.
             die("html2text is not installed");
         }
         
