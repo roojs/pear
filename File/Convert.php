@@ -529,7 +529,10 @@ class File_Convert_Solution
             $opts[] = '-width ' . ((int) $opt_ar['width']);
             
         }
-        
+         if (is_array($opt_ar) && isset($opt_ar['style'])) {
+            $opts[] = '-style ' .  escapeshellarg($opt_ar['style']);
+            
+        }
         $cmd = "$html2text " . implode(' ', $opts)
             . " -o " . escapeshellarg($target) . "  " . escapeshellarg($fn);
         if ($this->debug) {
