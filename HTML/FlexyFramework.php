@@ -1060,7 +1060,7 @@ Available commands:
                     continue;
                 }
                 
-                $this->cliShortHelp("$pr/".implode('/', $classpath));
+                $this->cliShortHelp("$pr/".implode('/', $clp ));
                 continue;
             }
             
