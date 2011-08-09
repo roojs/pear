@@ -707,7 +707,7 @@ class HTML_FlexyFramework {
                     exit;
                 }
                 
-                $args = array_merge($newargs->getValues(), $args );
+                $args = $isRedirect ? $args : array_merge($newargs->getValues(), $args );
                 
             }
             die("TESTING");
