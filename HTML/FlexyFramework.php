@@ -1031,37 +1031,35 @@ Available commands:
     function cliHelpSearch($p,$pr, $path=false) {
         
         $fp = array($p,$pr);
+        $sp = array();
         if ($path!==false)  {
             $fp[] = $path;
+            $sp[] = $path;
         }
         print_r("$p/$pr:\n");
+        
         foreach(scandir(implode('/', $fp)) as $d) {
             
             if (!strlen($d) || $d[0] == '.') {
                 continue;
             }
+            $tsp = $sp;
+            $tsp[] = $d;
             
-            print_r("$d\n");
+            $chk = $fp + $tsp; // join two arrays.
             
-            // top level directories..
-            if (!is_dir("$p/$pr/$d")) {
+            print_r(implode('/', $chk)."\n");
+            // is it a file.. and .PHP...
+            if (!is_dir(implode('/', $chk))) {
                 if (!preg_match('/\.php$/',$d)) {
                     continue;
                 }
                 $this->cliShortHelp("$pr/$d");
                 continue;
             }
-            // got dir.. - scan subdirectories of that..
-            foreach(scandir("$p/$pr/$d") as $f) {
-                if (!strlen($f) || $f[0] == '.') {
-                   continue;
-                }
-                if (!preg_match('/\.php$/',$d)) {
-                    continue;
-                }
-                $this->cliShortHelp("$pr/$d/$f");
-                continue;
-            }
+            // otherwise recurse...
+            $this->cliHelpSearch($p,$pr, $tsp);
+            
             
         }
         
