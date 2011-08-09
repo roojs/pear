@@ -1060,6 +1060,8 @@ Available commands:
                     continue;
                 }
                 $clp[] = preg_replace('/\.php$/','', $d);
+                
+                print_r("CLP" . implode('/', $clp)."\n");
                 $this->cliShortHelp("$pr/".implode('/', $clp ));
                 continue;
             }
