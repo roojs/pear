@@ -1064,24 +1064,10 @@ Available commands:
         if (!isset($classname::$cli_desc)) {
             return;
         }
-        echo str_pad($p,30," ") . $classname::$cli_desc ."\n";
+        echo str_pad($p,40," ") . $classname::$cli_desc ."\n";
         
         
-        
-        $avail = $classobj->available();
-        foreach($avail as $a) {
-            list($classname,$subRequest) = $this->requestToClassName($a,FALSE);
-            $classobj =  new  $classname();
-            if (preg_match('/^HTML_FlexyFramework_/', $p)) {
-                $name = preg_replace('#^HTML/FlexyFramework#', '', $a);
-            } else {
-                // remove the project name.
-                $pr = array_shift(explode('/', $a));
-                $name = substr($a, strlen($pr+1));
-            }
-            echo "  " . str_pad($name, 40, " ") .' ' . $classobj->cli_description;
-            
-        }
+         
     }
     
     
