@@ -1120,4 +1120,3 @@ class Console_Getargs_Options
  * c-basic-offset: 4
  * End:
 */
-?>
