@@ -686,9 +686,9 @@ class HTML_FlexyFramework {
         $this->page = $classobj;
         
         
-        if ($this->cli && isset($classname::$cli)) {
+        if ($this->cli && isset($classname::$cli_opts)) {
             require_once 'HTML/FlexyFramework/Cli2.php';
-            $args = array_merge($args,HTML_FlexyFramework_Cli2::parseArgs());
+            $args = array_merge($args,HTML_FlexyFramework_Cli2::parseArgs($classname));
             
         }
         
