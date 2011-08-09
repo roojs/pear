@@ -1033,10 +1033,8 @@ Available commands:
             }
             
             if (!is_dir("$p/$pr/$d")) {
-                if ($d == 'Cli.php') {
-                    $this->cliShortHelp("$pr/Cli");
-                }
-                continue;
+                $this->cliShortHelp("$pr/$d");
+                contineu;
             }
             // got dir.. - scan subdirectories of that..
             foreach(scandir("$p/$pr/$d") as $f) {
