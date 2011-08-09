@@ -1027,7 +1027,7 @@ Available commands:
         $pr = $this->project;
         
         foreach(scandir("$p/$pr") as $d) {
-            //print_r("$p/$pr/$d");
+            print_r("$p/$pr/$d");
             if (!strlen($d) || $d[0] == '.') {
                 continue;
             }
@@ -1038,10 +1038,8 @@ Available commands:
             }
             // got dir.. - scan subdirectories of that..
             foreach(scandir("$p/$pr/$d") as $f) {
-                if ($f == 'Cli.php') {
-                    $this->cliShortHelp("$pr/$d/Cli");
-                    break;
-                }
+                $this->cliShortHelp("$pr/$d/Cli");
+                continue;
                 
             }
             
