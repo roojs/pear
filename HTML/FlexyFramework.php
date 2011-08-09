@@ -714,7 +714,6 @@ class HTML_FlexyFramework {
                         // User needs help.
                         echo Console_Getargs::getHelp($classname::$cli_opts,
                                 $usage, NULL, 78, 4)."\n\n";
-                        
                     }
                     exit;
                 }
