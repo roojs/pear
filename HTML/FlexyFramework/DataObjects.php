@@ -21,7 +21,7 @@ class HTML_FlexyFramework_DataObjects extends HTML_FlexyFramework_Page
         
         
         
-    )
+    );
     
     
     function getAuth()
