@@ -700,7 +700,7 @@ class HTML_FlexyFramework {
                     if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
                         // User put illegal values on the command line.
                         echo Console_Getargs::getHelp($classname::$cli_opts, NULL, $args->getMessage(), 78, 4)."\n";
-                    } else if ($args->getCode() === CONSOLE_GETARGS_HELP) {
+                    } else if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
                         // User needs help.
                         echo Console_Getargs::getHelp($classname::$cli_opts, NULL, NULL, 78, 4)."\n";
                     }
