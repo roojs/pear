@@ -1014,9 +1014,9 @@ class HTML_FlexyFramework {
         echo "\n-------------------------------------------------
 FlexyFramework Cli Application Usage:
 
-#php -d include_path=.:/var/www/pear $fn
+#php -d include_path=.:/var/www/pear $fn [COMMAND] --help
 or
-#php  $fn
+#php  $fn [COMMAND] --help
 
 -------------------------------------------------
 Available commands:
