@@ -686,7 +686,7 @@ class HTML_FlexyFramework {
         $this->page = $classobj;
         if ($this->cli && !$isRedirect ) { // redirect always just takes redirect args..
              
-        // cli static $classname::$cli_opts
+             // cli static $classname::$cli_opts
             if (version_compare(PHP_VERSION, '5.3.0') >= 0 &&
                 isset($classname::$cli_opts)) {
                 require_once 'Console/Getargs.php';
