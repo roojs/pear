@@ -690,7 +690,6 @@ class HTML_FlexyFramework {
                 isset($classname::$cli_opts)) {
             require_once 'HTML/FlexyFramework/Cli2.php';
             $args = array_merge($args,HTML_FlexyFramework_Cli2::parseArgs($classname));
-            
         }
         
         // echo '<PRE>'; print_r($this);exit;
