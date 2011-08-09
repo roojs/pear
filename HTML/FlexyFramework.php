@@ -1020,7 +1020,7 @@ Available commands:
 
 ";
       
-        $this->cliShortHelp('HTML/FlexyFramework/Cli');
+        $this->cliShortHelp('Database');
         
         
         $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
