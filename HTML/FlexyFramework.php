@@ -1025,14 +1025,14 @@ Available commands:
         
         $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
         $pr = $this->project;
-        print_r("$p/");        
+        print_r("$p/\n");        
         foreach(scandir("$p/$pr") as $d) {
             
             
             if (!strlen($d) || $d[0] == '.') {
                 continue;
             }
-            print_r("$pr/$d");
+            print_r("$pr/$d\n");
             
             // top level directories..
             if (!is_dir("$p/$pr/$d")) {
