@@ -1038,8 +1038,8 @@ Available commands:
         $full_path = array($p,$pr);
         $class_path = array();
         if ($path !== false)  {
-            array_push($full_pathm, $path);
-            $class_path += $path;
+            $full_path= array_merge($full_path, $path);
+            $class_path = array_merge($class_path, $path);
         }
         print_r("FULLPATH:    ". implode('/', $full_path)."\n");
         
