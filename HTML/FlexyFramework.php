@@ -1028,12 +1028,17 @@ Available commands:
         print_r("$p/");        
         foreach(scandir("$p/$pr") as $d) {
             
-            print_r("$pr/$d");
+            
             if (!strlen($d) || $d[0] == '.') {
                 continue;
             }
+            print_r("$pr/$d");
+            
             // top level directories..
             if (!is_dir("$p/$pr/$d")) {
+                if (!preg_match('/\.php$/',$d)) {
+                    continue;
+                }
                 $this->cliShortHelp("$pr/$d");
                 continue;
             }
