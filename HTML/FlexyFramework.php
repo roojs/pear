@@ -1046,10 +1046,12 @@ Available commands:
             if (!strlen($d) || $d[0] == '.') {
                 continue;
             }
-            $tsp = $sp;
-            $tsp[] = $d;
+            $chk = $full_path;
+            $chk[] = $d;
             
-            $chk = $fp + $tsp; // join two arrays.
+            $clp = $class_path;
+            $clp[] = $d;
+            
             
             print_r(implode('/', $chk)."\n");
             // is it a file.. and .PHP...
@@ -1058,12 +1060,12 @@ Available commands:
                     continue;
                 }
                 
-                print_R($tsp);
-                $this->cliShortHelp("$pr/$d");
+                $this->cliShortHelp("$pr/".implode('/', $classpath));
                 continue;
             }
+            
             // otherwise recurse...
-            $this->cliHelpSearch($p,$pr, $tsp);
+            $this->cliHelpSearch($p,$pr, $clp);
             
             
         }
