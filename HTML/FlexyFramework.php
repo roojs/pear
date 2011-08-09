@@ -686,45 +686,8 @@ class HTML_FlexyFramework {
         $this->page = $classobj;
         if ($this->cli && !$isRedirect ) { // redirect always just takes redirect args..
              
-             // cli static $classname::$cli_opts
-            if (version_compare(PHP_VERSION, '5.3.0') >= 0 &&
-                isset($classname::$cli_opts)) {
-                require_once 'Console/Getargs.php';
-                $ar = $_SERVER['argv'];
-                $call = array(array_shift($ar)); // remove index.php
-                $call[] = array_shift($ar); // remove our class...
-                //var_dump($ar);
-                
-                
-                
-                $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
-                
-                if (is_a($newargs, 'PEAR_Error')) {
-                    list($optional, $required, $params) = Console_Getargs::getOptionalRequired($classname::$cli_opts);
-                    
-                    $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
-                          $optional . ' ' . $required . ' ' . $params . "\n\n";           
-                    
-                    
-                    if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
-                        // User put illegal values on the command line.
-                        echo Console_Getargs::getHelp($classname::$cli_opts,
-                                $helpHeader, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
-                        exit;
-                    }
-                    if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
-                        // User needs help.
-                        echo Console_Getargs::getHelp($classname::$cli_opts,
-                                $helpHeader, NULL, 78, 4)."\n\n";
-                        exit;
-                    }
-                    die($newargs->getMessage()); 
-                }
-                
-                $args = $newargs->getValues();
-                
-            }
-            
+            $args = $this->cliParse($classname); 
+             
         }
         
         // echo '<PRE>'; print_r($this);exit;
@@ -1199,7 +1162,56 @@ Available commands:
         echo "From: $top/$path\n";
         $x->help($cli);
     }
-      
+    /**
+    * cliParse - parse command line arguments, and return the values.
+    * @param {String} $classname name of class - should be loaded..
+    * 
+    * @return array of key=>value arguments..
+    * 
+    */
+    function cliParse($classname)
+    {
+    
+    // cli static $classname::$cli_opts
+        if (version_compare(PHP_VERSION, '5.3.0') >= 0 &&
+            isset($classname::$cli_opts)) {
+            require_once 'Console/Getargs.php';
+            $ar = $_SERVER['argv'];
+            $call = array(array_shift($ar)); // remove index.php
+            $call[] = array_shift($ar); // remove our class...
+            //var_dump($ar);
+            
+            
+            
+            $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
+            
+            if (is_a($newargs, 'PEAR_Error')) {
+                list($optional, $required, $params) = Console_Getargs::getOptionalRequired($classname::$cli_opts);
+                
+                $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
+                      $optional . ' ' . $required . ' ' . $params . "\n\n";           
+                
+                
+                if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
+                    // User put illegal values on the command line.
+                    echo Console_Getargs::getHelp($classname::$cli_opts,
+                            $helpHeader, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
+                    exit;
+                }
+                if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
+                    // User needs help.
+                    echo Console_Getargs::getHelp($classname::$cli_opts,
+                            $helpHeader, NULL, 78, 4)."\n\n";
+                    exit;
+                }
+                die($newargs->getMessage()); 
+            }
+            
+            $args = $newargs->getValues();
+            
+        }
+            
+    }
     
     /**
     * Debugging 
