@@ -693,7 +693,7 @@ class HTML_FlexyFramework {
                 $ar = $_SERVER['argv'];
                 array_shift($ar); // remove index.php
                 array_shift($ar); // remove our class...
-                var_dump($ar);
+                //var_dump($ar);
                 $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
                 
                 if (is_a($newargs, 'PEAR_Error')) {
@@ -708,6 +708,7 @@ class HTML_FlexyFramework {
                 }
                 
                 $args = array_merge($newargs->getValues(), $ar );
+                var_dump($args);
             }
             die("TESTING");
         }
