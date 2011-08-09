@@ -169,8 +169,7 @@ class HTML_FlexyFramework {
         $this->cli = php_sapi_name() == 'cli'; 
         
         
-        $this->run = $this->cli ? $_SERVER['argv'][1] : false;
-    
+     
         // will these work ok with cli?
     
         $bits = explode(basename($_SERVER["SCRIPT_FILENAME"]), $_SERVER["SCRIPT_NAME"]);
@@ -198,7 +197,8 @@ class HTML_FlexyFramework {
           $this->cliHelpNEW();
           exit;
        }
-      
+          $this->run = $this->cli ? $_SERVER['argv'][1] : false;
+    
         
         $this->_parseConfigDataObjects();
         if ($this->dataObjectsCache && !$this->nodatabase) {
