@@ -689,25 +689,26 @@ class HTML_FlexyFramework {
         // cli static $classname::$cli_opts
             if (version_compare(PHP_VERSION, '5.3.0') >= 0 &&
                 isset($classname::$cli_opts)) {
-            require_once 'Console/Getargs.php';
-            $ar = $_SERVER['argv'];
-            array_shift($ar); // remove index.php
-            array_shift($ar); // remove our class...
-            
-            $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
-            
-            if (is_a($newargs, 'PEAR_Error')) {
-                if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
-	                // User put illegal values on the command line.
-	                echo Console_Getargs::getHelp($classname::$cli_opts, NULL, $args->getMessage(), 78, 4)."\n";
-	            } else if ($args->getCode() === CONSOLE_GETARGS_HELP) {
-	                // User needs help.
-	                echo Console_Getargs::getHelp($classname::$cli_opts, NULL, NULL, 78, 4)."\n";
-	            }
-                exit;
+                require_once 'Console/Getargs.php';
+                $ar = $_SERVER['argv'];
+                array_shift($ar); // remove index.php
+                array_shift($ar); // remove our class...
+                
+                $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
+                
+                if (is_a($newargs, 'PEAR_Error')) {
+                    if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
+                        // User put illegal values on the command line.
+                        echo Console_Getargs::getHelp($classname::$cli_opts, NULL, $args->getMessage(), 78, 4)."\n";
+                    } else if ($args->getCode() === CONSOLE_GETARGS_HELP) {
+                        // User needs help.
+                        echo Console_Getargs::getHelp($classname::$cli_opts, NULL, NULL, 78, 4)."\n";
+                    }
+                    exit;
+                }
+                
+                $args = array_merge($newargs->getValues(), $ar );
             }
-            
-            $args = array_merge($newargs->getValues(), $ar );
         }
         
         // echo '<PRE>'; print_r($this);exit;
