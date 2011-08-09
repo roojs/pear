@@ -710,7 +710,7 @@ class HTML_FlexyFramework {
                 $args = $newargs->getValues();
                 
             }
-            die("TESTING");
+            
         }
         
         // echo '<PRE>'; print_r($this);exit;
