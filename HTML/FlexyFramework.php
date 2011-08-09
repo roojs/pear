@@ -695,20 +695,26 @@ class HTML_FlexyFramework {
                 $call = array_shift($ar); // remove our class...
                 //var_dump($ar);
                 
-                $usage = "Usage: php $call";
+                
                 
                 $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
                 
                 if (is_a($newargs, 'PEAR_Error')) {
+                    list($optional, $required, $params) = Console_Getargs::getOptionalRequired($config);
+                    $usage = "Usage: php $call";
+                    $helpHeader = 'Usage: php ' . $call. ' '. 
+                          $optional . ' ' . $required . ' ' . $params . "\n\n";           
+                    
+                    
                     if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
                         // User put illegal values on the command line.
                         echo Console_Getargs::getHelp($classname::$cli_opts,
-                                                      
-                                                      
-                                                      , "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
+                                $usage, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
                     } else if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
                         // User needs help.
-                        echo Console_Getargs::getHelp($classname::$cli_opts, NULL, NULL, 78, 4)."\n";
+                        echo Console_Getargs::getHelp($classname::$cli_opts,
+                                $usage, NULL, 78, 4)."\n\n";
+                        
                     }
                     exit;
                 }
