@@ -1050,7 +1050,7 @@ Available commands:
             $chk[] = $d;
             
             $clp = $class_path;
-            $clp[] = $d;
+            
             
             
             print_r(implode('/', $chk)."\n");
@@ -1059,11 +1059,11 @@ Available commands:
                 if (!preg_match('/\.php$/',$d)) {
                     continue;
                 }
-                
+                $clp[] = preg_replace('/\.php$/','', $d);
                 $this->cliShortHelp("$pr/".implode('/', $clp ));
                 continue;
             }
-            
+            $clp[] = $d;
             // otherwise recurse...
             $this->cliHelpSearch($p,$pr, $clp);
             
