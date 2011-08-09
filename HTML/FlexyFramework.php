@@ -194,7 +194,7 @@ class HTML_FlexyFramework {
         $this->classPrefix   = $this->project . '_';
         
         if ($this->cli && empty($_SERVER['argv'][1])) {
-          $this->cliHelpNEW();
+          $this->cliHelp();
           exit;
        }
           $this->run = $this->cli ? $_SERVER['argv'][1] : false;
