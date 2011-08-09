@@ -1064,7 +1064,7 @@ Available commands:
         if (!isset($classname::$cli_desc)) {
             return;
         }
-        echo str_pad($p,30," ") . $classname::$cli_desc;
+        echo str_pad($p,30," ") . $classname::$cli_desc ."\n";
         
         
         
