@@ -1067,7 +1067,7 @@ Available commands:
                 $clp[] = preg_replace('/\.php$/','', $d);
                 
                 //print_r("CLP:          " . implode('/', $clp)."\n");
-                $this->cliShortHelp($pr.'/'.implode('/', $clp ));
+                $this->cliShortHelp(implode('/', $clp ));
                 continue;
             }
             // skip special directories..
