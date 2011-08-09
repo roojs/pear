@@ -1069,7 +1069,7 @@ Available commands:
             }
             $clp[] = $d;
             // otherwise recurse...
-            
+            print_r("RECURSE:        " . implode('/', $clp)."\n");
             $this->cliHelpSearch($p,$pr, $clp);
             
             
