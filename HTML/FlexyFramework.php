@@ -685,8 +685,7 @@ class HTML_FlexyFramework {
         
         $this->page = $classobj;
         if ($this->cli) { 
-            var_dump($classname);
-            var_Dump($classname::$cli_opts);
+             
         // cli static $classname::$cli_opts
             if (version_compare(PHP_VERSION, '5.3.0') >= 0 &&
                 isset($classname::$cli_opts)) {
@@ -694,7 +693,7 @@ class HTML_FlexyFramework {
                 $ar = $_SERVER['argv'];
                 array_shift($ar); // remove index.php
                 array_shift($ar); // remove our class...
-                
+                var_dump($ar);
                 $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
                 
                 if (is_a($newargs, 'PEAR_Error')) {
