@@ -1027,7 +1027,10 @@ Available commands:
         $pr = $this->project;
         
         $this->cliHelpSearch($p,$pr);
+        exit;
     }
+    
+    
     function cliHelpSearch($p,$pr, $path=false) {
         
         $fp = array($p,$pr);
@@ -1063,7 +1066,7 @@ Available commands:
             
         }
         
-        exit;
+        
         
     }
     
