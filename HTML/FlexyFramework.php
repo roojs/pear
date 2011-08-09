@@ -1037,7 +1037,7 @@ Available commands:
         
         $full_path = array($p,$pr);
         $class_path = array();
-        if ($path!==false)  {
+        if ($path !== false)  {
             $full_path += $path;
             $class_path += $path;
         }
