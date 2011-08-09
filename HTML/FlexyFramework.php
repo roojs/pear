@@ -1094,7 +1094,7 @@ Available commands:
      *
      */
     function cliShortHelp($p) { 
-        var_dump($p);
+        print_r("CHKFILE:         $p\n ");
         list($classname,$subRequest) = $this->requestToClassName($p,FALSE);
         
         // does it have a description.
