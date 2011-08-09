@@ -1038,7 +1038,7 @@ Available commands:
             }
             // got dir.. - scan subdirectories of that..
             foreach(scandir("$p/$pr/$d") as $f) {
-                $this->cliShortHelp("$pr/$d/Cli");
+                $this->cliShortHelp("$pr/$d/$f");
                 continue;
                 
             }
