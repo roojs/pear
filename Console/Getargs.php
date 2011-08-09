@@ -221,7 +221,7 @@ class Console_Getargs
      * @return object|PEAR_Error a newly created Console_Getargs_Options
      *                           object or a PEAR_Error object on error
      */
-    function &factory($config = array(), $arguments = null)
+    function factory($config = array(), $arguments = null)
     {
         // Create the options object.
         $obj =   new Console_Getargs_Options();
