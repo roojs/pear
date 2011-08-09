@@ -1031,10 +1031,10 @@ Available commands:
             if (!strlen($d) || $d[0] == '.') {
                 continue;
             }
-            
+            // top level directories..
             if (!is_dir("$p/$pr/$d")) {
                 $this->cliShortHelp("$pr/$d");
-                contineu;
+                continue;
             }
             // got dir.. - scan subdirectories of that..
             foreach(scandir("$p/$pr/$d") as $f) {
