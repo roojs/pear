@@ -695,7 +695,7 @@ class HTML_FlexyFramework {
                 array_shift($ar); // remove our class...
                 var_dump($ar);
                 $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
-                
+                var_dump($newargs);
                 if (is_a($newargs, 'PEAR_Error')) {
                     if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
                         // User put illegal values on the command line.
