@@ -9,7 +9,7 @@ class HTML_FlexyFramework_DataObjects extends HTML_FlexyFramework_Page
      */
       
       
-    static $cli_options  = array(
+    static $cli_opts  = array(
         'test' => array(
             'short' => 't',
             'min' => 1,
