@@ -706,7 +706,7 @@ class HTML_FlexyFramework {
                 exit;
             }
             
-            $args = array_merge($newargs, $ar );
+            $args = array_merge($newargs->getValues(), $ar );
         }
         
         // echo '<PRE>'; print_r($this);exit;
