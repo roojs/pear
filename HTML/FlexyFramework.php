@@ -707,7 +707,7 @@ class HTML_FlexyFramework {
                     exit;
                 }
                 
-                $args = array_merge($newargs->getValues(), $ar );
+                $args = array_merge($newargs->getValues(), $args );
                 var_dump($args);
             }
             die("TESTING");
