@@ -1053,7 +1053,7 @@ Available commands:
      *
      */
     function cliShortHelp($p) { 
-    
+        var_dump($p);
         list($classname,$subRequest) = $this->requestToClassName($p,FALSE);
         
         // does it have a description.
