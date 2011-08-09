@@ -189,11 +189,7 @@ class HTML_FlexyFramework {
         $this->rootURL = ($this->rootURL == '/') ? '' : $this->rootURL;
         
         
-        if ($this->cli && empty($_SERVER['argv'][1])) {
-            $this->cliHelpNEW();
-            exit;
-        }
-        
+      
         //var_dump($this->baseURL);
         
         if (!isset($this->database) && isset($this->DB_DataObject['database'])) {
@@ -201,7 +197,11 @@ class HTML_FlexyFramework {
         }
         $this->classPrefix   = $this->project . '_';
         
-        
+        if ($this->cli && empty($_SERVER['argv'][1])) {
+          $this->cliHelpNEW();
+          exit;
+       }
+      
         
         $this->_parseConfigDataObjects();
         if ($this->dataObjectsCache && !$this->nodatabase) {
