@@ -1,6 +1,12 @@
 <?php
 
-
+/**
+ *
+ * convert $cli_opts array into values based on the
+ * command line..
+ *
+ *
+ */
 class HTML_FlexyFramework_Cli2
 {
    
