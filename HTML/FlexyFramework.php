@@ -1038,7 +1038,7 @@ Available commands:
         $full_path = array($p,$pr);
         $class_path = array();
         if ($path !== false)  {
-            $full_path += $path;
+            array_push($full_pathm, $path);
             $class_path += $path;
         }
         print_r("FULLPATH:    ". implode('/', $full_path)."\n");
