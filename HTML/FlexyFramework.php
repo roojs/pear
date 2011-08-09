@@ -168,9 +168,6 @@ class HTML_FlexyFramework {
         // are we running cli?
         $this->cli = php_sapi_name() == 'cli'; 
         
-       
-        
-        
         
         $this->run = $this->cli ? $_SERVER['argv'][1] : false;
     
