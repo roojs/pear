@@ -14,7 +14,7 @@ class HTML_FlexyFramework_DataObjects extends HTML_FlexyFramework_Page
             'short' => 't',
             'min' => 1,
             'max' => 1,
-            //'default' => 0,
+            //'default' => 0, -- no default if it is required..
             'desc' => 'A test argument that has to be set..'  
         ),
         
