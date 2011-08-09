@@ -1033,8 +1033,8 @@ Available commands:
         $fp = array($p,$pr);
         $sp = array();
         if ($path!==false)  {
-            $fp[] = $path;
-            $sp[] = $path;
+            $fp += $path;
+            $sp += $path;
         }
         print_r(implode('/', $fp).,"\n");
         
