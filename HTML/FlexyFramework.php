@@ -1041,7 +1041,7 @@ Available commands:
         }
         print_r(implode('/', $full_path)."\n");
         
-        foreach(scandir(implode('/', $fp)) as $d) {
+        foreach(scandir(implode('/', $full_path)) as $d) {
             
             if (!strlen($d) || $d[0] == '.') {
                 continue;
