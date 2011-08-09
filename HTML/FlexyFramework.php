@@ -1059,7 +1059,15 @@ Available commands:
     function cliShortHelp($p) { 
     
         list($classname,$subRequest) = $this->requestToClassName($p,FALSE);
-        $classobj =  new  $classname();
+        
+        // does it have a description.
+        if (!isset($classname::$cli_desc)) {
+            return;
+        }
+        echo str_pad($p,30," ") . $classname::$cli_desc;
+        
+        
+        
         $avail = $classobj->available();
         foreach($avail as $a) {
             list($classname,$subRequest) = $this->requestToClassName($a,FALSE);
