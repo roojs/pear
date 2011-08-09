@@ -686,7 +686,8 @@ class HTML_FlexyFramework {
         $this->page = $classobj;
         if ($this->cli && !$isRedirect ) { // redirect always just takes redirect args..
              
-            $args = $this->cliParse($classname); 
+            $nargs = $this->cliParse($classname);
+            $args = $nargs === false ? $args : $nargs; /// replace if found.
              
         }
         
