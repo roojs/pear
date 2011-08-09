@@ -1070,6 +1070,13 @@ Available commands:
                 $this->cliShortHelp($pr.'/'.implode('/', $clp ));
                 continue;
             }
+            
+            if ($d == 'templates') {
+                continue;
+            }
+            
+            
+            
             $clp[] = $d;
             // otherwise recurse...
             //print_r("RECURSE:        " . implode('/', $clp)."\n");
