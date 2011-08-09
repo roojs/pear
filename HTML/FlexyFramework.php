@@ -1044,7 +1044,7 @@ Available commands:
             $full_path= array_merge($full_path, $path);
             $class_path = array_merge($class_path, $path);
         }
-        print_r("CHKDIR:    ". implode('/', $full_path)."\n");
+        //print_r("CHKDIR:    ". implode('/', $full_path)."\n");
         
         foreach(scandir(implode('/', $full_path)) as $d) {
             
@@ -1103,7 +1103,7 @@ Available commands:
      *
      */
     function cliShortHelp($p) { 
-        print_r("CHKFILE:         $p\n ");
+        ////print_r("CHKFILE:         $p\n ");
         list($classname,$subRequest) = $this->requestToClassName($p,FALSE);
         var_dump($classname);
         // does it have a description.
