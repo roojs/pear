@@ -3,7 +3,12 @@
 
 class HTML_FlexyFramework_DataObjects extends HTML_FlexyFramework_Page
 {
-    
+    /**
+     * cli_options: the options for cli usage..
+     * @see Console_Getargs_Options
+     */
+      
+      
     static $cli_options  = array(
         'test' => array(
             'short' => 't',
