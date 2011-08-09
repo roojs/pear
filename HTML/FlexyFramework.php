@@ -1040,7 +1040,6 @@ Available commands:
             foreach(scandir("$p/$pr/$d") as $f) {
                 $this->cliShortHelp("$pr/$d/$f");
                 continue;
-                
             }
             
         }
