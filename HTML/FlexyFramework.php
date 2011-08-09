@@ -684,7 +684,7 @@ class HTML_FlexyFramework {
         $classobj->timer = &$this->timer;
         
         $this->page = $classobj;
-        if ($this->cli) { 
+        if ($this->cli && !$isRedirect ) { // redirect always just takes redirect args..
              
         // cli static $classname::$cli_opts
             if (version_compare(PHP_VERSION, '5.3.0') >= 0 &&
@@ -707,7 +707,7 @@ class HTML_FlexyFramework {
                     exit;
                 }
                 
-                $args = $isRedirect ? $args : array_merge($newargs->getValues(), $args );
+                $args = $newargs->getValues();
                 
             }
             die("TESTING");
