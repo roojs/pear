@@ -691,8 +691,8 @@ class HTML_FlexyFramework {
                 isset($classname::$cli_opts)) {
                 require_once 'Console/Getargs.php';
                 $ar = $_SERVER['argv'];
-                array_shift($ar); // remove index.php
-                $call = array_shift($ar); // remove our class...
+                $call = array(array_shift($ar)); // remove index.php
+                $call[] = array_shift($ar); // remove our class...
                 //var_dump($ar);
                 
                 
@@ -701,8 +701,8 @@ class HTML_FlexyFramework {
                 
                 if (is_a($newargs, 'PEAR_Error')) {
                     list($optional, $required, $params) = Console_Getargs::getOptionalRequired($classname::$cli_opts);
-                    $usage = "Usage: php $call";
-                    $helpHeader = 'Usage: php ' . $call. ' '. 
+                    
+                    $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
                           $optional . ' ' . $required . ' ' . $params . "\n\n";           
                     
                     
