@@ -1033,13 +1033,15 @@ Available commands:
     
     function cliHelpSearch($p,$pr, $path=false) {
         
+        
+        
         $full_path = array($p,$pr);
         $class_path = array();
         if ($path!==false)  {
             $full_path += $path;
             $class_path += $path;
         }
-        print_r(implode('/', $full_path)."\n");
+        print_r("FULLPATH:". implode('/', $full_path)."\n");
         
         foreach(scandir(implode('/', $full_path)) as $d) {
             
