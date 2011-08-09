@@ -1044,7 +1044,7 @@ Available commands:
             $full_path= array_merge($full_path, $path);
             $class_path = array_merge($class_path, $path);
         }
-        print_r("FULLPATH:    ". implode('/', $full_path)."\n");
+        print_r("CHKDIR:    ". implode('/', $full_path)."\n");
         
         foreach(scandir(implode('/', $full_path)) as $d) {
             
@@ -1058,7 +1058,7 @@ Available commands:
             
             
             
-            print_r("CHK:          " . implode('/', $chk)."\n");
+            //print_r("CHK:          " . implode('/', $chk)."\n");
             // is it a file.. and .PHP...
             if (!is_dir(implode('/', $chk))) {
                 if (!preg_match('/\.php$/',$d)) {
@@ -1066,20 +1066,20 @@ Available commands:
                 }
                 $clp[] = preg_replace('/\.php$/','', $d);
                 
-                print_r("CLP:          " . implode('/', $clp)."\n");
+                //print_r("CLP:          " . implode('/', $clp)."\n");
                 $this->cliShortHelp($pr.'/'.implode('/', $clp ));
                 continue;
             }
             $clp[] = $d;
             // otherwise recurse...
-            print_r("RECURSE:        " . implode('/', $clp)."\n");
+            //print_r("RECURSE:        " . implode('/', $clp)."\n");
             
             $this->cliHelpSearch($p,$pr, $clp);
             
             
         }
         
-        print_r("COMPLETE:    ". implode('/', $full_path)."\n");
+        //print_r("COMPLETE:    ". implode('/', $full_path)."\n");
         
         
         
