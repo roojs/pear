@@ -7,7 +7,7 @@ class HTML_FlexyFramework_DataObjects extends HTML_FlexyFramework_Page
      * cli_options: the options for cli usage..
      * @see Console_Getargs_Options
      */
-      
+      /*
       
     static $cli_opts  = array(
         'test' => array(
@@ -22,7 +22,7 @@ class HTML_FlexyFramework_DataObjects extends HTML_FlexyFramework_Page
         
         
     );
-    
+      */
     
     function getAuth()
     {
