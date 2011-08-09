@@ -1164,8 +1164,9 @@ Available commands:
     }
     /**
     * cliParse - parse command line arguments, and return the values.
-    * @param {String} $classname name of class - should be loaded..
+    *  Will die with help message if --help or error is found..
     * 
+    * @param {String} $classname name of class - should be loaded..
     * @return array of key=>value arguments..
     * 
     */
