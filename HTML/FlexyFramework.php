@@ -699,7 +699,7 @@ class HTML_FlexyFramework {
                 if (is_a($newargs, 'PEAR_Error')) {
                     if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
                         // User put illegal values on the command line.
-                        echo Console_Getargs::getHelp($classname::$cli_opts, NULL, "\n\n".$newargs->getMessage(), 78, 4)."\n";
+                        echo Console_Getargs::getHelp($classname::$cli_opts, NULL, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
                     } else if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
                         // User needs help.
                         echo Console_Getargs::getHelp($classname::$cli_opts, NULL, NULL, 78, 4)."\n";
