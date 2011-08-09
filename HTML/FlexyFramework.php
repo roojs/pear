@@ -690,11 +690,13 @@ class HTML_FlexyFramework {
                 isset($classname::$cli_opts)) {
             require_once 'Console/Getargs.php';
             $ar = $_SERVER['argv'];
-            array_shift($_SERVER['argv']); // remove index.php
-            array_shift($_SERVER['argv']); // remove our class...
+            array_shift($ar); // remove index.php
+            array_shift($ar); // remove our class...
+            $newargs = Console:parseArgs($classname::$cli_opts,$ar);
             
-            $args = array_merge($args,
-                    HTML_FlexyFramework_Cli2::parseArgs($classname));
+            
+            $args = array_merge($args, 
+                    );
         }
         
         // echo '<PRE>'; print_r($this);exit;
