@@ -700,7 +700,7 @@ class HTML_FlexyFramework {
                 $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
                 
                 if (is_a($newargs, 'PEAR_Error')) {
-                    list($optional, $required, $params) = Console_Getargs::getOptionalRequired($config);
+                    list($optional, $required, $params) = Console_Getargs::getOptionalRequired($classname::$cli_opts);
                     $usage = "Usage: php $call";
                     $helpHeader = 'Usage: php ' . $call. ' '. 
                           $optional . ' ' . $required . ' ' . $params . "\n\n";           
