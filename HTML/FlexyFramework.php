@@ -1027,6 +1027,7 @@ Available commands:
         $pr = $this->project;
         
         $this->cliHelpSearch($p,$pr);
+        echo "\n\n";
         exit;
     }
     
