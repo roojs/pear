@@ -1069,6 +1069,7 @@ Available commands:
             }
             $clp[] = $d;
             // otherwise recurse...
+            var_dump($clp);exit;
             $this->cliHelpSearch($p,$pr, $clp);
             
             
