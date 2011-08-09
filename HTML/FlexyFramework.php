@@ -1074,7 +1074,9 @@ Available commands:
             if ($d == 'templates') {
                 continue;
             }
-            
+            if ($d == 'DataObjects') {
+                continue;
+            }
             
             
             $clp[] = $d;
