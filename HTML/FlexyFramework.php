@@ -686,6 +686,7 @@ class HTML_FlexyFramework {
         $this->page = $classobj;
         if ($this->cli) { 
             var_dump($classname);
+            var_Dump($classname::$cli_opts);
         // cli static $classname::$cli_opts
             if (version_compare(PHP_VERSION, '5.3.0') >= 0 &&
                 isset($classname::$cli_opts)) {
