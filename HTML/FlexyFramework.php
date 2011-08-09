@@ -1019,8 +1019,8 @@ or
 Available commands:
 
 ";
-      
-        $this->cliShortHelp('Database');
+        // add cli files..
+        //$this->cliShortHelp('Database');
         
         
         $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
