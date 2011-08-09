@@ -692,14 +692,20 @@ class HTML_FlexyFramework {
                 require_once 'Console/Getargs.php';
                 $ar = $_SERVER['argv'];
                 array_shift($ar); // remove index.php
-                array_shift($ar); // remove our class...
+                $call = array_shift($ar); // remove our class...
                 //var_dump($ar);
+                
+                $usage = "Usage: php $call";
+                
                 $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
                 
                 if (is_a($newargs, 'PEAR_Error')) {
                     if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
                         // User put illegal values on the command line.
-                        echo Console_Getargs::getHelp($classname::$cli_opts, NULL, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
+                        echo Console_Getargs::getHelp($classname::$cli_opts,
+                                                      
+                                                      
+                                                      , "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
                     } else if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
                         // User needs help.
                         echo Console_Getargs::getHelp($classname::$cli_opts, NULL, NULL, 78, 4)."\n";
