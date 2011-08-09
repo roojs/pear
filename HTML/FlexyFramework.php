@@ -684,9 +684,10 @@ class HTML_FlexyFramework {
         $classobj->timer = &$this->timer;
         
         $this->page = $classobj;
-        var_dump($classname);
+        if ($this->cli) { 
+            var_dump($classname);
         // cli static $classname::$cli_opts
-        if ($this->cli && version_compare(PHP_VERSION, '5.3.0') >= 0 &&
+            if (version_compare(PHP_VERSION, '5.3.0') >= 0 &&
                 isset($classname::$cli_opts)) {
             require_once 'Console/Getargs.php';
             $ar = $_SERVER['argv'];
