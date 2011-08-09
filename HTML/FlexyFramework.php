@@ -1070,10 +1070,14 @@ Available commands:
             $clp[] = $d;
             // otherwise recurse...
             print_r("RECURSE:        " . implode('/', $clp)."\n");
+            
             $this->cliHelpSearch($p,$pr, $clp);
             
             
         }
+        
+        print_r("COMPLETE:    ". implode('/', $full_path)."\n");
+        
         
         
         
