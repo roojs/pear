@@ -169,7 +169,7 @@ class HTML_FlexyFramework {
         $this->cli = php_sapi_name() == 'cli'; 
         
         if ($this->cli && empty($_SERVER['argv'][1])) {
-            $this->cliHelpNew();
+            $this->cliHelpNEW();
             exit;
         }
         
