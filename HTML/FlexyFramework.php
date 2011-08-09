@@ -692,11 +692,20 @@ class HTML_FlexyFramework {
             $ar = $_SERVER['argv'];
             array_shift($ar); // remove index.php
             array_shift($ar); // remove our class...
-            $newargs = Console:parseArgs($classname::$cli_opts,$ar);
             
+            $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
             
-            $args = array_merge($args, 
-                    );
+            if (is_a($newargs, 'PEAR_Error')) {
+                if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
+	                // User put illegal values on the command line.
+	                echo Console_Getargs::getHelp($config, NULL, $args->getMessage(), 78, 4)."\n";
+	            } else if ($args->getCode() === CONSOLE_GETARGS_HELP) {
+	                // User needs help.
+	                echo Console_Getargs::getHelp($config, NULL, NULL, 78, 4)."\n";
+	            }
+            }
+            
+            $args = array_merge($newargs, $ar );
         }
         
         // echo '<PRE>'; print_r($this);exit;
