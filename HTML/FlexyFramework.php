@@ -1057,8 +1057,8 @@ Available commands:
                 if (!preg_match('/\.php$/',$d)) {
                     continue;
                 }
-                $cp = $pr + $sp + array($d);
-                print_R($cp);
+                
+                print_R($tsp);
                 $this->cliShortHelp("$pr/$d");
                 continue;
             }
