@@ -1187,13 +1187,12 @@ Available commands:
         $call[] = array_shift($ar); // remove our class...
         //var_dump($ar);
         
-        
-        
         $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
         
         if (!is_a($newargs, 'PEAR_Error')) {
             return $newargs->getValues();
         }
+        
         list($optional, $required, $params) = Console_Getargs::getOptionalRequired($classname::$cli_opts);
         
         $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
