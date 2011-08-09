@@ -693,13 +693,12 @@ class HTML_FlexyFramework {
                 $ar = $_SERVER['argv'];
                 array_shift($ar); // remove index.php
                 array_shift($ar); // remove our class...
-                var_dump($ar);
                 $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
-                var_dump($newargs);
+                
                 if (is_a($newargs, 'PEAR_Error')) {
                     if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
                         // User put illegal values on the command line.
-                        echo Console_Getargs::getHelp($classname::$cli_opts, NULL, $args->getMessage(), 78, 4)."\n";
+                        echo Console_Getargs::getHelp($classname::$cli_opts, NULL, $newargs->getMessage(), 78, 4)."\n";
                     } else if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
                         // User needs help.
                         echo Console_Getargs::getHelp($classname::$cli_opts, NULL, NULL, 78, 4)."\n";
