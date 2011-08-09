@@ -1036,7 +1036,7 @@ Available commands:
             $fp[] = $path;
             $sp[] = $path;
         }
-        print_r(implode('/', $fp)\n");
+        print_r(implode('/', $fp).,"\n");
         
         foreach(scandir(implode('/', $fp)) as $d) {
             
