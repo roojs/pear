@@ -1070,7 +1070,7 @@ Available commands:
                 $this->cliShortHelp($pr.'/'.implode('/', $clp ));
                 continue;
             }
-            
+            // skip special directories..
             if ($d == 'templates') {
                 continue;
             }
