@@ -1167,50 +1167,54 @@ Available commands:
     *  Will die with help message if --help or error is found..
     * 
     * @param {String} $classname name of class - should be loaded..
-    * @return array of key=>value arguments..
+    * @return {Array|false} array of key=>value arguments.. or false if not parsed
     * 
     */
     function cliParse($classname)
     {
     
     // cli static $classname::$cli_opts
-        if (version_compare(PHP_VERSION, '5.3.0') >= 0 &&
-            isset($classname::$cli_opts)) {
-            require_once 'Console/Getargs.php';
-            $ar = $_SERVER['argv'];
-            $call = array(array_shift($ar)); // remove index.php
-            $call[] = array_shift($ar); // remove our class...
-            //var_dump($ar);
-            
-            
-            
-            $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
-            
-            if (is_a($newargs, 'PEAR_Error')) {
-                list($optional, $required, $params) = Console_Getargs::getOptionalRequired($classname::$cli_opts);
-                
-                $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
-                      $optional . ' ' . $required . ' ' . $params . "\n\n";           
-                
-                
-                if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
-                    // User put illegal values on the command line.
-                    echo Console_Getargs::getHelp($classname::$cli_opts,
-                            $helpHeader, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
-                    exit;
-                }
-                if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
-                    // User needs help.
-                    echo Console_Getargs::getHelp($classname::$cli_opts,
-                            $helpHeader, NULL, 78, 4)."\n\n";
-                    exit;
-                }
-                die($newargs->getMessage()); 
-            }
-            
-            $args = $newargs->getValues();
-            
+        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
+            return false;
         }
+        if (!isset($classname::$cli_opts)) {
+            return false;
+        }
+        
+        require_once 'Console/Getargs.php';
+        $ar = $_SERVER['argv'];
+        $call = array(array_shift($ar)); // remove index.php
+        $call[] = array_shift($ar); // remove our class...
+        //var_dump($ar);
+        
+        
+        
+        $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
+        
+        if (!is_a($newargs, 'PEAR_Error')) {
+            return $newargs->getValues();
+        }
+        list($optional, $required, $params) = Console_Getargs::getOptionalRequired($classname::$cli_opts);
+        
+        $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
+              $optional . ' ' . $required . ' ' . $params . "\n\n";           
+        
+        
+        if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
+            // User put illegal values on the command line.
+            echo Console_Getargs::getHelp($classname::$cli_opts,
+                    $helpHeader, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
+            exit;
+        }
+        if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
+            // User needs help.
+            echo Console_Getargs::getHelp($classname::$cli_opts,
+                    $helpHeader, NULL, 78, 4)."\n\n";
+            exit;
+        }
+        
+        die($newargs->getMessage()); 
+        
             
     }
     
