@@ -685,6 +685,13 @@ class HTML_FlexyFramework {
         
         $this->page = $classobj;
         
+        
+        if ($this->cli && isset($classname::$cli)) {
+            require_once 'HTML/FlexyFramework/Cli2.php';
+            $args = array_merge($args,HTML_FlexyFramework_Cli2::parseArgs());
+            
+        }
+        
         // echo '<PRE>'; print_r($this);exit;
         // echo "CHECK GET AUTH?";
         if (!method_exists($classobj, 'getAuth')) {
