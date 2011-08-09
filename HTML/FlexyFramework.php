@@ -710,12 +710,15 @@ class HTML_FlexyFramework {
                         // User put illegal values on the command line.
                         echo Console_Getargs::getHelp($classname::$cli_opts,
                                 $usage, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
-                    } else if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
+                        exit;
+                    }
+                    if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
                         // User needs help.
                         echo Console_Getargs::getHelp($classname::$cli_opts,
                                 $usage, NULL, 78, 4)."\n\n";
+                        exit;
                     }
-                    exit;
+                    die($newargs->getMessage()); 
                 }
                 
                 $args = $newargs->getValues();
