@@ -168,10 +168,7 @@ class HTML_FlexyFramework {
         // are we running cli?
         $this->cli = php_sapi_name() == 'cli'; 
         
-        if ($this->cli && empty($_SERVER['argv'][1])) {
-            $this->cliHelpNEW();
-            exit;
-        }
+       
         
         
         
@@ -190,6 +187,12 @@ class HTML_FlexyFramework {
         $this->baseDir = $this->rootDir .'/'. $this->project;
         $this->rootURL = dirname($this->baseURL);
         $this->rootURL = ($this->rootURL == '/') ? '' : $this->rootURL;
+        
+        
+        if ($this->cli && empty($_SERVER['argv'][1])) {
+            $this->cliHelpNEW();
+            exit;
+        }
         
         //var_dump($this->baseURL);
         
