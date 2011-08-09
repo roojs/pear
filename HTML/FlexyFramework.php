@@ -1025,14 +1025,23 @@ Available commands:
         
         $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
         $pr = $this->project;
-        print_r("$p/\n");        
-        foreach(scandir("$p/$pr") as $d) {
-            
+        
+        $this->cliHelpSearch($p,$pr);
+    }
+    function cliHelpSearch($p,$pr, $path=false) {
+        
+        $fp = array($p,$pr);
+        if ($path!==false)  {
+            $fp[] = $path;
+        }
+        print_r("$p/$pr:\n");
+        foreach(scandir(implode('/', $fp)) as $d) {
             
             if (!strlen($d) || $d[0] == '.') {
                 continue;
             }
-            print_r("$pr/$d\n");
+            
+            print_r("$d\n");
             
             // top level directories..
             if (!is_dir("$p/$pr/$d")) {
@@ -1044,6 +1053,12 @@ Available commands:
             }
             // got dir.. - scan subdirectories of that..
             foreach(scandir("$p/$pr/$d") as $f) {
+                if (!strlen($f) || $f[0] == '.') {
+                   continue;
+                }
+                if (!preg_match('/\.php$/',$d)) {
+                    continue;
+                }
                 $this->cliShortHelp("$pr/$d/$f");
                 continue;
             }
@@ -1053,6 +1068,10 @@ Available commands:
         exit;
         
     }
+    
+    
+    
+    
     /**
      * creates an instance of all the CLI classes and prints out class + title..
      *
