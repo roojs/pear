@@ -690,7 +690,7 @@ class HTML_FlexyFramework {
             $fcli = new HTML_FlexyFramework_Cli($this);
             $nargs = $fcli->cliParse($classname);
             $args = $nargs === false ? $args : $nargs; /// replace if found.
-             
+            $classobj->cli_args = $nargs;
         }
         
         // echo '<PRE>'; print_r($this);exit;
