@@ -127,6 +127,22 @@ class HTML_FlexyFramework_Page  {
     */
     var $errors = array(); // key(element name)=>error message
    
+   
+   
+    /**
+    * Arguments from cli if static $cli_opts is used.
+    *  
+    * @var array
+    * @access public
+    */
+    var $cli_args = array(); // key(element name)=>error message
+   
+   
+   
+   
+   
+   
+   
     /**
     * The default page handler
     * by default relays to get(), or post() methods depending on the request.
