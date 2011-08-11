@@ -168,8 +168,6 @@ class HTML_FlexyFramework {
         // are we running cli?
         $this->cli = php_sapi_name() == 'cli'; 
         
-        
-     
         // will these work ok with cli?
     
         $bits = explode(basename($_SERVER["SCRIPT_FILENAME"]), $_SERVER["SCRIPT_NAME"]);
