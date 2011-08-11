@@ -194,7 +194,9 @@ class HTML_FlexyFramework {
         $this->classPrefix   = $this->project . '_';
         
         if ($this->cli && empty($_SERVER['argv'][1])) {
-          $this->cliHelpNEW();
+            require_once 'HTML/FlexyFramework/Cli.php';
+            $fcli = new HTML_FlexyFramework_Cli($this);
+            $fcli->cliHelp();
           exit;
        }
           $this->run = $this->cli ? $_SERVER['argv'][1] : false;
@@ -685,8 +687,9 @@ class HTML_FlexyFramework {
         
         $this->page = $classobj;
         if ($this->cli && !$isRedirect ) { // redirect always just takes redirect args..
-             
-            $nargs = $this->cliParse($classname);
+            require_once 'HTML/FlexyFramework/Cli.php';
+            $fcli = new HTML_FlexyFramework_Cli($this);
+            $nargs = $fcli->cliParse($classname);
             $args = $nargs === false ? $args : $nargs; /// replace if found.
              
         }
@@ -996,265 +999,8 @@ class HTML_FlexyFramework {
         die("process " . $sig . " already running\n");
         
     }
-    /**
-      * looks for Cli.php files and runs available() on them
-     * this should return a list of classes that can be used.
-     * - we should the load each one, and find the summary..
-     *
-     *
-     */
-    function cliHelpNEW()
-    {
+    
      
-        $fn = basename($_SERVER["SCRIPT_FILENAME"]);
-      
-        echo "\n-------------------------------------------------
-FlexyFramework Cli Application Usage:
-
-#php -d include_path=.:/var/www/pear $fn [COMMAND] --help
-or
-#php  $fn [COMMAND] --help
-
--------------------------------------------------
-Available commands:
-
-";
-        // add cli files..
-        //$this->cliShortHelp('Database');
-        
-        
-        $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
-        $pr = $this->project;
-        
-        $this->cliHelpSearch($p,$pr);
-        echo "\n\n";
-        exit;
-    }
-    
-    
-    function cliHelpSearch($p,$pr, $path=false) {
-        
-        
-        
-        $full_path = array($p,$pr);
-        $class_path = array();
-        if ($path !== false)  {
-            $full_path= array_merge($full_path, $path);
-            $class_path = array_merge($class_path, $path);
-        }
-        //print_r("CHKDIR:    ". implode('/', $full_path)."\n");
-        
-        foreach(scandir(implode('/', $full_path)) as $d) {
-            
-            if (!strlen($d) || $d[0] == '.') {
-                continue;
-            }
-            $chk = $full_path;
-            $chk[] = $d;
-            
-            $clp = $class_path;
-            
-            
-            
-            //print_r("CHK:          " . implode('/', $chk)."\n");
-            // is it a file.. and .PHP...
-            if (!is_dir(implode('/', $chk))) {
-                if (!preg_match('/\.php$/',$d)) {
-                    continue;
-                }
-                $clp[] = preg_replace('/\.php$/','', $d);
-                
-                //print_r("CLP:          " . implode('/', $clp)."\n");
-                $this->cliShortHelp(implode('/', $clp ));
-                continue;
-            }
-            // skip special directories..
-            if ($d == 'templates') {
-                continue;
-            }
-            if ($d == 'DataObjects') {
-                continue;
-            }
-            
-            
-            $clp[] = $d;
-            // otherwise recurse...
-            //print_r("RECURSE:        " . implode('/', $clp)."\n");
-            
-            $this->cliHelpSearch($p,$pr, $clp);
-            
-            
-        }
-        
-        //print_r("COMPLETE:    ". implode('/', $full_path)."\n");
-        
-        
-        
-        
-    }
-    
-    
-    
-    
-    /**
-     * creates an instance of all the CLI classes and prints out class + title..
-     *
-     */
-    function cliShortHelp($p) { 
-        ////print_r("CHKFILE:         $p\n ");
-        list($classname,$subRequest) = $this->requestToClassName($p,FALSE);
-        //var_dump($classname);
-        // does it have a description.
-        if (!isset($classname::$cli_desc)) {
-            return;
-        }
-        echo str_pad($p,40," ") . $classname::$cli_desc ."\n";
-        
-        
-         
-    }
-    
-    
-    
-    
-    /**
-    * cliHelp.. 
-    * 
-    *
-    * looks for Cli.php files and runs available() on them
-    * this should return a list of classes that can be used.
-    * - we should the load each one, and find the summary..
-    *
-    * 
-    * php index.php Some/Component
-    * 
-    *   
-    *
-    * 
-    *
-    */
- 
-    function cliHelp()
-    {
-     
-        $fn = basename($_SERVER["SCRIPT_FILENAME"]);
-      
-        echo "\n-------------------------------------------------\n". 
-            "\nFlexyFramework Cli Application Usage:\n".
-            "\n".
-            "#php -d include_path=.:/var/www/pear $fn\n".
-            "or \n".
-            "#php  $fn\n".
-            "\n";
-            
-        
-        
-        $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
-        $pr = $this->project;
-        
-        $this->cliRunHelp("", "HTML/FlexyFramework/Cli.php");
-        
-        foreach(scandir("$p/$pr") as $d) {
-            //print_r("$p/$pr/$d");
-            if (!strlen($d) || $d[0] == '.') {
-                continue;
-            }
-            if (!is_dir("$p/$pr/$d")) {
-                if ($d == 'Cli.php') {
-                    $this->cliRunHelp($p, "$pr/$d");
-                }
-                continue;
-            }
-            // got dir..
-            foreach(scandir("$p/$pr/$d") as $f) {
-                if ($f == 'Cli.php') {
-                    $this->cliRunHelp($p, "$pr/$d/$f");
-                    break;
-                }
-                
-            }
-            
-        }
-        
-        exit;
-        
-    }
-  
-     
-      /**
-    * given a path to a Cli file, loads it and runs the help method.
-    * @param toppath..
-    * @param subpath
-    * 
-    */
-      
-    function cliRunHelp($top, $path)
-    {
-       //  print_r(array($top, $path));
-        $fn = basename($_SERVER["SCRIPT_FILENAME"]);
-        $cli = "#php $fn";
-        $cls = preg_replace('/\.php$/', '', $path);
-        $cls = str_replace('/', '_', $cls);
-        include empty($top) ? $path : "$top/$path";
-        $x = new $cls;
-        echo "-------------------------------------------------\n";
-        echo "From: $top/$path\n";
-        $x->help($cli);
-    }
-    /**
-    * cliParse - parse command line arguments, and return the values.
-    *  Will die with help message if --help or error is found..
-    * 
-    * @param {String} $classname name of class - should be loaded..
-    * @return {Array|false} array of key=>value arguments.. or false if not parsed
-    * 
-    */
-    function cliParse($classname)
-    {
-    
-    // cli static $classname::$cli_opts
-        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-            return false;
-        }
-        if (!isset($classname::$cli_opts)) {
-            return false;
-        }
-        
-        require_once 'Console/Getargs.php';
-        $ar = $_SERVER['argv'];
-        $call = array(array_shift($ar)); // remove index.php
-        $call[] = array_shift($ar); // remove our class...
-        //var_dump($ar);
-        
-        $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
-        
-        if (!is_a($newargs, 'PEAR_Error')) {
-            return $newargs->getValues();
-        }
-        
-        list($optional, $required, $params) = Console_Getargs::getOptionalRequired($classname::$cli_opts);
-        
-        $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
-              $optional . ' ' . $required . ' ' . $params . "\n\n";           
-        
-        
-        if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
-            // User put illegal values on the command line.
-            echo Console_Getargs::getHelp($classname::$cli_opts,
-                    $helpHeader, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
-            exit;
-        }
-        if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
-            // User needs help.
-            echo Console_Getargs::getHelp($classname::$cli_opts,
-                    $helpHeader, NULL, 78, 4)."\n\n";
-            exit;
-        }
-        
-        die($newargs->getMessage()); 
-        
-            
-    }
     
     /**
     * Debugging 
