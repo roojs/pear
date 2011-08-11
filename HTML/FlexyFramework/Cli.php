@@ -51,7 +51,7 @@ Available commands:
         
         
         $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
-        $pr = $this->project;
+        $pr = $this->ff->project;
         
         $this->cliHelpSearch($p,$pr);
         echo "\n\n";
