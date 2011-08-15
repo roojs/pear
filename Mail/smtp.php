@@ -280,8 +280,10 @@ class Mail_smtp extends Mail {
         $res = $this->_smtp->data($textHeaders . "\r\n\r\n" . $body);
         if (is_a($res, 'PEAR_Error')) {
             $error = $this->_error('Failed to send data', $res);
+            $ret = PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_DATA);
+            $ret->smtpcode = $error->code;
             $this->_smtp->rset();
-            return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_DATA);
+            return $ret;
         }
 
         /* If persistent connections are disabled, destroy our SMTP object. */
