@@ -287,7 +287,7 @@ class Mail_smtp extends Mail {
         if (is_a($res, 'PEAR_Error')) {
             $error = $this->_error('Failed to send data', $res);
             $ret = PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_DATA);
-            $ret->smtpcode = $error->code;
+            $ret->smtpcode = $res->code;
             $this->_smtp->rset();
             return $ret;
         }
