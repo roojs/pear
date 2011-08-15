@@ -256,13 +256,17 @@ class Mail_smtp extends Mail {
             }
         }
         if (PEAR::isError($res = $this->_smtp->mailFrom($from, ltrim($params)))) {
+            
             $error = $this->_error("Failed to set sender: $from", $res);
+            $ret = PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER);
+            $ret->smtpcode = $res->code;
             $this->_smtp->rset();
-            return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER);
+            return $ret;
         }
 
         $recipients = $this->parseRecipients($recipients);
         if (is_a($recipients, 'PEAR_Error')) {
+            // smtpcode will not be set..
             $this->_smtp->rset();
             return $recipients;
         }
