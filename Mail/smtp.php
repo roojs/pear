@@ -256,7 +256,6 @@ class Mail_smtp extends Mail {
             }
         }
         if (PEAR::isError($res = $this->_smtp->mailFrom($from, ltrim($params)))) {
-            
             $error = $this->_error("Failed to set sender: $from", $res);
             $ret = PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER);
             $ret->smtpcode = $res->code;
@@ -338,7 +337,9 @@ class Mail_smtp extends Mail {
             $error = $this->_error('Failed to connect to ' .
                                    $this->host . ':' . $this->port,
                                    $res);
-            return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_CONNECT);
+            $ret = PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_CONNECT);
+            $ret->smtpcode = $res->code;
+            return $ret;
         }
 
         /* Attempt to authenticate if authentication has been enabled. */
