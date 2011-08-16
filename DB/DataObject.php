@@ -3852,7 +3852,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 continue;
             }
             // this is borked ... for multiple jions..
-            $this->joinAdd($xx, empty($opts['joinType'] ? 'LEFT' : $opts['joinType'], 'join_'.$ocl.'_'. $col, $ocl);
+            $this->joinAdd($xx, empty($opts['joinType']) ? 'LEFT' : $opts['joinType'], 'join_'.$ocl.'_'. $col, $ocl);
             $tabdef = $xx->table();
             $table = $xx->tableName();
             
