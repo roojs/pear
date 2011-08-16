@@ -3809,14 +3809,21 @@ class DB_DataObject extends DB_DataObject_Overload
      * }
      * $ar = $x->fetchAll(); 
      *   will result in only the columns requested being fetched...
+     *
+     * Future changes will include more options, like filtering??
+     *
+     * @param    array    options
+     *           joinType : LEFT (default) 
+     * 
+     *
      * @return   array      info about joins
      *                      cols => map of resulting {joined_tablename}.{joined_table_column_name}
      *                      join_names => map of resulting {join_name_as}.{joined_table_column_name}
      * @access   public
      */
-    function autoJoin()
+    function autoJoin($opts = array())
     {
-          
+        
         $map = $this->links();
         
         $tabdef = $this->table();
@@ -3831,7 +3838,7 @@ class DB_DataObject extends DB_DataObject_Overload
             'join_names' => array()
         );
         
-         foreach(array_keys($tabdef) as $k) {
+        foreach(array_keys($tabdef) as $k) {
             $ret['cols'][$k] = $this->tableName(). '.' . $k;
         }
         
@@ -3845,7 +3852,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 continue;
             }
             // this is borked ... for multiple jions..
-            $this->joinAdd($xx, 'LEFT', 'join_'.$ocl.'_'. $col, $ocl);
+            $this->joinAdd($xx, empty($opts['joinType'] ? 'LEFT' : $opts['joinType'], 'join_'.$ocl.'_'. $col, $ocl);
             $tabdef = $xx->table();
             $table = $xx->tableName();
             
