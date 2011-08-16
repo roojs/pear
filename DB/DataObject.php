@@ -3813,7 +3813,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * Future changes will include more options, like filtering??
      *
      * @param    array    options
-     *           joinType : LEFT (default) 
+     *                   joinType => LEFT (default) 
      * 
      *
      * @return   array      info about joins
