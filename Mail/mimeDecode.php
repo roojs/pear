@@ -493,7 +493,7 @@ class Mail_mimeDecode extends PEAR
      */
     function _parseHeaderValue($input)
     {
-
+        var_Dump($input);
         if (($pos = strpos($input, ';')) === false) {
             $input = $this->_decode_headers ? $this->_decodeHeader($input) : $input;
             $return['value'] = trim($input);
