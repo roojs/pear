@@ -623,8 +623,7 @@ class Mail_mimeDecode extends PEAR
                 $key = preg_replace('/(.*)\*[0-9]+(\**)$/', '\1\2', $key);
                 if (isset($clean_others[$key])) {
                     $clean_others[$key] .= $val;
-                    $clean_others[strtolower($key)] .= $val;
-                    continue;
+                     continue;
                 }
                 
             }
