@@ -629,12 +629,13 @@ class Mail_mimeDecode extends PEAR
                 
             }
             $clean_others[$key] = $val;
-            $clean_others[strtolower($key)] = $val;
+            
         }
         
         // handle language translation of '*' ending others.
         foreach( $clean_others as $key =>$val) {
             if ( $key[strlen($key)-1] != '*') {
+                $clean_others[strtolower($key)] = $val;
                 continue;
             }
             unset($clean_others[$key]);
@@ -642,7 +643,13 @@ class Mail_mimeDecode extends PEAR
             //              extended-other-values
             $match = array();
             $info = preg_match("/^([^']+)'([^']*)'(.*)$/", $val, $match);
+            
             print_R($match);
+            
+            $clean_others[$key] = urldecode($match[3]);
+            $clean_others[strtolower($key)] = $clean_others[$key];
+            $clean_others[strtolower($key).'-charset'] = $match[1];
+            $clean_others[strtolower($key).'-language'] = $match[2];
             
             
         }
