@@ -562,7 +562,8 @@ class Mail_mimeDecode extends PEAR
                     $i++;
                     continue; // skip leading spaces after '=' or after '"'
                 }
-                $key_is_trans = $key[strlen($key)-1] == 0;
+                
+                $key_is_trans = $key[strlen($key)-1] == '*';
                 
                 if (!$key_is_trans && !$escaped && ($c == '"' || $c == "'")) {
                     // start quoted area..
