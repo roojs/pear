@@ -476,6 +476,17 @@ class Mail_mimeDecode extends PEAR
      * robust as it could be. Eg. header comments
      * in the wrong place will probably break it.
      *
+     * Extra things this can handle
+     *   filename*0=......
+     *   filename*1=......
+     *
+     *  This is where lines are broken in, and need merging.
+     *
+     *   filename*0*=ENC''urlencoded data.
+     *   filename*1*=ENC''urlencoded data.
+     *
+     * 
+     *
      * @param string Header value to parse
      * @return array Contains parsed result
      * @access private
@@ -536,7 +547,6 @@ class Mail_mimeDecode extends PEAR
                     if ($key) { // a key without a value..
                         $key= trim($key);
                         $return['other'][$key] = '';
-                        $return['other'][strtolower($key)] = '';
                     }
                     $key = '';
                 }
@@ -567,25 +577,10 @@ class Mail_mimeDecode extends PEAR
                     
                     $val = trim($val);
                     $added = false;
-                    if (preg_match('/\*[0-9]+\**$/', $key)) {
-                        // this is the extended aaa*0=...;aaa*1= or *1*.... code                    
-                        // it assumes the pieces arrive in order, and are valid...
-                        $key = preg_replace('/\*[0-9]+\**$/', '', $key);
-                        var_Dump($key);
-                        
-                        if (isset($return['other'][$key])) {
-                            $return['other'][$key] .= $val;
-                            if (strtolower($key) != $key) {
-                                $return['other'][strtolower($key)] .= $val;
-                            }
-                            $added = true;
-                        }
-                        // continue and use standard setters..
-                    }
+                    
                     if (!$added) {
                         $return['other'][$key] = $val;
-                        $return['other'][strtolower($key)] = $val;
-                    }
+                     }
                     $val = false;
                     $key = '';
                     $lq = false;
@@ -617,24 +612,26 @@ class Mail_mimeDecode extends PEAR
         if (strlen(trim($key)) || $val !== false) {
            
             $val = trim($val);
-            $added = false;
-            if ($val !== false && preg_match('/\*[0-9]+\**$/', $key)) {
-                // no dupes due to our crazy regexp.
-                $key = preg_replace('/\*[0-9]+\**$/', '', $key);
-                if (isset($return['other'][$key])) {
-                    $return['other'][$key] .= $val;
-                    if (strtolower($key) != $key) {
-                        $return['other'][strtolower($key)] .= $val;
-                    }
-                    $added = true;
-                }
-                // continue and use standard setters..
-            }
-            if (!$added) {
-                $return['other'][$key] = $val;
-                $return['other'][strtolower($key)] = $val;
-            }
+          
+            $return['other'][$key] = $val;
+              
         }
+        $clean_others = array();
+        
+        // merge added values. eg. *1[*]
+        foreach($return['other'] as $key =>$val) {
+            if (preg_match('/\*[0-9]+\**$/', $key)) {
+                $newkey = preg_replace('/(.*)\*[0-9]+(\**)$/', '', $key);
+                var_dump($newkey);
+                continue;
+            }
+            $clean_others[$key] = $value;
+            $clean_others[strtolower($key)] = $value;
+        }
+        
+        
+        $return['other'] = $clean_others;
+        
         // decode values.
         foreach($return['other'] as $key =>$val) {
             $return['other'][$key] = $this->_decode_headers ? $this->_decodeHeader($val) : $val;
