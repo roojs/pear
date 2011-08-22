@@ -620,7 +620,7 @@ class Mail_mimeDecode extends PEAR
         // merge added values. eg. *1[*]
         foreach($return['other'] as $key =>$val) {
             if (preg_match('/\*[0-9]+\**$/', $key)) {
-                $newkey = preg_replace('/(.*)\*[0-9]+(\**)$/', '\1\3', $key);
+                $newkey = preg_replace('/(.*)\*[0-9]+(\**)$/', '\1\2', $key);
                 var_dump($newkey);
                 continue;
             }
