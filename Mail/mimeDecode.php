@@ -493,8 +493,7 @@ class Mail_mimeDecode extends PEAR
      */
     function _parseHeaderValue($input)
     {
-        var_Dump($input);
-        if (($pos = strpos($input, ';')) === false) {
+         if (($pos = strpos($input, ';')) === false) {
             $input = $this->_decode_headers ? $this->_decodeHeader($input) : $input;
             $return['value'] = trim($input);
             return $return;
@@ -610,8 +609,7 @@ class Mail_mimeDecode extends PEAR
           
             $return['other'][$key] = $val;
         }
-        var_Dump($return);
-        
+       
         
         $clean_others = array();
         
@@ -622,8 +620,8 @@ class Mail_mimeDecode extends PEAR
             //    var_dump($newkey);
             //    continue;
             //}
-            $clean_others[$key] = $value;
-            $clean_others[strtolower($key)] = $value;
+            $clean_others[$key] = $val;
+            $clean_others[strtolower($key)] = $val;
         }
         
         
