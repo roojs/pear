@@ -641,7 +641,7 @@ class Mail_mimeDecode extends PEAR
             //extended-initial-value := [charset] "'" [language] "'"
             //              extended-other-values
             $match = array();
-            $info = preg_match("/^([^']+)'([^']*)'(.*)", $val, $match);
+            $info = preg_match("/^([^']+)'([^']*)'(.*)$/", $val, $match);
             print_R($match);
             
             
