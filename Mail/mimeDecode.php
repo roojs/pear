@@ -571,6 +571,8 @@ class Mail_mimeDecode extends PEAR
                         // this is the extended aaa*0=...;aaa*1= or *1*.... code                    
                         // it assumes the pieces arrive in order, and are valid...
                         $key = preg_replace('/\*[0-9]+\**$/', '', $key);
+                        var_Dump($key);
+                        
                         if (isset($return['other'][$key])) {
                             $return['other'][$key] .= $val;
                             if (strtolower($key) != $key) {
