@@ -615,11 +615,11 @@ class Mail_mimeDecode extends PEAR
         
         // merge added values. eg. *1[*]
         foreach($return['other'] as $key =>$val) {
-            if (preg_match('/\*[0-9]+\**$/', $key)) {
-                $newkey = preg_replace('/(.*)\*[0-9]+(\**)$/', '', $key);
-                var_dump($newkey);
-                continue;
-            }
+            //if (preg_match('/\*[0-9]+\**$/', $key)) {
+            //    $newkey = preg_replace('/(.*)\*[0-9]+(\**)$/', '', $key);
+            //    var_dump($newkey);
+            //    continue;
+            //}
             $clean_others[$key] = $value;
             $clean_others[strtolower($key)] = $value;
         }
@@ -627,11 +627,14 @@ class Mail_mimeDecode extends PEAR
         
         $return['other'] = $clean_others;
         
+        
+        
+        
         // decode values.
         foreach($return['other'] as $key =>$val) {
             $return['other'][$key] = $this->_decode_headers ? $this->_decodeHeader($val) : $val;
         }
-       //print_r($return);
+        print_r($return);
         return $return;
     }
 
