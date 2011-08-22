@@ -574,13 +574,8 @@ class Mail_mimeDecode extends PEAR
                 }
                 // got end....
                 if (!$escaped && $c == ';') {
-                    
-                    $val = trim($val);
-                    $added = false;
-                    
-                    if (!$added) {
-                        $return['other'][$key] = $val;
-                     }
+                     
+                    $return['other'][$key] = trim($val);
                     $val = false;
                     $key = '';
                     $lq = false;
@@ -614,8 +609,8 @@ class Mail_mimeDecode extends PEAR
             $val = trim($val);
           
             $return['other'][$key] = $val;
-              
         }
+        
         $clean_others = array();
         
         // merge added values. eg. *1[*]
