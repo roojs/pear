@@ -616,23 +616,20 @@ class Mail_mimeDecode extends PEAR
        
         
         $clean_others = array();
-         print_r($return['other']);
         // merge added values. eg. *1[*]
         foreach($return['other'] as $key =>$val) {
             if (preg_match('/\*[0-9]+\**$/', $key)) {
                 $key = preg_replace('/(.*)\*[0-9]+(\**)$/', '\1\2', $key);
                 if (isset($clean_others[$key])) {
                     $clean_others[$key] .= $val;
-                     continue;
+                    continue;
                 }
                 
             }
             $clean_others[$key] = $val;
             
         }
-        
-        print_r($clean_others);
-        
+         
         // handle language translation of '*' ending others.
         foreach( $clean_others as $key =>$val) {
             if ( $key[strlen($key)-1] != '*') {
@@ -645,9 +642,7 @@ class Mail_mimeDecode extends PEAR
             //              extended-other-values
             $match = array();
             $info = preg_match("/^([^']+)'([^']*)'(.*)$/", $val, $match);
-            
-            print_R($match);
-            
+             
             $clean_others[$key] = urldecode($match[3]);
             $clean_others[strtolower($key)] = $clean_others[$key];
             $clean_others[strtolower($key).'-charset'] = $match[1];
