@@ -638,7 +638,7 @@ class Mail_mimeDecode extends PEAR
         foreach($return['other'] as $key =>$val) {
             $return['other'][$key] = $this->_decode_headers ? $this->_decodeHeader($val) : $val;
         }
-        print_r($return);
+        
         return $return;
     }
 
