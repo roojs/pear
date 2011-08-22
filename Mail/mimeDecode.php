@@ -639,6 +639,7 @@ class Mail_mimeDecode extends PEAR
                 continue;
             }
             unset($clean_others[$key]);
+            $key = substr($key,0,-1);
             //extended-initial-value := [charset] "'" [language] "'"
             //              extended-other-values
             $match = array();
