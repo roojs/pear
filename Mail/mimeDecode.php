@@ -590,7 +590,7 @@ class Mail_mimeDecode extends PEAR
             
             // state - in quote..
             if (!$escaped && $c == $q) {  // potential exit state..
-
+                $return['other'][$key] = trim($val);
                 // end of quoted string..
                 $lq = $q;
                 $q = false;
