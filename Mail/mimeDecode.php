@@ -632,6 +632,8 @@ class Mail_mimeDecode extends PEAR
             
         }
         
+        print_r($clean_others);
+        
         // handle language translation of '*' ending others.
         foreach( $clean_others as $key =>$val) {
             if ( $key[strlen($key)-1] != '*') {
