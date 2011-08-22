@@ -563,6 +563,7 @@ class Mail_mimeDecode extends PEAR
                     continue; // skip leading spaces after '=' or after '"'
                 }
                 
+                // do not de-quote 'xxx*= itesm.. 
                 $key_is_trans = $key[strlen($key)-1] == '*';
                 
                 if (!$key_is_trans && !$escaped && ($c == '"' || $c == "'")) {
@@ -618,11 +619,11 @@ class Mail_mimeDecode extends PEAR
         
         // merge added values. eg. *1[*]
         foreach($return['other'] as $key =>$val) {
-            //if (preg_match('/\*[0-9]+\**$/', $key)) {
-            //    $newkey = preg_replace('/(.*)\*[0-9]+(\**)$/', '', $key);
-            //    var_dump($newkey);
-            //    continue;
-            //}
+            if (preg_match('/\*[0-9]+\**$/', $key)) {
+                $newkey = preg_replace('/(.*)\*[0-9]+(\**)$/', '\1\3', $key);
+                var_dump($newkey);
+                continue;
+            }
             $clean_others[$key] = $val;
             $clean_others[strtolower($key)] = $val;
         }
