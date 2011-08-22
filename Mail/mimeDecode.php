@@ -52,7 +52,7 @@
  * @author     Sean Coates <sean@php.net>
  * @copyright  2003-2006 PEAR <pear-group@php.net>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version    CVS: $Id: mimeDecode.php 305875 2010-12-01 07:17:10Z alan_k $
+ * @version    CVS: $Id: mimeDecode.php 313905 2011-07-29 03:13:19Z alan_k $
  * @link       http://pear.php.net/package/Mail_mime
  */
 
@@ -567,10 +567,10 @@ class Mail_mimeDecode extends PEAR
 
                     $val = trim($val);
                     $added = false;
-                    if (preg_match('/\*[0-9]+$/', $key)) {
-                        // this is the extended aaa*0=...;aaa*1=.... code
+                    if (preg_match('/\*[0-9]+\**$/', $key)) {
+                        // this is the extended aaa*0=...;aaa*1= or *1*.... code                    
                         // it assumes the pieces arrive in order, and are valid...
-                        $key = preg_replace('/\*[0-9]+$/', '', $key);
+                        $key = preg_replace('/\*[0-9]+\**$/', '', $key);
                         if (isset($return['other'][$key])) {
                             $return['other'][$key] .= $val;
                             if (strtolower($key) != $key) {
