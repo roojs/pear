@@ -564,7 +564,7 @@ class Mail_mimeDecode extends PEAR
                 }
                 // got end....
                 if (!$escaped && $c == ';') {
-
+                    
                     $val = trim($val);
                     $added = false;
                     if (preg_match('/\*[0-9]+\**$/', $key)) {
@@ -618,9 +618,9 @@ class Mail_mimeDecode extends PEAR
            
             $val = trim($val);
             $added = false;
-            if ($val !== false && preg_match('/\*[0-9]+$/', $key)) {
+            if ($val !== false && preg_match('/\*[0-9]+\**$/', $key)) {
                 // no dupes due to our crazy regexp.
-                $key = preg_replace('/\*[0-9]+$/', '', $key);
+                $key = preg_replace('/\*[0-9]+\**$/', '', $key);
                 if (isset($return['other'][$key])) {
                     $return['other'][$key] .= $val;
                     if (strtolower($key) != $key) {
