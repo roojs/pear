@@ -17,7 +17,7 @@
 // | Authors:  Tobias dot eberle at gmx dot de (include with vars)        |
 // +----------------------------------------------------------------------+
 //
-// $Id: Flexy.php,v 1.14 2009/03/06 08:45:17 alan_k Exp $
+// $Id: Flexy.php 315533 2011-08-26 02:39:02Z alan_k $
 //
 //  Handler code for the <flexy: namespace
 //
@@ -32,7 +32,7 @@
 *
 *
 *
-* @version    $Id: Flexy.php,v 1.14 2009/03/06 08:45:17 alan_k Exp $
+* @version    $Id: Flexy.php 315533 2011-08-26 02:39:02Z alan_k $
 */
 
 class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
@@ -106,7 +106,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
             $v = substr($v,1,-1);
             $ret .= $this->compiler->appendPhp(
                 '$__tmp = HTML_Javascript_Convert::convertVar('.$element->toVar($v) .',\''.$prefix . $k.'\',true);'.
-                'echo (is_a($__tmp,"PEAR_Error")) ? ("<pre>".print_r($__tmp,true)."</pre>") : $__tmp;');
+                'echo (is_object($__tmp) && is_a($__tmp,"PEAR_Error")) ? ("<pre>".print_r($__tmp,true)."</pre>") : $__tmp;');
             $ret .= $this->compiler->appendHTML("\n");
         }
         $ret .= $this->compiler->appendHTML("</script>");
@@ -202,9 +202,9 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
                         }
                     } else {
                         //it's a variable
-                        if (is_a($item, 'HTML_Template_Flexy_Token_Var')) {
+                        if (is_object($item) && is_a($item, 'HTML_Template_Flexy_Token_Var')) {
                             $value = $item->toVar($item->value);
-                            if (is_a($value, 'PEAR_Error')) {
+                            if (is_object($value) && is_a($value, 'PEAR_Error')) {
                                 return $value;
                             }
                             $string .= "{{$value}}";
@@ -302,7 +302,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
         // that the {xxx} element is item 1 in the list... 
         $e=$element->ucAttributes['CALL'][1];
         $add = $e->toVar($e->value);
-        if (is_a($add,'PEAR_Error')) {
+        if (is_object($add) && is_a($add,'PEAR_Error')) {
             return $add;
         } 
         return $this->compiler->appendPHP(
