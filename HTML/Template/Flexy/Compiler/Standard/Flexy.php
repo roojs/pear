@@ -16,7 +16,7 @@
 // | Authors:  Alan Knowles <alan@akkbhome.com>                           |
 // +----------------------------------------------------------------------+
 //
-// $Id: Flexy.php,v 1.15 2004/06/24 06:12:06 alan_k Exp $
+// $Id: Flexy.php 315533 2011-08-26 02:39:02Z alan_k $
 //
 //  Handler code for the <flexy: namespace
 //
@@ -31,7 +31,7 @@
 *
 *
 *
-* @version    $Id: Flexy.php,v 1.15 2004/06/24 06:12:06 alan_k Exp $
+* @version    $Id: Flexy.php 315533 2011-08-26 02:39:02Z alan_k $
 */
 
 class HTML_Template_Flexy_Compiler_Standard_Flexy  {
@@ -105,7 +105,7 @@ class HTML_Template_Flexy_Compiler_Standard_Flexy  {
             $v = substr($v,1,-1);
             $ret .= $this->compiler->appendPhp(
                 '$__tmp = HTML_Javascript_Convert::convertVar('.$element->toVar($v) .',\''.$prefix . $k.'\',true);'.
-                'echo (is_a($__tmp,"PEAR_Error")) ? ("<pre>".print_r($__tmp,true)."</pre>") : $__tmp;');
+                'echo (is_object($__tmp) && is_a($__tmp,"PEAR_Error")) ? ("<pre>".print_r($__tmp,true)."</pre>") : $__tmp;');
             $ret .= $this->compiler->appendHTML("\n");
         }
         $ret .= $this->compiler->appendHTML("</script>");
@@ -202,7 +202,7 @@ class HTML_Template_Flexy_Compiler_Standard_Flexy  {
         // that the {xxx} element is item 1 in the list... 
         $e=$element->ucAttributes['CALL'][1];
         $add = $e->toVar($e->value);
-        if (is_a($add,'PEAR_Error')) {
+        if (is_object($add) && is_a($add,'PEAR_Error')) {
             return $add;
         } 
         return $this->compiler->appendPHP(
