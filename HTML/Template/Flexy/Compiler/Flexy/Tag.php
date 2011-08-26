@@ -765,7 +765,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
             
             for($i =1; $i < count($ar) -1; $i++) {
                 switch(true) {
-                    case (is_object($ar[$i) && is_a($ar[$i], 'HTML_Template_Flexy_Token_Var')):
+                    case (is_object($ar[$i]) && is_a($ar[$i], 'HTML_Template_Flexy_Token_Var')):
                         $str .= '. ' . $ar[$i]->toVar($ar[$i]->value). ' ';
                         break;
                     case is_string($ar[$i]):
