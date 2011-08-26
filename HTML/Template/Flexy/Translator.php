@@ -16,7 +16,7 @@
 // | Authors:  nobody <nobody@localhost>                                  |
 // +----------------------------------------------------------------------+
 //
-// $Id: Translator.php 307254 2011-01-08 05:47:06Z alan_k $
+// $Id: Translator.php 315533 2011-08-26 02:39:02Z alan_k $
 //
 //  Controller Type Class providing translation faciliites
 //
@@ -405,7 +405,7 @@ class HTML_Template_Flexy_Translator {
             $r = $x->compile($fname);
             
             //printf(" %0.3fs : $fname<BR>", $time);
-            if (is_a($r,'PEAR_Error')) {
+            if (is_object($r) && is_a($r,'PEAR_Error')) {
                 echo "compile failed on $fname<BR>";
                 echo $r->toString();
                 continue;
