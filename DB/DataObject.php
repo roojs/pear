@@ -15,7 +15,7 @@
  * @author     Alan Knowles <alan@akbkhome.com>
  * @copyright  1997-2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id: DataObject.php 312374 2011-06-22 09:09:01Z alan_k $
+ * @version    CVS: $Id: DataObject.php 315531 2011-08-26 02:21:29Z alan_k $
  * @link       http://pear.php.net/package/DB_DataObject
  */
   
@@ -1129,7 +1129,7 @@ class DB_DataObject extends DB_DataObject_Overload
             
             $leftq .= ($quoteIdentifiers ? ($DB->quoteIdentifier($k) . ' ')  : "$k ");
             
-            if (is_a($this->$k,'DB_DataObject_Cast')) {
+            if (is_object($this->$k) && is_a($this->$k,'DB_DataObject_Cast')) {
                 $value = $this->$k->toString($v,$DB);
                 if (PEAR::isError($value)) {
                     $this->raiseError($value->toString() ,DB_DATAOBJECT_ERROR_INVALIDARGS);
@@ -1387,7 +1387,7 @@ class DB_DataObject extends DB_DataObject_Overload
             
             $kSql = ($quoteIdentifiers ? $DB->quoteIdentifier($k) : $k);
             
-            if (is_a($this->$k,'DB_DataObject_Cast')) {
+            if (is_object($this->$k) && is_a($this->$k,'DB_DataObject_Cast')) {
                 $value = $this->$k->toString($v,$DB);
                 if (PEAR::isError($value)) {
                     $this->raiseError($value->getMessage() ,DB_DATAOBJECT_ERROR_INVALIDARG);
@@ -2570,7 +2570,7 @@ class DB_DataObject extends DB_DataObject_Overload
             }
             
             // see if we got a failure.. - try again a few times..
-            if (!is_a($result,'PEAR_Error')) {
+            if (!is_object($result) || !is_a($result,'PEAR_Error')) {
                 break;
             }
             if ($result->getCode() != -14) {  // *DB_ERROR_NODBSELECTED
@@ -2581,7 +2581,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
        
 
-        if (is_a($result,'PEAR_Error')) {
+        if (is_object($result) && is_a($result,'PEAR_Error')) {
             if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) { 
                 $this->debug($result->toString(), "Query Error",1 );
             }
@@ -2620,7 +2620,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 $DB->expectError(MDB2_ERROR_UNSUPPORTED);
             }
             $this->N = $result->numrows();
-            if (is_a($this->N,'PEAR_Error')) {
+            if (is_object($this->N) && is_a($this->N,'PEAR_Error')) {
                 $this->N = true;
             }
             $DB->popExpect();
@@ -2677,7 +2677,7 @@ class DB_DataObject extends DB_DataObject_Overload
              
              
             
-            if (is_a($this->$k,'DB_DataObject_Cast')) {
+            if (is_object($this->$k) && is_a($this->$k,'DB_DataObject_Cast')) {
                 $dbtype = $DB->dsn["phptype"];
                 $value = $this->$k->toString($v,$DB);
                 if (PEAR::isError($value)) {
@@ -2833,7 +2833,9 @@ class DB_DataObject extends DB_DataObject_Overload
             $d = new DB_DataObject;
            
             $d->__table = $table;
-            if (is_a($ret = $d->_connect(), 'PEAR_Error')) {
+            
+            $ret = $d->_connect();
+            if (is_object($ret) && is_a($ret, 'PEAR_Error')) {
                 return $ret;
             }
             
@@ -3215,7 +3217,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         $obj = $this->factory($table);
         
-        if (!is_a($obj,'DB_DataObject')) {
+        if (!is_object($obj) || !is_a($obj,'DB_DataObject')) {
             $this->raiseError(
                 "getLink:Could not find class for row $row, table $table", 
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
@@ -3285,7 +3287,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         $c  = $this->factory($table);
         
-        if (!is_a($c,'DB_DataObject')) {
+        if (!is_object($c) || !is_a($c,'DB_DataObject')) {
             $this->raiseError(
                 "getLinkArray:Could not find class for row $row, table $table", 
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG
@@ -3447,7 +3449,7 @@ class DB_DataObject extends DB_DataObject_Overload
             list($toTable,$ofield) = explode(':',$obj[1]);
             $obj = DB_DataObject::factory($toTable);
             
-            if (!$obj || is_a($obj,'PEAR_Error')) {
+            if (!$obj || !is_object($obj) || is_a($obj,'PEAR_Error')) {
                 $obj = new DB_DataObject;
                 $obj->__table = $toTable;
             }
@@ -3669,7 +3671,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     continue;
                 }
                             
-                if (is_a($obj->$k,'DB_DataObject_Cast')) {
+                if (is_object($obj->$k) && is_a($obj->$k,'DB_DataObject_Cast')) {
                     $value = $obj->$k->toString($v,$DB);
                     if (PEAR::isError($value)) {
                         $this->raiseError($value->getMessage() ,DB_DATAOBJECT_ERROR_INVALIDARG);
@@ -3809,21 +3811,14 @@ class DB_DataObject extends DB_DataObject_Overload
      * }
      * $ar = $x->fetchAll(); 
      *   will result in only the columns requested being fetched...
-     *
-     * Future changes will include more options, like filtering??
-     *
-     * @param    array    options
-     *                   joinType => LEFT (default) 
-     * 
-     *
      * @return   array      info about joins
      *                      cols => map of resulting {joined_tablename}.{joined_table_column_name}
      *                      join_names => map of resulting {join_name_as}.{joined_table_column_name}
      * @access   public
      */
-    function autoJoin($opts = array())
+    function autoJoin()
     {
-        
+          
         $map = $this->links();
         
         $tabdef = $this->table();
@@ -3838,7 +3833,7 @@ class DB_DataObject extends DB_DataObject_Overload
             'join_names' => array()
         );
         
-        foreach(array_keys($tabdef) as $k) {
+         foreach(array_keys($tabdef) as $k) {
             $ret['cols'][$k] = $this->tableName(). '.' . $k;
         }
         
@@ -3848,11 +3843,11 @@ class DB_DataObject extends DB_DataObject_Overload
             list($tab,$col) = explode(':', $info);
             // what about multiple joins on the same table!!!
             $xx = DB_DataObject::factory($tab);
-            if (!is_a($xx, 'DB_DataObject')) {
+            if (!is_object($xx) || !is_a($xx, 'DB_DataObject')) {
                 continue;
             }
             // this is borked ... for multiple jions..
-            $this->joinAdd($xx, empty($opts['joinType']) ? 'LEFT' : $opts['joinType'], 'join_'.$ocl.'_'. $col, $ocl);
+            $this->joinAdd($xx, 'LEFT', 'join_'.$ocl.'_'. $col, $ocl);
             $tabdef = $xx->table();
             $table = $xx->tableName();
             
@@ -4000,9 +3995,8 @@ class DB_DataObject extends DB_DataObject_Overload
             (($hideEmpty === 0) ? $rf : array_merge($rf, $this->table())) :
             $this->table();
 
-      
         foreach($ar as $k=>$v) {
-            
+             
             if (!isset($this->$k)) {
                 if (!$hideEmpty) {
                     $ret[$format === false ? $k : sprintf($format,$k)] = '';
