@@ -16,7 +16,7 @@
 // | Authors:  Alan Knowles <alan@akbkhome.com>                           |
 // +----------------------------------------------------------------------+
 //
-// $Id: Tree.php,v 1.5 2005/01/31 06:57:44 alan_k Exp $
+// $Id: Tree.php 315533 2011-08-26 02:39:02Z alan_k $
 //
 // The Html Tree Component of Flexy
 // Designed to be used on it's own
@@ -110,7 +110,8 @@ class HTML_Template_Flexy_Tree {
         $t->tokens[0]->id =0;
         
         // process
-        if (is_a($r = $t->tokenize($data),'PEAR_Error')) {
+        $r = $t->tokenize($data);
+        if (is_object($r) && is_a($r,'PEAR_Error')) {
             return $r;
         }
         
