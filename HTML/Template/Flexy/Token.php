@@ -16,7 +16,7 @@
 // | Authors:  Alan Knowles <alan@akbkhome>                               |
 // +----------------------------------------------------------------------+
 //
-// $Id: Token.php,v 1.53 2009/03/12 14:01:20 alan_k Exp $
+// $Id: Token.php 315533 2011-08-26 02:39:02Z alan_k $
 //
 //  This is the master Token file for The New Token driver Engine.
 //  All the Token output, and building routines are in here.
@@ -165,7 +165,7 @@ class HTML_Template_Flexy_Token {
                 continue;
             }
             $add = $child->compile($compiler);
-            if (is_a($add,'PEAR_Error')) {
+            if (is_object($add) && is_a($add,'PEAR_Error')) {
                 return $add;
             }
             $ret .= $add;
@@ -299,12 +299,12 @@ class HTML_Template_Flexy_Token {
         
   
         for($i=1;$i<$total;$i++) {
-            if (!isset($res[$i]) || !is_a($res[$i],'HTML_Template_Flexy_Token_Text')) {
+            if (!isset($res[$i]) || !is_object($res[$i]) || !is_a($res[$i],'HTML_Template_Flexy_Token_Text')) {
                 continue;
             }
             $first = $i;
             $i++;
-            while ($i<$total && is_a($res[$i],'HTML_Template_Flexy_Token_Text')) {
+            while ($i<$total && is_object($res[$i])  && is_a($res[$i],'HTML_Template_Flexy_Token_Text')) {
                 if (isset($res[$i])) {
                     $res[$first]->value .= $res[$i]->value;
                     $res[$i]->value = '';
@@ -518,7 +518,7 @@ class HTML_Template_Flexy_Token {
         
         
         $ret =  $this->findVar($parts[0]);
-        if (is_a($ret,'PEAR_Error')) {
+        if (is_object($ret) && is_a($ret,'PEAR_Error')) {
             return $ret;
         }
         
