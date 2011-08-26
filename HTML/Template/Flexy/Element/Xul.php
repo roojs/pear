@@ -16,7 +16,7 @@
 // | Author: Alan Knowles <alan@akbkhome.com>                             |
 // +----------------------------------------------------------------------+
 //
-// $Id: Xul.php,v 1.6 2005/11/09 08:29:13 alan_k Exp $
+// $Id: Xul.php 315533 2011-08-26 02:39:02Z alan_k $
 
 /**
  * Extension HTML Element builder and render to provide features for Xul
@@ -54,7 +54,7 @@ class HTML_Template_Flexy_Element_Xul {
                 if (!isset($element->children[0])) {
                     $element->children[0] = HTML_Template_Flexy_Element('menupopup');
                 }
-                if (!is_a($element->children[0],'HTML_Template_Flexy_Element')) {
+                if (!is_object($element->children[0]) || !is_a($element->children[0],'HTML_Template_Flexy_Element')) {
                     // oh sh*t big problem!
                     return HTML_Template_Flexy::raiseError(
                         __CLASS__ . '::setValue expected a Flexy Element as the child of a menuitem but got something else! '. 
@@ -145,7 +145,7 @@ class HTML_Template_Flexy_Element_Xul {
         if (!isset($element->children[0])) {
             $element->children[0] = new  HTML_Template_Flexy_Element('menupopup');
         }
-        if (!is_a($element->children[0],'HTML_Template_Flexy_Element')) {
+        if (!is_object($element->children[0]) ||  !is_a($element->children[0],'HTML_Template_Flexy_Element')) {
             // oh sh*t big problem!
             return HTML_Template_Flexy::raiseError(
                 __CLASS__ . '::setValue expected a menupopup as the child of a menuitem?', 
