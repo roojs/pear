@@ -16,7 +16,7 @@
 // | Authors:  Alan Knowles <alan@akbkhome>                               |
 // +----------------------------------------------------------------------+
 //
-// $Id: Tag.php,v 1.50 2004/07/29 04:26:24 alan_k Exp $
+// $Id: Tag.php 315533 2011-08-26 02:39:02Z alan_k $
 /* FC/BC compatibility with php5 */
 if ( (substr(phpversion(),0,1) < 5) && !function_exists('clone')) {
     eval('function clone($t) { return $t; }');
@@ -31,7 +31,7 @@ if ( (substr(phpversion(),0,1) < 5) && !function_exists('clone')) {
 * one instance of these exists for each namespace.
 *
 *
-* @version    $Id: Tag.php,v 1.50 2004/07/29 04:26:24 alan_k Exp $
+* @version    $Id: Tag.php 315533 2011-08-26 02:39:02Z alan_k $
 */
 
 class HTML_Template_Flexy_Compiler_Standard_Tag {
@@ -166,7 +166,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
                          null,   HTML_TEMPLATE_FLEXY_ERROR_DIE);
                 }
                 $add = $v[1]->compile($this->compiler);
-                if (is_a($add,'PEAR_Error')) {
+                if (is_object($add) && is_a($add,'PEAR_Error')) {
                     return $add;
                 }
                 $ret .= ' ' . $add;
@@ -196,7 +196,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
             
             if (is_object($v)) {
                 $add = $v->compile($this->compiler);
-                if (is_a($add,'PEAR_Error')) {
+                if (is_object($add) && is_a($add,'PEAR_Error')) {
                     return $add;
                 }
             
@@ -214,7 +214,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
                     continue;
                 }
                 $add = $item->compile($this->compiler);
-                if (is_a($add,'PEAR_Error')) {
+                if (is_object($add) && is_a($add,'PEAR_Error')) {
                     return $add;
                 }
                 $ret .= $add;
@@ -227,7 +227,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
         if ($element->postfix) {
             foreach ($element->postfix as $e) {
                 $add = $e->compile($this->compiler);
-                if (is_a($add,'PEAR_Error')) {
+                if (is_object($add) && is_a($add,'PEAR_Error')) {
                     return $add;
                 }
                 $ret .= $add;
@@ -235,7 +235,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
         } else if ($this->element->postfix) { // if postfixed by self..
             foreach ($this->element->postfix as $e) {
                 $add = $e->compile($this->compiler);
-                if (is_a($add,'PEAR_Error')) {
+                if (is_object($add) && is_a($add,'PEAR_Error')) {
                     return $add;
                 }
             
@@ -259,7 +259,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
             }
         } else {
             $add = $element->compileChildren($this->compiler);
-            if (is_a($add,'PEAR_Error')) {
+            if (is_object($add) && is_a($add,'PEAR_Error')) {
                 return $add;
             }
             $ret .= $add;
@@ -271,7 +271,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
         
         if ($element->close) {
             $add = $element->close->compile($this->compiler);
-            if (is_a($add,'PEAR_Error')) {
+            if (is_object($add) && is_a($add,'PEAR_Error')) {
                 return $add;
             }
             $ret .= $add;
