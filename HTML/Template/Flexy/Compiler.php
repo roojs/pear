@@ -16,7 +16,7 @@
 // | Authors: Alan Knowles <alan@akbkhome.com>                            |
 // +----------------------------------------------------------------------+
 //
-// $Id: Compiler.php,v 1.8 2007/10/18 03:41:42 alan_k Exp $
+// $Id: Compiler.php 315533 2011-08-26 02:39:02Z alan_k $
 //
 //  Base Compiler Class (Interface)
 //
@@ -73,7 +73,7 @@ class HTML_Template_Flexy_Compiler {
     function is_a($obj, $class)  // which f***wit depreciated is_a....
     {
         if (version_compare(phpversion(),"5","<")) {
-           return is_a($obj, $class);
+           return is_object($obj) && is_a($obj, $class);
            
         } 
         $test=false; 
