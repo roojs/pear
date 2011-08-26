@@ -16,7 +16,7 @@
 // | Authors: Alan Knowles <alan@akbkhome.com>                            |
 // +----------------------------------------------------------------------+
 //
-// $Id: Standard.php,v 1.43 2005/02/08 05:35:27 alan_k Exp $
+// $Id: Standard.php 315533 2011-08-26 02:39:02Z alan_k $
 //
 //  Base Compiler Class
 //  Standard 'Original Flavour' Flexy compiler
@@ -86,7 +86,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
         }
         
         
-        if (is_a($this->options['Translation2'],'Translation2')) {
+        if ($this->is_a($this->options['Translation2'],'Translation2')) {
             $this->options['Translation2']->setLang($this->options['locale']);
             // fixme - needs to be more specific to which template to use..
             foreach ($this->options['templateDir'] as $tt) {
@@ -166,14 +166,14 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
             
         }
         
-        if (is_a($res,'PEAR_Error')) {
+        if ($this->is_a($res,'PEAR_Error')) {
             return $res;
         }   
         // turn tokens into Template..
         
         $data = $res->compile($this);
         
-        if (is_a($data,'PEAR_Error')) {
+        if ($this->is_a($data,'PEAR_Error')) {
             return $data;
         }
         
@@ -303,14 +303,14 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
         
         $ret = $element->value;
         $add = $element->compileChildren($this);
-        if (is_a($add,'PEAR_Error')) {
+        if ($this->is_a($add,'PEAR_Error')) {
             return $add;
         }
         $ret .= $add;
         
         if ($element->close) {
             $add = $element->close->compile($this);
-            if (is_a($add,'PEAR_Error')) {
+            if ($this->is_a($add,'PEAR_Error')) {
                 return $add;
             }
             $ret .= $add;
@@ -401,7 +401,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
     {
     
         $loopon = $element->toVar($element->loopOn);
-        if (is_a($loopon,'PEAR_Error')) {
+        if ($this->is_a($loopon,'PEAR_Error')) {
             return $loopon;
         }
         
@@ -436,7 +436,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
     {
         
         $var = $element->toVar($element->condition);
-        if (is_a($var,'PEAR_Error')) {
+        if ($this->is_a($var,'PEAR_Error')) {
             return $var;
         }
         
@@ -518,7 +518,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
         // ignore modifier at present!!
         
         $var = $element->toVar($element->value);
-        if (is_a($var,'PEAR_Error')) {
+        if ($this->is_a($var,'PEAR_Error')) {
             return $var;
         }
         list($prefix,$suffix) = $this->getModifierWrapper($element);
@@ -558,7 +558,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
         $object = implode('.',$bits);
         
         $var = $element->toVar($object);
-        if (is_a($var,'PEAR_Error')) {
+        if ($this->is_a($var,'PEAR_Error')) {
             return $var;
         }
         
@@ -573,7 +573,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
         }
         
 
-        if (is_a($var,'PEAR_Error')) {
+        if ($this->is_a($var,'PEAR_Error')) {
             return $var;
         }
         
@@ -595,7 +595,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
             }
             
             $var = $element->toVar($a);
-            if (is_a($var,'PEAR_Error')) {
+            if ($this->is_a($var,'PEAR_Error')) {
                 return $var;
             }
             $ret .= $var;
@@ -772,7 +772,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
          
         
         
-        if (is_a($this->options['Translation2'],'Translation2')) {
+        if ($this->is_a($this->options['Translation2'],'Translation2')) {
             $result = $this->options['Translation2']->get($string);
             if (!empty($result)) {
                 return $result;
