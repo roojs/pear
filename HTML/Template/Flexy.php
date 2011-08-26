@@ -37,7 +37,7 @@ $GLOBALS['_HTML_TEMPLATE_FLEXY'] = array();
 function HTML_Template_Flexy_is_a($obj, $class)  // which f***wit depreciated is_a....
 {
     if (version_compare(phpversion(),"5","<")) {
-       return is_a($obj, $class);
+       return is_object($obj) &&  is_a($obj, $class);
        
     } 
     $test=false; 
@@ -79,7 +79,7 @@ define('HTML_TEMPLATE_FLEXY_ERROR_DIE',8);  // FATAL DEATH
 *
 *
 *
-* @version    $Id: Flexy.php 307253 2011-01-08 05:46:56Z alan_k $
+* @version    $Id: Flexy.php 315533 2011-08-26 02:39:02Z alan_k $
 */
 
 
@@ -244,7 +244,8 @@ class HTML_Template_Flexy
                 $this->options[$key] = $aOption;
             }
         }
-         foreach( $options as $key=>$aOption)  {
+        
+        foreach( $options as $key=>$aOption)  {
            $this->options[$key] = $aOption;
         }
         
