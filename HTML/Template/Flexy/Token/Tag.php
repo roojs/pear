@@ -16,7 +16,7 @@
 // | Authors:  Alan Knowles <alan@akbkhome>                               |
 // +----------------------------------------------------------------------+
 //
-// $Id: Tag.php,v 1.49 2004/08/16 09:12:23 alan_k Exp $
+// $Id: Tag.php 307254 2011-01-08 05:47:06Z alan_k $
  
  
 $GLOBALS['_HTML_TEMPLATE_FLEXY_TOKEN_TAG']['activeSelect'] = false;
@@ -142,10 +142,14 @@ class HTML_Template_Flexy_Token_Tag extends HTML_Template_Flexy_Token {
         //var_dump($this->attributes);
         
         // this is weird case isset() returns false on this being null!
-        
-        if (@$this->ucAttributes[$key] === true) {
+        //smata:
+        if (array_key_exists($key, $this->ucAttributes) && $this->ucAttributes[$key] === true) {
             return true;
         }
+//
+//        if (@$this->ucAttributes[$key] === true) {
+//            return true;
+//        }
         
         if (!isset($this->ucAttributes[$key])) {
             return false;
