@@ -16,7 +16,7 @@
 // | Authors:  nobody <nobody@localhost>                                  |
 // +----------------------------------------------------------------------+
 //
-// $Id: Assign.php,v 1.7 2007/02/20 03:06:57 alan_k Exp $
+// $Id: Assign.php 230296 2007-02-20 03:06:57Z alan_k $
 //
 //  Provider for Assign API ( Eg. $flexy->assign(...) )
 //
