@@ -16,7 +16,7 @@
 // | Authors:  Alan Knowles <alan@akbkhome>                               |
 // +----------------------------------------------------------------------+
 //
-// $Id: Foreach.php,v 1.3 2004/04/03 03:44:58 alan_k Exp $
+// $Id: Foreach.php 296025 2010-03-10 11:31:37Z alan_k $
 //
  
 /**
@@ -60,7 +60,7 @@ class HTML_Template_Flexy_Token_Foreach extends HTML_Template_Flexy_Token {
             return false;
         }
         $this->key=$value[1];
-        $this->value=@$value[2];
+        $this->value= isset($value[2]) ? $value[2] : '';
     }
      
 
