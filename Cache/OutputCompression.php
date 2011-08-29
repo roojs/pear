@@ -50,7 +50,7 @@ require_once 'Cache/Output.php';
 *
 * Based upon a case study from Christian Stocker and inspired by jpcache.
 *
-* @version  $Id: OutputCompression.php,v 1.9 2005/01/26 09:47:28 dufuz Exp $
+* @version  $Id: OutputCompression.php 178289 2005-01-26 09:47:28Z dufuz $
 * @author   Ulf Wendel <ulf.wendel@phpdoc.de>, Christian Stocker <chregu@phant.ch>
 * @access   public
 * @package  Cache

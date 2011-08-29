@@ -4,10 +4,9 @@
  *
  * Class to create a textual Turing test 
  * 
- * 
+ * @author  Tobias Schlitt <schlitt@php.net>
+ * @author  Christian Wenz <wenz@php.net>
  * @license BSD License
- * @author Tobias Schlitt <schlitt@php.net>
- * @author Christian Wenz <wenz@php.net>
  */
 
 /**
@@ -53,11 +52,12 @@ class Text_CAPTCHA_Driver_Word extends Text_CAPTCHA
      *
      * Initializes the new Text_CAPTCHA_Driver_Word object
      *
-     * @param   array   $options    CAPTCHA options with these keys:
-     *                  phrase     The "secret word" of the CAPTCHA
-     *                  length     The number of characters in the phrase 
-     *                  locale     The locale for Numbers_Words
-     *                  mode       The mode for Numbers_Words
+     * @param array $options CAPTCHA options with these keys:
+     *               phrase  The "secret word" of the CAPTCHA
+     *               length  The number of characters in the phrase 
+     *               locale  The locale for Numbers_Words
+     *               mode    The mode for Numbers_Words
+     *
      * @access public
      */
     function init($options = array()) 
@@ -117,4 +117,3 @@ class Text_CAPTCHA_Driver_Word extends Text_CAPTCHA
         return $res;
     }
 }
-?>

@@ -17,7 +17,7 @@
  * @author    Igor Feghali <ifeghali@php.net>
  * @copyright 1997-2008 The PHP Group
  * @license   http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version   CVS: $Id: lang.pt_BR.php,v 1.18 2008/12/20 22:23:24 ifeghali Exp $
+ * @version   CVS: $Id: lang.pt_BR.php 271694 2008-12-20 22:23:24Z ifeghali $
  * @link      http://pear.php.net/package/Numbers_Words
  */
 

@@ -15,7 +15,7 @@
 // | Authors: Wolfram Kriesing <wk@visionp.de>                            |
 // |                                                                      |
 // +----------------------------------------------------------------------+//
-// $Id: DateTime.php,v 1.11 2003/08/07 07:46:23 cain Exp $
+// $Id: DateTime.php 136857 2003-08-07 07:46:23Z cain $
 
 require_once 'I18N/Format.php';
 

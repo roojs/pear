@@ -16,7 +16,7 @@
 // | Authors: Wolfram Kriesing <wolfram@kriesing.de>                      |
 // +----------------------------------------------------------------------+
 //
-//  $Id: Translate.php,v 1.13 2003/01/28 19:20:04 cain Exp $
+//  $Id: Translate.php 113824 2003-01-28 19:20:04Z cain $
 
 // we have to move this to some more common place in PEAR
 // this is just a quick hack here :-)

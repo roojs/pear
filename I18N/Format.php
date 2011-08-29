@@ -16,7 +16,7 @@
 // | Authors: Wolfram Kriesing <wk@visionp.de>                            |
 // |                                                                      |
 // +----------------------------------------------------------------------+//
-// $Id: Format.php,v 1.6 2003/07/07 12:50:43 cain Exp $
+// $Id: Format.php 134347 2003-07-07 12:50:43Z cain $
 
 require_once 'PEAR.php';
 

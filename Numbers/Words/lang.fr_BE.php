@@ -19,7 +19,7 @@
  * @author   Kouber Saparev <kouber@php.net>
  * @author   Philippe Bajoit <phil@lebutch.org
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.fr_BE.php,v 1.3 2009/02/27 11:17:20 kouber Exp $
+ * @version  CVS: $Id: lang.fr_BE.php 276562 2009-02-27 11:17:20Z kouber $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 

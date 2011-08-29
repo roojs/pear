@@ -3,7 +3,7 @@
 /**
  * Image_Color Tests
  *
- * @version $Id: ColorTest.php,v 1.2 2008/10/26 18:21:22 clockwerx Exp $
+ * @version $Id: ColorTest.php 267819 2008-10-26 18:21:22Z clockwerx $
  * @copyright 2005
  */
 

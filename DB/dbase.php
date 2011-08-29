@@ -20,7 +20,7 @@
  * @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: dbase.php,v 1.45 2007/09/21 13:40:41 aharvey Exp $
+ * @version    CVS: $Id: dbase.php 242771 2007-09-21 13:40:42Z aharvey $
  * @link       http://pear.php.net/package/DB
  */
 
@@ -41,7 +41,7 @@ require_once 'DB/common.php';
  * @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: 1.7.13
+ * @version    Release: 1.7.14
  * @link       http://pear.php.net/package/DB
  */
 class DB_dbase extends DB_common

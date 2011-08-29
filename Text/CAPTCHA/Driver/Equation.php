@@ -3,9 +3,9 @@
  *  Equation driver for Text_CAPTCHA.
  *  Returns simple equations as string, e.g. "9 - 2"
  *
+ *  @author  Christian Weiske <cweiske@php.net>
+ *  @author  Christian Wenz <wenz@php.net>
  *  @license BSD License
- *  @author Christian Weiske <cweiske@php.net>
- *  @author Christian Wenz <wenz@php.net>
  */
 require_once 'Text/CAPTCHA.php';
 
@@ -82,10 +82,13 @@ class Text_CAPTCHA_Driver_Equation extends Text_CAPTCHA
     /**
      * Initialize the driver.
      *
+     * @param array $options Optionally supply options for the initialization phase
+     *
      * @access public
      * @return true on success, PEAR_Error on error.
      */
-    function init($options = array()) {
+    function init($options = array()) 
+    {
         if (isset($options['min'])) {
             $this->_min = (int)$options['min'];
         } else {
@@ -170,6 +173,10 @@ class Text_CAPTCHA_Driver_Equation extends Text_CAPTCHA
      *
      * Also converts the numbers to words if required.
      *
+     * @param int    $one      First number
+     * @param int    $two      Second number
+     * @param string $operator Operator
+     *
      * @access protected
      * @return array    Array with equation and solution
      */
@@ -207,7 +214,8 @@ class Text_CAPTCHA_Driver_Equation extends Text_CAPTCHA
      * @access protected
      * @return PEAR_Error
      */
-    function _createCAPTCHA() {
+    function _createCAPTCHA() 
+    {
         //is already done in _createPhrase();
     }
 
@@ -217,9 +225,9 @@ class Text_CAPTCHA_Driver_Equation extends Text_CAPTCHA
      * @access public
      * @return string
      */
-    function getCAPTCHA() {
+    function getCAPTCHA() 
+    {
         return $this->_equation;
     }
 
 }//class Text_CAPTCHA_Driver_TextEquation extends Text_CAPTCHA
-?>

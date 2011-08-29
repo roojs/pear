@@ -15,7 +15,7 @@
 // | Authors: Wolfram Kriesing <wk@visionp.de>                            |
 // |                                                                      |
 // +----------------------------------------------------------------------+//
-// $Id: de_DE.php,v 1.2 2003/01/04 11:55:26 mj Exp $
+// $Id: de_DE.php 110339 2003-01-04 11:55:29Z mj $
 
 require_once('I18N/Common/de.php');
 

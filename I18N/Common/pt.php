@@ -15,7 +15,7 @@
 // | Authors: Wolfram Kriesing <wk@visionp.de>                            |
 // |          Bruno Pedro <bpedro@co.sapo.pt>                             |
 // +----------------------------------------------------------------------+
-// $Id: pt.php,v 1.1 2003/05/21 10:35:10 cain Exp $
+// $Id: pt.php 128185 2003-05-21 10:35:10Z cain $
 
 class I18N_Common_pt
 {

@@ -33,7 +33,7 @@
  * @author    Michael Wallner <mike@php.net>
  * @copyright 2004-2008 Lorenzo Alberton, Michael Wallner
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: gettext.php,v 1.32 2008/02/02 18:05:06 quipo Exp $
+ * @version   CVS: $Id: gettext.php 305985 2010-12-05 22:55:33Z clockwerx $
  * @link      http://pear.php.net/package/Translation2
  */
 
@@ -59,7 +59,7 @@ require_once 'I18Nv2.php';
  * @author    Michael Wallner <mike@php.net>
  * @copyright 2004-2008 Lorenzo Alberton, Michael Wallner
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: gettext.php,v 1.32 2008/02/02 18:05:06 quipo Exp $
+ * @version   CVS: $Id: gettext.php 305985 2010-12-05 22:55:33Z clockwerx $
  * @link      http://pear.php.net/package/Translation2
  * @see       /docs/gettext_readme.txt for an usage example
  */
@@ -163,7 +163,7 @@ class Translation2_Container_gettext extends Translation2_Container
     function _switchLang($langID)
     {
         $langID  = $this->_getLangID($langID);
-        $oldLang = isset($this->currentLang['id']) ? $this->currentLang['id'] : 'en';
+        $oldLang = $this->currentLang['id'];
         $this->setLang($langID);
         return $oldLang;
     }
@@ -178,12 +178,10 @@ class Translation2_Container_gettext extends Translation2_Container
      */
     function fetchLangs()
     {
-        $this->langs = parse_ini_file($this->options['langs_avail_file'], true);
-       
+        $this->langs = @parse_ini_file($this->options['langs_avail_file'], true);
         foreach ((array) $this->langs as $id => $lang) {
             $this->langs[$id]['id'] = $id;
         }
-        
     }
 
     // }}}
@@ -218,7 +216,7 @@ class Translation2_Container_gettext extends Translation2_Container
     function getPage($pageID = null, $langID = null)
     {
         $oldLang = $this->_switchLang($langID);
-        $curLang = isset($this->currentLang['id']) ? $this->currentLang['id'] : 'en';
+        $curLang = $this->currentLang['id'];
         
         if (empty($pageID) || $pageID == TRANSLATION2_DEFAULT_PAGEID) {
             $pageID = $this->options['default_domain'];

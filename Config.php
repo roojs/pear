@@ -15,7 +15,7 @@
 // | Author: Bertrand Mansion <bmansion@mamasam.com>                      |
 // +----------------------------------------------------------------------+
 //
-// $Id: Config.php,v 1.22 2006/12/22 00:35:34 aashley Exp $
+// $Id: Config.php 306597 2010-12-24 05:11:09Z aharvey $
 
 require_once('PEAR.php');
 require_once('Config/Container.php');
@@ -77,7 +77,7 @@ class Config {
     */
     function Config()
     {
-        $this->container =& new Config_Container('section', 'root');
+        $this->container = new Config_Container('section', 'root');
     } // end constructor
 
     /**
@@ -163,7 +163,7 @@ class Config {
             if ($rootContainer->getName() === 'root' && $rootContainer->getType() === 'section') {
                 $this->container =& $rootContainer;
             } else {
-                $this->container =& new Config_Container('section', 'root');
+                $this->container = new Config_Container('section', 'root');
                 $this->container->addItem($rootContainer);
             }
             return true;

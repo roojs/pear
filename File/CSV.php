@@ -6,19 +6,38 @@
  *
  * PHP versions 4 and 5
  *
- * LICENSE: This source file is subject to version 3.0 of the PHP license
- * that is available through the world-wide-web at the following URI:
- * http://www.php.net/license/3_0.txt.  If you did not receive a copy of
- * the PHP License and are unable to obtain it through the web, please
- * send a note to license@php.net so we can mail you a copy immediately.
+ * Copyright (c) 2002-2008,
+ *  Tomas V.V.Cox <cox@idecnet.com>,
+ *  Helgi Þormar Þorbjörnsson <helgi@php.net>
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ *     * Redistributions of source code must retain the above copyright notice,
+ *       this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the
+ *       documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @category    File
  * @package     File
  * @author      Tomas V.V.Cox <cox@idecnet.com>
- * @author      Helgi �ormar <dufuz@php.net>
- * @copyright   2004-2005 The Authors
- * @license     http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version     CVS: $Id: CSV.php,v 1.41 2007/05/20 12:25:14 dufuz Exp $
+ * @author      Helgi Þormar Þorbjörnsson <helgi@php.net>
+ * @copyright   2004-2011 The Authors
+ * @license     http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @version     CVS: $Id: CSV.php 309245 2011-03-15 02:02:41Z dufuz $
  * @link        http://pear.php.net/package/File
  */
 
@@ -26,34 +45,35 @@ require_once 'PEAR.php';
 require_once 'File.php';
 
 /**
-* File class for handling CSV files (Comma Separated Values), a common format
-* for exchanging data.
-*
-* TODO:
-*  - Usage example and Doc
-*  - Use getPointer() in discoverFormat
-*  - Add a line counter for being able to output better error reports
-*  - Store the last error in GLOBALS and add File_CSV::getLastError()
-*
-* Wish:
-*  - Other methods like readAll(), writeAll(), numFields(), numRows()
-*  - Try to detect if a CSV has header or not in discoverFormat() (not possible with CSV)
-*
-* Known Bugs:
-* (they has been analyzed but for the moment the impact in the speed for
-*  properly handle this uncommon cases is too high and won't be supported)
-*  - A field which is composed only by a single quoted separator (ie -> ;";";)
-*    is not handled properly
-*  - When there is exactly one field minus than the expected number and there
-*    is a field with a separator inside, the parser will throw the "wrong count" error
-*
-* Info about CSV and links to other sources
-* http://www.shaftek.org/publications/drafts/mime-csv/draft-shafranovich-mime-csv-00.html#appendix
-*
-* @author Tomas V.V.Cox <cox@idecnet.com>
-* @author Helgi �ormar <dufuz@php.net>
-* @package File
-*/
+ * File class for handling CSV files (Comma Separated Values), a common format
+ * for exchanging data.
+ *
+ * TODO:
+ *  - Usage example and Doc
+ *  - Use getPointer() in discoverFormat
+ *  - Add a line counter for being able to output better error reports
+ *  - Store the last error in GLOBALS and add File_CSV::getLastError()
+ *
+ * Wish:
+ *  - Other methods like readAll(), writeAll(), numFields(), numRows()
+ *  - Try to detect if a CSV has header or not in discoverFormat() (not possible with CSV)
+ *
+ * Known Bugs:
+ * (they has been analyzed but for the moment the impact in the speed for
+ *  properly handle this uncommon cases is too high and won't be supported)
+ *  - A field which is composed only by a single quoted separator (ie -> ;";";)
+ *    is not handled properly
+ *  - When there is exactly one field minus than the expected number and there
+ *    is a field with a separator inside, the parser will throw the "wrong count" error
+ *
+ * Info about CSV and links to other sources
+ * http://rfc.net/rfc4180.html
+ *
+ * @author Tomas V.V.Cox <cox@idecnet.com>
+ * @author Helgi Þormar Þorbjörnsson <helgi@php.net>
+ * @package File
+ * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
+ */
 class File_CSV
 {
     /**
@@ -96,19 +116,22 @@ class File_CSV
         }
 
         if (isset($conf['sep'])) {
-            if (strlen($conf['sep']) != 1) {
+            if (strlen($conf['sep']) !== 1) {
                 return $error = 'Separator can only be one char';
             }
         } elseif ($conf['fields'] > 1) {
             return $error = 'Missing separator (the "sep" key)';
+        } else {
+            // to avoid undefined index notices
+            $conf['sep'] = ',';
         }
 
         if (isset($conf['quote'])) {
-            if (strlen($conf['quote']) != 1) {
+            if (strlen($conf['quote']) !== 1) {
                 return $error = 'The quote char must be one char (the "quote" key)';
             }
         } else {
-            $conf['quote'] = null;
+            $conf['quote'] = '"';
         }
 
         if (!isset($conf['crlf'])) {
@@ -134,70 +157,82 @@ class File_CSV
     function getPointer($file, &$conf, $mode = FILE_MODE_READ, $reset = false)
     {
         static $resources = array();
-        static $config;
         if (isset($resources[$file][$mode])) {
-            $conf = $config;
             if ($reset) {
                 fseek($resources[$file][$mode], 0);
             }
+
             return $resources[$file][$mode];
         }
+
         File_CSV::_conf($error, $conf);
         if ($error) {
             return File_CSV::raiseError($error);
         }
-        $config = $conf;
+
         PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
         $fp = File::_getFilePointer($file, $mode);
         PEAR::popErrorHandling();
         if (PEAR::isError($fp)) {
             return File_CSV::raiseError($fp);
         }
+
         $resources[$file][$mode] = $fp;
         return $fp;
     }
 
     /**
-    * Unquote data
-    *
-    * @param string $field The data to unquote
-    * @param string $quote The quote char
-    * @return string the unquoted data
-    */
-    function unquote($field, $quote)
+     * Unquote data
+     *
+     * @param array|string $data The data to unquote
+     * @param string $quote The quote char
+     * @return string the unquoted data
+     */
+    function unquote($data, $quote)
     {
-        // Trim first the string.
-        $field = trim($field);
-        $quote = trim($quote);
-
-        // Incase null fields (form: ;;)
-        if (!strlen($field)) {
-            return $field;
+        $isString = false;
+        if (!is_array($data)) {
+            $data = array($data);
+            $isString = true;
         }
 
-        // excel compat
-        if ($field[0] == '=' && $field[1] == '"') {
-            $field = str_replace('="', '"', $field);
-        }
+        // Get rid of escaped quotes
+        $data = str_replace($quote.$quote, $quote, $data);
 
-        $field_len = strlen($field);
-        if ($quote && $field[0] == $quote && $field[$field_len - 1] == $quote) {
-            // Get rid of escaping quotes
-            $new = $prev = $c = '';
-            for ($i = 0; $i < $field_len; ++$i) {
-                $prev = $c;
-                $c = $field[$i];
-                // Deal with escaping quotes
-                if ($c == $quote && $prev == $quote) {
-                    $c = '';
+        $tmp = array();
+        foreach ($data as $key => $field) {
+            // Trim first the string.
+            $field = trim($field);
+
+            // Incase null fields (form: ;;)
+            $field_len = strlen($field);
+            if (!$field_len) {
+                if ($isString) {
+                    return $field;
                 }
-
-                $new .= $c;
+                $tmp[$key] = $field;
+                continue;
             }
-            $field = substr($new, 1, -1);
+
+            // excel compat
+            if ($field[0] === '=' && $field[1] === '"') {
+                $field = str_replace('="', '"', $field);
+                --$field_len;
+            }
+
+            if ($field[0] === $quote && $field[$field_len - 1] === $quote) {
+                // Get rid of quotes around the field
+                $field = substr($field, 1, -1);
+            }
+
+            if ($isString) {
+                $tmp = $field;
+            } else {
+                $tmp[$key] = $field;
+            }
         }
 
-        return $field;
+        return $tmp;
     }
 
     /**
@@ -216,12 +251,12 @@ class File_CSV
         }
 
         $buff = $old = $prev = $c = '';
-        $ret  = array();
-        $i = 1;
+        $ret    = array();
+        $fields = 1;
         $in_quote = false;
-        $quote = $conf['quote'];
-        $f     = $conf['fields'];
-        $sep   = $conf['sep'];
+        $quote    = $conf['quote'];
+        $f        = (int)$conf['fields'];
+        $sep      = $conf['sep'];
         while (false !== $ch = fgetc($fp)) {
             $old  = $prev;
             $prev = $c;
@@ -251,7 +286,6 @@ class File_CSV
             }
 
             if ($in_quote) {
-
                 // When does the quote end, make sure it's not double quoted
                 if ($c == $sep && $prev == $quote && $old != $quote) {
                     $in_quote = false;
@@ -270,35 +304,11 @@ class File_CSV
                 }
             }
 
-            if (!$in_quote && ($c == $sep || $c == "\n" || $c == "\r") && $prev != '') {
-                // More fields than expected
-                if ($c == $sep && (count($ret) + 1) == $f) {
-                    // Seek the pointer into linebreak character.
-                    while (true) {
-                        $c = fgetc($fp);
-                        if  ($c == "\n" || $c == "\r" || $c == '') {
-                            break;
-                        }
-                    }
-
-                    // Insert last field value.
-                    $ret[] = File_CSV::unquote($buff, $quote);
-                    return $ret;
-                }
-
-                // Less fields than expected
-                if (($c == "\n" || $c == "\r") && $i != $f) {
-                    // Insert last field value.
-                    $ret[] = File_CSV::unquote($buff, $quote);
-                    if (count($ret) == 1 && empty($ret[0])) {
-                        return array();
-                    }
-
-                    // Pair the array elements to fields count. - inserting empty values
-                    $ret_count = count($ret);
-                    $sum = ($f - 1) - ($ret_count - 1);
-                    $data = array_merge($ret, array_fill($ret_count, $sum, ''));
-                    return $data;
+            if (!$in_quote && ($c == $sep || $c == "\n" || $c == "\r")) {
+                $return = File_CSV::_readQuotedFillers($fp, $f, $fields, $ret,
+                                                       $buff, $quote, $c, $sep);
+                if ($return !== false) {
+                    return $return;
                 }
 
                 if ($prev == "\r") {
@@ -308,16 +318,19 @@ class File_CSV
                 // Convert EOL character to Unix EOL (LF).
                 if ($conf['eol2unix']) {
                     $buff = preg_replace('/(\r\n|\r)$/', "\n", $buff);
+                    // Below replaces things everywhere not just EOL
+                    //$buff = str_replace(array("\r\n", "\r"), "\n", $buff);
                 }
 
                 $ret[] = File_CSV::unquote($buff, $quote);
-                if (count($ret) == $f) {
+                if (count($ret) === $f) {
                     return $ret;
                 }
                 $buff = '';
-                ++$i;
+                ++$fields;
                 continue;
             }
+
             $buff .= $c;
         }
 
@@ -325,14 +338,72 @@ class File_CSV
          * then we process it since files can have no CL/FR at the end
          */
         $feof = feof($fp);
-        if ($feof && !in_array($buff, array("\r", "\n", "\r\n")) && strlen($buff) > 0) {
+        if ($feof && strlen($buff) > 0 && !in_array($buff, array("\r", "\n"))) {
             $ret[] = File_CSV::unquote($buff, $quote);
             if (count($ret) == $f) {
                 return $ret;
             }
         }
 
+        if ($feof && count($ret) !== $f) {
+            $return = File_CSV::_readQuotedFillers($fp, $f, $fields, $ret,
+                                                   $buff, $quote, $c, $sep);
+            if ($return !== false) {
+                return $return;
+            }
+        }
+
         return !$feof ? $ret : false;
+    }
+
+    /**
+     * Adds missing fields (empty ones)
+     *
+     * @param resource $fp the file resource
+     * @param string   $f
+     * @param integer  $fields the field count
+     * @param array    $ret    the processed fields in a array
+     * @param string   $buff   the buffer before it gets put through unquote
+     * @param string   $quote  Quote in use
+     * @param string   $c      the char currently being worked with
+     * @param string   $sep    Separator in use
+     *
+     * @access private
+     * @return array | boolean returns false if no data should return out.
+     */
+    function _readQuotedFillers($fp, $f, $fields, $ret, $buff, $quote, &$c, $sep)
+    {
+        // More fields than expected
+        if ($c == $sep && (count($ret) + 1) === $f) {
+            // Seek the pointer into linebreak character.
+            while (true) {
+                $c = fgetc($fp);
+                if  ($c == "\n" || $c == "\r" || $c == '') {
+                    break;
+                }
+            }
+
+            // Insert last field value.
+            $ret[] = File_CSV::unquote($buff, $quote);
+            return $ret;
+        }
+
+        // Less fields than expected
+        if (($c == "\n" || $c == "\r") && $fields !== $f) {
+            // Insert last field value.
+            $ret[] = File_CSV::unquote($buff, $quote);
+            if (count($ret) === 1 && empty($ret[0])) {
+                return array();
+            }
+
+            // Pair the array elements to fields count. - inserting empty values
+            $ret_count = count($ret);
+            $sum = ($f - 1) - ($ret_count - 1);
+            $data = array_merge($ret, array_fill($ret_count, $sum, ''));
+            return $data;
+        }
+
+        return false;
     }
 
     /**
@@ -345,7 +416,6 @@ class File_CSV
     */
     function read($file, &$conf)
     {
-        static $headers = array();
         if (!$fp = File_CSV::getPointer($file, $conf, FILE_MODE_READ)) {
             return false;
         }
@@ -355,49 +425,46 @@ class File_CSV
             return false;
         }
 
-        $fields = $conf['fields'] == 1 ? array($line) : explode($conf['sep'], $line);
-
-        $nl = array("\n", "\r", "\r\n");
-        if (in_array($fields[count($fields) - 1], $nl)) {
-            array_pop($fields);
+        if ($conf['fields'] === 1) {
+            $fields      = array($line);
+            $field_count = 1;
+        } else {
+            $fields      = explode($conf['sep'], $line);
+            $field_count = count($fields);
         }
 
-        $field_count = count($fields);
-        $last =& $fields[$field_count - 1];
-        $len = strlen($last);
+        $real_field_count = $field_count - 1;
+        $check_char = $fields[$real_field_count];
+        if ($check_char === "\n" || $check_char === "\r") {
+            array_pop($fields);
+            --$field_count;
+        }
+
+        $last =& $fields[$real_field_count];
         if (
-            $field_count != $conf['fields'] ||
-            $conf['quote'] &&
-            (
-             $len !== 0 && $last[$len - 1] == "\n"
-             &&
-                (
-                    ($last[0] == $conf['quote']
-                    && $last[strlen(rtrim($last)) - 1] != $conf['quote'])
-                    ||
+            $field_count !== $conf['fields'] || $conf['quote']
+            && (
+                $last !== ''
+                && (
+                    ($last[0] === $conf['quote'] && $last[strlen(rtrim($last)) - 1] !== $conf['quote'])
                     // excel support
-                    ($last[0] == '=' && $last[1] == $conf['quote'])
-                    ||
-                    // if the row has spaces before the quote
-                    preg_match('|^\s+'.preg_quote($conf['quote']) .'|Ums', $last, $match)
+                    || ($last[0] === '=' && $last[1] === $conf['quote'])
+                    // if the row has spaces or other extra chars before the quote
+                    //|| preg_match('|^\s+\\' . $conf['quote'] .'|', $last)
                 )
             )
             // XXX perhaps there is a separator inside a quoted field
-            //preg_match("|{$conf['quote']}.*{$conf['sep']}.*{$conf['quote']}|U", $line)
+            // || preg_match("|{$conf['quote']}.*{$conf['sep']}.*{$conf['quote']}|", $line)
+            // The regex above is really slow
+             || ((count(explode(',', $line))) > $field_count)
         ) {
             fseek($fp, -1 * strlen($line), SEEK_CUR);
-            return File_CSV::readQuoted($file, $conf);
-        } else {
-            foreach ($fields as $k => $v) {
-                $fields[$k] = File_CSV::unquote($v, $conf['quote']);
-            }
+            $fields = File_CSV::readQuoted($file, $conf);
+            $fields = File_CSV::_processHeaders($fields, $conf);
+            return $fields;
         }
 
-        if (isset($conf['header']) && empty($headers)) {
-            // read the first row and assign to $headers
-            $headers = $fields;
-            return $headers;
-        }
+        $fields = File_CSV::unquote($fields, $conf['quote']);
 
         if ($field_count != $conf['fields']) {
             File_CSV::raiseError("Read wrong fields number count: '". $field_count .
@@ -405,10 +472,35 @@ class File_CSV
             return true;
         }
 
+        $fields = File_CSV::_processHeaders($fields, $conf);
+        return $fields;
+    }
+
+    /**
+     * Process the field array being passed in and map the array over to
+     * the header values if the configuration is set on.
+     *
+     * @param array $fields The CSV row columns
+     * @param array $conf File_CSV configuration
+     *
+     * @return array Processed array
+     */
+    function _processHeaders($fields, &$conf)
+    {
+        static $headers = array();
+
+        if (isset($conf['header']) && $conf['header'] == true && empty($headers)) {
+            // read the first row and assign to $headers
+            $headers = $fields;
+            return $headers;
+        }
+
         if (!empty($headers)) {
             $tmp = array();
             foreach ($fields as $k => $v) {
-                $tmp[$headers[$k]] = $v;
+                if (isset($headers[$k])) {
+                    $tmp[$headers[$k]] = $v;
+                }
             }
             $fields = $tmp;
         }
@@ -465,12 +557,36 @@ class File_CSV
         }
 
         $write = '';
+        $quote = $conf['quote'];
         for ($i = 0; $i < $field_count; ++$i) {
-            // only quote if the field contains a sep
-            if (!is_numeric($fields[$i]) && $conf['quote']
-                && isset($conf['sep']) && strpos($fields[$i], $conf['sep'])
+            // Write a single field
+
+            $quote_field = false;
+            // Only quote this field in the following cases:
+            if (is_numeric($fields[$i])) {
+                // Numeric fields should not be quoted
+            } elseif (isset($conf['sep']) && (strpos($fields[$i], $conf['sep']) !== false)) {
+                // Separator is present in field
+                $quote_field = true;
+            } elseif (strpos($fields[$i], $quote) !== false) {
+                // Quote character is present in field
+                $quote_field = true;
+            } elseif (
+                   strpos($fields[$i], "\n") !== false
+                || strpos($fields[$i], "\r") !== false
             ) {
-                $write .= $conf['quote'] . $fields[$i] . $conf['quote'];
+                // Newline is present in field
+                $quote_field = true;
+            } elseif (!is_numeric($fields[$i]) && (substr($fields[$i], 0, 1) == " " || substr($fields[$i], -1) == " ")) {
+                // Space found at beginning or end of field value
+                $quote_field = true;
+            }
+
+            if ($quote_field) {
+                // Escape the quote character within the field (e.g. " becomes "")
+                $quoted_value = str_replace($quote, $quote.$quote, $fields[$i]);
+
+                $write .= $quote . $quoted_value . $quote;
             } else {
                 $write .= $fields[$i];
             }
@@ -505,10 +621,10 @@ class File_CSV
             ini_set('auto_detect_line_endings', '1');
         }
 
-        // Take the first 30 lines and store the number of ocurrences
+        // Take the first 30 lines and store the number of occurrences
         // for each separator in each line
         $lines = '';
-        for ($i = 0; $i < 30 && $line = fgets($fp, 4096); $i++) {
+        for ($i = 0; $i < 30 && !feof($fp) && $line = fgets($fp, 4096); $i++) {
             $lines .= $line;
         }
         fclose($fp);
@@ -521,9 +637,8 @@ class File_CSV
         $seps = array_merge($seps, $extraSeps);
         $matches = array();
         $quotes = '"\'';
-        
-	    $lines = str_replace('""', '', $lines);
-        while ($lines != ($newLines = preg_replace('|((["\'])[^"]*(\2))|', '\2_\2', $lines))){
+
+        while ($lines != ($newLines = preg_replace('|((["\'])[^"]*(\2))|', '\2_\2', $lines))) {
             $lines = $newLines;
         }
 
@@ -532,7 +647,7 @@ class File_CSV
         foreach ($lines as $line) {
             $orgLine = $line;
             foreach ($seps as $sep) {
-                $line = preg_replace("|^[^$quotes$sep]*$sep*([$quotes][^$quotes]*[$quotes])|sm", '_', $orgLine);
+                $line = preg_replace("|^[$quotes$sep]*$sep*([$quotes][^$quotes]*[$quotes])|sm", '_', $orgLine);
                 // Find all seps that are within qoutes
                 ///FIXME ... counts legitimit lines as bad ones
 
@@ -548,6 +663,7 @@ class File_CSV
                 $regex.= '.*)';
                 // Close quote (if it's present) and the sep (optional, could be end of line)
                 $regex.= "(?:[$quotes](?:$sep?))|Ums";
+
                 preg_match_all($regex, $line, $match);
                 // Finding all seps, within quotes or not
                 $sep_count = substr_count($line, $sep);
@@ -563,7 +679,7 @@ class File_CSV
             $times[0] = 0;
             foreach ($res as $k => $num) {
                 if ($num > 0) {
-                    $times[$num] = (isset($times[$num])) ? $times[$num] + 1 : 1;
+                    $times[$num] = isset($times[$num]) ? $times[$num] + $num : 1;
                 }
             }
             arsort($times);
@@ -584,7 +700,7 @@ class File_CSV
 
         $string = implode('', $lines);
         foreach (array('"', '\'') as $q) {
-            if (preg_match_all("|$sep(?:\s*?)(\=?[$q]).*([$q])$sep|Us", $string, $match)) {
+            if (preg_match_all("|$sep(?:\s*?)(\=?[$q]).*([$q])$sep?|Us", $string, $match)) {
                 if ($match[1][0] == $match[2][0]) {
                     $quote = $match[1][0];
                     break;

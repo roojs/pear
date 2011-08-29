@@ -5,12 +5,11 @@
  * Class to create a Turing test for websites by
  * creating an image, ASCII art or something else 
  * with some (obfuscated) characters 
- *
  * 
- * @package Text_CAPTCHA
- * @license BSD License
- * @author Christian Wenz <wenz@php.net>
  * @category Text
+ * @package  Text_CAPTCHA
+ * @author   Christian Wenz <wenz@php.net>
+ * @license  BSD License
  */
 
 
@@ -89,7 +88,8 @@ require_once 'Text/Password.php';
             'font_file'        => 'COUR.TTF',
             'text_color'       => '#DDFF99',
             'lines_color'      => '#CCEEDD',
-            'background_color' => '#555555'
+            'background_color' => '#555555',
+            'antialias'        => true
         );
 
         // Set CAPTCHA options
@@ -129,7 +129,8 @@ require_once 'Text/Password.php';
     ?>
 */
  
-class Text_CAPTCHA {
+class Text_CAPTCHA 
+{
 
     /**
      * Version number
@@ -137,7 +138,7 @@ class Text_CAPTCHA {
      * @access private
      * @var string
      */
-    var $_version = '0.4.0';
+    var $_version = '0.4.2';
 
     /**
      * Phrase
@@ -166,7 +167,7 @@ class Text_CAPTCHA {
         include_once "Text/CAPTCHA/Driver/$driver.php";
 
         $classname = "Text_CAPTCHA_Driver_$driver";
-        $obj =& new $classname;
+        $obj = new $classname;
         return $obj;
     }
 
@@ -175,7 +176,10 @@ class Text_CAPTCHA {
      *
      * This method creates a random phrase, 8 characters long
      *
-     * @access  private
+     * @param array $options optionally supply advanced options for the phrase creation
+     *
+     * @access private
+     * @return void
      */
     function _createPhrase($options = array())
     {
@@ -196,8 +200,8 @@ class Text_CAPTCHA {
      *
      * This method returns the CAPTCHA phrase
      *
-     * @access  public
-     * @return  phrase   secret phrase
+     * @access public
+     * @return phrase secret phrase
      */
     function getPhrase()
     {
@@ -210,9 +214,10 @@ class Text_CAPTCHA {
      * This method sets the CAPTCHA phrase 
      * (use null for a random phrase)
      *
+     * @param string $phrase the (new) phrase
+     *
      * @access  public
-     * @param   string   $phrase    the (new) phrase
-     * @void 
+     * @return void 
      */
     function setPhrase($phrase = null)
     {
@@ -230,7 +235,8 @@ class Text_CAPTCHA {
      * @access private
      * @return PEAR_Error
      */
-    function init() {
+    function init() 
+    {
         return PEAR::raiseError('CAPTCHA type not selected', true);
     }
 
@@ -241,7 +247,8 @@ class Text_CAPTCHA {
      * @access private
      * @return PEAR_Error
      */
-    function _createCAPTCHA() {
+    function _createCAPTCHA() 
+    {
         return PEAR::raiseError('CAPTCHA type not selected', true);
     }
 
@@ -253,9 +260,8 @@ class Text_CAPTCHA {
      * @access private
      * @return PEAR_Error
      */
-    function getCAPTCHA() {
+    function getCAPTCHA() 
+    {
         return PEAR::raiseError('CAPTCHA type not selected', true);
     }
-
 }
-?>

@@ -16,7 +16,7 @@
 // | Authors:  Alan Knowles <alan@akbkhome>                               |
 // +----------------------------------------------------------------------+
 //
-// $Id: Tag.php 315533 2011-08-26 02:39:02Z alan_k $
+// $Id: Tag.php 315544 2011-08-26 09:57:34Z alan_k $
 /* FC/BC compatibility with php5 */
 if ( (substr(phpversion(),0,1) < 5) && !function_exists('clone')) {
     eval('function clone($t) { return $t; }');
@@ -31,7 +31,7 @@ if ( (substr(phpversion(),0,1) < 5) && !function_exists('clone')) {
 * one instance of these exists for each namespace.
 *
 *
-* @version    $Id: Tag.php 315533 2011-08-26 02:39:02Z alan_k $
+* @version    $Id: Tag.php 315544 2011-08-26 09:57:34Z alan_k $
 */
 
 class HTML_Template_Flexy_Compiler_Flexy_Tag 

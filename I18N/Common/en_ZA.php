@@ -15,7 +15,7 @@
 // | Authors: Wolfram Kriesing <wk@visionp.de>                            |
 // |          Jacques Marneweck <jacques@php.net>                         |
 // +----------------------------------------------------------------------+//
-// $Id: en_ZA.php,v 1.1 2003/03/13 08:37:32 cain Exp $
+// $Id: en_ZA.php 120053 2003-03-13 08:37:32Z cain $
 
 require_once('I18N/Common/en.php');
 

@@ -20,7 +20,7 @@
  * @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: ifx.php,v 1.75 2007/07/06 05:19:21 aharvey Exp $
+ * @version    CVS: $Id: ifx.php 302738 2010-08-24 03:06:52Z clockwerx $
  * @link       http://pear.php.net/package/DB
  */
 
@@ -48,7 +48,7 @@ require_once 'DB/common.php';
  * @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: 1.7.13
+ * @version    Release: 1.7.14
  * @link       http://pear.php.net/package/DB
  */
 class DB_ifx extends DB_common
@@ -536,7 +536,7 @@ class DB_ifx extends DB_common
      */
     function errorCode($nativecode)
     {
-        if (ereg('SQLCODE=(.*)]', $nativecode, $match)) {
+        if (preg_match('/SQLCODE=(.*)]/', $nativecode, $match)) {
             $code = $match[1];
             if (isset($this->errorcode_map[$code])) {
                 return $this->errorcode_map[$code];

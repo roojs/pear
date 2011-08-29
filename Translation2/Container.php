@@ -32,7 +32,7 @@
  * @author    Lorenzo Alberton <l.alberton@quipo.it>
  * @copyright 2004-2005 Lorenzo Alberton
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: Container.php,v 1.26 2008/08/31 13:58:30 quipo Exp $
+ * @version   CVS: $Id: Container.php 305985 2010-12-05 22:55:33Z clockwerx $
  * @link      http://pear.php.net/package/Translation2
  */
 
@@ -123,7 +123,7 @@ class Translation2_Container
         if (!empty($langID) || (0 === $langID)) {
             return $langID;
         }
-        if (!empty($this->currentLang['id']) || (isset($this->currentLang['id'])  && 0 === $this->currentLang['id'])) {
+        if (!empty($this->currentLang['id']) || (0 === $this->currentLang['id'])) {
             return $this->currentLang['id'];
         }
         $msg = 'No valid language set. Use Translation2::setLang().';

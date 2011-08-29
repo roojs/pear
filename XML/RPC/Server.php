@@ -18,7 +18,7 @@
  * @author     Daniel Convissor <danielc@php.net>
  * @copyright  1999-2001 Edd Dumbill, 2001-2010 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License
- * @version    SVN: $Id: Server.php 293224 2010-01-07 15:36:40Z danielc $
+ * @version    SVN: $Id: Server.php 315558 2011-08-26 14:42:51Z danielc $
  * @link       http://pear.php.net/package/XML_RPC
  */
 
@@ -257,7 +257,7 @@ function XML_RPC_Server_debugmsg($m)
  * @author     Daniel Convissor <danielc@php.net>
  * @copyright  1999-2001 Edd Dumbill, 2001-2010 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License
- * @version    Release: 1.5.3
+ * @version    Release: @package_version@
  * @link       http://pear.php.net/package/XML_RPC
  */
 class XML_RPC_Server
@@ -361,7 +361,7 @@ class XML_RPC_Server
 
         if ($XML_RPC_Server_debuginfo != '') {
             return "<!-- PEAR XML_RPC SERVER DEBUG INFO:\n\n"
-                   . $GLOBALS['XML_RPC_func_ereg_replace']('--', '- - ', $XML_RPC_Server_debuginfo)
+                   . str_replace('--', '- - ', $XML_RPC_Server_debuginfo)
                    . "-->\n";
         } else {
             return '';
@@ -418,9 +418,9 @@ class XML_RPC_Server
          * that someone composed a single header with multiple lines, which
          * the RFCs allow.
          */
-        $this->server_headers = $GLOBALS['XML_RPC_func_ereg_replace']("[\r\n]+[ \t]+",
+        $this->server_headers = preg_replace("@[\r\n]+[ \t]+@",
                                 ' ', trim($this->server_headers));
-        $headers = $GLOBALS['XML_RPC_func_split']("[\r\n]+", $this->server_headers);
+        $headers = preg_split("@[\r\n]+@", $this->server_headers);
         foreach ($headers as $header)
         {
             header($header);
@@ -626,7 +626,7 @@ class XML_RPC_Server
                     } else {
                         $r = call_user_func($dmap[$methName]['function'], $m);
                     }
-                    if (!is_a($r, 'XML_RPC_Response')) {
+                    if (!is_object($r) || !is_a($r, 'XML_RPC_Response')) {
                         $r = new XML_RPC_Response(0, $XML_RPC_err['not_response_object'],
                                                   $XML_RPC_str['not_response_object']);
                     }

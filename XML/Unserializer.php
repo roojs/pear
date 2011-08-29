@@ -42,7 +42,7 @@
  * @author    Stephan Schmidt <schst@php.net>
  * @copyright 2003-2008 Stephan Schmidt <schst@php.net>
  * @license   http://opensource.org/licenses/bsd-license New BSD License
- * @version   CVS: $Id: Unserializer.php,v 1.42 2009/02/09 14:49:52 ashnazg Exp $
+ * @version   CVS: $Id: Unserializer.php 303099 2010-09-06 16:23:06Z clockwerx $
  * @link      http://pear.php.net/package/XML_Serializer
  * @see       XML_Unserializer
  */
@@ -262,14 +262,14 @@ define('XML_UNSERIALIZER_ERROR_NO_UNSERIALIZATION', 151);
  * $unserializer->unserialize($xml);
  *
  * $data = $unserializer->getUnserializedData();
- * <code>
+ * </code>
  *
  * @category  XML
  * @package   XML_Serializer
  * @author    Stephan Schmidt <schst@php.net>
  * @copyright 2003-2008 Stephan Schmidt <schst@php.net>
  * @license   http://opensource.org/licenses/bsd-license New BSD License
- * @version   Release: 0.20.0
+ * @version   Release: @package_version@
  * @link      http://pear.php.net/package/XML_Serializer
  * @see       XML_Serializer
  */
@@ -450,7 +450,7 @@ class XML_Unserializer extends PEAR
      */
     function apiVersion()
     {
-        return '0.20.0';
+        return '@package_version@';
     }
 
     /**
@@ -798,10 +798,10 @@ class XML_Unserializer extends PEAR
             if ($this->options[XML_UNSERIALIZER_OPTION_TAG_AS_CLASSNAME] === true
                 && class_exists($classname)
             ) {
-                $value['value'] = &new $classname;
+                $value['value'] = new $classname;
             } else {
                 $value['value'] =
-                    &new $this->options[XML_UNSERIALIZER_OPTION_DEFAULT_CLASS];
+                    new $this->options[XML_UNSERIALIZER_OPTION_DEFAULT_CLASS];
             }
             if (trim($data) !== '') {
                 if ($value['guessType'] === true) {
@@ -971,7 +971,7 @@ class XML_Unserializer extends PEAR
             $this->_parser->free();
             unset($this->_parser);
         }
-        $this->_parser = &new XML_Parser($this->
+        $this->_parser = new XML_Parser($this->
             options[XML_UNSERIALIZER_OPTION_ENCODING_SOURCE],
             'event', $this->options[XML_UNSERIALIZER_OPTION_ENCODING_TARGET]);
 

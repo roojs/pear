@@ -1,22 +1,27 @@
 <?php
-//
-// +------------------------------------------------------------------------+
-// | PEAR :: Benchmark                                                      |
-// +------------------------------------------------------------------------+
-// | Copyright (c) 2001-2006 Sebastian Bergmann <sb@sebastian-bergmann.de>. |
-// +------------------------------------------------------------------------+
-// | This source file is subject to the New BSD license, That is bundled    |
-// | with this package in the file LICENSE, and is available through        |
-// | the world-wide-web at                                                  |
-// | http://www.opensource.org/licenses/bsd-license.php                     |
-// | If you did not receive a copy of the new BSDlicense and are unable     |
-// | to obtain it through the world-wide-web, please send a note to         |
-// | license@php.net so we can mail you a copy immediately.                 |
-// +------------------------------------------------------------------------+
-//
-// $Id: Timer.php,v 1.2 2007/05/24 05:23:20 anant Exp $
-//
-
+/**
+ * Timer.php                                                      
+ *
+ * PHP version 4
+ *
+ * Copyright (c) 2001-2006 Sebastian Bergmann <sb@sebastian-bergmann.de>. 
+ * 
+ * This source file is subject to the New BSD license, That is bundled    
+ * with this package in the file LICENSE, and is available through        
+ * the world-wide-web at                                                  
+ * http://www.opensource.org/licenses/bsd-license.php                     
+ * If you did not receive a copy of the new BSDlicense and are unable     
+ * to obtain it through the world-wide-web, please send a note to         
+ * license@php.net so we can mail you a copy immediately.                 
+ *
+ * @category  Benchmarking
+ * @package   Benchmark
+ * @author    Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright 2002-2005 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @license   http://www.php.net/license/3_0.txt The PHP License, Version 3.0
+ * @version   CVS: $Id: Timer.php 268884 2008-11-12 20:57:49Z clockwerx $
+ * @link      http://pear.php.net/package/Benchmark
+ */
 require_once 'PEAR.php';
 
 /**
@@ -46,18 +51,20 @@ require_once 'PEAR.php';
  *
  * $timer->display(); // to output html formated
  * // AND/OR :
- * $profiling = $timer->getProfiling(); // get the profiler info as an associative array
+ * $profiling = $timer->getProfiling(); // get profiler info as associative array
  * ?>
  * </code>
  *
- * @author    Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @author    Ludovico Magnocavallo <ludo@sumatrasolutions.com>
- * @copyright Copyright &copy; 2002-2005 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license   http://www.php.net/license/3_0.txt The PHP License, Version 3.0
  * @category  Benchmarking
  * @package   Benchmark
+ * @author    Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @author    Ludovico Magnocavallo <ludo@sumatrasolutions.com>
+ * @copyright 2002-2005 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @license   http://www.php.net/license/3_0.txt The PHP License, Version 3.0
+ * @link      http://pear.php.net/package/Benchmark
  */
-class Benchmark_Timer extends PEAR {
+class Benchmark_Timer extends PEAR
+{
     /**
      * Contains the markers.
      *
@@ -72,7 +79,7 @@ class Benchmark_Timer extends PEAR {
      * @var    boolean
      * @access private
      */
-    var $auto = FALSE;
+    var $auto = false;
 
     /**
      * Max marker name length for non-html output.
@@ -85,10 +92,12 @@ class Benchmark_Timer extends PEAR {
     /**
      * Constructor.
      *
-     * @param  boolean $auto
+     * @param boolean $auto Automatically start timer
+     *
      * @access public
      */
-    function Benchmark_Timer($auto = FALSE) {
+    function Benchmark_Timer($auto = false) 
+    {
         $this->auto = $auto;
 
         if ($this->auto) {
@@ -102,8 +111,10 @@ class Benchmark_Timer extends PEAR {
      * Close method. Stop timer and display output.
      *
      * @access public
+     * @return void
      */
-    function close() {
+    function close() 
+    {
         if ($this->auto) {
             $this->stop();
             $this->display();
@@ -115,8 +126,10 @@ class Benchmark_Timer extends PEAR {
      *
      * @see    setMarker(), stop()
      * @access public
+     * @return void
      */
-    function start() {
+    function start() 
+    {
         $this->setMarker('Start');
     }
 
@@ -125,35 +138,42 @@ class Benchmark_Timer extends PEAR {
      *
      * @see    setMarker(), start()
      * @access public
+     * @return void
      */
-    function stop() {
+    function stop() 
+    {
         $this->setMarker('Stop');
     }
 
     /**
      * Set marker.
      *
-     * @param  string  $name Name of the marker to be set.
+     * @param string $name Name of the marker to be set.
+     *
      * @see    start(), stop()
      * @access public
+     * @return void
      */
-    function setMarker($name) {
+    function setMarker($name) 
+    {
         $this->markers[$name] = $this->_getMicrotime();
     }
 
     /**
      * Returns the time elapsed betweens two markers.
      *
-     * @param  string  $start        start marker, defaults to "Start"
-     * @param  string  $end          end marker, defaults to "Stop"
+     * @param string $start start marker, defaults to "Start"
+     * @param string $end   end marker, defaults to "Stop"
+     *
      * @return double  $time_elapsed time elapsed between $start and $end
      * @access public
      */
-    function timeElapsed($start = 'Start', $end = 'Stop') {
+    function timeElapsed($start = 'Start', $end = 'Stop') 
+    {
         if ($end == 'Stop' && !isset($this->markers['Stop'])) {
             $this->markers['Stop'] = $this->_getMicrotime();
         }
-        $end = isset($this->markers[$end]) ? $this->markers[$end] : 0;
+        $end   = isset($this->markers[$end]) ? $this->markers[$end] : 0;
         $start = isset($this->markers[$start]) ? $this->markers[$start] : 0;
 
         if (extension_loaded('bcmath')) {
@@ -174,10 +194,13 @@ class Benchmark_Timer extends PEAR {
      * @return array
      * @access public
      */
-    function getProfiling() {
+    function getProfiling() 
+    {
         $i = $total = 0;
+
         $result = array();
-        $temp = reset($this->markers);
+        $temp   = reset($this->markers);
+
         $this->maxStringLength = 0;
 
         foreach ($this->markers as $marker => $time) {
@@ -194,15 +217,25 @@ class Benchmark_Timer extends PEAR {
             $result[$i]['diff']  = $diff;
             $result[$i]['total'] = $total;
 
-            $this->maxStringLength = (strlen($marker) > $this->maxStringLength ? strlen($marker) + 1 : $this->maxStringLength);
+            $longer = strlen($marker) > $this->maxStringLength;
+
+            if ($longer) {
+                $this->maxStringLength = strlen($marker) + 1;
+            }
 
             $temp = $time;
             $i++;
         }
 
-        $result[0]['diff'] = '-';
+        $result[0]['diff']  = '-';
         $result[0]['total'] = '-';
-        $this->maxStringLength = (strlen('total') > $this->maxStringLength ? strlen('total') : $this->maxStringLength);
+
+        $longer = strlen('total') > $this->maxStringLength;
+
+        if ($longer) {
+            $this->maxStringLength = strlen('total');
+        }
+
         $this->maxStringLength += 2;
 
         return $result;
@@ -211,22 +244,25 @@ class Benchmark_Timer extends PEAR {
     /**
      * Return formatted profiling information.
      *
-     * @param  boolean  $showTotal   Optionnaly includes total in output, default no
-     * @param  string  $format   output format (auto, plain or html), default auto
+     * @param boolean $showTotal Optionnaly includes total in output, default no
+     * @param string  $format    output format (auto, plain or html), default auto
+     *
      * @return string
      * @see    getProfiling()
      * @access public
      */
-    function getOutput($showTotal = FALSE, $format = 'auto') {
+    function getOutput($showTotal = false, $format = 'auto') 
+    {
         if ($format == 'auto') {
             if (function_exists('version_compare') &&
-                version_compare(phpversion(), '4.1', 'ge'))
-            {
+                version_compare(phpversion(), '4.1', 'ge')) {
                 $format = isset($_SERVER['SERVER_PROTOCOL']) ? 'html' : 'plain';
             } else {
                 global $HTTP_SERVER_VARS;
-                $format = isset($HTTP_SERVER_VARS['SERVER_PROTOCOL']) ? 'html' : 'plain';
-	    }
+                $use_html = isset($HTTP_SERVER_VARS['SERVER_PROTOCOL']);
+
+                $format = $use_html ? 'html' : 'plain';
+            }
         }
 
         $total  = $this->TimeElapsed();
@@ -234,14 +270,23 @@ class Benchmark_Timer extends PEAR {
         $dashes = '';
 
         if ($format == 'html') {
-            $out = '<table border="1">'."\n";
-            $out .= '<tr><td>&nbsp;</td><td align="center"><b>time index</b></td><td align="center"><b>ex time</b></td><td align="center"><b>%</b></td>'.
-            ($showTotal ?
-              '<td align="center"><b>elapsed</b></td><td align="center"><b>%</b></td>'
-               : '')."</tr>\n";
+            $out  = '<table border="1">'."\n";
+            $out .= '<tr>';
+            $out .= '<td>&nbsp;</td>';
+            $out .= '<td align="center"><b>time index</b></td>';
+            $out .= '<td align="center"><b>ex time</b></td>';
+            $out .= '<td align="center"><b>%</b></td>';
+
+            if ($showTotal) {
+                 $out .= '<td align="center"><b>elapsed</b></td>';
+                 $out .= '<td align="center"><b>%</b></td>';
+            }
+
+            $out .= "</tr>\n";
         } else {
             $dashes = $out = str_pad("\n",
                 $this->maxStringLength + ($showTotal ? 70 : 45), '-', STR_PAD_LEFT);
+
             $out .= str_pad('marker', $this->maxStringLength) .
                     str_pad("time index", 22) .
                     str_pad("ex time", 16) .
@@ -251,15 +296,17 @@ class Benchmark_Timer extends PEAR {
         }
 
         foreach ($result as $k => $v) {
-            $perc = (($v['diff'] * 100) / $total);
+            $perc  = (($v['diff'] * 100) / $total);
             $tperc = (($v['total'] * 100) / $total);
+
+            $percentage = number_format($perc, 2, '.', '')."%";
 
             if ($format == 'html') {
                 $out .= "<tr><td><b>" . $v['name'] .
                        "</b></td><td>" . $v['time'] .
                        "</td><td>" . $v['diff'] .
-                       "</td><td align=\"right\">" . number_format($perc, 2, '.', '') .
-                       "%</td>".
+                       "</td><td align=\"right\">" . $percentage .
+                       "</td>".
                        ($showTotal ?
                             "<td>" . $v['total'] .
                             "</td><td align=\"right\">" .
@@ -267,10 +314,12 @@ class Benchmark_Timer extends PEAR {
                             "%</td>" : '').
                        "</tr>\n";
             } else {
+
+
                 $out .= str_pad($v['name'], $this->maxStringLength, ' ') .
                         str_pad($v['time'], 22) .
                         str_pad($v['diff'], 14) .
-                        str_pad(number_format($perc, 2, '.', '')."%",8, ' ', STR_PAD_LEFT) .
+                        str_pad($percentage, 8, ' ', STR_PAD_LEFT) .
                         ($showTotal ? '   '.
                             str_pad($v['total'], 14) .
                             str_pad(number_format($tperc, 2, '.', '')."%",
@@ -282,7 +331,13 @@ class Benchmark_Timer extends PEAR {
         }
 
         if ($format == 'html') {
-            $out .= "<tr style='background: silver;'><td><b>total</b></td><td>-</td><td>${total}</td><td>100.00%</td>".($showTotal ? "<td>-</td><td>-</td>" : "")."</tr>\n";
+            $out .= "<tr style='background: silver;'>";
+            $out .= "<td><b>total</b></td>";
+            $out .= "<td>-</td>";
+            $out .= "<td>${total}</td>";
+            $out .= "<td>100.00%</td>";
+            $out .= ($showTotal ? "<td>-</td><td>-</td>" : "");
+            $out .= "</tr>\n";
             $out .= "</table>\n";
         } else {
             $out .= str_pad('total', $this->maxStringLength);
@@ -298,12 +353,15 @@ class Benchmark_Timer extends PEAR {
     /**
      * Prints the information returned by getOutput().
      *
-     * @param  boolean  $showTotal   Optionnaly includes total in output, default no
-     * @param  string  $format   output format (auto, plain or html), default auto
+     * @param boolean $showTotal Optionnaly includes total in output, default no
+     * @param string  $format    output format (auto, plain or html), default auto
+     *
      * @see    getOutput()
      * @access public
+     * @return void
      */
-    function display($showTotal = FALSE, $format = 'auto') {
+    function display($showTotal = false, $format = 'auto') 
+    {
         print $this->getOutput($showTotal, $format);
     }
 
@@ -314,7 +372,8 @@ class Benchmark_Timer extends PEAR {
      * @access private
      * @since  1.3.0
      */
-    function _getMicrotime() {
+    function _getMicrotime() 
+    {
         $microtime = explode(' ', microtime());
         return $microtime[1] . substr($microtime[0], 1);
     }

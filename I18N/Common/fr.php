@@ -15,7 +15,7 @@
 // | Authors: Wolfram Kriesing <wk@visionp.de>                            |
 // |                                                                      |
 // +----------------------------------------------------------------------+//
-// $Id: fr.php,v 1.4 2003/03/11 02:56:48 pajoye Exp $
+// $Id: fr.php 119834 2003-03-11 02:56:48Z pajoye $
 
 class I18N_Common_fr
 {

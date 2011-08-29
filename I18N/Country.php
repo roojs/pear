@@ -16,7 +16,7 @@
 // | Authors: Naoki Shima <murahachibu@php.net>                           |
 // |                                                                      |
 // +----------------------------------------------------------------------+//
-// $Id: Country.php,v 1.4 2003/01/04 11:55:23 mj Exp $
+// $Id: Country.php 110339 2003-01-04 11:55:29Z mj $
 
 require_once('I18N/Common.php');
 

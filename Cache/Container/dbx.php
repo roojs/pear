@@ -15,7 +15,7 @@
 // | Authors: Christian Stocker <chregu@phant.ch>                         |
 // +----------------------------------------------------------------------+
 //
-// $Id: dbx.php,v 1.6 2004/12/15 09:09:29 dufuz Exp $
+// $Id: dbx.php 268860 2008-11-12 14:56:26Z clockwerx $
 
 
 require_once 'Cache/Container.php';
@@ -50,7 +50,7 @@ require_once 'Cache/Container.php';
 * )
 *
 * @author   Christian Stocker <chregu@phant.ch>
-* @version  $Id: dbx.php,v 1.6 2004/12/15 09:09:29 dufuz Exp $
+* @version  $Id: dbx.php 268860 2008-11-12 14:56:26Z clockwerx $
 * @package  Cache
 */
 class Cache_Container_dbx extends Cache_Container
@@ -99,13 +99,6 @@ class Cache_Container_dbx extends Cache_Container
     * @var  string
     */
     var $password = '';
-
-    /**
-    * DBx handle object
-    * 
-    * @var  object DBx handle
-    */
-    var $db;
     
     
     /**

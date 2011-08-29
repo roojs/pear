@@ -33,7 +33,7 @@
  * @author    Ian Eure <ieure@php.net>
  * @copyright 2004-2008 Lorenzo Alberton, Ian Eure
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: db.php,v 1.39 2008/05/03 09:17:59 quipo Exp $
+ * @version   CVS: $Id: db.php 305985 2010-12-05 22:55:33Z clockwerx $
  * @link      http://pear.php.net/package/Translation2
  */
 
@@ -54,7 +54,7 @@ require_once 'Translation2/Container.php';
  * @author    Ian Eure <ieure@php.net>
  * @copyright 2004-2008 Lorenzo Alberton, Ian Eure
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: db.php,v 1.39 2008/05/03 09:17:59 quipo Exp $
+ * @version   CVS: $Id: db.php 305985 2010-12-05 22:55:33Z clockwerx $
  * @link      http://pear.php.net/package/Translation2
  */
 class Translation2_Container_db extends Translation2_Container

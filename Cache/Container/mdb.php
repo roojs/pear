@@ -18,7 +18,7 @@
 // | Author: Lorenzo Alberton <l.alberton at quipo.it>                    |
 // +----------------------------------------------------------------------+
 //
-// $Id: mdb.php,v 1.5 2004/12/15 09:09:30 dufuz Exp $
+// $Id: mdb.php 174777 2004-12-15 09:09:33Z dufuz $
 
 require_once 'MDB.php';
 require_once 'Cache/Container.php';
@@ -61,7 +61,7 @@ require_once 'Cache/Container.php';
 * ------------------------------------------
 *
 * @author   Lorenzo Alberton <l.alberton at quipo.it>
-* @version  $Id: mdb.php,v 1.5 2004/12/15 09:09:30 dufuz Exp $
+* @version  $Id: mdb.php 174777 2004-12-15 09:09:33Z dufuz $
 * @package  Cache
 */
 class Cache_Container_mdb extends Cache_Container

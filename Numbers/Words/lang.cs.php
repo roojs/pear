@@ -18,7 +18,7 @@
  * @package  Numbers_Words
  * @author   Petr 'PePa' Pavel <petr.pavel@pepa.info>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.cs.php,v 1.3 2008/11/25 02:45:52 clockwerx Exp $
+ * @version  CVS: $Id: lang.cs.php 269648 2008-11-25 02:45:52Z clockwerx $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 

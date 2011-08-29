@@ -16,7 +16,7 @@
 // |          Sebastian Bergmann <sb@sebastian-bergmann.de>               |
 // +----------------------------------------------------------------------+
 //
-// $Id: file.php,v 1.18 2006/01/31 13:40:00 bate Exp $
+// $Id: file.php 293864 2010-01-23 03:49:21Z clockwerx $
 
 require_once 'Cache/Container.php';
 
@@ -24,7 +24,7 @@ require_once 'Cache/Container.php';
 * Stores cache contents in a file.
 *
 * @author   Ulf Wendel  <ulf.wendel@phpdoc.de>
-* @version  $Id: file.php,v 1.18 2006/01/31 13:40:00 bate Exp $
+* @version  $Id: file.php 293864 2010-01-23 03:49:21Z clockwerx $
 */
 class Cache_Container_file extends Cache_Container
 {
@@ -358,7 +358,7 @@ class Cache_Container_file extends Cache_Container
         $dir = $this->cache_dir . $group . '/';
         if (is_writeable($this->cache_dir)) {
             if (!file_exists($dir)) {
-                mkdir($dir, 0755);
+                mkdir($dir, 0755, true);
                 clearstatcache();
             }
         } else {

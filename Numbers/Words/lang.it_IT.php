@@ -19,7 +19,7 @@
  * @author   Filippo Beltramini <phil@esight.it>
  * @author   Davide Caironi     <cairo@esight.it>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.it_IT.php,v 1.3 2009/03/13 10:23:23 quipo Exp $
+ * @version  CVS: $Id: lang.it_IT.php 277094 2009-03-13 10:23:23Z quipo $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 

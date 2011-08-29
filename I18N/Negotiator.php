@@ -16,7 +16,7 @@
 // | Authors: Naoki Shima <murahachibu@php.net>                           |
 // |                                                                      |
 // +----------------------------------------------------------------------+//
-// $Id: Negotiator.php,v 1.4 2003/01/04 11:55:25 mj Exp $
+// $Id: Negotiator.php 110339 2003-01-04 11:55:29Z mj $
 
 /**
 *

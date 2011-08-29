@@ -17,7 +17,7 @@
 // |          Vinai Kopp <kopp@netzarbeiter.de>                           |
 // +----------------------------------------------------------------------+
 //
-// $Id: Output.php,v 1.8 2005/01/26 09:47:28 dufuz Exp $
+// $Id: Output.php 178289 2005-01-26 09:47:28Z dufuz $
 
 require_once 'Cache.php';
 

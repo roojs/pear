@@ -32,7 +32,7 @@
  * @author    Lorenzo Alberton <l.alberton@quipo.it>
  * @copyright 2004-2007 Lorenzo Alberton
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: SpecialChars.php,v 1.9 2007/10/28 23:42:35 quipo Exp $
+ * @version   CVS: $Id: SpecialChars.php 305985 2010-12-05 22:55:33Z clockwerx $
  * @link      http://pear.php.net/package/Translation2
  */
 
@@ -54,7 +54,7 @@ require_once 'Translation2/Decorator.php';
  * @author    Lorenzo Alberton <l.alberton@quipo.it>
  * @copyright 2004-2007 Lorenzo Alberton
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: SpecialChars.php,v 1.9 2007/10/28 23:42:35 quipo Exp $
+ * @version   CVS: $Id: SpecialChars.php 305985 2010-12-05 22:55:33Z clockwerx $
  * @link      http://pear.php.net/package/Translation2
  * @see       http://www.php.net/htmlentities for a list of available charsets.
  */

@@ -1,21 +1,48 @@
 <?php
-//
-// +----------------------------------------------------------------------+
-// | PHP Version 4                                                        |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2003 The PHP Group                                |
-// +----------------------------------------------------------------------+
-// | This source file is subject to version 2.02 of the PHP license,      |
-// | that is bundled with this package in the file LICENSE, and is        |
-// | available at through the world-wide-web at                           |
-// | http://www.php.net/license/2_02.txt.                                 |
-// | If you did not receive a copy of the PHP license and are unable to   |
-// | obtain it through the world-wide-web, please send a note to          |
-// | license@php.net so we can mail you a copy immediately.               |
-// +----------------------------------------------------------------------+
-// | Authors: Chuck Hagenbuch <chuck@horde.org>                           |
-// |          Jon Parise <jon@php.net>                                    |
-// +----------------------------------------------------------------------+
+/**
+ * SMTP implementation of the PEAR Mail interface. Requires the Net_SMTP class.
+ *
+ * PHP versions 4 and 5
+ *
+ * LICENSE:
+ *
+ * Copyright (c) 2010, Chuck Hagenbuch
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * o Redistributions of source code must retain the above copyright
+ *   notice, this list of conditions and the following disclaimer.
+ * o Redistributions in binary form must reproduce the above copyright
+ *   notice, this list of conditions and the following disclaimer in the
+ *   documentation and/or other materials provided with the distribution.
+ * o The names of the authors may not be used to endorse or promote
+ *   products derived from this software without specific prior written
+ *   permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+ * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+ * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+ * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * @category    HTTP
+ * @package     HTTP_Request
+ * @author      Jon Parise <jon@php.net> 
+ * @author      Chuck Hagenbuch <chuck@horde.org>
+ * @copyright   2010 Chuck Hagenbuch
+ * @license     http://opensource.org/licenses/bsd-license.php New BSD License
+ * @version     CVS: $Id: smtp.php 294747 2010-02-08 08:18:33Z clockwerx $
+ * @link        http://pear.php.net/package/Mail/
+ */
 
 /** Error: Failed to create a Net_SMTP object */
 define('PEAR_MAIL_SMTP_ERROR_CREATE', 10000);
@@ -42,7 +69,7 @@ define('PEAR_MAIL_SMTP_ERROR_DATA', 10006);
  * SMTP implementation of the PEAR Mail interface. Requires the Net_SMTP class.
  * @access public
  * @package Mail
- * @version $Revision: 1.33 $
+ * @version $Revision: 294747 $
  */
 class Mail_smtp extends Mail {
 
@@ -256,16 +283,16 @@ class Mail_smtp extends Mail {
             }
         }
         if (PEAR::isError($res = $this->_smtp->mailFrom($from, ltrim($params)))) {
-            $error = $this->_error("Failed to set sender: $from", $res);
-            $ret = PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER);
-            $ret->smtpcode = $res->code;
+            list($code, $error) = $this->_error(
+                    "Failed to set sender: $from", $res, PEAR_MAIL_SMTP_ERROR_SENDER);
             $this->_smtp->rset();
-            return $ret;
+            return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER,
+                    null,null,array('smtpcode' => $code)
+            );
         }
 
         $recipients = $this->parseRecipients($recipients);
         if (is_a($recipients, 'PEAR_Error')) {
-            // smtpcode will not be set..
             $this->_smtp->rset();
             return $recipients;
         }
@@ -273,23 +300,32 @@ class Mail_smtp extends Mail {
         foreach ($recipients as $recipient) {
             $res = $this->_smtp->rcptTo($recipient);
             if (is_a($res, 'PEAR_Error')) {
-                $error = $this->_error("Failed to add recipient: $recipient", $res);
-                $ret = PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_RECIPIENT);
-                 
-                $ret->smtpcode = $error->code;
+                list($code, $error) = $this->_error("Failed to add recipient: $recipient", $res);
                 $this->_smtp->rset();
-                return $ret;
+                return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_RECIPIENT,
+                    null,null,array('smtpcode' => $code)
+                );
             }
         }
 
         /* Send the message's headers and the body as SMTP data. */
         $res = $this->_smtp->data($textHeaders . "\r\n\r\n" . $body);
+		list(,$args) = $this->_smtp->getResponse();
+
+		if (preg_match("/Ok: queued as (.*)/", $args, $queued)) {
+			$this->queued_as = $queued[1];
+		}
+
+		/* we need the greeting; from it we can extract the authorative name of the mail server we've really connected to.
+		 * ideal if we're connecting to a round-robin of relay servers and need to track which exact one took the email */
+		$this->greeting = $this->_smtp->getGreeting();
+
         if (is_a($res, 'PEAR_Error')) {
-            $error = $this->_error('Failed to send data', $res);
-            $ret = PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_DATA);
-            $ret->smtpcode = $res->code;
+            list($code,$error) = $this->_error('Failed to send data', $res);
             $this->_smtp->rset();
-            return $ret;
+            return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_DATA,
+                null,null,array('smtpcode' => $code)
+            );
         }
 
         /* If persistent connections are disabled, destroy our SMTP object. */
@@ -334,12 +370,11 @@ class Mail_smtp extends Mail {
 
         /* Attempt to connect to the configured SMTP server. */
         if (PEAR::isError($res = $this->_smtp->connect($this->timeout))) {
-            $error = $this->_error('Failed to connect to ' .
+            list($code, $error) = $this->_error('Failed to connect to ' .
                                    $this->host . ':' . $this->port,
                                    $res);
-            $ret = PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_CONNECT);
-            $ret->smtpcode = $res->code;
-            return $ret;
+            return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_CONNECT,
+                    null,null,array('smtpcode' => $code));
         }
 
         /* Attempt to authenticate if authentication has been enabled. */
@@ -349,10 +384,13 @@ class Mail_smtp extends Mail {
             if (PEAR::isError($res = $this->_smtp->auth($this->username,
                                                         $this->password,
                                                         $method))) {
-                $error = $this->_error("$method authentication failure",
+                
+                list($code, $error) =$this->_error("$method authentication failure",
                                        $res);
                 $this->_smtp->rset();
-                return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_AUTH);
+                return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_AUTH,
+                    null,null,array('smtpcode' => $code)
+                );
             }
         }
 
@@ -403,15 +441,18 @@ class Mail_smtp extends Mail {
      * @since  1.1.7
      * @access private
      */
-    function _error($text, &$error)
+    function _error($text, &$error, $eid=false)
     {
         /* Split the SMTP response into a code and a response string. */
         list($code, $response) = $this->_smtp->getResponse();
 
         /* Build our standardized error string. */
-        return $text
+        return array($code, $text
             . ' [SMTP: ' . $error->getMessage()
-            . " (code: $code, response: $response)]";
+            . " (code: $code, response: $response)]"
+        );
+        
     }
+    
 
 }

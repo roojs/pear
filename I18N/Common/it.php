@@ -15,7 +15,7 @@
 // | Authors: Wolfram Kriesing <wk@visionp.de>                            |
 // |          Lorenzo Alberton <l.alberton@quipo.it>                      |
 // +----------------------------------------------------------------------+//
-// $Id: it.php,v 1.1 2003/01/07 17:36:27 cain Exp $
+// $Id: it.php 110934 2003-01-07 17:36:27Z cain $
 
 class I18N_Common_it
 {

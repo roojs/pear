@@ -18,7 +18,7 @@
  * @package  Numbers_Words
  * @author   Piotr Klaban <makler@man.torun.pl>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.pl.php,v 1.5 2008/11/25 03:14:15 clockwerx Exp $
+ * @version  CVS: $Id: lang.pl.php 293456 2010-01-12 16:44:28Z kouber $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
@@ -494,7 +494,10 @@ class Numbers_Words_pl extends Numbers_Words
      */
     function _get_numlevel($num)
     {
-        $num = (int)substr($num, -3);
+        if (strlen($num) > 3) {
+            $num = substr($num, -3);
+        }
+        $num = (int) $num;
 
         $h = $t = $d = $lev = 0;
 

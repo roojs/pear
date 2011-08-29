@@ -15,7 +15,7 @@
 // | Authors: Jeroen Houben <jeroen@terena.nl>                            |
 // |                                                                      |
 // +----------------------------------------------------------------------+//
-// $Id: nl.php,v 1.1 2003/05/22 15:21:22 cain Exp $
+// $Id: nl.php 128415 2003-05-22 15:21:22Z cain $
 
 class I18N_Common_nl
 {

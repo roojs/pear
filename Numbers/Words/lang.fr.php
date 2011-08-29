@@ -18,7 +18,7 @@
  * @package  Numbers_Words
  * @author   Kouber Saparev <kouber@php.net>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.fr.php,v 1.5 2008/11/24 14:53:41 clockwerx Exp $
+ * @version  CVS: $Id: lang.fr.php 269609 2008-11-24 14:53:41Z clockwerx $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 

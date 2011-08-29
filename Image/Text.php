@@ -72,7 +72,7 @@
  * @author     Tobias Schlitt <toby@php.net>
  * @copyright  1997-2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Text.php,v 1.32 2007/04/16 09:52:34 cweiske Exp $
+ * @version    CVS: $Id: Text.php 235913 2007-05-19 02:54:19Z ssttoo $
  * @link       http://pear.php.net/package/Net_FTP2
  * @since      File available since Release 0.0.1
  */
@@ -536,6 +536,11 @@ class Image_Text {
                 $this->colors[$id] = $aaFactor * imagecolorallocate($this->_img,
                                 $color['r'],$color['g'],$color['b']);
             }
+            if ($this->colors[$id] == 0 && $aaFactor == -1) {
+            	// correction for black with antialiasing OFF
+            	// since color cannot be negative zero
+            	$this->colors[$id] = -256;
+            }
         }
         return true;
     }
@@ -575,7 +580,7 @@ class Image_Text {
         }
 
         // Check and create canvas
-
+        $image_canvas = false;
         switch (true) {
             case (empty($this->options['canvas'])):
 
@@ -590,6 +595,7 @@ class Image_Text {
             case (is_resource($this->options['canvas']) &&
                     get_resource_type($this->options['canvas'])=='gd'):
                 // The canvas is an image resource
+                $image_canvas = true;
                 $this->_img = $this->options['canvas'];
                 break;
 
@@ -644,12 +650,14 @@ class Image_Text {
             }
             $colBg = imagecolorallocatealpha($this->_img, $arBg['r'], $arBg['g'], $arBg['b'], $arBg['a']);
         }
-        imagefilledrectangle(
-            $this->_img,
-            0, 0,
-            $this->options['canvas']['width'] - 1, $this->options['canvas']['height'] - 1,
-            $colBg
-        );
+        if ($image_canvas === false) {
+            imagefilledrectangle(
+                $this->_img,
+                0, 0,
+                $this->options['canvas']['width'] - 1, $this->options['canvas']['height'] - 1,
+                $colBg
+            );
+        }
 
 
         // Save and repair angle
@@ -1101,7 +1109,7 @@ class Image_Text {
      * Save image canvas.
      *
      * Saves the image to a given destination. You can leave out the destination file path,
-     * if you have the option for that set correctly. Saving is possible with the save()
+     * if you have the option for that set correctly. Saving is possible with the display()
      * method, too.
      *
      * @param   string  $destFile   The destination to save to (optional, uses options value else).

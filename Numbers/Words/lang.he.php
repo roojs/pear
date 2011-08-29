@@ -18,7 +18,7 @@
  * @package  Numbers_Words
  * @author   Hadar Porat <hpman28@gmail.com>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.he.php,v 1.6 2008/11/25 13:53:42 clockwerx Exp $
+ * @version  CVS: $Id: lang.he.php 269824 2008-11-25 13:53:42Z clockwerx $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 

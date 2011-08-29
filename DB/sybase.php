@@ -21,7 +21,7 @@
  * @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: sybase.php,v 1.87 2007/09/21 13:40:42 aharvey Exp $
+ * @version    CVS: $Id: sybase.php 242771 2007-09-21 13:40:42Z aharvey $
  * @link       http://pear.php.net/package/DB
  */
 
@@ -46,7 +46,7 @@ require_once 'DB/common.php';
  * @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: 1.7.13
+ * @version    Release: 1.7.14
  * @link       http://pear.php.net/package/DB
  */
 class DB_sybase extends DB_common

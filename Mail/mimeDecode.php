@@ -52,7 +52,7 @@
  * @author     Sean Coates <sean@php.net>
  * @copyright  2003-2006 PEAR <pear-group@php.net>
  * @license    http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version    CVS: $Id: mimeDecode.php 313905 2011-07-29 03:13:19Z alan_k $
+ * @version    CVS: $Id: mimeDecode.php 305875 2010-12-01 07:17:10Z alan_k $
  * @link       http://pear.php.net/package/Mail_mime
  */
 
@@ -335,7 +335,6 @@ class Mail_mimeDecode extends PEAR
                     break;
 
                 case 'message/rfc822':
-                case 'message/delivery-status': // #bug #18693
 					if ($this->_rfc822_bodies) {
 						$encoding = isset($content_transfer_encoding) ? $content_transfer_encoding['value'] : '7bit';
 						$return->body = ($this->_decode_bodies ? $this->_decodeBody($body, $encoding) : $body);
@@ -476,24 +475,14 @@ class Mail_mimeDecode extends PEAR
      * robust as it could be. Eg. header comments
      * in the wrong place will probably break it.
      *
-     * Extra things this can handle
-     *   filename*0=......
-     *   filename*1=......
-     *
-     *  This is where lines are broken in, and need merging.
-     *
-     *   filename*0*=ENC''urlencoded data.
-     *   filename*1*=ENC''urlencoded data.
-     *
-     * 
-     *
      * @param string Header value to parse
      * @return array Contains parsed result
      * @access private
      */
     function _parseHeaderValue($input)
     {
-         if (($pos = strpos($input, ';')) === false) {
+
+        if (($pos = strpos($input, ';')) === false) {
             $input = $this->_decode_headers ? $this->_decodeHeader($input) : $input;
             $return['value'] = trim($input);
             return $return;
@@ -546,6 +535,7 @@ class Mail_mimeDecode extends PEAR
                     if ($key) { // a key without a value..
                         $key= trim($key);
                         $return['other'][$key] = '';
+                        $return['other'][strtolower($key)] = '';
                     }
                     $key = '';
                 }
@@ -562,11 +552,7 @@ class Mail_mimeDecode extends PEAR
                     $i++;
                     continue; // skip leading spaces after '=' or after '"'
                 }
-                
-                // do not de-quote 'xxx*= itesm.. 
-                $key_is_trans = $key[strlen($key)-1] == '*';
-                
-                if (!$key_is_trans && !$escaped && ($c == '"' || $c == "'")) {
+                if (!$escaped && ($c == '"' || $c == "'")) {
                     // start quoted area..
                     $q = $c;
                     // in theory should not happen raw text in value part..
@@ -577,8 +563,26 @@ class Mail_mimeDecode extends PEAR
                 }
                 // got end....
                 if (!$escaped && $c == ';') {
-                     
-                    $return['other'][$key] = trim($val);
+
+                    $val = trim($val);
+                    $added = false;
+                    if (preg_match('/\*[0-9]+$/', $key)) {
+                        // this is the extended aaa*0=...;aaa*1=.... code
+                        // it assumes the pieces arrive in order, and are valid...
+                        $key = preg_replace('/\*[0-9]+$/', '', $key);
+                        if (isset($return['other'][$key])) {
+                            $return['other'][$key] .= $val;
+                            if (strtolower($key) != $key) {
+                                $return['other'][strtolower($key)] .= $val;
+                            }
+                            $added = true;
+                        }
+                        // continue and use standard setters..
+                    }
+                    if (!$added) {
+                        $return['other'][$key] = $val;
+                        $return['other'][strtolower($key)] = $val;
+                    }
                     $val = false;
                     $key = '';
                     $lq = false;
@@ -593,7 +597,7 @@ class Mail_mimeDecode extends PEAR
             
             // state - in quote..
             if (!$escaped && $c == $q) {  // potential exit state..
-                
+
                 // end of quoted string..
                 $lq = $q;
                 $q = false;
@@ -610,58 +614,29 @@ class Mail_mimeDecode extends PEAR
         if (strlen(trim($key)) || $val !== false) {
            
             $val = trim($val);
-          
-            $return['other'][$key] = $val;
-        }
-       
-        
-        $clean_others = array();
-        // merge added values. eg. *1[*]
-        foreach($return['other'] as $key =>$val) {
-            if (preg_match('/\*[0-9]+\**$/', $key)) {
-                $key = preg_replace('/(.*)\*[0-9]+(\**)$/', '\1\2', $key);
-                if (isset($clean_others[$key])) {
-                    $clean_others[$key] .= $val;
-                    continue;
+            $added = false;
+            if ($val !== false && preg_match('/\*[0-9]+$/', $key)) {
+                // no dupes due to our crazy regexp.
+                $key = preg_replace('/\*[0-9]+$/', '', $key);
+                if (isset($return['other'][$key])) {
+                    $return['other'][$key] .= $val;
+                    if (strtolower($key) != $key) {
+                        $return['other'][strtolower($key)] .= $val;
+                    }
+                    $added = true;
                 }
-                
+                // continue and use standard setters..
             }
-            $clean_others[$key] = $val;
-            
-        }
-         
-        // handle language translation of '*' ending others.
-        foreach( $clean_others as $key =>$val) {
-            if ( $key[strlen($key)-1] != '*') {
-                $clean_others[strtolower($key)] = $val;
-                continue;
+            if (!$added) {
+                $return['other'][$key] = $val;
+                $return['other'][strtolower($key)] = $val;
             }
-            unset($clean_others[$key]);
-            $key = substr($key,0,-1);
-            //extended-initial-value := [charset] "'" [language] "'"
-            //              extended-other-values
-            $match = array();
-            $info = preg_match("/^([^']+)'([^']*)'(.*)$/", $val, $match);
-             
-            $clean_others[$key] = urldecode($match[3]);
-            $clean_others[strtolower($key)] = $clean_others[$key];
-            $clean_others[strtolower($key).'-charset'] = $match[1];
-            $clean_others[strtolower($key).'-language'] = $match[2];
-            
-            
         }
-        
-        
-        $return['other'] = $clean_others;
-        
-        
-        
-        
         // decode values.
         foreach($return['other'] as $key =>$val) {
             $return['other'][$key] = $this->_decode_headers ? $this->_decodeHeader($val) : $val;
         }
-        
+       //print_r($return);
         return $return;
     }
 

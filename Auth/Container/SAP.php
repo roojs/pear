@@ -20,7 +20,7 @@
  * @author     Adam Ashley <aashley@php.net>
  * @copyright  2001-2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id: SAP.php 289654 2009-10-15 04:52:48Z aashley $
+ * @version    CVS: $Id: SAP.php 302205 2010-08-14 14:08:08Z clockwerx $
  * @link       http://pear.php.net/package/Auth
  * @since      File available since Release 1.4.0
  */
@@ -48,7 +48,7 @@ require_once 'PEAR.php';
  * @author     Adam Ashley <aashley@php.net>
  * @copyright  2001-2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    Release: 1.6.2  File: $Revision: 289654 $
+ * @version    Release: @package_version@  File: $Revision: 302205 $
  * @since      Class available since Release 1.4.0
  */
 class Auth_Container_SAP extends Auth_Container {
@@ -165,7 +165,7 @@ class Auth_Container_SAP extends Auth_Container {
         }
         $err = explode("n", $sap_error);
         foreach ($err AS $line) {
-            $item = split(':', $line);
+            $item = explode(':', $line);
             $error[strtolower(trim($item[0]))] = trim($item[1]);
         }
         $error['all'] = $sap_error;

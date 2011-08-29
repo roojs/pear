@@ -15,7 +15,7 @@
 // | Authors: Wolfram Kriesing <wk@visionp.de>                            |
 // |          Jacques Marneweck <jacques@php.net>                         |
 // +----------------------------------------------------------------------+//
-// $Id: af.php,v 1.1 2003/03/13 08:37:32 cain Exp $
+// $Id: af.php 120053 2003-03-13 08:37:32Z cain $
 
 class I18N_Common_af
 {

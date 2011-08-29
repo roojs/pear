@@ -48,7 +48,7 @@
  * @author    Aleksander Machniak <alec@php.net>
  * @copyright 2003-2006 PEAR <pear-group@php.net>
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   CVS: $Id$
+ * @version   CVS: $Id: mimePart.php 314695 2011-08-10 07:18:07Z alec $
  * @link      http://pear.php.net/package/Mail_mime
  */
 
@@ -130,6 +130,7 @@ class Mail_mimePart
     * @access private
     */
     var $_eol = "\r\n";
+
 
     /**
     * Constructor.
@@ -805,6 +806,9 @@ class Mail_mimePart
 
         // Structured header (make sure addr-spec inside is not encoded)
         if (!empty($separator)) {
+            // Simple e-mail address regexp
+            $email_regexp = '(\S+|("[^\r\n"]+"))@\S+';
+
             $parts = Mail_mimePart::_explodeQuotedString($separator, $value);
             $value = '';
 
@@ -822,12 +826,12 @@ class Mail_mimePart
                 }
 
                 // let's find phrase (name) and/or addr-spec
-                if (preg_match('/^<\S+@\S+>$/', $part)) {
+                if (preg_match('/^<' . $email_regexp . '>$/', $part)) {
                     $value .= $part;
-                } else if (preg_match('/^\S+@\S+$/', $part)) {
+                } else if (preg_match('/^' . $email_regexp . '$/', $part)) {
                     // address without brackets and without name
                     $value .= $part;
-                } else if (preg_match('/<*\S+@\S+>*$/', $part, $matches)) {
+                } else if (preg_match('/<*' . $email_regexp . '>*$/', $part, $matches)) {
                     // address with name (handle name)
                     $address = $matches[0];
                     $word = str_replace($address, '', $part);

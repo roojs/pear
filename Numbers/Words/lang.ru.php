@@ -19,7 +19,7 @@
  * @author   Piotr Klaban <makler@man.torun.pl>
  * @author   Andrey Demenev <demenev@gmail.com>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.ru.php,v 1.4 2008/11/24 15:11:52 clockwerx Exp $
+ * @version  CVS: $Id: lang.ru.php 269612 2008-11-24 15:11:52Z clockwerx $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 

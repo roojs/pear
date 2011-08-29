@@ -15,7 +15,7 @@
 // | Authors: Wolfram Kriesing <wk@visionp.de>                            |
 // |          Lorenzo Alberton <l.alberton@quipo.it>                      |
 // +----------------------------------------------------------------------+//
-// $Id: it_IT.php,v 1.2 2003/01/07 17:42:57 cain Exp $
+// $Id: it_IT.php 110935 2003-01-07 17:42:57Z cain $
 
 require_once('I18N/Common/it.php');
 

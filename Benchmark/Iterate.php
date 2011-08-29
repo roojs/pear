@@ -1,21 +1,27 @@
 <?php
-//
-// +------------------------------------------------------------------------+
-// | PEAR :: Benchmark                                                      |
-// +------------------------------------------------------------------------+
-// | Copyright (c) 2001-2006 Sebastian Bergmann <sb@sebastian-bergmann.de>. |
-// +------------------------------------------------------------------------+
-// | This source file is subject to the New BSD license, That is bundled    |
-// | with this package in the file LICENSE, and is available through        |
-// | the world-wide-web at                                                  |
-// | http://www.opensource.org/licenses/bsd-license.php                     |
-// | If you did not receive a copy of the new BSDlicense and are unable     |
-// | to obtain it through the world-wide-web, please send a note to         |
-// | license@php.net so we can mail you a copy immediately.                 |
-// +------------------------------------------------------------------------+
-//
-// $Id: Iterate.php,v 1.1 2007/05/24 05:17:56 anant Exp $
-//
+/**
+ * Iterate.php                                                      
+ *
+ * PHP version 4
+ *
+ * Copyright (c) 2001-2006 Sebastian Bergmann <sb@sebastian-bergmann.de>. 
+ * 
+ * This source file is subject to the New BSD license, That is bundled    
+ * with this package in the file LICENSE, and is available through        
+ * the world-wide-web at                                                  
+ * http://www.opensource.org/licenses/bsd-license.php                     
+ * If you did not receive a copy of the new BSDlicense and are unable     
+ * to obtain it through the world-wide-web, please send a note to         
+ * license@php.net so we can mail you a copy immediately.                 
+ *
+ * @category  Benchmarking
+ * @package   Benchmark
+ * @author    Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright 2002-2005 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @license   http://www.php.net/license/3_0.txt The PHP License, Version 3.0
+ * @version   CVS: $Id: Iterate.php 268884 2008-11-12 20:57:49Z clockwerx $
+ * @link      http://pear.php.net/package/Benchmark
+ */
 
 require_once 'Benchmark/Timer.php';
 
@@ -79,38 +85,41 @@ require_once 'Benchmark/Timer.php';
  * ?>
  * </code>
  *
- * @author    Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @copyright Copyright &copy; 2002-2005 Sebastian Bergmann <sb@sebastian-bergmann.de>
- * @license   http://www.php.net/license/3_0.txt The PHP License, Version 3.0
  * @category  Benchmarking
  * @package   Benchmark
+ * @author    Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @copyright 2002-2005 Sebastian Bergmann <sb@sebastian-bergmann.de>
+ * @license   http://www.php.net/license/3_0.txt The PHP License, Version 3.0
+ * @link      http://pear.php.net/package/Benchmark
  */
-class Benchmark_Iterate extends Benchmark_Timer {
+class Benchmark_Iterate extends Benchmark_Timer
+{
+
     /**
      * Benchmarks a function or method.
      *
      * @access public
+     * @return void
      */
-    function run() {
+    function run() 
+    {
         $arguments     = func_get_args();
         $iterations    = array_shift($arguments);
         $function_name = array_shift($arguments);
 
         if (strstr($function_name, '::')) {
-          $function_name = explode('::', $function_name);
-          $objectmethod = $function_name[1];
+            $function_name = explode('::', $function_name);
+            $objectmethod  = $function_name[1];
         }
 
         if (strstr($function_name, '->')) {
-            $function_name = explode('->', $function_name);
-            $objectname = $function_name[0];
+            list($objectname, $objectmethod) = explode('->', $function_name);
 
             $object = $GLOBALS[$objectname];
-            $objectmethod = $function_name[1];
 
             for ($i = 1; $i <= $iterations; $i++) {
                 $this->setMarker('start_' . $i);
-                call_user_func_array(array($object, $function_name[1]), $arguments);
+                call_user_func_array(array($object, $objectmethod), $arguments);
                 $this->setMarker('end_' . $i);
             }
 
@@ -131,17 +140,20 @@ class Benchmark_Iterate extends Benchmark_Timer {
      * $result['mean'      ] = mean execution time
      * $result['iterations'] = number of iterations
      *
+     * @param bool $simple_output Show just the total
+     *
      * @return array
      * @access public
      */
-    function get($simple_output = false) {
+    function get($simple_output = false) 
+    {
         $result = array();
         $total  = 0;
 
         $iterations = count($this->markers)/2;
 
         for ($i = 1; $i <= $iterations; $i++) {
-            $time = $this->timeElapsed('start_'.$i , 'end_'.$i);
+            $time = $this->timeElapsed('start_'.$i, 'end_'.$i);
 
             if (extension_loaded('bcmath')) {
                 $total = bcadd($total, $time, 6);

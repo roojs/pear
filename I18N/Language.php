@@ -17,7 +17,7 @@
 // | Authors: Naoki Shima <murahachibu@php.net>                           |
 // |                                                                      |
 // +----------------------------------------------------------------------+//
-// $Id: Language.php,v 1.2 2003/01/04 11:55:25 mj Exp $
+// $Id: Language.php 110339 2003-01-04 11:55:29Z mj $
 
 require_once('I18N/Common.php');
 

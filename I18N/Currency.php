@@ -16,7 +16,7 @@
 // | Authors: Wolfram Kriesing <wk@visionp.de>                            |
 // |                                                                      |
 // +----------------------------------------------------------------------+//
-// $Id: Currency.php,v 1.4 2003/01/28 11:19:35 cain Exp $
+// $Id: Currency.php 113734 2003-01-28 11:19:35Z cain $
 
 require_once 'I18N/Number.php';
 

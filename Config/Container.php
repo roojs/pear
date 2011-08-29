@@ -15,7 +15,7 @@
 // | Author: Bertrand Mansion <bmansion@mamasam.com>                     |
 // +---------------------------------------------------------------------+
 //
-// $Id: Container.php,v 1.41 2006/05/30 06:37:28 aashley Exp $
+// $Id: Container.php 306597 2010-12-24 05:11:09Z aharvey $
 
 require_once 'Config.php';
 
@@ -108,7 +108,7 @@ class Config_Container {
     */
     function &createItem($type, $name, $content, $attributes = null, $where = 'bottom', $target = null)
     {
-        $item =& new Config_Container($type, $name, $content, $attributes);
+        $item = new Config_Container($type, $name, $content, $attributes);
         $result =& $this->addItem($item, $where, $target);
         return $result;
     } // end func &createItem

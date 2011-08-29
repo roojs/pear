@@ -18,7 +18,7 @@
  * @package  Numbers_Words
  * @author   Nils Homp
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.hu_HU.php,v 1.6 2008/11/24 22:19:38 clockwerx Exp $
+ * @version  CVS: $Id: lang.hu_HU.php 295960 2010-03-08 13:04:59Z clockwerx $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 
@@ -276,7 +276,6 @@ class Numbers_Words_hu_HU extends Numbers_Words
         switch ($t) {
         case 9:
         case 5:
-        case 4:
             $ret .= $this->_sep . $this->_digits[$t] . 'ven';
             break;
         case 8:
@@ -288,6 +287,9 @@ class Numbers_Words_hu_HU extends Numbers_Words
             break;
         case 3:
             $ret .= $this->_sep . 'harminc';
+            break;
+        case 4:
+            $ret .= $this->_sep . 'negyven';
             break;
         case 2:
             switch ($d) {

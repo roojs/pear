@@ -15,7 +15,7 @@
 // | Authors: Jeroen Houben <jeroen@terena.nl>                            |
 // |                                                                      |
 // +----------------------------------------------------------------------+//
-// $Id: nl_NL.php,v 1.1 2003/05/22 15:21:22 cain Exp $
+// $Id: nl_NL.php 128415 2003-05-22 15:21:22Z cain $
                                 
 require_once 'I18N/Common/nl.php';
 

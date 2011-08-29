@@ -15,7 +15,7 @@
 // | Authors: Wolfram Kriesing <wk@visionp.de>                            |
 // |          Kovács Gergely <kgergely@dkgeast.hu>                        |
 // +----------------------------------------------------------------------+
-// $Id: hu.php,v 1.2 2003/05/21 10:45:16 cain Exp $
+// $Id: hu.php 128187 2003-05-21 10:45:16Z cain $
 
 class I18N_Common_hu
 {

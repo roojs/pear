@@ -18,7 +18,7 @@
  * @package  Numbers_Words
  * @author   Erkki Saarniit <erkki@center.ee>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.et.php,v 1.3 2008/11/25 03:53:39 clockwerx Exp $
+ * @version  CVS: $Id: lang.et.php 269655 2008-11-25 03:53:39Z clockwerx $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 require_once "Numbers/Words.php";

@@ -32,7 +32,7 @@
  * @author    Lorenzo Alberton <l.alberton@quipo.it>
  * @copyright 2004-2007 Lorenzo Alberton
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: mdb2.php,v 1.41 2008/05/03 09:17:59 quipo Exp $
+ * @version   CVS: $Id: mdb2.php 305985 2010-12-05 22:55:33Z clockwerx $
  * @link      http://pear.php.net/package/Translation2
  */
 
@@ -137,7 +137,11 @@ class Translation2_Admin_Container_mdb2 extends Translation2_Container_mdb2
             ),
         );
         ++$this->_queries;
-        $res = $this->db->manager->createTable($langData['table_name'], $table_definition);
+        $table_options = array(
+            'charset' => $charset,
+            'collate' => $collation,
+        );
+        $res = $this->db->manager->createTable($langData['table_name'], $table_definition, $table_options);
         if (PEAR::isError($res)) {
             return $res;
         }

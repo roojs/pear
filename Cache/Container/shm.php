@@ -16,7 +16,7 @@
 // |          Sebastian Bergmann <sb@sebastian-bergmann.de>               |
 // +----------------------------------------------------------------------+
 //
-// $Id: shm.php,v 1.6 2005/05/25 10:00:41 dufuz Exp $
+// $Id: shm.php 186977 2005-05-25 10:00:41Z dufuz $
 
 require_once 'Cache/Container.php';
 
@@ -29,7 +29,7 @@ require_once 'Cache/Container.php';
 * caching algorithm using PHP.
 *
 * @author   Ulf Wendel <ulf.wendel@phpdoc.de>
-* @version  $Id: shm.php,v 1.6 2005/05/25 10:00:41 dufuz Exp $
+* @version  $Id: shm.php 186977 2005-05-25 10:00:41Z dufuz $
 * @package  Cache
 */
 class Cache_Container_shm extends Cache_Container

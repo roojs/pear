@@ -32,7 +32,7 @@
  * @author    Lorenzo Alberton <l.alberton@quipo.it>
  * @copyright 2004-2008 Lorenzo Alberton
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: Translation2.php,v 1.42 2008/11/14 16:18:50 quipo Exp $
+ * @version   CVS: $Id: Translation2.php 268999 2008-11-14 16:18:50Z quipo $
  * @link      http://pear.php.net/package/Translation2
  */
 

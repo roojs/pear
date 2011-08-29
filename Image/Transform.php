@@ -202,10 +202,14 @@ class Image_Transform
     {
         if ($driver == '') {
             $extensions = array(
-                'imagick' => 'Imagick2',
+                'imagick' => 'Imagick3',
                 'gd'      => 'GD',
                 'imlib'   => 'Imlib'
             );
+            if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+                //Imagick2 driver for php < 5
+                $extensions['imagick'] = 'Imagick2';
+            }
 
             foreach ($extensions as $ext => $ext_driver) {
                 if (PEAR::loadExtension($ext)) {
@@ -226,7 +230,10 @@ class Image_Transform
                     $driver = 'GD';
                     break;
                 case 'imagick':
-                    $driver = 'Imagick2';
+                    $driver = 'Imagick3';
+                    if (version_compare(PHP_VERSION, '5.0.0', '<')) {
+                        $driver = 'Imagick2';
+                    }
                     break;
                 case 'imlib':
                     $driver = 'Imlib';

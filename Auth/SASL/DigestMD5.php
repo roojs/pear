@@ -32,7 +32,7 @@
 // | Author: Richard Heyes <richard@php.net>                               | 
 // +-----------------------------------------------------------------------+ 
 // 
-// $Id: DigestMD5.php 286826 2009-08-05 06:25:54Z cweiske $
+// $Id: DigestMD5.php 294702 2010-02-07 16:03:55Z cweiske $
 
 /**
 * Implmentation of DIGEST-MD5 SASL mechanism
@@ -178,10 +178,10 @@ class Auth_SASL_DigestMD5 extends Auth_SASL_Common
     */
     function _getCnonce()
     {
-        if (file_exists('/dev/urandom') && $fd = @fopen('/dev/urandom', 'r')) {
+        if (@file_exists('/dev/urandom') && $fd = @fopen('/dev/urandom', 'r')) {
             return base64_encode(fread($fd, 32));
 
-        } elseif (file_exists('/dev/random') && $fd = @fopen('/dev/random', 'r')) {
+        } elseif (@file_exists('/dev/random') && $fd = @fopen('/dev/random', 'r')) {
             return base64_encode(fread($fd, 32));
 
         } else {

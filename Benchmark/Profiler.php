@@ -1,21 +1,27 @@
 <?php
-//
-// +----------------------------------------------------------------------+
-// | PEAR :: Benchmark                                                    |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 2002-2006 Matthias Englert <Matthias.Englert@gmx.de>.  |
-// +----------------------------------------------------------------------+
-// | This source file is subject to the New BSD license, That is bundled  |
-// | with this package in the file LICENSE, and is available through      |
-// | the world-wide-web at                                                |
-// | http://www.opensource.org/licenses/bsd-license.php                   |
-// | If you did not receive a copy of the new BSDlicense and are unable   |
-// | to obtain it through the world-wide-web, please send a note to       |
-// | license@php.net so we can mail you a copy immediately.               |
-// +----------------------------------------------------------------------+
-//
-// $Id: Profiler.php,v 1.2 2007/05/24 05:23:20 anant Exp $
-//
+/**
+ * Benchmark                                                      
+ *
+ * PHP version 4
+ *
+ * 2002-2006 Matthias Englert <Matthias.Englert@gmx.de>
+ * 
+ * This source file is subject to the New BSD license, That is bundled    
+ * with this package in the file LICENSE, and is available through        
+ * the world-wide-web at                                                  
+ * http://www.opensource.org/licenses/bsd-license.php                     
+ * If you did not receive a copy of the new BSDlicense and are unable     
+ * to obtain it through the world-wide-web, please send a note to         
+ * license@php.net so we can mail you a copy immediately.                 
+ *
+ * @category  Benchmarking
+ * @package   Benchmark
+ * @author    Matthias Englert <Matthias.Englert@gmx.de>
+ * @copyright 2002-2006 Matthias Englert <Matthias.Englert@gmx.de>
+ * @license   http://www.php.net/license/3_0.txt The PHP License, Version 3.0
+ * @version   CVS: $Id: Profiler.php 268884 2008-11-12 20:57:49Z clockwerx $
+ * @link      http://pear.php.net/package/Benchmark
+ */
 
 require_once 'PEAR.php';
 
@@ -28,7 +34,7 @@ require_once 'PEAR.php';
  * <?php
  * require_once 'Benchmark/Profiler.php';
  *
- * $profiler = new Benchmark_Profiler(TRUE);
+ * $profiler = new Benchmark_Profiler(true);
  *
  * function myFunction() {
  *     global $profiler;
@@ -69,14 +75,17 @@ require_once 'PEAR.php';
  * ?>
  * </code>
  *
- * @author    Matthias Englert <Matthias.Englert@gmx.de>
- * @copyright Copyright &copy; 2002-2005 Matthias Englert <Matthias.Englert@gmx.de>
- * @license   http://www.php.net/license/3_0.txt The PHP License, Version 3.0
  * @category  Benchmarking
  * @package   Benchmark
+ * @author    Matthias Englert <Matthias.Englert@gmx.de>
+ * @copyright 2002-2006 Matthias Englert <Matthias.Englert@gmx.de>
+ * @license   http://www.php.net/license/3_0.txt The PHP License, Version 3.0
+ * @link      http://pear.php.net/package/Benchmark
  * @since     1.2.0
  */
-class Benchmark_Profiler extends PEAR {
+class Benchmark_Profiler extends PEAR
+{
+
     /**
      * Contains the total ex. time of each section
      *
@@ -131,7 +140,7 @@ class Benchmark_Profiler extends PEAR {
      * @var    boolean
      * @access private
      */
-    var $_auto = FALSE;
+    var $_auto = false;
 
     /**
      * Max marker name length for non-html output
@@ -144,9 +153,12 @@ class Benchmark_Profiler extends PEAR {
     /**
      * Constructor, starts profiling recording
      *
+     * @param bool $auto Automatically start benchmarking
+     *
      * @access public
      */
-    function Benchmark_Profiler($auto = FALSE) {
+    function Benchmark_Profiler($auto = false) 
+    {
         $this->_auto = $auto;
 
         if ($this->_auto) {
@@ -160,8 +172,10 @@ class Benchmark_Profiler extends PEAR {
      * Close method, stop profiling recording and display output.
      *
      * @access public
+     * @return void
      */
-    function close() {
+    function close() 
+    {
         if (isset($this->_auto) && $this->_auto) {
             $this->stop();
             $this->display();
@@ -171,11 +185,13 @@ class Benchmark_Profiler extends PEAR {
     /**
      * Returns profiling informations for a given section.
      *
-     * @param  string $section
+     * @param string $section Section to retrieve
+     *
      * @return array
      * @access public
      */
-    function getSectionInformations($section = 'Global') {
+    function getSectionInformations($section = 'Global') 
+    {
         if (isset($this->_sections[$section])) {
             $calls = array();
 
@@ -191,38 +207,46 @@ class Benchmark_Profiler extends PEAR {
 
             $informations = array();
 
-            $informations['time']       = $this->_sections[$section];
             if (isset($this->_sections['Global'])) {
-                $informations['percentage'] = number_format(100 * $this->_sections[$section] / $this->_sections['Global'], 2, '.', '');
+                $value = $this->_sections[$section] / $this->_sections['Global'];
+                $value = $value * 100;
+
+                $informations['percentage'] = number_format($value, 2, '.', '');
             } else {
                 $informations['percentage'] = 'N/A';
             }
-            $informations['calls']      = $calls;
-            $informations['num_calls']  = $this->_numberOfCalls[$section];
-            $informations['callers']    = $callers;
 
-      	    if (isset($this->_subSectionsTime[$section])) {
-                $informations['netto_time'] = $this->_sections[$section] - $this->_subSectionsTime[$section];
-      	    } else {
-                $informations['netto_time'] = $this->_sections[$section];
-      	    }
+            $informations['time']      = $this->_sections[$section];
+            $informations['calls']     = $calls;
+            $informations['num_calls'] = $this->_numberOfCalls[$section];
+            $informations['callers']   = $callers;
+
+            $value = $this->_sections[$section];
+
+            if (isset($this->_subSectionsTime[$section])) {
+                $value -= $this->_subSectionsTime[$section];
+            }
+
+            $informations['netto_time'] = $value;
 
             return $informations;
         } else {
-            $this->raiseError("The section '$section' does not exists.\n", NULL, PEAR_ERROR_TRIGGER, E_USER_WARNING);
+            $this->raiseError("The section '$section' does not exists.\n",
+                              null, PEAR_ERROR_TRIGGER, E_USER_WARNING);
         }
     }
 
     /**
      * Returns profiling informations for all sections.
      *
-     * @return array
      * @access public
+     * @return array
      */
-    function getAllSectionsInformations() {
+    function getAllSectionsInformations() 
+    {
         $informations = array();
 
-        foreach($this->_sections as $section => $time) {
+        foreach ($this->_sections as $section => $time) {
             $informations[$section] = $this->getSectionInformations($section);
         }
 
@@ -232,19 +256,22 @@ class Benchmark_Profiler extends PEAR {
     /**
      * Returns formatted profiling information.
      *
-     * @param  string output format (auto, plain or html), default auto
+     * @param string $format output format (auto, plain or html), default auto
+     *
      * @see    display()
      * @access private
+     * @return string
      */
-    function _getOutput($format) {
+    function _getOutput($format) 
+    {
         
         /* Quickly find out the maximun length: Ineffecient, but will do for now! */
         $informations = $this->getAllSectionsInformations();
+
         $names = array_keys($informations);
         
         $maxLength = 0;
-        foreach ($names as $name)
-        {
+        foreach ($names as $name) {
             if ($maxLength < strlen($name)) {
                 $maxLength = strlen($name);
             }
@@ -257,20 +284,27 @@ class Benchmark_Profiler extends PEAR {
                 $format = isset($_SERVER['SERVER_PROTOCOL']) ? 'html' : 'plain';
             } else {
                 global $HTTP_SERVER_VARS;
-                $format = isset($HTTP_SERVER_VARS['SERVER_PROTOCOL']) ? 'html' : 'plain';
+                $use_html = isset($HTTP_SERVER_VARS['SERVER_PROTOCOL']);
+
+                $format = $use_html ? 'html' : 'plain';
             }
         }
 
         if ($format == 'html') {
-            $out = '<table style="border: 1px solid #000000; ">'."\n";
+            $out  = '<table style="border: 1px solid #000000; ">'."\n";
             $out .=
                 '<tr><td>&nbsp;</td><td align="center"><b>total ex. time</b></td>'.
                 '<td align="center"><b>netto ex. time</b></td>'.
-                '<td align="center"><b>#calls</b></td><td align="center"><b>%</b></td>'.
-                '<td align="center"><b>calls</b></td><td align="center"><b>callers</b></td></tr>'.
+                '<td align="center"><b>#calls</b></td>'.
+                '<td align="center"><b>%</b></td>'.
+                '<td align="center"><b>calls</b></td>' .
+                '<td align="center"><b>callers</b></td></tr>'.
                 "\n";
         } else {
-            $dashes = $out = str_pad("\n", ($this->_maxStringLength + 75), '-', STR_PAD_LEFT);
+            $dashes = str_pad("\n", ($this->_maxStringLength + 75), '-',
+                              STR_PAD_LEFT);
+
+            $out  = $dashes;
             $out .= str_pad('Section', $this->_maxStringLength + 10);
             $out .= str_pad("Total Ex Time", 22);
             $out .= str_pad("Netto Ex Time", 22);
@@ -279,11 +313,11 @@ class Benchmark_Profiler extends PEAR {
             $out .= $dashes;
         }
            
-        foreach($informations as $name => $values) {
+        foreach ($informations as $name => $values) {
             $percentage = $values['percentage'];
-            $calls_str = "";
+            $calls_str  = "";
 
-            foreach($values['calls'] as $key => $val) {
+            foreach ($values['calls'] as $key => $val) {
                 if ($calls_str) {
                     $calls_str .= ", ";
                 }
@@ -293,32 +327,35 @@ class Benchmark_Profiler extends PEAR {
 
             $callers_str = "";
 
-            foreach($values['callers'] as $key => $val) {
+            foreach ($values['callers'] as $key => $val) {
                 if ($callers_str) {
                     $callers_str .= ", ";
-    		        }
+                }
 
                 $callers_str .= "$key ($val)";
             }
 
+            $percentage = $values['percentage'];
+            if (is_numeric($values['percentage'])) {
+                $percentage .= '%';
+            }
+
             if ($format == 'html') {
-                $out .= "<tr><td><b>$name</b></td><td>{$values['time']}</td><td>{$values['netto_time']}</td><td>{$values['num_calls']}</td>";
-                if (is_numeric($values['percentage'])) {
-                    $out .= "<td align=\"right\">{$values['percentage']}%</td>\n";
-                } else {
-                    $out .= "<td align=\"right\">{$values['percentage']}</td>\n";
-                }
+                $out .= "<tr>";
+                $out .= "<td><b>$name</b></td>";
+                $out .= "<td>{$values['time']}</td>";
+                $out .= "<td>{$values['netto_time']}</td>";
+                $out .= "<td>{$values['num_calls']}</td>";
+                $out .= "<td>{$percentage}</td>";
+                
+
                 $out .= "<td>$calls_str</td><td>$callers_str</td></tr>";
             } else {
                 $out .= str_pad($name, $this->_maxStringLength + 10);
                 $out .= str_pad($values['time'], 22);
                 $out .= str_pad($values['netto_time'], 22);
-                $out .= str_pad($values['num_calls'], 10);
-                if (is_numeric($values['percentage'])) {
-                    $out .= str_pad($values['percentage']."%\n", 8, ' ', STR_PAD_LEFT);
-                } else {
-                    $out .= str_pad($values['percentage']."\n", 8, ' ', STR_PAD_LEFT);
-                }
+                $out .= str_pad($values['num_calls'], 10);             
+                $out .= str_pad($percentage . "\n", 8, ' ', STR_PAD_LEFT);
             }
         }
         
@@ -332,10 +369,13 @@ class Benchmark_Profiler extends PEAR {
     /**
      * Returns formatted profiling information.
      *
-     * @param  string output format (auto, plain or html), default auto
+     * @param string $format output format (auto, plain or html), default auto
+     *
      * @access public
+     * @return void
      */
-    function display($format = 'auto') {
+    function display($format = 'auto') 
+    {
         echo $this->_getOutput($format);
     }
 
@@ -344,8 +384,10 @@ class Benchmark_Profiler extends PEAR {
      *
      * @see    enterSection(), stop()
      * @access public
+     * @return void
      */
-    function start() {
+    function start() 
+    {
         $this->enterSection('Global');
     }
 
@@ -354,34 +396,44 @@ class Benchmark_Profiler extends PEAR {
      *
      * @see    leaveSection(), start()
      * @access public
+     * @return void
      */
-    function stop() {
+    function stop() 
+    {
         $this->leaveSection('Global');
     }
 
     /**
      * Enters code section.
      *
-     * @param  string  name of the code section
+     * @param string $name The code section
+     *
      * @see    start(), leaveSection()
      * @access public
+     * @return void
      */
-    function enterSection($name) {
+    function enterSection($name) 
+    {
         if (count($this->_stack)) {
-            if (isset($this->_callers[$name][$this->_stack[count($this->_stack) - 1]["name"]])) {
-                $this->_callers[$name][$this->_stack[count($this->_stack) - 1]["name"]]++;
+            $item = end($this->_stack);
+
+            if (isset($this->_callers[$name][$item["name"]])) {
+                $this->_callers[$name][$item]++;
             } else {
-                $this->_callers[$name][$this->_stack[count($this->_stack) - 1]["name"]] = 1;
+                $this->_callers[$name][$item] = 1;
             }
 
-            if (isset($this->_calls[$this->_stack[count($this->_stack) - 1]["name"]][$name])) {
-                $this->_calls[$this->_stack[count($this->_stack) - 1]["name"]][$name]++;
+            if (isset($this->_calls[$item][$name])) {
+                $this->_calls[$item["name"]][$name]++;
             } else {
-                $this->_calls[$this->_stack[count($this->_stack) - 1]["name"]][$name] = 1;
+                $this->_calls[$item["name"]][$name] = 1;
             }
         } else {
             if ($name != 'Global') {
-                $this->raiseError("tried to enter section ".$name." but profiling was not started\n", NULL, PEAR_ERROR_DIE);
+                $msg = "tried to enter section " . $name 
+                     . " but profiling was not started\n";
+
+                $this->raiseError($msg, null, PEAR_ERROR_DIE);
             }
         }
 
@@ -391,27 +443,37 @@ class Benchmark_Profiler extends PEAR {
             $this->_numberOfCalls[$name] = 1;
         }
 
-        array_push($this->_stack, array("name" => $name, "time" => $this->_getMicrotime()));
+        $data = array("name" => $name, "time" => $this->_getMicrotime());
+        array_push($this->_stack, $data);
     }
 
     /**
      * Leaves code section.
      *
-     * @param  string  name of the marker to be set
-     * @see     stop(), enterSection()
+     * @param string $name The marker to be set
+     *
+     * @see    stop(), enterSection()
      * @access public
+     * @return void
      */
-    function leaveSection($name) {
+    function leaveSection($name) 
+    {
         $microtime = $this->_getMicrotime();
 
         if (!count($this->_stack)) {
-            $this->raiseError("tried to leave section ".$name." but profiling was not started\n", NULL, PEAR_ERROR_DIE);
+            $msg = "tried to leave section " . $name 
+                 . " but profiling was not started\n";
+
+            $this->raiseError($msg, null, PEAR_ERROR_DIE);
         }
 
         $x = array_pop($this->_stack);
 
         if ($x["name"] != $name) {
-            $this->raiseError("reached end of section $name but expecting end of " . $x["name"]."\n", NULL, PEAR_ERROR_DIE);
+            $msg = "reached end of section " . $name 
+                 . " but expecting end of " . $x["name"] . "\n";
+
+            $this->raiseError($msg, null, PEAR_ERROR_DIE);
         }
 
         if (isset($this->_sections[$name])) {
@@ -422,7 +484,7 @@ class Benchmark_Profiler extends PEAR {
 
         $parent = array_pop($this->_stack);
 
-      	if (isset($parent)) {
+        if (isset($parent)) {
             if (isset($this->_subSectionsTime[$parent['name']])) {
                 $this->_subSectionsTime[$parent['name']] += $microtime - $x['time'];
             } else {
@@ -440,7 +502,8 @@ class Benchmark_Profiler extends PEAR {
      * @access private
      * @since  1.3.0
      */
-    function _getMicrotime() {
+    function _getMicrotime() 
+    {
         $microtime = explode(' ', microtime());
         return $microtime[1] . substr($microtime[0], 1);
     }

@@ -32,7 +32,7 @@
  * @author    Alan Knowles <alan@akbkhome.com>
  * @copyright 2004-2007 Alan Knowles
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: dataobjectsimple.php,v 1.11 2007/11/10 00:02:50 quipo Exp $
+ * @version   CVS: $Id: dataobjectsimple.php 305985 2010-12-05 22:55:33Z clockwerx $
  * @link      http://pear.php.net/package/Translation2
  */
 

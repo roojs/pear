@@ -48,7 +48,7 @@
  * @author    Aleksander Machniak <alec@php.net>
  * @copyright 2003-2006 PEAR <pear-group@php.net>
  * @license   http://www.opensource.org/licenses/bsd-license.php BSD License
- * @version   CVS: $Id$
+ * @version   CVS: $Id: mime.php 305690 2010-11-23 12:41:00Z alec $
  * @link      http://pear.php.net/package/Mail_mime
  *
  *            This class is based on HTML Mime Mail class from

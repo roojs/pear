@@ -18,14 +18,14 @@
  * @author     Olivier Vanhoucke <olivier@php.net>
  * @copyright  2004-2005 Martin Jansen, Olivier Vanhoucke
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: Password.php,v 1.16 2005/08/21 19:47:53 mj Exp $
+ * @version    CVS: $Id: Password.php,v 1.18 2008/11/30 13:38:56 mj Exp $
  * @link       http://pear.php.net/package/Text_Password
  */
 
 /**
  * Number of possible characters in the password
  */
-$_Text_Password_NumberOfPossibleCharacters = 0;
+$GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = 0;
 
 /**
  * Main class for the Text_Password package
@@ -48,7 +48,7 @@ class Text_Password {
      * @param  integer Length of the password.
      * @param  string  Type of password (pronounceable, unpronounceable)
      * @param  string  Character which could be use in the
-     *                 unpronounceable password ex : 'A,B,C,D,E,F,G'
+     *                 unpronounceable password ex : 'ABCDEFG'
      *                 or numeric, alphabetical or alphanumeric.
      * @return string  Returns the generated password.
      */
@@ -435,7 +435,6 @@ class Text_Password {
     function _createPronounceable($length)
     {
 
-        global $_Text_Password_NumberOfPossibleCharacters;
         $retVal = '';
 
         /**
@@ -457,7 +456,7 @@ class Text_Password {
         $v_count = 12;
         $c_count = 29;
 
-        $_Text_Password_NumberOfPossibleCharacters = $v_count + $c_count;
+        $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = $v_count + $c_count;
 
         for ($i = 0; $i < $length; $i++) {
             $retVal .= $c[mt_rand(0, $c_count-1)] . $v[mt_rand(0, $v_count-1)];
@@ -480,8 +479,6 @@ class Text_Password {
      */
     function _createUnpronounceable($length, $chars)
     {
-        global $_Text_Password_NumberOfPossibleCharacters;
-
         $password = '';
 
         /**
@@ -491,22 +488,22 @@ class Text_Password {
 
          case 'alphanumeric':
              $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-             $_Text_Password_NumberOfPossibleCharacters = 62;
+             $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = 62;
              break;
 
          case 'alphabetical':
              $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-             $_Text_Password_NumberOfPossibleCharacters = 52;
+             $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = 52;
              break;
 
          case 'numeric':
              $chars = '0123456789';
-             $_Text_Password_NumberOfPossibleCharacters = 10;
+             $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = 10;
              break;
 
          case '':
              $chars = '_#@%&ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-             $_Text_Password_NumberOfPossibleCharacters = 67;
+             $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = 67;
              break;
 
          default:
@@ -516,14 +513,14 @@ class Text_Password {
              $chars = trim($chars);
              $chars = str_replace(array('+', '|', '$', '^', '/', '\\', ','), '', $chars);
 
-             $_Text_Password_NumberOfPossibleCharacters = strlen($chars);
+             $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] = strlen($chars);
          }
 
          /**
           * Generate password
           */
          for ($i = 0; $i < $length; $i++) {
-             $num = mt_rand(0, $_Text_Password_NumberOfPossibleCharacters - 1);
+             $num = mt_rand(0, $GLOBALS['_Text_Password_NumberOfPossibleCharacters'] - 1);
              $password .= $chars{$num};
          }
 

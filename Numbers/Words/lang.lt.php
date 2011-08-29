@@ -18,7 +18,7 @@
  * @package  Numbers_Words
  * @author   Laurynas Butkus <lauris@night.lt>
  * @license  PHP 3.0 http://www.php.net/license/3_0.txt
- * @version  CVS: $Id: lang.lt.php,v 1.2 2008/11/25 03:48:32 clockwerx Exp $
+ * @version  CVS: $Id: lang.lt.php 269651 2008-11-25 03:48:32Z clockwerx $
  * @link     http://pear.php.net/package/Numbers_Words
  */
 

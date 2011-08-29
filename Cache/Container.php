@@ -17,7 +17,7 @@
 // |          Christian Stocker <chregu@phant.ch>                         |
 // +----------------------------------------------------------------------+
 //
-// $Id: Container.php,v 1.9 2008/10/07 09:04:49 dufuz Exp $
+// $Id: Container.php 293863 2010-01-23 03:46:52Z clockwerx $
 
 require_once 'Cache/Error.php';
 
@@ -39,7 +39,7 @@ require_once 'Cache/Error.php';
 * not recommended!
 *
 * @author   Ulf Wendel <ulf.wendel@phpdoc.de>
-* @version  $Id: Container.php,v 1.9 2008/10/07 09:04:49 dufuz Exp $
+* @version  $Id: Container.php 293863 2010-01-23 03:46:52Z clockwerx $
 * @package  Cache
 * @access   public
 * @abstract
@@ -336,10 +336,13 @@ class Cache_Container
     /**
     * Starts the garbage collection.
     *
+    * @param int $gc_maxlifetime The maximum lifetime (seconds) for a cache
+    *                            entry. Implemented by containers,
+    *
     * @access   public
     * @abstract
     */
-    function garbageCollection()
+    function garbageCollection($gc_maxlifetime)
     {
         $this->flushPreload();
     } // end func garbageCollection

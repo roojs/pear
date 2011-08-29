@@ -83,7 +83,7 @@ require_once 'SOAP/Client.php';
  * @author     Adam Ashley <aashley@php.net>
  * @copyright  2001-2006 The PHP Group
  * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    Release: 1.6.2  File: $Revision: 237449 $
+ * @version    Release: @package_version@  File: $Revision: 237449 $
  * @link       http://pear.php.net/package/Auth
  * @since      Class available since Release 1.2.0
  */

@@ -32,7 +32,7 @@
  * @author    Lorenzo Alberton <l.alberton@quipo.it>
  * @copyright 2004-2007 Lorenzo Alberton
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: Lang.php,v 1.15 2008/11/09 19:56:04 quipo Exp $
+ * @version   CVS: $Id: Lang.php 305985 2010-12-05 22:55:33Z clockwerx $
  * @link      http://pear.php.net/package/Translation2
  */
 
@@ -49,7 +49,7 @@ require_once 'Translation2/Decorator.php';
  * @author    Lorenzo Alberton <l.alberton@quipo.it>
  * @copyright 2004-2007 Lorenzo Alberton
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: Lang.php,v 1.15 2008/11/09 19:56:04 quipo Exp $
+ * @version   CVS: $Id: Lang.php 305985 2010-12-05 22:55:33Z clockwerx $
  * @link      http://pear.php.net/package/Translation2
  */
 class Translation2_Decorator_Lang extends Translation2_Decorator

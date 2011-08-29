@@ -23,7 +23,7 @@
  * @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    CVS: $Id: ibase.php,v 1.116 2007/09/21 13:40:41 aharvey Exp $
+ * @version    CVS: $Id: ibase.php 277804 2009-03-26 07:16:31Z aharvey $
  * @link       http://pear.php.net/package/DB
  */
 
@@ -49,7 +49,7 @@ require_once 'DB/common.php';
  * @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: 1.7.13
+ * @version    Release: 1.7.14
  * @link       http://pear.php.net/package/DB
  * @since      Class became stable in Release 1.7.0
  */
@@ -916,6 +916,8 @@ class DB_ibase extends DB_common
             $error_regexps = array(
                 '/generator .* is not defined/'
                     => DB_ERROR_SYNTAX,  // for compat. w ibase_errcode()
+                '/violation of [\w ]+ constraint/i'
+                    => DB_ERROR_CONSTRAINT,
                 '/table.*(not exist|not found|unknown)/i'
                     => DB_ERROR_NOSUCHTABLE,
                 '/table .* already exists/i'
@@ -926,8 +928,6 @@ class DB_ibase extends DB_common
                     => DB_ERROR_NOT_FOUND,
                 '/validation error for column .* value "\*\*\* null/i'
                     => DB_ERROR_CONSTRAINT_NOT_NULL,
-                '/violation of [\w ]+ constraint/i'
-                    => DB_ERROR_CONSTRAINT,
                 '/conversion error from string/i'
                     => DB_ERROR_INVALID_NUMBER,
                 '/no permission for/i'

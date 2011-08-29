@@ -33,7 +33,7 @@
  * @author    Michael Wallner <mike@php.net>
  * @copyright 2004-2007 Lorenzo Alberton, Michael Wallner
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: gettext.php,v 1.30 2007/11/10 00:02:50 quipo Exp $
+ * @version   CVS: $Id: gettext.php 305985 2010-12-05 22:55:33Z clockwerx $
  * @link      http://pear.php.net/package/Translation2
  */
 
@@ -53,7 +53,7 @@ require_once 'Translation2/Container/gettext.php';
  * @author    Michael Wallner <mike@php.net>
  * @copyright 2004-2007 Lorenzo Alberton, Michael Wallner
  * @license   http://www.debian.org/misc/bsd.license  BSD License (3 Clause)
- * @version   CVS: $Id: gettext.php,v 1.30 2007/11/10 00:02:50 quipo Exp $
+ * @version   CVS: $Id: gettext.php 305985 2010-12-05 22:55:33Z clockwerx $
  * @link      http://pear.php.net/package/Translation2
  */
 class Translation2_Admin_Container_gettext extends Translation2_Container_gettext
@@ -370,10 +370,11 @@ class Translation2_Admin_Container_gettext extends Translation2_Container_gettex
      */
     function _add(&$bulk)
     {
-         include_once 'File/Gettext.php';
+        include_once 'File/Gettext.php';
         $gtFile = &File_Gettext::factory($this->options['file_type']);
         $langs  = $this->getLangs('array');
-         foreach ((array) $bulk as $pageID => $languages) {
+
+        foreach ((array) $bulk as $pageID => $languages) {
             //create the new domain on demand
             if (!isset($this->_domains[$pageID])) {
                 if (PEAR::isError($e = $this->_addDomain($pageID))) {
