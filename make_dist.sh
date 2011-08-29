@@ -6,6 +6,9 @@ TARGET=/tmp/pear
 rm -rf ${TARGET}
 rm -rf /tmp/crap
 
+
+git clone http://git.roojs.org/pear /tmp/pear
+
 PEAR="pear -C ${TARGET}/pear.conf  -c ${TARGET}/user.pear.conf -D php_dir=${TARGET} "
 PEAR="${PEAR} -D bin_dir=/tmp/crap  -D doc_dir=/tmp/crap -D test_dir=/tmp/crap"
 PEAR="${PEAR} -D data_dir=/tmp/crap"
@@ -28,7 +31,6 @@ ${PEAR} install \
 	DB \
 	Date \
 	Validate-beta \
-	DB_DataObject \
 	Auth \
 	Auth_SASL \
 	Net_Socket \
@@ -40,7 +42,6 @@ ${PEAR} install \
 	HTML_Javascript \
 	File_Gettext-beta \
 	Translation2 \
-	HTML_Template_Flexy \
 	File_Passwd \
 	Text_Password \
 	Log \
@@ -106,6 +107,9 @@ rm -rf /tmp/pear/cache
 rm -rf /tmp/pear/tests
 rm -rf /tmp/pear/download
 
+
+
 echo 'rsync -a /tmp/pear /your/location'
+cd
  
   
