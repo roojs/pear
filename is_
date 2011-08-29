@@ -1,0 +1,123 @@
+Date/Span.php:182:        if (is_a($time, 'date_span')) {
+Date/Span.php:184:        } elseif (is_a($time, 'date') and is_a($format, 'date')) {
+Date/Span.php:536:        if (!is_a($date1, 'date') or !is_a($date2, 'date')) {
+Date/Span.php:571:        if (is_a($time, 'date_span')) {
+Date.php:204:        } elseif (is_a($date, 'Date')) {
+Date.php:552:        if(is_a($tz, 'Date_Timezone')) {
+Date.php:746:        if (!is_a($span, 'Date_Span')) {
+Date.php:821:        if (!is_a($span, 'Date_Span')) {
+DB/DataObject/Cast.php:47:*   if (is_a($v,'db_dataobject_class')) {
+DB/common.php:1252:        if (is_a($result, 'DB_result')) {
+DB/mysqli.php:996:        if (!is_a($id, 'mysqli_result')) {
+DB/DataObject.php:3623:        // note: we have already checked that it is_a(db_dataobject earlier)
+DB.php:594:        return is_a($value, 'DB_Error');
+HTML/Template/Flexy/Compiler/Flexy/Tag.php:1278:        if (is_a($e,'HTML_Template_Flexy_Token_Var')) {
+HTML/Template/Flexy/Compiler/Flexy/Tag.php:1281:        if (is_a($e,'HTML_Template_Flexy_Token_Foreach')) {
+HTML/Template/Flexy/Compiler/Flexy/Tag.php:1284:        if (is_a($e,'HTML_Template_Flexy_Token_If')) {
+HTML/Template/Flexy/Compiler/Flexy/Tag.php:1287:        if (is_a($e,'HTML_Template_Flexy_Token_Method')) {
+HTML/Template/Flexy/Compiler/Flexy/Tag.php:1290:        if (!is_a($e,'HTML_Template_Flexy_Token_Tag')) {
+HTML/Template/Flexy/Compiler.php:73:    function is_a($obj, $class)  // which f***wit depreciated is_a....
+HTML/Template/Flexy.php:37:function HTML_Template_Flexy_is_a($obj, $class)  // which f***wit depreciated is_a....
+HTML/Template/Flexy.php:442:        if (HTML_Template_Flexy_is_a($ret,'PEAR_Error')) {
+HTML/FlexyFramework/Cli.php:171:        if (!is_a($newargs, 'PEAR_Error')) {
+HTTP/Request.php:1078:        if (!is_a($listener, 'HTTP_Request_Listener')) {
+HTTP/Request.php:1095:        if (!is_a($listener, 'HTTP_Request_Listener') ||
+I18Nv2/DecoratedList.php:51:        if (is_a($list, 'I18Nv2_CommonList') ||
+I18Nv2/DecoratedList.php:52:            is_a($list, 'I18Nv2_DecoratedList')) {
+Image/Graph.php:161:        } elseif (is_a($params, 'Image_Canvas')) {
+Image/Graph.php:595:        if (!(is_a($part1, 'Image_Graph_Element'))) {
+Image/Graph.php:599:        if (!(is_a($part2, 'Image_Graph_Element'))) {
+Image/Graph/Plot.php:119:        if (!is_a($dataset, 'Image_Graph_Dataset')) {
+Image/Graph/Plot.php:123:                    if (!is_a($dataset[$key], 'Image_Graph_Dataset')) {
+Image/Graph/Common.php:40:    function is_a($object, $class_name)
+Image/Graph/Common.php:49:        return is_a(get_parent_class($object), $class_name);
+Image/Graph/Common.php:200:        if (!is_a($element, 'Image_Graph_Font')) {
+Image/Graph/Marker/Array.php:71:        if (is_a($marker, 'Image_Graph_Element')) {
+Image/Graph/Legend.php:99:            if (is_a($plotarea, 'Image_Graph_Plotarea')) {
+Image/Graph/Legend.php:103:                    if (is_a($element, 'Image_Graph_Plot')) {
+Image/Graph/Legend.php:162:                    if (is_a($element, 'Image_Graph_Plot')) {
+Image/Graph/Legend.php:194:                    if (is_a($element, 'Image_Graph_Plot')) {
+Image/Graph/Legend.php:259:        if (is_a($plotarea, 'Image_Graph_Plotarea')) {
+Image/Graph/Legend.php:332:                    if (is_a($element, 'Image_Graph_Plot')) {
+Image/Graph/Legend.php:348:                    if (is_a($element, 'Image_Graph_Plot')) {
+Image/Graph/Legend.php:371:                    if (is_a($element, 'Image_Graph_Plot')) {
+Image/Graph/Line/Array.php:74:        if (is_a($style, 'Image_Graph_Element')) {
+Image/Graph/Plotarea.php:221:        if (is_a($element, 'Image_Graph_Plot')) {
+Image/Graph/Plotarea.php:225:        } elseif (is_a($element, 'Image_Graph_Grid')) {
+Image/Graph/Plotarea.php:252:        } elseif (is_a($element, 'Image_Graph_Axis')) {
+Image/Graph/Plotarea.php:334:            if (is_a($dataset, 'Image_Graph_Dataset')) {
+Image/Graph/Plotarea.php:624:                if (is_a($element, 'Image_Graph_Plot')) { 
+Image/Graph/Plotarea.php:625:                    if (((is_a($element, 'Image_Graph_Plot_Bar')) ||
+Image/Graph/Plotarea.php:626:                        (is_a($element, 'Image_Graph_Plot_Step')) ||
+Image/Graph/Plotarea.php:627:                        (is_a($element, 'Image_Graph_Plot_Dot')) ||
+Image/Graph/Plotarea.php:628:                        (is_a($element, 'Image_Graph_Plot_CandleStick')) ||
+Image/Graph/Plotarea.php:629:                        (is_a($element, 'Image_Graph_Plot_BoxWhisker')) ||
+Image/Graph/Plotarea.php:630:                        (is_a($element, 'Image_Graph_Plot_Impulse'))) &&
+Image/Graph/Layout/Horizontal.php:94:        if (!is_a($part1, 'Image_Graph_Layout')) {
+Image/Graph/Layout/Horizontal.php:99:        } elseif (!is_a($part2, 'Image_Graph_Layout')) {
+Image/Graph/Plotarea/Radar.php:193:                if (is_a($element, 'Image_Graph_Plot')) {
+Image/Graph/Element.php:159:        if (!is_a($background, 'Image_Graph_Fill')) {
+Image/Graph/Element.php:220:        if (!is_a($borderStyle, 'Image_Graph_Line')) {
+Image/Graph/Element.php:330:        if (!is_a($fillStyle, 'Image_Graph_Fill')) {
+Image/Graph/Element.php:426:        if (!is_a($font, 'Image_Graph_Font')) {
+Log/composite.php:202:        if (!is_a($child, 'Log')) {
+Log.php:772:        if (!is_a($observer, 'Log_observer')) {
+Log.php:794:        if (!is_a($observer, 'Log_observer') ||
+Mail/sendmail.php:112:        if (is_a($result, 'PEAR_Error')) {
+Mail/sendmail.php:117:        if (is_a($recipients, 'PEAR_Error')) {
+Mail/sendmail.php:123:        if (is_a($headerElements, 'PEAR_Error')) {
+Mail/smtpmx.php:257:        if (is_a($result, 'PEAR_Error')) {
+Mail/smtpmx.php:263:        if (is_a($headerElements, 'PEAR_Error')) {
+Mail/smtpmx.php:278:        if (is_a($recipients, 'PEAR_Error')) {
+Mail/smtpmx.php:286:            if (is_a($mx, 'PEAR_Error')) {
+Mail/smtpmx.php:306:                if (is_a($res, 'PEAR_Error')) {
+Mail/smtpmx.php:330:                if (is_a($res, 'PEAR_Error')) {
+Mail/smtpmx.php:339:            if (is_a($res, 'PEAR_Error')) {
+Mail/smtpmx.php:346:            if (is_a($res, 'PEAR_Error')) {
+Mail/smtpmx.php:355:                if (is_a($res, 'PEAR_Error')) {
+Mail/smtpmx.php:366:            if (is_a($res, 'PEAR_Error')) {
+Mail/smtpmx.php:393:            if (is_a($res, 'PEAR_Error')) {
+Mail/mail.php:97:        if (is_a($result, 'PEAR_Error')) {
+Mail/mail.php:120:        if (is_a($headerElements, 'PEAR_Error')) {
+Mail/smtp.php:233:        if (is_a($headerElements, 'PEAR_Error')) {
+Mail/smtp.php:267:        if (is_a($recipients, 'PEAR_Error')) {
+Mail/smtp.php:275:            if (is_a($res, 'PEAR_Error')) {
+Mail/smtp.php:287:        if (is_a($res, 'PEAR_Error')) {
+Mail.php:96:        if (is_a($result, 'PEAR_Error')) {
+Mail.php:163:                if (is_a($addresses, 'PEAR_Error')) {
+Mail.php:231:        if (is_a($addresses, 'PEAR_Error')) {
+MDB2.php:596:        if (is_a($data, 'MDB2_Error')) {
+MDB2.php:623:        return is_a($value, 'MDB2_Driver_Common');
+MDB2.php:640:        return is_a($value, 'MDB2_Result');
+MDB2.php:657:        return is_a($value, 'MDB2_Result_Common');
+MDB2.php:674:        return is_a($value, 'MDB2_Statement');
+OLE.php:240:        if (is_a($blockIdOrPps, 'OLE_PPS')) {
+PEAR/ErrorStack.php:636:        if (is_a($logger, 'Log')) {
+PEAR/Common.php:256:            if (is_a($ui, 'PEAR_Frontend')) {
+PEAR/Common.php:541:        if (!is_a($pf, 'PEAR_PackageFile_v2')) {
+PEAR/Autoloader.php:175:            if (is_a($obj, $classname)) {
+PEAR/Frontend.php:79:              is_a($GLOBALS['_PEAR_FRONTEND_SINGLETON'], $uiclass)) {
+PEAR/Frontend.php:94:            if (is_a($obj, 'PEAR_Frontend')) {
+PEAR/Frontend.php:119:              is_a($GLOBALS['_PEAR_FRONTEND_SINGLETON'], get_class($uiobject))) {
+PEAR/Frontend.php:123:        if (!is_a($uiobject, 'PEAR_Frontend')) {
+PEAR/Downloader/Package.php:1310:            if (!is_a($param, 'PEAR_Downloader_Package')) {
+PEAR/Registry.php:941:        if (!is_a($channel, 'PEAR_ChannelFile')) {
+PEAR/Registry.php:1028:            if (!is_a($channel, 'PEAR_ChannelFile')) {
+PEAR/Registry.php:1327:        if (!is_a($info, 'PEAR_PackageFile_v1') && !is_a($info, 'PEAR_PackageFile_v2')) {
+PEAR/Builder.php:272:            if (is_a($pkg, 'PEAR_PackageFile_v1')) {
+PEAR/Command/Remote.php:168:        if (!is_a($chan, 'PEAR_ChannelFile')) {
+PEAR/Command/Pickle.php:151:        if (!is_a($pf2, 'PEAR_PackageFile_v2')) {
+PEAR/Command/Package.php:1081:        if (is_a($pf, 'PEAR_PackageFile_v2')) {
+PEAR.php:268:        if (!is_a($data, 'PEAR_Error')) {
+Structures/Graph.php:104:        if (!is_a($newNode, 'Structures_Graph_Node')) return Pear::raiseError('Structures_Graph::addNode received an object that is not a Structures_Graph_Node', STRUCTURES_GRAPH_ERROR_GENERIC);
+Structures/Graph/Manipulator/AcyclicTest.php:128:        if (!is_a($graph, 'Structures_Graph')) return Pear::raiseError('Structures_Graph_Manipulator_AcyclicTest::isAcyclic received an object that is not a Structures_Graph', STRUCTURES_GRAPH_ERROR_GENERIC);
+Structures/Graph/Manipulator/TopologicalSorter.php:133:        if (!is_a($graph, 'Structures_Graph')) return Pear::raiseError('Structures_Graph_Manipulator_TopologicalSorter::sort received an object that is not a Structures_Graph', STRUCTURES_GRAPH_ERROR_GENERIC);
+Structures/Graph/Node.php:240:        if (!is_a($destinationNode, 'Structures_Graph_Node')) return Pear::raiseError('Structures_Graph_Node::connectTo received an object that is not a Structures_Graph_Node', STRUCTURES_GRAPH_ERROR_GENERIC);
+Validate.php:886:                if (is_a($min, 'Date') &&
+Validate.php:901:                if (is_a($max, 'Date') &&
+XML/Spreadsheet/Writer.php:58:            if (is_a($cnode,'DomElement')) {
+XML/Spreadsheet/Writer.php:255:            if (is_a($cnode,'DomText')) {
+XML/RPC/Server.php:629:                    if (!is_a($r, 'XML_RPC_Response')) {
+XML/Util.php:858:     * if (is_a($result, 'PEAR_Error')) {
+XML/RPC.php:600:        return is_a($value, 'PEAR_Error');
+XML/RPC.php:876:        if (!is_a($msg, 'XML_RPC_Message')) {
