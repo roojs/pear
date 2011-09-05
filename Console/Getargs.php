@@ -827,9 +827,8 @@ class Console_Getargs_Options
             // Argument is like -v5
             if ($min == 1 && $max > 0) {
                 // At least one argument is required for option.
-                $this->updateValue($optname, $value, $max);
-                return true;
-            }
+                return $this->updateValue($optname, $value, $max);
+             }
             if ($max === 0) {
                 // Argument passed but not expected.
                 return PEAR::raiseError('Argument ' . $optname . ' does not take any value', CONSOLE_GETARGS_ERROR_USER, PEAR_ERROR_RETURN, null, 'Console_Getargs_Options::setValue()');
@@ -846,9 +845,9 @@ class Console_Getargs_Options
             }
             if (isset($this->args[$pos + 1]) && $this->isValue($this->args[$pos + 1])) {
                 // Set the option value and increment the position.
-                $this->updateValue($optname, $this->args[$pos + 1],$max);
+                $ret = $this->updateValue($optname, $this->args[$pos + 1],$max);
                 $pos++;
-                return true;
+                return $ret;
             }
             // What we thought was the argument was really the next option.
             return PEAR::raiseError('Argument ' . $optname . ' expects one value', CONSOLE_GETARGS_ERROR_USER, PEAR_ERROR_RETURN, null, 'Console_Getargs_Options::setValue()');
