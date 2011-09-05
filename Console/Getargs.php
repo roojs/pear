@@ -846,7 +846,7 @@ class Console_Getargs_Options
             }
             if (isset($this->args[$pos + 1]) && $this->isValue($this->args[$pos + 1])) {
                 // Set the option value and increment the position.
-                $this->updateValue($optname, $this->args[$pos + 1]);
+                $this->updateValue($optname, $this->args[$pos + 1],$max);
                 $pos++;
                 return true;
             }
