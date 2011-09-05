@@ -969,7 +969,7 @@ class Console_Getargs_Options
             
             if (is_array($this->_longLong[$optname])) {
                 // Add this value to the list of values for this option.
-                if ($max && count($this->_longLong[$optname]) => $max) {
+                if ($max && count($this->_longLong[$optname]) >= $max) {
                     return PEAR::raiseError('Argument ' . $optname . ' expects maximum ' . $max . ' values',
                             CONSOLE_GETARGS_ERROR_USER, PEAR_ERROR_RETURN, null, 'Console_Getargs_Options::setValue()');
                 }
