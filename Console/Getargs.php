@@ -862,9 +862,9 @@ class Console_Getargs_Options
                 // Then try to assign values to parameters.
                 if (isset($this->_config[CONSOLE_GETARGS_PARAMS])) {
                     return $this->setValue(CONSOLE_GETARGS_PARAMS, '', ++$pos);
-                } else {
-                    return PEAR::raiseError('Argument ' . $optname . ' does not take any value', CONSOLE_GETARGS_ERROR_USER, PEAR_ERROR_RETURN, null, 'Console_Getargs_Options::setValue()');
-                }
+                }  
+                return PEAR::raiseError('Argument ' . $optname . ' does not take any value', CONSOLE_GETARGS_ERROR_USER, PEAR_ERROR_RETURN, null, 'Console_Getargs_Options::setValue()');
+                
             }
             // Set the switch to on.
             $this->updateValue($optname, true);
