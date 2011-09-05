@@ -821,6 +821,8 @@ class Console_Getargs_Options
         $min = isset($this->_config[$optname]['min']) ? (int)$this->_config[$optname]['min'] : $max;
 
         // A value was passed after the option.
+        var_dump($value);
+        
         if ($value !== '') {
             // Argument is like -v5
             if ($min == 1 && $max > 0) {
@@ -850,7 +852,9 @@ class Console_Getargs_Options
             }
             // What we thought was the argument was really the next option.
             return PEAR::raiseError('Argument ' . $optname . ' expects one value', CONSOLE_GETARGS_ERROR_USER, PEAR_ERROR_RETURN, null, 'Console_Getargs_Options::setValue()');
-        } else if ($max === 0) {
+        }
+        
+        if ($max === 0) {
             // Argument is a switch
             if (isset($this->args[$pos + 1]) && $this->isValue($this->args[$pos + 1])) {
                 // What we thought was the next option was really an argument for this option.
@@ -867,7 +871,9 @@ class Console_Getargs_Options
             $this->updateValue($optname, true);
             return true;
 
-        } else if ($max >= 1 && $min === 0) {
+        } 
+        
+        if ($max >= 1 && $min === 0) {
             // Argument has a default-if-set value
             if (!isset($this->_config[$optname]['default'])) {
                 // A default value MUST be assigned when config is loaded.
