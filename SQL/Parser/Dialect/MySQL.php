@@ -25,7 +25,7 @@
  * @author    John Griffin <jgriffin316@netscape.net>
  * @copyright 2004, 2005 John Griffin
  * @license   http://www.gnu.org/licenses/lgpl.html GNU Lesser GPL 3
- * @version   CVS: $Id: MySQL.php 263413 2008-07-24 14:49:31Z cybot $
+ * @version   CVS: $Id: MySQL.php 308311 2011-02-14 04:05:58Z alan_k $
  * @link      http://pear.php.net/package/SQL_Parser
  * @since     File available since Release 0.5.0
  */
