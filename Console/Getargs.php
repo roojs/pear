@@ -823,7 +823,7 @@ class Console_Getargs_Options
         // A value was passed after the option.
         if ($value !== '') {
             // Argument is like -v5
-            if ($min == 1 && $max > 0) {
+            if ($min == 1 && $max > 1) {
                 // At least one argument is required for option.
                 $this->updateValue($optname, $value);
                 return true;
