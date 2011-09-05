@@ -1978,6 +1978,9 @@ class SQL_Parser
         }
 
         while (true) {
+            
+            $set = array();
+            
             $this->getTok();
             $set['name'] = $this->parseIdentifier();
 
