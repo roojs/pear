@@ -858,7 +858,7 @@ class Console_Getargs_Options
             if (isset($this->args[$pos + 1]) && $this->isValue($this->args[$pos + 1])) {
                 // What we thought was the next option was really an argument for this option.
                 // First update the value
-                $this->updateValue($optname, true);
+                $this->updateValue($optname, true, -);
                 // Then try to assign values to parameters.
                 if (isset($this->_config[CONSOLE_GETARGS_PARAMS])) {
                     return $this->setValue(CONSOLE_GETARGS_PARAMS, '', ++$pos);
