@@ -966,8 +966,15 @@ class Console_Getargs_Options
     function updateValue($optname, $value, $max=0)
     {
         if (isset($this->_longLong[$optname])) {
+            
             if (is_array($this->_longLong[$optname])) {
                 // Add this value to the list of values for this option.
+                if ($max && count($this->_longLong[$optname]) => $max) {
+                    return PEAR::raiseError('Argument ' . $optname . ' expects maximum ' . $max . ' values',
+                            CONSOLE_GETARGS_ERROR_USER, PEAR_ERROR_RETURN, null, 'Console_Getargs_Options::setValue()');
+                }
+
+                
                 $this->_longLong[$optname][] = $value;
             } else {
                 // There is already one value set. Turn everything into a list of values.
