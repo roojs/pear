@@ -867,7 +867,7 @@ class Console_Getargs_Options
                 
             }
             // Set the switch to on.
-            $this->updateValue($optname, true);
+            $this->updateValue($optname, true, 0);
             return true;
 
         } 
@@ -890,9 +890,9 @@ class Console_Getargs_Options
 
             if (isset($this->args[$pos + 1]) && $this->isValue($this->args[$pos + 1])) {
                 // Assign the option the value from the command line if there is one.
-                $this->updateValue($optname, $this->args[$pos + 1]);
+                $ret = $this->updateValue($optname, $this->args[$pos + 1], $max);
                 $pos++;
-                return true;
+                return $ret;
             }
             // Otherwise use the default value.
             $this->updateValue($optname, $this->_config[$optname]['default']);
