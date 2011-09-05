@@ -994,6 +994,7 @@ class Console_Getargs_Options
             $this->_longLong[$optname] = $value;
         }
         $this->_defined[$optname] = true;
+        return true;
     }
 
     /**
