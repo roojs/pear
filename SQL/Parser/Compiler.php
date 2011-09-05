@@ -20,7 +20,7 @@
 // | Authors: John Griffin <jgriffin316@netscape.net>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id: Compiler.php 239225 2007-07-06 13:44:33Z cybot $
+// $Id: Compiler.php 308312 2011-02-14 04:19:01Z alan_k $
 //
 
 require_once 'PEAR.php';
