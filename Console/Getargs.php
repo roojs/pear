@@ -974,9 +974,9 @@ class Console_Getargs_Options
                             CONSOLE_GETARGS_ERROR_USER, PEAR_ERROR_RETURN, null, 'Console_Getargs_Options::setValue()');
                 }
 
-                
                 $this->_longLong[$optname][] = $value;
             } else {
+                
                 // There is already one value set. Turn everything into a list of values.
                 $prevValue = $this->_longLong[$optname];
                 $this->_longLong[$optname] = array($prevValue);
