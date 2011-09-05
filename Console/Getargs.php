@@ -827,7 +827,7 @@ class Console_Getargs_Options
             if ($min == 1 && $max > 0) {
                 // At least one argument is required for option.
                 return $this->updateValue($optname, $value, $max);
-             }
+            }
             if ($max === 0) {
                 // Argument passed but not expected.
                 return PEAR::raiseError('Argument ' . $optname . ' does not take any value', CONSOLE_GETARGS_ERROR_USER, PEAR_ERROR_RETURN, null, 'Console_Getargs_Options::setValue()');
