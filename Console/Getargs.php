@@ -920,18 +920,23 @@ class Console_Getargs_Options
             if ($min > $added && !$paramFull) {
                 // There aren't enough arguments for this option.
                 return PEAR::raiseError('Argument ' . $optname . ' expects at least ' . $min . (($min > 1) ? ' values' : ' value'), CONSOLE_GETARGS_ERROR_USER, PEAR_ERROR_RETURN, null, 'Console_Getargs_Options::setValue()');
-            } elseif ($max !== - 1 && $paramFull) {
+            }
+            
+            if ($max !== - 1 && $paramFull) {
                 // Too many arguments for this option.
                 // Try to add the extra options to parameters.
                 if (isset($this->_config[CONSOLE_GETARGS_PARAMS]) && $optname != CONSOLE_GETARGS_PARAMS) {
                     return $this->setValue(CONSOLE_GETARGS_PARAMS, '', ++$pos);
-                } elseif ($optname == CONSOLE_GETARGS_PARAMS && empty($this->args[$i])) {
+                } 
+                if ($optname == CONSOLE_GETARGS_PARAMS && empty($this->args[$i])) {
                     $pos+= $added;
                     break;
-                } else {
-                    return PEAR::raiseError('Argument ' . $optname . ' expects maximum ' . $max . ' values', CONSOLE_GETARGS_ERROR_USER, PEAR_ERROR_RETURN, null, 'Console_Getargs_Options::setValue()');
-                }
+                } 
+                    
+                return PEAR::raiseError('Argument ' . $optname . ' expects maximum ' . $max . ' values', CONSOLE_GETARGS_ERROR_USER, PEAR_ERROR_RETURN, null, 'Console_Getargs_Options::setValue()');
+                
             }
+            
             break;
         }
         // Everything went well.
