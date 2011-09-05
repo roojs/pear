@@ -896,7 +896,7 @@ class Console_Getargs_Options
             }
             // Otherwise use the default value.
             return $this->updateValue($optname, $this->_config[$optname]['default'], $max);
-            return true;
+             
         }
 
         // Argument takes one or more values
