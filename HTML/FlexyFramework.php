@@ -759,6 +759,11 @@ class HTML_FlexyFramework {
             $this->timer->stop(); //?? really - yes...
         }
         
+        if ($this->cli) {
+            return true;
+        }
+        
+        
         exit; /// die here...
         
     }
