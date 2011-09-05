@@ -821,7 +821,8 @@ class Console_Getargs_Options
         $min = isset($this->_config[$optname]['min']) ? (int)$this->_config[$optname]['min'] : $max;
 
         // A value was passed after the option.
-         
+        var_dump($value);
+        
         if ($value !== '') {
             // Argument is like -v5
             if ($min == 1 && $max > 0) {
