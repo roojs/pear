@@ -827,7 +827,7 @@ class Console_Getargs_Options
             // Argument is like -v5
             if ($min == 1 && $max > 0) {
                 // At least one argument is required for option.
-                $this->updateValue($optname, $value);
+                $this->updateValue($optname, $value, $max);
                 return true;
             }
             if ($max === 0) {
