@@ -895,7 +895,7 @@ class Console_Getargs_Options
                 return $ret;
             }
             // Otherwise use the default value.
-            $this->updateValue($optname, $this->_config[$optname]['default']);
+            return $this->updateValue($optname, $this->_config[$optname]['default'], $max);
             return true;
         }
 
