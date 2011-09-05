@@ -963,7 +963,7 @@ class Console_Getargs_Options
      * @access private
      * @return void   
      */
-    function updateValue($optname, $value)
+    function updateValue($optname, $value, $max=0)
     {
         if (isset($this->_longLong[$optname])) {
             if (is_array($this->_longLong[$optname])) {
