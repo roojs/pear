@@ -749,7 +749,7 @@ class HTML_FlexyFramework {
         
         /* output it */
         
-        if (method_exists($classobj,'output')) {
+        if (!$this->cli && method_exists($classobj,'output')) {
             $classobj->output(); 
         }
         
