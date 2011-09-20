@@ -2762,7 +2762,8 @@ class DB_DataObject extends DB_DataObject_Overload
     
     
 
-    function factory($table = '') {
+    function factory($table = '')
+    {
         global $_DB_DATAOBJECT;
         
         
@@ -2799,6 +2800,8 @@ class DB_DataObject extends DB_DataObject_Overload
         // does this need multi db support??
         $cp = isset($_DB_DATAOBJECT['CONFIG']['class_prefix']) ?
             explode(PATH_SEPARATOR, $_DB_DATAOBJECT['CONFIG']['class_prefix']) : '';
+        
+        print_r($cp);
         
         // multiprefix support.
         $tbl = preg_replace('/[^A-Z0-9]/i','_',ucfirst($table));
