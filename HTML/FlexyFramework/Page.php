@@ -237,11 +237,16 @@ class HTML_FlexyFramework_Page  {
     
     function output() 
     {
+        
+        if (!$this->cli && method_exists($classobj,'output')) {
+            $classobj->output(); 
+        }
+        
         /* output the body if no masterTemplate is set */
-        $options = PEAR::getStaticProperty('HTML_FlexyFramework','options');
+        $options = HTML_FlexyFramework::get();
         
         $type = isset($this->contentType) ? $this->contentType : 'text/html'; 
-        header('Content-Type: '.$type.';charset='.( empty($options['charset']) ? 'UTF-8' : $options['charset'] ));
+        header('Content-Type: '.$type.';charset='.( empty($options->charset) ? 'UTF-8' : $options->charset ));
         
          
         if (!$this->masterTemplate) {
