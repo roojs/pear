@@ -747,9 +747,9 @@ class HTML_FlexyFramework {
             $this->timer->setMarker("After $request loadModules Modules"); 
         }
         
-        /* output it  - except for cli.. ??? good idea or not?*/
+        /* output it  - (our base page does not implement output for cli. */
         
-        if (!$this->cli && method_exists($classobj,'output')) {
+        if ( method_exists($classobj,'output')) {
             $classobj->output(); 
         }
         
