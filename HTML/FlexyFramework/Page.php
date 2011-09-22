@@ -238,8 +238,8 @@ class HTML_FlexyFramework_Page  {
     function output() 
     {
         
-        if (!$this->cli && method_exists($classobj,'output')) {
-            $classobj->output(); 
+        if (!empty($this->cli)) {
+            return;
         }
         
         /* output the body if no masterTemplate is set */
