@@ -15,7 +15,9 @@ echo $x->toSQL(array(
 
 ));
 */
-class Text_SearchParser {
+
+class Text_SearchParser
+{
     function __construct($str)
     {
         $x = new Text_SearchParser_Tokenizer ($str);
@@ -73,7 +75,7 @@ class Text_SearchParser {
                 }
                 
                 $s++;
-                return new    Text_SearchParser_Token_Grp($ret);
+                return new   Text_SearchParser_Token_Grp($ret);
             }
             $ret[] = $x;
             $s++;
