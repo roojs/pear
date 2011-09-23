@@ -319,14 +319,17 @@ class Text_SearchParser_Token_Grp extends Text_SearchParser_Token { // (
     
 }
 
-class Text_SearchParser_Token_GrpS extends Text_SearchParser_Token { // (
+class Text_SearchParser_Token_GrpS extends Text_SearchParser_Token
+{ 
     var $type = '(';
 }
-class Text_SearchParser_Token_GrpE extends Text_SearchParser_Token { // (
+class Text_SearchParser_Token_GrpE extends Text_SearchParser_Token
+{  
     var $type = ')';
 }
 
-class Text_SearchParser_Token_Eq extends Text_SearchParser_Token { // :  or = ?
+class Text_SearchParser_Token_Eq extends Text_SearchParser_Token
+{ // :  or = ?
     var $type = ':';
     var $k;
     var $v;
