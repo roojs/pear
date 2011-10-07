@@ -274,6 +274,10 @@ class File_Convert
             ),
             array('ffmpeg', // mulipage convert...
                 array(
+                    
+                          
+                    'video/avi',
+                    'video/x-ms-wmv',
                     'video/mp4',
                     'video/x-msvideo',
                     'video/quicktime',
