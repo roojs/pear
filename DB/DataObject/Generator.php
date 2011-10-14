@@ -305,7 +305,7 @@ class DB_DataObject_Generator extends DB_DataObject
         // with regex expressions have been removed)
         $this->tables = $tmp_table;
          
-        /print_r($this->_definitions);
+        print_r($this->_definitions);
     }
     
     /**
