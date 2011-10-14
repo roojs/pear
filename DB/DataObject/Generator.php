@@ -622,6 +622,7 @@ class DB_DataObject_Generator extends DB_DataObject
                 case 'MEDIUMTEXT':
                 case 'LONGTEXT':
                 case '_TEXT':   //postgres (?? view ??)
+                    
                     $type = DB_DATAOBJECT_STR + DB_DATAOBJECT_TXT;
                     break;
                 
