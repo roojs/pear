@@ -255,9 +255,7 @@ class DB_DataObject_Generator extends DB_DataObject
                 continue;
             }
             
-             $quotedTable = !empty($options['quote_identifiers_tableinfo']) ? 
-                $__DB->quoteIdentifier($table) : $table;
-          
+            
             // postgres strip the schema bit from the
             if (!empty($options['generator_strip_schema'])) {
                 $bits = explode('.', $table,2);
@@ -267,6 +265,9 @@ class DB_DataObject_Generator extends DB_DataObject
                 }
             }
             
+            $quotedTable = !empty($options['quote_identifiers_tableinfo']) ? 
+                $__DB->quoteIdentifier($table) : $table;
+          
             if (!$is_MDB2) {
                 
                 $defs =  $__DB->tableInfo($quotedTable);
@@ -760,7 +761,7 @@ class DB_DataObject_Generator extends DB_DataObject
     {
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
         $class_prefix  = empty($options['class_prefix']) ? '' : $options['class_prefix'];
-        return  $class_prefix.preg_replace('/[^A-Z0-9]+/i','_',ucfirst(trim($this->table)));
+        return  $class_prefix.preg_replace('/[^A-Z0-9]/i','_',ucfirst(trim($this->table)));
     }
     
     
