@@ -894,22 +894,12 @@ class DB_pgsql extends DB_common
      */
     function tableInfo($result, $mode = null)
     {
-        $got_string = false;
-
         if (is_string($result)) {
             /*
              * Probably received a table name.
              * Create a result resource identifier.
              */
-            $tname = "'". pg_escape_string($result) . "'";
-            $id = @pg_exec($this->connection,
-                "SELECT * FROM
-                    WHERE
-                        CONCAT(table_schema, '.', table_name) = $tname OR
-                        table_name = $tname
-                        ordery by ordinal_position
-                    );");
-                    
+            $id = @pg_exec($this->connection, "SELECT * FROM $result LIMIT 0");
             $got_string = true;
         } elseif (isset($result->result)) {
             /*
@@ -917,6 +907,7 @@ class DB_pgsql extends DB_common
              * Extract the result resource identifier.
              */
             $id = $result->result;
+            $got_string = false;
         } else {
             /*
              * Probably received a result resource identifier.
@@ -924,7 +915,7 @@ class DB_pgsql extends DB_common
              * Deprecated.  Here for compatibility only.
              */
             $id = $result;
-
+            $got_string = false;
         }
 
         if (!is_resource($id)) {
@@ -937,7 +928,7 @@ class DB_pgsql extends DB_common
             $case_func = 'strval';
         }
 
-        $count = $got_string ? @pg_numrows($id) : @pg_numfields($id);
+        $count = @pg_numfields($id);
         $res   = array();
 
         if ($mode) {
@@ -945,19 +936,6 @@ class DB_pgsql extends DB_common
         }
 
         for ($i = 0; $i < $count; $i++) {
-            
-            if ($got_string) {
-                $row = @pg_fetch_array($id, $i, PGSQL_ASSOC);
-                $res[$i] =  array(
-                    'table' => $got_string ? $case_func($result) : '',
-                    'name'  => $case_func($row['column_name']),
-                    'type'  => $row['data_type'],
-                    'len'   => $row['character_maximum_length'],
-                    'flags' => $got_string
-                               ? $this->_pgFieldFlags($id, $i, $result)
-                           : '',
-            );
-            
             $res[$i] = array(
                 'table' => $got_string ? $case_func($result) : '',
                 'name'  => $case_func(@pg_fieldname($id, $i)),
