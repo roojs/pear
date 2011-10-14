@@ -3,8 +3,8 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 
 /**
- * The PEAR DB driver for PHP's sqlite extension
- * for interacting with SQLite databases
+ * The PEAR DB driver for PHP's pgsql extension
+ * for interacting with PostgreSQL databases
  *
  * PHP versions 4 and 5
  *
@@ -16,12 +16,12 @@
  *
  * @category   Database
  * @package    DB
- * @author     Urs Gehrig <urs@circle.ch>
- * @author     Mika Tuupola <tuupola@appelsiini.net>
+ * @author     Rui Hirokawa <hirokawa@php.net>
+ * @author     Stig Bakken <ssb@php.net>
  * @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0 3.0
- * @version    CVS: $Id: sqlite.php 306605 2010-12-24 06:22:59Z aharvey $
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    CVS: $Id: pgsql.php 306604 2010-12-24 06:09:35Z aharvey $
  * @link       http://pear.php.net/package/DB
  */
 
@@ -31,26 +31,22 @@
 require_once 'DB/common.php';
 
 /**
- * The methods PEAR DB uses to interact with PHP's sqlite extension
- * for interacting with SQLite databases
+ * The methods PEAR DB uses to interact with PHP's pgsql extension
+ * for interacting with PostgreSQL databases
  *
  * These methods overload the ones declared in DB_common.
  *
- * NOTICE:  This driver needs PHP's track_errors ini setting to be on.
- * It is automatically turned on when connecting to the database.
- * Make sure your scripts don't turn it off.
- *
  * @category   Database
  * @package    DB
- * @author     Urs Gehrig <urs@circle.ch>
- * @author     Mika Tuupola <tuupola@appelsiini.net>
+ * @author     Rui Hirokawa <hirokawa@php.net>
+ * @author     Stig Bakken <ssb@php.net>
  * @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0 3.0
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: 1.7.14
  * @link       http://pear.php.net/package/DB
  */
-class DB_sqlite extends DB_common
+class DB_pgsql extends DB_common
 {
     // {{{ properties
 
@@ -58,13 +54,13 @@ class DB_sqlite extends DB_common
      * The DB driver type (mysql, oci8, odbc, etc.)
      * @var string
      */
-    var $phptype = 'sqlite';
+    var $phptype = 'pgsql';
 
     /**
      * The database syntax variant to be used (db2, access, etc.), if any
      * @var string
      */
-    var $dbsyntax = 'sqlite';
+    var $dbsyntax = 'pgsql';
 
     /**
      * The capabilities of this DB implementation
@@ -81,21 +77,16 @@ class DB_sqlite extends DB_common
      */
     var $features = array(
         'limit'         => 'alter',
-        'new_link'      => false,
+        'new_link'      => '4.3.0',
         'numrows'       => true,
         'pconnect'      => true,
         'prepare'       => false,
-        'ssl'           => false,
-        'transactions'  => false,
+        'ssl'           => true,
+        'transactions'  => true,
     );
 
     /**
      * A mapping of native error codes to DB error codes
-     *
-     * {@internal  Error codes according to sqlite_exec.  See the online
-     * manual at http://sqlite.org/c_interface.html for info.
-     * This error handling based on sqlite_exec is not yet implemented.}}
-     *
      * @var array
      */
     var $errorcode_map = array(
@@ -115,37 +106,42 @@ class DB_sqlite extends DB_common
 
 
     /**
-     * SQLite data types
-     *
-     * @link http://www.sqlite.org/datatypes.html
-     *
-     * @var array
-     */
-    var $keywords = array (
-        'BLOB'      => '',
-        'BOOLEAN'   => '',
-        'CHARACTER' => '',
-        'CLOB'      => '',
-        'FLOAT'     => '',
-        'INTEGER'   => '',
-        'KEY'       => '',
-        'NATIONAL'  => '',
-        'NUMERIC'   => '',
-        'NVARCHAR'  => '',
-        'PRIMARY'   => '',
-        'TEXT'      => '',
-        'TIMESTAMP' => '',
-        'UNIQUE'    => '',
-        'VARCHAR'   => '',
-        'VARYING'   => '',
-    );
-
-    /**
-     * The most recent error message from $php_errormsg
-     * @var string
+     * Should data manipulation queries be committed automatically?
+     * @var bool
      * @access private
      */
-    var $_lasterror = '';
+    var $autocommit = true;
+
+    /**
+     * The quantity of transactions begun
+     *
+     * {@internal  While this is private, it can't actually be designated
+     * private in PHP 5 because it is directly accessed in the test suite.}}
+     *
+     * @var integer
+     * @access private
+     */
+    var $transaction_opcount = 0;
+
+    /**
+     * The number of rows affected by a data manipulation query
+     * @var integer
+     */
+    var $affected = 0;
+
+    /**
+     * The current row being looked at in fetchInto()
+     * @var array
+     * @access private
+     */
+    var $row = array();
+
+    /**
+     * The number of rows in a given result set
+     * @var array
+     * @access private
+     */
+    var $_num_rows = array();
 
 
     // }}}
@@ -156,7 +152,7 @@ class DB_sqlite extends DB_common
      *
      * @return void
      */
-    function DB_sqlite()
+    function DB_pgsql()
     {
         $this->DB_common();
     }
@@ -169,15 +165,30 @@ class DB_sqlite extends DB_common
      *
      * Don't call this method directly.  Use DB::connect() instead.
      *
-     * PEAR DB's sqlite driver supports the following extra DSN options:
-     *   + mode  The permissions for the database file, in four digit
-     *            chmod octal format (eg "0600").
+     * PEAR DB's pgsql driver supports the following extra DSN options:
+     *   + connect_timeout  How many seconds to wait for a connection to
+     *                       be established.  Available since PEAR DB 1.7.0.
+     *   + new_link         If set to true, causes subsequent calls to
+     *                       connect() to return a new connection link
+     *                       instead of the existing one.  WARNING: this is
+     *                       not portable to other DBMS's.  Available only
+     *                       if PHP is >= 4.3.0 and PEAR DB is >= 1.7.0.
+     *   + options          Command line options to be sent to the server.
+     *                       Available since PEAR DB 1.6.4.
+     *   + service          Specifies a service name in pg_service.conf that
+     *                       holds additional connection parameters.
+     *                       Available since PEAR DB 1.7.0.
+     *   + sslmode          How should SSL be used when connecting?  Values:
+     *                       disable, allow, prefer or require.
+     *                       Available since PEAR DB 1.7.0.
+     *   + tty              This was used to specify where to send server
+     *                       debug output.  Available since PEAR DB 1.6.4.
      *
-     * Example of connecting to a database in read-only mode:
+     * Example of connecting to a new link via a socket:
      * <code>
      * require_once 'DB.php';
      * 
-     * $dsn = 'sqlite:///path/and/name/of/db/file?mode=0400';
+     * $dsn = 'pgsql://user:pass@unix(/tmp)/dbname?new_link=true';
      * $options = array(
      *     'portability' => DB_PORTABILITY_ALL,
      * );
@@ -192,10 +203,12 @@ class DB_sqlite extends DB_common
      * @param bool  $persistent  should the connection be persistent?
      *
      * @return int  DB_OK on success. A DB_Error object on failure.
+     *
+     * @link http://www.postgresql.org/docs/current/static/libpq.html#LIBPQ-CONNECT
      */
     function connect($dsn, $persistent = false)
     {
-        if (!PEAR::loadExtension('sqlite')) {
+        if (!PEAR::loadExtension('pgsql')) {
             return $this->raiseError(DB_ERROR_EXTENSION_NOT_FOUND);
         }
 
@@ -204,45 +217,74 @@ class DB_sqlite extends DB_common
             $this->dbsyntax = $dsn['dbsyntax'];
         }
 
-        if (!$dsn['database']) {
-            return $this->sqliteRaiseError(DB_ERROR_ACCESS_VIOLATION);
-        }
+        $protocol = $dsn['protocol'] ? $dsn['protocol'] : 'tcp';
 
-        if ($dsn['database'] !== ':memory:') {
-            if (!file_exists($dsn['database'])) {
-                if (!touch($dsn['database'])) {
-                    return $this->sqliteRaiseError(DB_ERROR_NOT_FOUND);
-                }
-                if (!isset($dsn['mode']) ||
-                    !is_numeric($dsn['mode']))
-                {
-                    $mode = 0644;
-                } else {
-                    $mode = octdec($dsn['mode']);
-                }
-                if (!chmod($dsn['database'], $mode)) {
-                    return $this->sqliteRaiseError(DB_ERROR_NOT_FOUND);
-                }
-                if (!file_exists($dsn['database'])) {
-                    return $this->sqliteRaiseError(DB_ERROR_NOT_FOUND);
-                }
+        $params = array('');
+        if ($protocol == 'tcp') {
+            if ($dsn['hostspec']) {
+                $params[0] .= 'host=' . $dsn['hostspec'];
             }
-            if (!is_file($dsn['database'])) {
-                return $this->sqliteRaiseError(DB_ERROR_INVALID);
+            if ($dsn['port']) {
+                $params[0] .= ' port=' . $dsn['port'];
             }
-            if (!is_readable($dsn['database'])) {
-                return $this->sqliteRaiseError(DB_ERROR_ACCESS_VIOLATION);
+        } elseif ($protocol == 'unix') {
+            // Allow for pg socket in non-standard locations.
+            if ($dsn['socket']) {
+                $params[0] .= 'host=' . $dsn['socket'];
+            }
+            if ($dsn['port']) {
+                $params[0] .= ' port=' . $dsn['port'];
             }
         }
+        if ($dsn['database']) {
+            $params[0] .= ' dbname=\'' . addslashes($dsn['database']) . '\'';
+        }
+        if ($dsn['username']) {
+            $params[0] .= ' user=\'' . addslashes($dsn['username']) . '\'';
+        }
+        if ($dsn['password']) {
+            $params[0] .= ' password=\'' . addslashes($dsn['password']) . '\'';
+        }
+        if (!empty($dsn['options'])) {
+            $params[0] .= ' options=' . $dsn['options'];
+        }
+        if (!empty($dsn['tty'])) {
+            $params[0] .= ' tty=' . $dsn['tty'];
+        }
+        if (!empty($dsn['connect_timeout'])) {
+            $params[0] .= ' connect_timeout=' . $dsn['connect_timeout'];
+        }
+        if (!empty($dsn['sslmode'])) {
+            $params[0] .= ' sslmode=' . $dsn['sslmode'];
+        }
+        if (!empty($dsn['service'])) {
+            $params[0] .= ' service=' . $dsn['service'];
+        }
 
-        $connect_function = $persistent ? 'sqlite_popen' : 'sqlite_open';
+        if (isset($dsn['new_link'])
+            && ($dsn['new_link'] == 'true' || $dsn['new_link'] === true))
+        {
+            if (version_compare(phpversion(), '4.3.0', '>=')) {
+                $params[] = PGSQL_CONNECT_FORCE_NEW;
+            }
+        }
 
-        // track_errors must remain on for simpleQuery()
-        @ini_set('track_errors', 1);
+        $connect_function = $persistent ? 'pg_pconnect' : 'pg_connect';
+
+        $ini = ini_get('track_errors');
         $php_errormsg = '';
+        if ($ini) {
+            $this->connection = @call_user_func_array($connect_function,
+                                                      $params);
+        } else {
+            @ini_set('track_errors', 1);
+            $this->connection = @call_user_func_array($connect_function,
+                                                      $params);
+            @ini_set('track_errors', $ini);
+        }
 
-        if (!$this->connection = @$connect_function($dsn['database'])) {
-            return $this->raiseError(DB_ERROR_NODBSELECTED,
+        if (!$this->connection) {
+            return $this->raiseError(DB_ERROR_CONNECT_FAILED,
                                      null, null, null,
                                      $php_errormsg);
         }
@@ -259,7 +301,7 @@ class DB_sqlite extends DB_common
      */
     function disconnect()
     {
-        $ret = @sqlite_close($this->connection);
+        $ret = @pg_close($this->connection);
         $this->connection = null;
         return $ret;
     }
@@ -269,10 +311,6 @@ class DB_sqlite extends DB_common
 
     /**
      * Sends a query to the database server
-     *
-     * NOTICE:  This method needs PHP's track_errors ini setting to be on.
-     * It is automatically turned on when connecting to the database.
-     * Make sure your scripts don't turn it off.
      *
      * @param string  the SQL query string
      *
@@ -285,39 +323,64 @@ class DB_sqlite extends DB_common
         $ismanip = $this->_checkManip($query);
         $this->last_query = $query;
         $query = $this->modifyQuery($query);
-
-        $php_errormsg = '';
-
-        $result = @sqlite_query($query, $this->connection);
-        $this->_lasterror = $php_errormsg ? $php_errormsg : '';
-
-        $this->result = $result;
-        if (!$this->result) {
-            return $this->sqliteRaiseError(null);
-        }
-
-        // sqlite_query() seems to allways return a resource
-        // so cant use that. Using $ismanip instead
-        if (!$ismanip) {
-            $numRows = $this->numRows($result);
-            if (is_object($numRows)) {
-                // we've got PEAR_Error
-                return $numRows;
+        if (!$this->autocommit && $ismanip) {
+            if ($this->transaction_opcount == 0) {
+                $result = @pg_exec($this->connection, 'begin;');
+                if (!$result) {
+                    return $this->pgsqlRaiseError();
+                }
             }
-            return $result;
+            $this->transaction_opcount++;
         }
-        return DB_OK;
+        $result = @pg_exec($this->connection, $query);
+        if (!$result) {
+            return $this->pgsqlRaiseError();
+        }
+
+        /*
+         * Determine whether queries produce affected rows, result or nothing.
+         *
+         * This logic was introduced in version 1.1 of the file by ssb,
+         * though the regex has been modified slightly since then.
+         *
+         * PostgreSQL commands:
+         * ABORT, ALTER, BEGIN, CLOSE, CLUSTER, COMMIT, COPY,
+         * CREATE, DECLARE, DELETE, DROP TABLE, EXPLAIN, FETCH,
+         * GRANT, INSERT, LISTEN, LOAD, LOCK, MOVE, NOTIFY, RESET,
+         * REVOKE, ROLLBACK, SELECT, SELECT INTO, SET, SHOW,
+         * UNLISTEN, UPDATE, VACUUM, WITH
+         */
+        if ($ismanip) {
+            $this->affected = @pg_affected_rows($result);
+            return DB_OK;
+        } elseif (preg_match('/^\s*\(*\s*(SELECT|EXPLAIN|FETCH|SHOW|WITH)\s/si',
+                             $query))
+        {
+            $this->row[(int)$result] = 0; // reset the row counter.
+            $numrows = $this->numRows($result);
+            if (is_object($numrows)) {
+                return $numrows;
+            }
+            $this->_num_rows[(int)$result] = $numrows;
+            $this->affected = 0;
+            return $result;
+        } else {
+            $this->affected = 0;
+            return DB_OK;
+        }
     }
 
     // }}}
     // {{{ nextResult()
 
     /**
-     * Move the internal sqlite result pointer to the next available result
+     * Move the internal pgsql result pointer to the next available result
      *
-     * @param resource $result  the valid sqlite result resource
+     * @param a valid fbsql result resource
      *
-     * @return bool  true if a result is available otherwise return false
+     * @access public
+     *
+     * @return true if a result is available otherwise return false
      */
     function nextResult($result)
     {
@@ -349,43 +412,29 @@ class DB_sqlite extends DB_common
      */
     function fetchInto($result, &$arr, $fetchmode, $rownum = null)
     {
-        if ($rownum !== null) {
-            if (!@sqlite_seek($this->result, $rownum)) {
-                return null;
-            }
+        $result_int = (int)$result;
+        $rownum = ($rownum !== null) ? $rownum : $this->row[$result_int];
+        if ($rownum >= $this->_num_rows[$result_int]) {
+            return null;
         }
         if ($fetchmode & DB_FETCHMODE_ASSOC) {
-            $arr = @sqlite_fetch_array($result, SQLITE_ASSOC);
+            $arr = @pg_fetch_array($result, $rownum, PGSQL_ASSOC);
             if ($this->options['portability'] & DB_PORTABILITY_LOWERCASE && $arr) {
                 $arr = array_change_key_case($arr, CASE_LOWER);
             }
-
-            /* Remove extraneous " characters from the fields in the result.
-             * Fixes bug #11716. */
-            if (is_array($arr) && count($arr) > 0) {
-                $strippedArr = array();
-                foreach ($arr as $field => $value) {
-                    $strippedArr[trim($field, '"')] = $value;
-                }
-                $arr = $strippedArr;
-            }
         } else {
-            $arr = @sqlite_fetch_array($result, SQLITE_NUM);
+            $arr = @pg_fetch_row($result, $rownum);
         }
         if (!$arr) {
             return null;
         }
         if ($this->options['portability'] & DB_PORTABILITY_RTRIM) {
-            /*
-             * Even though this DBMS already trims output, we do this because
-             * a field might have intentional whitespace at the end that
-             * gets removed by DB_PORTABILITY_RTRIM under another driver.
-             */
             $this->_rtrimArrayValues($arr);
         }
         if ($this->options['portability'] & DB_PORTABILITY_NULL_TO_EMPTY) {
             $this->_convertNullArrayValuesToEmpty($arr);
         }
+        $this->row[$result_int] = ++$rownum;
         return DB_OK;
     }
 
@@ -405,14 +454,78 @@ class DB_sqlite extends DB_common
      *
      * @see DB_result::free()
      */
-    function freeResult(&$result)
+    function freeResult($result)
     {
-        // XXX No native free?
-        if (!is_resource($result)) {
-            return false;
+        if (is_resource($result)) {
+            unset($this->row[(int)$result]);
+            unset($this->_num_rows[(int)$result]);
+            $this->affected = 0;
+            return @pg_freeresult($result);
         }
-        $result = null;
-        return true;
+        return false;
+    }
+
+    // }}}
+    // {{{ quote()
+
+    /**
+     * @deprecated  Deprecated in release 1.6.0
+     * @internal
+     */
+    function quote($str)
+    {
+        return $this->quoteSmart($str);
+    }
+
+    // }}}
+    // {{{ quoteBoolean()
+
+    /**
+     * Formats a boolean value for use within a query in a locale-independent
+     * manner.
+     *
+     * @param boolean the boolean value to be quoted.
+     * @return string the quoted string.
+     * @see DB_common::quoteSmart()
+     * @since Method available since release 1.7.8.
+     */
+    function quoteBoolean($boolean) {
+        return $boolean ? 'TRUE' : 'FALSE';
+    }
+     
+    // }}}
+    // {{{ escapeSimple()
+
+    /**
+     * Escapes a string according to the current DBMS's standards
+     *
+     * {@internal PostgreSQL treats a backslash as an escape character,
+     * so they are escaped as well.
+     *
+     * @param string $str  the string to be escaped
+     *
+     * @return string  the escaped string
+     *
+     * @see DB_common::quoteSmart()
+     * @since Method available since Release 1.6.0
+     */
+    function escapeSimple($str)
+    {
+        if (function_exists('pg_escape_string')) {
+            /* This fixes an undocumented BC break in PHP 5.2.0 which changed
+             * the prototype of pg_escape_string. I'm not thrilled about having
+             * to sniff the PHP version, quite frankly, but it's the only way
+             * to deal with the problem. Revision 1.331.2.13.2.10 on
+             * php-src/ext/pgsql/pgsql.c (PHP_5_2 branch) is to blame, for the
+             * record. */
+            if (version_compare(PHP_VERSION, '5.2.0', '>=')) {
+                return pg_escape_string($this->connection, $str);
+            } else {
+                return pg_escape_string($str);
+            }
+        } else {
+            return str_replace("'", "''", str_replace('\\', '\\\\', $str));
+        }
     }
 
     // }}}
@@ -433,9 +546,9 @@ class DB_sqlite extends DB_common
      */
     function numCols($result)
     {
-        $cols = @sqlite_num_fields($result);
+        $cols = @pg_numfields($result);
         if (!$cols) {
-            return $this->sqliteRaiseError();
+            return $this->pgsqlRaiseError();
         }
         return $cols;
     }
@@ -458,15 +571,76 @@ class DB_sqlite extends DB_common
      */
     function numRows($result)
     {
-        $rows = @sqlite_num_rows($result);
+        $rows = @pg_numrows($result);
         if ($rows === null) {
-            return $this->sqliteRaiseError();
+            return $this->pgsqlRaiseError();
         }
         return $rows;
     }
 
     // }}}
-    // {{{ affected()
+    // {{{ autoCommit()
+
+    /**
+     * Enables or disables automatic commits
+     *
+     * @param bool $onoff  true turns it on, false turns it off
+     *
+     * @return int  DB_OK on success.  A DB_Error object if the driver
+     *               doesn't support auto-committing transactions.
+     */
+    function autoCommit($onoff = false)
+    {
+        // XXX if $this->transaction_opcount > 0, we should probably
+        // issue a warning here.
+        $this->autocommit = $onoff ? true : false;
+        return DB_OK;
+    }
+
+    // }}}
+    // {{{ commit()
+
+    /**
+     * Commits the current transaction
+     *
+     * @return int  DB_OK on success.  A DB_Error object on failure.
+     */
+    function commit()
+    {
+        if ($this->transaction_opcount > 0) {
+            // (disabled) hack to shut up error messages from libpq.a
+            //@fclose(@fopen("php://stderr", "w"));
+            $result = @pg_exec($this->connection, 'end;');
+            $this->transaction_opcount = 0;
+            if (!$result) {
+                return $this->pgsqlRaiseError();
+            }
+        }
+        return DB_OK;
+    }
+
+    // }}}
+    // {{{ rollback()
+
+    /**
+     * Reverts the current transaction
+     *
+     * @return int  DB_OK on success.  A DB_Error object on failure.
+     */
+    function rollback()
+    {
+        if ($this->transaction_opcount > 0) {
+            $result = @pg_exec($this->connection, 'abort;');
+            $this->transaction_opcount = 0;
+            if (!$result) {
+                return $this->pgsqlRaiseError();
+            }
+        }
+        return DB_OK;
+    }
+
+    // }}}
+    // {{{ affectedRows()
 
     /**
      * Determines the number of rows affected by a data maniuplation query
@@ -477,54 +651,7 @@ class DB_sqlite extends DB_common
      */
     function affectedRows()
     {
-        return @sqlite_changes($this->connection);
-    }
-
-    // }}}
-    // {{{ dropSequence()
-
-    /**
-     * Deletes a sequence
-     *
-     * @param string $seq_name  name of the sequence to be deleted
-     *
-     * @return int  DB_OK on success.  A DB_Error object on failure.
-     *
-     * @see DB_common::dropSequence(), DB_common::getSequenceName(),
-     *      DB_sqlite::nextID(), DB_sqlite::createSequence()
-     */
-    function dropSequence($seq_name)
-    {
-        return $this->query('DROP TABLE ' . $this->getSequenceName($seq_name));
-    }
-
-    /**
-     * Creates a new sequence
-     *
-     * @param string $seq_name  name of the new sequence
-     *
-     * @return int  DB_OK on success.  A DB_Error object on failure.
-     *
-     * @see DB_common::createSequence(), DB_common::getSequenceName(),
-     *      DB_sqlite::nextID(), DB_sqlite::dropSequence()
-     */
-    function createSequence($seq_name)
-    {
-        $seqname = $this->getSequenceName($seq_name);
-        $query   = 'CREATE TABLE ' . $seqname .
-                   ' (id INTEGER UNSIGNED PRIMARY KEY) ';
-        $result  = $this->query($query);
-        if (DB::isError($result)) {
-            return($result);
-        }
-        $query   = "CREATE TRIGGER ${seqname}_cleanup AFTER INSERT ON $seqname
-                    BEGIN
-                        DELETE FROM $seqname WHERE id<LAST_INSERT_ROWID();
-                    END ";
-        $result  = $this->query($query);
-        if (DB::isError($result)) {
-            return($result);
-        }
+        return $this->affected;
     }
 
     // }}}
@@ -541,93 +668,74 @@ class DB_sqlite extends DB_common
      *               A DB_Error object on failure.
      *
      * @see DB_common::nextID(), DB_common::getSequenceName(),
-     *      DB_sqlite::createSequence(), DB_sqlite::dropSequence()
+     *      DB_pgsql::createSequence(), DB_pgsql::dropSequence()
      */
     function nextId($seq_name, $ondemand = true)
     {
         $seqname = $this->getSequenceName($seq_name);
-
+        $repeat = false;
         do {
-            $repeat = 0;
             $this->pushErrorHandling(PEAR_ERROR_RETURN);
-            $result = $this->query("INSERT INTO $seqname (id) VALUES (NULL)");
+            $result = $this->query("SELECT NEXTVAL('${seqname}')");
             $this->popErrorHandling();
-            if ($result === DB_OK) {
-                $id = @sqlite_last_insert_rowid($this->connection);
-                if ($id != 0) {
-                    return $id;
-                }
-            } elseif ($ondemand && DB::isError($result) &&
-                      $result->getCode() == DB_ERROR_NOSUCHTABLE)
-            {
+            if ($ondemand && DB::isError($result) &&
+                $result->getCode() == DB_ERROR_NOSUCHTABLE) {
+                $repeat = true;
+                $this->pushErrorHandling(PEAR_ERROR_RETURN);
                 $result = $this->createSequence($seq_name);
+                $this->popErrorHandling();
                 if (DB::isError($result)) {
                     return $this->raiseError($result);
-                } else {
-                    $repeat = 1;
                 }
+            } else {
+                $repeat = false;
             }
         } while ($repeat);
-
-        return $this->raiseError($result);
+        if (DB::isError($result)) {
+            return $this->raiseError($result);
+        }
+        $arr = $result->fetchRow(DB_FETCHMODE_ORDERED);
+        $result->free();
+        return $arr[0];
     }
 
     // }}}
-    // {{{ getDbFileStats()
+    // {{{ createSequence()
 
     /**
-     * Get the file stats for the current database
+     * Creates a new sequence
      *
-     * Possible arguments are dev, ino, mode, nlink, uid, gid, rdev, size,
-     * atime, mtime, ctime, blksize, blocks or a numeric key between
-     * 0 and 12.
+     * @param string $seq_name  name of the new sequence
      *
-     * @param string $arg  the array key for stats()
+     * @return int  DB_OK on success.  A DB_Error object on failure.
      *
-     * @return mixed  an array on an unspecified key, integer on a passed
-     *                arg and false at a stats error
+     * @see DB_common::createSequence(), DB_common::getSequenceName(),
+     *      DB_pgsql::nextID(), DB_pgsql::dropSequence()
      */
-    function getDbFileStats($arg = '')
+    function createSequence($seq_name)
     {
-        $stats = stat($this->dsn['database']);
-        if ($stats == false) {
-            return false;
-        }
-        if (is_array($stats)) {
-            if (is_numeric($arg)) {
-                if (((int)$arg <= 12) & ((int)$arg >= 0)) {
-                    return false;
-                }
-                return $stats[$arg ];
-            }
-            if (array_key_exists(trim($arg), $stats)) {
-                return $stats[$arg ];
-            }
-        }
-        return $stats;
+        $seqname = $this->getSequenceName($seq_name);
+        $result = $this->query("CREATE SEQUENCE ${seqname}");
+        return $result;
     }
 
     // }}}
-    // {{{ escapeSimple()
+    // {{{ dropSequence()
 
     /**
-     * Escapes a string according to the current DBMS's standards
+     * Deletes a sequence
      *
-     * In SQLite, this makes things safe for inserts/updates, but may
-     * cause problems when performing text comparisons against columns
-     * containing binary data. See the
-     * {@link http://php.net/sqlite_escape_string PHP manual} for more info.
+     * @param string $seq_name  name of the sequence to be deleted
      *
-     * @param string $str  the string to be escaped
+     * @return int  DB_OK on success.  A DB_Error object on failure.
      *
-     * @return string  the escaped string
-     *
-     * @since Method available since Release 1.6.1
-     * @see DB_common::escapeSimple()
+     * @see DB_common::dropSequence(), DB_common::getSequenceName(),
+     *      DB_pgsql::nextID(), DB_pgsql::createSequence()
      */
-    function escapeSimple($str)
+    function dropSequence($seq_name)
     {
-        return @sqlite_escape_string($str);
+        return $this->query('DROP SEQUENCE '
+                            . $this->getSequenceName($seq_name));
     }
 
     // }}}
@@ -655,35 +763,7 @@ class DB_sqlite extends DB_common
     }
 
     // }}}
-    // {{{ modifyQuery()
-
-    /**
-     * Changes a query string for various DBMS specific reasons
-     *
-     * This little hack lets you know how many rows were deleted
-     * when running a "DELETE FROM table" query.  Only implemented
-     * if the DB_PORTABILITY_DELETE_COUNT portability option is on.
-     *
-     * @param string $query  the query string to modify
-     *
-     * @return string  the modified query string
-     *
-     * @access protected
-     * @see DB_common::setOption()
-     */
-    function modifyQuery($query)
-    {
-        if ($this->options['portability'] & DB_PORTABILITY_DELETE_COUNT) {
-            if (preg_match('/^\s*DELETE\s+FROM\s+(\S+)\s*$/i', $query)) {
-                $query = preg_replace('/^\s*DELETE\s+FROM\s+(\S+)\s*$/',
-                                      'DELETE FROM \1 WHERE 1=1', $query);
-            }
-        }
-        return $query;
-    }
-
-    // }}}
-    // {{{ sqliteRaiseError()
+    // {{{ pgsqlRaiseError()
 
     /**
      * Produces a DB_Error object regarding the current problem
@@ -695,19 +775,19 @@ class DB_sqlite extends DB_common
      * @return object  the DB_Error object
      *
      * @see DB_common::raiseError(),
-     *      DB_sqlite::errorNative(), DB_sqlite::errorCode()
+     *      DB_pgsql::errorNative(), DB_pgsql::errorCode()
      */
-    function sqliteRaiseError($errno = null)
+    function pgsqlRaiseError($errno = null)
     {
         $native = $this->errorNative();
+        if (!$native) {
+            $native = 'Database connection has been lost.';
+            $errno = DB_ERROR_CONNECT_FAILED;
+        }
         if ($errno === null) {
             $errno = $this->errorCode($native);
         }
-
-        $errorcode = @sqlite_last_error($this->connection);
-        $userinfo = "$errorcode ** $this->last_query";
-
-        return $this->raiseError($errno, null, null, $userinfo, $native);
+        return $this->raiseError($errno, null, null, null, $native);
     }
 
     // }}}
@@ -716,49 +796,70 @@ class DB_sqlite extends DB_common
     /**
      * Gets the DBMS' native error message produced by the last query
      *
-     * {@internal This is used to retrieve more meaningfull error messages
-     * because sqlite_last_error() does not provide adequate info.}}
+     * {@internal Error messages are used instead of error codes 
+     * in order to support older versions of PostgreSQL.}}
      *
      * @return string  the DBMS' error message
      */
     function errorNative()
     {
-        return $this->_lasterror;
+        return @pg_errormessage($this->connection);
     }
 
     // }}}
     // {{{ errorCode()
 
     /**
-     * Determines PEAR::DB error code from the database's text error message
+     * Determines PEAR::DB error code from the database's text error message.
      *
-     * @param string $errormsg  the error message returned from the database
-     *
-     * @return integer  the DB error number
+     * @param  string  $errormsg  error message returned from the database
+     * @return integer  an error number from a DB error constant
      */
     function errorCode($errormsg)
     {
         static $error_regexps;
-        
-        // PHP 5.2+ prepends the function name to $php_errormsg, so we need
-        // this hack to work around it, per bug #9599.
-        $errormsg = preg_replace('/^sqlite[a-z_]+\(\): /', '', $errormsg);
-        
         if (!isset($error_regexps)) {
             $error_regexps = array(
-                '/^no such table:/' => DB_ERROR_NOSUCHTABLE,
-                '/^no such index:/' => DB_ERROR_NOT_FOUND,
-                '/^(table|index) .* already exists$/' => DB_ERROR_ALREADY_EXISTS,
-                '/PRIMARY KEY must be unique/i' => DB_ERROR_CONSTRAINT,
-                '/is not unique/' => DB_ERROR_CONSTRAINT,
-                '/columns .* are not unique/i' => DB_ERROR_CONSTRAINT,
-                '/uniqueness constraint failed/' => DB_ERROR_CONSTRAINT,
-                '/may not be NULL/' => DB_ERROR_CONSTRAINT_NOT_NULL,
-                '/^no such column:/' => DB_ERROR_NOSUCHFIELD,
-                '/no column named/' => DB_ERROR_NOSUCHFIELD,
-                '/column not present in both tables/i' => DB_ERROR_NOSUCHFIELD,
-                '/^near ".*": syntax error$/' => DB_ERROR_SYNTAX,
-                '/[0-9]+ values for [0-9]+ columns/i' => DB_ERROR_VALUE_COUNT_ON_ROW,
+                '/column .* (of relation .*)?does not exist/i'
+                    => DB_ERROR_NOSUCHFIELD,
+                '/(relation|sequence|table).*does not exist|class .* not found/i'
+                    => DB_ERROR_NOSUCHTABLE,
+                '/index .* does not exist/'
+                    => DB_ERROR_NOT_FOUND,
+                '/relation .* already exists/i'
+                    => DB_ERROR_ALREADY_EXISTS,
+                '/(divide|division) by zero$/i'
+                    => DB_ERROR_DIVZERO,
+                '/pg_atoi: error in .*: can\'t parse /i'
+                    => DB_ERROR_INVALID_NUMBER,
+                '/invalid input syntax for( type)? (integer|numeric)/i'
+                    => DB_ERROR_INVALID_NUMBER,
+                '/value .* is out of range for type \w*int/i'
+                    => DB_ERROR_INVALID_NUMBER,
+                '/integer out of range/i'
+                    => DB_ERROR_INVALID_NUMBER,
+                '/value too long for type character/i'
+                    => DB_ERROR_INVALID,
+                '/attribute .* not found|relation .* does not have attribute/i'
+                    => DB_ERROR_NOSUCHFIELD,
+                '/column .* specified in USING clause does not exist in (left|right) table/i'
+                    => DB_ERROR_NOSUCHFIELD,
+                '/parser: parse error at or near/i'
+                    => DB_ERROR_SYNTAX,
+                '/syntax error at/'
+                    => DB_ERROR_SYNTAX,
+                '/column reference .* is ambiguous/i'
+                    => DB_ERROR_SYNTAX,
+                '/permission denied/'
+                    => DB_ERROR_ACCESS_VIOLATION,
+                '/violates not-null constraint/'
+                    => DB_ERROR_CONSTRAINT_NOT_NULL,
+                '/violates [\w ]+ constraint/'
+                    => DB_ERROR_CONSTRAINT,
+                '/referential integrity violation/'
+                    => DB_ERROR_CONSTRAINT,
+                '/more expressions than target columns/i'
+                    => DB_ERROR_VALUE_COUNT_ON_ROW,
             );
         }
         foreach ($error_regexps as $regexp => $code) {
@@ -774,33 +875,60 @@ class DB_sqlite extends DB_common
     // {{{ tableInfo()
 
     /**
-     * Returns information about a table
+     * Returns information about a table or a result set
      *
-     * @param string         $result  a string containing the name of a table
+     * NOTE: only supports 'table' and 'flags' if <var>$result</var>
+     * is a table name.
+     *
+     * @param object|string  $result  DB_result object from a query or a
+     *                                 string containing the name of a table.
+     *                                 While this also accepts a query result
+     *                                 resource identifier, this behavior is
+     *                                 deprecated.
      * @param int            $mode    a valid tableInfo mode
      *
      * @return array  an associative array with the information requested.
      *                 A DB_Error object on failure.
      *
      * @see DB_common::tableInfo()
-     * @since Method available since Release 1.7.0
      */
     function tableInfo($result, $mode = null)
     {
+        $got_string = false;
+
         if (is_string($result)) {
             /*
              * Probably received a table name.
              * Create a result resource identifier.
              */
-            $id = @sqlite_array_query($this->connection,
-                                      "PRAGMA table_info('$result');",
-                                      SQLITE_ASSOC);
+            $tname = "'". pg_escape_string($result) . "'";
+            $id = @pg_exec($this->connection,
+                "SELECT * FROM
+                    WHERE
+                        CONCAT(table_schema, '.', table_name) = $tname OR
+                        table_name = $tname
+                        ordery by ordinal_position
+                    );");
+                    
             $got_string = true;
+        } elseif (isset($result->result)) {
+            /*
+             * Probably received a result object.
+             * Extract the result resource identifier.
+             */
+            $id = $result->result;
         } else {
-            $this->last_query = '';
-            return $this->raiseError(DB_ERROR_NOT_CAPABLE, null, null, null,
-                                     'This DBMS can not obtain tableInfo' .
-                                     ' from result sets');
+            /*
+             * Probably received a result resource identifier.
+             * Copy it.
+             * Deprecated.  Here for compatibility only.
+             */
+            $id = $result;
+
+        }
+
+        if (!is_resource($id)) {
+            return $this->pgsqlRaiseError(DB_ERROR_NEED_MORE_DATA);
         }
 
         if ($this->options['portability'] & DB_PORTABILITY_LOWERCASE) {
@@ -809,7 +937,7 @@ class DB_sqlite extends DB_common
             $case_func = 'strval';
         }
 
-        $count = count($id);
+        $count = $got_string ? @pg_numrows($id) : @pg_numfields($id);
         $res   = array();
 
         if ($mode) {
@@ -817,38 +945,28 @@ class DB_sqlite extends DB_common
         }
 
         for ($i = 0; $i < $count; $i++) {
-            if (strpos($id[$i]['type'], '(') !== false) {
-                $bits = explode('(', $id[$i]['type']);
-                $type = $bits[0];
-                $len  = rtrim($bits[1],')');
-            } else {
-                $type = $id[$i]['type'];
-                $len  = 0;
-            }
-
-            $flags = '';
-            if ($id[$i]['pk']) {
-                $flags .= 'primary_key ';
-                if (strtoupper($type) == 'INTEGER') {
-                    $flags .= 'auto_increment ';
-                }
-            }
-            if ($id[$i]['notnull']) {
-                $flags .= 'not_null ';
-            }
-            if ($id[$i]['dflt_value'] !== null) {
-                $flags .= 'default_' . rawurlencode($id[$i]['dflt_value']);
-            }
-            $flags = trim($flags);
-
-            $res[$i] = array(
-                'table' => $case_func($result),
-                'name'  => $case_func($id[$i]['name']),
-                'type'  => $type,
-                'len'   => $len,
-                'flags' => $flags,
+            
+            if ($got_string) {
+                $row = @pg_fetch_array($id, $i, PGSQL_ASSOC);
+                $res[$i] =  array(
+                    'table' => $got_string ? $case_func($result) : '',
+                    'name'  => $case_func($row['column_name']),
+                    'type'  => $row['data_type'],
+                    'len'   => $row['character_maximum_length'],
+                    'flags' => $got_string
+                               ? $this->_pgFieldFlags($id, $i, $result)
+                           : '',
             );
-
+            
+            $res[$i] = array(
+                'table' => $got_string ? $case_func($result) : '',
+                'name'  => $case_func(@pg_fieldname($id, $i)),
+                'type'  => @pg_fieldtype($id, $i),
+                'len'   => @pg_fieldsize($id, $i),
+                'flags' => $got_string
+                           ? $this->_pgFieldFlags($id, $i, $result)
+                           : '',
+            );
             if ($mode & DB_TABLEINFO_ORDER) {
                 $res['order'][$res[$i]['name']] = $i;
             }
@@ -857,7 +975,90 @@ class DB_sqlite extends DB_common
             }
         }
 
+        // free the result only if we were called on a table
+        if ($got_string) {
+            @pg_freeresult($id);
+        }
         return $res;
+    }
+
+    // }}}
+    // {{{ _pgFieldFlags()
+
+    /**
+     * Get a column's flags
+     *
+     * Supports "not_null", "default_value", "primary_key", "unique_key"
+     * and "multiple_key".  The default value is passed through
+     * rawurlencode() in case there are spaces in it.
+     *
+     * @param int $resource   the PostgreSQL result identifier
+     * @param int $num_field  the field number
+     *
+     * @return string  the flags
+     *
+     * @access private
+     */
+    function _pgFieldFlags($resource, $num_field, $table_name)
+    {
+        $field_name = @pg_fieldname($resource, $num_field);
+
+        // Check if there's a schema in $table_name and update things
+        // accordingly.
+        $from = 'pg_attribute f, pg_class tab, pg_type typ';
+        if (strpos($table_name, '.') !== false) {
+            $from .= ', pg_namespace nsp';
+            list($schema, $table) = explode('.', $table_name);
+            $tableWhere = "tab.relname = '$table' AND tab.relnamespace = nsp.oid AND nsp.nspname = '$schema'";
+        } else {
+            $tableWhere = "tab.relname = '$table_name'";
+        }
+
+        $result = @pg_exec($this->connection, "SELECT f.attnotnull, f.atthasdef
+                                FROM $from
+                                WHERE tab.relname = typ.typname
+                                AND typ.typrelid = f.attrelid
+                                AND f.attname = '$field_name'
+                                AND $tableWhere");
+        if (@pg_numrows($result) > 0) {
+            $row = @pg_fetch_row($result, 0);
+            $flags  = ($row[0] == 't') ? 'not_null ' : '';
+
+            if ($row[1] == 't') {
+                $result = @pg_exec($this->connection, "SELECT a.adsrc
+                                    FROM $from, pg_attrdef a
+                                    WHERE tab.relname = typ.typname AND typ.typrelid = f.attrelid
+                                    AND f.attrelid = a.adrelid AND f.attname = '$field_name'
+                                    AND $tableWhere AND f.attnum = a.adnum");
+                $row = @pg_fetch_row($result, 0);
+                $num = preg_replace("/'(.*)'::\w+/", "\\1", $row[0]);
+                $flags .= 'default_' . rawurlencode($num) . ' ';
+            }
+        } else {
+            $flags = '';
+        }
+        $result = @pg_exec($this->connection, "SELECT i.indisunique, i.indisprimary, i.indkey
+                                FROM $from, pg_index i
+                                WHERE tab.relname = typ.typname
+                                AND typ.typrelid = f.attrelid
+                                AND f.attrelid = i.indrelid
+                                AND f.attname = '$field_name'
+                                AND $tableWhere");
+        $count = @pg_numrows($result);
+
+        for ($i = 0; $i < $count ; $i++) {
+            $row = @pg_fetch_row($result, $i);
+            $keys = explode(' ', $row[2]);
+
+            if (in_array($num_field + 1, $keys)) {
+                $flags .= ($row[0] == 't' && $row[1] == 'f') ? 'unique_key ' : '';
+                $flags .= ($row[1] == 't') ? 'primary_key ' : '';
+                if (count($keys) > 1)
+                    $flags .= 'multiple_key ';
+            }
+        }
+
+        return trim($flags);
     }
 
     // }}}
@@ -867,9 +1068,6 @@ class DB_sqlite extends DB_common
      * Obtains the query string needed for listing a given type of objects
      *
      * @param string $type  the kind of objects you want to retrieve
-     * @param array  $args  SQLITE DRIVER ONLY: a private array of arguments
-     *                       used by the getSpecialQuery().  Do not use
-     *                       this directly.
      *
      * @return string  the SQL query string or null if the driver doesn't
      *                  support the object type requested
@@ -877,80 +1075,76 @@ class DB_sqlite extends DB_common
      * @access protected
      * @see DB_common::getListOf()
      */
-    function getSpecialQuery($type, $args = array())
+    function getSpecialQuery($type)
     {
-        if (!is_array($args)) {
-            return $this->raiseError('no key specified', null, null, null,
-                                     'Argument has to be an array.');
-        }
-
         switch ($type) {
-            case 'master':
-                return 'SELECT * FROM sqlite_master;';
             case 'tables':
-                return "SELECT name FROM sqlite_master WHERE type='table' "
-                       . 'UNION ALL SELECT name FROM sqlite_temp_master '
-                       . "WHERE type='table' ORDER BY name;";
-            case 'schema':
-                return 'SELECT sql FROM (SELECT * FROM sqlite_master '
-                       . 'UNION ALL SELECT * FROM sqlite_temp_master) '
-                       . "WHERE type!='meta' "
-                       . 'ORDER BY tbl_name, type DESC, name;';
-            case 'schemax':
-            case 'schema_x':
-                /*
-                 * Use like:
-                 * $res = $db->query($db->getSpecialQuery('schema_x',
-                 *                   array('table' => 'table3')));
-                 */
-                return 'SELECT sql FROM (SELECT * FROM sqlite_master '
-                       . 'UNION ALL SELECT * FROM sqlite_temp_master) '
-                       . "WHERE tbl_name LIKE '{$args['table']}' "
-                       . "AND type!='meta' "
-                       . 'ORDER BY type DESC, name;';
-            case 'alter':
-                /*
-                 * SQLite does not support ALTER TABLE; this is a helper query
-                 * to handle this. 'table' represents the table name, 'rows'
-                 * the news rows to create, 'save' the row(s) to keep _with_
-                 * the data.
-                 *
-                 * Use like:
-                 * $args = array(
-                 *     'table' => $table,
-                 *     'rows'  => "id INTEGER PRIMARY KEY, firstname TEXT, surname TEXT, datetime TEXT",
-                 *     'save'  => "NULL, titel, content, datetime"
-                 * );
-                 * $res = $db->query( $db->getSpecialQuery('alter', $args));
-                 */
-                $rows = strtr($args['rows'], $this->keywords);
-
-                $q = array(
-                    'BEGIN TRANSACTION',
-                    "CREATE TEMPORARY TABLE {$args['table']}_backup ({$args['rows']})",
-                    "INSERT INTO {$args['table']}_backup SELECT {$args['save']} FROM {$args['table']}",
-                    "DROP TABLE {$args['table']}",
-                    "CREATE TABLE {$args['table']} ({$args['rows']})",
-                    "INSERT INTO {$args['table']} SELECT {$rows} FROM {$args['table']}_backup",
-                    "DROP TABLE {$args['table']}_backup",
-                    'COMMIT',
-                );
-
-                /*
-                 * This is a dirty hack, since the above query will not get
-                 * executed with a single query call so here the query method
-                 * will be called directly and return a select instead.
-                 */
-                foreach ($q as $query) {
-                    $this->query($query);
-                }
-                return "SELECT * FROM {$args['table']};";
+                return 'SELECT c.relname AS "Name"'
+                        . ' FROM pg_class c, pg_user u'
+                        . ' WHERE c.relowner = u.usesysid'
+                        . " AND c.relkind = 'r'"
+                        . ' AND NOT EXISTS'
+                        . ' (SELECT 1 FROM pg_views'
+                        . '  WHERE viewname = c.relname)'
+                        . " AND c.relname !~ '^(pg_|sql_)'"
+                        . ' UNION'
+                        . ' SELECT c.relname AS "Name"'
+                        . ' FROM pg_class c'
+                        . " WHERE c.relkind = 'r'"
+                        . ' AND NOT EXISTS'
+                        . ' (SELECT 1 FROM pg_views'
+                        . '  WHERE viewname = c.relname)'
+                        . ' AND NOT EXISTS'
+                        . ' (SELECT 1 FROM pg_user'
+                        . '  WHERE usesysid = c.relowner)'
+                        . " AND c.relname !~ '^pg_'";
+            case 'schema.tables':
+                return "SELECT schemaname || '.' || tablename"
+                        . ' AS "Name"'
+                        . ' FROM pg_catalog.pg_tables'
+                        . ' WHERE schemaname NOT IN'
+                        . " ('pg_catalog', 'information_schema', 'pg_toast')";
+            case 'schema.views':
+                return "SELECT schemaname || '.' || viewname from pg_views WHERE schemaname"
+                        . " NOT IN ('information_schema', 'pg_catalog')";
+            case 'views':
+                // Table cols: viewname | viewowner | definition
+                return 'SELECT viewname from pg_views WHERE schemaname'
+                        . " NOT IN ('information_schema', 'pg_catalog')";
+            case 'users':
+                // cols: usename |usesysid|usecreatedb|usetrace|usesuper|usecatupd|passwd  |valuntil
+                return 'SELECT usename FROM pg_user';
+            case 'databases':
+                return 'SELECT datname FROM pg_database';
+            case 'functions':
+            case 'procedures':
+                return 'SELECT proname FROM pg_proc WHERE proowner <> 1';
             default:
                 return null;
         }
     }
 
     // }}}
+    // {{{ _checkManip()
+
+    /**
+     * Checks if the given query is a manipulation query. This also takes into
+     * account the _next_query_manip flag and sets the _last_query_manip flag
+     * (and resets _next_query_manip) according to the result.
+     *
+     * @param string The query to check.
+     *
+     * @return boolean true if the query is a manipulation query, false
+     * otherwise
+     *
+     * @access protected
+     */
+    function _checkManip($query)
+    {
+        return (preg_match('/^\s*(SAVEPOINT|RELEASE)\s+/i', $query)
+                || parent::_checkManip($query));
+    }
+
 }
 
 /*
@@ -959,5 +1153,4 @@ class DB_sqlite extends DB_common
  * c-basic-offset: 4
  * End:
  */
-
-?>
+ 
