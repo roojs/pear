@@ -225,7 +225,8 @@ class DB_DataObject_Generator extends DB_DataObject
         // build views as well if asked to.
         if (!empty($options['build_views'])) {
             if (!$is_MDB2) {
-                $views = $__DB->getListOf(is_string($options['build_views']) ? $options['build_views'] : 'views');
+                $views = $__DB->getListOf(is_string($options['build_views']) ?
+                                    $options['build_views'] : 'views');
             } else {
                 $views = $__DB->manager->listViews();
             }
