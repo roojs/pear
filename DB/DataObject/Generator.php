@@ -260,6 +260,7 @@ class DB_DataObject_Generator extends DB_DataObject
                     $table = $bits[1];
                 }
             }
+            var_dump($options['quote_identifiers_tableinfo']);
             $quotedTable = !empty($options['quote_identifiers_tableinfo']) ? 
                 $__DB->quoteIdentifier($table) : $table;
                 
