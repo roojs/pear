@@ -211,6 +211,7 @@ class DB_DataObject_Generator extends DB_DataObject
                 $__DB->popExpect();
             } else  {
                 $this->tables = $__DB->manager->listTables();
+                var_dump($this->tables);exit;
                 $sequences = $__DB->manager->listSequences();
                 foreach ($sequences as $k => $v) {
                     $this->tables[] = $__DB->getSequenceName($v);
