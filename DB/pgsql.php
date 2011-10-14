@@ -948,7 +948,15 @@ class DB_pgsql extends DB_common
             
             if ($got_string) {
                 $row = @pg_fetch_array($id, $i, PGSQL_ASSOC);
-                $res[$]
+                $res[$i] =  array(
+                    'table' => $got_string ? $case_func($result) : '',
+                    'name'  => $case_func($row['column_name']),
+                    'type'  => $row['data_type'],
+                    'len'   => $row['character_maximum_length'],
+                    'flags' => $got_string
+                               ? $this->_pgFieldFlags($id, $i, $result)
+                           : '',
+            );
             
             $res[$i] = array(
                 'table' => $got_string ? $case_func($result) : '',
