@@ -337,7 +337,7 @@ class MDB2
                 } else {
                     $msg = "unable to load class '$class_name' from file '$file_name'";
                 }
-                $err =& MDB2::raiseError(MDB2_ERROR_NOT_FOUND, null, null, $msg);
+                $err = MDB2::raiseError(MDB2_ERROR_NOT_FOUND, null, null, $msg);
                 return $err;
             }
         }
@@ -355,7 +355,7 @@ class MDB2
      * object instead of a copy (this is a PHP4 quirk).
      *
      * For example:
-     *     $db =& MDB2::factory($dsn);
+     *     $db = MDB2::factory($dsn);
      *          ^^
      * And not:
      *     $db = MDB2::factory($dsn);
@@ -375,7 +375,7 @@ class MDB2
     {
         $dsninfo = MDB2::parseDSN($dsn);
         if (empty($dsninfo['phptype'])) {
-            $err =& MDB2::raiseError(MDB2_ERROR_NOT_FOUND,
+            $err = MDB2::raiseError(MDB2_ERROR_NOT_FOUND,
                 null, null, 'no RDBMS driver specified');
             return $err;
         }
@@ -387,7 +387,7 @@ class MDB2
             return $err;
         }
 
-        $db =& new $class_name();
+        $db =  new $class_name();
         $db->setDSN($dsninfo);
         $err = MDB2::setOptions($db, $options);
         if (PEAR::isError($err)) {
@@ -409,7 +409,7 @@ class MDB2
      * object instead of a copy (this is a PHP4 quirk).
      *
      * For example:
-     *     $db =& MDB2::connect($dsn);
+     *     $db = MDB2::connect($dsn);
      *          ^^
      * And not:
      *     $db = MDB2::connect($dsn);
@@ -430,7 +430,7 @@ class MDB2
      */
     function &connect($dsn, $options = false)
     {
-        $db =& MDB2::factory($dsn, $options);
+        $db = MDB2::factory($dsn, $options);
         if (PEAR::isError($db)) {
             return $db;
         }
@@ -453,17 +453,6 @@ class MDB2
      * Returns a MDB2 connection with the requested DSN.
      * A new MDB2 connection object is only created if no object with the
      * requested DSN exists yet.
-     *
-     * IMPORTANT: In order for MDB2 to work properly it is necessary that
-     * you make sure that you work with a reference of the original
-     * object instead of a copy (this is a PHP4 quirk).
-     *
-     * For example:
-     *     $db =& MDB2::singleton($dsn);
-     *          ^^
-     * And not:
-     *     $db = MDB2::singleton($dsn);
-     *          ^^
      *
      * @param   mixed   'data source name', see the MDB2::parseDSN
      *                            method for a description of the dsn format.
@@ -494,10 +483,10 @@ class MDB2
                 }
             }
         } elseif (is_array($GLOBALS['_MDB2_databases']) && reset($GLOBALS['_MDB2_databases'])) {
-            $db =& $GLOBALS['_MDB2_databases'][key($GLOBALS['_MDB2_databases'])];
+            $db = $GLOBALS['_MDB2_databases'][key($GLOBALS['_MDB2_databases'])];
             return $db;
         }
-        $db =& MDB2::factory($dsn, $options);
+        $db = MDB2::factory($dsn, $options);
         return $db;
     }
 
@@ -1882,7 +1871,7 @@ class MDB2_Driver_Common extends PEAR
                     "unable to load module '$module' into property '$property'", __FUNCTION__);
                 return $err;
             }
-            $this->{$property} =& new $class_name($this->db_index);
+            $this->{$property} = new $class_name($this->db_index);
             $this->modules[$module] =& $this->{$property};
             if ($version) {
                 // this will be used in the connect method to determine if the module
@@ -2569,7 +2558,7 @@ class MDB2_Driver_Common extends PEAR
                     'result class does not exist '.$class_name, __FUNCTION__);
                 return $err;
             }
-            $result =& new $class_name($this, $result, $limit, $offset);
+            $result = new $class_name($this, $result, $limit, $offset);
             if (!MDB2::isResultCommon($result)) {
                 $err =& $this->raiseError(MDB2_ERROR_NOT_FOUND, null, null,
                     'result class is not extended from MDB2_Result_Common', __FUNCTION__);
@@ -2592,7 +2581,7 @@ class MDB2_Driver_Common extends PEAR
                     'result wrap class does not exist '.$result_wrap_class, __FUNCTION__);
                 return $err;
             }
-            $result =& new $result_wrap_class($result, $this->fetchmode);
+            $result = new $result_wrap_class($result, $this->fetchmode);
         }
         return $result;
     }
@@ -2937,7 +2926,7 @@ class MDB2_Driver_Common extends PEAR
         }
         $class_name = 'MDB2_Statement_'.$this->phptype;
         $statement = null;
-        $obj =& new $class_name($this, $statement, $positions, $query, $types, $result_types, $is_manip, $limit, $offset);
+        $obj = new $class_name($this, $statement, $positions, $query, $types, $result_types, $is_manip, $limit, $offset);
         $this->debug($query, __FUNCTION__, array('is_manip' => $is_manip, 'when' => 'post', 'result' => $obj));
         return $obj;
     }
