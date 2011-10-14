@@ -905,7 +905,7 @@ class DB_pgsql extends DB_common
                     WHERE
                         CONCAT(table_schema, '.', table_name) = $tname OR
                         table_name = $tname
-                    );"
+                    );");
                     
             $got_string = true;
         } elseif (isset($result->result)) {
