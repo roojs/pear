@@ -894,6 +894,8 @@ class DB_pgsql extends DB_common
      */
     function tableInfo($result, $mode = null)
     {
+        $got_string = false;
+
         if (is_string($result)) {
             /*
              * Probably received a table name.
@@ -905,6 +907,7 @@ class DB_pgsql extends DB_common
                     WHERE
                         CONCAT(table_schema, '.', table_name) = $tname OR
                         table_name = $tname
+                        ordery by ordinal_position
                     );");
                     
             $got_string = true;
@@ -914,7 +917,6 @@ class DB_pgsql extends DB_common
              * Extract the result resource identifier.
              */
             $id = $result->result;
-            $got_string = false;
         } else {
             /*
              * Probably received a result resource identifier.
@@ -922,7 +924,7 @@ class DB_pgsql extends DB_common
              * Deprecated.  Here for compatibility only.
              */
             $id = $result;
-            $got_string = false;
+
         }
 
         if (!is_resource($id)) {
@@ -935,7 +937,7 @@ class DB_pgsql extends DB_common
             $case_func = 'strval';
         }
 
-        $count = @pg_numfields($id);
+        $count = $got_string ? @pg_numrows($id) : @pg_numfields($id);
         $res   = array();
 
         if ($mode) {
@@ -943,6 +945,11 @@ class DB_pgsql extends DB_common
         }
 
         for ($i = 0; $i < $count; $i++) {
+            
+            if ($got_string) {
+                $row = @pg_fetch_array($id, $i, PGSQL_ASSOC);
+                $res[$]
+            
             $res[$i] = array(
                 'table' => $got_string ? $case_func($result) : '',
                 'name'  => $case_func(@pg_fieldname($id, $i)),
