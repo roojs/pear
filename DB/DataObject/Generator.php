@@ -254,6 +254,10 @@ class DB_DataObject_Generator extends DB_DataObject
             preg_match($options['generator_exclude_regex'],$table)) {
                 continue;
             }
+            
+             $quotedTable = !empty($options['quote_identifiers_tableinfo']) ? 
+                $__DB->quoteIdentifier($table) : $table;
+          
             // postgres strip the schema bit from the
             if (!empty($options['generator_strip_schema'])) {
                 $bits = explode('.', $table,2);
@@ -263,9 +267,6 @@ class DB_DataObject_Generator extends DB_DataObject
                 }
             }
             
-            $quotedTable = !empty($options['quote_identifiers_tableinfo']) ? 
-                $__DB->quoteIdentifier($table) : $table;
-                
             if (!$is_MDB2) {
                 
                 $defs =  $__DB->tableInfo($quotedTable);
