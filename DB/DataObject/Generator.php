@@ -208,6 +208,7 @@ class DB_DataObject_Generator extends DB_DataObject
                 // try getting a list of schema tables first. (postgres)
                 $__DB->expectError(DB_ERROR_UNSUPPORTED);
                 $this->tables = $__DB->getListOf('tables');
+                print($this->tables);exit;
                 $__DB->popExpect();
             } else  {
                 $this->tables = $__DB->manager->listTables();
