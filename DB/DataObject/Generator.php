@@ -786,7 +786,7 @@ class DB_DataObject_Generator extends DB_DataObject
         }
         if (strpos($options['class_location'],'%s') !== false) {
             $outfilename   = sprintf($options['class_location'], 
-                    preg_replace('/[^A-Z0-9]_/i','_',ucfirst($this->table)));
+                    preg_replace('/[^A-Z0-9]/i','_',ucfirst($this->table)));
         } else { 
             $outfilename = "{$base}/".preg_replace('/[^A-Z0-9]+/i','_',ucfirst($this->table)).".php";
         }
