@@ -329,7 +329,10 @@ class HTML_FlexyFramework {
         //echo "GENERATE?";
         
         // force quoting of column names..
-        $this->DB_DataObject['quote_identifiers_tableinfo'] = true;
+        // unless it forced off..
+        if (!isset($this->DB_DataObject['quote_identifiers_tableinfo'] )) { 
+            $this->DB_DataObject['quote_identifiers_tableinfo'] = true;
+        }
         $this->DB_DataObject[$dbini] = $iniCacheTmp;
         $this->_exposeToPear();
         
