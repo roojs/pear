@@ -760,7 +760,7 @@ class DB_DataObject_Generator extends DB_DataObject
     {
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
         $class_prefix  = empty($options['class_prefix']) ? '' : $options['class_prefix'];
-        return  $class_prefix.preg_replace('/[^A-Z0-9]/i','_',ucfirst(trim($this->table)));
+        return  $class_prefix.preg_replace('/[^A-Z0-9]+/i','_',ucfirst(trim($this->table)));
     }
     
     
@@ -787,7 +787,7 @@ class DB_DataObject_Generator extends DB_DataObject
             $outfilename   = sprintf($options['class_location'], 
                     preg_replace('/[^A-Z0-9]/i','_',ucfirst($this->table)));
         } else { 
-            $outfilename = "{$base}/".preg_replace('/[^A-Z0-9]/i','_',ucfirst($this->table)).".php";
+            $outfilename = "{$base}/".preg_replace('/[^A-Z0-9]+/i','_',ucfirst($this->table)).".php";
         }
         return $outfilename;
         
