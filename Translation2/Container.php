@@ -123,7 +123,7 @@ class Translation2_Container
         if (!empty($langID) || (0 === $langID)) {
             return $langID;
         }
-        if (!empty($this->currentLang['id']) || (0 === $this->currentLang['id'])) {
+        if (isset($this->currentLang['id']) || (0 === $this->currentLang['id'])) {
             return $this->currentLang['id'];
         }
         $msg = 'No valid language set. Use Translation2::setLang().';
