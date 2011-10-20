@@ -199,12 +199,7 @@ class HTML_FlexyFramework {
         }
         
         $this->run = $this->cli ? $_SERVER['argv'][1] : false;
-    
-        if ($this->cli  && $this->run == '-h') {
-             // we do not need to configure stuff..
-            // as we show help..
-            return;
-        }
+     
         
         $this->_parseConfigDataObjects();
         if ($this->dataObjectsCache && !$this->nodatabase) {
