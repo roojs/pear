@@ -201,8 +201,7 @@ class HTML_FlexyFramework {
         $this->run = $this->cli ? $_SERVER['argv'][1] : false;
     
         if ($this->cli  && $this->run == '-h') {
-            die("got this far?");
-            // we do not need to configure stuff..
+             // we do not need to configure stuff..
             // as we show help..
             return;
         }
