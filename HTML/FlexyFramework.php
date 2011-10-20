@@ -334,7 +334,7 @@ class HTML_FlexyFramework {
         if (!isset($this->DB_DataObject['quote_identifiers_tableinfo'] )) { 
             $this->DB_DataObject['quote_identifiers_tableinfo'] = true;
         }
-        if (!file_exists(dirname($iniCache))) {
+        if (!file_exists(dirname($iniCache)) {
             mkdir($iniCache 600);
         }
         
