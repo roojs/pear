@@ -264,7 +264,8 @@ class HTML_FlexyFramework {
         }
         $iniCache = ini_get('session.save_path') .'/' . 
                 $user . '/dbcfg_' . $this->project ;
-     
+        
+        
         if ($this->appNameShort) {
             $iniCache .= '_' . $this->appNameShort;
         }
@@ -333,6 +334,10 @@ class HTML_FlexyFramework {
         if (!isset($this->DB_DataObject['quote_identifiers_tableinfo'] )) { 
             $this->DB_DataObject['quote_identifiers_tableinfo'] = true;
         }
+        if (!file_exists(dirname($iniCache))) {
+            mkdir($iniCache 600);
+        }
+        
         $this->DB_DataObject[$dbini] = $iniCacheTmp;
         $this->_exposeToPear();
         
