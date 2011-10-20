@@ -203,6 +203,7 @@ class HTML_FlexyFramework {
         if (!$this->run && $this->cli) {
             // we do not need to configure stuff..
             // as we show help..
+            return;
         }
         
         $this->_parseConfigDataObjects();
