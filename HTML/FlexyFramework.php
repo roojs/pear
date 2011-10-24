@@ -331,7 +331,7 @@ class HTML_FlexyFramework {
         
          $this->debug('generateDataobjectsCache: ' .
                         filemtime($iniCache) .'+'. $this->dataObjectsCacheExpires . '=' .
-                        (filemtime($iniCache) + $this->dataObjectsCacheExpires ) + 
+                        (filemtime($iniCache) + $this->dataObjectsCacheExpires ) .
                         ' < ' .  time());
         //echo "GENERATE?";
         
