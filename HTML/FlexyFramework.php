@@ -324,7 +324,7 @@ class HTML_FlexyFramework {
         $iniCacheTmp = $iniCache . '.tmp';
         // has it expired..
         $force = ($force ? $force : !file_exists($iniCache)) || !$this->dataObjectsCacheExpires;
-         $this->debug('generateDataobjectsCache: after check : force=' . ($force ? 'yes' : 'no'))
+         $this->debug('generateDataobjectsCache: after check : force=' . ($force ? 'yes' : 'no'));
         if (!$force && (filemtime($iniCache) + $this->dataObjectsCacheExpires) < time()) {
             return;
         }
