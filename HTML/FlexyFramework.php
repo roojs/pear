@@ -310,7 +310,7 @@ class HTML_FlexyFramework {
      
     function generateDataobjectsCache($force = false)
     {
-        $this->debug('generateDataobjectsCache', 'force=' . ($force ? 'yes' : 'no'));
+        $this->debug('generateDataobjectsCache: force=' . ($force ? 'yes' : 'no'));
         if (!$this->dataObjectsCache) { // does not use dataObjects Caching..
             $this->debug('generateDataobjectsCache', 'dataObjectsCache - empty');
             return;
