@@ -329,7 +329,10 @@ class HTML_FlexyFramework {
             return;
         }
         
-         $this->debug('generateDataobjectsCache: ' . filemtime($iniCache) .'+'. $this->dataObjectsCacheExpires . ' < ' .  time());
+         $this->debug('generateDataobjectsCache: ' .
+                        filemtime($iniCache) .'+'. $this->dataObjectsCacheExpires . '=' .
+                        (filemtime($iniCache) + $this->dataObjectsCacheExpires ) + 
+                        ' < ' .  time());
         //echo "GENERATE?";
         
         // force quoting of column names..
