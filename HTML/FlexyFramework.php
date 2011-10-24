@@ -328,6 +328,8 @@ class HTML_FlexyFramework {
         if (!$force && (filemtime($iniCache) + $this->dataObjectsCacheExpires) < time()) {
             return;
         }
+        
+         $this->debug('generateDataobjectsCache: ' . filemtime($iniCache) .'+'. $this->dataObjectsCacheExpires . ' < ' .  time());
         //echo "GENERATE?";
         
         // force quoting of column names..
