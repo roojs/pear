@@ -310,7 +310,7 @@ class HTML_FlexyFramework {
      
     function generateDataobjectsCache($force = false)
     {
-        $this->debug('generateDataobjectsCache: force=' . ($force ? 'yes' : 'no'));
+        //$this->debug('generateDataobjectsCache: force=' . ($force ? 'yes' : 'no'));
         if (!$this->dataObjectsCache) { // does not use dataObjects Caching..
             $this->debug('generateDataobjectsCache', 'dataObjectsCache - empty');
             return;
@@ -324,7 +324,7 @@ class HTML_FlexyFramework {
         $iniCacheTmp = $iniCache . '.tmp';
         // has it expired..
         $force = ($force ? $force : !file_exists($iniCache)) || !$this->dataObjectsCacheExpires;
-         $this->debug('generateDataobjectsCache: after check : force=' . ($force ? 'yes' : 'no'));
+        // $this->debug('generateDataobjectsCache: after check : force=' . ($force ? 'yes' : 'no'));
          // not force or not expired, do not bother..
         if (!$force || (filemtime($iniCache) + $this->dataObjectsCacheExpires) < time()) {
             return;
