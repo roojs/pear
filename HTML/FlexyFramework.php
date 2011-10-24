@@ -335,7 +335,7 @@ class HTML_FlexyFramework {
             $this->DB_DataObject['quote_identifiers_tableinfo'] = true;
         }
         if (!file_exists(dirname($iniCache))) {
-            mkdir($iniCache,0600);
+            mkdir($iniCache,0600, true);
         }
         
         $this->DB_DataObject[$dbini] = $iniCacheTmp;
