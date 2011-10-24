@@ -330,7 +330,7 @@ class HTML_FlexyFramework {
             return;
         }
         
-         /echo "GENERATE?";
+         //echo "GENERATE?";
         
         // force quoting of column names..
         // unless it forced off..
