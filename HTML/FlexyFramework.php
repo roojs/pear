@@ -263,7 +263,7 @@ class HTML_FlexyFramework {
             $user = getenv('USERNAME'); // windows.
         }
         $iniCache = ini_get('session.save_path') .'/' . 
-               'dbcfg_' . $user . '/'. $this->project ;
+               'dbcfg-' . $user . '/'. $this->project ;
         
         
         if ($this->appNameShort) {
