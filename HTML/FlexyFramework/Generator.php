@@ -175,7 +175,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         
         $ff = HTML_FlexyFramework::get();
         $ff->debug('Framework Generator:writeCache ' . $iniCacheTmp .  ' ' . $iniCache);
-        
+          
         //var_dump($iniCacheTmp);
        // echo '<PRE>';echo file_get_contents($iniCacheTmp);exit;
         // only unpdate if nothing went wrong.
@@ -187,7 +187,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             rename($iniCacheTmp, $iniCache);
         }
         
-        // readers..
+        // readers..??? not needed??? (historical)
         if (file_exists($iniCacheTmp.'.reader') &&  filesize($iniCacheTmp.'.reader')) {
             if (file_exists($iniCache.'.reader')) {
                 unlink($iniCache.'.reader');
@@ -197,13 +197,18 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         }
         
         
-        // merge and set links..
-        ;
+        // merge and set links.. test for generated links file..
+        
+        $linksCacheTmp = preg_replace('/\.ini/', '.links.ini', $iniCacheTmp );
+        $links = array();
+        if (file_exists($linksCacheTmp )) {
+            $links = self::mergeIni( parse_ini_file($linksCacheTmp, true), $links);   
+        }
         // we are going to use the DataObject directories..
         
         $inis = explode(PATH_SEPARATOR,$ff->DB_DataObject['class_location']);
         //print_r($inis);exit;
-        $links = array();
+        
         
         foreach($inis as $path) {
             $ini = $path . '/'. strtolower( $ff->project) . '.links.ini';

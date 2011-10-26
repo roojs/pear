@@ -126,7 +126,8 @@ class Translation2_Container
         if (isset($this->currentLang['id'])) {
             return $this->currentLang['id'];
         }
-        return $this->currentLang['id'] = 0;
+        $this->currentLang['id'] = 0;
+        return 0;
         $msg = 'No valid language set. Use Translation2::setLang().';
         return $this->raiseError($msg, TRANSLATION2_ERROR_UNKNOWN_LANG);
     }
