@@ -298,7 +298,7 @@ class Net_SMTP
             return PEAR::raiseError('Commands cannot contain newlines',
                                     null, PEAR_ERROR_RETURN);
         }
-
+        echo "$command\n";
         return $this->_send($command . "\r\n");
     }
 
