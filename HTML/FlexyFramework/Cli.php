@@ -132,9 +132,12 @@ Available commands:
         list($classname,$subRequest) = $this->ff->requestToClassName($p,FALSE);
         //var_dump($classname);
         // does it have a description.
-        
-        $cls = new ReflectionClass($classname);        
-        $val = $cls->getStaticPropertyValue('cli_desc');
+        try { 
+            $cls = new ReflectionClass($classname);        
+            $val = $cls->getStaticPropertyValue('cli_desc');
+        } catch (Exception $e) {
+            return;
+        }
         if (!empty($val)) {
             return;
         }
@@ -159,9 +162,12 @@ Available commands:
         if (version_compare(PHP_VERSION, '5.3.0') < 0) {
             return false;
         }
-        $cls = new ReflectionClass($classname);        
-        $val = $cls->getStaticPropertyValue('cli_opts');
-        
+        try {
+            $cls = new ReflectionClass($classname);        
+            $val = $cls->getStaticPropertyValue('cli_opts');
+        } catch (Exception $e) {
+            return;
+        }
         if (empty($val)) {
             return false;
         }
