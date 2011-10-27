@@ -132,10 +132,13 @@ Available commands:
         list($classname,$subRequest) = $this->ff->requestToClassName($p,FALSE);
         //var_dump($classname);
         // does it have a description.
-        if (!isset($classname::$cli_desc)) {
+        
+        $cls = new ReflectionClass($classname);        
+        $val = $cls->getStaticPropertyValue('cli_desc');
+        if (!empty($val)) {
             return;
         }
-        echo str_pad($p,40," ") . $classname::$cli_desc ."\n";
+        echo str_pad($p,40," ") . $val ."\n";
         
         
          
@@ -156,7 +159,10 @@ Available commands:
         if (version_compare(PHP_VERSION, '5.3.0') < 0) {
             return false;
         }
-        if (!isset($classname::$cli_opts)) {
+        $cls = new ReflectionClass($classname);        
+        $val = $cls->getStaticPropertyValue('cli_opts');
+        
+        if (empty($val)) {
             return false;
         }
         
@@ -166,13 +172,13 @@ Available commands:
         $call[] = array_shift($ar); // remove our class...
         //var_dump($ar);
         
-        $newargs = Console_Getargs::factory($classname::$cli_opts, $ar);
+        $newargs = Console_Getargs::factory($val, $ar);
         
         if (!is_a($newargs, 'PEAR_Error')) {
             return $newargs->getValues();
         }
         
-        list($optional, $required, $params) = Console_Getargs::getOptionalRequired($classname::$cli_opts);
+        list($optional, $required, $params) = Console_Getargs::getOptionalRequired($val);
         
         $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
               $optional . ' ' . $required . ' ' . $params . "\n\n";           
