@@ -138,7 +138,7 @@ Available commands:
         } catch (Exception $e) {
             return;
         }
-        if (!empty($val)) {
+        if (empty($val)) {
             return;
         }
         echo str_pad($p,40," ") . $val ."\n";
