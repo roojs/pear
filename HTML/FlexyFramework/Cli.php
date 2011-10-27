@@ -186,13 +186,13 @@ Available commands:
         
         if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
             // User put illegal values on the command line.
-            echo Console_Getargs::getHelp($classname::$cli_opts,
+            echo Console_Getargs::getHelp($val,
                     $helpHeader, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
             exit;
         }
         if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
             // User needs help.
-            echo Console_Getargs::getHelp($classname::$cli_opts,
+            echo Console_Getargs::getHelp($val,
                     $helpHeader, NULL, 78, 4)."\n\n";
             exit;
         }
