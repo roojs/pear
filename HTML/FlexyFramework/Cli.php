@@ -159,9 +159,7 @@ Available commands:
     {
     
     // cli static $classname::$cli_opts
-        if (version_compare(PHP_VERSION, '5.3.0') < 0) {
-            return false;
-        }
+       
         try {
             $cls = new ReflectionClass($classname);        
             $val = $cls->getStaticPropertyValue('cli_opts');
