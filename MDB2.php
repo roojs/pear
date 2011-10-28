@@ -4292,4 +4292,3 @@ function MDB2_defaultDebugOutput(&$db, $scope, $message, $context = array())
 }
 
 // }}}
-?>
