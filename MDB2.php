@@ -483,7 +483,7 @@ class MDB2
                 }
             }
         } elseif (is_array($GLOBALS['_MDB2_databases']) && reset($GLOBALS['_MDB2_databases'])) {
-            $db = $GLOBALS['_MDB2_databases'][key($GLOBALS['_MDB2_databases'])];
+            $db =& $GLOBALS['_MDB2_databases'][key($GLOBALS['_MDB2_databases'])];
             return $db;
         }
         $db = MDB2::factory($dsn, $options);
