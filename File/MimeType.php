@@ -63,7 +63,8 @@ class File_MimeType
                 array( 'text/csv', array('csv')),
                 array( 'text/sgml', array('sgml')),
                 array( 'text/sgml', array('sgm')),
-                array( 'text/plain', array('txt','asc', 'text','pot','brf')),
+                // bjs is a Pman json file..
+                array( 'text/plain', array('txt','asc', 'text','pot','brf', 'bjs')),
                 
                 array( 'video/vnd.mpegurl', array('m4u')),
                 array( 'video/x-flv', array('flv')),
