@@ -807,6 +807,7 @@ class HTML_FlexyFramework {
         $this->debug("INPUT REQUEST $request<BR>");
         if (!$isRedirect) {
             // check that request forms contains baseurl????
+            $request = urldecode($request);
             $subreq = substr($request,0,strlen($this->baseURL));
             if ($subreq != substr($this->baseURL,0,strlen($subreq))) {
                 $this->fatalError(
