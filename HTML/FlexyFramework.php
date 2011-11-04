@@ -164,7 +164,6 @@ class HTML_FlexyFramework {
                 $this->enableArray = explode(',', $this->enable);
             }
         }
- 
         // are we running cli?
         $this->cli = php_sapi_name() == 'cli'; 
         
@@ -172,6 +171,7 @@ class HTML_FlexyFramework {
     
         $bits = explode(basename($_SERVER["SCRIPT_FILENAME"]), $_SERVER["SCRIPT_NAME"]);
         if (!$this->cli) {
+            $bits[0] = str_replace('%2F','/',urlencode($bits[0]));
             $this->baseURL = $bits[0] . basename($_SERVER["SCRIPT_FILENAME"]);
         }
         // if cli - you have to have set baseURL...
@@ -807,7 +807,7 @@ class HTML_FlexyFramework {
         $this->debug("INPUT REQUEST $request<BR>");
         if (!$isRedirect) {
             // check that request forms contains baseurl????
-            $request = urldecode($request);
+             
             $subreq = substr($request,0,strlen($this->baseURL));
             if ($subreq != substr($this->baseURL,0,strlen($subreq))) {
                 $this->fatalError(
