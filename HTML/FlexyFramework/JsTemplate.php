@@ -13,7 +13,25 @@ class HTML_FlexyFramework_JsTemplate {
         $ar = preg_split('/(\{[^\}]+})/', $contents, -1, PREG_SPLIT_DELIM_CAPTURE);
         echo '<PRE>' . htmlspecialchars(print_r($ar,true));
         
+        $ret = array();
         
+        $ret[] = "function(t) {\n    var ret=[];\n";
+        
+        foreach($ar as $item) {
+            switch(true) {
+                case (!strlen($item)):
+                    continue;
+                
+                case ($item[0] != '{'):
+                    $ret[] = "ret+= ". json_encode($item) . ";\n";
+                
+                
+                
+            }
+            
+            
+        }
+        print_r($ret;)
         
         
     }
