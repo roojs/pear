@@ -51,10 +51,10 @@ class HTML_FlexyFramework_JsTemplate {
                 
                 default:
                     if (substr($item,-3,2) == ':h') {
-                        $ret[] = $in . "ret += ".  substr($item,1,-3);
+                        $ret[] = $in . "ret += ".  substr($item,1,-3) +';';
                         continue;
                     }
-                    $ret[] = $in . "ret += Roo.util.Format.htmlEncode(".  substr($item,1,-1).')';
+                    $ret[] = $in . "ret += Roo.util.Format.htmlEncode(".  substr($item,1,-1).');';
                     continue;
                 
             }
