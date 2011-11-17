@@ -20,7 +20,7 @@ class HTML_FlexyFramework_JsTemplate {
         foreach($ar as $item) {
             $in = str_repeat("    ", $indent);
             
-            var_Dump(substr($item,-3,2));
+            //var_Dump(substr($item,-3,2));
             switch(true) {
                 case (!strlen($item)):
                     continue;
