@@ -34,9 +34,15 @@ class HTML_FlexyFramework_JsTemplate {
                     $ret[] = "}";
                     continue;
                 
-                case (substr($item,1,4) == 'return:'):
+                case (substr($item,1,7) == 'return:'):
                     $ret[] = "return;";
                     continue;
+                
+                case (substr($item,1,7) == 'function:'):
+                    $ret[] = "function " . substr($item,8,-1) . '{';
+                    continue;
+                
+                
                 
                 
             }
