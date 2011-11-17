@@ -20,7 +20,7 @@ class HTML_FlexyFramework_JsTemplate {
         foreach($ar as $item) {
             $in = str_repeat("    ", $indent);
             
-            var_Dump(substr($item,-2,2));
+            var_Dump(substr($item,-3,2));
             switch(true) {
                 case (!strlen($item)):
                     continue;
@@ -50,7 +50,7 @@ class HTML_FlexyFramework_JsTemplate {
                     continue;
                 
                 default:
-                    if (substr($item,-2,2) == ':h') {
+                    if (substr($item,-3,2) == ':h') {
                         $ret[] = $in . "ret += ".  substr($item,1,-3);
                         continue;
                     }
