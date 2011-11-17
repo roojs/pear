@@ -51,8 +51,9 @@ class HTML_FlexyFramework_JsTemplate {
                     $indent++;
                     $def  = substr($item,10,-1) ;
                     list($name,$body) = explode('(', $def, 2);
+                    var_dump($body);
                     
-                    $ret[] = $in . "var $name = function " . substr($body,0,-1) . '{';
+                    $ret[] = $in . "var $name = function (" . substr($body,0,-1) . '{';
                     continue;
                 
                 default:
