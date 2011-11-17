@@ -26,6 +26,9 @@ class HTML_FlexyFramework_JsTemplate {
                     continue;
                 
                 case ($item[0] != '{'):
+                    if (!strlen(trim($item))) {
+                        continue;
+                    }
                     $ret[] = $in . "ret+= ". json_encode($item) . ";\n";
                     continue;
                 
