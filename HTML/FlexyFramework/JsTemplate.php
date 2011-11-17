@@ -49,7 +49,7 @@ class HTML_FlexyFramework_JsTemplate {
                 
                 case (substr($item,1,9) == 'function:'):
                     $indent++;
-                    $ret[] = $in . "function " . substr($item,8,-1) . '{';
+                    $ret[] = $in . "function " . substr($item,10,-1) . '{';
                     continue;
                 
                 default:
