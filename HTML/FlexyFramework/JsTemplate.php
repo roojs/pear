@@ -30,7 +30,7 @@ class HTML_FlexyFramework_JsTemplate {
                     continue;
                 
                 case (substr($item,1,3) == 'if('):
-                    $ret[] = $in . substr($item,1,-1);
+                    $ret[] = $in . substr($item,1,-1) + ' {';
                     $indent++;
                     continue;
                 
