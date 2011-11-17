@@ -35,6 +35,7 @@ class HTML_FlexyFramework_JsTemplate {
                 
                 case (substr($item,1,4) == 'end:'):
                     $indent--;
+                    $in = str_repeat("    ", $indent);
                     $ret[] = $in . "}";
                     continue;
                 
