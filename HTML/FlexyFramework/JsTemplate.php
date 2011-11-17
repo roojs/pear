@@ -49,7 +49,10 @@ class HTML_FlexyFramework_JsTemplate {
                 
                 case (substr($item,1,9) == 'function:'):
                     $indent++;
-                    $ret[] = $in . "function " . substr($item,10,-1) . '{';
+                    $def  = substr($item,10,-1) ;
+                    list($name,$body) = explode('(', $def, 2);
+                    
+                    $ret[] = $in . "var $name = function " . substr($body,0,-1) . '{';
                     continue;
                 
                 default:
