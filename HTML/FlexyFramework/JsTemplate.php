@@ -18,6 +18,8 @@ class HTML_FlexyFramework_JsTemplate {
         $ret[] = "function(t) {\n    var ret=[];\n";
         
         foreach($ar as $item) {
+            $in = str_repeat("    ", $indent);
+            
             switch(true) {
                 case (!strlen($item)):
                     continue;
@@ -54,7 +56,7 @@ class HTML_FlexyFramework_JsTemplate {
             
             
         }
-        echo '<PRE>' . htmlspecialchars(print_r($ret,true));
+        echo '<PRE>' . htmlspecialchars(implode("\n",$ret));
         
         
     }
