@@ -16,7 +16,7 @@ class HTML_FlexyFramework_JsTemplate {
         $ret = array();
         
         $ret[] = "function(t) {\n    var ret=[];\n";
-        
+        $indent = 1;
         foreach($ar as $item) {
             $in = str_repeat("    ", $indent);
             
@@ -30,9 +30,11 @@ class HTML_FlexyFramework_JsTemplate {
                 
                 case (substr($item,1,3) == 'if('):
                     $ret[] = $in . substr($item,1,-1);
+                    $indent++;
                     continue;
                 
                 case (substr($item,1,4) == 'end:'):
+                    $indent--;
                     $ret[] = $in . "}";
                     continue;
                 
@@ -41,6 +43,7 @@ class HTML_FlexyFramework_JsTemplate {
                     continue;
                 
                 case (substr($item,1,7) == 'function:'):
+                    $indent++;
                     $ret[] = $in . "function " . substr($item,8,-1) . '{';
                     continue;
                 
