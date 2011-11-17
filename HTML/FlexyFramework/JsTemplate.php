@@ -61,6 +61,8 @@ class HTML_FlexyFramework_JsTemplate {
             
             
         }
+        $in = str_repeat("    ", $indent);
+        $ret[] = $in + "return ret.join('');\n}\n"'
         echo '<PRE>' . htmlspecialchars(implode("\n",$ret));
         
         
