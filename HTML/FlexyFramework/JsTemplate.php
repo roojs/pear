@@ -15,7 +15,7 @@ class HTML_FlexyFramework_JsTemplate {
         
         $ret = array();
         
-        $ret[] = "function(t) {\n    var ret=[];\n";
+        $ret[] = "var ??? = function(t) {\n    var ret=[];\n";
         $indent = 1;
         foreach($ar as $item) {
             $in = str_repeat("    ", $indent);
