@@ -26,10 +26,13 @@ class HTML_FlexyFramework_JsTemplate {
                     $ret[] = "ret+= ". json_encode($item) . ";\n";
                     continue;
                 
-                case (substr($item,1,3) == 'if(') {
+                case (substr($item,1,3) == 'if('):
                     $ret[] = substr($item,1,-1);
                     continue;
-                }
+                
+                case (substr($item,1,4) == 'end:'):
+                    $ret[] = "}";
+                    continue;
                 
             }
             
