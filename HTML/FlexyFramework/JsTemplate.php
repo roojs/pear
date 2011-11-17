@@ -10,7 +10,7 @@ HTML_FlexyFramework_JsTemplate {
         
         
         $contents = file_get_contents($fn);
-        
+        preg_split('/\{[^\}]+}', $contents);
         
         
         
