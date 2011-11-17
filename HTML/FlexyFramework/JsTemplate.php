@@ -42,8 +42,13 @@ class HTML_FlexyFramework_JsTemplate {
                     $ret[] = "function " . substr($item,8,-1) . '{';
                     continue;
                 
-                
-                
+                default:
+                    if (substr($item,-2,2) == ':h') {
+                        $ret[] = "ret += ".  substr($item,1,-3);
+                        continue;
+                    }
+                    $ret[] = "ret += Roo.util.Format.htmlEncode(".  substr($item,1,-1).')';
+                    continue;
                 
             }
             
