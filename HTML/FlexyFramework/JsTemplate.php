@@ -1,7 +1,7 @@
 <?php
 
 
-HTML_FlexyFramework_JsTemplate {
+class HTML_FlexyFramework_JsTemplate {
     
     
     function HTML_FlexyFramework_JsTemplate($fn)
@@ -19,4 +19,6 @@ HTML_FlexyFramework_JsTemplate {
     
     
 }
+
+new HTML_FlexyFramework_JsTemplate('/home/alan/gitlive/web.mtrack/MTrackWeb/jtemplates/TimelineTicket.html');
 
