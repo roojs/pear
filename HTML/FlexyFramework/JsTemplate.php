@@ -44,7 +44,7 @@ class HTML_FlexyFramework_JsTemplate {
                     $ret[] = $in . "return;";
                     continue;
                 
-                case (substr($item,1,7) == 'function:'):
+                case (substr($item,1,9) == 'function:'):
                     $indent++;
                     $ret[] = $in . "function " . substr($item,8,-1) . '{';
                     continue;
