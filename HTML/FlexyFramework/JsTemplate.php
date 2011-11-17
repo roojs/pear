@@ -11,7 +11,7 @@ class HTML_FlexyFramework_JsTemplate {
         
         $contents = file_get_contents($fn);
         $ar = preg_split('/\{[^\}]+}/', $contents, -1, PREG_SPLIT_DELIM_CAPTURE);
-        echo '<PRE>'; print_r($ar);
+        echo '<PRE>'; htmlspecialchars(print_r($ar));
         
         
         
