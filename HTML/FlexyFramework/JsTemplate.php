@@ -24,8 +24,12 @@ class HTML_FlexyFramework_JsTemplate {
                 
                 case ($item[0] != '{'):
                     $ret[] = "ret+= ". json_encode($item) . ";\n";
+                    continue;
                 
-                
+                case (substr($item,1,3) == 'if(') {
+                    $ret[] = substr($item,1,-1);
+                    continue;
+                }
                 
             }
             
