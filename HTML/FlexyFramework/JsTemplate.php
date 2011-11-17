@@ -31,7 +31,7 @@ class HTML_FlexyFramework_JsTemplate {
             
             
         }
-        print_r($ret);
+        echo '<PRE>' . htmlspecialchars(print_r($ret,true));
         
         
     }
