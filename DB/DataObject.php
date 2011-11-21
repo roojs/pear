@@ -473,7 +473,10 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         
-        $this->_query($sql);
+        $err = $this->_query($sql);
+        if (is_a($err,'PEAR_Error')) {
+            return false;
+        }
         
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug("CHECK autofetchd $n", "find", 1);
@@ -2589,6 +2592,7 @@ class DB_DataObject extends DB_DataObject_Overload
             if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) { 
                 $this->debug($result->toString(), "Query Error",1 );
             }
+            $this->N = false;
             return $this->raiseError($result);
         }
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
