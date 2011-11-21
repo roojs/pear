@@ -4565,11 +4565,9 @@ class DB_DataObject extends DB_DataObject_Overload
         // this will never work totally with PHP's object model.
         // as this is passed on static calls (like staticGet in our case)
 
-        if (isset($this) && is_object($this) && is_subclass_of($this,'db_dataobject')) {
-            $this->_lastError = $error;
-        }
+        
 
-        $_DB_DATAOBJECT['LASTERROR'] = $error;
+        
 
         // no checks for production here?....... - we log  errors before we throw them.
         DB_DataObject::debug($message,'ERROR',1);
@@ -4582,6 +4580,12 @@ class DB_DataObject extends DB_DataObject_Overload
             $error = PEAR::raiseError($message, $type, $behaviour,
                             $opts=null, $userinfo=null, 'DB_DataObject_Error'
                         );
+        }
+        
+        $_DB_DATAOBJECT['LASTERROR'] = $error;
+        
+        if (isset($this) && is_object($this) && is_subclass_of($this,'db_dataobject')) {
+            $this->_lastError = $error;
         }
    
         return $error;
