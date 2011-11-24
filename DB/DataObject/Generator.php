@@ -731,7 +731,7 @@ class DB_DataObject_Generator extends DB_DataObject
                 
                 $sn = 'N';
                 if ($DB->phptype == 'pgsql' && !empty($m[2])) { 
-                    $sn = preg_replace('/\(/','', $m[2]);
+                    $sn = preg_replace('/[("]+/','', $m[2]);
                     //echo urldecode($t->flags) . "\n" ;
                 }
                 // native sequences = 2
