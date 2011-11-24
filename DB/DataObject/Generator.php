@@ -729,16 +729,16 @@ class DB_DataObject_Generator extends DB_DataObject
             if (preg_match('/(auto_increment|nextval\(([^)]*))/i',rawurldecode($t->flags),$m) 
                 || (isset($t->autoincrement) && ($t->autoincrement === true))) {
                 
-                
-                if ($DB->phptype == 'pgsql') { 
-                    print_r($m);
+                $sn = 'N';
+                if ($DB->phptype == 'pgsql' && !empty($m[2])) { 
+                    $sn = preg_replace('/\(/','', $m[2]);
                     echo urldecode($t->flags) . "\n" ;
                 }
                 // native sequences = 2
                 if ($write_ini) {
-                    $keys_out_primary .= "{$t->name} = N\n";
+                    $keys_out_primary .= "{$t->name} = $sn\n";
                 }
-                $ret_keys_primary[$t->name] = 'N';
+                $ret_keys_primary[$t->name] = $sn;
             
             } else if ($secondary_key_match && preg_match('/('.$secondary_key_match.')/i',$t->flags)) {
                 // keys.. = 1
