@@ -725,12 +725,13 @@ class DB_DataObject_Generator extends DB_DataObject
             //echo "\n{$t->name} => {$t->flags}\n";
             $secondary_key_match = isset($options['generator_secondary_key_match']) ? $options['generator_secondary_key_match'] : 'primary|unique';
             
-            if (preg_match('/(auto_increment|nextval\()/i',rawurldecode($t->flags)) 
+            $m = array();
+            if (preg_match('/(auto_increment|nextval\(([^)]*))/i',rawurldecode($t->flags),$m) 
                 || (isset($t->autoincrement) && ($t->autoincrement === true))) {
                 
                 
                 if ($DB->phptype == 'pgsql') { 
-                
+                    print_r($m);
                     echo urldecode($t->flags) . "\n" ;
                 }
                 // native sequences = 2
