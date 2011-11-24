@@ -2244,10 +2244,9 @@ class DB_DataObject extends DB_DataObject_Overload
         if (    in_array($dbtype , array('pgsql')) &&
                 ($table[$usekey] & DB_DATAOBJECT_INT) && 
                 isset($realkeys[$usekey]) && strlen($realkeys[$usekey]) > 1) {
-            
             return $_DB_DATAOBJECT['SEQUENCE'][$this->_database][$this->tableName()] = array($usekey,true, $realkeys[$usekey]);
-            
         }
+        
         if (    in_array($dbtype , array('pgsql', 'mysql', 'mysqli', 'mssql', 'ifx')) && 
                 ($table[$usekey] & DB_DATAOBJECT_INT) && 
                 isset($realkeys[$usekey]) && ($realkeys[$usekey] == 'N')
