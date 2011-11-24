@@ -2239,7 +2239,8 @@ class DB_DataObject extends DB_DataObject_Overload
         // technically postgres native here...
         // we need to get the new improved tabledata sorted out first.
         
-        // support named sequence keys..
+        // support named sequence keys.. - currently postgres only..
+        
         if (    in_array($dbtype , array('pgsql')) &&
                 ($table[$usekey] & DB_DATAOBJECT_INT) && 
                 isset($realkeys[$usekey]) && strlen($realkeys[$usekey]) > 1) {
