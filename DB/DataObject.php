@@ -1991,6 +1991,15 @@ class DB_DataObject extends DB_DataObject_Overload
             }
              
         }
+        // are table name lowecased..
+        if (!empty($_DB_DATAOBJECT['CONFIG']['portability']) && $_DB_DATAOBJECT['CONFIG']['portability'] & 1) {
+            foreach($_DB_DATAOBJECT['INI'][$this->_database] as $k=>$v) {
+                // results in duplicate cols.. but not a big issue..
+                $_DB_DATAOBJECT['INI'][$this->_database][strtolower($k)] = $v;
+            }
+        }
+        
+        
         // now have we loaded the structure.. 
         
         if (!empty($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()])) {
