@@ -3091,7 +3091,7 @@ class DB_DataObject extends DB_DataObject_Overload
             return null;
         }
         
-        if (isset($lcfg[$this->_database][$this->__table)])) {
+        if (isset($lcfg[$this->_database][$this->__table])) {
             return $lcfg[$this->_database][$this->__table];
         }
         
