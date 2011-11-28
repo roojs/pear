@@ -3650,7 +3650,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         // not sure  how portable adding database prefixes is..
         $objTable = $quoteIdentifiers ? 
-                $DB->quoteIdentifier($obj->__table) : 
+                $DB->quoteIdentifier($obj->tableName()) : 
                  $obj->__table ;
                 
         $dbPrefix  = '';
