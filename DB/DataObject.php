@@ -3111,7 +3111,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 
             }
         }
-        
+        echo '<PRE>';print_r($lcfg);
         
         // if there is no link data at all on the file!
         // we return null.
