@@ -3796,7 +3796,7 @@ class DB_DataObject extends DB_DataObject_Overload
        
         
         $fullJoinAs = '';
-        $addJoinAs  = ($quoteIdentifiers ? $DB->quoteIdentifier($obj->__table) : $obj->__table) != $joinAs;
+        $addJoinAs  = ($quoteIdentifiers ? $DB->quoteIdentifier($obj->tableName()) : $obj->tableName()) != $joinAs;
         if ($addJoinAs) {
             // join table a AS b - is only supported by a few databases and is probably not needed
             // , however since it makes the whole Statement alot clearer we are leaving it in
