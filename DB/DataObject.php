@@ -3633,7 +3633,7 @@ class DB_DataObject extends DB_DataObject_Overload
 
         if ($ofield === false) {
             $this->raiseError(
-                "joinAdd: {$obj->__table} has no link with {$this->tableName()}",
+                "joinAdd: {$obj->tableName()} has no link with {$this->tableName()}",
                 DB_DATAOBJECT_ERROR_NODATA);
             return false;
         }
