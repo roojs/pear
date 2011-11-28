@@ -3642,7 +3642,7 @@ class DB_DataObject extends DB_DataObject_Overload
         // we default to joining as the same name (this is remvoed later..)
         
         if ($joinAs === false) {
-            $joinAs = $obj->__table;
+            $joinAs = $obj->tableName();
         }
         
         $quoteIdentifiers = !empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers']);
