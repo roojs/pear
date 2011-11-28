@@ -3551,7 +3551,7 @@ class DB_DataObject extends DB_DataObject_Overload
                         $ar[1] = explode(',', $ar[1]);
                     }
 
-                    if ($ar[0] != $obj->__table) {
+                    if ($ar[0] != $obj->tableName()) {
                         continue;
                     }
                     if ($joinCol !== false) {
@@ -3572,7 +3572,7 @@ class DB_DataObject extends DB_DataObject_Overload
             }
         }
          /* look up the links for obj table */
-        print_r($obj->links());
+        //print_r($obj->links());
         if (!$ofield && ($olinks = $obj->links())) {
             
             foreach ($olinks as $k => $linkVar) {
