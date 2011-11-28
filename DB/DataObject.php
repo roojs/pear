@@ -3651,7 +3651,7 @@ class DB_DataObject extends DB_DataObject_Overload
         // not sure  how portable adding database prefixes is..
         $objTable = $quoteIdentifiers ? 
                 $DB->quoteIdentifier($obj->tableName()) : 
-                 $obj->__table ;
+                 $obj->tableName() ;
                 
         $dbPrefix  = '';
         if (strlen($obj->_database) && in_array($DB->dsn['phptype'],array('mysql','mysqli'))) {
