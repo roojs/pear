@@ -3102,7 +3102,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     ? $lcfg[$this->_database]  : array();
                 
                 foreach($v as $kk =>$vv) {
-                    var_Dump($vv);exit;
+                    //var_Dump($vv);exit;
                     $vv =explode(':', $vv);
                     $vv[0] = strtolower($vv[0]);
                     $lcfg[$this->_database][$nk][$kk] = implode(':', $vv);
