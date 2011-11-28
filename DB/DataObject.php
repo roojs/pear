@@ -3097,15 +3097,15 @@ class DB_DataObject extends DB_DataObject_Overload
             foreach($lcfg[$this->_database] as $k=>$v) {
                 
                 $nk = strtolower($k);
+                // results in duplicate cols.. but not a big issue..
                 $lcfg[$this->_database][$nk] = isset($lcfg[$this->_database][$nk])
                     ? $lcfg[$this->_database]  : array();
                 
                 foreach($lcfg[$this->_database][$k] as $kk =>$vv) {
                     $vv =explode(':', $vv);
                     $lcfg[$this->_database][$nk][$kk] = implode(':', strtolower($vv[0]), $vv[1]);
-                    
                 }
-                // results in duplicate cols.. but not a big issue..
+                
                 
             }
         }
