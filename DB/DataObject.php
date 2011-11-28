@@ -3093,6 +3093,23 @@ class DB_DataObject extends DB_DataObject_Overload
              
         }
         
+        if (!empty($_DB_DATAOBJECT['CONFIG']['portability']) && $_DB_DATAOBJECT['CONFIG']['portability'] & 1) {
+            foreach($lcfg[$this->_database] as $k=>$v) {
+                
+                $nk = strtolower($k);
+                $lcfg[$this->_database][$nk] = isset($lcfg[$this->_database][$nk])
+                    ? $lcfg[$this->_database]  : array();
+                
+                foreach($lcfg[$this->_database][$k] as $kk =>$vv) {
+                    
+                    
+                    
+                }
+                // results in duplicate cols.. but not a big issue..
+                
+            }
+        }
+        
         
         // if there is no link data at all on the file!
         // we return null.
