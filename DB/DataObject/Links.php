@@ -183,7 +183,7 @@ class DB_DataObject_Links
 
         }
          
-      
+        $tn = is_string($table) ? $table : $table->tableName();
          
             //return $this->getLink($row, $table);
             
@@ -200,15 +200,15 @@ class DB_DataObject_Links
             return 0; // no record. 
         }
         
-        if ($this->cached && isset($cache[$table.':'. $link .':'. $this->$field])) {
-            return $cache[$table.':'. $link .':'. $this->$field];    
+        if ($this->cached && isset($cache[$tn.':'. $link .':'. $this->$field])) {
+            return $cache[$tn.':'. $link .':'. $this->$field];    
         }
         
-        $obj = $this->do->factory($table);
+        $obj = is_string($table) ? $this->do->factory($tn) : $able;;
         
         if (!is_a($obj,'DB_DataObject')) {
             $this->raiseError(
-                "getLink:Could not find class for row $field, table $table", 
+                "getLink:Could not find class for row $field, table $tn", 
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
             return false;
         }
@@ -228,7 +228,7 @@ class DB_DataObject_Links
              
         }
         if ($this->cached) {
-            $cache[$table.':'. $link .':'. $this->$field] = $ret;
+            $cache[$tn.':'. $link .':'. $this->$field] = $ret;
         }
         return $ret;
         
