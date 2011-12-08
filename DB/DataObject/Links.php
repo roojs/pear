@@ -131,6 +131,7 @@ class DB_DataObject_Links
     {
         // check if do is set!!!?
         $this->do = $do;
+        
         foreach($cfg as $k=>$v) {
             $this->$k = $v;
         }
