@@ -65,8 +65,7 @@ May also be used by the generator to generate hook methods that look like this:
 
 function company()
 {
-    $r = new DB_DataObject_Links(array(
-            'cached' => false,
+    $r = new DB_DataObject_Links(array( 
             'do' => $this
     ));
     return $r->apply('company_id', func_get_args());
