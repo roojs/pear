@@ -65,6 +65,11 @@ May also be used by the generator to generate hook methods that look like this:
 
 function company()
 {
+      $r = new DB_DataObject_Links(array(
+            'cached' => false,
+            'do' => $this
+    ));
+    
     $args = func_get_args()
     if (func_get_args()) {
         $val = 0;
@@ -73,12 +78,7 @@ function company()
         }
         $this->company_id = $val;
     }
-    $r = new DB_DataObject_Links(array(
-            'load' =>array('company'), 
-            'scanf' => '%s_id',
-            'cached' => true,
-            'do' => $this
-    ));
+  
     return $r->links['company'];
     
 }
@@ -118,7 +118,7 @@ class DB_DataObject_Links
      * @property {Boolean}      cached  cache the result, so future queries will use cache rather
      *                                  than running the expensive sql query.
      */
-    var $cached = true;
+    var $cached = false;
     /**
      * @property {Boolean}      apply   apply the result to this object, (default true)
      */
@@ -145,11 +145,7 @@ class DB_DataObject_Links
         foreach($cfg as $k=>$v) {
             $this->$k = $v;
         }
-        $this->parseConfig();
-        $this->createLinks();
-        if ($this->apply) { 
-            $this->applyLinks(); // if apply is set..
-        } 
+       
         
     }
     
@@ -160,7 +156,11 @@ class DB_DataObject_Links
             // $cfg['load'] = ... links...
         }
           
-        
+         $this->parseConfig();
+        $this->createLinks();
+        if ($this->apply) { 
+            $this->applyLinks(); // if apply is set..
+        } 
         
     }
     
