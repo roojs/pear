@@ -227,6 +227,11 @@ class DB_DataObject_Links
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
             return false;
         }
+        
+        if (empty($this->$field)) {
+            return false; // no record.
+        }
+        
         if ($link) {
             if ($obj->get($link, $this->$field)) {
                 return $obj;
