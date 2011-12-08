@@ -251,8 +251,13 @@ class DB_DataObject_Links
         
     }
         
-    function set($obj)
+        
+    function apply($field,  $args)
     {
+        if (empty($args)) {
+            return $this->getLink($field);
+        }
+        // otherwise it's a set call..
         
         
         
