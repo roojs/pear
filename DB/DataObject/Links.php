@@ -166,7 +166,7 @@ class DB_DataObject_Links
      * load the single linked object..
      *
      */
-    function loadSingle($field, $table= false, $link=false)
+    function getLink($field, $table= false, $link=false)
     {
         
         // GUESS THE LINKED TABLE.. (if found - recursevly call self)
@@ -184,7 +184,7 @@ class DB_DataObject_Links
                     $field = substr($field,0,$p);
                 }
                 
-                return $this->loadSingle($field, $table, $link === false ? $rlink : $link );
+                return $this->getLink($field, $table, $link === false ? $rlink : $link );
                     
              } 
                 
