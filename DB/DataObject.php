@@ -3131,6 +3131,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * generic getter/setter for links
      *
      * This is the new 'recommended' way to get get/set linked objects.
+     * must be used with links.ini
      *
      * @param  string field 
      * @author Alan Knowles
