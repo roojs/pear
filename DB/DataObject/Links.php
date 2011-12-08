@@ -290,6 +290,9 @@ class DB_DataObject_Links
     /**
      * load related objects
      *
+     * Generally not recommended to use this.
+     * The generator should support creating getter_setter methods which are better suited.
+     *
      * Relies on  <dbname>.links.ini file
      * into a static property named <dbname>.links and specifies the table joins,
      *
