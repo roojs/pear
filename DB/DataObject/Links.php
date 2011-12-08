@@ -285,6 +285,7 @@ class DB_DataObject_Links
      *
      *  @param  string $field the field to fetch
      *  @params array $args the arguments sent to the getter setter
+     *  @return mixed true of false on set, the object on getter.
      *
      */
     function apply($field,  $args)
