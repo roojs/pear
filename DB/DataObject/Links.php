@@ -71,15 +71,6 @@ function company()
     ));
     return $r->apply('company_id', func_get_args());
     
-    $args = func_get_args()
-    if (func_get_args()) {
-        $ar = 
-        $this->company_id = $
-        $r->set(array_shift(func_get_args()));
-    }
-  
-    return $r->links['company'];
-    
 }
  *
  *
