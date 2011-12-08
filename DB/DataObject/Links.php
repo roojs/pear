@@ -184,7 +184,7 @@ class DB_DataObject_Links
                     $field = substr($field,0,$p);
                 }
                 
-                return $this->getLink($field,$table,$link === false ? $rlink : $link );
+                return $this->loadSingle($field,$table,$link === false ? $rlink : $link );
                     
              } 
                 
