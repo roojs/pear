@@ -250,7 +250,11 @@ class DB_DataObject_Links
         
     }
         
-        
+    /**
+     *  a generic geter/setter provider..
+     *  
+     *
+     */
     function apply($field,  $args)
     {
         if (empty($args)) {
