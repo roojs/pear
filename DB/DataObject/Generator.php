@@ -1475,7 +1475,7 @@ class DB_DataObject_Generator extends DB_DataObject
             $setters .= (substr(phpversion(),0,1) > 4) ? '    public '
                                                        : '    ';
             $setters .= "function $methodName() {\n";
-            $setters .= "        \call_user_func_array(array($this, 'link'), array_unshift('$k',func_get_args())\n";
+            $setters .= "        \call_user_func_array(array(\$this, 'link'), array_unshift('$k',func_get_args())\n";
             $setters .= "    }\n\n";
         }
         
