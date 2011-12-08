@@ -225,10 +225,12 @@ class DB_DataObject_Links
         // check to see if we know anything about this table..
         
         if ($this->cached && isset($cache[$table.':'. $link .':'. $this->$field])) {
-                return $cache[$table.':'. $link .':'. $this->$field];
+            return $cache[$table.':'. $link .':'. $this->$field];
             
         }
-        
+        if (empty($this->$field) || $this->$field < 0) {
+            return false; // no record. 
+        }
         
         $obj = $this->factory($table);
         
@@ -239,21 +241,25 @@ class DB_DataObject_Links
             return false;
         }
         // -1 or 0 -- no referenced record..
-        if (empty($this->$field) || $this->$field < 0) {
-            return false; // no record. 
-        }
-        
+       
+        $ret = false;
         if ($link) {
+            
             if ($obj->get($link, $this->$field)) {
-                return $obj;
-            } 
-            return  false;
+                $ret = $obj;
+            }
+            
+            
+        // this really only happens when no link config is set (old BC stuff)    
+        } else if ($obj->get($this->$row)) {
+            $ret= $obj;
+             
+        
         }
-        // this really only happens when no link config is set (old BC stuff)
-        if ($obj->get($this->$row)) {
-            return $obj;
+        if ($this->cached) {
+            $cache[$table.':'. $link .':'. $this->$field] = $ret;
         }
-        return false;
+        return $ret;
         
     }
         
