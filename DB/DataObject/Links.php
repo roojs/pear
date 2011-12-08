@@ -330,7 +330,7 @@ class DB_DataObject_Links
                 
                 $this->do->$k = $this->getLink($key, $table, $link);
                 
-                if (is_object($this->$k)) {
+                if (is_object($this->do->$k)) {
                     $loaded[] = $k; 
                 }
             }
