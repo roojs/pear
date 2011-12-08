@@ -166,7 +166,7 @@ class DB_DataObject_Links
      * load the single linked object..
      *
      */
-    function getLink($field, $table= false, $link=false)
+    function getLink($field, $table= false, $link='')
     {
         
         static $cache = array();
