@@ -255,12 +255,13 @@ class DB_DataObject_Links
             return $ret;
         }
         $assign = func_get_arg(1);
+        $info = $this->linkInfo($field);
         // otherwise it's a set call..
         if (!is_a($assign , 'DB_DataObject')) {
             
             if (is_integer($assign )) {
                 if ($assign  > 0) {
-                    $info = $this->linkInfo($field);
+                    
                     if (!$info) {
                         return false;
                     }
