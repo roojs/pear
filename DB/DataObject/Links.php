@@ -272,13 +272,7 @@ class DB_DataObject_Links
                 
             return false;
         }
-        // no links defined.. - use borked BC method...
-              // use the old _ method - this shouldnt happen if called via getLinks()
-        if (!($p = strpos($field, '_'))) {
-            return false;
-        }
-        $table = substr($row, 0, $p);
-        return $this->getLink($row, $table);
+        return false;
         
         
         
