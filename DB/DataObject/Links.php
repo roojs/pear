@@ -334,7 +334,7 @@ class DB_DataObject_Links
                     $loaded[] = $k; 
                 }
             }
-            $this->_link_loaded = $loaded;
+            $this->do->_link_loaded = $loaded;
             return true;
         }
         // this is the autonaming stuff..
