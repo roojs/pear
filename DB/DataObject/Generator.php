@@ -1402,10 +1402,11 @@ class DB_DataObject_Generator extends DB_DataObject
         }
         
         if (empty($this->_fkeys)) {
-            
+             echo "skip lm? - fkyes empty";
             return '';
         }
         if (empty($this->_fkeys[$this->table])) {
+            echo "skip lm? - no fkeys for {$this->table}";
             return '';
         }
             
