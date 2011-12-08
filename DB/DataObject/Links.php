@@ -208,10 +208,7 @@ class DB_DataObject_Links
             
 
         }
-        
-        
-        
-        
+         
       
          
             //return $this->getLink($row, $table);
