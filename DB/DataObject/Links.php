@@ -228,7 +228,7 @@ class DB_DataObject_Links
             return false;
         }
         if ($link) {
-            if ($obj->get($link, $this->$row)) {
+            if ($obj->get($link, $this->$field)) {
                 return $obj;
             } 
             return  false;
