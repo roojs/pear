@@ -3125,6 +3125,26 @@ class DB_DataObject extends DB_DataObject_Overload
         
         return array();
     }
+    
+    
+    /**
+     * generic getter/setter for links
+     *
+     * This is the new 'recommended' way to get get/set linked objects.
+     *
+     * @param  string field 
+     * @author Alan Knowles
+     * @access public
+     * @return mixed true or false on setting, object on getting
+     */
+    function link($string)
+    {
+        require_once 'DB/DataObject/Link.php';
+        $l = new DB_DataObject_Link($this);
+        return $l->link($string,func_get_arg(1));
+        
+    }
+    
       /**
      * load related objects
      *
