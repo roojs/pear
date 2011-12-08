@@ -245,17 +245,22 @@ class DB_DataObject_Links
      */
     function link($field)
     {
+        $info = $this->linkInfo($field);
         if (func_num_args() < 2) {
+            if (!isset($this->$field)) {
+                return $info[0];
+            }
+            
             $ret = $this->getLink($field);
             if ($ret === 0) {
                 // empty.
-                $info = $this->linkInfo($field);
+                
                 return $info[0];
             }
             return $ret;
         }
         $assign = func_get_arg(1);
-        $info = $this->linkInfo($field);
+        
         // otherwise it's a set call..
         if (!is_a($assign , 'DB_DataObject')) {
             
