@@ -314,7 +314,7 @@ class DB_DataObject_Links
         }
         
         $this->_do->link_loaded = false;
-        $cols  = $this->table();
+        $cols  = $this->do->table();
         $links = $this->links();
          
         $loaded = array();
