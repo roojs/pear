@@ -201,24 +201,24 @@ class DB_DataObject_Links
          
         $links = $this->do->links();
         
-        if (!empty($links) && is_array($links)) {
-            
-            
-            
-            if (isset($links[$field])) {
-                list($table,$link) = explode(':', $links[$field]);
-                if ($p = strpos($field,".")) {
-                    $field = substr($field,0,$p);
-                }
-                return array(
-                    $this->do->factory($table),
-                    $link
-                );
-                    
-            }
-                
+        if (empty($links) || !is_array($links)) {
             return false;
         }
+            
+            
+        if (isset($links[$field])) {
+            list($table,$link) = explode(':', $links[$field]);
+            
+            if ($p = strpos($field,".")) {
+                $field = substr($field,0,$p);
+            }
+            return array(
+                $this->do->factory($table),
+                $link
+            );
+                
+        }
+            
         return false;
         
          
