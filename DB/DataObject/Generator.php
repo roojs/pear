@@ -1019,7 +1019,7 @@ class DB_DataObject_Generator extends DB_DataObject
         // generate getter and setter methods
         $body .= $this->_generateGetters($input);
         $body .= $this->_generateSetters($input);
-        
+        $body .= $this->_generateLinkMethods($input);
         /*
         theoretically there is scope here to introduce 'list' methods
         based up 'xxxx_up' column!!! for heiracitcal trees..
