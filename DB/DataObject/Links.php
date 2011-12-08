@@ -201,20 +201,19 @@ class DB_DataObject_Links
         
         
             // use the old _ method - this shouldnt happen if called via getLinks()
-            if (!($p = strpos($row, '_'))) {
-                $r = null;
-                return $r; 
-            }
-            $table = substr($row, 0, $p);
-            return $this->getLink($row, $table);
+        //if (!($p = strpos($field, '_'))) {
+        //        $r = null;
+        //        return $r; 
+        //    }
+         
+            //return $this->getLink($row, $table);
             
 
-        }
         
         
         
-        if (!isset($this->$row)) {
-            $this->raiseError("getLink: row not set $row", DB_DATAOBJECT_ERROR_NODATA);
+        if (!isset($this->$field)) {
+            $this->raiseError("getLink: row not set $field", DB_DATAOBJECT_ERROR_NODATA);
             return false;
         }
         
