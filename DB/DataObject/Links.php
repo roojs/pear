@@ -290,7 +290,12 @@ class DB_DataObject_Links
     function link($field,  $args)
     {
         if (empty($args)) {
-            return $this->getLink($field);
+            $ret = $this->getLink($field);
+            if ($ret === 0) {
+                // empty.
+                $info = $this->linkInfo($field);
+                return $info[0];
+            }
         }
         // otherwise it's a set call..
         if (!is_a($args[0], 'DB_DataObject')) {
