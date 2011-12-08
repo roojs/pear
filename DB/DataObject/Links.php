@@ -219,7 +219,7 @@ class DB_DataObject_Links
             return $cache[$table.':'. $link .':'. $this->$field];    
         }
         
-        $obj = $this->factory($table);
+        $obj = $this->do->factory($table);
         
         if (!is_a($obj,'DB_DataObject')) {
             $this->raiseError(
