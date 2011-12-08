@@ -1399,7 +1399,7 @@ class DB_DataObject_Generator extends DB_DataObject
         if (empty($this->_fkeys)) {
             return '';
         }
-        if (empty($this->_fkeys[$this->table)) {
+        if (empty($this->_fkeys[$this->table))) {
             return '';
         }
             
