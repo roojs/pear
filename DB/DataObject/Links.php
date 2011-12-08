@@ -287,7 +287,7 @@ class DB_DataObject_Links
      *  @return mixed true of false on set, the object on getter.
      *
      */
-    function apply($field,  $args)
+    function link($field,  $args)
     {
         if (empty($args)) {
             return $this->getLink($field);
