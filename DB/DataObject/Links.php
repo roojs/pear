@@ -289,7 +289,6 @@ class DB_DataObject_Links
             return false;
         }
         
-        $use = ;
         $this->do->$field = $assign->{$info[1]};
         return true;
         
