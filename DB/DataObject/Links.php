@@ -254,7 +254,6 @@ class DB_DataObject_Links
         } else if ($obj->get($this->$row)) {
             $ret= $obj;
              
-        
         }
         if ($this->cached) {
             $cache[$table.':'. $link .':'. $this->$field] = $ret;
