@@ -307,7 +307,6 @@ class DB_DataObject_Links
                     
                 }
                 
-                
                 $this->do->$field = $args[0];
                 return true;
             }
