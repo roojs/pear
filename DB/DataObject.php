@@ -3152,9 +3152,7 @@ class DB_DataObject extends DB_DataObject_Overload
     {
         require_once 'DB/DataObject/Links.php';
         $l = new DB_DataObject_Links($this);
-        $args= func_get_arg(1);
-        array_shift($args);
-        return $l->link($field,$args);
+        return func_num_args() > 1 ? $l->link($field,func_get_arg(1)) : $l->link($field);
         
     }
     
