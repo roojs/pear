@@ -234,7 +234,7 @@ class DB_DataObject_Links
         
     }
     /**
-     * get link infomration for a field
+     * get link information for a field
      *
      * @param string $field the field to check.
      * @return (false|array) array of dataobject and linked field or false.
@@ -296,8 +296,14 @@ class DB_DataObject_Links
         if (!is_a($args[0], 'DB_DataObject')) {
             if (is_integer($args[0])) {
                 if ($args[0] > 0) {
-                    
-                    
+                    $info = $this->linkInfo($field);
+                    if (!$info) {
+                        return false;
+                    }
+                    // check that record exists..
+                    if (!$info[0]->get($info[1], $args[0])) {
+                        return false;
+                    }
                     
                 }
                 
