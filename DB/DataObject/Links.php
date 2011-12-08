@@ -398,12 +398,14 @@ class DB_DataObject_Links
                     return $ret;
                 }
                 list($table,$link) = explode(':',$links[$row]);
-            } else {
-                if (!($p = strpos($row,'_'))) {
-                    return $ret;
-                }
-                $table = substr($row,0,$p);
+                return $this->getLinkArray($row,$table);
+            } 
+            if (!($p = strpos($row,'_'))) {
+                return $ret;
             }
+            return $this->getLinkArray($row,substr($row,0,$p));
+
+
         }
         
         $c  = $this->factory($table);
@@ -423,7 +425,7 @@ class DB_DataObject_Links
             $c->find();
         }
         while ($c->fetch()) {
-            $ret[] = $c;
+            $ret[] = clone($c);
         }
         return $ret;
     }
