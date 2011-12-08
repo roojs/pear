@@ -296,6 +296,7 @@ class DB_DataObject_Links
                 $info = $this->linkInfo($field);
                 return $info[0];
             }
+            return $ret;
         }
         // otherwise it's a set call..
         if (!is_a($args[0], 'DB_DataObject')) {
