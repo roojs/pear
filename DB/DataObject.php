@@ -3125,18 +3125,16 @@ class DB_DataObject extends DB_DataObject_Overload
         
         return array();
     }
-    /**
+      /**
      * load related objects
      *
-     * There are two ways to use this, one is to set up a <dbname>.links.ini file
-     * into a static property named <dbname>.links and specifies the table joins,
-     * the other highly dependent on naming columns 'correctly' :)
-     * using colname = xxxxx_yyyyyy
-     * xxxxxx = related table; (yyyyy = user defined..)
-     * looks up table xxxxx, for value id=$this->xxxxx
-     * stores it in $this->_xxxxx_yyyyy
-     * you can change what object vars the links are stored in by 
-     * changeing the format parameter
+     * Generally not recommended to use this.
+     * The generator should support creating getter_setter methods which are better suited.
+     *
+     * Relies on  <dbname>.links.ini
+     *
+     * Sets properties on the calling dataobject  you can change what
+     * object vars the links are stored in by  changeing the format parameter
      *
      *
      * @param  string format (default _%s) where %s is the table name.
