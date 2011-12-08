@@ -124,6 +124,7 @@ class DB_DataObject_Links
     /**
      * Constructor
      *   -- good ole style..
+     *  @param {DB_DataObject}           do  DataObject to apply to.
      *  @param {Array}           cfg  Configuration (basically properties of this object)
      */
     
