@@ -174,7 +174,7 @@ class DB_DataObject_Links
         if ($table == false) {
             $links = $this->do->links();
             
-            if (empty($links) || is_array($links)) {
+            if (!empty($links) && is_array($links)) {
                 
                 
                 
@@ -197,10 +197,9 @@ class DB_DataObject_Links
             }
             // no links defined.. - use borked BC method...
                   // use the old _ method - this shouldnt happen if called via getLinks()
-        //if (!($p = strpos($field, '_'))) {
-        //        $r = null;
-        //        return $r; 
-        //    }
+            if (!($p = strpos($field, '_'))) {
+                return false;
+            }
             
             
             
