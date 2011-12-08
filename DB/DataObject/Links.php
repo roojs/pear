@@ -258,7 +258,13 @@ class DB_DataObject_Links
         
     }
         
-     
+    function set($obj)
+    {
+        
+        
+        
+        
+    }
     
     
     
