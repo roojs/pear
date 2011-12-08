@@ -140,10 +140,20 @@ class DB_DataObject_Links
         
     }
      
-    
     /**
-     * load the single linked object..
+     * return name from related object
      *
+     * The relies on  a <dbname>.links.ini file, unless you specify the arguments.
+     * 
+     * you can also use $this->getLink('thisColumnName','otherTable','otherTableColumnName')
+     *
+     *
+     * @param string $row    either row or row.xxxxx
+     * @param string $table  (optional) name of table to look up value in
+     * @param string $link   (optional)  name of column in other table to match
+     * @author Tim White <tim@cyface.com>
+     * @access public
+     * @return mixed object on success
      */
     function getLink($field, $table= false, $link='')
     {
@@ -237,6 +247,10 @@ class DB_DataObject_Links
         return $ret;
         
     }
+    
+    
+    
+    
         
     /**
      *  a generic geter/setter provider..
@@ -274,5 +288,59 @@ class DB_DataObject_Links
     }
     
     
-    
+    function getLinks($format = '_%s')
+    {
+         
+        // get table will load the options.
+        if ($this->_link_loaded) {
+            return true;
+        }
+        $this->_link_loaded = false;
+        $cols  = $this->table();
+        $links = $this->links();
+         
+        $loaded = array();
+        
+        if ($links) {   
+            foreach($links as $key => $match) {
+                list($table,$link) = explode(':', $match);
+                $k = sprintf($format, str_replace('.', '_', $key));
+                // makes sure that '.' is the end of the key;
+                if ($p = strpos($key,'.')) {
+                      $key = substr($key, 0, $p);
+                }
+                
+                $this->$k = $this->getLink($key, $table, $link);
+                
+                if (is_object($this->$k)) {
+                    $loaded[] = $k; 
+                }
+            }
+            $this->_link_loaded = $loaded;
+            return true;
+        }
+        // this is the autonaming stuff..
+        // it sends the column name down to getLink and lets that sort it out..
+        // if there is a links file then it is not used!
+        // IT IS DEPRECITED!!!! - USE 
+        if (!is_null($links)) {    
+            return false;
+        }
+        
+        
+        foreach (array_keys($cols) as $key) {
+            if (!($p = strpos($key, '_'))) {
+                continue;
+            }
+            // does the table exist.
+            $k =sprintf($format, $key);
+            $this->$k = $this->getLink($key);
+            if (is_object($this->$k)) {
+                $loaded[] = $k; 
+            }
+        }
+        $this->_link_loaded = $loaded;
+        return true;
+    }
+
 }
