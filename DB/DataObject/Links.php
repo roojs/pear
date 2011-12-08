@@ -149,7 +149,7 @@ class DB_DataObject_Links
      *
      *
      * @param string $row    either row or row.xxxxx
-     * @param string $table  (optional) name of table to look up value in
+     * @param string|DB_DataObject $table  (optional) name of table to look up value in
      * @param string $link   (optional)  name of column in other table to match
      * @author Tim White <tim@cyface.com>
      * @access public
