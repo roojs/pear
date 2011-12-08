@@ -202,13 +202,13 @@ class DB_DataObject_Links
         $links = $this->do->links();
         
         if (empty($links) || !is_array($links)) {
-            echo "non links?";
+             
             return false;
         }
             
             
         if (!isset($links[$field])) {
-            echo "non link?";
+            
             return false;
         }
         list($table,$link) = explode(':', $links[$field]);
