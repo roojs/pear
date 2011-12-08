@@ -272,7 +272,7 @@ class DB_DataObject_Links
             
         if (empty($links) || !is_array($links)) {
             $this->raiseError(
-                "getLink:Could not find link for row $field, table $table", 
+                "getLink:Could not find link for row $field", 
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
         }
               
