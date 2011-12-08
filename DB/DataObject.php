@@ -3225,7 +3225,9 @@ class DB_DataObject extends DB_DataObject_Overload
      */
     function getLink($row, $table = null, $link = false)
     {
-        
+        require_once 'DB/DataObject/Link.php';
+        $l = new DB_DataObject_Link($this);
+        return $l->getLink($row, $table === null ? false: $table, $link);
         
         // GUESS THE LINKED TABLE.. (if found - recursevly call self)
         
