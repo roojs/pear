@@ -243,9 +243,9 @@ class DB_DataObject_Links
      *  @return mixed true of false on set, the object on getter.
      *
      */
-    function link($field,  $args)
+    function link($field)
     {
-        if (empty($args)) {
+        if (func_num_args() < 2) {
             $ret = $this->getLink($field);
             if ($ret === 0) {
                 // empty.
@@ -254,24 +254,27 @@ class DB_DataObject_Links
             }
             return $ret;
         }
+        $arg = func_get_arg(1);
         // otherwise it's a set call..
-        if (!is_a($args[0], 'DB_DataObject')) {
-            if (is_integer($args[0])) {
-                if ($args[0] > 0) {
+        if (!is_a($arg, 'DB_DataObject')) {
+            
+            if (is_integer($arg)) {
+                if ($arg > 0) {
                     $info = $this->linkInfo($field);
                     if (!$info) {
                         return false;
                     }
                     // check that record exists..
-                    if (!$info[0]->get($info[1], $args[0])) {
+                    if (!$info[0]->get($info[1], $arg)) {
                         return false;
                     }
                     
                 }
                 
-                $this->do->$field = $args[0];
+                $this->do->$field = $arg;
                 return true;
             }
+            
             return false;
         }
         $assign = $args[0];
