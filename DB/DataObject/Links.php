@@ -23,21 +23,10 @@
 /**
  *
  * Example of how this could be used..
- *
  * 
- 
-
-May also be used by the generator to generate hook methods that look like this:
-
-function company()
-{
-    $r = new DB_DataObject_Links(array( 
-            'do' => $this
-    ));
-    return $r->apply('company_id', func_get_args());
-    
-}
+ * The lind method are now in here.
  *
+ * Currenly only supports existing methods, and new 'link()' method
  *
  */
   
