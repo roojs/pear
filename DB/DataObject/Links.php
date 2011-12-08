@@ -210,12 +210,13 @@ class DB_DataObject_Links
         
         // check to see if we know anything about this table..
         
-        if ($this->cached && isset($cache[$table.':'. $link .':'. $this->$field])) {
-            return $cache[$table.':'. $link .':'. $this->$field];
-            
-        }
+      
         if (empty($this->$field) || $this->$field < 0) {
             return 0; // no record. 
+        }
+        
+        if ($this->cached && isset($cache[$table.':'. $link .':'. $this->$field])) {
+            return $cache[$table.':'. $link .':'. $this->$field];    
         }
         
         $obj = $this->factory($table);
