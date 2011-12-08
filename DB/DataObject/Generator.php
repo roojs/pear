@@ -483,7 +483,7 @@ class DB_DataObject_Generator extends DB_DataObject
             }
             $links_ini .= "\n";
         }
-        
+        $this->_fkeys = $fk;
         // dont generate a schema if location is not set
         // it's created on the fly!
         $options = PEAR::getStaticProperty('DB_DataObject','options');
