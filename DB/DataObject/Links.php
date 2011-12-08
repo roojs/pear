@@ -169,6 +169,8 @@ class DB_DataObject_Links
     function getLink($field, $table= false, $link=false)
     {
         
+        static $cache = array();
+        
         // GUESS THE LINKED TABLE.. (if found - recursevly call self)
         
         if ($table == false) {
