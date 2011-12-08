@@ -139,21 +139,7 @@ class DB_DataObject_Links
        
         
     }
-    
-    function parseConfig()
-    {
-         
-        if ($cfg['load'] == 'all') {
-            // $cfg['load'] = ... links...
-        }
-          
-         $this->parseConfig();
-        $this->createLinks();
-        if ($this->apply) { 
-            $this->applyLinks(); // if apply is set..
-        } 
-        
-    }
+     
     
     /**
      * load the single linked object..
