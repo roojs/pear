@@ -248,6 +248,14 @@ class DB_DataObject_Links
         return $ret;
         
     }
+    /**
+     * get link infomration for a field
+     *
+     * @param string $field the field to check.
+     * @return (false|array) array of dataobject and linked field or false.
+     *
+     *
+     */
     
     function linkInfo($field)
     {
@@ -274,9 +282,7 @@ class DB_DataObject_Links
         }
         return false;
         
-        
-        
-        
+         
         
     }
     
