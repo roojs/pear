@@ -287,7 +287,7 @@ class DB_DataObject_Links
         // otherwise we are assigning it ...
         
             
-        if ($info) {
+        if (!$info) {
             $this->do->raiseError(
                 "getLink:Could not find link for row $field", 
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
