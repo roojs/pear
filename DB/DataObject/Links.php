@@ -283,8 +283,6 @@ class DB_DataObject_Links
         return true;
         
         
-        
-        
     }
     
     
