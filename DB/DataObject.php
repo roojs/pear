@@ -3146,7 +3146,7 @@ class DB_DataObject extends DB_DataObject_Overload
     {
         require_once 'DB/DataObject/Link.php';
          $l = new DB_DataObject_Link($this);
-        return $l->getLinks($format);
+        return $l->applyLinks($format);
            
     }
 
