@@ -391,6 +391,107 @@ class DB_DataObject_Generator extends DB_DataObject
         //    return PEAR::raiseError($ret->message,null,PEAR_ERROR_DIE);
         // }
     }
+     /**
+     * create the data for Foreign Keys (for links.ini) 
+     * Currenly only works with mysql / mysqli / posgtreas
+     * to use, you must set option: generate_links=true
+     * 
+     * @author Pascal Schöni 
+     */
+    
+    function fillForeignKeys()
+    {
+          $options = PEAR::getStaticProperty('DB_DataObject','options');
+        if (empty($options['generate_links'])) {
+            return false;
+        }
+        $__DB = &$GLOBALS['_DB_DATAOBJECT']['CONNECTIONS'][$this->_database_dsn_md5];
+        if (!in_array($__DB->phptype, array('mysql', 'mysqli', 'pgsql'))) {
+            echo "WARNING: cant handle non-mysql and pgsql introspection for defaults.";
+            return; // cant handle non-mysql introspection for defaults.
+        }
+        $this->debug("generateForeignKeys: Start");
+        $DB = $this->getDatabaseConnection();
+
+        $fk = array();
+
+
+        switch ($DB->phptype) {
+
+
+            case 'pgsql':
+                foreach($this->tables as $this->table) {
+                    $quotedTable = !empty($options['quote_identifiers_tableinfo']) ?  $DB->quoteIdentifier($table)  : $this->table;
+                    $res =& $DB->query("SELECT
+                                pg_catalog.pg_get_constraintdef(r.oid, true) AS condef
+                            FROM pg_catalog.pg_constraint r,
+                                 pg_catalog.pg_class c
+                            WHERE c.oid=r.conrelid
+                                  AND r.contype = 'f'
+                                  AND c.relname = '" . $quotedTable . "'");
+                    if (PEAR::isError($res)) {
+                        die($res->getMessage());
+                    }
+
+                    while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
+                        $treffer = array();
+                        // this only picks up one of these.. see this for why: http://pear.php.net/bugs/bug.php?id=17049
+                        preg_match(
+                            "/FOREIGN KEY \((\w*)\) REFERENCES (\w*)\((\w*)\)/i",
+                            $row['condef'],
+                            $treffer);
+                        if (!count($treffer)) {
+                            continue;
+                        }
+                        $fk[$this->table][$treffer[1]] = $treffer[2] . ":" . $treffer[3];
+                    }
+                }
+                break;
+ 
+ 
+            case 'mysql':
+            case 'mysqli':
+            default: 
+
+                foreach($this->tables as $this->table) {
+                    $quotedTable = !empty($options['quote_identifiers_tableinfo']) ?  $DB->quoteIdentifier($table)  : $this->table;
+                    
+                    $res =& $DB->query('SHOW CREATE TABLE ' . $quotedTable );
+
+                    if (PEAR::isError($res)) {
+                        die($res->getMessage());
+                    }
+
+                    $text = $res->fetchRow(DB_FETCHMODE_DEFAULT, 0);
+                    $treffer = array();
+                    // Extract FOREIGN KEYS
+                    preg_match_all(
+                        "/FOREIGN KEY \(`(\w*)`\) REFERENCES `(\w*)` \(`(\w*)`\)/i", 
+                        $text[1], 
+                        $treffer, 
+                        PREG_SET_ORDER);
+
+                    if (!count($treffer)) {
+                        continue;
+                    }
+                    foreach($treffer as $i=> $tref) {
+                        $fk[$this->table][$tref[1]] = $tref[2] . ":" . $tref[3];
+                    }
+                    
+                }
+
+        }
+        $links_ini = "";
+
+     
+        $this->_fkeys = $fk;
+        
+        
+        
+        
+        
+    }
+    
 
     /**
      * generate Foreign Keys (for links.ini) 
