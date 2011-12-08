@@ -249,13 +249,57 @@ class DB_DataObject_Links
         
     }
     
-    
+    function linkInfo($field)
+    {
+         
+        $links = $this->do->links();
+        
+        if (!empty($links) && is_array($links)) {
+            
+            
+            
+            if (isset($links[$field])) {
+                list($table,$link) = explode(':', $links[$field]);
+                if ($p = strpos($field,".")) {
+                    $field = substr($field,0,$p);
+                }
+                return array(
+                    $this->do->factory($table),
+                    $link
+                );
+                    
+            }
+                
+            return false;
+        }
+        // no links defined.. - use borked BC method...
+              // use the old _ method - this shouldnt happen if called via getLinks()
+        if (!($p = strpos($field, '_'))) {
+            return false;
+        }
+        $table = substr($row, 0, $p);
+        return $this->getLink($row, $table);
+        
+        
+        
+        
+        
+    }
     
     
         
     /**
      *  a generic geter/setter provider..
-     *  
+     *
+     *  provides a generic getter setter for the referenced object
+     *  eg.
+     *  $link->apply('company_id') returns getLink for the object
+     *  $link->apply('company_id', 1) - just sets the 
+     *
+     *
+     *
+     *  @param  string $field the field to fetch
+     *  @params array $args the arguments sent to the getter setter
      *
      */
     function apply($field,  $args)
@@ -266,6 +310,15 @@ class DB_DataObject_Links
         // otherwise it's a set call..
         if (!is_a($args[0], 'DB_DataObject')) {
             if (is_integer($args[0])) {
+                if ($args[0] > 0) {
+                    
+                    
+                    
+                }
+                
+                
+                
+                
                 $this->do->$field = $args[0];
             }
             return false;
