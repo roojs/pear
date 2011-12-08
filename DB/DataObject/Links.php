@@ -178,7 +178,7 @@ class DB_DataObject_Links
                 return false;
             }
             
-            if ($links[$field]) {
+            if (isset($links[$field])) {
                 list($table,$rlink) = explode(':', $links[$field]);
                 if ($p = strpos($field,".")) {
                     $field = substr($field,0,$p);
@@ -186,7 +186,7 @@ class DB_DataObject_Links
                 
                 return $this->getLink($field, $table, $link === false ? $rlink : $link );
                     
-             } 
+            } 
                 
             $this->do->raiseError(
                  "getLink: $field is not defined as a link (normally this is ok)", 
@@ -208,10 +208,7 @@ class DB_DataObject_Links
          
             //return $this->getLink($row, $table);
             
-
-        
-        
-        
+ 
         if (!isset($this->$field)) {
             $this->raiseError("getLink: row not set $field", DB_DATAOBJECT_ERROR_NODATA);
             return false;
