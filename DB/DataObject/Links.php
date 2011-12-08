@@ -163,29 +163,14 @@ class DB_DataObject_Links
         // GUESS THE LINKED TABLE.. (if found - recursevly call self)
         
         if ($table == false) {
-            $links = $this->do->links();
             
-            if (!empty($links) && is_array($links)) {
-                
-                
-                
-                if (isset($links[$field])) {
-                    list($table,$rlink) = explode(':', $links[$field]);
-                    if ($p = strpos($field,".")) {
-                        $field = substr($field,0,$p);
-                    }
-                    
-                    return $this->getLink($field, $table, $link === false ? $rlink : $link );
-                        
-                }
-                
-                    
-                $this->do->raiseError(
-                     "getLink: $field is not defined as a link (normally this is ok)", 
-                        DB_DATAOBJECT_ERROR_NODATA);
-                        
-                return false;
+            
+            $info = $this->linkInfo($field);
+            
+            if ($info) {
+                return $this->getLink($field, $info[0],  $link === false ? $info[1] : $link );
             }
+            
             // no links defined.. - use borked BC method...
                   // use the old _ method - this shouldnt happen if called via getLinks()
             if (!($p = strpos($field, '_'))) {
