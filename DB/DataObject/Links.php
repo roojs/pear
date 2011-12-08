@@ -280,16 +280,16 @@ class DB_DataObject_Links
         }
         
         // otherwise we are assigning it ...
-        $links = $this->do->links();
+        
             
-        if (empty($links) || !is_array($links) || !isset($links[$field])) {
+        if ($info) {
             $this->do->raiseError(
                 "getLink:Could not find link for row $field", 
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
             return false;
         }
         
-        $use = $links[$field];
+        $use = $info[1];
         $this->do->$field = $assign->$use;
         return true;
         
