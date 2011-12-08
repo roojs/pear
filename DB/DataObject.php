@@ -3144,8 +3144,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $l = new DB_DataObject_Link($this);
         $args= func_get_arg(1);
         array_shift($args);
-        return $l->link($field,arrayfunc_get_arg(1));
-        
+        return $l->link($field,$args);
         
     }
     
