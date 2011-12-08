@@ -289,8 +289,8 @@ class DB_DataObject_Links
             return false;
         }
         
-        $use = $info[1];
-        $this->do->$field = $assign->$use;
+        $use = ;
+        $this->do->$field = $assign->{$info[1]};
         return true;
         
         
