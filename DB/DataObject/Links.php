@@ -162,6 +162,20 @@ class DB_DataObject_Links
         
     }
     
+    /**
+     * load the single linked object..
+     *
+     */
+    function loadSingle()
+    {
+        
+        
+        
+        
+        
+    }
+    
+    
     
     
 }
