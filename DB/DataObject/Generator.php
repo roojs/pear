@@ -483,7 +483,7 @@ class DB_DataObject_Generator extends DB_DataObject
             }
             $links_ini .= "\n";
         }
-
+        
         // dont generate a schema if location is not set
         // it's created on the fly!
         $options = PEAR::getStaticProperty('DB_DataObject','options');
@@ -1371,8 +1371,8 @@ class DB_DataObject_Generator extends DB_DataObject
 
         return $getters;
     }
-/**
-    * Generate setter methods for class definition
+    /**
+    * Generate link setter/getter methods for class definition
     *
     * @param    string  Existing class contents
     * @return   string
@@ -1388,12 +1388,19 @@ class DB_DataObject_Generator extends DB_DataObject
         if  (empty($options['generate_link_methods'])) {
             return '';
         }
+        
+        if (empty($this->_fkeys)) {
+            return '';
+        }
 
         // remove auto-generated code from input to be able to check if the method exists outside of the auto-code
         $input = preg_replace('/(\n|\r\n)\s*###START_AUTOCODE(\n|\r\n).*(\n|\r\n)\s*###END_AUTOCODE(\n|\r\n)/s', '', $input);
 
         $setters .= "\n";
         $defs     = $this->_definitions[$this->table];
+        
+        
+        
 
         // loop through properties and create setter methods
         foreach ($defs = $defs as $t) {
