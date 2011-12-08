@@ -309,10 +309,11 @@ class DB_DataObject_Links
     {
          
         // get table will load the options.
-        if (!empty($this->do->_link_loaded)) {
+        if (isset($this->do->_link_loaded)) {
             return true;
         }
-        $this->_link_loaded = false;
+        
+        $this->_do->link_loaded = false;
         $cols  = $this->table();
         $links = $this->links();
          
