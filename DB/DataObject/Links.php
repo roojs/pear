@@ -153,7 +153,7 @@ class DB_DataObject_Links
      * @param string $link   (optional)  name of column in other table to match
      * @author Tim White <tim@cyface.com>
      * @access public
-     * @return mixed object on success
+     * @return mixed object on success false on failure or not linked
      */
     function getLink($field, $table= false, $link='')
     {
