@@ -224,7 +224,7 @@ class DB_DataObject_Links
         
         if (!is_a($obj,'DB_DataObject')) {
             $this->raiseError(
-                "getLink:Could not find class for row $row, table $table", 
+                "getLink:Could not find class for row $field, table $table", 
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
             return false;
         }
@@ -268,7 +268,14 @@ class DB_DataObject_Links
             return false;
         }
         // otherwise we are assigning it ...
-        
+        $links = $this->do->links();
+            
+        if (empty($links) || !is_array($links)) {
+            $this->raiseError(
+                "getLink:Could not find class for row $row, table $table", 
+                DB_DATAOBJECT_ERROR_INVALIDCONFIG);
+        }
+              
         
         
         
