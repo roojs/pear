@@ -3210,9 +3210,12 @@ class DB_DataObject extends DB_DataObject_Overload
      * }
      * 
      */
-    function &getLinkArray($row, $table = null)
+    function getLinkArray($row, $table = null)
     {
-        
+        require_once 'DB/DataObject/Link.php';
+        $l = new DB_DataObject_Link($this);
+        return $l->getLinkArray($row, $table === null ? false: $table);
+    
         $ret = array();
         if (!$table) {
             $links = $this->links();
