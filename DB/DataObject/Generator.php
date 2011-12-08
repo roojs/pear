@@ -1461,7 +1461,7 @@ class DB_DataObject_Generator extends DB_DataObject
             $methodName =  is_callable($options['generate_link_methods']) ?
                     $options['generate_link_methods']($k) : $k;
 
-            if (!strlen(trim($t->name)) || preg_match("/function[\s]+[&]?$methodName\(/i", $input)) {
+            if (!strlen(trim($k)) || preg_match("/function[\s]+[&]?$methodName\(/i", $input)) {
                 continue;
             }
 
