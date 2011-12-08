@@ -1407,7 +1407,7 @@ class DB_DataObject_Generator extends DB_DataObject
         $input = preg_replace('/(\n|\r\n)\s*###START_AUTOCODE(\n|\r\n).*(\n|\r\n)\s*###END_AUTOCODE(\n|\r\n)/s', '', $input);
 
         $setters .= "\n";
-        $defs     = $this->_definitions[$this->table];
+        $defs     = $this->_fkeys[$this->table];
         
         
         
