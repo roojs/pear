@@ -347,7 +347,7 @@ class DB_DataObject_Links
      * @return boolean , true on success
      */
     
-    function getLinks($format = '_%s')
+    function applyLinks($format = '_%s')
     {
          
         // get table will load the options.
