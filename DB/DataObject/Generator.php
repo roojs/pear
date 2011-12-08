@@ -1432,13 +1432,14 @@ class DB_DataObject_Generator extends DB_DataObject
             $setters .= "   /**\n";
             $setters .= "    * Getter / Setter for \${$k}\n";
             $setters .= "    *\n";
-            $setters .= "    * @param    mixed   input value\n";
+            $setters .= "    * @param    mixed   (optional) value to assign\n";
             $setters .= "    * @access   public\n";
+            
             $setters .= "    */\n";
             $setters .= (substr(phpversion(),0,1) > 4) ? '    public '
                                                        : '    ';
-            $setters .= "function $methodName(\$value) {\n";
-            $setters .= "        \$this->{$t->name} = \$value;\n";
+            $setters .= "function $methodName() {\n";
+            $setters .= "        \call_user_func_array(array($this, 'link'), func_get_args())\n";
             $setters .= "    }\n\n";
         }
         
