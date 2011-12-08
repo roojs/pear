@@ -200,7 +200,8 @@ class DB_DataObject_Links
             if (!($p = strpos($field, '_'))) {
                 return false;
             }
-            
+            $table = substr($row, 0, $p);
+            return $this->getLink($row, $table);
             
             
 
@@ -240,7 +241,7 @@ class DB_DataObject_Links
             } 
             return  false;
         }
-        
+        // this really only happens when no link config is set (old BC stuff)
         if ($obj->get($this->$row)) {
             return $obj;
         }
