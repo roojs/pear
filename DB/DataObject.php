@@ -3146,57 +3146,10 @@ class DB_DataObject extends DB_DataObject_Overload
      */
     function getLinks($format = '_%s')
     {
-         
-        // get table will load the options.
-        if ($this->_link_loaded) {
-            return true;
-        }
-        $this->_link_loaded = false;
-        $cols  = $this->table();
-        $links = $this->links();
-         
-        $loaded = array();
-        
-        if ($links) {   
-            foreach($links as $key => $match) {
-                list($table,$link) = explode(':', $match);
-                $k = sprintf($format, str_replace('.', '_', $key));
-                // makes sure that '.' is the end of the key;
-                if ($p = strpos($key,'.')) {
-                      $key = substr($key, 0, $p);
-                }
-                
-                $this->$k = $this->getLink($key, $table, $link);
-                
-                if (is_object($this->$k)) {
-                    $loaded[] = $k; 
-                }
-            }
-            $this->_link_loaded = $loaded;
-            return true;
-        }
-        // this is the autonaming stuff..
-        // it sends the column name down to getLink and lets that sort it out..
-        // if there is a links file then it is not used!
-        // IT IS DEPRECITED!!!! - USE 
-        if (!is_null($links)) {    
-            return false;
-        }
-        
-        
-        foreach (array_keys($cols) as $key) {
-            if (!($p = strpos($key, '_'))) {
-                continue;
-            }
-            // does the table exist.
-            $k =sprintf($format, $key);
-            $this->$k = $this->getLink($key);
-            if (is_object($this->$k)) {
-                $loaded[] = $k; 
-            }
-        }
-        $this->_link_loaded = $loaded;
-        return true;
+        require_once 'DB/DataObject/Link.php';
+         $l = new DB_DataObject_Link($this);
+        return $l->getLinks($format);
+           
     }
 
     /**
