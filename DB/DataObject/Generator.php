@@ -481,8 +481,7 @@ class DB_DataObject_Generator extends DB_DataObject
                 }
 
         }
-        $links_ini = "";
-
+ 
      
         $this->_fkeys = $fk;
         
