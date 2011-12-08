@@ -227,9 +227,9 @@ class DB_DataObject_Links
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
             return false;
         }
-        
-        if (empty($this->$field)) {
-            return false; // no record.
+        // -1 or 0 -- no referenced record..
+        if (empty($this->$field) || $this->$field < 0) {
+            return false; // no record. 
         }
         
         if ($link) {
