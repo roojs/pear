@@ -86,6 +86,13 @@ class DB_DataObject_Generator extends DB_DataObject
      */
     var $table; // active tablename
 
+    /**
+     * links (generated)
+     *
+     * @var array
+     * @access private
+     */
+    var $_fkeys; // active tablename
 
     /**
      * The 'starter' = call this to start the process
