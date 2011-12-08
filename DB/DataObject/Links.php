@@ -185,7 +185,6 @@ class DB_DataObject_Links
          
         $tn = is_string($table) ? $table : $table->tableName();
          
-            //return $this->getLink($field, $table);
             
  
         if (!isset($this->do->$field)) {
