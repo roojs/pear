@@ -3215,45 +3215,7 @@ class DB_DataObject extends DB_DataObject_Overload
         require_once 'DB/DataObject/Link.php';
         $l = new DB_DataObject_Link($this);
         return $l->getLinkArray($row, $table === null ? false: $table);
-    
-        $ret = array();
-        if (!$table) {
-            $links = $this->links();
-            
-            if (is_array($links)) {
-                if (!isset($links[$row])) {
-                    // failed..
-                    return $ret;
-                }
-                list($table,$link) = explode(':',$links[$row]);
-            } else {
-                if (!($p = strpos($row,'_'))) {
-                    return $ret;
-                }
-                $table = substr($row,0,$p);
-            }
-        }
-        
-        $c  = $this->factory($table);
-        
-        if (!is_object($c) || !is_a($c,'DB_DataObject')) {
-            $this->raiseError(
-                "getLinkArray:Could not find class for row $row, table $table", 
-                DB_DATAOBJECT_ERROR_INVALIDCONFIG
-            );
-            return $ret;
-        }
-
-        // if the user defined method list exists - use it...
-        if (method_exists($c, 'listFind')) {
-            $c->listFind($this->id);
-        } else {
-            $c->find();
-        }
-        while ($c->fetch()) {
-            $ret[] = $c;
-        }
-        return $ret;
+     
     }
 
      /**
