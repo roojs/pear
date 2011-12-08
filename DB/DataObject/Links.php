@@ -94,6 +94,12 @@ function company()
  */
 class DB_DataObject_Links 
 {
+     /**
+     * @property {DB_DataObject}      do   DataObject to apply this to.
+     */
+    var $do = false;
+    
+    
     /**
      * @property {Array|String} load    What to load, 'all' or an array of properties. (default all)
      */
@@ -117,11 +123,7 @@ class DB_DataObject_Links
      * @property {Boolean}      apply   apply the result to this object, (default true)
      */
     var $apply = true;
-    /**
-     * @property {DB_DataObject}      do   DataObject to apply this to.
-     */
-    var $do = false;
-    
+   
     
     //------------------------- RETURN ------------------------------------
     /**
