@@ -426,7 +426,7 @@ class DB_DataObject_Links
             }
             return $ret;
         } 
-        return $this->fetchAll($fkey, $fval);
+        return $this->fetchAll($fkey, $fval, $fmethod);
         }
         
     }
