@@ -352,12 +352,12 @@ class DB_DataObject_Links
             }
             // does the table exist.
             $k =sprintf($format, $key);
-            $this->$k = $this->getLink($key);
-            if (is_object($this->$k)) {
+            $this->do->$k = $this->getLink($key);
+            if (is_object($this->do->$k)) {
                 $loaded[] = $k; 
             }
         }
-        $this->_link_loaded = $loaded;
+        $this->do->_link_loaded = $loaded;
         return true;
     }
 
