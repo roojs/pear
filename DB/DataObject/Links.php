@@ -25,41 +25,7 @@
  * Example of how this could be used..
  *
  * 
-
-
-$person->loadLinks( array( 
-        'load' => array(
-                'company_id',
-                'office_id',
-                'image' =>  array('Images', array( 'on_id' => $do->id , 'on_table' => $do->tableName()))
-        ),
-        'scanf' => '%s_id', // or 'printf' => '%s_obj'
-        'cached' => true
-));
-
-
-// THE DEFAULT BEHAVOIUR... - eg. $person->loadLinks() 
-$person->loadLinks( array( 
-        'load' => 'all'
-        'scanf' => false,        
-        'printf' => '%s_link'
-        'cached' => false,
-        'apply' => true
-        
-));
-
-
-getLinks would then be:
-function getLinks($format =  '_%s')
-        $r = new DB_DataObject_Links(array(
-                'load' => all',
-                'scanf' => false,
-                'printf' => $format
-                'cached' => false,
-                'do' => $this
-        ));
-        return $r->links;
-}
+ 
 
 May also be used by the generator to generate hook methods that look like this:
 
