@@ -287,7 +287,21 @@ class DB_DataObject_Links
         
         
     }
-    
+    /**
+     * load related objects
+     *
+     * Relies on  <dbname>.links.ini file
+     * into a static property named <dbname>.links and specifies the table joins,
+     *
+     * you can change what object vars the links are stored in by 
+     * changeing the format parameter
+     *
+     *
+     * @param  string format (default _%s) where %s is the table name.
+     * @author Tim White <tim@cyface.com>
+     * @access public
+     * @return boolean , true on success
+     */
     
     function getLinks($format = '_%s')
     {
