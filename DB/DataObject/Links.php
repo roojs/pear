@@ -264,6 +264,7 @@ class DB_DataObject_Links
             }
             return false;
         }
+        // otherwise we are assigning it ...
         
         
         
