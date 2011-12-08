@@ -221,7 +221,7 @@ class DB_DataObject_Links
         
         $obj = $this->factory($table);
         
-        if (!is_object($obj) || !is_a($obj,'DB_DataObject')) {
+        if (!is_a($obj,'DB_DataObject')) {
             $this->raiseError(
                 "getLink:Could not find class for row $row, table $table", 
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
