@@ -224,6 +224,12 @@ class DB_DataObject_Links
         
         // check to see if we know anything about this table..
         
+        if ($this->cached && isset($cache[$table.':'. $link .':'. $this->$field])) {
+                return $cache[$table.':'. $link .':'. $this->$field];
+            
+        }
+        
+        
         $obj = $this->factory($table);
         
         if (!is_a($obj,'DB_DataObject')) {
