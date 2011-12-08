@@ -258,6 +258,13 @@ class DB_DataObject_Links
             return $this->getLink($field);
         }
         // otherwise it's a set call..
+        if (!is_a($args[0], 'DB_DataObject')) {
+            if (is_integer($args[0])) {
+                $this->do->field = $args[0];
+            }
+            return false;
+        }
+        
         
         
         
