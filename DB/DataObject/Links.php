@@ -340,7 +340,7 @@ class DB_DataObject_Links
         // this is the autonaming stuff..
         // it sends the column name down to getLink and lets that sort it out..
         // if there is a links file then it is not used!
-        // IT IS DEPRECITED!!!! - USE 
+        // IT IS DEPRECITED!!!! - DO NOT USE 
         if (!is_null($links)) {    
             return false;
         }
