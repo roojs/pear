@@ -174,25 +174,35 @@ class DB_DataObject_Links
         if ($table == false) {
             $links = $this->do->links();
             
-            if (!is_array($links)) {
-                return false;
-            }
-            
-            if (isset($links[$field])) {
-                list($table,$rlink) = explode(':', $links[$field]);
-                if ($p = strpos($field,".")) {
-                    $field = substr($field,0,$p);
+            if (empty($links) || is_array($links)) {
+                
+                
+                
+                if (isset($links[$field])) {
+                    list($table,$rlink) = explode(':', $links[$field]);
+                    if ($p = strpos($field,".")) {
+                        $field = substr($field,0,$p);
+                    }
+                    
+                    return $this->getLink($field, $table, $link === false ? $rlink : $link );
+                        
                 }
                 
-                return $this->getLink($field, $table, $link === false ? $rlink : $link );
                     
-            } 
-                
-            $this->do->raiseError(
-                 "getLink: $field is not defined as a link (normally this is ok)", 
-                    DB_DATAOBJECT_ERROR_NODATA);
-                    
-            return false;
+                $this->do->raiseError(
+                     "getLink: $field is not defined as a link (normally this is ok)", 
+                        DB_DATAOBJECT_ERROR_NODATA);
+                        
+                return false;
+            }
+            // no links defined.. - use borked BC method...
+                  // use the old _ method - this shouldnt happen if called via getLinks()
+        //if (!($p = strpos($field, '_'))) {
+        //        $r = null;
+        //        return $r; 
+        //    }
+            
+            
             
 
         }
@@ -200,11 +210,7 @@ class DB_DataObject_Links
         
         
         
-            // use the old _ method - this shouldnt happen if called via getLinks()
-        //if (!($p = strpos($field, '_'))) {
-        //        $r = null;
-        //        return $r; 
-        //    }
+      
          
             //return $this->getLink($row, $table);
             
