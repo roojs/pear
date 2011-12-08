@@ -3133,6 +3133,13 @@ class DB_DataObject extends DB_DataObject_Overload
      * This is the new 'recommended' way to get get/set linked objects.
      * must be used with links.ini
      *
+     * usage:
+     *  $obj = $do->link('company_id');
+     *  $do->link('company_id',0);
+     *  $do->link('company_id',$obj);
+     *  
+     *
+     *
      * @param  string field 
      * @author Alan Knowles
      * @access public
