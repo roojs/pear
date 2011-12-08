@@ -263,20 +263,24 @@ class DB_DataObject_Links
         // otherwise it's a set call..
         if (!is_a($args[0], 'DB_DataObject')) {
             if (is_integer($args[0])) {
-                $this->do->field = $args[0];
+                $this->do->$field = $args[0];
             }
             return false;
         }
+        $assign = $args[0];
         // otherwise we are assigning it ...
         $links = $this->do->links();
             
-        if (empty($links) || !is_array($links)) {
-            $this->raiseError(
+        if (empty($links) || !is_array($links) || !isset($links[$field])) {
+            $this->do->raiseError(
                 "getLink:Could not find link for row $field", 
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
+            return false;
         }
-              
         
+        $use = $links[$field];
+        $this->do->$field = $assign->$use;
+        return true;
         
         
         
