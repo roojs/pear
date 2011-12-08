@@ -370,7 +370,10 @@ class DB_DataObject_Links
      * 
      * @access public
      * @param string $column - either column or column.xxxxx
-     * @param string $table - name of table to look up value in
+     * @param string $table (optional) name of table to look up value in
+     * @param string $fkey (optional) fetchall key see DB_DataObject::fetchAll()
+     * @param string $fval (optional)fetchall val DB_DataObject::fetchAll()
+     * @param string $fval (optional) fetchall method DB_DataObject::fetchAll()
      * @return array - array of results (empty array on failure)
      * 
      * Example - Getting the related objects
@@ -385,7 +388,7 @@ class DB_DataObject_Links
      * }
      * 
      */
-    function getLinkArray($row, $table = null,)
+    function getLinkArray($row, $table = null, $fkey = false, $fval = false, $fmethod = false;)
     {
         
         $ret = array();
