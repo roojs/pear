@@ -65,18 +65,15 @@ May also be used by the generator to generate hook methods that look like this:
 
 function company()
 {
-      $r = new DB_DataObject_Links(array(
+    $r = new DB_DataObject_Links(array(
             'cached' => false,
             'do' => $this
     ));
     
+    
     $args = func_get_args()
     if (func_get_args()) {
-        $val = 0;
-        if (is_object($args[0])) {
-            $val = $args[0]->{array_unshift($args[0]->keys())};
-        }
-        $this->company_id = $val;
+        $r->set(array_shift(func_get_args()));
     }
   
     return $r->links['company'];
