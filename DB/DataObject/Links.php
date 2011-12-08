@@ -277,8 +277,8 @@ class DB_DataObject_Links
      *
      *  provides a generic getter setter for the referenced object
      *  eg.
-     *  $link->apply('company_id') returns getLink for the object
-     *  $link->apply('company_id', 1) - just sets the 
+     *  $link->link('company_id') returns getLink for the object
+     *  $link->link('company_id', 1) - just sets the 
      *
      *
      *
