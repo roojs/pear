@@ -363,14 +363,11 @@ class DB_DataObject_Links
     
     /**
      * getLinkArray
-     * Fetch an array of related objects. This should be used in conjunction with a <dbname>.links.ini file configuration (see the introduction on linking for details on this).
-     * You may also use this with all parameters to specify, the column and related table.
-     * This is highly dependant on naming columns 'correctly' :)
-     * using colname = xxxxx_yyyyyy
-     * xxxxxx = related table; (yyyyy = user defined..)
-     * looks up table xxxxx, for value id=$this->xxxxx
-     * stores it in $this->_xxxxx_yyyyy
+     * Fetch an array of related objects. This should be used in conjunction with a
+     * <dbname>.links.ini file configuration (see the introduction on linking for details on this).
      *
+     * You may also use this with all parameters to specify, the column and related table.
+     * 
      * @access public
      * @param string $column - either column or column.xxxxx
      * @param string $table - name of table to look up value in
