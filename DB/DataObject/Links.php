@@ -153,7 +153,7 @@ class DB_DataObject_Links
      * @param string $link   (optional)  name of column in other table to match
      * @author Tim White <tim@cyface.com>
      * @access public
-     * @return mixed object on success false on failure or not linked
+     * @return mixed object on success false on failure or '0' not linked
      */
     function getLink($field, $table= false, $link='')
     {
@@ -215,7 +215,7 @@ class DB_DataObject_Links
             
         }
         if (empty($this->$field) || $this->$field < 0) {
-            return false; // no record. 
+            return 0; // no record. 
         }
         
         $obj = $this->factory($table);
