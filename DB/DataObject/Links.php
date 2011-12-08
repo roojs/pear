@@ -166,9 +166,81 @@ class DB_DataObject_Links
      * load the single linked object..
      *
      */
-    function loadSingle()
+    function loadSingle($field, $table= false, $link=false)
     {
         
+        // GUESS THE LINKED TABLE.. (if found - recursevly call self)
+        
+        if ($table == false) {
+            $links = $this->do->links();
+            
+            if (!is_array($links)) {
+                return false;
+            }
+            
+            if ($links[$field]) {
+                list($table,$rlink) = explode(':', $links[$field]);
+                if ($p = strpos($field,".")) {
+                    $field = substr($field,0,$p);
+                }
+                
+                return $this->getLink($field,$table,$link === false ? $rlink : $link );
+                    
+             } 
+                
+            $this->do->raiseError(
+                 "getLink: $field is not defined as a link (normally this is ok)", 
+                    DB_DATAOBJECT_ERROR_NODATA);
+                    
+            return false;
+            
+
+        }
+        
+        
+        
+        
+            // use the old _ method - this shouldnt happen if called via getLinks()
+            if (!($p = strpos($row, '_'))) {
+                $r = null;
+                return $r; 
+            }
+            $table = substr($row, 0, $p);
+            return $this->getLink($row, $table);
+            
+
+        }
+        
+        
+        
+        if (!isset($this->$row)) {
+            $this->raiseError("getLink: row not set $row", DB_DATAOBJECT_ERROR_NODATA);
+            return false;
+        }
+        
+        // check to see if we know anything about this table..
+        
+        $obj = $this->factory($table);
+        
+        if (!is_object($obj) || !is_a($obj,'DB_DataObject')) {
+            $this->raiseError(
+                "getLink:Could not find class for row $row, table $table", 
+                DB_DATAOBJECT_ERROR_INVALIDCONFIG);
+            return false;
+        }
+        if ($link) {
+            if ($obj->get($link, $this->$row)) {
+                return $obj;
+            } 
+            return  false;
+        }
+        
+        if ($obj->get($this->$row)) {
+            return $obj;
+        }
+        return false;
+        
+    }
         
         
         
