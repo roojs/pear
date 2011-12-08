@@ -1392,6 +1392,10 @@ class DB_DataObject_Generator extends DB_DataObject
         $setters = '';
 
         // only generate if option is set to true
+        
+        // generate_link_methods true::
+        
+        
         if  (empty($options['generate_link_methods'])) {
             return '';
         }
@@ -1411,19 +1415,22 @@ class DB_DataObject_Generator extends DB_DataObject
         
         
         
+        
+        // $fk[$this->table][$tref[1]] = $tref[2] . ":" . $tref[3];
 
         // loop through properties and create setter methods
-        foreach ($defs = $defs as $t) {
+        foreach ($defs as $k => $info) {
 
             // build mehtod name
-            $methodName = 'set' . $this->getMethodNameFromColumnName($t->name);
+            $methodName =  is_callable($options['generate_link_methods']) ?
+                    $options['generate_link_methods']($k) : $k;
 
             if (!strlen(trim($t->name)) || preg_match("/function[\s]+[&]?$methodName\(/i", $input)) {
                 continue;
             }
 
             $setters .= "   /**\n";
-            $setters .= "    * Setter for \${$t->name}\n";
+            $setters .= "    * Getter / Setter for \${$k}\n";
             $setters .= "    *\n";
             $setters .= "    * @param    mixed   input value\n";
             $setters .= "    * @access   public\n";
