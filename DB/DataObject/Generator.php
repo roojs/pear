@@ -149,6 +149,7 @@ class DB_DataObject_Generator extends DB_DataObject
                 $t->_database = basename($t->_database);
             }
             $t->_createTableList();
+            $t->_createForiegnKeys();
 
             foreach(get_class_methods($class) as $method) {
                 if (substr($method,0,8 ) != 'generate') {
@@ -399,7 +400,7 @@ class DB_DataObject_Generator extends DB_DataObject
      * @author Pascal Schöni 
      */
     
-    function fillForeignKeys()
+    function _createForiegnKeys()
     {
           $options = PEAR::getStaticProperty('DB_DataObject','options');
         if (empty($options['generate_links'])) {
