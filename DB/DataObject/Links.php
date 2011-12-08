@@ -385,12 +385,12 @@ class DB_DataObject_Links
      * }
      * 
      */
-    function getLinkArray($row, $table = null)
+    function getLinkArray($row, $table = null,)
     {
         
         $ret = array();
         if (!$table) {
-            $links = $this->links();
+            $links = $this->do->links();
             
             if (is_array($links)) {
                 if (!isset($links[$row])) {
@@ -408,10 +408,10 @@ class DB_DataObject_Links
 
         }
         
-        $c  = $this->factory($table);
+        $c  = $this->do->factory($table);
         
         if (!is_object($c) || !is_a($c,'DB_DataObject')) {
-            $this->raiseError(
+            $this->do->raiseError(
                 "getLinkArray:Could not find class for row $row, table $table", 
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG
             );
@@ -421,13 +421,14 @@ class DB_DataObject_Links
         // if the user defined method list exists - use it...
         if (method_exists($c, 'listFind')) {
             $c->listFind($this->id);
-        } else {
-            $c->find();
+            while ($c->fetch()) {
+                $ret[] = clone($c);
+            }
+            return $ret;
+        } 
+        return $this->fetchAll($fkey, $fval);
         }
-        while ($c->fetch()) {
-            $ret[] = clone($c);
-        }
-        return $ret;
+        
     }
 
 }
