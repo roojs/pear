@@ -388,7 +388,7 @@ class DB_DataObject_Links
      * }
      * 
      */
-    function getLinkArray($row, $table = null, $fkey = false, $fval = false, $fmethod = false;)
+    function getLinkArray($row, $table = null, $fkey = false, $fval = false, $fmethod = false)
     {
         
         $ret = array();
@@ -429,8 +429,8 @@ class DB_DataObject_Links
             }
             return $ret;
         } 
-        return $this->fetchAll($fkey, $fval, $fmethod);
-        }
+        return $c->fetchAll($fkey, $fval, $fmethod);
+        
         
     }
 
