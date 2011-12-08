@@ -3134,7 +3134,10 @@ class DB_DataObject extends DB_DataObject_Overload
      * must be used with links.ini
      *
      * usage:
+     *  get:
      *  $obj = $do->link('company_id');
+     *  
+     *  set:
      *  $do->link('company_id',0);
      *  $do->link('company_id',$obj);
      *  
