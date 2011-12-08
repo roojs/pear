@@ -143,7 +143,7 @@ class DB_DataObject_Links
             
  
         if (!isset($this->do->$field)) {
-            $this->raiseError("getLink: row not set $field", DB_DATAOBJECT_ERROR_NODATA);
+            $this->do->raiseError("getLink: row not set $field", DB_DATAOBJECT_ERROR_NODATA);
             return false;
         }
         
