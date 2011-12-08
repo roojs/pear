@@ -3228,70 +3228,7 @@ class DB_DataObject extends DB_DataObject_Overload
         require_once 'DB/DataObject/Link.php';
         $l = new DB_DataObject_Link($this);
         return $l->getLink($row, $table === null ? false: $table, $link);
-        
-        // GUESS THE LINKED TABLE.. (if found - recursevly call self)
-        
-        if ($table === null) {
-            $links = $this->links();
-            
-            if (is_array($links)) {
-            
-                if ($links[$row]) {
-                    list($table,$link) = explode(':', $links[$row]);
-                    if ($p = strpos($row,".")) {
-                        $row = substr($row,0,$p);
-                    }
-                    return $this->getLink($row,$table,$link);
-                    
-                } 
-                
-                $this->raiseError(
-                    "getLink: $row is not defined as a link (normally this is ok)", 
-                    DB_DATAOBJECT_ERROR_NODATA);
-                    
-                $r = false;
-                return $r;// technically a possible error condition?
-
-            }  
-            // use the old _ method - this shouldnt happen if called via getLinks()
-            if (!($p = strpos($row, '_'))) {
-                $r = null;
-                return $r; 
-            }
-            $table = substr($row, 0, $p);
-            return $this->getLink($row, $table);
-            
-
-        }
-        
-        
-        
-        if (!isset($this->$row)) {
-            $this->raiseError("getLink: row not set $row", DB_DATAOBJECT_ERROR_NODATA);
-            return false;
-        }
-        
-        // check to see if we know anything about this table..
-        
-        $obj = $this->factory($table);
-        
-        if (!is_object($obj) || !is_a($obj,'DB_DataObject')) {
-            $this->raiseError(
-                "getLink:Could not find class for row $row, table $table", 
-                DB_DATAOBJECT_ERROR_INVALIDCONFIG);
-            return false;
-        }
-        if ($link) {
-            if ($obj->get($link, $this->$row)) {
-                return $obj;
-            } 
-            return  false;
-        }
-        
-        if ($obj->get($this->$row)) {
-            return $obj;
-        }
-        return false;
+         
         
     }
 
