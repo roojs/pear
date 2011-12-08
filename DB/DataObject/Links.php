@@ -254,30 +254,30 @@ class DB_DataObject_Links
             }
             return $ret;
         }
-        $arg = func_get_arg(1);
+        $assign = func_get_arg(1);
         // otherwise it's a set call..
-        if (!is_a($arg, 'DB_DataObject')) {
+        if (!is_a($assign , 'DB_DataObject')) {
             
-            if (is_integer($arg)) {
-                if ($arg > 0) {
+            if (is_integer($assign )) {
+                if ($assign  > 0) {
                     $info = $this->linkInfo($field);
                     if (!$info) {
                         return false;
                     }
                     // check that record exists..
-                    if (!$info[0]->get($info[1], $arg)) {
+                    if (!$info[0]->get($info[1], $assign )) {
                         return false;
                     }
                     
                 }
                 
-                $this->do->$field = $arg;
+                $this->do->$field = $assign ;
                 return true;
             }
             
             return false;
         }
-        $assign = $args[0];
+        
         // otherwise we are assigning it ...
         $links = $this->do->links();
             
