@@ -247,6 +247,7 @@ class DB_DataObject_Links
     {
         $info = $this->linkInfo($field);
         
+        echo "LINK $field";
         // GET...
         if (func_num_args() < 2) {
             if (!isset($this->$field)) {
