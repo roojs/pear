@@ -3816,6 +3816,14 @@ class DB_DataObject extends DB_DataObject_Overload
     /**
      * Factory method for calling DB_DataObject_Cast
      *
+     * if used with 1 argument DB_DataObject_Cast::sql($value) is called
+     * 
+     * if used with 2 arguments DB_DataObject_Cast::$value($callvalue) is called
+     * valid first arguments are: blob, string, date, sql
+     *
+     * might handle more arguments for escaping later...
+     * 
+     *
      * @param string $value (or type if used with 2 arguments)
      * @param string $callvalue (optional) used with date/null etc..
      */
