@@ -158,7 +158,7 @@ class DB_DataObject_Links
             return $cache[$tn.':'. $link .':'. $this->do->$field];    
         }
         
-        $obj = is_string($table) ? $this->do->factory($tn) : $able;;
+        $obj = is_string($table) ? $this->do->factory($tn) : $table;;
         
         if (!is_a($obj,'DB_DataObject')) {
             $this->do->raiseError(
