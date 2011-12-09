@@ -254,6 +254,7 @@ class DB_DataObject_Links
             }
             
             $ret = $this->getLink($field);
+            var_dump($ret);
             if ($ret === 0) {
                 // empty.
                 
