@@ -3814,6 +3814,29 @@ class DB_DataObject extends DB_DataObject_Overload
     }
     
     /**
+     * Factory method for calling DB_DataObject_Cast
+     *
+     * @param string $value (or type if used with 2 arguments)
+     * @param string $callvalue (optional) used with date/null etc..
+     */
+    
+    function sqlValue($value)
+    {
+        $method = 'sql';
+        if (func_num_args() == 2) {
+            $method = $value;
+            $value = func_get_arg(1);
+        }
+        require_once 'DB/DataObject/Cast.php';
+        
+        
+        
+        
+        
+    }
+    
+    
+    /**
      * Copies items that are in the table definitions from an
      * array or object into the current object
      * will not override key values.
