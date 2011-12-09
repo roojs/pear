@@ -255,11 +255,7 @@ class DB_DataObject_Links
             
             $ret = $this->getLink($field);
             
-            if ($ret === 0) {
-                // empty.
-                return $info[0];
-            }
-            return $ret;
+            return ($ret === 0) ? $info[0] : $ret;
         }
         $assign = func_get_arg(1);
         
