@@ -254,7 +254,7 @@ class DB_DataObject_Links
             }
             
             $ret = $this->getLink($field);
-            
+            // nothing linked -- return new object..
             return ($ret === 0) ? $info[0] : $ret;
             
         }
