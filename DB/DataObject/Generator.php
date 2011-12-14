@@ -376,6 +376,12 @@ class DB_DataObject_Generator extends DB_DataObject
         $tmpname = tempnam(session_save_path(),'DataObject_');
         //print_r($this->_newConfig);
         $fh = fopen($tmpname,'w');
+        if (!$fh) {
+              return PEAR::raiseError(
+                "Failed to create temporary file: $tmpname\n".
+                "make sure session.save_path is set and is writable\n"
+                ,null, PEAR_ERROR_DIE);
+        }
         fwrite($fh,$this->_newConfig);
         fclose($fh);
         $perms = file_exists($file) ? fileperms($file) : 0755;
