@@ -875,6 +875,7 @@ class PEAR_Error
 
         if ($this->mode & PEAR_ERROR_DIE) {
             $msg = $this->getMessage();
+            dir($msg);
             if (is_null($options) || is_int($options)) {
                 $format = "%s";
                 if (substr($msg, -1) != "\n") {
