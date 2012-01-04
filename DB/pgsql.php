@@ -1126,7 +1126,15 @@ class DB_pgsql extends DB_common
         return (preg_match('/^\s*(SAVEPOINT|RELEASE)\s+/i', $query)
                 || parent::_checkManip($query));
     }
-    
+     /**
+     * mungle booleans into true and false.
+     * For a reason that no-one can understand, booleans in postgress return as
+     * 't' or 'f' - if you enable option DB_PORTABILITY_BOOLEAN then this 
+     * 
+     * @param resource postgres result
+     * @param array   the row
+     * @access protected
+     */
     
     
     function _convertBoolean($res, &$ar)
