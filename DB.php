@@ -383,8 +383,9 @@ define('DB_PORTABILITY_ERRORS', 16);
  */
 define('DB_PORTABILITY_NULL_TO_EMPTY', 32);
 
-
-
+/**
+ * Convert boolean values to true/false (normally with postgres)
+ */
 define('DB_PORTABILITY_BOOLEAN', 64);
 
 /**
