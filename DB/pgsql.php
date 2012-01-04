@@ -1126,6 +1126,23 @@ class DB_pgsql extends DB_common
         return (preg_match('/^\s*(SAVEPOINT|RELEASE)\s+/i', $query)
                 || parent::_checkManip($query));
     }
+    
+    
+    
+    function _convertBoolean($res, &$ar)
+    {
+        foreach($ar as $k=> $v) {
+            if ('bool' !=   pg_field_type(
+                    $res, is_int($k) ? $k : pg_field_num($res,$k))
+                ) {
+                continue;
+            }
+            $ar[$k] = $v == 't' ? true : ($v =='f' ? false : null);
+            
+        }
+        
+        
+    }
 
 }
 
