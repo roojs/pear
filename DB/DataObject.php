@@ -312,7 +312,28 @@ class DB_DataObject extends DB_DataObject_Overload
         $this->$k = $v;
         return $this->find(1);
     }
-
+    
+    /**
+     * Get the value of the primary id
+     *
+     * While I normally use 'id' as the PRIMARY KEY value, some database use
+     * {table}_id as the column name.
+     *
+     * To save a bit of typing,
+     *
+     * $id = $do->pid();
+     *
+     * 
+     *
+     *
+     *
+     *
+     */
+    function pid()
+    {
+        return $this->{array_shift($this->keys())};
+    }
+    
     /**
      * An autoloading, caching static get method  using key, value (based on get)
      * (deprecated - use ::get / and your own caching method)
