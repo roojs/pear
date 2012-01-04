@@ -435,7 +435,7 @@ class DB_pgsql extends DB_common
             $this->_convertNullArrayValuesToEmpty($arr);
         }
         if ($this->options['portability'] & DB_PORTABILITY_BOOLEAN) {
-            $this->_convertBoolean($arr);
+            $this->_convertBoolean($res, $arr);
         }
         $this->row[$result_int] = ++$rownum;
         return DB_OK;
