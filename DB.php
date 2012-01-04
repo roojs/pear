@@ -385,7 +385,7 @@ define('DB_PORTABILITY_NULL_TO_EMPTY', 32);
 
 
 
-define('DB_PORTABILITY_BOOLEAN', 64)
+define('DB_PORTABILITY_BOOLEAN', 64);
 
 /**
  * Turn on all portability features
