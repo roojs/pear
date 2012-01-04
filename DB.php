@@ -383,10 +383,14 @@ define('DB_PORTABILITY_ERRORS', 16);
  */
 define('DB_PORTABILITY_NULL_TO_EMPTY', 32);
 
+
+
+define('DB_PORTABILITY_BOOLEAN', 64)
+
 /**
  * Turn on all portability features
  */
-define('DB_PORTABILITY_ALL', 63);
+define('DB_PORTABILITY_ALL', 127);
 /**#@-*/
 
 // }}}
