@@ -323,15 +323,23 @@ class DB_DataObject extends DB_DataObject_Overload
      *
      * $id = $do->pid();
      *
-     * 
-     *
-     *
-     *
-     *
+     * @return the id 
      */
     function pid()
     {
-        return $this->{array_shift($this->keys())};
+        $keys = $this->keys();
+        if (!$keys) {
+            $this->raiseError("No Keys available for {$this->tableName()}",
+                            DB_DATAOBJECT_ERROR_INVALIDCONFIG);
+            return false;
+        }
+        $k = $keys[0];
+        if (empty($this->$k)) { // we do not 
+            $this->raiseError("pid() called on Object where primary key value not available",
+                            DB_DATAOBJECT_ERROR_NODATA);
+            return false;
+        }
+        return $this->$k;
     }
     
     /**
