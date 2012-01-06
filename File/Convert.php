@@ -94,9 +94,7 @@ class File_Convert
             die("not available in this format was: {$this->mimetype}, request: {$this->to}<BR>
                 Running - $cmd");
         }
-        if (empty($filename)) {
-            $filename = basename($this->target);
-        }
+       
         if (!file_exists($this->target)) {
             die("file missing");
        }
@@ -139,6 +137,10 @@ class File_Convert
         $sfn = basename($fn);
         $sfn = preg_match('#\.'.$ext.'$#', $sfn) ? $sfn : $sfn. '.' .$ext;
         //var_dump($sfn);
+        
+        if (empty($filename)) {
+            $filename = $sfn;
+        }
         
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
