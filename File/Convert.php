@@ -86,7 +86,7 @@ class File_Convert
         
     }
     
-    function serve($type=false, $filename =false) /** may die **/
+    function serve($type=false, $filename =false, $delete_after = false) /** may die **/
     {
         if (empty($this->target)) {
             // broken image? for images...
