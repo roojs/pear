@@ -152,7 +152,11 @@ class File_Convert
         $fh = fopen($fn, 'r');
         fpassthru($fh);
         fclose($fh);
+        if ($delete_after) {
+            unlink($fn);
+        }
         exit;
+        
         
     }
     
