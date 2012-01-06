@@ -144,7 +144,7 @@ class File_Convert
         
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
-            header('Content-Disposition: '.$type.'; filename="' . htmlspecialchars($sfn).  '"');
+            header('Content-Disposition: '.$type.'; filename="' . htmlspecialchars($filename).  '"');
        // }
         
         if ($_SERVER["REQUEST_METHOD"] == 'HEAD') {
