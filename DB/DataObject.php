@@ -2676,13 +2676,13 @@ class DB_DataObject extends DB_DataObject_Overload
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug(serialize($result), 'RESULT',5);
         }
-        if (method_exists($result, 'numrows')) {
+        if (method_exists($result, 'numRows')) {
             if ($_DB_driver == 'DB') {
                 $DB->expectError(DB_ERROR_UNSUPPORTED);
             } else {
                 $DB->expectError(MDB2_ERROR_UNSUPPORTED);
             }
-            $this->N = $result->numrows();
+            $this->N = $result->numRows();
             if (is_object($this->N) && is_a($this->N,'PEAR_Error')) {
                 $this->N = true;
             }
