@@ -78,8 +78,7 @@ class File_Convert
             var_dump(array($x,$y));
             
             $fn = $sc->runconvert($fn, (int)$x, (int)$y);
-            
-         
+             
         }
         $this->target = $fn;
         $this->to = $toMimetype;
