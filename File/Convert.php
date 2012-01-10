@@ -67,7 +67,7 @@ class File_Convert
         } else {
             $fn = $this->fn;
         }
-        
+          var_dump(array($x,$y));
          if (preg_match('#^image/#', $toMimetype) && ( !empty($x) || !empty($y))) {
             $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
             $sc->debug= $this->debug;
@@ -76,7 +76,7 @@ class File_Convert
                 $x = (int)$bits[0];
                 $y = empty($bits[0]) ?  0 : (int)$bits[0];;
             }
-            var_dump(array($x,$y));
+          
             
             $fn = $sc->runconvert($fn, (int)$x, (int)$y);
              
