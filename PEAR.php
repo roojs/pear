@@ -875,7 +875,6 @@ class PEAR_Error
 
         if ($this->mode & PEAR_ERROR_DIE) {
             $msg = $this->getMessage();
-            dir($msg);
             if (is_null($options) || is_int($options)) {
                 $format = "%s";
                 if (substr($msg, -1) != "\n") {
@@ -886,6 +885,7 @@ class PEAR_Error
             }
             die(sprintf($format, $msg));
         }
+        
 
         if ($this->mode & PEAR_ERROR_CALLBACK && is_callable($this->callback)) {
             call_user_func($this->callback, $this);
