@@ -74,7 +74,7 @@ class File_Convert
             if (strpos($x, 'x')) {
                 $bits = explode('x', $x);
                 $x = (int)$bits[0];
-                $y = empty($bits[0]) ?  0 : (int)$bits[0];;
+                $y = empty($bits[1]) ?  0 : (int)$bits[1];;
             }
           
             
