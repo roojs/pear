@@ -2682,7 +2682,10 @@ class DB_DataObject extends DB_DataObject_Overload
             } else {
                 $DB->expectError(MDB2_ERROR_UNSUPPORTED);
             }
+            
             $this->N = $result->numRows();
+            var_dump($this->N);
+            
             if (is_object($this->N) && is_a($this->N,'PEAR_Error')) {
                 $this->N = true;
             }
