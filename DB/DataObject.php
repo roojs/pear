@@ -1761,7 +1761,9 @@ class DB_DataObject extends DB_DataObject_Overload
         $l = $result->fetchRow(DB_DATAOBJECT_FETCHMODE_ORDERED);
         // free the results - essential on oracle.
         $t->free();
-        
+        if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
+            $this->debug('Count returned '. $l[0] ,1);
+        }
         return (int) $l[0];
     }
 
