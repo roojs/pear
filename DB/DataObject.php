@@ -3360,9 +3360,9 @@ class DB_DataObject extends DB_DataObject_Overload
      * @param    optional $obj       object |array    the joining object (no value resets the join)
      *                                          If you use an array here it should be in the format:
      *                                          array('local_column','remotetable:remote_column');
-     *                                          if remotetable does not have a definition, you should
-     *                                          use @ to hide the include error message..
-     *                                      
+     *                                             if remotetable does not have a definition, you should
+     *                                             use @ to hide the include error message..
+     *                                          array('local_column',  $dataobject  'remote_column'));
      *
      * @param    optional $joinType  string | array
      *                                          'LEFT'|'INNER'|'RIGHT'|'' Inner is default, '' indicates 
