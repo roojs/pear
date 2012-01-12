@@ -3362,7 +3362,8 @@ class DB_DataObject extends DB_DataObject_Overload
      *                                          array('local_column','remotetable:remote_column');
      *                                             if remotetable does not have a definition, you should
      *                                             use @ to hide the include error message..
-     *                                          array('local_column',  $dataobject  'remote_column'));
+     *                                          array('local_column',  $dataobject , 'remote_column');
+     *                                             if array has 3 args, then second is assumed to be the linked dataobject.
      *
      * @param    optional $joinType  string | array
      *                                          'LEFT'|'INNER'|'RIGHT'|'' Inner is default, '' indicates 
@@ -3423,15 +3424,20 @@ class DB_DataObject extends DB_DataObject_Overload
         if (is_array($obj)) {
             $tfield = $obj[0];
             
-            list($toTable,$ofield) = is_array($obj[1]) ? $obj[1] :  explode(':',$obj[1]);
+            if (count($obj) == 3) {
+                $ofield = $obj[2];
+                $obj = $obj[1];
+            } else {
+                list($toTable,$ofield) = explode(':',$obj[1]);
             
-            $obj = is_string($toTable) ? DB_DataObject::factory($toTable) : $toTable;
+                $obj = is_string($toTable) ? DB_DataObject::factory($toTable) : $toTable;
             
-            if (!$obj || !is_object($obj) || is_a($obj,'PEAR_Error')) {
-                $obj = new DB_DataObject;
-                $obj->__table = $toTable;
+                if (!$obj || !is_object($obj) || is_a($obj,'PEAR_Error')) {
+                    $obj = new DB_DataObject;
+                    $obj->__table = $toTable;
+                }
+                $obj->_connect();
             }
-            $obj->_connect();
             // set the table items to nothing.. - eg. do not try and match
             // things in the child table...???
             $items = array();
