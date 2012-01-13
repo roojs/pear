@@ -3192,11 +3192,11 @@ class DB_DataObject extends DB_DataObject_Overload
      * @access public
      * @return mixed true or false on setting, object on getting
      */
-    function link($field)
+    function link($field, $set_args = array())
     {
         require_once 'DB/DataObject/Links.php';
         $l = new DB_DataObject_Links($this);
-        return  $l->link($field,func_get_args()) ;
+        return  $l->link($field,$set_args) ;
         
     }
     
