@@ -275,11 +275,10 @@ class DB_DataObject_Links
      *  @return mixed true of false on set, the object on getter.
      *
      */
-    function link($field, $args)
+    function link($field, $args = array())
     {
         $info = $this->linkInfo($field);
-        
-            
+         
         if (!$info) {
             $this->do->raiseError(
                 "getLink:Could not find link for row $field", 
@@ -289,7 +288,7 @@ class DB_DataObject_Links
         $field = $info[2];
         
         
-        if (empty($args)) { // get..
+        if (empty($args)) { // either an empty array or really empty....
             
             if (!isset($this->do->$field)) {
                 return $info[0]; // empty dataobject.
@@ -300,7 +299,7 @@ class DB_DataObject_Links
             return ($ret === 0) ? $info[0] : $ret;
             
         }
-        $assign = $args[0];
+        $assign = is_array($args) ? $args[0] : $args;
          
         // otherwise it's a set call..
         if (!is_a($assign , 'DB_DataObject')) {
