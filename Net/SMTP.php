@@ -267,7 +267,7 @@ class Net_SMTP
             return PEAR::raiseError("Failed to write to socket: $msg",
                                     null, PEAR_ERROR_RETURN);
         }
-
+        $this->_socket->setTimeout($this->timeout);
         return $result;
     }
 
