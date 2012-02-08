@@ -14,6 +14,13 @@ echo $x->toSQL(array(
     'escape' => 'mysql_escape_string', //array($db->getDatabaseConnection(), 'escapeSimple'), /// pear db or mdb object..
 
 ));
+
+FIXME:
+
+xxx: -- if xxx is not part of the 'map', then xxx: is dropped..
+.. it should really be converted into a string to search..
+
+
 */
 
 class Text_SearchParser
