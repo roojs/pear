@@ -359,6 +359,17 @@ class Text_SearchParser_Token_Eq extends Text_SearchParser_Token
     {
         // should use mapping in conf..
         if (empty($this->k) || !isset($conf['map'][$this->k])) {
+            
+            $g = Text_SearchParser_Token_Grp(array(
+                new Text_SearchParser_Token_String($this->k),
+                new Text_SearchParser_Token_Op('OR'),
+                new Text_SearchParser_Token_String($this->v)
+            ));
+            
+            
+            
+            
+            
             return '';
         }
         return $conf['map'][$this->k] ." LIKE '". $this->escape($conf,$this->v). "'";
