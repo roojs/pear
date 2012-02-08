@@ -315,6 +315,9 @@ class Text_SearchParser_Token_Grp extends Text_SearchParser_Token { // (
             }
             
         }
+        if ($ret == '') {
+            return '';
+        }
         return $ret . ')' .  "\n";
         
         
