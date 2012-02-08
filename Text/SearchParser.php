@@ -316,12 +316,9 @@ class Text_SearchParser_Token_Grp extends Text_SearchParser_Token { // (
     {
         $ret = '(';
         foreach($this->ar as $o) {
-            $add = $o->toSQL($conf);
-            if (strlen($add)) {
-                $ret .= ' ' . $add;
-            } else {
-                $ret .= '1=1'
-            }
+            
+            $ret .= ' ' .$o->toSQL($conf);
+            
             
         }
         
