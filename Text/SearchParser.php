@@ -319,12 +319,12 @@ class Text_SearchParser_Token_Grp extends Text_SearchParser_Token { // (
             $add = $o->toSQL($conf);
             if (strlen($add)) {
                 $ret .= ' ' . $add;
+            } else {
+                $ret .= '1=1'
             }
             
         }
-        if ($ret == '') {
-            return '';
-        }
+        
         return $ret . ')' .  "\n";
         
         
