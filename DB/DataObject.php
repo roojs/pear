@@ -2565,10 +2565,11 @@ class DB_DataObject extends DB_DataObject_Overload
      *   - internal functions use this rather than $this->query()
      *
      * @param  string  $string
+     * @param  string  $ignore_transactions  USED by postgres when doing cursors for limit queries
      * @access private
      * @return mixed none or PEAR_Error
      */
-    function _query($string)
+    function _query($string, $ignore_transactions = false)
     {
         global $_DB_DATAOBJECT;
         $this->_connect();
@@ -2585,30 +2586,31 @@ class DB_DataObject extends DB_DataObject_Overload
             $this->debug($string,$log="QUERY");
             
         }
-        
-        if (strtoupper($string) == 'BEGIN') {
-            if ($_DB_driver == 'DB') {
-                $DB->autoCommit(false);
-            } else {
-                $DB->beginTransaction();
+        if (!$ignore_transactions)  {
+            if (strtoupper($string) == 'BEGIN') {
+                if ($_DB_driver == 'DB') {
+                    $DB->autoCommit(false);
+                } else {
+                    $DB->beginTransaction();
+                }
+                // db backend adds begin anyway from now on..
+                return true;
             }
-            // db backend adds begin anyway from now on..
-            return true;
-        }
-        if (strtoupper($string) == 'COMMIT') {
-            $res = $DB->commit();
-            if ($_DB_driver == 'DB') {
-                $DB->autoCommit(true);
+            if (strtoupper($string) == 'COMMIT') {
+                $res = $DB->commit();
+                if ($_DB_driver == 'DB') {
+                    $DB->autoCommit(true);
+                }
+                return $res;
             }
-            return $res;
-        }
-        
-        if (strtoupper($string) == 'ROLLBACK') {
-            $DB->rollback();
-            if ($_DB_driver == 'DB') {
-                $DB->autoCommit(true);
+            
+            if (strtoupper($string) == 'ROLLBACK') {
+                $DB->rollback();
+                if ($_DB_driver == 'DB') {
+                    $DB->autoCommit(true);
+                }
+                return true;
             }
-            return true;
         }
         
 
