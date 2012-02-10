@@ -489,7 +489,6 @@ class DB_DataObject extends DB_DataObject_Overload
         
         $sql .=  $this->_query['order_by']  . " \n";
         
-        $ignore_transaction = false;
         
         /* We are checking for method modifyLimitQuery as it is PEAR DB specific */
         if ((!isset($_DB_DATAOBJECT['CONFIG']['db_driver'])) || 
@@ -497,26 +496,7 @@ class DB_DataObject extends DB_DataObject_Overload
             /* PEAR DB specific */
         
             if (isset($this->_query['limit_start']) && strlen($this->_query['limit_start'] . $this->_query['limit_count'])) {
-                
-                /* - performance issue with postgres */
-                $dbtype    = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->dsn["phptype"];
-       
-                if ($dbtype == 'pgsql') {
-                    
-                    
-                    $sql = array(
-                        "BEGIN",
-                        "DECLARE __tmpcursor__ CURSOR FOR $sql;",
-                        "MOVE {$this->_query['limit_start']} IN __tmpcursor__" ,
-                        "FETCH {$this->_query['limit_count']} FROM __tmpcursor__",
-                       // "COMMIT"
-                    
-                    );
-                    $ignore_transaction = true;
-                } else {
-                
-                    $sql = $DB->modifyLimitQuery($sql,$this->_query['limit_start'], $this->_query['limit_count']);
-                }
+                $sql = $DB->modifyLimitQuery($sql,$this->_query['limit_start'], $this->_query['limit_count']);
             }
         } else {
             /* theoretically MDB2! */
@@ -525,17 +505,12 @@ class DB_DataObject extends DB_DataObject_Overload
 	        }
         }
         
-        $sql = is_array($sql) ? $sql : array($sql);
         
+        $err = $this->_query($sql);
+        if (is_a($err,'PEAR_Error')) {
+            return false;
+        }
         
-        foreach($sql as $ssql) {
-            
-            
-            $err = $this->_query($ssql, $ignore_transaction);
-            if (is_a($err,'PEAR_Error')) {
-                return false;
-            }
-        }    
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug("CHECK autofetchd $n", "find", 1);
         }
@@ -640,22 +615,6 @@ class DB_DataObject extends DB_DataObject_Overload
                 $this->_resultFields = $_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid];
                 unset($_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid]);
             }
-            
-            if ((!isset($_DB_DATAOBJECT['CONFIG']['db_driver'])) || 
-            ($_DB_DATAOBJECT['CONFIG']['db_driver'] == 'DB')) {
-                /* PEAR DB specific */
-                $dbtype    = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->dsn["phptype"];
-                
-                if (isset($this->_query['limit_start']) &&
-                        strlen($this->_query['limit_start'] . $this->_query['limit_count']) &&
-                        $dbtype == 'pgsql'
-                    ) {
-                            $this->query('COMMIT', true);
-                }
-            }     
-            
-            
-            
             // this is probably end of data!!
             //DB_DataObject::raiseError("fetch: no data returned", DB_DATAOBJECT_ERROR_NODATA);
             return false;
@@ -2588,11 +2547,10 @@ class DB_DataObject extends DB_DataObject_Overload
      *   - internal functions use this rather than $this->query()
      *
      * @param  string  $string
-     * @param  string  $ignore_transactions  used by postgres when doing cursors for limit queries
      * @access private
      * @return mixed none or PEAR_Error
      */
-    function _query($string, $ignore_transactions = false)
+    function _query($string)
     {
         global $_DB_DATAOBJECT;
         $this->_connect();
@@ -2609,31 +2567,30 @@ class DB_DataObject extends DB_DataObject_Overload
             $this->debug($string,$log="QUERY");
             
         }
-        if (!$ignore_transactions)  {
-            if (strtoupper($string) == 'BEGIN') {
-                if ($_DB_driver == 'DB') {
-                    $DB->autoCommit(false);
-                } else {
-                    $DB->beginTransaction();
-                }
-                // db backend adds begin anyway from now on..
-                return true;
+        
+        if (strtoupper($string) == 'BEGIN') {
+            if ($_DB_driver == 'DB') {
+                $DB->autoCommit(false);
+            } else {
+                $DB->beginTransaction();
             }
-            if (strtoupper($string) == 'COMMIT') {
-                $res = $DB->commit();
-                if ($_DB_driver == 'DB') {
-                    $DB->autoCommit(true);
-                }
-                return $res;
+            // db backend adds begin anyway from now on..
+            return true;
+        }
+        if (strtoupper($string) == 'COMMIT') {
+            $res = $DB->commit();
+            if ($_DB_driver == 'DB') {
+                $DB->autoCommit(true);
             }
-            
-            if (strtoupper($string) == 'ROLLBACK') {
-                $DB->rollback();
-                if ($_DB_driver == 'DB') {
-                    $DB->autoCommit(true);
-                }
-                return true;
+            return $res;
+        }
+        
+        if (strtoupper($string) == 'ROLLBACK') {
+            $DB->rollback();
+            if ($_DB_driver == 'DB') {
+                $DB->autoCommit(true);
             }
+            return true;
         }
         
 
