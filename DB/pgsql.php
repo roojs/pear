@@ -762,7 +762,12 @@ class DB_pgsql extends DB_common
      */
     function modifyLimitQuery($query, $from, $count, $params = array())
     {
-        return "$query LIMIT $count OFFSET $from";
+         return "BEGIN; " . 
+            "DECLARE __tmpcursor__ CURSOR FOR $query;" .
+            "MOVE $from IN __tmpcursor__;" .
+            "FETCH $count FROM __tmpcursor__;" . 
+            "COMMIT;";
+         
     }
 
     // }}}
