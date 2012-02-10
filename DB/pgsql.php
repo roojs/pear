@@ -762,6 +762,8 @@ class DB_pgsql extends DB_common
      */
     function modifyLimitQuery($query, $from, $count, $params = array())
     {
+       
+        return "$query LIMIT $count OFFSET $from";
        /* $this->query("BEGIN");
         $this->query("DECLARE __tmpcursor__ CURSOR FOR $query");
         $this->query("MOVE $from IN __tmpcursor__");
