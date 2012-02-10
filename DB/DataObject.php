@@ -489,6 +489,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         $sql .=  $this->_query['order_by']  . " \n";
         
+        $ignore_transaction = false;
         
         /* We are checking for method modifyLimitQuery as it is PEAR DB specific */
         if ((!isset($_DB_DATAOBJECT['CONFIG']['db_driver'])) || 
@@ -511,6 +512,7 @@ class DB_DataObject extends DB_DataObject_Overload
                         "COMMIT"
                     
                     );
+                    $ignore_transaction = true;
                 } else {
                 
                     $sql = $DB->modifyLimitQuery($sql,$this->_query['limit_start'], $this->_query['limit_count']);
@@ -524,12 +526,12 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         $sql = is_array($sql) ? $sql : array($sql);
-        print_r($sql);
+        
         
         foreach($sql as $ssql) {
             
             
-            $err = $this->_query($ssql);
+            $err = $this->_query($ssql, $ignore_transaction);
             if (is_a($err,'PEAR_Error')) {
                 return false;
             }
