@@ -496,6 +496,19 @@ class DB_DataObject extends DB_DataObject_Overload
             /* PEAR DB specific */
         
             if (isset($this->_query['limit_start']) && strlen($this->_query['limit_start'] . $this->_query['limit_count'])) {
+                
+                /* - performance issue with postgres */
+                $dbtype    = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->dsn["phptype"];
+       
+                if ($dbtype == 'pgsql') {
+                    
+                    
+                    
+                    
+                }
+                
+                
+                
                 $sql = $DB->modifyLimitQuery($sql,$this->_query['limit_start'], $this->_query['limit_count']);
             }
         } else {
