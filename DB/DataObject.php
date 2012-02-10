@@ -509,7 +509,7 @@ class DB_DataObject extends DB_DataObject_Overload
                         "DECLARE __tmpcursor__ CURSOR FOR $sql;",
                         "MOVE {$this->_query['limit_start']} IN __tmpcursor__" ,
                         "FETCH {$this->_query['limit_count']} FROM __tmpcursor__",
-                        "COMMIT"
+                       // "COMMIT"
                     
                     );
                     $ignore_transaction = true;
