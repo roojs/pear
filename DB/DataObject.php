@@ -502,6 +502,7 @@ class DB_DataObject extends DB_DataObject_Overload
        
                 if ($dbtype == 'pgsql') {
                     
+                    
                     $sql = array(
                         "BEGIN",
                         "DECLARE __tmpcursor__ CURSOR FOR $sql;",
@@ -524,7 +525,11 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         $sql = is_array($sql) ? $sql : array($sql);
+        print_r($sql);
+        
         foreach($sql as $ssql) {
+            
+            
             $err = $this->_query($ssql);
             if (is_a($err,'PEAR_Error')) {
                 return false;
