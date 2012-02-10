@@ -640,6 +640,22 @@ class DB_DataObject extends DB_DataObject_Overload
                 $this->_resultFields = $_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid];
                 unset($_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid]);
             }
+            
+            if ((!isset($_DB_DATAOBJECT['CONFIG']['db_driver'])) || 
+            ($_DB_DATAOBJECT['CONFIG']['db_driver'] == 'DB')) {
+            /* PEAR DB specific */
+            $dbtype    = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->dsn["phptype"];
+            
+            if (isset($this->_query['limit_start']) &&
+                    strlen($this->_query['limit_start'] . $this->_query['limit_count']) &&
+                    $dbtype == 'pgsql'
+                ) {
+                        $this->query('COMMIT', true);
+            }
+                    
+            
+            
+            
             // this is probably end of data!!
             //DB_DataObject::raiseError("fetch: no data returned", DB_DATAOBJECT_ERROR_NODATA);
             return false;
