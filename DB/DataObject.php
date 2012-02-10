@@ -511,11 +511,10 @@ class DB_DataObject extends DB_DataObject_Overload
                         "COMMIT"
                     
                     );
+                } else {
+                
+                    $sql = $DB->modifyLimitQuery($sql,$this->_query['limit_start'], $this->_query['limit_count']);
                 }
-                
-                
-                
-                $sql = $DB->modifyLimitQuery($sql,$this->_query['limit_start'], $this->_query['limit_count']);
             }
         } else {
             /* theoretically MDB2! */
