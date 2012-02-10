@@ -502,9 +502,14 @@ class DB_DataObject extends DB_DataObject_Overload
        
                 if ($dbtype == 'pgsql') {
                     
+                    $sql = array(
+                        "BEGIN",
+                        "DECLARE __tmpcursor__ CURSOR FOR $sql;",
+                        "MOVE {$this->_query['limit_start']} IN __tmpcursor__" ,
+                        "FETCH {$this->_query['limit_count']} FROM __tmpcursor__",
+                        "COMMIT"
                     
-                    
-                    
+                    );
                 }
                 
                 
