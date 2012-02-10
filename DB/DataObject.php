@@ -2565,7 +2565,7 @@ class DB_DataObject extends DB_DataObject_Overload
      *   - internal functions use this rather than $this->query()
      *
      * @param  string  $string
-     * @param  string  $ignore_transactions  USED by postgres when doing cursors for limit queries
+     * @param  string  $ignore_transactions  used by postgres when doing cursors for limit queries
      * @access private
      * @return mixed none or PEAR_Error
      */
