@@ -523,12 +523,13 @@ class DB_DataObject extends DB_DataObject_Overload
 	        }
         }
         
-        
-        $err = $this->_query($sql);
-        if (is_a($err,'PEAR_Error')) {
-            return false;
-        }
-        
+        $sql = is_array($sql) ? $sql : array($sql);
+        foreach($sql as $ssql) {
+            $err = $this->_query($ssql);
+            if (is_a($err,'PEAR_Error')) {
+                return false;
+            }
+        }    
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug("CHECK autofetchd $n", "find", 1);
         }
