@@ -268,7 +268,7 @@ class Net_SMTP
                                     null, PEAR_ERROR_RETURN);
         }
         // we have to set timeout, so it works..
-        $this->setTimeout($this->_timeout);
+        //$this->setTimeout($this->_timeout);
         return $result;
     }
 
