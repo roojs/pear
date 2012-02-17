@@ -3187,7 +3187,7 @@ class DB_DataObject extends DB_DataObject_Overload
      *
      * @param  mixed $link_spec              link specification (normally a string)
      *                                       uses similar rules to  joinAdd() array argument.
-     * @param  mixed $set_value (optional)   int, DataObject, or array('set')
+     * @param  mixed $set_value (optional)   int, DataObject, or array('set') or array('set', fetch=true)
      * @author Alan Knowles
      * @access public
      * @return mixed true or false on setting, object on getting
