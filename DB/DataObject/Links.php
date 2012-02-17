@@ -274,12 +274,10 @@ class DB_DataObject_Links
      *
      *  @param  string|array   $field   the field to fetch or link spec.
      *  @params array          $args    the arguments sent to the getter setter
-     *                                   if the second argument is true,
-     *                                   then 0 or the related object is returned.
      *  @return mixed true of false on set, the object on getter.
      *
      */
-    function link($field, $args = array(), $fetch = false)
+    function link($field, $args = array())
     {
         $info = $this->linkInfo($field);
          
@@ -304,7 +302,7 @@ class DB_DataObject_Links
             
         }
         $assign = is_array($args) ? $args[0] : $args;
-        $fetch = is_array($args) && isset($args[1]) ? $args[1] : $fetch;
+         
         // otherwise it's a set call..
         if (!is_a($assign , 'DB_DataObject')) {
             
@@ -322,10 +320,6 @@ class DB_DataObject_Links
                 }
                 
                 $this->do->$field = $assign ;
-                if ($fetch) {
-                    return $this->getLink($field);
-                }
-                
                 return true;
             }
             
