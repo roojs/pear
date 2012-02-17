@@ -320,6 +320,12 @@ class DB_DataObject_Links
                 }
                 
                 $this->do->$field = $assign ;
+                if ($fetch) {
+                    return $this->getLink($field);
+                    
+                    
+                }
+                
                 return true;
             }
             
