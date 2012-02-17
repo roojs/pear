@@ -274,6 +274,8 @@ class DB_DataObject_Links
      *
      *  @param  string|array   $field   the field to fetch or link spec.
      *  @params array          $args    the arguments sent to the getter setter
+     *                                   if the second argument is true,
+     *                                   then 0 or the related object is returned.
      *  @return mixed true of false on set, the object on getter.
      *
      */
