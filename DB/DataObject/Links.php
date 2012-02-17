@@ -277,7 +277,7 @@ class DB_DataObject_Links
      *  @return mixed true of false on set, the object on getter.
      *
      */
-    function link($field, $args = array())
+    function link($field, $args = array(), $fetch = false)
     {
         $info = $this->linkInfo($field);
          
@@ -302,7 +302,7 @@ class DB_DataObject_Links
             
         }
         $assign = is_array($args) ? $args[0] : $args;
-         
+        $fetch = is_array($args) && isset($args[1]) ? $args[1] : $fetch;
         // otherwise it's a set call..
         if (!is_a($assign , 'DB_DataObject')) {
             
