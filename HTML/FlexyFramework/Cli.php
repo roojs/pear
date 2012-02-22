@@ -249,6 +249,8 @@ Available commands:
     {
         require_once 'Console/Getargs.php';
         $ar = $_SERVER['argv'];
+        $call = array(array_shift($ar)); // remove index.php
+        $call[] = array_shift($ar); 
         //var_dump($ar);
         $val = self::$cli_opts;
         
