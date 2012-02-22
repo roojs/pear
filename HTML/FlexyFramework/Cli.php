@@ -257,7 +257,12 @@ Available commands:
         if (!is_a($newargs, 'PEAR_Error')) {
             return $newargs->getValues();
         }
-        
+        if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
+            // User put illegal values on the command line.
+            echo Console_Getargs::getHelp($val,
+                    $helpHeader, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
+            exit;
+        }
         if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
             
             return true;// hel
