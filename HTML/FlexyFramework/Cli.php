@@ -261,7 +261,7 @@ Available commands:
             
             if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
                 
-                if (preg_match('/^Unknown argment/', $newargs->getMessage())) {
+                if (preg_match('/^Unknown argument/', $newargs->getMessage())) {
                     return false;
                 }
                 
