@@ -231,6 +231,10 @@ class HTML_FlexyFramework {
         
         $this->_exposeToPear();
         $this->_validateEnv();
+        if ($ishelp) {
+            return;
+        }
+        
         $this->_validateDatabase();
         $this->_validateTemplate();
         
