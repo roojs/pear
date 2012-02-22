@@ -16,6 +16,16 @@
  */
 class HTML_FlexyFramework_Cli
 {
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     var $ff; // the Framework instance.
     
     
@@ -205,6 +215,9 @@ Available commands:
         
             
     }
+    
+    
+    
     /**
      * the framework can be run without a database even if it's configured.
      * to support this, we need to handle things like
