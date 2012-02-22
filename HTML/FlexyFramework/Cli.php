@@ -241,7 +241,7 @@ Available commands:
      *  --pman-nodatabase=1 on the command line.
      *
      *  
-     * @returns   array() - args, false - nothing matched, true = help! 
+     * @returns   array() - args, false - nothing matched / invalid, true = help! 
      *
      */
     
