@@ -241,7 +241,7 @@ Available commands:
      *  --pman-nodatabase=1 on the command line.
      *
      *  
-     *
+     * @returns   array() - args, false - nothing matched, true = help! 
      *
      */
     
@@ -258,7 +258,10 @@ Available commands:
             return $newargs->getValues();
         }
         
-       
+        if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
+            
+            return true;// hel
+        }
         
         return false;
         
