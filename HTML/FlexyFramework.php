@@ -206,8 +206,6 @@ class HTML_FlexyFramework {
             $res = $fcli->parseDefaultOpts();
             if ($res === true) {
                 $ishelp = true;
-                
-
             } 
             
         }
