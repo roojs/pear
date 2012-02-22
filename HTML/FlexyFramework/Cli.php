@@ -257,6 +257,14 @@ Available commands:
         if (!is_a($newargs, 'PEAR_Error')) {
             return $newargs->getValues();
         }
+        
+        if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
+            // User needs help.
+            echo Console_Getargs::getHelp($val,
+                    $helpHeader, NULL, 78, 4)."\n\n";
+            exit;
+        }
+        
         return false;
         
     }
