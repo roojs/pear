@@ -25,11 +25,10 @@ class HTML_FlexyFramework_Cli
     
       
     static $cli_opts = array(
+        
+        // this is a flag argument
         'pman-nodatabase' => array(
             'desc' => 'Turn off database',
-           // 'default' => 0,
-            //'short' => 'v',
-           // 'min' => 0,
             'max' => 0,
         )
          
