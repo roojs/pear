@@ -197,6 +197,14 @@ class HTML_FlexyFramework {
             $fcli->cliHelp();
             exit;
         }
+        if ($this->cli) {
+            require_once 'HTML/FlexyFramework/Cli.php';
+            $fcli = new HTML_FlexyFramework_Cli($this);
+            $res = $fcli->parseDefaultOpts();
+            print_R($res);
+            
+        }
+        
         
         $this->run = $this->cli ? $_SERVER['argv'][1] : false;
      
