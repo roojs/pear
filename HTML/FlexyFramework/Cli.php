@@ -205,6 +205,31 @@ Available commands:
         
             
     }
+    /**
+     * the framework can be run without a database even if it's configured.
+     * to support this, we need to handle things like
+     *  --pman-nodatabase=1 on the command line.
+     *
+     *  
+     *
+     *
+     */
+    
+    function parseDefaultOpts()
+    {
+        require_once 'Console/Getargs.php';
+        $ar = $_SERVER['argv'];
+        //var_dump($ar);
+        $val = $this->cli_opts;
+        
+        $newargs = Console_Getargs::factory($val, $ar);
+        
+        if (!is_a($newargs, 'PEAR_Error')) {
+            return $newargs->getValues();
+        }
+        
+        
+    }
     
     
     
