@@ -278,7 +278,7 @@ Available commands:
             foreach($ret as $k=>$v) {
                 switch($k) {
                     case 'pman-nodatabase':
-                        echo "Turning off database";
+                        //echo "Turning off database";
                         $ff->nodatabase= true;
                         
                         break;
