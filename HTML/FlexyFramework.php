@@ -191,12 +191,15 @@ class HTML_FlexyFramework {
         }
         $this->classPrefix   = $this->project . '_';
         
+        // list the available options..
         if ($this->cli && empty($_SERVER['argv'][1])) {
             require_once 'HTML/FlexyFramework/Cli.php';
             $fcli = new HTML_FlexyFramework_Cli($this);
             $fcli->cliHelp();
             exit;
         }
+        
+        $ishelp = false;
         if ($this->cli) {
             require_once 'HTML/FlexyFramework/Cli.php';
             $fcli = new HTML_FlexyFramework_Cli($this);
