@@ -207,7 +207,7 @@ class HTML_FlexyFramework {
             if ($res === true) {
                 $ishelp = true;
             } 
-            var_dump($this->nodatabase);
+             
         }
         
         
