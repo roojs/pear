@@ -227,7 +227,7 @@ Available commands:
         if (!is_a($newargs, 'PEAR_Error')) {
             return $newargs->getValues();
         }
-        
+        return false;
         
     }
     
