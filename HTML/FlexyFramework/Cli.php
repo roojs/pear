@@ -256,7 +256,15 @@ Available commands:
         $newargs = Console_Getargs::factory($val, $ar);
         
         if (is_a($newargs, 'PEAR_Error')) {
-             if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
+            
+            
+            
+            if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
+                
+                if (preg_match('/^Unknown argment/', $newargs->getMessage()) {
+                    return false;
+                }
+                
                 // User put illegal values on the command line.
                 echo Console_Getargs::getHelp($val,
                         $helpHeader, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
