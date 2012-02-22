@@ -198,7 +198,7 @@ class HTML_FlexyFramework {
             $fcli->cliHelp();
             exit;
         }
-        
+        // see if it's a framework assignment.
         $ishelp = false;
         if ($this->cli) {
             require_once 'HTML/FlexyFramework/Cli.php';
