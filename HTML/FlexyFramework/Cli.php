@@ -276,10 +276,13 @@ Available commands:
         
         $ret =  $newargs->getValues();
             foreach($ret as $k=>$v) {
-                
+                switch($k) {
+                    case 'pman-nodatabase':
+                        $ff->nodatabase= 1;
+                }
                 
             }
-            
+        return false;
         
     }
     
