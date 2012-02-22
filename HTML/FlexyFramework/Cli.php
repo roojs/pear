@@ -279,7 +279,7 @@ Available commands:
                 switch($k) {
                     case 'pman-nodatabase':
                         echo "Turning off database";
-                        $ff->nodatabase= 1;
+                        $ff->nodatabase= true;
                         
                         break;
                     
