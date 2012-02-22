@@ -279,6 +279,10 @@ Available commands:
                 switch($k) {
                     case 'pman-nodatabase':
                         $ff->nodatabase= 1;
+                        break;
+                    
+                    default:
+                        die("need to fix option $k");
                 }
                 
             }
