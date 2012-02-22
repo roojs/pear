@@ -208,9 +208,7 @@ class HTML_FlexyFramework {
                 $ishelp = true;
                 
 
-            } else if ($res) { // array..
-                print_R($res);
-            }
+            } 
             
         }
         
