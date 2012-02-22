@@ -260,7 +260,8 @@ Available commands:
             
             
             if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
-                
+                // since we do not handle all the arguemnts here...
+                // skip errors if we find unknown arguments.
                 if (preg_match('/^Unknown argument/', $newargs->getMessage())) {
                     return false;
                 }
