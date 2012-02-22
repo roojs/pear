@@ -30,7 +30,7 @@ class HTML_FlexyFramework_Cli
            // 'default' => 0,
             //'short' => 'v',
            // 'min' => 0,
-            'max' => 1,
+            'max' => 0,
         )
          
     );
