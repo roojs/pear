@@ -194,6 +194,8 @@ Available commands:
         if (empty($val)) {
             return false;
         }
+        $val = array_merge(self::$cli_opts, $val);
+        
         
         require_once 'Console/Getargs.php';
         $ar = $_SERVER['argv'];
