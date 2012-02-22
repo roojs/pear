@@ -204,7 +204,13 @@ class HTML_FlexyFramework {
             require_once 'HTML/FlexyFramework/Cli.php';
             $fcli = new HTML_FlexyFramework_Cli($this);
             $res = $fcli->parseDefaultOpts();
-            print_R($res);
+            if ($res === true) {
+                $ishelp = true;
+                
+
+            } else if ($res) { // array..
+                print_R($res);
+            }
             
         }
         
