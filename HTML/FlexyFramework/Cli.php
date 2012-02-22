@@ -17,8 +17,57 @@
 class HTML_FlexyFramework_Cli
 {
     
+    /**
+     * Default options that allow modification of the framewoek behaviour
+     * 
+     *
+     */
     
-    
+      
+    static $cli_opts = array(
+        'pman-nodatabase' => array(
+            'desc' => 'Turn off database',
+            //'default' => 0,
+            //'short' => 'v',
+            'min' => 0,
+            'max' => 1,
+        ),
+        
+        'source' => array(
+            'desc' => 'Source directory for json files.',
+            'short' => 'f',
+            'default' => '',
+            'min' => 1,
+            'max' => 1,
+        ),
+         'no-cache' => array(
+            'desc' => 'Do not cache.',
+            'short' => 'n',
+            'default' => 0,
+            'min' => 1,
+            'max' => 1,
+        ),
+        'list-order' => array(
+            'desc' => 'List Order.',
+            'short' => 'l',
+            'default' => 0,
+            'min' => 1,
+            'max' => 1,
+        ),
+         'table' => array(
+            'desc' => 'Only a specific table, eg. -t Netsuite_SalesOrder',
+            'short' => 't',
+            
+            'max' => 1,
+        ),
+         'year' => array(
+            'desc' => 'Only a specific year, eg. -y 2009',
+            'short' => 'y',
+            'default' => 2009,
+            'min' => 1,
+            'max' => 1,
+        ),
+    );
     
     
     
