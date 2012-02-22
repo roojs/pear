@@ -248,7 +248,7 @@ Available commands:
         require_once 'Console/Getargs.php';
         $ar = $_SERVER['argv'];
         //var_dump($ar);
-        $val = $this->cli_opts;
+        $val = self::cli_opts;
         
         $newargs = Console_Getargs::factory($val, $ar);
         
