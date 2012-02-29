@@ -477,6 +477,9 @@ class HTML_FlexyFramework {
         $src[] = $this->baseDir . '/templates';
         if ($this->appNameShort) {
             // in app based version, template directory is in Core
+            
+            
+            
             $src = array(   
                 $this->baseDir . '/Core/templates', 
                 $this->baseDir . '/'. $this->appNameShort. '/templates'
@@ -484,7 +487,13 @@ class HTML_FlexyFramework {
         }
         
         if (!empty($this->enableArray)) {
-            
+            foreach($this->enableArray as $m) {
+                $add = $this->baseDir . '/' . $m .'/templates';
+                if (!in_array($add,$src) && file_exists($add)) {
+                    $src[] = $add;
+                }
+                
+            }
             
         }
         
