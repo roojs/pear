@@ -475,7 +475,7 @@ class HTML_FlexyFramework {
         // templates. -- all this should be cached!!!
         $src = array();
         $src[] = $this->baseDir . '/templates';
-        if ($this->appNameShort) {
+        if ($this->appNameShort && $this->project != 'Pman') {
             // in app based version, template directory is in Core
             $src = array(   
                 $this->baseDir . '/Core/templates', 
