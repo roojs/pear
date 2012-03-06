@@ -735,7 +735,7 @@ class DB
      *  + username: User name for login
      *  + password: Password for login
      */
-    function parseDSN($dsn)
+    static function parseDSN($dsn)
     {
         $parsed = array(
             'phptype'  => false,
