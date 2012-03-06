@@ -33,7 +33,7 @@ require_once 'HTML/FlexyFramework/Error.php';
  
 
 // remove E_ANAL
-error_reporting(E_ALL & ~E_STRICT);
+error_reporting(E_ALL - E_STRICT);
 //PEAR::setErrorHandling(PEAR_ERROR_TRIGGER, E_USER_ERROR);
 
 
