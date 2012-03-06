@@ -35,6 +35,7 @@ require_once 'HTML/FlexyFramework/Error.php';
 // remove E_ANAL
  
 error_reporting(E_ALL ^ E_STRICT);
+ini_set('display_errors','off');
 //PEAR::setErrorHandling(PEAR_ERROR_TRIGGER, E_USER_ERROR);
 
 
