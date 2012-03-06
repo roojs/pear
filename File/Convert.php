@@ -796,6 +796,8 @@ class File_Convert_Solution
             return $fe;
         }
         
+        var_dump($t);exit;
+        
         $cmd = "$CONVERT -colorspace RGB -interlace none -density $density ". 
                         "-quality 90  -resize '". $xscale . "x>' ". escapeshellarg($t) . "[0] " . escapeshellarg($target);
         
