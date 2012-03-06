@@ -776,6 +776,7 @@ class File_Convert_Solution
         if ($this->from != 'application/pdf') {
             return $fe;
         }
+        
         $PDFTOPS = System::which("pdftops");
         if (!$PDFTOPS) {
             $this->cmd = 'pdftops missing - and this failed ' . $this->cmd;
@@ -785,6 +786,8 @@ class File_Convert_Solution
         unlink($t);
         $t = $t . '.ps';
         $cmd = "$PDFTOPS " . scapeshellarg($fn)  . ' ' . scapeshellarg($t) ;
+        echo $cmd;exit;
+        
         `$cmd`;
         $fe = file_exists($t)  && filesize($t) ? $t: false;
         if (!$fe) {
