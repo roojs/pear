@@ -594,7 +594,7 @@ class DB
      *
      * @return bool  whether $value is DB_Error object
      */
-    function isError($value)
+    static function isError($value)
     {
         return is_object($value) && is_a($value, 'DB_Error');		
     }
