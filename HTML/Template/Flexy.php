@@ -529,7 +529,7 @@ class HTML_Template_Flexy
         
         $_error_reporting = false;
         if (!$this->options['strict']) {
-            $_error_reporting = error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+            $_error_reporting = error_reporting(E_ALL ^ (E_NOTICE & E_STRICT));
         }
         if (!is_readable($this->compiledTemplate)) {
               return $this->raiseError( "Could not open the template: <b>'{$this->compiledTemplate}'</b><BR>".
