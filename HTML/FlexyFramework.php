@@ -1055,8 +1055,26 @@ class HTML_FlexyFramework {
      */
     static function ensureSingleClear($sig, $class)
     {
+        $ff = HTML_FlexyFramework::get();
+        if (function_exists('posix_getpwuid')) {
+            $uinfo = posix_getpwuid( posix_getuid () ); 
+            $user = $uinfo['name'];
+        } else {
+            $user = getenv('USERNAME'); // windows.
+        }
+        $fdir = ini_get('session.save_path') .'/' . 
+                $user . '_cli_' . $ff->project ;
+     
         
-        
+        if (!file_exists($fdir)) {
+            mkdir($fdir, 0777);
+        }
+        $lock = $fdir.'/'. md5($sig);
+        if (!file_exists($lock)) {
+            
+            return true;
+        }
+        unlink($lock, getmypid());
     }
     
     
