@@ -106,7 +106,7 @@ class HTML_Template_Flexy_Factory {
     * @access   public
     */
   
-    function &setErrors(&$ret,$set,$format='<span class="error">%s</span>') 
+    static function &setErrors(&$ret,$set,$format='<span class="error">%s</span>') 
     {
         if (empty($ret) || !is_array($ret)) {
             $ret = array();
