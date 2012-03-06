@@ -112,9 +112,9 @@ class HTML_FlexyFramework {
      * 
      */
     
-    function HTML_FlexyFramework($config) {
-        return $this->__construct($config);
-    }
+   // function HTML_FlexyFramework($config) {
+   //     return $this->__construct($config);
+    //}
     
     function __construct($config)
     {
