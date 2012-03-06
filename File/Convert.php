@@ -788,11 +788,11 @@ class File_Convert_Solution
         unlink($t);
         $t = $t . '.ps';
         $cmd = "$PDFTOPS " . escapeshellarg($fn)  . ' ' . escapeshellarg($t) . ' 2>/dev/null';
-         
+        $this->cmd = $cmd;
         `$cmd`;
         $fe = file_exists($t)  && filesize($t) ? $t: false;
         if (!$fe) {
-            $this->cmd = $cmd;
+            
             return $fe;
         }
         
