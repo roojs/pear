@@ -765,7 +765,7 @@ class File_Convert_Solution
            echo "$cmd <br/>";
            
         }
-        echo $cmd;exit;
+        
        `$cmd`;
         $this->cmd = $cmd;
         clearstatcache();
@@ -773,6 +773,8 @@ class File_Convert_Solution
         if ($fe) {
             return $fe;
         }
+        var_dump($this->from);
+        
         // try pdftops
         if ($this->from != 'application/pdf') {
             return $fe;
