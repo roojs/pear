@@ -796,16 +796,14 @@ class File_Convert_Solution
             return $fe;
         }
         
-        var_dump($t);exit;
-        
         $cmd = "$CONVERT -colorspace RGB -interlace none -density $density ". 
                         "-quality 90  -resize '". $xscale . "x>' ". escapeshellarg($t) . "[0] " . escapeshellarg($target);
         
 
-        unlimk($t);
+        unlink($t);
         
         
-        $fe = file_exists($target)  && filesize($target) ? $target : false;
+        return  file_exists($target)  && filesize($target) ? $target : false;
         
     }
     function convert($fn) // image only..
