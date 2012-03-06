@@ -768,7 +768,38 @@ class File_Convert_Solution
        `$cmd`;
         $this->cmd = $cmd;
         clearstatcache();
-        return  file_exists($target)  && filesize($target) ? $target : false;
+        $fe = file_exists($target)  && filesize($target) ? $target : false;
+        if ($fe) {
+            return $fe;
+        }
+        // try pdftops
+        if ($this->from != 'application/pdf') {
+            return $fe;
+        }
+        $PDFTOPS = System::which("pdftops");
+        if (!$PDFTOPS) {
+            $this->cmd = 'pdftops missing - and this failed ' . $this->cmd;
+            return $fe;
+        }
+        $t = tempnam(sys_get_temp_dir(),'pdf');
+        unlink($t);
+        $t = $t . '.ps';
+        $cmd = "$PDFTOPS " . scapeshellarg($fn)  . ' ' . scapeshellarg($t) ;
+        `$cmd`;
+        $fe = file_exists($t)  && filesize($t) ? $t: false;
+        if (!$fe) {
+            $this->cmd = $cmd;
+            return $fe;
+        }
+        
+         $cmd = "$CONVERT -colorspace RGB -interlace none -density $density ". 
+                        "-quality 90  -resize '". $xscale . "x>' ". escapeshellarg($t) . "[0] " . escapeshellarg($target);
+        
+
+        unlimk($t);
+        
+        
+        $fe = file_exists($target)  && filesize($target) ? $target : false;
         
     }
     function convert($fn) // image only..
@@ -787,7 +818,8 @@ class File_Convert_Solution
         
         `$cmd`;
         clearstatcache();
-        return  file_exists($target)  && filesize($target) ? $target : false;
+        return file_exists($target)  && filesize($target) ? $target : false;
+        
         
     }
     function scaleImage($fn, $x, $y) 
