@@ -378,7 +378,7 @@ class I18Nv2
      * @return  mixed   Returns a reference to a static property
      * @param   string  $property   the static property
      */
-    function &getStaticProperty($property)
+    static function &getStaticProperty($property)
     {
         static $properties;
         return $properties[$property];
