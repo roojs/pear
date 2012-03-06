@@ -765,6 +765,7 @@ class File_Convert_Solution
            echo "$cmd <br/>";
            
         }
+        echo $cmd;exit;
        `$cmd`;
         $this->cmd = $cmd;
         clearstatcache();
@@ -778,6 +779,7 @@ class File_Convert_Solution
         }
         
         $PDFTOPS = System::which("pdftops");
+        
         if (!$PDFTOPS) {
             $this->cmd = 'pdftops missing - and this failed ' . $this->cmd;
             return $fe;
