@@ -1048,8 +1048,17 @@ class HTML_FlexyFramework {
         die("process " . $sig . " already running\n");
         
     }
+    /**
+     * removes the lock for the applicaiton - use with care...
+     *
+     *
+     */
+    static function ensureSingleClear($sig, $class)
+    {
+        
+        
+    }
     
-     
     
     /**
     * Debugging 
