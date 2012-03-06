@@ -144,7 +144,7 @@ class HTML_FlexyFramework {
             
         }
     }
-    function get()
+    static function get()
     {
         return $GLOBALS[__CLASS__];
     }
