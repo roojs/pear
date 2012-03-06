@@ -780,17 +780,15 @@ class File_Convert_Solution
         }
         
         $PDFTOPS = System::which("pdftops");
-        var_dump($PDFTOPS);
-        if (!$PDFTOPS) {
+         if (!$PDFTOPS) {
             $this->cmd = 'pdftops missing - and this failed ' . $this->cmd;
             return $fe;
         }
         $t = tempnam(sys_get_temp_dir(),'pdf');
         unlink($t);
         $t = $t . '.ps';
-        $cmd = "$PDFTOPS " . scapeshellarg($fn)  . ' ' . scapeshellarg($t) ;
-        echo $cmd;exit;
-        
+        $cmd = "$PDFTOPS " . escapeshellarg($fn)  . ' ' . scapeshellarg($t) ;
+         
         `$cmd`;
         $fe = file_exists($t)  && filesize($t) ? $t: false;
         if (!$fe) {
