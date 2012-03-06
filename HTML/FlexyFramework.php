@@ -1074,7 +1074,7 @@ class HTML_FlexyFramework {
             
             return true;
         }
-        unlink($lock, getmypid());
+        unlink($lock);;
     }
     
     
