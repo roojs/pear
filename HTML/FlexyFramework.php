@@ -32,7 +32,8 @@ require_once 'HTML/FlexyFramework/Error.php';
 // To be removed ?? or made optional or something..
  
 
-error_reporting(E_ALL);
+// remove E_ANAL
+error_reporting(E_ALL & ~E_STRICT);
 //PEAR::setErrorHandling(PEAR_ERROR_TRIGGER, E_USER_ERROR);
 
 
