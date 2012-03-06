@@ -787,7 +787,7 @@ class File_Convert_Solution
         $t = tempnam(sys_get_temp_dir(),'pdf');
         unlink($t);
         $t = $t . '.ps';
-        $cmd = "$PDFTOPS " . escapeshellarg($fn)  . ' ' . escapeshellarg($t) ;
+        $cmd = "$PDFTOPS " . escapeshellarg($fn)  . ' ' . escapeshellarg($t) ' 2>/dev/null';
          
         `$cmd`;
         $fe = file_exists($t)  && filesize($t) ? $t: false;
