@@ -773,8 +773,7 @@ class File_Convert_Solution
         if ($fe) {
             return $fe;
         }
-        var_dump($this->from);
-        
+         
         // try pdftops
         if ($this->from != 'application/pdf') {
             return $fe;
