@@ -780,7 +780,7 @@ class File_Convert_Solution
         }
         
         $PDFTOPS = System::which("pdftops");
-        
+        var_dump($PDFTOPS);
         if (!$PDFTOPS) {
             $this->cmd = 'pdftops missing - and this failed ' . $this->cmd;
             return $fe;
