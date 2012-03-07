@@ -393,7 +393,7 @@ class HTML_FlexyFramework {
      */
     function _parseConfigDataObjects()
     {
-        if ($this->nodatabase) {
+        if ($this->nodatabase && !$this->database) {
             return;
         }
         $dburl = parse_url($this->database);
