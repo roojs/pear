@@ -366,7 +366,7 @@ class Text_SearchParser_Token_Eq extends Text_SearchParser_Token
             }
             
             
-            $g = Text_SearchParser_Token_Grp(array(
+            $g = new Text_SearchParser_Token_Grp(array(
                 new Text_SearchParser_Token_String($this->k),
                 new Text_SearchParser_Token_Op('OR'),
                 new Text_SearchParser_Token_String($this->v)
