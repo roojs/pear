@@ -372,7 +372,7 @@ class Text_SearchParser_Token_Eq extends Text_SearchParser_Token
                 new Text_SearchParser_Token_String($this->v)
             ));
             
-            print_R($g);exit;
+            //print_R($g);exit;
             
             return $g->toSQL($conf);
         }
