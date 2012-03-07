@@ -358,7 +358,7 @@ class Text_SearchParser_Token_Eq extends Text_SearchParser_Token
         if (empty($this->k) || !isset($conf['map'][$this->k])) {
             
             if (empty($this->k) && empty($this->v)) {
-                return '1=1';
+                return '1=1'; // not sure if this is valid.
             }
             if (empty($this->v)) {
                 $s = new Text_SearchParser_Token_String($this->k);
