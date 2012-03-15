@@ -562,7 +562,7 @@ class HTTP_Request
             }
             return;
         }
-        
+         
         if ($preencoded) {
             $this->_postData[$name] = $value;
         } else {
