@@ -543,16 +543,26 @@ class HTTP_Request
         $this->_url->addRawQueryString($querystring, $preencoded);
     }
 
+
+
+
     /**
     * Adds postdata items
     *
-    * @param string     Post data name
+    * @param string|array     Post data name
     * @param string     Post data value
     * @param bool       Whether data is already urlencoded or not, default = not
     * @access public
     */
-    function addPostData($name, $value, $preencoded = false)
+    function addPostData($name, $value = '', $preencoded = false)
     {
+        if (is_array($name)) {
+            foreach($name as $k=>$v) {
+                $this->addPostData($k, $v, $preencoded);
+            }
+            return;
+        }
+        
         if ($preencoded) {
             $this->_postData[$name] = $value;
         } else {
