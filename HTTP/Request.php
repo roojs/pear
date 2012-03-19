@@ -526,8 +526,16 @@ class HTTP_Request
     * @param bool       Whether the value is already urlencoded or not, default = not
     * @access public
     */
-    function addQueryString($name, $value, $preencoded = false)
+    function addQueryString($name, $value = '', $preencoded = false)
     {
+        
+         if (is_array($name)) {
+            foreach($name as $k=>$v) {
+                $this->addQueryString($k, $v, $preencoded);
+            }
+            return;
+        }
+         
         $this->_url->addQueryString($name, $value, $preencoded);
     }
 
