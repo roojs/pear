@@ -529,7 +529,7 @@ class HTTP_Request
     function addQueryString($name, $value = '', $preencoded = false)
     {
         
-         if (is_array($name)) {
+        if (is_array($name)) {
             foreach($name as $k=>$v) {
                 $this->addQueryString($k, $v, $preencoded);
             }
