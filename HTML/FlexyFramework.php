@@ -27,7 +27,9 @@
 // Initialize Static Options
 require_once 'PEAR.php';
 require_once 'HTML/FlexyFramework/Page.php';  
-require_once 'HTML/FlexyFramework/Error.php';  
+require_once 'HTML/FlexyFramework/Error.php';
+// better done here..
+require_once 'DB/DataObject.php';
 
 // To be removed ?? or made optional or something..
  
@@ -596,7 +598,6 @@ class HTML_FlexyFramework {
         
         // database is the only setting - we dont support mult databses?
             
-        require_once 'DB/DataObject.php';
         $x = new DB_Dataobject;
         $x->_database = $this->database;
                     
