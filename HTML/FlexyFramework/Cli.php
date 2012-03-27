@@ -187,6 +187,13 @@ Available commands:
         try {
             $cls = new ReflectionClass($classname);        
             $val = $cls->getStaticPropertyValue('cli_opts');
+            $val = is_array($val) ? $val : array();
+            while ($cls = $cls->getParentClass()) {
+                $vadd = $cls->getStaticPropertyValue('cli_opts') ;
+                $val = array_merge($val, is_array($vadd) ? $vadd : array()  );
+            }
+            
+            
         } catch (Exception $e) {
             return;
         }
