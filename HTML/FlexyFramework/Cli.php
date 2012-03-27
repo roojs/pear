@@ -189,7 +189,7 @@ Available commands:
             $val = $cls->getStaticPropertyValue('cli_opts');
             $val = is_array($val) ? $val : array();
             while ($cls = $cls->getParentClass()) {
-                var_dump($cls);
+                //var_dump($cls);
                 
                 $vadd = $cls->getStaticPropertyValue('cli_opts') ;
                 $val = array_merge($val, is_array($vadd) ? $vadd : array()  );
