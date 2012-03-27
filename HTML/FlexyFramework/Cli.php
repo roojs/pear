@@ -195,7 +195,9 @@ Available commands:
             
             
         } catch (Exception $e) {
-            return;
+            if (empty($val)) {
+                return;
+            }
         }
         if (empty($val)) {
             return false;
