@@ -304,7 +304,6 @@ class HTML_FlexyFramework {
         $dburl = parse_url($this->database);
         if (!empty($dburl['path'])) {
             $iniCache .= '-'.ltrim($dburl['path'],'/');
-            
         }
         
         $iniCache .= '.ini';
