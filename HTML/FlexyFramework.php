@@ -288,6 +288,9 @@ class HTML_FlexyFramework {
         } else {
             $user = getenv('USERNAME'); // windows.
         }
+        
+        
+
         $iniCache = ini_get('session.save_path') .'/' . 
                'dbcfg-' . $user . '/'. $this->project ;
         
@@ -298,6 +301,12 @@ class HTML_FlexyFramework {
         if ($this->version) {
             $iniCache .= '.' . $this->version;
         }
+        $dburl = parse_url($this->database);
+        if (!empty($dburl['path'])) {
+            $iniCache .= '-'.ltrim($dburl['path'],'/');
+            
+        }
+        
         $iniCache .= '.ini';
         $this->debug(__METHOD__ . " : ini cache : $iniCache");
         
