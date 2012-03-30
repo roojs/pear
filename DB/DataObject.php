@@ -3789,7 +3789,7 @@ class DB_DataObject extends DB_DataObject_Overload
      *                      join_names => map of resulting {join_name_as}.{joined_table_column_name}
      * @access   public
      */
-    function autoJoin()
+    function autoJoin($cfg = array())
     {
           
         $map = $this->links();
@@ -3819,6 +3819,12 @@ class DB_DataObject extends DB_DataObject_Overload
             if (!is_object($xx) || !is_a($xx, 'DB_DataObject')) {
                 continue;
             }
+            
+            if (isset($cfg['exclude']) && in_array($tab, $cfg['exclude'])) {
+                continue;
+            }
+            
+            
             // this is borked ... for multiple jions..
             $this->joinAdd($xx, 'LEFT', 'join_'.$ocl.'_'. $col, $ocl);
             $tabdef = $xx->table();
