@@ -3819,8 +3819,8 @@ class DB_DataObject extends DB_DataObject_Overload
             if (!is_object($xx) || !is_a($xx, 'DB_DataObject')) {
                 continue;
             }
-            
-            if (isset($cfg['exclude']) && in_array($tab, $cfg['exclude'])) {
+            // skip columns that are excluded.
+            if (isset($cfg['exclude']) && in_array($ocl, $cfg['exclude'])) {
                 continue;
             }
             
