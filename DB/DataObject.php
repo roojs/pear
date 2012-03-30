@@ -3784,6 +3784,11 @@ class DB_DataObject extends DB_DataObject_Overload
      * }
      * $ar = $x->fetchAll(); 
      *   will result in only the columns requested being fetched...
+     *
+     *
+     *
+     * @param     array     Configuration
+     *          exclude  Array of columns to exclude from results (eg. modified_by_id)
      * @return   array      info about joins
      *                      cols => map of resulting {joined_tablename}.{joined_table_column_name}
      *                      join_names => map of resulting {join_name_as}.{joined_table_column_name}
