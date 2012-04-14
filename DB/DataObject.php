@@ -3802,7 +3802,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $map = array_merge($this->links(),
                 !empty($cfg['links']) ? $cfg['links'] : array()
         );
-        
+        print_r($map);
         $tabdef = $this->table();
          
         // we need this as normally it's only cleared by an empty selectAs call.
