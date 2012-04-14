@@ -3802,7 +3802,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (!empty($cfg['links'])) {
             $this->links(array_merge($this->links(), $cfg['links']));
         }
-        $this->links( $pre_links );
+        $map = $this->links(   );
         //print_r($map);
         $tabdef = $this->table();
          
