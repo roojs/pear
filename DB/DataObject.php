@@ -3789,7 +3789,8 @@ class DB_DataObject extends DB_DataObject_Overload
      *
      * @param     array     Configuration
      *          exclude  Array of columns to exclude from results (eg. modified_by_id)
-     *          links    The equivilant links.ini for this table
+     *          links    The equivilant links.ini data for this table eg.
+     *                    array( 'person_id' => 'person:id', .... )
      * @return   array      info about joins
      *                      cols => map of resulting {joined_tablename}.{joined_table_column_name}
      *                      join_names => map of resulting {join_name_as}.{joined_table_column_name}
