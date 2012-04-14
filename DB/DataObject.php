@@ -3048,6 +3048,9 @@ class DB_DataObject extends DB_DataObject_Overload
     * Should look a bit like
     *       [local_col_name] => "related_tablename:related_col_name"
     * 
+    * @param    array $new_links optional - force update of the links for this table
+    *               You probably want to restore it to it's original state after,
+    *               as modifying here does it for the whole PHP request.
     * 
     * @return   array|null    
     *           array       = if there are links defined for this table.
