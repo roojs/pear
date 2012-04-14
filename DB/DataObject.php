@@ -3798,10 +3798,11 @@ class DB_DataObject extends DB_DataObject_Overload
      */
     function autoJoin($cfg = array())
     {
-          
-        $map = array_merge($this->links(),
-                !empty($cfg['links']) ? $cfg['links'] : array()
-        );
+        $pre_links = $this->links();
+        if (!empty($cfg['links'])) {
+            $this->links(array_merge($this->links(), $cfg['links']));
+        }
+        $this->links( $pre_links );
         //print_r($map);
         $tabdef = $this->table();
          
@@ -3854,6 +3855,8 @@ class DB_DataObject extends DB_DataObject_Overload
         foreach($selectAs as $ar) {
             $this->selectAs($ar[0], $ar[1], $ar[2]);
         }
+        // restore links..
+        $this->links( $pre_links );
         
         return $ret;
         
