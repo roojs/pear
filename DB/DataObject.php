@@ -3067,9 +3067,18 @@ class DB_DataObject extends DB_DataObject_Overload
         $this->_connect();
         
         // alias for shorter code..
-        $lcfg = &$_DB_DATAOBJECT['LINKS'];
+        $lcfg  = &$_DB_DATAOBJECT['LINKS'];
         $cfg   = &$_DB_DATAOBJECT['CONFIG'];
 
+        if ($args = func_get_args()) {
+            // an associative array was specified, that updates the current
+            // schema... - be careful doing this
+            if (empty( $lcfg[$this->_database])) {
+                $lcfg[$this->_database] = array();
+            }
+            $lcfg[$this->_database][$this->tableName()] = $args[0];
+            
+        }
         // loaded and available.
         if (isset($lcfg[$this->_database][$this->tableName()])) {
             return $lcfg[$this->_database][$this->tableName()];
