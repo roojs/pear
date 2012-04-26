@@ -2575,7 +2575,6 @@ class DB_DataObject extends DB_DataObject_Overload
             } else {
                 $DB->beginTransaction();
             }
-            // db backend adds begin anyway from now on..
             return true;
         }
         if (strtoupper($string) == 'COMMIT') {
