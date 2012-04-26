@@ -2571,6 +2571,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (strtoupper($string) == 'BEGIN') {
             if ($_DB_driver == 'DB') {
                 $DB->autoCommit(false);
+                $DB->simpleQuery('BEGIN');
             } else {
                 $DB->beginTransaction();
             }
