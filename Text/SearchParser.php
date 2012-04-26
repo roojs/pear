@@ -186,8 +186,16 @@ class Text_SearchParser_Tokenizer {
         }
             
     }
-    function addStr($s, $q=false) { //$q == quoted..
-        $s = $q ? $s : trim($s);
+    /**
+     * add a string to the tokens list..
+     * @param string $str The string to add
+     * @param boolean $q  is the string quoted.
+     */
+
+    function addStr($s, $q=false)
+    { 
+        //$s = $q ? $s : trim($s);
+        $s = trim($s);
         if (!strlen($s)) {
             return;
         }
