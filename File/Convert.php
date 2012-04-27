@@ -72,7 +72,7 @@ class File_Convert
             
             $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
             $sc->debug= $this->debug;
-            $sc->debug = 1;
+            
             if (strpos($x, 'x')) {
                 $bits = explode('x', $x);
                 $x = (int)$bits[0];
