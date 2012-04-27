@@ -864,7 +864,11 @@ class File_Convert_Solution
              
              $cmdres  = `$cmd`;
              $this->cmd = $cmd;
-            `$cmd`;
+             echo $cmd;
+            echo `$cmd`;
+            
+            
+            
         } else {
             // handle x only!!!
             
