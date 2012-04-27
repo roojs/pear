@@ -49,7 +49,7 @@ class File_Convert
          //echo '<PRE>'; print_r(array('convert', func_get_args()));
         if ($toMimetype != $this->mimetype) {
            
-            var_dump(array($toMimetype, $this->mimetype));
+           
             
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
             
@@ -68,6 +68,8 @@ class File_Convert
             $fn = $this->fn;
         }
          if (preg_match('#^image/#', $toMimetype) && ( !empty($x) || !empty($y))) {
+             var_dump(array($toMimetype));
+            
             $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
             $sc->debug= $this->debug;
             if (strpos($x, 'x')) {
