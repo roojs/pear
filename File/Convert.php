@@ -68,7 +68,7 @@ class File_Convert
             $fn = $this->fn;
         }
          if (preg_match('#^image/#', $toMimetype) && ( !empty($x) || !empty($y))) {
-             var_dump(array($toMimetype));
+            //var_dump(array($toMimetype));
             
             $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
             $sc->debug= $this->debug;
