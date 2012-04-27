@@ -864,8 +864,7 @@ class File_Convert_Solution
              
              $cmdres  = `$cmd`;
              $this->cmd = $cmd;
-             echo $cmd;
-            echo `$cmd`;
+            `$cmd`;
             
             
             
