@@ -4330,7 +4330,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $options = $_DB_DATAOBJECT['CONFIG'];
         $cols = $this->table();
         // dont know anything about this col..
-        if (!isset($cols[$col])) {
+        if (!isset($cols[$col]) || is_a($value, 'DB_DataObject_Cast')) {
             $this->$col = $value;
             return true;
         }
