@@ -3855,6 +3855,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $keys = array_keys($tabdef);
             if (isset($cfg['exclude'])) {
                 $keys = array_diff($keys, $cfg['exclude']);
+                print_r($keys);exit;
             }
             
              
