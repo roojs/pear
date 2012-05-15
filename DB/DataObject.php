@@ -3983,7 +3983,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 continue;
             }
             $val = $from[sprintf($format,$k)];
-            if (is_object($val) && is_a('DB_DataObject_Cast', $val)) {
+            if (is_a('DB_DataObject_Cast', $val)) {
                 $this->$k = $val;
                 continue;
             }
