@@ -3987,13 +3987,10 @@ class DB_DataObject extends DB_DataObject_Overload
                 $this->$k = $val;
                 continue;
             }
-            if (is_object($val)) {
+            if (is_object($val) || is_array($val)) {
                 continue;
             }
-            if (is_array($from[sprintf($format,$k)])) {
-                continue;
-            }
-            $ret = $this->fromValue($k,$from[sprintf($format,$k)]);
+            $ret = $this->fromValue($k,$val);
             if ($ret !== true)  {
                 $overload_return[$k] = 'Not A Valid Value';
             }
