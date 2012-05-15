@@ -3821,7 +3821,11 @@ class DB_DataObject extends DB_DataObject_Overload
         // we need this as normally it's only cleared by an empty selectAs call.
         $this->selectAdd(); 
         
-        $selectAs = array(array( array_keys($tabdef) , '%s', false));
+        $keys = array_keys($tabdef);
+        if (isset($cfg['exclude'])) {
+            $keys = array_diff($keys, $cfg['exclude']); 
+        }
+        $selectAs = array(array( $keys , '%s', false));
         
         $ret = array(
             'cols' => array(),
@@ -3854,8 +3858,7 @@ class DB_DataObject extends DB_DataObject_Overload
             
             $keys = array_keys($tabdef);
             if (isset($cfg['exclude'])) {
-                $keys = array_diff($keys, $cfg['exclude']);
-                 
+                $keys = array_diff($keys, $cfg['exclude']); 
             }
             
              
