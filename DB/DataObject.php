@@ -3853,6 +3853,10 @@ class DB_DataObject extends DB_DataObject_Overload
             $table = $xx->tableName();
             
             $keys = array_keys($tabdef);
+            if (isset($cfg['exclude'])) {
+                $keys = array_diff($keys, $cfg['exclude']);
+            }
+            
              
             $selectAs[] = array($keys, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
               
@@ -3865,6 +3869,7 @@ class DB_DataObject extends DB_DataObject_Overload
          
          
         foreach($selectAs as $ar) {
+            
             $this->selectAs($ar[0], $ar[1], $ar[2]);
         }
         // restore links..
