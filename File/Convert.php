@@ -482,7 +482,7 @@ class File_Convert_Solution
     function targetName($fn, $x,$y)
     {
         switch($this->method) {
-            case 'scaleImage':                 
+            case 'scaleImage':
                 return $fn . '.'.$x.'x'.$y.'.' . $this->ext;
         
                 
