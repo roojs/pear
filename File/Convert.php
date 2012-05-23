@@ -56,6 +56,11 @@ class File_Convert
             }
             $fn = $action->dryrunconvert($this->fn, $x, $y);
         }
+        
+        
+        //$this->target = $fn;
+        //$this->to = $toMimetype;
+        return $fn;
     }
     /**
      *
