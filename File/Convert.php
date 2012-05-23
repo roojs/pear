@@ -454,6 +454,21 @@ class File_Convert_Solution_Stack
         }
         return $fn;
     }
+    
+    function convertExists($fn, $x, $y)
+    {
+        
+        foreach($this->list as $s) {
+           
+              
+            $fn = $s->convertExists($fn, $x, $y);
+            if (!$fn) {
+                return false;
+            }
+        }
+        return $fn;
+    }
+    
 }
 
 class File_Convert_Solution
@@ -511,15 +526,26 @@ class File_Convert_Solution
         return $this->$method($fn,$x,$y);
     }
     
-    function targetName($fn, $x,$y)
+    function convertExists($fn, $x,$y)
     {
+        
+        if (!file_exists($fn)) {
+            return false;
+        }
+        require_once 'File/MimeType.php';
+        $mt = new File_MimeType();
+        $ext = $mt->toExt($this->to);
+        if (!$ext) {
+            return false;
+        }
+        
         switch($this->method) {
             case 'scaleImage':
-                return $fn . '.'.$x.'x'.$y.'.' . $this->ext;
+                $target = $fn . '.'.$x.'x'.$y.'.' . $this->ext;
         
                 
             default:
-                return $fn .'.'. $this->ext;
+                $target $fn .'.'. $this->ext;
         }
         
         
