@@ -541,12 +541,13 @@ class File_Convert_Solution
         
         switch($this->method) {
             case 'scaleImage':
-                $target = $fn . '.'.$x.'x'.$y.'.' . $this->ext;
+                $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
         
                 
             default:
-                $target $fn .'.'. $this->ext;
+                $target = $fn .'.'. $ext;
         }
+        return file_exists($fn) ? $fn : false;
         
         
     }
