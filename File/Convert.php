@@ -54,7 +54,12 @@ class File_Convert
             if (!$action) {
                 return false;
             }
-            return $action->convertExists($this->fn, $x, $y);
+            $fn = $action->convertExists($this->fn, $x, $y);
+        } else {
+            $fn = $this->fn;
+        }
+        if (!$fn) {
+            return false;
         }
         
         
@@ -91,7 +96,7 @@ class File_Convert
         } else {
             $fn = $this->fn;
         }
-         if (preg_match('#^image/#', $toMimetype) && ( !empty($x) || !empty($y))) {
+        if (preg_match('#^image/#', $toMimetype) && ( !empty($x) || !empty($y))) {
             //var_dump(array($toMimetype));
             
             $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
