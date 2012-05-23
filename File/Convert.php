@@ -47,7 +47,14 @@ class File_Convert
     function convertExists($toMimetype, $x= 0, $y =0) 
     {
         
-        
+        if ($toMimetype != $this->mimetype) {
+            $action = $this->getConvMethods($this->mimetype, $toMimetype);
+            
+            // echo '<PRE>';print_r($action);
+            if (!$action) {
+                return false;
+            }
+            $fn = $action->dryrunconvert($this->fn, $x, $y);
     }
     /**
      *
