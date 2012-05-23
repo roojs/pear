@@ -55,6 +55,7 @@ class File_Convert
                 return false;
             }
             $fn = $action->dryrunconvert($this->fn, $x, $y);
+        }
     }
     /**
      *
