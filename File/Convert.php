@@ -54,7 +54,7 @@ class File_Convert
             if (!$action) {
                 return false;
             }
-            return $action->dryrunconvert($this->fn, $x, $y);
+            return $action->convertExists($this->fn, $x, $y);
         }
         
         
