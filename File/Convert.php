@@ -44,6 +44,17 @@ class File_Convert
     }
     
     
+    function convertExists($toMimetype, $x= 0, $y =0) 
+    {
+        
+        
+    }
+    /**
+     *
+     * actually run the convertion routine.
+     * 
+     */
+    
     function convert($toMimetype, $x= 0, $y =0) 
     {
          //echo '<PRE>'; print_r(array('convert', func_get_args()));
@@ -467,6 +478,15 @@ class File_Convert_Solution
         $method = $this->method;
         return $this->$method($fn,$x,$y);
     }
+    
+    function targetName($fn, $x,$y)
+    {
+        
+        
+        
+    }
+    
+    
     function unoconv($fn, $try=0) 
     {
         
