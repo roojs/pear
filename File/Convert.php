@@ -481,7 +481,14 @@ class File_Convert_Solution
     
     function targetName($fn, $x,$y)
     {
+        switch($this->method) {
+            case 'scaleImage':                 
+                return $fn . '.'.$x.'x'.$y.'.' . $this->ext;
         
+                
+            default:
+                return $fn .'.'. $this->ext;
+        }
         
         
     }
@@ -766,7 +773,7 @@ class File_Convert_Solution
     function convert800mp($fn, $x, $y)
     {
         
-         $xscale = 400;
+        $xscale = 400;
         if (!empty($x) && $x> $xscale ) {
             $xscale = $x;
         }
