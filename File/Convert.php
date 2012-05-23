@@ -64,6 +64,8 @@ class File_Convert
         if (!preg_match('#^image/#', $toMimetype) || ( empty($x) && empty($y))) {
             return $fn;
         }
+        echo "testing scale image";
+        
         $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
         $sc->debug= $this->debug;
             
