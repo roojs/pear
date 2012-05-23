@@ -61,7 +61,21 @@ class File_Convert
         if (!$fn) {
             return false;
         }
-        
+        if (!preg_match('#^image/#', $toMimetype) || ( empty($x) && empty($y))) {
+            return $fn;
+        }
+        $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
+        $sc->debug= $this->debug;
+            
+        if (strpos($x, 'x')) {
+            $bits = explode('x', $x);
+            $x = (int)$bits[0];
+            $y = empty($bits[1]) ?  0 : (int)$bits[1];;
+        }
+          
+            
+        $fn = $sc->convertExists($fn, (int)$x, (int)$y);
+             
         
         //$this->target = $fn;
         //$this->to = $toMimetype;
