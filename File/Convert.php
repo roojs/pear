@@ -575,7 +575,7 @@ class File_Convert_Solution
             return false;
         }
         $cmd = "$xvfb -a  $uno -f $ext --stdout " . escapeshellarg($fn) . " 1> " . escapeshellarg($target);
-        // echo $cmd;
+         echo $cmd;
         $res = `$cmd`;
         $this->cmd = $cmd . "\n"  . $res;
         clearstatcache();
