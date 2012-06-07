@@ -89,7 +89,7 @@ class File_Convert
      * 
      */
     
-    function convert($toMimetype, $x= 0, $y =0) 
+    function convert($toMimetype, $x= 0, $y =0, $pg=false) 
     {
          //echo '<PRE>'; print_r(array('convert', func_get_args()));
         if ($toMimetype != $this->mimetype) {
@@ -103,7 +103,7 @@ class File_Convert
                 return false;
             }
             $action->debug = $this->debug;
-            $fn = $action->runconvert($this->fn, $x, $y);
+            $fn = $action->runconvert($this->fn, $x, $y, $pg);
             if (!$fn) {
                 $this->to = $toMimetype;
                 $this->lastaction = $action->last; // what failed.
@@ -125,7 +125,7 @@ class File_Convert
             }
           
             
-            $fn = $sc->runconvert($fn, (int)$x, (int)$y);
+            $fn = $sc->runconvert($fn, (int)$x, (int)$y, $pg);
              
         }
         $this->target = $fn;
@@ -440,7 +440,7 @@ class File_Convert_Solution_Stack
     {
         return count($this->list);
     }
-    function runconvert($fn, $x, $y)
+    function runconvert($fn, $x, $y, $pg=false)
     {
         if ($this->debug) {
             echo "<PRE>RUNNING LIST<BR>";
@@ -448,7 +448,7 @@ class File_Convert_Solution_Stack
         foreach($this->list as $s) {
             $s->debug =$this->debug;
               
-            $fn = $s->runconvert($fn, $x, $y);
+            $fn = $s->runconvert($fn, $x, $y, $pg=false);
             $this->last = $s;
             if (!$fn) {
                 return $fn; // failure..
@@ -507,7 +507,7 @@ class File_Convert_Solution
     }
     
     // convertion methods
-    function runconvert($fn, $x=0,$y=0)
+    function runconvert($fn, $x=0,$y=0, $pg=false)
     {
         if (!file_exists($fn)) {
             $this->cmd = "ERROR:". $fn . " does not exist";
@@ -525,7 +525,7 @@ class File_Convert_Solution
             return false;
         }
         $method = $this->method;
-        return $this->$method($fn,$x,$y);
+        return $this->$method($fn, $x, $y, $pg);
     }
     
     function convertExists($fn, $x,$y)
@@ -831,7 +831,7 @@ class File_Convert_Solution
         return  file_exists($target)  && filesize($target) ? $target : false;
         
     }
-    function convert800mp($fn, $x, $y)
+    function convert800mp($fn, $x, $y, $pg=false)
     {
         
         $xscale = 400;
@@ -840,6 +840,9 @@ class File_Convert_Solution
         }
         $ext = $this->ext;
         $target = $fn . '-' . $xscale . '.' .  $ext;
+        if ($pg !== false) {
+            $target = $fn . '-' . $xscale . '.pg'. $pg . '.' .  $ext;
+        }
         if (!$this->debug && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
@@ -849,7 +852,10 @@ class File_Convert_Solution
         
         $CONVERT = System::which("convert");
         $cmd = "$CONVERT -colorspace RGB -interlace none -density $density ". 
-                        "-quality 90  -resize '". $xscale . "x>' ". escapeshellarg($fn) . "[0] " . escapeshellarg($target);
+                        "-quality 90  -resize '". $xscale . "x>' "
+                        . escapeshellarg($fn) . 
+                        ($pg === false ? "[0] " : "[$pg] ") . 
+                        escapeshellarg($target);
         
 
         if ($this->debug) {
