@@ -560,7 +560,9 @@ class File_Convert_Solution
     {
         
         $ext = $this->ext;
-        $target = $fn . '.' . $ext;
+        
+        
+        $target = str_replace('.', '_', $fn) . '.' . $ext;
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
