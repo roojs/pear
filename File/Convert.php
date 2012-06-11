@@ -347,7 +347,7 @@ class File_Convert
                     'application/x-abiword'
                 ),    // targets
                 array( 
-                    'application/msword',
+                    'application/rtf',
                     'application/vnd.oasis.opendocument.text',
                 )
             ),
