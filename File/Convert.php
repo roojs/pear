@@ -581,18 +581,23 @@ class File_Convert_Solution
         $res = `$cmd`;
         $this->cmd = $cmd . "\n"  . $res;
         clearstatcache();
-        if (file_exists($target)  && filesize($target) < 400) {
-            $this->cmd .= "\n" . filesize($target) . "\n" . file_get_contents($target);
+        
+        if (!file_exists($target) || (file_exists($target)  && filesize($target) < 400)) {
+            //$this->cmd .= "\n" . filesize($target) . "\n" . file_get_contents($target);
             
-            unlink($target);
+            @unlink($target);
             clearstatcache();
-           // if ($try) {
-                return false;
-           // }
-          //  sleep(20);
-          //  return $this->unoconv($fn,1); // try again
+            sleep(3);
+            $cmd = "$xvfb -a  $uno -f $ext --stdout " . escapeshellarg($fn) . " 1> " . escapeshellarg($target);
+            clearstatcache();
+        
             
         }
+        
+        
+        
+        
+        
         
         return  file_exists($target) ? $target : false;
      
