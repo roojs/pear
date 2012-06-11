@@ -585,10 +585,12 @@ class File_Convert_Solution
         if (!file_exists($target) || (file_exists($target)  && filesize($target) < 400)) {
             //$this->cmd .= "\n" . filesize($target) . "\n" . file_get_contents($target);
             
+            // try again!!!!
             @unlink($target);
             clearstatcache();
             sleep(3);
-            $cmd = "$xvfb -a  $uno -f $ext --stdout " . escapeshellarg($fn) . " 1> " . escapeshellarg($target);
+            
+            $res = `$cmd`;
             clearstatcache();
         
             
