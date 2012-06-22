@@ -198,7 +198,7 @@ class Image_Transform
      * @see PEAR::isError()
      * @see Image_Transform::setOption()
      */
-    function &factory($driver = '')
+    function factory($driver = '')
     {
         if ($driver == '') {
             $extensions = array(
@@ -259,11 +259,11 @@ class Image_Transform
                 );
             }
         }
-        $obj =& new $classname();
+        $obj =  new $classname();
 
         // Check startup error
-        if ($error =& $obj->isError()) {
-            $obj =& $error;
+        if ($error =  $obj->isError()) {
+            $obj =  $error;
         }
         return $obj;
     }
