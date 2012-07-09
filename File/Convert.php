@@ -862,7 +862,7 @@ class File_Convert_Solution
         
         $CONVERT = System::which("convert");
         $cmd = "$CONVERT -colorspace RGB -interlace none -density $density ".
-                        " -background white -flatten " .
+                        " -background white -flatten -colorspace sRGB " .
                         "-quality 90  -resize '". $xscale . "x>' "
                         . escapeshellarg($fn) . 
                         ($pg === false ? "[0] " : "[$pg] ") . 
