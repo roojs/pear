@@ -861,7 +861,7 @@ class File_Convert_Solution
         $density = $xscale > 800 ? 300: 75; 
         
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -colorspace sRGB -interlace none -density $density ".
+        $cmd = "$CONVERT -colorspace  RGB -interlace none -density $density ".
                         " -background white -flatten  " .
                         "-quality 90  -resize '". $xscale . "x>' "
                         . escapeshellarg($fn) . 
