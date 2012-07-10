@@ -316,6 +316,19 @@ class File_Convert
                     'image/x-ms-bmp',
                 )
             ),
+            
+            array('pdftoppm', // mulipage convert...
+                array(
+                    'application/pdf',
+               //     'application/tiff',
+                ),
+                array(
+                    'image/jpeg',
+                //    'image/gif',
+                //    'image/png',
+                )
+            ),
+            
             array('convert800mp', // mulipage convert...
                 array(
                     'application/pdf',
@@ -841,7 +854,7 @@ class File_Convert_Solution
         return  file_exists($target)  && filesize($target) ? $target : false;
         
     }
-    function convert800mp($fn, $x, $y, $pg=false)
+    function pdftoppm($fn, $x, $y, $pg=false)
     {
         
         
