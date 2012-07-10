@@ -908,14 +908,21 @@ class File_Convert_Solution
        `$cmd`;
         $this->cmd = $cmd;
         clearstatcache();
-        
+        // for some reason this makes 01 or 1?
         $out = $fn . '-1.jpg';
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
-        if (!$fe) {
-            return false;
+        if ($fe) {
+            rename($out, $target);
+            return $target;
         }
-        rename($out, $target);
+        $out = $fn . '-01.jpg';
+        
+        $fe = file_exists($out)  && filesize($out) ? $out : false;
+        if ($fe) {
+            rename($out, $target);
+            return $target;
+        }
         
         return  $target ;
         
