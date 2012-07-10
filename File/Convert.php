@@ -867,8 +867,9 @@ class File_Convert_Solution
         $info = trim( `$cmd`);
         $match = array();
         // very presumtiuos...
-        
+        die($info);
         if (!preg_match("/([0-9]+)[^0-9]+([0-9]+)/",$info, $match)) {
+            
             return false;
         }
         
