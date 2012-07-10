@@ -844,7 +844,7 @@ class File_Convert_Solution
     function convert800mp($fn, $x, $y, $pg=false)
     {
         
-        $xscale = 400;
+        $xscale = 400; // min size?
         if (!empty($x) && $x> $xscale ) {
             $xscale = $x;
         }
@@ -858,7 +858,31 @@ class File_Convert_Solution
         }
         require_once 'System.php';
         
-        $density = $xscale > 800 ? 300: 75; 
+        
+        // revised version using pdfinfo and pdftoppm
+        
+        $PDFINFO = System::which("convert");
+        $GREP = System::which("grep");
+        $cmd = $PDFINFO . ' '. escapeshellarg($fn) . " | $GREP 'Page size'";
+        $info = trim( `$cmd`);
+        $match = array();
+        // very presumtiuos...
+        preg_match("/([0-9]+)[^0-9]+([0-9]+)/",$info, $match);
+        
+        $yscale =  floor( ($match[2] / $match[1]) * $xscale);
+        $xscale = floor($xscale);
+        
+        $PDFTOPPM = System::which("pdftoppm");
+        $cmd = "$PDFTOPPM -f 1 -l 1  -scale-to-x 800  -jpeg 
+        $cmd = "$CONVERT -colorspace sRGB -interlace none -density $density ".
+                        " -background white -flatten  " .
+                        "-quality 90  -resize '". $xscale . "x>' "
+                        . escapeshellarg($fn) . 
+                        ($pg === false ? "[0] " : "[$pg] ") . 
+                        escapeshellarg($target);
+        
+        
+        //$density = $xscale > 800 ? 300: 75; 
         
         $CONVERT = System::which("convert");
         $cmd = "$CONVERT -colorspace sRGB -interlace none -density $density ".
