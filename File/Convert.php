@@ -920,6 +920,51 @@ class File_Convert_Solution
         return  $target ;
         
     }
+    
+    function convert800mp($fn, $x, $y, $pg=false)
+    {
+        
+        $xscale = 400;
+        if (!empty($x) && $x> $xscale ) {
+            $xscale = $x;
+        }
+        $ext = $this->ext;
+        $target = $fn . '-' . $xscale . '.' .  $ext;
+        if ($pg !== false) {
+            $target = $fn . '-' . $xscale . '.pg'. $pg . '.' .  $ext;
+        }
+        if (!$this->debug && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
+            return $target;
+        }
+        require_once 'System.php';
+        
+        $density = $xscale > 800 ? 300: 75; 
+        
+        $CONVERT = System::which("convert");
+        $cmd = "$CONVERT -colorspace RGB -interlace none -density $density ". 
+                        "-quality 90  -resize '". $xscale . "x>' "
+                        . escapeshellarg($fn) . 
+                        ($pg === false ? "[0] " : "[$pg] ") . 
+                        escapeshellarg($target);
+        
+
+        if ($this->debug) {
+           echo "$cmd <br/>";
+           
+        }
+        
+       `$cmd`;
+        $this->cmd = $cmd;
+        clearstatcache();
+        $fe = file_exists($target)  && filesize($target) ? $target : false;
+        if ($fe) {
+            return $fe;
+        }
+         
+        return false;
+        
+    }
+    
     function convert($fn) // image only..
     {
         
