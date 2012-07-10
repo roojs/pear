@@ -867,32 +867,23 @@ class File_Convert_Solution
         $info = trim( `$cmd`);
         $match = array();
         // very presumtiuos...
-        preg_match("/([0-9]+)[^0-9]+([0-9]+)/",$info, $match);
+        
+        if (!preg_match("/([0-9]+)[^0-9]+([0-9]+)/",$info, $match)) {
+            return false;
+        }
         
         $yscale =  floor( ($match[2] / $match[1]) * $xscale);
         $xscale = floor($xscale);
         
         $PDFTOPPM = System::which("pdftoppm");
-        $cmd = "$PDFTOPPM -f 1 -l 1  -scale-to-x 800  -jpeg 
-        $cmd = "$CONVERT -colorspace sRGB -interlace none -density $density ".
-                        " -background white -flatten  " .
-                        "-quality 90  -resize '". $xscale . "x>' "
-                        . escapeshellarg($fn) . 
-                        ($pg === false ? "[0] " : "[$pg] ") . 
-                        escapeshellarg($target);
+        $cmd = "$PDFTOPPM -f 1 -l 1  -jpeg"
+                    . " -scale-to-x {$xscale} " 
+                    . " -scale-to-y {$yscale} " 
+                    .  escapeshellarg($fn) . " " 
+                    . escapeshellarg($fn);
         
+        // expect this file..
         
-        //$density = $xscale > 800 ? 300: 75; 
-        
-        $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -colorspace sRGB -interlace none -density $density ".
-                        " -background white -flatten  " .
-                        "-quality 90  -resize '". $xscale . "x>' "
-                        . escapeshellarg($fn) . 
-                        ($pg === false ? "[0] " : "[$pg] ") . 
-                        escapeshellarg($target);
-        
-
         if ($this->debug) {
            echo "$cmd <br/>";
            
@@ -901,42 +892,15 @@ class File_Convert_Solution
        `$cmd`;
         $this->cmd = $cmd;
         clearstatcache();
-        $fe = file_exists($target)  && filesize($target) ? $target : false;
-        if ($fe) {
-            return $fe;
-        }
-         
-        // try pdftops
-        if ($this->from != 'application/pdf') {
-            return $fe;
-        }
         
-        $PDFTOPS = System::which("pdftops");
-         if (!$PDFTOPS) {
-            $this->cmd = 'pdftops missing - and this failed ' . $this->cmd;
-            return $fe;
-        }
-        $t = tempnam(sys_get_temp_dir(),'pdf');
-        unlink($t);
-        $t = $t . '.ps';
-        $cmd = "$PDFTOPS " . escapeshellarg($fn)  . ' ' . escapeshellarg($t) . ' 2>/dev/null';
-        $this->cmd = $cmd;
-        `$cmd`;
-        $fe = file_exists($t)  && filesize($t) ? $t: false;
+        $out = $fn . '-01.jpg';
+        $fe = file_exists($out)  && filesize($out) ? $out : false;
         if (!$fe) {
-            
-            return $fe;
+            return false;
         }
+        rename($out, $target);
         
-        $cmd = "$CONVERT -colorspace RGB -interlace none -density $density ". 
-                        "-quality 90  -resize '". $xscale . "x>' ". escapeshellarg($t) . "[0] " . escapeshellarg($target);
-        
-        `$cmd`;
-        $this->cmd = $cmd;
-        unlink($t);
-        
-        
-        return  file_exists($target)  && filesize($target) ? $target : false;
+        return  $target 
         
     }
     function convert($fn) // image only..
