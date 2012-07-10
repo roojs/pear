@@ -909,7 +909,7 @@ class File_Convert_Solution
         $this->cmd = $cmd;
         clearstatcache();
         
-        $out = $fn . '-01.jpg';
+        $out = $fn . '-1.jpg';
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if (!$fe) {
