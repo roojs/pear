@@ -883,7 +883,7 @@ class File_Convert_Solution
         $match = array();
         // very presumtiuos...
        
-        if (!preg_match("/([0-9]+)[^0-9]+([0-9]+)/",$info, $match)) {
+        if (!preg_match("/([0-9.]+)[^0-9]+([0-9.]+)/",$info, $match)) {
             
             return false;
         }
