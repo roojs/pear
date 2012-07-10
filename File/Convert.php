@@ -319,11 +319,11 @@ class File_Convert
             array('convert800mp', // mulipage convert...
                 array(
                     'application/pdf',
-                    'application/tiff',
+               //     'application/tiff',
                 ),
                 array(
                     'image/jpeg',
-                    'image/gif',
+                //    'image/gif',
                     'image/png',
                 )
             ),
