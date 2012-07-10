@@ -844,7 +844,7 @@ class File_Convert_Solution
     function convert800mp($fn, $x, $y, $pg=false)
     {
         
-        die("convert?");
+        
         
         $xscale = 400; // min size?
         if (!empty($x) && $x> $xscale ) {
@@ -866,6 +866,7 @@ class File_Convert_Solution
         $PDFINFO = System::which("convert");
         $GREP = System::which("grep");
         $cmd = $PDFINFO . ' '. escapeshellarg($fn) . " | $GREP 'Page size'";
+        echo $cmd;exit;
         $info = trim( `$cmd`);
         $match = array();
         // very presumtiuos...
