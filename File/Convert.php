@@ -924,7 +924,7 @@ class File_Convert_Solution
             return $target;
         }
         
-        return  $target ;
+        return  false;
         
     }
     
