@@ -894,13 +894,14 @@ class File_Convert_Solution
         clearstatcache();
         
         $out = $fn . '-01.jpg';
+        
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if (!$fe) {
             return false;
         }
         rename($out, $target);
         
-        return  $target 
+        return  $target ;
         
     }
     function convert($fn) // image only..
