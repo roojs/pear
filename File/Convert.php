@@ -844,6 +844,8 @@ class File_Convert_Solution
     function convert800mp($fn, $x, $y, $pg=false)
     {
         
+        die("convert?");
+        
         $xscale = 400; // min size?
         if (!empty($x) && $x> $xscale ) {
             $xscale = $x;
