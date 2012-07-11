@@ -366,7 +366,15 @@ class File_Convert
             ),
             
         ); 
-    
+    /**
+     * This recursively calls to find the best match.
+     * First by matching the 'from'
+     *
+     * Then if multiple outputs are available,
+     * It will see if any of those can be used to generate the to, by recurivly calling it'self..
+     *
+     */
+     
     function getConvMethods($from, $to, $stack = array())
     {
             // these source types have to use unoconv....
