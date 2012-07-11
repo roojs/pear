@@ -385,6 +385,7 @@ class File_Convert
             if (in_array($to,$t[2])) {
                 return new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
             }
+            // from matches..
             $pos[$t[0]] = $t[2]; // list of targets
             
         }
