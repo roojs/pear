@@ -552,8 +552,9 @@ class DB_DataObject_Cast {
      */
     function escapeMSsql($data)
     {
-        if(is_numeric($data))
+        if(is_numeric($data)) {
             return $data;
+        }
         $unpacked = unpack('H*hex', $data);
         return '0x' . $unpacked['hex'];
     }
