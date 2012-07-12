@@ -396,7 +396,14 @@ class DB_DataObject_Cast {
                 return "'".sqlite_escape_string($this->value)."'";
            
             case 'mssql':
-                return $this->escapeMSsql($this->value);
+                
+                if(is_numeric($this->value)) {
+                    return $this->value;
+                }
+                $unpacked = unpack('H*hex', $this->value);
+                return '0x' . $unpacked['hex'];
+                        
+                 
    
             default:
                 return PEAR::raiseError("DB_DataObject_Cast cant handle blobs for Database:{$db->dsn['phptype']} Yet");
@@ -445,7 +452,7 @@ class DB_DataObject_Cast {
                 return "'" . str_replace(
                         array("'", "\\\r\n", "\\\n"),
                         array("''", "\\\\\r\n\r\n", "\\\\\n\n"),
-                        $str 
+                        $this->value 
                     ) . "'";
                 
 
@@ -558,11 +565,7 @@ class DB_DataObject_Cast {
      */
     function escapeMSsql($data)
     {
-        if(is_numeric($data)) {
-            return $data;
-        }
-        $unpacked = unpack('H*hex', $data);
-        return '0x' . $unpacked['hex'];
+        
     }
     
     
