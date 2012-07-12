@@ -1866,7 +1866,7 @@ class DB_DataObject extends DB_DataObject_Overload
         'limit_count' => '', // the LIMIT condition
         'data_select' => '*', // the columns to be SELECTed
         'unions'      => array(), // the added unions,
-        'derive_table' => '',
+        'derive_table' => '', // derived tables (eg. (select (distinct xxx) from CCC dev) Clipping)
     );
         
     
