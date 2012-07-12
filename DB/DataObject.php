@@ -426,7 +426,7 @@ class DB_DataObject extends DB_DataObject_Overload
             
              $sql = 'SELECT ' .
                $this->_query['derive_select']
-               .' FROM ('.
+               .' FROM ( SELECT'.
                     $this->_query['data_select'] . " \n" .
                     " FROM   $tn \n" .
                     $this->_join . " \n" .
