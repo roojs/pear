@@ -396,7 +396,7 @@ class DB_DataObject_Cast {
                 return "'".sqlite_escape_string($this->value)."'";
            
             case 'mssql':
-                return mssql_escape($this->value);
+                return $this->escapeMSsql($this->value);
    
             default:
                 return PEAR::raiseError("DB_DataObject_Cast cant handle blobs for Database:{$db->dsn['phptype']} Yet");
@@ -440,7 +440,9 @@ class DB_DataObject_Cast {
             case 'mysqli':
                 return "'".mysqli_real_escape_string($db->connection, $this->value)."'";
 
-            
+            case 'mssql':
+                return "'".$this->value."'";
+
             default:
                 return PEAR::raiseError("DB_DataObject_Cast cant handle blobs for Database:{$db->dsn['phptype']} Yet");
         }
@@ -543,8 +545,18 @@ class DB_DataObject_Cast {
     {
         return $this->value; 
     }
-    
-    
+    /**
+     * workaround for lack of quoting in mssql api.
+     * http://stackoverflow.com/questions/574805/how-to-escape-strings-in-mssql-using-php
+     * 
+     */
+    function escapeMSsql($data)
+    {
+        if(is_numeric($data))
+            return $data;
+        $unpacked = unpack('H*hex', $data);
+        return '0x' . $unpacked['hex'];
+    }
     
     
 }
