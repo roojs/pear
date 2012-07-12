@@ -437,23 +437,7 @@ class DB_DataObject extends DB_DataObject_Overload
             
         }
         
-        /* databases like mysql are a nightmare for things like
-          select distinct(..) LIMIT 1, 4
-          to get around this, the best solution is to do derived tables:
-          eg.
-           SELECT date_select FROM (
-                 SELECT distinct(...) ... FROM original table.
-                 WHERE ......
-                   $this->_join . " \n" .
-
-                $this->_query['group_by'] . " \n" .
-                $this->_query['having'] 
-            ) somename
-            LIMIT 1,10
-        )
-        
-        
-        */
+       
         
         $sql = 'SELECT ' .
             $this->_query['data_select'] . " \n" .
