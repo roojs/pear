@@ -395,7 +395,9 @@ class DB_DataObject_Cast {
                 // this is funny - the parameter order is reversed ;)
                 return "'".sqlite_escape_string($this->value)."'";
            
-                 
+            case 'mssql':
+                return mssql_escape($this->value);
+   
             default:
                 return PEAR::raiseError("DB_DataObject_Cast cant handle blobs for Database:{$db->dsn['phptype']} Yet");
         }
