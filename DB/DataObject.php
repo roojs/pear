@@ -419,10 +419,41 @@ class DB_DataObject extends DB_DataObject_Overload
             $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
         }
         $tn = ($quoteIdentifiers ? $DB->quoteIdentifier($this->tableName()) : $this->tableName()) ;
-        if (!empty($this->_query['derive_table'])) {
-            $tn = $this->_query['derive_table'];
+        if (!empty($this->_query['derive_table']) && !empty($this->_query['derive_select']) ) {
+            
+             $sql = 'SELECT ' .
+               $this->_query['derive_select']
+               .' FROM ('.
+                    $this->_query['data_select'] . " \n" .
+                    " FROM   $tn \n" .
+                    $this->_join . " \n" .
+                    $this->_query['condition'] . " \n" .
+                    $this->_query['group_by'] . " \n" .
+                    $this->_query['having'] . " \n" .
+                ') ' . $this->_query['derive_table'];
+                     
+            return $sql;
+            
+            
         }
         
+        /* databases like mysql are a nightmare for things like
+          select distinct(..) LIMIT 1, 4
+          to get around this, the best solution is to do derived tables:
+          eg.
+           SELECT date_select FROM (
+                 SELECT distinct(...) ... FROM original table.
+                 WHERE ......
+                   $this->_join . " \n" .
+
+                $this->_query['group_by'] . " \n" .
+                $this->_query['having'] 
+            ) somename
+            LIMIT 1,10
+        )
+        
+        
+        */
         
         $sql = 'SELECT ' .
             $this->_query['data_select'] . " \n" .
