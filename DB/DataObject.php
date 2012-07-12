@@ -421,6 +421,9 @@ class DB_DataObject extends DB_DataObject_Overload
         $tn = ($quoteIdentifiers ? $DB->quoteIdentifier($this->tableName()) : $this->tableName()) ;
         if (!empty($this->_query['derive_table']) && !empty($this->_query['derive_select']) ) {
             
+            // this is a derived select..
+            // not much support in the api yet..
+            
              $sql = 'SELECT ' .
                $this->_query['derive_select']
                .' FROM ('.
