@@ -558,15 +558,7 @@ class DB_DataObject_Cast {
     {
         return $this->value; 
     }
-    /**
-     * workaround for lack of quoting in mssql api.
-     * http://stackoverflow.com/questions/574805/how-to-escape-strings-in-mssql-using-php
-     * 
-     */
-    function escapeMSsql($data)
-    {
-        
-    }
+    
     
     
 }
