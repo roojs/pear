@@ -441,7 +441,7 @@ class DB_DataObject_Cast {
                 return "'".mysqli_real_escape_string($db->connection, $this->value)."'";
 
             case 'mssql':
-                return "'".$this->value."'";
+                return $this->escapeMSsql($this->value);
 
             default:
                 return PEAR::raiseError("DB_DataObject_Cast cant handle blobs for Database:{$db->dsn['phptype']} Yet");
