@@ -610,16 +610,15 @@ class DB_pgsql extends DB_common
      */
     function commit()
     {
-        //if ($this->transaction_opcount > 0) {
+        if ($this->transaction_opcount > 0) {
             // (disabled) hack to shut up error messages from libpq.a
             //@fclose(@fopen("php://stderr", "w"));
             $result = @pg_exec($this->connection, 'end;');
-            $result = @pg_exec($this->connection, 'COMMIT');
             $this->transaction_opcount = 0;
             if (!$result) {
                 return $this->pgsqlRaiseError();
             }
-        //}
+        }
         return DB_OK;
     }
 
@@ -633,13 +632,13 @@ class DB_pgsql extends DB_common
      */
     function rollback()
     {
-        //if ($this->transaction_opcount > 0) {
+        if ($this->transaction_opcount > 0) {
             $result = @pg_exec($this->connection, 'abort;');
             $this->transaction_opcount = 0;
             if (!$result) {
                 return $this->pgsqlRaiseError();
             }
-        //}
+        }
         return DB_OK;
     }
 
