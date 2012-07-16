@@ -610,6 +610,10 @@ class DB_pgsql extends DB_common
      */
     function commit()
     {
+        if (pg_transaction_status($this->connection) == PGSQL_TRANSACTION_INTRANS) {
+            $this->transaction_opcount  = 1;
+        }
+        
         if ($this->transaction_opcount > 0) {
             // (disabled) hack to shut up error messages from libpq.a
             //@fclose(@fopen("php://stderr", "w"));
@@ -632,6 +636,9 @@ class DB_pgsql extends DB_common
      */
     function rollback()
     {
+        if (pg_transaction_status($this->connection) == PGSQL_TRANSACTION_INTRANS) {
+            $this->transaction_opcount  = 1;
+        }
         if ($this->transaction_opcount > 0) {
             $result = @pg_exec($this->connection, 'abort;');
             $this->transaction_opcount = 0;
