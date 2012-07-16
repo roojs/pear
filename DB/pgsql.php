@@ -633,13 +633,13 @@ class DB_pgsql extends DB_common
      */
     function rollback()
     {
-        if ($this->transaction_opcount > 0) {
+        //if ($this->transaction_opcount > 0) {
             $result = @pg_exec($this->connection, 'abort;');
             $this->transaction_opcount = 0;
             if (!$result) {
                 return $this->pgsqlRaiseError();
             }
-        }
+        //}
         return DB_OK;
     }
 
