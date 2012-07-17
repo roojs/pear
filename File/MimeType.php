@@ -56,7 +56,7 @@ class File_MimeType
                 array( 'application/xslt+xml', array('xslt')),
                 array( 'application/xml-dtd', array('dtd')),
                 array( 'audio/x-mpegurl', array('m3u')),
-                array( 'audio/mp3', array('mp3')),
+                array( 'audio/mpeg', array('mp3')),
                 array( 'application/vnd.rn-realmedia', array('rm')),
                 array( 'image/bmp', array('bmp')),
                 array( 'image/cgm', array('cgm')),
