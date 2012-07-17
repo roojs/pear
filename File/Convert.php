@@ -261,7 +261,7 @@ class File_Convert
                     'application/pdf',
                 )
             ),
-            array( 'mpa2mp3',
+            array( 'm4a2mp3',
                 array( //source
                     'audio/mp4',
                 ),
