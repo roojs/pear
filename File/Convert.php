@@ -1102,6 +1102,11 @@ class File_Convert_Solution
         clearstatcache();
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
+    
+    function m4a2mp3($fn){
+        print_r($fn);
+        
+    }
 }
 
 
