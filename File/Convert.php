@@ -261,6 +261,14 @@ class File_Convert
                     'application/pdf',
                 )
             ),
+            array( 'mpa2mp3',
+                array( //source
+                    'audio/mp4',
+                ),
+                array( //target
+                    'audio/mpeg',
+                )
+            ),
             
             array( 'whtml2pdf',
                 array(
