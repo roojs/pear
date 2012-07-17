@@ -1105,7 +1105,7 @@ class File_Convert_Solution
     
     function m4a2mp3($fn){
         print_r($fn);
-        exit;
+        
         $ext = 'mp3';
         $target = $fn . '.' . $ext;
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
