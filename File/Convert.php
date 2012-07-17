@@ -1115,7 +1115,7 @@ class File_Convert_Solution
         $FAAD = System::which("faad");
         $LAME = System::which("lame");
         
-        $cmd = $FAAD -o - ".escapeshellarg($fn).".m4a | $LAME - {$target}";
+        $cmd = "$FAAD -o - ".escapeshellarg($fn).".m4a | $LAME - {$target}";
         
         ///echo $cmd;
         `$cmd`;
