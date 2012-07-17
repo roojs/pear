@@ -1112,8 +1112,10 @@ class File_Convert_Solution
             return $target;
         }
         require_once 'System.php';
-        $CONVERT = System::which("convert");
-        $cmd = $CONVERT. "faad -o - ".escapeshellarg($fn).".m4a | lame - {$target}";
+        $FAAD = System::which("faad");
+        $LAME = System::which("lame");
+        
+        $cmd = $FAAD -o - ".escapeshellarg($fn).".m4a | $LAME - {$target}";
         
         ///echo $cmd;
         `$cmd`;
