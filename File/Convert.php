@@ -1105,6 +1105,23 @@ class File_Convert_Solution
     
     function m4a2mp3($fn){
         print_r($fn);
+        exit;
+        $ext = 'm4a';
+        $target = $fn . '.' . $ext;
+        if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
+            return $target;
+        }
+        require_once 'System.php';
+        $ffmpeg = System::which('ffmpeg');
+        $cmd = "$ffmpeg  -ss 5  -i " .
+                escapeshellarg($fn) ." -vcodec mjpeg -vframes 1 -an -f rawvideo -s 320x240 " . escapeshellarg($target);
+
+        ///echo $cmd;
+        `$cmd`;
+        $this->cmd = $cmd;
+        clearstatcache();
+        
+        return  file_exists($target)  && filesize($target) ? $target : false;
         
     }
 }
