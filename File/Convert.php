@@ -913,7 +913,7 @@ class File_Convert_Solution
                     . " -scale-to-x {$xscale} " 
                     . " -scale-to-y {$yscale} " 
                     .  escapeshellarg($fn) . " " 
-                    . escapeshellarg($fn.'-conv').;
+                    . escapeshellarg($fn.'-conv');
         
         // expect this file..
         
