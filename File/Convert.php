@@ -913,7 +913,7 @@ class File_Convert_Solution
                     . " -scale-to-x {$xscale} " 
                     . " -scale-to-y {$yscale} " 
                     .  escapeshellarg($fn) . " " 
-                    . escapeshellarg($fn);
+                    . escapeshellarg($fn.'-conv').;
         
         // expect this file..
         
@@ -926,14 +926,14 @@ class File_Convert_Solution
         $this->cmd = $cmd;
         clearstatcache();
         // for some reason this makes 01 or 1?
-        $out = $fn . '-1.jpg';
+        $out = $fn . '-conv-1.jpg';
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
             rename($out, $target);
             return $target;
         }
-        $out = $fn . '-01.jpg';
+        $out = $fn . '-conv-01.jpg';
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
