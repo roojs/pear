@@ -174,6 +174,7 @@ class Spreadsheet_Excel_Writer_Workbook extends Spreadsheet_Excel_Writer_BIFFwri
     function Spreadsheet_Excel_Writer_Workbook($filename)
     {
         // It needs to call its parent's constructor explicitly
+        
         $this->Spreadsheet_Excel_Writer_BIFFwriter();
 
         $this->_filename         = $filename;
