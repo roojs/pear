@@ -638,6 +638,9 @@ class File_Convert_Solution
     function ssconvertxls($fn) 
     {
         
+        
+        
+        
         $ext = $this->ext;
         $target = $fn . '.' . $ext;
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
@@ -646,7 +649,21 @@ class File_Convert_Solution
         require_once 'System.php';
         $ssconvert = System::which('ssconvert');
         
-        $cmd = "$ssconvert -I Gnumeric_Excel:xlsx -T Gnumeric_Excel:excel_biff8 " . escapeshellarg($fn) . " " . escapeshellarg($target);
+        $format = 'UNKNOWN'; ///?? error condition.
+        switch($to) {
+            case 'text/csv':
+                $format = 'Gnumeric_Excel:excel_biff8';
+                break;
+            case 'application/vnd.ms-excel':
+                $format = 'Gnumeric_Excel:excel_biff8';
+                break; 
+                
+        }
+        
+        
+        $cmd = "$ssconvert -I Gnumeric_Excel:xlsx -T Gnumeric_Excel:excel_biff8 " .
+                escapeshellarg($fn) . " " .
+                escapeshellarg($target);
         ///echo $cmd;
         `$cmd`;
         $this->cmd = $cmd;
