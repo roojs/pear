@@ -650,14 +650,15 @@ class File_Convert_Solution
         $ssconvert = System::which('ssconvert');
         
         $format = 'UNKNOWN'; ///?? error condition.
-        switch($to) {
+        switch($this->to) {
             case 'text/csv':
                 $format = 'Gnumeric_Excel:excel_biff8';
                 break;
             case 'application/vnd.ms-excel':
                 $format = 'Gnumeric_Excel:excel_biff8';
                 break; 
-                
+            default:
+                 die("ssconvert used on unknown format:" . $this->to);
         }
         
         
