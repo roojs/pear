@@ -662,14 +662,17 @@ class File_Convert_Solution
         $format = 'UNKNOWN'; ///?? error condition.
         
         switch($this->from) {
+            
+            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                $from = 'Gnumeric_Excel:xlsx';
+                break;
+            
             case 'application/vnd.ms-excel':
                 $from = 'Gnumeric_Excel:excel_biff8';
                 break;
-            case 'application/vnd.ms-excel':
-                $from = 'Gnumeric_stf:stf_csv';
-                break; 
+            
             default:
-                 die("ssconvert used on unknown format:" . $this->to);
+                 die("ssconvert used on unknown format:" . $this->from);
             
         
         
@@ -679,8 +682,8 @@ class File_Convert_Solution
                 $format = 'Gnumeric_Excel:excel_biff8';
                 break;
             
-            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-                $format = 'Gnumeric_Excel:xlsx';
+            case 'text/csv':
+                $format = 'Gnumeric_stf:stf_csv';
                 break;
             
             default:
@@ -688,7 +691,7 @@ class File_Convert_Solution
         }
         
         
-        $cmd = "$ssconvert -I Gnumeric_Excel:xlsx -T $format " .
+        $cmd = "$ssconvert -I $from -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         ///echo $cmd;
