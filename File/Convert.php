@@ -228,7 +228,10 @@ class File_Convert
             ),
             array( 'ssconvertxls',
                 array ('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ),
-                array('application/vnd.ms-excel')
+                array(
+                      'application/vnd.ms-excel',
+                      'text/csv',
+                      )
             ),
             
             array( 'html2text',
