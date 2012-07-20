@@ -662,7 +662,7 @@ class File_Convert_Solution
                 $format = 'Gnumeric_Excel:excel_biff8';
                 break;
             case 'application/vnd.ms-excel':
-                $format = 'Gnumeric_Excel:excel_biff8';
+                $format = 'Gnumeric_stf:stf_csv';
                 break; 
             default:
                  die("ssconvert used on unknown format:" . $this->to);
