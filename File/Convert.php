@@ -651,6 +651,10 @@ class File_Convert_Solution
         }
         require_once 'System.php';
         $ssconvert = System::which('ssconvert');
+         if (!$ssconvert) {
+            // eak.
+            die("ssconvert is not installed");
+        }
         
         $format = 'UNKNOWN'; ///?? error condition.
         switch($this->to) {
