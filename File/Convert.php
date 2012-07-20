@@ -662,7 +662,7 @@ class File_Convert_Solution
         }
         
         
-        $cmd = "$ssconvert -I Gnumeric_Excel:xlsx -T Gnumeric_Excel:excel_biff8 " .
+        $cmd = "$ssconvert -I Gnumeric_Excel:xlsx -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         ///echo $cmd;
