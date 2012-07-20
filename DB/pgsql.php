@@ -813,7 +813,7 @@ class DB_pgsql extends DB_common
      */
     function errorNative()
     {
-        return @pg_errormessage($this->connection);
+        return @pg_last_notice($this->connection) . "\n\n" .@pg_errormessage($this->connection);
     }
 
     // }}}
