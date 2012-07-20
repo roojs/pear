@@ -668,7 +668,7 @@ class File_Convert_Solution
                 break;
             
             case 'application/vnd.ms-excel':
-                $from = 'Gnumeric_Excel:excel_biff8';
+                $from = 'Gnumeric_Excel:excel';
                 break;
             
             default:
