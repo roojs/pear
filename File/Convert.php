@@ -227,7 +227,10 @@ class File_Convert
                     )
             ),
             array( 'ssconvertxls',
-                array ('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ),
+                array (
+                       'application/vnd.ms-excel',
+                       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                       ),
                 array(
                       'application/vnd.ms-excel',
                       'text/csv',
@@ -657,13 +660,29 @@ class File_Convert_Solution
         }
         
         $format = 'UNKNOWN'; ///?? error condition.
-        switch($this->to) {
-            case 'text/csv':
-                $format = 'Gnumeric_Excel:excel_biff8';
+        
+        switch($this->from) {
+            case 'application/vnd.ms-excel':
+                $from = 'Gnumeric_Excel:excel_biff8';
                 break;
             case 'application/vnd.ms-excel':
-                $format = 'Gnumeric_stf:stf_csv';
+                $from = 'Gnumeric_stf:stf_csv';
                 break; 
+            default:
+                 die("ssconvert used on unknown format:" . $this->to);
+            
+        
+        
+        switch($this->to) {
+            
+            case 'application/vnd.ms-excel':
+                $format = 'Gnumeric_Excel:excel_biff8';
+                break;
+            
+            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                $format = 'Gnumeric_Excel:xlsx';
+                break;
+            
             default:
                  die("ssconvert used on unknown format:" . $this->to);
         }
