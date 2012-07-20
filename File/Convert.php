@@ -674,7 +674,7 @@ class File_Convert_Solution
             default:
                  die("ssconvert used on unknown format:" . $this->from);
             
-        
+        }
         
         switch($this->to) {
             
