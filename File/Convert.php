@@ -914,7 +914,7 @@ class File_Convert_Solution
         
         
         
-        $cmd = "$conv -f $cvt -o " . escapeshellarg($target) . ' ' .escapeshellarg($svg);
+        $cmd = "$conv -f $cvt -o " . escapeshellarg($target) . ' ' .escapeshellarg($fn);
         
         `$cmd`;
                     
