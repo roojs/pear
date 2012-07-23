@@ -215,6 +215,7 @@ class File_Convert
     var $methods =  array(
             array( 'unoconv',
                     array( // source
+                        'text/html', /// testing..
                         'application/msword',
                         'application/mswordapplication',
                         'application/vnd.oasis.opendocument.text',
