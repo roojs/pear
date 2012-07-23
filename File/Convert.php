@@ -916,11 +916,7 @@ class File_Convert_Solution
         `$cmd`;
         $this->cmd = $cmd;      
         clearstatcache();
-        if (!file_exists($target)) {
-            
-            
-            
-        }
+         
         
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
