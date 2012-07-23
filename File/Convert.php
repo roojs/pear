@@ -845,6 +845,10 @@ class File_Convert_Solution
     
     function abiword($fn)
     {
+        require_once 'File/MimeType.php';
+        $fmt = new File_MimeType();
+        $fext = $fmt->toExt($this->from);
+        
         $ext = $this->ext;
         $target = str_replace('.', '_', $fn) . '.' . $ext;
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
@@ -856,7 +860,7 @@ class File_Convert_Solution
             $this->cmd = "Missing abiword";
             return false;
         }
-        $cmd = "$abiword   --to=" . escapeshellarg($target) . ' ' .escapeshellarg($fn);
+        $cmd = "$abiword  --import-extenions=$fext --to=" . escapeshellarg($target) . ' ' .escapeshellarg($fn);
         ///echo $cmd;
         `$cmd`;
         $this->cmd = $cmd;
