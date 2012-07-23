@@ -325,8 +325,8 @@ class File_Convert
                     'image/svg',
                 ),
                 array(
-                    'application/pdf',
                     'image/png',
+                    'application/pdf',
                 ),
             ),
             array( 'convert',
