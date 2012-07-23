@@ -1068,7 +1068,7 @@ class File_Convert_Solution
         }
         require_once 'System.php';
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 ". 
+        $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 -background '#ffffff' ". 
                         "-quality 80   ". escapeshellarg($fn) . " " . escapeshellarg($target);
         
         `$cmd`;
