@@ -910,15 +910,18 @@ class File_Convert_Solution
         if (!$conv) {
             echo "RSVG-CONVERT to available - install librsvg2-bin";
             return false;
-        }
-        
-        
-        
+        } 
         $cmd = "$conv -f $cvt -o " . escapeshellarg($target) . ' ' .escapeshellarg($fn);
         
         `$cmd`;
-                    
+        $this->cmd = $cmd;      
         clearstatcache();
+        if (!file_exists($target)) {
+            
+            
+            
+        }
+        
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
     function convert800($fn) // might not be needed...
