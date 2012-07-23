@@ -60,6 +60,9 @@ class File_MimeType
                 array( 'application/vnd.rn-realmedia', array('rm')),
                 array( 'image/bmp', array('bmp')),
                 array( 'image/cgm', array('cgm')),
+                
+                array( 'image/svg', array('svg')),
+                
                 array( 'text/calendar', array('ifb')),
                 array( 'text/csv', array('csv')),
                 array( 'text/sgml', array('sgml')),
