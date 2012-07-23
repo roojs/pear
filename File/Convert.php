@@ -383,6 +383,7 @@ class File_Convert
                 array( 
                     'application/rtf',
                     'application/vnd.oasis.opendocument.text',
+                    'application/x-abiword'
                 )
             ),
             
