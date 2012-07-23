@@ -320,8 +320,6 @@ class File_Convert
                 array(
                     'application/pdf',
                     'image/png',
-                    
-                    
                 ),
             ),
             array( 'convert',
