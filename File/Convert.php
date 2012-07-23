@@ -294,13 +294,6 @@ class File_Convert
                 )
             ),
             
-            array( 'svg2image',
-                array('image/svg'),
-                array(
-                    'image/jpeg'
-                )
-            ),
-                  
                   
             
             
