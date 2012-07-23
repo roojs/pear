@@ -320,12 +320,13 @@ class File_Convert
                     'image/svg'
                 )
             ),
-            array( 'svg2pdf',
+            array( 'svgconvert',
                 array(
                     'image/svg',
                 ),
                 array(
                     'application/pdf',
+                    'image/png',
                 ),
             ),
             array( 'convert',
@@ -889,11 +890,25 @@ class File_Convert_Solution
         clearstatcache();
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
-    function svg2pdf($fn) 
+    function svgconvert($fn) 
     {
         
+        switch($this->to) {
+            case 'application/pdf';
+                $ext = '.pdf';
+                $cvt = 'pdf';
+                break;
+            case 'image/png';
+                $ext = '.png';
+                $cvt = 'png';
+                break;
+            
+                
+        }
         
-        $target = $fn . '.pdf';
+        
+        
+        $target = $fn . $ext;
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
@@ -903,7 +918,10 @@ class File_Convert_Solution
             echo "RSVG-CONVERT to available - install librsvg2-bin";
             return false;
         }
-        $cmd = "$conv -f pdf -o " . escapeshellarg($target) . ' ' .escapeshellarg($svg);
+        
+        
+        
+        $cmd = "$conv -f $cvt -o " . escapeshellarg($target) . ' ' .escapeshellarg($svg);
         
         `$cmd`;
                     
