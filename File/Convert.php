@@ -860,7 +860,7 @@ class File_Convert_Solution
             $this->cmd = "Missing abiword";
             return false;
         }
-        $cmd = "$abiword  --import-extenions=$fext --to=" . escapeshellarg($target) . ' ' .escapeshellarg($fn);
+        $cmd = "$abiword  --import-extension=$fext --to=" . escapeshellarg($target) . ' ' .escapeshellarg($fn);
         ///echo $cmd;
         `$cmd`;
         $this->cmd = $cmd;
