@@ -294,7 +294,7 @@ class File_Convert
                 )
             ),
             
-            array( 'acad2image',
+            array( 'svg2image',
                 array('image/svg'),
                 array(
                     'image/jpeg'
