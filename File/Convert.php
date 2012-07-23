@@ -293,6 +293,17 @@ class File_Convert
                     'text/html',
                 )
             ),
+            
+            array( 'acad2image',
+                array('image/svg'),
+                array(
+                    'image/jpeg'
+                )
+            ),
+                  
+                  
+            
+            
             array( 'acad2svg',
                 array ('application/vnd.dwg',
                      'application/acad',
