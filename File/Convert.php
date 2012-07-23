@@ -883,7 +883,7 @@ class File_Convert_Solution
         clearstatcache();
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
-    function svgconvert($fn) 
+    function svgconvert($fn, $x, $y) 
     {
         
         switch($this->to) {
@@ -898,8 +898,13 @@ class File_Convert_Solution
             
                 
         }
-        
-        
+        $opts = '';
+        if (!empty($x)) {
+            $opts .= ' -w '. ((int) $x);
+        }
+        if (!empty($x)) {
+            $opts .= ' -h '. ((int) $y);
+        }
         
         $target = $fn . $ext;
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
