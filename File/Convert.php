@@ -1066,9 +1066,15 @@ class File_Convert_Solution
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
+        $flat = '';
+        if ($this->to == 'image/jpeg') {
+            $flat = " -background '#ffffff' --flatten ";
+            
+        }
+        
         require_once 'System.php';
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 -background '#ffffff' ". 
+        $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 $flat ". 
                         "-quality 80   ". escapeshellarg($fn) . " " . escapeshellarg($target);
         
         `$cmd`;
