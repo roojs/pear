@@ -1032,7 +1032,7 @@ class PEAR_Error
                            'callback=%s prefix="%s" info="%s"]',
                            strtolower(get_class($this)), $this->message, $this->code,
                            $callback, $this->error_message_prefix,
-                           $this->userinfo);
+                           is_string($this->userinfo) ? $this->userinfo : print_r($this->userinfo,true));
         }
         if ($this->mode & PEAR_ERROR_PRINT) {
             $modes[] = 'print';
