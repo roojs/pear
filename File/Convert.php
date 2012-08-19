@@ -134,8 +134,12 @@ class File_Convert
         
         
     }
-    
-    function serve($type=false, $filename =false, $delete_after = false) /** may die **/
+    /**
+     * Serve the file to a browser so it can be downloaded, or viewed.
+     *
+     *
+     */
+    function serve($type=false, $filename =false, $delete_after = false) // may die **/
     {
         if (empty($this->target)) {
             // broken image? for images...
