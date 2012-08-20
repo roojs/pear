@@ -352,6 +352,11 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
 
     function include_template($input) {
 
+        // array not supported for this type of template.
+        if (is_array($this->engine->options['templateDir'])) {
+            return $input;
+        }
+        
         $input = preg_replace(
             "/".$this->start."include:([a-z0-9_.]+)".$this->stop."/ie",
             "'<?php
