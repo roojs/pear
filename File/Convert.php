@@ -1170,6 +1170,7 @@ class File_Convert_Solution
                 }
                 
                 
+                
             }
             
             
@@ -1177,8 +1178,8 @@ class File_Convert_Solution
                     ($x > $width && $x >  $height) ||
                     ($y > $width && $y >  $height)
                 
-            
-            
+            ) {
+            }
             
             
             
