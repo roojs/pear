@@ -1167,6 +1167,9 @@ class File_Convert_Solution
                 $scaley = $height;
                 
             } else {
+                
+                // smaller or without padding..
+                
                 $percent = 1.0;
                 if (!empty($x)) {
                     $percent = $x/$width;
