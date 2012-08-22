@@ -260,9 +260,23 @@ class HTML_Template_Flexy
          
        
     }
-
+    /**
+     * given a file, return the possible templates that will becompiled.
+     *
+     */
    
-      
+    function resolveFile ( $file )
+    {
+        foreach ($this->options['templateDir'] as $tmplDir) {
+            if (@!file_exists($tmplDir . DIRECTORY_SEPARATOR .$file)) {
+                continue;
+            }
+            return array($tmplDir, $file);
+            
+        }
+        return false;
+        
+    }
  
  
     /**
