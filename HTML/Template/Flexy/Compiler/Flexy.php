@@ -98,18 +98,21 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         
         // Tree generation!!!
         
+        $res = isset($_HTML_TEMPLATE_FLEXY_COMPILER['cache'][md5($data)]) ?
+            isset($_HTML_TEMPLATE_FLEXY_COMPILER['cache'][md5($data)]) : false;
+        
+        if ($res === false || $this->options['forceCompile']) { 
         
         
-        if (!$this->options['forceCompile'] && isset($_HTML_TEMPLATE_FLEXY_COMPILER['cache'][md5($data)])) {
-            $res = $_HTML_TEMPLATE_FLEXY_COMPILER['cache'][md5($data)];
-        } else {
-        
+            // convert the template...
+            // if we are dealing with an email template?
+            // then we need to look for the body of the email. - ignore the headers
+            // ??? what about the mime type blocks?
+            
+            
              
             $tokenizer = new HTML_Template_Flexy_Tokenizer($data);
             $tokenizer->fileName = $flexy->currentTemplate;
-            
-            
-              
             //$tokenizer->debug=1;
             $tokenizer->options['ignore_html'] = $this->options['nonHTML'];
             
@@ -118,8 +121,16 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             $res = HTML_Template_Flexy_Token::buildTokens($tokenizer);
             if ($this->is_a($res, 'PEAR_Error')) {
                 return $res;
-            }       
+            }
+            
+            
+            
+            
             $_HTML_TEMPLATE_FLEXY_COMPILER['cache'][md5($data)] = $res;
+            
+            
+            
+            
             
         }
         
