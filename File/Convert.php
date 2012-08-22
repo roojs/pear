@@ -1158,6 +1158,28 @@ class File_Convert_Solution
             
             
             $pad = is_numeric($x) & is_numeric($y);
+            $y = !$pad && empty($y) ? $x : $y; // SQUARE
+            
+            if (!$pad) {
+                if ($x) {
+                    $newwidth = $x;
+                    $newheight = ($x/$width ) * $height;
+                } else {
+                    $newwidth = ($y/$height) * $width;
+                    $newheight = $y;
+                }
+                
+                
+            }
+            
+            
+            if ($pad &&
+                    ($x > $width && $x >  $height) ||
+                    ($y > $width && $y >  $height)
+                
+            
+            
+            
             
             
             if ( (empty($y) && is_numeric($y) && $x > $width && $x >  $height)
