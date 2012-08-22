@@ -267,7 +267,7 @@ class HTML_Template_Flexy
      *  @return string|PEAR_Error $directory 
      */
    
-    function resolveFile ( $file )
+    function resolvePath ( $file )
     {
         $dirs = array_unique($this->options['templateDir']);
         if ($this->options['templateDirOrder'] == 'reverse') {
@@ -334,7 +334,7 @@ class HTML_Template_Flexy
         
         if (preg_match('/(.*)(\.[a-z]+)$/i',$file,$parts)) {
             $newfile = $parts[1].'.'.$this->options['locale'] .$parts[2];
-            $match = $this->resolveFile($newfile);
+            $match = $this->resolvePath($newfile);
             if (is_a($match, 'PEAR_Error')) {
                 return $match;
             }
@@ -350,7 +350,7 @@ class HTML_Template_Flexy
         if ($this->currentTemplate  === false) {
             
             
-            $match = $this->resolveFile($file);
+            $match = $this->resolvePath($file);
             
              if (is_a($match, 'PEAR_Error')) {
                 return $match;
