@@ -273,7 +273,7 @@ class HTML_Template_Flexy
             if (@!file_exists($tmplDir . DIRECTORY_SEPARATOR .$file)) {
                 continue;
             }
-            return $tmplDir
+            return $tmplDir;
             
         }
         return false;
