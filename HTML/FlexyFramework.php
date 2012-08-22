@@ -994,6 +994,8 @@ class HTML_FlexyFramework {
         
         $this->debug("Try  is {$this->baseDir}.php");   
         // try {project name}.php
+        // why hide the error - if this fails we are usually pretty fried..
+        
         if (file_exists($this->baseDir.'.php')) { 
             $classname = basename($this->baseDir);
             require_once $this->baseDir.'.php';
