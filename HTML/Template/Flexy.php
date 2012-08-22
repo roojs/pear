@@ -263,6 +263,8 @@ class HTML_Template_Flexy
     /**
      * given a file, return the possible templates that will becompiled.
      *
+     *  @param string $file  the template to look for.
+     *  @return array[  $dir  $file  ]
      */
    
     function resolveFile ( $file )
@@ -271,7 +273,7 @@ class HTML_Template_Flexy
             if (@!file_exists($tmplDir . DIRECTORY_SEPARATOR .$file)) {
                 continue;
             }
-            return array($tmplDir, $file);
+            return $tmplDir
             
         }
         return false;
@@ -320,6 +322,12 @@ class HTML_Template_Flexy
         
         if (preg_match('/(.*)(\.[a-z]+)$/i',$file,$parts)) {
             $newfile = $parts[1].'.'.$this->options['locale'] .$parts[2];
+            
+            if (false !== ($match = $this->resolveFile($newfile))) {
+                $this->currentTemplate = $match[o]. DIRECTORY_SEPARATOR .$newfile;
+            }
+            
+            
             foreach ($this->options['templateDir'] as $tmplDir) {
                 if (@!file_exists($tmplDir . DIRECTORY_SEPARATOR .$newfile)) {
                     continue;
