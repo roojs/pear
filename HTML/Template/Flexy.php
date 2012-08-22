@@ -264,7 +264,7 @@ class HTML_Template_Flexy
      * given a file, return the possible templates that will becompiled.
      *
      *  @param string $file  the template to look for.
-     *  @return array[  $dir  $file  ]
+     *  @return string|PEAR_Error $directory 
      */
    
     function resolveFile ( $file )
@@ -280,7 +280,9 @@ class HTML_Template_Flexy
             }
             
             if (!$this->options['multiSource'] && ($ret !== false)) {
-                
+                  return $this->raiseError("You have more than one template Named {$file} in your paths, found in both".
+                        "<BR>{$this->currentTemplate }<BR>{$tmplDir}" . DIRECTORY_SEPARATOR . $file,  
+                        HTML_TEMPLATE_FLEXY_ERROR_INVALIDARGS , HTML_TEMPLATE_FLEXY_ERROR_DIE);
             }
             
             $ret = $tmplDir;
