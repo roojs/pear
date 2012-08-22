@@ -1168,70 +1168,62 @@ class File_Convert_Solution
                     $newwidth = ($y/$height) * $width;
                     $newheight = $y;
                 }
-                
-                
-                
-            }
-            
-            
-            if ($pad &&
-                    ($x > $width && $x >  $height) ||
-                    ($y > $width && $y >  $height)
-                
-            ) {
-            }
-            
-            
-            
-            if ( (empty($y) && is_numeric($y) && $x > $width && $x >  $height)
-                || (!empty($y) && is_numeric($y) && $x > $width && $y > $height)) {
-                
-                // larger with padding..
-                
-                
-                $newwidth =  $x;
-                $newheight = empty($y) ? $x : $y;
-                // pad..
-                $padx = floor(($newwidth - $width) /2);
-                $pady = floor(($newheight - $height) /2);
-                
-                $scalex = $width;
-                $scaley = $height;
+                $padx= 0;
+                $pady = 0;
+                $scalex = $newwidth;
+                $scaley = $newheight;
                 
             } else {
                 
-                // smaller or without padding..
-                
-                
-                
-                $percent = 1.0;
-                if (!empty($x)) {
-                    $percent = $x/$width;
+                 
+            
+            
+            
+                if ( (empty($y)  && $x > $width && $x >  $height)
+                    || (!empty($y)  && $x > $width && $y > $height)) {
+                    
+                    // larger with padding..
+                    
+                    
                     $newwidth =  $x;
                     $newheight = empty($y) ? $x : $y;
-                }
-                if (!empty($y)) {
-                    $percent = min($percent,   $y/$height;
-                    $newwidth =  $x * $percent;
+                    // pad..
+                    $padx = floor(($newwidth - $width) /2);
+                    $pady = floor(($newheight - $height) /2);
+                    
+                    $scalex = $width;
+                    $scaley = $height;
+                    
+                } else {
+                    
+                    // smaller or without padding..
+                    
+                    
+                    
+                    $percent = 1.0;
+                    if (!empty($x)) {
+                        $percent = $x/$width;
+                        $newwidth =  $x;
+                        $newheight = empty($y) ? $x : $y;
+                    }
+                    if (!empty($y)) {
+                        $percent = min($percent,   $y/$height;
+                        $newwidth =  $x * $percent;
+                        $newheight = empty($y) ? $x : $y;
+                    }
+                    $newwidth =  $x;
                     $newheight = empty($y) ? $x : $y;
+                    
+                    $scalex = $width * $percent;
+                    $scaley = $height * $percent;
+                    
+                    $padx = floor(($newwidth - $scalex) /2);
+                    $pady = floor(($newheight - $scaley) /2);
+                    
+                    
                 }
-                $newwidth =  $x;
-                $newheight = empty($y) ? $x : $y;
-                
-                $scalex = $width * $percent;
-                $scaley = $height * $percent;
-                
-                $padx = floor(($newwidth - $scalex) /2);
-                $pady = floor(($newheight - $scaley) /2);
-                
-                
             }
             
-            if ((empty($x) && !is_numeric($x)) || (empty($y) && !is_numeric($y))) {
-                $padx = 0;
-                $pady = 0;
-                
-            }
             
             //echo '<PRE>';print_r(array(  'x' => $x, 'y' => $y,  'newwidth' => $newwidth , 'newheight' => $newheight , 'width' => $width , 'height' => $height ,
             //    'scalex' => $scalex , 'scaley' => $scaley ,  'padx' => $padx,  'pady' => $pady ));
