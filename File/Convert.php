@@ -1158,8 +1158,7 @@ class File_Convert_Solution
             
             
             $pad = is_numeric($x) & is_numeric($y);
-            $y = !$pad && empty($y) ? $x : $y; // SQUARE
-            
+           
             if (!$pad) {
                 if ($x) {
                     $newwidth = $x;
@@ -1198,14 +1197,12 @@ class File_Convert_Solution
                     
                     // smaller or without padding..
                     
-                    
-                    
                     $percent = 1.0;
-                    if (!empty($x)) {
-                        $percent = $x/$width;
-                        $newwidth =  $x;
-                        $newheight = empty($y) ? $x : $y;
-                    }
+                    
+                    $percent = $x/$width;
+                    $newwidth =  $x;
+                    $newheight = empty($y) ? $x : $y;
+                    
                     if (!empty($y)) {
                         $percent = min($percent,   $y/$height;
                         $newwidth =  $x * $percent;
