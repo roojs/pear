@@ -1165,8 +1165,10 @@ class File_Convert_Solution
                 $scaley = $height;
                 
             } else {
-            
-                $percent = $x/$width;
+                $percent = 1.0;
+                if (!empty($x)) {
+                    $percent = $x/$width;
+                }
                 if (!empty($y)) {
                     $percent = min($percent, $y/$height);
                 }
@@ -1179,6 +1181,12 @@ class File_Convert_Solution
                 $padx = floor(($newwidth - $scalex) /2);
                 $pady = floor(($newheight - $scaley) /2);
                 
+                
+            }
+            
+            if ((empty($x) && !is_numeric($x)) || (empty($y) && !is_numeric($y))) {
+                $padx = 0;
+                $pady = 0;
                 
             }
             
