@@ -1149,7 +1149,7 @@ class File_Convert_Solution
             
         } else {
             // handle x only!!!
-            
+            echo "USING GD";
             
             list($width, $height) = getimagesize($fn);
             
