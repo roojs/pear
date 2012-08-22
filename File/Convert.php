@@ -120,10 +120,11 @@ class File_Convert
             
             if (strpos($x, 'x')) {
                 $bits = explode('x', $x);
-                $x = (int)$bits[0];
-                $y = empty($bits[1]) ?  0 : (int)$bits[1];;
+                $x = $bits[0];
+                $y = !isset($bits[1]) ?  '' : (int)$bits[1];
             }
-          
+            $x = strlen($x) ? (int) $x : '';
+            $y = strlen($y) ? (int) $y : '';
             
             $fn = $sc->runconvert($fn, (int)$x, (int)$y, $pg);
              
