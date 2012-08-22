@@ -113,24 +113,25 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             } else {
                 $blocks = array(array(
                     'ignore_html' => $this->options['nonHTML'],
-                    'string' => $data
+                    'data' => $data
                 ));
             }
-            foreach($blocks)
+            $res = array();
+            require_once 'HTML/Template/Flexy/Token.php';
+            foreach($blocks as $bl) {
             
              
-            $tokenizer = new HTML_Template_Flexy_Tokenizer($data);
-            $tokenizer->fileName = $flexy->currentTemplate;
-            //$tokenizer->debug=1;
-            $tokenizer->options['ignore_html'] = $this->options['nonHTML'];
+                $tokenizer = new HTML_Template_Flexy_Tokenizer($bl['data']);
+                $tokenizer->fileName = $flexy->currentTemplate;
+                //$tokenizer->debug=1;
+                $tokenizer->options['ignore_html'] = $bl['ignore_html'];
             
-          
-            require_once 'HTML/Template/Flexy/Token.php';
-            $res = HTML_Template_Flexy_Token::buildTokens($tokenizer);
-            if ($this->is_a($res, 'PEAR_Error')) {
-                return $res;
+                $toks = HTML_Template_Flexy_Token::buildTokens($tokenizer);
+                if ($this->is_a($toks , 'PEAR_Error')) {
+                    return $toks ;
+                }
+                $res = array_merge($res, $toks);
             }
-            
             
             
             
