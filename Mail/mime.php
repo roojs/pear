@@ -680,7 +680,9 @@ class Mail_mime
         if (!empty($value['description'])) {
             $params['description'] = $value['description'];
         }
-
+        if (!empty($value['content_id'])) {
+            $params['content_id'] = $value['content_id'];
+        }
         $ret = $obj->addSubpart($value['body'], $params);
         return $ret;
     }
