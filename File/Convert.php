@@ -1150,7 +1150,8 @@ class File_Convert_Solution
         } else {
             // 100x0 --<< 100 SQUARE?
             // 100x   << 100 width proportion..
-            // 
+            // 100x200 << fit and pad.
+            
              
             
             list($width, $height) = getimagesize($fn);
