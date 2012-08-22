@@ -1197,19 +1197,14 @@ class File_Convert_Solution
                     
                     // smaller or without padding..
                     
-                    $percent = 1.0;
                     
                     $percent = $x/$width;
                     $newwidth =  $x;
                     $newheight = empty($y) ? $x : $y;
                     
                     if (!empty($y)) {
-                        $percent = min($percent,   $y/$height;
-                        $newwidth =  $x * $percent;
-                        $newheight = empty($y) ? $x : $y;
+                        $percent = min($percent,   $y/$height);
                     }
-                    $newwidth =  $x;
-                    $newheight = empty($y) ? $x : $y;
                     
                     $scalex = $width * $percent;
                     $scaley = $height * $percent;
