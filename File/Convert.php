@@ -1117,7 +1117,7 @@ class File_Convert_Solution
             case (empty($x) && !strlen($x)) :
                 $scale = "x{$y}";
                 break;
-            case (empty($y) && !strlen($y) :
+            case (empty($y) && !strlen($y)) :
                 $scale = "{$x}x";
                 break;
             
