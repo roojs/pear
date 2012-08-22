@@ -121,7 +121,7 @@ class File_Convert
             if (strpos($x, 'x')) {
                 $bits = explode('x', $x);
                 $x = $bits[0];
-                $y = empty($bits[1]) && !is_numeric($bits[1]) ?  '' : (int)$bits[1];
+                $y = !is_numeric($bits[1]) ?  '' : (int)$bits[1];
             }
             $x = strlen($x) ? (int) $x : '';
             $y = strlen($y) ? (int) $y : '';
