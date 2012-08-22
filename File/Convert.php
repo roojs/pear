@@ -1148,7 +1148,7 @@ class File_Convert_Solution
             
             
         } else {
-            // handle x only!!!
+            // 
              
             
             list($width, $height) = getimagesize($fn);
