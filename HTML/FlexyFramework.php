@@ -992,9 +992,9 @@ class HTML_FlexyFramework {
         } 
         
         
-         $this->debug("Try  is {$this->baseDir}.php");   
+        $this->debug("Try  is {$this->baseDir}.php");   
         // try {project name}.php
-        if (@file_exists($this->baseDir.'.php')) { 
+        if (file_exists($this->baseDir.'.php')) { 
             $classname = basename($this->baseDir);
             require_once $this->baseDir.'.php';
             if (!class_exists($classname)) {
