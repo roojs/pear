@@ -1113,6 +1113,14 @@ class File_Convert_Solution
         }
         $extent = '';
         switch (true) { // what about fit/pad etc...
+            
+            case (empty($x) && !strlen($x)) :
+                $scale = "x{$y}";
+                break;
+            case (empty($y)) && !strlen($y) :
+                $scale = "{$x}x";
+                break;
+            
             case (empty($x)) :
                 $scale = "x{$y}>";
                 break;
