@@ -1157,7 +1157,7 @@ class File_Convert_Solution
             list($width, $height) = getimagesize($fn);
             
             
-            
+            $pad = is_numeric($x) & is_numeric($y);
             
             
             if ( (empty($y) && is_numeric($y) && $x > $width && $x >  $height)
