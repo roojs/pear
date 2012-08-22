@@ -1170,7 +1170,7 @@ class File_Convert_Solution
                     $percent = $x/$width;
                 }
                 if (!empty($y)) {
-                    $percent = min($percent, $y/$height);
+                    $percent =   $y/$height;
                 }
                 $newwidth =  $x;
                 $newheight = empty($y) ? $x : $y;
