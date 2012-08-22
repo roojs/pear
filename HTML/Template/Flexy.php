@@ -263,7 +263,7 @@ class HTML_Template_Flexy
     /**
      * given a file, return the possible templates that will becompiled.
      *
-     *  @param string $file  the template to look for.
+     *  @param  string $file  the template to look for.
      *  @return string|PEAR_Error $directory 
      */
    
