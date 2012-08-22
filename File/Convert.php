@@ -1114,6 +1114,7 @@ class File_Convert_Solution
         $extent = '';
         switch (true) { // what about fit/pad etc...
             
+            // added to allow fix to 'x' without padding..
             case (empty($x) && !strlen($x)) :
                 $scale = "x{$y}";
                 break;
