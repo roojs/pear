@@ -1155,6 +1155,8 @@ class File_Convert_Solution
             
             if ( (empty($y) && is_numeric($y) && $x > $width && $x >  $height)
                 || (!empty($y) && is_numeric($y) && $x > $width && $y > $height)) {
+                
+                // larger with padding..
                 $newwidth =  $x;
                 $newheight = empty($y) ? $x : $y;
                 // pad..
@@ -1170,7 +1172,7 @@ class File_Convert_Solution
                     $percent = $x/$width;
                 }
                 if (!empty($y)) {
-                    $percent =   $y/$height;
+                    $percent = min($percent,   $y/$height;
                 }
                 $newwidth =  $x;
                 $newheight = empty($y) ? $x : $y;
