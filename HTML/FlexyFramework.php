@@ -996,8 +996,12 @@ class HTML_FlexyFramework {
         // try {project name}.php
         // this used to be silenced @ - if this fails we are usually pretty fried..
         
-        if (file_exists($this->baseDir.'.php')) { 
+        if (file_exists($this->baseDir.'.php')) {
+            
+            
             $classname = basename($this->baseDir);
+            
+            $this->debug("FOUND {$this->baseDir} requring and checking class $classname");   
             require_once $this->baseDir.'.php';
             if (!class_exists($classname)) {
                 $this->fatalError( "{$this->baseDir}.php did not contain class $classname");
