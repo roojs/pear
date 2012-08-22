@@ -101,14 +101,22 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         $res = isset($_HTML_TEMPLATE_FLEXY_COMPILER['cache'][md5($data)]) ?
             isset($_HTML_TEMPLATE_FLEXY_COMPILER['cache'][md5($data)]) : false;
         
-        if ($res === false || $this->options['forceCompile']) { 
+        if ($res === false || !empty($this->options['forceCompile'])) { 
         
         
             // convert the template...
             // if we are dealing with an email template?
             // then we need to look for the body of the email. - ignore the headers
             // ??? what about the mime type blocks?
-            
+            if (!empty($this->options['isEmailTemplate'])) {
+                $blocks = $this->splitEmailTemplate($data);
+            } else {
+                $blocks = array(array(
+                    'ignore_html' => $this->options['nonHTML'],
+                    'string' => $data
+                ));
+            }
+            foreach($blocks)
             
              
             $tokenizer = new HTML_Template_Flexy_Tokenizer($data);
