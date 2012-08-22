@@ -288,7 +288,7 @@ class HTML_Template_Flexy
             $ret = $tmplDir;
             
         }
-        return false;
+        return $ret;
         
     }
  
