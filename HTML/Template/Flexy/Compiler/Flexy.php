@@ -98,48 +98,28 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         
         // Tree generation!!!
         
-        $res = isset($_HTML_TEMPLATE_FLEXY_COMPILER['cache'][md5($data)]) ?
-            isset($_HTML_TEMPLATE_FLEXY_COMPILER['cache'][md5($data)]) : false;
-        
-        if ($res === false || !empty($this->options['forceCompile'])) { 
         
         
-            // convert the template...
-            // if we are dealing with an email template?
-            // then we need to look for the body of the email. - ignore the headers
-            // ??? what about the mime type blocks?
-            if (!empty($this->options['isEmailTemplate'])) {
-                $blocks = $this->splitEmailTemplate($data);
-            } else {
-                $blocks = array(array(
-                    'ignore_html' => $this->options['nonHTML'],
-                    'data' => $data
-                ));
-            }
-            $res = array();
-            require_once 'HTML/Template/Flexy/Token.php';
-            foreach($blocks as $bl) {
-            
+        if (!$this->options['forceCompile'] && isset($_HTML_TEMPLATE_FLEXY_COMPILER['cache'][md5($data)])) {
+            $res = $_HTML_TEMPLATE_FLEXY_COMPILER['cache'][md5($data)];
+        } else {
+        
              
-                $tokenizer = new HTML_Template_Flexy_Tokenizer($bl['data']);
-                $tokenizer->fileName = $flexy->currentTemplate;
-                //$tokenizer->debug=1;
-                $tokenizer->options['ignore_html'] = $bl['ignore_html'];
-            
-                $toks = HTML_Template_Flexy_Token::buildTokens($tokenizer);
-                if ($this->is_a($toks , 'PEAR_Error')) {
-                    return $toks ;
-                }
-                $res = array_merge($res, $toks);
-            }
+            $tokenizer = new HTML_Template_Flexy_Tokenizer($data);
+            $tokenizer->fileName = $flexy->currentTemplate;
             
             
+              
+            //$tokenizer->debug=1;
+            $tokenizer->options['ignore_html'] = $this->options['nonHTML'];
             
+          
+            require_once 'HTML/Template/Flexy/Token.php';
+            $res = HTML_Template_Flexy_Token::buildTokens($tokenizer);
+            if ($this->is_a($res, 'PEAR_Error')) {
+                return $res;
+            }       
             $_HTML_TEMPLATE_FLEXY_COMPILER['cache'][md5($data)] = $res;
-            
-            
-            
-            
             
         }
         
@@ -1021,5 +1001,5 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         return (substr(phpversion(),0,1) < 5) ? class_exists($class) :  class_exists($class,false);
     }
 
-     
+
 }
