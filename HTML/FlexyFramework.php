@@ -1003,7 +1003,8 @@ class HTML_FlexyFramework {
             
             $this->debug("FOUND {$this->baseDir} requring and checking class $classname");   
             require_once $this->baseDir.'.php';
-            $this->debug("require success");   
+            $this->debug("require success");
+            
             if (!class_exists($classname)) {
                 $this->fatalError( "{$this->baseDir}.php did not contain class $classname");
             }
