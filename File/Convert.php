@@ -1148,15 +1148,23 @@ class File_Convert_Solution
             
             
         } else {
+            // 100x0 --<< 100 SQUARE?
+            // 100x   << 100 width proportion..
             // 
              
             
             list($width, $height) = getimagesize($fn);
             
+            
+            
+            
+            
             if ( (empty($y) && is_numeric($y) && $x > $width && $x >  $height)
                 || (!empty($y) && is_numeric($y) && $x > $width && $y > $height)) {
                 
                 // larger with padding..
+                
+                
                 $newwidth =  $x;
                 $newheight = empty($y) ? $x : $y;
                 // pad..
@@ -1170,12 +1178,18 @@ class File_Convert_Solution
                 
                 // smaller or without padding..
                 
+                
+                
                 $percent = 1.0;
                 if (!empty($x)) {
                     $percent = $x/$width;
+                    $newwidth =  $x;
+                    $newheight = empty($y) ? $x : $y;
                 }
                 if (!empty($y)) {
                     $percent = min($percent,   $y/$height;
+                    $newwidth =  $x * $percent;
+                    $newheight = empty($y) ? $x : $y;
                 }
                 $newwidth =  $x;
                 $newheight = empty($y) ? $x : $y;
