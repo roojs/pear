@@ -1028,6 +1028,9 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
      *
      * Simple method to break email template into various parts (eg. headers, )
      *
+     * This is a mindblowingly dumb parser - it will break with things like
+     * <ef234asdv if it appears in a base64 encoded string of an attachment.
+     *
      */
     function splitEmailTemplate($data)
     {
@@ -1059,7 +1062,8 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
                     }
                     $buf[] = $l;
                     continue;
-                    
+                case 2: // in HTML
+                    // look for special case of '</html>
                     
             }
             
