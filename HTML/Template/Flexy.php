@@ -356,7 +356,7 @@ class HTML_Template_Flexy
                 return $match;
             }
             if (false !== $match ) {
-                $this->currentTemplate = $match . DIRECTORY_SEPARATOR .$newfile;
+                $this->currentTemplate = $match . DIRECTORY_SEPARATOR .$file;
                 $tmplDirUsed = $match;
             }
               
