@@ -269,7 +269,12 @@ class HTML_Template_Flexy
    
     function resolveFile ( $file )
     {
-        foreach ($this->options['templateDir'] as $tmplDir) {
+        $dirs = array_unique($this->options['templateDir']);
+        if ($this->options['templateDirOrder'] == 'reverse') {
+            $dirs = array_reverse($dirs);
+        }
+        
+        foreach ($dirs as $tmplDir) {
             if (@!file_exists($tmplDir . DIRECTORY_SEPARATOR .$file)) {
                 continue;
             }
@@ -324,18 +329,12 @@ class HTML_Template_Flexy
             $newfile = $parts[1].'.'.$this->options['locale'] .$parts[2];
             
             if (false !== ($match = $this->resolveFile($newfile))) {
-                $this->currentTemplate = $match[o]. DIRECTORY_SEPARATOR .$newfile;
+                $this->currentTemplate = $match . DIRECTORY_SEPARATOR .$newfile;
+                $tmplDirUsed = $match;
             }
             
             
-            foreach ($this->options['templateDir'] as $tmplDir) {
-                if (@!file_exists($tmplDir . DIRECTORY_SEPARATOR .$newfile)) {
-                    continue;
-                }
-                $file = $newfile;
-                $this->currentTemplate = $tmplDir . DIRECTORY_SEPARATOR .$newfile;
-                $tmplDirUsed = $tmplDir;
-            }
+          
         }
         
         // look in all the posible locations for the template directory..
