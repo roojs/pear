@@ -978,7 +978,7 @@ class HTML_FlexyFramework {
         // is this really needed here!
         
         $classname = preg_replace('/[^a-z0-9]/i','_',$classname);
-        $this->debug("CLASSNAME is $classname");
+        $this->debug("CLASSNAME is '$classname'");
         // got it ok.
         if ($classname && class_exists($classname)) {
             $this->debug("using $classname");
