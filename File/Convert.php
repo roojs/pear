@@ -126,7 +126,7 @@ class File_Convert
             $x = strlen($x) ? (int) $x : '';
             $y = strlen($y) ? (int) $y : '';
             
-            $fn = $sc->runconvert($fn, (int)$x, (int)$y, $pg);
+            $fn = $sc->runconvert($fn,  $x, $y, $pg);
              
         }
         $this->target = $fn;
