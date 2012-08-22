@@ -334,38 +334,32 @@ class HTML_Template_Flexy
         
         if (preg_match('/(.*)(\.[a-z]+)$/i',$file,$parts)) {
             $newfile = $parts[1].'.'.$this->options['locale'] .$parts[2];
-            
-            if (false !== ($match = $this->resolveFile($newfile))) {
+            $match = $this->resolveFile($newfile);
+            if (is_a($match, 'PEAR_Error')) {
+                return $match;
+            }
+            if (false !== $match ) {
                 $this->currentTemplate = $match . DIRECTORY_SEPARATOR .$newfile;
                 $tmplDirUsed = $match;
             }
-            
             
           
         }
         
         // look in all the posible locations for the template directory..
         if ($this->currentTemplate  === false) {
-            $dirs = array_unique($this->options['templateDir']);
-            if ($this->options['templateDirOrder'] == 'reverse') {
-                $dirs = array_reverse($dirs);
+            
+            
+            $match = $this->resolveFile($file);
+            
+             if (is_a($match, 'PEAR_Error')) {
+                return $match;
             }
-            foreach ($dirs as $tmplDir) {
-                if (!@file_exists($tmplDir . DIRECTORY_SEPARATOR . $file))  {
-                    continue;
-                }
-                 
-                    
-                if (!$this->options['multiSource'] && ($this->currentTemplate  !== false)) {
-                    return $this->raiseError("You have more than one template Named {$file} in your paths, found in both".
-                        "<BR>{$this->currentTemplate }<BR>{$tmplDir}" . DIRECTORY_SEPARATOR . $file,  
-                        HTML_TEMPLATE_FLEXY_ERROR_INVALIDARGS , HTML_TEMPLATE_FLEXY_ERROR_DIE);
-                    
-                }
-                
-                $this->currentTemplate = $tmplDir . DIRECTORY_SEPARATOR . $file;
-                $tmplDirUsed = $tmplDir;
+            if (false !== $match ) {
+                $this->currentTemplate = $match . DIRECTORY_SEPARATOR .$newfile;
+                $tmplDirUsed = $match;
             }
+              
         }
         if ($this->currentTemplate === false)  {
             // check if the compile dir has been created
