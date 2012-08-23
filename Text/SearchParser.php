@@ -68,6 +68,8 @@ class Text_SearchParser
     function fixGrp($ar, &$s, $top= false) {
         //echo "FIXGRP $s<BR>";flush();
         $l = count($ar);
+        $ret = array();
+
         while ($s < $l) {
             $x=  $ar[$s];
             if ($x->type == '(') {
