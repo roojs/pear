@@ -1055,17 +1055,19 @@ class DB_DataObject_Generator extends DB_DataObject
         // grep -r __clone * to find all it's uses
         // and replace them with $x = clone($y);
         // due to the change in the PHP5 clone design.
-        
+        $static = 'static';
         if ( substr(phpversion(),0,1) < 5) {
             $body .= "\n";
             $body .= "    /* ZE2 compatibility trick*/\n";
             $body .= "    function __clone() { return \$this;}\n";
         }
-
+        
+        if (!empty($options['static get']))
+        
         // simple creation tools ! (static stuff!)
         $body .= "\n";
         $body .= "    /* Static get */\n";
-        $body .= "    function staticGet(\$k,\$v=NULL) { return DB_DataObject::staticGet('{$this->classname}',\$k,\$v); }\n";
+        $body .= "    $static  function staticGet(\$k,\$v=NULL) { return DB_DataObject::staticGet('{$this->classname}',\$k,\$v); }\n";
         
         // generate getter and setter methods
         $body .= $this->_generateGetters($input);
