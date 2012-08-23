@@ -244,6 +244,7 @@ class Text_SearchParser_Tokenizer {
         }
         $c = ($n === 1) ? $this->str[$this->i] : substr($this->str, $this->i, $n);
         $this->i += $n;
+        return $c;
     }
     function ungetChar()
     {
