@@ -161,7 +161,9 @@ class Text_SearchParser_Tokenizer {
             }
             
             $o = ord($c);
-            if ($o > 128)
+            if (isset($utf[$o])) {
+                
+            }
             
             
             switch($c) {
@@ -224,14 +226,13 @@ class Text_SearchParser_Tokenizer {
         $this->tokens[] = new Text_SearchParser_Token_String($s);
     }
     
-    function getChar()
+    function getChar($n=1)
     {
         if ($this->i >= $this->strlen) {
             return false;
         }
-        $c = $this->str[$this->i];
-        $this->i++;
-        return $c;
+        $c = ($n === 1) ? $this->str[$this->i] : substr($this->str, $this->i, $n);
+        $this->i += $n;
     }
     function ungetChar()
     {
