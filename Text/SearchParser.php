@@ -27,7 +27,7 @@ class Text_SearchParser
 {
     function __construct($str)
     {
-        var_dump($str);
+        //var_dump($str);
         $x = new Text_SearchParser_Tokenizer ($str);
         $ar = $x->parse();
         // catch eq
