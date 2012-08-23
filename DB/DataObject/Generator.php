@@ -1453,16 +1453,16 @@ class DB_DataObject_Generator extends DB_DataObject
         
         
         if  (empty($options['generate_link_methods'])) {
-            echo "skip lm? - not set";
+            //echo "skip lm? - not set";
             return '';
         }
         
         if (empty($this->_fkeys)) {
-             echo "skip lm? - fkyes empty";
+            // echo "skip lm? - fkyes empty";
             return '';
         }
         if (empty($this->_fkeys[$this->table])) {
-            echo "skip lm? - no fkeys for {$this->table}";
+            //echo "skip lm? - no fkeys for {$this->table}";
             return '';
         }
             
