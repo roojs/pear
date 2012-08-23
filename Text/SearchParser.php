@@ -145,12 +145,40 @@ class Text_SearchParser_Tokenizer {
         }
         return $this->tokens;
     }
+    /*
+     *  0xC2-0xDF  0x80-0xBF         # non-overlong 2-byte
+        
+        0xE0 0xA0-xBF 0x80-0xBF                # excluding overlongs
+        
+        0xE1-\xEC\xEE\xEF][\x80-\xBF]{2}      # straight 3-byte
+        xED[\x80-\x9F][\x80-\xBF]               # excluding surrogates
+        xF0[\x90-\xBF][\x80-\xBF]{2}    # planes 1-3
+        xF1-\xF3][\x80-\xBF]{3}                  # planes 4-15
+        xF4[\x80-\x8F][\x80-\xBF]{2}    # plane
+        */
+    
+    function utf8expect($c)
+    {
+        $o = ord($c);
+        $len = isset($this->utf[$o] ) ? $this->utf[$o] : false;
+        
+        if ($o >= 0xC2 && $o <= 0xDF ) {
+            $len = 2;
+        }
+        if (!$len) {
+                return false;
+        }
+        return $len;
+        
+        
+    }
+    
     var $utf =array(
         252 => 6,
         248 => 5,
         240 => 4,
         224 => 3,
-        192 => 2,
+        
     );
     
     function strParse()
