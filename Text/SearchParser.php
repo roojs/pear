@@ -194,7 +194,7 @@ class Text_SearchParser_Tokenizer {
             
             
             $ulen = $this->utf8expect($c);
-            var_dump($ulen);
+            //var_dump($ulen);
             if ($ulen && false !== ( $rest = $this->getChar($ulen-1))) {
                 if (strlen($str)) {
                     $this->addStr($str); 
