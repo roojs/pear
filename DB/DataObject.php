@@ -342,67 +342,7 @@ class DB_DataObject extends DB_DataObject_Overload
         return $this->$k;
     }
     
-    /**
-     * An autoloading, caching static get method  using key, value (based on get)
-     * (deprecated - use ::get / and your own caching method)
-     * 
-     * Usage:
-     * $object = DB_DataObject::staticGet("DbTable_mytable",12);
-     * or
-     * $object =  DB_DataObject::staticGet("DbTable_mytable","name","fred");
-     *
-     * or write it into your extended class:
-     * function &staticGet($k,$v=NULL) { return DB_DataObject::staticGet("This_Class",$k,$v);  }
-     *
-     * @param   string  $class class name
-     * @param   string  $k     column (or value if using keys)
-     * @param   string  $v     value (optional)
-     * @access  public
-     * @return  object
-     */
-    function &staticGet($class, $k, $v = null)
-    {
-        $lclass = strtolower($class);
-        global $_DB_DATAOBJECT;
-        if (empty($_DB_DATAOBJECT['CONFIG'])) {
-            DB_DataObject::_loadConfig();
-        }
 
-        
-
-        $key = "$k:$v";
-        if ($v === null) {
-            $key = $k;
-        }
-        if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
-            DB_DataObject::debug("$class $key","STATIC GET - TRY CACHE");
-        }
-        if (!empty($_DB_DATAOBJECT['CACHE'][$lclass][$key])) {
-            return $_DB_DATAOBJECT['CACHE'][$lclass][$key];
-        }
-        if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
-            DB_DataObject::debug("$class $key","STATIC GET - NOT IN CACHE");
-        }
-
-        $obj = DB_DataObject::factory(substr($class,strlen($_DB_DATAOBJECT['CONFIG']['class_prefix'])));
-        if (PEAR::isError($obj)) {
-            DB_DataObject::raiseError("could not autoload $class", DB_DATAOBJECT_ERROR_NOCLASS);
-            $r = false;
-            return $r;
-        }
-        
-        if (!isset($_DB_DATAOBJECT['CACHE'][$lclass])) {
-            $_DB_DATAOBJECT['CACHE'][$lclass] = array();
-        }
-        if (!$obj->get($k,$v)) {
-            DB_DataObject::raiseError("No Data return from get $k $v", DB_DATAOBJECT_ERROR_NODATA);
-            
-            $r = false;
-            return $r;
-        }
-        $_DB_DATAOBJECT['CACHE'][$lclass][$key] = $obj;
-        return $_DB_DATAOBJECT['CACHE'][$lclass][$key];
-    }
 
     /**
      * build the basic select query.
@@ -4750,6 +4690,54 @@ class DB_DataObject extends DB_DataObject_Overload
         
     	
     }
+    
+    /**
+     * (deprecated - use ::get / and your own caching method)
+     */
+    function &staticGet($class, $k, $v = null)
+    {
+        $lclass = strtolower($class);
+        global $_DB_DATAOBJECT;
+        if (empty($_DB_DATAOBJECT['CONFIG'])) {
+            DB_DataObject::_loadConfig();
+        }
+
+        
+
+        $key = "$k:$v";
+        if ($v === null) {
+            $key = $k;
+        }
+        if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
+            DB_DataObject::debug("$class $key","STATIC GET - TRY CACHE");
+        }
+        if (!empty($_DB_DATAOBJECT['CACHE'][$lclass][$key])) {
+            return $_DB_DATAOBJECT['CACHE'][$lclass][$key];
+        }
+        if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
+            DB_DataObject::debug("$class $key","STATIC GET - NOT IN CACHE");
+        }
+
+        $obj = DB_DataObject::factory(substr($class,strlen($_DB_DATAOBJECT['CONFIG']['class_prefix'])));
+        if (PEAR::isError($obj)) {
+            DB_DataObject::raiseError("could not autoload $class", DB_DATAOBJECT_ERROR_NOCLASS);
+            $r = false;
+            return $r;
+        }
+        
+        if (!isset($_DB_DATAOBJECT['CACHE'][$lclass])) {
+            $_DB_DATAOBJECT['CACHE'][$lclass] = array();
+        }
+        if (!$obj->get($k,$v)) {
+            DB_DataObject::raiseError("No Data return from get $k $v", DB_DATAOBJECT_ERROR_NODATA);
+            
+            $r = false;
+            return $r;
+        }
+        $_DB_DATAOBJECT['CACHE'][$lclass][$key] = $obj;
+        return $_DB_DATAOBJECT['CACHE'][$lclass][$key];
+    }
+    
     
     /* ---- LEGACY BC METHODS - NOT DOCUMENTED - See Documentation on New Methods. ---*/
     
