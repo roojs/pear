@@ -191,14 +191,15 @@ class Text_SearchParser_Tokenizer {
                 return;
             }
             
-            $o = ord($c);
-            var_dump($o);
-            if (isset($this->utf[$o]) && false !== ( $rest = $this->getChar($this->utf[$o]-1))) {
+            
+            
+            $ulen = $this->utf8expect($c);
+            if ($ulen && false !== ( $rest = $this->getChar($ulen-1))) {
                 if (strlen($str)) {
                     $this->addStr($str); 
                     $str = '';
                 }
-                var_dump($c.$rest);exit;
+               // var_dump($c.$rest);exit;
                 // adds a unique character..
                 $this->addStr( $c . $rest);
                 
