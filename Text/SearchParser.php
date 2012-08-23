@@ -160,6 +160,7 @@ class Text_SearchParser_Tokenizer {
     function utf8expect($c)
     {
         $o = ord($c);
+        var_dump($o);
         $len = isset($this->utf[$o] ) ? $this->utf[$o] : false;
         
         if ($o >= 0xC2 && $o <= 0xDF ) {
