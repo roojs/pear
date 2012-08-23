@@ -162,7 +162,7 @@ class Text_SearchParser_Tokenizer {
     {
         $ord_var_c = ord($c);
         //var_dump($o);
-        switch (true)
+        switch (true) {
             case ($ord_var_c <= 0x7F):
                 return false;
     
