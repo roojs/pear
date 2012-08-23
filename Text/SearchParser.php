@@ -125,12 +125,14 @@ class Text_SearchParser_Tokenizer {
             if (false === ($c = $this->getChar())) {
                 return $this->tokens;
             }
+            
             switch($c) {
                 case ' ': continue;
                 case ':': $this->tokens[] = new Text_SearchParser_Token_Eq(); break;
                 case '(': $this->tokens[] = new Text_SearchParser_Token_GrpS(); break;
                 case ')': $this->tokens[] = new Text_SearchParser_Token_GrpE(); break;
                 default:
+                    
                     $this->ungetChar();
                     $this->strParse();
                     break;
@@ -140,6 +142,14 @@ class Text_SearchParser_Tokenizer {
         }
         return $this->tokens;
     }
+    var $utf =array(
+        252 => 6,
+        248 => 5,
+        240 => 4,
+        224 => 3,
+        192 => 2,
+    );
+    
     function strParse()
     {
         
@@ -149,6 +159,11 @@ class Text_SearchParser_Tokenizer {
                 $this->addStr($str);
                 return;
             }
+            
+            $o = ord($c);
+            if ($o > 128)
+            
+            
             switch($c) {
                 // end chars.
                 case ' ': 
