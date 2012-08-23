@@ -163,7 +163,7 @@ class Text_SearchParser_Tokenizer {
             }
             
             $o = ord($c);
-            if (isset($utf[$o]) && false !== ( $rest = $this->getChar($utf[$o]-1))) {
+            if (isset($this->utf[$o]) && false !== ( $rest = $this->getChar($this->utf[$o]-1))) {
                 if (strlen($str)) {
                     $this->addStr($str); 
                     $str = '';
