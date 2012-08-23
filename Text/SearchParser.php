@@ -220,7 +220,7 @@ class Text_SearchParser_Tokenizer {
                // var_dump($c.$rest);exit;
                 // adds a unique character..
                 $this->addStr( $c . $rest);
-                
+                continue;
             }
             
             
