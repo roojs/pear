@@ -168,7 +168,7 @@ class Text_SearchParser_Tokenizer {
                     $this->addStr($str); 
                     $str = '';
                 }
-                var_dump($c.$rest);
+                var_dump($c.$rest);exit;
                 // adds a unique character..
                 $this->addStr( $c . $rest);
                 
