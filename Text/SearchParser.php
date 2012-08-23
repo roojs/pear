@@ -228,7 +228,7 @@ class Text_SearchParser_Tokenizer {
     
     function getChar($n=1)
     {
-        if ($this->i >= $this->strlen) {
+        if ($this->i + ($n-1) >= $this->strlen) {
             return false;
         }
         $c = ($n === 1) ? $this->str[$this->i] : substr($this->str, $this->i, $n);
