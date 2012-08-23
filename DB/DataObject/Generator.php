@@ -1062,13 +1062,16 @@ class DB_DataObject_Generator extends DB_DataObject
             $body .= "    function __clone() { return \$this;}\n";
         }
         
-        if (!empty($options['static get']))
         
-        // simple creation tools ! (static stuff!)
-        $body .= "\n";
-        $body .= "    /* Static get */\n";
-        $body .= "    $static  function staticGet(\$k,\$v=NULL) { return DB_DataObject::staticGet('{$this->classname}',\$k,\$v); }\n";
-        
+        // depricated - in here for BC...
+        if (!empty($options['static_get'])) {
+            
+            // simple creation tools ! (static stuff!)
+            $body .= "\n";
+            $body .= "    /* Static get */\n";
+            $body .= "    $static  function staticGet(\$k,\$v=NULL) { " .
+                    "return DB_DataObject::staticGet('{$this->classname}',\$k,\$v); }\n";
+        }
         // generate getter and setter methods
         $body .= $this->_generateGetters($input);
         $body .= $this->_generateSetters($input);
