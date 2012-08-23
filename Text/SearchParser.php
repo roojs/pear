@@ -463,3 +463,8 @@ class Text_SearchParser_Token_Eq extends Text_SearchParser_Token
         
     }
 }
+
+// test..
+$x = new Text_SearchParser_Tokenizer ("金蟲指數");
+$ar = $x->parse();
+
