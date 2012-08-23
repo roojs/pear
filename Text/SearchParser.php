@@ -150,7 +150,8 @@ class Text_SearchParser_Tokenizer {
         
         0xE0 0xA0-xBF 0x80-0xBF                # excluding overlongs
         
-        0xE1-\xEC\xEE\xEF][\x80-\xBF]{2}      # straight 3-byte
+        0xE1-0xEC  0xEE-xEF \x80-\xBF]{2}      # straight 3-byte
+        
         xED[\x80-\x9F][\x80-\xBF]               # excluding surrogates
         xF0[\x90-\xBF][\x80-\xBF]{2}    # planes 1-3
         xF1-\xF3][\x80-\xBF]{3}                  # planes 4-15
@@ -159,17 +160,32 @@ class Text_SearchParser_Tokenizer {
     
     function utf8expect($c)
     {
-        $o = ord($c);
+        $ord_var_c = ord($c);
         //var_dump($o);
-        $len = isset($this->utf[$o] ) ? $this->utf[$o] : false;
-        
-        if ($o >= 0xC2 && $o <= 0xDF ) {
-            $len = 2;
-        }
-        if (!$len) {
+        switch (true)
+            case ($ord_var_c <= 0x7F):
                 return false;
+    
+            case (($ord_var_c & 0xE0) == 0xC0):
+                return 2;
+                
+            case (($ord_var_c & 0xF0) == 0xE0):
+                return 3;
+                
+    
+            case (($ord_var_c & 0xF8) == 0xF0):
+                return 4;
+                
+    
+            case (($ord_var_c & 0xFC) == 0xF8):
+                return 5;
+                
+    
+            case (($ord_var_c & 0xFE) == 0xFC):
+                return 6;
+            
         }
-        return $len;
+        return false;
         
         
     }
