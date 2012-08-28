@@ -176,7 +176,6 @@ $GLOBALS['_DB_DATAOBJECT']['QUERYENDTIME'] = 0;
 
  
 // this will be horrifically slow!!!!
-// NOTE: Overload SEGFAULTS ON PHP4 + Zend Optimizer (see define before..)
 // these two are BC/FC handlers for call in PHP4/5
 
  
