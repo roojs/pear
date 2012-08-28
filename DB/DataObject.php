@@ -4146,7 +4146,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * @access public
      * @return object The DB connection
      */
-    function &getDatabaseConnection()
+    function getDatabaseConnection()
     {
         global $_DB_DATAOBJECT;
 
@@ -4169,7 +4169,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * @return object The DB result object
      */
      
-    function &getDatabaseResult()
+    function getDatabaseResult()
     {
         global $_DB_DATAOBJECT;
         $this->_connect();
