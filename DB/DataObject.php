@@ -356,7 +356,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $quoteIdentifiers = !empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers']);
         if ($quoteIdentifiers) {
             $this->_connect();
-            $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+            $DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
         }
         $tn = ($quoteIdentifiers ? $DB->quoteIdentifier($this->tableName()) : $this->tableName()) ;
         if (!empty($this->_query['derive_table']) && !empty($this->_query['derive_select']) ) {
@@ -442,7 +442,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
        
         $this->_connect();
-        $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+        $DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
        
         
         $sql = $this->_build_select();
@@ -545,7 +545,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         if (empty($_DB_DATAOBJECT['RESULTS'][$this->_DB_resultid]) || 
-            !is_object($result = &$_DB_DATAOBJECT['RESULTS'][$this->_DB_resultid])) 
+            !is_object($result = $_DB_DATAOBJECT['RESULTS'][$this->_DB_resultid])) 
         {
             if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
                 $this->debug('fetched on object after fetch completed (no results found)');
@@ -918,7 +918,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         global $_DB_DATAOBJECT;
         $this->_connect();
-        $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+        $DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
         
         $this->_query['limit_start'] = ($b == null) ? 0 : (int)$a;
         $this->_query['limit_count'] = ($b == null) ? (int)$a : (int)$b;
@@ -1010,7 +1010,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $s = '%s';
         if (!empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers'])) {
             $this->_connect();
-            $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+            $DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
             $s      = $DB->quoteIdentifier($s);
             $format = $DB->quoteIdentifier($format); 
         }
@@ -1048,7 +1048,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         $quoteIdentifiers  = !empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers']);
         
-        $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+        $DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
          
         $items = $this->table();
             
@@ -1057,7 +1057,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
             return false;
         }
-        $options = &$_DB_DATAOBJECT['CONFIG'];
+        $options = $_DB_DATAOBJECT['CONFIG'];
 
 
         $datasaved = 1;
@@ -1346,7 +1346,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $settings  = '';
         $this->_connect();
         
-        $DB            = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+        $DB            = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
         $dbtype        = $DB->dsn["phptype"];
         $quoteIdentifiers = !empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers']);
         $options = $_DB_DATAOBJECT['CONFIG'];
@@ -1516,7 +1516,7 @@ class DB_DataObject extends DB_DataObject_Overload
         global $_DB_DATAOBJECT;
         // connect will load the config!
         $this->_connect();
-        $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+        $DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
         $quoteIdentifiers  = !empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers']);
         
         $extra_cond = ' ' . (isset($this->_query['order_by']) ? $this->_query['order_by'] : ''); 
@@ -1619,7 +1619,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
 
 
-        $result = &$_DB_DATAOBJECT['RESULTS'][$this->_DB_resultid];
+        $result = $_DB_DATAOBJECT['RESULTS'][$this->_DB_resultid];
         $array  = $result->fetchrow(DB_DATAOBJECT_FETCHMODE_ASSOC,$row);
         if (!is_array($array)) {
             $this->raiseError("fetchrow: No results available", DB_DATAOBJECT_ERROR_NODATA);
@@ -1689,7 +1689,7 @@ class DB_DataObject extends DB_DataObject_Overload
             return false;
         }
         $this->_connect();
-        $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+        $DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
        
 
         if (!$whereAddOnly && $items)  {
@@ -1721,7 +1721,7 @@ class DB_DataObject extends DB_DataObject_Overload
             return false;
         }
          
-        $result  = &$_DB_DATAOBJECT['RESULTS'][$t->_DB_resultid];
+        $result  = $_DB_DATAOBJECT['RESULTS'][$t->_DB_resultid];
         $l = $result->fetchRow(DB_DATAOBJECT_FETCHMODE_ORDERED);
         // free the results - essential on oracle.
         $t->free();
@@ -1761,7 +1761,7 @@ class DB_DataObject extends DB_DataObject_Overload
     {
         global $_DB_DATAOBJECT;
         $this->_connect();
-        $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+        $DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
         // mdb2 uses escape...
         $dd = empty($_DB_DATAOBJECT['CONFIG']['db_driver']) ? 'DB' : $_DB_DATAOBJECT['CONFIG']['db_driver'];
         $ret = ($dd == 'DB') ? $DB->escapeSimple($string) : $DB->escape($string);
@@ -1894,7 +1894,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 $x = new DB_DataObject;
                 $x->_database = $args[0];
                 $this->_connect();
-                $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+                $DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
        
                 $tables = $DB->getListOf('tables');
                 class_exists('DB_DataObject_Generator') ? '' : 
@@ -2391,7 +2391,7 @@ class DB_DataObject extends DB_DataObject_Overload
         // it's not currently connected!
         // try and work out what to use for the dsn !
 
-        $options= &$_DB_DATAOBJECT['CONFIG'];
+        $options= $_DB_DATAOBJECT['CONFIG'];
         // if the databse dsn dis defined in the object..
         $dsn = isset($this->_database_dsn) ? $this->_database_dsn : null;
         
@@ -2512,7 +2512,6 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         // Oracle need to optimize for portibility - not sure exactly what this does though :)
-        $c = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
          
         return true;
     }
@@ -2531,9 +2530,9 @@ class DB_DataObject extends DB_DataObject_Overload
         $this->_connect();
         
 
-        $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+        $DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
 
-        $options = &$_DB_DATAOBJECT['CONFIG'];
+        $options = $_DB_DATAOBJECT['CONFIG'];
         
         $_DB_driver = empty($_DB_DATAOBJECT['CONFIG']['db_driver']) ? 
                     'DB':  $_DB_DATAOBJECT['CONFIG']['db_driver'];
@@ -2683,7 +2682,7 @@ class DB_DataObject extends DB_DataObject_Overload
     {
         global $_DB_DATAOBJECT;
         $this->_connect();
-        $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+        $DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
        
         $quoteIdentifiers  = !empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers']);
         $options = $_DB_DATAOBJECT['CONFIG'];
@@ -3046,7 +3045,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         // alias for shorter code..
         $lcfg  = &$_DB_DATAOBJECT['LINKS'];
-        $cfg   = &$_DB_DATAOBJECT['CONFIG'];
+        $cfg   =  $_DB_DATAOBJECT['CONFIG'];
 
         if ($args = func_get_args()) {
             // an associative array was specified, that updates the current
@@ -3424,7 +3423,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         /*  make sure $this->_database is set.  */
         $this->_connect();
-        $DB = &$_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+        $DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
        
 
         /// CHANGED 26 JUN 2009 - we prefer links from our local table over the remote one.
@@ -4562,7 +4561,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if ($behaviour == PEAR_ERROR_DIE && !empty($_DB_DATAOBJECT['CONFIG']['dont_die'])) {
             $behaviour = null;
         }
-        $error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+        $error = PEAR::getStaticProperty('DB_DataObject','lastError');
         
       
         // no checks for production here?....... - we log  errors before we throw them.
