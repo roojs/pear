@@ -373,6 +373,7 @@ class File_Convert
                     'video/x-ms-wmv',
                     'video/mp4',
                     'video/x-msvideo',
+                    'video/mpeg',
                     'video/quicktime',
                 ),
                 array(
