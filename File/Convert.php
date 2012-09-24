@@ -835,7 +835,7 @@ class File_Convert_Solution
         }
         require_once 'System.php';
         $ffmpeg = System::which('ffmpeg');
-        $cmd = "$ffmpeg  -ss 5  -i " .
+        $cmd = "$ffmpeg  -ss 10  -i " .
                 escapeshellarg($fn) ." -vcodec mjpeg -vframes 1 -an -f rawvideo -s 320x240 " . escapeshellarg($target);
 
         ///echo $cmd;
