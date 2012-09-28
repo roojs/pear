@@ -2737,28 +2737,6 @@ class DB_DataObject extends DB_DataObject_Overload
         }
     }
 
-    /**
-     * autoload Class relating to a table
-     * (deprecited - use ::factory)
-     *
-     * @param  string  $table  table
-     * @access private
-     * @return string classname on Success
-     */
-    function staticAutoloadTable($table)
-    {
-        global $_DB_DATAOBJECT;
-        if (empty($_DB_DATAOBJECT['CONFIG'])) {
-            DB_DataObject::_loadConfig();
-        }
-        $p = isset($_DB_DATAOBJECT['CONFIG']['class_prefix']) ?
-            $_DB_DATAOBJECT['CONFIG']['class_prefix'] : '';
-        $class = $p . preg_replace('/[^A-Z0-9]/i','_',ucfirst($table));
-        
-        $ce = substr(phpversion(),0,1) > 4 ? class_exists($class,false) : class_exists($class);
-        $class = $ce ? $class  : DB_DataObject::_autoloadClass($class);
-        return $class;
-    }
     
     
      /**
@@ -4715,6 +4693,28 @@ class DB_DataObject extends DB_DataObject_Overload
         return $_DB_DATAOBJECT['CACHE'][$lclass][$key];
     }
     
+    /**
+     * autoload Class relating to a table
+     * (deprecited - use ::factory)
+     *
+     * @param  string  $table  table
+     * @access private
+     * @return string classname on Success
+     */
+    function staticAutoloadTable($table)
+    {
+        global $_DB_DATAOBJECT;
+        if (empty($_DB_DATAOBJECT['CONFIG'])) {
+            DB_DataObject::_loadConfig();
+        }
+        $p = isset($_DB_DATAOBJECT['CONFIG']['class_prefix']) ?
+            $_DB_DATAOBJECT['CONFIG']['class_prefix'] : '';
+        $class = $p . preg_replace('/[^A-Z0-9]/i','_',ucfirst($table));
+        
+        $ce = substr(phpversion(),0,1) > 4 ? class_exists($class,false) : class_exists($class);
+        $class = $ce ? $class  : DB_DataObject::_autoloadClass($class);
+        return $class;
+    }
     
     /* ---- LEGACY BC METHODS - NOT DOCUMENTED - See Documentation on New Methods. ---*/
     
