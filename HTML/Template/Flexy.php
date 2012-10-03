@@ -612,7 +612,7 @@ class HTML_Template_Flexy
     *   @param      object object to output as $t
     *   @return     string - filename
     */
-    function OutputObjectToFile(&$t,$elements=array(),$filename) 
+    function outputObjectToFile(&$t,$elements=array(),$filename) 
     {
         
         $fh = fopen($filename, 'w');
