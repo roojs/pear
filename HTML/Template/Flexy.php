@@ -616,7 +616,7 @@ class HTML_Template_Flexy
         ob_start(); // outer nesting..
         $fh = fopen($filename, 'w');
         ob_start(function( $buffer ) use ($fh) {
-            fwrite($fh,$buffer);
+            fgets($fh,$buffer);
             return true;
         }, 4096, true);
         
