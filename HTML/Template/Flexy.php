@@ -612,10 +612,10 @@ class HTML_Template_Flexy
     *   @param      object object to output as $t
     *   @return     string - filename
     */
-    function bufferedOutputObject(&$t,$elements=array()) 
+    function OutputObjectToFile(&$t,$elements=array(),$filename) 
     {
-        $ret = tempname(sys_get_temp_dir() , 'flexybuffer');
-        $fh = fopen($ret, 'w');
+        
+        $fh = fopen($filename, 'w');
         ob_start(function( $buffer ) use ($fh) {
             fwrite($fh,$buffer);
         }, 4096, true);
@@ -624,8 +624,7 @@ class HTML_Template_Flexy
         $this->outputObject($t,$elements);
         fclose($fh);
         
-        ob_end_clean();
-        return $data;
+        return true;
     }
     
     /**
