@@ -613,17 +613,18 @@ class HTML_Template_Flexy
     */
     function outputObjectToFile(&$t,$elements=array(),$filename) 
     {
-        
+        ob_start(); // outer nesting..
         $fh = fopen($filename, 'w');
         ob_start(function( $buffer ) use ($fh) {
             fwrite($fh,$buffer);
-            return true;
+            return '';
         }, 4096, true);
         
         
         $this->outputObject($t,$elements);
         ob_end_clean();
         fclose($fh);
+         ob_end_clean();
         
     }
     
