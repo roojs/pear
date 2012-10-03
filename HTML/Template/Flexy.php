@@ -617,14 +617,15 @@ class HTML_Template_Flexy
         $fh = fopen($filename, 'w');
         ob_start(function( $buffer ) use ($fh) {
             fwrite($fh,$buffer);
-            return '';
+            return true;
         }, 4096, true);
         
         
         $this->outputObject($t,$elements);
         ob_end_clean();
         fclose($fh);
-         ob_end_clean();
+        $crap = ob_get_contents();
+        ob_end_clean();
         
     }
     
