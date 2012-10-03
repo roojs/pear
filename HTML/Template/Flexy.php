@@ -617,6 +617,7 @@ class HTML_Template_Flexy
         $fh = fopen($filename, 'w');
         ob_start(function( $buffer ) use ($fh) {
             fwrite($fh,$buffer);
+            return true;
         }, 4096, true);
         
         
