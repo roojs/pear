@@ -600,6 +600,34 @@ class HTML_Template_Flexy
         ob_end_clean();
         return $data;
     }
+    
+    /**
+    *   Outputs an object as temporary file and returns the filename
+    *
+    *   See outputObject($t) for more details.
+    *
+    *   @version    01/12/14
+    *   @access     public
+    *   @author     Alan Knowles
+    *   @param      object object to output as $t
+    *   @return     string - filename
+    */
+    function bufferedOutputObject(&$t,$elements=array()) 
+    {
+        $ret = tempname(sys_get_temp_dir() , 'flexybuffer');
+        $fh = fopen($ret, 'w');
+        ob_start(function( $buffer ) use ($fh) {
+            fwrite($fh,$buffer);
+        }, 4096, true);
+        
+        
+        $this->outputObject($t,$elements);
+        fclose($fh);
+        
+        ob_end_clean();
+        return $data;
+    }
+    
     /**
     * static version which does new, compile and output all in one go.
     *
