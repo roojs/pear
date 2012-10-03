@@ -622,8 +622,9 @@ class HTML_Template_Flexy
         
         
         $this->outputObject($t,$elements);
-        fclose($fh);
         ob_end_clean();
+        fclose($fh);
+        
     }
     
     /**
