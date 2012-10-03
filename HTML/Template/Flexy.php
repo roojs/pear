@@ -602,7 +602,7 @@ class HTML_Template_Flexy
     }
     
     /**
-    *   Outputs an object as temporary file and returns the filename
+    *   Outputs result to a file
     *
     *   See outputObject($t) for more details.
     *
@@ -610,7 +610,6 @@ class HTML_Template_Flexy
     *   @access     public
     *   @author     Alan Knowles
     *   @param      object object to output as $t
-    *   @return     string - filename
     */
     function outputObjectToFile(&$t,$elements=array(),$filename) 
     {
@@ -624,7 +623,6 @@ class HTML_Template_Flexy
         $this->outputObject($t,$elements);
         fclose($fh);
         
-        return true;
     }
     
     /**
