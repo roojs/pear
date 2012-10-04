@@ -1009,7 +1009,8 @@ class File_Convert_Solution
            
         }
         
-       `$cmd`;
+        $res = `$cmd`;
+       
         $this->cmd = $cmd;
         clearstatcache();
         // for some reason this makes 01 or 1?
