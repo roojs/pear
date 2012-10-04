@@ -1022,7 +1022,7 @@ class File_Convert_Solution
             return $target;
         }
         $out = $fn . sprintf('-conv-%02d.jpg', $pg);
-        $out = $fn . '-conv-01.jpg';
+        //$out = $fn . '-conv-01.jpg';
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
