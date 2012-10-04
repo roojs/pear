@@ -996,7 +996,7 @@ class File_Convert_Solution
         $pg = $pg === false ? 1 : $pg;
         
         $PDFTOPPM = System::which("pdftoppm");
-        $cmd = "$PDFTOPPM -f 1 -l 1  -jpeg"
+        $cmd = "$PDFTOPPM -f $pg -l $pg  -jpeg"
                     . " -scale-to-x {$xscale} " 
                     . " -scale-to-y {$yscale} " 
                     .  escapeshellarg($fn) . " " 
