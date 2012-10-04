@@ -1010,7 +1010,7 @@ class File_Convert_Solution
         }
         
         $res = `$cmd`;
-       
+        $this->result = $res;
         $this->cmd = $cmd;
         clearstatcache();
         // for some reason this makes 01 or 1?
