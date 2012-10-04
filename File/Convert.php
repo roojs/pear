@@ -1014,13 +1014,14 @@ class File_Convert_Solution
         $this->cmd = $cmd;
         clearstatcache();
         // for some reason this makes 01 or 1?
-        $out = $fn . '-conv-1.jpg';
+        $out = $fn . sprintf('-conv-%d.jpg', $pg);
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
             rename($out, $target);
             return $target;
         }
+        $out = $fn . sprintf('-conv-%02d.jpg', $pg);
         $out = $fn . '-conv-01.jpg';
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
