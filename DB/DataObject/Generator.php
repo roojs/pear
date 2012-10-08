@@ -408,7 +408,7 @@ class DB_DataObject_Generator extends DB_DataObject
     
     function _createForiegnKeys()
     {
-          $options = PEAR::getStaticProperty('DB_DataObject','options');
+        $options = PEAR::getStaticProperty('DB_DataObject','options');
         if (empty($options['generate_links'])) {
             return false;
         }
