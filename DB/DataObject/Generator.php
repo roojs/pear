@@ -995,7 +995,6 @@ class DB_DataObject_Generator extends DB_DataObject
         
         $body .= "    {$var} \$__table = '{$this->table}';  {$p}// table name\n";
     
-        
         // if we are using the option database_{databasename} = dsn
         // then we should add var $_database = here
         // as database names may not always match.. 
@@ -1007,7 +1006,7 @@ class DB_DataObject_Generator extends DB_DataObject
          // Only include the $_database property if the omit_database_var is unset or false
         
         if (isset($options["database_{$this->_database}"]) && empty($GLOBALS['_DB_DATAOBJECT']['CONFIG']['generator_omit_database_var'])) {
-            $p = str_repeat(' ',   max(2, (16 - strlen($this->table))));
+            $p = str_repeat(' ',   max(2, (16 - strlen($this->_database))));
             $body .= "    {$var} \$_database = '{$this->_database}';  {$p}// database name (used with database_{*} config)\n";
         }
         
