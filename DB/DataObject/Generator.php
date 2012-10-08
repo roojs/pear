@@ -268,13 +268,12 @@ class DB_DataObject_Generator extends DB_DataObject
                 continue;
             }
             
-            
+            $strip = empty($options['generator_strip_schema']) ? false : $options['generator_strip_schema'];
+            $strip = is_numeric($strip) ? (bool) $strip : $strip;
+            $strip = (is_string($strip) && strtolower($strip) == 'true') ? true : $strip;
+        
             // postgres strip the schema bit from the
-            if (!empty($options['generator_strip_schema'])) {
-                $strip = $options['generator_strip_schema'];
-                
-                $strip = is_numeric($strip) ? (bool) $strip : $strip;
-                $strip = (is_string($strip) && strtolower($strip) == 'true') ? true : $strip;
+            if (!empty($strip) ) {
                 
                 if (!is_string($strip) || preg_match($strip, $table)) { 
                     $bits = explode('.', $table,2);
