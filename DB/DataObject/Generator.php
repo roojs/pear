@@ -272,6 +272,9 @@ class DB_DataObject_Generator extends DB_DataObject
             // postgres strip the schema bit from the
             if (!empty($options['generator_strip_schema'])) {
                 $strip = $options['generator_strip_schema'];
+                
+                $strip = is_bool($strip) ? (bool)$strip : $strip;
+                
                 if (!is_string($strip) || preg_match($strip, $table)) { 
                     $bits = explode('.', $table,2);
                     $table = $bits[0];
