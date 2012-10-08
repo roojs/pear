@@ -273,7 +273,8 @@ class DB_DataObject_Generator extends DB_DataObject
             if (!empty($options['generator_strip_schema'])) {
                 $strip = $options['generator_strip_schema'];
                 
-                $strip = is_bool($strip) ? (bool)$strip : $strip;
+                $strip = is_numeric($strip) ? (bool) $strip : $strip;
+                $strip = (is_string($strip) && strtolower($strip) == 'true') ? true : $strip;
                 
                 if (!is_string($strip) || preg_match($strip, $table)) { 
                     $bits = explode('.', $table,2);
