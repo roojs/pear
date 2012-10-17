@@ -118,9 +118,8 @@ class File_Convert
             $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
             $sc->debug= $this->debug;
             
-            if (strpos($x, 'x')) {
+            if (strpos($x, 'x') > -1) {
                 $bits = explode('x', $x);
-                var_dump($bits);
                 $x = $bits[0];
                 $y = !is_numeric($bits[1]) ?  '' : (int)$bits[1];
             }
