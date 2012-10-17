@@ -1106,7 +1106,7 @@ class File_Convert_Solution
     }
     function scaleImage($fn, $x, $y) 
     {
-      //   print_r(array('scaleimage', func_get_args()));
+         print_r(array('scaleimage', func_get_args()));
         if (empty($x) && empty($y)) {
             return false;
         }
@@ -1233,6 +1233,7 @@ class File_Convert_Solution
             //resource $dst_image , resource $src_image , 
                 // int $dst_x , int $dst_y , int $src_x , int $src_y , int $dst_w , int $dst_h , int $src_w , int $src_h 
             imagecopyresampled($thumb, $source, $padx, $pady, 0, 0, $scalex, $scaley, $width, $height);
+
             imagejpeg($thumb,$target);
         }
         
