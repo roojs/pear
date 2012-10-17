@@ -120,6 +120,7 @@ class File_Convert
             
             if (strpos($x, 'x')) {
                 $bits = explode('x', $x);
+                var_dump($bits);
                 $x = $bits[0];
                 $y = !is_numeric($bits[1]) ?  '' : (int)$bits[1];
             }
