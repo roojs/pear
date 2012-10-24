@@ -986,6 +986,7 @@ class File_Convert_Solution
         $match = array();
         // very presumtiuos...
        
+        print_R($info);
         if (!preg_match("/([0-9.]+)[^0-9]+([0-9.]+)/",$info, $match)) {
             
             return false;
