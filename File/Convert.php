@@ -982,6 +982,7 @@ class File_Convert_Solution
         $PDFINFO = System::which("pdfinfo");
         $GREP = System::which("grep");
         $STRINGS= System::which("strings");
+        // needs strings if starngs chars are in there..
         $cmd = $PDFINFO . ' '. escapeshellarg($fn) . " | $STRINGS | $GREP 'Page size'";
         
         
