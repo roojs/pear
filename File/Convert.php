@@ -1003,7 +1003,7 @@ class File_Convert_Solution
                     . escapeshellarg($fn.'-conv');
         
         // expect this file..
-        
+         echo "$cmd <br/>";
         if ($this->debug) {
            echo "$cmd <br/>";
            
