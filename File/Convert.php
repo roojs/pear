@@ -982,6 +982,8 @@ class File_Convert_Solution
         $PDFINFO = System::which("pdfinfo");
         $GREP = System::which("grep");
         $cmd = $PDFINFO . ' '. escapeshellarg($fn) . " | $GREP 'Page size'";
+        echo $cmd;
+        
          $info = trim( `$cmd`);
         $match = array();
         // very presumtiuos...
