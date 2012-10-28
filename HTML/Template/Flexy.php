@@ -592,7 +592,7 @@ class HTML_Template_Flexy
     *   @param      object object to output as $t
     *   @return     string - result
     */
-    function bufferedOutputObject(&$t,$elements=array()) 
+    function bufferedOutputObject($t,$elements=array()) 
     {
         ob_start();
         $this->outputObject($t,$elements);
