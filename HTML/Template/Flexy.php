@@ -619,15 +619,12 @@ class HTML_Template_Flexy
         $this->_bufferHandle = fopen($filename, 'w');
         
         ob_start( array($this, 'addToBuffer') , 4096, true);
-                 function( $buffer ) use ($fh) {
-            fwrite($fh,$buffer);
-            return true;
-        }, 4096, true);
-        
+                 
         
         $this->outputObject($t,$elements);
         ob_end_clean();
-        fclose($fh);
+        fclose($this->_bufferHandle);
+        $this->_bufferHandle = false;
         $crap = ob_get_contents();
         ob_end_clean();
         
@@ -638,7 +635,8 @@ class HTML_Template_Flexy
      */
     function addToBuffer($buffer)
     {
-         fwrite($this->_bufferHandle,$buffer);
+        fwrite($this->_bufferHandle,$buffer);
+        return true;
     }
     
     /**
