@@ -30,6 +30,8 @@ class File_Convert
 {
    
     
+    static $options = array();
+    
     var $fn = ''; // filename
     var $mimetype = '';
     // for results..
@@ -781,6 +783,11 @@ class File_Convert_Solution
         
         
         $cmd = $conv .' -n ' . escapeshellarg($fn) . ' ' .escapeshellarg($target);
+        
+        if (!empty(File_Convert::$options['wkhtmltopdf'])) {
+            $cmd .= File_Convert::$options['wkhtmltopdf'];
+        }
+        
         $this->cmd = $cmd;
        
         $res = `$cmd`;
