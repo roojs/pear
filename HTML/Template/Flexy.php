@@ -615,7 +615,11 @@ class HTML_Template_Flexy
     {
         ob_start(); // outer nesting..
         $fh = fopen($filename, 'w');
-        ob_start(function( $buffer ) use ($fh) {
+        
+        $this->_bufferHandle = fopen($filename, 'w');
+        
+        ob_start( array($this, 'addToBuffer') , 4096, true);
+                 function( $buffer ) use ($fh) {
             fwrite($fh,$buffer);
             return true;
         }, 4096, true);
@@ -627,6 +631,14 @@ class HTML_Template_Flexy
         $crap = ob_get_contents();
         ob_end_clean();
         
+    }
+    /**
+     * callback for outputObjectToFile
+     *
+     */
+    function addToBuffer($buffer)
+    {
+         fwrite($this->_bufferHandle,$buffer);
     }
     
     /**
