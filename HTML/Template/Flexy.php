@@ -601,6 +601,8 @@ class HTML_Template_Flexy
         return $data;
     }
     
+    var $_bufferHandle = false;
+    
     /**
     *   Outputs result to a file
     *
@@ -615,7 +617,6 @@ class HTML_Template_Flexy
     {
         ob_start(); // outer nesting..
          
-        
         $this->_bufferHandle = fopen($filename, 'w');
         
         ob_start( array($this, 'addToBuffer') , 4096, true);
