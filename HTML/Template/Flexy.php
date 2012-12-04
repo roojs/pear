@@ -618,19 +618,14 @@ class HTML_Template_Flexy
         $this->_bufferHandle = fopen($filename, 'w');
         
         ob_start(); // outer nesting..
-          
         ob_start( array($this, 'addToBuffer') , 4096, true);
-                 
         $this->outputObject($t,$elements);
-        trigger_error("end output");
         ob_end_clean();
-        trigger_error("close file");
-         fclose($this->_bufferHandle);
+        fclose($this->_bufferHandle);
         $this->_bufferHandle = false;
-        trigger_error("last clean");
-         ob_end_clean();
-         trigger_error("OK LEN: " .ob_get_length());
-    }
+ 
+        ob_end_clean();
+     }
     /**
      * callback for outputObjectToFile
      *
