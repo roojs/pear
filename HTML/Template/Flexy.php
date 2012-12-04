@@ -622,12 +622,14 @@ class HTML_Template_Flexy
         ob_start( array($this, 'addToBuffer') , 4096, true);
                  
         $this->outputObject($t,$elements);
+        trigger_error("end output");
         ob_end_clean();
-        
+        trigger_error("close file");
          fclose($this->_bufferHandle);
         $this->_bufferHandle = false;
+        trigger_error("last clean");
          ob_end_clean();
-         
+         trigger_error("end");
     }
     /**
      * callback for outputObjectToFile
@@ -635,7 +637,7 @@ class HTML_Template_Flexy
      */
     function addToBuffer($buffer)
     {
-        $error = error_get_last();
+        
         if (!$this->_bufferHandle) {
             return true;
         }
