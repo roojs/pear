@@ -629,7 +629,8 @@ class HTML_Template_Flexy
         fclose($this->_bufferHandle);
         $this->_bufferHandle = false;
         
-         
+        ob_end_clean();
+
         
     }
     /**
