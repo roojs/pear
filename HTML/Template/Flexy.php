@@ -622,7 +622,7 @@ class HTML_Template_Flexy
         ob_start( array($this, 'addToBuffer') , 4096, true);
                  
         $this->outputObject($t,$elements);
-        
+        ob_flush();
         ob_end_clean();
         
         fclose($this->_bufferHandle);
