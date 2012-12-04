@@ -636,6 +636,10 @@ class HTML_Template_Flexy
      */
     function addToBuffer($buffer)
     {
+        $error = error_get_last();
+        if ($error) {
+            print_R($error);
+        }
         fwrite($this->_bufferHandle,$buffer);
         return true;
     }
