@@ -623,8 +623,8 @@ class HTML_Template_Flexy
                  
         $this->outputObject($t,$elements);
         ob_end_clean();
-        fclose($this->_bufferHandle);
         
+        fclose($this->_bufferHandle);
         $this->_bufferHandle = false;
         $crap = ob_get_contents();
         ob_end_clean();
