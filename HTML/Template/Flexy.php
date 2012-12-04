@@ -600,7 +600,9 @@ class HTML_Template_Flexy
         ob_end_clean();
         return $data;
     }
-    
+    /**
+     * Private - file handler for output to file 
+     */
     var $_bufferHandle = false;
     
     /**
