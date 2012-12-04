@@ -615,21 +615,19 @@ class HTML_Template_Flexy
     */
     function outputObjectToFile(&$t,$elements=array(),$filename) 
     {
-        ob_start(); // outer nesting..
+        //ob_start(); // outer nesting..
          
         $this->_bufferHandle = fopen($filename, 'w');
         
         ob_start( array($this, 'addToBuffer') , 4096, true);
                  
         $this->outputObject($t,$elements);
-        ob_flush();
         ob_end_clean();
         
         fclose($this->_bufferHandle);
         $this->_bufferHandle = false;
-        if (ob_get_length()) {
-            ob_end_clean();
-        }
+        
+        
     }
     /**
      * callback for outputObjectToFile
