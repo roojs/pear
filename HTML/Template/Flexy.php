@@ -622,10 +622,14 @@ class HTML_Template_Flexy
         ob_start( array($this, 'addToBuffer') , 4096, true);
                  
         $this->outputObject($t,$elements);
-        ob_get_clean();
+        if (ob_get_length()) {
+            ob_clean();
+        }
         fclose($this->_bufferHandle);
         $this->_bufferHandle = false;
-        ob_get_clean();
+        if (ob_get_length()) {
+            ob_clean();
+        }
     }
     /**
      * callback for outputObjectToFile
