@@ -625,12 +625,12 @@ class HTML_Template_Flexy
         $this->outputObject($t,$elements);
         ob_end_clean();
         
-        
+        echo "about to close";
         fclose($this->_bufferHandle);
         $this->_bufferHandle = false;
-        
+        echo "last clean";
         ob_end_clean();
-
+        echo "end of func";
         
     }
     /**
