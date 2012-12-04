@@ -629,7 +629,7 @@ class HTML_Template_Flexy
         $this->_bufferHandle = false;
         trigger_error("last clean");
          ob_end_clean();
-         trigger_error("OK LEN: " + ob_get_length());
+         trigger_error("OK LEN: " .ob_get_length());
     }
     /**
      * callback for outputObjectToFile
