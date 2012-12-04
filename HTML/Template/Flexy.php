@@ -628,10 +628,7 @@ class HTML_Template_Flexy
         
         fclose($this->_bufferHandle);
         $this->_bufferHandle = false;
-        $crap = ob_get_contents();
-        if (ob_get_length() > 0 ) {
-            ob_end_clean();
-        }        
+        ob_clean();
     }
     /**
      * callback for outputObjectToFile
