@@ -625,7 +625,7 @@ class HTML_Template_Flexy
         ob_get_clean();
         fclose($this->_bufferHandle);
         $this->_bufferHandle = false;
-        ob_clean();
+        ob_get_clean();
     }
     /**
      * callback for outputObjectToFile
