@@ -638,7 +638,7 @@ class HTML_Template_Flexy
     {
         $error = error_get_last();
         if (!$this->_bufferHandle) {
-            return false;
+            return true;
         }
         fwrite($this->_bufferHandle,$buffer);
         return true;
