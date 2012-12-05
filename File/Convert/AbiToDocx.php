@@ -37,7 +37,7 @@ class File_Convert_AbiToDocx
                         $section->addPageBreak();
                         
                     }elseif($xr->name === 'image'){
-                        $this->drawImage()
+                        $this->drawImage($section);
 //                        $imageId = $xr->getAttribute('dataid');
 //                        
 //                        $map[$imageId] = $section->addImageDefered('/tmp/'.$imageId.'.jpg');
