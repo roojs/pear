@@ -26,7 +26,7 @@ class File_Convert_AbiToDocx
                 // New Word Document
                 $PHPWord = new Document_Word_Writer();
                 //New Section
-                
+                $section = $PHPWord->createSection();
                 while ($xr->read()){
                     
                     if ($xr->nodeType == XMLReader::END_ELEMENT) {
@@ -34,7 +34,7 @@ class File_Convert_AbiToDocx
                     }
                     // Handle All The Elements
                     if($xr->name === 'table'){
-                   //     $section = $PHPWord->createSection();
+                        
                         // Draw Table
                         $this->drawTable($section, $xr);
                         // Page Break
