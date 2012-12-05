@@ -82,8 +82,9 @@ class File_Convert_AbiToDocx
                 foreach($tableObj->childNodes as $cellObj){
                     if($cellObj->nodeName === 'cell'){
                         $cellStyle = $this->parseProps($cellObj->getAttribute('props'));
-                        if($cellStyle['left-attach'] == 0)
-                            $table->addRow();
+                        if($cellStyle['left-attach'] == 0) {
+                            $table->addRow( $heights[]);
+                        }   
                         foreach($cellObj->childNodes as $pObj){
                             if($pObj->nodeName === 'p'){
                                 $pStyle = $this->parseProps($pObj->getAttribute('style'));
