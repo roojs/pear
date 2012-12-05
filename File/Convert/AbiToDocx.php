@@ -42,6 +42,8 @@ class File_Convert_AbiToDocx
                     }elseif($xr->name === 'image'){
                         // Draw Image
                         $this->drawImage($section,$xr);
+                        // Page Break
+                        $section->addPageBreak();
                     }
                 }
                 // Close XML Reader
