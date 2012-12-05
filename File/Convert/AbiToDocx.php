@@ -36,8 +36,6 @@ class File_Convert_AbiToDocx
                     if($xr->name === 'table'){
                         // Draw Table
                         $this->drawTable($section, $xr);
-                        // Page Break
-                        $section->addPageBreak();
                     }elseif($xr->name === 'image'){
                         $section = $PHPWord->createSection();
                         // Draw Image
