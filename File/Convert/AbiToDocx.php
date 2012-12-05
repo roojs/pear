@@ -99,16 +99,17 @@ class File_Convert_AbiToDocx
             if(count($data) == 1){
                 return $attribute;
             }
+            
             foreach ($data as $attrs){
                 $attr = explode(':', $attrs);
                 switch (trim($attr[0])) {
                 case 'table-column-props':
                     $props = explode('/', $attr[1]);
-                    if(count($data) == 1)
-                         $attribute;
+                    
                     foreach($props as $index => $prop){
                         $attrArray['width'.$index] = $prop;
                     }
+                    
                     break;
                 case 'table-row-heights':
                     $props = explode('/', $attr[1]);
@@ -119,13 +120,13 @@ class File_Convert_AbiToDocx
                 case 'left-attach':
                     $props = explode('/', $attr[1]);
                     foreach($props as $index => $prop){
-                        $attrArray['height'.$index] = $prop;
+                        $attrArray['colunmNum'.$index] = $prop;
                     }
                     break;
-                case 'left-attach':
+                case 'top-attach':
                     $props = explode('/', $attr[1]);
                     foreach($props as $index => $prop){
-                        $attrArray['height'.$index] = $prop;
+                        $attrArray['rowNum'.$index] = $prop;
                     }
                     break;
                 }
