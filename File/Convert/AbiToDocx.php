@@ -38,12 +38,12 @@ class File_Convert_AbiToDocx
                         // Draw Table
                         $this->drawTable($section, $xr);
                         // Page Break
-                        $section->addPageBreak();
+                        //$section->addPageBreak();
                     }elseif($xr->name === 'image'){
                         // Draw Image
                         $this->drawImage($section,$xr);
                         // Page Break
-                        $section->addPageBreak();
+                        //$section->addPageBreak();
                     }
                 }
                 // Close XML Reader
