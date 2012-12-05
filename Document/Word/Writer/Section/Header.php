@@ -77,7 +77,7 @@ class Document_Word_Writer_Section_Header
         {
 		//$givenText = utf8_encode($text);
                 $text = iconv(mb_detect_encoding($text), "UTF-8", $text);
-		$text = new Document_Word_Writer_Section_Text($givenText, $styleFont, $styleParagraph);
+		$text = new Document_Word_Writer_Section_Text($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $text;
 		return $text;
 	}
