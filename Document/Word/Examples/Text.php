@@ -9,7 +9,7 @@ $PHPWord = new Document_Word_Writer();
 $section = $PHPWord->createSection();
 
 // Add text elements
-$section->addText('Hello World!');
+$section->addText('Hello World!设置编码');
 $section->addTextBreak(2);
 
 $section->addText('I am inline styled.', array('name'=>'Verdana', 'color'=>'006699'));
