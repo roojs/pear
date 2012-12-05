@@ -15,7 +15,7 @@ $section->addTextBreak(2);
 $section = $PHPWord->createSection(array('orientation'=>'landscape'));
 $section->addText('I am placed on a landscape section. Every page starting from this section will be landscape style.');
 $section->addPageBreak();
-$section->addImage('_earth.JPG', array('width'=>210, 'height'=>210, 'align'=>'center'));
+$section->addImage('_mars.jpg');
 $section->addTextBreak(2);
 $section->addPageBreak();
 
@@ -24,7 +24,7 @@ $section = $PHPWord->createSection(array('marginLeft'=>600, 'marginRight'=>600, 
 $section->addText('This section uses other margins.');
 
 
-$section->addImage('_mars.jpg', array('width'=>100, 'height'=>100, 'align'=>'right'));
+$section->addImage('_mars.jpg');
 
 
 
