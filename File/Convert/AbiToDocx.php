@@ -76,6 +76,7 @@ class File_Convert_AbiToDocx
                                 $width = preg_replace('/[^0-9.]/', '', $width);
                                 
                                 $text = $pObj->nodeValue;
+                                echo mb_detect_encoding($text);
                                 $table->addCell($this->inchToPx($width), $cellStyle)->addText($text, $pStyle);
                             }
                         }
