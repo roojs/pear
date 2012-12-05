@@ -74,8 +74,9 @@ class File_Convert_AbiToDocx
                                 $pStyle = $this->parseProps($pObj->getAttribute('style'));
                                 $width = array_key_exists('width'.$cellStyle['colunmNum'], $tableStyle) ? $tableStyle['width'.$cellStyle['colunmNum']] : '';
                                 $width = preg_replace('/[^0-9.]/', '', $width);
-                                echo mb_detect_encoding($pObj->nodeValue) . '<br/>';
-                                $text = iconv(mb_detect_encoding($pObj->nodeValue), "ASCII", $pObj->nodeValue);
+                                //echo mb_detect_encoding($pObj->nodeValue) . '<br/>';
+                                //$text = iconv(mb_detect_encoding($pObj->nodeValue), "ASCII", $pObj->nodeValue);
+                                $text = mb_convert_encoding($str, "UTF-8");
                                 $table->addCell($this->inchToPx($width), $cellStyle)->addText($text, $pStyle);
                             }
                         }
