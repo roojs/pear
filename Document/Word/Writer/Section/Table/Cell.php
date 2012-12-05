@@ -114,6 +114,7 @@ class Document_Word_Writer_Section_Table_Cell
         {
                 require_once __DIR__ . '/../Text.php';
 		//$text = utf8_encode($text);
+                $text = iconv(mb_detect_encoding($pObj->nodeValue), "ASCII", $pObj->nodeValue)
 		$text = new Document_Word_Writer_Section_Text($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $text;
 		return $text;
