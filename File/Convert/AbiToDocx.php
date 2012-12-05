@@ -68,7 +68,6 @@ class File_Convert_AbiToDocx
         public function drawTable(Document_Word_Writer $PHPWord, $section, $xr){
                 // Define table style arrays
                 $tableStyle = $this->parseProps($xr->getAttribute('props'));
-                print_r($xr->getAttribute('props') . '<br/>');
                 print_r($tableStyle);
                 exit;
                 // Add table style
@@ -105,17 +104,19 @@ class File_Convert_AbiToDocx
             
             foreach ($data as $attrs){
                 $attr = explode(':', $attrs);
-                if($attr[0] == 'table-column-props'){
+                switch (trim($attr[0])) {
+                case 'table-column-props':
                     $props = explode('/', $attr[1]);
                     foreach($props as $index => $prop){
                         $attrArray['width'.$index] = $prop;
                     }
-                }
-                if($attr[0] == 'table-row-heights'){
+                    break;
+                case 'table-row-heights':
                     $props = explode('/', $attr[1]);
                     foreach($props as $index => $prop){
                         $attrArray['height'.$index] = $prop;
                     }
+                    break;
                 }
             }
             return $attrArray;
