@@ -101,7 +101,7 @@ class File_Convert_AbiToDocx
             $data = explode(';', $attribute);
             if(count($data) == 1)
                 return $attribute;
-            print_r($data);
+            
             foreach ($data as $attrs){
                 $attr = explode(':', $attrs);
                 print_r($attr);
