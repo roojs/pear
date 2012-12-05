@@ -115,17 +115,6 @@ class File_Convert_AbiToDocx
                         $attrArray['height'.$index] = $prop;
                     }
                 }
-                switch ($attr[0]) {
-                case 'table-column-props':
-                    
-                    break;
-                case '':
-                    $props = explode('/', $attr[1]);
-                    foreach($props as $index => $prop){
-                        $attrArray['height'.$index] = $prop;
-                    }
-                    break;
-                }
             }
             return $attrArray;
             
