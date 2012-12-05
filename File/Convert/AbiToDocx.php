@@ -109,15 +109,12 @@ class File_Convert_AbiToDocx
         public function convertAttributes($data){
             foreach ($data as $attrs){
                 $attr = explode(':', $attrs);
-                
                 switch (trim($attr[0])) {
                     case 'table-column-props':
                         $props = explode('/', $attr[1]);
-
                         foreach($props as $index => $prop){
                             $attrArray['width'.$index] = $prop;
                         }
-
                         break;
                     case 'table-row-heights':
                         $props = explode('/', $attr[1]);
@@ -178,13 +175,11 @@ class File_Convert_AbiToDocx
             return $attrArray;
         }
 
-
         public function generateImages(){
             $xr = new XMLReader();
             if(!$xr->open($this->_abiFIleName)){
                 die("Failed to open input file.");
             }
-
             //create the image source if not exist!
             while ($xr->read()){
                 if ($xr->nodeType == XMLReader::END_ELEMENT) {
@@ -198,22 +193,9 @@ class File_Convert_AbiToDocx
                        file_put_contents($path, $data); 
                     }
                 }
-
             }
             $xr->close();
         }
-        
-        public function getAbiFileName() 
-        {
-		return $this->_abiFileName;
-	}
-	
-	
-	public function setProperties($abiFileName) 
-        {
-		$this->_abiFileName = $abiFileName;
-		return $this;
-	}
         
         public function inchToPx($num){
             return $num * 75;
@@ -224,6 +206,16 @@ class File_Convert_AbiToDocx
             $objWriter = Document_Word_Writer_IOFactory::createWriter($PHPWord, 'Word2007');
             $objWriter->save('/tmp/AbiToDocx.docx');
         }
-    
+        
+        public function getAbiFileName() 
+        {
+		return $this->_abiFileName;
+	}
+	
+	public function setProperties($abiFileName) 
+        {
+		$this->_abiFileName = $abiFileName;
+		return $this;
+	}    
 }
 ?>
