@@ -77,7 +77,7 @@ class File_Convert_AbiToDocx
                 foreach($tableObj->childNodes as $cellObj){
                     if($cellObj->nodeName === 'cell'){
                         $cellStyle = $this->parseProps($cellObj->getAttribute('props'));
-                        
+                        echo preg_replace('/[^0-9.]/', '', $tableStyle['height'.$cellStyle['rowNum']]);
                         if($cellStyle['colunmNum'] == 0) {
                             $table->addRow(preg_replace('/[^0-9.]/', '', $tableStyle['height'.$cellStyle['rowNum']]));
                         }   
