@@ -58,8 +58,8 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            echo 'HERE ' . $this->xr->name;
-            
+            $styleName = $xr->getAttribute('name');
+            $this->$styleName = '';
             
         }
         
