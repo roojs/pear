@@ -78,7 +78,8 @@ class File_Convert_AbiToDocx
                     if($cellObj->nodeName === 'cell'){
                         $cellStyle = $this->parseProps($cellObj->getAttribute('props'));
                         if($cellStyle['colunmNum'] == 0) {
-                            $height = preg_replace('/[^0-9.]/', '', ($tableStyle['height'.$cellStyle['rowNum']]) ? $tableStyle['height'.$cellStyle['rowNum']] : 0);
+                            $height = array_key_exists('height'.$cellStyle['rowNum']], $tableStyle)
+                            $height = preg_replace('/[^0-9.]/', '', $tableStyle['height'.$cellStyle['rowNum']]);
                             $table->addRow($height ? $height : 0);
                         }   
                         foreach($cellObj->childNodes as $pObj){
