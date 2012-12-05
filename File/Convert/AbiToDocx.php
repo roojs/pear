@@ -16,7 +16,7 @@ class File_Convert_AbiToDocx
         
         function save($fn)
         {
-                
+                $this->fileName = $fn;
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
                 require_once __DIR__ . '/../../System.php';
                 $this->tmpdir  = System::mktemp("-d abitodocx");
@@ -36,7 +36,7 @@ class File_Convert_AbiToDocx
                 // New XML Reader
                 $this->xr = new XMLReader();
 
-                if(!$this->xr->open($abiFileName)){
+                if(!$this->xr->open($this->fileName)){
                     return PEAR::raiseError('Failed to open input file.');
                 }
                 
