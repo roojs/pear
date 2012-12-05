@@ -73,7 +73,7 @@ class File_Convert_AbiToDocx
         
         function handle_pbr() 
         {
-            $this->section = $PHPWord->createSection();
+//            $this->section = $PHPWord->createSection();
         }
         
         function parseAbiDom($node)
