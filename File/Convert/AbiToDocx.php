@@ -33,6 +33,7 @@ class File_Convert_AbiToDocx
                         $section = $PHPWord->createSection();
                         // Draw Table
                         $this->drawTable($PHPWord, $section, $xr);
+                        exit;
                         // Page Break
                         $section->addPageBreak();
                         
