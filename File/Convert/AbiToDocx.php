@@ -13,6 +13,8 @@ class File_Convert_AbiToDocx
         {
                 $this->_abiFIleName = $abiFileName;
                 
+                $this->generateImages();
+                
                 $xr = new XMLReader();
                 if(!$xr->open($abiFileName)){
                     die("Failed to open input file.");
@@ -37,20 +39,9 @@ class File_Convert_AbiToDocx
                         $section->addPageBreak();
                         
                     }elseif($xr->name === 'image'){
-                        
-                        $this->drawImage($section);
-//                        $imageId = $xr->getAttribute('dataid');
-//                        
-//                        $map[$imageId] = $section->addImageDefered('/tmp/'.$imageId.'.jpg');
+                        $this->drawImage($section,$xr);
                         
                     }
-//                    elseif($xr->name === 'd'){
-//                        $data = base64_decode($xr->readString());
-//                        $imageId = $xr->getAttribute('name');
-//                        $path = '/tmp/' . $xr->getAttribute('name') . '.jpg';
-//                        file_put_contents($path, $data);
-//                        $section->addImageToCollection($map[$imageId], $path);
-//                    }
                     
                 }
                 $xr->close();
@@ -61,12 +52,6 @@ class File_Convert_AbiToDocx
                 $objWriter->save('/tmp/AbiToDocx.docx');
 	}
         
-        public function drawImage($section){
-                $section->addImage('/tmp/_mars.jpg');
-                $section->addTextBreak(10);
-        }
-
-
         public function drawTable($section, $xr){
                 // Define table style arrays
                 $tableStyle = $this->parseProps($xr->getAttribute('props'));
@@ -80,19 +65,34 @@ class File_Convert_AbiToDocx
                         $cellStyle = $this->parseProps($cellObj->getAttribute('props'));
                         if($cellStyle['colunmNum'] == 0) {
                             $height = array_key_exists('height'.$cellStyle['rowNum'], $tableStyle) ? $tableStyle['height'.$cellStyle['rowNum']] : '';
-                            $table->addRow(preg_replace('/[^0-9.]/', '', $height));
+                            $height = preg_replace('/[^0-9.]/', '', $height);
+                            $table->addRow($this->inchToPx($height));
                         }   
+                        
                         foreach($cellObj->childNodes as $pObj){
                             if($pObj->nodeName === 'p'){
                                 $pStyle = $this->parseProps($pObj->getAttribute('style'));
                                 $width = array_key_exists('width'.$cellStyle['colunmNum'], $tableStyle) ? $tableStyle['width'.$cellStyle['colunmNum']] : '';
-                                $table->addCell(preg_replace('/[^0-9.]/', '', $width) , $cellStyle)->addText($pObj->nodeValue, $pStyle);
+                                $width = preg_replace('/[^0-9.]/', '', $width);
+                                $table->addCell($this->inchToPx($width), $cellStyle)->addText($pObj->nodeValue, $pStyle);
                             }
                         }
                     }
                  }
         }
-
+        
+        public function drawImage($section, $xr){
+            $imageId = $xr->getAttribute('dataid');
+            $path = '/tmp/'.$imageId.'.jpg';
+            echo $path . '<br>';
+            if(file_exists($path)){
+                $imageStyle = $this->parseProps($xr->getAttribute('props'));
+                $width = preg_replace('/[^0-9.]/', '', $imageStyle['width']);
+                $height = preg_replace('/[^0-9.]/', '', $imageStyle['height']);
+                $section->addImage($path, array('width'=>$this->inchToPx($width), 'height'=>$this->inchToPx($height), 'align'=>'center'));
+            }
+        }
+        
         public function parseProps($attribute)
         {
             $data = explode(';', $attribute);
@@ -155,10 +155,46 @@ class File_Convert_AbiToDocx
                             $attrArray['borderBottomColor'] = $prop;
                         }
                         break;
+                    case 'height':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['height'] = $prop;
+                        }
+                        break;
+                    case 'width':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['width'] = $prop;
+                        }
+                        break;
                 }
             }
             return $attrArray;
             
+        }
+        
+        public function generateImages(){
+            $xr = new XMLReader();
+            if(!$xr->open($this->_abiFIleName)){
+                die("Failed to open input file.");
+            }
+
+            //create the image source if not exist!
+            while ($xr->read()){
+                if ($xr->nodeType == XMLReader::END_ELEMENT) {
+                    continue;
+                }
+                if($xr->name === 'd'){
+                    $data = base64_decode($xr->readString());
+                    $imageId = $xr->getAttribute('name');
+                    $path = '/tmp/' . $xr->getAttribute('name') . '.jpg';
+                    if(!file_exists($path)){
+                       file_put_contents($path, $data); 
+                    }
+                }
+
+            }
+            $xr->close();
         }
         
         public function getAbiFileName() 
@@ -172,6 +208,10 @@ class File_Convert_AbiToDocx
 		$this->_abiFileName = $abiFileName;
 		return $this;
 	}
+        
+        public function inchToPx($num){
+            return $num * 75;
+        }
     
 }
 ?>
