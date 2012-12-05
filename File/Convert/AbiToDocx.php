@@ -84,7 +84,6 @@ class File_Convert_AbiToDocx
         public function drawImage($section, $xr){
             $imageId = $xr->getAttribute('dataid');
             $path = '/tmp/'.$imageId.'.jpg';
-            echo $path . '<br>';
             if(file_exists($path)){
                 $imageStyle = $this->parseProps($xr->getAttribute('props'));
                 $width = preg_replace('/[^0-9.]/', '', $imageStyle['width']);
