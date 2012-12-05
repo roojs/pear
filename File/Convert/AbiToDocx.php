@@ -101,8 +101,20 @@ class File_Convert_AbiToDocx
                 return $attribute;
             
             foreach ($data as $attrs){
-                print_r($attrs . '<br/>');
                 $attr = explode(':', $attrs);
+                switch ($attr) {
+                case 'table-column-props':
+                    $props = explode('/', $attr);
+                    $attrArray['width'] = $props[0];
+                    $attrArray['height'] = $props[1];
+                    break;
+                case 1:
+                    echo "i equals 1";
+                    break;
+                case 2:
+                    echo "i equals 2";
+                    break;
+                }
                 $attrArray[trim($attr[0])] = trim($attr[1]);
             }
             return $attrArray;
