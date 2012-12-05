@@ -41,6 +41,7 @@ class File_Convert_AbiToDocx
                         $this->drawImage($section);
                         print_r('HERE<br/>');
                         print_r($section);
+                        exit;
 //                        $imageId = $xr->getAttribute('dataid');
 //                        
 //                        $map[$imageId] = $section->addImageDefered('/tmp/'.$imageId.'.jpg');
