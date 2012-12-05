@@ -179,6 +179,7 @@ class File_Convert_AbiToDocx
                         break;
                 }
             }
+            return $attrArray;
         }
 
 
