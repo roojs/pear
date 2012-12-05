@@ -83,7 +83,6 @@ class Document_Word_Writer_Section_TextRun
 	 */
 	public function addText($text = null, $styleFont = null) 
         {
-            echo 'TextRun.php';
                 require_once __DIR__ . '/Text.php';
 		$givenText = utf8_encode($text);
 		$text = new Document_Word_Writer_Section_Text($givenText, $styleFont);
