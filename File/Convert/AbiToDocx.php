@@ -116,7 +116,6 @@ class File_Convert_AbiToDocx
                     }
                     break;
                 }
-                $attrArray[trim($attr[0])] = trim($attr[1]);
             }
             return $attrArray;
             
