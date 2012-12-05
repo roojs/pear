@@ -41,10 +41,8 @@ class File_Convert_AbiToDocx
                         $section = $PHPWord->createSection();
                         
                         $imageId = $xr->getAttribute('dataid');
-                        $props = $this->parseProps($xr->getAttribute('props'));
                         
                         $map[$imageId] = $section->addImageDefered('/tmp/'.$imageId.'.jpg');
-                        print_r($map);
                         
                     }elseif($xr->name === 'd'){
                         $data = base64_decode($xr->readString());
