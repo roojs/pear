@@ -214,6 +214,10 @@ class File_Convert_AbiToDocx
         public function inchToPx($num){
             return $num * 75;
         }
+        
+        public function saveDocx(){
+            
+        }
     
 }
 ?>
