@@ -12,25 +12,60 @@ class File_Convert_AbiToDocx
 	public function __construct($abiFileName) 
         {
                 $this->_abiFIleName = $abiFileName;
+                
+        }
+        function save($fn)
+        {
                 // Generate The Images
-                $this->generateImages();
-                // New XML Reader
-                $xr = new XMLReader();
-                
-                if(!$xr->open($abiFileName)){
-                    die("Failed to open input file.");
-                }
-                
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
+                $tempdir  = System::mktemp("-d abitodocx");
+                 
+                $tmpdir = tempnam(ini_get('session.save_path'),'abitodocx');
+                unlink($tmpdir);
+                mkdir($tmpdir);
+                $this->tmpdir = $tmpdir;
                 
                 // New Word Document
-                $PHPWord = new Document_Word_Writer();
+                $this->writer = new Document_Word_Writer();
+                $this->pass = 1;
+                $this->parseAbi();
+                $this->pass = 2;
+                $this->parseAbi();
+               
+                $this->saveDocx( $fn ); // uses this->writer...
                 
-                while ($xr->read()){
+                
+        }
+        function parseAbi()
+        {
+// New XML Reader
+                $this->xr = new XMLReader();
+
+                if(!$this->xr->open($abiFileName)){
+                    return PEAR::raiseError('Failed to open input file.');
+                }
+
+                
+                
+                while ($this->xr->read()){
                     
-                    if ($xr->nodeType == XMLReader::END_ELEMENT) {
+                    if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         continue;
                     }
+                    $method = 'handle_'.$this->xr->name;
+                    if (!method_exists($this, $method)) {
+                        echo "NOT HANLED {$this->xr->name}";
+                    }
+                    $this->$method();
+                }
+        }
+        
+        function handle_Table() {
+            if ($this->pass != 2) {
+                return;
+            }
+            
+        }
                     // Handle All The Elements
                     if($xr->name === 'table'){
                         //New Section
@@ -80,6 +115,8 @@ class File_Convert_AbiToDocx
                     }
                  }
         }
+        function parseTextBody($onto)
+        
         
         public function drawImage($section, $xr){
             // Get The Name of image
@@ -171,6 +208,12 @@ class File_Convert_AbiToDocx
             return $attrArray;
         }
 
+        function handle_d()
+        {
+            if ($this->pass == 2) {
+                return;
+            }
+        
         public function generateImages(){
             $xr = new XMLReader();
             if(!$xr->open($this->_abiFIleName)){
