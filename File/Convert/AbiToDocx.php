@@ -129,6 +129,8 @@ class File_Convert_AbiToDocx
                         $attrArray['rowNum'.$index] = $prop;
                     }
                     break;
+                default : 
+                    $attrArray = null;
                 }
             }
             return $attrArray;
