@@ -75,7 +75,6 @@ class Document_Word_Writer_Section_Header
 	 */
 	public function addText($text, $styleFont = null, $styleParagraph = null) 
         {
-            echo 'Header.php';
 		$givenText = utf8_encode($text);
 		$text = new Document_Word_Writer_Section_Text($givenText, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $text;
