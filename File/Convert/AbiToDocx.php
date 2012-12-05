@@ -41,14 +41,14 @@ class File_Convert_AbiToDocx
                 
                 while ($this->xr->read()){
                     echo $this->xr->name . '<br/>';
-                    if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
-                        continue;
-                    }
-                    $method = 'handle_'.$this->xr->name;
-                    if (!method_exists($this, $method)) {
-                        echo "NOT HANLED {$this->xr->name}";
-                    }
-                    $this->$method();
+//                    if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
+//                        continue;
+//                    }
+//                    $method = 'handle_'.$this->xr->name;
+//                    if (!method_exists($this, $method)) {
+//                        echo "NOT HANLED {$this->xr->name}";
+//                    }
+//                    $this->$method();
                 }
         }
         
