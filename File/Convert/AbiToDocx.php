@@ -12,7 +12,7 @@ class File_Convert_AbiToDocx
 	public function __construct($abiFileName) 
         {
                 $this->_abiFIleName = $abiFileName;
-                
+                echo iconv_get_encoding('all');
                 $this->generateImages();
                 
                 $xr = new XMLReader();
