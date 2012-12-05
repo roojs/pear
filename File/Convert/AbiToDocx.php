@@ -77,7 +77,7 @@ class File_Convert_AbiToDocx
                                 //echo mb_detect_encoding($pObj->nodeValue) . '<br/>';
                                 //$text = iconv(mb_detect_encoding($pObj->nodeValue), "ASCII", $pObj->nodeValue);
                                 //$text = mb_convert_encoding($pObj->nodeValue, "big-5");
-                                $text = (string)$pObj->nodeValue;
+                                $text = trim($pObj->nodeValue);
                                 $table->addCell($this->inchToPx($width), $cellStyle)->addText($text, $pStyle);
                             }
                         }
