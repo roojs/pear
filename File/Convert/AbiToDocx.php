@@ -59,6 +59,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $styleName = $xr->getAttribute('name');
+            $this->parseProps($xr->getAttribute('props'));
             $this->$styleName = '';
             
         }
@@ -178,14 +179,14 @@ class File_Convert_AbiToDocx
 //            }
 //        }
         
-//        public function parseProps($attribute)
-//        {
-//            $data = explode(';', $attribute);
-//            if(count($data) == 1){
-//                return $attribute;
-//            }
-//            return $this->convertAttributes($data);
-//        }
+        public function parseProps($attribute)
+        {
+            $data = explode(';', $attribute);
+            if(count($data) == 1){
+                return $attribute;
+            }
+            return $this->convertAttributes($data);
+        }
         
 //        public function convertAttributes($data){
 //            foreach ($data as $attrs){
