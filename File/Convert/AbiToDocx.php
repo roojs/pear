@@ -34,7 +34,7 @@ class File_Convert_AbiToDocx
                     }
                     // Handle All The Elements
                     if($xr->name === 'table'){
-                        $section = $PHPWord->createSection();
+                   //     $section = $PHPWord->createSection();
                         // Draw Table
                         $this->drawTable($section, $xr);
                         // Page Break
