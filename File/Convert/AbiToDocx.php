@@ -105,6 +105,12 @@ class File_Convert_AbiToDocx
                 return $attribute;
             }
             
+            
+            return $attrArray;
+            
+        }
+        
+        public function convertAttributes($data){
             foreach ($data as $attrs){
                 $attr = explode(':', $attrs);
                 
@@ -173,10 +179,9 @@ class File_Convert_AbiToDocx
                         break;
                 }
             }
-            return $attrArray;
-            
         }
-        
+
+
         public function generateImages(){
             $xr = new XMLReader();
             if(!$xr->open($this->_abiFIleName)){
