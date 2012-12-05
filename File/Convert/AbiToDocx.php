@@ -39,7 +39,7 @@ class File_Convert_AbiToDocx
                         $section->addPageBreak();
                         
                     }elseif($xr->name === 'image'){
-                        $this->drawImage($section,$xr);
+                  //      $this->drawImage($section,$xr);
                         
                     }
                     
