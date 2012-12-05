@@ -40,6 +40,7 @@ class File_Convert_AbiToDocx
                 }
                 
                 while ($this->xr->read()){
+                    echo $this->xr->name . '<br/>';
                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         continue;
                     }
