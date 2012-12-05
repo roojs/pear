@@ -32,14 +32,13 @@ class File_Convert_AbiToDocx
                         continue;
                     }
                     
-//                    if($xr->name === 'table'){
-//                        // Draw Table
-//                        $this->drawTable($section, $xr);
-//                        // Page Break
-//                        $section->addPageBreak();
-//                        
-//                    }else
-                        if($xr->name === 'image'){
+                    if($xr->name === 'table'){
+                        // Draw Table
+                        $this->drawTable($section, $xr);
+                        // Page Break
+                        $section->addPageBreak();
+                        
+                    }elseif($xr->name === 'image'){
                         $this->drawImage($section,$xr);
                         
                     }
