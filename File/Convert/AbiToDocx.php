@@ -32,13 +32,12 @@ class File_Convert_AbiToDocx
                     
                     if($xr->name === 'table'){
                         // Draw Table
-                        $this->drawTable($PHPWord, $section, $xr);
+                        $this->drawTable($section, $xr);
                         // Page Break
                         $section->addPageBreak();
                         
                     }elseif($xr->name === 'image'){
-                        $section->addImage('/tmp/_mars.jpg');
-                        $section->addTextBreak(10);
+                        $this->drawImage()
 //                        $imageId = $xr->getAttribute('dataid');
 //                        
 //                        $map[$imageId] = $section->addImageDefered('/tmp/'.$imageId.'.jpg');
@@ -61,7 +60,7 @@ class File_Convert_AbiToDocx
                 $objWriter->save('/tmp/AbiToDocx.docx');
 	}
         
-        public function drawTable(Document_Word_Writer $PHPWord, $section, $xr){
+        public function drawTable($section, $xr){
                 // Define table style arrays
                 $tableStyle = $this->parseProps($xr->getAttribute('props'));
                 // Add table
