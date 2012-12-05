@@ -69,6 +69,7 @@ class File_Convert_AbiToDocx
                 // Define table style arrays
                 $tableStyle = $this->parseProps($xr->getAttribute('props'));
                 print_r($tableStyle);
+                exit;
                 // Add table style
                 //$PHPWord->addTableStyle('myOwnTableStyle', $tableStyle, null);
                    
