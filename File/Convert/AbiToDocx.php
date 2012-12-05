@@ -26,7 +26,7 @@ class File_Convert_AbiToDocx
                 $this->pass = 1;
                 $this->parseAbi();
                
-                $this->saveDocx( $fn ); // uses this->writer...
+//                $this->saveDocx( $fn ); // uses this->writer...
                 
                 
         }
@@ -51,7 +51,7 @@ class File_Convert_AbiToDocx
                 }
         }
         
-        function handle_Table() 
+        function handle_s() 
         {
             if ($this->pass != 2) {
                 return;
