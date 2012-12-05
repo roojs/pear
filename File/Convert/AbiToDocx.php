@@ -86,6 +86,7 @@ class File_Convert_AbiToDocx
         }
         
         public function drawImage($section, $xr){
+            // Get The Name of image
             $imageId = $xr->getAttribute('dataid');
             $path = '/tmp/'.$imageId.'.jpg';
             if(file_exists($path)){
