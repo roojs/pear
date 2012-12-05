@@ -60,6 +60,12 @@ class File_Convert_AbiToDocx
                 $objWriter->save('/tmp/AbiToDocx.docx');
 	}
         
+        public function drawImage($section){
+            $section->addImage('/tmp/_mars.jpg');
+                        $section->addTextBreak(10);
+        }
+
+
         public function drawTable($section, $xr){
                 // Define table style arrays
                 $tableStyle = $this->parseProps($xr->getAttribute('props'));
