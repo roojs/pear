@@ -34,17 +34,15 @@ class File_Convert_AbiToDocx
                     }
                     // Handle All The Elements
                     if($xr->name === 'table'){
-                        
                         // Draw Table
                         $this->drawTable($section, $xr);
                         // Page Break
                         $section->addPageBreak();
+                    }elseif($xr->name === 'image'){
+                        $section = $PHPWord->createSection();
+                        // Draw Image
+                        $this->drawImage($section,$xr);
                     }
-//                    elseif($xr->name === 'image'){
-//                        $section = $PHPWord->createSection();
-//                        // Draw Image
-//                        $this->drawImage($section,$xr);
-//                    }
                 }
                 // Close XML Reader
                 $xr->close();
