@@ -47,7 +47,7 @@ class File_Convert_AbiToDocx
                 // Close XML Reader
                 $xr->close();
                 // Save File
-                $this->saveDocx();
+                $this->saveDocx($PHPWord);
 	}
         
         
