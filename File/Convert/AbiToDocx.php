@@ -70,11 +70,13 @@ class File_Convert_AbiToDocx
                 $tableStyle = $this->parseProps($xr->getAttribute('props'));
                 // Add table style
                 print_r($tableStyle);
-                $PHPWord->addTableStyle('myOwnTableStyle', $tableStyle, null);
-
+                //$PHPWord->addTableStyle('myOwnTableStyle', $tableStyle, null);
+                   
                 // Add table
-                $table = $section->addTable('myOwnTableStyle');
-
+                $table = $section->addTable(); //'myOwnTableStyle');
+                    
+                $widths = explode('/', $tableStyle['table-column-props']);
+                $heights = explode('/', $tableStyle['table-row-heights']);
                 $tableObj = $xr->expand();
 
                 foreach($tableObj->childNodes as $cellObj){
