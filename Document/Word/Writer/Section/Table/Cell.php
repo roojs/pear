@@ -249,7 +249,7 @@ class Document_Word_Writer_Section_Table_Cell
 				$ext = substr($ext, 0, -1);
 			}
 			
-			$iconSrc = PHPWORD_BASE_PATH . 'PHPWord/_staticDocParts/';
+			$iconSrc = Document_Word_Writer_BASE_PATH . 'PHPWord/_staticDocParts/';
 			if(!file_exists($iconSrc.'_'.$ext.'.png')) {
 				$iconSrc = $iconSrc.'_default.png';
 			} else {
