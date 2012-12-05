@@ -5,28 +5,24 @@ require_once __DIR__ . '/../Writer.php';
 // New Word Document
 $PHPWord = new Document_Word_Writer();
 
+// New portrait section
 $section = $PHPWord->createSection();
-$section->addText('I am placed on a default section.');
-$section->addTextBreak(2);
+
 // Add image elements
 $section->addImage('_mars.jpg');
 $section->addTextBreak(2);
-// New landscape section
-
-$section->addText('I am placed on a landscape section. Every page starting from this section will be landscape style.');
-$section->addPageBreak();
-$section->addImage('_mars.jpg');
+$section->addText('ABC'); 
+$section->addImage('_earth.JPG', array('width'=>210, 'height'=>210, 'align'=>'center'));
 $section->addTextBreak(2);
-$section->addPageBreak();
-
-// New portrait section
-
-$section->addText('This section uses other margins.');
-
-
+$section->addText('DEF');
 $section->addImage('_mars.jpg');
 
+// add in /tmp/67219.0.jpg
+//$rid = $section->addImageDefered('_earth.JPG', array('width'=>210, 'height'=>210, 'align'=>'center'));
+// store map [67219.0] = $rid
 
+// when get image - > lookup map [67219.0] for rid
+//$section->addImageToCollection($rid, '_earth.JPG'); // 67219.0.jpg/:;:
 
 // Save File
 require_once __DIR__ . '/../Writer/IOFactory.php';
