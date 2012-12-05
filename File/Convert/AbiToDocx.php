@@ -77,7 +77,7 @@ class File_Convert_AbiToDocx
                 foreach($tableObj->childNodes as $cellObj){
                     if($cellObj->nodeName === 'cell'){
                         $cellStyle = $this->parseProps($cellObj->getAttribute('props'));
-                        print_r($cellStyle);
+                        
                         if($cellStyle['left-attach'] == 0) {
                             $table->addRow();
                         }   
@@ -101,33 +101,58 @@ class File_Convert_AbiToDocx
             
             foreach ($data as $attrs){
                 $attr = explode(':', $attrs);
+                
                 switch (trim($attr[0])) {
-                case 'table-column-props':
-                    $props = explode('/', $attr[1]);
-                    
-                    foreach($props as $index => $prop){
-                        $attrArray['width'.$index] = $prop;
-                    }
-                    
-                    break;
-                case 'table-row-heights':
-                    $props = explode('/', $attr[1]);
-                    foreach($props as $index => $prop){
-                        $attrArray['height'.$index] = $prop;
-                    }
-                    break;
-                case 'left-attach':
-                    $props = explode('/', $attr[1]);
-                    foreach($props as $index => $prop){
-                        $attrArray['colunmNum'] = $prop;
-                    }
-                    break;
-                case 'top-attach':
-                    $props = explode('/', $attr[1]);
-                    foreach($props as $index => $prop){
-                        $attrArray['rowNum'] = $prop;
-                    }
-                    break;
+                    case 'table-column-props':
+                        $props = explode('/', $attr[1]);
+
+                        foreach($props as $index => $prop){
+                            $attrArray['width'.$index] = $prop;
+                        }
+
+                        break;
+                    case 'table-row-heights':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $index => $prop){
+                            $attrArray['height'.$index] = $prop;
+                        }
+                        break;
+                    case 'left-attach':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['colunmNum'] = $prop;
+                        }
+                        break;
+                    case 'top-attach':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['rowNum'] = $prop;
+                        }
+                        break;
+                    case 'top-color':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['borderTopColor'] = $prop;
+                        }
+                        break;
+                    case 'left-color':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['borderLeftColor'] = $prop;
+                        }
+                        break;
+                    case 'right-color':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['borderRightColor'] = $prop;
+                        }
+                        break;
+                    case 'bot-color':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['borderBottomColor'] = $prop;
+                        }
+                        break;
                 }
             }
             return $attrArray;
