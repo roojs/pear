@@ -48,7 +48,7 @@ class File_Convert_AbiToDocx
                     if (!method_exists($this, $method)) {
                         echo "NOT HANLED {$this->xr->name} <br/>";
                     }
-                    $this->handle_s();
+                    $this->$method();
                 }
         }
         
