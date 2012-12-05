@@ -72,7 +72,7 @@ class File_Convert_AbiToDocx
                 $PHPWord->addTableStyle('myOwnTableStyle', $tableStyle, null);
 
                 // Add table
-                $table = $section->addTable();
+                $table = $section->addTable('myOwnTableStyle');
 
                 $tableObj = $xr->expand();
 
