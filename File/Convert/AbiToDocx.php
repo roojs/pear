@@ -37,7 +37,6 @@ class File_Convert_AbiToDocx
                         // Draw Table
                         $this->drawTable($section, $xr);
                     }elseif($xr->name === 'image'){
-                        $section = $PHPWord->createSection();
                         // Draw Image
                         $this->drawImage($section,$xr);
                     }
