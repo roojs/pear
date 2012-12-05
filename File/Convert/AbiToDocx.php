@@ -14,9 +14,9 @@ class File_Convert_AbiToDocx
                 
         }
         
-        function save($fn)
+        function save()
         {
-                // Generate The Images
+                
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
                 $this->tmpdir  = System::mktemp("-d abitodocx");
                  
