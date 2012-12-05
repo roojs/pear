@@ -42,16 +42,12 @@ class File_Convert_AbiToDocx
                     }elseif($xr->name === 'image'){
                         // Draw Image
                         $this->drawImage($section,$xr);
-                        
                     }
-                    
                 }
                 // Close XML Reader
                 $xr->close();
-                
                 // Save File
                 $this->saveDocx();
-                
 	}
         
         
