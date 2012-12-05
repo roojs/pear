@@ -216,8 +216,7 @@ class File_Convert_AbiToDocx
             if ($this->pass == 2) {
                 return;
             }
-        
-        public function generateImages(){
+            
             $xr = new XMLReader();
             if(!$xr->open($this->_abiFIleName)){
                 die("Failed to open input file.");
@@ -237,6 +236,10 @@ class File_Convert_AbiToDocx
                 }
             }
             $xr->close();
+        }
+        
+        public function generateImages(){
+            
         }
         
         public function inchToPx($num){
