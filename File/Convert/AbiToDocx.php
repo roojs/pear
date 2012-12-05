@@ -8,13 +8,13 @@
 class File_Convert_AbiToDocx 
 {
         
-	public function __construct($abiFileName) 
+	public function __construct() 
         {
-                $this->_abiFIleName = $abiFileName;
+                
                 
         }
         
-        function save()
+        function save($fn)
         {
                 
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
@@ -233,8 +233,8 @@ class File_Convert_AbiToDocx
             }
             $xr->close();
             
-                $this->pass = 2;
-                $this->parseAbi();
+            $this->pass = 2;
+            $this->parseAbi();
         }
         
         
