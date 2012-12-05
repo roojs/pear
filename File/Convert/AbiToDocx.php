@@ -110,10 +110,10 @@ class File_Convert_AbiToDocx
                     }
                     break;
                 case 'table-row-heights':
-                    echo "i equals 1";
-                    break;
-                case 2:
-                    echo "i equals 2";
+                    $props = explode('/', $attr);
+                    foreach($props as $index => $prop){
+                        $attrArray['height'.$index] = $prop;
+                    }
                     break;
                 }
                 $attrArray[trim($attr[0])] = trim($attr[1]);
