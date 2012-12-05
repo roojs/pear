@@ -89,7 +89,7 @@ class File_Convert_AbiToDocx
             }
             
             $xr = new XMLReader();
-            if(!$xr->open($this->_abiFIleName)){
+            if(!$xr->open($this->fileName)){
                 die("Failed to open input file.");
             }
             //create the image source if not exist!
