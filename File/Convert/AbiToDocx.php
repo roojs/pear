@@ -104,8 +104,8 @@ class File_Convert_AbiToDocx
             
             foreach ($data as $attrs){
                 $attr = explode(':', $attrs);
-                print_r($attr[0]);
-                switch ($attr) {
+                print_r($attr[]);
+                switch ($attr[0]) {
                 case 'table-column-props':
                     $props = explode('/', $attr);
                     foreach($props as $index => $prop){
