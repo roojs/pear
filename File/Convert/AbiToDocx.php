@@ -95,19 +95,34 @@ class File_Convert_AbiToDocx
         public function parseProps($attribute)
         {
             $data = explode(';', $attribute);
-            if(count($data) == 1)
-                return $attribute;
             
+            if(count($data) == 1){
+                return $attribute;
+            }
             foreach ($data as $attrs){
                 $attr = explode(':', $attrs);
                 switch (trim($attr[0])) {
                 case 'table-column-props':
                     $props = explode('/', $attr[1]);
+                    if(count($data) == 1)
+                         $attribute;
                     foreach($props as $index => $prop){
                         $attrArray['width'.$index] = $prop;
                     }
                     break;
                 case 'table-row-heights':
+                    $props = explode('/', $attr[1]);
+                    foreach($props as $index => $prop){
+                        $attrArray['height'.$index] = $prop;
+                    }
+                    break;
+                case 'left-attach':
+                    $props = explode('/', $attr[1]);
+                    foreach($props as $index => $prop){
+                        $attrArray['height'.$index] = $prop;
+                    }
+                    break;
+                case 'left-attach':
                     $props = explode('/', $attr[1]);
                     foreach($props as $index => $prop){
                         $attrArray['height'.$index] = $prop;
