@@ -12,7 +12,7 @@ class File_Convert_AbiToDocx
 	public function __construct($abiFileName) 
         {
                 $this->_abiFIleName = $abiFileName;
-                print(iconv_get_encoding('all'));
+                
                 $this->generateImages();
                 
                 $xr = new XMLReader();
@@ -74,6 +74,7 @@ class File_Convert_AbiToDocx
                                 $pStyle = $this->parseProps($pObj->getAttribute('style'));
                                 $width = array_key_exists('width'.$cellStyle['colunmNum'], $tableStyle) ? $tableStyle['width'.$cellStyle['colunmNum']] : '';
                                 $width = preg_replace('/[^0-9.]/', '', $width);
+                                $text = iconv(mb_detect_encoding($pObj->nodeValue), "UTF-8", $pObj->nodeValue);
                                 $table->addCell($this->inchToPx($width), $cellStyle)->addText($pObj->nodeValue, $pStyle);
                             }
                         }
