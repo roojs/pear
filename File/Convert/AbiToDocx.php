@@ -77,7 +77,6 @@ class File_Convert_AbiToDocx
                                 
                                 //$text = $pObj->nodeValue;
                                 $text = '设置编码';
-                                echo mb_detect_encoding($text);
                                 $table->addCell($this->inchToPx($width), $cellStyle)->addText($text, $pStyle);
                             }
                         }
