@@ -105,10 +105,11 @@ class File_Convert_AbiToDocx
                 switch ($attr) {
                 case 'table-column-props':
                     $props = explode('/', $attr);
-                    $attrArray['width'] = $props[0];
-                    $attrArray['height'] = $props[1];
+                    foreach($props as $index => $prop){
+                        $attrArray['width'.$index] = $prop;
+                    }
                     break;
-                case 1:
+                case 'table-row-heights':
                     echo "i equals 1";
                     break;
                 case 2:
