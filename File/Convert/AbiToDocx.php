@@ -119,13 +119,13 @@ class File_Convert_AbiToDocx
                 case 'left-attach':
                     $props = explode('/', $attr[1]);
                     foreach($props as $index => $prop){
-                        $attrArray['colunmNum'.$index] = $prop;
+                        $attrArray['colunmNum'] = $prop;
                     }
                     break;
                 case 'top-attach':
                     $props = explode('/', $attr[1]);
                     foreach($props as $index => $prop){
-                        $attrArray['rowNum'.$index] = $prop;
+                        $attrArray['rowNum'] = $prop;
                     }
                     break;
                 }
