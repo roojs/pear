@@ -12,18 +12,20 @@ class File_Convert_AbiToDocx
 	public function __construct($abiFileName) 
         {
                 $this->_abiFIleName = $abiFileName;
-                
+                // Generate The Images
                 $this->generateImages();
-                
+                // New XML Reader
                 $xr = new XMLReader();
+                
                 if(!$xr->open($abiFileName)){
                     die("Failed to open input file.");
                 }
                 
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
+                
                 // New Word Document
                 $PHPWord = new Document_Word_Writer();
-                
+                //New Section
                 $section = $PHPWord->createSection();
                 
                 while ($xr->read()){
@@ -31,19 +33,20 @@ class File_Convert_AbiToDocx
                     if ($xr->nodeType == XMLReader::END_ELEMENT) {
                         continue;
                     }
-                    
+                    // Handle All The Elements
                     if($xr->name === 'table'){
                         // Draw Table
                         $this->drawTable($section, $xr);
                         // Page Break
                         $section->addPageBreak();
-                        
                     }elseif($xr->name === 'image'){
-                  //      $this->drawImage($section,$xr);
+                        // Draw Image
+                        $this->drawImage($section,$xr);
                         
                     }
                     
                 }
+                // Close XML Reader
                 $xr->close();
                 
                 // Save File
@@ -58,9 +61,9 @@ class File_Convert_AbiToDocx
                 $tableStyle = $this->parseProps($xr->getAttribute('props'));
                 // Add table
                 $table = $section->addTable();
-                
+                // Convert xr Element to DOM Object
                 $tableObj = $xr->expand();
-
+                // Draw The Table
                 foreach($tableObj->childNodes as $cellObj){
                     if($cellObj->nodeName === 'cell'){
                         $cellStyle = $this->parseProps($cellObj->getAttribute('props'));
@@ -75,7 +78,6 @@ class File_Convert_AbiToDocx
                                 $pStyle = $this->parseProps($pObj->getAttribute('style'));
                                 $width = array_key_exists('width'.$cellStyle['colunmNum'], $tableStyle) ? $tableStyle['width'.$cellStyle['colunmNum']] : '';
                                 $width = preg_replace('/[^0-9.]/', '', $width);
-                                
                                 $table->addCell($this->inchToPx($width), $cellStyle)->addText($pObj->nodeValue, $pStyle);
                             }
                         }
