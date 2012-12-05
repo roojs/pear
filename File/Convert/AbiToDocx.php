@@ -39,7 +39,7 @@ class File_Convert_AbiToDocx
                     }elseif($xr->name === 'image'){
                         print_r($section);
                         $this->drawImage($section);
-                        print_r('<br/>');
+                        print_r('HERE<br/>');
                         print_r($section);
 //                        $imageId = $xr->getAttribute('dataid');
 //                        
