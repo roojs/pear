@@ -100,7 +100,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
 		if(count($elements) > 0) {
 			foreach($elements as $element) {
-				if($element instanceof PHPWord_Section_Text) {
+				if($element instanceof Document_Word_Writer_Section_Text) {
 					$this->_writeText($objWriter, $element, true);
 				} elseif($element instanceof Document_Word_Writer_Section_Link) {
 					$this->_writeLink($objWriter, $element, true);
