@@ -75,9 +75,7 @@ class File_Convert_AbiToDocx
                                 $width = array_key_exists('width'.$cellStyle['colunmNum'], $tableStyle) ? $tableStyle['width'.$cellStyle['colunmNum']] : '';
                                 $width = preg_replace('/[^0-9.]/', '', $width);
                                 
-                                //$text = $pObj->nodeValue;
-                                $text = '设置编码';
-                                $table->addCell($this->inchToPx($width), $cellStyle)->addText($text, $pStyle);
+                                $table->addCell($this->inchToPx($width), $cellStyle)->addText($pObj->nodeValue, $pStyle);
                             }
                         }
                     }
