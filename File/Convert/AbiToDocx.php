@@ -36,8 +36,7 @@ class File_Convert_AbiToDocx
                         // Page Break
                         $section->addPageBreak();
                         
-                    }
-                    elseif($xr->name === 'image'){
+                    }elseif($xr->name === 'image'){
                         // New portrait section
                         $section = $PHPWord->createSection();
                         
