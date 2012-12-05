@@ -68,6 +68,7 @@ class File_Convert_AbiToDocx
         public function drawTable(Document_Word_Writer $PHPWord, $section, $xr){
                 // Define table style arrays
                 $tableStyle = $this->parseProps($xr->getAttribute('props'));
+                print_r($xr->getAttribute('props') . '<br/>')
                 print_r($tableStyle);
                 exit;
                 // Add table style
