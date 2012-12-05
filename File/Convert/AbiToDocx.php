@@ -101,6 +101,7 @@ class File_Convert_AbiToDocx
                 return $attribute;
             
             foreach ($data as $attrs){
+                print_r($attr[0] . ' : ' . $attr[1]);
                 $attr = explode(':', $attrs);
                 $attrArray[trim($attr[0])] = trim($attr[1]);
             }
