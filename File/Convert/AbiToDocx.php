@@ -106,7 +106,7 @@ class File_Convert_AbiToDocx
             }
             
             
-            return $attrArray;
+            return $this->convertAttributes($data);
             
         }
         
