@@ -79,12 +79,14 @@ class File_Convert_AbiToDocx
                     if($cellObj->nodeName === 'cell'){
                         $cellStyle = $this->parseProps($cellObj->getAttribute('props'));
                         if($cellStyle['colunmNum'] == 0) {
-                            $table->addRow(preg_replace('/[^0-9.]/', '', $tableStyle['height'.$cellStyle['rowNum']]));
+                            $height = preg_replace('/[^0-9.]/', '', $tableStyle['height'.$cellStyle['rowNum']]);
+                            $table->addRow($height ? $height : 0);
                         }   
                         foreach($cellObj->childNodes as $pObj){
                             if($pObj->nodeName === 'p'){
                                 $pStyle = $this->parseProps($pObj->getAttribute('style'));
-                                $table->addCell(preg_replace('/[^0-9.]/', '', $tableStyle['width'.$cellStyle['colunmNum']]), $cellStyle)->addText($pObj->nodeValue, $pStyle);
+                                $width = preg_replace('/[^0-9.]/', '', $tableStyle['width'.$cellStyle['colunmNum']]);
+                                $table->addCell($width ? $width : 0 , $cellStyle)->addText($pObj->nodeValue, $pStyle);
                             }
                         }
                     }
