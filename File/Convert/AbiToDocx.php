@@ -52,6 +52,8 @@ class File_Convert_AbiToDocx
                 $objWriter->save('/tmp/AbiToDocx.docx');
 	}
         
+        
+        
         public function drawTable($section, $xr){
                 // Define table style arrays
                 $tableStyle = $this->parseProps($xr->getAttribute('props'));
