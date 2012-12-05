@@ -232,6 +232,9 @@ class File_Convert_AbiToDocx
                 }
             }
             $xr->close();
+            
+                $this->pass = 2;
+                $this->parseAbi();
         }
         
         
