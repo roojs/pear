@@ -61,8 +61,8 @@ class File_Convert_AbiToDocx
 	}
         
         public function drawImage($section){
-            $section->addImage('/tmp/_mars.jpg');
-                        $section->addTextBreak(10);
+                $section->addImage('/tmp/_mars.jpg');
+                $section->addTextBreak(10);
         }
 
 
