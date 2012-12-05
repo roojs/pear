@@ -13,6 +13,7 @@ class File_Convert_AbiToDocx
                 $this->_abiFIleName = $abiFileName;
                 
         }
+        
         function save($fn)
         {
                 // Generate The Images
@@ -33,7 +34,7 @@ class File_Convert_AbiToDocx
         }
         function parseAbi()
         {
-// New XML Reader
+                // New XML Reader
                 $this->xr = new XMLReader();
 
                 if(!$this->xr->open($abiFileName)){
@@ -238,9 +239,6 @@ class File_Convert_AbiToDocx
             $xr->close();
         }
         
-        public function generateImages(){
-            
-        }
         
         public function inchToPx($num){
             return $num * 75;
