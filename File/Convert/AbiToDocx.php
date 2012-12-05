@@ -25,8 +25,6 @@ class File_Convert_AbiToDocx
                 $this->writer = new Document_Word_Writer();
                 $this->pass = 1;
                 $this->parseAbi();
-                $this->pass = 2;
-                $this->parseAbi();
                
                 $this->saveDocx( $fn ); // uses this->writer...
                 
@@ -40,11 +38,8 @@ class File_Convert_AbiToDocx
                 if(!$this->xr->open($abiFileName)){
                     return PEAR::raiseError('Failed to open input file.');
                 }
-
-                
                 
                 while ($this->xr->read()){
-                    
                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         continue;
                     }
