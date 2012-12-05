@@ -36,7 +36,7 @@ class Document_Word_Writer_Autoloader
 			return false;
 		}
 
-		$strObjectFilePath = PHPWORD_BASE_PATH . str_replace('_', '/', $strObjectName) . '.php';
+		$strObjectFilePath = Document_Word_Writer_BASE_PATH . str_replace('_', '/', $strObjectName) . '.php';
 		
 		if((file_exists($strObjectFilePath) === false) || (is_readable($strObjectFilePath) === false)) {
 			return false;
