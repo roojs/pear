@@ -36,16 +36,17 @@ class File_Convert_AbiToDocx
                         // Page Break
                         $section->addPageBreak();
                         
-                    }elseif($xr->name === 'image'){
-                        // New portrait section
-                        $section = $PHPWord->createSection();
-                        
-                        $imageId = $xr->getAttribute('dataid');
-                        $props = $this->parseProps($xr->getAttribute('props'));
-                        
-                        $map[$imageId] = $section->addImageDefered('/tmp/'.$imageId.'.jpg');
-                        
                     }
+//                    elseif($xr->name === 'image'){
+//                        // New portrait section
+//                        $section = $PHPWord->createSection();
+//                        
+//                        $imageId = $xr->getAttribute('dataid');
+//                        $props = $this->parseProps($xr->getAttribute('props'));
+//                        
+//                        $map[$imageId] = $section->addImageDefered('/tmp/'.$imageId.'.jpg');
+//                        
+//                    }
                     
 //                    elseif($xr->name === 'd'){
 //                        $data = base64_decode($xr->readString());
