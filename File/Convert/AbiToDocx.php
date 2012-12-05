@@ -7,7 +7,6 @@
 
 class File_Convert_AbiToDocx 
 {
-        private $_abiFileName;
         
 	public function __construct($abiFileName) 
         {
@@ -20,10 +19,6 @@ class File_Convert_AbiToDocx
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
                 $this->tmpdir  = System::mktemp("-d abitodocx");
                  
-                $tmpdir = tempnam(ini_get('session.save_path'),'abitodocx');
-                unlink($tmpdir);
-                mkdir($tmpdir);
-                $this->tmpdir = $tmpdir;
                 
                 // New Word Document
                 $this->writer = new Document_Word_Writer();
@@ -64,6 +59,14 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
+            
+        }
+        function handle_pbr() {
+            $this->section = $PHPWord->createSection();
+        }
+        function parseAbiDom($node)
+        {
+            
             
         }
                     // Handle All The Elements
