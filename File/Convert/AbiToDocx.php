@@ -18,7 +18,7 @@ class File_Convert_AbiToDocx
         {
                 // Generate The Images
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
-                $tempdir  = System::mktemp("-d abitodocx");
+                $this->tmpdir  = System::mktemp("-d abitodocx");
                  
                 $tmpdir = tempnam(ini_get('session.save_path'),'abitodocx');
                 unlink($tmpdir);
