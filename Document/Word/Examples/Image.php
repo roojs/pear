@@ -12,7 +12,7 @@ $section->addTextBreak(2);
 $section->addImage('_mars.jpg');
 $section->addTextBreak(2);
 // New landscape section
-$section = $PHPWord->createSection();
+
 $section->addText('I am placed on a landscape section. Every page starting from this section will be landscape style.');
 $section->addPageBreak();
 $section->addImage('_mars.jpg');
@@ -20,7 +20,7 @@ $section->addTextBreak(2);
 $section->addPageBreak();
 
 // New portrait section
-$section = $PHPWord->createSection();
+
 $section->addText('This section uses other margins.');
 
 
