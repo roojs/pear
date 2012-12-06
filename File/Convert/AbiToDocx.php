@@ -45,13 +45,12 @@ class File_Convert_AbiToDocx
                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         continue;
                     }
-                    echo $this->xr->name . '<br/>';
-//                    $method = 'handle_'.$this->xr->name;
-//                    if (!method_exists($this, $method)) {
-////                        echo "NOT HANLED {$this->xr->name} <br/>";
-//                    }else{
-//                        $this->$method();   
-//                    }
+                    $method = 'handle_'.$this->xr->name;
+                    if (!method_exists($this, $method)) {
+//                        echo "NOT HANLED {$this->xr->name} <br/>";
+                    }else{
+                        $this->$method();   
+                    }
                 }
         }
         
@@ -75,30 +74,34 @@ class File_Convert_AbiToDocx
             // Add table
             $this->table = $this->section->addTable();
             // Convert xr Element to DOM Object
-            $tableObj = $this->parseAbiDom($this->xr);
+//            $tableObj = $this->parseAbiDom($this->xr);
             // Draw The Table
-            foreach($tableObj->childNodes as $cellObj){
-                if($cellObj->nodeName === 'cell'){
-                    $cellStyle = $this->parseProps($cellObj->getAttribute('props'));
-                    if($cellStyle['colunmNum'] == 0) {
-                        $height = array_key_exists('height'.$cellStyle['rowNum'], $tableStyle) ? $this->parseWH($tableStyle['height'.$cellStyle['rowNum']]) : '';
-                        $table->addRow($height);
-                    }   
-
-                    foreach($cellObj->childNodes as $pObj){
-                        if($pObj->nodeName === 'p'){
-                            $pStyle = $this->parseProps($pObj->getAttribute('style'));
-                            $width = array_key_exists('width'.$cellStyle['colunmNum'], $tableStyle) ? $this->parseWH($tableStyle['width'.$cellStyle['colunmNum']]) : '';
-                            $table->addCell($width, $cellStyle)->addText($pObj->nodeValue, $pStyle);
-                        }
-                    }
-                }
-             }
+//            foreach($tableObj->childNodes as $cellObj){
+//                if($cellObj->nodeName === 'cell'){
+//                    $cellStyle = $this->parseProps($cellObj->getAttribute('props'));
+//                    if($cellStyle['colunmNum'] == 0) {
+//                        $height = array_key_exists('height'.$cellStyle['rowNum'], $tableStyle) ? $this->parseWH($tableStyle['height'.$cellStyle['rowNum']]) : '';
+//                        $table->addRow($height);
+//                    }   
+//
+//                    foreach($cellObj->childNodes as $pObj){
+//                        if($pObj->nodeName === 'p'){
+//                            $pStyle = $this->parseProps($pObj->getAttribute('style'));
+//                            $width = array_key_exists('width'.$cellStyle['colunmNum'], $tableStyle) ? $this->parseWH($tableStyle['width'.$cellStyle['colunmNum']]) : '';
+//                            $table->addCell($width, $cellStyle)->addText($pObj->nodeValue, $pStyle);
+//                        }
+//                    }
+//                }
+//             }
         }
         
         function handle_cell()
         {
-            
+            if ($this->pass != 2) {
+                return;
+            }
+            $this->cellStyle = $this->parseProps($this->xr->getAttribute('props'));
+            print_r($this->cellStyle);
         }
         
         function handle_pbr() 
