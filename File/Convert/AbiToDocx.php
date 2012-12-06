@@ -83,7 +83,6 @@ class File_Convert_AbiToDocx
         
         function handle_d()
         {
-            echo 'HERE IS PASS : ' . $this->pass;
             if ($this->pass == 2) {
                 return;
             }
