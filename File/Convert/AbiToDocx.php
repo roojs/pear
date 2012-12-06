@@ -101,7 +101,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->cellStyle = $this->parseProps($this->xr->getAttribute('props'));
-            print_r($this->cellStyle['colunmNum']);
+            print_r($this->cellStyle);
         }
         
         function handle_pbr() 
