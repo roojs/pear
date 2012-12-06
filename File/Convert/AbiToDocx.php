@@ -171,6 +171,16 @@ class File_Convert_AbiToDocx
            
         }
         
+        function handle_section()
+        {
+            $sectionType = $this->xr->getAttribute('type');
+            if($sectionType == 'header'){
+                
+            }elseif($sectionType == 'footer'){
+                
+            }
+        }
+        
         function parseWH($wh,$type=null)
         {
             $changeType = preg_replace('/[^a-z]/', '', $wh);
