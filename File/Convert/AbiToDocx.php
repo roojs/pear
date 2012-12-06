@@ -36,11 +36,11 @@ class File_Convert_AbiToDocx
         {
                 // New XML Reader
                 $this->xr = new XMLReader();
-
+echo 'HERE : ' . $this->pass;
                 if(!$this->xr->open($this->fileName)){
                     return PEAR::raiseError('Failed to open input file.');
                 }
-                echo 'HERE : ' . $this->pass;
+                
                 while ($this->xr->read()){
                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         continue;
