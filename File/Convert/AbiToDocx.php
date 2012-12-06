@@ -23,6 +23,7 @@ class File_Convert_AbiToDocx
                 $this->tmpdir  = '/tmp';
                 $this->lastNode = '';
                 $this->style[] = array();
+                $this->DPI = 75;
                 $this->style['a'] = array('color'=>'0000FF', 'underline'=>'single'); // set default link style
                 $this->writer = new Document_Word_Writer(); // New Word Document
                 $this->section = $this->writer->createSection();
@@ -141,7 +142,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->setNodeStyle('image', 'props'); // Define image style
-            $imageWidth =
+            $imageWidth =parseWH($this->style['width'], 'image');
             
             
         }
@@ -151,13 +152,13 @@ class File_Convert_AbiToDocx
 //            $this->section = $PHPWord->createSection();
 //        }
         
-        function parseWH($wh,$type)
+        function parseWH($wh,$type=null)
         {
-            $type = preg_replace('/[^a-z]/', '', $wh);
+            $changeType = preg_replace('/[^a-z]/', '', $wh);
             $num = preg_replace('/[^0-9.]/', '', $wh);
-            if($type == 'in'){
+            if($changeType == 'in'){
                 return $num * 1435;
-            }elseif($type == 'cm'){
+            }elseif($changeType == 'cm'){
                 return $num * 567;
             }else{
                 return $num;
