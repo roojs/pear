@@ -190,7 +190,63 @@ class File_Convert_AbiToDocx
         
         public function getAttrDetail($data)
         {
-            
+            foreach ($data as $attrs){
+                $attr = explode(':', $attrs);
+                switch (trim($attr[0])){
+                    case 'table-column-props':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $index => $prop){
+                            $attrArray['width'.$index] = $prop;
+                        }
+                        break;
+                    case 'table-row-heights':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $index => $prop){
+                            $attrArray['height'.$index] = $prop;
+                        }
+                        break;
+                    case 'left-attach':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['colunmNum'] = $prop;
+                        }
+                        break;
+                    case 'top-attach':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['rowNum'] = $prop;
+                        }
+                        break;
+                    case 'top-color':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['borderTopColor'] = $prop;
+                        }
+                        break;
+                    case 'left-color':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['borderLeftColor'] = $prop;
+                        }
+                        break;
+                    case 'right-color':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['borderRightColor'] = $prop;
+                        }
+                        break;
+                    case 'bot-color':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['borderBottomColor'] = $prop;
+                        }
+                        break;
+                    default :
+                        $attrArray[trim($attr[0])] = $prop;
+                    
+                    
+                }
+            }
         }
 //        public function convertAttributes($data){
 //            foreach ($data as $attrs){
