@@ -145,7 +145,7 @@ class File_Convert_AbiToDocx
             foreach($this->style['image'] as $key => $value){
                 $this->style['image'][$key] = $this->parseWH($value,'image');
             }
-            $this->section->addImage($this->tmpdir . '/' . $image . '.jpg', array('width'=>$imageWidth, 'height'=>$imageHeight, 'align'=>'center'));
+            $this->section->addImage($this->tmpdir . '/' . $image . '.jpg', $this->style['image']);
             
         }
         
