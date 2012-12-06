@@ -102,7 +102,7 @@ class File_Convert_AbiToDocx
             $pStyle = $this->style['p'];
             $text = $this->xr->readInnerXML();
             preg_match('/[^<image] | [^<a]/', $text, $string);
-            echo $string;
+            print_r($string);
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
                 if($pStyle == 'Normal'){
