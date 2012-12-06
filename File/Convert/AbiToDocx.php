@@ -62,8 +62,6 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->setNodeStyle($this->xr->getAttribute('name'), 'props');
-            $styleName = $this->xr->getAttribute('name');
-            $this->$styleName = $this->parseProps($this->xr->getAttribute('props'));
             
         }
         
