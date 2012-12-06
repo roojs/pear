@@ -102,7 +102,7 @@ class File_Convert_AbiToDocx
             $pStyle = $this->style['p'];
             $pObj = $this->xr->expand();
             foreach($pObj->childNodes as $node){
-                echo $node->nodeName . ' : ' . $node->nodeValue;
+                echo $node->nodeName . ' : ' . $node->nodeValue . '<br/>';
             }
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
