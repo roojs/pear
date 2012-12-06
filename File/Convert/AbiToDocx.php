@@ -150,9 +150,6 @@ class File_Convert_AbiToDocx
                 $imageHeight =parseWH($this->style['image']['height'], 'image');
             }
             
-            
-            
-            
         }
         
 //        function handle_pbr() 
