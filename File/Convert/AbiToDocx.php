@@ -155,11 +155,12 @@ class File_Convert_AbiToDocx
         
         function parseWH($wh,$type=null)
         {
+            echo $wh . '<br/>';
+            echo $type . '<br/>';
             $changeType = preg_replace('/[^a-z]/', '', $wh);
             $num = preg_replace('/[^0-9.]/', '', $wh);
             if($type == 'image'){
                 if($changeType == 'in'){
-                    echo 're';
                     return $num * 75;
                 }else{
                     return $num;
