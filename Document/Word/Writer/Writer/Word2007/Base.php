@@ -420,7 +420,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 								
 								$objWriter->startElement('w:tcPr');
 									$objWriter->startElement('w:tcW');
-										$objWriter->writeAttribute('w:w', $width);
+										$objWriter->writeAttribute('w:w', 3000);
 										$objWriter->writeAttribute('w:type', 'dxa');
 									$objWriter->endElement();
 									
