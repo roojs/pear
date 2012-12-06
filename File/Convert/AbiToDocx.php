@@ -153,7 +153,7 @@ class File_Convert_AbiToDocx
 //            $this->section = $PHPWord->createSection();
 //        }
         
-        function parseWH($wh,$type)
+        function parseWH($wh,$type=null)
         {
             $changeType = preg_replace('/[^a-z]/', '', $wh);
             $num = preg_replace('/[^0-9.]/', '', $wh);
