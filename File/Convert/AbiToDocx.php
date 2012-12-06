@@ -100,7 +100,7 @@ class File_Convert_AbiToDocx
             }
             $this->setNodeStyle('p', 'style'); // Define p style
             $pStyle = $this->style['p'];
-            $pObj = $this->expand();
+            $pObj = $this->xr->expand();
             foreach($pObj->childNodes as $node){
                 echo $node->nodeName . ' : ' . $node->nodeValue;
             }
