@@ -114,7 +114,15 @@ class File_Convert_AbiToDocx
         
         function parseWH($wh)
         {
-            return $wh;
+            $type = preg_replace('/[^a-z]/', '', $wh);
+            $num = preg_replace('/[^0-9.]/', '', $wh);
+            if($type == 'in'){
+                return $num * $this->DPI;
+            }elseif($type == 'cm'){
+                return $num * 37.8;
+            }else{
+                return $num;
+            }
             
         }
         
