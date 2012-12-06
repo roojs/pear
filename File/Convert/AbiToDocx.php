@@ -157,7 +157,6 @@ class File_Convert_AbiToDocx
             
             $changeType = preg_replace('/[^a-z]/', '', $wh);
             $num = preg_replace('/[^0-9.]/', '', $wh);
-            echo $wh . '<br/>';
             if($type == 'table'){
                 if($changeType == 'in'){
                     return $num * 1435;
@@ -167,12 +166,7 @@ class File_Convert_AbiToDocx
                     return $num;
                 }
             }else{
-                echo $changeType;
-                if($changeType == 'in'){
-                    return $num * 75;
-                }else{
-                    return $num;
-                }
+                return $num * 75;
             }
             
         }
