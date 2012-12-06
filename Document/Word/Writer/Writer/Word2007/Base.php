@@ -406,6 +406,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                         $widths[$i] = max($widths[$i], $cell->getWidth());
                                              
                                     }
+                                }
                                     print_r($widths);
 //                                    $objWriter->startElement('w:tblGrid');
 //                                    foreach($widths as $w)
