@@ -156,7 +156,6 @@ class File_Convert_AbiToDocx
         function parseWH($wh,$type=null)
         {
             $changeType = preg_replace('/[^a-z]/', '', $wh);
-            echo $changeType;
             $num = preg_replace('/[^0-9.]/', '', $wh);
             if($type == 'table'){
                 if($changeType == 'in'){
