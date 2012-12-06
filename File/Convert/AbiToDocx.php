@@ -78,17 +78,18 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->setNodeStyle('cell', 'props'); // Define cell style
-            
-            $this->cellHeight = '';
-            if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table'])){
-                $this->cellHeight = $this->parseWH($this->style['table']['height' . $this->style['cell']['rowNum']]);
+            if($this->style['cell']['colunmNum'] == 0){
+                $height = '';
+                if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table'])){
+                    $height = $this->parseWH($this->style['table']['height' . $this->style['cell']['rowNum']]);
+                }
+                $this->table->addRow($height);
             }
-                
-            
-            $this->cellWidth = '';
+            $width = '';
             if(array_key_exists('width' . $this->style['cell']['colunmNum'], $this->style['table'])){
-                $this->cellWidth = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']]);
+                $width = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']]);
             }
+            $this->cell = $this->table->addCell($width, $this->style['cell']);
             $this->lastNode = 'cell';
         }
         
@@ -97,14 +98,11 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('p', 'props'); // Define p style
             $pStyle = $this->style['p'];
             if($this->lastNode == 'cell'){
-                if($this->style['cell']['colunmNum'] == 0){
-                    $this->table->addRow($this->cellHeight);
-                }
                 $this->lastNode = '';
                 if($pStyle == 'Normal'){
                     $pStyle = $this->style['Normal'];
                 }
-                $this->table->addCell($this->cellWidth, $this->style['cell'])->addText($this->xr->readString(), $pStyle);
+                $this->cell->addText($this->xr->readString(), $pStyle);
             }
             
         }
