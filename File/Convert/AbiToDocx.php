@@ -70,7 +70,7 @@ class File_Convert_AbiToDocx
             }
             $cellStyle = array('bgColor'=>'C0C0C0');
 
-$table = $section->addTable();
+$table = $this->section->addTable();
 $table->addRow(1000);
 $table->addCell(2000, $cellStyle)->addText('Cell 1');
 $table->addCell(2000, $cellStyle)->addText('Cell 2');
