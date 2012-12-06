@@ -85,11 +85,11 @@ class File_Convert_AbiToDocx
                 }
                 $this->table->addRow($height);
             }
-            $width = '';
+            $this->cellWidth = '';
             if(array_key_exists('width' . $this->style['cell']['colunmNum'], $this->style['table'])){
-                $width = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']]);
+                $this->cellWidth = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']]);
             }
-            $this->cell = $this->table->addCell($width, $this->style['cell']);
+            $this->cell = $this->table->addCell($this->cellWidth, $this->style['cell']);
             $this->lastNode = 'cell';
         }
         
@@ -102,7 +102,7 @@ class File_Convert_AbiToDocx
                 if($pStyle == 'Normal'){
                     $pStyle = $this->style['Normal'];
                 }
-                $this->cell->addText($this->xr->readString(), $pStyle);
+                $this->cell->addText(wordwrap($this->xr->readString(),$this->cellWidth,'<br/>\n'), $pStyle);
             }
             
         }
