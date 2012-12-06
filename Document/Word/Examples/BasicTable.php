@@ -10,7 +10,7 @@ $section = $PHPWord->createSection();
 // Add table
 $table = $section->addTable();
 
-$cellStyle = array('textDirection'=>PHPWord_Style_Cell::TEXT_DIR_BTLR, 			 'bgColor'=>'C0C0C0');
+$cellStyle = array('bgColor'=>'C0C0C0');
 
 $table = $section->addTable();
 $table->addRow(1000);
