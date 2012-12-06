@@ -429,7 +429,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 									}
 									
 								$objWriter->endElement();
-								
+								print_r($objWriter);
 								$_elements = $cell->getElements();
 								if(count($_elements) > 0) {
 									foreach($_elements as $element) {
