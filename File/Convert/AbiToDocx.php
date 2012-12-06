@@ -19,7 +19,7 @@ class File_Convert_AbiToDocx
                 $this->fileName = $fn;
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
                 require_once __DIR__ . '/../../System.php';
-                $this->tmpdir  = System::mktemp("-d abitodocx");
+               // $this->tmpdir  = System::mktemp("-d abitodocx");
                 
                 // New Word Document
                 $this->writer = new Document_Word_Writer();
