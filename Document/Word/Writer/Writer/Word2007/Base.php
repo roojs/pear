@@ -390,8 +390,6 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 				} else {
 					if(!empty($tblStyle)) {
 						$objWriter->startElement('w:tblPr');
-                                                        $objWriter->startElement('w:tblLayout');
-                                                                $objWriter->writeAttribute('w:type' , 'fixed');
 							$objWriter->startElement('w:tblStyle');
 								$objWriter->writeAttribute('w:val', $tblStyle);
 							$objWriter->endElement();
