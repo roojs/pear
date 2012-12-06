@@ -107,7 +107,7 @@ class File_Convert_AbiToDocx
                 if($pStyle == 'Normal'){
                     $pStyle = $this->style['Normal'];
                 }
-                $this->cell->addText($this->xr->readString(), $pStyle);
+                $this->cell->addText($this->xr->readInnerXML(), $pStyle);
             }
             
         }
