@@ -23,8 +23,8 @@ class File_Convert_AbiToDocx
                 $this->tmpdir  = '/tmp';
                 $this->lastNode = '';
                 $this->style[] = array();
-                // New Word Document
-                $this->writer = new Document_Word_Writer();
+                
+                $this->writer = new Document_Word_Writer(); // New Word Document
                 $this->section = $this->writer->createSection();
                 $this->pass = 1;
                 $this->parseAbi();
@@ -36,8 +36,7 @@ class File_Convert_AbiToDocx
         }
         function parseAbi()
         {
-                // New XML Reader
-                $this->xr = new XMLReader();
+                $this->xr = new XMLReader(); // New XML Reader
 
                 if(!$this->xr->open($this->fileName)){
                     return PEAR::raiseError('Failed to open input file.');
@@ -70,10 +69,8 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            // Define table style arrays
-            $this->tableStyle = $this->parseProps($this->xr->getAttribute('props'));
-            // Add table
-            $this->table = $this->section->addTable();
+            $this->setNodeStyle('table', 'props'); // Define table style
+            $this->table = $this->section->addTable(); // Add table
             // Convert xr Element to DOM Object
 //            $tableObj = $this->parseAbiDom($this->xr);
             // Draw The Table
@@ -101,8 +98,9 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->cellStyle = $this->parseProps($this->xr->getAttribute('props'));
-            if($this->cellStyle['colunmNum'] == 0){
+            $this->setNodeStyle('cell', 'props'); // Define cell style
+            print_r($this->style['cell']['colunmNum']);
+            if($this->style['cell']['colunmNum'] == 0){
                 $height = array_key_exists('height'.$this->cellStyle['rowNum'], $this->tableStyle) ? $this->parseWH($this->tableStyle['height'.$this->cellStyle['rowNum']]) : '';
                 $this->table->addRow($height);
             }
