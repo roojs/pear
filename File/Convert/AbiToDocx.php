@@ -20,7 +20,7 @@ class File_Convert_AbiToDocx
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
                 require_once __DIR__ . '/../../System.php';
                 $this->tmpdir  = System::mktemp("-d abitodocx");
-                 
+                echo 'tmpdir' . $this->tmpdir; 
                 
                 // New Word Document
                 $this->writer = new Document_Word_Writer();
@@ -59,8 +59,8 @@ class File_Convert_AbiToDocx
                 return;
             }
             $styleName = $xr->getAttribute('name');
-            $this->parseProps($xr->getAttribute('props'));
-            $this->$styleName = '';
+            $this->$styleName = $this->parseProps($xr->getAttribute('props'));
+            print_r($this->styleName);
             
         }
         
@@ -245,78 +245,8 @@ class File_Convert_AbiToDocx
                         $attrArray[trim($attr[0])] = $prop;
                 }
             }
+            return $attrArray;
         }
-//        public function convertAttributes($data){
-//            foreach ($data as $attrs){
-//                $attr = explode(':', $attrs);
-//                switch (trim($attr[0])) {
-//                    case 'table-column-props':
-//                        $props = explode('/', $attr[1]);
-//                        foreach($props as $index => $prop){
-//                            $attrArray['width'.$index] = $prop;
-//                        }
-//                        break;
-//                    case 'table-row-heights':
-//                        $props = explode('/', $attr[1]);
-//                        foreach($props as $index => $prop){
-//                            $attrArray['height'.$index] = $prop;
-//                        }
-//                        break;
-//                    case 'left-attach':
-//                        $props = explode('/', $attr[1]);
-//                        foreach($props as $prop){
-//                            $attrArray['colunmNum'] = $prop;
-//                        }
-//                        break;
-//                    case 'top-attach':
-//                        $props = explode('/', $attr[1]);
-//                        foreach($props as $prop){
-//                            $attrArray['rowNum'] = $prop;
-//                        }
-//                        break;
-//                    case 'top-color':
-//                        $props = explode('/', $attr[1]);
-//                        foreach($props as $prop){
-//                            $attrArray['borderTopColor'] = $prop;
-//                        }
-//                        break;
-//                    case 'left-color':
-//                        $props = explode('/', $attr[1]);
-//                        foreach($props as $prop){
-//                            $attrArray['borderLeftColor'] = $prop;
-//                        }
-//                        break;
-//                    case 'right-color':
-//                        $props = explode('/', $attr[1]);
-//                        foreach($props as $prop){
-//                            $attrArray['borderRightColor'] = $prop;
-//                        }
-//                        break;
-//                    case 'bot-color':
-//                        $props = explode('/', $attr[1]);
-//                        foreach($props as $prop){
-//                            $attrArray['borderBottomColor'] = $prop;
-//                        }
-//                        break;
-//                    case 'height':
-//                        $props = explode('/', $attr[1]);
-//                        foreach($props as $prop){
-//                            $attrArray['height'] = $prop;
-//                        }
-//                        break;
-//                    case 'width':
-//                        $props = explode('/', $attr[1]);
-//                        foreach($props as $prop){
-//                            $attrArray['width'] = $prop;
-//                        }
-//                        break;
-//                }
-//            }
-//            return $attrArray;
-//        }
-
-        
-        
         
 //        public function inchToPx($num){
 //            return $num * 75;
