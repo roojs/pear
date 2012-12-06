@@ -166,9 +166,12 @@ class File_Convert_AbiToDocx
                     return $num;
                 }
             }else{
+                echo 'out';
                 if($changeType == 'in'){
+                    echo 'in';
                     return $num * 75;
                 }else{
+                    echo 'else';
                     return $num;
                 }
             }
