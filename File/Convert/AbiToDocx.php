@@ -117,9 +117,9 @@ class File_Convert_AbiToDocx
             $type = preg_replace('/[^a-z]/', '', $wh);
             $num = preg_replace('/[^0-9.]/', '', $wh);
             if($type == 'in'){
-                return $num * $this->DPI * 10;
+                return $num * 1435;
             }elseif($type == 'cm'){
-                return $num * 37.8 * 10;
+                return $num * 567;
             }else{
                 return $num;
             }
