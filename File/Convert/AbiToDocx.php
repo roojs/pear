@@ -68,42 +68,28 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->setNodeStyle('table', 'props'); // Define table style
-            $this->table = $this->section->addTable(); // Add table
+            $cellStyle = array('textDirection'=>PHPWord_Style_Cell::TEXT_DIR_BTLR, 			 'bgColor'=>'C0C0C0');
+
+$table = $section->addTable();
+$table->addRow(1000);
+$table->addCell(2000, $cellStyle)->addText('Cell 1');
+$table->addCell(2000, $cellStyle)->addText('Cell 2');
+$table->addCell(2000, $cellStyle)->addText('Cell 3');
+$table->addRow();
+$table->addCell(2000)->addText('Cell 4');
+$table->addCell(2000)->addText('Cell 5');
+$table->addCell(2000)->addText('Cell 6');
+
         }
         
         function handle_cell()
         {
-            if ($this->pass != 2) {
-                return;
-            }
-            $this->setNodeStyle('cell', 'props'); // Define cell style
-            if($this->style['cell']['colunmNum'] == 0){
-                $height = '';
-                if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table'])){
-                    $height = $this->parseWH($this->style['table']['height' . $this->style['cell']['rowNum']]);
-                }
-                $this->table->addRow($height);
-            }
-            $width = '';
-            if(array_key_exists('width' . $this->style['cell']['colunmNum'], $this->style['table'])){
-                $width = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']]);
-            }
-            $this->cell = $this->table->addCell($width, $this->style['cell']);
-            $this->lastNode = 'cell';
+          
         }
         
         function handle_p()
         {
-            $this->setNodeStyle('p', 'props'); // Define p style
-            $pStyle = $this->style['p'];
-            if($this->lastNode == 'cell'){
-                $this->lastNode = '';
-                if($pStyle == 'Normal'){
-                    $pStyle = $this->style['Normal'];
-                }
-                $this->cell->addText($this->xr->readString(), $pStyle);
-            }
+            
             
         }
         
