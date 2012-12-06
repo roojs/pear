@@ -20,7 +20,7 @@ class File_Convert_AbiToDocx
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
                 require_once __DIR__ . '/../../System.php';
                // $this->tmpdir  = System::mktemp("-d abitodocx");
-                $this->tmpdir  = '/tmp/abiToDocx';
+                $this->tmpdir  = '/tmp';
                 // New Word Document
                 $this->writer = new Document_Word_Writer();
                 $this->pass = 1;
@@ -100,7 +100,6 @@ class File_Convert_AbiToDocx
                     $data = base64_decode($this->xr->readString());
                     $imageId = $this->xr->getAttribute('name');
                     $path = $this->tmpdir . '/' . $this->xr->getAttribute('name') . '.jpg';
-                    echo 'HERE IS THE PATH' . $path;
                     if(!file_exists($path)){
                        file_put_contents($path, $data); 
                     }
