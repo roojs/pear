@@ -6,10 +6,7 @@ $PHPWord = new Document_Word_Writer();
 
 // New portrait section
 $section = $PHPWord->createSection();
-$text = "The quick brown fox jumped over the lazy dog.";
-$newtext = wordwrap($text, 20, "<br />\n");
 
-echo $newtext;
 // Add table
 $table = $section->addTable();
 
