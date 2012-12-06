@@ -100,9 +100,7 @@ class File_Convert_AbiToDocx
             }
             $this->setNodeStyle('p', 'props'); // Define p style
             $pStyle = $this->style['p'];
-            echo $this->xr->depth;
-            $text = $this->xr->readInnerXML();
-            print_r($string);
+            echo $this->xr->depth . '<br/>';
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
                 if($pStyle == 'Normal'){
