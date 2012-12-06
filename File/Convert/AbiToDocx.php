@@ -98,6 +98,7 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('p', 'props'); // Define p style
             $pStyle = $this->style['p'];
             if($this->lastNode == 'cell'){
+                $this->lastNode = '';
                 if($pStyle == 'Normal'){
                     $pStyle = $this->style['Normal'];
                 }
