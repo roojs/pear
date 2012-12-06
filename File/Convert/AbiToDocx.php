@@ -101,7 +101,7 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('p', 'props'); // Define p style
             $pStyle = $this->style['p'];
             $text = $this->xr->readInnerXML();
-           
+            $matched = preg_match('/[^<image] | [^<a]/', $text, $string);
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
                 if($pStyle == 'Normal'){
