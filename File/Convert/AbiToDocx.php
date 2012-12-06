@@ -99,7 +99,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->xr->next('a');
-            echo $this->xr-name.'<br/>';;
+            echo $this->xr->name.'<br/>';;
             $this->setNodeStyle('p', 'props'); // Define p style
             $pStyle = $this->style['p'];
             if($this->lastNode == 'cell'){
