@@ -40,7 +40,7 @@ class File_Convert_AbiToDocx
                 if(!$this->xr->open($this->fileName)){
                     return PEAR::raiseError('Failed to open input file.');
                 }
-                echo $this->pass;
+                echo 'HERE : ' . $this->pass;
                 while ($this->xr->read()){
                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         continue;
