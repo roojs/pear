@@ -157,18 +157,17 @@ class File_Convert_AbiToDocx
         {
             $changeType = preg_replace('/[^a-z]/', '', $wh);
             $num = preg_replace('/[^0-9.]/', '', $wh);
-            if($type == 'image'){
-                if($changeType == 'in'){
-                    return $num * 75;
-                }else{
-                    return $num;
-                }
-            }
             if($type == 'table'){
                 if($changeType == 'in'){
                     return $num * 1435;
                 }elseif($changeType == 'cm'){
                     return $num * 567;
+                }else{
+                    return $num;
+                }
+            }else{
+                if($changeType == 'in'){
+                    return $num * 75;
                 }else{
                     return $num;
                 }
