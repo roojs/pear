@@ -159,6 +159,8 @@ class File_Convert_AbiToDocx
             if($type == 'image'){
                 if($changeType == 'in'){
                     return $num * 75;
+                }else{
+                    return $num;
                 }
             }
             if($changeType == 'in'){
