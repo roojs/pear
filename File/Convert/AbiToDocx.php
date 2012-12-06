@@ -115,7 +115,7 @@ class File_Convert_AbiToDocx
         function parseWH($wh)
         {
             $num = preg_replace('/[^0-9.]/', '', $wh);
-            return $num;
+            return $num * 10000;
         }
         
         function handle_d()
