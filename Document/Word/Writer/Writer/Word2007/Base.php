@@ -384,18 +384,21 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
 		if($_cRows > 0) {
 			$objWriter->startElement('w:tbl');
+                        $objWriter->startElement('w:tblPr');
 				$tblStyle = $table->getStyle();
 				if($tblStyle instanceof Document_Word_Writer_Style_Table) {
 					$this->_writeTableStyle($objWriter, $tblStyle);
 				} else {
 					if(!empty($tblStyle)) {
-						$objWriter->startElement('w:tblPr');
+						
                                                 $objWriter->startElement('w:tblStyle');
                                                 $objWriter->writeAttribute('w:val', $tblStyle);
                                                 $objWriter->endElement();
-                                                $objWriter->endElement();
+                                                
+                                                
 					}
 				}
+                                $objWriter->endElement();
 //                                $widths = array();
 //                                for($i=0; $i<$_cRows; $i++) {
 //                                    foreach( $_rows[$i] as $i=>$cell) {
