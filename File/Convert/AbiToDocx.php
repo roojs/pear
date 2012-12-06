@@ -21,6 +21,7 @@ class File_Convert_AbiToDocx
                 require_once __DIR__ . '/../../System.php';
                // $this->tmpdir  = System::mktemp("-d abitodocx");
                 $this->tmpdir  = '/tmp';
+                $this->lastNode = '';
                 // New Word Document
                 $this->writer = new Document_Word_Writer();
                 $this->section = $this->writer->createSection();
@@ -101,7 +102,19 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->cellStyle = $this->parseProps($this->xr->getAttribute('props'));
-            print_r($this->cellStyle);
+            if($this->cellStyle['colunmNum'] == 0){
+                $height = array_key_exists('height'.$this->cellStyle['rowNum'], $this->tableStyle) ? $this->parseWH($this->tableStyle['height'.$this->cellStyle['rowNum']]) : '';
+                $this->table->addRow($height);
+            }
+            $width = array_key_exists('width'.  $this->cellStyle['colunmNum'], $this->tableStyle) ? $this->parseWH($this->tableStyle['width'.  $this->cellStyle['colunmNum']]) : '';
+            $this->cell = $this->table->addCell($width, $this->cellStyle);
+            $this->lastNode = 'cell';
+        }
+        
+        function handle_p()
+        {
+            $this->pStyle = $this->parseProps($this->xr->getAttribute('props'));
+            
         }
         
         function handle_pbr() 
@@ -199,6 +212,11 @@ class File_Convert_AbiToDocx
 //                $section->addImage($path, array('width'=>$this->inchToPx($width), 'height'=>$this->inchToPx($height), 'align'=>'center'));
 //            }
 //        }
+        
+        public function setNodeStyle($node, $attrName)
+        {
+            $this->style[$node] = $this->parseProps($this->xr->getAttribute($attrName));
+        }
         
         public function parseProps($attribute)
         {
