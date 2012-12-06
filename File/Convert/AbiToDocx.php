@@ -152,7 +152,7 @@ class File_Convert_AbiToDocx
         function handle_pbr() 
         {
             $this->section = $this->writer->createSection();
-            $sectionStyle = $this->getSettings();
+            $sectionStyle = $this->section->getSettings();
             $sectionStyle->borderTopColor('00FF00');
         }
         
