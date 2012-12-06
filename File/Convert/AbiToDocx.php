@@ -69,7 +69,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->setNodeStyle('table', 'props'); // Define table style
-           // $this->table = $this->section->addTable(); // Add table
+            $this->table = $this->section->addTable(); // Add table
         }
         
         function handle_cell()
@@ -83,7 +83,7 @@ class File_Convert_AbiToDocx
                 if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table'])){
                     $height = $this->parseWH($this->style['table']['height' . $this->style['cell']['rowNum']]);
                 }
-              //  $this->table->addRow($height);
+                $this->table->addRow($height);
             }
             print_r($this->table);
             $width = '';
