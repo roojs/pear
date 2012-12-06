@@ -114,26 +114,14 @@ class File_Convert_AbiToDocx
             if ($this->pass == 2) {
                 return;
             }
-            
-            $this->xr = new XMLReader();
-            if(!$this->xr->open($this->fileName)){
-                    return PEAR::raiseError('Failed to open input file.');
-                }
             //create the image source if not exist!
-            while ($this->xr->read()){
-                if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
-                    continue;
-                }
-                if($this->xr->name === 'd'){
-                    $data = base64_decode($this->xr->readString());
-                    $imageId = $this->xr->getAttribute('name');
-                    $path = $this->tmpdir . '/' . $this->xr->getAttribute('name') . '.jpg';
-                    if(!file_exists($path)){
-                       file_put_contents($path, $data); 
-                    }
-                }
-            }
-            $this->xr->close();
+            $data = base64_decode($this->xr->readString());
+            $imageId = $this->xr->getAttribute('name');
+            $path = $this->tmpdir . '/' . $imageId . '.jpg';
+            if(!file_exists($path)){
+               file_put_contents($path, $data); 
+            }   
+           
         }
 //                    // Handle All The Elements
 //                    if($xr->name === 'table'){
