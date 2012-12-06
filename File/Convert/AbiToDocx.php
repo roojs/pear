@@ -259,7 +259,8 @@ class File_Convert_AbiToDocx
         public function saveDocx($fn){
             require_once __DIR__ . '/../../Document/Word/Writer/IOFactory.php';
             $objWriter = Document_Word_Writer_IOFactory::createWriter($this->writer, 'Word2007');
-            $objWriter->save($this->tmpdir . '/' . $fn);
+            //$objWriter->save($this->tmpdir . '/' . $fn);
+            $objWriter->save($this->tmpdir . '/abiTodocx.docx');
         }
 //        
 //        public function getAbiFileName() 
