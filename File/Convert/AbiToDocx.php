@@ -157,6 +157,20 @@ class File_Convert_AbiToDocx
             $this->section = $this->writer->createSection();
         }
         
+        function handle_d()
+        {
+            if ($this->pass == 2) {
+                return;
+            }
+            $data = base64_decode($this->xr->readString()); // Create the image source if not exist!
+            $imageId = $this->xr->getAttribute('name');
+            $path = $this->tmpdir . '/' . $imageId . '.jpg';
+            if(!file_exists($path)){
+               file_put_contents($path, $data); 
+            }   
+           
+        }
+        
         function parseWH($wh,$type=null)
         {
             $changeType = preg_replace('/[^a-z]/', '', $wh);
@@ -176,20 +190,6 @@ class File_Convert_AbiToDocx
                 return $num;
             }
             
-        }
-        
-        function handle_d()
-        {
-            if ($this->pass == 2) {
-                return;
-            }
-            $data = base64_decode($this->xr->readString()); // Create the image source if not exist!
-            $imageId = $this->xr->getAttribute('name');
-            $path = $this->tmpdir . '/' . $imageId . '.jpg';
-            if(!file_exists($path)){
-               file_put_contents($path, $data); 
-            }   
-           
         }
         
 //        public function drawTable($section, $xr){
