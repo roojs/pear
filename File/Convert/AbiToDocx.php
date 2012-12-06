@@ -101,7 +101,7 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('p', 'props'); // Define p style
             $pStyle = $this->style['p'];
             $pObj = $this->xr->expand();
-            echo $pObj->childNodes->length;
+            echo $pObj->childNodes->length . '<br/>';
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
                 if($pStyle == 'Normal'){
