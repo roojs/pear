@@ -408,7 +408,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                     $objWriter->startElement('w:tblGrid');
                                     foreach(widths as $w)
                                         $objWriter->startElement('w:gridCol');
-                                        $objWriter->writeAttribute('w:w', $widths);
+                                        $objWriter->writeAttribute('w:w', $w);
                                         $objWriter->endElement();
                                     }
                                     $objWriter->endElement();
