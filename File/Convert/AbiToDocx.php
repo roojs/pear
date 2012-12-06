@@ -102,7 +102,6 @@ class File_Convert_AbiToDocx
                 if($pStyle == 'Normal'){
                     $pStyle = $this->style['Normal'];
                 }
-                echo iconv(mb_detect_encoding($this->xr->readString()), "UTF-8", $this->xr->readString());
                 $this->cell->addText(wordwrap($this->xr->readString(),20,"<br/>\n"), $pStyle);
             }
             
