@@ -127,9 +127,7 @@ class File_Convert_AbiToDocx
                 $this->lastNode = '';
                 $linkHref = $this->xr->getAttribute('xlink:href');
                 $linkName = $this->xr->readString();
-                print_r($linkHref);
-                print_r($linkName);
-                $this->cell->addLink('fsafsd');
+                $this->cell->addLink($linkHref, $linkName);
                 
             }
         }
