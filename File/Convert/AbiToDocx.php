@@ -78,13 +78,13 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->setNodeStyle('cell', 'props'); // Define cell style
-            if($this->style['cell']['colunmNum'] == 0){
-                $this->cellHeight = '';
-                if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table'])){
-                    $this->cellHeight = $this->parseWH($this->style['table']['height' . $this->style['cell']['rowNum']]);
-                }
-                
+            
+            $this->cellHeight = '';
+            if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table'])){
+                $this->cellHeight = $this->parseWH($this->style['table']['height' . $this->style['cell']['rowNum']]);
             }
+                
+            
             $this->cellWidth = '';
             if(array_key_exists('width' . $this->style['cell']['colunmNum'], $this->style['table'])){
                 $this->cellWidth = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']]);
@@ -97,7 +97,9 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('p', 'props'); // Define p style
             $pStyle = $this->style['p'];
             if($this->lastNode == 'cell'){
-                $this->table->addRow($this->cellHeight);
+                if($this->style['cell']['colunmNum'] == 0){
+                    $this->table->addRow($this->cellHeight);
+                }
                 $this->lastNode = '';
                 if($pStyle == 'Normal'){
                     $pStyle = $this->style['Normal'];
