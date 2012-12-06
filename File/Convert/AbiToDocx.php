@@ -68,18 +68,8 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $cellStyle = array('textDirection'=>PHPWord_Style_Cell::TEXT_DIR_BTLR, 			 'bgColor'=>'C0C0C0');
-
-$table = $section->addTable();
-$table->addRow(1000);
-$table->addCell(2000, $cellStyle)->addText('Cell 1');
-$table->addCell(2000, $cellStyle)->addText('Cell 2');
-$table->addCell(2000, $cellStyle)->addText('Cell 3');
-$table->addRow();
-$table->addCell(2000)->addText('Cell 4');
-$table->addCell(2000)->addText('Cell 5');
-$table->addCell(2000)->addText('Cell 6');
-
+            $this->setNodeStyle('table', 'props'); // Define table style
+            $this->table = $this->section->addTable(); // Add table
         }
         
         function handle_cell()
