@@ -100,7 +100,7 @@ class File_Convert_AbiToDocx
             }
             $this->setNodeStyle('p', 'props'); // Define p style
             $pStyle = $this->style['p'];
-            if($this->xr->readInnteXML() == '<a xlink:href="http://www.ahnews.org/news/7334.html" xid="145">http://www.ahnews.org/news/7334.html</a>')
+            if($this->xr->readInnerXML() == '<a xlink:href="http://www.ahnews.org/news/7334.html" xid="145">http://www.ahnews.org/news/7334.html</a>')
                 echo 'ddd';
             echo $this->xr->depth . '<br/>';
             if($this->lastNode == 'cell'){
