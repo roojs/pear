@@ -69,6 +69,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->setNodeStyle('table', 'props'); // Define table style
+            print_r($this->style['table']);
             $this->table = $this->section->addTable(); // Add table
         }
         
