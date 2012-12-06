@@ -15,7 +15,7 @@ $cellStyle = array('bgColor'=>'C0C0C0');
 $table = $section->addTable();
 $table->addRow(1000);
 $table->addCell(2000, $cellStyle)->addText('Cell 1');
-$table->addCell(2000, $cellStyle)->addText('Cell 2ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+$table->addCell(2000, $cellStyle)->addText('Cell 2');
 $table->addCell(2000, $cellStyle)->addText('Cell 3');
 $table->addRow();
 $table->addCell(2000)->addText('Cell 4');
