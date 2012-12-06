@@ -130,8 +130,8 @@ class Document_Word_Writer_Section_Table_Cell
 	 */
 	public function addLink($linkSrc, $linkName = null, $style = null) 
         {
-                require_once __DIR__ . '/Media.php';
-                require_once __DIR__ . '/Section/Link.php';
+                require_once __DIR__ . '/../../Media.php';
+                require_once __DIR__ . '/../Link.php';
 		if($this->_insideOf == 'section') {
 			$linkSrc = utf8_encode($linkSrc);
 			if(!is_null($linkName)) {
