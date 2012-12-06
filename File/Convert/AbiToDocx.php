@@ -142,7 +142,7 @@ class File_Convert_AbiToDocx
             }
             $this->setNodeStyle('image', 'props'); // Define image style
             $image = $this->xr->getAttribute('dataid');
-            array_map(array('File_Convert_AbiToDocx','parseWH'), $this->style['image'], 'image');
+            array_map(array($this,'parseWH'), $this->style['image'], 'image');
             print_r($this->style);
             $this->section->addImage($this->tmpdir . '/' . $image . '.jpg', array('width'=>210, 'height'=>210, 'align'=>'center'));
             
