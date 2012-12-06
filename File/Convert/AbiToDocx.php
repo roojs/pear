@@ -100,9 +100,9 @@ class File_Convert_AbiToDocx
             }
             $this->setNodeStyle('p', 'style'); // Define p style
             $pStyle = $this->style['p'];
-            
-            if(strpos($this->xr->readInnerXML(), '<a') || strpos($this->xr->readInnerXML(), '<image')){
-                echo 'ddd';
+            $pObj = $this->expand();
+            foreach($pObj->childNodes as $node){
+                echo $node->nodeName . ' : ' . $node->nodeValue;
             }
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
