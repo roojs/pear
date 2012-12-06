@@ -45,12 +45,13 @@ class File_Convert_AbiToDocx
                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         continue;
                     }
-                    $method = 'handle_'.$this->xr->name;
-                    if (!method_exists($this, $method)) {
-//                        echo "NOT HANLED {$this->xr->name} <br/>";
-                    }else{
-                        $this->$method();   
-                    }
+                    echo $this->xr->name . '<br/>';
+//                    $method = 'handle_'.$this->xr->name;
+//                    if (!method_exists($this, $method)) {
+////                        echo "NOT HANLED {$this->xr->name} <br/>";
+//                    }else{
+//                        $this->$method();   
+//                    }
                 }
         }
         
@@ -70,9 +71,9 @@ class File_Convert_AbiToDocx
                 return;
             }
             // Define table style arrays
-            $tableStyle = $this->parseProps($this->xr->getAttribute('props'));
+            $this->tableStyle = $this->parseProps($this->xr->getAttribute('props'));
             // Add table
-            $table = $this->section->addTable();
+            $this->table = $this->section->addTable();
             // Convert xr Element to DOM Object
             $tableObj = $this->parseAbiDom($this->xr);
             // Draw The Table
@@ -88,12 +89,16 @@ class File_Convert_AbiToDocx
                         if($pObj->nodeName === 'p'){
                             $pStyle = $this->parseProps($pObj->getAttribute('style'));
                             $width = array_key_exists('width'.$cellStyle['colunmNum'], $tableStyle) ? $this->parseWH($tableStyle['width'.$cellStyle['colunmNum']]) : '';
-                            $width = preg_replace('/[^0-9.]/', '', $width);
-                            $table->addCell($this->inchToPx($width), $cellStyle)->addText($pObj->nodeValue, $pStyle);
+                            $table->addCell($width, $cellStyle)->addText($pObj->nodeValue, $pStyle);
                         }
                     }
                 }
              }
+        }
+        
+        function handle_cell()
+        {
+            
         }
         
         function handle_pbr() 
