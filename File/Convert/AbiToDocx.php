@@ -114,6 +114,7 @@ class File_Convert_AbiToDocx
         
         function parseWH($wh)
         {
+            print_r($wh);
             $num = preg_replace('/[^0-9.]/', '', $wh);
             return $num * $this->DPI;
         }
