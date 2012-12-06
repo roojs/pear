@@ -104,7 +104,6 @@ class File_Convert_AbiToDocx
             if(strpos($this->xr->readInnerXML(), 'xlink') || strpos($this->xr->readInnerXML(), 'image')){
                 return;
             }
-            
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
                 if($pStyle == 'Normal'){
