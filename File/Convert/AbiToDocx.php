@@ -102,7 +102,7 @@ class File_Convert_AbiToDocx
             $pStyle = $this->style['p'];
             $pObj = $this->xr->expand();
             if($pObj->hasChildNodes()){
-                echo 'yes!';
+                echo 'yes!<br/>' ;
             }
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
