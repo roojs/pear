@@ -119,10 +119,11 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->setNodeStyle('a', 'props'); // Define p style
-            $pStyle = $this->style['p'];
+            $this->setNodeStyle('a', 'props'); // Define a style
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
+                $this->cell->addText($this->section->addLink('http://www.google.com', 'Best search engine'));
+                $section->addLink(;
                 
             }
         }
