@@ -112,7 +112,9 @@ class File_Convert_AbiToDocx
         
         function handle_image()
         {
-            
+            if ($this->pass != 2) {
+                return;
+            }
         }
         
 //        function handle_pbr() 
