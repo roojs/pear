@@ -23,11 +23,11 @@ class File_Convert_AbiToDocx
                 $this->tmpdir  = '/tmp';
                 // New Word Document
                 $this->writer = new Document_Word_Writer();
+                $this->section = $this->writer->createSection();
                 $this->pass = 1;
                 $this->parseAbi();
                 $this->pass = 2;
                 $this->parseAbi();
-               print_r($this);
 //                $this->saveDocx( $fn ); // uses this->writer...
                 
                 
@@ -64,13 +64,38 @@ class File_Convert_AbiToDocx
             
         }
         
-        function handle_Table() 
+        function handle_table() 
         {
             if ($this->pass != 2) {
                 return;
             }
-            
-            
+            // Define table style arrays
+            $tableStyle = $this->parseProps($this->xr->getAttribute('props'));
+            // Add table
+            $table = $this->section->addTable();
+            // Convert xr Element to DOM Object
+            $tableObj = $this->parseAbiDom($this->xr);
+            // Draw The Table
+            foreach($tableObj->childNodes as $cellObj){
+                print_r($cellObj->nodeName);
+                if($cellObj->nodeName === 'cell'){
+                    $cellStyle = $this->parseProps($cellObj->getAttribute('props'));
+                    if($cellStyle['colunmNum'] == 0) {
+                        $height = array_key_exists('height'.$cellStyle['rowNum'], $tableStyle) ? $tableStyle['height'.$cellStyle['rowNum']] : '';
+                        $height = preg_replace('/[^0-9.]/', '', $height);
+                        $table->addRow($this->inchToPx($height));
+                    }   
+
+                    foreach($cellObj->childNodes as $pObj){
+                        if($pObj->nodeName === 'p'){
+                            $pStyle = $this->parseProps($pObj->getAttribute('style'));
+                            $width = array_key_exists('width'.$cellStyle['colunmNum'], $tableStyle) ? $tableStyle['width'.$cellStyle['colunmNum']] : '';
+                            $width = preg_replace('/[^0-9.]/', '', $width);
+                            $table->addCell($this->inchToPx($width), $cellStyle)->addText($pObj->nodeValue, $pStyle);
+                        }
+                    }
+                }
+             }
         }
         
         function handle_pbr() 
@@ -80,7 +105,7 @@ class File_Convert_AbiToDocx
         
         function parseAbiDom($node)
         {
-            
+            return $node->expand();
             
         }
         
