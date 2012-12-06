@@ -393,17 +393,16 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                                 $objWriter->startElement('w:tblStyle');
                                                 $objWriter->writeAttribute('w:val', $tblStyle);
                                                 $objWriter->endElement();
-						$objWriter->endElement();
 					}
 				}
                                 $widths = array();
                                 for($i=0; $i<$_cRows; $i++) {
                                     foreach( $_rows[$i] as $i=>$cell) {
-                                        if (!isset widths[$i])) {
-                                            widths[i] = $cell->getWidth();
+                                        if (!isset($widths[$i])) {
+                                            $widths[i] = $cell->getWidth();
                                             continue;
                                         }
-                                        widths[i] = max(widths[i], $cell->getWidth())
+                                        $widths[i] = max($widths[i], $cell->getWidth());
                                              
                                     }
                                     $objWriter->startElement('w:tblGrid');
