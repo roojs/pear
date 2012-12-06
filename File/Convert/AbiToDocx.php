@@ -103,7 +103,7 @@ class File_Convert_AbiToDocx
             $pObj = $this->xr->expand();
             $skipNode = array('a','image');
             foreach($pObj->childNodes as $node){
-                if($node->nodeName == 'a' || $node->nodeName)
+                if(in_array($node->nodeName, $skipNode))
             }
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
