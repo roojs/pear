@@ -10,7 +10,7 @@ class File_Convert_AbiToDocx
         
 	public function __construct() 
         {
-                $this->DPI = 75; // Convert inch to px;
+                
                 
         }
         
