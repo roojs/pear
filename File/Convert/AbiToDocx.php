@@ -95,16 +95,16 @@ class File_Convert_AbiToDocx
         
         function handle_p()
         {
-            $this->setNodeStyle('p', 'props'); // Define p style
-            $pStyle = $this->style['p'];
-            if($this->lastNode == 'cell'){
-                $this->lastNode = '';
-                if($pStyle == 'Normal'){
-                    $pStyle = $this->style['Normal'];
-                }
-                $this->cell->addText($this->xr->readString(), $pStyle);
-            }
-            
+//            $this->setNodeStyle('p', 'props'); // Define p style
+//            $pStyle = $this->style['p'];
+//            if($this->lastNode == 'cell'){
+//                $this->lastNode = '';
+//                if($pStyle == 'Normal'){
+//                    $pStyle = $this->style['Normal'];
+//                }
+//                $this->cell->addText($this->xr->readString(), $pStyle);
+//            }
+//            
         }
         
 //        function handle_pbr() 
