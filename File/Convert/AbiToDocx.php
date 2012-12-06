@@ -59,7 +59,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $styleName = $xr->getAttribute('name');
-            $this->$styleName = $this->parseProps($xr->getAttribute('props'));
+            $this->styleName = $this->parseProps($xr->getAttribute('props'));
             print_r($this->styleName);
             
         }
