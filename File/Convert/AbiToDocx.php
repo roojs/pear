@@ -123,11 +123,14 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->setNodeStyle('a', 'props'); // Define a style
+            $linkHref = $this->xr->getAttribute('xlink:href');
+                $linkName = $this->xr->readString();
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
-                $linkHref = $this->xr->getAttribute('xlink:href');
-                $linkName = $this->xr->readString();
+                
                 $this->cell->addLink($linkHref, $linkName);
+                
+            }else{
                 
             }
         }
