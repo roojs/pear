@@ -112,7 +112,7 @@ class File_Convert_AbiToDocx
                 if($pStyle == 'Normal'){
                     $pStyle = $this->style['Normal'];
                 }
-                $this->cell->addText("<a herf='http://www.google.com'>aaaaaa</a>", $pStyle);
+                $this->cell->addText($this->xr->readString(), $pStyle);
             }
             
         }
@@ -125,7 +125,7 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('a', 'props'); // Define a style
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
-                $this->cell->addLink('http://www.google.com', 'Best search engine');
+                $this->section->addLink('http://www.google.com', 'Best search engine');
                 
             }
         }
