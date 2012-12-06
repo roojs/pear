@@ -10,15 +10,17 @@ $section = $PHPWord->createSection();
 // Add table
 $table = $section->addTable();
 
-for($r = 1; $r <= 10; $r++) { // Loop through rows
-	// Add row
-	$table->addRow();
-	
-	for($c = 1; $c <= 5; $c++) { // Loop through cells
-		// Add Cell
-		$table->addCell(1750)->addText("Row $r, Cell $c");
-	}
-}
+$cellStyle = array('textDirection'=>PHPWord_Style_Cell::TEXT_DIR_BTLR, 			 'bgColor'=>'C0C0C0');
+
+$table = $section->addTable();
+$table->addRow(1000);
+$table->addCell(2000, $cellStyle)->addText('Cell 1');
+$table->addCell(2000, $cellStyle)->addText('Cell 2');
+$table->addCell(2000, $cellStyle)->addText('Cell 3');
+$table->addRow();
+$table->addCell(2000)->addText('Cell 4');
+$table->addCell(2000)->addText('Cell 5');
+$table->addCell(2000)->addText('Cell 6');
 
 // Save File
 require_once __DIR__ . '/../Writer/IOFactory.php';
