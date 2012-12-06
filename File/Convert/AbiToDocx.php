@@ -149,10 +149,10 @@ class File_Convert_AbiToDocx
             
         }
         
-//        function handle_pbr() 
-//        {
-//            $this->section = $PHPWord->createSection();
-//        }
+        function handle_pbr() 
+        {
+            $this->section = $PHPWord->createSection();
+        }
         
         function parseWH($wh,$type=null)
         {
