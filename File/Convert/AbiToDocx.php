@@ -142,6 +142,7 @@ class File_Convert_AbiToDocx
             }
             $this->setNodeStyle('image', 'props'); // Define image style
             $imageWidth =parseWH($this->style['width'], 'image');
+            $imageHeight =parseWH($this->style['height'], 'image');
             
             
         }
@@ -156,7 +157,9 @@ class File_Convert_AbiToDocx
             $changeType = preg_replace('/[^a-z]/', '', $wh);
             $num = preg_replace('/[^0-9.]/', '', $wh);
             if($type == 'image'){
-                return $num * 75;
+                if($changeType == 'in'){
+                    return $num * 75;
+                }
             }
             if($changeType == 'in'){
                 return $num * 1435;
