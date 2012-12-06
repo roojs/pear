@@ -95,6 +95,9 @@ class File_Convert_AbiToDocx
         
         function handle_p()
         {
+            if ($this->pass != 2) {
+                return;
+            }
             $this->setNodeStyle('p', 'props'); // Define p style
             $pStyle = $this->style['p'];
             if($this->lastNode == 'cell'){
@@ -193,9 +196,6 @@ class File_Convert_AbiToDocx
         
         public function setNodeStyle($node, $attrName)
         {
-            if($this->xr->getAttribute($attrName) == ''){
-                return;
-            }
             $this->style[$node] = $this->parseProps($this->xr->getAttribute($attrName));
         }
         
