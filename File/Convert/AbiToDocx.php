@@ -142,15 +142,8 @@ class File_Convert_AbiToDocx
             }
             $this->setNodeStyle('image', 'props'); // Define image style
             $image = $this->xr->getAttribute('dataid');
-            $imageWidth = '';
-            $imageHeight = '';
-            if(array_key_exists('width', $this->style['image']['width'])){
-                $imageWidth =parseWH($this->style['image']['width'], 'image');
-            }
-            if(array_key_exists('height', $this->style['image']['height'])){
-                $imageHeight =parseWH($this->style['image']['height'], 'image');
-            }
-            $this->section->addImage('', array('width'=>210, 'height'=>210, 'align'=>'center'));
+            print_r($this->style['image'].'<br/>');
+            $this->section->addImage($image . '.jpg', array('width'=>210, 'height'=>210, 'align'=>'center'));
             
         }
         
