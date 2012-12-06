@@ -81,13 +81,13 @@ class File_Convert_AbiToDocx
             if($this->style['cell']['colunmNum'] == 0){
                 $height = '';
                 if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table'])){
-                    $height = $this->parseWH($this->style['table']['height' . $this->style['cell']['rowNum']],'table');
+                    $height = $this->parseWH($this->style['table']['height' . $this->style['cell']['rowNum']],null);
                 }
                 $this->table->addRow($height);
             }
             $this->cellWidth = '';
             if(array_key_exists('width' . $this->style['cell']['colunmNum'], $this->style['table'])){
-                $this->cellWidth = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']],'table');
+                $this->cellWidth = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']],null);
             }
             $this->cell = $this->table->addCell($this->cellWidth, $this->style['cell']);
             $this->lastNode = 'cell';
@@ -142,7 +142,12 @@ class File_Convert_AbiToDocx
             }
             $this->setNodeStyle('image', 'props'); // Define image style
             $image = $this->xr->getAttribute('dataid');
-            $this->style['image'] = array_map(array($this,'parseWH'), array($this->style['image']));
+            if(array_key_exists('width', $this->style['image'])){
+                $imageWidth = $this->style['image']['width'];
+            }
+            if(array_key_exists('height', $this->style['image'])){
+                $imageHeight = $this->style['image']['height'];
+            }
             $this->section->addImage($this->tmpdir . '/' . $image . '.jpg', array('width'=>210, 'height'=>210, 'align'=>'center'));
             
         }
@@ -154,24 +159,21 @@ class File_Convert_AbiToDocx
         
         function parseWH($wh,$type=null)
         {
-            
             $changeType = preg_replace('/[^a-z]/', '', $wh);
             $num = preg_replace('/[^0-9.]/', '', $wh);
-            print_r($wh . '<br/>');
-            if($type == 'table'){
-                if($changeType == 'in'){
-                    return $num * 1435;
-                }elseif($changeType == 'cm'){
-                    return $num * 567;
-                }else{
-                    return $num;
-                }
-            }else{
+            if($type == 'image'){
                 if($changeType == 'in'){
                     return $num * 75;
                 }else{
                     return $num;
                 }
+            }
+            if($changeType == 'in'){
+                return $num * 1435;
+            }elseif($changeType == 'cm'){
+                return $num * 567;
+            }else{
+                return $num;
             }
             
         }
