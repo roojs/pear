@@ -119,7 +119,7 @@ class File_Convert_AbiToDocx
             if($type == 'in'){
                 return $num * $this->DPI;
             }elseif($type == 'cm'){
-                return $num * 37.8 . 'px';
+                return $num * 37.8;
             }else{
                 return $num;
             }
