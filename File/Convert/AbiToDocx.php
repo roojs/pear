@@ -118,7 +118,8 @@ class File_Convert_AbiToDocx
         {
             $this->setNodeStyle('p', 'props'); // Define p style
             if($this->lastNode == 'cell'){
-                $this->cell->addText($this->xr->readString, $this->style['p']);
+                if()
+                $this->cell->addText($this->xr->readString, $pStyle);
             }
             
         }
