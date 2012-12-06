@@ -89,21 +89,21 @@ class File_Convert_AbiToDocx
             if(array_key_exists('width' . $this->style['cell']['colunmNum'], $this->style['table'])){
                 $width = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']]);
             }
-            $this->cell = $this->table->addCell($width, $this->style['cell'])->addText('fffffffffffffffff');
+            $this->cell = $this->table->addCell($width, $this->style['cell']);
             $this->lastNode = 'cell';
         }
         
         function handle_p()
         {
-//            $this->setNodeStyle('p', 'props'); // Define p style
-//            $pStyle = $this->style['p'];
-//            if($this->lastNode == 'cell'){
-//                if($pStyle == 'Normal'){
-//                    $pStyle = $this->style['Normal'];
-//                }
-//                $this->cell->addText($this->xr->readString(), $pStyle);
-//            }
-//            
+            $this->setNodeStyle('p', 'props'); // Define p style
+            $pStyle = $this->style['p'];
+            if($this->lastNode == 'cell'){
+                if($pStyle == 'Normal'){
+                    $pStyle = $this->style['Normal'];
+                }
+                $this->cell->addText($this->xr->readString(), $pStyle);
+            }
+            
         }
         
 //        function handle_pbr() 
