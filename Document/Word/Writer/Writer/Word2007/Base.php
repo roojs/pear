@@ -398,6 +398,9 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                                 
 					}
 				}
+                                $objWriter->startElement('w:tblLayout');
+                                $objWriter->writeAttribute('w:type', 'fixed');
+                                $objWriter->endElement();
                                 $objWriter->endElement();
 //                                $widths = array();
 //                                for($i=0; $i<$_cRows; $i++) {
