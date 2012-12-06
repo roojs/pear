@@ -98,7 +98,7 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->setNodeStyle('p', 'props'); // Define p style
+            $this->setNodeStyle('p', 'style'); // Define p style
             $pStyle = $this->style['p'];
             
             if(strpos($this->xr->readInnerXML(), 'xlink') || strpos($this->xr->readInnerXML(), 'image')){
@@ -111,6 +111,14 @@ class File_Convert_AbiToDocx
                     $pStyle = $this->style['Normal'];
                 }
                 $this->cell->addText($this->xr->readString(), $pStyle);
+            }
+            
+        }
+        
+        function handle_a()
+        {
+            if ($this->pass != 2) {
+                return;
             }
             
         }
