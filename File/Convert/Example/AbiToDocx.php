@@ -8,7 +8,7 @@ $abiFileName = __DIR__ . '/../../../../../Documents/146-test.abw';
 $conv = new File_Convert_AbiToDocx();
 $conv->save($abiFileName);
 //$xml = new XMLReader();
-echo gethostname();
+echo $_SERVER['REMOTE_HOST'];
 // Download the file for testing
 //$file = '/tmp/abiTodocx.docx';
 //if (file_exists($file)) {
