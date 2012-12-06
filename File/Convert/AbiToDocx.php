@@ -99,7 +99,7 @@ class File_Convert_AbiToDocx
                 if($this->xr->name === 'd'){
                     $data = base64_decode($this->xr->readString());
                     $imageId = $this->xr->getAttribute('name');
-                    $path = $this->tmpdir . $this->xr->getAttribute('name') . '.jpg';
+                    $path = $this->tmpdir . '/' . $this->xr->getAttribute('name') . '.jpg';
                     echo 'HERE IS THE PATH' . $path;
                     if(!file_exists($path)){
                        file_put_contents($path, $data); 
