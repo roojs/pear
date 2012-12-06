@@ -83,14 +83,14 @@ class File_Convert_AbiToDocx
                 if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table'])){
                     $height = $this->parseWH($this->style['table']['height' . $this->style['cell']['rowNum']]);
                 }
-                echo 'row height : ' . $height;
+                echo 'row height : ' . $height . '<br/>';
                 $this->table->addRow($height);
             }
             $width = '';
             if(array_key_exists('width' . $this->style['cell']['colunmNum'], $this->style['table'])){
                 $width = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']]);
             }
-            echo 'cell width: ' . $width;
+            echo 'cell width: ' . $width . '<br/>';
             $this->cell = $this->table->addCell($width, $this->style['cell']);
             $this->lastNode = 'cell';
         }
