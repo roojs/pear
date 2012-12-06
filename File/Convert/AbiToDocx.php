@@ -22,6 +22,7 @@ class File_Convert_AbiToDocx
                // $this->tmpdir  = System::mktemp("-d abitodocx");
                 $this->tmpdir  = '/tmp';
                 $this->lastNode = '';
+                $this->style[] = array();
                 // New Word Document
                 $this->writer = new Document_Word_Writer();
                 $this->section = $this->writer->createSection();
