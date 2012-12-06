@@ -20,7 +20,6 @@ class File_Convert_AbiToDocx
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
                 require_once __DIR__ . '/../../System.php';
                 $this->tmpdir  = System::mktemp("-d abitodocx");
-                echo 'tmpdir' . $this->tmpdir; 
                 
                 // New Word Document
                 $this->writer = new Document_Word_Writer();
@@ -60,7 +59,6 @@ class File_Convert_AbiToDocx
             }
             $styleName = $this->xr->getAttribute('name');
             $this->styleName = $this->parseProps($this->xr->getAttribute('props'));
-            print_r($this->styleName);
             
         }
         
@@ -85,23 +83,25 @@ class File_Convert_AbiToDocx
         
         function handle_d()
         {
+            echo 'HERE IS PASS : ' . $this->pass;
             if ($this->pass == 2) {
                 return;
             }
             
-            $xr = new XMLReader();
-            if(!$xr->open($this->fileName)){
+            $this->xr = new XMLReader();
+            if(!$this->xr->open($this->fileName)){
                 die("Failed to open input file.");
             }
             //create the image source if not exist!
-            while ($xr->read()){
-                if ($xr->nodeType == XMLReader::END_ELEMENT) {
+            while ($this->xr->read()){
+                if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                     continue;
                 }
-                if($xr->name === 'd'){
-                    $data = base64_decode($xr->readString());
-                    $imageId = $xr->getAttribute('name');
-                    $path = '/tmp/' . $xr->getAttribute('name') . '.jpg';
+                if($this->xr->name === 'd'){
+                    $data = base64_decode($this->xr->readString());
+                    $imageId = $this->xr->getAttribute('name');
+                    $path = $this->tmpdir . $this->xr->getAttribute('name') . '.jpg';
+                    echo 'HERE IS THE PATH' . $path;
                     if(!file_exists($path)){
                        file_put_contents($path, $data); 
                     }
