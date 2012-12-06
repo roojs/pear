@@ -122,7 +122,9 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->setNodeStyle('a', 'props'); // Define a style
+            if($this->xr->getAttribute){
+                $this->setNodeStyle('a', 'props'); // Define a style
+            }
             $linkHref = $this->xr->getAttribute('xlink:href');
             $linkName = $this->xr->readString();
             print_r($this->style['a']);
