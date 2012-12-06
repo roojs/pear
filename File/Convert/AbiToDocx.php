@@ -125,6 +125,7 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('a', 'props'); // Define a style
             $linkHref = $this->xr->getAttribute('xlink:href');
             $linkName = $this->xr->readString();
+            print_r($this->style['a']);
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
                 $this->cell->addLink($linkHref, $linkName,  $this->style['a']);
