@@ -127,7 +127,7 @@ class File_Convert_AbiToDocx
             $linkName = $this->xr->readString();
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
-                $this->cell->addLink($linkHref, $linkName,  $this->style['p']);
+                $this->cell->addLink($linkHref, $linkName,  $this->style['a']);
             }else{
                 $this->section->addLink($linkHref, $linkName,  $this->style['a']);
             }
