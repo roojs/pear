@@ -10,7 +10,10 @@ $conv->save($abiFileName);
 //$xml = new XMLReader();
 
 // Download the file for testing
-
+if($_SERVER['SERVER_NAME'] == 'localhost')
+{
+    exit;
+}
 $file = '/tmp/abiTodocx.docx';
 if (file_exists($file)) {
     echo 'Prepare for download!!';
