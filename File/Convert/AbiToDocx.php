@@ -45,7 +45,6 @@ class File_Convert_AbiToDocx
                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         continue;
                     }
-                    echo $this->xr->name . '<br/>';
                     $method = 'handle_'.$this->xr->name;
                     if (!method_exists($this, $method)) {
 //                        echo "NOT HANLED {$this->xr->name} <br/>";
