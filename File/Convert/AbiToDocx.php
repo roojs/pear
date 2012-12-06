@@ -98,7 +98,7 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            echo $this->xr->next()->name.'<br/>';
+            echo $this->xr->next('a').'<br/>';
             $this->setNodeStyle('p', 'props'); // Define p style
             $pStyle = $this->style['p'];
             if($this->lastNode == 'cell'){
