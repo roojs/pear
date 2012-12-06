@@ -71,26 +71,6 @@ class File_Convert_AbiToDocx
             }
             $this->setNodeStyle('table', 'props'); // Define table style
             $this->table = $this->section->addTable(); // Add table
-            // Convert xr Element to DOM Object
-//            $tableObj = $this->parseAbiDom($this->xr);
-            // Draw The Table
-//            foreach($tableObj->childNodes as $cellObj){
-//                if($cellObj->nodeName === 'cell'){
-//                    $cellStyle = $this->parseProps($cellObj->getAttribute('props'));
-//                    if($cellStyle['colunmNum'] == 0) {
-//                        $height = array_key_exists('height'.$cellStyle['rowNum'], $tableStyle) ? $this->parseWH($tableStyle['height'.$cellStyle['rowNum']]) : '';
-//                        $table->addRow($height);
-//                    }   
-//
-//                    foreach($cellObj->childNodes as $pObj){
-//                        if($pObj->nodeName === 'p'){
-//                            $pStyle = $this->parseProps($pObj->getAttribute('style'));
-//                            $width = array_key_exists('width'.$cellStyle['colunmNum'], $tableStyle) ? $this->parseWH($tableStyle['width'.$cellStyle['colunmNum']]) : '';
-//                            $table->addCell($width, $cellStyle)->addText($pObj->nodeValue, $pStyle);
-//                        }
-//                    }
-//                }
-//             }
         }
         
         function handle_cell()
@@ -127,28 +107,23 @@ class File_Convert_AbiToDocx
             
         }
         
-        function handle_pbr() 
-        {
+//        function handle_pbr() 
+//        {
 //            $this->section = $PHPWord->createSection();
-        }
+//        }
         
-        function parseAbiDom($node)
-        {
-            return $node->expand();
-            
-        } 
         function parseWH($wh)
         {
             $num = preg_replace('/[^0-9.]/', '', $wh);
             return $num * $this->DPI;
         }
+        
         function handle_d()
         {
             if ($this->pass == 2) {
                 return;
             }
-            //create the image source if not exist!
-            $data = base64_decode($this->xr->readString());
+            $data = base64_decode($this->xr->readString()); // Create the image source if not exist!
             $imageId = $this->xr->getAttribute('name');
             $path = $this->tmpdir . '/' . $imageId . '.jpg';
             if(!file_exists($path)){
@@ -156,26 +131,6 @@ class File_Convert_AbiToDocx
             }   
            
         }
-//                    // Handle All The Elements
-//                    if($xr->name === 'table'){
-//                        //New Section
-//                        $section = $PHPWord->createSection();
-//                        // Draw Table
-//                        $this->drawTable($section, $xr);
-//                    }elseif($xr->name === 'image'){
-//                        //New Section
-//                        $section = $PHPWord->createSection();
-//                        // Draw Image
-//                        $this->drawImage($section,$xr);
-//                    }
-//                }
-//                // Close XML Reader
-//                $xr->close();
-//                // Save File
-//                $this->saveDocx($PHPWord);
-//	}
-//        
-        
         
 //        public function drawTable($section, $xr){
 //                // Define table style arrays
@@ -301,11 +256,11 @@ class File_Convert_AbiToDocx
 //            return $num * 75;
 //        }
 //         
-//        public function saveDocx(Document_Word_Writer $PHPWord){
-//            require_once __DIR__ . '/../../Document/Word/Writer/IOFactory.php';
-//            $objWriter = Document_Word_Writer_IOFactory::createWriter($PHPWord, 'Word2007');
-//            $objWriter->save('/tmp/AbiToDocx.docx');
-//        }
+        public function saveDocx(){
+            require_once __DIR__ . '/../../Document/Word/Writer/IOFactory.php';
+            $objWriter = Document_Word_Writer_IOFactory::createWriter($this->writer, 'Word2007');
+            $objWriter->save('/tmp/AbiToDocx.docx');
+        }
 //        
 //        public function getAbiFileName() 
 //        {
