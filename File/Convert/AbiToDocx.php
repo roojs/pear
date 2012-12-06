@@ -103,7 +103,7 @@ class File_Convert_AbiToDocx
                     $pStyle = $this->style['Normal'];
                 }
                 print_r($this->xr->readString().'<br/>');
-                echo gettype($this->xr->readString);
+                echo gettype($this->xr->readString());
                 $this->cell->addText($this->xr->readString(), $pStyle);
             }
             
