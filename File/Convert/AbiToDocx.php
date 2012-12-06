@@ -102,6 +102,7 @@ class File_Convert_AbiToDocx
                 if($pStyle == 'Normal'){
                     $pStyle = $this->style['Normal'];
                 }
+                print_r($this->xr->readString().'<br/>');
                 $this->cell->addText($this->xr->readString(), $pStyle);
             }
             
