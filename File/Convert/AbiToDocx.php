@@ -185,9 +185,13 @@ class File_Convert_AbiToDocx
             if(count($data) == 1){
                 return $attribute;
             }
-            return $this->convertAttributes($data);
+            return $this->getAttrDetail($data);
         }
         
+        public function getAttrDetail($data)
+        {
+            
+        }
 //        public function convertAttributes($data){
 //            foreach ($data as $attrs){
 //                $attr = explode(':', $attrs);
