@@ -126,7 +126,7 @@ class File_Convert_AbiToDocx
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
                 //$link = $this->section->addLink('http://www.google.com', 'Best search engine');
-                $this->cell->addText('fsafsd');
+                $this->cell->addLink('fsafsd');
                 
             }
         }
