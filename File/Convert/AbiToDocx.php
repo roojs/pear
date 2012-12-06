@@ -25,7 +25,9 @@ class File_Convert_AbiToDocx
                 $this->writer = new Document_Word_Writer();
                 $this->pass = 1;
                 $this->parseAbi();
-               
+                $this->pass = 2;
+                $this->parseAbi();
+               print_r($this);
 //                $this->saveDocx( $fn ); // uses this->writer...
                 
                 
@@ -58,7 +60,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $styleName = $this->xr->getAttribute('name');
-            $this->styleName = $this->parseProps($this->xr->getAttribute('props'));
+            $this->$styleName = $this->parseProps($this->xr->getAttribute('props'));
             
         }
         
@@ -67,6 +69,7 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
+            
             
         }
         
