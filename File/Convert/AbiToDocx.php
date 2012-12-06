@@ -151,6 +151,7 @@ class File_Convert_AbiToDocx
         
         function handle_pbr() 
         {
+            echo 'here<br/>';
             $this->section = $this->writer->createSection();
         }
         
