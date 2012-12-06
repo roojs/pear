@@ -406,14 +406,15 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                         $widths[$i] = max($widths[$i], $cell->getWidth());
                                              
                                     }
-                                    $objWriter->startElement('w:tblGrid');
+                                }
+                                $objWriter->startElement('w:tblGrid');
                                     foreach($widths as $w){
                                         $objWriter->startElement('w:gridCol');
                                         $objWriter->writeAttribute('w:w', $w);
                                         $objWriter->endElement();
                                     }
                                     $objWriter->endElement();
-                                }
+                                
 				$_heights = $table->getRowHeights();
 				for($i=0; $i<$_cRows; $i++) {
 					$row = $_rows[$i];
