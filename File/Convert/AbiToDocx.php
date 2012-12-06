@@ -101,8 +101,9 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('p', 'style'); // Define p style
             $pStyle = $this->style['p'];
             $pObj = $this->xr->expand();
+            $skipNode = array('a','image');
             foreach($pObj->childNodes as $node){
-                echo $node->nodeName . ' : ' . $node->nodeValue . '<br/>';
+                if($node->nodeName == 'a' || $node->nodeName)
             }
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
