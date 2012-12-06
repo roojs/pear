@@ -101,9 +101,7 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('p', 'style'); // Define p style
             $pStyle = $this->style['p'];
             
-            if(strpos($this->xr->readInnerXML(), 'xlink') || strpos($this->xr->readInnerXML(), 'image')){
-                return;
-            }
+            
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
                 if($pStyle == 'Normal'){
