@@ -101,12 +101,16 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('cell', 'props'); // Define cell style
             if($this->style['cell']['colunmNum'] == 0){
                 $height = '';
-                if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table']))
-                $height = array_key_exists('height'.$this->cellStyle['rowNum'], $this->tableStyle) ? $this->parseWH($this->tableStyle['height'.$this->cellStyle['rowNum']]) : '';
+                if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table'])){
+                    $height = $this->parseWH($this->style['table']['height' . $this->style['cell']['rowNum']]);
+                }
                 $this->table->addRow($height);
             }
-            $width = array_key_exists('width'.  $this->cellStyle['colunmNum'], $this->tableStyle) ? $this->parseWH($this->tableStyle['width'.  $this->cellStyle['colunmNum']]) : '';
-            $this->cell = $this->table->addCell($width, $this->cellStyle);
+            $width = '';
+            if(array_key_exists('width' . $this->style['cell']['colunmNum'], $this->style['table'])){
+                $height = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']]);
+            }
+            $this->cell = $this->table->addCell($width, $this->style['cell']);
             $this->lastNode = 'cell';
         }
         
