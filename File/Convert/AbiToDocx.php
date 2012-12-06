@@ -102,7 +102,7 @@ class File_Convert_AbiToDocx
             $pStyle = $this->style['p'];
             
             if(strpos($this->xr->readInnerXML(), '<a') || strpos($this->xr->readInnerXML(), '<image')){
-                return;
+                echo 'ddd';
             }
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
