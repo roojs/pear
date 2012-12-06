@@ -140,6 +140,9 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
+            $this->setNodeStyle('image', 'props'); // Define image style
+            $imageWidth =
+            
             
         }
         
@@ -148,7 +151,7 @@ class File_Convert_AbiToDocx
 //            $this->section = $PHPWord->createSection();
 //        }
         
-        function parseWH($wh)
+        function parseWH($wh,$type)
         {
             $type = preg_replace('/[^a-z]/', '', $wh);
             $num = preg_replace('/[^0-9.]/', '', $wh);
