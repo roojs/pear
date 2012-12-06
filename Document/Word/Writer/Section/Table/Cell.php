@@ -115,7 +115,6 @@ class Document_Word_Writer_Section_Table_Cell
                 require_once __DIR__ . '/../Text.php';
 		//$text = utf8_encode($text);
                 $text = iconv(mb_detect_encoding($text), "UTF-8", $text);
-                $text = wordwrap($text,20,"<br/>\n");
 		$text = new Document_Word_Writer_Section_Text($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $text;
 		return $text;
