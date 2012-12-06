@@ -151,7 +151,7 @@ class File_Convert_AbiToDocx
         
         function handle_pbr() 
         {
-            $this->section = $this->writer->createSection(array('borderColor'=>'00FF00', 'borderSize'=>12));
+            $this->section = $this->writer->createSection();
         }
         
         function parseWH($wh,$type=null)
