@@ -10,7 +10,7 @@ class File_Convert_AbiToDocx
         
 	public function __construct() 
         {
-                
+                $this->DPI = 75; // Convert inch to px;
                 
         }
         
@@ -77,19 +77,17 @@ class File_Convert_AbiToDocx
             $tableObj = $this->parseAbiDom($this->xr);
             // Draw The Table
             foreach($tableObj->childNodes as $cellObj){
-                print_r($cellObj->nodeName);
                 if($cellObj->nodeName === 'cell'){
                     $cellStyle = $this->parseProps($cellObj->getAttribute('props'));
                     if($cellStyle['colunmNum'] == 0) {
-                        $height = array_key_exists('height'.$cellStyle['rowNum'], $tableStyle) ? $tableStyle['height'.$cellStyle['rowNum']] : '';
-                        $height = preg_replace('/[^0-9.]/', '', $height);
-                        $table->addRow($this->inchToPx($height));
+                        $height = array_key_exists('height'.$cellStyle['rowNum'], $tableStyle) ? $this->parseWH($tableStyle['height'.$cellStyle['rowNum']]) : '';
+                        $table->addRow($height);
                     }   
 
                     foreach($cellObj->childNodes as $pObj){
                         if($pObj->nodeName === 'p'){
                             $pStyle = $this->parseProps($pObj->getAttribute('style'));
-                            $width = array_key_exists('width'.$cellStyle['colunmNum'], $tableStyle) ? $tableStyle['width'.$cellStyle['colunmNum']] : '';
+                            $width = array_key_exists('width'.$cellStyle['colunmNum'], $tableStyle) ? $this->parseWH($tableStyle['width'.$cellStyle['colunmNum']]) : '';
                             $width = preg_replace('/[^0-9.]/', '', $width);
                             $table->addCell($this->inchToPx($width), $cellStyle)->addText($pObj->nodeValue, $pStyle);
                         }
@@ -107,8 +105,12 @@ class File_Convert_AbiToDocx
         {
             return $node->expand();
             
+        } 
+        function parseWH($wh)
+        {
+            $num = preg_replace('/[^0-9.]/', '', $wh);
+            return $num * $this->DPI;
         }
-        
         function handle_d()
         {
             if ($this->pass == 2) {
