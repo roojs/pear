@@ -125,8 +125,8 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('a', 'props'); // Define a style
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
-                $link = $this->section->addLink('http://www.google.com', 'Best search engine');
-                $this->cell->addText($link);
+                //$link = $this->section->addLink('http://www.google.com', 'Best search engine');
+                $this->cell->addText('fsafsd');
                 
             }
         }
