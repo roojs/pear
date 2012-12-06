@@ -151,6 +151,9 @@ class File_Convert_AbiToDocx
         
         function handle_pbr() 
         {
+            if ($this->pass != 2) {
+                return;
+            }
             $this->section = $this->writer->createSection();
         }
         
