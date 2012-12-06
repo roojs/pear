@@ -119,7 +119,12 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            
+            $this->setNodeStyle('a', 'props'); // Define p style
+            $pStyle = $this->style['p'];
+            if($this->lastNode == 'cell'){
+                $this->lastNode = '';
+                
+            }
         }
         
         function handle_image()
