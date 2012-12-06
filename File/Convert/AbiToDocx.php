@@ -242,10 +242,10 @@ class File_Convert_AbiToDocx
                         }
                         break;
                     default :
-                        $attrArray[trim($attr[0])] = $prop;
+                        $attrArray[trim($attr[0])] = $attr[1];
                 }
             }
-            return $attrArray;
+            return array_map('trim', $attrArray);
         }
         
 //        public function inchToPx($num){
