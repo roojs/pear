@@ -106,9 +106,6 @@ class File_Convert_AbiToDocx
                 }
             }
             $this->xr->close();
-            
-            $this->pass = 2;
-            $this->parseAbi();
         }
 //                    // Handle All The Elements
 //                    if($xr->name === 'table'){
