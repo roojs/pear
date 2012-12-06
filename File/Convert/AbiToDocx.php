@@ -243,8 +243,6 @@ class File_Convert_AbiToDocx
                         break;
                     default :
                         $attrArray[trim($attr[0])] = $prop;
-                    
-                    
                 }
             }
         }
