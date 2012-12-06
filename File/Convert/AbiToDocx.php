@@ -30,7 +30,7 @@ class File_Convert_AbiToDocx
                 $this->parseAbi();
                 $this->pass = 2;
                 $this->parseAbi();
-//                $this->saveDocx( $fn ); // uses this->writer...
+                $this->saveDocx( $fn ); // uses this->writer...
                 print_r($this->style);
                 
         }
@@ -256,10 +256,10 @@ class File_Convert_AbiToDocx
 //            return $num * 75;
 //        }
 //         
-        public function saveDocx(){
+        public function saveDocx($fn){
             require_once __DIR__ . '/../../Document/Word/Writer/IOFactory.php';
             $objWriter = Document_Word_Writer_IOFactory::createWriter($this->writer, 'Word2007');
-            $objWriter->save('/tmp/AbiToDocx.docx');
+            $objWriter->save($this->tmpdir . '/' . $fn);
         }
 //        
 //        public function getAbiFileName() 
