@@ -10,7 +10,7 @@ $conv->save($abiFileName);
 //$xml = new XMLReader();
 
 // Download the file for testing
-$file = __DIR__ . '/file/abiToDocx.docx';
+$file = '/tmp/abiTodocx.docx';
 if (file_exists($file)) {
     echo 'download';
     header('Content-Description: File Transfer');
