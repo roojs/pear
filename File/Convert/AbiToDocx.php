@@ -89,7 +89,7 @@ class File_Convert_AbiToDocx
             if(array_key_exists('width' . $this->style['cell']['colunmNum'], $this->style['table'])){
                 $width = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']]);
             }
-            $this->cell = $this->table->addCell($width, $this->style['cell']);
+            $this->cell = $this->table->addCell($width);
             $this->lastNode = 'cell';
         }
         
