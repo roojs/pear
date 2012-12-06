@@ -125,7 +125,7 @@ class File_Convert_AbiToDocx
             $data = base64_decode($this->xr->readString()); // Create the image source if not exist!
             $imageId = $this->xr->getAttribute('name');
             //$path = $this->tmpdir . '/' . $imageId . '.jpg';
-            $path = __DIR__ . '/Example/file/' . $imageId . '.jpg';
+            $path = __DIR__ . '/Example/' . $imageId . '.jpg';
             if(!file_exists($path)){
                file_put_contents($path, $data); 
             }   
@@ -260,7 +260,7 @@ class File_Convert_AbiToDocx
             require_once __DIR__ . '/../../Document/Word/Writer/IOFactory.php';
             $objWriter = Document_Word_Writer_IOFactory::createWriter($this->writer, 'Word2007');
             //$objWriter->save($this->tmpdir . '/' . $fn);
-            $objWriter->save(__DIR__ . '/Example/file' . '/abiTodocx.docx');
+            $objWriter->save(__DIR__ . '/Example' . '/abiTodocx.docx');
         }
 //        
 //        public function getAbiFileName() 
