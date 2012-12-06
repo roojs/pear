@@ -12,6 +12,7 @@ $conv->save($abiFileName);
 // Download the file for testing
 $file = '/tmp/abiToDocx.docx';
 if (file_exists($file)) {
+    echo 'download';
     header('Content-Description: File Transfer');
     header('Content-Type: application/octet-stream');
     header('Content-Disposition: attachment; filename='.basename($file));
