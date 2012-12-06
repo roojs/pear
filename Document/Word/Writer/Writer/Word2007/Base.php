@@ -395,26 +395,23 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                                 $objWriter->endElement();
 					}
 				}
-                                $widths = array();
-                                for($i=0; $i<$_cRows; $i++) {
-                                    foreach( $_rows[$i] as $i=>$cell) {
-                                        if (!isset($widths[$i])) {
-                                            $widths[$i] = $cell->getWidth();
-                                            continue;
-                                        }
-                                        $widths[$i] = max($widths[$i], $cell->getWidth());
-                                             
-                                    }
-                                    $objWriter->startElement('w:tblGrid');
-                                    foreach($widths as $w)
-                                        $objWriter->startElement('w:gridCol');
-                                        $objWriter->writeAttribute('w:w', $w);
-                                        $objWriter->endElement();
-                                    }
-                                    $objWriter->endElement();
-                                // add in the widths.
-                               
-                                
+//                                $widths = array();
+//                                for($i=0; $i<$_cRows; $i++) {
+//                                    foreach( $_rows[$i] as $i=>$cell) {
+//                                        if (!isset($widths[$i])) {
+//                                            $widths[$i] = $cell->getWidth();
+//                                            continue;
+//                                        }
+//                                        $widths[$i] = max($widths[$i], $cell->getWidth());
+//                                             
+//                                    }
+//                                    $objWriter->startElement('w:tblGrid');
+//                                    foreach($widths as $w)
+//                                        $objWriter->startElement('w:gridCol');
+//                                        $objWriter->writeAttribute('w:w', $w);
+//                                        $objWriter->endElement();
+//                                    }
+//                                    $objWriter->endElement();
 
 				$_heights = $table->getRowHeights();
 				for($i=0; $i<$_cRows; $i++) {
