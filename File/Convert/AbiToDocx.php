@@ -99,7 +99,6 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->setNodeStyle('cell', 'props'); // Define cell style
-            print_r($this->style['cell']['colunmNum']);
             if($this->style['cell']['colunmNum'] == 0){
                 $height = array_key_exists('height'.$this->cellStyle['rowNum'], $this->tableStyle) ? $this->parseWH($this->tableStyle['height'.$this->cellStyle['rowNum']]) : '';
                 $this->table->addRow($height);
