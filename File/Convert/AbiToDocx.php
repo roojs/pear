@@ -159,6 +159,7 @@ class File_Convert_AbiToDocx
             $num = preg_replace('/[^0-9.]/', '', $wh);
             if($type == 'image'){
                 if($changeType == 'in'){
+                    echo 're';
                     return $num * 75;
                 }else{
                     return $num;
