@@ -107,6 +107,11 @@ class File_Convert_AbiToDocx
             
         }
         
+        function handle_image()
+        {
+            
+        }
+        
 //        function handle_pbr() 
 //        {
 //            $this->section = $PHPWord->createSection();
@@ -188,6 +193,9 @@ class File_Convert_AbiToDocx
         
         public function setNodeStyle($node, $attrName)
         {
+            if($this->xr->getAttribute($attrName) == ''){
+                return;
+            }
             $this->style[$node] = $this->parseProps($this->xr->getAttribute($attrName));
         }
         
