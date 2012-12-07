@@ -335,7 +335,7 @@ class File_Convert_AbiToDocx
  
         function saveDocx($fn){
             require_once __DIR__ . '/../../Document/Word/Writer/IOFactory.php';
-            $objWriter = Document_Word_Writer_IOFactory::createWriter($this->writer, 'Word2007');
+            $objWriter = Document_Word_Writer_IOFactory::createWriter($this->writer, 'Word2003');
             $objWriter->save($fn);
             
         }
