@@ -186,7 +186,7 @@ class File_Convert_AbiToDocx
         
         function handle_section()
         {
-            if ($this->pass == 2) {
+            if ($this->pass != 2) {
                 return;
             }
             
@@ -202,7 +202,7 @@ class File_Convert_AbiToDocx
         
         function handle_field()
         {
-            if ($this->pass == 2) {
+            if ($this->pass != 2) {
                 return;
             }
             $fieldType = $this->xr->getAttribute('type');
@@ -215,7 +215,7 @@ class File_Convert_AbiToDocx
         
         function handle_c()
         {
-            if ($this->pass == 2) {
+            if ($this->pass != 2) {
                 return;
             }
             $this->setNodeStyle('c', 'props'); // Define header style
