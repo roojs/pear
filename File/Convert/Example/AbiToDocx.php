@@ -10,10 +10,10 @@ $conv->save($fn);
 //$xml = new XMLReader();
 
 // Download the file for testing
-if($_SERVER['SERVER_NAME'] == 'localhost')
-{
-    exit;
-}
+//if($_SERVER['SERVER_NAME'] == 'localhost')
+//{
+//    exit;
+//}
 if (file_exists($fn)) {
     echo 'Prepare for download!!';
     header('Content-Description: File Transfer');
