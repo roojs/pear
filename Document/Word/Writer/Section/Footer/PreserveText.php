@@ -83,6 +83,7 @@ class Document_Word_Writer_Section_Footer_PreserveText
 		
 		// Set paragraph style
 		if(is_array($styleParagraph)) {
+                        require_once __DIR__ . '/../../Style/Paragraph.php';
 			$this->_styleParagraph = new Document_Word_Writer_Style_Paragraph();
 			
 			foreach($styleParagraph as $key => $value) {
