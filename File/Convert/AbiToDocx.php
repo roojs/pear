@@ -211,7 +211,7 @@ class File_Convert_AbiToDocx
             $this->style['field'] = array_merge((array)$this->style['field'],(array)  $this->style['p']);
             if($fieldType == 'page_number'){
                 //$this->page_number = true;
-                $this->header->addText('{PAGE}', $this->style['field'],array('align'=>'right'));
+                $this->header->addPreserveText('{PAGE}', $this->style['field'],array('align'=>'right'));
             }
         }
         
