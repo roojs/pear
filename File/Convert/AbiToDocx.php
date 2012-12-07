@@ -216,10 +216,16 @@ class File_Convert_AbiToDocx
             if($this->sectionType == 'header')
             {
                 if($this->xr->readString() != ''){
+                    if(!empty($this->footerText)){
+                        $this->headerText .= '<br/>';
+                    }
                     $this->headerText .= $this->xr->readString();
                 }
             }elseif($this->sectionType == 'footer') {
                 if($this->xr->readString() != ''){
+                    if(!empty($this->footerText)){
+                        $this->footerText .= '<br/>';
+                    }
                     $this->footerText .= $this->xr->readString();
                 }
             }
