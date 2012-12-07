@@ -15,7 +15,7 @@ class File_Convert_AbiToDocx
                 
         }
         
-        function save()
+        function save($fn)
         {
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
                 require_once __DIR__ . '/../../System.php';
@@ -183,10 +183,10 @@ class File_Convert_AbiToDocx
             $sectionType = $this->xr->getAttribute('type');
             if($sectionType == 'header'){
                 $this->sectionType = 'header';
-                $this->header->$this->section->createHeader();
+                $this->header = $this->section->createHeader();
             }elseif($sectionType == 'footer'){
                 $this->sectionType = 'footer';
-                $this->section->createFooter();
+                $this->footer = $this->section->createFooter();
             }
         }
         
@@ -199,7 +199,7 @@ class File_Convert_AbiToDocx
             if($fieldType == 'page_number'){
                 $this->page_number = true;
                 if($this->sectionType == 'header'){
-
+                    $this->header->addPreserveText('{PAGE}', $this->);
                 }elseif($this->sectionType == 'footer'){
                     $footer->addPreserveText('Page {PAGE} of {NUMPAGES}.', array('align'=>'center'));
                 }
