@@ -32,6 +32,7 @@ class File_Convert_AbiToDocx
                 $this->lastNode = '';
                 $this->style[] = array();
                 $this->style['a'] = array('color'=>'0000FF', 'underline'=>'single'); // set default link style
+                $this->page_number = false; // set do not show page number as default
                 $this->sectionType = '';
                 $this->headerText = '';
                 $this->footerText = '';
@@ -209,7 +210,8 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('field', 'props'); // Define field style
             $this->style['field'] = array_merge((array)$this->style['field'],(array)  $this->style['p']);
             if($fieldType == 'page_number'){
-                $this->header->addPreserveText('{PAGE}', $this->style['field']);
+                //$this->page_number = true;
+                $this->header->addText('{PAGE}', $this->style['field'],array('align'=>'right'));
             }
         }
         
