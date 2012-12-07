@@ -12,7 +12,7 @@ $section = $PHPWord->createSection();
 $header = $section->createHeader();
 $table = $header->addTable();
 $table->addRow();
-$table->addCell(4500)->addText('This is the header.');
+$table->addCell(9000)->addText('This is the header.');
 $table->addCell(4500)->addText('_earth.JPG', array('width'=>50, 'height'=>50, 'align'=>'right'));
 
 // Add footer
