@@ -219,11 +219,11 @@ class File_Convert_AbiToDocx
             $this->style['c'] = array_merge((array)$this->style['c'],(array)  $this->style['p']);
             if($this->sectionType == 'header')
             {
-                if($this->xr->readString != ''){
+                if($this->xr->readString() != ''){
                     $this->headerText .= $this->xr->readString();
                 }
             }elseif($this->sectionType == 'footer') {
-                if($this->xr->readString != ''){
+                if($this->xr->readString() != ''){
                     $this->footerText .= $this->xr->readString();
                 }
             }
