@@ -97,6 +97,7 @@ class File_Convert_AbiToDocx
         function handle_p()
         {
             if ($this->pass != 2) {
+                $this->setNodeStyle('p', 'style'); // Define p style
                 return;
             }
             $this->setNodeStyle('p', 'style'); // Define p style
