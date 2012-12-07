@@ -32,6 +32,8 @@ class File_Convert_AbiToDocx
                 $this->parseAbi();
                 $this->pass = 2;
                 $this->parseAbi();
+                $this->header->addText($this->footerText , $this->style['c']);
+                $this->footer->addText($this->footerText , $this->style['c']);
                 $this->saveDocx( $fn ); // uses this->writer...
                 
         }
