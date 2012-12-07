@@ -332,31 +332,12 @@ class File_Convert_AbiToDocx
             }
             return array_map('trim', $attrArray);
         }
-        
-//        public function inchToPx($num){
-//            return $num * 75;
-//        }
 //         
         public function saveDocx($fn){
             require_once __DIR__ . '/../../Document/Word/Writer/IOFactory.php';
             $objWriter = Document_Word_Writer_IOFactory::createWriter($this->writer, 'Word2007');
-            //$objWriter->save($this->tmpdir . '/' . $fn);
-            //$objWriter->save($fn);
             $objWriter->save($fn);
             
         }
-         
-        
-//        
-//        public function getAbiFileName() 
-//        {
-//		return $this->_abiFileName;
-//	}
-//	
-//	public function setProperties($abiFileName) 
-//        {
-//		$this->_abiFileName = $abiFileName;
-//		return $this;
-//	}    
 }
 ?>
