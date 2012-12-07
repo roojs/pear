@@ -25,6 +25,8 @@ class File_Convert_AbiToDocx
                 $this->style['a'] = array('color'=>'0000FF', 'underline'=>'single'); // set default link style
                 $this->page_number = false; // do not show page number as default
                 $this->sectionType = '';
+                $this->headerText = '';
+                $this->footerText = '';
                 $this->writer = new Document_Word_Writer(); // New Word Document
                 $this->section = $this->writer->createSection();
                 $this->pass = 1;
@@ -218,10 +220,12 @@ class File_Convert_AbiToDocx
             if($this->sectionType == 'header')
             {
                 if($this->xr->readString != ''){
-                    $this->headerText = $this->xr->readString();
+                    $this->headerText .= $this->xr->readString();
                 }
             }elseif($this->sectionType == 'footer') {
-                $this->footerText = $this->xr->readString();
+                if($this->xr->readString != ''){
+                    $this->footerText .= $this->xr->readString();
+                }
             }
         }
 
