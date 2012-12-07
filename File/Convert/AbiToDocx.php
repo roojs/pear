@@ -32,8 +32,6 @@ class File_Convert_AbiToDocx
                 $this->parseAbi();
                 $this->pass = 2;
                 $this->parseAbi();
-                $this->header->addText($this->headerText , $this->style['c']);
-                $this->footer->addText($this->footerText , $this->style['c']);
                 $this->saveDocx( $fn ); // uses this->writer...
                 
         }
@@ -216,17 +214,11 @@ class File_Convert_AbiToDocx
             if($this->sectionType == 'header')
             {
                 if($this->xr->readString() != ''){
-                    if(!empty($this->footerText)){
-                        $this->headerText .= '<br/>';
-                    }
-                    $this->headerText .= $this->xr->readString();
+                    $this->header->addText($this->xr->readString() , $this->style['c']);
                 }
             }elseif($this->sectionType == 'footer') {
                 if($this->xr->readString() != ''){
-                    if(!empty($this->footerText)){
-                        $this->footerText .= '<br/>';
-                    }
-                    $this->footerText .= $this->xr->readString();
+                    $this->footer->addText($this->xr->readString() , $this->style['c']);
                 }
             }
         }
