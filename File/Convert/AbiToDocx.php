@@ -43,7 +43,7 @@ class File_Convert_AbiToDocx
                 }
                 
                 while ($this->xr->read()){
-                    if ($this->xr->nodeType == XMLReader::END_ELEMENT && $this->pass == 2) {
+                    if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         continue;
                     }
                     $method = 'handle_'.$this->xr->name;
@@ -204,6 +204,7 @@ class File_Convert_AbiToDocx
                 $this->setNodeStyle('header', 'props'); // Define header style
                 $this->headerText = $this->xr->readString();
             }elseif($this->sectionType == 'footer') {
+                echo $this->xr->depth . '<br/>';
                 $this->setNodeStyle('footer', 'props'); // Define footer style
                 $this->footerText = $this->xr->readString();
             }
