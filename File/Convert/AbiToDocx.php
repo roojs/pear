@@ -140,6 +140,7 @@ class File_Convert_AbiToDocx
             }
             $linkHref = $this->xr->getAttribute('xlink:href');
             $linkName = $this->xr->readString();
+            $this->style['a'] = array_merge((array)$this->style['a'],(array)  $this->style['p']);
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
                 $this->cell->addLink($linkHref, $linkName,  $this->style['a']);
