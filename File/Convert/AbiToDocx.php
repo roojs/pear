@@ -96,14 +96,15 @@ class File_Convert_AbiToDocx
         
         function handle_p()
         {
-            if ($this->pass != 2) {
-                $this->setNodeStyle('p', 'prop'); // Define p style
-                return;
-            }
             $this->setNodeStyle('p', 'prop'); // Define p style
             if($this->xr->getAttribute('Style') == 'Normal'){
                 $this->style['p'] = array_merge((array)$this->style['Normal'],(array)  $this->style['p']);
             }
+            if ($this->pass != 2) {
+                $this->setNodeStyle('p', 'prop'); // Define p style
+                return;
+            }
+            
             $pObj = $this->xr->expand();
             $skipNode = array('a','image');
             foreach($pObj->childNodes as $node){
