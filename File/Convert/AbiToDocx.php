@@ -309,7 +309,6 @@ class File_Convert_AbiToDocx
         {
             foreach ($data as $attrs){
                 $attr = explode(':', $attrs);
-                print_r($attr);
                 switch (trim($attr[0])){
                     case 'table-column-props':
                         $props = explode('/', $attr[1]);
