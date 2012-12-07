@@ -4,7 +4,7 @@ require_once __DIR__ . '/../AbiToDocx.php';
 
 //Example AbiWord file
 $abiFileName = __DIR__ . '/../../../../../Documents/ExportBookWord.abw';
-$fn = '/tmp/abiword.docx';
+$fn = '/tmp/ExportBookWord.docx';
 $conv = new File_Convert_AbiToDocx($abiFileName);
 $conv->save($fn);
 //$xml = new XMLReader();
