@@ -1,4 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/home/edward/gitlive/pear/Document/Word/Examples/HeaderFooter.php</file>
+        <file>file:/home/edward/gitlive/pear/Document/Word/Writer/Section/Footer.php</file>
+        <file>file:/home/edward/gitlive/pear/Document/Word/Writer/Section/Header.php</file>
+        <file>file:/home/edward/gitlive/pear/Document/Word/Examples/Textrun.php</file>
+        <file>file:/home/edward/gitlive/pear/Document/Word/Examples/Text.php</file>
+        <file>file:/home/edward/gitlive/pear/Document/Word/Writer/Section/Footer/PreserveText.php</file>
+        <file>file:/home/edward/gitlive/pear/Document/Word/Examples/TitleTOC.php</file>
+        <file>file:/home/edward/gitlive/pear/Document/Word/Writer/Section/Text.php</file>
+        <file>file:/home/edward/gitlive/pear/Document/Word/Examples/BasicTable.php</file>
+        <file>file:/home/edward/gitlive/pear/Document/Word/Writer/Section/Table/Cell.php</file>
+        <file>file:/home/edward/gitlive/pear/Document/Word/Examples/AdvancedTable.php</file>
+        <file>file:/home/edward/gitlive/pear/Document/Word/Writer/Section/Image.php</file>
+        <file>file:/home/edward/gitlive/pear/Document/Word/Writer/Style/Image.php</file>
+        <file>file:/home/edward/gitlive/pear/Document/Word/Writer/Style/Paragraph.php</file>
+    </open-files>
 </project-private>
