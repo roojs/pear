@@ -7,14 +7,7 @@ $PHPWord = new Document_Word_Writer();
 
 // New portrait section
 $section = $PHPWord->createSection();
-$section->addText('ABC');
-$section->addPageBreak();
-$section->addText('Page2');
 
-$section = $PHPWord->createSection();
-$section->addText('ABC111');
-$section->addPageBreak();
-$section->addText('Page2222');
 // Add header
 $header = $section->createHeader();
 $table = $header->addTable();
