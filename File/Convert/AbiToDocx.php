@@ -233,19 +233,13 @@ class File_Convert_AbiToDocx
             }
         }
         
-        function handle_metadata()
-        {
-            return;
-        }
-        
         function handle_m()
         {
-            $this->metadata[$this->xr->getAttribute['key']] = $this->xr->readString();
-        }
-        
-        function handle_rdf()
-        {
-            return;
+            if ($this->pass != 2) {
+                return;
+            }
+            $key = $this->xr->getAttribute['key'];
+            $this->metadata[$key] = $this->xr->readString();
         }
         
         function parseWH($wh,$type=null)
@@ -266,11 +260,6 @@ class File_Convert_AbiToDocx
             }else{
                 return $num;
             }
-            
-        }
-      
-        function parseTextBody($onto)
-        {
             
         }
         
@@ -354,5 +343,39 @@ class File_Convert_AbiToDocx
             $objWriter->save($fn);
             
         }
+        
+        // NOT Useful Mothed
+        
+        function handle_metadata()
+        {
+            return;
+        }
+        
+        function handle_rdf()
+        {
+            return;
+        }
+        
+        function handle_history()
+        {
+            return;
+        }
+        
+        function handle_styles()
+        {
+            return;
+        }
+        
+        function handle_version()
+        {
+            return;
+        }
+        
+        function handle_pagesize()
+        {
+            return;
+        }
+        
+        
 }
 ?>
