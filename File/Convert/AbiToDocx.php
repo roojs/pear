@@ -201,7 +201,7 @@ class File_Convert_AbiToDocx
             if($fieldType == 'page_number'){
                 $this->page_number = true;
                 if($this->sectionType == 'header'){
-                    $this->table = $this->header->addTalbe();
+                    $this->table = $this->header->addTable();
                     $this->table->addRow();
                     $this->table->addCell(3000)->addPreserveText('{PAGE}', $this->style['field']);
                 }elseif($this->sectionType == 'footer'){
@@ -246,52 +246,11 @@ class File_Convert_AbiToDocx
             }
             
         }
-        
-//        public function drawTable($section, $xr){
-//                // Define table style arrays
-//                $tableStyle = $this->parseProps($xr->getAttribute('props'));
-//                // Add table
-//                $table = $section->addTable();
-//                // Convert xr Element to DOM Object
-//                $tableObj = $xr->expand();
-//                // Draw The Table
-//                foreach($tableObj->childNodes as $cellObj){
-//                    if($cellObj->nodeName === 'cell'){
-//                        $cellStyle = $this->parseProps($cellObj->getAttribute('props'));
-//                        if($cellStyle['colunmNum'] == 0) {
-//                            $height = array_key_exists('height'.$cellStyle['rowNum'], $tableStyle) ? $tableStyle['height'.$cellStyle['rowNum']] : '';
-//                            $height = preg_replace('/[^0-9.]/', '', $height);
-//                            $table->addRow($this->inchToPx($height));
-//                        }   
-//                        
-//                        foreach($cellObj->childNodes as $pObj){
-//                            if($pObj->nodeName === 'p'){
-//                                $pStyle = $this->parseProps($pObj->getAttribute('style'));
-//                                $width = array_key_exists('width'.$cellStyle['colunmNum'], $tableStyle) ? $tableStyle['width'.$cellStyle['colunmNum']] : '';
-//                                $width = preg_replace('/[^0-9.]/', '', $width);
-//                                $table->addCell($this->inchToPx($width), $cellStyle)->addText($pObj->nodeValue, $pStyle);
-//                            }
-//                        }
-//                    }
-//                 }
-//        }
+      
         function parseTextBody($onto)
         {
             
         }
-        
-        
-//        public function drawImage($section, $xr){
-//            // Get The Name of image
-//            $imageId = $xr->getAttribute('dataid');
-//            $path = '/tmp/'.$imageId.'.jpg';
-//            if(file_exists($path)){
-//                $imageStyle = $this->parseProps($xr->getAttribute('props'));
-//                $width = preg_replace('/[^0-9.]/', '', $imageStyle['width']);
-//                $height = preg_replace('/[^0-9.]/', '', $imageStyle['height']);
-//                $section->addImage($path, array('width'=>$this->inchToPx($width), 'height'=>$this->inchToPx($height), 'align'=>'center'));
-//            }
-//        }
         
         public function setNodeStyle($node, $attrName)
         {
