@@ -8,15 +8,15 @@
 class File_Convert_AbiToDocx 
 {
         
-	public function __construct() 
+	public function __construct($fn) 
         {
+                $this->fileName = $fn;
                 
                 
         }
         
-        function save($fn)
+        function save()
         {
-                $this->fileName = $fn;
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
                 require_once __DIR__ . '/../../System.php';
                // $this->tmpdir  = System::mktemp("-d abitodocx");
@@ -164,6 +164,7 @@ class File_Convert_AbiToDocx
             if ($this->pass == 2) {
                 return;
             }
+            $this->sectionType = '';
             $data = base64_decode($this->xr->readString()); // Create the image source if not exist!
             $imageId = $this->xr->getAttribute('name');
             $path = $this->tmpdir . '/' . $imageId . '.jpg';
@@ -182,9 +183,10 @@ class File_Convert_AbiToDocx
             $sectionType = $this->xr->getAttribute('type');
             if($sectionType == 'header'){
                 $this->sectionType = 'header';
-                
+                $this->header->$this->section->createHeader();
             }elseif($sectionType == 'footer'){
                 $this->sectionType = 'footer';
+                $this->section->createFooter();
             }
         }
         
@@ -196,6 +198,11 @@ class File_Convert_AbiToDocx
             $fieldType = $this->xr->getAttribute('type');
             if($fieldType == 'page_number'){
                 $this->page_number = true;
+                if($this->sectionType == 'header'){
+
+                }elseif($this->sectionType == 'footer'){
+                    $footer->addPreserveText('Page {PAGE} of {NUMPAGES}.', array('align'=>'center'));
+                }
             }
         }
         
@@ -209,7 +216,6 @@ class File_Convert_AbiToDocx
                 $this->setNodeStyle('header', 'props'); // Define header style
                 $this->headerText = $this->xr->readString();
             }elseif($this->sectionType == 'footer') {
-                echo $this->xr->depth . '<br/>';
                 $this->setNodeStyle('footer', 'props'); // Define footer style
                 $this->footerText = $this->xr->readString();
             }
