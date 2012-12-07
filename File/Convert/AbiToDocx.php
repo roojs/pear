@@ -24,6 +24,7 @@ class File_Convert_AbiToDocx
                 $this->lastNode = '';
                 $this->style[] = array();
                 $this->style['a'] = array('color'=>'0000FF', 'underline'=>'single'); // set default link style
+                $this->page_number = false; // do not show page number as default
                 $this->writer = new Document_Word_Writer(); // New Word Document
                 $this->section = $this->writer->createSection();
                 $this->pass = 1;
@@ -175,12 +176,40 @@ class File_Convert_AbiToDocx
         {
             $sectionType = $this->xr->getAttribute('type');
             if($sectionType == 'header'){
+                $this->sectionType = 'header';
                 
             }elseif($sectionType == 'footer'){
-                
+                $this->sectionType = 'footer';
             }
         }
         
+        function handle_field()
+        {
+            if ($this->pass == 2) {
+                return;
+            }
+            $fieldType = $this->xr->getAttribute('type');
+            if($fieldType == 'page_number'){
+                $this->page_number = true;
+            }
+        }
+        
+        function handle_c()
+        {
+            if ($this->pass == 2) {
+                return;
+            }
+            if($this->sectionType == 'header')
+            {
+                $this->setNodeStyle('header', 'props'); // Define header style
+                $this->headerText = $this->xr->readString();
+            }elseif($this->sectionType == 'footer') {
+                $this->setNodeStyle('footer', 'props'); // Define footer style
+                $this->footerText = $this->xr->readString();
+            }
+        }
+
+
         function parseWH($wh,$type=null)
         {
             $changeType = preg_replace('/[^a-z]/', '', $wh);
