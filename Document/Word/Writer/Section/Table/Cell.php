@@ -285,6 +285,7 @@ class Document_Word_Writer_Section_Table_Cell
 	 */
 	public function addPreserveText($text, $styleFont = null, $styleParagraph = null) 
         {
+                require_once __DIR__ . '/../Footer/PreserveText.php';
 		if($this->_insideOf == 'footer' || $this->_insideOf == 'header') {
 			$text = utf8_encode($text);
 			$ptext = new Document_Word_Writer_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
