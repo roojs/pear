@@ -184,7 +184,7 @@ class File_Convert_AbiToDocx
                 $this->sectionType = 'header';
                 
             }elseif($sectionType == 'footer'){
-                echo $this->xr->depth;
+                echo $this->xr->depth.'<br/>';
                 $this->sectionType = 'footer';
             }
         }
