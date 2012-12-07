@@ -234,6 +234,19 @@ class File_Convert
                         'text/html',
                     )
             ),
+            
+            array ( 'abitodocx',
+                    array( // source
+                  //      'text/html', /// testing..
+                        'application/x-abiword',
+                        
+                    ),    // targets
+                    array( 
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                      
+                    )
+            ),
+            
             array( 'ssconvertxls',
                 array (
                        'application/vnd.ms-excel',
