@@ -198,9 +198,10 @@ class File_Convert_AbiToDocx
             $fieldType = $this->xr->getAttribute('type');
             $this->setNodeStyle('field', 'props'); // Define field style
             if($fieldType == 'page_number'){
+                echo $this->style['p'];
                 $this->page_number = true;
                 if($this->sectionType == 'header'){
-                    $this->header->addPreserveText('{PAGE}', $this->);
+//                    $this->header->addPreserveText('{PAGE}', $this->);
                 }elseif($this->sectionType == 'footer'){
                     $footer->addPreserveText('Page {PAGE} of {NUMPAGES}.', array('align'=>'center'));
                 }
