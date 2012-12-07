@@ -25,6 +25,7 @@ class File_Convert_AbiToDocx
                 $this->style[] = array();
                 $this->style['a'] = array('color'=>'0000FF', 'underline'=>'single'); // set default link style
                 $this->page_number = false; // do not show page number as default
+                $this->sectionType = '';
                 $this->writer = new Document_Word_Writer(); // New Word Document
                 $this->section = $this->writer->createSection();
                 $this->pass = 1;
