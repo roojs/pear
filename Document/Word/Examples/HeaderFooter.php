@@ -17,7 +17,7 @@ $table->addCell(4500)->addImage('_earth.JPG', array('width'=>50, 'height'=>50, '
 
 // Add footer
 $footer = $section->createFooter();
-$footer->addPreserveText('Page {PAGE} of {NUMPAGES}.', array('align'=>'center'));
+$footer->addPreserveText('Page {PAGE} of {NUMPAGES}.', array('align'=>'right'));
 
 // Write some text
 $section->addTextBreak();
