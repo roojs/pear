@@ -201,7 +201,7 @@ class File_Convert_AbiToDocx
             if($fieldType == 'page_number'){
                 $this->page_number = true;
                 if($this->sectionType == 'header'){
-                    $this->header->addPreserveText('{PAGE}', $this->style['field']);
+                    $this->header->addPreserveText('{PAGE}', array('name'=>'Verdana', 'color'=>'006699'));
                 }elseif($this->sectionType == 'footer'){
                     $this->footer->addPreserveText('{PAGE}', $this->style['field']);
                 }
