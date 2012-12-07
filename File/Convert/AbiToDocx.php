@@ -197,13 +197,13 @@ class File_Convert_AbiToDocx
             }
             $fieldType = $this->xr->getAttribute('type');
             $this->setNodeStyle('field', 'props'); // Define field style
+            $this->style['field'] = array_merge((array)$this->style['field'],(array)  $this->style['p']);
             if($fieldType == 'page_number'){
-                print_r($this->style['p']);
                 $this->page_number = true;
                 if($this->sectionType == 'header'){
 //                    $this->header->addPreserveText('{PAGE}', $this->);
                 }elseif($this->sectionType == 'footer'){
-                    $footer->addPreserveText('Page {PAGE} of {NUMPAGES}.', array('align'=>'center'));
+                    $footer->addPreserveText('Page {PAGE} of {NUMPAGES}.', $this->style['field']);
                 }
             }
         }
