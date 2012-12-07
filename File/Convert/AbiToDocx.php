@@ -184,9 +184,13 @@ class File_Convert_AbiToDocx
             if($sectionType == 'header'){
                 $this->sectionType = 'header';
                 $this->header = $this->section->createHeader();
+                $this->table = $this->header->addTable();
+                $this->table->addRow();
             }elseif($sectionType == 'footer'){
                 $this->sectionType = 'footer';
                 $this->footer = $this->section->createFooter();
+                $this->table = $this->footer->addTable();
+                $this->table->addRow();
             }
         }
         
