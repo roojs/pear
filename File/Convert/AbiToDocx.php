@@ -31,6 +31,7 @@ class File_Convert_AbiToDocx
                 //$this->tmpdir  = '/tmp';
                 $this->lastNode = '';
                 $this->style[] = array();
+                $this->metadata[] = array();
                 $this->style['a'] = array('color'=>'0000FF', 'underline'=>'single'); // set default link style
                 $this->sectionType = '';
                 $this->headerText = '';
@@ -231,8 +232,22 @@ class File_Convert_AbiToDocx
                 }
             }
         }
-
-
+        
+        function handle_metadata()
+        {
+            return;
+        }
+        
+        function handle_m()
+        {
+            $this->metadata[$this->xr->getAttribute['key']] = $this->xr->readString();
+        }
+        
+        function handle_rdf()
+        {
+            return;
+        }
+        
         function parseWH($wh,$type=null)
         {
             $changeType = preg_replace('/[^a-z]/', '', $wh);
