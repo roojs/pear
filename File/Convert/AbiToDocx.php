@@ -184,13 +184,9 @@ class File_Convert_AbiToDocx
             if($sectionType == 'header'){
                 $this->sectionType = 'header';
                 $this->header = $this->section->createHeader();
-                $this->table = $this->header->addTable();
-                $this->table->addRow();
             }elseif($sectionType == 'footer'){
                 $this->sectionType = 'footer';
                 $this->footer = $this->section->createFooter();
-                $this->table = $this->footer->addTable();
-                $this->table->addRow();
             }
         }
         
@@ -205,7 +201,7 @@ class File_Convert_AbiToDocx
             if($fieldType == 'page_number'){
                 $this->page_number = true;
                 if($this->sectionType == 'header'){
-                    $this->header->addPreserveText('{PAGE}', array('align'=>'right'));
+                    $this->header->addPreserveText('{PAGE}', $this->style['field']);
                 }elseif($this->sectionType == 'footer'){
                     $this->footer->addPreserveText('{PAGE}', $this->style['field']);
                 }
