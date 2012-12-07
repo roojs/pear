@@ -27,4 +27,20 @@ $section->addText('Some text...');
 require_once __DIR__ . '/../Writer/IOFactory.php';
 $objWriter = Document_Word_Writer_IOFactory::createWriter($PHPWord, 'Word2007');
 $objWriter->save('/tmp/HeaderFooter.docx');
+$fn = '/tmp/HeaderFooter.docx';
+if (file_exists($fn)) {
+    echo 'Prepare for download!!';
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename='.basename($fn));
+    header('Content-Transfer-Encoding: binary');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($fn));
+    ob_clean();
+    flush();
+    readfile($fn);
+    exit;
+}
 ?>
