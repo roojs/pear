@@ -201,9 +201,9 @@ class File_Convert_AbiToDocx
             if($fieldType == 'page_number'){
                 $this->page_number = true;
                 if($this->sectionType == 'header'){
-//                    $this->header->addPreserveText('{PAGE}', $this->);
+                    $this->header->addPreserveText('{PAGE}', $this->style['field']);
                 }elseif($this->sectionType == 'footer'){
-                    $footer->addPreserveText('Page {PAGE} of {NUMPAGES}.', $this->style['field']);
+                    $this->footer->addPreserveText('{PAGE}', $this->style['field']);
                 }
             }
         }
