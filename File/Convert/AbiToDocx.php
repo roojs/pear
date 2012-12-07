@@ -339,7 +339,7 @@ class File_Convert_AbiToDocx
             $objWriter = Document_Word_Writer_IOFactory::createWriter($this->writer, 'Word2007');
             //$objWriter->save($this->tmpdir . '/' . $fn);
             //$objWriter->save($fn);
-            $objWriter->save($fn );
+            $objWriter->save($fn);
         }
 //        
 //        public function getAbiFileName() 
