@@ -196,6 +196,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $fieldType = $this->xr->getAttribute('type');
+            $this->setNodeStyle('field', 'props'); // Define field style
             if($fieldType == 'page_number'){
                 $this->page_number = true;
                 if($this->sectionType == 'header'){
