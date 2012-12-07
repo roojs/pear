@@ -341,17 +341,9 @@ class File_Convert_AbiToDocx
             //$objWriter->save($this->tmpdir . '/' . $fn);
             //$objWriter->save($fn);
             $objWriter->save($fn);
-            $this->serve($fn);
+            
         }
-        
-        function serve($fn)
-        {
-            require_once '../Convert.php';
-            $x = new File_Convert($fn, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' );
-             $x->convert('application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-            $x->serve('attachment');
-            exit;
-        }
+         
         
 //        
 //        public function getAbiFileName() 
