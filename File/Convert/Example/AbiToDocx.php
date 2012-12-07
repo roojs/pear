@@ -6,7 +6,7 @@ require_once __DIR__ . '/../AbiToDocx.php';
 $abiFileName = __DIR__ . '/../../../../../Documents/146-test.abw';
 
 $conv = new File_Convert_AbiToDocx($abiFileName);
-$conv->save($abiFileName);
+$conv->save('/tmp/abiword.docx');
 //$xml = new XMLReader();
 
 // Download the file for testing
