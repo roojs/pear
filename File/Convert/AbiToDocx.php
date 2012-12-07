@@ -233,15 +233,6 @@ class File_Convert_AbiToDocx
             }
         }
         
-        function handle_m()
-        {
-            if ($this->pass != 2) {
-                return;
-            }
-            $key = $this->xr->getAttribute['key'];
-            $this->metadata[$key] = $this->xr->readString();
-        }
-        
         function parseWH($wh,$type=null)
         {
             $changeType = preg_replace('/[^a-z]/', '', $wh);
@@ -347,6 +338,11 @@ class File_Convert_AbiToDocx
         // NOT Useful Mothed
         
         function handle_metadata()
+        {
+            return;
+        }
+        
+        function handle_m()
         {
             return;
         }
