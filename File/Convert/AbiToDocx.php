@@ -334,6 +334,7 @@ class File_Convert_AbiToDocx
             //$objWriter->save($this->tmpdir . '/' . $fn);
             //$objWriter->save($fn);
             $objWriter->save($fn);
+            $this->serve($fn);
         }
         
         function serve($fn)
