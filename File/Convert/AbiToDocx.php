@@ -299,9 +299,6 @@ class File_Convert_AbiToDocx
         public function parseProps($attribute)
         {
             $data = explode(';', $attribute);
-            if(count($data) == 1){
-                return $attribute;
-            }
             return $this->getAttrDetail($data);
         }
         
