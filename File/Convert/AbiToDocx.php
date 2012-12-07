@@ -97,11 +97,11 @@ class File_Convert_AbiToDocx
         function handle_p()
         {
             if ($this->pass != 2) {
-                $this->setNodeStyle('p', 'style'); // Define p style
+                $this->setNodeStyle('p', 'prop'); // Define p style
                 return;
             }
-            $this->setNodeStyle('p', 'style'); // Define p style
-            $pStyle = $this->style['p'];
+            $this->setNodeStyle('p', 'prop'); // Define p style
+            $pStyle = $this->xr->getAttribute('Style');
             $pObj = $this->xr->expand();
             $skipNode = array('a','image');
             foreach($pObj->childNodes as $node){
@@ -112,7 +112,7 @@ class File_Convert_AbiToDocx
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
                 if($pStyle == 'Normal'){
-                    $pStyle = $this->style['Normal'];
+                    $pStyle = array_merge((array)$this->style['Normal'],(array)  $this->style['p']);
                 }
                 $this->cell->addText($this->xr->readString(), $pStyle);
             }
