@@ -348,7 +348,7 @@ class File_Convert_AbiToDocx
             require_once '../Convert.php';
             $x = new File_Convert($fn, 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' );
              $x->convert('application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-            $x->serve();
+            $x->serve('attachment');
             exit;
         }
         
