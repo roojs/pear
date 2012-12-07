@@ -12,8 +12,8 @@ $section = $PHPWord->createSection();
 $header = $section->createHeader();
 $table = $header->addTable();
 $table->addRow();
-$table->addCell(200)->addText('This is the header.');
-$table->addCell(6000)->addImage('_earth.JPG', array('width'=>50, 'height'=>50, 'align'=>'right'));
+$table->addCell(3000)->addText('This is the header.', array('align'=>'right'));
+$table->addCell(5000)->addImage('_earth.JPG', array('width'=>50, 'height'=>50, 'align'=>'right'));
 
 // Add footer
 $footer = $section->createFooter();
