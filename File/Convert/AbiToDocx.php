@@ -203,7 +203,7 @@ class File_Convert_AbiToDocx
                 if($this->sectionType == 'header'){
                     $this->table = $this->header->addTable();
                     $this->table->addRow();
-                    $this->table->addCell(3000)->addPreserveText('{PAGE}', $this->style['field']);
+                    $this->table->addCell(3000)->addPreserveText('{PAGE}', array('align'=>'right'));
                 }elseif($this->sectionType == 'footer'){
                     $this->footer->addPreserveText('{PAGE}', $this->style['field']);
                 }
