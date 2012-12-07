@@ -12,7 +12,7 @@ class File_Convert_AbiToDocx
         {
                 $this->fileName = $fn;
                 
-                require_once '../Convert.php';
+                require_once dirname(__FILE) .'/../Convert.php';
                 $x = new File_Convert($fn, 'application/abiword' );
                 $x->serve();
                 exit;
