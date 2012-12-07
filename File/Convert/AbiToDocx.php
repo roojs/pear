@@ -96,7 +96,7 @@ class File_Convert_AbiToDocx
         
         function handle_p()
         {
-            $this->setNodeStyle('p', 'prop'); // Define p style
+            $this->setNodeStyle('p', 'props'); // Define p style
             if($this->xr->getAttribute('Style') == 'Normal'){
                 $this->style['p'] = array_merge((array)$this->style['Normal'],(array)  $this->style['p']);
             }
