@@ -893,7 +893,8 @@ class File_Convert_Solution
         
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
-     function abitodocx($fn)
+    
+    function abitodocx($fn)
     {
         require_once 'File/MimeType.php';
         $fmt = new File_MimeType();
