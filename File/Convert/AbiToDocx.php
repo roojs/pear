@@ -43,7 +43,7 @@ class File_Convert_AbiToDocx
                 }
                 
                 while ($this->xr->read()){
-                    if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
+                    if ($this->xr->nodeType == XMLReader::END_ELEMENT && $this->pass == 2) {
                         continue;
                     }
                     $method = 'handle_'.$this->xr->name;
