@@ -209,7 +209,10 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('field', 'props'); // Define field style
             $this->style['field'] = array_merge((array)$this->style['field'],(array)  $this->style['p']);
             if($fieldType == 'page_number'){
-                $this->header->addPreserveText('{PAGE}', $this->style['field']);
+                $this->table = $this->header->addTable();
+                $this->table->addRow();
+                $this->table->addCell(3000,array('bold'=>true, 'align'=>'right'))->addPreserveText('{PAGE}', $this->style['field']);
+//                $this->header->addPreserveText('{PAGE}', $this->style['field']);
             }
         }
         
@@ -332,7 +335,7 @@ class File_Convert_AbiToDocx
             }
             return array_map('trim', $attrArray);
         }
-//         
+ 
         public function saveDocx($fn){
             require_once __DIR__ . '/../../Document/Word/Writer/IOFactory.php';
             $objWriter = Document_Word_Writer_IOFactory::createWriter($this->writer, 'Word2007');
