@@ -259,12 +259,12 @@ class File_Convert_AbiToDocx
             
         }
         
-        public function setNodeStyle($node, $attrName)
+        function setNodeStyle($node, $attrName)
         {
             $this->style[$node] = $this->parseProps($this->xr->getAttribute($attrName));
         }
         
-        public function parseProps($attribute)
+        function parseProps($attribute)
         {
             if(empty($attribute)){
                 return;
@@ -273,7 +273,7 @@ class File_Convert_AbiToDocx
             return $this->getAttrDetail($data);
         }
         
-        public function getAttrDetail($data)
+        function getAttrDetail($data)
         {
             foreach ($data as $attrs){
                 $attr = explode(':', $attrs);
@@ -333,7 +333,7 @@ class File_Convert_AbiToDocx
             return array_map('trim', $attrArray);
         }
  
-        public function saveDocx($fn){
+        function saveDocx($fn){
             require_once __DIR__ . '/../../Document/Word/Writer/IOFactory.php';
             $objWriter = Document_Word_Writer_IOFactory::createWriter($this->writer, 'Word2007');
             $objWriter->save($fn);
