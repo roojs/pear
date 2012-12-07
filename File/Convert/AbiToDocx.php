@@ -32,7 +32,6 @@ class File_Convert_AbiToDocx
                 $this->lastNode = '';
                 $this->style[] = array();
                 $this->style['a'] = array('color'=>'0000FF', 'underline'=>'single'); // set default link style
-                $this->page_number = false; // set do not show page number as default
                 $this->sectionType = '';
                 $this->headerText = '';
                 $this->footerText = '';
