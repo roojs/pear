@@ -129,9 +129,9 @@ class Document_Word_Writer_Section_Table
 		$cell = new Document_Word_Writer_Section_Table_Cell($this->_insideOf, $this->_pCount, $width, $style);
 		$i = count($this->_rows) - 1;
 		$this->_rows[$i][] = $cell;
-        $col = count($this->_rows[$i][] ) -1;
+        $col = count($this->_rows[$i] ) -1;
         
-        if (!empty($width) {
+        if (!empty($width)) {
             $this->_colWidths[$col] = max($width, empty($this->_colWidths[$col] ) ? 0 : $this->_colWidths[$col] ); 
         }
 		return $cell;
