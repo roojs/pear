@@ -631,6 +631,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
     {
              
             static $embedid = 0;
+            $embedid++
             $rId = $image->getRelationId();
             $style = $image->getStyle();
             $width = $style->getWidth();
@@ -717,7 +718,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 //                $objWriter->endElement(); // End wp:wrapSquare
                 $objWriter->startElement('wp:docPr');
                 $objWriter->writeAttribute('descr','A description...');
-                $objWriter->writeAttribute('id',$embedid++);
+                $objWriter->writeAttribute('id',$embedid);
                 $objWriter->writeAttribute('name','Picture');
                 $objWriter->endElement(); // End wp:docPr
                 $objWriter->startElement('wp:cNvGraphicFramePr');
@@ -741,7 +742,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->startElement('pic:nvPicPr');
                 $objWriter->startElement('pic:cNvPr');
                 $objWriter->writeAttribute('descr','A description...');
-                $objWriter->writeAttribute('id',$embedid++);
+                $objWriter->writeAttribute('id',$embedid);
                 $objWriter->writeAttribute('name','Picture');
                 $objWriter->endElement(); // End pic:cNvPr
                 $objWriter->startElement('pic:cNvPicPr');
