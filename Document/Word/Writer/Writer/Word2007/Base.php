@@ -631,7 +631,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->writeAttribute('y',0);
                 $objWriter->endElement(); // End wp:simplePos
                 $objWriter->startElement('wp:positionH');
-                $objWriter->writeAttribute('relativeFrom','column');
+                $objWriter->writeAttribute('relativeFrom','page');
                 $objWriter->startElement('wp:posOffset');
                 // aournd 292735
                 //$objWriter->writeRaw(292735);
@@ -639,7 +639,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End wp:posOffset
                 $objWriter->endElement(); // End wp:positionH
                 $objWriter->startElement('wp:positionV');
-                $objWriter->writeAttribute('relativeFrom','paragraph');
+                $objWriter->writeAttribute('relativeFrom','page');
                 $objWriter->startElement('wp:posOffset');
                 $objWriter->writeRaw(0);
                 //$objWriter->writeRaw(82550);
