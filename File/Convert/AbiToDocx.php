@@ -227,6 +227,14 @@ class File_Convert_AbiToDocx
                 }
                 
             }
+            if($fieldType == 'number_pages'){
+                if($this->sectionType == 'header'){
+                    $this->header->addPreserveText('{NUMPAGES}', $this->style['field'],array('align'=> $this->style['field']['text-align']));
+                }else{
+                    $this->footer->addPreserveText('{NUMPAGES}', $this->style['field'],array('align'=> $this->style['field']['text-align']));
+                }
+                
+            }
         }
         
         function handle_c()
