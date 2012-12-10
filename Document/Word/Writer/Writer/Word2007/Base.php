@@ -647,7 +647,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                 $objWriter->endElement();
                         $objWriter->endElement();
                }
-                /*
+               
                 $objWriter->startElement('w:r');
                 $objWriter->startElement('w:drawing');
                 
@@ -728,7 +728,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End wp:cNvGraphicFramePr
                 
                  
-                
+                 /*
                 
                 $objWriter->startElement('a:graphic');
                 $objWriter->writeAttribute('xmlns:a','http://schemas.openxmlformats.org/drawingml/2006/main');
@@ -809,11 +809,11 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                
                 $objWriter->endElement(); // End a:graphicData
                 $objWriter->endElement(); // End a:graphic
-                
+                   */
                 $objWriter->endElement(); // End wp:anchor
                 $objWriter->endElement(); // End w:drawing
                 $objWriter->endElement(); // End w:r
-                  */
+               
                 
                 
                 $objWriter->endElement(); // End w:p
