@@ -29,7 +29,11 @@ $fn = '/tmp/abiTodocx.docx';
 require_once __DIR__ . '/../Writer/IOFactory.php';
 $objWriter = Document_Word_Writer_IOFactory::createWriter($PHPWord, 'Word2007');
 $objWriter->save($fn);
-
+// Download the file for testing
+if($_SERVER['SERVER_NAME'] == 'localhost')
+{
+    exit;
+}
 if (file_exists($fn)) {
     echo 'Prepare for download!!';
     header('Content-Description: File Transfer');
