@@ -727,8 +727,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End a:graphicFrameLocks
                 $objWriter->endElement(); // End wp:cNvGraphicFramePr
                 
-                 
-                /*
+                  
                 
                 $objWriter->startElement('a:graphic');
                 $objWriter->writeAttribute('xmlns:a','http://schemas.openxmlformats.org/drawingml/2006/main');
