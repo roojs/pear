@@ -245,32 +245,7 @@ class Document_Word_Writer_Section
 			trigger_error('Source does not exist or unsupported object type.');
 		}
 	}
-        
-        
-	public function addImageDefered($src, $style = null) 
-        {
-                require_once __DIR__ . '/Media.php';
-                $rID = Document_Word_Writer_Media::addSectionMediaElement($src, 'image');
-                return $rID;
-	}
-        
-	public function addImageToCollection($rID, $src, $style = null) 
-        {
-                require_once __DIR__ . '/Section/Image.php';
-                
-		$image = new Document_Word_Writer_Section_Image($src, $style);
-		
-		if(!is_null($image->getSource())) {
-                    
-			$image->setRelationId($rID);
-			
-			$this->_elementCollection[] = $image;
-			return $image;
-		} else {
-			trigger_error('Source does not exist or unsupported image type.');
-		}
-	}
-        
+       
 	/**
 	 * Add a Image Element
 	 * 
