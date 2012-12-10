@@ -78,7 +78,8 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->setNodeStyle($this->xr->getAttribute('name'), 'props');
+            $this->style[$this->xr->getAttribute('name')] =
+                    $this->parseProps($this->xr->getAttribute('props'));
             
         }
         
@@ -87,7 +88,8 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->setNodeStyle('table', 'props'); // Define table style
+            $this->style['table'] =  $this->parseProps($this->xr->getAttribute('props'));
+            
             $this->table = $this->section->addTable(); // Add table
         }
         
