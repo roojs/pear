@@ -292,11 +292,7 @@ class File_Convert_AbiToDocx
             
         }
         
-        function setNodeStyle($node, $attrName)
-        {
-            $this->style[$node] = $this->parseProps();
-        }
-        
+      
         function parseProps($attribute)
         {
             
@@ -305,74 +301,74 @@ class File_Convert_AbiToDocx
                 return array();
             }
             $data = explode(';', $attribute);
-            return $this->getAttrDetail($data);
-        }
         
-        function getAttrDetail($data)
-        {
             foreach ($data as $attrs){
+                
                 $attr = explode(':', $attrs);
+                
                 switch (trim($attr[0])){
+                    
                     case 'table-column-props':
                         $props = explode('/', $attr[1]);
                         foreach($props as $index => $prop){
-                            $attrArray['width'.$index] = $prop;
+                            $attrArray['width'.$index] = trim($prop);
                         }
                         break;
                     
                     case 'table-row-heights':
                         $props = explode('/', $attr[1]);
                         foreach($props as $index => $prop){
-                            $attrArray['height'.$index] = $prop;
+                            $attrArray['height'.$index] = trim($prop);
                         }
                         break;
                     
                     case 'left-attach':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
-                            $attrArray['colunmNum'] = $prop;
+                            $attrArray['colunmNum'] = trim($prop);
                         }
                         break;
                     
                     case 'top-attach':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
-                            $attrArray['rowNum'] = $prop;
+                            $attrArray['rowNum'] = trim($prop);
                         }
                         break;
                     
                     case 'top-color':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
-                            $attrArray['borderTopColor'] = $prop;
+                            $attrArray['borderTopColor'] = trim($prop);
                         }
                         break;
                     
                     case 'left-color':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
-                            $attrArray['borderLeftColor'] = $prop;
+                            $attrArray['borderLeftColor'] = trim($prop);
                         }
                         break;
                     
                     case 'right-color':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
-                            $attrArray['borderRightColor'] = $prop;
+                            $attrArray['borderRightColor'] = trim($prop);
                         }
                         break;
                     
                     case 'bot-color':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
-                            $attrArray['borderBottomColor'] = $prop;
+                            $attrArray['borderBottomColor'] = trim($prop);
                         }
                         break;
+                    
                     default :
-                        $attrArray[trim($attr[0])] = $attr[1];
+                        $attrArray[trim($attr[0])] = trim($attr[1]);
                 }
             }
-            return array_map('trim', $attrArray);
+            return  $attrArray;
         }
  
         function saveDocx($fn){
