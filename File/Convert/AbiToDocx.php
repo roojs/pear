@@ -252,13 +252,13 @@ class File_Convert_AbiToDocx
             {
                 if($this->xr->readString() != ''){
                     // fixme - kludge as parse does not subparse <fields>
-                    $this->header->addPreserveText($this->xr->readString() , $this->style['c']);
+                    $this->header->addText($this->xr->readString() , $this->style['c']);
                 }
             }elseif($this->sectionType == 'footer') {
                 if($this->xr->readString() != ''){
                     // fixme - kludge as parse does not subparse <fields>
                     
-                    $this->footer->addPreserveText($this->xr->readString() , $this->style['c']);
+                    $this->footer->addText($this->xr->readString() , $this->style['c']);
                 }
             }
         }
