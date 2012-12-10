@@ -13,7 +13,7 @@ $section = $PHPWord->createSection();
 //$section->addTextBreak(2);
 $section->addText('Below is earth image!'); 
 $section->addTextBreak(2);
-$section->addImage('_earth.JPG', array('width'=>210, 'height'=>210));
+$section->addImage('_earth.JPG', array('width'=>500, 'height'=>500));
 $section->addTextBreak(2);
 $section->addText('Above is earth image!');
 //$section->addImage('_mars.jpg');
