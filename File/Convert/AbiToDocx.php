@@ -242,6 +242,10 @@ class File_Convert_AbiToDocx
             if ($this->pass == 2) {
                 return;
             }
+            // only handles on first pass...??
+            // and it adds to header or footer?
+            
+            
             $this->setNodeStyle('c', 'props'); // Define header style
             $this->style['c'] = array_merge((array)$this->style['c'],(array)  $this->style['p']);
             if($this->sectionType == 'header')
