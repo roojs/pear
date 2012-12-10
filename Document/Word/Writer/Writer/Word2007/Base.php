@@ -621,26 +621,106 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->writeAttribute('x',0);
                 $objWriter->writeAttribute('y',0);
                 $objWriter->endElement(); // End wp:simplePos
+                $objWriter->startElement('wp:positionH');
+                $objWriter->writeAttribute('relativeFrom','column');
+                $objWriter->startElement('wp:posOffset');
+                $objWriter->writeRaw(6101080);
+                $objWriter->endElement(); // End wp:posOffset
+                $objWriter->endElement(); // End wp:positionH
+                $objWriter->startElement('wp:positionV');
+                $objWriter->writeAttribute('relativeFrom','paragraph');
+                $objWriter->startElement('wp:posOffset');
+                $objWriter->writeRaw(0);
+                $objWriter->endElement(); // End wp:posOffset
+                $objWriter->endElement(); // End wp:positionV
                 $objWriter->startElement('wp:extent');
-                $objWriter->writeAttribute('cx',$width);
-                $objWriter->writeAttribute('y',$height);
+                $objWriter->writeAttribute('cx',14605);
+                $objWriter->writeAttribute('cy',14605);
                 $objWriter->endElement(); // End wp:extent
+                $objWriter->startElement('wp:effectExtent');
+                $objWriter->writeAttribute('b',0);
+                $objWriter->writeAttribute('l',0);
+                $objWriter->writeAttribute('r',0);
+                $objWriter->writeAttribute('t',0);
+                $objWriter->endElement(); // End wp:effectExtent
+                $objWriter->startElement('wp:wrapSquare');
+                $objWriter->writeAttribute('wrapText','largest');
+                $objWriter->endElement(); // End wp:wrapSquare
+                $objWriter->startElement('wp:docPr');
+                $objWriter->writeAttribute('descr','A description...');
+                $objWriter->writeAttribute('id',1);
+                $objWriter->writeAttribute('name','Picture');
+                $objWriter->endElement(); // End wp:docPr
+                $objWriter->startElement('wp:cNvGraphicFramePr');
+                $objWriter->startElement('a:graphicFrameLocks');
+                $objWriter->writeAttribute('noChangeAspect',1);
+                $objWriter->endElement(); // End a:graphicFrameLocks
+                $objWriter->endElement(); // End wp:cNvGraphicFramePr
                 $objWriter->startElement('a:graphic');
                 $objWriter->writeAttribute('xmlns:a','http://schemas.openxmlformats.org/drawingml/2006/main');
                 $objWriter->startElement('a:graphicData');
                 $objWriter->writeAttribute('uri','http://schemas.openxmlformats.org/drawingml/2006/picture');
                 $objWriter->startElement('pic:pic');
                 $objWriter->writeAttribute('xmlns:pic','http://schemas.openxmlformats.org/drawingml/2006/picture');
+                $objWriter->startElement('pic:nvPicPr');
+                $objWriter->startElement('pic:cNvPr');
+                $objWriter->writeAttribute('descr','A description...');
+                $objWriter->writeAttribute('id',0);
+                $objWriter->writeAttribute('name','Picture');
+                $objWriter->endElement(); // End pic:cNvPr
+                $objWriter->startElement('pic:cNvPicPr');
+                $objWriter->startElement('a:picLocks');
+                $objWriter->writeAttribute('noChangeArrowheads',1);
+                $objWriter->writeAttribute('noChangeAspect',1);
+                $objWriter->endElement(); // End pic:picLocks
+                $objWriter->endElement(); // End pic:cNvPicPr
+                $objWriter->endElement(); // End pic:nvPicPr
                 $objWriter->startElement('pic:blipFill');
                 $objWriter->startElement('a:blip');
-                $objWriter->writeAttribute('r:embed','rId'.$rId);
-                
+                $objWriter->writeAttribute('r:embed','rId3');
                 $objWriter->endElement(); // End a:blip
+                $objWriter->startElement('a:srcRect');
+                $objWriter->endElement(); // End a:srcRect
+                $objWriter->startElement('a:stretch');
+                $objWriter->startElement('a:fillRect');
+                $objWriter->endElement(); // End a:fillRect
+                $objWriter->endElement(); // End a:stretch
                 $objWriter->endElement(); // End pic:blipFill
+                $objWriter->startElement('pic:spPr');
+                $objWriter->writeAttribute('bwMode','auto');
+                $objWriter->startElement('a:xfrm');
+                $objWriter->startElement('a:off');
+                $objWriter->writeAttribute('x',0);
+                $objWriter->writeAttribute('y',0);
+                $objWriter->endElement(); // End a:off
+                $objWriter->startElement('a:ext');
+                $objWriter->writeAttribute('cx',14605);
+                $objWriter->writeAttribute('cy',14605);
+                $objWriter->endElement(); // End a:ext
+                $objWriter->endElement(); // End a:xfrm
+                $objWriter->startElement('a:prstGeom');
+                $objWriter->writeAttribute('prst','rect');
+                $objWriter->startElement('a:avLst');
+                $objWriter->endElement(); // End a:avLst
+                $objWriter->endElement(); // End a:prstGeom
+                $objWriter->startElement('a:noFill');
+                $objWriter->endElement(); // End a:noFill
+                $objWriter->startElement('a:ln');
+                $objWriter->writeAttribute('w',9525);
+                $objWriter->startElement('a:noFill');
+                $objWriter->endElement(); // End a:noFill
+                $objWriter->startElement('a:miter');
+                $objWriter->writeAttribute('lim',800000);
+                $objWriter->endElement(); // End a:miter
+                $objWriter->startElement('a:headEnd');
+                $objWriter->endElement(); // End a:headEnd
+                $objWriter->startElement('a:tailEnd');
+                $objWriter->endElement(); // End a:tailEnd
+                $objWriter->endElement(); // End a:ln
+                $objWriter->endElement(); // End pic:spPr
                 $objWriter->endElement(); // End pic:pic
                 $objWriter->endElement(); // End a:graphicData
                 $objWriter->endElement(); // End a:graphic
-                
                 $objWriter->endElement(); // End wp:anchor
                 $objWriter->endElement(); // End w:drawing
                 $objWriter->endElement(); // End w:r
