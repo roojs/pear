@@ -727,7 +727,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->startElement('pic:nvPicPr');
                 $objWriter->startElement('pic:cNvPr');
                 $objWriter->writeAttribute('descr','A description...');
-                $objWriter->writeAttribute('id',0);
+                $objWriter->writeAttribute('id',$embedid++);
                 $objWriter->writeAttribute('name','Picture');
                 $objWriter->endElement(); // End pic:cNvPr
                 $objWriter->startElement('pic:cNvPicPr');
