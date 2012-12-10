@@ -405,7 +405,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
       </w:tblGrid>
             */
             $cw = $table->getColumnWidths();
-            
+            print_R($cw);exit;
             if (empty($cw)) {
                 $objWriter->startElement('w:tblGrid');
                 foreach($table->getColumnWidths() as $w) {
