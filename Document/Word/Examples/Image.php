@@ -24,9 +24,25 @@ $section->addText('Above is earth image!');
 
 // when get image - > lookup map [67219.0] for rid
 //$section->addImageToCollection($rid, '_earth.JPG'); // 67219.0.jpg/:;:
-
+$fn = '/tmp/abiTodocx.docx';
 // Save File
 require_once __DIR__ . '/../Writer/IOFactory.php';
 $objWriter = Document_Word_Writer_IOFactory::createWriter($PHPWord, 'Word2007');
-$objWriter->save('/tmp/Image.docx');
+$objWriter->save($fn);
+
+if (file_exists($fn)) {
+    echo 'Prepare for download!!';
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename='.basename($fn));
+    header('Content-Transfer-Encoding: binary');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($fn));
+    ob_clean();
+    flush();
+    readfile($fn);
+    exit;
+}
 ?>
