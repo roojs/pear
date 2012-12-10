@@ -70,7 +70,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
 			$objWriter->startElement('w:t');
 				$objWriter->writeAttribute('xml:space', 'preserve'); // needed because of drawing spaces before and after text
-				$objWriter->writeRaw($strText);
+				$objWriter->text($strText);
 			$objWriter->endElement();
 			
 		$objWriter->endElement(); // w:r
@@ -201,7 +201,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 				
 					$objWriter->startElement('w:t');
 						$objWriter->writeAttribute('xml:space', 'preserve'); // needed because of drawing spaces before and after text
-						$objWriter->writeRaw($linkName);
+						$objWriter->text($linkName);
 					$objWriter->endElement();
 				$objWriter->endElement();
 		
@@ -259,7 +259,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 						
 						$objWriter->startElement('w:instrText');
 							$objWriter->writeAttribute('xml:space', 'preserve');
-							$objWriter->writeRaw($text);
+							$objWriter->text($text);
 						$objWriter->endElement();
 					$objWriter->endElement();
 					
@@ -293,7 +293,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 						
 						$objWriter->startElement('w:t');
 							$objWriter->writeAttribute('xml:space', 'preserve');
-							$objWriter->writeRaw($text);
+							$objWriter->text($text);
 						$objWriter->endElement();
 					$objWriter->endElement();
 				}
@@ -680,15 +680,15 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 //$objWriter->writeAttribute('relativeFrom','column');
                 //$objWriter->startElement('wp:posOffset');
                 // aournd 292735
-                //$objWriter->writeRaw(292735);
-                //$objWriter->writeRaw(0);
+                //$objWriter->text(292735);
+                //$objWriter->text(0);
                // $objWriter->endElement(); // End wp:posOffset
               //  $objWriter->endElement(); // End wp:positionH
                // $objWriter->startElement('wp:positionV');
                // $objWriter->writeAttribute('relativeFrom','paragraph');
                // $objWriter->startElement('wp:posOffset');
-              //  $objWriter->writeRaw(0);
-                //$objWriter->writeRaw(82550);
+              //  $objWriter->text(0);
+                //$objWriter->text(82550);
                // $objWriter->endElement(); // End wp:posOffset
               //  $objWriter->endElement(); // End wp:positionV
                 $objWriter->startElement('wp:extent');
@@ -921,7 +921,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 			
 			$objWriter->startElement('w:r');
 				$objWriter->startElement('w:t');
-					$objWriter->writeRaw($text);
+					$objWriter->text($text);
 				$objWriter->endElement();
 			$objWriter->endElement();
 			
