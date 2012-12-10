@@ -631,7 +631,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
     {
              
             static $embedid = 0;
-            $embedid++
+            $embedid++;
+            
             $rId = $image->getRelationId();
             $style = $image->getStyle();
             $width = $style->getWidth();
