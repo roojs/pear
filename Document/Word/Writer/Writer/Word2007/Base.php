@@ -651,8 +651,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 // 5.21INCHS = 4763770 == 500PIXALS
                  
                 
-                $objWriter->writeAttribute('cx',ceil((4763770 / 500) * $width));
-                $objWriter->writeAttribute('cy',ceil((4763770 / 500) * $height));
+                $objWriter->writeAttribute('cx',ceil($width / 75 * 914400));
+                $objWriter->writeAttribute('cy',ceil($height / 75 * 914400));
                 $objWriter->endElement(); // End wp:extent
                 $objWriter->startElement('wp:effectExtent');
                 $objWriter->writeAttribute('b',0);
