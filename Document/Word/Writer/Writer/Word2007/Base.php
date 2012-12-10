@@ -598,8 +598,6 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	protected function _writeImage(Document_Word_Writer_Shared_XMLWriter $objWriter = null, $image) 
         {
 		$rId = $image->getRelationId();
-		print_r($image);
-                print_r('<br/>');
 		$style = $image->getStyle();
 		$width = $style->getWidth();
 		$height = $style->getHeight();
