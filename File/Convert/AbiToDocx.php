@@ -7,7 +7,8 @@
 
 class File_Convert_AbiToDocx 
 {
-        
+    var $styles = array();
+    
 	public function __construct($fn) 
         {
                 $this->fileName = $fn;
