@@ -630,7 +630,21 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->writeAttribute('x',0);
                 $objWriter->writeAttribute('y',0);
                 $objWriter->endElement(); // End wp:simplePos
-              
+                $objWriter->startElement('wp:positionH');
+                $objWriter->writeAttribute('relativeFrom','column');
+                $objWriter->startElement('wp:posOffset');
+                // aournd 292735
+                //$objWriter->writeRaw(292735);
+                $objWriter->writeRaw(0);
+                $objWriter->endElement(); // End wp:posOffset
+                $objWriter->endElement(); // End wp:positionH
+                $objWriter->startElement('wp:positionV');
+                $objWriter->writeAttribute('relativeFrom','paragraph');
+                $objWriter->startElement('wp:posOffset');
+                $objWriter->writeRaw(0);
+                //$objWriter->writeRaw(82550);
+                $objWriter->endElement(); // End wp:posOffset
+                $objWriter->endElement(); // End wp:positionV
                 $objWriter->startElement('wp:extent');
                 
                 //should be aroudn 4763770 ish
