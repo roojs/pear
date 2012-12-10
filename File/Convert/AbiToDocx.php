@@ -199,6 +199,7 @@ class File_Convert_AbiToDocx
             if ($this->pass == 2) {
                 return;
             }
+            // only made on first pass..
             
             $sectionType = $this->xr->getAttribute('type');
             if($sectionType == 'header'){
