@@ -9,20 +9,20 @@ class File_Convert_AbiToDocx
 {
     var $styles = array();
     
-	public function __construct($fn) 
-        {
-                $this->fileName = $fn;
-                return;
-                
-                
-                require_once dirname(__FILE__) .'/../Convert.php';
-                $x = new File_Convert($fn, 'application/abiword' );
-                $x->convert('application/abiword');
-                $x->serve('attachment');
+    function __construct($fn) 
+    {
+            $this->fileName = $fn;
+            return;
             
-                exit;
-                
-        }
+            
+            require_once dirname(__FILE__) .'/../Convert.php';
+            $x = new File_Convert($fn, 'application/abiword' );
+            $x->convert('application/abiword');
+            $x->serve('attachment');
+        
+            exit;
+            
+    }
         
         function save($fn)
         {
