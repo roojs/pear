@@ -255,14 +255,14 @@ class File_Convert_AbiToDocx
             if ($this->sectionType == 'header') {
                 if (strlen($str)) {
                     // fixme - kludge as parse does not subparse <fields>
-                    $this->header->addPreserveText($str , $this->style['c']);
+                    $this->header->addPreserveText($str , $this->style['c'],array('align'=> $this->style['c']['text-align']));
                 }
             }elseif($this->sectionType == 'footer') {
                 if (strlen($str)) {
                       
                     // fixme - kludge as parse does not subparse <fields>
                     
-                    $this->footer->addPreserveText($str , $this->style['c']);
+                    $this->footer->addPreserveText($str , $this->style['c'],array('align'=> $this->style['c']['text-align']));
                 }
             }
         }
