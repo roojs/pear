@@ -811,6 +811,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End a:graphic
                   */
                 
+                
+                
                 $objWriter->endElement(); // End wp:anchor
                 $objWriter->endElement(); // End w:drawing
                 $objWriter->endElement(); // End w:r
