@@ -789,7 +789,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End a:prstGeom
                 $objWriter->startElement('a:noFill');
                 $objWriter->endElement(); // End a:noFill
-                /*
+                /* -- bug ? */
                 $objWriter->startElement('a:ln');
                 $objWriter->writeAttribute('w',9525);
                 $objWriter->startElement('a:noFill');
@@ -802,7 +802,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->startElement('a:tailEnd');
                 $objWriter->endElement(); // End a:tailEnd
                 $objWriter->endElement(); // End a:ln
-                  */
+                  /* -- bug ? */
                 $objWriter->endElement(); // End pic:spPr
                
                 $objWriter->endElement(); // End pic:pic
