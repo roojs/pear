@@ -413,7 +413,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
         <w:gridCol w:w="7030" />
       </w:tblGrid>
             */
-           
+            $objWriter->endElement();
              if (!empty($cw)) {
                 $objWriter->startElement('w:tblGrid');
                 foreach($table->getColumnWidths() as $w) {
@@ -431,7 +431,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement();
             }
             
-            $objWriter->endElement();
+           
 
             $_heights = $table->getRowHeights();
             for($i=0; $i<$_cRows; $i++) {
