@@ -602,6 +602,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$style = $image->getStyle();
 		$width = $style->getWidth();
 		$height = $style->getHeight();
+                echo $width . ' : ' . $height;
 		$align = $style->getAlign();
 		
                 $objWriter->startElement('w:p');
