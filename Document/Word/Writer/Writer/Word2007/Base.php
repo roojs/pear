@@ -604,7 +604,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$height = $style->getHeight();
 		$align = $style->getAlign();
 		
-//                $objWriter->startElement('w:p');
+                $objWriter->startElement('w:p');
                 if(!is_null($align)) {
                         $objWriter->startElement('w:pPr');
                                 $objWriter->startElement('w:jc');
@@ -744,7 +744,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End wp:anchor
                 $objWriter->endElement(); // End w:drawing
                 $objWriter->endElement(); // End w:r
-//                $objWriter->endElement(); // End w:p
+                $objWriter->endElement(); // End w:p
                 
 //		$objWriter->startElement('w:p');
 //		
