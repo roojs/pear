@@ -803,7 +803,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End a:ln
                 $objWriter->endElement(); // End pic:spPr
                 $objWriter->endElement(); // End pic:pic
-                  */
+               */
                 
                 $objWriter->endElement(); // End a:graphicData
                 $objWriter->endElement(); // End a:graphic
