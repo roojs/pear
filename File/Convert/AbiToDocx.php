@@ -211,7 +211,12 @@ class File_Convert_AbiToDocx
             $this->setNodeStyle('field', 'props'); // Define field style
             $this->style['field'] = array_merge((array)$this->style['field'],(array)  $this->style['p']);
             if($fieldType == 'page_number'){
-                $this->header->addPreserveText('{PAGE}', $this->style['field'],array('align'=> $this->style['field']['text-align']));
+                if($this->sectionType == 'header'){
+                    $this->header->addPreserveText('{PAGE}', $this->style['field'],array('align'=> $this->style['field']['text-align']));
+                }else{
+                    $this->footer->addPreserveText('{PAGE}', $this->style['field'],array('align'=> $this->style['field']['text-align']));
+                }
+                
             }
         }
         
