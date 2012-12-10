@@ -715,7 +715,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End a:off
                 $objWriter->startElement('a:ext');
                 //$objWriter->writeAttribute('cx',14605);
-                echo $width;
+                echo $width.'<br/>';
                 $objWriter->writeAttribute('cx',ceil((4763770 / 500) * $width));
                 $objWriter->writeAttribute('cy',ceil((4763770 / 500) * $height));
                //$objWriter->writeAttribute('cy',14605);
