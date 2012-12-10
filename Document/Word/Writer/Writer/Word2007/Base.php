@@ -385,86 +385,105 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
 		if($_cRows > 0) {
 			$objWriter->startElement('w:tbl');
-                        $objWriter->startElement('w:tblPr');
-                        $tblStyle = $table->getStyle();
-                        if($tblStyle instanceof Document_Word_Writer_Style_Table) {
-                                $this->_writeTableStyle($objWriter, $tblStyle);
-                        } else {
-                                if(!empty($tblStyle)) {
-                                        $objWriter->startElement('w:tblStyle');
-                                        $objWriter->writeAttribute('w:val', $tblStyle);
-                                        $objWriter->endElement();
-                                }
+            $objWriter->startElement('w:tblPr');
+            $tblStyle = $table->getStyle();
+            if($tblStyle instanceof Document_Word_Writer_Style_Table) {
+                    $this->_writeTableStyle($objWriter, $tblStyle);
+            } else {
+                    if(!empty($tblStyle)) {
+                            $objWriter->startElement('w:tblStyle');
+                            $objWriter->writeAttribute('w:val', $tblStyle);
+                            $objWriter->endElement();
+                    }
+            }
+            
+            /*
+            
+            <w:tblGrid>
+        <w:gridCol w:w="1980" />
+        <w:gridCol w:w="7030" />
+      </w:tblGrid>
+            */
+            
+            $objWriter->startElement('w:tblGrid');
+            foreach($table->getColumnWidths() as $w) {
+                $objWriter->startElement('w:gridCol');
+                $objWriter->setAttribute('w:w', $w);
+            }
+            $objWriter->endElement();
+
+            
+            
+            
+            // Fixed the cell width
+            $objWriter->startElement('w:tblLayout');
+            $objWriter->writeAttribute('w:type', 'fixed');
+            $objWriter->endElement();
+            $objWriter->endElement();
+
+            $_heights = $table->getRowHeights();
+            for($i=0; $i<$_cRows; $i++) {
+                $row = $_rows[$i];
+                $height = $_heights[$i];
+
+                $objWriter->startElement('w:tr');
+
+                if(!is_null($height)) {
+                        $objWriter->startElement('w:trPr');
+                        $objWriter->startElement('w:trHeight');
+                        $objWriter->writeAttribute('w:val', $height);
+                        $objWriter->endElement();
+                        $objWriter->endElement();
+                }
+
+                foreach($row as $cell) {
+                        $objWriter->startElement('w:tc');
+
+                        $cellStyle = $cell->getStyle();
+                        $width = $cell->getWidth();
+
+                        $objWriter->startElement('w:tcPr');
+                        $objWriter->startElement('w:tcW');
+                        $objWriter->writeAttribute('w:w', $width);
+                        $objWriter->writeAttribute('w:type', 'dxa');
+                        $objWriter->endElement();
+
+                        if($cellStyle instanceof Document_Word_Writer_Style_Cell) {
+                                $this->_writeCellStyle($objWriter, $cellStyle);
                         }
-                        // Fixed the cell width
-                        $objWriter->startElement('w:tblLayout');
-                        $objWriter->writeAttribute('w:type', 'fixed');
-                        $objWriter->endElement();
+
                         $objWriter->endElement();
 
-                        $_heights = $table->getRowHeights();
-                        for($i=0; $i<$_cRows; $i++) {
-                            $row = $_rows[$i];
-                            $height = $_heights[$i];
+                        $_elements = $cell->getElements();
+                        if(count($_elements) > 0) {
+                                foreach($_elements as $element) {
+                                        if($element instanceof Document_Word_Writer_Section_Text) {
+                                                $this->_writeText($objWriter, $element);
+                                        } elseif($element instanceof Document_Word_Writer_Section_TextRun) {
+                                                $this->_writeTextRun($objWriter, $element);
+                                        } elseif($element instanceof Document_Word_Writer_Section_Link) {
+                                                $this->_writeLink($objWriter, $element);
+                                        } elseif($element instanceof Document_Word_Writer_Section_TextBreak) {
+                                                $this->_writeTextBreak($objWriter);
+                                        } elseif($element instanceof Document_Word_Writer_Section_ListItem) {
+                                                $this->_writeListItem($objWriter, $element);
+                                        } elseif($element instanceof Document_Word_Writer_Section_Image ||
+                                                         $element instanceof Document_Word_Writer_Section_MemoryImage) {
+                                                $this->_writeImage($objWriter, $element);
+                                        } elseif($element instanceof Document_Word_Writer_Section_Object) {
+                                                $this->_writeObject($objWriter, $element);
+                                        } elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText) {
+                                                $this->_writePreserveText($objWriter, $element);
+                                        }
+                                }
+                        } else {
+                                $this->_writeTextBreak($objWriter);
+                        }
 
-                            $objWriter->startElement('w:tr');
-
-                                    if(!is_null($height)) {
-                                            $objWriter->startElement('w:trPr');
-                                            $objWriter->startElement('w:trHeight');
-                                            $objWriter->writeAttribute('w:val', $height);
-                                            $objWriter->endElement();
-                                            $objWriter->endElement();
-                                    }
-
-                                    foreach($row as $cell) {
-                                            $objWriter->startElement('w:tc');
-
-                                            $cellStyle = $cell->getStyle();
-                                            $width = $cell->getWidth();
-
-                                            $objWriter->startElement('w:tcPr');
-                                            $objWriter->startElement('w:tcW');
-                                            $objWriter->writeAttribute('w:w', $width);
-                                            $objWriter->writeAttribute('w:type', 'dxa');
-                                            $objWriter->endElement();
-
-                                            if($cellStyle instanceof Document_Word_Writer_Style_Cell) {
-                                                    $this->_writeCellStyle($objWriter, $cellStyle);
-                                            }
-
-                                            $objWriter->endElement();
-
-                                            $_elements = $cell->getElements();
-                                            if(count($_elements) > 0) {
-                                                    foreach($_elements as $element) {
-                                                            if($element instanceof Document_Word_Writer_Section_Text) {
-                                                                    $this->_writeText($objWriter, $element);
-                                                            } elseif($element instanceof Document_Word_Writer_Section_TextRun) {
-                                                                    $this->_writeTextRun($objWriter, $element);
-                                                            } elseif($element instanceof Document_Word_Writer_Section_Link) {
-                                                                    $this->_writeLink($objWriter, $element);
-                                                            } elseif($element instanceof Document_Word_Writer_Section_TextBreak) {
-                                                                    $this->_writeTextBreak($objWriter);
-                                                            } elseif($element instanceof Document_Word_Writer_Section_ListItem) {
-                                                                    $this->_writeListItem($objWriter, $element);
-                                                            } elseif($element instanceof Document_Word_Writer_Section_Image ||
-                                                                             $element instanceof Document_Word_Writer_Section_MemoryImage) {
-                                                                    $this->_writeImage($objWriter, $element);
-                                                            } elseif($element instanceof Document_Word_Writer_Section_Object) {
-                                                                    $this->_writeObject($objWriter, $element);
-                                                            } elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText) {
-                                                                    $this->_writePreserveText($objWriter, $element);
-                                                            }
-                                                    }
-                                            } else {
-                                                    $this->_writeTextBreak($objWriter);
-                                            }
-
-                                            $objWriter->endElement();
-                                    }
-                                    $objWriter->endElement();
-				}
+                        $objWriter->endElement();
+                }
+                $objWriter->endElement();
+			}
 			$objWriter->endElement();
 		}
 	}
