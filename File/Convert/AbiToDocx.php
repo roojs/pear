@@ -103,11 +103,12 @@ class File_Convert_AbiToDocx
                 }
                 $this->table->addRow($height);
             }
-            $this->cellWidth = '';
-            if(array_key_exists('width' . $this->style['cell']['colunmNum'], $this->style['table'])){
-                $this->cellWidth = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']],null);
+            $cellWidth = '';
+            if (isset($this->style['table']['width' . $this->style['cell']['colunmNum'])) {
+                $cellWidth = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']],null);
             }
-            $this->cell = $this->table->addCell($this->cellWidth, $this->style['cell']);
+            }
+            $this->cell = $this->table->addCell($cellWidth, $this->style['cell']);
             $this->lastNode = 'cell';
         }
         
