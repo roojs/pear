@@ -764,7 +764,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End a:stretch
                 $objWriter->endElement(); // End pic:blipFill
                 $objWriter->startElement('pic:spPr');
-                
+                /*
                 
                 $objWriter->writeAttribute('bwMode','auto');
                 $objWriter->startElement('a:xfrm');
@@ -801,7 +801,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->startElement('a:tailEnd');
                 $objWriter->endElement(); // End a:tailEnd
                 $objWriter->endElement(); // End a:ln
-                  
+                    */
                 $objWriter->endElement(); // End pic:spPr
                
                 $objWriter->endElement(); // End pic:pic
@@ -809,7 +809,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                
                 $objWriter->endElement(); // End a:graphicData
                 $objWriter->endElement(); // End a:graphic
-                  */
+                
                 
                 
                 
