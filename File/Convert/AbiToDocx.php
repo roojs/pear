@@ -52,17 +52,23 @@ class File_Convert_AbiToDocx
                 if(!$this->xr->open($this->fileName)){
                     return PEAR::raiseError('Failed to open input file.');
                 }
-                
+                $state = array();
                 while ($this->xr->read()){
+                    
+                    
+                    
                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
+                        $this->styles = array_pop($state);
                         continue;
                     }
+                    
                     $method = 'handle_'.$this->xr->name;
                     if (!method_exists($this, $method)) {
 //                        echo "NOT HANLED {$this->xr->name} <br/>";
                     }else{
                         $this->$method();   
                     }
+                    array_push($state, $this->styles);
                 }
         }
         
@@ -285,42 +291,49 @@ class File_Convert_AbiToDocx
                             $attrArray['width'.$index] = $prop;
                         }
                         break;
+                    
                     case 'table-row-heights':
                         $props = explode('/', $attr[1]);
                         foreach($props as $index => $prop){
                             $attrArray['height'.$index] = $prop;
                         }
                         break;
+                    
                     case 'left-attach':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
                             $attrArray['colunmNum'] = $prop;
                         }
                         break;
+                    
                     case 'top-attach':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
                             $attrArray['rowNum'] = $prop;
                         }
                         break;
+                    
                     case 'top-color':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
                             $attrArray['borderTopColor'] = $prop;
                         }
                         break;
+                    
                     case 'left-color':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
                             $attrArray['borderLeftColor'] = $prop;
                         }
                         break;
+                    
                     case 'right-color':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
                             $attrArray['borderRightColor'] = $prop;
                         }
                         break;
+                    
                     case 'bot-color':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
