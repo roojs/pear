@@ -24,7 +24,7 @@ $section->addText('Above is earth image!');
 
 // when get image - > lookup map [67219.0] for rid
 //$section->addImageToCollection($rid, '_earth.JPG'); // 67219.0.jpg/:;:
-$fn = '/tmp/abiTodocx.docx';
+$fn = '/tmp/Image.docx';
 // Save File
 require_once __DIR__ . '/../Writer/IOFactory.php';
 $objWriter = Document_Word_Writer_IOFactory::createWriter($PHPWord, 'Word2007');
