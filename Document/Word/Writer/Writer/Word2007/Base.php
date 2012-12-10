@@ -660,7 +660,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->writeAttribute('r',0);
                 $objWriter->writeAttribute('t',0);
                 $objWriter->endElement(); // End wp:effectExtent
-                $objWriter->startElement('wp:wrapNone');
+                $objWriter->startElement('wp:wrapTopAndBottom');
                 $objWriter->endElement(); // End wp:wrapNone
 //                $objWriter->startElement('wp:wrapSquare');
 //                $objWriter->writeAttribute('wrapText','largest');
