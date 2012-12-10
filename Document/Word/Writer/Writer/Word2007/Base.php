@@ -637,7 +637,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
             $height = $style->getHeight();
             $align = $style->getAlign();
                     // Calculation refer to : http://startbigthinksmall.wordpress.com/2010/01/04/points-inches-and-emus-measuring-units-in-office-open-xml/
-        	$emuWidth = ceil($width / 75 * 914400);
+        	    $emuWidth = ceil($width / 75 * 914400);
                 $emuHeight = ceil($height / 75 * 914400);
                 $objWriter->startElement('w:p');
                 if(!is_null($align)) {
@@ -647,7 +647,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                 $objWriter->endElement();
                         $objWriter->endElement();
                }
-                
+                /*
                 $objWriter->startElement('w:r');
                 $objWriter->startElement('w:drawing');
                 
@@ -728,7 +728,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End wp:cNvGraphicFramePr
                 
                  
-                /*
+                
                 
                 $objWriter->startElement('a:graphic');
                 $objWriter->writeAttribute('xmlns:a','http://schemas.openxmlformats.org/drawingml/2006/main');
@@ -810,11 +810,12 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End a:graphicData
                 $objWriter->endElement(); // End a:graphic
                 
-               */
-                
                 $objWriter->endElement(); // End wp:anchor
                 $objWriter->endElement(); // End w:drawing
                 $objWriter->endElement(); // End w:r
+                  */
+                
+                
                 $objWriter->endElement(); // End w:p
                 
 //		$objWriter->startElement('w:p');
