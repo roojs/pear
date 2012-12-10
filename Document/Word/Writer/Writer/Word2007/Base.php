@@ -605,35 +605,66 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$height = $style->getHeight();
 		$align = $style->getAlign();
 		
-		$objWriter->startElement('w:p');
-		
-			if(!is_null($align)) {
-				$objWriter->startElement('w:pPr');
-					$objWriter->startElement('w:jc');
-						$objWriter->writeAttribute('w:val', $align);
-					$objWriter->endElement();
-				$objWriter->endElement();
-			}
-		
-			$objWriter->startElement('w:r');
-			
-				$objWriter->startElement('w:pict');
-					
-					$objWriter->startElement('v:shape');
-						$objWriter->writeAttribute('type', '#_x0000_t75');
-						$objWriter->writeAttribute('style', 'width:'.$width.'px;height:'.$height.'px');
-						
-						$objWriter->startElement('v:imagedata');
-							$objWriter->writeAttribute('r:id', 'rId'.$rId);
-							$objWriter->writeAttribute('o:title', '');
-						$objWriter->endElement();
-					$objWriter->endElement();
-					
-				$objWriter->endElement();
-				
-			$objWriter->endElement();
-			
-		$objWriter->endElement();
+                $objWriter->startElement('w:p');
+                $objWriter->startElement('w:r');
+                $objWriter->startElement('w:drawing');
+                $objWriter->startElement('wp:anchor');
+                $objWriter->startElement('wp:simplePos');
+                $objWriter->writeAttribute('x',0);
+                $objWriter->writeAttribute('y',0);
+                $objWriter->endElement(); // End wp:simplePos
+                $objWriter->startElement('wp:extent');
+                $objWriter->writeAttribute('cx',$width);
+                $objWriter->writeAttribute('y',$height);
+                $objWriter->endElement(); // End wp:extent
+                $objWriter->startElement('a:graphic');
+                $objWriter->startElement('a:graphicData');
+                $objWriter->writeAttribute('uri','http://schemas.openxmlformats.org/drawingml/2006/picture');
+                $objWriter->startElement('pic:pic');
+                $objWriter->startElement('pic:blipFill');
+                $objWriter->startElement('a:blip');
+                $objWriter->writeAttribute('r:embed',$rId);
+                
+                $objWriter->endElement(); // End a:blip
+                $objWriter->endElement(); // End pic:blipFill
+                $objWriter->endElement(); // End pic:pic
+                $objWriter->endElement(); // End a:graphicData
+                $objWriter->endElement(); // End a:graphic
+                
+                $objWriter->endElement(); // End wp:anchor
+                $objWriter->endElement(); // End w:drawing
+                $objWriter->endElement(); // End w:r
+                $objWriter->endElement(); // End w:p
+                
+//		$objWriter->startElement('w:p');
+//		
+//			if(!is_null($align)) {
+//				$objWriter->startElement('w:pPr');
+//					$objWriter->startElement('w:jc');
+//						$objWriter->writeAttribute('w:val', $align);
+//					$objWriter->endElement();
+//				$objWriter->endElement();
+//			}
+//		
+//			$objWriter->startElement('w:r');
+//			
+//				$objWriter->startElement('w:pict');
+//					
+//					$objWriter->startElement('v:shape');
+//						$objWriter->writeAttribute('type', '#_x0000_t75');
+//						$objWriter->writeAttribute('style', 'width:'.$width.'px;height:'.$height.'px');
+//						
+//						$objWriter->startElement('v:imagedata');
+//							$objWriter->writeAttribute('r:id', 'rId'.$rId);
+//							$objWriter->writeAttribute('o:title', '');
+//						$objWriter->endElement();
+//					$objWriter->endElement();
+//					
+//				$objWriter->endElement();
+//				
+//			$objWriter->endElement();
+//			
+//		$objWriter->endElement();
 	}
 	
 	protected function _writeWatermark(Document_Word_Writer_Shared_XMLWriter $objWriter = null, $image) 
