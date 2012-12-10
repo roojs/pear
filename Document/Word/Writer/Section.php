@@ -245,7 +245,7 @@ class Document_Word_Writer_Section
 			trigger_error('Source does not exist or unsupported object type.');
 		}
 	}
-       
+        
 	/**
 	 * Add a Image Element
 	 * 
