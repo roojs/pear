@@ -248,7 +248,7 @@ class File_Convert_AbiToDocx
             
             $this->setNodeStyle('c', 'props'); // Define header style
             $this->style['c'] = array_merge((array)$this->style['c'],(array)  $this->style['p']);
-            if($this->sectionType == 'header')
+            if ($this->sectionType == 'header')
             {
                 if($this->xr->readString() != ''){
                     // fixme - kludge as parse does not subparse <fields>
