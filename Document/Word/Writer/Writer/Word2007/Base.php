@@ -698,12 +698,19 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->writeAttribute('cx',$emuWidth);
                 $objWriter->writeAttribute('cy',$emuHeight);
                 $objWriter->endElement(); // End wp:extent
+                
+                
+                
+                
                 $objWriter->startElement('wp:effectExtent');
                 $objWriter->writeAttribute('b',0);
                 $objWriter->writeAttribute('l',0);
                 $objWriter->writeAttribute('r',0);
                 $objWriter->writeAttribute('t',0);
                 $objWriter->endElement(); // End wp:effectExtent
+                
+                
+                
                 $objWriter->startElement('wp:wrapTopAndBottom');
                 $objWriter->endElement(); // End wp:wrapNone
 //                $objWriter->startElement('wp:wrapSquare');
@@ -720,6 +727,10 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->writeAttribute('xmlns:a','http://schemas.openxmlformats.org/drawingml/2006/main');
                 $objWriter->endElement(); // End a:graphicFrameLocks
                 $objWriter->endElement(); // End wp:cNvGraphicFramePr
+                
+                /*
+                
+                
                 $objWriter->startElement('a:graphic');
                 $objWriter->writeAttribute('xmlns:a','http://schemas.openxmlformats.org/drawingml/2006/main');
                 $objWriter->startElement('a:graphicData');
@@ -789,6 +800,10 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End pic:pic
                 $objWriter->endElement(); // End a:graphicData
                 $objWriter->endElement(); // End a:graphic
+                
+                */
+                
+                
                 $objWriter->endElement(); // End wp:anchor
                 $objWriter->endElement(); // End w:drawing
                 $objWriter->endElement(); // End w:r
