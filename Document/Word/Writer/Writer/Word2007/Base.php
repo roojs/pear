@@ -629,6 +629,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	
 	protected function _writeImage(Document_Word_Writer_Shared_XMLWriter $objWriter = null, $image) 
         {
+            static $embedid = 0;
 		$rId = $image->getRelationId();
 		$style = $image->getStyle();
 		$width = $style->getWidth();
@@ -708,7 +709,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 //                $objWriter->endElement(); // End wp:wrapSquare
                 $objWriter->startElement('wp:docPr');
                 $objWriter->writeAttribute('descr','A description...');
-                $objWriter->writeAttribute('id',1);
+                $objWriter->writeAttribute('id',$embedid++;);
                 $objWriter->writeAttribute('name','Picture');
                 $objWriter->endElement(); // End wp:docPr
                 $objWriter->startElement('wp:cNvGraphicFramePr');
