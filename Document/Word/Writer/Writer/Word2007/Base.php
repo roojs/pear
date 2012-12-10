@@ -654,6 +654,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->startElement('wp:cNvGraphicFramePr');
                 $objWriter->startElement('a:graphicFrameLocks');
                 $objWriter->writeAttribute('noChangeAspect',1);
+                $objWriter->writeAttribute('xmlns:a','http://schemas.openxmlformats.org/drawingml/2006/main');
                 $objWriter->endElement(); // End a:graphicFrameLocks
                 $objWriter->endElement(); // End wp:cNvGraphicFramePr
                 $objWriter->startElement('a:graphic');
