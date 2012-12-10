@@ -617,36 +617,44 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 
                 $objWriter->startElement('w:r');
                 $objWriter->startElement('w:drawing');
-                $objWriter->startElement('wp:anchor');
-                $objWriter->writeAttribute('allowOverlap',1);
-                $objWriter->writeAttribute('behindDoc',0);
+                
+              //  <wp:inline distB="0" distL="0" distR="0" distT="0">
+           // <wp:extent cx="5486400" cy="7762875" />
+          //  <wp:effectExtent b="0" l="0" r="0" t="0" />
+
+
+                
+                $objWriter->startElement('wp:inline');
+               // $objWriter->writeAttribute('allowOverlap',1);
+               //  $objWriter->writeAttribute('behindDoc',0);
                 $objWriter->writeAttribute('distB',0);
                 $objWriter->writeAttribute('distL',0);
                 $objWriter->writeAttribute('distR',0);
                 $objWriter->writeAttribute('distT',0);
-                $objWriter->writeAttribute('layoutInCell',1);
-                $objWriter->writeAttribute('locked',0);
-                $objWriter->writeAttribute('relativeHeight',0);
-                $objWriter->writeAttribute('simplePos',0);
-                $objWriter->startElement('wp:simplePos');
-                $objWriter->writeAttribute('x',0);
-                $objWriter->writeAttribute('y',0);
-                $objWriter->endElement(); // End wp:simplePos
-                $objWriter->startElement('wp:positionH');
-                $objWriter->writeAttribute('relativeFrom','column');
-                $objWriter->startElement('wp:posOffset');
+                //$objWriter->writeAttribute('layoutInCell',1);
+                //$objWriter->writeAttribute('locked',0);
+                //$objWriter->writeAttribute('relativeHeight',0);
+                //$objWriter->writeAttribute('simplePos',0);
+                
+                ///$objWriter->startElement('wp:simplePos');
+                //$objWriter->writeAttribute('x',0);
+                //$objWriter->writeAttribute('y',0);
+                //$objWriter->endElement(); // End wp:simplePos
+                //$objWriter->startElement('wp:positionH');
+                //$objWriter->writeAttribute('relativeFrom','column');
+                //$objWriter->startElement('wp:posOffset');
                 // aournd 292735
                 //$objWriter->writeRaw(292735);
-                $objWriter->writeRaw(0);
-                $objWriter->endElement(); // End wp:posOffset
-                $objWriter->endElement(); // End wp:positionH
-                $objWriter->startElement('wp:positionV');
-                $objWriter->writeAttribute('relativeFrom','paragraph');
-                $objWriter->startElement('wp:posOffset');
-                $objWriter->writeRaw(0);
+                //$objWriter->writeRaw(0);
+               // $objWriter->endElement(); // End wp:posOffset
+              //  $objWriter->endElement(); // End wp:positionH
+               // $objWriter->startElement('wp:positionV');
+               // $objWriter->writeAttribute('relativeFrom','paragraph');
+               // $objWriter->startElement('wp:posOffset');
+              //  $objWriter->writeRaw(0);
                 //$objWriter->writeRaw(82550);
-                $objWriter->endElement(); // End wp:posOffset
-                $objWriter->endElement(); // End wp:positionV
+               // $objWriter->endElement(); // End wp:posOffset
+              //  $objWriter->endElement(); // End wp:positionV
                 $objWriter->startElement('wp:extent');
                 
                 //should be aroudn 4763770 ish
