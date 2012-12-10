@@ -248,14 +248,17 @@ class File_Convert_AbiToDocx
             
             $this->setNodeStyle('c', 'props'); // Define header style
             $this->style['c'] = array_merge((array)$this->style['c'],(array)  $this->style['p']);
-            if ($this->sectionType == 'header')
-            {
-                if($this->xr->readString() != ''){
+            $str = $this->xr->readString();
+            $str = str_replace(array('{#','#}', array('{', '}'), $str);
+            if ($this->sectionType == 'header') {
+                if (strlen($str)) {
                     // fixme - kludge as parse does not subparse <fields>
                     $this->header->addText($this->xr->readString() , $this->style['c']);
                 }
             }elseif($this->sectionType == 'footer') {
+                if (strlen($str)) {
                 if($this->xr->readString() != ''){
+                    
                     // fixme - kludge as parse does not subparse <fields>
                     
                     $this->footer->addText($this->xr->readString() , $this->style['c']);
