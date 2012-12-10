@@ -603,6 +603,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$width = $style->getWidth();
 		$height = $style->getHeight();
 		$align = $style->getAlign();
+                // Calculation refer to : http://startbigthinksmall.wordpress.com/2010/01/04/points-inches-and-emus-measuring-units-in-office-open-xml/
 		$emuWidth = ceil($width / 75 * 914400);
                 $emuHeight = ceil($height / 75 * 914400);
                 $objWriter->startElement('w:p');
