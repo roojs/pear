@@ -764,7 +764,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End a:fillRect
                 $objWriter->endElement(); // End a:stretch
                 $objWriter->endElement(); // End pic:blipFill
-                $objWriter->startElement('pic:spPr')
+                $objWriter->startElement('pic:spPr');
                 
                 /*
                 $objWriter->writeAttribute('bwMode','auto');
