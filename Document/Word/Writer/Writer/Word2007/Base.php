@@ -605,9 +605,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$align = $style->getAlign();
 		
                 $objWriter->startElement('w:p');
-                $objWriter->startElement('w:pPr');
-                $objWriter->startElement('w:pStyle');
-                $objWriter->writeAttribute('w:val','style0');
+                $objWriter->endElement(); // End w:p
+                $objWriter->startElement('w:p');
                 $objWriter->endElement(); // End w:pStyle
                 $objWriter->endElement(); // End w:pPr
                 $objWriter->startElement('w:r');
