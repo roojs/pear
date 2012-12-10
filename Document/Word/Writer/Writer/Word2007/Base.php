@@ -651,8 +651,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 // 5.21INCHS = 4763770 == 500PIXALS
                  
                 
-                $objWriter->writeAttribute('cx',(4763770 / 500) * $width);
-                $objWriter->writeAttribute('cy',(4763770 / 500) * $height);
+                $objWriter->writeAttribute('cx',ceil((4763770 / 500) * $width));
+                $objWriter->writeAttribute('cy',ceil((4763770 / 500) * $height));
                 $objWriter->endElement(); // End wp:extent
                 $objWriter->startElement('wp:effectExtent');
                 $objWriter->writeAttribute('b',0);
@@ -713,8 +713,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End a:off
                 $objWriter->startElement('a:ext');
                 //$objWriter->writeAttribute('cx',14605);
-                $objWriter->writeAttribute('cx',(4763770 / 500) * $width);
-                $objWriter->writeAttribute('cy',(4763770 / 500) * $height);
+                $objWriter->writeAttribute('cx',ceil((4763770 / 500) * $width));
+                $objWriter->writeAttribute('cy',ceil((4763770 / 500) * $height));
                //$objWriter->writeAttribute('cy',14605);
                 $objWriter->endElement(); // End a:ext
                 $objWriter->endElement(); // End a:xfrm
