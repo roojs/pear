@@ -404,12 +404,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                             $objWriter->writeAttribute('w:val', $tblStyle);
                             $objWriter->endElement();
                     }
-            }
-               <w:tblPr>
-        <w:tblW w:type="dxa" w:w="9070" />
-        <w:jc w:val="left" />
-        <w:tblBorders></w:tblBorders>
-      </w:tblPr>
+            } 
 
             /*
             
