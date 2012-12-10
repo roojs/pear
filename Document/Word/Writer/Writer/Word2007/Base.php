@@ -704,8 +704,10 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->writeAttribute('y',0);
                 $objWriter->endElement(); // End a:off
                 $objWriter->startElement('a:ext');
-                $objWriter->writeAttribute('cx',14605);
-                $objWriter->writeAttribute('cy',14605);
+                //$objWriter->writeAttribute('cx',14605);
+                $objWriter->writeAttribute('cx',(4763770 / 500) * $width);
+                $objWriter->writeAttribute('cy',(4763770 / 500) * $height);
+               //$objWriter->writeAttribute('cy',14605);
                 $objWriter->endElement(); // End a:ext
                 $objWriter->endElement(); // End a:xfrm
                 $objWriter->startElement('a:prstGeom');
