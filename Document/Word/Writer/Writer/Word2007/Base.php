@@ -626,20 +626,25 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->writeAttribute('relativeFrom','column');
                 $objWriter->startElement('wp:posOffset');
                 // aournd 292735
-                $objWriter->writeRaw(292735);
+                //$objWriter->writeRaw(292735);
+                $objWriter->writeRaw(0);
                 $objWriter->endElement(); // End wp:posOffset
                 $objWriter->endElement(); // End wp:positionH
                 $objWriter->startElement('wp:positionV');
                 $objWriter->writeAttribute('relativeFrom','paragraph');
                 $objWriter->startElement('wp:posOffset');
-                $objWriter->writeRaw(82550);
+                $objWriter->writeRaw(0);
+                //$objWriter->writeRaw(82550);
                 $objWriter->endElement(); // End wp:posOffset
                 $objWriter->endElement(); // End wp:positionV
                 $objWriter->startElement('wp:extent');
                 
                 //should be aroudn 4763770 ish
-                $objWriter->writeAttribute('cx',4763770);
-                $objWriter->writeAttribute('cy',4763770);
+                // 5.21INCHS = 4763770 == 500PIXALS
+                 
+                
+                $objWriter->writeAttribute('cx',(4763770 / 500) * $width);
+                $objWriter->writeAttribute('cy',(4763770 / 500) * $height);
                 $objWriter->endElement(); // End wp:extent
                 $objWriter->startElement('wp:effectExtent');
                 $objWriter->writeAttribute('b',0);
