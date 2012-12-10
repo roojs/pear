@@ -728,15 +728,18 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End a:graphicFrameLocks
                 $objWriter->endElement(); // End wp:cNvGraphicFramePr
                 
-                /*
                 
                 
                 $objWriter->startElement('a:graphic');
                 $objWriter->writeAttribute('xmlns:a','http://schemas.openxmlformats.org/drawingml/2006/main');
                 $objWriter->startElement('a:graphicData');
                 $objWriter->writeAttribute('uri','http://schemas.openxmlformats.org/drawingml/2006/picture');
+               
+                
+                
                 $objWriter->startElement('pic:pic');
                 $objWriter->writeAttribute('xmlns:pic','http://schemas.openxmlformats.org/drawingml/2006/picture');
+                
                 $objWriter->startElement('pic:nvPicPr');
                 $objWriter->startElement('pic:cNvPr');
                 $objWriter->writeAttribute('descr','A description...');
@@ -761,7 +764,9 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End a:fillRect
                 $objWriter->endElement(); // End a:stretch
                 $objWriter->endElement(); // End pic:blipFill
-                $objWriter->startElement('pic:spPr');
+                $objWriter->startElement('pic:spPr')
+                
+                /*
                 $objWriter->writeAttribute('bwMode','auto');
                 $objWriter->startElement('a:xfrm');
                 $objWriter->startElement('a:off');
@@ -798,11 +803,12 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End a:ln
                 $objWriter->endElement(); // End pic:spPr
                 $objWriter->endElement(); // End pic:pic
+                  */
+                
                 $objWriter->endElement(); // End a:graphicData
                 $objWriter->endElement(); // End a:graphic
                 
-                */
-                
+              
                 
                 $objWriter->endElement(); // End wp:anchor
                 $objWriter->endElement(); // End w:drawing
