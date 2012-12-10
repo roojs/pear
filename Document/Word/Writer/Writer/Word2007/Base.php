@@ -605,6 +605,14 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$align = $style->getAlign();
 		
                 $objWriter->startElement('w:p');
+                if(!is_null($align)) {
+                        $objWriter->startElement('w:pPr');
+                                $objWriter->startElement('w:jc');
+                                        $objWriter->writeAttribute('w:val', $align);
+                                $objWriter->endElement();
+                        $objWriter->endElement();
+               }
+                
                 $objWriter->startElement('w:r');
                 $objWriter->startElement('w:drawing');
                 $objWriter->startElement('wp:anchor');
@@ -740,13 +748,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 
 //		$objWriter->startElement('w:p');
 //		
-//			if(!is_null($align)) {
-//				$objWriter->startElement('w:pPr');
-//					$objWriter->startElement('w:jc');
-//						$objWriter->writeAttribute('w:val', $align);
-//					$objWriter->endElement();
-//				$objWriter->endElement();
-//			}
+//			
 //		
 //			$objWriter->startElement('w:r');
 //			
