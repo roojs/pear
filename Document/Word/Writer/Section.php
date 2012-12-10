@@ -258,7 +258,6 @@ class Document_Word_Writer_Section
                 require_once __DIR__ . '/Section/Image.php';
                 require_once __DIR__ . '/Media.php';
 		$image = new Document_Word_Writer_Section_Image($src, $style);
-		print_r(getimagesize($src));
 		if(!is_null($image->getSource())) {
 			$rID = Document_Word_Writer_Media::addSectionMediaElement($src, 'image');
 			$image->setRelationId($rID);
