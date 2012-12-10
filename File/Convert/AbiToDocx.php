@@ -296,7 +296,7 @@ class File_Convert_AbiToDocx
         function parseProps()
         {
             
-            $attribute = $this->xr->getAttribute('prop');
+            $attribute = $this->xr->getAttribute('props');
             if(empty($attribute)){
                 return array();
             }
