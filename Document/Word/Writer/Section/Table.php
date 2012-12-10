@@ -146,7 +146,10 @@ class Document_Word_Writer_Section_Table
         {
 		return $this->_rowHeights;
 	}
-	
+	function getColumnWidths()
+    {
+        return $this->_colWidths;
+    }
 	/**
 	 * Get table style
 	 * 
