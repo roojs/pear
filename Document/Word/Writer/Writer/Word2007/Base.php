@@ -607,6 +607,16 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->startElement('w:p');
                 $objWriter->endElement(); // End w:p
                 $objWriter->startElement('w:p');
+                $objWriter->endElement(); // End w:p
+                $objWriter->startElement('w:p');
+                $objWriter->endElement(); // End w:p
+                $objWriter->startElement('w:p');
+                $objWriter->endElement(); // End w:p$objWriter->startElement('w:p');
+                $objWriter->endElement(); // End w:p$objWriter->startElement('w:p');
+                $objWriter->endElement(); // End w:p
+                
+                
+                $objWriter->startElement('w:p');
                 $objWriter->startElement('w:r');
                 $objWriter->startElement('w:drawing');
                 $objWriter->startElement('wp:anchor');
