@@ -43,8 +43,10 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 			$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph) ? true : false;
 			
 			if($SpIsObject) {
+                            echo '1';
 				$this->_writeParagraphStyle($objWriter, $styleParagraph);
 			} elseif(!$SpIsObject && !is_null($styleParagraph)) {
+                            echo '2';
 				$objWriter->startElement('w:pPr');
 					$objWriter->startElement('w:pStyle');
 						$objWriter->writeAttribute('w:val', $styleParagraph);
