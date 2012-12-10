@@ -293,7 +293,7 @@ class File_Convert_AbiToDocx
         }
         
       
-        function parseProps($attribute)
+        function parseProps()
         {
             
             $attribute = $this->xr->getAttribute($attrName);
