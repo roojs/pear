@@ -397,9 +397,9 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                 }
                         }
                         // Fixed the cell width
-                      //  $objWriter->startElement('w:tblLayout');
-                      //  $objWriter->writeAttribute('w:type', 'fixed');
-                      //  $objWriter->endElement();
+                        $objWriter->startElement('w:tblLayout');
+                        $objWriter->writeAttribute('w:type', 'fixed');
+                        $objWriter->endElement();
                         $objWriter->endElement();
 
                         $_heights = $table->getRowHeights();
