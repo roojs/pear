@@ -108,7 +108,7 @@ class File_Convert_AbiToDocx
             if (isset($this->style['table']['width' . $this->style['cell']['colunmNum'] ])) {
                 $cellWidth = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']],null);
             }
-            echo "CW? " . $cellWidth . "|";
+            //echo "CW? " . $cellWidth . "|";
             $this->cell = $this->table->addCell($cellWidth, $this->style['cell']);
             $this->lastNode = 'cell';
         }
