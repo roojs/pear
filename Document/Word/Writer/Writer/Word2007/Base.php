@@ -276,6 +276,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 					$objWriter->endElement();
 				} else {
 					$text = htmlspecialchars($text);
+                    require_once 'Document/Word/Writer/Shared/String.php';
 					$text = Document_Word_Writer_Shared_String::ControlCharacterPHP2OOXML($text);
 					
 					$objWriter->startElement('w:r');
