@@ -709,7 +709,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 //                $objWriter->endElement(); // End wp:wrapSquare
                 $objWriter->startElement('wp:docPr');
                 $objWriter->writeAttribute('descr','A description...');
-                $objWriter->writeAttribute('id',$embedid++;);
+                $objWriter->writeAttribute('id',$embedid++);
                 $objWriter->writeAttribute('name','Picture');
                 $objWriter->endElement(); // End wp:docPr
                 $objWriter->startElement('wp:cNvGraphicFramePr');
