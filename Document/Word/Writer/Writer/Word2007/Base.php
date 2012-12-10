@@ -384,8 +384,17 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$_cRows = count($_rows);
 		
 		if($_cRows > 0) {
+             $cw = $table->getColumnWidths();
+            
 			$objWriter->startElement('w:tbl');
             $objWriter->startElement('w:tblPr');
+            // <w:tblW w:type="dxa" w:w="9070" />
+            if (!empty($cw)) {
+                $objWriter->startElement('w:tblW');
+                $objWriter->writeAttribute('w:type','dxa');
+                $objWriter->writeAttribute('w:w', array_sum($cw));
+                $objWriter->endElement();
+            }
             $tblStyle = $table->getStyle();
             if($tblStyle instanceof Document_Word_Writer_Style_Table) {
                     $this->_writeTableStyle($objWriter, $tblStyle);
@@ -396,7 +405,12 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                             $objWriter->endElement();
                     }
             }
-            
+               <w:tblPr>
+        <w:tblW w:type="dxa" w:w="9070" />
+        <w:jc w:val="left" />
+        <w:tblBorders></w:tblBorders>
+      </w:tblPr>
+
             /*
             
             <w:tblGrid>
@@ -404,7 +418,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
         <w:gridCol w:w="7030" />
       </w:tblGrid>
             */
-            $cw = $table->getColumnWidths();
+           
              if (!empty($cw)) {
                 $objWriter->startElement('w:tblGrid');
                 foreach($table->getColumnWidths() as $w) {
