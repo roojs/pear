@@ -270,7 +270,7 @@ class File_Convert_AbiToDocx
                 }
             }
         }
-        
+        // converts inches / cm into dax (word measurments)
         function parseWH($wh,$type=null)
         {
             $changeType = preg_replace('/[^a-z]/', '', $wh);
