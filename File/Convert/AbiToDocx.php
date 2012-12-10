@@ -216,6 +216,8 @@ class File_Convert_AbiToDocx
             if ($this->pass == 2) {
                 return;
             }
+            return; /// this would not work!
+        
             $fieldType = $this->xr->getAttribute('type');
             $this->setNodeStyle('field', 'props'); // Define field style
             $this->style['field'] = array_merge((array)$this->style['field'],(array)  $this->style['p']);
