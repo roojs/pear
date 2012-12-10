@@ -607,6 +607,16 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->startElement('w:r');
                 $objWriter->startElement('w:drawing');
                 $objWriter->startElement('wp:anchor');
+                $objWriter->writeAttribute('allowOverlap',1);
+                $objWriter->writeAttribute('behindDoc',0);
+                $objWriter->writeAttribute('distB',0);
+                $objWriter->writeAttribute('distL',0);
+                $objWriter->writeAttribute('distR',0);
+                $objWriter->writeAttribute('distT',0);
+                $objWriter->writeAttribute('layoutInCell',1);
+                $objWriter->writeAttribute('locked',0);
+                $objWriter->writeAttribute('relativeHeight',0);
+                $objWriter->writeAttribute('simplePos',0);
                 $objWriter->startElement('wp:simplePos');
                 $objWriter->writeAttribute('x',0);
                 $objWriter->writeAttribute('y',0);
