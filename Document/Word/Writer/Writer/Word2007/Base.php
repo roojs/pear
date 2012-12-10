@@ -633,7 +633,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->writeAttribute('xmlns:pic','http://schemas.openxmlformats.org/drawingml/2006/picture');
                 $objWriter->startElement('pic:blipFill');
                 $objWriter->startElement('a:blip');
-                $objWriter->writeAttribute('r:embed',$rId);
+                $objWriter->writeAttribute('r:embed','rId'.$rId);
                 
                 $objWriter->endElement(); // End a:blip
                 $objWriter->endElement(); // End pic:blipFill
