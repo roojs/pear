@@ -87,7 +87,7 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->style['table'] =  $this->parseProps($this->xr->getAttribute('props'));
+            $this->style['table'] =  $this->parseProps();
             
             $this->table = $this->section->addTable(); // Add table
         }
@@ -97,7 +97,8 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->setNodeStyle('cell', 'props'); // Define cell style
+            $this->style['cell'] =  $this->parseProps();
+             
             if($this->style['cell']['colunmNum'] == 0){
                 $height = '';
                 if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table'])){
@@ -116,7 +117,8 @@ class File_Convert_AbiToDocx
         
         function handle_p()
         {
-            $this->setNodeStyle('p', 'props'); // Define p style
+            $this->style['p'] =  $this->parseProps();
+            
             if($this->xr->getAttribute('Style') == 'Normal'){
                 $this->style['p'] = array_merge((array)$this->style['Normal'],(array)  $this->style['p']);
             }
@@ -144,9 +146,8 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            if($this->xr->getAttribute('props')){
-                $this->setNodeStyle('a', 'props'); // Define a style
-            }
+            $this->style['a'] =  $this->parseProps();
+             
             $linkHref = $this->xr->getAttribute('xlink:href');
             $linkName =  $this->xr->readString();
             $this->style['a'] = array_merge((array)$this->style['a'],(array)  $this->style['p']);
@@ -163,7 +164,8 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->setNodeStyle('image', 'props'); // Define image style
+            $this->style['image'] =  $this->parseProps();
+            
             $image = $this->xr->getAttribute('dataid');
             foreach($this->style['image'] as $key => $value){
                 $this->style['image'][$key] = $this->parseWH($value,'image');
@@ -220,7 +222,8 @@ class File_Convert_AbiToDocx
             return; /// this would not work!
         
             $fieldType = $this->xr->getAttribute('type');
-            $this->setNodeStyle('field', 'props'); // Define field style
+            $this->style['field'] =  $this->parseProps();
+            
             $this->style['field'] = array_merge((array)$this->style['field'],(array)  $this->style['p']);
             if($fieldType == 'page_number'){
                 if($this->sectionType == 'header'){
@@ -248,8 +251,8 @@ class File_Convert_AbiToDocx
             // only handles on first pass...??
             // and it adds to header or footer?
             
+            $this->style['c'] =  $this->parseProps();
             
-            $this->setNodeStyle('c', 'props'); // Define header style
             $this->style['c'] = array_merge((array)$this->style['c'],(array)  $this->style['p']);
             $str = $this->xr->readString();
             $str = str_replace(array('{#','#}'), array('{', '}'), $str);
@@ -291,13 +294,15 @@ class File_Convert_AbiToDocx
         
         function setNodeStyle($node, $attrName)
         {
-            $this->style[$node] = $this->parseProps($this->xr->getAttribute($attrName));
+            $this->style[$node] = $this->parseProps();
         }
         
         function parseProps($attribute)
         {
+            
+            $attribute = $this->xr->getAttribute($attrName);
             if(empty($attribute)){
-                return;
+                return array();
             }
             $data = explode(';', $attribute);
             return $this->getAttrDetail($data);
