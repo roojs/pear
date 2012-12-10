@@ -603,7 +603,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$width = $style->getWidth();
 		$height = $style->getHeight();
 		$align = $style->getAlign();
-		
+		$emuWidth = ceil($width / 75 * 914400);
+                $emuHeight = ceil($height / 75 * 914400);
                 $objWriter->startElement('w:p');
                 if(!is_null($align)) {
                         $objWriter->startElement('w:pPr');
@@ -651,8 +652,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 // 5.21INCHS = 4763770 == 500PIXALS
                  
                 
-                $objWriter->writeAttribute('cx',ceil($width / 75 * 914400));
-                $objWriter->writeAttribute('cy',ceil($height / 75 * 914400));
+                $objWriter->writeAttribute('cx',$emuWidth);
+                $objWriter->writeAttribute('cy',$emuHeight);
                 $objWriter->endElement(); // End wp:extent
                 $objWriter->startElement('wp:effectExtent');
                 $objWriter->writeAttribute('b',0);
@@ -717,8 +718,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 //$objWriter->writeAttribute('cx',14605);
 //                $objWriter->writeAttribute('cx',ceil((4763770 / 500) * $width));
 //                $objWriter->writeAttribute('cy',ceil((4763770 / 500) * $height));
-                $objWriter->writeAttribute('cx',ceil($width / 75 * 914400));
-                $objWriter->writeAttribute('cy',ceil($height / 75 * 914400));
+                $objWriter->writeAttribute('cx',$emuWidth);
+                $objWriter->writeAttribute('cy',$emuHeight);
                //$objWriter->writeAttribute('cy',14605);
                 $objWriter->endElement(); // End a:ext
                 $objWriter->endElement(); // End a:xfrm
