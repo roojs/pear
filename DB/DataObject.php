@@ -3826,6 +3826,8 @@ class DB_DataObject extends DB_DataObject_Overload
      * 
      * if used with 2 arguments DB_DataObject_Cast::$value($callvalue) is called
      * valid first arguments are: blob, string, date, sql
+     * 
+     * eg. $member->updated = $member->sqlValue('NOW()');
      *
      * might handle more arguments for escaping later...
      * 
