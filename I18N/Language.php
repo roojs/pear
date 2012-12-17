@@ -69,7 +69,7 @@ class I18N_Language extends I18N_Common {
             'de' => 'German',
             'dz' => 'Bhutani',
             'el' => 'Greek',
-            'en' => 'English',
+            'en' => '123',
             'eo' => 'Esperanto',
             'es' => 'Spanish',
             'et' => 'Estonian',
