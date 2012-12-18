@@ -170,12 +170,9 @@ class File_Convert_AbiToDocx
             $linkHref = $this->xr->getAttribute('xlink:href');
             $linkName =  $this->xr->readString();
             $this->style['a'] = array_merge((array)$this->style['a'],(array)  $this->style['p']);
-            if($this->lastNode == 'cell'){
-                $this->lastNode = '';
-                $this->cell->addLink($linkHref, $linkName,  $this->style['a']);
-            }else{
-                $this->section->addLink($linkHref, $linkName,  $this->style['a']);
-            }
+            
+            $this->section->addLink($linkHref, $linkName,  $this->style['a']);
+            
         }
         
         function handle_image()
@@ -264,15 +261,22 @@ class File_Convert_AbiToDocx
         
         function handle_c()
         {
+            
+             $this->style['c'] =  $this->parseProps();
+            
+            $this->style['c'] = array_merge( $this->style['c'],  $this->style['p']);
+            
             if ($this->pass == 2) {
-                return;
+                 $str = $this->xr->readString();
+                 $this->section->addText($str, $this->style['c']);
+                 return;
+                
+                
             }
             // only handles on first pass...??
             // and it adds to header or footer?
             
-            $this->style['c'] =  $this->parseProps();
-            
-            $this->style['c'] = array_merge((array)$this->style['c'],(array)  $this->style['p']);
+           
             $str = $this->xr->readString();
             $str = str_replace(array('{#','#}'), array('{', '}'), $str);
             if ($this->sectionType == 'header') {
