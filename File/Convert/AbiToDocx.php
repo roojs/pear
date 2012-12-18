@@ -305,8 +305,6 @@ class File_Convert_AbiToDocx
                  $str = $this->xr->readString();
                  $this->section->addText($str, $this->style['c']);
                  return;
-                
-                
             }
             // only handles on first pass...??
             // and it adds to header or footer?
@@ -314,19 +312,11 @@ class File_Convert_AbiToDocx
            
             $str = $this->xr->readString();
             $str = str_replace(array('{#','#}'), array('{', '}'), $str);
-            if ($this->sectionType == 'header') {
-                if (strlen($str)) {
-                    // fixme - kludge as parse does not subparse <fields>
-                    $this->section->addPreserveText($str , $this->style['c'],$this->style['c']);
-                }
-            }elseif($this->sectionType == 'footer') {
-                if (strlen($str)) {
-                      
-                    // fixme - kludge as parse does not subparse <fields>
-                    
-                    $this->section->addPreserveText($str , $this->style['c'],$this->style['c']);
-                }
+            if (strlen($str)) {
+                // fixme - kludge as parse does not subparse <fields>
+                $this->section->addPreserveText($str , $this->style['c'],$this->style['c']);
             }
+         
         }
         // converts inches / cm into dax (word measurments)
         function converttoDax($wh,$type=null)
