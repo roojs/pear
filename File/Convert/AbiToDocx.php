@@ -64,7 +64,10 @@ class File_Convert_AbiToDocx
                 while ($this->xr->read()){
                     
                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
-                        $this->styles = array_pop($state);
+                        if (method_exists($this, $method)) {
+                            $this->styles = array_pop($state);
+                            continue;
+                        }
                         continue;
                     }
                     
@@ -72,9 +75,10 @@ class File_Convert_AbiToDocx
                     if (!method_exists($this, $method)) {
 //                        echo "NOT HANLED {$this->xr->name} <br/>";
                     }else{
-                        $this->$method();   
+                        $this->$method();  
+                        $sections[] = $this->section;
                     }
-                    array_push($state, $this->styles);
+                    $state[] = $this->styles;
                 }
         }
         
@@ -141,6 +145,9 @@ class File_Convert_AbiToDocx
             }
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
+                
+                
+                
                 $this->cell->addText($this->xr->readString(), $this->style['p']);
             }
             
