@@ -4,6 +4,8 @@
 
  */
 
+$fn = '/tmp/146-test.abw';
+$x = new File_Convert_AbiToDocx($fn);
 
 class File_Convert_AbiToDocx 
 {
