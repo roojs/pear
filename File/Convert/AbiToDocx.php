@@ -92,6 +92,7 @@ class File_Convert_AbiToDocx
                     if ($this->xr->name = '#text' && $stack[count($stack)-1] == 'p') {
                         
                         $this->section->addText($this->xr->value);
+                        continue;
                     }
                     
                     
