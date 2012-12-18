@@ -36,7 +36,6 @@ class File_Convert_AbiToDocx
                 //$this->tmpdir  = System::mktemp("-d abitodocx");
                 $this->tmpdir  = '/tmp';
                 $this->lastNode = '';
-                $this->styleMatch = array('font-family' => 'name','font-size' => 'size','text-align' => 'align');
                 $this->style[] = array();
                 $this->metadata[] = array();
                 $this->style['a'] = array('color'=>'0000FF', 'underline'=>'single'); // set default link style
