@@ -53,6 +53,12 @@ class File_Convert_AbiToDocx
                 $this->saveDocx( $fn ); // uses this->writer...
                 
         }
+        function dumpsections($s)
+        {
+            foreach($s as $ss) echo get_class($ss) . ":";
+            echo '<br/>';
+        }
+        
         function parseAbi()
         {
                 $this->xr = new XMLReader(); // New XML Reader
