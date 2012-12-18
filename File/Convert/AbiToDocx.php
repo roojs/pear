@@ -228,17 +228,17 @@ class File_Convert_AbiToDocx
             $this->style['field'] = array_merge((array)$this->style['field'],(array)  $this->style['p']);
             if($fieldType == 'page_number'){
                 if($this->sectionType == 'header'){
-                    $this->header->addPreserveText('{PAGE}', $this->style['field'],array('align'=> $this->style['field']['text-align']));
+                    $this->header->addPreserveText('{PAGE}', $this->style['field'],$this->style['field']);
                 }else{
-                    $this->footer->addPreserveText('{PAGE}', $this->style['field'],array('align'=> $this->style['field']['text-align']));
+                    $this->footer->addPreserveText('{PAGE}', $this->style['field'],$this->style['field']);
                 }
                 
             }
             if($fieldType == 'number_pages'){
                 if($this->sectionType == 'header'){
-                    $this->header->addPreserveText('{NUMPAGES}', $this->style['field'],array('align'=> $this->style['field']['text-align']));
+                    $this->header->addPreserveText('{NUMPAGES}', $this->style['field'],$this->style['field']);
                 }else{
-                    $this->footer->addPreserveText('{NUMPAGES}', $this->style['field'],array('align'=> $this->style['field']['text-align']));
+                    $this->footer->addPreserveText('{NUMPAGES}', $this->style['field'],$this->style['field']);
                 }
                 
             }
@@ -260,14 +260,14 @@ class File_Convert_AbiToDocx
             if ($this->sectionType == 'header') {
                 if (strlen($str)) {
                     // fixme - kludge as parse does not subparse <fields>
-                    $this->header->addPreserveText($str , $this->style['c'],array('align'=> $this->style['c']['text-align']));
+                    $this->header->addPreserveText($str , $this->style['c'],$this->style['c']);
                 }
             }elseif($this->sectionType == 'footer') {
                 if (strlen($str)) {
                       
                     // fixme - kludge as parse does not subparse <fields>
                     
-                    $this->footer->addPreserveText($str , $this->style['c'],array('align'=> $this->style['c']['text-align']));
+                    $this->footer->addPreserveText($str , $this->style['c'],$this->style['c']);
                 }
             }
         }
