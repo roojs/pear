@@ -4,20 +4,21 @@
 
  */
 
+
 class File_Convert_AbiToDocx 
 {
     var $styles = array();
     
     function __construct($fn) 
     {
-           // $this->fileName = $fn;
-            //return;
+            $this->fileName = $fn;
+            return;
             
-            echo file_get_contents($fn);exit;
+            
             require_once dirname(__FILE__) .'/../Convert.php';
             $x = new File_Convert($fn, 'application/abiword' );
             $x->convert('application/abiword');
-            $x->serve('inline');
+            $x->serve('attachment');
         
             exit;
             
