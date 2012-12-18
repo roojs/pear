@@ -78,7 +78,7 @@ class File_Convert_AbiToDocx
                             continue;
 //                        echo "NOT HANLED {$this->xr->name} <br/>";
                     } 
-                    echo $method;
+                    echo $method . '<br/>';
                   //  $this->$method();  
                     $sections[] = $this->section;
                     $state[] = $this->style;
