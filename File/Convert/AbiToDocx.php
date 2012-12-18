@@ -12,6 +12,8 @@ class File_Convert_AbiToDocx
     function __construct($fn) 
     {
             $this->fileName = $fn;
+            echo file_get_contents($fn);exit;
+            
             return;
             
             require_once dirname(__FILE__) .'/../Convert.php';
