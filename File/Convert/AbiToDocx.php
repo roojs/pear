@@ -82,7 +82,7 @@ class File_Convert_AbiToDocx
 //                        echo "NOT HANLED {$this->xr->name} <br/>";
                     } 
                     echo implode('..', $stack). ':' .$this->xr->name.'<BR/>';
-                    print_r(get_class($this->section));
+                    echo "add to (". get_class($this->section). "<br/>";
                     $this->$method();  
                     
                     if($this->xr->isEmptyElement){
