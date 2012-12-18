@@ -908,6 +908,7 @@ class File_Convert_Solution
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
+        print_r($target);
         require_once 'File/Convert/AbiToDocx.php';
         $conv = new File_Convert_AbiToDocx($fn);
         $conv->save($target); 
