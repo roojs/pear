@@ -56,6 +56,7 @@ class File_Convert_AbiToDocx
         function dumpsections($s)
         {
             foreach($s as $ss) echo get_class($ss) . ":";
+            echo ":TOP". get_class($this->section);
             echo '<br/>';
         }
         
