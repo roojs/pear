@@ -81,7 +81,7 @@ class File_Convert_AbiToDocx
                             $this->style = array_pop($state);
                             $this->section = array_pop($sections);
                             array_pop($stack);
-                            echo "AFTER POP:" $this->dumpsections($sections);;
+                            echo "AFTER POP:"; $this->dumpsections($sections); 
                          }
                         continue;
                     }
