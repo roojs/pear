@@ -40,7 +40,6 @@ class File_Convert_AbiToDocx
                 $this->style[] = array();
                 $this->metadata[] = array();
                 $this->style['a'] = array('color'=>'0000FF', 'underline'=>'single'); // set default link style
-                $this->sectionType = '';
                 $this->headerText = '';
                 $this->footerText = '';
                 $this->writer = new Document_Word_Writer(); // New Word Document
@@ -260,10 +259,8 @@ class File_Convert_AbiToDocx
             
             $sectionType = $this->xr->getAttribute('type');
             if($sectionType == 'header'){
-                $this->sectionType = 'header';
                 $this->section = $this->section->createHeader();
             }elseif($sectionType == 'footer'){
-                $this->sectionType = 'footer';
                 $this->section = $this->section->createFooter();
             }
         }
