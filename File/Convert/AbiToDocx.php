@@ -5,6 +5,9 @@
  */
 
 $fn = '/tmp/146-test.abw';
+if(file_exists($fn)){
+    print_r('yes');
+}
 $f = new File_Convert_AbiToDocx($fn);
 $sf = '/tmp/abiTodocx.docx';
 $f->save($sf);
