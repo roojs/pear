@@ -7,7 +7,7 @@
 
 class File_Convert_AbiToDocx 
 {
-    var $styles = array();
+    var $style = array();
     
     function __construct($fn) 
     {
