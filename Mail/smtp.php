@@ -145,7 +145,7 @@ class Mail_smtp extends Mail {
      *
      * @var boolean $debug
      */
-    var $debug = true;
+    var $debug = false;
 
     /**
      * Indicates whether or not the SMTP connection should persist over
