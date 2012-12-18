@@ -64,6 +64,8 @@ class File_Convert_AbiToDocx
                 while ($this->xr->read()){
                      $method = 'handle_'.$this->xr->name;
                      if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
+                         if($this->xr->name == 's')
+                             print_r('fsdfs');
                         if (method_exists($this, $method)) {
                             $this->style = array_pop($state);
                             $this->section = array_pop($sections);
