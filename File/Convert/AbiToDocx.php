@@ -60,6 +60,9 @@ class File_Convert_AbiToDocx
             echo '<br/>';
         }
         
+         
+        
+        
         function parseAbi()
         {
                 $this->xr = new XMLReader(); // New XML Reader
@@ -78,6 +81,7 @@ class File_Convert_AbiToDocx
                             $this->style = array_pop($state);
                             $this->section = array_pop($sections);
                             array_pop($stack);
+                            echo "AFTER POP:" $this->dumpsections($sections);;
                          }
                         continue;
                     }
