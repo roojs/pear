@@ -77,7 +77,7 @@ class File_Convert_AbiToDocx
         
         function handle_s() 
         {
-            if ($this->pass != 2) {
+            if ($this->pass == 2) {
                 return;
             }
             $this->style[$this->xr->getAttribute('name')] =  $this->parseProps();
