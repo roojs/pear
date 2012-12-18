@@ -76,6 +76,9 @@ class File_Convert_AbiToDocx
                 while ($this->xr->read()){
                     //echo $this->xr->name . '::' . count($sections). "<br/>"; 
                      $method = 'handle_'.$this->xr->name;
+                     
+                     
+                     
                      if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         if (method_exists($this, $method)) {
                             $this->style = array_pop($state);
@@ -85,6 +88,13 @@ class File_Convert_AbiToDocx
                          }
                         continue;
                     }
+                    
+                    if ($this->xr->name = '#text' && $stack[count($stack)-1] == 'p') {
+                        
+                        $this->section->addText($this->xr->value);
+                    }
+                    
+                    
                     if ($this->xr->nodeType != XMLReader::ELEMENT) {
                         continue;
                     }
@@ -251,10 +261,10 @@ class File_Convert_AbiToDocx
             $sectionType = $this->xr->getAttribute('type');
             if($sectionType == 'header'){
                 $this->sectionType = 'header';
-                $this->header = $this->section->createHeader();
+                $this->section = $this->section->createHeader();
             }elseif($sectionType == 'footer'){
                 $this->sectionType = 'footer';
-                $this->footer = $this->section->createFooter();
+                $this->section = $this->section->createFooter();
             }
         }
         
@@ -270,19 +280,16 @@ class File_Convert_AbiToDocx
             
             $this->style['field'] = array_merge((array)$this->style['field'],(array)  $this->style['p']);
             if($fieldType == 'page_number'){
-                if($this->sectionType == 'header'){
-                    $this->header->addPreserveText('{PAGE}', $this->style['field'],$this->style['field']);
-                }else{
-                    $this->footer->addPreserveText('{PAGE}', $this->style['field'],$this->style['field']);
-                }
+                 
+                $this->section->addPreserveText('{PAGE}', $this->style['field'],$this->style['field']);
+
+                 
                 
             }
             if($fieldType == 'number_pages'){
-                if($this->sectionType == 'header'){
+               
                     $this->header->addPreserveText('{NUMPAGES}', $this->style['field'],$this->style['field']);
-                }else{
-                    $this->footer->addPreserveText('{NUMPAGES}', $this->style['field'],$this->style['field']);
-                }
+                  
                 
             }
         }
