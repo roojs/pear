@@ -67,6 +67,7 @@ class File_Convert_AbiToDocx
                         if (method_exists($this, $method)) {
                             $this->style = array_pop($state);
                             $this->section = array_pop($sections);
+                            array_pop($stack);
                          }
                         continue;
                     }
