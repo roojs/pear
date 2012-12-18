@@ -24,9 +24,6 @@ print_r($x->getConvMethods('application/acad', 'image/jpeg'));
 var_dump($x->getConvMethods('application/acad', 'application/msword')); // impossible
 
 */
-$fn = '/tmp/146-test.abw';
-$x = new File_Convert($fn,'application/abiword');
-$x->abitodocx($fn);
 
 class File_Convert
 {
