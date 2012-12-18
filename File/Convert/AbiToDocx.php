@@ -4,26 +4,6 @@
 
  */
 
-//$fn = '/tmp/146-test.abw';
-//$f = new File_Convert_AbiToDocx($fn);
-//$sf = '/tmp/abiTodocx.docx';
-//$f->save($sf);
-//
-//if(file_exists($sf)){
-//    header('Content-Description: File Transfer');
-//    header('Content-Type: application/octet-stream');
-//    header('Content-Disposition: attachment; filename='.basename($sf));
-//    header('Content-Transfer-Encoding: binary');
-//    header('Expires: 0');
-//    header('Cache-Control: must-revalidate');
-//    header('Pragma: public');
-//    header('Content-Length: ' . filesize($sf));
-//    ob_clean();
-//    flush();
-//    readfile($file);
-//    exit;
-//}
-
 class File_Convert_AbiToDocx 
 {
     var $styles = array();
