@@ -145,7 +145,7 @@ class File_Convert_AbiToDocx
                 }
             }
             //?? 
-            $this->section = $this->section->addTextRun($this->style);
+            $this->section = $this->section->createTextRun($this->style);
             /*
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
