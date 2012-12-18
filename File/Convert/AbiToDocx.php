@@ -107,13 +107,13 @@ class File_Convert_AbiToDocx
             if($this->style['cell']['colunmNum'] == 0){
                 $height = '';
                 if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table'])){
-                    $height = $this->parseWH($this->style['table']['height' . $this->style['cell']['rowNum']],null);
+                    $height = $this->converttoDax($this->style['table']['height' . $this->style['cell']['rowNum']],null);
                 }
                 $this->table->addRow($height);
             }
             $cellWidth = '';
             if (isset($this->style['table']['width' . $this->style['cell']['colunmNum'] ])) {
-                $cellWidth = $this->parseWH($this->style['table']['width' . $this->style['cell']['colunmNum']],null);
+                $cellWidth = $this->converttoDax($this->style['table']['width' . $this->style['cell']['colunmNum']],null);
             }
             //echo "CW? " . $cellWidth . "|";
             $this->cell = $this->table->addCell($cellWidth, $this->style['cell']);
@@ -131,7 +131,7 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            
+            // second pass..
             $pObj = $this->xr->expand();
             $skipNode = array('a','image');
             foreach($pObj->childNodes as $node){
@@ -173,7 +173,7 @@ class File_Convert_AbiToDocx
             
             $image = $this->xr->getAttribute('dataid');
             foreach($this->style['image'] as $key => $value){
-                $this->style['image'][$key] = $this->parseWH($value,'image');
+                $this->style['image'][$key] = $this->converttoDax($value,'image');
             }
             $this->section->addImage($this->tmpdir . '/' . $image . '.jpg', $this->style['image']);
             
@@ -276,7 +276,7 @@ class File_Convert_AbiToDocx
             }
         }
         // converts inches / cm into dax (word measurments)
-        function parseWH($wh,$type=null)
+        function converttoDax($wh,$type=null)
         {
             $changeType = preg_replace('/[^a-z]/', '', $wh);
             $num = preg_replace('/[^0-9.]/', '', $wh);
