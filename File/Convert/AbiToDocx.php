@@ -14,7 +14,6 @@ class File_Convert_AbiToDocx
             $this->fileName = $fn;
             return;
             
-            
             require_once dirname(__FILE__) .'/../Convert.php';
             $x = new File_Convert($fn, 'application/abiword' );
             $x->convert('application/abiword');
@@ -56,8 +55,6 @@ class File_Convert_AbiToDocx
                 }
                 $state = array();
                 while ($this->xr->read()){
-                    
-                    
                     
                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         $this->styles = array_pop($state);
