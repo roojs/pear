@@ -81,7 +81,7 @@ class File_Convert_AbiToDocx
                             $this->style = array_pop($state);
                             $this->section = array_pop($sections);
                             array_pop($stack);
-                            echo "AFTER POP:"; $this->dumpsections($sections); 
+                           // echo "AFTER POP:"; $this->dumpsections($sections); 
                          }
                         continue;
                     }
@@ -93,8 +93,8 @@ class File_Convert_AbiToDocx
                             continue;
 //                        echo "NOT HANLED {$this->xr->name} <br/>";
                     } 
-                    echo implode('..', $stack). ':' .$this->xr->name.'<BR/>';
-                    $this->dumpsections($sections);
+                    //echo implode('..', $stack). ':' .$this->xr->name.'<BR/>';
+                    //$this->dumpsections($sections);
                     
                     if (!$this->xr->isEmptyElement) {
                        $stack[] = $this->xr->name;
@@ -151,7 +151,7 @@ class File_Convert_AbiToDocx
                 $cellWidth = $this->converttoDax($this->style['table']['width' . $this->style['cell']['colunmNum']],null);
             }
             //echo "CW? " . $cellWidth . "|";
-            $this->section = $this->table->addCell($cellWidth, $this->style['cell']);
+            $this->section = $this->section->addCell($cellWidth, $this->style['cell']);
          }
         
         function handle_p()
