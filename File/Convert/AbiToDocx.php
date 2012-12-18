@@ -65,7 +65,7 @@ class File_Convert_AbiToDocx
                      $method = 'handle_'.$this->xr->name;
                      if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         if (method_exists($this, $method)) {
-                            $this->styles = array_pop($state);
+                            $this->style = array_pop($state);
                             $this->section = array_pop($sections);
                          }
                         continue;
@@ -80,7 +80,7 @@ class File_Convert_AbiToDocx
                     } 
                     $this->$method();  
                     $sections[] = $this->section;
-                    $state[] = $this->styles;
+                    $state[] = $this->style;
                 }
         }
         
