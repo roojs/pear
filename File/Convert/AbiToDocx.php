@@ -63,7 +63,7 @@ class File_Convert_AbiToDocx
                 $state = array();
                 $sections = array();
                 while ($this->xr->read()){
-                    
+                     $method = 'handle_'.$this->xr->name;
                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         if (method_exists($this, $method)) {
                             $this->styles = array_pop($state);
@@ -72,7 +72,7 @@ class File_Convert_AbiToDocx
                         continue;
                     }
                     
-                    $method = 'handle_'.$this->xr->name;
+                   
                     if (!method_exists($this, $method)) {
                             continue;
 //                        echo "NOT HANLED {$this->xr->name} <br/>";
