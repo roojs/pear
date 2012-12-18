@@ -177,15 +177,15 @@ class File_Convert_AbiToDocx
                 return;
             }
             // second pass..
-            $pObj = $this->xr->expand();
-            $skipNode = array('a','image');
-            foreach($pObj->childNodes as $node){
-                if(in_array($node->nodeName, $skipNode)){
-                    return;
-                }
-            }
+//            $pObj = $this->xr->expand();
+//            $skipNode = array('a','image');
+//            foreach($pObj->childNodes as $node){
+//                if(in_array($node->nodeName, $skipNode)){
+//                    return;
+//                }
+//            }
             //?? 
-            $this->section = $this->section->createTextRun($this->style);
+            $this->section = $this->section->createTextRun($this->style['p']);
             /*
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
