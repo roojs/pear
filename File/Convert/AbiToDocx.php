@@ -74,11 +74,11 @@ class File_Convert_AbiToDocx
                     
                     $method = 'handle_'.$this->xr->name;
                     if (!method_exists($this, $method)) {
+                            continue;
 //                        echo "NOT HANLED {$this->xr->name} <br/>";
-                    }else{
-                        $this->$method();  
-                        $sections[] = $this->section;
-                    }
+                    } 
+                    $this->$method();  
+                    $sections[] = $this->section;
                     $state[] = $this->styles;
                 }
         }
