@@ -17,7 +17,7 @@ class File_Convert_AbiToDocx
             require_once dirname(__FILE__) .'/../Convert.php';
             $x = new File_Convert($fn, 'application/abiword' );
             $x->convert('application/abiword');
-            $x->serve('attachment');
+            $x->serve('inline');
         
             exit;
             
