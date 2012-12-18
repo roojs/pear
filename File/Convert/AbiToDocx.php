@@ -61,6 +61,7 @@ class File_Convert_AbiToDocx
                 }
                 $state = array();
                 $sections = array();
+                $stack = array();
                 while ($this->xr->read()){
                      $method = 'handle_'.$this->xr->name;
                      if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
