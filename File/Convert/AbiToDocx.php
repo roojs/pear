@@ -31,6 +31,7 @@ class File_Convert_AbiToDocx
                 //$this->tmpdir  = System::mktemp("-d abitodocx");
                 $this->tmpdir  = '/tmp';
                 $this->lastNode = '';
+                $this->styleMacth = array('font-family' => 'name','font-size' => 'size','text-align' => 'align');
                 $this->style[] = array();
                 $this->metadata[] = array();
                 $this->style['a'] = array('color'=>'0000FF', 'underline'=>'single'); // set default link style
@@ -363,9 +364,15 @@ class File_Convert_AbiToDocx
                             $attrArray['borderBottomColor'] = trim($prop);
                         }
                         break;
-                    
+                        
                     default :
-                        $attrArray[trim($attr[0])] = trim($attr[1]);
+                        $key = trim($attr[0]);
+                        $value = trim($attr[1]);
+                        if(array_key_exists($key, $this->styleMatch)){
+                            $attrArray[$this->styleMatch[$key]] = $value;
+                        }else{
+                            $attrArray[$key] = $value;
+                        }
                 }
             }
             return  $attrArray;
