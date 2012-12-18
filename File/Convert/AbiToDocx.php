@@ -64,14 +64,16 @@ class File_Convert_AbiToDocx
                 $sections = array();
                 while ($this->xr->read()){
                      $method = 'handle_'.$this->xr->name;
-                    if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
+                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         if (method_exists($this, $method)) {
                             $this->styles = array_pop($state);
                             $this->section = array_pop($sections);
                          }
                         continue;
                     }
-                    
+                    if ($this->xr->nodeType != XMLReader::ELEMENT) {
+                        continue;
+                    }
                    
                     if (!method_exists($this, $method)) {
                             continue;
