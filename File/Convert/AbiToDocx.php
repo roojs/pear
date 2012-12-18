@@ -64,9 +64,6 @@ class File_Convert_AbiToDocx
                 while ($this->xr->read()){
                      $method = 'handle_'.$this->xr->name;
                      if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
-                        if($this->xr->nodeType == $this->lastNode){
-                            
-                        }
                         if (method_exists($this, $method)) {
                             $this->style = array_pop($state);
                             $this->section = array_pop($sections);
@@ -84,6 +81,7 @@ class File_Convert_AbiToDocx
                     $this->$method();  
                     
                     if($this->xr->isEmptyElement){
+                        echo $method;
                             continue;
                     }
                     
