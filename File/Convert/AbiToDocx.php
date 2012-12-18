@@ -108,7 +108,6 @@ class File_Convert_AbiToDocx
                     //$this->dumpsections($sections);
                     
                     if (!$this->xr->isEmptyElement || $this->xr->name == 's') {
-                        echo $this->xr->name.'<Br/>';
                        $stack[] = $this->xr->name;
                        $sections[] = $this->section;
                        $state[] = $this->style;
