@@ -10,8 +10,8 @@ class File_Convert_AbiToDocx
     
     function __construct($fn) 
     {
-            $this->fileName = $fn;
-            return;
+           // $this->fileName = $fn;
+            //return;
             
             
             require_once dirname(__FILE__) .'/../Convert.php';
