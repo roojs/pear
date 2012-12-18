@@ -137,6 +137,8 @@ class File_Convert_AbiToDocx
             }
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
+                print_r($this->style['p']);
+                exit;
                 $this->cell->addText($this->xr->readString(), $this->style['p']);
             }
             
