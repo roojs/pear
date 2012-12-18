@@ -101,7 +101,7 @@ class File_Convert_AbiToDocx
             }
             $this->style['table'] =  $this->parseProps();
             
-            $this->table = $this->section->addTable(); // Add table
+            $this->section = $this->section->addTable(); // Add table
         }
         
         function handle_cell()
@@ -116,16 +116,15 @@ class File_Convert_AbiToDocx
                 if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table'])){
                     $height = $this->converttoDax($this->style['table']['height' . $this->style['cell']['rowNum']],null);
                 }
-                $this->table->addRow($height);
+                $this->section->addRow($height);
             }
             $cellWidth = '';
             if (isset($this->style['table']['width' . $this->style['cell']['colunmNum'] ])) {
                 $cellWidth = $this->converttoDax($this->style['table']['width' . $this->style['cell']['colunmNum']],null);
             }
             //echo "CW? " . $cellWidth . "|";
-            $this->cell = $this->table->addCell($cellWidth, $this->style['cell']);
-            $this->lastNode = 'cell';
-        }
+            $this->section = $this->table->addCell($cellWidth, $this->style['cell']);
+         }
         
         function handle_p()
         {
@@ -146,6 +145,9 @@ class File_Convert_AbiToDocx
                     return;
                 }
             }
+            //?? 
+            $this->section = $this->section->addTextRun($this->style);
+            /*
             if($this->lastNode == 'cell'){
                 $this->lastNode = '';
                 
@@ -153,6 +155,8 @@ class File_Convert_AbiToDocx
                 
                 $this->cell->addText($this->xr->readString(), $this->style['p']);
             }
+            */
+             */
             
         }
         
