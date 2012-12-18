@@ -91,7 +91,7 @@ class File_Convert_AbiToDocx
                     } 
                     echo implode('..', $stack). ':' .$this->xr->name.'<BR/>';
                     $this->dumpsections($sections);
-                    echo "add to (". get_class($this->section). "<br/>";
+                     
                     $this->$method();  
                     
                     if($this->xr->isEmptyElement){
