@@ -121,7 +121,7 @@ class File_Convert_AbiToDocx
         {
             $this->style['p'] =  $this->parseProps();
             
-            if($this->xr->getAttribute('Style') == 'Normal'){
+            if($this->xr->getAttribute('style') == 'Normal'){
                 $this->style['p'] = array_merge((array)$this->style['Normal'],(array)  $this->style['p']);
             }
             
