@@ -78,6 +78,7 @@ class File_Convert_AbiToDocx
                             continue;
 //                        echo "NOT HANLED {$this->xr->name} <br/>";
                     } 
+                    echo implode('..', $stack). $this->xr->name.'<BR/>';
                     $this->$method();  
                     
                     if($this->xr->isEmptyElement){
@@ -85,6 +86,7 @@ class File_Convert_AbiToDocx
                             continue;
                     }
                     
+                    $stack[] = $this->xr->name;
                     $sections[] = $this->section;
                     $state[] = $this->style;
                 }
