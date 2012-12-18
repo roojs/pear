@@ -22,7 +22,13 @@ class File_Convert_AbiToDocx
             exit;
             
     }
-        
+        // maps abiword css names to word style attributes
+        var $styleMatch = array(
+                'font-family' => 'name',
+                'font-size' => 'size',
+                'text-align' => 'align'
+        );
+    
         function save($fn)
         {
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
