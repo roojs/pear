@@ -95,17 +95,21 @@ class File_Convert_AbiToDocx
                     } 
                     echo implode('..', $stack). ':' .$this->xr->name.'<BR/>';
                     $this->dumpsections($sections);
-                     
+                    
+                    if (!$this->xr->isEmptyElement)
+                       $stack[] = $this->xr->name;
+                       $sections[] = $this->section;
+                       $state[] = $this->style;
+                    }
                     $this->$method();  
                     
-                    if($this->xr->isEmptyElement){
+                    //if($this->xr->isEmptyElement){
                         //echo $method.'<Br/>';
-                            continue;
-                    }
+                        
+                    //        continue;
+                    //}
                     
-                    $stack[] = $this->xr->name;
-                    $sections[] = $this->section;
-                    $state[] = $this->style;
+                   
                 }
         }
         
