@@ -61,13 +61,14 @@ class File_Convert_AbiToDocx
                     return PEAR::raiseError('Failed to open input file.');
                 }
                 $state = array();
+                $sections = array();
                 while ($this->xr->read()){
                     
                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                         if (method_exists($this, $method)) {
                             $this->styles = array_pop($state);
-                            continue;
-                        }
+                            $this->section = array_pop($sections);
+                         }
                         continue;
                     }
                     
