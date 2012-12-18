@@ -338,4 +338,3 @@ class Document_Word_Writer_Section_Table_Cell
 		return $this->_width;
 	}
 }
-?>
