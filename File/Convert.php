@@ -27,7 +27,6 @@ var_dump($x->getConvMethods('application/acad', 'application/msword')); // impos
 $fn = '/tmp/146-test.abw';
 $x = new File_Convert(false);
 $x->abitodocx($fn);
-exit;
 
 class File_Convert
 {
