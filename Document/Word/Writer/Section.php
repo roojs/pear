@@ -55,7 +55,7 @@ class Document_Word_Writer_Section
 	 * 
 	 * @var array
 	 */
-	public $_elementCollection = array();
+	private $_elementCollection = array();
 	
 	/**
 	 * Section Header
