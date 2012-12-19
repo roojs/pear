@@ -262,7 +262,7 @@ class File_Convert_AbiToDocx
         {
             
             $this->style['c'] =  $this->parseProps();
-            $this->style['c'] = array_merge( (array)$this->style['c'],  (array)$this->style['p']);
+            
             
         }
         
