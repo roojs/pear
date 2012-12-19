@@ -56,6 +56,7 @@ class Document_Word_Writer_Section_TextRun
 	 */
 	public function __construct($styleParagraph = null) 
         {
+                require_once __DIR__ . '/../Style/Paragraph.php';
 		$this->_elementCollection = array();
 		
 		// Set paragraph style
