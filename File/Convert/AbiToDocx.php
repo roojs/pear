@@ -49,15 +49,6 @@ class File_Convert_AbiToDocx
                 $this->saveDocx( $fn ); // uses this->writer...
                 
         }
-        function dumpsections($s)
-        {
-            foreach($s as $ss) echo get_class($ss) . ":";
-            echo ":TOP". get_class($this->section);
-            echo '<br/>';
-        }
-        
-         
-        
         
         function parseAbi()
         {
@@ -85,7 +76,7 @@ class File_Convert_AbiToDocx
                     }
                     
                     if ($this->xr->name == '#text' && count($stack) && ($stack[count($stack)-1] == 'p'  || $stack[count($stack)-1] == 'c') && $this->pass==2) {
-                        if(get_class($this->section) == 'Document_Word_Writer_Section_Footer'){
+                        if(get_class($this->section) === 'Document_Word_Writer_Section_Footer'){
                             $this->section->addPreserveText($this->xr->value , $this->style[$stack[count($stack)-1]],$this->style[$stack[count($stack)-1]]);
                         }else{
                             $this->section->addText($this->xr->value , $this->style[$stack[count($stack)-1]] , $this->style[$stack[count($stack)-1]]);
