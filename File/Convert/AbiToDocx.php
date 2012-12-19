@@ -171,7 +171,7 @@ class File_Convert_AbiToDocx
             if($this->xr->getAttribute('style') == 'Normal'){
                 $this->style['p'] = array_merge($this->style['Normal'], $this->style['p']);
             }
-            $this->section = $this->section->createTextRun($this->style['p']);
+//            $this->section = $this->section->createTextRun($this->style['p']);
             
         }
         
@@ -213,13 +213,13 @@ class File_Convert_AbiToDocx
             $this->section = $this->writer->createSection();
         }
         
-//        function handle_br() 
-//        {
-//            if ($this->pass != 2) {
-//                return;
-//            }
-//            $this->section = $this->section->addTextBreak();
-//        }
+        function handle_br() 
+        {
+            if ($this->pass != 2) {
+                return;
+            }
+            $this->section = $this->section->addTextBreak();
+        }
         
         function handle_section()
         {
