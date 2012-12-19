@@ -259,7 +259,7 @@ class File_Convert_AbiToDocx
         {
             
             $this->style['c'] =  $this->parseProps();
-//            $this->style['c'] = array_merge( $this->style['c'],  $this->style['p']);
+            $this->style['c'] = array_merge( $this->style['c'],  $this->style['p']);
             
 //            if ($this->pass == 2) {
 //                 $str = $this->xr->readString();
