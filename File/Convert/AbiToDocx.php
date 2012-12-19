@@ -125,7 +125,7 @@ class File_Convert_AbiToDocx
         
         function handle_s() 
         {
-            if ($this->pass == 2) {
+            if ($this->pass != 2) {
                 return;
             }
             $this->style[$this->xr->getAttribute('name')] =  $this->parseProps();
@@ -236,24 +236,9 @@ class File_Convert_AbiToDocx
             $this->section = $this->writer->createSection();
         }
         
-        function handle_d()
-        {
-            if ($this->pass == 2) {
-                return;
-            }
-            $this->sectionType = '';
-            $data = base64_decode($this->xr->readString()); // Create the image source if not exist!
-            $imageId = $this->xr->getAttribute('name');
-            $path = $this->tmpdir . '/' . $imageId . '.jpg';
-            if(!file_exists($path)){
-               file_put_contents($path, $data); 
-            }   
-           
-        }
-        
         function handle_section()
         {
-            if ($this->pass == 2) {
+            if ($this->pass != 2) {
                 return;
             }
             // only made on first pass..
@@ -268,7 +253,7 @@ class File_Convert_AbiToDocx
         
         function handle_field()
         {
-            if ($this->pass == 2) {
+            if ($this->pass != 2) {
                 return;
             }
             return; /// this would not work!
@@ -292,23 +277,39 @@ class File_Convert_AbiToDocx
             
             $this->style['c'] = array_merge( $this->style['c'],  $this->style['p']);
             
-            if ($this->pass == 2) {
-                 $str = $this->xr->readString();
-                 $this->section->addText($str, $this->style['c']);
-                 return;
-            }
+//            if ($this->pass == 2) {
+//                 $str = $this->xr->readString();
+//                 $this->section->addText($str, $this->style['c']);
+//                 return;
+//            }
             // only handles on first pass...??
             // and it adds to header or footer?
             
            
-            $str = $this->xr->readString();
-            $str = str_replace(array('{#','#}'), array('{', '}'), $str);
-            if (strlen($str)) {
-                // fixme - kludge as parse does not subparse <fields>
-                $this->section->addPreserveText($str , $this->style['c'],$this->style['c']);
-            }
+//            $str = $this->xr->readString();
+//            $str = str_replace(array('{#','#}'), array('{', '}'), $str);
+//            if (strlen($str)) {
+//                // fixme - kludge as parse does not subparse <fields>
+//                $this->section->addPreserveText($str , $this->style['c'],$this->style['c']);
+//            }
          
         }
+        
+        function handle_d()
+        {
+            if ($this->pass == 2) {
+                return;
+            }
+            $this->sectionType = '';
+            $data = base64_decode($this->xr->readString()); // Create the image source if not exist!
+            $imageId = $this->xr->getAttribute('name');
+            $path = $this->tmpdir . '/' . $imageId . '.jpg';
+            if(!file_exists($path)){
+               file_put_contents($path, $data); 
+            }   
+           
+        }
+        
         // converts inches / cm into dax (word measurments)
         function converttoDax($wh,$type=null)
         {
