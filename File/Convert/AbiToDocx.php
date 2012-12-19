@@ -218,7 +218,7 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->section = $this->section->addTextBreak(1);
+            $this->section = $this->section->addTextBreak();
         }
         
         function handle_section()
