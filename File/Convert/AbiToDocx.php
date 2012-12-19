@@ -275,7 +275,7 @@ class File_Convert_AbiToDocx
             $fieldType = $this->xr->getAttribute('type');
             $this->style['field'] =  $this->parseProps();
             
-            $this->style['field'] = array_merge((array)$this->style['field'],(array)  $this->style['p']);
+            $this->style['field'] = array_merge($this->style['field'],$this->style['p']);
             if($fieldType == 'page_number'){
                  
                 $this->section->addPreserveText('{PAGE}', $this->style['field'],$this->style['field']);
