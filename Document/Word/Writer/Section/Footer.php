@@ -55,7 +55,7 @@ class Document_Word_Writer_Section_Footer
 	 * 
 	 * @var int
 	 */
-	public $_elementCollection = array();
+	private $_elementCollection = array();
 	
 	/**
 	 * Create a new Footer
