@@ -645,7 +645,11 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                     // Calculation refer to : http://startbigthinksmall.wordpress.com/2010/01/04/points-inches-and-emus-measuring-units-in-office-open-xml/
         	    $emuWidth = ceil($width / 75 * 914400);
                 $emuHeight = ceil($height / 75 * 914400);
-                $objWriter->startElement('w:p');
+                
+                
+                if (!$skip_para) {
+                        $objWriter->startElement('w:p');
+                }
                 if(!is_null($align)) {
                         $objWriter->startElement('w:pPr');
                                 $objWriter->startElement('w:jc');
@@ -822,8 +826,9 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End wp:anchor
                 $objWriter->endElement(); // End w:drawing
                 $objWriter->endElement(); // End w:r
-                $objWriter->endElement(); // End w:p
-                
+                if (!$skip_para) {
+                    $objWriter->endElement(); // End w:p
+                }
 //		$objWriter->startElement('w:p');
 //		
 //			
