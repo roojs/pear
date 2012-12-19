@@ -85,6 +85,7 @@ class File_Convert_AbiToDocx
                     }
                     
                     if ($this->xr->name == '#text' && count($stack) && ($stack[count($stack)-1] == 'p'  || $stack[count($stack)-1] == 'c') && $this->pass==2) {
+                        
                         $this->section->addText($this->xr->value , $this->style[$stack[count($stack)-1]] , $this->style[$stack[count($stack)-1]]);
                         continue;
                     }
@@ -258,7 +259,7 @@ class File_Convert_AbiToDocx
         {
             
             $this->style['c'] =  $this->parseProps();
-            
+            echo get_class($this->section) . '<br/>';
 //            $this->style['c'] = array_merge( $this->style['c'],  $this->style['p']);
             
 //            if ($this->pass == 2) {
