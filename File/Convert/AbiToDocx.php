@@ -306,7 +306,7 @@ class File_Convert_AbiToDocx
             $str = str_replace(array('{#','#}'), array('{', '}'), $str);
             if (strlen($str)) {
                 // fixme - kludge as parse does not subparse <fields>
-                $this->section->addPreserveText($str , $this->style['c'],$this->style['c']);
+             //   $this->section->addPreserveText($str , $this->style['c'],$this->style['c']);
             }
          
         }
