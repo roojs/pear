@@ -34,22 +34,26 @@ class File_Convert_AbiToDocx
         {
                 require_once __DIR__ . '/../../Document/Word/Writer.php';
                 require_once __DIR__ . '/../../System.php';
-                //$this->tmpdir  = System::mktemp("-d abitodocx");
-                $this->tmpdir  = '/tmp';
-                $this->lastNode = '';
+                $this->tmpdir  = System::mktemp("-d abitodocx");
+                //$this->tmpdir  = '/tmp';
+                $this->link = '';
                 $this->style[] = array();
-                $this->style['a'] = array('color'=>'0000FF', 'underline'=>'single'); // set default link style
+                $this->keepSection = false;
                 $this->writer = new Document_Word_Writer(); // New Word Document
                 $this->section = $this->writer->createSection();
                 $this->pass = 1;
                 $this->parseAbi();
                 $this->pass = 2;
-                //echo "---parse 2--<br/>";
                 $this->parseAbi();
                 $this->saveDocx( $fn ); // uses this->writer...
                 
         }
-        
+         function dumpsections($s)
+        {
+            foreach($s as $ss) echo get_class($ss) . ":";
+            echo ":TOP". get_class($this->section);
+            echo '<br/>';
+        }
         function parseAbi()
         {
                 $this->xr = new XMLReader(); // New XML Reader
@@ -61,25 +65,32 @@ class File_Convert_AbiToDocx
                 $sections = array();
                 $stack = array();
                 while ($this->xr->read()){
-                    //echo $this->xr->name . '::' . count($sections). "<br/>"; 
+                    //$this->dumpsections($sections);
+                     // echo $this->xr->name . '::' . count($sections). "<br/>"; 
                      $method = 'handle_'.$this->xr->name;
                      
                      
                      if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
-                        if (method_exists($this, $method)) {
+                         if($this->xr->name == 'section'){
+                             $this->keepSection = false;
+                         }
+                         
+                         if (method_exists($this, $method)) {
                             $this->style = array_pop($state);
                             $this->section = array_pop($sections);
                             array_pop($stack);
                            // echo "AFTER POP:"; $this->dumpsections($sections); 
                          }
-                        continue;
+                         continue;
                     }
                     
-                    if ($this->xr->name == '#text' && count($stack) && ($stack[count($stack)-1] == 'p'  || $stack[count($stack)-1] == 'c') && $this->pass==2) {
-                        if(get_class($this->section) === 'Document_Word_Writer_Section_Footer'){
-                            $this->section->addPreserveText($this->xr->value , $this->style[$stack[count($stack)-1]],$this->style[$stack[count($stack)-1]]);
+                    $textNode = array('p','c','a');
+                    if ($this->xr->name == '#text' && count($stack) &&  $this->pass==2 && in_array($stack[count($stack)-1], $textNode)) {
+                         if(!empty($this->style['href']) && is_array($this->style)) {
+                            $this->section->addLink($this->style['href'], $this->xr->value,  $this->style);
+                           
                         }else{
-                            $this->section->addText($this->xr->value , $this->style[$stack[count($stack)-1]] , $this->style[$stack[count($stack)-1]]);
+                            $this->section->addText($this->xr->value);
                         }
                         continue;
                     }
@@ -93,22 +104,14 @@ class File_Convert_AbiToDocx
                             continue;
 //                        echo "NOT HANLED {$this->xr->name} <br/>";
                     } 
-                    //echo implode('..', $stack). ':' .$this->xr->name.'<BR/>';
-                    //$this->dumpsections($sections);
                     
                     if (!$this->xr->isEmptyElement) {
                        $stack[] = $this->xr->name;
                        $sections[] = $this->section;
                        $state[] = $this->style;
                     }
+                    
                     $this->$method();  
-                    
-                    //if($this->xr->isEmptyElement){
-                        //echo $method.'<Br/>';
-                        
-                    //        continue;
-                    //}
-                    
                    
                 }
         }
@@ -118,8 +121,9 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->style[$this->xr->getAttribute('name')] =  $this->parseProps();
-            
+            $style = $this->parseProps();
+            $this->writer->addParagraphStyle($this->xr->getAttribute('name'), $style); 
+            $this->styleSheets[$this->xr->getAttribute('name')] = $style;
         }
         
         function handle_table() 
@@ -127,7 +131,7 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->style['table'] =  $this->parseProps();
+            $this->style =  $this->parseProps();
             
             $this->section = $this->section->addTable(); // Add table
         }
@@ -137,35 +141,35 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->style['cell'] =  $this->parseProps();
+            $style =  $this->parseProps();
              
-            if($this->style['cell']['colunmNum'] == 0){
+            if($style['colunmNum'] == 0){
                 $height = '';
-                if(array_key_exists('height' . $this->style['cell']['rowNum'], $this->style['table'])){
-                    $height = $this->converttoDax($this->style['table']['height' . $this->style['cell']['rowNum']],null);
+                if(array_key_exists('height' . $style['rowNum'], $this->style)){
+                    $height = $this->converttoDax($this->style['height' . $style['rowNum']],null);
                 }
                 $this->section->addRow($height);
             }
             $cellWidth = '';
-            if (isset($this->style['table']['width' . $this->style['cell']['colunmNum'] ])) {
-                $cellWidth = $this->converttoDax($this->style['table']['width' . $this->style['cell']['colunmNum']],null);
+            if (isset($this->style['width' . $style['colunmNum'] ])) {
+                $cellWidth = $this->converttoDax($this->style['width' . $style['colunmNum']],null);
             }
             //echo "CW? " . $cellWidth . "|";
-            $this->section = $this->section->addCell($cellWidth, $this->style['cell']);
+            $this->section = $this->section->addCell($cellWidth, $style);
          }
         
+         
+         
         function handle_p()
         {
             if ($this->pass != 2) {
                 return;
             }
-            
-            $this->style['p'] =  $this->parseProps();
-            
-            if($this->xr->getAttribute('style') == 'Normal'){
-                $this->style['p'] = array_merge($this->style['Normal'], $this->style['p']);
+            $this->style = $this->getNodeStyle();
+            if($this->keepSection){
+                return;
             }
-            $this->section = $this->section->createTextRun($this->style['p']);
+            $this->section = $this->section->createTextRun($this->style);
             
         }
         
@@ -174,13 +178,9 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->style['a'] =  $this->parseProps();
-             
-            $linkHref = $this->xr->getAttribute('xlink:href');
-            $linkName =  $this->xr->readString();
-            $this->style['a'] = array_merge((array)$this->style['a'],(array)  $this->style['p']);
             
-            $this->section->addLink($linkHref, $linkName,  $this->style['a']);
+            $this->style = array_merge($this->style,  $this->parseProps());
+            $this->style['href'] = $this->xr->getAttribute('xlink:href');
             
         }
         
@@ -189,14 +189,14 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->style['image'] =  $this->parseProps();
+            $style =  $this->parseProps();
             
             $image = $this->xr->getAttribute('dataid');
-            foreach($this->style['image'] as $key => $value){
-                $this->style['image'][$key] = $this->converttoDax($value,'image');
+            foreach($style as $key => $value){
+                $style[$key] = $this->converttoDax($value,'image');
             }
-            $this->section->addImage($this->tmpdir . '/' . $image . '.jpg', $this->style['image']);
-            
+            $this->section->addImage($this->tmpdir . '/' . $image . '.jpg', $style);
+            //echo '<PRE>';print_r($this->section);exit;
         }
         
         function handle_pbr() 
@@ -212,7 +212,9 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->section = $this->section->addTextBreak();
+            //echo get_class($this->section);
+            $this->section->addTextBreak();
+            //echo '<PRE>';print_r($this->section);exit;
         }
         
         function handle_section()
@@ -224,8 +226,10 @@ class File_Convert_AbiToDocx
             
             $sectionType = $this->xr->getAttribute('type');
             if($sectionType == 'header'){
+                $this->keepSection = true;
                 $this->section = $this->section->createHeader();
             }elseif($sectionType == 'footer'){
+                $this->keepSection = true;
                 $this->section = $this->section->createFooter();
             }
         }
@@ -235,25 +239,22 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            return; /// this would not work!
+            //return; /// this would not work!
         
             $fieldType = $this->xr->getAttribute('type');
-            $this->style['field'] =  $this->parseProps();
             
-            $this->style['field'] = array_merge($this->style['field'],$this->style['p']);
             if($fieldType == 'page_number'){
-                $this->section->addPreserveText('{PAGE}', $this->style['field'],$this->style['field']);
+                $this->section->addPreserveText('{PAGE}', $this->style,$this->style);
             }
             if($fieldType == 'number_pages'){
-                $this->header->addPreserveText('{NUMPAGES}', $this->style['field'],$this->style['field']);
+                $this->section->addPreserveText('{NUMPAGES}', $this->style,$this->style);
             }
         }
         
         function handle_c()
         {
             
-            $this->style['c'] =  $this->parseProps();
-            
+            $this->style =  $this->parseProps();
             
         }
         
@@ -262,7 +263,6 @@ class File_Convert_AbiToDocx
             if ($this->pass == 2) {
                 return;
             }
-            $this->sectionType = '';
             $data = base64_decode($this->xr->readString()); // Create the image source if not exist!
             $imageId = $this->xr->getAttribute('name');
             $path = $this->tmpdir . '/' . $imageId . '.jpg';
@@ -279,11 +279,13 @@ class File_Convert_AbiToDocx
             $num = preg_replace('/[^0-9.]/', '', $wh);
             if($type == 'image'){
                 if($changeType == 'in'){
-                    return $num * 75;
-                }else{
-                    return $num;
+                    return floor($num * 75);
                 }
+                return floor($num);
+                
             }
+            
+            
             if($changeType == 'in'){
                 return $num * 1435;
             }elseif($changeType == 'cm'){
@@ -293,7 +295,15 @@ class File_Convert_AbiToDocx
             }
             
         }
-        
+        function getNodeStyle() {
+            $style =  $this->parseProps();
+            
+            if ( $this->xr->getAttribute('style')) {
+                $style = empty($style) ?  $this->xr->getAttribute('style') :
+                    array_merge($style, $this->styleSheets[$this->xr->getAttribute('style')]);
+            }
+            return $style;
+        }
       
         function parseProps()
         {
@@ -425,4 +435,4 @@ class File_Convert_AbiToDocx
         
         
 }
-?>
+ 
