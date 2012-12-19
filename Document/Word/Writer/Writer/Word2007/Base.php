@@ -106,9 +106,11 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 				} elseif($element instanceof Document_Word_Writer_Section_Link) {
 					$this->_writeLink($objWriter, $element, true);
 				} elseif($element instanceof Document_Word_Writer_Section_Image ||
-                                                         $element instanceof Document_Word_Writer_Section_MemoryImage) {
-                                                $this->_writeImage($objWriter, $element, true); // skip the image para
-                                }
+                                        $element instanceof Document_Word_Writer_Section_MemoryImage) {
+                                        $this->_writeImage($objWriter, $element, true); // skip the image para
+                                }elseif($element instanceof Document_Word_Writer_Section_TextBreak) {
+                                        $this->_writeTextBreak($objWriter);
+                                } 
 			}
 		}
 		
