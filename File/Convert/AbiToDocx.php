@@ -165,7 +165,7 @@ class File_Convert_AbiToDocx
             if($this->xr->getAttribute('style') == 'Normal'){
                 $this->style['p'] = array_merge($this->style['Normal'], $this->style['p']);
             }
-//            $this->section = $this->section->createTextRun($this->style['p']);
+            $this->section = $this->section->createTextRun($this->style['p']);
             
         }
         
