@@ -263,7 +263,7 @@ class File_Convert_AbiToDocx
                 $this->section = $this->section->createHeader();
             }elseif($sectionType == 'footer'){
                 $this->section = $this->section->createFooter();
-                echo get_class($this->section);
+                echo get_class($this->section) . 'fff';
             }
         }
         
