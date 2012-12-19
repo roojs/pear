@@ -105,7 +105,10 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 					$this->_writeText($objWriter, $element, true);
 				} elseif($element instanceof Document_Word_Writer_Section_Link) {
 					$this->_writeLink($objWriter, $element, true);
-				}
+				} elseif($element instanceof Document_Word_Writer_Section_Image ||
+                                                         $element instanceof Document_Word_Writer_Section_MemoryImage) {
+                                                $this->_writeImage($objWriter, $element, true); // skip the image para
+                                }
 			}
 		}
 		
@@ -628,7 +631,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 	}
 	
-	function _writeImage(Document_Word_Writer_Shared_XMLWriter $objWriter = null, $image, $skip_para = false) 
+	function _writeImage(Document_Word_Writer_Shared_XMLWriter $objWriter, $image, $skip_para = false) 
     {
              
             static $embedid = 0;
