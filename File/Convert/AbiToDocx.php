@@ -84,9 +84,9 @@ class File_Convert_AbiToDocx
                         continue;
                     }
                     
-                    if ($this->xr->name == '#text' && count($stack)  && $stack[count($stack)-1] == 'p' && $this->pass==2) {
+                    if ($this->xr->name == '#text' && count($stack) && $this->pass==2) {
                         
-                        $this->section->addText($this->xr->value);
+                        $this->section->addText($this->xr->value , $this->style[$stack[count($stack)-1]] , $this->style[$stack[count($stack)-1]]);
                         continue;
                     }
                     
@@ -162,35 +162,16 @@ class File_Convert_AbiToDocx
         
         function handle_p()
         {
-            $this->style['p'] =  $this->parseProps();
-            
-            if($this->xr->getAttribute('style') == 'Normal'){
-                $this->style['p'] = array_merge((array)$this->style['Normal'],(array)  $this->style['p']);
-            }
-            
             if ($this->pass != 2) {
                 return;
             }
-            // second pass..
-//            $pObj = $this->xr->expand();
-//            $skipNode = array('a','image');
-//            foreach($pObj->childNodes as $node){
-//                if(in_array($node->nodeName, $skipNode)){
-//                    return;
-//                }
-//            }
-            //?? 
-            $this->section = $this->section->createTextRun($this->style['p']);
-            /*
-            if($this->lastNode == 'cell'){
-                $this->lastNode = '';
-                
-                
-                
-                $this->cell->addText($this->xr->readString(), $this->style['p']);
+            
+            $this->style['p'] =  $this->parseProps();
+            
+            if($this->xr->getAttribute('style') == 'Normal'){
+                $this->style['p'] = array_merge($this->style['Normal'], $this->style['p']);
             }
-            */
-             
+            $this->section = $this->section->createTextRun($this->style['p']);
             
         }
         
@@ -271,7 +252,7 @@ class File_Convert_AbiToDocx
             
             $this->style['c'] =  $this->parseProps();
             
-            $this->style['c'] = array_merge( $this->style['c'],  $this->style['p']);
+//            $this->style['c'] = array_merge( $this->style['c'],  $this->style['p']);
             
 //            if ($this->pass == 2) {
 //                 $str = $this->xr->readString();
