@@ -117,7 +117,7 @@ class Document_Word_Writer_Section_TextRun
 		return $link;
 	}
 	public function addImage($src, $style = null) 
-                {
+        {
             Document_Word_Writer_Section::addSection($src, $style = null);
         }
 	/**
