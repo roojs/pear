@@ -171,9 +171,9 @@ class File_Convert_AbiToDocx
                 $this->style['p'] = array_merge((array)$this->style['Normal'],(array)  $this->style['p']);
             }
             
-//            if ($this->pass != 2) {
-//                return;
-//            }
+            if ($this->pass != 2) {
+                return;
+            }
             // second pass..
 //            $pObj = $this->xr->expand();
 //            $skipNode = array('a','image');
