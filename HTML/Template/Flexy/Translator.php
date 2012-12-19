@@ -372,7 +372,8 @@ class HTML_Template_Flexy_Translator {
     * @access   public
     */
 
-    function compileAll($d='') {
+    function compileAll($d='')
+    {
         set_time_limit(0); // this could take quite a while!!!
         
         $words = array();
