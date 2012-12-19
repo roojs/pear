@@ -207,14 +207,14 @@ class File_Convert_AbiToDocx
             }
             $this->section = $this->writer->createSection();
         }
-        
-        function handle_br() 
-        {
-            if ($this->pass != 2) {
-                return;
-            }
-            $this->section = $this->section->addTextBreak();
-        }
+//        
+//        function handle_br() 
+//        {
+//            if ($this->pass != 2) {
+//                return;
+//            }
+//            $this->section = $this->section->addTextBreak();
+//        }
         
         function handle_section()
         {
