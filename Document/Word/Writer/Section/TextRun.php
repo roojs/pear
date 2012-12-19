@@ -91,6 +91,19 @@ class Document_Word_Writer_Section_TextRun
 		$this->_elementCollection[] = $text;
 		return $text;
 	}
+        
+        /**
+	 * Add a TextBreak Element
+	 * 
+	 * @param int $count
+	 */
+	public function addTextBreak($count = 1) 
+        {
+                require_once __DIR__ . '/TextBreak.php';
+		for($i=1; $i<=$count; $i++) {
+			$this->_elementCollection[] = new Document_Word_Writer_Section_TextBreak();
+		}
+	}
 	
 	/**
 	 * Add a Link Element
