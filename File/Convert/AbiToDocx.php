@@ -85,8 +85,12 @@ class File_Convert_AbiToDocx
                     }
                     
                     if ($this->xr->name == '#text' && count($stack) && ($stack[count($stack)-1] == 'p'  || $stack[count($stack)-1] == 'c') && $this->pass==2) {
+                        if(get_class($this->section) == 'Document_Word_Writer_Section_Footer'){
+                            $this->section->addPreserveText($this->xr->value , $this->style['c'],$this->style['c']);
+                        }else{
+                            $this->section->addText($this->xr->value , $this->style[$stack[count($stack)-1]] , $this->style[$stack[count($stack)-1]]);
+                        }
                         
-                        $this->section->addText($this->xr->value , $this->style[$stack[count($stack)-1]] , $this->style[$stack[count($stack)-1]]);
                         continue;
                     }
                     
