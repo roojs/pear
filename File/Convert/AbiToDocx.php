@@ -277,17 +277,10 @@ class File_Convert_AbiToDocx
             
             $this->style['field'] = array_merge($this->style['field'],$this->style['p']);
             if($fieldType == 'page_number'){
-                 
                 $this->section->addPreserveText('{PAGE}', $this->style['field'],$this->style['field']);
-
-                 
-                
             }
             if($fieldType == 'number_pages'){
-               
-                    $this->header->addPreserveText('{NUMPAGES}', $this->style['field'],$this->style['field']);
-                  
-                
+                $this->header->addPreserveText('{NUMPAGES}', $this->style['field'],$this->style['field']);
             }
         }
         
