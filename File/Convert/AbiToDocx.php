@@ -96,7 +96,7 @@ class File_Convert_AbiToDocx
                     //echo implode('..', $stack). ':' .$this->xr->name.'<BR/>';
                     //$this->dumpsections($sections);
                     
-                    if (!$this->xr->isEmptyElement) {
+                    if (!$this->xr->isEmptyElement || $this->xr->name == 'br') {
                        $stack[] = $this->xr->name;
                        $sections[] = $this->section;
                        $state[] = $this->style;
