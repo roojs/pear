@@ -120,6 +120,11 @@ class Document_Word_Writer_Section_TextRun
         {
             Document_Word_Writer_Section::addImage($src, $style = null);
         }
+        
+        public function addTextBreak($count = 1) 
+        {
+            Document_Word_Writer_Section::addTextBreak();
+	}
 	/**
 	 * Get TextRun content
 	 * 
