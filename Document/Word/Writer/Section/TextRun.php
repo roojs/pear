@@ -118,7 +118,8 @@ class Document_Word_Writer_Section_TextRun
 	}
 	public function addImage($src, $style = null) 
         {
-            Document_Word_Writer_Section::addImage($src, $style = null);
+            $s = new Document_Word_Writer_Section();
+            $s->addImage($src, $style = null);
         }
 	/**
 	 * Get TextRun content
