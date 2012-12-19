@@ -48,7 +48,7 @@ class Document_Word_Writer_Section_TextRun
 	 * 
 	 * @var array
 	 */
-	private $_elementCollection;
+	public $_elementCollection;
 	
 	
 	/**
