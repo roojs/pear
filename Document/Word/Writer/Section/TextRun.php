@@ -116,7 +116,9 @@ class Document_Word_Writer_Section_TextRun
 		$this->_elementCollection[] = $link;
 		return $link;
 	}
-	
+	public function addImage($src, $style = null) {
+            Document_Word_Writer_Section::addSection();
+        }
 	/**
 	 * Get TextRun content
 	 * 
@@ -137,4 +139,3 @@ class Document_Word_Writer_Section_TextRun
 		return $this->_styleParagraph;
 	}
 }
-?>
