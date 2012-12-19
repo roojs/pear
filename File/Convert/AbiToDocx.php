@@ -85,7 +85,6 @@ class File_Convert_AbiToDocx
                     }
                     
                     if ($this->xr->name == '#text' && count($stack) && ($stack[count($stack)-1] == 'p'  || $stack[count($stack)-1] == 'c') && $this->pass==2) {
-                        
                         $this->section->addText($this->xr->value , $this->style[$stack[count($stack)-1]] , $this->style[$stack[count($stack)-1]]);
                         continue;
                     }
