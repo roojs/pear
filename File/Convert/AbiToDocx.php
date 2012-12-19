@@ -38,10 +38,7 @@ class File_Convert_AbiToDocx
                 $this->tmpdir  = '/tmp';
                 $this->lastNode = '';
                 $this->style[] = array();
-                $this->metadata[] = array();
                 $this->style['a'] = array('color'=>'0000FF', 'underline'=>'single'); // set default link style
-                $this->headerText = '';
-                $this->footerText = '';
                 $this->writer = new Document_Word_Writer(); // New Word Document
                 $this->section = $this->writer->createSection();
                 $this->pass = 1;
