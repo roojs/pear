@@ -212,6 +212,7 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
+            echo get_class($this->section);
             $this->section = $this->section->addTextBreak();
         }
         
