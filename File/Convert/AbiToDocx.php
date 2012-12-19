@@ -262,24 +262,8 @@ class File_Convert_AbiToDocx
         {
             
             $this->style['c'] =  $this->parseProps();
-            $this->style['c'] = array_merge( $this->style['c'],  $this->style['p']);
+            $this->style['c'] = array_merge( (array)$this->style['c'],  (array)$this->style['p']);
             
-//            if ($this->pass == 2) {
-//                 $str = $this->xr->readString();
-//                 $this->section->addText($str, $this->style['c']);
-//                 return;
-//            }
-            // only handles on first pass...??
-            // and it adds to header or footer?
-            
-           
-//            $str = $this->xr->readString();
-//            $str = str_replace(array('{#','#}'), array('{', '}'), $str);
-//            if (strlen($str)) {
-//                // fixme - kludge as parse does not subparse <fields>
-//                $this->section->addPreserveText($str , $this->style['c'],$this->style['c']);
-//            }
-         
         }
         
         function handle_d()
