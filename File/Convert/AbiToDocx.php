@@ -110,6 +110,7 @@ class File_Convert_AbiToDocx
                        $sections[] = $this->section;
                        $state[] = $this->style;
                     }
+                    echo get_class($this->section) . '<br/>';
                     $this->$method();  
                     
                     //if($this->xr->isEmptyElement){
