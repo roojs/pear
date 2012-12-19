@@ -90,7 +90,6 @@ class File_Convert_AbiToDocx
                         }else{
                             $this->section->addText($this->xr->value , $this->style[$stack[count($stack)-1]] , $this->style[$stack[count($stack)-1]]);
                         }
-                        
                         continue;
                     }
                     
