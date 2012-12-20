@@ -45,6 +45,7 @@ class File_Convert_AbiToDocx
                 $this->parseAbi();
                 $this->pass = 2;
                 $this->parseAbi();
+                exit;
                 $this->saveDocx( $fn ); // uses this->writer...
                 
         }
@@ -255,7 +256,7 @@ class File_Convert_AbiToDocx
         
         function handle_c()
         {
-            if(array_key_exists('href', $this->style)){
+            if(!empty($this->style['href'])){
                 $this->style = array_merge($this->style , $this->parseProps());
                 return;
             }
