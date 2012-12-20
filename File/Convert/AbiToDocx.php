@@ -242,7 +242,7 @@ class File_Convert_AbiToDocx
             //return; /// this would not work!
         
             $fieldType = $this->xr->getAttribute('type');
-            
+            // addPreserveText -- Only available in header / footer. See chapter "footer" or "header".
             if($fieldType == 'page_number'){
                 $this->section->addPreserveText('{PAGE}', $this->style,$this->style);
             }
