@@ -99,7 +99,6 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 					$objWriter->endElement();
 		
 				} elseif($style instanceof Document_Word_Writer_Style_Paragraph) {
-                                    echo 'run';
 					$objWriter->startElement('w:style');
 						$objWriter->writeAttribute('w:type', 'paragraph');
 						$objWriter->writeAttribute('w:customStyle', '1');
