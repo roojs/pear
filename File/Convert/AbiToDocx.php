@@ -257,6 +257,7 @@ class File_Convert_AbiToDocx
         {
             
             $this->style =  $this->parseProps();
+            print_r($this->style);
             
         }
         
