@@ -86,11 +86,14 @@ class File_Convert_AbiToDocx
                     
                     $textNode = array('p','c','a');
                     if ($this->xr->name == '#text' && count($stack) &&  $this->pass==2 && in_array($stack[count($stack)-1], $textNode)) {
-                         if(!empty($this->style['href']) && is_array($this->style)) {
-                            $this->section->addLink($this->style['href'], $this->xr->value,  $this->style);
+                        $text = $this->xr->value;
+                        if($text){
+                            
+                        }elseif(!empty($this->style['href']) && is_array($this->style)) {
+                            $this->section->addLink($this->style['href'], $text,  $this->style);
                            
                         }else{
-                            $this->section->addText($this->xr->value);
+                            $this->section->addText($text);
                         }
                         continue;
                     }
