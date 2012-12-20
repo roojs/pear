@@ -54,7 +54,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 		// Write DocDefaults
 		$this->_writeDocDefaults($objWriter);
 
-		echo 'run';
+		
 		// Write Style Definitions
                 require_once __DIR__.'/../../Style.php';
 		$styles = Document_Word_Writer_Style::getStyles();
