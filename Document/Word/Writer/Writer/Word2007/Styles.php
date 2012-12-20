@@ -61,7 +61,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 		if(count($styles) > 0) {
 			foreach($styles as $styleName => $style) {
 				if($style instanceof Document_Word_Writer_Style_Font) {
-					echo 'run';exit;
+					
 					$paragraphStyle = $style->getParagraphStyle();
 					$styleType = $style->getStyleType();
 					
@@ -99,6 +99,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 					$objWriter->endElement();
 		
 				} elseif($style instanceof Document_Word_Writer_Style_Paragraph) {
+                                    echo 'run';
 					$objWriter->startElement('w:style');
 						$objWriter->writeAttribute('w:type', 'paragraph');
 						$objWriter->writeAttribute('w:customStyle', '1');
