@@ -87,7 +87,8 @@ class File_Convert_AbiToDocx
                     $textNode = array('p','c','a');
                     if ($this->xr->name == '#text' && count($stack) &&  $this->pass==2 && in_array($stack[count($stack)-1], $textNode)) {
                         $text = $this->xr->value;
-                        if($text){
+                        if(strpos($text, '{#PAGE#}') !== false || strpos($text, '{#NUMPAGES#}') !== false){
+                            $this->section->addPreserveText(str_replace("#", "", $text), $this->style,$this->style);
                             
                         }elseif(!empty($this->style['href']) && is_array($this->style)) {
                             $this->section->addLink($this->style['href'], $text,  $this->style);
