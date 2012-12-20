@@ -167,16 +167,17 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
+            
             $style =  $this->parseProps();
             if(!empty($style)){
                 $style = array_merge($style, Document_Word_Writer_Style::getStyles());
             }else{
                 $style = $this->xr->getAttribute('style');
             }
+            
             if($this->keepSection){
                 return;
             }
-            
             $this->section = $this->section->createTextRun($style);
             
         }
