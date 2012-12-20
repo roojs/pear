@@ -251,9 +251,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
                 
 		$arrText = $textrun->getText();
-		if(!$skip_para){
+                
                     $objWriter->startElement('w:p');
-                }
 			if($SpIsObject) {
 				$this->_writeParagraphStyle($objWriter, $styleParagraph);
 			} elseif(!$SpIsObject && !is_null($styleParagraph)) {
@@ -326,9 +325,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 				}
 			}
 		
-                    if(!$skip_para){    
-                        $objWriter->endElement(); // p
-                    }
+		
+                    $objWriter->endElement(); // p
                
 	}
 	
