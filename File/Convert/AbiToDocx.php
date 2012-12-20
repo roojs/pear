@@ -168,17 +168,17 @@ class File_Convert_AbiToDocx
                 return;
             }
             
-            $style =  $this->parseProps();
+            $this->style =  $this->parseProps();
             if(!empty($style)){
-                $style = array_merge($style, Document_Word_Writer_Style::getStyles());
+                $this->style = array_merge($style, Document_Word_Writer_Style::getStyles());
             }else{
-                $style = $this->xr->getAttribute('style');
+                $this->style = $this->xr->getAttribute('style');
             }
             
             if($this->keepSection){
                 return;
             }
-            $this->section = $this->section->createTextRun($style);
+            $this->section = $this->section->createTextRun($this->style);
             
         }
         
