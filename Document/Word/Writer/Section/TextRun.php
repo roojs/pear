@@ -85,8 +85,8 @@ class Document_Word_Writer_Section_TextRun
 	public function addText($text = null, $styleFont = null) 
         {
                 require_once __DIR__ . '/Text.php';
-		$text = utf8_encode($text);
-                //$text = iconv(mb_detect_encoding($text), "UTF-8", $text);
+		//$text = utf8_encode($text);
+                $text = iconv(mb_detect_encoding($text), "UTF-8", $text);
 		$text = new Document_Word_Writer_Section_Text($text, $styleFont);
 		$this->_elementCollection[] = $text;
 		return $text;
