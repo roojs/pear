@@ -128,6 +128,7 @@ class File_Convert_AbiToDocx
             }
             $style = $this->parseProps();
             $this->writer->addParagraphStyle($this->xr->getAttribute('name'), $style); 
+            print_r($this->writer);
             $this->styleSheets[$this->xr->getAttribute('name')] = $style;
         }
         
