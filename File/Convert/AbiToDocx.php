@@ -90,7 +90,7 @@ class File_Convert_AbiToDocx
                         if(strpos($text, '{#PAGE#}') !== false || strpos($text, '{#NUMPAGES#}') !== false){
                             $this->section->addPreserveText(str_replace("#", "", $text), $this->style,$this->style);
                             
-                        }elseif(is_array ($this->style) && !empty($this->style['href'])) {
+                        }elseif(!empty($this->style['href'])) {
                             $this->section->addLink($this->style['href'], $text,  $this->style);
                            
                         }else{
