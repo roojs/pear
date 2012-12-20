@@ -173,7 +173,7 @@ class Document_Word_Writer_Section_Footer
 	 */
 	public function addPreserveText($text, $styleFont = null, $styleParagraph = null) 
         {
-		$text = utf8_encode($text);
+		$text = iconv(mb_detect_encoding($text), "UTF-8", $text);
                 require_once __DIR__ . '/Footer/PreserveText.php';
 		$ptext = new Document_Word_Writer_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $ptext;

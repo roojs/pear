@@ -197,7 +197,7 @@ class Document_Word_Writer_Section
 	public function addListItem($text, $depth = 0, $styleFont = null, $styleList = null, $styleParagraph = null) 
         {
                 require_once __DIR__ . '/Section/ListItem.php';
-		$text = utf8_encode($text);
+		$text = iconv(mb_detect_encoding($text), "UTF-8", $text);
 		$listItem = new Document_Word_Writer_Section_ListItem($text, $depth, $styleFont, $styleList, $styleParagraph);
 		$this->_elementCollection[] = $listItem;
 		return $listItem;
@@ -258,15 +258,17 @@ class Document_Word_Writer_Section
                 require_once __DIR__ . '/Section/Image.php';
                 require_once __DIR__ . '/Media.php';
 		$image = new Document_Word_Writer_Section_Image($src, $style);
-		if(!is_null($image->getSource())) {
-			$rID = Document_Word_Writer_Media::addSectionMediaElement($src, 'image');
-			$image->setRelationId($rID);
-			
-			$this->_elementCollection[] = $image;
-			return $image;
-		} else {
-			trigger_error('Source does not exist or unsupported image type.');
+		if(is_null($image->getSource())) {
+                    trigger_error('Source does not exist or unsupported image type.');
 		}
+                
+                $rID = Document_Word_Writer_Media::addSectionMediaElement($src, 'image');
+                $image->setRelationId($rID);
+
+                $this->_elementCollection[] = $image;
+                return $image;
+		 
+			
 	}
 	
 	/**
@@ -314,7 +316,7 @@ class Document_Word_Writer_Section
 	 */
 	public function addTitle($text, $depth = 1) 
         {
-		$text = utf8_encode($text);
+		$text = iconv(mb_detect_encoding($text), "UTF-8", $text);
 		$styles = Document_Word_Writer_Style::getStyles();
 		if(array_key_exists('Heading_'.$depth, $styles)) {
 			$style = 'Heading'.$depth;

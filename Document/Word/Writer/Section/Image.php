@@ -82,7 +82,6 @@ class Document_Word_Writer_Section_Image
 			$this->_src = $src;
 			$this->_isWatermark = $isWatermark;
 			$this->_style = new Document_Word_Writer_Style_Image();
-			
 			if(!is_null($style) && is_array($style)) {
 				foreach($style as $key => $value) {
 					if(substr($key, 0, 1) != '_') {
@@ -91,7 +90,6 @@ class Document_Word_Writer_Section_Image
 					$this->_style->setStyleValue($key, $value);
 				}
 			}
-			
 			if($this->_style->getWidth() == null && $this->_style->getHeight() == null) {
 				$imgData = getimagesize($this->_src);
 				$this->_style->setWidth($imgData[0]);
