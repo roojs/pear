@@ -27,7 +27,7 @@ class File_Convert_AbiToDocx
         var $styleMatch = array(
                 'font-family' => 'name',
                 'font-size' => 'size',
-                'text-align' => 'align',
+                'text-align' => 'align'
         );
     
         function save($fn)
@@ -45,7 +45,6 @@ class File_Convert_AbiToDocx
                 $this->parseAbi();
                 $this->pass = 2;
                 $this->parseAbi();
-                exit;
                 $this->saveDocx( $fn ); // uses this->writer...
                 
         }
