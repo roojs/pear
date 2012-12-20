@@ -90,6 +90,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 						$objWriter->endElement();
 						
 						if(!is_null($paragraphStyle)) {
+                                                    print_r($paragraphStyle);exit;
 							$this->_writeParagraphStyle($objWriter, $paragraphStyle);
 						}
 						
