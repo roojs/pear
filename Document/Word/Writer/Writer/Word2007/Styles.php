@@ -58,9 +58,10 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 		// Write Style Definitions
                 require_once __DIR__.'/../../Style.php';
 		$styles = Document_Word_Writer_Style::getStyles();
+                print_r($styleName . ' : ' . $style .'<br/>');
 		if(count($styles) > 0) {
 			foreach($styles as $styleName => $style) {
-                            print_r($styleName . ' : ' . $style .'<br/>');
+                            
 				if($style instanceof Document_Word_Writer_Style_Font) {
 					
 					$paragraphStyle = $style->getParagraphStyle();
