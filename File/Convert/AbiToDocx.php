@@ -299,7 +299,7 @@ class File_Convert_AbiToDocx
         }
         function getNodeStyle() {
             $style =  $this->parseProps();
-            print_r($style);
+            
             if ( $this->xr->getAttribute('style')) {
                 $style = empty($style) ?  $this->xr->getAttribute('style') :
                     array_merge($style, $this->styleSheets[$this->xr->getAttribute('style')]);
