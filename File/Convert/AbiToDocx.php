@@ -259,7 +259,7 @@ class File_Convert_AbiToDocx
         
         function handle_c()
         {
-            if(!empty($this->style['href'])){
+            if(array_key_exists('href', $this->style)){
                 $this->style = array_merge($this->style , $this->parseProps());
                 return;
             }
