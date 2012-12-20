@@ -168,8 +168,8 @@ class File_Convert_AbiToDocx
                 return;
             }
             
-            $this->style =  $this->parseProps();
-            if(!empty($this->style)){
+            $style =  $this->parseProps();
+            if(!empty($style)){
                 $this->style = array_merge($style, Document_Word_Writer_Style::getStyles());
             }else{
                 $this->style = $this->xr->getAttribute('style');
