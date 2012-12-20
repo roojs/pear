@@ -45,7 +45,6 @@ class File_Convert_AbiToDocx
                 $this->parseAbi();
                 $this->pass = 2;
                 $this->parseAbi();
-                exit;
                 $this->saveDocx( $fn ); // uses this->writer...
                 
         }
@@ -92,7 +91,6 @@ class File_Convert_AbiToDocx
                             $this->section->addPreserveText(str_replace("#", "", $text), $this->style,$this->style);
                             
                         }elseif(!empty($this->style['href'])) {
-                            echo $this->style['href'];
                             $this->section->addLink($this->style['href'], $text,  $this->style);
                            
                         }else{
