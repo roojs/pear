@@ -170,15 +170,12 @@ class File_Convert_AbiToDocx
             
             $this->style =  $this->parseProps();
             if(!empty($style)){
-                print_r($style);
                 $this->style = array_merge($style, Document_Word_Writer_Style::getStyles());
             }else{
-                print_r($style);
                 $this->style = $this->xr->getAttribute('style');
             }
             
             if($this->keepSection){
-                print_r($this->style);exit;
                 return;
             }
             $this->section = $this->section->createTextRun($this->style);
