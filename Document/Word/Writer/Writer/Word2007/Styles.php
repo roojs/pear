@@ -60,7 +60,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 		$styles = Document_Word_Writer_Style::getStyles();
 		if(count($styles) > 0) {
 			foreach($styles as $styleName => $style) {
-                            print_r($styleName . ' : ' . $style);exit;
+                            print_r($styleName);exit;
 				if($style instanceof Document_Word_Writer_Style_Font) {
 					
 					$paragraphStyle = $style->getParagraphStyle();
