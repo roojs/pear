@@ -85,7 +85,7 @@ class Document_Word_Writer_Section_TextRun
 	public function addText($text = null, $styleFont = null) 
         {
                 require_once __DIR__ . '/Text.php';
-		//$givenText = utf8_encode($text);
+		//$text = utf8_encode($text);
                 $text = iconv(mb_detect_encoding($text), "UTF-8", $text);
 		$text = new Document_Word_Writer_Section_Text($text, $styleFont);
 		$this->_elementCollection[] = $text;
@@ -104,9 +104,11 @@ class Document_Word_Writer_Section_TextRun
         {
                 require_once __DIR__ . '/Link.php';
                 require_once __DIR__ . '/../Media.php';
-		$linkSrc = utf8_encode($linkSrc);
+                $linkSrc = iconv(mb_detect_encoding($linkSrc), "UTF-8", $linkSrc);
+//		$linkSrc = utf8_encode($linkSrc);
 		if(!is_null($linkName)) {
-			$linkName = utf8_encode($linkName);
+                    $linkName = iconv(mb_detect_encoding($linkName), "UTF-8", $linkName);
+//			$linkName = utf8_encode($linkName);
 		}
 		
 		$link = new Document_Word_Writer_Section_Link($linkSrc, $linkName, $styleFont);
@@ -118,13 +120,25 @@ class Document_Word_Writer_Section_TextRun
 	}
 	public function addImage($src, $style = null) 
         {
-            Document_Word_Writer_Section::addImage($src, $style = null);
+            Document_Word_Writer_Section::addImage($src, $style);
         }
         
         public function addTextBreak($count = 1) 
         {
-            Document_Word_Writer_Section::addTextBreak();
+            Document_Word_Writer_Section::addTextBreak($count);
 	}
+        
+        public function addPageBreak() 
+        {      
+            Document_Word_Writer_Section::addPageBreak();
+	}
+        
+        public function addPreserveText($text, $styleFont = null, $styleParagraph = null) 
+        {
+            require_once __DIR__ . '/Footer.php';
+            Document_Word_Writer_Section_Footer::addPreserveText($text, $styleFont, $styleParagraph);
+	}
+        
 	/**
 	 * Get TextRun content
 	 * 
