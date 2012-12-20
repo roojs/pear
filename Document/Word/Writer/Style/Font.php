@@ -111,6 +111,7 @@ class Document_Word_Writer_Style_Font
 		$this->_fgColor         = null;
 		
 		if(!is_null($styleParagraph)) {
+                        require_once __DIR__ . '/Paragraph.php';
 			$paragraph = new Document_Word_Writer_Style_Paragraph();
 			foreach($styleParagraph as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
