@@ -302,7 +302,6 @@ class File_Convert_AbiToDocx
             if ($this->xr->getAttribute('style')) {
                 $style = array_merge($style, $this->styleSheets[$this->xr->getAttribute('style')]);
             }
-            print_r($style);
             return $style;
         }
       
