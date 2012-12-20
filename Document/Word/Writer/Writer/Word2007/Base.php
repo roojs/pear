@@ -38,7 +38,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		if(!$withoutP) {
 			$objWriter->startElement('w:p');
 			
-			$styleParagraph = $text->getParagraphStyle()
+			$styleParagraph = $text->getParagraphStyle();
 			$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph) ? true : false;
 			
 			if($SpIsObject) {
