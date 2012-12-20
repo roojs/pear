@@ -128,13 +128,17 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
         
         private function _writePageBreak(Document_Word_Writer_Shared_XMLWriter $objWriter = null , $skip_para = false) 
         {
-		
+		if(!$skip_para){
+                    $objWriter->startElement('w:p');
+                }
 			$objWriter->startElement('w:r');
 				$objWriter->startElement('w:br');
 					$objWriter->writeAttribute('w:type', 'page');
 				$objWriter->endElement();
 			$objWriter->endElement();
-             
+                if(!$skip_para){
+                    $objWriter->endElement();
+                }
 	}
 	
 	protected function _writeParagraphStyle(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Style_Paragraph $style, $withoutPPR = false) 
