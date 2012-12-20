@@ -50,7 +50,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 		
 		$objWriter->writeAttribute('xmlns:r', 'http://schemas.openxmlformats.org/officeDocument/2006/relationships');
 		$objWriter->writeAttribute('xmlns:w', 'http://schemas.openxmlformats.org/wordprocessingml/2006/main');
-		echo 'runfsdfsdfsdfsdfsdfsdf';exit;
+		
 		// Write DocDefaults
 		$this->_writeDocDefaults($objWriter);
 
