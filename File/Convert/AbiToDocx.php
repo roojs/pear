@@ -11,7 +11,7 @@ class File_Convert_AbiToDocx
     function __construct($fn) 
     {
             $this->fileName = $fn;
-            echo file_get_contents($fn);exit;
+        //    echo file_get_contents($fn);exit;
             
             return;
             
@@ -45,7 +45,6 @@ class File_Convert_AbiToDocx
                 $this->parseAbi();
                 $this->pass = 2;
                 $this->parseAbi();
-                exit;
                 $this->saveDocx( $fn ); // uses this->writer...
                 
         }
@@ -88,7 +87,10 @@ class File_Convert_AbiToDocx
                     $textNode = array('p','c','a');
                     if ($this->xr->name == '#text' && count($stack) &&  $this->pass==2 && in_array($stack[count($stack)-1], $textNode)) {
                         $text = $this->xr->value;
-                        if(!empty($this->style['href']) && is_array($this->style)) {
+                        if(strpos($text, '{#PAGE#}') !== false || strpos($text, '{#NUMPAGES#}') !== false){
+                            $this->section->addPreserveText(str_replace("#", "", $text), $this->style,$this->style);
+                            
+                        }elseif(!empty($this->style['href']) && is_array($this->style)) {
                             $this->section->addLink($this->style['href'], $text,  $this->style);
                            
                         }else{
