@@ -204,7 +204,7 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $this->section = $this->writer->createSection();
+          //  $this->section = $this->writer->createSection();
         }
         
         function handle_br() 
