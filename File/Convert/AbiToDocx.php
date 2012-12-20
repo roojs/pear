@@ -188,7 +188,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             
-            $this->style = array_merge($this->style,  $this->parseProps());
+            $this->style = $this->parseProps();
             $this->style['href'] = $this->xr->getAttribute('xlink:href');
             
         }
