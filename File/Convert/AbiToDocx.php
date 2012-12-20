@@ -27,7 +27,8 @@ class File_Convert_AbiToDocx
         var $styleMatch = array(
                 'font-family' => 'name',
                 'font-size' => 'size',
-                'text-align' => 'align'
+                'text-align' => 'align',
+                'font-weight' => 'bold'
         );
     
         function save($fn)
