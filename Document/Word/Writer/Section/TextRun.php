@@ -88,7 +88,6 @@ class Document_Word_Writer_Section_TextRun
 		//$text = utf8_encode($text);
                 $text = iconv(mb_detect_encoding($text), "UTF-8", $text);
 		$text = new Document_Word_Writer_Section_Text($text, $styleFont);
-                print_r($text);
 		$this->_elementCollection[] = $text;
 		return $text;
 	}
