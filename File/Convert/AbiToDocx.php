@@ -127,8 +127,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $style = $this->parseProps();
-            $this->writer->addParagraphStyle($this->xr->getAttribute('name'), $style); 
-            print_r(Document_Word_Writer_Style::getStyles());
+            $this->writer->addParagraphStyle($this->xr->getAttribute('name'), $style);
             $this->styleSheets[$this->xr->getAttribute('name')] = $style;
         }
         
