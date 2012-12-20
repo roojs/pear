@@ -115,12 +115,25 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                         $this->_writeTextBreak($objWriter);
                                 } elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText) {
                                         $this->_writePreserveText($objWriter, $element,true);
+                                } elseif($element instanceof Document_Word_Writer_Section_PageBreak) {
+                                        $this->_writePageBreak($objWriter);
                                 } else {
                                     throw Exception("unhandled class" . get_class($element));
                                 }
 			}
 		}
 		
+		$objWriter->endElement();
+	}
+        
+        private function _writePageBreak(Document_Word_Writer_Shared_XMLWriter $objWriter = null) 
+        {
+		$objWriter->startElement('w:p');
+			$objWriter->startElement('w:r');
+				$objWriter->startElement('w:br');
+					$objWriter->writeAttribute('w:type', 'page');
+				$objWriter->endElement();
+			$objWriter->endElement();
 		$objWriter->endElement();
 	}
 	
@@ -495,7 +508,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                         } elseif($element instanceof Document_Word_Writer_Section_ListItem) {
                                                 $this->_writeListItem($objWriter, $element);
                                         } elseif($element instanceof Document_Word_Writer_Section_Image ||
-                                                         $element instanceof Document_Word_Writer_Section_MemoryImage) {
+                                                 $element instanceof Document_Word_Writer_Section_MemoryImage) {
                                                 $this->_writeImage($objWriter, $element);
                                         } elseif($element instanceof Document_Word_Writer_Section_Object) {
                                                 $this->_writeObject($objWriter, $element);
