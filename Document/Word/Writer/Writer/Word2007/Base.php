@@ -82,7 +82,9 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	
 	protected function _writeTextRun(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_TextRun $textrun) 
         {
-		$elements = $textrun->getElements();
+		
+              
+               $elements = $textrun->getElements();
 		$styleParagraph = $textrun->getParagraphStyle();
 		
 		$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph) ? true : false;
@@ -101,6 +103,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
 		if(count($elements) > 0) {
 			foreach($elements as $element) {
+                                //echo get_class($element) .'<br/>';
 				if($element instanceof Document_Word_Writer_Section_Text) {
 					$this->_writeText($objWriter, $element, true);
 				} elseif($element instanceof Document_Word_Writer_Section_Link) {
@@ -108,9 +111,13 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 				} elseif($element instanceof Document_Word_Writer_Section_Image ||
                                         $element instanceof Document_Word_Writer_Section_MemoryImage) {
                                         $this->_writeImage($objWriter, $element, true); // skip the image para
-                                }elseif($element instanceof Document_Word_Writer_Section_TextBreak) {
+                                } elseif($element instanceof Document_Word_Writer_Section_TextBreak) {
                                         $this->_writeTextBreak($objWriter);
-                                } 
+                                } elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText) {
+                                        $this->_writePreserveText($objWriter, $element,true);
+                                } else {
+                                    throw Exception("unhandled class" . get_class($element));
+                                }
 			}
 		}
 		
@@ -217,7 +224,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 	}
 	
-	protected function _writePreserveText(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Footer_PreserveText $textrun) 
+	protected function _writePreserveText(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Footer_PreserveText $textrun, $skip_para = false) 
         {
 		$styleFont = $textrun->getFontStyle();
 		$styleParagraph = $textrun->getParagraphStyle();
@@ -225,10 +232,10 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$SfIsObject = ($styleFont instanceof Document_Word_Writer_Style_Font) ? true : false;
 		$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph) ? true : false;
 		
+                
 		$arrText = $textrun->getText();
 		
-		$objWriter->startElement('w:p');
-		
+                    $objWriter->startElement('w:p');
 			if($SpIsObject) {
 				$this->_writeParagraphStyle($objWriter, $styleParagraph);
 			} elseif(!$SpIsObject && !is_null($styleParagraph)) {
@@ -238,10 +245,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 					$objWriter->endElement();
 				$objWriter->endElement();
 			}
-			
 			foreach($arrText as $text) {
-				
-				if(substr($text, 0, 1) == '{') {
+                            if(substr($text, 0, 1) == '{') {
 					$text = substr($text, 1, -1);
 					
 					$objWriter->startElement('w:r');
@@ -264,7 +269,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 						
 						$objWriter->startElement('w:instrText');
 							$objWriter->writeAttribute('xml:space', 'preserve');
-							$objWriter->text($text);
+							$objWriter->writeRaw($text);
 						$objWriter->endElement();
 					$objWriter->endElement();
 					
@@ -273,7 +278,6 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 							$objWriter->writeAttribute('w:fldCharType', 'separate');
 						$objWriter->endElement();
 					$objWriter->endElement();
-					
 					$objWriter->startElement('w:r');
 						$objWriter->startElement('w:fldChar');
 							$objWriter->writeAttribute('w:fldCharType', 'end');
@@ -304,7 +308,9 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 				}
 			}
 		
-		$objWriter->endElement(); // p
+		
+                    $objWriter->endElement(); // p
+               
 	}
 	
 	protected function _writeTextStyle(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Style_Font $style) 
@@ -381,7 +387,10 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	
 	protected function _writeTextBreak(Document_Word_Writer_Shared_XMLWriter $objWriter = null) 
         {
-		$objWriter->writeElement('w:p', null);
+            //echo "writing text break?";	
+            $objWriter->startElement('w:r');
+            $objWriter->writeElement('w:br', null);
+            $objWriter->endElement();
 	}
 	
 	protected function _writeTable(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Table $table) 
@@ -645,8 +654,14 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
             $height = $style->getHeight();
             $align = $style->getAlign();
                     // Calculation refer to : http://startbigthinksmall.wordpress.com/2010/01/04/points-inches-and-emus-measuring-units-in-office-open-xml/
-        	    $emuWidth = ceil($width / 75 * 914400);
-                $emuHeight = ceil($height / 75 * 914400);
+            
+            // in our example - it's 1.8in wide..
+            // so that was coverted to 75*1.8 = 135
+            // so this get's 135 / 75 ==> 1.8
+            // so this should give us 1645920;
+            
+            $emuWidth = ceil(($width / 75) * 914400);
+            $emuHeight = ceil(($height / 75) * 914400);
                 
                 
                 if (!$skip_para) {
