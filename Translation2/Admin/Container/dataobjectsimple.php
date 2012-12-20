@@ -133,7 +133,7 @@ class Translation2_Admin_Container_dataobjectsimple extends Translation2_Contain
         $do = DB_DataObject::factory($this->options['table']);
         $do->lang = '-';
         $do->translation = $string;
-        $do->page = $page;
+        $do->page = $pageID;
         if ($do->find(true)) {
             $stringID = $do->string_id;
         } else {
