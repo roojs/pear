@@ -116,7 +116,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                 } elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText) {
                                         $this->_writePreserveText($objWriter, $element,true);
                                 } elseif($element instanceof Document_Word_Writer_Section_PageBreak) {
-                                        $this->_writePageBreak($objWriter);
+                                        $this->_writePageBreak($objWriter , true);
                                 } else {
                                     throw Exception("unhandled class" . get_class($element));
                                 }
