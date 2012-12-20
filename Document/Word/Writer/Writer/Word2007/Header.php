@@ -73,7 +73,7 @@ class Document_Word_Writer_Writer_Word2007_Header extends Document_Word_Writer_W
 					$this->_writeWatermark($objWriter, $element);
 				}
 			} elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText) {
-				$this->_writePreserveText($objWriter, $element);
+				$this->_writePreserveText($objWriter, $element,true);
 			}
 		}
 		
