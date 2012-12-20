@@ -173,7 +173,6 @@ class File_Convert_AbiToDocx
             }else{
                 $style = $this->xr->getAttribute('style');
             }
-            print_r($style);
             if($this->keepSection){
                 return;
             }
