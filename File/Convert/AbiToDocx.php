@@ -173,6 +173,7 @@ class File_Convert_AbiToDocx
                 print_r($style);
                 $this->style = array_merge($style, Document_Word_Writer_Style::getStyles());
             }else{
+                print_r($style);
                 $this->style = $this->xr->getAttribute('style');
             }
             
