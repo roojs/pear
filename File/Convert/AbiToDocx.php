@@ -125,8 +125,7 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            $style = $this->parseProps();
-            $this->writer->addFontStyle($this->xr->getAttribute('name'), $style,$style);
+            $this->writer->addFontStyle($this->xr->getAttribute('name'), $this->parseProps(),$this->parseProps());
         }
         
         function handle_table() 
@@ -170,7 +169,7 @@ class File_Convert_AbiToDocx
             }
             $style =  $this->parseProps();
             if ($this->xr->getAttribute('style') && !empty($style)) {
-                $style = array_merge($style, $this->styleSheets[$this->xr->getAttribute('style')]);
+                $style = array_merge($style, Document_Word_Writer_Style::getStyles());
             }
             if($this->keepSection){
                 return;
