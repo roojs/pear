@@ -126,7 +126,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$objWriter->endElement();
 	}
         
-        private function _writePageBreak(Document_Word_Writer_Shared_XMLWriter $objWriter = null) 
+        private function _writePageBreak(Document_Word_Writer_Shared_XMLWriter $objWriter = null , $skip_para = false) 
         {
 		$objWriter->startElement('w:p');
 			$objWriter->startElement('w:r');
