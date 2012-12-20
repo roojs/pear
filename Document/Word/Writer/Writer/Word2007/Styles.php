@@ -63,7 +63,6 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 				if($style instanceof Document_Word_Writer_Style_Font) {
 					
 					$paragraphStyle = $style->getParagraphStyle();
-                                        print_r($paragraphStyle);
 					$styleType = $style->getStyleType();
 					
 					$type = ($styleType == 'title') ? 'paragraph' : 'character';
