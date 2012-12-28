@@ -171,7 +171,7 @@ class Document_Word_Writer_Section_Table_Cell
 	 */
 	public function addListItem($text, $depth = 0, $styleText = null, $styleList = null) 
         {
-		$text = iconv(mb_detect_encoding($text), "UTF-8", $text);
+		$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$listItem = new Document_Word_Writer_Section_ListItem($text, $depth, $styleText, $styleList);
 		$this->_elementCollection[] = $listItem;
 		return $listItem;
@@ -287,7 +287,7 @@ class Document_Word_Writer_Section_Table_Cell
         {
                 require_once __DIR__ . '/../Footer/PreserveText.php';
 		if($this->_insideOf == 'footer' || $this->_insideOf == 'header') {
-			$text = iconv(mb_detect_encoding($text), "UTF-8", $text);
+			$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 			$ptext = new Document_Word_Writer_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
 			$this->_elementCollection[] = $ptext;
 			return $ptext;
