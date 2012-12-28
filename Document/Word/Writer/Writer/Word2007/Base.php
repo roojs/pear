@@ -752,12 +752,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 $objWriter->endElement(); // End wp:effectExtent
                 
                 
-                
-               // $objWriter->startElement('wp:wrapTopAndBottom');
-                //$objWriter->endElement(); // End wp:wrapNone
-//                $objWriter->startElement('wp:wrapSquare');
-//                $objWriter->writeAttribute('wrapText','largest');
-//                $objWriter->endElement(); // End wp:wrapSquare
+                 
                 $objWriter->startElement('wp:docPr');
                 $objWriter->writeAttribute('descr','A description...');
                 $objWriter->writeAttribute('id',$embedid);
