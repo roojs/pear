@@ -77,7 +77,7 @@ class Document_Word_Writer_Section_Footer
         {
                 require_once __DIR__ . '/Text.php';
 		//$givenText = utf8_encode($text);
-                $text = iconv(mb_detect_encoding($text), "UTF-8", $text);
+                $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$text = new Document_Word_Writer_Section_Text($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $text;
 		return $text;
@@ -173,7 +173,7 @@ class Document_Word_Writer_Section_Footer
 	 */
 	public function addPreserveText($text, $styleFont = null, $styleParagraph = null) 
         {
-		$text = iconv(mb_detect_encoding($text), "UTF-8", $text);
+		$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
                 require_once __DIR__ . '/Footer/PreserveText.php';
 		$ptext = new Document_Word_Writer_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $ptext;
