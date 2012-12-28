@@ -116,8 +116,7 @@ class Document_Word_Writer_Section
         {
                 require_once __DIR__ . '/Section/Text.php';
 		//$givenText = utf8_encode($text);
-                
-@iconv("UTF-8", "UTF-8//IGNORE", $text);
+                $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$text = new Document_Word_Writer_Section_Text($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $text;
 		return $text;
@@ -198,7 +197,7 @@ class Document_Word_Writer_Section
 	public function addListItem($text, $depth = 0, $styleFont = null, $styleList = null, $styleParagraph = null) 
         {
                 require_once __DIR__ . '/Section/ListItem.php';
-		$text = iconv(mb_detect_encoding($text), "UTF-8", $text);
+		$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$listItem = new Document_Word_Writer_Section_ListItem($text, $depth, $styleFont, $styleList, $styleParagraph);
 		$this->_elementCollection[] = $listItem;
 		return $listItem;
@@ -317,7 +316,7 @@ class Document_Word_Writer_Section
 	 */
 	public function addTitle($text, $depth = 1) 
         {
-		$text = iconv(mb_detect_encoding($text), "UTF-8", $text);
+		$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$styles = Document_Word_Writer_Style::getStyles();
 		if(array_key_exists('Heading_'.$depth, $styles)) {
 			$style = 'Heading'.$depth;
