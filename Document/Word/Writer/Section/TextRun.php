@@ -86,7 +86,7 @@ class Document_Word_Writer_Section_TextRun
         {
                 require_once __DIR__ . '/Text.php';
 		//$text = utf8_encode($text);
-                $text = iconv(mb_detect_encoding($text), "UTF-8", $text);
+                $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$text = new Document_Word_Writer_Section_Text($text, $styleFont);
 		$this->_elementCollection[] = $text;
 		return $text;
@@ -104,10 +104,10 @@ class Document_Word_Writer_Section_TextRun
         {
                 require_once __DIR__ . '/Link.php';
                 require_once __DIR__ . '/../Media.php';
-                $linkSrc = iconv(mb_detect_encoding($linkSrc), "UTF-8", $linkSrc);
+                $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 //		$linkSrc = utf8_encode($linkSrc);
 		if(!is_null($linkName)) {
-                    $linkName = iconv(mb_detect_encoding($linkName), "UTF-8", $linkName);
+                    $linkName = @iconv("UTF-8", "UTF-8//IGNORE", $linkName);
 //			$linkName = utf8_encode($linkName);
 		}
 		
