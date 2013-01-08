@@ -9,10 +9,7 @@
 * file that was distributed with this source code.
 */
 
-namespace Symfony\Component\CssSelector;
-
-use Symfony\Component\CssSelector\Exception\ParseException;
-
+include_once dirname(__FILE__) . '/Node/OrNode.php';
 /**
 * CssSelector is the main entry point of the component and can convert CSS
 * selectors to XPath expressions.
@@ -69,7 +66,7 @@ class CssSelector
 
         // @codeCoverageIgnoreStart
         if (!$expr) {
-            throw new ParseException(sprintf('Got None for xpath expression from %s.', $cssExpr));
+            throw new Exception();
         }
         // @codeCoverageIgnoreEnd
 
@@ -98,11 +95,7 @@ class CssSelector
 
         try {
             return $this->parseSelectorGroup($stream);
-        } catch (\Exception $e) {
-            $class = get_class($e);
-
-            throw new $class(sprintf('%s at %s -> %s', $e->getMessage(), implode($stream->getUsed(), ''), $stream->peek()), 0, $e);
-        }
+        } catch (Exception $e) {}
     }
 
     /**
@@ -128,7 +121,7 @@ class CssSelector
         if (count($result) == 1) {
             return $result[0];
         }
-
+        
         return new Node\OrNode($result);
     }
 
@@ -164,7 +157,7 @@ class CssSelector
             $consumed = count($stream->getUsed());
             $nextSelector = $this->parseSimpleSelector($stream);
             if ($consumed == count($stream->getUsed())) {
-                throw new ParseException(sprintf("Expected selector, got '%s'", $stream->peek()));
+                throw new Exception();
             }
 
             $result = new Node\CombinedSelectorNode($result, $combinator, $nextSelector);
@@ -191,7 +184,7 @@ class CssSelector
         } else {
             $next = $stream->next();
             if ('*' != $next && !$next->isType('Symbol')) {
-                throw new ParseException(sprintf("Expected symbol, got '%s'", $next));
+                throw new Exception();
             }
 
             if ($stream->peek() == '|') {
@@ -199,7 +192,7 @@ class CssSelector
                 $stream->next();
                 $element = $stream->next();
                 if ('*' != $element && !$next->isType('Symbol')) {
-                    throw new ParseException(sprintf("Expected symbol, got '%s'", $next));
+                    throw new Exception();
                 }
             } else {
                 $namespace = '*';
@@ -234,7 +227,7 @@ class CssSelector
                 $result = $this->parseAttrib($result, $stream);
                 $next = $stream->next();
                 if (']' != $next) {
-                    throw new ParseException(sprintf("] expected, got '%s'", $next));
+                    throw new Exception();
                 }
 
                 continue;
@@ -242,7 +235,7 @@ class CssSelector
                 $type = $stream->next();
                 $ident = $stream->next();
                 if (!$ident || !$ident->isType('Symbol')) {
-                    throw new ParseException(sprintf("Expected symbol, got '%s'", $ident));
+                    throw new Exception();
                 }
 
                 if ($stream->peek() == '(') {
@@ -258,7 +251,7 @@ class CssSelector
                     }
                     $next = $stream->next();
                     if (')' != $next) {
-                        throw new ParseException(sprintf("Expected ')', got '%s' and '%s'", $next, $selector));
+                        throw new Exception();
                     }
 
                     $result = new Node\FunctionNode($result, $type, $ident, $selector);
@@ -309,12 +302,12 @@ class CssSelector
 
         $op = $stream->next();
         if (!in_array($op, array('^=', '$=', '*=', '=', '~=', '|=', '!='))) {
-            throw new ParseException(sprintf("Operator expected, got '%s'", $op));
+            throw new Exception();
         }
 
         $value = $stream->next();
         if (!$value->isType('Symbol') && !$value->isType('String')) {
-            throw new ParseException(sprintf("Expected string or symbol, got '%s'", $value));
+            throw new Exception();
         }
 
         return new Node\AttribNode($selector, $namespace, $attrib, $op, $value);
