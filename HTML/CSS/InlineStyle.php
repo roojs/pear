@@ -290,10 +290,10 @@ class HTML_CSS_InlineStyle
                 preg_match('#^([-a-z0-9\*]+):(.*)$#i', $props, $matches);
                 list($match, $prop, $val) = $matches;
                 $styles[$prop] = $val;
-                print_r($prop);exit;
+                print_r($prop);
             }
         }
-
+exit;
         return $styles;
     }
 
