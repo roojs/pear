@@ -8,10 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\CssSelector\Node;
-
-use Symfony\Component\CssSelector\Exception\ParseException;
+include_once dirname(__FILE__) . '/NodeInterface.php';
 
 /**
  * CombinedSelectorNode represents a combinator node.
@@ -65,7 +62,7 @@ class CombinedSelectorNode implements NodeInterface
     public function toXpath()
     {
         if (!isset(self::$methodMapping[$this->combinator])) {
-            throw new ParseException(sprintf('Unknown combinator: %s', $this->combinator));
+            throw new Exception();
         }
 
         $method = '_xpath_'.self::$methodMapping[$this->combinator];
