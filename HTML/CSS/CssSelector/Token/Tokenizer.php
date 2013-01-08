@@ -56,7 +56,7 @@ class HTML_CSS_CssSelector_Token_Tokenizer
 
             if (preg_match('#[+-]?\d*n(?:[+-]\d+)?#A', $s, $match, 0, $pos) && 'n' !== $match[0]) {
                 $sym = substr($s, $pos, strlen($match[0]));
-                $tokens[] = new Token('Symbol', $sym, $pos);
+                $tokens[] = new HTML_CSS_CssSelector_Token_Token('Symbol', $sym, $pos);
                 $pos += strlen($match[0]);
 
                 continue;
@@ -65,7 +65,7 @@ class HTML_CSS_CssSelector_Token_Tokenizer
             $c = $s[$pos];
             $c2 = substr($s, $pos, 2);
             if (in_array($c2, array('~=', '|=', '^=', '$=', '*=', '::', '!='))) {
-                $tokens[] = new Token('Token', $c2, $pos);
+                $tokens[] = new HTML_CSS_CssSelector_Token_Token('Token', $c2, $pos);
                 $pos += 2;
 
                 continue;
@@ -73,9 +73,9 @@ class HTML_CSS_CssSelector_Token_Tokenizer
 
             if (in_array($c, array('>', '+', '~', ',', '.', '*', '=', '[', ']', '(', ')', '|', ':', '#'))) {
                 if (in_array($c, array('.', '#', '[')) && $precedingWhitespacePos > 0) {
-                    $tokens[] = new Token('Token', ' ', $precedingWhitespacePos);
+                    $tokens[] = new HTML_CSS_CssSelector_Token_Token('Token', ' ', $precedingWhitespacePos);
                 }
-                $tokens[] = new Token('Token', $c, $pos);
+                $tokens[] = new HTML_CSS_CssSelector_Token_Token('Token', $c, $pos);
                 ++$pos;
 
                 continue;
@@ -86,7 +86,7 @@ class HTML_CSS_CssSelector_Token_Tokenizer
                 $oldPos = $pos;
                 list($sym, $pos) = $this->tokenizeEscapedString($s, $pos);
 
-                $tokens[] = new Token('String', $sym, $oldPos);
+                $tokens[] = new HTML_CSS_CssSelector_Token_Token('String', $sym, $oldPos);
 
                 continue;
             }
@@ -94,7 +94,7 @@ class HTML_CSS_CssSelector_Token_Tokenizer
             $oldPos = $pos;
             list($sym, $pos) = $this->tokenizeSymbol($s, $pos);
 
-            $tokens[] = new Token('Symbol', $sym, $oldPos);
+            $tokens[] = new HTML_CSS_CssSelector_Token_Token('Symbol', $sym, $oldPos);
 
             continue;
         }
