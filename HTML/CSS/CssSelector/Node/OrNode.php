@@ -54,6 +54,6 @@ class HTML_CSS_CssSelector_Node_OrNode implements HTML_CSS_CssSelector_Node_Node
             $paths[] = $item->toXpath();
         }
 
-        return new XPathExprOr($paths);
+        return new HTML_CSS_CssSelector_XPathExprOr($paths);
     }
 }
