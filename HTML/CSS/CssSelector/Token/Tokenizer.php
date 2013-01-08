@@ -121,7 +121,7 @@ class Tokenizer
         while (true) {
             $next = strpos($s, $quote, $pos);
             if (false === $next) {
-                throw new Exception();
+                throw new Exception(sprintf('Expected closing %s for string in: %s', $quote, substr($s, $start)));
             }
 
             $result = substr($s, $start, $next - $start);
@@ -157,7 +157,7 @@ class Tokenizer
                     return chr(trim($matches[0]));
                 }
             } else {
-                throw new Exception();
+                throw new Exception(sprintf('Invalid escape sequence %s in string %s', $matches[0], $literal));
             }
         }, $literal);
     }
@@ -186,7 +186,7 @@ class Tokenizer
         $matchStart = $match[0][1];
 
         if ($matchStart == $pos) {
-            throw new Exception();
+            throw new Exception(sprintf('Unexpected symbol: %s at %s', $s[$pos], $pos));
         }
 
         $result = substr($s, $start, $matchStart - $start);
