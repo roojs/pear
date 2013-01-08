@@ -215,7 +215,7 @@ class HTML_CSS_CssSelector
             }
         }
 
-        $result = new ElementNode($namespace, $element);
+        $result = new HTML_CSS_CssSelector_Node_ElementNode($namespace, $element);
         $hasHash = false;
         while (true) {
             $peek = $stream->peek();
@@ -228,13 +228,13 @@ class HTML_CSS_CssSelector
                     // @codeCoverageIgnoreEnd
                 }
                 $stream->next();
-                $result = new HashNode($result, $stream->next());
+                $result = new HTML_CSS_CssSelector_Node_HashNode($result, $stream->next());
                 $hasHash = true;
 
                 continue;
             } elseif ('.' == $peek) {
                 $stream->next();
-                $result = new ClassNode($result, $stream->next());
+                $result = new HTML_CSS_CssSelector_Node_ClassNode($result, $stream->next());
 
                 continue;
             } elseif ('[' == $peek) {
@@ -269,9 +269,9 @@ class HTML_CSS_CssSelector
                         throw new Exception(sprintf("Expected ')', got '%s' and '%s'", $next, $selector));
                     }
 
-                    $result = new FunctionNode($result, $type, $ident, $selector);
+                    $result = new HTML_CSS_CssSelector_Node_FunctionNode($result, $type, $ident, $selector);
                 } else {
-                    $result = new PseudoNode($result, $type, $ident);
+                    $result = new HTML_CSS_CssSelector_Node_PseudoNode($result, $type, $ident);
                 }
 
                 continue;
@@ -312,7 +312,7 @@ class HTML_CSS_CssSelector
         }
 
         if ($stream->peek() == ']') {
-            return new AttribNode($selector, $namespace, $attrib, 'exists', null);
+            return new HTML_CSS_CssSelector_Node_AttribNode($selector, $namespace, $attrib, 'exists', null);
         }
 
         $op = $stream->next();
@@ -325,6 +325,6 @@ class HTML_CSS_CssSelector
             throw new Exception(sprintf("Expected string or symbol, got '%s'", $value));
         }
 
-        return new AttribNode($selector, $namespace, $attrib, $op, $value);
+        return new HTML_CSS_CssSelector_Node_AttribNode($selector, $namespace, $attrib, $op, $value);
     }
 }
