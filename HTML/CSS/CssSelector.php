@@ -137,7 +137,7 @@ class HTML_CSS_CssSelector
             return $result[0];
         }
         
-        return new OrNode($result);
+        return new HTML_CSS_CssSelector_Node_OrNode($result);
     }
 
     /**
