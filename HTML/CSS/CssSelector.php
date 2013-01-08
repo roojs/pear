@@ -16,6 +16,8 @@ include_once dirname(__FILE__) . '/Node/HashNode.php';
 include_once dirname(__FILE__) . '/Node/ClassNode.php';
 include_once dirname(__FILE__) . '/Node/FunctionNode.php';
 include_once dirname(__FILE__) . '/Node/PseudoNode.php';
+include_once dirname(__FILE__) . '/Node/AttribNode.php';
+
 
 /**
 * CssSelector is the main entry point of the component and can convert CSS
@@ -304,7 +306,7 @@ class CssSelector
         }
 
         if ($stream->peek() == ']') {
-            return new Node\AttribNode($selector, $namespace, $attrib, 'exists', null);
+            return new AttribNode($selector, $namespace, $attrib, 'exists', null);
         }
 
         $op = $stream->next();
@@ -317,6 +319,6 @@ class CssSelector
             throw new Exception();
         }
 
-        return new Node\AttribNode($selector, $namespace, $attrib, $op, $value);
+        return new AttribNode($selector, $namespace, $attrib, $op, $value);
     }
 }
