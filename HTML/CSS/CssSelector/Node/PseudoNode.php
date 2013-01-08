@@ -24,7 +24,7 @@ class PseudoNode implements NodeInterface
     protected static $unsupported = array(
         'indeterminate', 'first-line', 'first-letter',
         'selection', 'before', 'after', 'link', 'visited',
-        'active', 'focus',
+        'active', 'focus', 'hover',
     );
 
     protected $element;
@@ -69,11 +69,11 @@ class PseudoNode implements NodeInterface
         $elXpath = $this->element->toXpath();
 
         if (in_array($this->ident, self::$unsupported)) {
-            throw new Exception(sprintf('The pseudo-class %s is unsupported', $this->ident));
+            throw new Exception(sprintf('tsThe pseudo-class %s is unsupported', $this->ident));
         }
         $method = 'xpath_'.str_replace('-', '_', $this->ident);
         if (!method_exists($this, $method)) {
-            throw new Exception(sprintf('The pseudo-class %s is unknown', $this->ident));
+            throw new Exception(sprintf('testThe pseudo-class %s is unknown', $this->ident));
         }
 
         return $this->$method($elXpath);
