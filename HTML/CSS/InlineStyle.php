@@ -97,6 +97,7 @@ class InlineStyle
             $parsed = $this->parseStylesheet($ss);
             $parsed = $this->sortSelectorsOnSpecificity($parsed);
             foreach($parsed as $arr) {
+                print_r($arr);
                 list($selector, $style) = $arr;
                 $this->applyRule($selector, $style);
             }
