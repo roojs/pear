@@ -19,7 +19,7 @@ include_once dirname(__FILE__) . '/NodeInterface.php';
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class PseudoNode implements NodeInterface
+class HTML_CSS_CssSelector_Node_PseudoNode implements HTML_CSS_CssSelector_Node_NodeInterface
 {
     protected static $unsupported = array(
         'indeterminate', 'first-line', 'first-letter',
