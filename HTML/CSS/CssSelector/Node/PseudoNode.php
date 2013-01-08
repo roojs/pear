@@ -24,7 +24,7 @@ class PseudoNode implements NodeInterface
     protected static $unsupported = array(
         'indeterminate', 'first-line', 'first-letter',
         'selection', 'before', 'after', 'link', 'visited',
-        'active', 'focus',
+        'active', 'focus', 'hover',
     );
 
     protected $element;
@@ -77,10 +77,6 @@ class PseudoNode implements NodeInterface
         }
 
         return $this->$method($elXpath);
-    }
-    protected function xpath_hover($xpath)
-    {
-        return $xpath;
     }
 
     /**
