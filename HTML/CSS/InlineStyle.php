@@ -1,6 +1,4 @@
 <?php
-namespace InlineStyle;
-
 /*
 * InlineStyle MIT License
 *
