@@ -112,6 +112,7 @@ class InlineStyle
             return $this->_dom_xpath->query($xpathQuery);
         }
         catch(Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
             // ignore css rule parse exceptions
         }
 
