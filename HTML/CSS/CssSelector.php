@@ -10,15 +10,15 @@
 */
 
 include_once dirname(__FILE__) . '/CssSelector/Node/OrNode.php';
-include_once dirname(__FILE__) . '/CssSelector//Node/CombinedSelectorNode.php';
-include_once dirname(__FILE__) . '/CssSelector//Node/ElementNode.php';
-include_once dirname(__FILE__) . '/CssSelector//Node/HashNode.php';
-include_once dirname(__FILE__) . '/CssSelector//Node/ClassNode.php';
-include_once dirname(__FILE__) . '/CssSelector//Node/FunctionNode.php';
-include_once dirname(__FILE__) . '/CssSelector//Node/PseudoNode.php';
-include_once dirname(__FILE__) . '/CssSelector//Node/AttribNode.php';
-include_once dirname(__FILE__) . '/CssSelector//Token/Tokenizer.php';
-include_once dirname(__FILE__) . '/CssSelector//Node/TokenStream.php';
+include_once dirname(__FILE__) . '/CssSelector/Node/CombinedSelectorNode.php';
+include_once dirname(__FILE__) . '/CssSelector/Node/ElementNode.php';
+include_once dirname(__FILE__) . '/CssSelector/Node/HashNode.php';
+include_once dirname(__FILE__) . '/CssSelector/Node/ClassNode.php';
+include_once dirname(__FILE__) . '/CssSelector/Node/FunctionNode.php';
+include_once dirname(__FILE__) . '/CssSelector/Node/PseudoNode.php';
+include_once dirname(__FILE__) . '/CssSelector/Node/AttribNode.php';
+include_once dirname(__FILE__) . '/CssSelector/Token/Tokenizer.php';
+include_once dirname(__FILE__) . '/CssSelector/Node/TokenStream.php';
 
 
 /**
