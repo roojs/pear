@@ -19,7 +19,7 @@ include_once dirname(__FILE__) . '/XPathExpr.php';
 *
 * @author Fabien Potencier <fabien@symfony.com>
 */
-class HTML_CSS_CssSelector_XPathExprOr extends XPathExpr
+class HTML_CSS_CssSelector_XPathExprOr extends HTML_CSS_CssSelector_XPathExpr
 {
     /**
 * Constructor.
