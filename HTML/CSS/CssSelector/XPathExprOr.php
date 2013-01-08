@@ -8,9 +8,7 @@
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
-
-namespace Symfony\Component\CssSelector;
-
+include_once dirname(__FILE__) . '/XPathExpr.php';
 /**
 * XPathExprOr represents XPath |'d expressions.
 *
