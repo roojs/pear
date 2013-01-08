@@ -142,10 +142,6 @@ class InlineStyle
                 foreach($current as $prop => $val) {
                     $st[] = "{$prop}:{$val}";
                 }
-                if($selector == '.fright')
-                {
-                    print_r($st);
-                } 
                 $node->setAttribute("style", implode(";", $st));
             }
         }
