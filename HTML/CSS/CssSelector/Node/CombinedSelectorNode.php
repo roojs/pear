@@ -62,7 +62,7 @@ class CombinedSelectorNode implements NodeInterface
     public function toXpath()
     {
         if (!isset(self::$methodMapping[$this->combinator])) {
-            throw new Exception();
+            throw new Exception(sprintf('Unknown combinator: %s', $this->combinator));
         }
 
         $method = '_xpath_'.self::$methodMapping[$this->combinator];
