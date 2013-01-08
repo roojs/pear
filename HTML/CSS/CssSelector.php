@@ -10,6 +10,8 @@
 */
 
 include_once dirname(__FILE__) . '/Node/OrNode.php';
+include_once dirname(__FILE__) . '/Node/CombinedSelectorNode.php';
+
 /**
 * CssSelector is the main entry point of the component and can convert CSS
 * selectors to XPath expressions.
@@ -122,7 +124,7 @@ class CssSelector
             return $result[0];
         }
         
-        return new Node\OrNode($result);
+        return new OrNode($result);
     }
 
     /**
@@ -160,7 +162,7 @@ class CssSelector
                 throw new Exception();
             }
 
-            $result = new Node\CombinedSelectorNode($result, $combinator, $nextSelector);
+            $result = new CombinedSelectorNode($result, $combinator, $nextSelector);
         }
 
         return $result;
