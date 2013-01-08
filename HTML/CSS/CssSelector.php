@@ -12,7 +12,7 @@
 include_once dirname(__FILE__) . '/Node/OrNode.php';
 include_once dirname(__FILE__) . '/Node/CombinedSelectorNode.php';
 include_once dirname(__FILE__) . '/Node/ElementNode.php';
-
+include_once dirname(__FILE__) . '/Node/HashNode.php';
 
 /**
 * CssSelector is the main entry point of the component and can convert CSS
@@ -217,7 +217,7 @@ class CssSelector
                     // @codeCoverageIgnoreEnd
                 }
                 $stream->next();
-                $result = new Node\HashNode($result, $stream->next());
+                $result = new HashNode($result, $stream->next());
                 $hasHash = true;
 
                 continue;
