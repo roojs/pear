@@ -18,7 +18,7 @@ include_once dirname(__FILE__) . '/CssSelector/Node/FunctionNode.php';
 include_once dirname(__FILE__) . '/CssSelector/Node/PseudoNode.php';
 include_once dirname(__FILE__) . '/CssSelector/Node/AttribNode.php';
 include_once dirname(__FILE__) . '/CssSelector/Token/Tokenizer.php';
-include_once dirname(__FILE__) . '/CssSelector/Node/TokenStream.php';
+include_once dirname(__FILE__) . '/CssSelector/Token/TokenStream.php';
 
 
 /**
