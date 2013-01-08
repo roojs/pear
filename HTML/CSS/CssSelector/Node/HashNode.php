@@ -50,7 +50,7 @@ class HTML_CSS_CssSelector_Node_HashNode implements HTML_CSS_CssSelector_Node_No
     public function toXpath()
     {
         $path = $this->selector->toXpath();
-        $path->addCondition(sprintf('@id = %s', XPathExpr::xpathLiteral($this->id)));
+        $path->addCondition(sprintf('@id = %s', HTML_CSS_CssSelector_XPathExpr::xpathLiteral($this->id)));
 
         return $path;
     }
