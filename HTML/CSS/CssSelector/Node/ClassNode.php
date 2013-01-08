@@ -50,7 +50,7 @@ class HTML_CSS_CssSelector_Node_ClassNode implements HTML_CSS_CssSelector_Node_N
     public function toXpath()
     {
         $selXpath = $this->selector->toXpath();
-        $selXpath->addCondition(sprintf("contains(concat(' ', normalize-space(@class), ' '), %s)", XPathExpr::xpathLiteral(' '.$this->className.' ')));
+        $selXpath->addCondition(sprintf("contains(concat(' ', normalize-space(@class), ' '), %s)", HTML_CSS_CssSelector_XPathExpr::xpathLiteral(' '.$this->className.' ')));
 
         return $selXpath;
     }
