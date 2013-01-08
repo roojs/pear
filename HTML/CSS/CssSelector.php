@@ -100,9 +100,9 @@ class HTML_CSS_CssSelector
 */
     public function parse($string)
     {
-        $tokenizer = new Tokenizer();
+        $tokenizer = new HTML_CSS_CssSelector_Token_Tokenizer();
 
-        $stream = new TokenStream($tokenizer->tokenize($string), $string);
+        $stream = new HTML_CSS_CssSelector_Token_TokenStream($tokenizer->tokenize($string), $string);
 
         try {
             return $this->parseSelectorGroup($stream);
