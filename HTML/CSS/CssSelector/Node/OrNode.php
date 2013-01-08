@@ -19,7 +19,7 @@ include_once dirname(__FILE__) . '/NodeInterface.php';
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class OrNode implements NodeInterface
+class HTML_CSS_CssSelector_Node_OrNode implements HTML_CSS_CssSelector_Node_NodeInterface
 {
     /**
      * @var NodeInterface[]
