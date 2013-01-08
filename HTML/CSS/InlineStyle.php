@@ -296,7 +296,7 @@ class HTML_CSS_InlineStyle
                 }
             }
         }
-exit;
+
         return $styles;
     }
 
