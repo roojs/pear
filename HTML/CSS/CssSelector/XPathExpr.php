@@ -17,7 +17,7 @@ include_once dirname(__FILE__) . '/Node/ElementNode.php';
 *
 * @author Fabien Potencier <fabien@symfony.com>
 */
-class XPathExpr
+class HTML_CSS_CssSelector_XPathExpr
 {
     private $prefix;
     private $path;
