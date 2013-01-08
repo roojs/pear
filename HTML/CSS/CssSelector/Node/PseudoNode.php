@@ -45,7 +45,7 @@ class PseudoNode implements NodeInterface
         $this->element = $element;
 
         if (!in_array($type, array(':', '::'))) {
-            throw new Exception();
+            throw new Exception(sprintf('The PseudoNode type can only be : or :: (%s given).', $type));
         }
 
         $this->type = $type;
@@ -69,11 +69,11 @@ class PseudoNode implements NodeInterface
         $elXpath = $this->element->toXpath();
 
         if (in_array($this->ident, self::$unsupported)) {
-            throw new Exception();
+            throw new Exception(sprintf('The pseudo-class %s is unsupported', $this->ident));
         }
         $method = 'xpath_'.str_replace('-', '_', $this->ident);
         if (!method_exists($this, $method)) {
-            throw new Exception();
+            throw new Exception(sprintf('The pseudo-class %s is unknown', $this->ident));
         }
 
         return $this->$method($elXpath);
@@ -102,7 +102,7 @@ class PseudoNode implements NodeInterface
     protected function xpath_root($xpath)
     {
         // if this element is the root element
-        throw new Exception();
+        throw new Exception('this element is the root element');
     }
 
     /**
@@ -149,7 +149,7 @@ class PseudoNode implements NodeInterface
     protected function xpath_first_of_type($xpath)
     {
         if ($xpath->getElement() == '*') {
-            throw new Exception();
+            throw new Exception('*:first-of-type is not implemented');
         }
         $xpath->addStarPrefix();
         $xpath->addCondition('position() = 1');
@@ -169,7 +169,7 @@ class PseudoNode implements NodeInterface
     protected function xpath_last_of_type($xpath)
     {
         if ($xpath->getElement() == '*') {
-            throw new Exception();
+            throw new Exception('*:last-of-type is not implemented');
         }
         $xpath->addStarPrefix();
         $xpath->addCondition('position() = last()');
@@ -205,7 +205,7 @@ class PseudoNode implements NodeInterface
     protected function xpath_only_of_type($xpath)
     {
         if ($xpath->getElement() == '*') {
-            throw new Exception();
+            throw new Exception('*:only-of-type is not implemented');
         }
         $xpath->addCondition('last() = 1');
 
