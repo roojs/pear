@@ -77,7 +77,7 @@ class CssSelector
 
         // @codeCoverageIgnoreStart
         if (!$expr) {
-            throw new Exception();
+            throw new Exception(sprintf('Got None for xpath expression from %s.', $cssExpr));
         }
         // @codeCoverageIgnoreEnd
 
@@ -106,7 +106,11 @@ class CssSelector
 
         try {
             return $this->parseSelectorGroup($stream);
-        } catch (Exception $e) {}
+        } catch (Exception $e) {
+            $class = get_class($e);
+
+            throw new $class(sprintf('%s at %s -> %s', $e->getMessage(), implode($stream->getUsed(), ''), $stream->peek()), 0, $e);
+        }
     }
 
     /**
@@ -168,7 +172,7 @@ class CssSelector
             $consumed = count($stream->getUsed());
             $nextSelector = $this->parseSimpleSelector($stream);
             if ($consumed == count($stream->getUsed())) {
-                throw new Exception();
+                throw new Exception(sprintf("Expected selector, got '%s'", $stream->peek()));
             }
 
             $result = new CombinedSelectorNode($result, $combinator, $nextSelector);
@@ -195,7 +199,7 @@ class CssSelector
         } else {
             $next = $stream->next();
             if ('*' != $next && !$next->isType('Symbol')) {
-                throw new Exception();
+                throw new Exception(sprintf("Expected symbol, got '%s'", $next));
             }
 
             if ($stream->peek() == '|') {
@@ -203,7 +207,7 @@ class CssSelector
                 $stream->next();
                 $element = $stream->next();
                 if ('*' != $element && !$next->isType('Symbol')) {
-                    throw new Exception();
+                    throw new Exception(sprintf("Expected symbol, got '%s'", $next));
                 }
             } else {
                 $namespace = '*';
@@ -238,7 +242,7 @@ class CssSelector
                 $result = $this->parseAttrib($result, $stream);
                 $next = $stream->next();
                 if (']' != $next) {
-                    throw new Exception();
+                    throw new Exception(sprintf("] expected, got '%s'", $next));
                 }
 
                 continue;
@@ -246,7 +250,7 @@ class CssSelector
                 $type = $stream->next();
                 $ident = $stream->next();
                 if (!$ident || !$ident->isType('Symbol')) {
-                    throw new Exception();
+                    throw new Exception(sprintf("Expected symbol, got '%s'", $ident));
                 }
 
                 if ($stream->peek() == '(') {
@@ -262,7 +266,7 @@ class CssSelector
                     }
                     $next = $stream->next();
                     if (')' != $next) {
-                        throw new Exception();
+                        throw new Exception(sprintf("Expected ')', got '%s' and '%s'", $next, $selector));
                     }
 
                     $result = new FunctionNode($result, $type, $ident, $selector);
@@ -313,12 +317,12 @@ class CssSelector
 
         $op = $stream->next();
         if (!in_array($op, array('^=', '$=', '*=', '=', '~=', '|=', '!='))) {
-            throw new Exception();
+            throw new Exception(sprintf("Operator expected, got '%s'", $op));
         }
 
         $value = $stream->next();
         if (!$value->isType('Symbol') && !$value->isType('String')) {
-            throw new Exception();
+            throw new Exception(sprintf("Expected string or symbol, got '%s'", $value));
         }
 
         return new AttribNode($selector, $namespace, $attrib, $op, $value);
