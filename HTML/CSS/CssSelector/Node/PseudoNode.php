@@ -8,11 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\CssSelector\Node;
-
-use Symfony\Component\CssSelector\Exception\ParseException;
-use Symfony\Component\CssSelector\XPathExpr;
+include_once dirname(__FILE__) . '/../XPathExpr.php';
+include_once dirname(__FILE__) . '/NodeInterface.php';
 
 /**
  * PseudoNode represents a "selector:ident" node.
@@ -48,7 +45,7 @@ class PseudoNode implements NodeInterface
         $this->element = $element;
 
         if (!in_array($type, array(':', '::'))) {
-            throw new ParseException(sprintf('The PseudoNode type can only be : or :: (%s given).', $type));
+            throw new Exception();
         }
 
         $this->type = $type;
@@ -72,11 +69,11 @@ class PseudoNode implements NodeInterface
         $elXpath = $this->element->toXpath();
 
         if (in_array($this->ident, self::$unsupported)) {
-            throw new ParseException(sprintf('The pseudo-class %s is unsupported', $this->ident));
+            throw new Exception();
         }
         $method = 'xpath_'.str_replace('-', '_', $this->ident);
         if (!method_exists($this, $method)) {
-            throw new ParseException(sprintf('The pseudo-class %s is unknown', $this->ident));
+            throw new Exception();
         }
 
         return $this->$method($elXpath);
@@ -105,7 +102,7 @@ class PseudoNode implements NodeInterface
     protected function xpath_root($xpath)
     {
         // if this element is the root element
-        throw new ParseException();
+        throw new Exception();
     }
 
     /**
@@ -152,7 +149,7 @@ class PseudoNode implements NodeInterface
     protected function xpath_first_of_type($xpath)
     {
         if ($xpath->getElement() == '*') {
-            throw new ParseException('*:first-of-type is not implemented');
+            throw new Exception();
         }
         $xpath->addStarPrefix();
         $xpath->addCondition('position() = 1');
@@ -172,7 +169,7 @@ class PseudoNode implements NodeInterface
     protected function xpath_last_of_type($xpath)
     {
         if ($xpath->getElement() == '*') {
-            throw new ParseException('*:last-of-type is not implemented');
+            throw new Exception();
         }
         $xpath->addStarPrefix();
         $xpath->addCondition('position() = last()');
@@ -208,7 +205,7 @@ class PseudoNode implements NodeInterface
     protected function xpath_only_of_type($xpath)
     {
         if ($xpath->getElement() == '*') {
-            throw new ParseException('*:only-of-type is not implemented');
+            throw new Exception();
         }
         $xpath->addCondition('last() = 1');
 
