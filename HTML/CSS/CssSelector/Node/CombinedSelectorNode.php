@@ -18,7 +18,7 @@ include_once dirname(__FILE__) . '/NodeInterface.php';
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class CombinedSelectorNode implements NodeInterface
+class HTML_CSS_CssSelector_Node_CombinedSelectorNode implements HTML_CSS_CssSelector_Node_NodeInterface
 {
     protected static $methodMapping = array(
         ' ' => 'descendant',
