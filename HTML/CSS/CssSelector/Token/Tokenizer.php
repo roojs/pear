@@ -8,11 +8,7 @@
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
-
-namespace Symfony\Component\CssSelector;
-
-use Symfony\Component\CssSelector\Exception\ParseException;
-
+include_once dirname(__FILE__) . '/Token.php';
 /**
 * Tokenizer lexes a CSS Selector to tokens.
 *
@@ -125,7 +121,7 @@ class Tokenizer
         while (true) {
             $next = strpos($s, $quote, $pos);
             if (false === $next) {
-                throw new ParseException(sprintf('Expected closing %s for string in: %s', $quote, substr($s, $start)));
+                throw new Exception();
             }
 
             $result = substr($s, $start, $next - $start);
@@ -161,7 +157,7 @@ class Tokenizer
                     return chr(trim($matches[0]));
                 }
             } else {
-                throw new ParseException(sprintf('Invalid escape sequence %s in string %s', $matches[0], $literal));
+                throw new Exception();
             }
         }, $literal);
     }
@@ -190,7 +186,7 @@ class Tokenizer
         $matchStart = $match[0][1];
 
         if ($matchStart == $pos) {
-            throw new ParseException(sprintf('Unexpected symbol: %s at %s', $s[$pos], $pos));
+            throw new Exception();
         }
 
         $result = substr($s, $start, $matchStart - $start);
