@@ -202,7 +202,7 @@ class InlineStyle
                     $this->extractStylesheets($child, $base));
             }
         }
-
+        print_r($stylesheets);
         return $stylesheets;
     }
 
