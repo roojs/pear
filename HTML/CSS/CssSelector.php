@@ -175,7 +175,7 @@ class HTML_CSS_CssSelector
                 throw new Exception(sprintf("Expected selector, got '%s'", $stream->peek()));
             }
 
-            $result = new CombinedSelectorNode($result, $combinator, $nextSelector);
+            $result = new HTML_CSS_CssSelector_Node_CombinedSelectorNode($result, $combinator, $nextSelector);
         }
 
         return $result;
