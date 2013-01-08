@@ -8,11 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\CssSelector\Node;
-
-use Symfony\Component\CssSelector\Exception\ParseException;
-use Symfony\Component\CssSelector\XPathExpr;
+include_once dirname(__FILE__) . '/../XPathExpr.php';
+include_once dirname(__FILE__) . '/NodeInterface.php';
 
 /**
  * FunctionNode represents a "selector:name(expr)" node.
@@ -63,11 +60,11 @@ class FunctionNode implements NodeInterface
     {
         $selPath = $this->selector->toXpath();
         if (in_array($this->name, self::$unsupported)) {
-            throw new ParseException(sprintf('The pseudo-class %s is not supported', $this->name));
+            throw new Exception();
         }
         $method = '_xpath_'.str_replace('-', '_', $this->name);
         if (!method_exists($this, $method)) {
-            throw new ParseException(sprintf('The pseudo-class %s is unknown', $this->name));
+            throw new Exception();
         }
 
         return $this->$method($selPath, $this->expr);
@@ -172,7 +169,7 @@ class FunctionNode implements NodeInterface
     protected function _xpath_nth_of_type($xpath, $expr)
     {
         if ($xpath->getElement() == '*') {
-            throw new ParseException('*:nth-of-type() is not implemented');
+            throw new Exception();
         }
 
         return $this->_xpath_nth_child($xpath, $expr, false, false);
