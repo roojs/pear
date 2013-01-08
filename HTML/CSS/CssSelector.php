@@ -13,6 +13,9 @@ include_once dirname(__FILE__) . '/Node/OrNode.php';
 include_once dirname(__FILE__) . '/Node/CombinedSelectorNode.php';
 include_once dirname(__FILE__) . '/Node/ElementNode.php';
 include_once dirname(__FILE__) . '/Node/HashNode.php';
+include_once dirname(__FILE__) . '/Node/ClassNode.php';
+include_once dirname(__FILE__) . '/Node/FunctionNode.php';
+include_once dirname(__FILE__) . '/Node/PseudoNode.php';
 
 /**
 * CssSelector is the main entry point of the component and can convert CSS
@@ -223,7 +226,7 @@ class CssSelector
                 continue;
             } elseif ('.' == $peek) {
                 $stream->next();
-                $result = new Node\ClassNode($result, $stream->next());
+                $result = new ClassNode($result, $stream->next());
 
                 continue;
             } elseif ('[' == $peek) {
@@ -258,9 +261,9 @@ class CssSelector
                         throw new Exception();
                     }
 
-                    $result = new Node\FunctionNode($result, $type, $ident, $selector);
+                    $result = new FunctionNode($result, $type, $ident, $selector);
                 } else {
-                    $result = new Node\PseudoNode($result, $type, $ident);
+                    $result = new PseudoNode($result, $type, $ident);
                 }
 
                 continue;
