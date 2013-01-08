@@ -29,7 +29,7 @@ include_once dirname(__FILE__) . '/CssSelector.php';
 /**
 * Parses a html file and applies all embedded and external stylesheets inline
 */
-class InlineStyle
+class HTML_CSS_InlineStyle
 {
     /**
 * @var \DOMDocument the HTML as DOMDocument
