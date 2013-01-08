@@ -138,14 +138,14 @@ class InlineStyle
 
                 $current = $this->_mergeStyles($current, $style);
                 $st = array();
-                if($selector == '.fright')
-                {
-                    print_r($current);
-                }   
+                  
                 foreach($current as $prop => $val) {
                     $st[] = "{$prop}:{$val}";
                 }
-
+                if($selector == '.fright')
+                {
+                    print_r($st);
+                } 
                 $node->setAttribute("style", implode(";", $st));
             }
         }
