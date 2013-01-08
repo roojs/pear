@@ -70,6 +70,6 @@ class HTML_CSS_CssSelector_Node_ElementNode implements HTML_CSS_CssSelector_Node
             $el = sprintf('%s:%s', $this->namespace, $this->element);
         }
 
-        return new XPathExpr(null, null, $el);
+        return new HTML_CSS_CssSelector_XPathExpr(null, null, $el);
     }
 }
