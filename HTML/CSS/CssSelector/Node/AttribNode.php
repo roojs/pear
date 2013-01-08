@@ -91,7 +91,7 @@ class AttribNode implements NodeInterface
             // FIXME: case sensitive?
             $path->addCondition(sprintf('contains(%s, %s)', $attrib, XPathExpr::xpathLiteral($value)));
         } else {
-            throw new Exception();
+            throw new Exception(sprintf('Unknown operator: %s', $this->operator));
         }
 
         return $path;
