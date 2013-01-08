@@ -19,7 +19,7 @@ include_once dirname(__FILE__) . '/NodeInterface.php';
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class FunctionNode implements NodeInterface
+class HTML_CSS_CssSelector_Node_FunctionNode implements HTML_CSS_CssSelector_Node_NodeInterface
 {
     protected static $unsupported = array('target', 'lang', 'enabled', 'disabled');
 
