@@ -8,9 +8,7 @@
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
-
-namespace Symfony\Component\CssSelector;
-
+include_once dirname(__FILE__) . '/Node/ElementNode.php';
 /**
 * XPathExpr represents an XPath expression.
 *
@@ -221,7 +219,7 @@ prefix; so we'll get rid of it */
 */
     public static function xpathLiteral($s)
     {
-        if ($s instanceof Node\ElementNode) {
+        if ($s instanceof ElementNode) {
             // This is probably a symbol that looks like an expression...
             $s = $s->formatElement();
         } else {
