@@ -128,10 +128,6 @@ class InlineStyle
     public function applyRule($selector, $style)
     {
         if($selector) {
-            if($selector == '.fright')
-            {
-                print_r('run');
-            }
             $nodes = $this->_getNodesForCssSelector($selector);
             $style = $this->_styleToArray($style);
 
@@ -142,7 +138,10 @@ class InlineStyle
 
                 $current = $this->_mergeStyles($current, $style);
                 $st = array();
-
+                if($selector == '.fright')
+                {
+                    print_r($current);
+                }   
                 foreach($current as $prop => $val) {
                     $st[] = "{$prop}:{$val}";
                 }
