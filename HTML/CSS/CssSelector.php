@@ -34,7 +34,7 @@ include_once dirname(__FILE__) . '/CssSelector/Token/TokenStream.php';
 *
 * @api
 */
-class CssSelector
+class HTML_CSS_CssSelector
 {
     /**
 * Translates a CSS expression to its XPath equivalent.
