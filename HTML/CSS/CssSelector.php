@@ -17,6 +17,8 @@ include_once dirname(__FILE__) . '/Node/ClassNode.php';
 include_once dirname(__FILE__) . '/Node/FunctionNode.php';
 include_once dirname(__FILE__) . '/Node/PseudoNode.php';
 include_once dirname(__FILE__) . '/Node/AttribNode.php';
+include_once dirname(__FILE__) . '/Token/Tokenizer.php';
+include_once dirname(__FILE__) . '/Node/TokenStream.php';
 
 
 /**
