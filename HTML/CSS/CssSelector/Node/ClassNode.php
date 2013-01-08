@@ -19,7 +19,7 @@ include_once dirname(__FILE__) . '/NodeInterface.php';
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class ClassNode implements NodeInterface
+class HTML_CSS_CssSelector_Node_ClassNode implements HTML_CSS_CssSelector_Node_NodeInterface
 {
     protected $selector;
     protected $className;
