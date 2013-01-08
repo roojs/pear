@@ -8,11 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\CssSelector\Node;
-
-use Symfony\Component\CssSelector\XPathExpr;
-use Symfony\Component\CssSelector\Exception\ParseException;
+include_once dirname(__FILE__) . '/../XPathExpr.php';
+include_once dirname(__FILE__) . '/NodeInterface.php';
 
 /**
  * AttribNode represents a "selector[namespace|attrib operator value]" node.
@@ -94,7 +91,7 @@ class AttribNode implements NodeInterface
             // FIXME: case sensitive?
             $path->addCondition(sprintf('contains(%s, %s)', $attrib, XPathExpr::xpathLiteral($value)));
         } else {
-            throw new ParseException(sprintf('Unknown operator: %s', $this->operator));
+            throw new Exception();
         }
 
         return $path;
