@@ -199,13 +199,13 @@ class HTML_CSS_CssSelector_Node_FunctionNode implements HTML_CSS_CssSelector_Nod
     protected function _xpath_contains($xpath, $expr)
     {
         // text content, minus tags, must contain expr
-        if ($expr instanceof ElementNode) {
+        if ($expr instanceof HTML_CSS_CssSelector_Node_ElementNode) {
             $expr = $expr->formatElement();
         }
 
         // FIXME: lower-case is only available with XPath 2
         //$xpath->addCondition(sprintf('contains(lower-case(string(.)), %s)', XPathExpr::xpathLiteral(strtolower($expr))));
-        $xpath->addCondition(sprintf('contains(string(.), %s)', XPathExpr::xpathLiteral($expr)));
+        $xpath->addCondition(sprintf('contains(string(.), %s)', HTML_CSS_CssSelector_XPathExpr::xpathLiteral($expr)));
 
         // FIXME: Currently case insensitive matching doesn't seem to be happening
         return $xpath;
@@ -239,7 +239,7 @@ class HTML_CSS_CssSelector_Node_FunctionNode implements HTML_CSS_CssSelector_Nod
      */
     protected function parseSeries($s)
     {
-        if ($s instanceof ElementNode) {
+        if ($s instanceof HTML_CSS_CssSelector_Node_ElementNode) {
             $s = $s->formatElement();
         }
 
