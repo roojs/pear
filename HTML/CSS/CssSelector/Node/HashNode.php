@@ -8,10 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace Symfony\Component\CssSelector\Node;
-
-use Symfony\Component\CssSelector\XPathExpr;
+include_once dirname(__FILE__) . '/../XPathExpr.php';
+include_once dirname(__FILE__) . '/NodeInterface.php';
 
 /**
  * HashNode represents a "selector#id" node.
