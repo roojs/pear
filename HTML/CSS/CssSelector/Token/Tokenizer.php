@@ -17,7 +17,7 @@ include_once dirname(__FILE__) . '/Token.php';
 *
 * @author Fabien Potencier <fabien@symfony.com>
 */
-class Tokenizer
+class HTML_CSS_CssSelector_Token_Tokenizer
 {
     /**
 * Takes a CSS selector and returns an array holding the Tokens
