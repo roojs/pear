@@ -160,7 +160,7 @@ class HTML_CSS_CssSelector_XPathExpr
             return;
         }
 
-        $this->addCondition(sprintf('name() = %s', XPathExpr::xpathLiteral($this->element)));
+        $this->addCondition(sprintf('name() = %s', HTML_CSS_CssSelector_XPathExpr::xpathLiteral($this->element)));
         $this->element = '*';
     }
 
@@ -219,7 +219,7 @@ prefix; so we'll get rid of it */
 */
     public static function xpathLiteral($s)
     {
-        if ($s instanceof ElementNode) {
+        if ($s instanceof HTML_CSS_CssSelector_Node_ElementNode) {
             // This is probably a symbol that looks like an expression...
             $s = $s->formatElement();
         } else {
