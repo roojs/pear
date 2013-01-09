@@ -235,6 +235,7 @@ class HTML_CSS_InlineStyle
         foreach(explode("}", $stylesheet) as $rule) {
             //Don't parse empty rules
          if(!trim($rule))continue;
+         print_r($rule);
          list($selector, $style) = explode("{", $rule, 2);
             foreach (explode(',', $selector) as $sel) {
                 $parsed[] = array(trim($sel), trim(trim($style), ";"));
