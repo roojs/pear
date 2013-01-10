@@ -148,6 +148,7 @@ class HTML_Template_Flexy_Element {
      */
     function attributesToHTML()
     {
+        static $flexy = false;
         $strAttr = '';
         $xhtmlclose = '';
         $charset = empty($GLOBALS['HTML_Template_Flexy']['options']['charset']) ? 'ISO-8859-1' : $GLOBALS['HTML_Template_Flexy']['options']['charset'];
@@ -185,8 +186,10 @@ class HTML_Template_Flexy_Element {
             }
             // translation..
             if (($this->tag == 'input') && $key == 'value') {
-                
-                
+                if (!$flexy) {
+                    $flexy = new HTML_Template_Flexy();
+                }
+                $value = $flexy->translateString($value);
             }
             
             
