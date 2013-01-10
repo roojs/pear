@@ -152,9 +152,9 @@ class HTML_Template_Flexy_Element {
         $xhtmlclose = '';
         
         $activeEngine = HTML_Template_Flexy::$activeEngine;
-        $charset = empty($activeEngine['options']['charset']) ?
+        $charset = empty($activeEngine->options'charset']) ?
             'ISO-8859-1' :
-            $activeEngine['options']['charset'];
+            $activeEngine->options['charset'];
             
         foreach ($this->attributes as $key => $value) {
         
@@ -397,9 +397,9 @@ class HTML_Template_Flexy_Element {
             case 'textarea':
             case 'label':
                 $activeEngine = HTML_Template_Flexy::$activeEngine;
-                $charset = empty($activeEngine['options']['charset']) ?
+                $charset = empty($activeEngine->options['charset']) ?
                     'ISO-8859-1' :
-                    $activeEngine['options']['charset'];
+                    $activeEngine->options['charset'];
                 
                 $this->children = array(htmlspecialchars($value,ENT_COMPAT,$charset));
                 return;
@@ -454,9 +454,9 @@ class HTML_Template_Flexy_Element {
             return;
         }
         $activeEngine = HTML_Template_Flexy::$activeEngine;
-        $charset = empty($activeEngine['options']['charset']) ?
+        $charset = empty($activeEngine->options['charset']) ?
             'ISO-8859-1' :
-            $activeEngine['options']['charset'];
+            $activeEngine->options['charset'];
         
         $tag = strtolower($this->tag);
         $namespace = '';
