@@ -233,50 +233,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
     }
     
     
-    /**
-    * Initilalize the translation methods.
-    *
-    * Loads Translation2 if required.
-    * 
-     *
-    * @return   none 
-    * @access   public 
-    */
-    function initializeTranslator() {
     
-        if (is_array($this->options['Translation2'])) {
-            require_once 'Translation2.php';
-            $this->_options = $this->options; // store the original options..
-            $this->options['Translation2'] =  &Translation2::factory(
-                $this->options['Translation2']['driver'],
-                isset($this->options['Translation2']['options']) ? $this->options['Translation2']['options'] : array(),
-                isset($this->options['Translation2']['params']) ? $this->options['Translation2']['params'] : array()
-            );
-        }
-                
-        if ($this->is_a($this->options['Translation2'], 'Translation2')) {
-            $this->options['Translation2']->setLang($this->options['locale']);
-            
-            if(empty($this->_options['Translation2']['CommonPageID'])) {
-		// fixme - needs to be more specific to which template to use..
-    	        foreach ($this->options['templateDir'] as $tt) {
-                    $n = basename($this->currentTemplate);
-            	    if (substr($this->currentTemplate, 0, strlen($tt)) == $tt) {
-                        $n = substr($this->currentTemplate, strlen($tt)+1);
-                    }
-                    //echo $n;
-            	}
-            	$this->options['Translation2']->setPageID($n);
-            } else {
-                $this->options['Translation2']->setPageID($this->options['Translation2']['CommonPageID']);
-            }
-
-        } elseif (defined('LC_ALL'))  {
-            // not sure what we should really use here... - used to be LC_MESSAGES.. but that did not make sense...
-            setlocale(LC_ALL, $this->options['locale']);
-        }
-        
-    }
     
     
     
