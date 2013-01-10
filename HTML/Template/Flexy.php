@@ -581,7 +581,7 @@ class HTML_Template_Flexy
             }
         }
         // used by Flexy Elements etc..
-        $old_engine = self::$activeEngine;
+        $_old_engine = self::$activeEngine;
         $this->initializeTranslator();
         self::$activeEngine = $this;
         
@@ -596,7 +596,7 @@ class HTML_Template_Flexy
         include($this->compiledTemplate);
         
         
-        self::$activeEngine = $old_engine;
+        self::$activeEngine = $_old_engine;
         
         
         // Return the error handler to its previous state. 
