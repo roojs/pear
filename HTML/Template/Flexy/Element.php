@@ -150,7 +150,9 @@ class HTML_Template_Flexy_Element {
     {
         $strAttr = '';
         $xhtmlclose = '';
-        $charset = empty(HTML_Template_Flexy::$activeEngine['options']['charset']) ?
+        
+        $activeEngine = HTML_Template_Flexy::$activeEngine;
+        $charset = empty($activeEngine['options']['charset']) ?
             'ISO-8859-1' :
             HTML_Template_Flexy::$activeEngine['options']['charset'];
             
