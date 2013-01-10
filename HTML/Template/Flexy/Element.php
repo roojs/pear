@@ -154,7 +154,7 @@ class HTML_Template_Flexy_Element {
         $activeEngine = HTML_Template_Flexy::$activeEngine;
         $charset = empty($activeEngine['options']['charset']) ?
             'ISO-8859-1' :
-            HTML_Template_Flexy::$activeEngine['options']['charset'];
+            $activeEngine['options']['charset'];
             
         foreach ($this->attributes as $key => $value) {
         
@@ -191,7 +191,7 @@ class HTML_Template_Flexy_Element {
             // translation..
             if (($this->tag == 'input') && $this->attributes['type'] == 'submit' && $key == 'value') {
                  
-                $value = HTML_Template_Flexy::$activeEngine->translateString($value);
+                $value =  $activeEngine->translateString($value);
             }
             
             
@@ -396,9 +396,10 @@ class HTML_Template_Flexy_Element {
                 return;
             case 'textarea':
             case 'label':
-                $charset = empty(HTML_Template_Flexy::$activeEngine['options']['charset']) ?
+                $activeEngine = HTML_Template_Flexy::$activeEngine;
+                $charset = empty($activeEngine['options']['charset']) ?
                     'ISO-8859-1' :
-                    HTML_Template_Flexy::$activeEngine['options']['charset'];
+                    $activeEngine['options']['charset'];
                 
                 $this->children = array(htmlspecialchars($value,ENT_COMPAT,$charset));
                 return;
@@ -452,10 +453,10 @@ class HTML_Template_Flexy_Element {
             $this->children = array();
             return;
         }
-        
-        $charset = empty(HTML_Template_Flexy::$activeEngine['options']['charset']) ?
+        $activeEngine = HTML_Template_Flexy::$activeEngine;
+        $charset = empty($activeEngine['options']['charset']) ?
             'ISO-8859-1' :
-            HTML_Template_Flexy::$activeEngine['options']['charset'];
+            $activeEngine['options']['charset'];
         
         $tag = strtolower($this->tag);
         $namespace = '';
