@@ -175,15 +175,23 @@ class HTML_Template_Flexy_Element {
                 } else {
                     $strAttr .= ' ' . $key;
                 }
-            } else {
+                continue;
+            } 
                 // dont replace & with &amp;
-                if ($this->tag == 'textbox') {  // XUL linefeed fix.
-                    $value = str_replace("\n", '&#13;', htmlspecialchars($value,ENT_COMPAT,$charset));
-                } else {
-                    $value = str_replace('&amp;nbsp;','&nbsp;',htmlspecialchars($value,ENT_COMPAT,$charset));
-                }
-                $strAttr .= ' ' . $key . '="' . $value  . '"';
+            if ($this->tag == 'textbox') {  // XUL linefeed fix.
+                $value = str_replace("\n", '&#13;', htmlspecialchars($value,ENT_COMPAT,$charset));
+            } else {
+                $value = str_replace('&amp;nbsp;','&nbsp;',htmlspecialchars($value,ENT_COMPAT,$charset));
             }
+            // translation..
+            if (($this->tag == 'input') && $key == 'value') {
+                
+                
+            }
+            
+            
+            $strAttr .= ' ' . $key . '="' . $value  . '"';
+            
             
         }
         $strAttr .= $xhtmlclose;
