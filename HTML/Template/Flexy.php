@@ -802,7 +802,7 @@ class HTML_Template_Flexy
         
         
         // did we try to load it already..
-        if (@$GLOBALS['_'.__CLASS__]['PO'][$pofile] === false) {
+        if (isset($GLOBALS['_'.__CLASS__]['PO'][$pofile]) && $GLOBALS['_'.__CLASS__]['PO'][$pofile] === false) {
             if (@$this->options['debug']) {
                 echo __CLASS__.":LOAD failed (Cached):<BR>";
             }
@@ -840,7 +840,7 @@ class HTML_Template_Flexy
         }
         
         if (!isset($po->strings[$string])) {
-            if (@$this->options['debug']) {
+            if (!empty($this->options['debug'])) {
                     echo __CLASS__.":no match:<BR>";
             }
             return $string;
