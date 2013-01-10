@@ -148,12 +148,12 @@ class HTML_Template_Flexy_Element {
      */
     function attributesToHTML()
     {
-        static $flexy = false;
         $strAttr = '';
         $xhtmlclose = '';
         $charset = empty(HTML_Template_Flexy::$activeEngine['options']['charset']) ?
             'ISO-8859-1' :
             HTML_Template_Flexy::$activeEngine['options']['charset'];
+            
         foreach ($this->attributes as $key => $value) {
         
             // you shouldn't do this, but It shouldnt barf when you do..
@@ -188,10 +188,8 @@ class HTML_Template_Flexy_Element {
             }
             // translation..
             if (($this->tag == 'input') && $this->attributes['type'] == 'submit' && $key == 'value') {
-                if (!$flexy) {
-                    $flexy = new HTML_Template_Flexy();
-                }
-                $value = $flexy->translateString($value);
+                 
+                $value = HTML_Template_Flexy::$activeEngine->translateString($value);
             }
             
             
@@ -396,7 +394,10 @@ class HTML_Template_Flexy_Element {
                 return;
             case 'textarea':
             case 'label':
-                $charset = empty($GLOBALS['HTML_Template_Flexy']['options']['charset']) ? 'ISO-8859-1' : $GLOBALS['HTML_Template_Flexy']['options']['charset'];
+                $charset = empty(HTML_Template_Flexy::$activeEngine['options']['charset']) ?
+                    'ISO-8859-1' :
+                    HTML_Template_Flexy::$activeEngine['options']['charset'];
+                
                 $this->children = array(htmlspecialchars($value,ENT_COMPAT,$charset));
                 return;
             case '':  // dummy objects.
@@ -450,7 +451,9 @@ class HTML_Template_Flexy_Element {
             return;
         }
         
-        $charset = empty($GLOBALS['HTML_Template_Flexy']['options']['charset']) ? 'ISO-8859-1' : $GLOBALS['HTML_Template_Flexy']['options']['charset'];
+        $charset = empty(HTML_Template_Flexy::$activeEngine['options']['charset']) ?
+            'ISO-8859-1' :
+            HTML_Template_Flexy::$activeEngine['options']['charset'];
         
         $tag = strtolower($this->tag);
         $namespace = '';
