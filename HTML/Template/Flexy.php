@@ -220,6 +220,16 @@ class HTML_Template_Flexy
     */
     var $elements = array();
     /**
+    * The active engine
+    * 
+    * When outputing elements, we need access to the active engine for translation
+    * so before we output, we store the active engine in here.
+    * @var array of  HTML_Template_Flexy_Elements
+    * @access public
+    */
+    
+    static $activeEngine = false;
+    /**
     *   Constructor 
     *
     *   Initializes the Template engine, for each instance, accepts options or
@@ -571,6 +581,7 @@ class HTML_Template_Flexy
             }
         }
         // used by Flexy Elements etc..
+        $old_engine = $GLOBALS['_HTML_TEMPLATE_FLEXY']['active_engine'];
         $this->initializeTranslator();
         
         $GLOBALS['_HTML_TEMPLATE_FLEXY']['options']  = $this->options;
