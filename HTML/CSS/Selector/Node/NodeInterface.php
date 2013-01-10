@@ -17,7 +17,7 @@
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-interface HTML_CSS_CssSelector_Node_NodeInterface
+interface HTML_CSS_Selector_Node_NodeInterface
 {
     /**
      * Returns a string representation of the object.

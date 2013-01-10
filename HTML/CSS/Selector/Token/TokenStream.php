@@ -17,7 +17,7 @@
 *
 * @author Fabien Potencier <fabien@symfony.com>
 */
-class HTML_CSS_CssSelector_Token_TokenStream
+class HTML_CSS_Selector_Token_TokenStream
 {
     private $used;
     private $tokens;

@@ -8,8 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-include_once dirname(__FILE__) . '/../XPathExpr.php';
-include_once dirname(__FILE__) . '/NodeInterface.php';
+include_once 'HTML/CSS/Selector/XPathExpr.php';
+include_once 'HTML/CSS/Selector/Node/NodeInterface.php';
 
 /**
  * ClassNode represents a "selector.className" node.
@@ -19,7 +19,7 @@ include_once dirname(__FILE__) . '/NodeInterface.php';
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class HTML_CSS_CssSelector_Node_ClassNode implements HTML_CSS_CssSelector_Node_NodeInterface
+class HTML_CSS_Selector_Node_ClassNode implements HTML_CSS_Selector_Node_NodeInterface
 {
     protected $selector;
     protected $className;
@@ -50,7 +50,7 @@ class HTML_CSS_CssSelector_Node_ClassNode implements HTML_CSS_CssSelector_Node_N
     public function toXpath()
     {
         $selXpath = $this->selector->toXpath();
-        $selXpath->addCondition(sprintf("contains(concat(' ', normalize-space(@class), ' '), %s)", HTML_CSS_CssSelector_XPathExpr::xpathLiteral(' '.$this->className.' ')));
+        $selXpath->addCondition(sprintf("contains(concat(' ', normalize-space(@class), ' '), %s)", HTML_CSS_Selector_XPathExpr::xpathLiteral(' '.$this->className.' ')));
 
         return $selXpath;
     }

@@ -8,8 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-include_once dirname(__FILE__) . '/../XPathExpr.php';
-include_once dirname(__FILE__) . '/NodeInterface.php';
+include_once 'HTML/CSS/Selector/XPathExpr.php';
+include_once 'HTML/CSS/Selector/Node/NodeInterface.php';
 
 /**
  * AttribNode represents a "selector[namespace|attrib operator value]" node.
@@ -19,7 +19,7 @@ include_once dirname(__FILE__) . '/NodeInterface.php';
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class HTML_CSS_CssSelector_Node_AttribNode implements HTML_CSS_CssSelector_Node_NodeInterface
+class HTML_CSS_Selector_Node_AttribNode implements HTML_CSS_Selector_Node_NodeInterface
 {
     protected $selector;
     protected $namespace;
@@ -68,28 +68,28 @@ class HTML_CSS_CssSelector_Node_AttribNode implements HTML_CSS_CssSelector_Node_
         if ($this->operator == 'exists') {
             $path->addCondition($attrib);
         } elseif ($this->operator == '=') {
-            $path->addCondition(sprintf('%s = %s', $attrib, HTML_CSS_CssSelector_XPathExpr::xpathLiteral($value)));
+            $path->addCondition(sprintf('%s = %s', $attrib, HTML_CSS_Selector_XPathExpr::xpathLiteral($value)));
         } elseif ($this->operator == '!=') {
             // FIXME: this seems like a weird hack...
             if ($value) {
-                $path->addCondition(sprintf('not(%s) or %s != %s', $attrib, $attrib, HTML_CSS_CssSelector_XPathExpr::xpathLiteral($value)));
+                $path->addCondition(sprintf('not(%s) or %s != %s', $attrib, $attrib, HTML_CSS_Selector_XPathExpr::xpathLiteral($value)));
             } else {
-                $path->addCondition(sprintf('%s != %s', $attrib, HTML_CSS_CssSelector_XPathExpr::xpathLiteral($value)));
+                $path->addCondition(sprintf('%s != %s', $attrib, HTML_CSS_Selector_XPathExpr::xpathLiteral($value)));
             }
             // path.addCondition('%s != %s' % (attrib, xpathLiteral(value)))
         } elseif ($this->operator == '~=') {
-            $path->addCondition(sprintf("contains(concat(' ', normalize-space(%s), ' '), %s)", $attrib, HTML_CSS_CssSelector_XPathExpr::xpathLiteral(' '.$value.' ')));
+            $path->addCondition(sprintf("contains(concat(' ', normalize-space(%s), ' '), %s)", $attrib, HTML_CSS_Selector_XPathExpr::xpathLiteral(' '.$value.' ')));
         } elseif ($this->operator == '|=') {
             // Weird, but true...
-            $path->addCondition(sprintf('%s = %s or starts-with(%s, %s)', $attrib, HTML_CSS_CssSelector_XPathExpr::xpathLiteral($value), $attrib, HTML_CSS_CssSelector_XPathExpr::xpathLiteral($value.'-')));
+            $path->addCondition(sprintf('%s = %s or starts-with(%s, %s)', $attrib, HTML_CSS_Selector_XPathExpr::xpathLiteral($value), $attrib, HTML_CSS_Selector_XPathExpr::xpathLiteral($value.'-')));
         } elseif ($this->operator == '^=') {
-            $path->addCondition(sprintf('starts-with(%s, %s)', $attrib, HTML_CSS_CssSelector_XPathExpr::xpathLiteral($value)));
+            $path->addCondition(sprintf('starts-with(%s, %s)', $attrib, HTML_CSS_Selector_XPathExpr::xpathLiteral($value)));
         } elseif ($this->operator == '$=') {
             // Oddly there is a starts-with in XPath 1.0, but not ends-with
-            $path->addCondition(sprintf('substring(%s, string-length(%s)-%s) = %s', $attrib, $attrib, strlen($value) - 1, HTML_CSS_CssSelector_XPathExpr::xpathLiteral($value)));
+            $path->addCondition(sprintf('substring(%s, string-length(%s)-%s) = %s', $attrib, $attrib, strlen($value) - 1, HTML_CSS_Selector_XPathExpr::xpathLiteral($value)));
         } elseif ($this->operator == '*=') {
             // FIXME: case sensitive?
-            $path->addCondition(sprintf('contains(%s, %s)', $attrib, HTML_CSS_CssSelector_XPathExpr::xpathLiteral($value)));
+            $path->addCondition(sprintf('contains(%s, %s)', $attrib, HTML_CSS_Selector_XPathExpr::xpathLiteral($value)));
         } else {
             throw new Exception(sprintf('Unknown operator: %s', $this->operator));
         }

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-include_once dirname(__FILE__) . '/NodeInterface.php';
+include_once 'HTML/CSS/Selector/Node/NodeInterface.php';
 
 /**
  * CombinedSelectorNode represents a combinator node.
@@ -18,7 +18,7 @@ include_once dirname(__FILE__) . '/NodeInterface.php';
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class HTML_CSS_CssSelector_Node_CombinedSelectorNode implements HTML_CSS_CssSelector_Node_NodeInterface
+class HTML_CSS_Selector_Node_CombinedSelectorNode implements HTML_CSS_Selector_Node_NodeInterface
 {
     protected static $methodMapping = array(
         ' ' => 'descendant',

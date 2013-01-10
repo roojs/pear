@@ -8,7 +8,7 @@
 * For the full copyright and license information, please view the LICENSE
 * file that was distributed with this source code.
 */
-include_once dirname(__FILE__) . '/XPathExpr.php';
+include_once 'HTML/CSS/Selector/XPathExpr.php';
 /**
 * XPathExprOr represents XPath |'d expressions.
 *
@@ -19,7 +19,7 @@ include_once dirname(__FILE__) . '/XPathExpr.php';
 *
 * @author Fabien Potencier <fabien@symfony.com>
 */
-class HTML_CSS_CssSelector_XPathExprOr extends HTML_CSS_CssSelector_XPathExpr
+class HTML_CSS_Selector_XPathExprOr extends HTML_CSS_Selector_XPathExpr
 {
     /**
 * Constructor.

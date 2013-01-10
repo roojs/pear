@@ -8,8 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-include_once dirname(__FILE__) . '/../XPathExpr.php';
-include_once dirname(__FILE__) . '/NodeInterface.php';
+include_once 'HTML/CSS/Selector/XPathExpr.php';
+include_once 'HTML/CSS/Selector/Node/NodeInterface.php';
 
 /**
  * HashNode represents a "selector#id" node.
@@ -19,7 +19,7 @@ include_once dirname(__FILE__) . '/NodeInterface.php';
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class HTML_CSS_CssSelector_Node_HashNode implements HTML_CSS_CssSelector_Node_NodeInterface
+class HTML_CSS_Selector_Node_HashNode implements HTML_CSS_Selector_Node_NodeInterface
 {
     protected $selector;
     protected $id;
@@ -50,7 +50,7 @@ class HTML_CSS_CssSelector_Node_HashNode implements HTML_CSS_CssSelector_Node_No
     public function toXpath()
     {
         $path = $this->selector->toXpath();
-        $path->addCondition(sprintf('@id = %s', HTML_CSS_CssSelector_XPathExpr::xpathLiteral($this->id)));
+        $path->addCondition(sprintf('@id = %s', HTML_CSS_Selector_XPathExpr::xpathLiteral($this->id)));
 
         return $path;
     }

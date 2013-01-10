@@ -17,7 +17,7 @@
 *
 * @author Fabien Potencier <fabien@symfony.com>
 */
-class HTML_CSS_CssSelector_Token_Token
+class HTML_CSS_Selector_Token_Token
 {
     private $type;
     private $value;

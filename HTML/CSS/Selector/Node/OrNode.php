@@ -8,8 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-include_once dirname(__FILE__) . '/../XPathExpr.php';
-include_once dirname(__FILE__) . '/NodeInterface.php';
+include_once 'HTML/CSS/Selector/XPathExpr.php';
+include_once 'HTML/CSS/Selector/Node/NodeInterface.php';
 
 /**
  * OrNode represents a "Or" node.
@@ -19,7 +19,7 @@ include_once dirname(__FILE__) . '/NodeInterface.php';
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class HTML_CSS_CssSelector_Node_OrNode implements HTML_CSS_CssSelector_Node_NodeInterface
+class HTML_CSS_Selector_Node_OrNode implements HTML_CSS_Selector_Node_NodeInterface
 {
     /**
      * @var NodeInterface[]
@@ -54,6 +54,6 @@ class HTML_CSS_CssSelector_Node_OrNode implements HTML_CSS_CssSelector_Node_Node
             $paths[] = $item->toXpath();
         }
 
-        return new HTML_CSS_CssSelector_XPathExprOr($paths);
+        return new HTML_CSS_Selector_XPathExprOr($paths);
     }
 }

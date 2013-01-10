@@ -8,8 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-include_once dirname(__FILE__) . '/../XPathExpr.php';
-include_once dirname(__FILE__) . '/NodeInterface.php';
+include_once 'HTML/CSS/Selector/XPathExpr.php';
+include_once 'HTML/CSS/Selector/Node/NodeInterface.php';
 
 /**
  * FunctionNode represents a "selector:name(expr)" node.
@@ -19,7 +19,7 @@ include_once dirname(__FILE__) . '/NodeInterface.php';
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class HTML_CSS_CssSelector_Node_FunctionNode implements HTML_CSS_CssSelector_Node_NodeInterface
+class HTML_CSS_Selector_Node_FunctionNode implements HTML_CSS_Selector_Node_NodeInterface
 {
     protected static $unsupported = array('target', 'lang', 'enabled', 'disabled');
 
@@ -199,13 +199,13 @@ class HTML_CSS_CssSelector_Node_FunctionNode implements HTML_CSS_CssSelector_Nod
     protected function _xpath_contains($xpath, $expr)
     {
         // text content, minus tags, must contain expr
-        if ($expr instanceof HTML_CSS_CssSelector_Node_ElementNode) {
+        if ($expr instanceof HTML_CSS_Selector_Node_ElementNode) {
             $expr = $expr->formatElement();
         }
 
         // FIXME: lower-case is only available with XPath 2
         //$xpath->addCondition(sprintf('contains(lower-case(string(.)), %s)', XPathExpr::xpathLiteral(strtolower($expr))));
-        $xpath->addCondition(sprintf('contains(string(.), %s)', HTML_CSS_CssSelector_XPathExpr::xpathLiteral($expr)));
+        $xpath->addCondition(sprintf('contains(string(.), %s)', HTML_CSS_Selector_XPathExpr::xpathLiteral($expr)));
 
         // FIXME: Currently case insensitive matching doesn't seem to be happening
         return $xpath;
@@ -239,7 +239,7 @@ class HTML_CSS_CssSelector_Node_FunctionNode implements HTML_CSS_CssSelector_Nod
      */
     protected function parseSeries($s)
     {
-        if ($s instanceof HTML_CSS_CssSelector_Node_ElementNode) {
+        if ($s instanceof HTML_CSS_Selector_Node_ElementNode) {
             $s = $s->formatElement();
         }
 

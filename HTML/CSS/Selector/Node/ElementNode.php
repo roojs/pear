@@ -8,8 +8,8 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-include_once dirname(__FILE__) . '/../XPathExpr.php';
-include_once dirname(__FILE__) . '/NodeInterface.php';
+include_once 'HTML/CSS/Selector/XPathExpr.php';
+include_once 'HTML/CSS/Selector/Node/NodeInterface.php';
 
 /**
  * ElementNode represents a "namespace|element" node.
@@ -19,7 +19,7 @@ include_once dirname(__FILE__) . '/NodeInterface.php';
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-class HTML_CSS_CssSelector_Node_ElementNode implements HTML_CSS_CssSelector_Node_NodeInterface
+class HTML_CSS_Selector_Node_ElementNode implements HTML_CSS_Selector_Node_NodeInterface
 {
     protected $namespace;
     protected $element;
@@ -70,6 +70,6 @@ class HTML_CSS_CssSelector_Node_ElementNode implements HTML_CSS_CssSelector_Node
             $el = sprintf('%s:%s', $this->namespace, $this->element);
         }
 
-        return new HTML_CSS_CssSelector_XPathExpr(null, null, $el);
+        return new HTML_CSS_Selector_XPathExpr(null, null, $el);
     }
 }
