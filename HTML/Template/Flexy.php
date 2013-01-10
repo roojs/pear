@@ -581,8 +581,9 @@ class HTML_Template_Flexy
             }
         }
         // used by Flexy Elements etc..
-        $old_engine = $GLOBALS['_HTML_TEMPLATE_FLEXY']['active_engine'];
+        $old_engine = self::$activeEngine;
         $this->initializeTranslator();
+        self::$activeEngine = $this;
         
         $GLOBALS['_HTML_TEMPLATE_FLEXY']['options']  = $this->options;
         
@@ -593,6 +594,10 @@ class HTML_Template_Flexy
         
         
         include($this->compiledTemplate);
+        
+        
+        self::$activeEngine = $old_engine;
+        
         
         // Return the error handler to its previous state. 
         
