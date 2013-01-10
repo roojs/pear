@@ -152,7 +152,7 @@ class HTML_Template_Flexy_Element {
         $xhtmlclose = '';
         
         $activeEngine = HTML_Template_Flexy::$activeEngine;
-        $charset = empty($activeEngine->options'charset']) ?
+        $charset = empty($activeEngine->options['charset']) ?
             'ISO-8859-1' :
             $activeEngine->options['charset'];
             
