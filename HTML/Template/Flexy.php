@@ -845,7 +845,7 @@ class HTML_Template_Flexy
             }
             return $string;
         }
-        if (@$this->options['debug']) {
+        if (!empty($this->options['debug'])) {
             echo __CLASS__.":MATCHED: {$po->strings[$string]}<BR>";
         }
         
