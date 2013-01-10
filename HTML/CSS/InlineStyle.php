@@ -24,7 +24,7 @@
 * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-include_once dirname(__FILE__) . '/CssSelector.php';
+include_once 'HTML/CSS/Selector.php';
 
 /**
 * Parses a html file and applies all embedded and external stylesheets inline
