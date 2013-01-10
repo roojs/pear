@@ -312,7 +312,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         // ** leaving in the tag (which should be ignored by the parser..
         // we then get rid of the tags during the toString method in this class.
         foreach($matches as $v) {
-            $data = str_replace('{_('.$v.')_}', '{_('.$this->translateString($v).')_}', $data);
+            $data = str_replace('{_('.$v.')_}', '{_('.$this->flexy->translateString($v).')_}', $data);
         }
         return $data;
     }    
@@ -762,7 +762,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         //$value = strtr($value,$cleanArray);
         
         $this->addStringToGettext($value);
-        $value = $this->translateString($value);
+        $value = $this->flexy->translateString($value);
         // its a simple word!
         return $this->appendHtml($front . $value . $rear);
         
@@ -968,7 +968,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
                 && is_string($original) && strlen($original)) {
             $this->addStringToGettext($original);
             $quote = $element->ucAttributes['ALT']{0};
-            $element->ucAttributes['ALT'] = $quote  . $this->translateString($original). $quote;
+            $element->ucAttributes['ALT'] = $quote  . $this->flexy->translateString($original). $quote;
         }
         $original = $element->getAttribute('TITLE');
         if (is_string($original) && strlen($original)) {
