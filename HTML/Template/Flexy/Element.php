@@ -151,7 +151,9 @@ class HTML_Template_Flexy_Element {
         static $flexy = false;
         $strAttr = '';
         $xhtmlclose = '';
-        $charset = empty($GLOBALS['HTML_Template_Flexy']['options']['charset']) ? 'ISO-8859-1' : $GLOBALS['HTML_Template_Flexy']['options']['charset'];
+        $charset = empty(HTML_Template_Flexy::$activeEngine['options']['charset']) ?
+            'ISO-8859-1' :
+            HTML_Template_Flexy::$activeEngine['options']['charset'];
         foreach ($this->attributes as $key => $value) {
         
             // you shouldn't do this, but It shouldnt barf when you do..
