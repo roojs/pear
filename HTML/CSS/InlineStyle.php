@@ -108,7 +108,7 @@ class HTML_CSS_InlineStyle
     private function _getNodesForCssSelector($sel)
     {
         try {
-            $xpathQuery = HTML_CSS_CssSelector::toXPath($sel);
+            $xpathQuery = HTML_CSS_Selector::toXPath($sel);
             return $this->_dom_xpath->query($xpathQuery);
         }
         catch(Exception $e) {
