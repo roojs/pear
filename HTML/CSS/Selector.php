@@ -9,16 +9,16 @@
 * file that was distributed with this source code.
 */
 
-include_once dirname(__FILE__) . '/CssSelector/Node/OrNode.php';
-include_once dirname(__FILE__) . '/CssSelector/Node/CombinedSelectorNode.php';
-include_once dirname(__FILE__) . '/CssSelector/Node/ElementNode.php';
-include_once dirname(__FILE__) . '/CssSelector/Node/HashNode.php';
-include_once dirname(__FILE__) . '/CssSelector/Node/ClassNode.php';
-include_once dirname(__FILE__) . '/CssSelector/Node/FunctionNode.php';
-include_once dirname(__FILE__) . '/CssSelector/Node/PseudoNode.php';
-include_once dirname(__FILE__) . '/CssSelector/Node/AttribNode.php';
-include_once dirname(__FILE__) . '/CssSelector/Token/Tokenizer.php';
-include_once dirname(__FILE__) . '/CssSelector/Token/TokenStream.php';
+include_once 'HTML/CSS/Selector/Node/OrNode.php';
+include_once 'HTML/CSS/Selector/Node/CombinedSelectorNode.php';
+include_once 'HTML/CSS/Selector/Node/ElementNode.php';
+include_once 'HTML/CSS/Selector/Node/HashNode.php';
+include_once 'HTML/CSS/Selector/Node/ClassNode.php';
+include_once 'HTML/CSS/Selector/Node/FunctionNode.php';
+include_once 'HTML/CSS/Selector/Node/PseudoNode.php';
+include_once 'HTML/CSS/Selector/Node/AttribNode.php';
+include_once 'HTML/CSS/Selector/Token/Tokenizer.php';
+include_once 'HTML/CSS/Selector/Token/TokenStream.php';
 
 
 /**
@@ -34,7 +34,7 @@ include_once dirname(__FILE__) . '/CssSelector/Token/TokenStream.php';
 *
 * @api
 */
-class HTML_CSS_CssSelector
+class HTML_CSS_Selector
 {
     /**
 * Translates a CSS expression to its XPath equivalent.
@@ -100,9 +100,9 @@ class HTML_CSS_CssSelector
 */
     public function parse($string)
     {
-        $tokenizer = new HTML_CSS_CssSelector_Token_Tokenizer();
+        $tokenizer = new HTML_CSS_Selector_Token_Tokenizer();
 
-        $stream = new HTML_CSS_CssSelector_Token_TokenStream($tokenizer->tokenize($string), $string);
+        $stream = new HTML_CSS_Selector_Token_TokenStream($tokenizer->tokenize($string), $string);
 
         try {
             return $this->parseSelectorGroup($stream);
@@ -137,7 +137,7 @@ class HTML_CSS_CssSelector
             return $result[0];
         }
         
-        return new HTML_CSS_CssSelector_Node_OrNode($result);
+        return new HTML_CSS_Selector_Node_OrNode($result);
     }
 
     /**
@@ -175,7 +175,7 @@ class HTML_CSS_CssSelector
                 throw new Exception(sprintf("Expected selector, got '%s'", $stream->peek()));
             }
 
-            $result = new HTML_CSS_CssSelector_Node_CombinedSelectorNode($result, $combinator, $nextSelector);
+            $result = new HTML_CSS_Selector_Node_CombinedSelectorNode($result, $combinator, $nextSelector);
         }
 
         return $result;
@@ -215,7 +215,7 @@ class HTML_CSS_CssSelector
             }
         }
 
-        $result = new HTML_CSS_CssSelector_Node_ElementNode($namespace, $element);
+        $result = new HTML_CSS_Selector_Node_ElementNode($namespace, $element);
         $hasHash = false;
         while (true) {
             $peek = $stream->peek();
@@ -228,13 +228,13 @@ class HTML_CSS_CssSelector
                     // @codeCoverageIgnoreEnd
                 }
                 $stream->next();
-                $result = new HTML_CSS_CssSelector_Node_HashNode($result, $stream->next());
+                $result = new HTML_CSS_Selector_Node_HashNode($result, $stream->next());
                 $hasHash = true;
 
                 continue;
             } elseif ('.' == $peek) {
                 $stream->next();
-                $result = new HTML_CSS_CssSelector_Node_ClassNode($result, $stream->next());
+                $result = new HTML_CSS_Selector_Node_ClassNode($result, $stream->next());
 
                 continue;
             } elseif ('[' == $peek) {
@@ -269,9 +269,9 @@ class HTML_CSS_CssSelector
                         throw new Exception(sprintf("Expected ')', got '%s' and '%s'", $next, $selector));
                     }
 
-                    $result = new HTML_CSS_CssSelector_Node_FunctionNode($result, $type, $ident, $selector);
+                    $result = new HTML_CSS_Selector_Node_FunctionNode($result, $type, $ident, $selector);
                 } else {
-                    $result = new HTML_CSS_CssSelector_Node_PseudoNode($result, $type, $ident);
+                    $result = new HTML_CSS_Selector_Node_PseudoNode($result, $type, $ident);
                 }
 
                 continue;
@@ -312,7 +312,7 @@ class HTML_CSS_CssSelector
         }
 
         if ($stream->peek() == ']') {
-            return new HTML_CSS_CssSelector_Node_AttribNode($selector, $namespace, $attrib, 'exists', null);
+            return new HTML_CSS_Selector_Node_AttribNode($selector, $namespace, $attrib, 'exists', null);
         }
 
         $op = $stream->next();
@@ -325,6 +325,6 @@ class HTML_CSS_CssSelector
             throw new Exception(sprintf("Expected string or symbol, got '%s'", $value));
         }
 
-        return new HTML_CSS_CssSelector_Node_AttribNode($selector, $namespace, $attrib, $op, $value);
+        return new HTML_CSS_Selector_Node_AttribNode($selector, $namespace, $attrib, $op, $value);
     }
 }
