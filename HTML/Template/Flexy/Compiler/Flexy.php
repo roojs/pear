@@ -974,7 +974,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         if (is_string($original) && strlen($original)) {
             $this->addStringToGettext($original);
             $quote = $element->ucAttributes['TITLE']{0};
-            $element->ucAttributes['TITLE'] = $quote  . $this->translateString($original). $quote;
+            $element->ucAttributes['TITLE'] = $quote  . $this->flexy->translateString($original). $quote;
         }
         
         
