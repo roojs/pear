@@ -185,7 +185,7 @@ class HTML_Template_Flexy_Element {
                 $value = str_replace('&amp;nbsp;','&nbsp;',htmlspecialchars($value,ENT_COMPAT,$charset));
             }
             // translation..
-            if (($this->tag == 'input') && $key == 'value') {
+            if (($this->tag == 'input') && $this->attributes['type'] == 'submit' && $key == 'value') {
                 if (!$flexy) {
                     $flexy = new HTML_Template_Flexy();
                 }
