@@ -91,7 +91,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         
         
         // initialize Translation 2, and 
-        $this->initializeTranslator();
+        $this->flexy->initializeTranslator();
         
         
         // load the template!
