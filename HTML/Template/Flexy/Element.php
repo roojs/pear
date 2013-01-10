@@ -189,7 +189,7 @@ class HTML_Template_Flexy_Element {
                 if (!$flexy) {
                     $flexy = new HTML_Template_Flexy();
                 }
-                $value = $flexy->translateString($value);
+                $value = $flexy->translateString($value).'xx';
             }
             
             
