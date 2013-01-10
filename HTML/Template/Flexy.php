@@ -586,6 +586,8 @@ class HTML_Template_Flexy
         $this->initializeTranslator();
         self::$activeEngine = $this;
         
+        
+        //?? not needed?
         $GLOBALS['_HTML_TEMPLATE_FLEXY']['options']  = $this->options;
         
         
