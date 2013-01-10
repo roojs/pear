@@ -41,7 +41,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
 {
     
     
-    
+    var $flexy;
     /**
     * The compile method.
     * 
@@ -50,7 +50,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
     * @return   string   filename of template
     * @access   public
     */
-    function compile(&$flexy,$string=false) 
+    function compile($flexy,$string=false) 
     {
         // read the entire file into one variable
         
@@ -142,7 +142,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
             // ** leaving in the tag (which should be ignored by the parser..
             // we then get rid of the tags during the toString method in this class.
             foreach($matches as $v) {
-                $data = str_replace('{_('.$v.')_}', '{_('.$this->translateString($v).')_}',$data);
+                $data = str_replace('{_('.$v.')_}', '{_('.$this->flexy->translateString($v).')_}',$data);
             }
             
         }
