@@ -693,7 +693,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
         //$value = strtr($value,$cleanArray);
         
         $this->addStringToGettext($value);
-        $value = $this->translateString($value);
+        $value = $this->flexy->translateString($value);
         // its a simple word!
         if (!count($element->argTokens)) {
             return $this->appendHtml($front . $value . $rear);
@@ -755,123 +755,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
         $GLOBALS['_HTML_TEMPLATE_FLEXY_COMPILER']['gettextStrings'][] = $string;
     }
     
-    
-    /**
-    * translateString - a gettextWrapper
-    *
-    * tries to do gettext or falls back on File_Gettext
-    * This has !!!NO!!! error handling - if it fails you just get english.. 
-    * no questions asked!!!
-    * 
-    * @param   string       string to translate
-    *
-    * @return   string      translated string..
-    * @access   public
-    */
-  
-    function translateString($string)
-    {
-         
-        
-        
-        if ($this->is_a($this->options['Translation2'],'Translation2')) {
-            $result = $this->options['Translation2']->get($string);
-            if (!empty($result)) {
-                return $result;
-            }
-            return $string;
-        }
-        
-        // note this stuff may have been broken by removing the \n replacement code 
-        // since i dont have a test for it... it may remain broken..
-        // use Translation2 - it has gettext backend support
-        // and should sort out the mess that \n etc. entail.
-        
-        
-        $prefix = basename($GLOBALS['_HTML_TEMPLATE_FLEXY']['filename']).':';
-        if (@$this->options['debug']) {
-            echo __CLASS__.":TRANSLATING $string<BR>";
-        }
-        if (function_exists('gettext') && !$this->options['textdomain']) {
-            if (@$this->options['debug']) {
-                echo __CLASS__.":USING GETTEXT?<BR>";
-            }
-            $t = gettext($string);
-            if ($t != $string) {
-                return $t;
-            }
-            $tt = gettext($prefix.$string);
-            if ($tt != $prefix.$string) {
-                return $tt;
-            }
-            // give up it's not translated anywhere...
-            return $t;
-             
-        }
-        if (!$this->options['textdomain'] || !$this->options['textdomainDir']) {
-            // text domain is not set..
-            if (@$this->options['debug']) {
-                echo __CLASS__.":MISSING textdomain settings<BR>";
-            }
-            return $string;
-        }
-        $pofile = $this->options['textdomainDir'] . 
-                '/' . $this->options['locale'] . 
-                '/LC_MESSAGES/' . $this->options['textdomain'] . '.po';
-        
-        
-        // did we try to load it already..
-        if (@$GLOBALS['_'.__CLASS__]['PO'][$pofile] === false) {
-            if (@$this->options['debug']) {
-                echo __CLASS__.":LOAD failed (Cached):<BR>";
-            }
-            return $string;
-        }
-        if (!@$GLOBALS['_'.__CLASS__]['PO'][$pofile]) {
-            // default - cant load it..
-            $GLOBALS['_'.__CLASS__]['PO'][$pofile] = false;
-            if (!file_exists($pofile)) {
-                 if (@$this->options['debug']) {
-                echo __CLASS__.":LOAD failed: {$pofile}<BR>";
-            }
-                return $string;
-            }
-            
-            if (!@include_once 'File/Gettext.php') {
-                if (@$this->options['debug']) {
-                    echo __CLASS__.":LOAD no File_gettext:<BR>";
-                }
-                return $string;
-            }
-            
-            $GLOBALS['_'.__CLASS__]['PO'][$pofile] = File_Gettext::factory('PO',$pofile);
-            $GLOBALS['_'.__CLASS__]['PO'][$pofile]->load();
-            //echo '<PRE>'.htmlspecialchars(print_r($GLOBALS['_'.__CLASS__]['PO'][$pofile]->strings,true));
-            
-        }
-        $po = &$GLOBALS['_'.__CLASS__]['PO'][$pofile];
-        // we should have it loaded now...
-        // this is odd - data is a bit messed up with CR's
-        $string = str_replace('\n',"\n",$string);
-        
-        if (isset($po->strings[$prefix.$string])) {
-            return $po->strings[$prefix.$string];
-        }
-        
-        if (!isset($po->strings[$string])) {
-            if (@$this->options['debug']) {
-                    echo __CLASS__.":no match:<BR>";
-            }
-            return $string;
-        }
-        if (@$this->options['debug']) {
-            echo __CLASS__.":MATCHED: {$po->strings[$string]}<BR>";
-        }
-        
-        // finally we have a match!!!
-        return $po->strings[$string];
-        
-    } 
+     
      /**
     *   HTML_Template_Flexy_Token_Tag toString 
     *
