@@ -808,7 +808,7 @@ class HTML_Template_Flexy
             }
             return $string;
         }
-        if (!@$GLOBALS['_'.__CLASS__]['PO'][$pofile]) {
+        if (empty($GLOBALS['_'.__CLASS__]['PO'][$pofile])) {
             // default - cant load it..
             $GLOBALS['_'.__CLASS__]['PO'][$pofile] = false;
             if (!file_exists($pofile)) {
@@ -830,7 +830,7 @@ class HTML_Template_Flexy
             //echo '<PRE>'.htmlspecialchars(print_r($GLOBALS['_'.__CLASS__]['PO'][$pofile]->strings,true));
             
         }
-        $po = &$GLOBALS['_'.__CLASS__]['PO'][$pofile];
+        $po = $GLOBALS['_'.__CLASS__]['PO'][$pofile];
         // we should have it loaded now...
         // this is odd - data is a bit messed up with CR's
         $string = str_replace('\n', "\n", $string);
