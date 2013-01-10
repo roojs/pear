@@ -216,7 +216,7 @@ class HTML_Template_Flexy
     * 
     *
     * @var array of  HTML_Template_Flexy_Elements
-    * @access private
+    * @access public
     */
     var $elements = array();
     /**
