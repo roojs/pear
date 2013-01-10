@@ -32,6 +32,14 @@ require_once 'HTML/Template/Flexy/Token.php';
  
 class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
     
+    /**
+     * reference to calling controller
+     *
+     * @var $flexy HTML_Template_Flexy
+     * @access public
+     */
+    var $flexy;
+    
     
         
     /**
@@ -49,13 +57,15 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
     * @return   string   filename of template
     * @access   public
     */
-    function compile(&$flexy, $string=false) 
+    function compile($flexy, $string=false) 
     {
         // read the entire file into one variable
         
         // note this should be moved to new HTML_Template_Flexy_Token
         // and that can then manage all the tokens in one place..
         global $_HTML_TEMPLATE_FLEXY_COMPILER;
+        
+        $this->flexy = $flexy;
         
         $this->currentTemplate  = $flexy->currentTemplate;
         
