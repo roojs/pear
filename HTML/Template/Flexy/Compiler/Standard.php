@@ -58,6 +58,8 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
         // and that can then manage all the tokens in one place..
         global $_HTML_TEMPLATE_FLEXY_COMPILER;
         
+        $this->flexy = $flexy;
+        
         $gettextStrings = &$_HTML_TEMPLATE_FLEXY_COMPILER['gettextStrings'];
         $gettextStrings = array(); // reset it.
         
