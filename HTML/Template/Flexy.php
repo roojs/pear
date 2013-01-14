@@ -162,7 +162,7 @@ class HTML_Template_Flexy
                                         //  'Translation2' => new Translation2('dataobjectsimple','')
                                         
       
-        'charset'       => 'ISO-8859-1',    // charset used with htmlspecialchars to render data.
+        'charset'       => 'UTF-8',    // charset used with htmlspecialchars to render data.
                                             // experimental
         
         // output options           ------------------------------------------
