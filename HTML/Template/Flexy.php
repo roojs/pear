@@ -816,7 +816,7 @@ class HTML_Template_Flexy
     function translateString($string)
     {
         
-        if (!empty($this->options['disableTranslate']) || empty($this->options['locale'])) {
+        if (!empty($this->options['disableTranslate'])) {
             return $string;
         }
         
@@ -828,6 +828,11 @@ class HTML_Template_Flexy
             return $string;
         }
         
+        // get text will not support english locale translations - use Translation2 to support that
+        
+        if ( $this->options['locale'] == 'en' ) {
+            return $string;
+        }
         // note this stuff may have been broken by removing the \n replacement code 
         // since i dont have a test for it... it may remain broken..
         // use Translation2 - it has gettext backend support
