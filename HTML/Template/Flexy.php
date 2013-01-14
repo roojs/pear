@@ -816,7 +816,7 @@ class HTML_Template_Flexy
     function translateString($string)
     {
         
-        if (!empty($this->options['disableTranslate'])) {
+        if (!empty($this->options['disableTranslate']) || empty($this->options['locale'])) {
             return $string;
         }
         
