@@ -590,9 +590,9 @@ class HTML_Template_Flexy
         
         
         // initialize the translator..
-         print_r($t);
-        include($this->compiledTemplate);
         
+        include($this->compiledTemplate);
+         print_r($t);exit;
         
         self::$activeEngine = $__old_engine;
         
