@@ -582,11 +582,10 @@ class HTML_Template_Flexy
         // used by Flexy Elements etc..
         // note that we are using __ prefix, as this get's exposed to the running template..
         $__old_engine = self::$activeEngine;
-        print_r($__old_engine);exit;
         $this->initializeTranslator();
         self::$activeEngine = $this;
         
-        
+        print_r($this);exit;
         //?? not needed?
         $GLOBALS['_HTML_TEMPLATE_FLEXY']['options']  = $this->options;
         
