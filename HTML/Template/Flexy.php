@@ -849,7 +849,7 @@ class HTML_Template_Flexy
                 return $t;
             }
             $tt = gettext($prefix.$string);
-            if ($tt != $prefix.$string) {
+            if (!empty($tt) && $tt != $prefix.$string) {
                 return $tt;
             }
                 // give up it's not translated anywhere...
