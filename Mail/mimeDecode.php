@@ -314,6 +314,14 @@ class Mail_mimeDecode extends PEAR
                     $encoding = isset($content_transfer_encoding) ? $content_transfer_encoding['value'] : '7bit';
                     $this->_include_bodies ? $return->body = ($this->_decode_bodies ? $this->_decodeBody($body, $encoding) : $body) : null;
                     break;
+                
+                case 'multipart/signed': // PGP
+                    $parts = $this->_boundarySplit($body, $content_type['other']['boundary'], true);
+                    $return->parts['msg_body'] = $parts[0]; 
+                    list($part_header, $part_body) = $this->_splitBodyHeader($parts[1]);
+                    $return->parts['sig_hdr'] = $part_header;
+                    $return->parts['sig_body'] = $part_body;
+                    break;
 
                 case 'multipart/parallel':
                 case 'multipart/appledouble': // Appledouble mail
@@ -693,7 +701,7 @@ class Mail_mimeDecode extends PEAR
      * @return array Contains array of resulting mime parts
      * @access private
      */
-    function _boundarySplit($input, $boundary)
+    function _boundarySplit($input, $boundary, $eatline = false)
     {
         $parts = array();
 
@@ -703,7 +711,10 @@ class Mail_mimeDecode extends PEAR
         if ($boundary == $bs_check) {
             $boundary = $bs_possible;
         }
-        $tmp = preg_split("/--".preg_quote($boundary, '/')."((?=\s)|--)/", $input);
+        // eatline is used by multipart/signed.
+        $tmp = $eatline ?
+            preg_split("/\n--".preg_quote($boundary, '/')."(|--)\n/", $input) :
+            preg_split("/--".preg_quote($boundary, '/')."((?=\s)|--)/", $input);
 
         $len = count($tmp) -1;
         for ($i = 1; $i < $len; $i++) {
