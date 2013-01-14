@@ -665,6 +665,7 @@ class Mail_mimeDecode extends PEAR
         if ($boundary == $bs_check) {
             $boundary = $bs_possible;
         }
+        
         // eatline is needed for multipart signed. (see bug 19762)
         $tmp = $eatline ?
             preg_split("/\n--".preg_quote($boundary, '/')."(|--)\n/", $input) :
