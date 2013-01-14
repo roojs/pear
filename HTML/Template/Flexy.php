@@ -574,13 +574,12 @@ class HTML_Template_Flexy
             if (!$t) {
                 $t = (object) $this->assign->variables;
             }
-            
             extract($this->assign->variables);
-            print_r($t);exit;
             foreach(array_keys($this->assign->references) as $_k) {
                 $$_k = &$this->assign->references[$_k];
             }
         }
+        print_r($this);
         // used by Flexy Elements etc..
         // note that we are using __ prefix, as this get's exposed to the running template..
         $__old_engine = self::$activeEngine;
