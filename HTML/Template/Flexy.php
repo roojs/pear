@@ -574,8 +574,9 @@ class HTML_Template_Flexy
             if (!$t) {
                 $t = (object) $this->assign->variables;
             }
-            print_r($t);
+            
             extract($this->assign->variables);
+            print_r($t);exit;
             foreach(array_keys($this->assign->references) as $_k) {
                 $$_k = &$this->assign->references[$_k];
             }
