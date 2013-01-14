@@ -527,8 +527,8 @@ class HTML_FlexyFramework {
             'url_rewrite' => $url_rewrite,
             'filters' => 'Php,SimpleTags', /// for non-tokenizer version?
             'debug' => $this->debug ? 1 : 0,
-            'useTokenizer' => 1,
-            'disableTranslate' => true,
+            'useTokenizer' => 1 
+            
         
         
         ));
