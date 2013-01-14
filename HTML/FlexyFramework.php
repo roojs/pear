@@ -528,7 +528,7 @@ class HTML_FlexyFramework {
             'filters' => 'Php,SimpleTags', /// for non-tokenizer version?
             'debug' => $this->debug ? 1 : 0,
             'useTokenizer' => 1,
-            
+            'disableTranslate' => true,
         
         
         ));
