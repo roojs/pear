@@ -655,7 +655,7 @@ class Mail_mimeDecode extends PEAR
      * @return array Contains array of resulting mime parts
      * @access private
      */
-    function _boundarySplit($input, $boundary)
+    function _boundarySplit($input, $boundary, $eatline = false)
     {
         $parts = array();
 
@@ -665,7 +665,10 @@ class Mail_mimeDecode extends PEAR
         if ($boundary == $bs_check) {
             $boundary = $bs_possible;
         }
-        $tmp = preg_split("/--".preg_quote($boundary, '/')."((?=\s)|--)/", $input);
+        // eatline is needed for multipart signed. (see bug 19762)
+        $tmp = $eatline ?
+            preg_split("/\n--".preg_quote($boundary, '/')."(|--)\n/", $input) :
+            preg_split("/--".preg_quote($boundary, '/')."((?=\s)|--)/", $input);
 
         $len = count($tmp) -1;
         for ($i = 1; $i < $len; $i++) {
