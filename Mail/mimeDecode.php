@@ -308,10 +308,17 @@ class Mail_mimeDecode extends PEAR
                     $this->_include_bodies ? $return->body = ($this->_decode_bodies ? $this->_decodeBody($body, $encoding) : $body) : null;
                     break;
 
+                case 'multipart/signed': // PGP
+                    $parts = $this->_boundarySplit($body, $content_type['other']['boundary']);
+                    $return->parts['msg_body'] = $parts[0]; 
+                    list($part_header, $part_body) = $this->_splitBodyHeader($parts[1]);
+                    $return->parts['sig_hdr']  = $part_header;
+                    $return->parts['sig_body'] = $part_body;  
+                    break;
+ 
                 case 'multipart/parallel':
                 case 'multipart/appledouble': // Appledouble mail
                 case 'multipart/report': // RFC1892
-                case 'multipart/signed': // PGP
                 case 'multipart/digest':
                 case 'multipart/alternative':
                 case 'multipart/related':
