@@ -100,7 +100,7 @@ class HTML_Template_Flexy
         'templateDirOrder' => '',       // set to 'reverse' to assume that first template
         
          
-        'debug'         => true,       // prints a few messages
+        'debug'         => false,       // prints a few messages
         
         
         // compiling conditions ------------------------------------------
