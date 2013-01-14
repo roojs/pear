@@ -309,7 +309,7 @@ class Mail_mimeDecode extends PEAR
                     break;
 
                 case 'multipart/signed': // PGP
-                    $parts = $this->_boundarySplit($body, $content_type['other']['boundary']);
+                    $parts = $this->_boundarySplit($body, $content_type['other']['boundary'], true);
                     $return->parts['msg_body'] = $parts[0]; 
                     list($part_header, $part_body) = $this->_splitBodyHeader($parts[1]);
                     $return->parts['sig_hdr']  = $part_header;
