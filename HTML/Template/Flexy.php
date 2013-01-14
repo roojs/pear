@@ -579,7 +579,7 @@ class HTML_Template_Flexy
                 $$_k = &$this->assign->references[$_k];
             }
         }
-        print_r($this);
+        print_r($this);exit;
         // used by Flexy Elements etc..
         // note that we are using __ prefix, as this get's exposed to the running template..
         $__old_engine = self::$activeEngine;
