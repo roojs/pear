@@ -553,7 +553,6 @@ class HTML_Template_Flexy
         }
         //echo '<PRE>'; print_r(array($elements,$this->elements));
       
-        print_r($this->elements);exit;
         // we use PHP's error handler to hide errors in the template.
         // use $options['strict'] - if you want to force declaration of
         // all variables in the template
