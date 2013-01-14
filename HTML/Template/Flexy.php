@@ -618,10 +618,12 @@ class HTML_Template_Flexy
     */
     function bufferedOutputObject($t,$elements=array()) 
     {
+        print_r($t);
         ob_start();
         $this->outputObject($t,$elements);
         $data = ob_get_contents();
         ob_end_clean();
+        print_r($data); exit;
         return $data;
     }
     /**
