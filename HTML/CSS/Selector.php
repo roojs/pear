@@ -9,16 +9,16 @@
 * file that was distributed with this source code.
 */
 
-include_once 'HTML/CSS/Selector/Node/OrNode.php';
-include_once 'HTML/CSS/Selector/Node/CombinedSelectorNode.php';
-include_once 'HTML/CSS/Selector/Node/ElementNode.php';
-include_once 'HTML/CSS/Selector/Node/HashNode.php';
-include_once 'HTML/CSS/Selector/Node/ClassNode.php';
-include_once 'HTML/CSS/Selector/Node/FunctionNode.php';
-include_once 'HTML/CSS/Selector/Node/PseudoNode.php';
-include_once 'HTML/CSS/Selector/Node/AttribNode.php';
-include_once 'HTML/CSS/Selector/Token/Tokenizer.php';
-include_once 'HTML/CSS/Selector/Token/TokenStream.php';
+require_once 'HTML/CSS/Selector/Node/OrNode.php';
+require_once 'HTML/CSS/Selector/Node/CombinedSelectorNode.php';
+require_once 'HTML/CSS/Selector/Node/ElementNode.php';
+require_once 'HTML/CSS/Selector/Node/HashNode.php';
+require_once 'HTML/CSS/Selector/Node/ClassNode.php';
+require_once 'HTML/CSS/Selector/Node/FunctionNode.php';
+require_once 'HTML/CSS/Selector/Node/PseudoNode.php';
+require_once 'HTML/CSS/Selector/Node/AttribNode.php';
+require_once 'HTML/CSS/Selector/Token/Tokenizer.php';
+require_once 'HTML/CSS/Selector/Token/TokenStream.php';
 
 
 /**
