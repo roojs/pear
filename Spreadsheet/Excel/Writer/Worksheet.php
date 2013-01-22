@@ -1460,7 +1460,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
         if ($this->_byte_order) { // if it's Big Endian
             $xl_double = strrev($xl_double);
         }
-        print_r($header.$data.$xl_double);exit;
+
         $this->_append($header.$data.$xl_double);
         return(0);
     }
