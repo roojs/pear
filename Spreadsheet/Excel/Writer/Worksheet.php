@@ -1433,7 +1433,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
         $length    = 0x000E;                 // Number of bytes to follow
 
         $xf        = $this->_XF($format);    // The cell format
-
+print_r($format);exit;
         // Check that row and col are valid and store max and min values
         if ($row >= $this->_xls_rowmax) {
             return(-2);
