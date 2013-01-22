@@ -1182,7 +1182,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
             return $this->writeBlank($row, $col, $format);
         } else {
             // Default: match string
-            return $this->writeString($row, $col, $token, $format);
+            return $this->writeString($row, $col, $token, array('FgColor'=>'yellow'));
         }
     }
 
