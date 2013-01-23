@@ -448,7 +448,7 @@ class File_Convert_AbiToDocx
 //                return;
 //            }
             
-//            print_r($this);exit;
+            print_r($this);exit;
             return;
         }
         
