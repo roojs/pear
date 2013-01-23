@@ -384,7 +384,7 @@ class File_Convert_AbiToDocx
                         break;
                     case 'font-weight':
 //                            $attrArray['bold'] = ($attr[1] == 'bold') ? true : false;
-                            $attrArray['bold'] = trim($prop);
+                            $attrArray['bold'] = trim($attr[1]);
                         break;
                     case 'font-style':
                             $attrArray['italic'] = ($attr[1] == 'italic') ? true : false;
