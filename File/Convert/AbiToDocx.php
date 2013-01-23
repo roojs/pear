@@ -86,7 +86,7 @@ class File_Convert_AbiToDocx
                     }
                     
                     $textNode = array('p','c','a');
-                    print_r($this->xr->name);exit;
+                    print_r($this->xr->name);
                     
                     if ($this->xr->name == '#text' && count($stack) &&  $this->pass==2 && in_array($stack[count($stack)-1], $textNode)) {
                         $text = $this->xr->value;
