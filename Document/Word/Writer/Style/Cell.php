@@ -319,4 +319,3 @@ class Document_Word_Writer_Style_Cell
 		return $this->_defaultBorderColor;
 	}
 }
-?>
