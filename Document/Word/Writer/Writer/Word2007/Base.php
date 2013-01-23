@@ -31,7 +31,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	
 	protected function _writeText(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Text $text, $withoutP = false) 
         {
-                print_r($text);
+                
 		$styleFont = $text->getFontStyle();
 		
 		$SfIsObject = ($styleFont instanceof Document_Word_Writer_Style_Font) ? true : false;
