@@ -101,7 +101,7 @@ class Document_Word_Writer_Style_Font
 		$this->_type            = $type;
 		$this->_name            = 'Arial';
 		$this->_size            = 20;
-		$this->_bold		    = true;
+		$this->_bold		    = false;
 		$this->_italic		    = false;
 		$this->_superScript	    = false;
 		$this->_subScript	    = false;
