@@ -382,13 +382,12 @@ class File_Convert_AbiToDocx
                             $attrArray['bgColor'] = trim($prop);
                         }
                         break;
-//                    case 'font-weight':
-//                        $props = explode('/', $attr[1]);
-//                        foreach($props as $prop){
-//                            $attrArray['color'] = trim($prop);
-//                        }
-//                        break;
-                        
+                    case 'font-weight':
+                            $attrArray['bold'] = true;
+                        break;
+                    case 'font-style':
+                            $attrArray['italic'] = true;
+                        break;
                     default :
                         $key = trim($attr[0]);
                         $value = trim($attr[1]);
