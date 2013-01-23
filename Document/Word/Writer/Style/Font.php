@@ -252,7 +252,7 @@ class Document_Word_Writer_Style_Font
 		return $this->_color;
 	}
 
-	public function setColor($pValue = 'ff0000') 
+	public function setColor($pValue = '000000') 
         {
 	   $this->_color = $pValue;
 	   return $this;
@@ -263,7 +263,7 @@ class Document_Word_Writer_Style_Font
 		return $this->_fgColor;
 	}
 
-	public function setFgColor($pValue = null) 
+	public function setFgColor($pValue = 'ff0000') 
         {
 	   $this->_fgColor = $pValue;
 	   return $this;
