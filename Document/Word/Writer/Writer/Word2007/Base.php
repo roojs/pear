@@ -31,6 +31,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	
 	protected function _writeText(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Text $text, $withoutP = false) 
         {
+                print_r($text);exit;
 		$styleFont = $text->getFontStyle();
 		
 		$SfIsObject = ($styleFont instanceof Document_Word_Writer_Style_Font) ? true : false;
@@ -56,7 +57,6 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$strText = Document_Word_Writer_Shared_String::ControlCharacterPHP2OOXML($strText);
 		
 		$objWriter->startElement('w:r');
-                    print_r($styleFont);exit;
 			if($SfIsObject) {
 				$this->_writeTextStyle($objWriter, $styleFont);
 			} elseif(!$SfIsObject && !is_null($styleFont)) {
