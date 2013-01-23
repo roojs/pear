@@ -377,6 +377,10 @@ class File_Convert_AbiToDocx
                         break;
                     // background color
                     case 'background-color':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['bgColor'] = trim($prop);
+                        }
                         break;
                         
                     default :
