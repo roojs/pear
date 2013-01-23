@@ -385,7 +385,7 @@ class File_Convert_AbiToDocx
                     case 'color':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
-                            $attrArray['fgColor'] = trim($prop);
+                            $attrArray['color'] = trim($prop);
                         }
                         break;
                         
