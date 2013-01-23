@@ -112,7 +112,7 @@ class Document_Word_Writer_Style_Paragraph
 			// justify becames both
 			$pValue = 'both';
 		}
-//		$this->_align = $pValue;
+		$this->_align = $pValue;
 		return $this;
 	}
 
