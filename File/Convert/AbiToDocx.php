@@ -443,7 +443,9 @@ class File_Convert_AbiToDocx
         function handle_pagesize()
         {
             // fill this in so it can handle landscape
-            
+            if ($this->pass != 2) {
+                return;
+            }
             return;
         }
         
