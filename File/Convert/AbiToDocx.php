@@ -385,7 +385,7 @@ class File_Convert_AbiToDocx
                     case 'font-weight':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
-                            $attrArray['bgColor'] = trim($prop);
+                            $attrArray['fgColor'] = trim($prop);
                         }
                         break;
                         
