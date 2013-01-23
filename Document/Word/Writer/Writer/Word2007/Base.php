@@ -56,7 +56,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$strText = Document_Word_Writer_Shared_String::ControlCharacterPHP2OOXML($strText);
 		
 		$objWriter->startElement('w:r');
-		
+                    print_r($styleFont);exit;
 			if($SfIsObject) {
 				$this->_writeTextStyle($objWriter, $styleFont);
 			} elseif(!$SfIsObject && !is_null($styleFont)) {
