@@ -384,6 +384,7 @@ class File_Convert_AbiToDocx
                         break;
                     case 'font-weight':
                             if($attr[1] == 'bold'){
+                                print_r($attr[1]);exit;
                                 $attrArray['bold'] = true;
                             }
                         break;
