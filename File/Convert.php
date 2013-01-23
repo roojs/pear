@@ -243,6 +243,7 @@ class File_Convert
                     array( 
                         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 //                        'application/msword',
+                        'application/mswordapplication',
                     )
             ),
             
