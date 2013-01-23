@@ -62,7 +62,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 			} elseif(!$SfIsObject && !is_null($styleFont)) {
 				$objWriter->startElement('w:rPr');
 					$objWriter->startElement('w:rStyle');
-						$objWriter->writeAttribute('w:val', $styleFont);
+						$objWriter->writeAttribute('w:val', '123');
 					$objWriter->endElement();
 				$objWriter->endElement();
 			}
