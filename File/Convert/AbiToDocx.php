@@ -179,6 +179,7 @@ class File_Convert_AbiToDocx
             if($this->keepSection){
                 return;
             }
+            print_r($this->style);exit;
             $this->section = $this->section->createTextRun($this->style);
             
         }
@@ -264,7 +265,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->style =  $this->parseProps();
-            print_r($this->section);exit;
+            
         }
         
         function handle_d()
