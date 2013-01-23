@@ -241,7 +241,7 @@ class File_Convert
                         
                     ),    // targets
                     array( 
-                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+//                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                         'application/msword',
                     )
             ),
