@@ -179,7 +179,7 @@ class File_Convert_AbiToDocx
             if($this->keepSection){
                 return;
             }
-//            $this->section = $this->section->createTextRun($this->style);
+            $this->section = $this->section->createTextRun($this->style);
             
         }
         
