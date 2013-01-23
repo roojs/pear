@@ -446,7 +446,7 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            print_r($this->xr);exit;
+            print_r($this);exit;
             return;
         }
         
