@@ -28,7 +28,7 @@ class File_Convert_AbiToDocx
                 'font-family' => 'name',
                 'font-size' => 'size',
                 'text-align' => 'align',
-                'color' => 'color', // might be fgcolor
+//                'color' => 'color', // might be fgcolor
         );
     
         function save($fn)
