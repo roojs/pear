@@ -376,7 +376,8 @@ class File_Convert_AbiToDocx
                         }
                         break;
                     // background color
-                        
+                    case 'background-color':
+                        break;
                         
                     default :
                         $key = trim($attr[0]);
