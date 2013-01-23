@@ -27,7 +27,8 @@ class File_Convert_AbiToDocx
         var $styleMatch = array(
                 'font-family' => 'name',
                 'font-size' => 'size',
-                'text-align' => 'align'
+                'text-align' => 'align',
+                'color' => 'color', // might be fgcolor
         );
     
         function save($fn)
@@ -145,7 +146,7 @@ class File_Convert_AbiToDocx
             }
             $style =  $this->parseProps();
              
-            if($style['colunmNum'] == 0){
+            if($style['columnNum'] == 0){
                 $height = '';
                 if(array_key_exists('height' . $style['rowNum'], $this->style)){
                     $height = $this->converttoDax($this->style['height' . $style['rowNum']],null);
@@ -153,8 +154,8 @@ class File_Convert_AbiToDocx
                 $this->section->addRow($height);
             }
             $cellWidth = '';
-            if (isset($this->style['width' . $style['colunmNum'] ])) {
-                $cellWidth = $this->converttoDax($this->style['width' . $style['colunmNum']],null);
+            if (isset($this->style['width' . $style['columnNum'] ])) {
+                $cellWidth = $this->converttoDax($this->style['width' . $style['columnNum']],null);
             }
             //echo "CW? " . $cellWidth . "|";
             $this->section = $this->section->addCell($cellWidth, $style);
@@ -336,7 +337,7 @@ class File_Convert_AbiToDocx
                     case 'left-attach':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
-                            $attrArray['colunmNum'] = trim($prop);
+                            $attrArray['columnNum'] = trim($prop);
                         }
                         break;
                     
@@ -374,6 +375,8 @@ class File_Convert_AbiToDocx
                             $attrArray['borderBottomColor'] = trim($prop);
                         }
                         break;
+                    // background color
+                        
                         
                     default :
                         $key = trim($attr[0]);
@@ -429,6 +432,8 @@ class File_Convert_AbiToDocx
         
         function handle_pagesize()
         {
+            // fill this in so it can handle landscape
+            
             return;
         }
         
