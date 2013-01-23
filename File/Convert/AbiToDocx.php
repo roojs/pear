@@ -447,12 +447,12 @@ class File_Convert_AbiToDocx
         function handle_pagesize()
         {
             // fill this in so it can handle landscape
-            if ($this->pass == 1) {
-                return;
-            }
-            
-           // print_r($this->xr->getAttribute('orientation'));exit;
-            return;
+//            if ($this->pass == 1) {
+//                return;
+//            }
+//            
+//           // print_r($this->xr->getAttribute('orientation'));exit;
+//            return;
         }
         
         
