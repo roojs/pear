@@ -264,7 +264,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->style =  $this->parseProps();
-            
+            print_r($this->style);exit;
         }
         
         function handle_d()
@@ -448,7 +448,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             
-            print_r($this->xr->getAttribute('orientation'));exit;
+           // print_r($this->xr->getAttribute('orientation'));exit;
             return;
         }
         
