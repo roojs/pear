@@ -100,7 +100,7 @@ class Document_Word_Writer_Style_Font
         {
 		$this->_type            = $type;
 		$this->_name            = 'Arial';
-		$this->_size            = 20;
+		$this->_size            = 40;
 		$this->_bold		    = false;
 		$this->_italic		    = false;
 		$this->_superScript	    = false;
