@@ -450,7 +450,7 @@ class File_Convert_AbiToDocx
             if ($this->pass == 1) {
                 return;
             }
-            $this->section->setLandscape();
+            $this->section->Setting->setLandscape();
             $this->style['pageSizeW'] = $this->xr->getAttribute('width');
             $this->style['pageSizeH'] = $this->xr->getAttribute('height');
             print_r($this->section);
