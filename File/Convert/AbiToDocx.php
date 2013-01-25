@@ -451,8 +451,8 @@ class File_Convert_AbiToDocx
                 return;
             }
             
-            $this->style['pageSizeW'] = $this->xr->getAttribute('orientation');
-            $this->style['pageSizeH'] = $this->xr->getAttribute('orientation');
+            $this->style['pageSizeW'] = $this->xr->getAttribute('width');
+            $this->style['pageSizeH'] = $this->xr->getAttribute('height');
             
            // print_r($this->xr->getAttribute('orientation'));exit;
             return;
