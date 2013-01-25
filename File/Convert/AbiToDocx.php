@@ -453,7 +453,7 @@ class File_Convert_AbiToDocx
 //            $this->section->settings->setLandscape();
             $this->style['pageSizeW'] = $this->xr->getAttribute('width');
             $this->style['pageSizeH'] = $this->xr->getAttribute('height');
-            print_r($this->section->getSettings());
+            print_r($this->section->getSettings()->setSettingValue('_orientation', $this->xr->getAttribute('orientation')) );
             exit;
            // print_r($this->xr->getAttribute('orientation'));exit;
             return;
