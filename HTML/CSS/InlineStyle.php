@@ -180,11 +180,11 @@ class HTML_CSS_InlineStyle
         else if(strtolower($node->nodeName) === "link") {
             if($node->hasAttribute("href")) {
                 $href = $node->getAttribute("href");
-
+print_r($href);
                 if($base && false === strpos($href, "://")) {
                     $href = "{$base}/{$href}";
                 }
-                print_r($href);
+                
                 $ext = @file_get_contents($href);
 
                 if($ext) {
