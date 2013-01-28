@@ -199,7 +199,6 @@ class HTML_CSS_InlineStyle
                     $this->extractStylesheets($child, $base));
             }
         }
-        exit;
         return $stylesheets;
     }
 
