@@ -1073,7 +1073,7 @@ class File_Convert_Solution
         }
         
         $out = $fn . sprintf('-conv-%03d.jpg', $pg);
-        //$out = $fn . '-conv-01.jpg';
+        //$out = $fn . '-conv-001.jpg'; .. if more than 100 pages...
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
