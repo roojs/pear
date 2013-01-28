@@ -180,20 +180,21 @@ class HTML_CSS_InlineStyle
         else if(strtolower($node->nodeName) === "link") {
             if($node->hasAttribute("href")) {
                 $href = $node->getAttribute("href");
-                print_r($href);
+
                 if($base && false === strpos($href, "://")) {
                     $href = "{$base}/{$href}";
                 }
                 $ext = @file_get_contents($href);
+
                 if($ext) {
                     $stylesheets[] = $ext;
                     $node->parentNode->removeChild($node);
                 }
             }
         }
+
         if($node->hasChildNodes()) {
             foreach($node->childNodes as $child) {
-               // print_r('<br/>');
                 $stylesheets = array_merge($stylesheets,
                     $this->extractStylesheets($child, $base));
             }
