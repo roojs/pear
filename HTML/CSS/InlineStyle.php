@@ -178,9 +178,9 @@ class HTML_CSS_InlineStyle
             $node->parentNode->removeChild($node);
         }
         else if(strtolower($node->nodeName) === "link") {
-            print_r($node->nodeName);
             if($node->hasAttribute("href")) {
                 $href = $node->getAttribute("href");
+                print_r($href);
                 if($base && false === strpos($href, "://")) {
                     $href = "{$base}/{$href}";
                 }
