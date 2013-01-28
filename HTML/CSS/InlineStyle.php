@@ -172,7 +172,7 @@ class HTML_CSS_InlineStyle
         }
 
         $stylesheets = array();
-        print_r($node->nodeName);exit;
+        print_r($node->nodeName);
         if(strtolower($node->nodeName) === "style") {
             $stylesheets[] = $node->nodeValue;
             $node->parentNode->removeChild($node);
@@ -199,6 +199,7 @@ class HTML_CSS_InlineStyle
                     $this->extractStylesheets($child, $base));
             }
         }
+        exit;
         return $stylesheets;
     }
 
