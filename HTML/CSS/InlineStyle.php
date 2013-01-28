@@ -190,14 +190,12 @@ class HTML_CSS_InlineStyle
                 }
             }
         }
-        print_r($stylesheets);
         if($node->hasChildNodes()) {
             foreach($node->childNodes as $child) {
                 $stylesheets = array_merge($stylesheets,
                     $this->extractStylesheets($child, $base));
             }
         }
-        exit;
         return $stylesheets;
     }
 
