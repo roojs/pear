@@ -3864,7 +3864,6 @@ class DB_DataObject extends DB_DataObject_Overload
      */
     function setFrom($from, $format = '%s', $skipEmpty=false)
     {
-        DB_DataObject::debugLevel(1);
         global $_DB_DATAOBJECT;
         $keys  = $this->keys();
         $items = $this->table();
