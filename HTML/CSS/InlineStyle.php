@@ -229,6 +229,7 @@ class HTML_CSS_InlineStyle
 */
     public function parseStylesheet($stylesheet)
     {
+        print_r($stylesheet);
         $parsed = array();
         $stylesheet = $this->_stripStylesheet($stylesheet);
         $stylesheet = trim(trim($stylesheet), "}");
