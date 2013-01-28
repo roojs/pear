@@ -184,7 +184,7 @@ class HTML_CSS_InlineStyle
                     $href = "{$base}/{$href}";
                 }
                 $ext = @file_get_contents($href);
-
+                print_r($ext);exit;
                 if($ext) {
                     $stylesheets[] = $ext;
                     $node->parentNode->removeChild($node);
