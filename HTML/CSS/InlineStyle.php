@@ -183,8 +183,9 @@ class HTML_CSS_InlineStyle
                 
                 if($base && false === strpos($href, "://")) {
                     $href = "{$base}/{$href}";
+                    print_r($href);
                 }
-                print_r($base);
+                
                 $ext = @file_get_contents($href);
 
                 if($ext) {
