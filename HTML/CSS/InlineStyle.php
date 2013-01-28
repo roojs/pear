@@ -193,7 +193,7 @@ class HTML_CSS_InlineStyle
         }
         if($node->hasChildNodes()) {
             foreach($node->childNodes as $child) {
-                print_r('run');
+                print_r('<br/>');
                 $stylesheets = array_merge($stylesheets,
                     $this->extractStylesheets($child, $base));
             }
