@@ -355,11 +355,12 @@ class HTML_Template_Flexy
             
         }
         // look in all the posible locations for the template directory..
+        
         if ($this->currentTemplate  === false) {
             
             
             $match = $this->resolvePath($file);
-            
+            print_r($match);exit;
              if (is_a($match, 'PEAR_Error')) {
                 return $match;
             }
