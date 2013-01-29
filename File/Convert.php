@@ -34,7 +34,7 @@ class File_Convert
     var $fn = ''; // filename
     var $mimetype = '';
     // for results..
-    var $debug = false; // set to true to turn on deubgging
+    var $debug = true; // set to true to turn on deubgging
     var $to;
     var $target;
     var $lastaction = false;
