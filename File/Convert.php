@@ -42,6 +42,7 @@ class File_Convert
     {
         $this->fn = $fn;
         $this->mimetype = $mimetype;
+        $this->debug=true; echo '<PRE>';
     }
     
     
