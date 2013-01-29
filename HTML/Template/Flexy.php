@@ -360,7 +360,6 @@ class HTML_Template_Flexy
             
             
             $match = $this->resolvePath($file);
-            print_r($match);exit;
              if (is_a($match, 'PEAR_Error')) {
                 return $match;
             }
