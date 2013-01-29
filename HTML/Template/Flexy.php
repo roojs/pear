@@ -376,7 +376,6 @@ class HTML_Template_Flexy
                 HTML_TEMPLATE_FLEXY_ERROR_INVALIDARGS, HTML_TEMPLATE_FLEXY_ERROR_DIE);
         }
         
-        print_r($this->currentTemplate);exit;
         // Savant compatible compiler 
         
         if ( is_string( $this->options['compiler'] ) && ($this->options['compiler'] == 'Raw')) {
