@@ -1175,7 +1175,7 @@ class File_Convert_Solution
             
             return $target;
         }
-        echo "GOT TARGET"  . $target;
+        //echo "GOT TARGET"  . $target;
         
         $extent = '';
         switch (true) { // what about fit/pad etc...
