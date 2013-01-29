@@ -379,7 +379,6 @@ class HTML_Template_Flexy
         // Savant compatible compiler 
         
         if ( is_string( $this->options['compiler'] ) && ($this->options['compiler'] == 'Raw')) {
-            print_r('in');exit;
             $this->compiledTemplate = $this->currentTemplate;
             $this->debug("Using Raw Compiler");
             return true;
