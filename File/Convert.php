@@ -1172,7 +1172,7 @@ class File_Convert_Solution
         $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
         
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
-            echo "GOT TARGET":
+            echo "GOT TARGET"  . $target;
             return $target;
         }
         $extent = '';
