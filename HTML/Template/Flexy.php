@@ -385,8 +385,6 @@ class HTML_Template_Flexy
         }
         
         
-        print_r($this->options);
-        
         // now for the compile target 
         
         //If you are working with mulitple source folders and $options['multiSource'] is set
