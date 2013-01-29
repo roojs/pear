@@ -355,7 +355,6 @@ class HTML_Template_Flexy
             
         }
         // look in all the posible locations for the template directory..
-        print_r($this->currentTemplate);exit;
         if ($this->currentTemplate  === false) {
             
             
