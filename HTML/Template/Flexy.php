@@ -385,7 +385,7 @@ class HTML_Template_Flexy
         }
         
         
-        
+        print_r($this->options);
         
         // now for the compile target 
         
