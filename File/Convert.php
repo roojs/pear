@@ -34,7 +34,7 @@ class File_Convert
     var $fn = ''; // filename
     var $mimetype = '';
     // for results..
-    var $debug = true; // set to true to turn on deubgging
+    var $debug = false; // set to true to turn on deubgging
     var $to;
     var $target;
     var $lastaction = false;
@@ -1151,7 +1151,10 @@ class File_Convert_Solution
         $CONVERT = System::which("convert");
         $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 $flat ". 
                         "-quality 80   ". escapeshellarg($fn) . " " . escapeshellarg($target);
-        
+         if ($this->debug) {
+           echo "$cmd <br/>";
+           
+        }
         `$cmd`;
         clearstatcache();
         return file_exists($target)  && filesize($target) ? $target : false;
