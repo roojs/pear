@@ -395,7 +395,7 @@ class HTML_Template_Flexy
         $compileSuffix = ((count($this->options['templateDir']) > 1) && $this->options['multiSource']) ? 
             DIRECTORY_SEPARATOR  .basename($tmplDirUsed) . '_' .md5($tmplDirUsed) : '';
         
-        print_r($compileSuffix);
+        
         $compileDest = isset($this->options['compileDir']) ? $this->options['compileDir'] : '';
         
         $isTmp = false;
