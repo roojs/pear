@@ -472,7 +472,7 @@ class HTML_Template_Flexy
             return $this->raiseError('HTML_Template_Flexy fatal error:' .$ret->message,
                 $ret->code,  HTML_TEMPLATE_FLEXY_ERROR_DIE);
         }
-        print_r($ret);
+        
         return $ret;
         
         //return $this->$method();
