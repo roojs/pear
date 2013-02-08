@@ -3774,7 +3774,8 @@ class DB_DataObject extends DB_DataObject_Overload
         
         $ret = array(
             'cols' => array(),
-            'join_names' => array()
+            'join_names' => array(),
+            'count' => false,
         );
         
         foreach(array_keys($tabdef) as $k) {
