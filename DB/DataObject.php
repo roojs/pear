@@ -3828,7 +3828,7 @@ class DB_DataObject extends DB_DataObject_Overload
             // skip columns that are excluded.
             
             // we ignore include here... - as
-            
+            echo "ADD JOIN $xx;"
             // this is borked ... for multiple jions..
             $this->joinAdd($xx, 'LEFT', 'join_'.$ocl.'_'. $col, $ocl);
             
