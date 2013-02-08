@@ -3877,10 +3877,9 @@ class DB_DataObject extends DB_DataObject_Overload
                 if (!empty($cols)) {
                     $selectAs[] = array($cols, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
                 }
-            
-            
-            
-            $selectAs[] = array($keys, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
+            } else {
+                $selectAs[] = array($keys, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
+            }
               
             foreach($keys as $k) {
                 $ret['cols'][sprintf('%s_%s', $ocl, $k)] = $tab.'.'.$k;
