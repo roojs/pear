@@ -3793,7 +3793,7 @@ class DB_DataObject extends DB_DataObject_Overload
             foreach($keys as $c) {
                 //var_dump($c);
                 
-                if ($distinct && $distinct == $c) {
+                if ($cfg['distinct'] && $cfg['distinct'] == $c) {
                     $has_distinct = 'DISTINCT( ' . $this->tableName() .'.'. $c .') as ' . $c;
                     $ret['count'] =  'DISTINCT  ' . $do->tableName() .'.'. $c .'';
                     continue;
@@ -3829,7 +3829,7 @@ class DB_DataObject extends DB_DataObject_Overload
             if (isset($cfg['exclude']) && in_array($ocl, $cfg['exclude'])) {
                 continue;
             }
-            // we ingore include here...
+            // we ignore include here... - as
             
             // this is borked ... for multiple jions..
             $this->joinAdd($xx, 'LEFT', 'join_'.$ocl.'_'. $col, $ocl);
@@ -3837,15 +3837,53 @@ class DB_DataObject extends DB_DataObject_Overload
             $table = $xx->tableName();
             
             $keys = array_keys($tabdef);
+            
+            
             if (isset($cfg['exclude'])) {
                 $keys = array_intersect($keys, array_diff($keys, $cfg['exclude']));
+                
+                foreach($keys as $k) {
+                    if (in_array($ocl.'_'.$k, $cfg['exclude'])) {
+                        $keys = array_diff($keys, $k); // removes the k..
+                    }
+                }
+                
             }
+            
             if (isset($cfg['include'])) {
-                 $keys = array_intersect($keys,  $cfg['include']); 
+                $keys = array_intersect($keys,  $cfg['include']); 
             }
+            
             if (empty($keys)) {
                 continue;
             }
+            // got distinct, and not yet found it..
+            if (!$has_distinct && !empty($cfg['distinct']))  {
+                
+                foreach($keys as $c) {
+                    $tn = sprintf($ocl.'_%s', $c);
+                      
+                    if ($distinct && $tn == $distinct) {
+                        
+                        $has_distinct = 'DISTINCT( ' . 'join_'.$ocl.'_'.$col.'.'.$c .')  as ' . $tn ;
+                        $this->countWhat =  'DISTINCT  join_'.$ocl.'_'.$col.'.'.$c;
+                       // var_dump($this->countWhat );
+                        continue;
+                    }
+                    
+                    
+                    if (!$onlycolumns || in_array($tn, $onlycolumns)) {
+                        $cols[] = $c;
+                        
+                    }
+                }
+                
+                if (!empty($cols)) {
+                    $selectAs[] = array($cols, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
+                }
+            
+            
+            
             $selectAs[] = array($keys, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
               
             foreach($keys as $k) {
