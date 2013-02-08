@@ -3877,6 +3877,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 if (!empty($cols)) {
                     $selectAs[] = array($cols, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
                 }
+                
             } else {
                 $selectAs[] = array($keys, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
             }
@@ -3887,6 +3888,7 @@ class DB_DataObject extends DB_DataObject_Overload
             }
              
         }
+        
         // fill in the select details..
         $this->selectAdd(); 
         
