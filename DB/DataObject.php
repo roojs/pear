@@ -3793,7 +3793,7 @@ class DB_DataObject extends DB_DataObject_Overload
             foreach($keys as $c) {
                 //var_dump($c);
                 
-                if ($cfg['distinct'] && $cfg['distinct'] == $c) {
+                if (  $cfg['distinct'] == $c) {
                     $has_distinct = 'DISTINCT( ' . $this->tableName() .'.'. $c .') as ' . $c;
                     $ret['count'] =  'DISTINCT  ' . $do->tableName() .'.'. $c .'';
                     continue;
@@ -3863,7 +3863,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 foreach($keys as $c) {
                     $tn = sprintf($ocl.'_%s', $c);
                       
-                    if ($distinct && $tn == $distinct) {
+                    if ( $tn == $cfg['distinct']) {
                         
                         $has_distinct = 'DISTINCT( ' . 'join_'.$ocl.'_'.$col.'.'.$c .')  as ' . $tn ;
                         $this->countWhat =  'DISTINCT  join_'.$ocl.'_'.$col.'.'.$c;
