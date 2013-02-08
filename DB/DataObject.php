@@ -2469,7 +2469,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
-            $this->debug(serialize($_DB_DATAOBJECT['CONNECTIONS']), "CONNECT",5);
+            $this->debug(print_r($_DB_DATAOBJECT['CONNECTIONS'],true), "CONNECT",5);
         }
         if (PEAR::isError($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5])) {
             $this->debug($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->toString(), "CONNECT FAILED",5);
