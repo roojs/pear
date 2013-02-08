@@ -3829,7 +3829,7 @@ class DB_DataObject extends DB_DataObject_Overload
             if (isset($cfg['exclude']) && in_array($ocl, $cfg['exclude'])) {
                 continue;
             }
-            
+            // we ingore include here...
             
             // this is borked ... for multiple jions..
             $this->joinAdd($xx, 'LEFT', 'join_'.$ocl.'_'. $col, $ocl);
