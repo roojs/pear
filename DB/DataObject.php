@@ -3750,16 +3750,19 @@ class DB_DataObject extends DB_DataObject_Overload
      */
     function autoJoin($cfg = array())
     {
+        
         $pre_links = $this->links();
         if (!empty($cfg['links'])) {
             $this->links(array_merge( $pre_links , $cfg['links']));
         }
         $map = $this->links( );
+        
+        
         //print_r($map);
         $tabdef = $this->table();
          
         // we need this as normally it's only cleared by an empty selectAs call.
-        $this->selectAdd(); 
+       
         
         $keys = array_keys($tabdef);
         if (isset($cfg['exclude'])) {
@@ -3851,6 +3854,9 @@ class DB_DataObject extends DB_DataObject_Overload
             }
              
         }
+        // fill in the select details..
+        $this->selectAdd(); 
+        
         if ($has_distinct) {
             $do->selectAdd($has_distinct);
         }
