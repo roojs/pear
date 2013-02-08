@@ -3778,16 +3778,14 @@ class DB_DataObject extends DB_DataObject_Overload
             'count' => false,
         );
         
-        foreach(array_keys($tabdef) as $k) {
-            $ret['cols'][$k] = $this->tableName(). '.' . $k;
-        }
+        
         
         $has_distinct = false;
         if (!empty($cfg['distinct']) && $keys) {
             
             // reset the columsn?
             $cols = array();
-            $ret['cols'] = array();
+            
              //echo '<PRE>' ;print_r($xx);exit;
             foreach($keys as $c) {
                 //var_dump($c);
@@ -3801,7 +3799,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 $cols = $c;
                 
             }
-            
+            // apply our filtered version, which excludes the distinct column.
             
             $selectAs = empty($cols) ?  array() : array(array(  $cols , '%s', false)) ;
             
@@ -3809,7 +3807,9 @@ class DB_DataObject extends DB_DataObject_Overload
             
         } 
                 
-
+        foreach($keys as $k) {
+            $ret['cols'][$k] = $this->tableName(). '.' . $k;
+        }
         
         
         
