@@ -3826,13 +3826,16 @@ class DB_DataObject extends DB_DataObject_Overload
                 continue;
             }
             // skip columns that are excluded.
-            if (!empty($cfg['exclude']) && in_array($ocl, $cfg['exclude'])) {
-                continue;
-            }
+            
             // we ignore include here... - as
             
             // this is borked ... for multiple jions..
             $this->joinAdd($xx, 'LEFT', 'join_'.$ocl.'_'. $col, $ocl);
+            
+            if (!empty($cfg['exclude']) && in_array($ocl, $cfg['exclude'])) {
+                continue;
+            }
+            
             $tabdef = $xx->table();
             $table = $xx->tableName();
             
