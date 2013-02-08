@@ -3740,6 +3740,7 @@ class DB_DataObject extends DB_DataObject_Overload
      *          links    The equivilant links.ini data for this table eg.
      *                    array( 'person_id' => 'person:id', .... )
      *          include  Array of columns to include
+     *          distinct Array of distinct columns.
      *          
      * @return   array      info about joins
      *                      cols => map of resulting {joined_tablename}.{joined_table_column_name}
