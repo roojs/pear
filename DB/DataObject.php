@@ -3783,7 +3783,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         $has_distinct = false;
-        if ($distinct && $keys) {
+        if (!empty($cfg['distinct']) && $keys) {
             
             // reset the columsn?
             $cols = array();
