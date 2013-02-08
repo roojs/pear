@@ -3795,7 +3795,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 
                 if (  $cfg['distinct'] == $c) {
                     $has_distinct = 'DISTINCT( ' . $this->tableName() .'.'. $c .') as ' . $c;
-                    $ret['count'] =  'DISTINCT  ' . $do->tableName() .'.'. $c .'';
+                    $ret['count'] =  'DISTINCT  ' . $this->tableName() .'.'. $c .'';
                     continue;
                 }
                 // cols is in our filtered keys...
