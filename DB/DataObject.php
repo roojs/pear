@@ -3782,6 +3782,39 @@ class DB_DataObject extends DB_DataObject_Overload
             $ret['cols'][$k] = $this->tableName(). '.' . $k;
         }
         
+        $has_distinct = false;
+        if ($distinct && $keys) {
+            
+            
+            
+            $cols = array();
+             //echo '<PRE>' ;print_r($xx);exit;
+            foreach($keys as $c) {
+                //var_dump($c);
+                
+                if ($distinct && $distinct == $c) {
+                    $has_distinct = 'DISTINCT( ' . $this->tableName() .'.'. $c .') as ' . $c;
+                    $this->countWhat =  'DISTINCT  ' . $do->tableName() .'.'. $c .'';
+                    continue;
+                }
+                if (!$onlycolumns || in_array($c, $onlycolumns)) {
+                    $cols[] = $c;
+                }
+            }
+            
+            
+            $selectAs = empty($cols) ?  array() : array(array(  $cols , '%s', false)) ;
+            
+            
+            
+        } 
+                
+
+        
+        
+        
+        
+        
         
         foreach($map as $ocl=>$info) {
             
@@ -3804,7 +3837,7 @@ class DB_DataObject extends DB_DataObject_Overload
             
             $keys = array_keys($tabdef);
             if (isset($cfg['exclude'])) {
-                $keys = array_intersect($keys, array_diff($keys, $cfg['exclude'])); 
+                $keys = array_intersect($keys, array_diff($keys, $cfg['exclude']));
             }
             if (isset($cfg['include'])) {
                  $keys = array_intersect($keys,  $cfg['include']); 
