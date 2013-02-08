@@ -3805,7 +3805,9 @@ class DB_DataObject extends DB_DataObject_Overload
             if (isset($cfg['include'])) {
                  $keys = array_intersect($keys,  $cfg['include']); 
             }
-             
+            if (empty($keys)) {
+                continue;
+            }
             $selectAs[] = array($keys, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
               
             foreach($keys as $k) {
