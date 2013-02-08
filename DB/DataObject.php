@@ -3798,7 +3798,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     continue;
                 }
                 if (!$onlycolumns || in_array($c, $onlycolumns)) {
-                    $ret['cols'] = $c;
+                    $cols = $c;
                 }
             }
             
