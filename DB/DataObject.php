@@ -3797,9 +3797,9 @@ class DB_DataObject extends DB_DataObject_Overload
                     $ret['count'] =  'DISTINCT  ' . $do->tableName() .'.'. $c .'';
                     continue;
                 }
-                if (!$onlycolumns || in_array($c, $onlycolumns)) {
-                    $cols = $c;
-                }
+                // cols is in our filtered keys...
+                $cols = $c;
+                
             }
             
             
