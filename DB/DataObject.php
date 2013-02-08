@@ -3826,7 +3826,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 continue;
             }
             // skip columns that are excluded.
-            if (isset($cfg['exclude']) && in_array($ocl, $cfg['exclude'])) {
+            if (!empty($cfg['exclude']) && in_array($ocl, $cfg['exclude'])) {
                 continue;
             }
             // we ignore include here... - as
