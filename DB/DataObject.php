@@ -3745,6 +3745,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * @return   array      info about joins
      *                      cols => map of resulting {joined_tablename}.{joined_table_column_name}
      *                      join_names => map of resulting {join_name_as}.{joined_table_column_name}
+     *                      count => the column to count on.
      * @access   public
      */
     function autoJoin($cfg = array())
