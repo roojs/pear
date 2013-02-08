@@ -3859,23 +3859,19 @@ class DB_DataObject extends DB_DataObject_Overload
             }
             // got distinct, and not yet found it..
             if (!$has_distinct && !empty($cfg['distinct']))  {
-                
+                $cols = array();
                 foreach($keys as $c) {
                     $tn = sprintf($ocl.'_%s', $c);
                       
                     if ( $tn == $cfg['distinct']) {
                         
                         $has_distinct = 'DISTINCT( ' . 'join_'.$ocl.'_'.$col.'.'.$c .')  as ' . $tn ;
-                        $this->countWhat =  'DISTINCT  join_'.$ocl.'_'.$col.'.'.$c;
+                        $ret['count'] =  'DISTINCT  join_'.$ocl.'_'.$col.'.'.$c;
                        // var_dump($this->countWhat );
                         continue;
                     }
-                    
-                    
-                    if (!$onlycolumns || in_array($tn, $onlycolumns)) {
-                        $cols[] = $c;
-                        
-                    }
+                    $cols[] = $c;
+                     
                 }
                 
                 if (!empty($cols)) {
