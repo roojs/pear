@@ -3785,20 +3785,20 @@ class DB_DataObject extends DB_DataObject_Overload
         $has_distinct = false;
         if ($distinct && $keys) {
             
-            
-            
+            // reset the columsn?
             $cols = array();
+            $ret['cols'] = array();
              //echo '<PRE>' ;print_r($xx);exit;
             foreach($keys as $c) {
                 //var_dump($c);
                 
                 if ($distinct && $distinct == $c) {
                     $has_distinct = 'DISTINCT( ' . $this->tableName() .'.'. $c .') as ' . $c;
-                    $this->countWhat =  'DISTINCT  ' . $do->tableName() .'.'. $c .'';
+                    $ret['count'] =  'DISTINCT  ' . $do->tableName() .'.'. $c .'';
                     continue;
                 }
                 if (!$onlycolumns || in_array($c, $onlycolumns)) {
-                    $cols[] = $c;
+                    $ret['cols'] = $c;
                 }
             }
             
