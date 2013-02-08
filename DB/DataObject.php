@@ -3739,6 +3739,8 @@ class DB_DataObject extends DB_DataObject_Overload
      *          exclude  Array of columns to exclude from results (eg. modified_by_id)
      *          links    The equivilant links.ini data for this table eg.
      *                    array( 'person_id' => 'person:id', .... )
+     *          include  Array of columns to include
+     *          
      * @return   array      info about joins
      *                      cols => map of resulting {joined_tablename}.{joined_table_column_name}
      *                      join_names => map of resulting {join_name_as}.{joined_table_column_name}
@@ -3761,6 +3763,10 @@ class DB_DataObject extends DB_DataObject_Overload
         if (isset($cfg['exclude'])) {
             $keys = array_intersect($keys, array_diff($keys, $cfg['exclude'])); 
         }
+        if (isset($cfg['include'])) {
+            $keys =  array_intersect($keys,  $cfg['include']); 
+        }
+        
         $selectAs = array(array( $keys , '%s', false));
         
         $ret = array(
@@ -3768,7 +3774,7 @@ class DB_DataObject extends DB_DataObject_Overload
             'join_names' => array()
         );
         
-         foreach(array_keys($tabdef) as $k) {
+        foreach(array_keys($tabdef) as $k) {
             $ret['cols'][$k] = $this->tableName(). '.' . $k;
         }
         
@@ -3796,7 +3802,9 @@ class DB_DataObject extends DB_DataObject_Overload
             if (isset($cfg['exclude'])) {
                 $keys = array_intersect($keys, array_diff($keys, $cfg['exclude'])); 
             }
-            
+            if (isset($cfg['include'])) {
+                array_intersect($keys,  $cfg['include']); 
+            }
              
             $selectAs[] = array($keys, $ocl.'_%s', 'join_'.$ocl.'_'. $col);
               
