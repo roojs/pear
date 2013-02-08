@@ -3851,7 +3851,9 @@ class DB_DataObject extends DB_DataObject_Overload
             }
              
         }
-         
+        if ($has_distinct) {
+            $do->selectAdd($has_distinct);
+        }
          
         foreach($selectAs as $ar) {
             
