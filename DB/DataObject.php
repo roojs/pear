@@ -3769,6 +3769,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $keys = array_intersect($keys, array_diff($keys, $cfg['exclude'])); 
         }
         if (!empty($cfg['include'])) {
+            var_Dump($cfg['include']);
             $keys =  array_intersect($keys,  $cfg['include']); 
         }
         if (!empty($keys)) {
