@@ -3856,7 +3856,7 @@ class DB_DataObject extends DB_DataObject_Overload
             if (!empty($cfg['include'])) {
                 // include will basically be BASECOLNAME_joinedcolname
                 $nkeys = array();
-                foreach($cfg['include'] as $k) {
+                foreach($Keysas $k) {
                     if (in_array( sprintf($ocl.'_%s', $k), $cfg['include'])) {
                         $nkeys[] = $k;
                     }
