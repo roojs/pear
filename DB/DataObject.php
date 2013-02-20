@@ -3854,7 +3854,14 @@ class DB_DataObject extends DB_DataObject_Overload
             }
             
             if (!empty($cfg['include'])) {
-                $keys = array_intersect($keys,  $cfg['include']); 
+                // include will basically be BASECOLNAME_joinedcolname
+                $nkeys = array();
+                foreach($cfg['include'] as $k) {
+                    if (in_array( sprintf($ocl.'_%s', $k), $cfg['include'])) {
+                        $nkeys[] = $k;
+                    }
+                }
+                $keys = $nkeys;
             }
             
             if (empty($keys)) {
