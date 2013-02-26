@@ -1,4 +1,27 @@
 <?php
+/*
+$y = new File_MimeType();
+//var_dump($y->fromExt('doc'));
+
+$y = new File_MimeType();
+var_dump($y->fromFilename('fred.doc'));
+
+
+$y = new File_MimeType();
+//var_dump($y->toExt('application/x-pdf'));
+
+require_once '../Pman/DataObjects/Documents.php';
+
+$x = new Pman_DataObjects_Documents();
+$ar = $x->mimeTypeMap();
+
+foreach($ar as $ext=>$mt) {
+    $calc = $y->fromExt($ext);
+    if ($calc != $mt) {
+        echo "array( '$mt', array('$ext')),<BR>";
+    }
+}
+*/
 
 $GLOBALS['File_MimeType'] = array();
 
@@ -119,28 +142,5 @@ class File_MimeType
     
     
 }
-/*
-$y = new File_MimeType();
-//var_dump($y->fromExt('doc'));
-
-$y = new File_MimeType();
-var_dump($y->fromFilename('fred.doc'));
-
-
-$y = new File_MimeType();
-//var_dump($y->toExt('application/x-pdf'));
-
-require_once '../Pman/DataObjects/Documents.php';
-
-$x = new Pman_DataObjects_Documents();
-$ar = $x->mimeTypeMap();
-
-foreach($ar as $ext=>$mt) {
-    $calc = $y->fromExt($ext);
-    if ($calc != $mt) {
-        echo "array( '$mt', array('$ext')),<BR>";
-    }
-}
-*/
 
 
