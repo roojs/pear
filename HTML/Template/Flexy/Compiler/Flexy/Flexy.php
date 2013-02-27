@@ -241,7 +241,84 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
             );
     
     }
+    /**
+    * include handler
+    * <flexy:use from="{block[test].toHTML()}">
+    * @see parent::toString()
+    */
+    function useToString($element) 
+    {
+        // this is disabled by default...
+        // we ignore modifier pre/suffix
     
+    
+    
+       
+        
+        if (!isset($element->ucAttributes['FROM'])) {
+            return $this->compiler->appendHTML("<B>Flexy:use without a from=contents (Line: {$element->line})</B>");
+        }
+        $arg = $element->ucAttributes['FROM'];
+         
+        // it's a string so its easy to handle
+        switch (true) {
+            case is_string($arg):
+                if ($arg == '""') {
+                    return $this->compiler->appendHTML("<B>Flexy:Include src attribute is empty. (Line: {$element->line})</B>");
+                }
+                $arg = "'". $element->getAttribute('SRC')."'";
+                break;
+            
+            case is_array($arg): // it's an array -> strings and variables possible
+                $string = '"';
+                foreach($arg as $item) {
+                    //it's a string
+                    if (is_string($item)) {
+                        if ($item != '' && $item != '"' && $item != '""' && 
+                            $item != "''") {
+                            $string .= $item;
+                        }
+                    } else {
+                        //it's a variable
+                        if (is_object($item) && is_a($item, 'HTML_Template_Flexy_Token_Var')) {
+                            $value = $item->toVar($item->value);
+                            if (is_object($value) && is_a($value, 'PEAR_Error')) {
+                                return $value;
+                            }
+                            $string .= "{{$value}}";
+                        }
+                    }
+                }
+                $arg = $string . '"';
+                break;
+            
+            default:
+            //something unexspected
+                return HTML_Template_Flexy::raiseError(
+                    ' Flexy:Include SRC needs a string or variable/method as value. '.
+                    " Error on Line {$element->line} &lt;{$element->tag}&gt;",
+                    null, HTML_TEMPLATE_FLEXY_ERROR_DIE); 
+            
+                
+            
+        }
+ 
+        // ideally it would be nice to embed the results of one template into another.
+        // however that would involve some complex test which would have to stat
+        // the child templates anyway..
+        // compile the child template....
+        // output... include $this->options['compiled_templates'] . $arg . $this->options['locale'] . '.php'
+        return $this->compiler->appendPHP( "\n".
+                "\$x = new HTML_Template_Flexy(\$this->options);\n".
+                "\$x->compile({$arg});\n".
+                "\$_t = function_exists('clone') ? clone(\$t) : \$t;\n".
+                "foreach(".$element->scopeVarsToArrayString(). "  as \$k) {\n" .
+                "    if (\$k != 't') { \$_t->\$k = \$\$k; }\n" .
+                "}\n" .
+                "\$x->outputObject(\$_t, \$this->elements);\n"
+            );
+    
+    }
     /**
     * Convert flexy tokens to HTML_Template_Flexy_Elements.
     *
