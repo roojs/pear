@@ -243,7 +243,9 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
     }
     /**
     * include handler
-    * <flexy:use from="{block[test].toHTML()}">
+    * <flexy:use from="{block[test].toHTML()}"> ... some default contents </flexy:use>
+    * equivialnt to doing {block[test].toHTML()}
+    * 
     * @see parent::toString()
     */
     function useToString($element) 
@@ -262,12 +264,12 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
          
         // it's a string so its easy to handle
         switch (true) {
-            case is_string($arg):
-                if ($arg == '""') {
-                    return $this->compiler->appendHTML("<B>Flexy:Include src attribute is empty. (Line: {$element->line})</B>");
-                }
-                $arg = "'". $element->getAttribute('SRC')."'";
-                break;
+            //case is_string($arg):
+            //    if ($arg == '""') {
+            //        return $this->compiler->appendHTML("<B>Flexy:Include src attribute is empty. (Line: {$element->line})</B>");
+            //    }
+            //    $arg = "'". $element->getAttribute('SRC')."'";
+            //    break;
             
             case is_array($arg): // it's an array -> strings and variables possible
                 $string = '"';
@@ -295,7 +297,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
             default:
             //something unexspected
                 return HTML_Template_Flexy::raiseError(
-                    ' Flexy:Include SRC needs a string or variable/method as value. '.
+                    ' Flexy:use from needs a variable/method as value. '.
                     " Error on Line {$element->line} &lt;{$element->tag}&gt;",
                     null, HTML_TEMPLATE_FLEXY_ERROR_DIE); 
             
@@ -308,15 +310,8 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
         // the child templates anyway..
         // compile the child template....
         // output... include $this->options['compiled_templates'] . $arg . $this->options['locale'] . '.php'
-        return $this->compiler->appendPHP( "\n".
-                "\$x = new HTML_Template_Flexy(\$this->options);\n".
-                "\$x->compile({$arg});\n".
-                "\$_t = function_exists('clone') ? clone(\$t) : \$t;\n".
-                "foreach(".$element->scopeVarsToArrayString(). "  as \$k) {\n" .
-                "    if (\$k != 't') { \$_t->\$k = \$\$k; }\n" .
-                "}\n" .
-                "\$x->outputObject(\$_t, \$this->elements);\n"
-            );
+        return $this->compiler->appendPHP( $arg );
+            
     
     }
     /**
