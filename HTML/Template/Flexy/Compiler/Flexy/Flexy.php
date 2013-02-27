@@ -304,7 +304,9 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
                 
             
         }
- 
+        // remove the '"' from $arg
+        $arg = trim($arg, '"');
+        // 
         // ideally it would be nice to embed the results of one template into another.
         // however that would involve some complex test which would have to stat
         // the child templates anyway..
