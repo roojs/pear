@@ -217,7 +217,15 @@ class HTML_Template_Flexy_Token_Tag extends HTML_Template_Flexy_Token {
         foreach($this->attributes as $k=>$v) {
             $ret.= " " . $k .'='.$v;
         }
-        return $ret . '>';
+        if (empty($this->children)) {
+            return $ret . '/>';
+        }
+        $ret .= '>';
+        foreach($this->children as $c) {
+            $ret .= $c->toString();
+        }
+        return $ret . '</'. $this->oTag .'>';
+    
         
         
     }
