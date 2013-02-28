@@ -101,7 +101,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
             foreach($val as $c) {
                 $kval .= is_object($c) ? $c->toString() : '';
             }
-            var_dump($kval);
+            //var_dump($kval);
         }
         $element->children = null;
         
