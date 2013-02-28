@@ -83,6 +83,9 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
         // default: special case if $val is empty - simply set children to null
         $element->children = null;
         if (! empty($val)) {
+            print_r($element->children);exit;
+            $this->compiler->contentStrings[$val] = 
+            
             $this->replaceChildren($element,$val);
         }  
 
