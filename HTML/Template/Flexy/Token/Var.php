@@ -52,7 +52,7 @@ class HTML_Template_Flexy_Token_Var extends HTML_Template_Flexy_Token {
      */
     function toString()
     {
-        return '{' . $this->value . ($this->modifier ? ':' : '') . . $this->modifier .'}';
+        return '{' . $this->value . ($this->modifier ? ':' : '') .  $this->modifier .'}';
         
     }
 
