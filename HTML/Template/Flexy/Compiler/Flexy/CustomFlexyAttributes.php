@@ -89,8 +89,8 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
         // assign method or variable $val as the child token of this element, potentially replacing any existing children
         // default: special case if $val is empty - simply set children to null
         //$element->children = null;
-        echo "content attribute";
-        var_dump($val);
+        //echo "content attribute";
+        //var_dump($val);
         $str= '';
         foreach($element->children as $c) {
             $str .= is_object($c) ? $c->toString() : '';
