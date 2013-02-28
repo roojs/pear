@@ -54,9 +54,6 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
      * when using flexy::contents - this contains the map of
      * <... flexy:conntents="KEY">.....VALUE ...<...>
      * 
-     *
-     *
-     *
      */
     var $contentStrings = array();
     
