@@ -108,7 +108,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
         if (! empty($val)) {
             
         
-            $this->compiler->contentStrings[$lval] = $str;
+            $this->compiler->contentStrings[$kval] = $str;
             $this->replaceChildren($element,$val);
         }
         
