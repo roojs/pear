@@ -21,6 +21,14 @@
 */
 class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes  
 {
+    /**
+     * reference to the compiler
+     */
+    var $compiler; 
+
+    function __construct($compiler) {
+        $this->compiler = $compiler;
+    }
 
     /**
     * doCustomAttributes 
