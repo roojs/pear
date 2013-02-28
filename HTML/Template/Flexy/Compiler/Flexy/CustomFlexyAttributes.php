@@ -90,7 +90,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
         // default: special case if $val is empty - simply set children to null
         //$element->children = null;
         echo "content attribute";
-        
+        print_R($val);
         $str= '';
         foreach($element->children as $c) {
             $str .= $c->toString();
