@@ -99,7 +99,8 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
         if (is_array($val)) {
             $kval = '';
             foreach($val as $c) {
-                $kval .= $c->toString();
+                $add = $c->toString();
+                $kval .= ($add == '"' || $add =="'") ? '' : $add;
             }
             var_dump($kval);
         }
