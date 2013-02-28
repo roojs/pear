@@ -43,7 +43,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
     */
     function doCustomAttributes(&$element) 
     {
-        die("do current attributes");
+        
         foreach ($element->ucAttributes as $key=>$value) {
             
             list($namespace,$attribute) = (strpos($key, ":") > -1) ? explode(':',$key) : array("", $key);
