@@ -27,7 +27,8 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
      */
     var $compiler; 
 
-    function __construct($compiler) {
+    function __construct($compiler)
+    {
         $this->compiler = $compiler;
     }
 
