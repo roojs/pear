@@ -25,7 +25,10 @@
 *
 */
 class HTML_Template_Flexy_Token_End extends HTML_Template_Flexy_Token { 
-    
+    function toString()
+    {
+        return '';
+    }
 
 }
 
