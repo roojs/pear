@@ -99,6 +99,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
             foreach($val as $c) {
                 $kval .= $c->toString();
             }
+            var_dump($kval);
         }
         $element->children = null;
         
