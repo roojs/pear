@@ -47,7 +47,14 @@ class HTML_Template_Flexy_Token_Text extends HTML_Template_Flexy_Token {
         }
         return  preg_match('/\w/i',$this->value);
     }
-     
+    /**
+     * used to get the contents..
+     */
+    function toString()
+    {
+        return $this->value;
+        
+    }
 }
 
 
