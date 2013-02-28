@@ -207,6 +207,21 @@ class HTML_Template_Flexy_Token_Tag extends HTML_Template_Flexy_Token {
         }
     }
     
+    
+      /**
+     * used to get the contents..
+     */
+    function toString()
+    {
+        $ret = '<'.$this->oTag;
+        foreach($this->attributes as $k=>$v) {
+            $ret.= " " . $k .'='.$v;
+        }
+        return $ret . '>';
+        
+        
+    }
+    
      
     
 }
