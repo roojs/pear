@@ -48,7 +48,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
             
             list($namespace,$attribute) = (strpos($key, ":") > -1) ? explode(':',$key) : array("", $key);
             $method = strtolower($attribute) . 'Attribute';
-            echo $method . "\n";
+            //echo $method . "\n";
             if (strtolower($namespace) != 'flexy') {
                 continue;
             }
