@@ -188,7 +188,14 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
     function replaceChildren(&$element,&$val)
     {
         // Most of the this method is borrowed from parseAttributeIf() in HTML_Template_Flexy_Compiler_Flexy_Tag
-        
+        if (is_array($val)) {
+            
+            
+            
+            
+            
+            
+        }
         
         
         
