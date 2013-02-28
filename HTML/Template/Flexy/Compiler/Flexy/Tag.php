@@ -180,7 +180,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
         
         // support Custom Attributes...
         require_once 'HTML/Template/Flexy/Compiler/Flexy/CustomFlexyAttributes.php';
-		$customFlexyAttributes = new HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes();
+		$customFlexyAttributes = new HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes($compiler);
 		$customFlexyAttributes->doCustomAttributes($element);
 		
         
