@@ -30,6 +30,19 @@
 require_once 'HTML/Template/Flexy/Token/Tag.php';
 
 
-class HTML_Template_Flexy_Token_EndTag extends HTML_Template_Flexy_Token_Tag { }
+class HTML_Template_Flexy_Token_EndTag extends HTML_Template_Flexy_Token_Tag {
+    
+    
+      /**
+     * used to get the contents..
+     */
+    function toString()
+    {
+        // should be handed by tag... and children..
+        return  '';
+        
+        
+    }
+}
 
   
