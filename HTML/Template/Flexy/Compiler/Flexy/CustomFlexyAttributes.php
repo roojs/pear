@@ -53,7 +53,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
                 continue;
             }
             if ((strlen($attribute)) && (method_exists($this,$method))) {
-                $this->{$method}($element, $element->getAttribute($key));
+                $this->{$method}($element, $value);
             }
         }  
     }
