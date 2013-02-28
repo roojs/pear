@@ -93,14 +93,13 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
         var_dump($val);
         $str= '';
         foreach($element->children as $c) {
-            $str .= $c->toString();
+            $str .= is_object($c) ? $c->toString() : '';
         }
         $kval = $val;
         if (is_array($val)) {
             $kval = '';
             foreach($val as $c) {
-                $add = $c->toString();
-                $kval .= ($add == '"' || $add =="'") ? '' : $add;
+                $kval .= is_object($c) ? $c->toString() : '';
             }
             var_dump($kval);
         }
