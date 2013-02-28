@@ -227,7 +227,6 @@ class HTML_Template_Flexy_Token_Tag extends HTML_Template_Flexy_Token {
         return $ret . '</'. $this->oTag .'>';
     
         
-        
     }
     
      
