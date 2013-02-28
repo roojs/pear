@@ -199,7 +199,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
     {
         // Most of the this method is borrowed from parseAttributeIf() in HTML_Template_Flexy_Compiler_Flexy_Tag
         if (is_array($val)) {
-            $element->children = array($val[0]);
+            $element->children = array($val[1]); // should be the token_val
             return;
             
         }
