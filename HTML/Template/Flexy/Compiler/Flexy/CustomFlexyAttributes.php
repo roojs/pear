@@ -192,7 +192,6 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
             $element->children = $val;
             return;
             
-            
         }
         
         
