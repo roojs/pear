@@ -64,7 +64,13 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
     * Examples:
     * <anyTag... flexy:content="methodOrVariableOrNothing" .../>
     * <anyTag... flexy:content="methodOrVariableOrNothing" ...></anyTag>
+    * 
     * <anyTag... flexy:content="methodOrVariableOrNothing" ...>All this <b>CONTENT</b> will be <i>replaced<i> by
+    *
+    * complex replacements can use the engine here..
+    * <anyTag... flexy:content="{xxxx[tttt].methodOrVariableOrNothing()}" ...>All this <b>CONTENT</b> will be <i>replaced<i> by
+   
+    * 
     * the result of methodOrVariableOrNothing</anyTag>
     *
     * Replaces element content with the result of the variable or method call or empty string. 
@@ -119,7 +125,8 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
     * Examples:
     * <anyTag... flexy:replace="methodOrVariableOrNothing" .../>
     * <anyTag... flexy:replace="methodOrVariableOrNothing" ...></anyTag>
-    * <anyTag... flexy:replace="methodOrVariableOrNothing" ...>Entire <b>element</b> including tag <i>replaced<i> by 
+    * <anyTag... flexy:replace="methodOrVariableOrNothing" ...>Entire <b>element</b> including tag <i>replaced<i> by
+    * 
     * the result of methodOrVariableOrNothing</anyTag>
     *
     * Replaces entire element with the result of the variable or method call or empty string. 
@@ -181,6 +188,10 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
     function replaceChildren(&$element,&$val)
     {
         // Most of the this method is borrowed from parseAttributeIf() in HTML_Template_Flexy_Compiler_Flexy_Tag
+        
+        
+        
+        
         
         // If this is a method, not a variable (last character is ')' )...
         if (substr($val,-1) == ')') {
