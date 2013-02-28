@@ -93,12 +93,19 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
         foreach($element->children as $c) {
             $str .= $c->toString();
         }
+        $kval = $val;
+        if (is_array($val)) {
+            $kval = '';
+            foreach($val as $c) {
+                $kval .= $c->toString();
+            }
+        }
         $element->children = null;
         
         if (! empty($val)) {
             
         
-            $this->compiler->contentStrings[$val] = $str;
+            $this->compiler->contentStrings[$lval] = $str;
             $this->replaceChildren($element,$val);
         }
         
