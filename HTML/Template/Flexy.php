@@ -464,8 +464,8 @@ class HTML_Template_Flexy
         // Compile the template in $file. 
         
         require_once 'HTML/Template/Flexy/Compiler.php';
-        $compiler = HTML_Template_Flexy_Compiler::factory($this->options);
-        $ret = $compiler->compile($this);
+        $this->compiler = HTML_Template_Flexy_Compiler::factory($this->options);
+        $ret = $this->compiler->compile($this);
         if (HTML_Template_Flexy_is_a($ret,'PEAR_Error')) {
             return $this->raiseError('HTML_Template_Flexy fatal error:' .$ret->message,
                 $ret->code,  HTML_TEMPLATE_FLEXY_ERROR_DIE);
