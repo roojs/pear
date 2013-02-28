@@ -87,7 +87,10 @@ class HTML_Template_Flexy_Token_Method extends HTML_Template_Flexy_Token {
         // modifier TODO!
         
     }
-  
+    function toString()
+    {
+        return '';
+    }
 }
 
 
