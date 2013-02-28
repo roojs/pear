@@ -89,7 +89,9 @@ class HTML_Template_Flexy_Token_Method extends HTML_Template_Flexy_Token {
     }
     function toString()
     {
-        return '';
+        return '{' . $this->method . '('. implode(',' , $this->args ) . ')' .  
+            ($this->modifier ? ':' : '') .  $this->modifier .'}';
+        
     }
 }
 
