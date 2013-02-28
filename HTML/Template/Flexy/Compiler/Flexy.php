@@ -77,8 +77,6 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         
         $this->currentTemplate  = $flexy->currentTemplate;
         
-        $flexy->compiler = $this;
-        
         $gettextStrings = &$_HTML_TEMPLATE_FLEXY_COMPILER['gettextStrings'];
         $gettextStrings = array(); // reset it.
         
