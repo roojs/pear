@@ -54,7 +54,10 @@ class HTML_Template_Flexy_Token_If extends HTML_Template_Flexy_Token{
         $this->condition=$value;
     }
     
-
+    function toString()
+    {
+        return '';
+    }
 }
 
  
