@@ -23,6 +23,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
 {
     /**
      * reference to the compiler
+     * ($compiler->flexy is the base code)
      */
     var $compiler; 
 
