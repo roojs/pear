@@ -82,13 +82,15 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
     {
         // assign method or variable $val as the child token of this element, potentially replacing any existing children
         // default: special case if $val is empty - simply set children to null
-        $element->children = null;
+        //$element->children = null;
         if (! empty($val)) {
             print_r($element->children);exit;
             $this->compiler->contentStrings[$val] = 
-            
+            $element->children = null;
             $this->replaceChildren($element,$val);
-        }  
+        }  else {
+            $element->children = null;
+        }
 
         // do we have to add a seperate closing tag token to surround the content within...
         if ($element->close)  {
