@@ -427,15 +427,10 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                     $objWriter->writeAttribute('w:w', array_sum($cw));
                     $objWriter->endElement();
                 }
+                
+                
                 // bit of a hack..
-                if (!empty($table->fixed)) {
-                     $objWriter->startElement('w:tblLayout');
-                    $objWriter->writeAttribute('w:type', 'fixed');
-                    $objWriter->endElement();
-                }
-                
-                
-                $tblStyle = $table->getStyle();
+               
                 if ($tblStyle instanceof Document_Word_Writer_Style_Table) {
                     $this->_writeTableStyle($objWriter, $tblStyle);
                 } else {
@@ -548,6 +543,14 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$mRight = (!is_null($margins[2])) ? true : false;
 		$mBottom = (!is_null($margins[3])) ? true : false;
 		
+                if (!empty($style->fixed)) {
+                     $objWriter->startElement('w:tblLayout');
+                    $objWriter->writeAttribute('w:type', 'fixed');
+                    $objWriter->endElement();
+                }
+                
+                
+                
 		if($mTop || $mLeft || $mRight || $mBottom) {
 			$objWriter->startElement('w:tblPr');
 				$objWriter->startElement('w:tblCellMar');
