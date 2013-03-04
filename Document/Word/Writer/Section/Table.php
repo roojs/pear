@@ -62,12 +62,7 @@ class Document_Word_Writer_Section_Table
 	 * @var array
 	 */
 	private $_colWidths = array();
-        	/**
-	 * Fixed width
-	 *
-	 * @var array
-	 */
-	private $_fixed = false;
+        
 	/**
 	 * Table holder
 	 *
