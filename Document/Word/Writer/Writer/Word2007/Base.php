@@ -447,7 +447,6 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         $objWriter->startElement('w:tblStyle');
                         $objWriter->writeAttribute('w:val', $tblStyle);
                         $objWriter->endElement();
-                        
                     }
                 }
 
