@@ -99,7 +99,7 @@ class Document_Word_Writer_Section_Table
             }
              
             $this->_style = new Document_Word_Writer_Style_Table();
-
+            var_dump($this->_style);exit;
             foreach ($style as $key => $value) {
                 if (substr($key, 0, 1) != '_') {
                     $key = '_' . $key;
@@ -162,9 +162,9 @@ class Document_Word_Writer_Section_Table
 		return $this->_rowHeights;
 	}
 	function getColumnWidths()
-    {
-        return $this->_colWidths;
-    }
+        {
+            return $this->_colWidths;
+        }
 	/**
 	 * Get table style
 	 * 
