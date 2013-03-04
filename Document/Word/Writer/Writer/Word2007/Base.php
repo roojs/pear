@@ -427,22 +427,11 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                     $objWriter->writeAttribute('w:w', array_sum($cw));
                     $objWriter->endElement();
                 }
-//                $objWriter->startElement('w:tblLayout');
-//                $objWriter->writeAttribute('w:type', 'fixed');
-//                $objWriter->endElement();
-//                
-//                <w:tblPr>
-//                    <w:tblW w:type="dxa" w:w="8430"/>
-//                    <w:tblLayout w:type="fixed" /> 
-//                </w:tblPr>
                
                 $tblStyle = $table->getStyle();
                 
-                
-                
                 if ($tblStyle instanceof Document_Word_Writer_Style_Table) {
                     $this->_writeTableStyle($objWriter, $tblStyle);
-//                    print_r($tblStyle);exit;
                 } else {
                     if (!empty($tblStyle)) {
                         $objWriter->startElement('w:tblStyle');
@@ -557,10 +546,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                     $objWriter->startElement('w:tblLayout');
                     $objWriter->writeAttribute('w:type', 'fixed');
                     $objWriter->endElement();
-//                    print_r('this is test');print_r($style);exit;
                 }
-                
-                
                 
 		if($mTop || $mLeft || $mRight || $mBottom) {
 			$objWriter->startElement('w:tblPr');
