@@ -89,7 +89,7 @@ class Document_Word_Writer_Section_Table
         {
             $this->_insideOf = $insideOf;
             $this->_pCount = $pCount;
-            var_dump($pCount);exit;
+            var_dump($style);exit;
             if (is_null($style)) {
                 return;
             }
