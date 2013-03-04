@@ -92,23 +92,23 @@ class Document_Word_Writer_Section_Table
 	 */
 	public function __construct($insideOf, $pCount, $style = null) 
         {
-		$this->_insideOf = $insideOf;
-		$this->_pCount = $pCount;
-		
-		if(!is_null($style)) {
-			if(is_array($style)) {
-				$this->_style = new Document_Word_Writer_Style_Table();
-				
-				foreach($style as $key => $value) {
-					if(substr($key, 0, 1) != '_') {
-						$key = '_'.$key;
-					}
-					$this->_style->setStyleValue($key, $value);
-				}
-			} else {
-				$this->_style = $style;
-			}
-		}
+            $this->_insideOf = $insideOf;
+            $this->_pCount = $pCount;
+
+            if (!is_null($style)) {
+                if (is_array($style)) {
+                    $this->_style = new Document_Word_Writer_Style_Table();
+
+                    foreach ($style as $key => $value) {
+                        if (substr($key, 0, 1) != '_') {
+                            $key = '_' . $key;
+                        }
+                        $this->_style->setStyleValue($key, $value);
+                    }
+                } else {
+                    $this->_style = $style;
+                }
+            }
 	}
 	
 	/**
