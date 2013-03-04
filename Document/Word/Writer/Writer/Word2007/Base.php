@@ -441,7 +441,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 //                var_dump($cw);exit;
                 
                 if ($tblStyle instanceof Document_Word_Writer_Style_Table) {
-                    $this->_writeTableStyle($objWriter, $tblStyle);
+                    $this->_writeTableStyle($objWriter, $tblStyle);var_dump($cw);exit;
                 } else {
                     if (!empty($tblStyle)) {
                         $objWriter->startElement('w:tblStyle');
