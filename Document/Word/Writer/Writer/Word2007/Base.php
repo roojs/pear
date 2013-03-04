@@ -545,8 +545,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
                 if (!empty($style->_fixed)) {
                      $objWriter->startElement('w:tblLayout');
-                    $objWriter->writeAttribute('w:type', 'fixed');
-                    $objWriter->endElement();
+                     $objWriter->writeAttribute('w:type', 'fixed');
+                     $objWriter->endElement();
                 }
                 
                 
