@@ -324,7 +324,7 @@ class File_Convert_AbiToDocx
                 
                 switch (trim($attr[0])){
                     case 'table-width-fixed':
-                        $attrArray['fixed'] = trim($prop);
+                        $attrArray['fixed'] = trim($attr[1]);
                         break;
                     
                     case 'table-column-props':
