@@ -543,7 +543,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$mRight = (!is_null($margins[2])) ? true : false;
 		$mBottom = (!is_null($margins[3])) ? true : false;
 		
-                if (!empty($style->fixed)) {
+                if (!empty($style->_fixed)) {
                      $objWriter->startElement('w:tblLayout');
                     $objWriter->writeAttribute('w:type', 'fixed');
                     $objWriter->endElement();
