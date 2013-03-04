@@ -429,8 +429,9 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 }
                 
                 
-                // bit of a hack..
                
+                $tblStyle = $table->getStyle();
+                
                 if ($tblStyle instanceof Document_Word_Writer_Style_Table) {
                     $this->_writeTableStyle($objWriter, $tblStyle);
                 } else {
@@ -542,11 +543,11 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$mLeft = (!is_null($margins[1])) ? true : false;
 		$mRight = (!is_null($margins[2])) ? true : false;
 		$mBottom = (!is_null($margins[3])) ? true : false;
-		
-                if (!empty($style->_fixed)) {
+		 // bit of a hack..
+                if (!empty($style->fixed)) {
                      $objWriter->startElement('w:tblLayout');
-                     $objWriter->writeAttribute('w:type', 'fixed');
-                     $objWriter->endElement();
+                    $objWriter->writeAttribute('w:type', 'fixed');
+                    $objWriter->endElement();
                 }
                 
                 
