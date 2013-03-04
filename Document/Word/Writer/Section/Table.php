@@ -99,14 +99,14 @@ class Document_Word_Writer_Section_Table
             }
             require_once 'Document/Word/Writer/Style/Table.php';
             $this->_style = new Document_Word_Writer_Style_Table();
-            var_dump($this->_style);exit;
+            
             foreach ($style as $key => $value) {
                 if (substr($key, 0, 1) != '_') {
                     $key = '_' . $key;
                 }
                 $this->_style->setStyleValue($key, $value);
             }
-             
+             var_dump($this->_style);exit;
 	}
 	
 	/**
