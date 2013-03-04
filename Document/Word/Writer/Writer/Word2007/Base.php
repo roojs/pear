@@ -411,31 +411,40 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	
 	protected function _writeTable(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Table $table) 
         {
-		$_rows = $table->getRows();
-		$_cRows = count($_rows);
-		
-		if($_cRows > 0) {
-             $cw = $table->getColumnWidths();
-            
-			$objWriter->startElement('w:tbl');
-            $objWriter->startElement('w:tblPr');
-            // <w:tblW w:type="dxa" w:w="9070" />
-            if (!empty($cw)) {
-                $objWriter->startElement('w:tblW');
-                $objWriter->writeAttribute('w:type','dxa');
-                $objWriter->writeAttribute('w:w', array_sum($cw));
-                $objWriter->endElement();
-            }
-            $tblStyle = $table->getStyle();
-            if($tblStyle instanceof Document_Word_Writer_Style_Table) {
+            $_rows = $table->getRows();
+            $_cRows = count($_rows);
+
+            if ($_cRows > 0) {
+                $cw = $table->getColumnWidths();
+
+                $objWriter->startElement('w:tbl');
+                $objWriter->startElement('w:tblPr');
+                // <w:tblW w:type="dxa" w:w="9070" />
+                if (!empty($cw)) {
+                    $objWriter->startElement('w:tblW');
+                    $objWriter->writeAttribute('w:type', 'dxa');
+                    // might be auto??? if fixed...
+                    $objWriter->writeAttribute('w:w', array_sum($cw));
+                    $objWriter->endElement();
+                }
+                // bit of a hack..
+                if (!empty($table->fixed)) {
+                     $objWriter->startElement('w:tblLayout');
+                    $objWriter->writeAttribute('w:type', 'fixed');
+                    $objWriter->endElement();
+                }
+                
+                
+                $tblStyle = $table->getStyle();
+                if ($tblStyle instanceof Document_Word_Writer_Style_Table) {
                     $this->_writeTableStyle($objWriter, $tblStyle);
-            } else {
-                    if(!empty($tblStyle)) {
-                            $objWriter->startElement('w:tblStyle');
-                            $objWriter->writeAttribute('w:val', $tblStyle);
-                            $objWriter->endElement();
+                } else {
+                    if (!empty($tblStyle)) {
+                        $objWriter->startElement('w:tblStyle');
+                        $objWriter->writeAttribute('w:val', $tblStyle);
+                        $objWriter->endElement();
                     }
-            } 
+                }
 
             /*
             
