@@ -97,6 +97,7 @@ class Document_Word_Writer_Section_Table
                 $this->_style = $style;
                 return;
             }
+            
             require_once 'Document/Word/Writer/Style/Table.php';
             $this->_style = new Document_Word_Writer_Style_Table();
             
@@ -106,7 +107,7 @@ class Document_Word_Writer_Section_Table
                 }
                 $this->_style->setStyleValue($key, $value);
             }
-//             var_dump($this->_style);exit;
+
 	}
 	
 	/**
