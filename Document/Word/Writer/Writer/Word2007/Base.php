@@ -557,7 +557,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                     $objWriter->startElement('w:tblLayout');
                     $objWriter->writeAttribute('w:type', 'fixed');
                     $objWriter->endElement();
-                    print_r($style);exit;
+                    print_r('this is test');print_r($style);exit;
                 }
                 
                 
