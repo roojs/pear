@@ -323,6 +323,9 @@ class File_Convert_AbiToDocx
                 $attr = explode(':', $attrs);
                 
                 switch (trim($attr[0])){
+                    case 'table-width-fixed':
+                        $attrArray['fixed'] = trim($prop);
+                        break;
                     
                     case 'table-column-props':
                         $props = explode('/', $attr[1]);
@@ -393,12 +396,14 @@ class File_Convert_AbiToDocx
                     case 'font-style':
                             $attrArray['italic'] = ($attr[1] == 'italic') ? true : false;
                         break;
-//                    case 'width':
-//                        $props = explode('/', $attr[1]);
-//                        foreach($props as $index => $prop){
-//                            $attrArray['width'.$index] = trim($prop);
-//                        }
-//                        break;
+                    
+                    case 'width':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $index => $prop){
+                            $attrArray['width'.$index] = trim($prop);
+                        }
+                        break;
+                        
                     default :
                         $key = trim($attr[0]);
                         $value = trim($attr[1]);
