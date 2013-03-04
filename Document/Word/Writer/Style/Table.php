@@ -33,7 +33,7 @@ class Document_Word_Writer_Style_Table
 	private $_cellMarginLeft;
 	private $_cellMarginRight;
 	private $_cellMarginBottom;
-        private $_fixed = false;
+        public $_fixed = false;
 	
 	public function __construct() 
         {
