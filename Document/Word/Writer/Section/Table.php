@@ -89,7 +89,7 @@ class Document_Word_Writer_Section_Table
         {
             $this->_insideOf = $insideOf;
             $this->_pCount = $pCount;
-            
+            var_dump($insideOf);exit;
             if (is_null($style)) {
                 return;
             }
@@ -99,7 +99,7 @@ class Document_Word_Writer_Section_Table
             }
              
             $this->_style = new Document_Word_Writer_Style_Table();
-            var_dump($this->_style);exit;
+            
             foreach ($style as $key => $value) {
                 if (substr($key, 0, 1) != '_') {
                     $key = '_' . $key;
