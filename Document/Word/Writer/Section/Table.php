@@ -56,7 +56,7 @@ class Document_Word_Writer_Section_Table
 	 * @var array
 	 */
 	private $_rowHeights = array();
-		/**
+        /**
 	 * Row heights
 	 *
 	 * @var array
