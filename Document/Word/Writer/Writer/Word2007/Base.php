@@ -427,10 +427,15 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                     $objWriter->writeAttribute('w:w', array_sum($cw));
                     $objWriter->endElement();
                 }
-                
-                
+//                
+//                <w:tblPr>
+//                    <w:tblW w:type="dxa" w:w="8430"/>
+//                    <w:tblLayout w:type="fixed" /> 
+//                </w:tblPr>
                
                 $tblStyle = $table->getStyle();
+                
+                print_r($tblStyle);
                 
                 if ($tblStyle instanceof Document_Word_Writer_Style_Table) {
                     $this->_writeTableStyle($objWriter, $tblStyle);
