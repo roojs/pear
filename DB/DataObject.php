@@ -3772,6 +3772,9 @@ class DB_DataObject extends DB_DataObject_Overload
             
             $keys =  array_intersect($keys,  $cfg['include']); 
         }
+        
+        $selectAs = array();
+        
         if (!empty($keys)) {
             $selectAs = array(array( $keys , '%s', false));
         }
