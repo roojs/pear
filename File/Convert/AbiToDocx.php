@@ -205,7 +205,7 @@ class File_Convert_AbiToDocx
             }
             $style =  $this->parseProps();
             
-            $image = $this->xr->getAttribute('dataid'); // not in used 
+            $image = $this->xr->getAttribute('dataid');
             foreach($style as $key => $value){
                 $style[$key] = $this->converttoDax($value,'image');
             }
