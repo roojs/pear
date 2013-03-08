@@ -57,6 +57,11 @@ class File_Convert_AbiToDocx
         }
         function parseAbi()
         {
+            Request-URI Too Large
+
+The requested URL's length exceeds the capacity limit for this server.
+Apache/2.2.22 (Ubuntu) Server at 127.0.1.1 Port 80
+        }
                 $this->xr = new XMLReader(); // New XML Reader
 
                 if(!$this->xr->open($this->fileName)){
@@ -290,7 +295,10 @@ class File_Convert_AbiToDocx
             }   
            
         }
-        
+        Request-URI Too Large
+
+The requested URL's length exceeds the capacity limit for this server.
+Apache/2.2.22 (Ubuntu) Server at 127.0.1.1 Port 80
         // converts inches / cm into dax (word measurments)
         function converttoDax($wh,$type=null)
         {
