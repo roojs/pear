@@ -276,7 +276,7 @@ class File_Convert_AbiToDocx
         /**
          * handle the image data 
          * 
-         * 
+         * not in used, we dont encore the image to base 64 any more
          */
         function handle_d()
         {
