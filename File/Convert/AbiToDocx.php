@@ -272,6 +272,11 @@ class File_Convert_AbiToDocx
 //            $this->section->createTextRun($this->style);
         }
         
+        /**
+         * handle the image data 
+         * 
+         * 
+         */
         function handle_d()
         {
             if ($this->pass == 2) {
