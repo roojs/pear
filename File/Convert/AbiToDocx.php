@@ -205,13 +205,18 @@ class File_Convert_AbiToDocx
             }
             $style =  $this->parseProps();
             
-//            $image = $this->xr->getAttribute('dataid'); // not in used 
+            $image = $this->xr->getAttribute('dataid'); // not in used 
             foreach($style as $key => $value){
                 $style[$key] = $this->converttoDax($value,'image');
             }
+            if(!empty($image)){
+                $this->section->addImage($this->tmpdir . '/' . $image . '.jpg', $style);
+                return;
+            }
+            
             $path = $this->xr->getAttribute('filesrc');
             $this->section->addImage($path, $style);
-//            $this->section->addImage($this->tmpdir . '/' . $image . '.jpg', $style);
+            
 //            echo '<PRE>';print_r($this->section);exit;
         }
         
