@@ -317,7 +317,7 @@ class File_Convert_AbiToDocx
         
         function parseProps()
         {
-            
+            ini_set('memory_limit', '512M');
             $attribute = $this->xr->getAttribute('props');
             if(empty($attribute)){
                 return array();
