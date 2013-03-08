@@ -208,7 +208,8 @@ class File_Convert_AbiToDocx
             foreach($style as $key => $value){
                 $style[$key] = $this->converttoDax($value,'image');
             }
-            $this->section->addImage($this->tmpdir . '/' . $image . '.jpg', $style);
+            $path = $this->xr->getAttribute('filesrc');
+            $this->section->addImage($path, $style);
             echo '<PRE>';print_r($this->section);exit;
         }
         
