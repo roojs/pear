@@ -209,7 +209,7 @@ class File_Convert_AbiToDocx
                 $style[$key] = $this->converttoDax($value,'image');
             }
             $this->section->addImage($this->tmpdir . '/' . $image . '.jpg', $style);
-            //echo '<PRE>';print_r($this->section);exit;
+            echo '<PRE>';print_r($this->section);exit;
         }
         
         function handle_pbr() 
