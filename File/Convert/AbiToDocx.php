@@ -210,7 +210,7 @@ class File_Convert_AbiToDocx
             }
             $path = $this->xr->getAttribute('filesrc');
             $this->section->addImage($path, $style);
-            echo '<PRE>';print_r($this->section);exit;
+//            echo '<PRE>';print_r($this->section);exit;
         }
         
         function handle_pbr() 
