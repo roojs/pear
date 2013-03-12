@@ -149,7 +149,7 @@ class DB_DataObject_Links
         
         // check to see if we know anything about this table..
         
-      
+      print_r($this->do);exit;
         if (empty($this->do->$field) || $this->do->$field < 0) {
             return 0; // no record. 
         }
