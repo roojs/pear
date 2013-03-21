@@ -87,7 +87,7 @@ class HTML_FlexyFramework {
     var $fatalAction = false; // page to redirct to on failure. (eg. databse down etc.)
     var $charset = false; // default UTF8
     var $dataObjectsCache = true;  // use dataobjects ini cache.. - let's try this as the default behaviour...
-    var $dataObjectsCacheExpires = 36000; // 10 hours..
+    var $dataObjectsCacheExpires = 72000; // 20 hours..
     
 
     
