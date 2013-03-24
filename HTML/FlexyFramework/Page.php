@@ -395,7 +395,7 @@ class HTML_FlexyFramework_Page  {
         if (PHP_SESSION_ACTIVE != $ses_status) {
             return;
         }
-        swtich ($state) {
+        switch ($state) {
             case 0:
                 session_write_close();
                 return;
