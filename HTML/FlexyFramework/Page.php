@@ -406,7 +406,7 @@ class HTML_FlexyFramework_Page  {
                 ini_set('session.cache_limiter', null);
                 @session_open();
         }
-        
+    }
     
 }
 
