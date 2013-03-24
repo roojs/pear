@@ -391,19 +391,24 @@ class HTML_FlexyFramework_Page  {
     function sessionState($state)
     { 
         static $ses_status = false;
+        static $ini = false;
         $ses_status = ($ses_status === false) ? session_status() : $ses_status;        
         if (PHP_SESSION_ACTIVE != $ses_status) {
             return;
         }
+        
         switch ($state) {
             case 0:
                 session_write_close();
                 return;
             case 1:
-                ini_set('session.use_only_cookies', false);
-                ini_set('session.use_cookies', false);
-                ini_set('session.use_trans_sid', false);
-                ini_set('session.cache_limiter', null);
+                if ($ini) {  
+                    ini_set('session.use_only_cookies', false);
+                    ini_set('session.use_cookies', false);
+                    ini_set('session.use_trans_sid', false);
+                    ini_set('session.cache_limiter', null);
+                }
+                $ini = true;
                 session_open();
                 return;
         }
