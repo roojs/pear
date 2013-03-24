@@ -381,6 +381,32 @@ class HTML_FlexyFramework_Page  {
     
     
     }
+    /**
+     * turn on off session - wrap long database queries or
+     * data processing with this to prevent locking
+     * @see
+     * @param int $state new session state - 0 = off, 1 = on
+     */ 
+    
+    function sessionState($state)
+    { 
+        static $ses_status = false;
+        $ses_status = ($ses_status === false) ? session_status() : $ses_status;        
+        if (PHP_SESSION_ACTIVE != $ses_status) {
+            return;
+        }
+        swtich ($state) {
+            case 0:
+                session_write_close();
+                return;
+            case 1:
+                ini_set('session.use_only_cookies', false);
+                ini_set('session.use_cookies', false);
+                ini_set('session.use_trans_sid', false);
+                ini_set('session.cache_limiter', null);
+                @session_open();
+        }
+        
     
 }
 
