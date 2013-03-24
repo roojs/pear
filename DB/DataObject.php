@@ -2570,7 +2570,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $t= explode(' ',microtime());
         $_DB_DATAOBJECT['QUERYENDTIME'] = $time = $t[0]+$t[1];
          
-         
+        
         for ($tries = 0;$tries < 3;$tries++) {
             
             if ($_DB_driver == 'DB') {
@@ -2601,7 +2601,6 @@ class DB_DataObject extends DB_DataObject_Overload
             sleep(1); // wait before retyring..
             $DB->connect($DB->dsn);
         }
-       
        
 
         if (is_object($result) && is_a($result,'PEAR_Error')) {
