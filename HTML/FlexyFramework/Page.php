@@ -409,7 +409,7 @@ class HTML_FlexyFramework_Page  {
                     ini_set('session.cache_limiter', null);
                 }
                 $ini = true;
-                session_open();
+                session_start();
                 return;
         }
     }
