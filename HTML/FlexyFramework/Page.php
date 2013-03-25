@@ -397,8 +397,7 @@ class HTML_FlexyFramework_Page  {
             define('PHP_SESSION_ACTIVE' , 1);
         }
         if(!function_exists('session_status')){
-            
-            $ses_status = 1;
+             $ses_status = 1;
         } else {
             $ses_status = ($ses_status === false) ? session_status() : $ses_status;        
         }
