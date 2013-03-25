@@ -392,7 +392,7 @@ class HTML_FlexyFramework_Page  {
     { 
         static $ses_status = false;
         static $ini = false;
-        $ses_status = ($ses_status === false) ? session_status() : $ses_status;        
+        $ses_status = ($ses_status === false) ? (function_exists('session_status') ?  session_status() : true ) : $ses_status;        
         if (PHP_SESSION_ACTIVE != $ses_status) {
             return;
         }
