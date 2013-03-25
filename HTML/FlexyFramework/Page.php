@@ -417,6 +417,7 @@ class HTML_FlexyFramework_Page  {
                     ini_set('session.cache_limiter', null);
                 }
                 $ini = true;
+                // sometimes raises a notice - ps_files_cleanup_dir.
                 @session_start();
                 return;
         }
