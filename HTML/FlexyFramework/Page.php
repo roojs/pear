@@ -395,7 +395,7 @@ class HTML_FlexyFramework_Page  {
         // session status is only php5.4 and up..
         if(!function_exists('session_status')){
             define('PHP_SESSION_ACTIVE' , 1);
-            $ses_status = 1
+            $ses_status = 1;
         } else {
             $ses_status = ($ses_status === false) ? session_status() : $ses_status;        
         }
