@@ -394,10 +394,11 @@ class HTML_FlexyFramework_Page  {
         static $ini = false;
         // session status is only php5.4 and up..
         if(!function_exists('session_status')){
-            session_start();
-            return;
+            define('PHP_SESSION_ACTIVE' , 1);
+            $ses_status = 1
+        } else {
+            $ses_status = ($ses_status === false) ? session_status() : $ses_status;        
         }
-        $ses_status = ($ses_status === false) ? session_status() : $ses_status;        
         if (PHP_SESSION_ACTIVE != $ses_status) {
             return;
         }
