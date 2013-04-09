@@ -137,9 +137,13 @@ class HTML_FlexyFramework_Page  {
     */
     var $cli_args = array(); // key(element name)=>error message
    
-   
-   
-   
+    /**
+     * Reference to the page loader
+     * @var type HTML_FlexyFramework - 
+     * 
+     */
+     
+    var $bootLoader = false;
    
    
    
