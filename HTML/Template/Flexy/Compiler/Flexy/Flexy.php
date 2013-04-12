@@ -192,7 +192,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
             $arg = "'". $element->getAttribute('SRC')."'";
             return $this->compiler->appendPHP( "\n".
                 "\$x = new HTML_Template_Flexy(\$this->options);\n".
-                " include $x->resolvePath({$arg});\n"
+                " include \$x->resolvePath({$arg});\n"
             );
             
         }
@@ -206,7 +206,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
             $name = $element->getAttribute('NAME');
             return $this->compiler->appendPHP( "\n".
                 "\$x = new HTML_Template_Flexy(\$this->options);\n".
-                " echo \$name .'='. json_encode( file_get_contents $x->resolvePath({$arg}));\n"
+                " echo \$name .'='. json_encode( file_get_contents \$x->resolvePath({$arg}));\n"
             );
             
         }
