@@ -187,9 +187,10 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
         }
         $arg = $element->ucAttributes['SRC'];
         
-        
+        var_dump($element->ucAttributes['TYPE']);
         // support type = raw.
-        if (!empty($element->ucAttributes['TYPE']) && strtolower(trim($element->ucAttributes['TYPE'])) == 'raw') {
+        if (!empty($element->ucAttributes['TYPE']) && 
+                strtolower(trim($element->ucAttributes['TYPE'])) == 'raw') {
             
             $arg = "'". $element->getAttribute('SRC')."'";
             return $this->compiler->appendPHP( "\n".
