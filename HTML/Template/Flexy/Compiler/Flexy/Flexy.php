@@ -194,7 +194,6 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
                 "\$x = new HTML_Template_Flexy(\$this->options);\n".
                 " include \$x->resolvePath({$arg});\n"
             );
-            
         }
         
         if (!empty($element->ucAttributes['TYPE']) && strtolower(trim($element->getAttribute('TYPE'))) == 'json') {
@@ -204,10 +203,15 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
             
             $arg = "'". $element->getAttribute('SRC')."'";
             $name = $element->getAttribute('NAME');
-            return $this->compiler->appendPHP( "\n".
-                "\$x = new HTML_Template_Flexy(\$this->options);\n".
-                " echo \$name .'='. json_encode( file_get_contents \$x->resolvePath({$arg}));\n"
-            );
+            return  
+                $this->compiler->appendHTML("\n<script type='text/javascript'>\n") . 
+                $this->compiler->appendPHP( "\n".
+                    "\$x = new HTML_Template_Flexy(\$this->options);\n".
+                    " echo \$name .'='. json_encode( file_get_contents \$x->resolvePath({$arg}));\n"
+
+                ) .
+                $this->compiler->appendHTML("\n</script>\n") . ;
+                
             
         }
         
