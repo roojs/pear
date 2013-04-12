@@ -195,7 +195,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
             $arg = "'". $element->getAttribute('SRC')."'";
             return $this->compiler->appendPHP( "\n".
                 "\$x = new HTML_Template_Flexy(\$this->options);\n".
-                " require \$x->resolvePath({$arg}). {$arg};\n"
+                " require \$x->resolvePath({$arg}). '/'. {$arg};\n"
             );
             
         }
