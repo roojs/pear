@@ -178,9 +178,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
         // this is disabled by default...
         // we ignore modifier pre/suffix
     
-    
-    
-       
+     
         
         if (!isset($element->ucAttributes['SRC'])) {
             return $this->compiler->appendHTML("<B>Flexy:Include without a src=filename (Line: {$element->line})</B>");
@@ -189,13 +187,26 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
         
         
         // support type = raw.
-        if (!empty($element->ucAttributes['TYPE']) && 
-                strtolower(trim($element->getAttribute('TYPE'))) == 'raw') {
+        if (!empty($element->ucAttributes['TYPE']) && strtolower(trim($element->getAttribute('TYPE'))) == 'raw') {
             
             $arg = "'". $element->getAttribute('SRC')."'";
             return $this->compiler->appendPHP( "\n".
                 "\$x = new HTML_Template_Flexy(\$this->options);\n".
-                " require \$x->resolvePath({$arg}). '/'. {$arg};\n"
+                " include $x->resolvePath({$arg});\n"
+            );
+            
+        }
+        
+        if (!empty($element->ucAttributes['TYPE']) && strtolower(trim($element->getAttribute('TYPE'))) == 'json') {
+            if (!isset($element->ucAttributes['NAME'])) {
+                return $this->compiler->appendHTML("<B>Flexy:Include json without a name=jsname (Line: {$element->line})</B>");
+            }
+            
+            $arg = "'". $element->getAttribute('SRC')."'";
+            $name = $element->getAttribute('NAME');
+            return $this->compiler->appendPHP( "\n".
+                "\$x = new HTML_Template_Flexy(\$this->options);\n".
+                " echo \$name .'='. json_encode( file_get_contents $x->resolvePath({$arg}));\n"
             );
             
         }
