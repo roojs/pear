@@ -207,7 +207,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
                 $this->compiler->appendHTML("\n<script type='text/javascript'>\n") . 
                 $this->compiler->appendPHP( "\n".
                     "\$x = new HTML_Template_Flexy(\$this->options);\n".
-                    " echo \$name .'='. json_encode( file_get_contents ( \$x->resolvePath({$arg}));\n"
+                    " echo \$name .'='. json_encode( file_get_contents ( \$x->resolvePath( {$arg} )));\n"
 
                 ) .
                 $this->compiler->appendHTML("\n</script>\n")  ;
