@@ -210,7 +210,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
                     " echo \$name .'='. json_encode( file_get_contents \$x->resolvePath({$arg}));\n"
 
                 ) .
-                $this->compiler->appendHTML("\n</script>\n") . ;
+                $this->compiler->appendHTML("\n</script>\n")  ;
                 
             
         }
