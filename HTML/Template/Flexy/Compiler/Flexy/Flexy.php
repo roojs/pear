@@ -166,6 +166,11 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
     * <flexy:include src="test.html">
     * <flexy:include src="{test}">
     * <flexy:include src="{test}.html">
+    *
+    * or include without parsing  (does not support {xxx} args )
+    *  <flexy:include src="test.html" type="raw">
+    *
+    *  
     * @see parent::toString()
     */
     function includeToString($element) 
@@ -181,6 +186,15 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
             return $this->compiler->appendHTML("<B>Flexy:Include without a src=filename (Line: {$element->line})</B>");
         }
         $arg = $element->ucAttributes['SRC'];
+        
+        if (!empty($element->ucAttributes['TYPE']) && strtolower(trim($element->ucAttributes['TYPE']) == 'raw')) {
+            
+            
+            
+            
+        }
+        
+        
          
         // it's a string so its easy to handle
         switch (true) {
