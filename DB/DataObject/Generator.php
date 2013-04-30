@@ -1349,6 +1349,9 @@ class DB_DataObject_Generator extends DB_DataObject
             $defs =  $__DB->tableInfo($quotedTable);
         } else {
             $defs =  $__DB->reverse->tableInfo($quotedTable);
+            if (PEAR::isError($defs)) {
+                return $defs;
+            }
             foreach ($defs as $k => $v) {
                 if (!isset($defs[$k]['length'])) {
                     continue;
@@ -1357,12 +1360,12 @@ class DB_DataObject_Generator extends DB_DataObject
             }
         }
         
-         
-        
-        
         if (PEAR::isError($defs)) {
             return $defs;
-        }
+        } 
+        
+        
+        
         if (@$_DB_DATAOBJECT['CONFIG']['debug'] > 2) {
             $this->debug("getting def for $database/$table",'fillTable');
             $this->debug(print_r($defs,true),'defs');
