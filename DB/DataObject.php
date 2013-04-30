@@ -4602,7 +4602,7 @@ class DB_DataObject extends DB_DataObject_Overload
     /**
      * Last Error that has occured
      * - use $this->_lastError or
-     * $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
+     * $last_error = PEAR::getStaticProperty('DB_DataObject','lastError');
      *
      * @access  public
      * @var     object PEAR_Error (or false)
