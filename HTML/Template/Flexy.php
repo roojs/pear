@@ -652,7 +652,7 @@ class HTML_Template_Flexy
     {
         
         if (!$this->_bufferHandle) {
-             
+             echo "no handle?";
             return false;
         }
         fwrite($this->_bufferHandle,$buffer);
