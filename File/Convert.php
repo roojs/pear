@@ -139,6 +139,9 @@ class File_Convert
     /**
      * Serve the file to a browser so it can be downloaded, or viewed.
      *
+     * @param type string      attachment or inline..
+     * @param filename string  name of file
+     * @param delete_after boolean (false)   delete file after sending..
      *
      */
     function serve($type=false, $filename =false, $delete_after = false) // may die **/
