@@ -350,7 +350,8 @@ class File_Convert
                 array(
                     'image/jpeg',
                     'image/gif',
-                    'image/png',
+                    'image/png'
+                    
                 ),
                 array(
                     'image/jpeg',
