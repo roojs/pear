@@ -146,6 +146,12 @@ class HTML_FlexyFramework {
             array_shift($args );
             $this->_run($this->run,false,$args);
         } else {
+            // handle apache mod_rewrite..
+            if (!empty($_SERVER['REDIRECT_URI'])) {
+                $this->_run($_SERVER['SCRIPT_NAME'] . $_SERVER['REQUEST_URI'],false);
+                return ;
+            }
+            
             $this->_run($_SERVER['REQUEST_URI'],false);
             
         }
