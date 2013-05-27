@@ -3774,6 +3774,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $keys =  array_intersect($keys,  $cfg['include']); 
         }
         
+       
         $selectAs = array();
         
         if (!empty($keys)) {
@@ -3794,8 +3795,12 @@ class DB_DataObject extends DB_DataObject_Overload
             // reset the columsn?
             $cols = array();
             
+            $dkeys = $keys;
+            if (!empty($cfg['extra'])) {
+                $dkeys += $cfg['extra'];
+            }
              //echo '<PRE>' ;print_r($xx);exit;
-            foreach($keys as $c) {
+            foreach($dkeys as $c) {
                 //var_dump($c);
                 
                 if (  $cfg['distinct'] == $c) {
