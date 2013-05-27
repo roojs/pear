@@ -3741,7 +3741,6 @@ class DB_DataObject extends DB_DataObject_Overload
      *                    array( 'person_id' => 'person:id', .... )
      *          include  Array of columns to include
      *          distinct Array of distinct columns.
-     *          extra    Array of extra columns - not part of default query..
      *          
      * @return   array      info about joins
      *                      cols => map of resulting {joined_tablename}.{joined_table_column_name}
@@ -3774,7 +3773,6 @@ class DB_DataObject extends DB_DataObject_Overload
             $keys =  array_intersect($keys,  $cfg['include']); 
         }
         
-       
         $selectAs = array();
         
         if (!empty($keys)) {
@@ -3795,7 +3793,6 @@ class DB_DataObject extends DB_DataObject_Overload
             // reset the columsn?
             $cols = array();
             
-            
              //echo '<PRE>' ;print_r($xx);exit;
             foreach($keys as $c) {
                 //var_dump($c);
@@ -3809,22 +3806,6 @@ class DB_DataObject extends DB_DataObject_Overload
                 $cols = $c;
                 
             }
-            if (!empty($cfg['extra'])) {
-                 $cols = array();
-                foreach($cfg['extra'] as $c) {
-
-                    if (  $cfg['distinct'] == $c) {
-                        $has_distinct = 'DISTINCT( ' . $this->tableName() .'.'. $c .') as ' . $c;
-                        $ret['count'] =  'DISTINCT  ' . $this->tableName() .'.'. $c .'';
-                        continue;
-                    }
-                }
-                $cols = $c;
-                
-                
-            }
-            
-            
             // apply our filtered version, which excludes the distinct column.
             
             $selectAs = empty($cols) ?  array() : array(array(  $cols , '%s', false)) ;
