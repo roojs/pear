@@ -815,7 +815,7 @@ class HTML_Template_Flexy
             return $string;
         }
         
-        if (isset($this->options['DB_DataObject']) {
+        if (isset($this->options['DB_DataObject'])) {
             static $tr = false;
             if (!$tr) {
                 $tr = DB_DataObject::factory( $this->options['DB_DataObject']);
