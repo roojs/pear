@@ -161,7 +161,9 @@ class HTML_Template_Flexy
                                         //
                                         //  'Translation2' => new Translation2('dataobjectsimple','')
                                         
-      
+        'DB_DataObject_translator'      // a db dataobject that handles translation (optional)
+                                        // the dataobject has to have the method translateFlexyString($flexy, $string);
+        
         'charset'       => 'UTF-8',    // charset used with htmlspecialchars to render data.
                                             // experimental
         
