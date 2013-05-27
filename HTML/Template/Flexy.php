@@ -816,7 +816,7 @@ class HTML_Template_Flexy
         if (!empty($this->options['disableTranslate'])) {
             return $string;
         }
-        
+        die('run?');
         if (!empty($this->options['DB_DataObject_translator'])) {
             static $tr = false;
             if (!$tr) {
