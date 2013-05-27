@@ -11,7 +11,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
     
     function generateClasses()
     {
-        echo "GENERATE CLASSES?";
+//        echo "GENERATE CLASSES?";
         if (!HTML_FlexyFramework_Generator::$generateClasses ) {
             return;
         }
