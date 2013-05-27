@@ -815,6 +815,19 @@ class HTML_Template_Flexy
             return $string;
         }
         
+        if (isset($this->options['DB_DataObject']) {
+            static $tr = false;
+            if (!$tr) {
+                $tr = DB_DataObject::factory( $this->options['DB_DataObject']);
+            }
+            $result = $tr->translateFlexyString($this, $string);
+            if (!empty($result)) {
+                return $result;
+            }
+            return $string;
+        }
+        
+        
         if (is_a($this->options['Translation2'], 'Translation2')) {
             $result = $this->options['Translation2']->get($string);
             if (!empty($result)) {
