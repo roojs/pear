@@ -3741,6 +3741,7 @@ class DB_DataObject extends DB_DataObject_Overload
      *                    array( 'person_id' => 'person:id', .... )
      *          include  Array of columns to include
      *          distinct Array of distinct columns.
+     *          extra    Array of extra columns - not part of default query..
      *          
      * @return   array      info about joins
      *                      cols => map of resulting {joined_tablename}.{joined_table_column_name}
