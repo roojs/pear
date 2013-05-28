@@ -308,7 +308,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
                     (strtoupper($k) == 'VALUE' ||strtoupper($k) == 'PLACEHOLDER'  )
                 ) {
                 // look up the translation..
-                $v = 
+                $v = $activeEngine->translateString($v);
                 
             }
              
