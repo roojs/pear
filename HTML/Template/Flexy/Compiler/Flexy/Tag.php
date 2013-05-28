@@ -958,7 +958,9 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
         
         if (in_array(strtoupper($this->element->getAttribute('TYPE')), array('SUBMIT','BUTTON','INPUT','')))  {
             $this->compiler->addStringToGettext($this->element->getAttribute('VALUE'));
+            $this->compiler->addStringToGettext($this->element->getAttribute('PLACEHOLDER'));
         }
+         
         // form elements : format:
         //value - fill out as PHP CODE
         
