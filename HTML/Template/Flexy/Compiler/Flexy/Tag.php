@@ -255,15 +255,15 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
      */
     
     function toStringOpenTag(&$element,&$ret)
-	{
-		// START ADDITION...
-		if ((empty($element->tag)) || (empty($element->oTag))) {
-			return;
-		}
-		// ...END ADDITION
+    {
+        // START ADDITION...
+        if ((empty($element->tag)) || (empty($element->oTag))) {
+                return;
+        }
+        // ...END ADDITION
 
 
-		// spit ou the tag and attributes.
+        // spit ou the tag and attributes.
         
         if ($element->oTag{0} == '?') {
             $ret .= '<?php echo "<"; ?>';
@@ -302,6 +302,16 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
                 continue;
             }
             
+            // if it's an input with value or placeholder...
+            // the output the translated value..
+            if ($element->tag == 'INPUT' && 
+                    (strtoupper($k) == 'VALUE' ||strtoupper($k) == 'PLACEHOLDER'  )
+                ) {
+                // look up the translation..
+                $v = 
+                
+            }
+             
             // if it's a string just dump it.
             if (is_string($v)) {
                 $v = str_replace(array('{_(',')_}'),array('',''),$v);
