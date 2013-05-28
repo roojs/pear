@@ -958,8 +958,9 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
         
         if (in_array(strtoupper($this->element->getAttribute('TYPE')), array('SUBMIT','BUTTON','INPUT','')))  {
             $this->compiler->addStringToGettext($this->element->getAttribute('VALUE'));
-            die('inin');
+            
             print_r($this->element->getAttribute('PLACEHOLDER'));
+            die('inin');
             $this->compiler->addStringToGettext($this->element->getAttribute('PLACEHOLDER'));
         }
          
