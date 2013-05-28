@@ -307,8 +307,8 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
             if (is_string($v) && $element->tag == 'INPUT' && 
                     (strtoupper($k) == 'VALUE' || strtoupper($k) == 'PLACEHOLDER'  )
                 ) {
-                // look up the translation..
-                $v = $activeEngine->translateString($v);
+                // look up the translation.. $this->flexy->translateString($value);
+                $v = '"'. htmlspecialchars($this->compiler->flexy->translateString($v)) .'"';
                 
             }
              
