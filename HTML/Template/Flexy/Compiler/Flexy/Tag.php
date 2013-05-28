@@ -961,6 +961,8 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
             
         }
         if (in_array(strtoupper($this->element->getAttribute('TYPE')), array('TEXT',''))){
+            die("parse input")
+            
             $this->compiler->addStringToGettext($this->element->getAttribute('PLACEHOLDER'));
         } 
         // form elements : format:
