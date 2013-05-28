@@ -305,7 +305,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
             // if it's an input with value or placeholder...
             // the output the translated value..
             if ($element->tag == 'INPUT' && 
-                    (strtoupper($k) == 'VALUE' ||strtoupper($k) == 'PLACEHOLDER'  )
+                    (strtoupper($k) == 'VALUE' || strtoupper($k) == 'PLACEHOLDER'  )
                 ) {
                 // look up the translation..
                 $v = $activeEngine->translateString($v);
