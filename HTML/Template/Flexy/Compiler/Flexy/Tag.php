@@ -961,12 +961,6 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
             
         }
         if (in_array(strtoupper($this->element->getAttribute('TYPE')), array('TEXT',''))){
-            print_r($this->element->getAttribute('ID'));
-                print_r($this->element->getAttribute('PLACEHOLDER'));
-            if($this->element->getAttribute('ID') == 'search-key'){
-                
-                die('inin');
-            }
             $this->compiler->addStringToGettext($this->element->getAttribute('PLACEHOLDER'));
         } 
         // form elements : format:
