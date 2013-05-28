@@ -214,7 +214,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         if (file_exists($flexy->getTextStringsFile)) {
             unlink($flexy->getTextStringsFile);
         }
-//        echo $gettextStrings;
+
         if($gettextStrings && ($cfp = fopen( $flexy->getTextStringsFile, 'w') ) ) {
             
             fwrite($cfp, serialize(array_unique($gettextStrings)));
