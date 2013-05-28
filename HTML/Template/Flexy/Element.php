@@ -193,7 +193,10 @@ class HTML_Template_Flexy_Element {
                  
                 $value =  $activeEngine->translateString($value);
             }
-            
+            if (($this->tag == 'input') && $key == 'placeholder') {
+                 
+                $value =  $activeEngine->translateString($value);
+            }
             
             $strAttr .= ' ' . $key . '="' . $value  . '"';
             
