@@ -308,7 +308,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
                     (strtoupper($k) == 'VALUE' || strtoupper($k) == 'PLACEHOLDER'  )
                 ) {
                 // look up the translation.. $this->flexy->translateString($value);
-                $v = '"'. htmlspecialchars($this->compiler->flexy->translateString(substr($v,1,-1)) .'"';
+                $v = '"'. htmlspecialchars($this->compiler->flexy->translateString(substr($v,1,-1))) .'"';
                 
             }
              
