@@ -976,8 +976,9 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
             
         }
         if (in_array($utype, array('TEXT',''))) {
-            
-            $this->compiler->addStringToGettext($this->element->getAttribute('PLACEHOLDER'));
+            $this->compiler->addStringToGettext(
+                    $this->element->getAttribute('PLACEHOLDER')
+            );
         } 
         // form elements : format:
         //value - fill out as PHP CODE
