@@ -189,13 +189,15 @@ class HTML_Template_Flexy_Element {
                 $value = str_replace('&amp;nbsp;','&nbsp;',htmlspecialchars($value,ENT_COMPAT,$charset));
             }
             // translation..
+            
+            
             if (($this->tag == 'input') && $this->attributes['type'] == 'submit' && $key == 'value') {
                  
-                $value =  $activeEngine->translateString($value);
+                $value =  htmlspecialchars($activeEngine->translateString($value));
             }
             if (($this->tag == 'input') && $key == 'placeholder') {
                  
-                $value =  $activeEngine->translateString($value);
+                $value =  htmlspecialchars($activeEngine->translateString($value));
             }
             
             $strAttr .= ' ' . $key . '="' . $value  . '"';
