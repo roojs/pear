@@ -968,8 +968,11 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
     {
         global $_HTML_TEMPLATE_FLEXY;
         
-        if (in_array(strtoupper($this->element->getAttribute('TYPE')), array('SUBMIT','BUTTON','INPUT','')))  {
-            $this->compiler->addStringToGettext($this->element->getAttribute('VALUE'));
+        $utype = strtoupper($this->element->getAttribute('TYPE'));
+        if (in_array($utype, array('SUBMIT','BUTTON','INPUT','')))  {
+            $this->compiler->addStringToGettext(
+                    $this->element->getAttribute('VALUE')
+            );
             
         }
         if (in_array(strtoupper($this->element->getAttribute('TYPE')), array('TEXT',''))){
