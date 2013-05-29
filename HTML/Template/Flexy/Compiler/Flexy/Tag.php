@@ -975,7 +975,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
             );
             
         }
-        if (in_array(($utype, array('TEXT',''))){
+        if (in_array($utype, array('TEXT',''))) {
             
             $this->compiler->addStringToGettext($this->element->getAttribute('PLACEHOLDER'));
         } 
