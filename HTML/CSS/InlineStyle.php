@@ -285,8 +285,9 @@ class HTML_CSS_InlineStyle
             foreach(explode(";", $style) as $props) {
                 $props = trim(trim($props), ";");
                 //Don't parse empty props
-                if(!trim($props))continue;
+                if(!trim($props)) continue;
                 preg_match('#^([-a-z0-9\*]+):(.*)$#i', $props, $matches);
+                if (count($match) < 3) continue;
                 list($match, $prop, $val) = $matches;
                 $styles[$prop] = $val;
             }
