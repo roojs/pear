@@ -287,7 +287,7 @@ class HTML_CSS_InlineStyle
                 //Don't parse empty props
                 if(!trim($props)) continue;
                 preg_match('#^([-a-z0-9\*]+):(.*)$#i', $props, $matches);
-                if (count($match) < 3) continue;
+                if (count($matches) < 3) continue;
                 list($match, $prop, $val) = $matches;
                 $styles[$prop] = $val;
             }
