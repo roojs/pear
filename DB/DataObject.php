@@ -2528,7 +2528,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         if (
             strtoupper($string) == 'BEGIN' ||
-            strtoupper($string)  == 'START TRANSACTION'
+            strtoupper($string) == 'START TRANSACTION'
         ) {
             if ($_DB_driver == 'DB') {
                 $DB->autoCommit(false);
