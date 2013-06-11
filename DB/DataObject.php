@@ -2526,7 +2526,10 @@ class DB_DataObject extends DB_DataObject_Overload
             
         }
         
-        if (strtoupper($string) == 'BEGIN') {
+        if (
+            strtoupper($string) == 'BEGIN' ||
+            strtoupper($string)  == 'START TRANSACTION'
+        ) {
             if ($_DB_driver == 'DB') {
                 $DB->autoCommit(false);
                 $DB->simpleQuery('BEGIN');
@@ -2535,6 +2538,7 @@ class DB_DataObject extends DB_DataObject_Overload
             }
             return true;
         }
+        
         if (strtoupper($string) == 'COMMIT') {
             $res = $DB->commit();
             if ($_DB_driver == 'DB') {
