@@ -96,7 +96,7 @@ class XML_RSS extends XML_Parser
         'ITEMS', 'TEXTINPUT', 'LANGUAGE', 'COPYRIGHT',
         'MANAGINGEditor', 'WEBMASTER', 'PUBDATE', 'LASTBUILDDATE',
         'CATEGORY', 'GENERATOR', 'DOCS', 'CLOUD', 'TTL',
-        'RATING'
+        'RATING' 
     );
 
     /**
@@ -105,7 +105,9 @@ class XML_RSS extends XML_Parser
     var $itemTags = array(
         'TITLE', 'LINK', 'DESCRIPTION', 'PUBDATE', 'AUTHOR', 'CATEGORY',
         'COMMENTS', 'ENCLOSURE', 'GUID', 'SOURCE',
-        'CONTENT:ENCODED'
+        'CONTENT:ENCODED',
+        // atom..
+        'CONTENT', 'UPDATED', 'PUBLISHED'
     );
 
     /**
