@@ -234,8 +234,8 @@ class XML_RSS extends XML_Parser
              
              case 'LINK':
                 print_r($attribs);exit;
-                if (isset($attribs['href'])) {
-                    $this->item['link'] = $attribs['href'];
+                if (isset($attribs['HREF'])) {
+                    $this->item['link'] = $attribs['HREF'];
                 }
                 $this->activeTag = $element;
                 break;
