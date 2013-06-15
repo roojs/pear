@@ -216,6 +216,7 @@ class XML_RSS extends XML_Parser
                 
             // atom...
             case 'ENTRY':
+            case 'FEED':
                 
                 
                 $this->insideTag = $element;
@@ -268,6 +269,12 @@ class XML_RSS extends XML_Parser
             $this->items[] = $this->item;
             $this->item = '';
         }
+        if ($element == 'ENTRY') {
+            $this->items[] = $this->item;
+            $this->item = '';
+        }
+        
+        
 
         if ($element == 'IMAGE') {
             $this->images[] = $this->image;
