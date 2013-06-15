@@ -207,7 +207,7 @@ class XML_RSS extends XML_Parser
         if (substr($element, 0, 4) == "RSS:") {
             $element = substr($element, 4);
         }
-       .//ar_dump($element);
+       //ar_dump($element);
         switch ($element) {
             case 'CHANNEL':
             case 'ITEM':
