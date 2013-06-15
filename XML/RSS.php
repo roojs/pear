@@ -225,8 +225,18 @@ class XML_RSS extends XML_Parser
                 array_push($this->insideTagStack, $element);
                 break;
             
+           
+            
+            
             case 'ENCLOSURE' :
                 $this->attribs = $attribs;
+                break;
+             
+             case 'LINK':
+                if (isset($attribs['href'])) {
+                    $this->item['link'] = $attribs['href'];
+                }
+                $this->activeTag = $element;
                 break;
                 
             default:
