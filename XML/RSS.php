@@ -266,6 +266,11 @@ class XML_RSS extends XML_Parser
                 $this->last
             );
         }
+        
+        if ($element == 'LINK') {
+            print_r($this);exit;
+        }
+        
 
         if ($element == 'ITEM') {
             $this->items[] = $this->item;
