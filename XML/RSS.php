@@ -316,6 +316,7 @@ class XML_RSS extends XML_Parser
     {
         if (in_array($this->insideTag, $this->parentTags)) {
             $tagName = strtolower($this->insideTag);
+            $tagName = $tagName == 'entry' ? 'item' : $tagName;
             $var = $this->{$tagName . 'Tags'};
 
             if (in_array($this->activeTag, $var)
