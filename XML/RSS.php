@@ -207,22 +207,22 @@ class XML_RSS extends XML_Parser
         if (substr($element, 0, 4) == "RSS:") {
             $element = substr($element, 4);
         }
-
+        var_dump($element);
         switch ($element) {
-        case 'CHANNEL':
-        case 'ITEM':
-        case 'IMAGE':
-        case 'TEXTINPUT':
-            $this->insideTag = $element;
-            array_push($this->insideTagStack, $element);
-            break;
-        
-        case 'ENCLOSURE' :
-            $this->attribs = $attribs;
-            break;
+            case 'CHANNEL':
+            case 'ITEM':
+            case 'IMAGE':
+            case 'TEXTINPUT':
+                $this->insideTag = $element;
+                array_push($this->insideTagStack, $element);
+                break;
             
-        default:
-            $this->activeTag = $element;
+            case 'ENCLOSURE' :
+                $this->attribs = $attribs;
+                break;
+                
+            default:
+                $this->activeTag = $element;
         }
     }
 
