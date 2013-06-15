@@ -241,6 +241,7 @@ class XML_RSS extends XML_Parser
                 
             default:
                 $this->activeTag = $element;
+                break;
         }
     }
 
