@@ -278,10 +278,6 @@ class XML_RSS extends XML_Parser
             );
         }
         
-        if ($element == 'LINK') {
-            echo '<PRE>'.htmlspecialchars(print_r($this,true));exit;
-        }
-        
 
         if ($element == 'ITEM') {
             $this->items[] = $this->item;
