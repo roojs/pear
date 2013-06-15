@@ -213,6 +213,11 @@ class XML_RSS extends XML_Parser
             case 'ITEM':
             case 'IMAGE':
             case 'TEXTINPUT':
+                
+            // atom...
+            case 'ENTRY':
+                
+                
                 $this->insideTag = $element;
                 array_push($this->insideTagStack, $element);
                 break;
