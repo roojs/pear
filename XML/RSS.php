@@ -107,7 +107,7 @@ class XML_RSS extends XML_Parser
         'COMMENTS', 'ENCLOSURE', 'GUID', 'SOURCE',
         'CONTENT:ENCODED',
         // atom..
-        'CONTENT', 'UPDATED', 'PUBLISHED'
+        'CONTENT', 'UPDATED', 'PUBLISHED', 'ID',
     );
 
     /**
