@@ -233,7 +233,7 @@ class XML_RSS extends XML_Parser
                 break;
              
              case 'LINK':
-                print_r($attribs);exit;
+                //print_r($attribs);exit;
                 if (isset($attribs['HREF'])) {
                     $this->item['link'] = $attribs['HREF'];
                 }
