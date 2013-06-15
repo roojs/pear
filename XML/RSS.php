@@ -268,7 +268,7 @@ class XML_RSS extends XML_Parser
         }
         
         if ($element == 'LINK') {
-            echo htmlspecialchars(print_r($this,true));exit;
+            echo '<PRE>'.htmlspecialchars(print_r($this,true));exit;
         }
         
 
