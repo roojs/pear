@@ -237,7 +237,10 @@ class HTML_CSS_InlineStyle
     {
         $parsed = array();
         $stylesheet = $this->_stripStylesheet($stylesheet);
+        
         $stylesheet = trim(trim($stylesheet), "}");
+        
+        var_dump($stylesheet);
         foreach(explode("}", $stylesheet) as $rule) {
             //Don't parse empty rules
          if(!trim($rule))continue;
