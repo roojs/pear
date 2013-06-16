@@ -287,9 +287,9 @@ class HTML_Safe
                    // removes CSS comments
                    while (1)
                    {
-                     $_value = preg_replace("!/\*.*?\*/!s", '', $value);
-                     if ($_value == $value) break;
-                     $value = $_value;
+                        $_value = preg_replace("!/\*.*?\*/!s", '', $value);
+                        if ($_value == $value) break;
+                        $value = $_value;
                    }
                    
                    // replace all & to &amp;
