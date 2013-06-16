@@ -295,7 +295,7 @@ class HTML_CSS_InlineStyle
 * @param string $style
 * @return array
 */
-    private function _styleToArray($style)
+    public function _styleToArray($style)
     {
         $styles = array();
         $style = trim(trim($style), ";");
