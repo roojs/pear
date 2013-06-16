@@ -346,9 +346,13 @@ class HTML_Safe
             if (in_array(strtolower(trim($k)), $this->cssKeywords)) {
                 unset($ar[$k]);
             }
-            
-            
-            
+            foreach ($this->_protoRegexps as $proto) {
+                if (preg_match($proto, $v)) {
+                    unset($ar[$k]);
+                    continue 2;
+                }
+            }
+             
         }
         
     }
