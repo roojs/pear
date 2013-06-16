@@ -331,7 +331,7 @@ class HTML_Safe
             require_once 'HTML/CSS/InlineStyle.php';
             $is = new HTML_CSS_InlineStyle();
         }
-        $ar = $is->_styleToArray();
+        $ar = $is->_styleToArray($str);
         foreach($ar as $k=>$v) {
             if (in_array(strtolower(trim($k)), $this->cssKeywords)) {
                 unset($ar[$k]);
