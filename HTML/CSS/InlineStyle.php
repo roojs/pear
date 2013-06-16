@@ -92,7 +92,8 @@ class HTML_CSS_InlineStyle
 */
     public function applyStylesheet($stylesheet)
     {
-        $stylesheet = (array) $stylesheet;
+        $stylesheet = is_array($stylesheet)?
+              $stylesheet : array($stylesheet);
         foreach($stylesheet as $ss) {
             $parsed = $this->parseStylesheet($ss);
             $parsed = $this->sortSelectorsOnSpecificity($parsed);
