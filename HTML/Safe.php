@@ -334,10 +334,12 @@ class HTML_Safe
         $ar = $is->_styleToArray($str);
         foreach($ar as $k=>$v) {
             if (in_array(strtolower(trim($k)), $this->cssKeywords)) {
+                echo "Trashing BL css keyword $k=$v <br/>";
                 unset($ar[$k]);
             }
             foreach ($this->_protoRegexps as $proto) {
                 if (preg_match($proto, $v)) {
+                    echo "$proto - Trashing $k=$v <br/>";
                     unset($ar[$k]);
                     continue 2;
                 }
