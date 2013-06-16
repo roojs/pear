@@ -295,7 +295,7 @@ class HTML_Safe
                    // replace all & to &amp;
                    $value = str_replace('&amp;', '&', $value);
                    $value = str_replace('&', '&amp;', $value);
-                    $value = $this->cleanStyle($value)
+                    $value = $this->cleanStyle($value);
                 }
 
                 $tempval = preg_replace('/&#(\d+);?/me', "chr('\\1')", $value); //"'
