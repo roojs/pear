@@ -249,7 +249,7 @@ class HTML_CSS_InlineStyle
             }
             $ra = explode("{", $rule, 2);
             var_dump($ra);
-            if (count($ra < 3)) {
+            if (count($ra < 2)) {
                 continue;
             }
             list($selector, $style) = explode("{", $rule, 2);
