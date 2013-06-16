@@ -97,7 +97,7 @@ class HTML_CSS_InlineStyle
               $stylesheet : array($stylesheet);
               
         foreach($stylesheet as $ss) {
-            var_dump($ss);exit;
+            var_dump($ss); 
             $parsed = $this->parseStylesheet($ss);
             $parsed = $this->sortSelectorsOnSpecificity($parsed);
             print_r($parsed);
