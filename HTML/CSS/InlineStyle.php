@@ -243,12 +243,12 @@ class HTML_CSS_InlineStyle
         //var_dump($stylesheet);
         foreach(explode("}", $stylesheet) as $rule) {
             //Don't parse empty rules
-            var_dump($rule);
+            //var_dump($rule);
             if(!trim($rule)) {
                    continue;
             }
             $ra = explode("{", $rule, 2);
-            var_dump($ra);
+            //var_dump($ra);
             if (count($ra < 2)) {
                 continue;
             }
