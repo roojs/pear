@@ -425,7 +425,7 @@ class HTML_Safe
        //$doc = $this->repackUTF7($doc);
 
         if (!extension_loaded('tidy')) {
-            dl('tidy.so');
+            die("Add tidy extension to extension.ini");
         }
         $tree = tidy_parse_file($fn,array(),'UTF8');
         
