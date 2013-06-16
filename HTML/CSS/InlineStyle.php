@@ -239,14 +239,18 @@ class HTML_CSS_InlineStyle
         $stylesheet = $this->_stripStylesheet($stylesheet);
         
         $stylesheet = trim(trim($stylesheet), "}");
-        var_dump('after strip');
-        var_dump($stylesheet);
+        //var_dump('after strip');
+        //var_dump($stylesheet);
         foreach(explode("}", $stylesheet) as $rule) {
             //Don't parse empty rules
-         if(!trim($rule))continue;
-         $ra = explode("{", $rule, 2);
-         if (count($ra < 3)) continue;
-         list($selector, $style) = explode("{", $rule, 2);
+            if(!trim($rule)) {
+                   continue;
+            }
+            $ra = explode("{", $rule, 2);
+            if (count($ra < 3)) {
+                continue;
+            }
+            list($selector, $style) = explode("{", $rule, 2);
             foreach (explode(',', $selector) as $sel) {
                 $parsed[] = array(trim($sel), trim(trim($style), ";"));
             }
