@@ -348,7 +348,7 @@ class HTML_Safe
         foreach($ar as $prop => $val) {
             $st[] = "{$prop}:{$val}";
         }
-        return implode(';', $str);
+        return implode(';', $st);
         
     }
     
