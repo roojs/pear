@@ -295,17 +295,7 @@ class HTML_Safe
                    // replace all & to &amp;
                    $value = str_replace('&amp;', '&', $value);
                    $value = str_replace('&', '&amp;', $value);
-
-                   foreach ($this->_cssRegexps as $css) {
-                       if (preg_match($css, $value)) { 
-                           continue 2;
-                       }
-                   }
-                   foreach ($this->_protoRegexps as $proto) {
-                       if (preg_match($proto, $value)) {
-                           continue 2;
-                       }
-                   }
+                    $value = $this->cleanStyle($value)
                 }
 
                 $tempval = preg_replace('/&#(\d+);?/me', "chr('\\1')", $value); //"'
@@ -334,7 +324,7 @@ class HTML_Safe
         return $ret;
     }
     
-    function clearStyle ($str)
+    function cleanStyle ($str)
     {
         static $is = false;
         if (!$is) {
