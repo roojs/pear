@@ -222,7 +222,7 @@ class HTML_Safe
      *
      * @access public
      */
-    function HTML_Safe($opts) 
+    function HTML_Safe($opts = array()) 
     {
         
         foreach ($opts as $k =>$v) {
