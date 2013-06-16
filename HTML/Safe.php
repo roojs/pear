@@ -451,7 +451,7 @@ class HTML_Safe
                 return $node->value;
             case TIDY_NODETYPE_STARTEND:
             case TIDY_NODETYPE_START:
-                if ($this->filter) {
+                if (!empty($this->filter)) {
                     $this->filter->apply($node);
                 }
                 break;
