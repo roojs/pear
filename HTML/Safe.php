@@ -180,7 +180,7 @@ class HTML_Safe
         'h5',      'h6',         'hr',     'isindex', 'listing',   'marquee', 
         'menu',    'multicol',   'ol',     'p',       'plaintext', 'pre', 
         'table',   'ul',         'xmp',
-        'hgroup',
+        'hgroup', 'header'
         );
 
     /**
