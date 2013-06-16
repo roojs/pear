@@ -134,6 +134,7 @@ class HTML_CSS_InlineStyle
     {
         if($selector) {
             $nodes = $this->_getNodesForCssSelector($selector);
+            var_dump($selector);print_R($nodes);
             $style = $this->_styleToArray($style);
 
             foreach($nodes as $node) {
