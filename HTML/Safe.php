@@ -285,16 +285,16 @@ class HTML_Safe
                    $value = str_replace("\\", '', $value);
 
                    // removes CSS comments
-                   while (1)
-                   {
+                    while (1)
+                    {
                         $_value = preg_replace("!/\*.*?\*/!s", '', $value);
                         if ($_value == $value) break;
                         $value = $_value;
-                   }
+                    }
                    
-                   // replace all & to &amp;
-                   $value = str_replace('&amp;', '&', $value);
-                   $value = str_replace('&', '&amp;', $value);
+                    // replace all & to &amp;
+                    $value = str_replace('&amp;', '&', $value);
+                    $value = str_replace('&', '&amp;', $value);
                     $value = $this->cleanStyle($value);
                 }
 
