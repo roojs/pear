@@ -248,7 +248,7 @@ class HTML_CSS_InlineStyle
                    continue;
             }
             $ra = explode("{", $rule, 2);
-            print_R
+            var_dump($ra);
             if (count($ra < 3)) {
                 continue;
             }
