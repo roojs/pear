@@ -333,6 +333,26 @@ class HTML_Safe
         }
         return $ret;
     }
+    
+    function clearStyle ($str)
+    {
+        static $is = false;
+        if (!$is) {
+            require_once 'HTML/CSS/InlineStyle.php';
+            $is = new HTML_CSS_InlineStyle();
+        }
+        $ar = $is->_styleToArray();
+        foreach($ar as $k=>$v) {
+            if (in_array(strtolower(trim($k)), $this->cssKeywords)) {
+                unset($ar[$k]);
+            }
+            
+            
+            
+        }
+        
+    }
+    
 
     /**
      * Opening tag handler - called from HTMLSax
