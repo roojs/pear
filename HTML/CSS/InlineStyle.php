@@ -141,7 +141,7 @@ class HTML_CSS_InlineStyle
                 $current = $node->hasAttribute("style") ?
                     $this->_styleToArray($node->getAttribute("style")) :
                     array();
-
+                var_dump($current);
                 $current = $this->_mergeStyles($current, $style);
                 $st = array();
                   
