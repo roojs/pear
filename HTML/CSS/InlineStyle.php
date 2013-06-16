@@ -101,7 +101,7 @@ class HTML_CSS_InlineStyle
             $parsed = $this->parseStylesheet($ss);
            // var_dump( "PARSED");var_dump($parsed);
             $parsed = $this->sortSelectorsOnSpecificity($parsed);
-            var_dump($parsed);
+            //var_dump($parsed);
             foreach($parsed as $arr) {
                 list($selector, $style) = $arr;
                 $this->applyRule($selector, $style);
