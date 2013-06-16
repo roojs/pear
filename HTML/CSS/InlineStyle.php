@@ -239,7 +239,7 @@ class HTML_CSS_InlineStyle
         $stylesheet = $this->_stripStylesheet($stylesheet);
         
         $stylesheet = trim(trim($stylesheet), "}");
-        
+        var_dump('after strip');
         var_dump($stylesheet);
         foreach(explode("}", $stylesheet) as $rule) {
             //Don't parse empty rules
