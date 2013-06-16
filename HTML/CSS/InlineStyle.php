@@ -92,8 +92,7 @@ class HTML_CSS_InlineStyle
 */
     public function applyStylesheet($stylesheet)
     {
-        
-        var_dump($stylesheet);
+         
         $stylesheet = is_array($stylesheet)?
               $stylesheet : array($stylesheet);
         foreach($stylesheet as $ss) {
