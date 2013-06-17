@@ -113,36 +113,36 @@ class File_Convert
         } else {
             $fn = $this->fn;
         }
-        if(!strpos($x, 'c') !== false){
-            print_r('inin?');
-            print_r($x);
-            print_r(' > ');
-            print_r($y);exit;
-            
-//            $size = explode('c', $x);
-        }
-        print_r(strpos($x, 'c'));
-            print_r(' > ');
-            print_r($y);exit;
+//        if(!strpos($x, 'c')){
+//            print_r('inin?');
+//            print_r($x);
+//            print_r(' > ');
+//            print_r($y);exit;
+//            
+////            $size = explode('c', $x);
+//        }
+//        print_r(strpos($x, 'c'));
+//            print_r(' > ');
+//            print_r($y);exit;
 //        print_r($this->fn);exit;
         if (preg_match('#^image/#', $toMimetype) && ( !empty($x) || !empty($y))) {
             //var_dump(array($toMimetype));
             
-            $sc = new File_Convert_Solution(strpos($x, 'c') > -1 ? 'scaleImageC' : 'scaleImage' , $toMimetype, $toMimetype);
+            $sc = new File_Convert_Solution(strpos($x, 'c')  !== false ? 'scaleImageC' : 'scaleImage' , $toMimetype, $toMimetype);
             $sc->debug= $this->debug;
             
             str_replace('c', 'x', $x);
             
-            if (strpos($x, 'x') > -1 ) {
+            if (strpos($x, 'x') !== false ) {
                 $bits = explode('x', $x);
                 $x = $bits[0];
                 $y = !is_numeric($bits[1]) ?  '' : (int)$bits[1];
             }
             $x = strlen($x) ? (int) $x : '';
             $y = strlen($y) ? (int) $y : '';
-//            print_r($x);
-//            print_r(' > ');
-//            print_r($y);exit;
+            print_r($x);
+            print_r(' > ');
+            print_r($y);exit;
             $fn = $sc->runconvert($fn,  $x, $y, $pg);
              
         }
