@@ -96,7 +96,7 @@ class File_Convert
         if ($toMimetype != $this->mimetype) {
            
            
-            
+            print_r('in1?');
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
             
             //echo '<PRE>';print_r($action);
@@ -111,6 +111,7 @@ class File_Convert
                 return false;
             }
         } else {
+            print_r('in2?');
             $fn = $this->fn;
         }
         print_r($x);
