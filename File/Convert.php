@@ -116,7 +116,7 @@ class File_Convert
         
         if (preg_match('#^image/#', $toMimetype) && ( !empty($x) || !empty($y))) {
             //var_dump(array($toMimetype));
-            
+            print_r('in?');exit;
             $sc = new File_Convert_Solution(strpos($x, 'c') > -1 ? 'scaleImageC' : 'scaleImage' , $toMimetype, $toMimetype);
             $sc->debug= $this->debug;
             
