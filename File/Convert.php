@@ -1344,6 +1344,8 @@ class File_Convert_Solution
             case (empty($y)) :
                 $scale = "{$x}x>";
                 break;
+            
+            // both x & y..
             default: 
                 $scale = "{$x}x{$y}>"; 
                 $extent ="-extent '{$x}x{$y}>' -gravity center -background white -define jpeg:size={$x}x{$y}";
