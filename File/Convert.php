@@ -1362,7 +1362,7 @@ class File_Convert_Solution
             // both x & y..
             default: 
                 $scale = "{$x}x{$y}>"; 
-                $extent =" -gravity center -crop {$x}x{$y}+0+{$x}";
+                $extent =" -gravity center -crop {$x}x{$y}+0x{$x}";
                 break;
         }
         require_once 'System.php';
