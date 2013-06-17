@@ -1336,7 +1336,7 @@ class File_Convert_Solution
         $target = $fn . '.'.$x.'c'.$y.'.' . $ext;
         
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
-//            echo "GOT TARGET"  . $target;exit;
+            echo "GOT TARGET"  . $target;exit;
             return $target;
         }
         
