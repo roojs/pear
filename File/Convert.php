@@ -111,8 +111,13 @@ class File_Convert
                 return false;
             }
         } else {
-            print_r('in2?');
             $fn = $this->fn;
+        }
+        if(strpos($x, 'c') > -1){print_r($x);
+            print_r(' > ');
+            print_r($y);exit;
+            
+//            $size = explode('c', $x);
         }
         print_r($x);
             print_r(' > ');
