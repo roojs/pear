@@ -113,13 +113,15 @@ class File_Convert
         } else {
             $fn = $this->fn;
         }
+        
         if (preg_match('#^image/#', $toMimetype) && ( !empty($x) || !empty($y))) {
             //var_dump(array($toMimetype));
             
-            $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
+            $sc = new File_Convert_Solution(strpos($x, 'c') > -1 ? 'scaleImageC' : 'scaleImage' , $toMimetype, $toMimetype);
             $sc->debug= $this->debug;
             
-            if (strpos($x, 'x') > -1) {
+            str_replace('c', 'x', $x);
+            if (strpos($x, 'x') > -1 ) {
                 $bits = explode('x', $x);
                 $x = $bits[0];
                 $y = !is_numeric($bits[1]) ?  '' : (int)$bits[1];
@@ -616,7 +618,10 @@ class File_Convert_Solution
             case 'scaleImage':
                 $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
         
-                
+              case 'scaleImageC':
+                $target = $fn . '.'.$x.'c'.$y.'.' . $ext;
+        
+               
             default:
                 $target = $fn .'.'. $ext;
         }
