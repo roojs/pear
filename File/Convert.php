@@ -1367,6 +1367,7 @@ class File_Convert_Solution
             
             
         } else {
+            die("not supported yet...");
             // 100x0 --<< 100 SQUARE? = pad..
             // 100x   << 100 width proportion..
             // 100x200 << fit and pad.
