@@ -1312,6 +1312,7 @@ class File_Convert_Solution
         clearstatcache();
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
+    
     function scaleImageC($fn, $x, $y) 
     {
 //        print_r(array('scaleimage', func_get_args()));exit;
