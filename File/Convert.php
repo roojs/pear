@@ -1368,7 +1368,7 @@ class File_Convert_Solution
         require_once 'System.php';
         $CONVERT = System::which("convert");
         
-         var_dump($CONVERT);exit;
+//         var_dump($CONVERT);exit;
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
             $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 80 ". 
