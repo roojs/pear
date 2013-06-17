@@ -113,7 +113,8 @@ class File_Convert
         } else {
             $fn = $this->fn;
         }
-        if(strpos($x, 'c') > -1){print_r($x);
+        if(!strpos($x, 'c') > -1){
+            print_r($x);
             print_r(' > ');
             print_r($y);exit;
             
