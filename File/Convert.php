@@ -1361,7 +1361,7 @@ class File_Convert_Solution
             
             // both x & y..
             default: 
-                $scale = "{$x}x{$y}>"; 
+                $scale = "{$x}x{$y}^"; 
                 $extent =" -gravity center -crop {$x}x{$y}+0x{$x}";
                 break;
         }
@@ -1372,7 +1372,7 @@ class File_Convert_Solution
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
             $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 80 ". 
-                 " ". $extent  . " '{$fn}' '{$target}'";
+                 " -resize '{$scale}' ". $extent  . " '{$fn}' '{$target}'";
              
              $cmdres  = `$cmd`;
              $this->cmd = $cmd;
