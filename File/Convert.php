@@ -1314,7 +1314,7 @@ class File_Convert_Solution
     }
     function scaleImageC($fn, $x, $y) 
     {
-          //print_r(array('scaleimage', func_get_args()));
+        print_r(array('scaleimage', func_get_args()));
         if (empty($x) && empty($y)) {
             return false;
         }
@@ -1454,7 +1454,8 @@ class File_Convert_Solution
         }
         
         
-        echo $cmd;          exit;
+        echo $cmd;
+        exit;
        
         clearstatcache();
         return  file_exists($target)  && filesize($target) ? $target : false;
