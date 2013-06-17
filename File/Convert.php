@@ -619,7 +619,9 @@ class File_Convert_Solution
             case 'scaleImage':
                 $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
             case 'scaleImageC':
+                print_r('in?');
                 $target = $fn . '.'.$x.'c'.$y.'.' . $ext;
+                print_r($target);exit;
             default:
                 $target = $fn .'.'. $ext;
         }
