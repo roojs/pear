@@ -121,7 +121,7 @@ class File_Convert
             
 //            $size = explode('c', $x);
         }
-        print_r($x);
+        print_r(strpos($x, 'c'));
             print_r(' > ');
             print_r($y);exit;
 //        print_r($this->fn);exit;
