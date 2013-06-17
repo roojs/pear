@@ -1331,7 +1331,7 @@ class File_Convert_Solution
         switch (true) { // what about fit/pad etc...
             
             // added to allow fix to 'x' without padding.. (empty string in x or y)
-            case (empty($x) && !strlen($x)) :
+            case (empty($x) && !strlen($x)) :  // eg. ''x'123' (not 0x...)
                 $scale = "x{$y}";
                 break;
             case (empty($y) && !strlen($y)) :
