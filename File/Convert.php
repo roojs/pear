@@ -119,7 +119,7 @@ class File_Convert
             
             $sc = new File_Convert_Solution(strpos($x, 'c') > -1 ? 'scaleImageC' : 'scaleImage' , $toMimetype, $toMimetype);
             $sc->debug= $this->debug;
-            print_r($sc);exit;
+            
             str_replace('c', 'x', $x);
             
             if (strpos($x, 'x') > -1 ) {
@@ -129,7 +129,7 @@ class File_Convert
             }
             $x = strlen($x) ? (int) $x : '';
             $y = strlen($y) ? (int) $y : '';
-            
+            print_r($fn);exit;
             $fn = $sc->runconvert($fn,  $x, $y, $pg);
              
         }
