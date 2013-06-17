@@ -614,7 +614,7 @@ class File_Convert_Solution
         if (!$ext) {
             return false;
         }
-        print_r('in?'); eixt;
+//        print_r('in?'); exit;
         switch($this->method) {
             case 'scaleImage':
                 $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
