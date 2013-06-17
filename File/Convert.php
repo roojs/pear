@@ -605,25 +605,25 @@ class File_Convert_Solution
     function convertExists($fn, $x,$y)
     {
         
-        if (!file_exists($fn)) {
-            return false;
-        }
-        require_once 'File/MimeType.php';
-        $mt = new File_MimeType();
-        $ext = $mt->toExt($this->to);
-        if (!$ext) {
-            return false;
-        }
-//        print_r('in?'); exit;
-        switch($this->method) {
-            case 'scaleImage':
-                $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
-            case 'scaleImageC':
-                $target = $fn . '.'.$x.'c'.$y.'.' . $ext;
-            default:
-                $target = $fn .'.'. $ext;
-        }
-        return file_exists($fn) ? $fn : false;
+//        if (!file_exists($fn)) {
+//            return false;
+//        }
+//        require_once 'File/MimeType.php';
+//        $mt = new File_MimeType();
+//        $ext = $mt->toExt($this->to);
+//        if (!$ext) {
+//            return false;
+//        }
+////        print_r('in?'); exit;
+//        switch($this->method) {
+//            case 'scaleImage':
+//                $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
+//            case 'scaleImageC':
+//                $target = $fn . '.'.$x.'c'.$y.'.' . $ext;
+//            default:
+//                $target = $fn .'.'. $ext;
+//        }
+//        return file_exists($fn) ? $fn : false;
         
         
     }
