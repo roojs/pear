@@ -114,6 +114,7 @@ class File_Convert
             $fn = $this->fn;
         }
         if(!strpos($x, 'c') !== false){
+            print_r('inin?');
             print_r($x);
             print_r(' > ');
             print_r($y);exit;
