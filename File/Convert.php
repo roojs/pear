@@ -1348,7 +1348,7 @@ class File_Convert_Solution
             // both x & y..
             default: 
                 $scale = "{$x}x{$y}>"; 
-                $extent ="-extent '{$x}x{$y}>' -gravity center -background white -define jpeg:size={$x}x{$y}";
+                $extent =" -gravity center -background white -define jpeg:size={$x}x{$y}";
                 break;
         }
         require_once 'System.php';
