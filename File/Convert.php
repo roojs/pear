@@ -113,7 +113,7 @@ class File_Convert
         } else {
             $fn = $this->fn;
         }
-        
+        print_r($fn);exit;
         if (preg_match('#^image/#', $toMimetype) && ( !empty($x) || !empty($y))) {
             //var_dump(array($toMimetype));
             
@@ -129,7 +129,7 @@ class File_Convert
             }
             $x = strlen($x) ? (int) $x : '';
             $y = strlen($y) ? (int) $y : '';
-            print_r($fn);exit;
+            
             $fn = $sc->runconvert($fn,  $x, $y, $pg);
              
         }
