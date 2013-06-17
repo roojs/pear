@@ -1377,7 +1377,7 @@ class File_Convert_Solution
              $cmdres  = `$cmd`;
              $this->cmd = $cmd;
             `$cmd`;
-            
+
 //            print_r($cmd);exit;
             
         } else {
