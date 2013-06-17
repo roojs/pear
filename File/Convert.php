@@ -131,7 +131,7 @@ class File_Convert
             $y = strlen($y) ? (int) $y : '';
             print_r($x);
             print_r(' > ');
-            print_r($y);
+            print_r($y);exit;
             $fn = $sc->runconvert($fn,  $x, $y, $pg);
              
         }
