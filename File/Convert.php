@@ -1316,7 +1316,6 @@ class File_Convert_Solution
     {
 //        print_r(array('scaleimage', func_get_args()));exit;
         if (empty($x) && empty($y)) {
-            exit;
             return false;
         }
         $ext = $this->ext;
