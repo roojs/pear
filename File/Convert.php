@@ -131,7 +131,7 @@ class File_Convert
             $sc = new File_Convert_Solution(strpos($x, 'c')  !== false ? 'scaleImageC' : 'scaleImage' , $toMimetype, $toMimetype);
             $sc->debug= $this->debug;
             
-            str_replace('c', 'x', $x);
+            $x  = str_replace('c', 'x', $x);
             
             if (strpos($x, 'x') !== false ) {
                 $bits = explode('x', $x);
