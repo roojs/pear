@@ -618,6 +618,9 @@ class File_Convert_Solution
         switch($this->method) {
             case 'scaleImage':
                 $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
+                print_r('in?');
+                $target = $fn . '.'.$x.'c'.$y.'.' . $ext;
+                print_r($target);exit;
             case 'scaleImageC':
                 print_r('in?');
                 $target = $fn . '.'.$x.'c'.$y.'.' . $ext;
