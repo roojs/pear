@@ -1468,8 +1468,8 @@ class File_Convert_Solution
         }
         
         
-        echo $target;
-        exit;
+//        echo $target;
+//        exit;
        
         clearstatcache();
         return  file_exists($target)  && filesize($target) ? $target : false;
