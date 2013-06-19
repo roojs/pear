@@ -195,7 +195,7 @@ class HTML_CSS_Selector
     {
         $peek = $stream->peek();
         if (!$peek) {
-               throw new Exception(sprintf("Expected symbol, got End of Stream"));
+            throw new Exception(sprintf("Expected symbol, got End of Stream"));
               
         }
         
