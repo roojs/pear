@@ -194,6 +194,11 @@ class HTML_CSS_Selector
     private function parseSimpleSelector($stream)
     {
         $peek = $stream->peek();
+        if (!$peek) {
+               throw new Exception(sprintf("Expected symbol, got End of Stream"));
+              
+        }
+        
         if ('*' != $peek && !$peek->isType('Symbol')) {
             $element = $namespace = '*';
         } else {
