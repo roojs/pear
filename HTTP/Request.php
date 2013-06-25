@@ -282,6 +282,11 @@ class HTTP_Request
     * @var array
     */
     var $_socketOptions = null;
+     /**
+    * Options to pass to Net_Socket::connect. See stream_context_create
+    * @var array
+    */
+    var $_userAgent = null;
    /**#@-*/
 
     /**
@@ -306,7 +311,10 @@ class HTTP_Request
     *   <li>saveBody       - Whether to save response body in response object property (bool)</li>
     *   <li>readTimeout    - Timeout for reading / writing data over the socket (array (seconds, microseconds))</li>
     *   <li>socketOptions  - Options to pass to Net_Socket object (array)</li>
+    *   <li>userAgent    - User agent to use</li>
+    *   
     * </ul>
+    * 
     * @access public
     */
     function HTTP_Request($url = '', $params = array())
