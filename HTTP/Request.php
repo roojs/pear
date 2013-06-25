@@ -369,6 +369,8 @@ class HTTP_Request
         if (HTTP_REQUEST_HTTP_VER_1_1 == $this->_http && extension_loaded('zlib')) {
             $this->addHeader('Accept-Encoding', 'gzip,deflate,sdch');
         }
+        // trying to get around mod sec?
+        $this->addHeader('text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8');
     }
 
     /**
