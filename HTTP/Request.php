@@ -367,7 +367,7 @@ class HTTP_Request
 
         // Use gzip encoding if possible
         if (HTTP_REQUEST_HTTP_VER_1_1 == $this->_http && extension_loaded('zlib')) {
-            $this->addHeader('Accept-Encoding', 'gzip');
+            $this->addHeader('Accept-Encoding', 'gzip,deflate,sdch');
         }
     }
 
