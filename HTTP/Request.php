@@ -1047,7 +1047,7 @@ class HTTP_Request
             }
             $request .= "\r\n";
         }
-
+        var_dump($request);exit;
         return $request;
     }
 
