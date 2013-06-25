@@ -349,7 +349,8 @@ class HTTP_Request
         }
 
         // Default useragent
-        $this->addHeader('User-Agent', 'PEAR HTTP_Request class ( http://pear.php.net/ )');
+        $this->addHeader('User-Agent', $this->_userAgent ?  $this->_userAgent :
+                          'PEAR HTTP_Request class ( http://pear.php.net/ )');
 
         // We don't do keep-alives by default
         $this->addHeader('Connection', 'close');
