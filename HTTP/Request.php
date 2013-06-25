@@ -371,6 +371,15 @@ class HTTP_Request
         }
         // trying to get around mod sec?
         $this->addHeader('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8');
+        
+        $this->addHeader('Accept-Charset','UTF-8,*;q=0.5');
+
+$this->addHeader('Accept-Language','en-US,en;q=0.8');
+$this->addHeader('Cache-Control','no-cache');
+$this->addHeader('Connection','keep-alive');
+$this->addHeader('Pragma','no-cache');
+        
+        
     }
 
     /**
