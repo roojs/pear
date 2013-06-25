@@ -370,7 +370,7 @@ class HTTP_Request
             $this->addHeader('Accept-Encoding', 'gzip,deflate,sdch');
         }
         // trying to get around mod sec?
-        $this->addHeader('text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8');
+        $this->addHeader('Accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8');
     }
 
     /**
