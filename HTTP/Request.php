@@ -282,6 +282,11 @@ class HTTP_Request
     * @var array
     */
     var $_socketOptions = null;
+    /**
+    * Cookies recieved by requests, stored so they can be sent out via redirects
+    * @var array
+    */
+    var $_cookies = array();
      /**
     * Options to pass to Net_Socket::connect. See stream_context_create
     * @var array
