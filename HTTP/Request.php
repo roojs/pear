@@ -705,7 +705,7 @@ class HTTP_Request
     */
     function addCookie($name, $value)
     {
-        $cookies = isset($this->_requestHeaders['cookie']) ? $this->_requestHeaders['cookie']. '; ' : '';
+        $cookies = isset($this->_requestHeaders['cookie']) && strlen($this->_requestHeaders['cookie']) ? $this->_requestHeaders['cookie']. '; ' : '';
         $this->addHeader('Cookie', $cookies . $name . '=' . $value);
     }
 
@@ -865,6 +865,9 @@ class HTTP_Request
                     $this->_cookies[] = $c;
                 }
                   
+            }
+            if (isset($this->_requestHeaders['cookie'])) {
+                unset($this->_requestHeaders['cookie']);
             }
             foreach($this->_cookies as $c) {
                 if (substr($this->_url->host, -1 * strlen($c['domain']) == $c['domain'])) { 
