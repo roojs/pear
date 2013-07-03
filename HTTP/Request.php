@@ -825,7 +825,7 @@ class HTTP_Request
             AND !empty($this->_response->_headers['location'])) {
 
             print_r($this->_response->_cookies);exit;
-            $redirect a= $this->_response->_headers['location'];
+            $rediret a= $this->_response->_headers['location'];
 
             // Absolute URL
             if (preg_match('/^https?:\/\//i', $redirect)) {
