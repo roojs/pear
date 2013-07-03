@@ -825,8 +825,10 @@ class HTTP_Request
             AND !empty($this->_response->_headers['location'])) {
 
             if (!empty($this->_response->_cookies)) {
-                foreach($this->_response->_cookies as $c) { 
-                    $this->addCookie($c['name'], $c['value']);
+                foreach($this->_response->_cookies as $c) {
+                    if (substr($domain, -1 * strlen($c['domain']) == $c['domain'])) { 
+                        $this->addCookie($c['name'], $c['value']);
+                    }
                 }
             }
             $redirect = $this->_response->_headers['location'];
