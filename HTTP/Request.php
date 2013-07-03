@@ -1083,7 +1083,7 @@ class HTTP_Request
             }
             $request .= "\r\n";
         }
-        echo '<PRE>';echo  $request;//exit;
+       // echo '<PRE>';echo  $request;//exit;
         
         return $request;
     }
