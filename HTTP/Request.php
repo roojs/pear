@@ -869,7 +869,7 @@ class HTTP_Request
             if (isset($this->_requestHeaders['cookie'])) {
                 unset($this->_requestHeaders['cookie']);
             }
-            print_r($this->_cookies);
+            //print_r($this->_cookies);
             $cookies = array();
             foreach($this->_cookies as $c) {
                 
