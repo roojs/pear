@@ -870,11 +870,15 @@ class HTTP_Request
                 unset($this->_requestHeaders['cookie']);
             }
             print_r($this->_cookies);
+            $cookies = array();
             foreach($this->_cookies as $c) {
                 
-                if (substr($this->_url->host, -1 * strlen($c['domain']) == $c['domain'])) { 
-                    $this->addCookie($c['name'], $c['value']);
+                if (substr($this->_url->host, -1 * strlen($c['domain']) == $c['domain'])) {
+                    $cookies[$c['name']] = $c['value']; 
                 }
+            }
+            foreach($cookies as $k=>$v) {
+                $this->addCookie($k=>$v);
             }
             $this->_redirects++;
             return $this->sendRequest($saveBody);
