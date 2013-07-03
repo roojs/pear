@@ -857,7 +857,7 @@ class HTTP_Request
 
              if (!empty($this->_response->_cookies)) {
                 foreach($this->_response->_cookies as $c) {
-                    if (substr($this->_url->host , -1 * strlen($c['domain']) == $c['domain'])) { 
+                    if (substr($this->_url->host, -1 * strlen($c['domain']) == $c['domain'])) { 
                         $this->addCookie($c['name'], $c['value']);
                     }
                 }
