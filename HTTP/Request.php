@@ -824,7 +824,11 @@ class HTTP_Request
             AND $this->getResponseCode() < 399
             AND !empty($this->_response->_headers['location'])) {
 
-            print_r($this->_response->_cookies);exit;
+            if (!empty($this->_response->_cookies)) {
+                foreach($this->_response->_cookies as $c) { 
+                    $this->addCookie($c['name'], $c['value']);
+                }
+            }
             $redirect = $this->_response->_headers['location'];
 
             // Absolute URL
