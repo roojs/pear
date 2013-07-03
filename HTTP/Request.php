@@ -824,13 +824,7 @@ class HTTP_Request
             AND $this->getResponseCode() < 399
             AND !empty($this->_response->_headers['location'])) {
 
-            if (!empty($this->_response->_cookies)) {
-                foreach($this->_response->_cookies as $c) {
-                    if (substr($domain, -1 * strlen($c['domain']) == $c['domain'])) { 
-                        $this->addCookie($c['name'], $c['value']);
-                    }
-                }
-            }
+           
             $redirect = $this->_response->_headers['location'];
 
             // Absolute URL
@@ -861,6 +855,15 @@ class HTTP_Request
                 $this->_url->path = $redirect;
             }
 
+             if (!empty($this->_response->_cookies)) {
+                foreach($this->_response->_cookies as $c) {
+                    if (substr($this->_url->host , -1 * strlen($c['domain']) == $c['domain'])) { 
+                        $this->addCookie($c['name'], $c['value']);
+                    }
+                }
+            }
+            
+            
             $this->_redirects++;
             return $this->sendRequest($saveBody);
 
