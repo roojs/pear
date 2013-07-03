@@ -859,16 +859,18 @@ class HTTP_Request
                 }
                 $this->_url->path = $redirect;
             }
-
-             if (!empty($this->_response->_cookies)) {
+            // handle cookes on redirect...
+            if (!empty($this->_response->_cookies)) {
                 foreach($this->_response->_cookies as $c) {
-                    if (substr($this->_url->host, -1 * strlen($c['domain']) == $c['domain'])) { 
-                        $this->addCookie($c['name'], $c['value']);
-                    }
+                    $this->_cookies[] = $c;
+                }
+                  
+            }
+            foreach($this->_cookies as $c) {
+                if (substr($this->_url->host, -1 * strletn($c['domain']) == $c['domain'])) { 
+                    $this->addCookie($c['name'], $c['value']);
                 }
             }
-            
-            
             $this->_redirects++;
             return $this->sendRequest($saveBody);
 
@@ -1072,7 +1074,7 @@ class HTTP_Request
             }
             $request .= "\r\n";
         }
-        var_dump($request);//exit;
+        echo '<PRE>';echo  $request;//exit;
         
         return $request;
     }
