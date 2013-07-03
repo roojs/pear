@@ -878,7 +878,7 @@ class HTTP_Request
                 }
             }
             foreach($cookies as $k=>$v) {
-                $this->addCookie($k=>$v);
+                $this->addCookie($k,$v);
             }
             $this->_redirects++;
             return $this->sendRequest($saveBody);
