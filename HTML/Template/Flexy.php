@@ -439,10 +439,7 @@ class HTML_Template_Flexy
             
         if( !empty($this->options['forceCompile']) || !$isuptodate ) {
             $recompile = true;
-        } else {
-            $this->debug("File looks like it is uptodate.");
-            return true;
-        }
+        } 
         // ask the translator if it needs to force a recompile        
         if (!$recompile && ! empty($this->options['DB_DataObject_translator'])) {
         
@@ -457,7 +454,10 @@ class HTML_Template_Flexy
             
             
         }
-        
+        if (!$recompile) {
+            $this->debug("File looks like it is uptodate.");
+            return true;
+        }
         
         
         
