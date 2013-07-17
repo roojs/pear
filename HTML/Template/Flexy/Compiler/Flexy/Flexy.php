@@ -170,7 +170,9 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
     * or include without parsing  (does not support {xxx} args )
     *  <flexy:include src="test.html" type="raw">
     *
-    *  
+    * or to include a file as a js value = used by javascript templates
+    *  <flexy:include src="test.html" type="json" name="my_js_variable">
+    *
     * @see parent::toString()
     */
     function includeToString($element) 

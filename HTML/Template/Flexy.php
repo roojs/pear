@@ -443,6 +443,21 @@ class HTML_Template_Flexy
             $this->debug("File looks like it is uptodate.");
             return true;
         }
+        // ask the translator if it needs to force a recompile        
+        if (!$recompile && ! empty($this->options['DB_DataObject_translator'])) {
+        
+            static $tr = false;
+            if (!$tr) {
+                require_once 'DB/DataObject.php';
+                $tr = DB_DataObject::factory( $this->options['DB_DataObject_translator']);
+            }
+            if (method_exists($tr,'translateChanged') ) {
+                $recompile = $tr->translateChanged($this);
+            }
+            
+            
+        }
+        
         
         
         
@@ -816,10 +831,13 @@ class HTML_Template_Flexy
         if (!empty($this->options['disableTranslate'])) {
             return $string;
         }
-//        die('run  ?');
+        
+        // db dataobject easy handling of translations.
+        
         if (!empty($this->options['DB_DataObject_translator'])) {
             static $tr = false;
             if (!$tr) {
+                require_once 'DB/DataObject.php';
                 $tr = DB_DataObject::factory( $this->options['DB_DataObject_translator']);
             }
             $result = $tr->translateFlexyString($this, $string);
