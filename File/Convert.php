@@ -372,7 +372,8 @@ class File_Convert
                     'image/gif',
                     'image/png',
                     'image/x-ms-bmp',
-                    'image/tiff'
+                    'image/tiff',
+                    'application/pdf'
                 )
             ),
             
