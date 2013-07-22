@@ -725,8 +725,11 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         // convert to escaped chars.. (limited..)
         //$value = strtr($value,$cleanArray);
         
-        $this->addStringToGettext($value);
-        $value = $this->flexy->translateString($value);
+        // this only applies to html templates
+        if (empty($this->flexy->options['nonHTML'])) {
+            $this->addStringToGettext($value);
+            $value = $this->flexy->translateString($value);
+        }
         // its a simple word!
         return $this->appendHtml($front . $value . $rear);
         
