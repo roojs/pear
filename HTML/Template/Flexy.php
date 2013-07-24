@@ -348,6 +348,7 @@ class HTML_Template_Flexy
             $newfile = $parts[1].'.'.$this->options['locale'] .$parts[2];
             var_dump($newfile);
             $match = $this->resolvePath($newfile);
+            var_dump($match);
             if (is_a($match, 'PEAR_Error')) {
                 return $match;
             }
