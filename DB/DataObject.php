@@ -1342,7 +1342,7 @@ class DB_DataObject extends DB_DataObject_Overload
        
         foreach($items as $k => $v) {
             
-            if ((!isset($this->$k) || ($v == 1 && $this->$k == ''))
+            if ((!isset($this->$k) || ($v == 1 && $this->$k === ''))
                     && $ignore_null
             ) {
                  continue;
