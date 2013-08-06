@@ -1339,7 +1339,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     || !is_string($options['disable_null_strings'])
                     || strtolower($options['disable_null_strings']) !== 'full' ;
                     
-        var_dump($items);
+       
         foreach($items as $k => $v) {
             
             if ((!isset($this->$k) || ($v == 1 && $this->$k == ''))
