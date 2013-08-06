@@ -1339,7 +1339,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     || !is_string($options['disable_null_strings'])
                     || strtolower($options['disable_null_strings']) !== 'full' ;
                     
-        
+        var_dump($items);
         foreach($items as $k => $v) {
             
             if ((!isset($this->$k) || ($v == 1 && $this->$k == ''))
@@ -1416,7 +1416,7 @@ class DB_DataObject extends DB_DataObject_Overload
             // - V2 may store additional data about float/int
             $settings .= "$kSql = " . intval($this->$k) . ' ';
         }
-        var_dump($settings);
+         
         
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug("got keys as ".serialize($keys),3);
