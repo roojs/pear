@@ -1342,6 +1342,8 @@ class DB_DataObject extends DB_DataObject_Overload
        
         foreach($items as $k => $v) {
             
+            // type = 1 (number) and new value == empty string?
+            
             if ((!isset($this->$k) || ($v == 1 && $this->$k === ''))
                     && $ignore_null
             ) {
