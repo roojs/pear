@@ -1343,6 +1343,7 @@ class DB_DataObject extends DB_DataObject_Overload
         foreach($items as $k => $v) {
             
             // type = 1 (number) and new value == empty string?
+            // this used to be '==', and blocked if you tried to set a field to 0
             
             if ((!isset($this->$k) || ($v == 1 && $this->$k === ''))
                     && $ignore_null
