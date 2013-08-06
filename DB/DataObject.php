@@ -1416,7 +1416,7 @@ class DB_DataObject extends DB_DataObject_Overload
             // - V2 may store additional data about float/int
             $settings .= "$kSql = " . intval($this->$k) . ' ';
         }
-
+        var_dump($settings);
         
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug("got keys as ".serialize($keys),3);
