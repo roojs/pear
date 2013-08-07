@@ -152,7 +152,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
                 continue;
             }
             $ret .= $this->compiler->appendPhp(
-                    'echo "var '.$k.'=" . $_json->encode('.$element->toVar($v).') . ";\n";'
+                    'echo "var '.$k.'=" . $_json->encodeUnsafe('.$element->toVar($v).') . ";\n";'
             );
            
             $ret .= $this->compiler->appendHTML("\n");
