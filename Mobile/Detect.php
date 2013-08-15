@@ -37,8 +37,8 @@ class Mobile_Detect
     protected $scriptVersion = '2.5.4';
 
     // External info.
-    protected $userAgent = null;
-    protected $httpHeaders;
+    public $userAgent = null;
+    public $httpHeaders;
 
     // Arrays holding all detection rules.
     protected $mobileDetectionRules = null;
