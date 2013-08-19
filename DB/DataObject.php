@@ -3916,9 +3916,8 @@ class DB_DataObject extends DB_DataObject_Overload
         if ($has_distinct) {
             $this->selectAdd($has_distinct);
         }
-         
-        foreach($selectAs as $ar) {
-            
+        print_R($selectAs );
+        foreach($selectAs as $ar) {            
             $this->selectAs($ar[0], $ar[1], $ar[2]);
         }
         // restore links..
