@@ -3758,7 +3758,7 @@ class DB_DataObject extends DB_DataObject_Overload
      */
     function autoJoin($cfg = array())
     {
-        //var_Dump($cfg);exit;
+        var_Dump($cfg);exit;
         $pre_links = $this->links();
         if (!empty($cfg['links'])) {
             $this->links(array_merge( $pre_links , $cfg['links']));
