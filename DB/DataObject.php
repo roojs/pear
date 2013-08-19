@@ -3817,7 +3817,7 @@ class DB_DataObject extends DB_DataObject_Overload
             // apply our filtered version, which excludes the distinct column.
             
             $selectAs = empty($cols) ?  array() : array(array(  $cols , '%s', false)) ;
-            var_dump($selectAs);
+            
             
             
         } 
