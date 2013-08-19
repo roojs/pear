@@ -3916,7 +3916,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if ($has_distinct) {
             $this->selectAdd($has_distinct);
         }
-        print_R($selectAs );
+        //print_R($selectAs );
         foreach($selectAs as $ar) {            
             $this->selectAs($ar[0], $ar[1], $ar[2]);
         }
