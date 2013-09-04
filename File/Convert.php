@@ -585,6 +585,8 @@ class File_Convert_Solution
         if ($this->debug) {
             echo "$cmd\n";
         }
+        $this->cmd = $cmd ."\n" . $ret;
+        
         return $ret;
     }
     
@@ -678,7 +680,7 @@ class File_Convert_Solution
         $cmd = "$xvfb -a  $uno -f $ext --stdout " . escapeshellarg($fn) . " 1> " . escapeshellarg($target);
         //  echo $cmd;
         $res = $this->exec($cmd);
-        $this->cmd = $cmd . "\n"  . $res;
+        
         clearstatcache();
         
         if (!file_exists($target) || (file_exists($target)  && filesize($target) < 400)) {
@@ -759,7 +761,7 @@ class File_Convert_Solution
                 escapeshellarg($target);
         ///echo $cmd;
         $this->exec($cmd);
-        $this->cmd = $cmd;
+        
         clearstatcache();
         
          return  file_exists($target)  && filesize($target) ? $target : false;
@@ -803,7 +805,7 @@ class File_Convert_Solution
             echo $cmd ."\n";
         }
         $this->exec($cmd);
-        $this->cmd = $cmd;
+        
         clearstatcache();
         
         return  file_exists($target)  && filesize($target) ? $target : false;
@@ -833,9 +835,7 @@ class File_Convert_Solution
         if (!empty(File_Convert::$options['wkhtmltopdf'])) {
             $cmd .= File_Convert::$options['wkhtmltopdf'];
         }
-        
-        $this->cmd = $cmd;
-       
+         
         $res = $this->exec($cmd);
         clearstatcache();
         
@@ -847,8 +847,7 @@ class File_Convert_Solution
                 return false;
             }
             $cmd = $xvfb .' ' . $cmd;
-            $this->cmd = $cmd;
-           // echo $cmd;
+            
             $res = $this->exec($cmd);
         }
         
@@ -892,7 +891,7 @@ class File_Convert_Solution
 
         ///echo $cmd;
         $this->exec($cmd);
-        $this->cmd = $cmd;
+        
         clearstatcache();
         
         return  file_exists($target)  && filesize($target) ? $target : false;
@@ -921,7 +920,7 @@ class File_Convert_Solution
         $cmd = "$abiword  --import-extension=$fext --to=" . escapeshellarg($target) . ' ' .escapeshellarg($fn);
         ///echo $cmd;
         $this->exec($cmd);
-        $this->cmd = $cmd;
+       
         clearstatcache();
         
         return  file_exists($target)  && filesize($target) ? $target : false;
@@ -1002,7 +1001,7 @@ class File_Convert_Solution
         $cmd = "$conv -f $cvt -o " . escapeshellarg($target) . ' ' .escapeshellarg($fn);
         
         $this->exec($cmd);
-        $this->cmd = $cmd;      
+        
         clearstatcache();
          
         
@@ -1054,7 +1053,7 @@ class File_Convert_Solution
         $STRINGS= System::which("strings");
         // needs strings if starngs chars are in there..
         $cmd = $PDFINFO . ' '. escapeshellarg($fn) . " | $STRINGS | $GREP 'Page size'";
-        $this->cmd = $cmd;
+         
         
          $info = trim( $this->exec($cmd));
         $match = array();
@@ -1062,7 +1061,7 @@ class File_Convert_Solution
        
        //print_R($info);
         if (!preg_match("/([0-9.]+)[^0-9]+([0-9.]+)/",$info, $match)) {
-            $this->cmd = ""
+            $this->cmd .= " could not find 0-0 in the return string"
             return false;
         }
         
@@ -1086,7 +1085,7 @@ class File_Convert_Solution
         
         $res = $this->exec($cmd);
         $this->result = $res;
-        $this->cmd = $cmd;
+         
         clearstatcache();
         // for some reason this makes 01 or 1?
         $out = $fn . sprintf('-conv-%d.jpg', $pg);
@@ -1154,7 +1153,7 @@ class File_Convert_Solution
         }
         
         $this->exec($cmd);
-        $this->cmd = $cmd;
+        
         clearstatcache();
         $fe = file_exists($target)  && filesize($target) ? $target : false;
         if ($fe) {
@@ -1241,7 +1240,6 @@ class File_Convert_Solution
                  " -resize '{$scale}' ". $extent  . " '{$fn}' '{$target}'";
              
              $cmdres  = $this->exec($cmd);
-             $this->cmd = $cmd;
             $this->exec($cmd);
             
             
@@ -1388,7 +1386,6 @@ class File_Convert_Solution
                  " -resize '{$scale}' ". $extent  . " '{$fn}' '{$target}'";
              
              $cmdres  = $this->exec($cmd);
-             $this->cmd = $cmd;
             $this->exec($cmd);
 
 //            print_r($cmd);exit;
@@ -1504,7 +1501,7 @@ class File_Convert_Solution
         
         ///echo $cmd;
         $this->exec($cmd);
-        $this->cmd = $cmd;
+       
         clearstatcache();
         
         return  file_exists($target)  && filesize($target) ? $target : false;
