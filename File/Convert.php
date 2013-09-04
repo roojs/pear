@@ -678,8 +678,10 @@ class File_Convert_Solution
             $this->cmd = "Missing unoconv";
             return false;
         }
+        // before we used stdout -- not sure why.
+        //$cmd = "$xvfb -a  $uno -f $ext --stdout " . escapeshellarg($fn) . " 1> " . escapeshellarg($target);
         $cmd = "$xvfb -a  $uno -f $ext --stdout " . escapeshellarg($fn) . " 1> " . escapeshellarg($target);
-        //  echo $cmd;
+        ////  echo $cmd;
         $res = $this->exec($cmd);
         
         clearstatcache();
