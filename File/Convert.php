@@ -1054,7 +1054,7 @@ class File_Convert_Solution
         $STRINGS= System::which("strings");
         // needs strings if starngs chars are in there..
         $cmd = $PDFINFO . ' '. escapeshellarg($fn) . " | $STRINGS | $GREP 'Page size'";
-        
+        $this->cmd = $cmd;
         
          $info = trim( $this->exec($cmd));
         $match = array();
@@ -1062,7 +1062,7 @@ class File_Convert_Solution
        
        //print_R($info);
         if (!preg_match("/([0-9.]+)[^0-9]+([0-9.]+)/",$info, $match)) {
-            
+            $this->cmd = ""
             return false;
         }
         
