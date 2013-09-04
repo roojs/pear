@@ -1061,7 +1061,7 @@ class File_Convert_Solution
        
        //print_R($info);
         if (!preg_match("/([0-9.]+)[^0-9]+([0-9.]+)/",$info, $match)) {
-            $this->cmd .= " could not find 0-0 in the return string"
+            $this->cmd .= " could not find 0-0 in the return string";
             return false;
         }
         
