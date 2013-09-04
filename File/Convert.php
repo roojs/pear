@@ -575,6 +575,19 @@ class File_Convert_Solution
         $this->last = $this;
         
     }
+    
+    function exec($cmd)
+    {
+        if ($this->debug) {
+            echo "$cmd\n";
+        }
+        $ret = `$cmd`;
+        if ($this->debug) {
+            echo "$cmd\n";
+        }
+        return $ret;
+    }
+    
     function count()
     {
         return 1;
@@ -613,6 +626,7 @@ class File_Convert_Solution
         $method = $this->method;
         return $this->$method($fn, $x, $y, $pg);
     }
+    
     
     function convertExists($fn, $x,$y)
     {
@@ -663,7 +677,7 @@ class File_Convert_Solution
         }
         $cmd = "$xvfb -a  $uno -f $ext --stdout " . escapeshellarg($fn) . " 1> " . escapeshellarg($target);
         //  echo $cmd;
-        $res = `$cmd`;
+        $res = $this->exec($cmd);
         $this->cmd = $cmd . "\n"  . $res;
         clearstatcache();
         
@@ -675,7 +689,7 @@ class File_Convert_Solution
             clearstatcache();
             sleep(3);
             
-            $res = `$cmd`;
+            $res = $this->exec($cmd);
             clearstatcache();
         
             
@@ -744,7 +758,7 @@ class File_Convert_Solution
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         ///echo $cmd;
-        `$cmd`;
+        $this->exec($cmd);
         $this->cmd = $cmd;
         clearstatcache();
         
@@ -788,7 +802,7 @@ class File_Convert_Solution
         if ($this->debug) {
             echo $cmd ."\n";
         }
-        `$cmd`;
+        $this->exec($cmd);
         $this->cmd = $cmd;
         clearstatcache();
         
@@ -822,7 +836,7 @@ class File_Convert_Solution
         
         $this->cmd = $cmd;
        
-        $res = `$cmd`;
+        $res = $this->exec($cmd);
         clearstatcache();
         
         if (!file_exists($target) ) {
@@ -835,7 +849,7 @@ class File_Convert_Solution
             $cmd = $xvfb .' ' . $cmd;
             $this->cmd = $cmd;
            // echo $cmd;
-            $res = `$cmd`;
+            $res = $this->exec($cmd);
         }
         
         //echo $res;
@@ -877,7 +891,7 @@ class File_Convert_Solution
                 escapeshellarg($fn) ." -vcodec mjpeg -vframes 1 -an -f rawvideo -ss 20  -s 320x240 " . escapeshellarg($target);
 
         ///echo $cmd;
-        `$cmd`;
+        $this->exec($cmd);
         $this->cmd = $cmd;
         clearstatcache();
         
@@ -906,7 +920,7 @@ class File_Convert_Solution
         }
         $cmd = "$abiword  --import-extension=$fext --to=" . escapeshellarg($target) . ' ' .escapeshellarg($fn);
         ///echo $cmd;
-        `$cmd`;
+        $this->exec($cmd);
         $this->cmd = $cmd;
         clearstatcache();
         
@@ -948,7 +962,7 @@ class File_Convert_Solution
    
         $cmd = "$cad2svg -o " . escapeshellarg($target) . ' ' .escapeshellarg($fn);
        // echo $cmd;
-        `$cmd`;
+        $this->exec($cmd);
         clearstatcache();
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
@@ -987,7 +1001,7 @@ class File_Convert_Solution
         } 
         $cmd = "$conv -f $cvt -o " . escapeshellarg($target) . ' ' .escapeshellarg($fn);
         
-        `$cmd`;
+        $this->exec($cmd);
         $this->cmd = $cmd;      
         clearstatcache();
          
@@ -1008,7 +1022,7 @@ class File_Convert_Solution
         $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 ". 
                         "-quality 80  -resize '400x>' ". escapeshellarg($fn) . " " . escapeshellarg($target);
         
-        `$cmd`;
+        $this->exec($cmd);
         clearstatcache();
         return  file_exists($target)  && filesize($target) ? $target : false;
         
@@ -1042,7 +1056,7 @@ class File_Convert_Solution
         $cmd = $PDFINFO . ' '. escapeshellarg($fn) . " | $STRINGS | $GREP 'Page size'";
         
         
-         $info = trim( `$cmd`);
+         $info = trim( $this->exec($cmd));
         $match = array();
         // very presumtiuos...
        
@@ -1070,7 +1084,7 @@ class File_Convert_Solution
            
         }
         
-        $res = `$cmd`;
+        $res = $this->exec($cmd);
         $this->result = $res;
         $this->cmd = $cmd;
         clearstatcache();
@@ -1139,7 +1153,7 @@ class File_Convert_Solution
            
         }
         
-       `$cmd`;
+        $this->exec($cmd);
         $this->cmd = $cmd;
         clearstatcache();
         $fe = file_exists($target)  && filesize($target) ? $target : false;
@@ -1174,7 +1188,7 @@ class File_Convert_Solution
            echo "$cmd <br/>";
            
         }
-        `$cmd`;
+        $this->exec($cmd);
         clearstatcache();
         return file_exists($target)  && filesize($target) ? $target : false;
         
@@ -1226,9 +1240,9 @@ class File_Convert_Solution
             $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 80 ". 
                  " -resize '{$scale}' ". $extent  . " '{$fn}' '{$target}'";
              
-             $cmdres  = `$cmd`;
+             $cmdres  = $this->exec($cmd);
              $this->cmd = $cmd;
-            `$cmd`;
+            $this->exec($cmd);
             
             
             
@@ -1373,9 +1387,9 @@ class File_Convert_Solution
             $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 80 ". 
                  " -resize '{$scale}' ". $extent  . " '{$fn}' '{$target}'";
              
-             $cmdres  = `$cmd`;
+             $cmdres  = $this->exec($cmd);
              $this->cmd = $cmd;
-            `$cmd`;
+            $this->exec($cmd);
 
 //            print_r($cmd);exit;
             
@@ -1489,7 +1503,7 @@ class File_Convert_Solution
         $cmd = "$FAAD -o - ".escapeshellarg($fn)." | $LAME - {$target}";
         
         ///echo $cmd;
-        `$cmd`;
+        $this->exec($cmd);
         $this->cmd = $cmd;
         clearstatcache();
         
