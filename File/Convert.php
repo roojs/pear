@@ -671,6 +671,7 @@ class File_Convert_Solution
         $xvfb = System::which('xvfb-run');
         if (empty($xvfb)) {
             $this->cmd = "Missing xvfb";
+            return false;
         }
         $uno = System::which('unoconv');
         if (empty($xvfb)) {
