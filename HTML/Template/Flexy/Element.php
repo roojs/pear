@@ -197,7 +197,7 @@ class HTML_Template_Flexy_Element {
                  
                 $value =  htmlspecialchars($activeEngine->translateString($value));
             }
-            if (($this->tag == 'input') && $key == 'placeholder') {
+            if ((in_array($this->tag ,array( 'input','textarea')) && $key == 'placeholder') {
                  
                 $value =  htmlspecialchars($activeEngine->translateString($value));
             }
