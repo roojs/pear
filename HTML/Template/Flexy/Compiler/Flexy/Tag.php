@@ -1038,7 +1038,11 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
   
     function parseTagTextArea() 
     {
-         
+        // create a  translatable string for placeholder addString should handle if it does not exist..
+        $this->compiler->addStringToGettext(
+            $this->element->getAttribute('PLACEHOLDER')
+        );
+        
         return $this->compiler->appendPhp(
             $this->getElementPhp( $this->element->getAttribute('NAME')));
             
