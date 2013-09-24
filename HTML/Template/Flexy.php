@@ -654,7 +654,7 @@ class HTML_Template_Flexy
     {
         $this->_bufferHandle = fopen($filename, 'w');
         
-        ob_start(); // outer nesting..
+        ob_start(array($this, 'addToBuffer') , 8192, true); // outer nesting..
         ob_start( array($this, 'addToBuffer') , 8192, true);
         $this->outputObject($t,$elements);
         @ob_end_clean();
