@@ -661,7 +661,7 @@ class HTML_Template_Flexy
         @ob_end_clean();
         
         // not sure why, but this emits errors... when it should not!
-        ..@ob_end_clean();
+        //@ob_end_clean();
         
         fclose($this->_bufferHandle);
         $this->_bufferHandle = false;
