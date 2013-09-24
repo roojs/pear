@@ -657,7 +657,8 @@ class HTML_Template_Flexy
         ob_start(); // outer nesting..
         ob_start( array($this, 'addToBuffer') , 4096, true);
         $this->outputObject($t,$elements);
-        fwrite($this->_bufferHandle,@ob_end_flush());
+        ob_end_flush(); // this should send it??
+        fwrite($this->_bufferHandle,@);
         @ob_end_clean();
         
         // not sure why, but this emits errors... when it should not!
