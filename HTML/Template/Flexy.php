@@ -658,10 +658,10 @@ class HTML_Template_Flexy
         ob_start( array($this, 'addToBuffer') , 4096, true);
         $this->outputObject($t,$elements);
         fwrite($this->_bufferHandle,ob_end_flush());
-        ob_end_clean();
+        @ob_end_clean();
         
         // not sure why, but this emits errors... when it should not!
-        ob_end_clean();
+        @ob_end_clean();
         
         fclose($this->_bufferHandle);
         $this->_bufferHandle = false;
