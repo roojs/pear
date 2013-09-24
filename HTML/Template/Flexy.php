@@ -658,10 +658,12 @@ class HTML_Template_Flexy
         ob_start( array($this, 'addToBuffer') , 8192, true);
         $this->outputObject($t,$elements);
         @ob_end_clean();
-        fclose($this->_bufferHandle);
-        $this->_bufferHandle = false;
+        
         // not sure why, but this emits errors... when it should not!
         @ob_end_clean();
+        
+        fclose($this->_bufferHandle);
+        $this->_bufferHandle = false;
      }
     /**
      * callback for outputObjectToFile
