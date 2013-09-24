@@ -654,13 +654,13 @@ class HTML_Template_Flexy
     {
         $this->_bufferHandle = fopen($filename, 'w');
         
-        ob_start(array($this, 'addToBuffer') , 8192, true); // outer nesting..
-        ob_start( array($this, 'addToBuffer') , 8192, true);
+        //ob_start(array($this, 'addToBuffer') , 8192, true); // outer nesting..
+        ob_start( array($this, 'addToBuffer') , 4096, true);
         $this->outputObject($t,$elements);
         @ob_end_clean();
         
         // not sure why, but this emits errors... when it should not!
-        @ob_end_clean();
+        //@ob_end_clean();
         
         fclose($this->_bufferHandle);
         $this->_bufferHandle = false;
