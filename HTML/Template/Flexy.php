@@ -673,7 +673,7 @@ class HTML_Template_Flexy
     {
         
         if (!$this->_bufferHandle) {
-            return;// false;
+            return true;// false; - should be faulse???
         }
         fwrite($this->_bufferHandle,$buffer);
         return true;
