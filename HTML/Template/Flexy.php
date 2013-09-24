@@ -660,7 +660,6 @@ class HTML_Template_Flexy
         fwrite($this->_bufferHandle, ob_get_contents());
         ///fwrite($this->_bufferHandle,@);
         @ob_end_clean();
-        
         // not sure why, but this emits errors... when it should not!
         @ob_end_clean();
         
