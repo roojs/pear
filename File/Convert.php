@@ -144,6 +144,7 @@ class File_Convert
             $fn = $sc->runconvert($fn,  $x, $y, $pg);
              
         }
+        print_r($this->target);
         $this->target = $fn;
         $this->to = $toMimetype;
         return $fn;
