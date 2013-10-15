@@ -393,7 +393,7 @@ class File_Convert
             array('convert800mp', // mulipage convert...
                 array(
                   //  'application/pdf',
-                    'application/tiff',
+                    'image/tiff',
                 ),
                 array(
                     'image/jpeg',
