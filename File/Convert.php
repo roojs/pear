@@ -1043,6 +1043,9 @@ class File_Convert_Solution
         if ($pg !== false) {
             $target = $fn . '-' . $xscale . '-pg'. $pg . '.' .  $ext;
         }
+        $finaltarget = $target . ($this->ext == 'png' ?  : '' : '.jpg';
+        
+        
         if (!$this->debug && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
@@ -1100,9 +1103,7 @@ class File_Convert_Solution
         if ($fe) {
             rename($out, $target);
             
-            return $this->ext
-            
-            return $target;
+            return $this->ext == 'png' ? $target: $this->convert($target);
         }
         $out = $fn . sprintf('-conv-%02d.png', $pg);
         //$out = $fn . '-conv-01.jpg';
@@ -1118,8 +1119,7 @@ class File_Convert_Solution
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
-            rename($out, $target);
-            return $target;
+            return $this->ext == 'png' ? $target: $this->convert($target);
         }
         
         
