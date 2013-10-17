@@ -1043,7 +1043,7 @@ class File_Convert_Solution
         if ($pg !== false) {
             $target = $fn . '-' . $xscale . '-pg'. $pg . '.' .  $ext;
         }
-        $finaltarget = $target . ($this->ext == 'png' ?  : '' : '.jpeg');
+        $finaltarget = $target . ($this->ext == 'png' ?  '' : '.jpeg');
         
         
         if (!$this->debug && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
