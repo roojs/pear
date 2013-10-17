@@ -1046,8 +1046,8 @@ class File_Convert_Solution
         $finaltarget = $target . ($this->ext == 'png' ?  : '' : '.jpeg');
         
         
-        if (!$this->debug && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
-            return $target;
+        if (!$this->debug && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
+            return $finaltarget;
         }
         require_once 'System.php';
         
