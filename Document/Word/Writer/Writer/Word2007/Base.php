@@ -425,6 +425,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                     $objWriter->writeAttribute('w:type', 'dxa');
                     // might be auto??? if fixed...
                     $objWriter->writeAttribute('w:w', array_sum($cw));
+                    $objWriter->startElement('w:tblLayout');
+                    $objWriter->writeAttribute('w:type', 'fixed');
                     $objWriter->endElement();
                 }
                
