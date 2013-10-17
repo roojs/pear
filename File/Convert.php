@@ -1032,14 +1032,13 @@ class File_Convert_Solution
     }
     function pdftoppm($fn, $x, $y, $pg=false)
     {
-        
-        
-        
+         
         $xscale = 400; // min size?
         if (!empty($x) && $x> $xscale ) {
             $xscale = $x;
         }
-        $ext = $this->ext;
+        $ext = 'png'; //$this->ext;
+        
         $target = $fn . '-' . $xscale . '.' .  $ext;
         if ($pg !== false) {
             $target = $fn . '-' . $xscale . '-pg'. $pg . '.' .  $ext;
@@ -1100,6 +1099,9 @@ class File_Convert_Solution
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
             rename($out, $target);
+            
+            return $this->ext
+            
             return $target;
         }
         $out = $fn . sprintf('-conv-%02d.png', $pg);
