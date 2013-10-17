@@ -1102,7 +1102,7 @@ class File_Convert_Solution
             rename($out, $target);
             return $target;
         }
-        $out = $fn . sprintf('-conv-%02d.jpg', $pg);
+        $out = $fn . sprintf('-conv-%02d.png', $pg);
         //$out = $fn . '-conv-01.jpg';
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
@@ -1111,7 +1111,7 @@ class File_Convert_Solution
             return $target;
         }
         
-        $out = $fn . sprintf('-conv-%03d.jpg', $pg);
+        $out = $fn . sprintf('-conv-%03d.png', $pg);
         //$out = $fn . '-conv-001.jpg'; .. if more than 100 pages...
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
