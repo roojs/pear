@@ -1095,7 +1095,7 @@ class File_Convert_Solution
          
         clearstatcache();
         // for some reason this makes 01 or 1?
-        $out = $fn . sprintf('-conv-%d.jpg', $pg);
+        $out = $fn . sprintf('-conv-%d.png', $pg);
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
