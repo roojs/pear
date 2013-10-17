@@ -1073,8 +1073,11 @@ class File_Convert_Solution
         $xscale = floor($xscale);
         $pg = ($pg === false) ? 1 : $pg;
         
+        
+        // older versions only support png...
+        
         $PDFTOPPM = System::which("pdftoppm");
-        $cmd = "$PDFTOPPM -f $pg -l $pg  -jpeg"
+        $cmd = "$PDFTOPPM -f $pg -l $pg  -png"
                     . " -scale-to-x {$xscale} " 
                     . " -scale-to-y {$yscale} " 
                     .  escapeshellarg($fn) . " " 
