@@ -1042,7 +1042,7 @@ class File_Convert_Solution
         $ext = $this->ext;
         $target = $fn . '-' . $xscale . '.' .  $ext;
         if ($pg !== false) {
-            $target = $fn . '-' . $xscale . '.pg'. $pg . '.' .  $ext;
+            $target = $fn . '-' . $xscale . '-pg'. $pg . '.' .  $ext;
         }
         if (!$this->debug && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
