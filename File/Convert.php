@@ -384,7 +384,7 @@ class File_Convert
                //     'application/tiff',
                 ),
                 array(
-                 //   'image/jpeg',
+                    'image/jpeg',
                 //    'image/gif',
                     'image/png',
                 )
