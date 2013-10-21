@@ -143,6 +143,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	protected function _writeParagraphStyle(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Style_Paragraph $style, $withoutPPR = false) 
         {
 		$align = $style->getAlign();
+                // microsoft office default line spacing is 10pt, we need to set it to 0 if we have not set the spacing..
 		$spaceBefore = is_null($style->getSpaceBefore()) ? 0 : $style->getSpaceBefore();
 		$spaceAfter = is_null($style->getSpaceAfter()) ? 0 : $style->getSpaceAfter();
 		$spacing = is_nan($style->getSpacing()) ? 0 : $style->getSpacing();
