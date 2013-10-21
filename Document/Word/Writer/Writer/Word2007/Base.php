@@ -45,7 +45,6 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 			if($SpIsObject) {
 				$this->_writeParagraphStyle($objWriter, $styleParagraph);
 			} elseif(!$SpIsObject && !is_null($styleParagraph)) {
-                            exit;
 				$objWriter->startElement('w:pPr');
 					$objWriter->startElement('w:pStyle');
 						$objWriter->writeAttribute('w:val', $styleParagraph);
@@ -53,6 +52,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 				$objWriter->endElement();
 			}
 		}
+                exit;
 		require_once __DIR__ . '/../../Shared/String.php';
 		$strText = htmlspecialchars($text->getText());
 		$strText = Document_Word_Writer_Shared_String::ControlCharacterPHP2OOXML($strText);
