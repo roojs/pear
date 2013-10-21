@@ -49,6 +49,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                         $objWriter->startElement('w:spacing');
 						$objWriter->writeAttribute('w:after', 0);
 					$objWriter->endElement();
+                                        
 					$objWriter->startElement('w:pStyle');
 						$objWriter->writeAttribute('w:val', $styleParagraph);
 					$objWriter->endElement();
