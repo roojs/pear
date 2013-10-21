@@ -46,6 +46,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                 exit;
 				$this->_writeParagraphStyle($objWriter, $styleParagraph);
 			} elseif(!$SpIsObject && !is_null($styleParagraph)) {
+                                exit;
 				$objWriter->startElement('w:pPr');
 					$objWriter->startElement('w:pStyle');
 						$objWriter->writeAttribute('w:val', $styleParagraph);
