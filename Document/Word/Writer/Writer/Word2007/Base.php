@@ -945,18 +945,17 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$anchor = $title->getAnchor();
 		$bookmarkId = $title->getBookmarkId();
 		$style = $title->getStyle();
-                
+		
 		$objWriter->startElement('w:p');
-			$objWriter->startElement('w:pPr');
-                            $objWriter->startElement('w:spacing');
-                                    $objWriter->writeAttribute('w:after', 0); // default line spacing for microsoft office is 10pt, set to 0
-                            $objWriter->endElement();
+			
 			if(!empty($style)) {
-                            $objWriter->startElement('w:pStyle');
-                                    $objWriter->writeAttribute('w:val', $style);
-                            $objWriter->endElement();
+				$objWriter->startElement('w:pPr');
+					$objWriter->startElement('w:pStyle');
+						$objWriter->writeAttribute('w:val', $style);
+					$objWriter->endElement();
+				$objWriter->endElement();
 			}
-			$objWriter->endElement();
+			
 			$objWriter->startElement('w:r');
 				$objWriter->startElement('w:fldChar');
 					$objWriter->writeAttribute('w:fldCharType', 'end');
