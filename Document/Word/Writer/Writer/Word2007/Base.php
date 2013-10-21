@@ -151,7 +151,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$align = $style->getAlign();
 		$spaceBefore = is_null($style->getSpaceBefore()) ? 0 : $style->getSpaceBefore();
 		$spaceAfter = is_null($style->getSpaceAfter()) ? 0 : $style->getSpaceAfter();
-		$spacing = $style->getSpacing();
+		$spacing = is_nan($style->getSpacing()) ? 0 : $style->getSpacing();
 		
         
 		if(!is_null($align) || !is_null($spacing) || !is_null($spaceBefore) || !is_null($spaceAfter)) {
