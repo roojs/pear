@@ -38,7 +38,11 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
 		if(!$withoutP) {
 			$objWriter->startElement('w:p');
-			
+                            $objWriter->startElement('w:pPr');
+                                $objWriter->startElement('w:spacing');
+                                        $objWriter->writeAttribute('w:after', 0); // default line spacing for microsoft office is 10pt, set to 0
+                                $objWriter->endElement();
+                            $objWriter->endElement();
 			$styleParagraph = $text->getParagraphStyle();
 			$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph) ? true : false;
 			
