@@ -949,7 +949,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$objWriter->startElement('w:p');
 			$objWriter->startElement('w:pPr');
                             $objWriter->startElement('w:spacing');
-                                    $objWriter->writeAttribute('w:after', 0);
+                                    $objWriter->writeAttribute('w:after', 0); // default line spacing for microsoft office is 10pt, set to 0
                             $objWriter->endElement();
 			if(!empty($style)) {
                             $objWriter->startElement('w:pStyle');
