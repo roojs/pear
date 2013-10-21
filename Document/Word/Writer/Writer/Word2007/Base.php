@@ -51,11 +51,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 					$objWriter->endElement();
 				$objWriter->endElement();
 			} else {
-                            $objWriter->startElement('w:pPr');
-                                    $objWriter->startElement('w:spacing');
-                                            $objWriter->writeAttribute('w:after', 0);
-                                    $objWriter->endElement();
-                            $objWriter->endElement();
+                            exit;
                         }
 		}
 		require_once __DIR__ . '/../../Shared/String.php';
