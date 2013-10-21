@@ -149,8 +149,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	protected function _writeParagraphStyle(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Style_Paragraph $style, $withoutPPR = false) 
         {
 		$align = $style->getAlign();
-		$spaceBefore = $style->getSpaceBefore();
-		$spaceAfter = $style->getSpaceAfter();
+		$spaceBefore = is_null($style->getSpaceBefore()) ? 0 : $style->getSpaceBefore();
+		$spaceAfter = is_null($style->getSpaceAfter()) ? 0 : $style->getSpaceAfter();
 		$spacing = $style->getSpacing();
 		
         
