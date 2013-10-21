@@ -945,7 +945,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$anchor = $title->getAnchor();
 		$bookmarkId = $title->getBookmarkId();
 		$style = $title->getStyle();
-		print_r($style);exit;
+                
 		$objWriter->startElement('w:p');
 			$objWriter->startElement('w:pPr');
                             $objWriter->startElement('w:spacing');
