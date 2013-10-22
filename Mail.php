@@ -73,6 +73,7 @@ class Mail
      */
     function &factory($driver, $params = array())
     {
+        print_r($driver);exit;
         $driver = strtolower($driver);
         @include_once 'Mail/' . $driver . '.php';
         $class = 'Mail_' . $driver;
