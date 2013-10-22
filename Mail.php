@@ -76,7 +76,6 @@ class Mail
         $driver = strtolower($driver);
         @include_once 'Mail/' . $driver . '.php';
         $class = 'Mail_' . $driver;
-        print_r($class);exit;
         if (class_exists($class)) {
             $mailer = new $class($params);
             return $mailer;
