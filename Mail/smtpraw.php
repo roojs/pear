@@ -51,6 +51,7 @@
  * @version $Revision: 294747 $
  */
 require_once 'smtp.php';
+
 class Mail_smtpraw extends Mail_smtp {
  
     function Mail_smtpraw($params)
