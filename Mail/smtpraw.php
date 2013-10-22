@@ -68,16 +68,12 @@ class Mail_smtpraw extends Mail_smtp {
      *              specified in the headers, for Bcc:, resending
      *              messages, etc.
      *
-     * @param array $headers The array of headers to send with the mail, in an
-     *              associative array, where the array key is the
-     *              header name (e.g., 'Subject'), and the array value
-     *              is the header value (e.g., 'test'). The header
-     *              produced from those values would be 'Subject:
-     *              test'.
+     * @param array $headers IGNORED
      *
      * @param string $body The full text of the message body, including any
      *               MIME parts, etc.
-     *
+     * @param string $from The sender email
+    *
      * @return mixed Returns true on success, or a PEAR_Error
      *               containing a descriptive error message on
      *               failure.
@@ -160,124 +156,5 @@ class Mail_smtpraw extends Mail_smtp {
 
         return true;
     }
-
-    /**
-     * Connect to the SMTP server by instantiating a Net_SMTP object.
-     *
-     * @return mixed Returns a reference to the Net_SMTP object on success, or
-     *               a PEAR_Error containing a descriptive error message on
-     *               failure.
-     *
-     * @since  1.2.0
-     * @access public
-     */
-    function &getSMTPObject()
-    {
-        if (is_object($this->_smtp) !== false) {
-            return $this->_smtp;
-        }
-
-        include_once 'Net/SMTP.php';
-        $this->_smtp = &new Net_SMTP($this->host,
-                                     $this->port,
-                                     $this->localhost);
-
-        /* If we still don't have an SMTP object at this point, fail. */
-        if (is_object($this->_smtp) === false) {
-            return PEAR::raiseError('Failed to create a Net_SMTP object',
-                                    PEAR_MAIL_SMTP_ERROR_CREATE);
-        }
-
-        /* Configure the SMTP connection. */
-        if ($this->debug) {
-            $this->_smtp->setDebug(true);
-        }
-
-        /* Attempt to connect to the configured SMTP server. */
-        if (PEAR::isError($res = $this->_smtp->connect($this->timeout))) {
-            list($code, $error) = $this->_error('Failed to connect to ' .
-                                   $this->host . ':' . $this->port,
-                                   $res);
-            return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_CONNECT,
-                    null,null,array('smtpcode' => $code));
-        }
-
-        /* Attempt to authenticate if authentication has been enabled. */
-        if ($this->auth) {
-            $method = is_string($this->auth) ? $this->auth : '';
-
-            if (PEAR::isError($res = $this->_smtp->auth($this->username,
-                                                        $this->password,
-                                                        $method))) {
-                
-                list($code, $error) =$this->_error("$method authentication failure",
-                                       $res);
-                $this->_smtp->rset();
-                return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_AUTH,
-                    null,null,array('smtpcode' => $code)
-                );
-            }
-        }
-
-        return $this->_smtp;
-    }
-
-    /**
-     * Add parameter associated with a SMTP service extension.
-     *
-     * @param string Extension keyword.
-     * @param string Any value the keyword needs.
-     *
-     * @since 1.2.0
-     * @access public
-     */
-    function addServiceExtensionParameter($keyword, $value = null)
-    {
-        $this->_extparams[$keyword] = $value;
-    }
-
-    /**
-     * Disconnect and destroy the current SMTP connection.
-     *
-     * @return boolean True if the SMTP connection no longer exists.
-     *
-     * @since  1.1.9
-     * @access public
-     */
-    function disconnect()
-    {
-        /* If we have an SMTP object, disconnect and destroy it. */
-        if (is_object($this->_smtp) && $this->_smtp->disconnect()) {
-            $this->_smtp = null;
-        }
-
-        /* We are disconnected if we no longer have an SMTP object. */
-        return ($this->_smtp === null);
-    }
-
-    /**
-     * Build a standardized string describing the current SMTP error.
-     *
-     * @param string $text  Custom string describing the error context.
-     * @param object $error Reference to the current PEAR_Error object.
-     *
-     * @return string       A string describing the current SMTP error.
-     *
-     * @since  1.1.7
-     * @access private
-     */
-    function _error($text, &$error, $eid=false)
-    {
-        /* Split the SMTP response into a code and a response string. */
-        list($code, $response) = $this->_smtp->getResponse();
-
-        /* Build our standardized error string. */
-        return array($code, $text
-            . ' [SMTP: ' . $error->getMessage()
-            . " (code: $code, response: $response)]"
-        );
-        
-    }
-    
-
+ 
 }
