@@ -72,8 +72,9 @@ class Mail_smtpraw extends Mail_smtp {
      *
      * @param string $body The full text of the message body, including any
      *               MIME parts, etc.
-     * @param string $from The sender email
-    *
+     *
+     *  @param string $from The sender email
+     *
      * @return mixed Returns true on success, or a PEAR_Error
      *               containing a descriptive error message on
      *               failure.
