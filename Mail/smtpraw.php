@@ -54,6 +54,8 @@ require_once 'smtp.php';
 
 class Mail_smtpraw extends Mail_smtp {
  
+    var $debug=1;
+    
     function Mail_smtpraw($params)
     {
        parent::Mail_smtp($params);
