@@ -311,7 +311,7 @@ class DB_mysql extends DB_common
         if (!$this->autocommit && $ismanip || $query == 'BEGIN') {
             if ($this->transaction_opcount == 0) {
                 
-                echo "SET AUTOCOMMIT=0/nBEGIN\n";
+               // echo "SET AUTOCOMMIT=0/nBEGIN\n";
                 $result = @mysql_query('SET AUTOCOMMIT=0', $this->connection);
                 $result = @mysql_query('BEGIN', $this->connection);
                 if (!$result) {
@@ -512,7 +512,7 @@ class DB_mysql extends DB_common
                     return $this->mysqlRaiseError(DB_ERROR_NODBSELECTED);
                 }
             }
-            echo "COMMIT / SET AUTOCOMMIT=1\n";
+            //echo "COMMIT / SET AUTOCOMMIT=1\n";
             $result = @mysql_query('COMMIT', $this->connection);
             $result = @mysql_query('SET AUTOCOMMIT=1', $this->connection);
             $this->transaction_opcount = 0;
@@ -539,7 +539,7 @@ class DB_mysql extends DB_common
                     return $this->mysqlRaiseError(DB_ERROR_NODBSELECTED);
                 }
             }
-               echo "ROLLBACK / SET AUTOCOMMIT=1\n";
+            //   echo "ROLLBACK / SET AUTOCOMMIT=1\n";
             $result = @mysql_query('ROLLBACK', $this->connection);
             $result = @mysql_query('SET AUTOCOMMIT=1', $this->connection);
             $this->transaction_opcount = 0;
