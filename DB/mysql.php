@@ -308,7 +308,7 @@ class DB_mysql extends DB_common
                 return $this->mysqlRaiseError(DB_ERROR_NODBSELECTED);
             }
         }
-        if (!$this->autocommit && $ismanip) {
+        if (!$this->autocommit && $ismanip || $query == 'BEGIN') {
             if ($this->transaction_opcount == 0) {
                 
                 echo "SET AUTOCOMMIT=0/nBEGIN\n";
