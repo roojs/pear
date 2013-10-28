@@ -1263,9 +1263,13 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
         $trans_tbl = get_html_translation_table (HTML_ENTITIES);
         $trans_tbl = array_flip ($trans_tbl);
         $ret = strtr ($in, $trans_tbl);
-        return preg_replace('/&#(\d+);/me', "chr('\\1')",$ret);
+        return preg_replace_callback('/&#(\d+);/me', array($this,'unHtmlEntitiesChar'),$ret);
     }
     
+    function unHtmlEntitiesChar($ar) {
+        
+        return chr($ar[1]);
+    }
     
      /**
     * Deal with XUL tags
