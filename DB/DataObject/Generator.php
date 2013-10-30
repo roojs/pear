@@ -199,6 +199,7 @@ class DB_DataObject_Generator extends DB_DataObject
             // try getting a list of schema tables first. (postgres)
             $__DB->expectError(DB_ERROR_UNSUPPORTED);
             $this->tables = $__DB->getListOf('schema.tables');
+            echo '<PRE>';print_r($this->tables);
             $__DB->popExpect();
         } else {
             /**
@@ -406,7 +407,7 @@ class DB_DataObject_Generator extends DB_DataObject
      * Currenly only works with mysql / mysqli / posgtreas
      * to use, you must set option: generate_links=true
      * 
-     * @author Pascal Schöni 
+     * @author Pascal Schï¿½ni 
      */
     
     function _createForiegnKeys()
@@ -507,7 +508,7 @@ class DB_DataObject_Generator extends DB_DataObject
      * Currenly only works with mysql / mysqli
      * to use, you must set option: generate_links=true
      * 
-     * @author Pascal Schöni 
+     * @author Pascal Schï¿½ni 
      */
     function generateForeignKeys() 
     {
