@@ -285,7 +285,7 @@ class DB_DataObject_Generator extends DB_DataObject
                 }
             }
             $this->debug("EXTRACTING : $table");
-            
+            var_dump($options['quote_identifiers_tableinfo']);
             $quotedTable = !empty($options['quote_identifiers_tableinfo']) ? 
                 $__DB->quoteIdentifier($table) : $table;
           
