@@ -1216,7 +1216,7 @@ class File_Convert_Solution
             return false;
         }
         
-         chmod($target,fileperms($fn));
+        chmod($target,fileperms($fn));
             
         return $target;
     }
@@ -1361,7 +1361,14 @@ class File_Convert_Solution
          // echo $cmd;          exit;
        
         clearstatcache();
-        return  file_exists($target)  && filesize($target) ? $target : false;
+        $fe =   file_exists($target)  && filesize($target) ? $target : false;
+        
+        if (!$fe) {
+            return false;
+        }
+        chmod($target,fileperms($fn));
+        return $fe;
+        
     }
     
     function scaleImageC($fn, $x, $y) 
