@@ -1103,9 +1103,12 @@ class File_Convert_Solution
         if ($fe) {
             rename($out, $target);
             
+            
             chmod($target,fileperms($fn));
             
-            return $this->ext == 'png' ? $target: $this->convert($target);
+            $ret = $this->ext == 'png' ? $target: $this->convert($target);
+            chmod($ret,fileperms($fn));
+            return $ret;
         }
         $out = $fn . sprintf('-conv-%02d.png', $pg);
         //$out = $fn . '-conv-01.jpg';
