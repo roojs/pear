@@ -1103,6 +1103,8 @@ class File_Convert_Solution
         if ($fe) {
             rename($out, $target);
             
+            chmod($target,fileperms($fn));
+            
             return $this->ext == 'png' ? $target: $this->convert($target);
         }
         $out = $fn . sprintf('-conv-%02d.png', $pg);
@@ -1111,6 +1113,7 @@ class File_Convert_Solution
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
             rename($out, $target);
+            chmod($target,fileperms($fn));
             return $target;
         }
         
@@ -1119,7 +1122,10 @@ class File_Convert_Solution
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
-            return $this->ext == 'png' ? $target: $this->convert($target);
+            
+            $ret = $this->ext == 'png' ? $target: $this->convert($target);
+            chmod($ret,fileperms($fn));
+            return $ret;
         }
         
         
