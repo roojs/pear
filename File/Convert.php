@@ -1108,6 +1108,7 @@ class File_Convert_Solution
             
             $ret = $this->ext == 'png' ? $target: $this->convert($target);
             chmod($ret,fileperms($fn));
+            
             return $ret;
         }
         $out = $fn . sprintf('-conv-%02d.png', $pg);
