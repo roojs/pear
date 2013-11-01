@@ -1211,9 +1211,14 @@ class File_Convert_Solution
         }
         $this->exec($cmd);
         clearstatcache();
-        return file_exists($target)  && filesize($target) ? $target : false;
+        $fe = file_exists($target)  && filesize($target) ? $target : false;
+        if (!$fe) {
+            return false;
+        }
         
-        
+         chmod($target,fileperms($fn));
+            
+        return $target;
     }
     function scaleImage($fn, $x, $y) 
     {
