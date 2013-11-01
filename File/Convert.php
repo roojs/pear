@@ -1116,9 +1116,10 @@ class File_Convert_Solution
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
-            rename($out, $target);
             chmod($target,fileperms($fn));
-            return $target;
+            $ret = $this->ext == 'png' ? $target: $this->convert($target);
+            chmod($ret,fileperms($fn));
+            return $ret;
         }
         
         $out = $fn . sprintf('-conv-%03d.png', $pg);
