@@ -1104,10 +1104,10 @@ class File_Convert_Solution
             rename($out, $target);
             
             
-            chmod($target,fileperms($fn));
+            @chmod($target,fileperms($fn));
             
             $ret = $this->ext == 'png' ? $target: $this->convert($target);
-            chmod($ret,fileperms($fn));
+            @chmod($ret,fileperms($fn));
             
             return $ret;
         }
@@ -1116,9 +1116,9 @@ class File_Convert_Solution
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
-            chmod($target,fileperms($fn));
+            @chmod($target,fileperms($fn));
             $ret = $this->ext == 'png' ? $target: $this->convert($target);
-            chmod($ret,fileperms($fn));
+            @chmod($ret,fileperms($fn));
             return $ret;
         }
         
@@ -1127,9 +1127,9 @@ class File_Convert_Solution
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
-            chmod($target,fileperms($fn));
+            @chmod($target,fileperms($fn));
             $ret = $this->ext == 'png' ? $target: $this->convert($target);
-            chmod($ret,fileperms($fn));
+            @chmod($ret,fileperms($fn));
             return $ret;
         }
         
@@ -1177,7 +1177,7 @@ class File_Convert_Solution
         clearstatcache();
         $fe = file_exists($target)  && filesize($target) ? $target : false;
         if ($fe) {
-            chmod($target,fileperms($fn));
+            @chmod($target,fileperms($fn));
             
             return $target;
         }
@@ -1216,7 +1216,7 @@ class File_Convert_Solution
             return false;
         }
         
-        chmod($target,fileperms($fn));
+        @chmod($target,fileperms($fn));
             
         return $target;
     }
@@ -1366,7 +1366,7 @@ class File_Convert_Solution
         if (!$fe) {
             return false;
         }
-        chmod($target,fileperms($fn));
+        @chmod($target,fileperms($fn));
         return $fe;
         
     }
