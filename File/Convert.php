@@ -1177,7 +1177,9 @@ class File_Convert_Solution
         clearstatcache();
         $fe = file_exists($target)  && filesize($target) ? $target : false;
         if ($fe) {
-            return $fe;
+            chmod($target,fileperms($fn));
+            
+            return $target;
         }
          
         return false;
