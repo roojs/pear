@@ -1003,7 +1003,7 @@ class File_Convert_Solution
             echo "RSVG-CONVERT to available - install librsvg2-bin";
             return false;
         } 
-        $cmd = "$conv -b white -f $cvt -o " . escapeshellarg($target) . ' ' .escapeshellarg($fn);
+        $cmd = "$conv --background-color=white -f $cvt -o " . escapeshellarg($target) . ' ' .escapeshellarg($fn);
         
         $this->exec($cmd);
         
