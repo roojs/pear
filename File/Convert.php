@@ -1002,7 +1002,9 @@ class File_Convert_Solution
         if (!$conv) {
             echo "RSVG-CONVERT to available - install librsvg2-bin";
             return false;
-        } 
+        }
+        // white background - if you need transparancy -- use another tool?
+        
         $cmd = "$conv --background-color=white -f $cvt -o " . escapeshellarg($target) . ' ' .escapeshellarg($fn);
         
         $this->exec($cmd);
