@@ -359,6 +359,7 @@ class File_Convert
                 array(
                     'application/pdf',
                     'image/png', //<< transparency make a bit of a mess...
+                    
                 ),
             ),
             array( 'convert',
