@@ -358,7 +358,7 @@ class File_Convert
                 ),
                 array(
                     'application/pdf',
-                   // 'image/png', //<< transparency make a bit of a mess... - let the sytem do it to pdf.. then onto whatever..
+                   // 'image/png', //<< this is a mess - do not enable it... - let the sytem do it to pdf.. then onto whatever..
                     
                 ),
             ),
