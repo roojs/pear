@@ -1005,7 +1005,7 @@ class File_Convert_Solution
         }
         // white background - if you need transparancy -- use another tool?
         
-        $cmd = "$conv --background-color=white -d 300 -p 300 -f $cvt -o " . escapeshellarg($target) . ' ' .escapeshellarg($fn);
+        $cmd = "$conv --background-color=white  -f $cvt -o " . escapeshellarg($target) . ' ' .escapeshellarg($fn);
         
         $this->exec($cmd);
         
