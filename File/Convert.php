@@ -243,6 +243,7 @@ class File_Convert
                         'application/msword',
                         'application/mswordapplication',
                         'application/vnd.oasis.opendocument.text',
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                     ),    // targets
                     array( 
                         'application/msword',
