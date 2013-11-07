@@ -292,7 +292,7 @@ class File_Convert
                 
             ),
             
-            array( 'unoconv',
+            array( 'unoconv',//FIXME run this 3 times??
                 array( //source
                     
                     'application/vnd.ms-excel',
@@ -307,7 +307,7 @@ class File_Convert
                 )
             ),
               
-            array( 'unoconv',
+            array( 'unoconv',//FIXME run this 3 times??
                 array( //source
                     'application/vnd.ms-powerpoint',
                     'application/vnd.openxmlformats-officedocument.presentationml.presentation',
