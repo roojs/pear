@@ -265,16 +265,16 @@ class File_Convert
 //                        'application/mswordapplication',
                     )
             ),
-            
-            array ( 'word2pdf',
-                    array( // source
-                        'application/msword',
-                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                    ),    
-                    array( // targets
-                        'application/pdf',
-                    )
-            ),
+//            
+//            array ( 'word2pdf',
+//                    array( // source
+//                        'application/msword',
+//                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+//                    ),    
+//                    array( // targets
+//                        'application/pdf',
+//                    )
+//            ),
             array( 'ssconvertxls',
                 array (
                        'application/vnd.ms-excel',
