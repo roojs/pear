@@ -237,7 +237,7 @@ class File_Convert
     
     
     var $methods =  array(
-            array( 'unoconv',
+            array( 'unoconv', //FIXME run this 3 times??
                     array( // source
                   //      'text/html', /// testing..
                         'application/msword',
