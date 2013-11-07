@@ -958,6 +958,10 @@ class File_Convert_Solution
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
     
+    function word2pdf($fn)
+    {
+        
+    }
     
     function acad2svg($fn)
     {
