@@ -259,12 +259,23 @@ class File_Convert
                         
                     ),    // targets
                     array( 
-                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                        'application/pdf',
 //                        'application/msword',
 //                        'application/mswordapplication',
                     )
             ),
             
+            array ( 'word2pdf',
+                    array( // source
+                        'application/msword',
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    ),    
+                    array( // targets
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+//                        'application/msword',
+//                        'application/mswordapplication',
+                    )
+            ),
             array( 'ssconvertxls',
                 array (
                        'application/vnd.ms-excel',
