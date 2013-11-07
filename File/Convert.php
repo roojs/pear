@@ -686,7 +686,7 @@ class File_Convert_Solution
             return false;
         }
         $uno = System::which('unoconv');
-        if (empty($xvfb)) {
+        if (empty($uno)) {
             $this->cmd = "Missing unoconv";
             return false;
         }
