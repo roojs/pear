@@ -259,7 +259,7 @@ class File_Convert
                         
                     ),    // targets
                     array( 
-                        'application/pdf',
+                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 //                        'application/msword',
 //                        'application/mswordapplication',
                     )
@@ -271,9 +271,7 @@ class File_Convert
                         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                     ),    
                     array( // targets
-                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-//                        'application/msword',
-//                        'application/mswordapplication',
+                        'application/pdf',
                     )
             ),
             array( 'ssconvertxls',
