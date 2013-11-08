@@ -716,7 +716,7 @@ class File_Convert_Solution
             
             $dir = scandir($target, 1);
             
-            print_r($dir);
+//            print_r($dir);
             
             $filename = $dir[0];
             $file = $target.'/'.$filename;
