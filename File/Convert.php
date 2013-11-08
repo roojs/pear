@@ -709,7 +709,10 @@ class File_Convert_Solution
         if (is_dir($target)) {
             // it's an old version of unoconv.
             $tmp = '/tmp/temp_pdf';
-            mkdir($tmp);
+            if(!is_dir($tmp)){
+                mkdir($tmp);
+            }
+            
             
             $dir = scandir($target, 1);
             
