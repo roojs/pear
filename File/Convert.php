@@ -700,10 +700,10 @@ class File_Convert_Solution
         
         clearstatcache();
         
-        print_R($target);
-        print_r("--------\n");
-        var_dump(file_exists($target));
-        var_dump(is_dir($target));
+//        print_R($target);
+//        print_r("--------\n");
+//        var_dump(file_exists($target));
+//        var_dump(is_dir($target));
        
         
         if (is_dir($target)) {
