@@ -676,7 +676,7 @@ class File_Convert_Solution
         
         
         $target = str_replace('.', '_', $fn) . '.' . $ext;
-        print_r($target);
+        
         
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
@@ -718,7 +718,7 @@ class File_Convert_Solution
         
         
         
-        
+        print_r($target);
         return  file_exists($target) ? $target : false;
      
     }
