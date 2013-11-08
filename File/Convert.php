@@ -700,6 +700,8 @@ class File_Convert_Solution
         
         clearstatcache();
         
+        print_R($target);exit;
+        
         if (!file_exists($target) && is_dir($target)) {
             // it's an old version of unoconv.
             $tmp = '/tmp/temp_pdf';
