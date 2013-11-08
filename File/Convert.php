@@ -704,7 +704,7 @@ class File_Convert_Solution
         print_r("--------\n");
         var_dump(file_exists($target));
         var_dump(is_dir($target));
-        exit;
+       
         
         if (is_dir($target)) {
             // it's an old version of unoconv.
@@ -726,7 +726,7 @@ class File_Convert_Solution
             clearstatcache();
         }
         
-        
+         exit;
         if (!file_exists($target) || (file_exists($target)  && filesize($target) < 400)) {
             //$this->cmd .= "\n" . filesize($target) . "\n" . file_get_contents($target);
             
