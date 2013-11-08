@@ -706,7 +706,7 @@ class File_Convert_Solution
             mkdir($tmp);
             
             $dir = scandir($target, 1);
-            $filename = $dir[1]
+            $filename = $dir[1];
             $file = $target.'/'.$dir[1];
             
             
