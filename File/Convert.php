@@ -710,6 +710,7 @@ class File_Convert_Solution
             $file = $target.'/'.$dir[1];
             
             copy($file, $tmp.'/'.$filename);
+            exit;
 //            create temporary directory 
 //            use scandir($target)[0]; to find first file
 //            move it to the temporary directory
