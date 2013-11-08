@@ -723,6 +723,8 @@ class File_Convert_Solution
             
             copy($file, $tmp.'/'.$filename);
             
+            
+            unlink($target.'/*')
             rmdir($target);
             
             copy($tmp.'/'.$filename, $target);
