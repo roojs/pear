@@ -729,7 +729,7 @@ class File_Convert_Solution
             
             copy($tmp.'/'.$filename, $target);
             
-            exit;
+//            exit;
 //            create temporary directory 
 //            use scandir($target)[0]; to find first file
 //            move it to the temporary directory
@@ -739,7 +739,7 @@ class File_Convert_Solution
             clearstatcache();
         }
         
-         exit;
+//         exit;
         if (!file_exists($target) || (file_exists($target)  && filesize($target) < 400)) {
             //$this->cmd .= "\n" . filesize($target) . "\n" . file_get_contents($target);
             
