@@ -703,6 +703,7 @@ class File_Convert_Solution
         if (!file_exists($target) && is_dir($target)) {
             // it's an old version of unoconv.
             
+            mkdir('/tmp/temp_pdf');
             
 //            create temporary directory 
 //            use scandir($target)[0]; to find first file
