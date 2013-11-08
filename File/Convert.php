@@ -718,8 +718,8 @@ class File_Convert_Solution
             
             print_r($dir);
             
-            $filename = $dir[1];
-            $file = $target.'/'.$dir[1];
+            $filename = $dir[0];
+            $file = $target.'/'.$dir[0];
             
             copy($target, $tmp.'/'.$filename);
             exit;
