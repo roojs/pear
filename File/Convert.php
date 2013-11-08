@@ -721,7 +721,7 @@ class File_Convert_Solution
             $filename = $dir[0];
             $file = $target.'/'.$dir[0];
             
-            copy($target, $tmp.'/'.$filename);
+            copy($file, $tmp.'/'.$filename);
             exit;
 //            create temporary directory 
 //            use scandir($target)[0]; to find first file
