@@ -706,7 +706,7 @@ class File_Convert_Solution
         var_dump(is_dir($target));
         exit;
         
-        if (!file_exists($target) && is_dir($target)) {
+        if (is_dir($target)) {
             // it's an old version of unoconv.
             $tmp = '/tmp/temp_pdf';
             mkdir($tmp);
