@@ -1333,7 +1333,7 @@ class File_Convert_Solution
             case (empty($y)) :
                 $scale = "{$x}x>";
                 
-                print_r(array($x,$width));
+               
                 exit;
                 if ($x == $width) {  // no need to change
                     return $fn;
