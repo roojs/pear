@@ -1329,14 +1329,14 @@ class File_Convert_Solution
             
             case (empty($x)) :
                 $scale = "x{$y}>";
-                 if ($y == $height) {
+                 if ($y == $height) { // no need to change
                     return $fn;
                 }
                 
                 break;
             case (empty($y)) :
                 $scale = "{$x}x>";
-                if ($x == $width) {
+                if ($x == $width) {  // no need to change
                     return $fn;
                 }
                 
