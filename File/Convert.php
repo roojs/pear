@@ -1305,15 +1305,27 @@ class File_Convert_Solution
         }
         //echo "GOT TARGET"  . $target;
         
+        list($width, $height) = getimagesize($fn);
+        
         $extent = '';
         switch (true) { // what about fit/pad etc...
             
             // added to allow fix to 'x' without padding.. (empty string in x or y)
-            case (empty($x) && !strlen($x)) :
+            case (empty($x) && !strlen($x)) :  // y only
                 $scale = "x{$y}";
+                if ($y == $height) {
+                    return $fn;
+                }
+                
                 break;
-            case (empty($y) && !strlen($y)) :
+            
+            
+            case (empty($y) && !strlen($y)) : // x only
                 $scale = "{$x}x";
+                if ($x == $width) {
+                    return $fn;
+                }
+                
                 break;
             
             case (empty($x)) :
