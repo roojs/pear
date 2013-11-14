@@ -1081,7 +1081,7 @@ class File_Convert_Solution
         }
         require_once 'System.php';
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -colorspace sRGB -interlace none -density 300 ". 
+        $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 ". 
                         "-quality 90 -resize '400x>' ". escapeshellarg($fn) . " " . escapeshellarg($target);
         
         $this->exec($cmd);
@@ -1230,7 +1230,7 @@ class File_Convert_Solution
         $density = $xscale > 800 ? 300: 75; 
         
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -colorspace sRGB -interlace none -density $density ". 
+        $cmd = "$CONVERT -colorspace RGB -interlace none -density $density ". 
                         "-quality 90  -resize '". $xscale . "x>' "
                         . escapeshellarg($fn) . 
                         ($pg === false ? "[0] " : "[$pg] ") . 
@@ -1273,7 +1273,7 @@ class File_Convert_Solution
         
         require_once 'System.php';
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -colorspace sRGB -interlace none -density 300 $flat ". 
+        $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 $flat ". 
                         "-quality 90   ". escapeshellarg($fn) . " " . escapeshellarg($target);
          if ($this->debug) {
            echo "$cmd <br/>";
@@ -1332,9 +1332,7 @@ class File_Convert_Solution
                 break;
             case (empty($y)) :
                 $scale = "{$x}x>";
-                
-               
-                exit;
+              
                 if ($x == $width) {  // no need to change
                     return $fn;
                 }
@@ -1352,7 +1350,7 @@ class File_Convert_Solution
          //var_dump($CONVERT);
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
-            $cmd = "{$CONVERT}  -colorspace sRGB -interlace none -density 300 -quality 90 ". 
+            $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 90 ". 
                  " -resize '{$scale}' ". $extent  . " '{$fn}' '{$target}'";
              
              $cmdres  = $this->exec($cmd);
@@ -1505,7 +1503,7 @@ class File_Convert_Solution
 //         var_dump($CONVERT);exit;
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
-            $cmd = "{$CONVERT}  -colorspace sRGB -interlace none -density 300 -quality 90 ". 
+            $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 90 ". 
                  " -resize '{$scale}' ". $extent  . " '{$fn}' '{$target}'";
              
              $cmdres  = $this->exec($cmd);
