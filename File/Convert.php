@@ -1313,15 +1313,12 @@ class File_Convert_Solution
             // added to allow fix to 'x' without padding.. (empty string in x or y)
             case (empty($x) && !strlen($x)) :  // y only
                 $scale = "x{$y}";
-                if ($y == $height) {
-                    return $fn;
-                }
-                
+               
                 break;
             
             
             case (empty($y) && !strlen($y)) : // x only
-                //$scale = "{$x}x";
+                $scale = "{$x}x";
                 //print_R(array($x,$width));
                 
                 if ($x == $width) {
@@ -1332,9 +1329,18 @@ class File_Convert_Solution
             
             case (empty($x)) :
                 $scale = "x{$y}>";
+                 if ($y == $height) {
+                    return $fn;
+                }
+                
                 break;
             case (empty($y)) :
                 $scale = "{$x}x>";
+                if ($x == $width) {
+                    return $fn;
+                }
+                
+                
                 break;
             default: 
                 $scale = "{$x}x{$y}>"; 
