@@ -1078,7 +1078,7 @@ class File_Convert_Solution
         require_once 'System.php';
         $CONVERT = System::which("convert");
         $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 ". 
-                        "-quality 80  -resize '400x>' ". escapeshellarg($fn) . " " . escapeshellarg($target);
+                        "-quality 90 -resize '400x>' ". escapeshellarg($fn) . " " . escapeshellarg($target);
         
         $this->exec($cmd);
         clearstatcache();
@@ -1270,7 +1270,7 @@ class File_Convert_Solution
         require_once 'System.php';
         $CONVERT = System::which("convert");
         $cmd = "$CONVERT -colorspace RGB -interlace none -density 300 $flat ". 
-                        "-quality 80   ". escapeshellarg($fn) . " " . escapeshellarg($target);
+                        "-quality 90   ". escapeshellarg($fn) . " " . escapeshellarg($target);
          if ($this->debug) {
            echo "$cmd <br/>";
            
@@ -1329,7 +1329,7 @@ class File_Convert_Solution
          //var_dump($CONVERT);
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
-            $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 80 ". 
+            $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 90 ". 
                  " -resize '{$scale}' ". $extent  . " '{$fn}' '{$target}'";
              
              $cmdres  = $this->exec($cmd);
@@ -1482,7 +1482,7 @@ class File_Convert_Solution
 //         var_dump($CONVERT);exit;
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
-            $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 80 ". 
+            $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 90 ". 
                  " -resize '{$scale}' ". $extent  . " '{$fn}' '{$target}'";
              
              $cmdres  = $this->exec($cmd);
