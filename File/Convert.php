@@ -110,9 +110,6 @@ class File_Convert
             }
             
             // let's assume that conversions can handle scaling??
-            $this->target = $fn;
-            $this->to = $toMimetype;
-            return $fn;
             
             
         } else {
