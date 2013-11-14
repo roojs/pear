@@ -1350,7 +1350,7 @@ class File_Convert_Solution
          //var_dump($CONVERT);
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
-            $cmd = "{$CONVERT}  -colorspace RGB -interlace none -density 300 -quality 90 ". 
+            $cmd = "{$CONVERT}  -colorspace sRGB -interlace none -density 300 -quality 90 ". 
                  " -resize '{$scale}' ". $extent  . " '{$fn}' '{$target}'";
              
              $cmdres  = $this->exec($cmd);
