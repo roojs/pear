@@ -108,6 +108,13 @@ class File_Convert
                 $this->lastaction = $action->last; // what failed.
                 return false;
             }
+            
+            // let's assume that conversions can handle scaling??
+            $this->target = $fn;
+            $this->to = $toMimetype;
+            return $fn;
+            
+            
         } else {
             $fn = $this->fn;
         }
