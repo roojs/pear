@@ -1159,7 +1159,7 @@ class File_Convert_Solution
          
         clearstatcache();
         // for some reason this makes 01 or 1?
-        $out = $fn . sprintf('-conv-%d.png', $pg);
+        $out = $fn . sprintf('-conv-%d.'.$ext, $pg);
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
@@ -1173,7 +1173,7 @@ class File_Convert_Solution
             
             return $ret;
         }
-        $out = $fn . sprintf('-conv-%02d.png', $pg);
+        $out = $fn . sprintf('-conv-%02d.'.$ext, $pg);
         //$out = $fn . '-conv-01.jpg';
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
@@ -1186,7 +1186,7 @@ class File_Convert_Solution
             return $ret;
         }
         
-        $out = $fn . sprintf('-conv-%03d.png', $pg);
+        $out = $fn . sprintf('-conv-%03d.'.$ext, $pg);
         //$out = $fn . '-conv-001.jpg'; .. if more than 100 pages...
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
