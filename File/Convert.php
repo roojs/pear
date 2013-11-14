@@ -1171,6 +1171,7 @@ class File_Convert_Solution
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
+             rename($out, $target);
             @chmod($target,fileperms($fn));
             $ret = $this->ext == 'png' ? $target: $this->convert($target);
             @chmod($ret,fileperms($fn));
@@ -1182,6 +1183,7 @@ class File_Convert_Solution
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
+             rename($out, $target);
             @chmod($target,fileperms($fn));
             $ret = $this->ext == 'png' ? $target: $this->convert($target);
             @chmod($ret,fileperms($fn));
