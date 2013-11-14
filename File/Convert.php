@@ -1092,13 +1092,15 @@ class File_Convert_Solution
         if (!empty($x) && $x> $xscale ) {
             $xscale = $x;
         }
-        $ext = 'png'; //$this->ext;
+        
+        
+        $ext = $this->ext; //'png'; //$this->ext;
         
         $target = $fn . '-' . $xscale . '.' .  $ext;
         if ($pg !== false) {
             $target = $fn . '-' . $xscale . '-pg'. $pg . '.' .  $ext;
         }
-        $finaltarget = $target . ($this->ext == 'png' ?  '' : '.jpeg');
+        $finaltarget = $target ; //. ($this->ext == 'png' ?  '' : '.jpeg');
         
         
         if (!$this->debug && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
@@ -1163,9 +1165,9 @@ class File_Convert_Solution
         if ($fe) {
             rename($out, $target);
             
-            
             @chmod($target,fileperms($fn));
-            
+            return $target;
+        
             $ret = $this->ext == 'png' ? $target: $this->convert($target);
             @chmod($ret,fileperms($fn));
             
@@ -1178,6 +1180,7 @@ class File_Convert_Solution
         if ($fe) {
              rename($out, $target);
             @chmod($target,fileperms($fn));
+            return $target;
             $ret = $this->ext == 'png' ? $target: $this->convert($target);
             @chmod($ret,fileperms($fn));
             return $ret;
@@ -1190,7 +1193,8 @@ class File_Convert_Solution
         if ($fe) {
              rename($out, $target);
             @chmod($target,fileperms($fn));
-            $ret = $this->ext == 'png' ? $target: $this->convert($target);
+            return $target;
+            //$ret = $this->ext == 'png' ? $target: $this->convert($target);
             @chmod($ret,fileperms($fn));
             return $ret;
         }
