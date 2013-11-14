@@ -1322,6 +1322,8 @@ class File_Convert_Solution
             
             case (empty($y) && !strlen($y)) : // x only
                 $scale = "{$x}x";
+                print_R(array($x,$width));
+                
                 if ($x == $width) {
                     return $fn;
                 }
