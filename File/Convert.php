@@ -1321,10 +1321,6 @@ class File_Convert_Solution
                 $scale = "{$x}x";
                 //print_R(array($x,$width));
                 
-                if ($x == $width) {
-                    return $fn;
-                }
-                
                 break;
             
             case (empty($x)) :
