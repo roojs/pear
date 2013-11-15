@@ -185,6 +185,7 @@ Available commands:
     // cli static $classname::$cli_opts
        
         try {
+            // look up the parent tree for core opts.
             $cls = new ReflectionClass($classname);        
             $val = $cls->getStaticPropertyValue('cli_opts');
             $val = is_array($val) ? $val : array();
@@ -194,6 +195,10 @@ Available commands:
                 $vadd = $cls->getStaticPropertyValue('cli_opts') ;
                 $val = array_merge($val, is_array($vadd) ? $vadd : array()  );
             }
+            if (method_exists($classname, 'cli_opts')) {
+                die("got a cli_opts method'");
+            }
+            
             
             
         } catch (Exception $e) {
@@ -202,6 +207,7 @@ Available commands:
         if (empty($val)) {
             return false;
         }
+        
         $val = array_merge(self::$cli_opts, $val);
         
         
