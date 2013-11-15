@@ -188,14 +188,17 @@ Available commands:
             // look up the parent tree for core opts.
             $cls = new ReflectionClass($classname);        
             $val = $cls->getStaticPropertyValue('cli_opts');
+            var_dump(method_exists($classname, 'cli_opts'));
+            
             $val = is_array($val) ? $val : array();
             while ($cls = $cls->getParentClass()) {
                 //var_dump($cls);
                 
+                
                 $vadd = $cls->getStaticPropertyValue('cli_opts') ;
                 $val = array_merge($val, is_array($vadd) ? $vadd : array()  );
             }
-            var_dump($classname, 'cli_opts'); exit;
+            //var_dump($classname, 'cli_opts'); exit;
             if (method_exists($classname, 'cli_opts')) {
                 die("got a cli_opts method'");
             }
