@@ -198,9 +198,12 @@ Available commands:
                 //var_dump($cls);
                  
                 try {
-                    if (method_exists($classname, 'cli_opts')) {
-                        
-                    $vadd = $cls->getStaticPropertyValue('cli_opts') ;
+                    
+                    if (method_exists($cls->name, 'cli_opts')) {
+                        $val = {$cls->name}::cli_opts();
+                    } else {
+                        $vadd = $cls->getStaticPropertyValue('cli_opts') ;
+                    }
                     $val = array_merge($val, is_array($vadd) ? $vadd : array()  );
                 } catch (Exception $e) {
                     continue;
