@@ -193,10 +193,13 @@ Available commands:
             $val = is_array($val) ? $val : array();
             while ($cls = $cls->getParentClass()) {
                 //var_dump($cls);
-                
-                
-                $vadd = $cls->getStaticPropertyValue('cli_opts') ;
-                $val = array_merge($val, is_array($vadd) ? $vadd : array()  );
+                 
+                try {
+                    $vadd = $cls->getStaticPropertyValue('cli_opts') ;
+                    $val = array_merge($val, is_array($vadd) ? $vadd : array()  );
+                } catch (Exception $e) {
+                    continue;
+                }
             }
             //var_dump($classname, 'cli_opts'); exit;
             if (method_exists($classname, 'cli_opts')) {
