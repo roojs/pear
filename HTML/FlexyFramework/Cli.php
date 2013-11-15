@@ -214,7 +214,7 @@ Available commands:
             
             
         } catch (Exception $e) {
-            throw $e;
+            echo "Warning:  {$e->toString()}\n";
         }
         if (empty($val)) {
             return false;
