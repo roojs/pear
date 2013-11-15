@@ -206,7 +206,7 @@ Available commands:
             
             
         } catch (Exception $e) {
-            //break;
+            throw $e;
         }
         if (empty($val)) {
             return false;
