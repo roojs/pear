@@ -195,7 +195,7 @@ Available commands:
                 $vadd = $cls->getStaticPropertyValue('cli_opts') ;
                 $val = array_merge($val, is_array($vadd) ? $vadd : array()  );
             }
-            var_dump($classname, 'cli_opts'); exot;
+            var_dump($classname, 'cli_opts'); exit;
             if (method_exists($classname, 'cli_opts')) {
                 die("got a cli_opts method'");
             }
