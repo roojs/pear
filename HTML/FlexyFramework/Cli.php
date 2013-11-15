@@ -210,10 +210,6 @@ Available commands:
                     continue;
                 }
             }
-            //var_dump($classname, 'cli_opts'); exit;
-            if (method_exists($classname, 'cli_opts')) {
-                die("got a cli_opts method'");
-            }
             
             
             
