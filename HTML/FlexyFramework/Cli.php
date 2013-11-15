@@ -200,7 +200,8 @@ Available commands:
                 try {
                     
                     if (method_exists($cls->name, 'cli_opts')) {
-                        $val = {$cls->name}::cli_opts();
+                        $cn = $cls->name;
+                        $val = $cn::cli_opts();
                     } else {
                         $vadd = $cls->getStaticPropertyValue('cli_opts') ;
                     }
