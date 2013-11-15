@@ -183,7 +183,7 @@ Available commands:
     {
     
     // cli static $classname::$cli_opts
-       
+        die("CLI PARSE?");
         try {
             // look up the parent tree for core opts.
             $cls = new ReflectionClass($classname);        
