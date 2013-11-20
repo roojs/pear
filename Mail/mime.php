@@ -970,7 +970,9 @@ class Mail_mime
                 $this->_addTextPart($alt, $this->_txtbody);
                 $this->_addHtmlPart($alt);
             } else {
-                $this->_addHtmlPart($message);
+                $alt =& $this->_addAlternativePart($message);
+                
+                $this->_addHtmlPart($alt);
             }
             for ($i = 0; $i < count($this->_parts); $i++) {
                 $this->_addAttachmentPart($message, $this->_parts[$i]);
