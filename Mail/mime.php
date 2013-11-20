@@ -984,7 +984,10 @@ class Mail_mime
                 $this->_addTextPart($alt, $this->_txtbody);
                 $rel =& $this->_addRelatedPart($alt);
             } else {
-                $rel =& $this->_addRelatedPart($message);
+                $alt =& $this->_addAlternativePart($message);
+                //$this->_addTextPart($alt, $this->_txtbody);
+                
+                $rel =& $this->_addRelatedPart($alt);
             }
             $this->_addHtmlPart($rel);
             for ($i = 0; $i < count($this->_html_images); $i++) {
