@@ -971,7 +971,6 @@ class Mail_mime
                 $this->_addHtmlPart($alt);
             } else {
                 $alt =& $this->_addAlternativePart($message);
-                
                 $this->_addHtmlPart($alt);
             }
             for ($i = 0; $i < count($this->_parts); $i++) {
