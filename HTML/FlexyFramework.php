@@ -400,14 +400,7 @@ class HTML_FlexyFramework {
         
         
         // clear any dataobject cache..
-         $GLOBALS['_DB_DATAOBJECT']['CONFIG'] = array();
-        $GLOBALS['_DB_DATAOBJECT']['INI'] = array();
-        $GLOBALS['_DB_DATAOBJECT']['LINKS'] = array();
-        $GLOBALS['_DB_DATAOBJECT']['SEQUENCE'] = array();
-        $GLOBALS['_DB_DATAOBJECT']['CONNECTIONS'] = array();
-        
-        
-        
+         
         
         //die("done");
         
