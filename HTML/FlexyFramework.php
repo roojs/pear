@@ -398,7 +398,7 @@ class HTML_FlexyFramework {
         $this->DB_DataObject[$dbini] = $iniCache;
         $this->_exposeToPear();
         
-        $GLOBALS['DB_DATAOBJECT']['INI'][$this->_database] =   parse_ini_file($iniCache, true);
+        $GLOBALS['DB_DATAOBJECT']['INI'][$this->database] =   parse_ini_file($iniCache, true);
         // clear any dataobject cache..
          
         
