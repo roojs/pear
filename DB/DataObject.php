@@ -1313,7 +1313,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 $this->raiseError("update: trying to perform an update without 
                         the key set, and argument to update is not 
                         DB_DATAOBJECT_WHEREADD_ONLY
-                    ". print_r(array('seq' => $seq , 'keys'=>$keys), DB_DATAOBJECT_ERROR_INVALIDARGS);
+                    ". print_r(array('seq' => $seq , 'keys'=>$keys), true), DB_DATAOBJECT_ERROR_INVALIDARGS);
                 return false;  
             }
         } else {
