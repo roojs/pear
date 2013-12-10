@@ -642,7 +642,7 @@ class File_Convert_Solution
             return false;
         }
         $method = $this->method;
-        echo ('run?');
+        
         return $this->$method($fn, $x, $y, $pg);
     }
     
