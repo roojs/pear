@@ -1092,7 +1092,6 @@ class File_Convert_Solution
     }
     function pdftoppm($fn, $x, $y, $pg=false)
     {
-        return ('run?');
         $xscale = 400; // min size?
         if (!empty($x) && $x> $xscale ) {
             $xscale = $x;
