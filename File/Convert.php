@@ -1164,7 +1164,7 @@ class File_Convert_Solution
         
         $res = $this->exec($cmd);
         $this->result = $res;
-         
+        return;
         clearstatcache();
         // for some reason this makes 01 or 1?
         $out = $fn . sprintf('-conv-%d.'.str_replace('e', '', $ext) , $pg);
