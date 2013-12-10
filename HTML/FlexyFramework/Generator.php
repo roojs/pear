@@ -208,7 +208,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         
         $inis = explode(PATH_SEPARATOR,$ff->DB_DataObject['class_location']);
         //print_r($inis);exit;
-        $this->debug("class_location = ". $ff->DB_DataObject['class_location']);
+        $ff->debug("class_location = ". $ff->DB_DataObject['class_location']);
         
         foreach($inis as $path) {
             $ini = $path . '/'. strtolower( $ff->project) . '.links.ini';
