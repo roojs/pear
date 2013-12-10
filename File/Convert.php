@@ -544,6 +544,7 @@ class File_Convert_Solution_Stack
     }
     function runconvert($fn, $x, $y, $pg=false)
     {
+        print_r('ininin 1111');
         if ($this->debug) {
             echo "<PRE>RUNNING LIST<BR>";
         }
