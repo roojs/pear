@@ -232,6 +232,8 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
                 $ini = preg_replace('/\.links\./' , '.', $ar[0]);
                 $ini = preg_replace('/\.ini$/', '.links.ini', $ini);
             }
+            
+            // why do this twice???
             if (!file_exists($ini)) {
                 continue;
             }
