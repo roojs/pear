@@ -1139,8 +1139,8 @@ class File_Convert_Solution
         
         // older versions only support png...
         
-        print_r($xscale);
-        print_r($yscale);
+//        print_r($xscale);
+//        print_r($yscale);
         
         $PDFTOPPM = System::which("pdftoppm");
         $cmd = "$PDFTOPPM -f $pg " 
@@ -1156,7 +1156,7 @@ class File_Convert_Solution
                     . escapeshellarg($fn.'-conv');
         
         // expect this file..
-        echo "$cmd <br/>";exit;
+//        echo "$cmd <br/>";exit;
         if ($this->debug) {
            echo "$cmd <br/>";
            
