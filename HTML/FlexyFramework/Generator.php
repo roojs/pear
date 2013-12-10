@@ -235,6 +235,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             if (!file_exists($ini)) {
                 continue;
             }
+            $ff->debug("Adding in $ini");
             // prefer first ?
             $links = self::mergeIni( parse_ini_file($ini, true), $links);   
         }
