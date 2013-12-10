@@ -1145,7 +1145,7 @@ class File_Convert_Solution
         $cmd = "$PDFTOPPM -f $pg " 
                     . "-l $pg  " 
                     //"-png" .
-                    . "-r 800 "
+                    . "-r 1200 "
                     . '-' . $ext
                     . " -scale-to-x {$xscale} " 
                     . " -scale-to-y {$yscale} " 
