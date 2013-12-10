@@ -1132,8 +1132,8 @@ class File_Convert_Solution
             return false;
         }
         
-        $yscale =  floor( ($match[2] / $match[1]) * $xscale) * 2;
-        $xscale = floor($xscale) * 2;
+        $yscale =  floor( ($match[2] / $match[1]) * $xscale) * 3;
+        $xscale = floor($xscale) * 3;
         $pg = ($pg === false) ? 1 : $pg;
         
         
