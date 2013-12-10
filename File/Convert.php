@@ -1273,7 +1273,7 @@ class File_Convert_Solution
         
         require_once 'System.php';
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -colorspace sRGB -interlace none -density 300 $flat ". 
+        $cmd = "$CONVERT -colorspace sRGB -interlace none -density 800 $flat ". 
                         "-quality 90   ". escapeshellarg($fn) . " " . escapeshellarg($target);
          if ($this->debug) {
            echo "$cmd <br/>";
