@@ -1192,6 +1192,8 @@ class File_Convert_Solution
              rename($out, $target);
             @chmod($target,fileperms($fn));
             return $target;
+            
+            print_R('in?');exit;
             $ret = $this->ext == 'png' ? $target: $this->convert($target);
             @chmod($ret,fileperms($fn));
             return $ret;
@@ -1205,6 +1207,9 @@ class File_Convert_Solution
              rename($out, $target);
             @chmod($target,fileperms($fn));
             return $target;
+            
+            print_R('in?');exit;
+            
             //$ret = $this->ext == 'png' ? $target: $this->convert($target);
             @chmod($ret,fileperms($fn));
             return $ret;
