@@ -1185,36 +1185,36 @@ class File_Convert_Solution
             
             return $ret;
         }
-        $out = $fn . sprintf('-conv-%02d.'.str_replace('e', '', $ext), $pg);
-        //$out = $fn . '-conv-01.jpg';
-        
-        $fe = file_exists($out)  && filesize($out) ? $out : false;
-        if ($fe) {
-             rename($out, $target);
-            @chmod($target,fileperms($fn));
-            return $target;
-            
-            print_R('in?');exit;
-            $ret = $this->ext == 'png' ? $target: $this->convert($target);
-            @chmod($ret,fileperms($fn));
-            return $ret;
-        }
-        
-        $out = $fn . sprintf('-conv-%03d.'.str_replace('e', '', $ext), $pg);
-        //$out = $fn . '-conv-001.jpg'; .. if more than 100 pages...
-        
-        $fe = file_exists($out)  && filesize($out) ? $out : false;
-        if ($fe) {
-             rename($out, $target);
-            @chmod($target,fileperms($fn));
-            return $target;
-            
-            print_R('in?');exit;
-            
-            //$ret = $this->ext == 'png' ? $target: $this->convert($target);
-            @chmod($ret,fileperms($fn));
-            return $ret;
-        }
+//        $out = $fn . sprintf('-conv-%02d.'.str_replace('e', '', $ext), $pg);
+//        //$out = $fn . '-conv-01.jpg';
+//        
+//        $fe = file_exists($out)  && filesize($out) ? $out : false;
+//        if ($fe) {
+//             rename($out, $target);
+//            @chmod($target,fileperms($fn));
+//            return $target;
+//            
+//            print_R('in?');exit;
+//            $ret = $this->ext == 'png' ? $target: $this->convert($target);
+//            @chmod($ret,fileperms($fn));
+//            return $ret;
+//        }
+//        
+//        $out = $fn . sprintf('-conv-%03d.'.str_replace('e', '', $ext), $pg);
+//        //$out = $fn . '-conv-001.jpg'; .. if more than 100 pages...
+//        
+//        $fe = file_exists($out)  && filesize($out) ? $out : false;
+//        if ($fe) {
+//             rename($out, $target);
+//            @chmod($target,fileperms($fn));
+//            return $target;
+//            
+//            print_R('in?');exit;
+//            
+//            //$ret = $this->ext == 'png' ? $target: $this->convert($target);
+//            @chmod($ret,fileperms($fn));
+//            return $ret;
+//        }
         
         
         
