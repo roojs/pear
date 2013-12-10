@@ -1164,7 +1164,7 @@ class File_Convert_Solution
         
         $res = $this->exec($cmd);
         $this->result = $res;
-        exit;
+        
         clearstatcache();
         // for some reason this makes 01 or 1?
         $out = $fn . sprintf('-conv-%d.'.str_replace('e', '', $ext) , $pg);
@@ -1174,6 +1174,9 @@ class File_Convert_Solution
             rename($out, $target);
             
             @chmod($target,fileperms($fn));
+            
+            exit;
+            
             return $target;
             
             
