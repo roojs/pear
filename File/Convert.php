@@ -1145,11 +1145,11 @@ class File_Convert_Solution
         $PDFTOPPM = System::which("pdftoppm");
         $cmd = "$PDFTOPPM -f $pg " 
                     . "-l $pg  " 
-                    . "-png "
+                    //. "-png "
                     . "-r 1200 "
 //                    . "-rx 1200 "
 //                    . "-ry 1200 "
-                    //. '-' . $ext . " "
+                    . '-' . $ext . " "
                     . " -scale-to-x {$xscale} " 
                     . " -scale-to-y {$yscale} " 
                     .  escapeshellarg($fn) . " " 
