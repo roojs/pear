@@ -1139,7 +1139,8 @@ class File_Convert_Solution
         
         // older versions only support png...
         
-        
+        print_r($xscale);
+        print_r($yscale);
         
         $PDFTOPPM = System::which("pdftoppm");
         $cmd = "$PDFTOPPM -f $pg " 
