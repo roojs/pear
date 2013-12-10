@@ -1175,7 +1175,10 @@ class File_Convert_Solution
             
             @chmod($target,fileperms($fn));
             return $target;
-        
+            
+            
+            print_R('in?');exit;
+            //FIXME never fun this???
             $ret = $this->ext == 'png' ? $target: $this->convert($target);
             @chmod($ret,fileperms($fn));
             
