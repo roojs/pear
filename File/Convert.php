@@ -1175,8 +1175,6 @@ class File_Convert_Solution
             
             @chmod($target,fileperms($fn));
             
-            exit;
-            
             return $target;
             
             
