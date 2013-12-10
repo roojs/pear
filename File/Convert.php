@@ -1149,8 +1149,8 @@ class File_Convert_Solution
                     . "-rx 1200 "
                     . "-ry 1200 "
                     . '-' . $ext
-                    . " -scale-to-x {$xscale} " 
-                    . " -scale-to-y {$yscale} " 
+                    //. " -scale-to-x {$xscale} " 
+                    //. " -scale-to-y {$yscale} " 
                     .  escapeshellarg($fn) . " " 
                     . escapeshellarg($fn.'-conv');
         
