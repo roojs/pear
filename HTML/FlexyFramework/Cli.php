@@ -204,9 +204,9 @@ Available commands:
                         $vadd = $cn::cli_opts();
                     } else {
                         $vadd = $cls->getStaticPropertyValue('cli_opts') ;
-                        ;
+                        
                     }
-                    $val = array_merge($val, is_array($vadd) ? $vadd : array()  )
+                    $val = array_merge($val, is_array($vadd) ? $vadd : array()  );
                 } catch (Exception $e) {
                     continue;
                 }
