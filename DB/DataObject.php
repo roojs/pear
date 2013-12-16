@@ -4707,7 +4707,9 @@ class DB_DataObject extends DB_DataObject_Overload
 
         if (is_array($this->_link_loaded)) {
             foreach ($this->_link_loaded as $do) {
-                $do->free();
+                if (!empty($this->{$do}) && is_object($this->{$do}) && method_exists($this->{$do}, 'free')) {
+                    $this->{$do}->free();
+                }
             }
         }
 
