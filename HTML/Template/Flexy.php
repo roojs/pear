@@ -845,7 +845,6 @@ class HTML_Template_Flexy
                 require_once 'DB/DataObject.php';
                 $tr = DB_DataObject::factory( $this->options['DB_DataObject_translator']);
             }
-            print_r($tr);exit;
             $result = $tr->translateFlexyString($this, $string);
             if (!empty($result)) {
                 return $result;
