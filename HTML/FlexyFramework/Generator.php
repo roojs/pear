@@ -253,11 +253,11 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         if (count($out)) {
             $ff->debug("Writing merged Links file : $iniLinksCache \n");
 
-            file_put_contents($iniLinksCache. '.tmp', implode("\n", $out));
+            file_put_contents($iniCacheTmp. '.links.ini', implode("\n", $out));
             if (file_exists($iniLinksCache)) {
                 unlink($iniLinksCache);
             }
-            rename($iniLinksCache. '.tmp', $iniLinksCache);
+            rename($$iniCacheTmp. '.links.ini', $iniLinksCache);
         }
     }
     /* bit like merge recursive, but it avoids doing stuff with arrays.. */
