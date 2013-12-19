@@ -146,7 +146,7 @@ class Net_Socket extends PEAR
         }
 
         if ($options && function_exists('stream_context_create')) {
-            print_R($options);
+            //print_R($options);
             $context = stream_context_create($options);
 
             // Since PHP 5 fsockopen doesn't allow context specification
