@@ -164,6 +164,15 @@ class Mail_smtp extends Mail {
     var $pipelining;
 
     /**
+     * @see
+     *
+     *
+     */
+    
+    
+    
+    var $socket_options = null;
+    /**
      * Constructor.
      *
      * Instantiates a new Mail_smtp:: object based on the parameters
@@ -355,7 +364,14 @@ class Mail_smtp extends Mail {
         include_once 'Net/SMTP.php';
         $this->_smtp = &new Net_SMTP($this->host,
                                      $this->port,
-                                     $this->localhost);
+                                     $this->localhost,
+                                     false, // $pipelining
+                                     0, // timeout
+                                     $this->socket_options
+                                     );
+                                     
+                                     
+                                     
 
         /* If we still don't have an SMTP object at this point, fail. */
         if (is_object($this->_smtp) === false) {
