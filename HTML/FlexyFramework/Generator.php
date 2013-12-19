@@ -257,7 +257,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             if (file_exists($iniLinksCache)) {
                 unlink($iniLinksCache);
             }
-            rename($$iniCacheTmp. '.links.ini', $iniLinksCache);
+            rename($iniCacheTmp. '.links.ini', $iniLinksCache);
         }
     }
     /* bit like merge recursive, but it avoids doing stuff with arrays.. */
