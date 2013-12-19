@@ -202,7 +202,8 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         $linksCacheTmp = preg_replace('/\.ini/', '.links.ini', $iniCacheTmp );
         $links = array();
         if (file_exists($linksCacheTmp )) {
-            $links = self::mergeIni( parse_ini_file($linksCacheTmp, true), $links);   
+            $links = self::mergeIni( parse_ini_file($linksCacheTmp, true), $links);
+            unlink($linksCacheTmp);
         }
         // we are going to use the DataObject directories..
         
