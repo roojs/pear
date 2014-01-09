@@ -93,7 +93,7 @@ class File_Convert_AbiToDocx
                     
                     // the reader does not clean out the htmlizums...
                     $text = str_replace('&amp;', '&', $this->xr->value);
-                    var_dump($text);
+                    
                     if(strpos($text, '{#PAGE#}') !== false || strpos($text, '{#NUMPAGES#}') !== false){
                         $this->section->addPreserveText(str_replace("#", "", $text), $this->style,$this->style);
                         
