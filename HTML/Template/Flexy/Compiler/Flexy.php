@@ -522,7 +522,6 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             
             case 'x': // xml safe-ish?
                 $prefix = 'echo str_replace("&amp", "&",  htmlspecialchars(';
-                // 60 = <  61 = '=' and 62 = '>' .. might need to add quotes here?
                 $suffix = '))';
                 break;
             case ' ':
