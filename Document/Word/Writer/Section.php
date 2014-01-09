@@ -116,7 +116,7 @@ class Document_Word_Writer_Section
         {
                 require_once __DIR__ . '/Section/Text.php';
 		//$givenText = utf8_encode($text);
-                $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
+        $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$text = new Document_Word_Writer_Section_Text($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $text;
 		return $text;
