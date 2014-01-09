@@ -521,9 +521,9 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
                 break;
             
             case 'x': // xml safe-ish?
-                $prefix = 'echo "<![CDATA[" . mb_encode_numericentity(';
+                $prefix = 'echo "<![CDATA[" . htmlspecialchars(';
                 // 60 = <  61 = '=' and 62 = '>' .. might need to add quotes here?
-                $suffix = ',array(60, 62, 0 , 0xffff, 0x80, 0xffff, 0, 0xffff),  "UTF-8") . "]]>"';
+                $suffix = ') . "]]>"';
                 break;
             case ' ':
                 $prefix = 'echo htmlspecialchars(';
