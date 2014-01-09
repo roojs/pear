@@ -58,70 +58,70 @@ class File_Convert_AbiToDocx
         function parseAbi()
         {
             ini_set('memory_limit', '512M');
-                $this->xr = new XMLReader(); // New XML Reader
+            $this->xr = new XMLReader(); // New XML Reader
 
-                if(!$this->xr->open($this->fileName)){
-                    return PEAR::raiseError('Failed to open input file.');
+            if(!$this->xr->open($this->fileName)){
+                return PEAR::raiseError('Failed to open input file.');
+            }
+            $state = array();
+            $sections = array();
+            $stack = array();
+            while ($this->xr->read()){
+                //$this->dumpsections($sections);
+                 // echo $this->xr->name . '::' . count($sections). "<br/>"; 
+                 $method = 'handle_'.$this->xr->name;
+                 
+                 
+                 if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
+                     if($this->xr->name == 'section'){
+                         $this->keepSection = false;
+                     }
+                     
+                     if (method_exists($this, $method)) {
+                        $this->style = array_pop($state);
+                        $this->section = array_pop($sections);
+                        array_pop($stack);
+                       // echo "AFTER POP:"; $this->dumpsections($sections); 
+                     }
+                     continue;
                 }
-                $state = array();
-                $sections = array();
-                $stack = array();
-                while ($this->xr->read()){
-                    //$this->dumpsections($sections);
-                     // echo $this->xr->name . '::' . count($sections). "<br/>"; 
-                     $method = 'handle_'.$this->xr->name;
-                     
-                     
-                     if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
-                         if($this->xr->name == 'section'){
-                             $this->keepSection = false;
-                         }
-                         
-                         if (method_exists($this, $method)) {
-                            $this->style = array_pop($state);
-                            $this->section = array_pop($sections);
-                            array_pop($stack);
-                           // echo "AFTER POP:"; $this->dumpsections($sections); 
-                         }
-                         continue;
-                    }
-                    
-                    $textNode = array('p','c','a');
+                
+                $textNode = array('p','c','a');
 //                    print_r($this->xr->name);
-                    
-                    if ($this->xr->name == '#text' && count($stack) &&  $this->pass==2 && in_array($stack[count($stack)-1], $textNode)) {
-                        $text = $this->xr->value;
-                        if(strpos($text, '{#PAGE#}') !== false || strpos($text, '{#NUMPAGES#}') !== false){
-                            $this->section->addPreserveText(str_replace("#", "", $text), $this->style,$this->style);
-                            
-                        }elseif(is_array($this->style) && array_key_exists('href', $this->style)) {
-                            $this->section->addLink($this->style['href'], $text,  $this->style);
-                           
-                        }else{
-                            $this->section->addText($text, $this->style);
-                        }
-                        continue;
+                
+                if ($this->xr->name == '#text' && count($stack) &&  $this->pass==2 && in_array($stack[count($stack)-1], $textNode)) {
+                    $text = str_replace('&amp;', '&', $this->xr->value);
+                    if(strpos($text, '{#PAGE#}') !== false || strpos($text, '{#NUMPAGES#}') !== false){
+                        $this->section->addPreserveText(str_replace("#", "", $text), $this->style,$this->style);
+                        
+                    }elseif(is_array($this->style) && array_key_exists('href', $this->style)) {
+                        $this->section->addLink($this->style['href'], $text,  $this->style);
+                       
+                    }else{
+                        $this->section->addText($text, $this->style);
                     }
-                    
-                    
-                    if ($this->xr->nodeType != XMLReader::ELEMENT) {
-                        continue;
-                    }
-                   
-                    if (!method_exists($this, $method)) {
-                            continue;
-//                        echo "NOT HANLED {$this->xr->name} <br/>";
-                    } 
-                    
-                    if (!$this->xr->isEmptyElement) {
-                       $stack[] = $this->xr->name;
-                       $sections[] = $this->section;
-                       $state[] = $this->style;
-                    }
-                    
-                    $this->$method();  
-                   
+                    continue;
                 }
+                
+                
+                if ($this->xr->nodeType != XMLReader::ELEMENT) {
+                    continue;
+                }
+               
+                if (!method_exists($this, $method)) {
+                        continue;
+//                        echo "NOT HANLED {$this->xr->name} <br/>";
+                } 
+                
+                if (!$this->xr->isEmptyElement) {
+                   $stack[] = $this->xr->name;
+                   $sections[] = $this->section;
+                   $state[] = $this->style;
+                }
+                
+                $this->$method();  
+               
+            }
         }
         
         function handle_s() 
