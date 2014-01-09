@@ -69,7 +69,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
 			$objWriter->startElement('w:t');
 				$objWriter->writeAttribute('xml:space', 'preserve'); // needed because of drawing spaces before and after text
-				$objWriter->text($strText);
+                $objWriter->writeCData($strText);
+				//$objWriter->text($strText);
 			$objWriter->endElement();
 			
 		$objWriter->endElement(); // w:r
