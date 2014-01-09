@@ -92,7 +92,7 @@ class File_Convert_AbiToDocx
                 if ($this->xr->name == '#text' && count($stack) &&  $this->pass==2 && in_array($stack[count($stack)-1], $textNode)) {
                     
                     // the reader does not clean out the htmlizums...
-                    $text = str_replace('&amp;', '&', $this->xr->value);
+                    $text =   $this->xr->value;
                     
                     if(strpos($text, '{#PAGE#}') !== false || strpos($text, '{#NUMPAGES#}') !== false){
                         $this->section->addPreserveText(str_replace("#", "", $text), $this->style,$this->style);
