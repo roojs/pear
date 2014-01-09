@@ -53,9 +53,9 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 			}
 		}
 		require_once __DIR__ . '/../../Shared/String.php';
-		$strText = htmlspecialchars($text->getText());
+		$strText = htmlspecialchars($text->getText()); // technically write->text() does this..
 		$strText = Document_Word_Writer_Shared_String::ControlCharacterPHP2OOXML($strText);
-		
+		$strText = str_replace('&amp;', '&', $strText); // htmlspecialchars going overboard..
 		$objWriter->startElement('w:r');
 			if($SfIsObject) {
 				$this->_writeTextStyle($objWriter, $styleFont);
@@ -69,8 +69,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
 			$objWriter->startElement('w:t');
 				$objWriter->writeAttribute('xml:space', 'preserve'); // needed because of drawing spaces before and after text
-                var_dump($strText);
-                $objWriter->writeCData($strText);
+                 
+                $objWriter->text($strText);
 				//$objWriter->text($strText);
 			$objWriter->endElement();
 			
