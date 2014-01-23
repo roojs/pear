@@ -265,7 +265,7 @@ class HTML_Template_Flexy
         if (is_string($filters)) {
             $this->options['filters']= explode(',',$filters);
         }
-        print_r($this->options['templateDir']));exit;
+        print_r($this->options['templateDir']);exit;
         if (is_string($this->options['templateDir'])) {
             $this->options['templateDir'] = explode(PATH_SEPARATOR,$this->options['templateDir'] );
         }
