@@ -251,6 +251,7 @@ class HTML_Template_Flexy
         if (empty($baseoptions) && class_exists('PEAR')) {
             $baseoptions = &PEAR::getStaticProperty('HTML_Template_Flexy','options');
         }
+        print_r($this->options['templateDir']));exit;
         if ($baseoptions ) {
             foreach( $baseoptions as  $key=>$aOption)  {
                 $this->options[$key] = $aOption;
@@ -265,7 +266,7 @@ class HTML_Template_Flexy
         if (is_string($filters)) {
             $this->options['filters']= explode(',',$filters);
         }
-        print_r($this->options['templateDir']);exit;
+        
         if (is_string($this->options['templateDir'])) {
             $this->options['templateDir'] = explode(PATH_SEPARATOR,$this->options['templateDir'] );
         }
