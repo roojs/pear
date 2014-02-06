@@ -338,7 +338,7 @@ class Mail_smtpmx extends Mail {
                     break;
                 }
             }
-            print_r($this->_smtp->_socket);exit;
+            print_r($this->_smtp->_socket->gets());exit;
             if (!$connected) {
                 $info = array(
                     'host' => implode(', ', array_keys($mx)),
