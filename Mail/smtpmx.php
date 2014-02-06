@@ -376,6 +376,7 @@ class Mail_smtpmx extends Mail {
             if ($this->test) {
                 $result = $this->_smtp->rset();
                 $res = $this->_smtp->rset();
+                print_r($res);exit;
                 if (is_a($res, 'PEAR_Error')) {
                     return $this->_raiseError('failed_rset');
                 }
