@@ -338,14 +338,9 @@ class Mail_smtpmx extends Mail {
                     break;
                 }
             }
-            $line = '';
-            while (!feof($this->_smtp->_socket->fp)) {
-                $line .= @fgets($this->_smtp->_socket->fp, 2048);
-                if (substr($line, -1) == "\n") {
-                    return rtrim($line, "\r\n");
-                }
-            }
-            print_r($line);exit;
+            print_r($this->_smtp->_socket->gets());
+            exit;
+            
             if (!$connected) {
                 $info = array(
                     'host' => implode(', ', array_keys($mx)),
