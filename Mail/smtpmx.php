@@ -411,7 +411,7 @@ class Mail_smtpmx extends Mail {
     function _getMx($host)
     {
         $mx = array();
-        print_r($this->withNetDns);exit;
+
         if ($this->withNetDns) {
             $res = $this->_loadNetDns();
             if (is_a($res, 'PEAR_Error')) {
