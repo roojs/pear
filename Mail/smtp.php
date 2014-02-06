@@ -189,7 +189,6 @@ class Mail_smtp extends Mail {
      *     debug       Activate SMTP debug mode? Defaults to false.
      *     persist     Should the SMTP connection persist?
      *     pipelining  Use SMTP command pipelining
-     *     socket_options @see net_smtp
      *
      * If a parameter is present in the $params array, it replaces the
      * default.
