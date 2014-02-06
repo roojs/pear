@@ -319,7 +319,7 @@ class Mail_smtpmx extends Mail {
             $connected = false;
             foreach ($mx as $mserver => $mpriority) {
                 $this->_smtp = new Net_SMTP($mserver, $this->port, $this->mailname);
-                print_r($this->_smtp);exit;
+
                 // configure the SMTP connection.
                 if ($this->debug) {
                     $this->_smtp->setDebug(true);
