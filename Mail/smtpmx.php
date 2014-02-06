@@ -327,6 +327,7 @@ class Mail_smtpmx extends Mail {
 
                 // attempt to connect to the configured SMTP server.
                 $res = $this->_smtp->connect($this->timeout);
+                print_r($res);exit;
                 if (is_a($res, 'PEAR_Error')) {
                     $this->_smtp = null;
                     continue;
