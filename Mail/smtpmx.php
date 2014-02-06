@@ -360,6 +360,7 @@ class Mail_smtpmx extends Mail {
             // mail from:
             $args['verp'] = $this->verp;
             $res = $this->_smtp->mailFrom($from, $args);
+            print_r($res);exit;
             if (is_a($res, 'PEAR_Error')) {
                 $info = array('from' => $from);
                 return $this->_raiseError('failed_set_from', $info);
