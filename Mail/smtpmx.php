@@ -347,7 +347,7 @@ class Mail_smtpmx extends Mail {
                 );
                 return $this->_raiseError('not_connected', $info);
             }
-            print_r($this->_socket);exit;
+
             // Verify recipient
             if ($this->vrfy) {
                 $res = $this->_smtp->vrfy($rcpt);
