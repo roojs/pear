@@ -338,7 +338,7 @@ class Mail_smtpmx extends Mail {
                     break;
                 }
             }
-            
+
             if (!$connected) {
                 $info = array(
                     'host' => implode(', ', array_keys($mx)),
