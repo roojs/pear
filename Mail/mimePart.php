@@ -940,7 +940,7 @@ class Mail_mimePart
      * Encodes a header value as per RFC2047
      *
      * @param string $value      The header data to encode
-     * @param string $charset    Character set name
+     * @param string $charset    Character set name (the original encoding e.g. UTF-8)
      * @param string $encoding   Encoding name (base64 or quoted-printable)
      * @param int    $prefix_len Prefix length. Default: 0
      * @param string $eol        End-of-line sequence. Default: "\r\n"
