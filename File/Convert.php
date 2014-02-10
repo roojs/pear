@@ -814,13 +814,22 @@ class File_Convert_Solution
         }
         
         
-        $cmd = "DISPLAY=:0 $ssconvert -I $from -T $format " .
+        $cmd = "$ssconvert -I $from -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         ///echo $cmd;
         $this->exec($cmd);
         
         clearstatcache();
+        
+        if (!file_exists($target)) {
+            $xvfb = System::which('xvfb-run');
+            if (empty($xvfb) || !file_exists($xvfb)) {
+                return false;
+            }
+            $cmd = $xvfb .' ' . $cmd;
+        }
+        
         
          return  file_exists($target)  && filesize($target) ? $target : false;
      
