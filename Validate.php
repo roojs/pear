@@ -514,6 +514,7 @@ class Validate
      */
     function email($email, $options = null)
     {
+        static $dom_cache = array();
         $check_domain = false;
         $use_rfc822   = false;
         if (is_bool($options)) {
@@ -580,9 +581,16 @@ class Validate
                 preg_match($regex, $email)) {
             if ($check_domain && function_exists('checkdnsrr')) {
                 $domain = preg_replace('/[^-a-z.0-9]/i', '', array_pop(explode('@', $email)));
+                
+                if (isset($dom_cache[$domain])) {
+                    return $dom_cache[$domain];
+                }
+                
                 if (checkdnsrr($domain, 'MX') || checkdnsrr($domain, 'A')) {
+                    $dom_cache[$domain] = true;
                     return true;
                 }
+                $dom_cache[$domain] = false;
                 return false;
             }
             return true;
