@@ -829,10 +829,11 @@ class File_Convert_Solution
             }
             $cmd = $xvfb .' ' . $cmd;
             $this->exec($cmd);
+            clearstatcache();
         }
         
         
-         return  file_exists($target)  && filesize($target) ? $target : false;
+        return  file_exists($target)  && filesize($target) ? $target : false;
      
     }
     /**
