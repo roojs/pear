@@ -812,25 +812,22 @@ class File_Convert_Solution
             default:
                  die("ssconvert used on unknown format:" . $this->to);
         }
-        
-        
-        $cmd = "$ssconvert -I $from -T $format " .
+        $xvfb = System::which('xvfb-run');
+        if (empty($xvfb) || !file_exists($xvfb)) {
+              $cmd = "$ssconvert -I $from -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
+        } else {
+             $cmd = "$xvfb $ssconvert -I $from -T $format " .
+                escapeshellarg($fn) . " " .
+                escapeshellarg($target);
+        }
+        
+       
         ///echo $cmd;
         $this->exec($cmd);
         
         clearstatcache();
-        
-        if (!file_exists($target)) {
-            $xvfb = System::which('xvfb-run');
-            if (empty($xvfb) || !file_exists($xvfb)) {
-                return false;
-            }
-            $cmd = $xvfb .' ' . $cmd;
-            $this->exec($cmd);
-            clearstatcache();
-        }
         
         
         return  file_exists($target)  && filesize($target) ? $target : false;
