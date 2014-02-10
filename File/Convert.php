@@ -828,6 +828,7 @@ class File_Convert_Solution
                 return false;
             }
             $cmd = $xvfb .' ' . $cmd;
+            $this->exec($cmd);
         }
         
         
