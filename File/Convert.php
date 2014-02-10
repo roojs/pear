@@ -814,7 +814,7 @@ class File_Convert_Solution
         }
         
         
-        $cmd = "$ssconvert -I $from -T $format " .
+        $cmd = "DISPLAY=:0 $ssconvert -I $from -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         ///echo $cmd;
