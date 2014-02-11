@@ -150,6 +150,7 @@ class File_Convert
         }
 //        print_r($this->target);
         $this->target = $fn;
+        print_r($this->target);
         $this->to = $toMimetype;
         return $fn;
         
