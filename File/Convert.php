@@ -824,7 +824,7 @@ class File_Convert_Solution
         }
         
        
-        ///echo $cmd;
+        /echo $cmd;
         $this->exec($cmd);
         
         clearstatcache();
