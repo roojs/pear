@@ -414,6 +414,7 @@ class Net_SMTP
     {
         return array($this->_code, join("\n", $this->_arguments));
     }
+    
 
     /**
      * Return the SMTP server's greeting string.
