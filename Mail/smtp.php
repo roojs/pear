@@ -403,7 +403,10 @@ class Mail_smtp extends Mail {
                                    $this->host . ':' . $this->port,
                                    $res);
             return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_CONNECT,
-                    null,null,array('smtpcode' => $code));
+                    null,null,    array(
+                            'smtpcode' => $code,
+                            'smtptext' => implode("\n" , $this->_smtp->_arguments)
+                    ));
         }
 
         /* Attempt to authenticate if authentication has been enabled. */
