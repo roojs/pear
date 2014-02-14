@@ -297,7 +297,10 @@ class Mail_smtp extends Mail {
                     "Failed to set sender: $from", $res, PEAR_MAIL_SMTP_ERROR_SENDER);
             $this->_smtp->rset();
             return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER,
-                    null,null,array('smtpcode' => $code)
+                    null,null,    array(
+                            'smtpcode' => $code,
+                            'smtptext' => implode("\n" , $this->_smtp->_arguments)
+                    )
             );
         }
 
