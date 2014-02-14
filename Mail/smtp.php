@@ -295,11 +295,12 @@ class Mail_smtp extends Mail {
         if (PEAR::isError($res = $this->_smtp->mailFrom($from, ltrim($params)))) {
             list($code, $error) = $this->_error(
                     "Failed to set sender: $from", $res, PEAR_MAIL_SMTP_ERROR_SENDER);
+            $txt = implode("\n" , $this->_smtp->_arguments);
             $this->_smtp->rset();
             return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER,
                     null,null,    array(
                             'smtpcode' => $code,
-                            'smtptext' => implode("\n" , $this->_smtp->_arguments)
+                            'smtptext' => $txt
                     )
             );
         }
@@ -314,14 +315,14 @@ class Mail_smtp extends Mail {
             $res = $this->_smtp->rcptTo($recipient);
             if (is_a($res, 'PEAR_Error')) {
                 list($code, $error) = $this->_error("Failed to add recipient: $recipient", $res);
-                
+                $txt = implode("\n" , $this->_smtp->_arguments);
                 
                 $this->_smtp->rset();
                 return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_RECIPIENT,
                     null,null,
                     array(
                             'smtpcode' => $code,
-                            'smtptext' => implode("\n" , $this->_smtp->_arguments)
+                            'smtptext' => $txt
                     )
                 );
             }
@@ -341,11 +342,12 @@ class Mail_smtp extends Mail {
 
         if (is_a($res, 'PEAR_Error')) {
             list($code,$error) = $this->_error('Failed to send data', $res);
+            $txt = implode("\n" , $this->_smtp->_arguments);
             $this->_smtp->rset();
             return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_DATA,
                 null,null,    array(
                             'smtpcode' => $code,
-                            'smtptext' => implode("\n" , $this->_smtp->_arguments)
+                            'smtptext' => $txt
                     )
             );
         }
@@ -402,10 +404,11 @@ class Mail_smtp extends Mail {
             list($code, $error) = $this->_error('Failed to connect to ' .
                                    $this->host . ':' . $this->port,
                                    $res);
+            $txt = implode("\n" , $this->_smtp->_arguments);
             return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_CONNECT,
                     null,null,    array(
                             'smtpcode' => $code,
-                            'smtptext' => implode("\n" , $this->_smtp->_arguments)
+                            'smtptext' => $txt
                     ));
         }
 
