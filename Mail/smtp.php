@@ -419,11 +419,12 @@ class Mail_smtp extends Mail {
                 
                 list($code, $error) =$this->_error("$method authentication failure",
                                        $res);
+                $txt = implode("\n" , $this->_smtp->_arguments);
                 $this->_smtp->rset();
                 return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_AUTH,
                     null,null,    array(
                             'smtpcode' => $code,
-                            'smtptext' => implode("\n" , $this->_smtp->_arguments)
+                            'smtptext' => $txt
                     )
                 );
             }
