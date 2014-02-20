@@ -257,8 +257,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         if (count($out)) {
             $ff->debug("Writing merged Links file : $iniLinksCache \n");
 
-            $out  = implode("\n", $out);
-            
+          
             
             file_put_contents($iniCacheTmp. '.links.ini', implode("\n", $out));
             if (file_exists($iniLinksCache)) {                
