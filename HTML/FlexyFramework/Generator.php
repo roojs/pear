@@ -173,6 +173,9 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
     static function writeCache($iniCacheTmp, $iniCache)
     {
         
+        $fp = fopen($iniCache.".lock", "r+");
+        flock($fp,LOCK_EX);
+
         $ff = HTML_FlexyFramework::get();
         $ff->debug('Framework Generator:writeCache ' . $iniCacheTmp .  ' ' . $iniCache);
           
@@ -263,6 +266,11 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             }
             rename($iniCacheTmp. '.links.ini', $iniLinksCache);
         }
+        
+        flock($fp, LOCK_UN);
+        fclose($fp);
+        unlink($fp);
+        
     }
     /* bit like merge recursive, but it avoids doing stuff with arrays.. */
     static function mergeIni($new, $old) 
