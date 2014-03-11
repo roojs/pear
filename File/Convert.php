@@ -38,10 +38,11 @@ class File_Convert
     var $to;
     var $target;
     var $lastaction = false;
-    function File_Convert($fn, $mimetype) 
+    function File_Convert($fn, $mimetype, $options=array()) 
     {
         $this->fn = $fn;
         $this->mimetype = $mimetype;
+        $this->options = $options;
      }
     
     
