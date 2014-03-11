@@ -849,8 +849,11 @@ class File_Convert_Solution
         
         clearstatcache();
         
-        
+        $b = basename($fn);
+        $d = dirname($fn);
+        print_r($d);exit;
         if ($sheet !== false) {
+            
             // target is actually the XXX.{number}
             // remove all the other files...
         }
