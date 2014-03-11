@@ -23,7 +23,7 @@ print_r($x->getConvMethods('application/msword', 'image/jpeg'));
 print_r($x->getConvMethods('application/acad', 'image/jpeg'));
 var_dump($x->getConvMethods('application/acad', 'application/msword')); // impossible
 
-$x = new File_Convert(file, 'app../excel',array('sheet'=>array(0,1,2) ));
+$x = new File_Convert(file, 'app../excel',array('sheet'=>array(0,1,2...) ));
 $out = $x->convert('text/csv');
 
 
