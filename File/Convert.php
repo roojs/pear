@@ -504,6 +504,7 @@ class File_Convert
                     continue; // mo way to convert
                 }
                 $first = new File_Convert_Solution($conv, $from, $targ);
+                $first->convert = $this;
                 $sol_list= $first->add($try);
                 
                 $res[] = $sol_list;
