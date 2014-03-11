@@ -844,7 +844,6 @@ class File_Convert_Solution
                 escapeshellarg($target);
         }
         
-       print_r($cmd);exit;
         ///echo $cmd;
         $this->exec($cmd);
         
