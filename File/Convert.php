@@ -854,8 +854,11 @@ class File_Convert_Solution
             $d = dirname($fn);
             
             if (file_exists($d)) {
-                $list = glob($fn . '.' . $ext . '.*');
-                print_r($list);exit;
+                $path = $fn . '.' . $ext . '.';
+                $list = glob($path . '*');
+                foreach($list as $l){
+                    
+                }
 //                $dh = opendir($d);
 //                while (false !== ($fn = readdir($dh))) {
 //                    if (substr($fn, 0, strlen($b)) == $b) {
