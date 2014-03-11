@@ -472,7 +472,8 @@ class File_Convert
                 continue;
             }
             if (in_array($to,$t[2])) {
-                return new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
+                $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
+                $ret->convert = $this;
             }
             // from matches..
             $pos[$t[0]] = $t[2]; // list of targets
