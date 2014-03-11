@@ -856,6 +856,7 @@ class File_Convert_Solution
             if (file_exists($d)) {
                 $path = $fn . '.' . $ext . '.';
                 $list = glob($path . '*');
+                print_r($list);exit;
                 foreach($list as $l){
                     
                 }
