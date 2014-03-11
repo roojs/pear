@@ -849,20 +849,18 @@ class File_Convert_Solution
         
         clearstatcache();
         
-         $b = basename($target);
-            $d = dirname($target);
-            print_r($b);exit;
         if ($sheet !== false) {
-            $b = basename($target);
-            $d = dirname($target);
+            $b = basename($fn);
+            $d = dirname($fn);
             if (file_exists($d)) {
-
-                $dh = opendir($d);
-                while (false !== ($fn = readdir($dh))) {
-                    if (substr($fn, 0, strlen($b)) == $b) {
-                        unlink($d. '/'. $fn);
-                    }
-                }
+                $list = glob($d . '/' . fn . '*');
+                print_r($list);exit;
+//                $dh = opendir($d);
+//                while (false !== ($fn = readdir($dh))) {
+//                    if (substr($fn, 0, strlen($b)) == $b) {
+//                        unlink($d. '/'. $fn);
+//                    }
+//                }
             }
             // target is actually the XXX.{number}
             // remove all the other files...
