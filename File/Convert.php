@@ -809,8 +809,11 @@ class File_Convert_Solution
                  die("ssconvert used on unknown format:" . $this->from);
             
         }
+        $ssconvert_extra = '';
+        $sheet = false;
         if (isset($this->convert['options']['sheet'])) {
             $sheet = $this->convert['options']['sheet'];
+            $ssconvert_extra = ' -S ';
         }
         
         
@@ -831,11 +834,11 @@ class File_Convert_Solution
         }
         $xvfb = System::which('xvfb-run');
         if (empty($xvfb) || !file_exists($xvfb)) {
-              $cmd = "$ssconvert -I $from -T $format " .
+              $cmd = "$ssconvert $ssconvert_extra  -I $from -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         } else {
-             $cmd = "$xvfb $ssconvert -I $from -T $format " .
+             $cmd = "$xvfb $ssconvert $ssconvert_extra  -I $from -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         }
@@ -845,6 +848,13 @@ class File_Convert_Solution
         $this->exec($cmd);
         
         clearstatcache();
+        
+        
+        if ($sheet !== false) {
+            // target is actually the XXX.{number}
+            // remove all the other files...
+        }
+        
         
         
         return  file_exists($target)  && filesize($target) ? $target : false;
