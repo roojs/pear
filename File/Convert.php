@@ -848,12 +848,12 @@ class File_Convert_Solution
         $this->exec($cmd);
         
         clearstatcache();
-        print_r($fn);exit;
+        
         if ($sheet !== false) {
             $b = basename($fn);
             $d = dirname($fn);
             if (file_exists($d)) {
-                $list = glob($d . '/' . fn . '*');
+                $list = glob($d . '/' . $fn . '*');
                 print_r($list);exit;
 //                $dh = opendir($d);
 //                while (false !== ($fn = readdir($dh))) {
