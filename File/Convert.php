@@ -851,7 +851,7 @@ class File_Convert_Solution
         
          $b = basename($target);
             $d = dirname($target);
-            print_r($d);exit;
+            print_r($b);exit;
         if ($sheet !== false) {
             $b = basename($target);
             $d = dirname($target);
