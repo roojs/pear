@@ -867,6 +867,8 @@ class File_Convert_Solution
                     
                 }
             }
+            
+            $target = $fn;
         }
         
         
