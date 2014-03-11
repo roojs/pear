@@ -23,6 +23,11 @@ print_r($x->getConvMethods('application/msword', 'image/jpeg'));
 print_r($x->getConvMethods('application/acad', 'image/jpeg'));
 var_dump($x->getConvMethods('application/acad', 'application/msword')); // impossible
 
+$x = new File_Convert(file, 'app../excel',array('sheet'=>1 ));
+$out = $x->convert('text/csv');
+
+
+
 */
 
 class File_Convert
@@ -804,6 +809,10 @@ class File_Convert_Solution
                  die("ssconvert used on unknown format:" . $this->from);
             
         }
+        if (isset($this->convert['options']['sheet'])) {
+            $sheet = $this->convert['options']['sheet'];
+        }
+        
         
         switch($this->to) {
             
@@ -813,6 +822,8 @@ class File_Convert_Solution
             
             case 'text/csv':
                 $format = 'Gnumeric_stf:stf_csv';
+                
+                
                 break;
             
             default:
