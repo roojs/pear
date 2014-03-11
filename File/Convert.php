@@ -852,7 +852,7 @@ class File_Convert_Solution
         if ($sheet !== false) {
             $b = basename($fn);
             $d = dirname($fn);
-            print_r($d . '/' . $fn . '*');exit;
+            
             if (file_exists($d)) {
                 $list = glob($fn . '*');
                 print_r($list);exit;
