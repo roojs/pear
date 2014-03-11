@@ -857,19 +857,16 @@ class File_Convert_Solution
                 
                 $list = glob($fn . '.' . $ext . '.*');
                 foreach($list as $l){
-                    $s = array_pop(explode('.', $l));
-                    print_r($s);
+                    $ll = $l;
+                    $s = array_pop(explode('.', $ll));
+                    if(in_array($s, $sheet)){
+                        continue;
+                    }
                     
-                }exit;
-//                $dh = opendir($d);
-//                while (false !== ($fn = readdir($dh))) {
-//                    if (substr($fn, 0, strlen($b)) == $b) {
-//                        unlink($d. '/'. $fn);
-//                    }
-//                }
+                    unlink($l);
+                    
+                }
             }
-            // target is actually the XXX.{number}
-            // remove all the other files...
         }
         
         
