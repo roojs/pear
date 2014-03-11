@@ -849,9 +849,21 @@ class File_Convert_Solution
         
         clearstatcache();
         
-        
+         $b = basename($target);
+            $d = dirname($target);
+            print_r($d);exit;
         if ($sheet !== false) {
-            
+            $b = basename($target);
+            $d = dirname($target);
+            if (file_exists($d)) {
+
+                $dh = opendir($d);
+                while (false !== ($fn = readdir($dh))) {
+                    if (substr($fn, 0, strlen($b)) == $b) {
+                        unlink($d. '/'. $fn);
+                    }
+                }
+            }
             // target is actually the XXX.{number}
             // remove all the other files...
         }
