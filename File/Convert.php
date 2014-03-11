@@ -848,7 +848,7 @@ class File_Convert_Solution
         $this->exec($cmd);
         
         clearstatcache();
-        
+        print_r($fn);exit;
         if ($sheet !== false) {
             $b = basename($fn);
             $d = dirname($fn);
