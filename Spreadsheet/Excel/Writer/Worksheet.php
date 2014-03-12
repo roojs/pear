@@ -1176,6 +1176,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
             return $this->writeUrl($row, $col, $token, '', $format);
         } elseif (preg_match("/^=/", $token)) {
             // Match formula
+            print_r('run');exit;
             return $this->writeFormula($row, $col, $token, $format);
         } elseif ($token == '') {
             // Match blank
