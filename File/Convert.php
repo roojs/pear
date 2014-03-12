@@ -23,11 +23,6 @@ print_r($x->getConvMethods('application/msword', 'image/jpeg'));
 print_r($x->getConvMethods('application/acad', 'image/jpeg'));
 var_dump($x->getConvMethods('application/acad', 'application/msword')); // impossible
 
-$x = new File_Convert(file, 'app../excel',array('sheet'=>array(0,1,2...) ));
-$out = $x->convert('text/csv');
-
-
-
 */
 
 class File_Convert
@@ -43,11 +38,10 @@ class File_Convert
     var $to;
     var $target;
     var $lastaction = false;
-    function File_Convert($fn, $mimetype, $options=array()) 
+    function File_Convert($fn, $mimetype) 
     {
         $this->fn = $fn;
         $this->mimetype = $mimetype;
-        $this->options = $options;
      }
     
     
@@ -74,7 +68,6 @@ class File_Convert
         //echo "testing scale image";
         
         $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
-        $sc->convert = $this;
         $sc->debug= $this->debug;
             
         if (strpos($x, 'x')) {
@@ -180,6 +173,7 @@ class File_Convert
         }
        
         if (!file_exists($this->target)) {
+            print_r($this->target);
             die("file missing");
        }
        
@@ -477,9 +471,7 @@ class File_Convert
                 continue;
             }
             if (in_array($to,$t[2])) {
-                $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
-                $ret->convert = $this;
-                return $ret;
+                return new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
             }
             // from matches..
             $pos[$t[0]] = $t[2]; // list of targets
@@ -510,7 +502,6 @@ class File_Convert
                     continue; // mo way to convert
                 }
                 $first = new File_Convert_Solution($conv, $from, $targ);
-                $first->convert = $this;
                 $sol_list= $first->add($try);
                 
                 $res[] = $sol_list;
@@ -593,8 +584,6 @@ class File_Convert_Solution
     var $to;
     var $ext;
     var $debug = false;
-    var $convert; // reference to caller..
-    
     function File_Convert_Solution($method, $from ,$to)
     {
         $this->method = $method;
@@ -810,13 +799,6 @@ class File_Convert_Solution
                  die("ssconvert used on unknown format:" . $this->from);
             
         }
-        $ssconvert_extra = '';
-        $sheet = false;
-        if (isset($this->convert->options['sheet'])) {
-            $sheet = $this->convert->options['sheet'];
-            $ssconvert_extra = ' -S ';
-        }
-        
         
         switch($this->to) {
             
@@ -826,8 +808,6 @@ class File_Convert_Solution
             
             case 'text/csv':
                 $format = 'Gnumeric_stf:stf_csv';
-                
-                
                 break;
             
             default:
@@ -835,42 +815,20 @@ class File_Convert_Solution
         }
         $xvfb = System::which('xvfb-run');
         if (empty($xvfb) || !file_exists($xvfb)) {
-              $cmd = "$ssconvert $ssconvert_extra  -I $from -T $format " .
+              $cmd = "$ssconvert -I $from -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         } else {
-             $cmd = "$xvfb $ssconvert $ssconvert_extra  -I $from -T $format " .
+             $cmd = "$xvfb $ssconvert -I $from -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         }
         
+       
         ///echo $cmd;
         $this->exec($cmd);
         
         clearstatcache();
-        
-        if ($sheet !== false) {
-            $b = basename($fn);
-            $d = dirname($fn);
-            
-            if (file_exists($d)) {
-                
-                $list = glob($fn . '.' . $ext . '.*');
-                foreach($list as $l){
-                    $ll = $l;
-                    $s = array_pop(explode('.', $ll));
-                    if(in_array($s, $sheet)){
-                        continue;
-                    }
-                    
-                    unlink($l);
-                    
-                }
-            }
-            
-            $target = $fn;
-        }
-        
         
         
         return  file_exists($target)  && filesize($target) ? $target : false;
