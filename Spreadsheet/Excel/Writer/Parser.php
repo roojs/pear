@@ -1362,6 +1362,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         }
             $result = $this->_createTree('ptgConcat', $result, $result2);
         }
+        print_r($result);exit;
         return $result;
     }
 
