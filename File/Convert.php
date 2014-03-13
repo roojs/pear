@@ -1358,7 +1358,7 @@ class File_Convert_Solution
         }
         $ext = $this->ext;
         $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
-        print_r($target);exit;
+        
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             
             return $target;
