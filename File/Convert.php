@@ -40,10 +40,11 @@ class File_Convert
     var $to;
     var $target;
     var $lastaction = false;
-    function File_Convert($fn, $mimetype) 
+    function File_Convert($fn, $mimetype, $options=array())
     {
         $this->fn = $fn;
         $this->mimetype = $mimetype;
+        $this->options = $options;
      }
     
     
@@ -70,6 +71,7 @@ class File_Convert
         //echo "testing scale image";
         
         $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
+        $sc->convert = $this;
         $sc->debug= $this->debug;
             
         if (strpos($x, 'x')) {
@@ -473,7 +475,9 @@ class File_Convert
                 continue;
             }
             if (in_array($to,$t[2])) {
-                return new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
+                $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
+                $ret->convert = $this;
+                return $ret;
             }
             // from matches..
             $pos[$t[0]] = $t[2]; // list of targets
