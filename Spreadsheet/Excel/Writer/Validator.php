@@ -124,13 +124,11 @@ class Spreadsheet_Excel_Writer_Validator
     {
         // Parse the formula using the parser in Parser.php
         $error = $this->_parser->parse($formula);
-        
         if (PEAR::isError($error)) {
             return $this->_formula1;
         }
 
         $this->_formula1 = $this->_parser->toReversePolish();
-        print_r($this->_formula1);exit;
         if (PEAR::isError($this->_formula1)) {
             return $this->_formula1;
         }
