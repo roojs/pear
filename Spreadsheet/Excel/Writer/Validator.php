@@ -124,6 +124,7 @@ class Spreadsheet_Excel_Writer_Validator
     {
         // Parse the formula using the parser in Parser.php
         $error = $this->_parser->parse($formula);
+        print_r($error);exit;
         if (PEAR::isError($error)) {
             return $this->_formula1;
         }
