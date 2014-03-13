@@ -158,10 +158,11 @@ class Spreadsheet_Excel_Writer_Validator
         if ($this->_fixedList) {
             $options |= 0x80;
         }
-        print_r($this->_type);exit;
+        
         if ($this->_blank) {
             $options |= 0x100;
         }
+        print_r($this->_type);exit;
         if (!$this->_incell) {
             $options |= 0x200;
         }
