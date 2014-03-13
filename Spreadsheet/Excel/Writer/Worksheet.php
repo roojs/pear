@@ -1593,7 +1593,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
 
         $header    = pack('vv',   $record, $length);
         $data      = pack('vvvV', $row, $col, $xf, $this->_str_table[$str]);
-        print_r(unpack('vv', $header));exit;
+        print_r(unpack('vvvV', $data));exit;
         $this->_append($header.$data);
         return $str_error;
     }
