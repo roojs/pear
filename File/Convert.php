@@ -508,6 +508,7 @@ class File_Convert
                     continue; // mo way to convert
                 }
                 $first = new File_Convert_Solution($conv, $from, $targ);
+                $first->convert = $this;
                 $sol_list= $first->add($try);
                 
                 $res[] = $sol_list;
@@ -544,6 +545,7 @@ class File_Convert_Solution_Stack
     var $type = 1;
     var $list;
     var $debug = false;
+    var $convert; // reference to caller..
     
     function count()
     {
@@ -819,6 +821,14 @@ class File_Convert_Solution
             default:
                  die("ssconvert used on unknown format:" . $this->to);
         }
+        
+        $ssconvert_extra = '';
+        $sheet = false;
+        if (isset($this->convert->options['sheet'])) {
+            $sheet = $this->convert->options['sheet'];
+            $ssconvert_extra = ' -S ';
+        }
+        
         $xvfb = System::which('xvfb-run');
         if (empty($xvfb) || !file_exists($xvfb)) {
               $cmd = "$ssconvert -I $from -T $format " .
@@ -836,6 +846,27 @@ class File_Convert_Solution
         
         clearstatcache();
         
+        if ($sheet !== false) {
+            $b = basename($fn);
+            $d = dirname($fn);
+            
+            if (file_exists($d)) {
+                
+                $list = glob($fn . '.' . $ext . '.*');
+                foreach($list as $l){
+                    $ll = $l;
+                    $s = array_pop(explode('.', $ll));
+                    if(in_array($s, $sheet)){
+                        continue;
+                    }
+                    
+                    unlink($l);
+                    
+                }
+            }
+            
+            $target = $fn;
+        }
         
         return  file_exists($target)  && filesize($target) ? $target : false;
      
