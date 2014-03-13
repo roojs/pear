@@ -171,10 +171,11 @@ class Spreadsheet_Excel_Writer_Validator
         if ($this->_showprompt) {
             $options |= 0x40000;
         }
-        print_r($options);exit;
+        
         if ($this->_showerror) {
             $options |= 0x80000;
         }
+        print_r($options);exit;
       $options |= $this->_operator << 20;
 
       return $options;
