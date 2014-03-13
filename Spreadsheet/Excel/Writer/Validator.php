@@ -165,7 +165,7 @@ class Spreadsheet_Excel_Writer_Validator
         }
         
         if (!$this->_incell) {
-            $options |= 0x200;
+            $options |= 0x01;
         }
         print_r($options);exit;
         if ($this->_showprompt) {
