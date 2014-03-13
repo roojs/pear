@@ -153,6 +153,7 @@ class Spreadsheet_Excel_Writer_Validator
     function _getOptions()
     {
         $options = $this->_type;
+        print_r($this->_type);exit;
         $options |= $this->_style << 3;
         if ($this->_fixedList) {
             $options |= 0x80;
@@ -170,7 +171,7 @@ class Spreadsheet_Excel_Writer_Validator
             $options |= 0x80000;
         }
       $options |= $this->_operator << 20;
-      print_r($options);exit;
+      
       return $options;
    }
 
