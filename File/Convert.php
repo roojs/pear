@@ -545,7 +545,6 @@ class File_Convert_Solution_Stack
     var $type = 1;
     var $list;
     var $debug = false;
-    var $convert; // reference to caller..
     
     function count()
     {
@@ -592,6 +591,8 @@ class File_Convert_Solution
     var $to;
     var $ext;
     var $debug = false;
+    var $convert; // reference to caller..
+    
     function File_Convert_Solution($method, $from ,$to)
     {
         $this->method = $method;
