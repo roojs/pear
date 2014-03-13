@@ -1404,7 +1404,6 @@ class File_Convert_Solution
                 $extent ="-extent '{$x}x{$y}>' -gravity center -background white -define jpeg:size={$x}x{$y}";
                 break;
         }
-        print_r($scale);exit;
         require_once 'System.php';
         $CONVERT = System::which("convert");
         
