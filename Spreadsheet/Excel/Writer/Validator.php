@@ -170,7 +170,7 @@ class Spreadsheet_Excel_Writer_Validator
             $options |= 0x80000;
         }
       $options |= $this->_operator << 20;
-      print_r($options);exit;
+
       return $options;
    }
 
