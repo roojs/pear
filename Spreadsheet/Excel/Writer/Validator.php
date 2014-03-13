@@ -70,7 +70,7 @@ class Spreadsheet_Excel_Writer_Validator
     function Spreadsheet_Excel_Writer_Validator(&$parser)
     {
         $this->_parser       = $parser;
-        $this->_type         = 0x02; // FIXME: add method for setting datatype
+        $this->_type         = 0x03; // FIXME: add method for setting datatype
         $this->_style        = 0x00;
         $this->_fixedList    = false;
         $this->_blank        = false;
