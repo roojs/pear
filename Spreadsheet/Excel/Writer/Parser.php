@@ -1288,7 +1288,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     */
     function parse($formula)
     {
-//        ini_set('memory_limit', '-1');
         $this->_current_char = 0;
         $this->_formula      = $formula;
         $this->_lookahead    = $formula{1};
@@ -1698,7 +1697,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             }
         }
         $polish .= $converted_tree;
-        $polish = 'INDEX(B9:B10)';
         return $polish;
     }
 }
