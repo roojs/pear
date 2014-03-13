@@ -195,9 +195,19 @@ class Spreadsheet_Excel_Writer_Validator
 
       return $data;
    }
+   
+   function setList($source, $incell = true)
+   {
+      $this->_incell = $incell;
+      $this->_fixedList = true;
+      $this->_type = 0x03;
+
+      $source = implode("\x00", $source);
+      $this->_formula1 = pack("CCC", 0x17, strlen($source), 0x0c) . $source;
+   }
 }
 
-class Spreadsheet_Excel_Writer_Validation_List extends Spreadsheet_Excel_Writer_Validation
+/*class Spreadsheet_Excel_Writer_Validation_List extends Spreadsheet_Excel_Writer_Validation
 {
    function Spreadsheet_Excel_Writer_Validation_list()
    {
@@ -225,6 +235,6 @@ class Spreadsheet_Excel_Writer_Validation_List extends Spreadsheet_Excel_Writer_
       $this->_incell = $incell;
       //$this->_formula1 = ...;
    }
-}
+}*/
 
 ?>
