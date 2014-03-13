@@ -1309,7 +1309,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     function _condition()
     {
         $result = $this->_expression();
-        print_r($result);exit;
         if (PEAR::isError($result)) {
             return $result;
         }
