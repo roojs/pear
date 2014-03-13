@@ -197,7 +197,7 @@ class Spreadsheet_Excel_Writer_Validator
    }
 }
 
-/*class Spreadsheet_Excel_Writer_Validation_List extends Spreadsheet_Excel_Writer_Validation
+class Spreadsheet_Excel_Writer_Validation_List extends Spreadsheet_Excel_Writer_Validation
 {
    function Spreadsheet_Excel_Writer_Validation_list()
    {
@@ -225,6 +225,6 @@ class Spreadsheet_Excel_Writer_Validator
       $this->_incell = $incell;
       //$this->_formula1 = ...;
    }
-}*/
+}
 
 ?>
