@@ -1312,6 +1312,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         if (PEAR::isError($result)) {
             return $result;
         }
+        print_r($this->_current_token);exit;
         if ($this->_current_token == SPREADSHEET_EXCEL_WRITER_LT) {
             $this->_advance();
             $result2 = $this->_expression();
