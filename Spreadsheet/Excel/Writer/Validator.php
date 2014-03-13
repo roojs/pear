@@ -190,7 +190,7 @@ class Spreadsheet_Excel_Writer_Validator
       $data .= pack("vC", $descr_prompt_len, 0x00) . $this->_descr_prompt;
       $data .= pack("vC", $descr_error_len, 0x00) . $this->_descr_error;
 
-      $data .= $this->_formula1;
+      $data .= pack("vv", $formula1_size, 0x0000) . $this->_formula1;
       $data .= pack("vv", $formula2_size, 0x0000) . $this->_formula2;
 
       return $data;
