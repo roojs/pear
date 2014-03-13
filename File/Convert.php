@@ -65,7 +65,6 @@ class File_Convert
         if (!$fn) {
             return false;
         }
-        print_r($toMimetype);exit;
         if (!preg_match('#^image/#', $toMimetype) || ( empty($x) && empty($y))) {
             return $fn;
         }
