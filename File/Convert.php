@@ -131,7 +131,6 @@ class File_Convert
 //            print_r(' > ');
 //            print_r($y);exit;
 //        print_r($this->fn);exit;
-        print_r($toMimetype);exit;
         if (preg_match('#^image/#', $toMimetype) && ( !empty($x) || !empty($y))) {
             //var_dump(array($toMimetype));
             
