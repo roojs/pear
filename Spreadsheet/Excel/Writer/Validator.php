@@ -202,7 +202,7 @@ class Spreadsheet_Excel_Writer_Validator
       $this->_fixedList = true;
       $this->_type = 0x03;
 
-      $source = implode("\x00", $source);
+//      $source = implode("\x00", $source);
       $this->_formula1 = pack("CCC", 0x17, strlen($source), 0x0c) . $source;
    }
 }
