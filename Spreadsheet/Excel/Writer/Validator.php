@@ -153,14 +153,16 @@ class Spreadsheet_Excel_Writer_Validator
     function _getOptions()
     {
         $options = $this->_type;
-        print_r($this->_type);exit;
+        
         $options |= $this->_style << 3;
         if ($this->_fixedList) {
             $options |= 0x80;
         }
+        
         if ($this->_blank) {
             $options |= 0x100;
         }
+        print_r($this->_type);exit;
         if (!$this->_incell) {
             $options |= 0x200;
         }
