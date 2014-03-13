@@ -1584,7 +1584,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
         }
 
         $str = pack('vC', $strlen, $encoding).$str;
-        print_r(unpack('vC', $str));
+        print_r(unpack('vC', $str));exit;
         /* check if string is already present */
         if (!isset($this->_str_table[$str])) {
             $this->_str_table[$str] = $this->_str_unique++;
