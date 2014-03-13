@@ -70,7 +70,7 @@ class Spreadsheet_Excel_Writer_Validator
     function Spreadsheet_Excel_Writer_Validator(&$parser)
     {
         $this->_parser       = $parser;
-        $this->_type         = 0x01; // FIXME: add method for setting datatype
+        $this->_type         = 0x02; // FIXME: add method for setting datatype
         $this->_style        = 0x00;
         $this->_fixedList    = false;
         $this->_blank        = false;
@@ -153,7 +153,7 @@ class Spreadsheet_Excel_Writer_Validator
     function _getOptions()
     {
         $options = $this->_type;
-        print_r("0x01");exit;
+        print_r($this->_type);exit;
         $options |= $this->_style << 3;
         if ($this->_fixedList) {
             $options |= 0x80;
