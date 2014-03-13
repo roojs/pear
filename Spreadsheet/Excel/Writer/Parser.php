@@ -1642,6 +1642,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     */
     function toReversePolish($tree = array())
     {
+        print_r($tree);exit;
         $polish = ""; // the string we are going to return
         if (empty($tree)) { // If it's the first call use _parse_tree
             $tree = $this->_parse_tree;
