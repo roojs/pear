@@ -174,9 +174,9 @@ class Spreadsheet_Excel_Writer_Validator
         if ($this->_showerror) {
             $options |= 0x80000;
         }
-        print_r($this->_type);exit;
+        
       $options |= $this->_operator << 20;
-
+print_r($this->_type);exit;
       return $options;
    }
 
