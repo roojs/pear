@@ -1362,7 +1362,12 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         }
             $result = $this->_createTree('ptgConcat', $result, $result2);
         }
-        print_r($result);exit;
+        $this->_advance();
+            $result2 = $this->_expression();
+            if (PEAR::isError($result2)) {
+                return $result2;
+            }
+            $result = $this->_createTree('ptgEQ', $result, $result2);
         return $result;
     }
 
