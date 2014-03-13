@@ -831,11 +831,11 @@ class File_Convert_Solution
         
         $xvfb = System::which('xvfb-run');
         if (empty($xvfb) || !file_exists($xvfb)) {
-              $cmd = "$ssconvert -I $from -T $format " .
+              $cmd = "$ssconvert $ssconvert_extra  -I $from -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         } else {
-             $cmd = "$xvfb $ssconvert -I $from -T $format " .
+             $cmd = "$ssconvert $ssconvert_extra  -I $from -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         }
