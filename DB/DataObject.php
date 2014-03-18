@@ -2459,6 +2459,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5] = DB::connect($dsn);
             }
             if ($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->dsn['phptype'] == 'mysql') {
+                echo "SET CHAR SET";
                 mysql_set_charset('utf8', $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->connection);
                 
                 
