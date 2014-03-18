@@ -2458,7 +2458,10 @@ class DB_DataObject extends DB_DataObject_Overload
             } else {
                 $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5] = DB::connect($dsn);
             }
-            
+            if ($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->dsn['phptype'] == 'mysql') {
+                mysql_set_charset('utf8');
+                
+            }
         } else {
             /* assumption is MDB2 */
             require_once 'MDB2.php';
