@@ -2461,6 +2461,7 @@ class DB_DataObject extends DB_DataObject_Overload
             if ($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->dsn['phptype'] == 'mysql') {
                 mysql_set_charset('utf8');
                 
+                
             }
         } else {
             /* assumption is MDB2 */
