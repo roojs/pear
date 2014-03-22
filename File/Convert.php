@@ -23,6 +23,8 @@ print_r($x->getConvMethods('application/msword', 'image/jpeg'));
 print_r($x->getConvMethods('application/acad', 'image/jpeg'));
 var_dump($x->getConvMethods('application/acad', 'application/msword')); // impossible
 
+$x = new File_Convert(file, 'app../excel',array('sheet'=>array(0,1,2...) ));
+$out = $x->convert('text/csv');
 */
 
 class File_Convert
@@ -38,10 +40,11 @@ class File_Convert
     var $to;
     var $target;
     var $lastaction = false;
-    function File_Convert($fn, $mimetype) 
+    function File_Convert($fn, $mimetype, $options=array())
     {
         $this->fn = $fn;
         $this->mimetype = $mimetype;
+        $this->options = $options;
      }
     
     
@@ -68,6 +71,7 @@ class File_Convert
         //echo "testing scale image";
         
         $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
+        $sc->convert = $this;
         $sc->debug= $this->debug;
             
         if (strpos($x, 'x')) {
@@ -173,6 +177,7 @@ class File_Convert
         }
        
         if (!file_exists($this->target)) {
+            print_r($this->target);
             die("file missing");
        }
        
@@ -470,7 +475,9 @@ class File_Convert
                 continue;
             }
             if (in_array($to,$t[2])) {
-                return new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
+                $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
+                $ret->convert = $this;
+                return $ret;
             }
             // from matches..
             $pos[$t[0]] = $t[2]; // list of targets
@@ -501,6 +508,7 @@ class File_Convert
                     continue; // mo way to convert
                 }
                 $first = new File_Convert_Solution($conv, $from, $targ);
+                $first->convert = $this;
                 $sol_list= $first->add($try);
                 
                 $res[] = $sol_list;
@@ -583,6 +591,8 @@ class File_Convert_Solution
     var $to;
     var $ext;
     var $debug = false;
+    var $convert; // reference to caller..
+    
     function File_Convert_Solution($method, $from ,$to)
     {
         $this->method = $method;
@@ -812,13 +822,21 @@ class File_Convert_Solution
             default:
                  die("ssconvert used on unknown format:" . $this->to);
         }
+        
+        $ssconvert_extra = '';
+        $sheet = false;
+        if (isset($this->convert->options['sheet'])) {
+            $sheet = $this->convert->options['sheet'];
+            $ssconvert_extra = ' -S ';
+        }
+        
         $xvfb = System::which('xvfb-run');
         if (empty($xvfb) || !file_exists($xvfb)) {
-              $cmd = "$ssconvert -I $from -T $format " .
+              $cmd = "$ssconvert $ssconvert_extra  -I $from -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         } else {
-             $cmd = "$xvfb $ssconvert -I $from -T $format " .
+             $cmd = "$ssconvert $ssconvert_extra  -I $from -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         }
@@ -829,6 +847,27 @@ class File_Convert_Solution
         
         clearstatcache();
         
+        if ($sheet !== false) {
+            $b = basename($fn);
+            $d = dirname($fn);
+            
+            if (file_exists($d)) {
+                
+                $list = glob($fn . '.' . $ext . '.*');
+                foreach($list as $l){
+                    $ll = $l;
+                    $s = array_pop(explode('.', $ll));
+                    if(in_array($s, $sheet)){
+                        continue;
+                    }
+                    
+                    unlink($l);
+                    
+                }
+            }
+            
+            $target = $fn;
+        }
         
         return  file_exists($target)  && filesize($target) ? $target : false;
      
@@ -1090,7 +1129,7 @@ class File_Convert_Solution
         }
         require_once 'System.php';
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -colorspace sRGB -interlace none -density 300 ". 
+        $cmd = "$CONVERT -strip -colorspace sRGB -interlace none -density 300 ". 
                         "-quality 90 -resize '400x>' ". escapeshellarg($fn) . " " . escapeshellarg($target);
         
         $this->exec($cmd);
@@ -1251,7 +1290,7 @@ class File_Convert_Solution
         $density = $xscale > 800 ? 300: 75; 
         
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -colorspace sRGB -interlace none -density $density ". 
+        $cmd = "$CONVERT -strip -colorspace sRGB -interlace none -density $density ". 
                         "-quality 90  -resize '". $xscale . "x>' "
                         . escapeshellarg($fn) . 
                         ($pg === false ? "[0] " : "[$pg] ") . 
@@ -1294,7 +1333,7 @@ class File_Convert_Solution
         
         require_once 'System.php';
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -colorspace sRGB -interlace none -density 800 $flat ". 
+        $cmd = "$CONVERT -strip -colorspace sRGB -interlace none -density 800 $flat ". 
                         "-quality 90   ". escapeshellarg($fn) . " " . escapeshellarg($target);
          if ($this->debug) {
            echo "$cmd <br/>";
@@ -1371,7 +1410,7 @@ class File_Convert_Solution
          //var_dump($CONVERT);
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
-            $cmd = "{$CONVERT}  -colorspace sRGB -interlace none -density 800 -quality 90 ". 
+            $cmd = "{$CONVERT} -strip -colorspace sRGB -interlace none -density 800 -quality 90 ". 
                  " -resize '{$scale}' ". $extent  . " '{$fn}' '{$target}'";
              
              $cmdres  = $this->exec($cmd);
@@ -1524,7 +1563,7 @@ class File_Convert_Solution
 //         var_dump($CONVERT);exit;
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
-            $cmd = "{$CONVERT}  -colorspace sRGB -interlace none -density 300 -quality 90 ". 
+            $cmd = "{$CONVERT} -strip -colorspace sRGB -interlace none -density 300 -quality 90 ". 
                  " -resize '{$scale}' ". $extent  . " '{$fn}' '{$target}'";
              
              $cmdres  = $this->exec($cmd);
