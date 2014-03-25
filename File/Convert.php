@@ -1196,7 +1196,7 @@ class File_Convert_Solution
 //        print_r($yscale);
         
         $PDFTOPPM = System::which("pdftocairo");
-        $cmd = "$PDFTOPPM -f $pg " 
+        $cmd = "$PDFTOPPM -jpg -f $pg " 
                     . "-l $pg  " 
                     //. "-png "
                     . "-r 300 " // was 1200?
