@@ -1137,6 +1137,12 @@ class File_Convert_Solution
         return  file_exists($target)  && filesize($target) ? $target : false;
         
     }
+    
+    
+    
+    
+      
+    
     function pdftoppm($fn, $x, $y, $pg=false)
     {
         $xscale = 400; // min size?
@@ -1189,7 +1195,7 @@ class File_Convert_Solution
 //        print_r($xscale);
 //        print_r($yscale);
         
-        $PDFTOPPM = System::which("pdftoppm");
+        $PDFTOPPM = System::which("pdftocairo");
         $cmd = "$PDFTOPPM -f $pg " 
                     . "-l $pg  " 
                     //. "-png "
