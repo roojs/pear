@@ -1169,7 +1169,7 @@ class File_Convert_Solution
         $cmd = $PDFINFO . ' '. escapeshellarg($fn) . " | $STRINGS | $GREP 'Page size'";
          
         
-         $info = trim( $this->exec($cmd));
+        $info = trim( $this->exec($cmd));
         $match = array();
         // very presumtiuos...
        
