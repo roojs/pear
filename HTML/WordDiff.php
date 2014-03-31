@@ -89,7 +89,7 @@ class HTML_WordDiff
             }
             $this->word[$str] += 1;
         }
-        print_r($this->word);
+//        print_r($this->word);
 //        print_r('ininin?');
     }
     
