@@ -60,8 +60,8 @@ class HTML_WordDiff
         var_dump(method_exists($this, $m));
         if(method_exists($this, $m)){
 //            print_R('in?');
-//        }
-////        print_r('???');
+        }
+//        print_r('???');
     }
     
     public function buildWords_en()
