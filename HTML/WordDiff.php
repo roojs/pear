@@ -14,12 +14,31 @@ class HTML_WordDiff
     //put your code here
     
 //    var $config;
-    var $lang = 'en';
+    var $lang = 'en'; // the press release language
     var $article = '';
     var $original = array();
     var $target = array();
     var $countTotal = 0;
-    
+    var $wordTypeLanguage = array(
+        'aa',
+        'ab',
+        'en',
+        'pt',
+        'ar',
+        'de',
+        'fr',
+        'es',
+        'vi',
+        'id',
+        //Sino-Tibetan languages
+        'my',
+        'th',
+        'ko',
+        'zh_HK',
+        'ja',
+        'zh_TW',
+        'zh_CN',
+    );
     var $alternatives = array(
         '.',
         ',',
