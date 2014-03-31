@@ -44,11 +44,11 @@ class HTML_WordDiff
         }
         
 //        $this->config = $config;
-//        $this->_run($config['words'], $config['lang']);
+        $this->_run();
         
     }
     
-    function _run($words, $opt, $lang = 'en')
+    function _run()
     {
         
     }
