@@ -138,13 +138,14 @@ class HTML_WordDiff
         }
         
 //        $a / $b * 1;
-        return ($matchs / $this->countTotal) * 1;
         print_r(($matchs / $this->countTotal) * 1);
         print_r("\n");
         print_r($this->countTotal);
         print_r("\n");
         print_r($matchs);
         print_r("\n");
+        return ($matchs / $this->countTotal) * 1;
+        
 //        print_r(count($this->word));
         
 //        print_R($test);
