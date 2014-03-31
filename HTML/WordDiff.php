@@ -21,6 +21,7 @@ class HTML_WordDiff
     var $alternatives = array(
         '.',
         ',',
+        '--'
     );
     
     /**
