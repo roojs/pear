@@ -11,6 +11,9 @@
  *
  * @author chris
  */
+
+require_once 'DB/DataObject.php';
+
 class WordDiff {
     //put your code here
     
