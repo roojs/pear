@@ -14,8 +14,9 @@ class HTML_WordDiff
     //put your code here
     
 //    var $config;
-    var $lang;
-    var $words;
+    var $lang = 'en';
+    var $article = '';
+    var $word = array();
     
     /**
      * Constructor
@@ -67,6 +68,9 @@ class HTML_WordDiff
     
     public function buildWords_en()
     {
+        foreach($this->words as $str){
+            
+        }
         print_r('ininin?');
     }
 //    
