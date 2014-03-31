@@ -92,16 +92,18 @@ class HTML_WordDiff
         $target = 'original';
         print_r($target);
         $a = explode(' ', str_replace($this->alternatives, '', $this->article));
+        $ret = array();
         foreach($a as $str){
             if($target == 'original'){
                 $this->countTotal++;
             }
-            if(!isset($this->$target[$str])){
-                $this->$target[$str] = 1;
+            if(!isset($ret[$str])){
+                $ret[$str] = 1;
                 continue;
             }
-            $this->$target[$str] += 1;
+            $ret[$str] += 1;
         }
+        $this->$target = $ret;
 //        print_r($this->word);
 //        print_r('ininin?');
     }
