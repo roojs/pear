@@ -108,6 +108,15 @@ class HTML_WordDiff
 //        print_r('ininin?');
     }
     
+    /**
+     * 
+     * 
+     * 
+     * 
+     * @param string $article
+     * @return int $percent percentage of match 
+     * 
+     */
     public function compare($article)
     {   
         $m = 'buildWords_'.$this->lang;
@@ -160,7 +169,8 @@ class HTML_WordDiff
         print_r("\n");
         print_r($matchs);
         print_r("\n");
-        return ($matchs / $this->countTotal) * 1;
+        $percent = (($matchs / $this->countTotal) * 1) * 100;
+        return $percent;
         
 //        print_r(count($this->word));
         
