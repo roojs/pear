@@ -122,7 +122,9 @@ class HTML_WordDiff
         
         $matchs = array();
         foreach($this->word as $k=>$t){
-            
+            if(isset($this->target[$k])){
+                $matchs[$k] = ($this->word[$k] / $this->target[$k]) * 1;
+            }
         }
         print_r(count($test));
         print_r("\n");
