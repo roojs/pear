@@ -63,7 +63,7 @@ class HTML_WordDiff
         print_r('???');
     }
     
-    function buildWords_en()
+    public function buildWords_en()
     {
         
     }
