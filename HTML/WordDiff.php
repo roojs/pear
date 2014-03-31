@@ -75,7 +75,7 @@ class HTML_WordDiff
     function buildWords_en()
     {
         
-        $t = trim($this->article, "Media Outreach");
+        $t = trim(str_replace($this->alternatives, '', $this->article), "Media Outreach");
         print_r($t);
         $a = explode(' ', str_replace($this->alternatives, '', $t));
         foreach($a as $str){
