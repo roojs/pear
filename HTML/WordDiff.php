@@ -60,6 +60,15 @@ class HTML_WordDiff
             return;
         }
         
+        if(empty($config['lang'])){
+            trigger_error("the language is missing.");
+            return;
+        }
+        if(empty($config['article'])){
+            trigger_error("Article is missing");
+            return;
+        }
+        
         foreach($config as $k=>$v){// create the vaild variable checking??
             $this->$k = $v;
         }
