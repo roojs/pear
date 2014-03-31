@@ -15,5 +15,8 @@ class WordDiff {
     //put your code here
     
     
-    
+    function __construct($config)
+    {
+        
+    }
 }
