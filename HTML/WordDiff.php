@@ -111,7 +111,7 @@ class HTML_WordDiff
     public function compare($article)
     {
         
-        $this->article = explode(' ', str_replace($this->alternatives, '', $article));
+        $this->article = $article;
 //        $b = explode(' ', str_replace($this->alternatives, '', $article));
 //        $test = array();
         $m = 'buildWords_'.$this->lang;
