@@ -66,7 +66,7 @@ class HTML_WordDiff
         
 //        $this->$m();
         
-        var_dump(method_exists($this, $m));
+//        var_dump(method_exists($this, $m));
         if(method_exists($this, $m)){
             trigger_error("Method not found ($m)");
             return;
