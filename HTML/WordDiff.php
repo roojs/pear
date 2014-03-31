@@ -68,13 +68,13 @@ class HTML_WordDiff
      */
     function buildWords_en($target = 'original')
     {
-        $var_1 = 'PHP IS GREAT'; 
-$var_2 = 'WITH MYSQL'; 
+        $var_1 = '英文中文中文'; 
+        $var_2 = '中文'; 
 
-similar_text($var_1, $var_2, $percent); 
+        similar_text($var_1, $var_2, $percent); 
 
-echo $percent; 
-return;
+        echo $percent; 
+        return;
         //remove URLs
         $t = preg_replace('/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/i', '', $this->article);
         
