@@ -58,10 +58,10 @@ class HTML_WordDiff
 //        $this->$m();
         
         var_dump(method_exists($this, $m));
-        if(function_exists($m)){
-            print_R('in?');
-        }
-        print_r('???');
+        if(method_exists($this, $m)){
+//            print_R('in?');
+//        }
+////        print_r('???');
     }
     
     public function buildWords_en()
