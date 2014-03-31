@@ -68,7 +68,7 @@ class HTML_WordDiff
         
         var_dump(method_exists($this, $m));
         if(method_exists($this, $m)){
-            trigger_error("Word Diff got error the argument IS NOT array");
+            trigger_error("Method not found ($m)");
             return;
             
 //            print_R('in?');
