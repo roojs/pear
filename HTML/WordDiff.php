@@ -26,6 +26,7 @@ class HTML_WordDiff
     
     function get()
     {
+        print_r($this);
         return $GLOBALS[__CLASS__];
     }
 }
