@@ -98,11 +98,11 @@ class HTML_WordDiff
         $a = explode(' ', str_replace($this->alternatives, '', $article));
         $test = array();
         foreach($a as $str){
-            if(!isset($$test[$str])){
-                $$test[$str] = 1;
+            if(!isset($test[$str])){
+                $test[$str] = 1;
                 continue;
             }
-            $$test[$str] += 1;
+            $test[$str] += 1;
         }
         
         print_R($test);
