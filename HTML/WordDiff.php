@@ -150,15 +150,15 @@ class HTML_WordDiff
         
         $matchs = 0;
 //        print_r("tt : ". $countTotal);
-        print_r("\n");
+//        print_r("\n");
         foreach($this->original as $k=>$t){
 //            $countTotal += $this->word[$k];
             if(isset($this->target[$k])){
                 $matchs += ($this->original[$k] == $this->target[$k]) ? $this->original[$k] : $this->original[$k] - $this->target[$k];
                 //($this->target[$k] / $this->word[$k]) * 1;
-                print_r($this->original[$k] - $this->target[$k]);
+//                print_r($this->original[$k] - $this->target[$k]);
 //                print_r($k." : ".$this->target[$k]. " / ". $this->word[$k] . " * 1 => ".($this->target[$k] / $this->word[$k]) * 1);
-                print_r("\n");
+//                print_r("\n");
             }
         }
         
