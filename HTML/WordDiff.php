@@ -72,7 +72,7 @@ class HTML_WordDiff
 //        print_r('???');
     }
     
-    public function buildWords_en()
+    function buildWords_en()
     {
         $a = explode(' ', str_replace($this->alternatives, '', $this->article));
         foreach($a as $str){
