@@ -102,8 +102,9 @@ class HTML_WordDiff
         $a = explode(' ', str_replace($this->alternatives, '', $article));
 //        $b = explode(' ', str_replace($this->alternatives, '', $article));
 //        $test = array();
-        
+        $countTotal = 0;
         foreach($a as $str){
+            $countTotal++;
             if(!isset($this->target[$str])){
                 $this->target[$str] = 1;
                 continue;
@@ -123,7 +124,7 @@ class HTML_WordDiff
 //        }
         
         $matchs = 0;
-        $countTotal = 0;
+        
         foreach($this->word as $k=>$t){
 //            $countTotal += $this->word[$k];
             if(isset($this->target[$k])){
