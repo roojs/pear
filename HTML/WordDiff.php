@@ -108,6 +108,7 @@ class HTML_WordDiff
             $test[$str] += 1;
         }
         
+        $a = (count($this->word) > count($test)) ? $this->word : $test;
         print_r(count($test));
         print_r("\n");
         print_r(count($this->word));
