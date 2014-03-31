@@ -77,7 +77,7 @@ class HTML_WordDiff
         
         $t = trim(str_replace($this->alternatives, '', $this->article), "Media Outreach");
         print_r($t);
-        $a = explode(' ', str_replace($this->alternatives, '', $t));
+        $a = explode(' ', $t);
         foreach($a as $str){
             if(!isset($this->word[$str])){
                 $this->word[$str] = 1;
