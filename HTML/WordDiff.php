@@ -18,6 +18,7 @@ class HTML_WordDiff
     var $article = '';
     var $word = array();
     var $target = array();
+    var $countTotal = 0;
     
     var $alternatives = array(
         '.',
@@ -121,12 +122,15 @@ class HTML_WordDiff
 //        }
         
         $matchs = array();
+        $countTotal = 0;
         foreach($this->word as $k=>$t){
+            $countTotal += $this->word[$k];
             if(isset($this->target[$k])){
-                $matchs[$k] = ($this->target[$k] / $this->word[$k]) * 1;
+                $matchs[$k] = //($this->target[$k] / $this->word[$k]) * 1;
                 print_r($k." : ".$this->target[$k]. " / ". $this->word[$k] . " * 1 => ".($this->target[$k] / $this->word[$k]) * 1);
                 print_r("\n");
             }
+            
         }
         print_r($matchs);
         print_r("\n");
