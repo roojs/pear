@@ -52,10 +52,15 @@ class HTML_WordDiff
     
     function _run()
     {
-        print_r($this);
+//        print_r($this);
+        $m = 'buildWorkds_'.$this->lang;
+        
+        if(method_exists($this, $m)){
+            print_R('in?');
+        }
     }
     
-    function countWords_en()
+    function buildWords_en()
     {
         
     }
