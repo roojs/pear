@@ -89,8 +89,8 @@ class HTML_WordDiff
 //        if(preg_match('/media outreach/i',$t,$matches)){
 //            
 //        }
-        $target = 'original';
-        print_r($target);
+//        $target = 'original';
+//        print_r($target);
         $a = explode(' ', str_replace($this->alternatives, '', $this->article));
         $ret = array();
         foreach($a as $str){
