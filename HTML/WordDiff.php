@@ -68,7 +68,7 @@ class HTML_WordDiff
         
         var_dump(method_exists($this, $m));
         if(method_exists($this, $m)){
-            $this->$m('original');
+            $this->$m();
 //            print_R('in?');
         }
 //        print_r('???');
@@ -77,11 +77,11 @@ class HTML_WordDiff
     /**
      * set the words array 
      * 
+     * 
      * @param $String $target for the array index
      * 
-     * 
      */
-    function buildWords_en($target)
+    function buildWords_en($target = 'original')
     {
         
 //        $t = str_replace($this->alternatives, '', $this->article);
@@ -92,7 +92,9 @@ class HTML_WordDiff
 //        print_r($t);
         $a = explode(' ', str_replace($this->alternatives, '', $this->article));
         foreach($a as $str){
-            $this->countTotal++;
+            if($target == 'original'){
+                $this->countTotal++;
+            }
             if(!isset($this->$target[$str])){
                 $this->$target[$str] = 1;
                 continue;
@@ -106,9 +108,13 @@ class HTML_WordDiff
     public function compare($article)
     {
         
-        $a = explode(' ', str_replace($this->alternatives, '', $article));
+        $this->article = explode(' ', str_replace($this->alternatives, '', $article));
 //        $b = explode(' ', str_replace($this->alternatives, '', $article));
 //        $test = array();
+        if(method_exists($this, $m)){
+            $this->$m('target');
+//            print_R('in?');
+        }
         $countTotal = 0;
         foreach($a as $str){
             $countTotal++;
