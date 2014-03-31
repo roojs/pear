@@ -36,23 +36,13 @@ class HTML_WordDiff
      */
     function __construct($config)
     {
-//        print_r($config);
-//        print_r($this->abc);
         if(!is_array($config)){
             trigger_error("Word Diff got error the argument IS NOT array");
             return;
         }
-//        $GLOBALS[__CLASS__] = &$this;
         
-        foreach($config as $k=>$v){// create the vaild variable??
-//            print_r($v);
-//            print_r($k);
-//            if(isset($this->$k)){
-                $this->$k = $v;
-                
-//            }
-            
-            
+        foreach($config as $k=>$v){// create the vaild variable checking??
+            $this->$k = $v;
         }
         
         $this->_run();
