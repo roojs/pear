@@ -88,13 +88,26 @@ class HTML_WordDiff
                 continue;
             }
             $this->word[$str] += 1;
-//            str_replace($this->alternatives, '', $str);
-//            print_r($str);
-//            print_r("\n");
         }
         print_r($this->word);
 //        print_r('ininin?');
     }
+    
+    public function compare($article)
+    {
+        $a = explode(' ', str_replace($this->alternatives, '', $article));
+        $test = array();
+        foreach($a as $str){
+            if(!isset($$test[$str])){
+                $$test[$str] = 1;
+                continue;
+            }
+            $$test[$str] += 1;
+        }
+        
+        print_R($test);
+    }
+    
 //    
 //    function get()
 //    {
