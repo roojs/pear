@@ -102,60 +102,18 @@ class HTML_WordDiff
         
         $this->article = $article;
         $this->$m('target');
-//        $countTotal = 0;
-//        foreach($a as $str){
-//            $countTotal++;
-//            if(!isset($this->target[$str])){
-//                $this->target[$str] = 1;
-//                continue;
-//            }
-//            $this->target[$str] += 1;
-//        }
-        
-//        $a = array();
-//        $b = array();
-//        
-//        if(count($this->word) > count($test)){
-//            $a = $this->word;
-//            $b = $test;
-//        }else{
-//            $a = $test;
-//            $b = $this->word;
-//        }
         
         $matchs = 0;
-//        print_r("tt : ". $countTotal);
-//        print_r("\n");
+        
         foreach($this->original as $k=>$t){
-//            $countTotal += $this->word[$k];
             if(isset($this->target[$k])){
                 $matchs += ($this->original[$k] == $this->target[$k]) ? $this->original[$k] : $this->original[$k] - $this->target[$k];
-                //($this->target[$k] / $this->word[$k]) * 1;
-//                print_r($this->original[$k] - $this->target[$k]);
-//                print_r($k." : ".$this->target[$k]. " / ". $this->word[$k] . " * 1 => ".($this->target[$k] / $this->word[$k]) * 1);
-//                print_r("\n");
             }
         }
         
-//        $a / $b * 1;
-//        print_r(($matchs / $this->countTotal) * 1);
-//        print_r("\n");
-//        print_r($this->countTotal);
-//        print_r("\n");
-//        print_r($matchs);
-//        print_r("\n");
         $percent = (($matchs / $this->countTotal) * 1) * 100;
         return (int)$percent;
         
-//        print_r(count($this->word));
-        
-//        print_R($test);
     }
     
-//    
-//    function get()
-//    {
-//        print_r($this);
-//        return $GLOBALS[__CLASS__];
-//    }
 }
