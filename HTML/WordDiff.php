@@ -77,7 +77,7 @@ class HTML_WordDiff
         $a = explode(' ', str_replace($this->alternatives, '', $this->article));
         foreach($a as $str){
 //            str_replace($this->alternatives, '', $str);
-            print_r(str_replace($this->alternatives, '', $str));
+            print_r($str);
             print_r("\n");
         }
 //        print_r('ininin?');
