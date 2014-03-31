@@ -57,7 +57,7 @@ class HTML_WordDiff
         
         $this->$m();
         
-        var_dump(method_exists(__CLASS__, $m));
+        var_dump(method_exists($this, $m));
         if(function_exists($m)){
             print_R('in?');
         }
