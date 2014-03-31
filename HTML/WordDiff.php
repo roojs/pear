@@ -68,9 +68,12 @@ class HTML_WordDiff
         
         var_dump(method_exists($this, $m));
         if(method_exists($this, $m)){
-            $this->$m();
+            trigger_error("Word Diff got error the argument IS NOT array");
+            return;
+            
 //            print_R('in?');
         }
+        $this->$m();
 //        print_r('???');
     }
     
@@ -116,10 +119,12 @@ class HTML_WordDiff
 //        $test = array();
         $m = 'buildWords_'.$this->lang;
 //        print_r($m);
-        if(method_exists($this, $m)){
-            $this->$m('target');
+        if(!method_exists($this, $m)){
+            trigger_error("Word Diff got error the argument IS NOT array");
+            return;
 //            print_R('in?');
         }
+        $this->$m('target');
 //        $countTotal = 0;
 //        foreach($a as $str){
 //            $countTotal++;
