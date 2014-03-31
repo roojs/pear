@@ -50,7 +50,7 @@ class HTML_WordDiff
     
     function _run()
     {
-        
+        print_r($this);
     }
     
     function countWords_en()
