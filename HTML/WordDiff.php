@@ -22,7 +22,7 @@ class HTML_WordDiff
         print_r($config);
         print_r($this);
         if(!is_array($config)){
-            trigger_error("Word Diff got error the argument IS NOT array", E_ERROR);
+            trigger_error("Word Diff got error the argument IS NOT array");
         }
 //        $GLOBALS[__CLASS__] = &$this;
         
