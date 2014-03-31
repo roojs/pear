@@ -13,7 +13,7 @@ class HTML_WordDiff
 {
     //put your code here
     
-    var $config;
+//    var $config;
     var $lang;
     var $words;
     
@@ -22,6 +22,9 @@ class HTML_WordDiff
         print_r($config);
         print_r($this);
 //        $GLOBALS[__CLASS__] = &$this;
+        foreach($config as $k=>$v){
+            $this->$k = $v;
+        }
         $this->config = $config;
         $this->_run($config['words'], $config['lang']);
         
