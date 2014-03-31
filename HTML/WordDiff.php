@@ -100,10 +100,6 @@ class HTML_WordDiff
 //        $b = explode(' ', str_replace($this->alternatives, '', $article));
         $test = array();
         
-        print_r(strlen($article));
-        print_r("\n");
-        print_r(strlen($this->article));
-        
         foreach($a as $str){
             if(!isset($test[$str])){
                 $test[$str] = 1;
@@ -111,6 +107,10 @@ class HTML_WordDiff
             }
             $test[$str] += 1;
         }
+        
+        print_r(count($test));
+        print_r("\n");
+        print_r(count($this->word));
         
         print_R($test);
     }
