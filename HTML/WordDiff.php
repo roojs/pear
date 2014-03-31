@@ -163,12 +163,12 @@ class HTML_WordDiff
         }
         
 //        $a / $b * 1;
-        print_r(($matchs / $this->countTotal) * 1);
-        print_r("\n");
-        print_r($this->countTotal);
-        print_r("\n");
-        print_r($matchs);
-        print_r("\n");
+//        print_r(($matchs / $this->countTotal) * 1);
+//        print_r("\n");
+//        print_r($this->countTotal);
+//        print_r("\n");
+//        print_r($matchs);
+//        print_r("\n");
         $percent = (($matchs / $this->countTotal) * 1) * 100;
         return $percent;
         
