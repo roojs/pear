@@ -38,11 +38,12 @@ class HTML_WordDiff
         foreach($config as $k=>$v){
             print_r($v);
             print_r($k);
-            if(!isset($this->$k)){
+            if(isset($this->$k)){
+                $this->$k = $v;
                 continue;
             }
             
-            $this->$k = $v;
+            
         }
         
         $this->_run();
