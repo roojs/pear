@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of WordDiff
  *
@@ -19,11 +13,28 @@ class HTML_WordDiff
 {
     //put your code here
     
+    var $config;
+    var $lang;
+    var $words;
+    
     function __construct($config)
     {
         print_r($config);
         print_r($this);
-        $GLOBALS[__CLASS__] = &$this;
+//        $GLOBALS[__CLASS__] = &$this;
+        $this->config = $config;
+        $this->_run($config['words'], $config['lang']);
+        
+    }
+    
+    function _run($words, $opt, $lang = 'en')
+    {
+        
+    }
+    
+    function countWords_en()
+    {
+        
     }
     
     function get()
