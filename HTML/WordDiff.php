@@ -68,7 +68,21 @@ class HTML_WordDiff
      */
     function buildWords_en($target = 'original')
     {
-        $a = explode(' ', str_replace($this->alternatives, '', $this->article));
+        $var_1 = 'PHP IS GREAT'; 
+$var_2 = 'WITH MYSQL'; 
+
+similar_text($var_1, $var_2, $percent); 
+
+echo $percent; 
+return;
+        //remove URLs
+        $t = preg_replace('/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/i', '', $this->article);
+        
+        //removes special chars
+        $string = str_replace(' ', '-', $t);
+        $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
+
+        $a = explode('-', $string);
         $ret = array();
         foreach($a as $str){
             if($target == 'original'){
