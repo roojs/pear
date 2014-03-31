@@ -68,10 +68,12 @@ class HTML_WordDiff
     
     public function buildWords_en()
     {
-        foreach($this->words as $str){
-            
+        $a = explode(' ', $this->article);
+        foreach($a as $str){
+            print_r($str);
+            print_r("\n");
         }
-        print_r('ininin?');
+//        print_r('ininin?');
     }
 //    
 //    function get()
