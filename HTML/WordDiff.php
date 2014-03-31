@@ -17,6 +17,7 @@ class HTML_WordDiff
     var $lang = 'en';
     var $article = '';
     var $word = array();
+    var $target = array();
     
     var $alternatives = array(
         '.',
@@ -98,17 +99,31 @@ class HTML_WordDiff
         
         $a = explode(' ', str_replace($this->alternatives, '', $article));
 //        $b = explode(' ', str_replace($this->alternatives, '', $article));
-        $test = array();
+//        $test = array();
         
         foreach($a as $str){
-            if(!isset($test[$str])){
-                $test[$str] = 1;
+            if(!isset($this->target[$str])){
+                $this->target[$str] = 1;
                 continue;
             }
-            $test[$str] += 1;
+            $this->target[$str] += 1;
         }
         
-        $a = (count($this->word) > count($test)) ? $this->word : $test;
+        $a = array();
+        $b = array();
+        
+        if(count($this->word) > count($test)){
+            $a = $this->word;
+            $b = $test;
+        }else{
+            $a = $test;
+            $b = $this->word;
+        }
+        
+        $matchs = array();
+        foreach($a as $k=>$t){
+            
+        }
         print_r(count($test));
         print_r("\n");
         print_r(count($this->word));
