@@ -16,7 +16,7 @@ class HTML_WordDiff
 //    var $config;
     var $lang = 'en';
     var $article = '';
-    var $word = array();
+    var $original = array();
     var $target = array();
     var $countTotal = 0;
     
@@ -68,13 +68,20 @@ class HTML_WordDiff
         
         var_dump(method_exists($this, $m));
         if(method_exists($this, $m)){
-            $this->$m();
+            $this->$m('original');
 //            print_R('in?');
         }
 //        print_r('???');
     }
     
-    function buildWords_en()
+    /**
+     * set the words array 
+     * 
+     * @param $String $target for the array index
+     * 
+     * 
+     */
+    function buildWords_en($target)
     {
         
 //        $t = str_replace($this->alternatives, '', $this->article);
@@ -86,11 +93,11 @@ class HTML_WordDiff
         $a = explode(' ', str_replace($this->alternatives, '', $this->article));
         foreach($a as $str){
             $this->countTotal++;
-            if(!isset($this->word[$str])){
-                $this->word[$str] = 1;
+            if(!isset($this->$target[$str])){
+                $this->$target[$str] = 1;
                 continue;
             }
-            $this->word[$str] += 1;
+            $this->$target[$str] += 1;
         }
 //        print_r($this->word);
 //        print_r('ininin?');
