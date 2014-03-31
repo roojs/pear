@@ -29,8 +29,9 @@ class HTML_WordDiff
         foreach($config as $k=>$v){
             $this->$k = $v;
         }
-        $this->config = $config;
-        $this->_run($config['words'], $config['lang']);
+        
+//        $this->config = $config;
+//        $this->_run($config['words'], $config['lang']);
         
     }
     
