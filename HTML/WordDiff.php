@@ -120,7 +120,7 @@ class HTML_WordDiff
         $m = 'buildWords_'.$this->lang;
 //        print_r($m);
         if(!method_exists($this, $m)){
-            trigger_error("Word Diff got error the argument IS NOT array");
+            trigger_error("Method not found ($m)");
             return;
 //            print_R('in?');
         }
