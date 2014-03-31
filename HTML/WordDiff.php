@@ -51,12 +51,7 @@ class HTML_WordDiff
     
     function _run()
     {
-//        print_r($this);
         $m = 'buildWords_'.$this->lang;
-        
-//        $this->$m();
-        
-//        var_dump(method_exists($this, $m));
         if(!method_exists($this, $m)){
             trigger_error("Method not found ($m)");
             return;
@@ -73,14 +68,6 @@ class HTML_WordDiff
      */
     function buildWords_en($target = 'original')
     {
-        
-//        $t = str_replace($this->alternatives, '', $this->article);
-//        $titleTest = 
-//        if(preg_match('/media outreach/i',$t,$matches)){
-//            
-//        }
-//        $target = 'original';
-//        print_r($target);
         $a = explode(' ', str_replace($this->alternatives, '', $this->article));
         $ret = array();
         foreach($a as $str){
@@ -94,8 +81,6 @@ class HTML_WordDiff
             $ret[$str] += 1;
         }
         $this->$target = $ret;
-//        print_r($this->word);
-//        print_r('ininin?');
     }
     
     /**
