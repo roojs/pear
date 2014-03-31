@@ -36,12 +36,12 @@ class HTML_WordDiff
 //        $GLOBALS[__CLASS__] = &$this;
         
         foreach($config as $k=>$v){
-            print_r($v);
-            print_r($k);
-            if(isset($this->$k)){
+//            print_r($v);
+//            print_r($k);
+//            if(isset($this->$k)){
                 $this->$k = $v;
                 
-            }
+//            }
             
             
         }
