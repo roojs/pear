@@ -85,6 +85,7 @@ class HTML_WordDiff
 //        print_r($t);
         $a = explode(' ', str_replace($this->alternatives, '', $this->article));
         foreach($a as $str){
+            $this->countTotal++;
             if(!isset($this->word[$str])){
                 $this->word[$str] = 1;
                 continue;
