@@ -122,7 +122,7 @@ class HTML_WordDiff
 //            $b = $this->word;
 //        }
         
-        $matchs = array();
+        $matchs = 0;
         $countTotal = 0;
         foreach($this->word as $k=>$t){
 //            $countTotal += $this->word[$k];
