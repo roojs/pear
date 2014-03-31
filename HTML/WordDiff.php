@@ -53,7 +53,7 @@ class HTML_WordDiff
     function _run()
     {
 //        print_r($this);
-        $m = 'buildWorkds_'.$this->lang;
+        $m = 'buildWords_'.$this->lang;
         
         $this->$m();
         
