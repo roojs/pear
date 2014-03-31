@@ -65,7 +65,7 @@ class HTML_WordDiff
         }
         
         if(!in_array($this->lang, $this->wordTypeLanguage)){
-            trigger_error("This language is not on our word type Classification");
+            trigger_error("This language is not on our word type classification");
             return;
         }
         
