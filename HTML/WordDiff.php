@@ -115,7 +115,7 @@ class HTML_WordDiff
 //        $b = explode(' ', str_replace($this->alternatives, '', $article));
 //        $test = array();
         $m = 'buildWords_'.$this->lang;
-        print_r($m);
+//        print_r($m);
         if(method_exists($this, $m)){
             $this->$m('target');
 //            print_R('in?');
