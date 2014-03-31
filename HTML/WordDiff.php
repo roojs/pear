@@ -124,7 +124,7 @@ class HTML_WordDiff
 //        }
         
         $matchs = 0;
-        
+        print_r("tt : ". $countTotal);
         foreach($this->word as $k=>$t){
 //            $countTotal += $this->word[$k];
             if(isset($this->target[$k])){
