@@ -39,7 +39,7 @@ class HTML_WordDiff
             if(!isset($this->$k)){
                 continue;
             }
-            
+            print_r($v);
             $this->$k = $v;
         }
         
