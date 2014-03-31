@@ -97,6 +97,10 @@ class HTML_WordDiff
     {
         $a = explode(' ', str_replace($this->alternatives, '', $article));
         $test = array();
+        
+        print_r(count($article));
+        print_r(count($this->article));
+        
         foreach($a as $str){
             if(!isset($test[$str])){
                 $test[$str] = 1;
