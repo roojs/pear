@@ -65,7 +65,7 @@ class HTML_WordDiff
     
     public function buildWords_en()
     {
-        
+        print_r('ininin?');
     }
 //    
 //    function get()
