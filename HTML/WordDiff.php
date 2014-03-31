@@ -21,6 +21,7 @@ class HTML_WordDiff
     
     function __construct($config)
     {
+        print_r($config);
         $GLOBALS[__CLASS__] = &$this;
     }
     
