@@ -82,9 +82,10 @@ class HTML_WordDiff
             }
             $this->word[$str] += 1;
 //            str_replace($this->alternatives, '', $str);
-            print_r($str);
-            print_r("\n");
+//            print_r($str);
+//            print_r("\n");
         }
+        print_r($this->word);
 //        print_r('ininin?');
     }
 //    
