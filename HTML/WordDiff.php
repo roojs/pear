@@ -11,13 +11,13 @@
  *
  * @author chris
  */
-require_once 'PEAR.php';
-require_once 'DB/DataObject.php';
+//
+//require_once 'PEAR.php';
+//require_once 'DB/DataObject.php';
 
 class HTML_WordDiff
 {
     //put your code here
-    
     
     function __construct($config)
     {
