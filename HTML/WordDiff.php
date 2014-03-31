@@ -18,6 +18,11 @@ class HTML_WordDiff
     var $article = '';
     var $word = array();
     
+    var $alternatives = array(
+        '.',
+        ',',
+    );
+    
     /**
      * Constructor
      * 
