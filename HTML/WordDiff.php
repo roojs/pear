@@ -14,12 +14,18 @@
 
 require_once 'DB/DataObject.php';
 
-class WordDiff {
+class HTML_WordDiff
+{
     //put your code here
     
     
     function __construct($config)
     {
-        
+        $GLOBALS[__CLASS__] = &$this;
+    }
+    
+    function get()
+    {
+        return $GLOBALS[__CLASS__];
     }
 }
