@@ -170,7 +170,7 @@ class HTML_WordDiff
 //        print_r($matchs);
 //        print_r("\n");
         $percent = (($matchs / $this->countTotal) * 1) * 100;
-        return $percent;
+        return (int)$percent;
         
 //        print_r(count($this->word));
         
