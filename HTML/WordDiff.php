@@ -62,11 +62,35 @@ class HTML_WordDiff
     /**
      * set the words array 
      * 
-     * 
+     * for english only 
      * @param $String $target for the array index
      * 
      */
     function buildWords_en($target = 'original')
+    {
+        $a = explode(' ', str_replace($this->alternatives, '', $this->article));
+        $ret = array();
+        foreach($a as $str){
+            if($target == 'original'){
+                $this->countTotal++;
+            }
+            if(!isset($ret[$str])){
+                $ret[$str] = 1;
+                continue;
+            }
+            $ret[$str] += 1;
+        }
+        $this->$target = $ret;
+    }
+    
+    /**
+     * set the words array 
+     * 
+     * 
+     * @param $String $target for the array index
+     * 
+     */
+    function buildWords_zh_HK($target = 'original')
     {
         $a = explode(' ', str_replace($this->alternatives, '', $this->article));
         $ret = array();
