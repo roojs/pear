@@ -128,7 +128,7 @@ class HTML_WordDiff
             $countTotal += $this->word[$k];
             if(isset($this->target[$k])){
                 $matchs[$k] = $this->word[$k] - $this->target[$k];//($this->target[$k] / $this->word[$k]) * 1;
-                print_r($k." : ".$this->target[$k]. " / ". $this->word[$k] . " * 1 => ".($this->target[$k] / $this->word[$k]) * 1);
+//                print_r($k." : ".$this->target[$k]. " / ". $this->word[$k] . " * 1 => ".($this->target[$k] / $this->word[$k]) * 1);
                 print_r("\n");
             }
             
