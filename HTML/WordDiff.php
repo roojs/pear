@@ -27,8 +27,8 @@ class HTML_WordDiff
      */
     function __construct($config)
     {
-        print_r($config);
-        print_r($this->abc);
+//        print_r($config);
+//        print_r($this->abc);
         if(!is_array($config)){
             trigger_error("Word Diff got error the argument IS NOT array");
             return;
