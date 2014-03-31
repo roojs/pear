@@ -135,7 +135,7 @@ class HTML_WordDiff
             }
         }
         
-        $a / $b * 1;
+//        $a / $b * 1;
         print_r($matchs);
         print_r("\n");
 //        print_r(count($this->word));
