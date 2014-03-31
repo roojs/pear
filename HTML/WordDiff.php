@@ -95,7 +95,9 @@ class HTML_WordDiff
     
     public function compare($article)
     {
+        
         $a = explode(' ', str_replace($this->alternatives, '', $article));
+//        $b = explode(' ', str_replace($this->alternatives, '', $article));
         $test = array();
         
         print_r(strlen($article));
