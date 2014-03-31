@@ -124,7 +124,7 @@ class HTML_WordDiff
         foreach($this->word as $k=>$t){
             if(isset($this->target[$k])){
                 $matchs[$k] = ($this->target[$k] / $this->word[$k]) * 1;
-                print_r($k." : ".$this->target[$k]. " / ". $this->word[$k] . " * 1");
+                print_r($k." : ".$this->target[$k]. " / ". $this->word[$k] . " * 1 => ".($this->target[$k] / $this->word[$k]) * 1);
                 print_r("\n");
             }
         }
