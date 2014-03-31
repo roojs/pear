@@ -81,6 +81,12 @@ class HTML_WordDiff
             $ret[$str] += 1;
         }
         $this->$target = $ret;
+        
+//        $text = preg_replace("
+//  #((http|https|ftp)://(\S*?\.\S*?))(\s|\;|\)|\]|\[|\{|\}|,|\"|'|:|\<|$|\.\s)#ie",
+//  "'<a href=\"$1\" target=\"_blank\">$3</a>$4'",
+//  $text
+//);
     }
     
     /**
@@ -90,7 +96,7 @@ class HTML_WordDiff
      * @param $String $target for the array index
      * 
      */
-    function buildWords_zh_HK($target = 'original')
+    function buildWords_chinese($target = 'original')
     {
         $a = explode(' ', str_replace($this->alternatives, '', $this->article));
         $ret = array();
