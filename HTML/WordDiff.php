@@ -99,6 +99,7 @@ class HTML_WordDiff
         $test = array();
         
         print_r(strlen($article));
+        print_r("\n");
         print_r(strlen($this->article));
         
         foreach($a as $str){
