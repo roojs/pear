@@ -55,6 +55,8 @@ class HTML_WordDiff
 //        print_r($this);
         $m = 'buildWorkds_'.$this->lang;
         
+        
+        var_dump(method_exists($this, $m));
         if(function_exists($m)){
             print_R('in?');
         }
