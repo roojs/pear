@@ -125,6 +125,7 @@ class HTML_WordDiff
             if(isset($this->target[$k])){
                 $matchs[$k] = ($this->word[$k] / $this->target[$k]) * 1;
                 print_r($this->word[$k]. " / ". $this->target[$k] . " * 1");
+                print_r("\n");
             }
         }
         print_r($matchs);
