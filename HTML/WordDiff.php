@@ -112,7 +112,7 @@ class HTML_WordDiff
         print_r("\n");
         print_r(count($this->word));
         
-        print_R($test);
+//        print_R($test);
     }
     
 //    
