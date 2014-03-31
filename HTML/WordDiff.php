@@ -73,7 +73,7 @@ class HTML_WordDiff
 
         similar_text($var_1, $var_2, $percent); 
 
-        echo $percent; 
+        echo $percent."\n"; 
         return;
         //remove URLs
         $t = preg_replace('/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/i', '', $this->article);
