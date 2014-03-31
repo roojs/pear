@@ -116,15 +116,15 @@ class HTML_WordDiff
             $this->$m('target');
 //            print_R('in?');
         }
-        $countTotal = 0;
-        foreach($a as $str){
-            $countTotal++;
-            if(!isset($this->target[$str])){
-                $this->target[$str] = 1;
-                continue;
-            }
-            $this->target[$str] += 1;
-        }
+//        $countTotal = 0;
+//        foreach($a as $str){
+//            $countTotal++;
+//            if(!isset($this->target[$str])){
+//                $this->target[$str] = 1;
+//                continue;
+//            }
+//            $this->target[$str] += 1;
+//        }
         
 //        $a = array();
 //        $b = array();
