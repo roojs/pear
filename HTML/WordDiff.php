@@ -44,7 +44,7 @@ class HTML_WordDiff
         }
 //        $GLOBALS[__CLASS__] = &$this;
         
-        foreach($config as $k=>$v){
+        foreach($config as $k=>$v){// create the vaild variable??
 //            print_r($v);
 //            print_r($k);
 //            if(isset($this->$k)){
