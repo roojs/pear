@@ -28,6 +28,10 @@ class HTML_WordDiff
 //        $GLOBALS[__CLASS__] = &$this;
         
         foreach($config as $k=>$v){
+            if(!isset($this->$k)){
+                continue;
+            }
+            
             $this->$k = $v;
         }
         
