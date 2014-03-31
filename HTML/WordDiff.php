@@ -70,11 +70,8 @@ class HTML_WordDiff
         if(method_exists($this, $m)){
             trigger_error("Method not found ($m)");
             return;
-            
-//            print_R('in?');
         }
         $this->$m();
-//        print_r('???');
     }
     
     /**
@@ -112,17 +109,14 @@ class HTML_WordDiff
     }
     
     public function compare($article)
-    {
-        
-        $this->article = $article;
-//        $b = explode(' ', str_replace($this->alternatives, '', $article));
-//        $test = array();
+    {   
         $m = 'buildWords_'.$this->lang;
-//        print_r($m);
         if(!method_exists($this, $m)){
             trigger_error("Method not found ($m)");
             return;
         }
+        
+        $this->article = $article;
         $this->$m('target');
 //        $countTotal = 0;
 //        foreach($a as $str){
