@@ -69,7 +69,7 @@ class HTML_WordDiff
     function buildWords_en($target = 'original')
     {
         $var_1 = '香港，中国 － Media OutReach － 二零一四年三月十八日－美麗華酒店企業有限公司（「美麗華」或「集團」，香港交易所股份代號：71），今天公佈截至二零一三年十二月三十一日止年度之業績。'; 
-        $var_2 = 'Media OutReach － 二零一四年三月十八日－美麗華酒店企業有限公司（「美麗華」或「集團」，香港交易所股份代號：71），今天公佈截至二零一三年十二月三十一日止年度之業績。'; 
+        $var_2 = 'Media OutReach － 二零一四年三月十八日－美麗華酒店企業有限公司（美麗華或集團，香港交易所股份代號：71），今天公佈截至二零一三年十二月三十一日止年度之業績。'; 
 
         similar_text($var_2, $var_1, $percent); 
 
