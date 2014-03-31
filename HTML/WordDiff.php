@@ -127,13 +127,15 @@ class HTML_WordDiff
         foreach($this->word as $k=>$t){
 //            $countTotal += $this->word[$k];
             if(isset($this->target[$k])){
-                $matchs = $matchs + ($this->word[$k] - $this->target[$k]);//($this->target[$k] / $this->word[$k]) * 1;
+                $matchs += ($this->word[$k] == $this->target[$k]) ? $this->word[$k] : $this->word[$k] - $this->target[$k];
+                //($this->target[$k] / $this->word[$k]) * 1;
                 print_r($this->word[$k] - $this->target[$k]);
 //                print_r($k." : ".$this->target[$k]. " / ". $this->word[$k] . " * 1 => ".($this->target[$k] / $this->word[$k]) * 1);
                 print_r("\n");
             }
-            
         }
+        
+        $a / $b * 1;
         print_r($matchs);
         print_r("\n");
 //        print_r(count($this->word));
