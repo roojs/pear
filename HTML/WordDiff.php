@@ -69,7 +69,7 @@ class HTML_WordDiff
     function buildWords_en($target = 'original')
     {
         $var_1 = '英文中文中文'; 
-        $var_2 = '中文'; 
+        $var_2 = '中文中文'; 
 
         similar_text($var_2, $var_1, $percent); 
 
