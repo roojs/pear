@@ -71,7 +71,7 @@ class HTML_WordDiff
         $var_1 = '英文中文中文'; 
         $var_2 = '中文'; 
 
-        similar_text($var_1, $var_2, $percent); 
+        similar_text($var_2, $var_1, $percent); 
 
         echo $percent."\n"; 
         return;
