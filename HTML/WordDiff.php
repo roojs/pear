@@ -109,19 +109,19 @@ class HTML_WordDiff
             $this->target[$str] += 1;
         }
         
-        $a = array();
-        $b = array();
-        
-        if(count($this->word) > count($test)){
-            $a = $this->word;
-            $b = $test;
-        }else{
-            $a = $test;
-            $b = $this->word;
-        }
+//        $a = array();
+//        $b = array();
+//        
+//        if(count($this->word) > count($test)){
+//            $a = $this->word;
+//            $b = $test;
+//        }else{
+//            $a = $test;
+//            $b = $this->word;
+//        }
         
         $matchs = array();
-        foreach($a as $k=>$t){
+        foreach($this->word as $k=>$t){
             
         }
         print_r(count($test));
