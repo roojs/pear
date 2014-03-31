@@ -126,9 +126,9 @@ class HTML_WordDiff
                 $matchs[$k] = ($this->word[$k] / $this->target[$k]) * 1;
             }
         }
-        print_r(count($test));
+        print_r($matchs);
         print_r("\n");
-        print_r(count($this->word));
+//        print_r(count($this->word));
         
 //        print_R($test);
     }
