@@ -17,6 +17,14 @@ class HTML_WordDiff
     var $lang;
     var $words;
     
+    /**
+     * Constructor
+     * 
+     * 
+     * @param Array $config
+     * @return type
+     * 
+     */
     function __construct($config)
     {
         print_r($config);
