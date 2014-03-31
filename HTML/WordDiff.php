@@ -122,7 +122,6 @@ class HTML_WordDiff
         if(!method_exists($this, $m)){
             trigger_error("Method not found ($m)");
             return;
-//            print_R('in?');
         }
         $this->$m('target');
 //        $countTotal = 0;
