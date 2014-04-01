@@ -138,7 +138,7 @@ class HTML_WordDiff
 //        $string = str_replace(' ', '-', $t);
 //        $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
 
-        $a = explode('-', $string);
+        $a = explode('-', $str);
         $ret = array();
         foreach($a as $str){
             if($target == 'original'){
