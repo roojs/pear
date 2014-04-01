@@ -50,6 +50,9 @@ class HTML_WordDiff
      * 
      * 
      * @param Array $config
+     * lang = language of article
+     * file = HTML file path or string
+     * 
      * @return type
      * 
      */
