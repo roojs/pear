@@ -181,6 +181,10 @@ class HTML_WordDiff
     function DomToStrings()
     {
 //        print_r($this->htmlDom);
+        $ss = strip_tags($this->htmlDom);
+        print_r($ss);
+        exit;
+        
         
         $pageDom = new DomDocument('1.0', 'utf-8');    
         $pageDom->formatOutput = true;
