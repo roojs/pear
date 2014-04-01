@@ -73,6 +73,11 @@ class HTML_WordDiff
             return;
         }
         
+        if(!in_array($this->lang, $this->wordTypeLanguage)){
+            trigger_error("This language is not on our word type classification");
+            return;
+        }
+        
         $this->htmlDom = $config['file'];
         
         if(file_exists($config['file'])){
@@ -81,10 +86,7 @@ class HTML_WordDiff
         
         $this->lang = $config['lang'];
         
-        if(!in_array($this->lang, $this->wordTypeLanguage)){
-            trigger_error("This language is not on our word type classification");
-            return;
-        }
+        
         
         $this->_run();
         
