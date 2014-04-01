@@ -15,12 +15,12 @@ class HTML_WordDiff
     
 //    var $config;
     var $lang = 'en'; // the press release language
-    var $article = '';
-    var $original = array();
-    var $target = array();
-    var $countTotal = 0;
-    var $htmlDom = false;
-    var $wordTypeLanguage = array(
+    var $article = '';// not in used?
+    var $original = array(); // original html words
+    var $target = array(); // diff target html words
+    var $countTotal = 0; // Total words count form original html
+    var $htmlDom = false; // HTML Dom elements
+    var $wordTypeLanguage = array( //word type classification
         'aa',
         'ab',
         'en',
