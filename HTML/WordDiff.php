@@ -19,6 +19,7 @@ class HTML_WordDiff
     var $original = array();
     var $target = array();
     var $countTotal = 0;
+    var $htmlDom = false;
     var $wordTypeLanguage = array(
         'aa',
         'ab',
@@ -59,7 +60,7 @@ class HTML_WordDiff
     function __construct($config)
     {
         if(!is_array($config)){
-            trigger_error("Word Diff got error the argument IS NOT array");
+            trigger_error("Word Diff got error, the argument IS NOT array");
             return;
         }
         
@@ -67,9 +68,15 @@ class HTML_WordDiff
             trigger_error("the language is missing.");
             return;
         }
-        if(empty($config['article'])){
+        if(empty($config['file'])){
             trigger_error("Article is missing");
             return;
+        }
+        
+        $this->htmlDom = $config['file'];
+        
+        if(file_exists($config['file'])){
+            $this->htmlDom = file_get_contents($config['file']);
         }
         
         foreach($config as $k=>$v){// create the vaild variable checking??
