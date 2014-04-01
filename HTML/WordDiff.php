@@ -78,7 +78,7 @@ class HTML_WordDiff
         
         if(!isset($this->nonSinoTibetan[$this->lang])){
             if(!isset($this->SinoTibetan[$this->lang])){
-                trigger_error("This language is not on our word type classification");
+                trigger_error("This ({$this->lang}) language is not on our word type classification");
             }
             return;
         }
