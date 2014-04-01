@@ -244,6 +244,7 @@ class HTML_WordDiff
         if($m == 'buildWordsSino'){
             similar_text($this->original, $this->target, $p1);
             similar_text($this->target, $this->original, $p2);
+            return ($p1 > $p2) ? (int)$p1 : (int)$p2;
         }
         
         $matchs = 0;
