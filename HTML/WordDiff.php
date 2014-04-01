@@ -123,7 +123,7 @@ class HTML_WordDiff
     function buildWords($target = 'original')
     {
         $str = $this->DomToStrings();
-        return;
+//        return;
 //        $var_1 = 'PHP IS GREAT'; 
 //        $var_2 = 'WITH MYSQL'; 
 //
