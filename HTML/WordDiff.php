@@ -73,7 +73,7 @@ class HTML_WordDiff
             return;
         }
         if(empty($config['file'])){
-            trigger_error("Article is missing");
+            trigger_error("File is missing");
             return;
         }
         
@@ -221,9 +221,15 @@ class HTML_WordDiff
      * @return int $percent percentage of match 
      * 
      */
-    public function compare($article)
-    {   
-        $m = 'buildWords_'.$this->lang;
+    public function compare($file)
+    {
+        $this->htmlDom = $file;
+        
+        if(file_exists($file)){
+            $this->htmlDom = file_get_contents($config['file']);
+        }
+        
+        $m = 'buildWords';
         if(!method_exists($this, $m)){
             trigger_error("Method not found ($m)");
             return;
