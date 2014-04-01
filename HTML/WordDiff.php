@@ -79,9 +79,7 @@ class HTML_WordDiff
             $this->htmlDom = file_get_contents($config['file']);
         }
         
-        foreach($config as $k=>$v){// create the vaild variable checking??
-            $this->$k = $v;
-        }
+        $this->lang = $config['lang'];
         
         if(!in_array($this->lang, $this->wordTypeLanguage)){
             trigger_error("This language is not on our word type classification");
