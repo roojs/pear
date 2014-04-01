@@ -86,8 +86,6 @@ class HTML_WordDiff
         
         $this->lang = $config['lang'];
         
-        
-        
         $this->_run();
         
     }
