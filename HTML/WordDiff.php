@@ -141,6 +141,9 @@ class HTML_WordDiff
         $a = explode('-', $str);
         $ret = array();
         foreach($a as $str){
+            if(empty($str)){
+                continue;
+            }
             if($target == 'original'){
                 $this->countTotal++;
             }
