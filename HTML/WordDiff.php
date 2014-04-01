@@ -194,7 +194,7 @@ class HTML_WordDiff
         //$q = "id('web')/ol/li/div"; 
         $q = "//body";
         $lists = $xp->query($q);
-        
+        print_r(mb_convert_encoding($pageDom->saveHTML($lists->item(0)), 'HTML-ENTITIES', "UTF-8"));
         exit;
         return $string;
     }
