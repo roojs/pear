@@ -78,7 +78,7 @@ class HTML_WordDiff
         }
         
         if(!in_array($this->lang, $this->nonSinoTibetan)){
-            if(!in_array($this->lang, $this->SinoTibetan)){
+            if(!in_array($this->lang, $this->sinoTibetan)){
                 trigger_error("This ({$this->lang}) language is not on our word type classification");
             }
             return;
@@ -100,7 +100,7 @@ class HTML_WordDiff
     {
         $m = 'buildWords';// default run sino-tibetan
         
-        if(in_array($this->lang, $this->SinoTibetan)){
+        if(in_array($this->lang, $this->sinoTibetan)){
             $m = 'buildWordsSino';// run the Sino-Tibetan
         }
         
