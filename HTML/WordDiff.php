@@ -156,7 +156,7 @@ class HTML_WordDiff
         $this->$target = $ret;
         
         
-        print_r($this->$target);
+//        print_r($this->$target);
         
     }
     
