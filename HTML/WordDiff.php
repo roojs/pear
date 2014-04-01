@@ -226,7 +226,7 @@ class HTML_WordDiff
         $this->htmlDom = $file;
         
         if(file_exists($file)){
-            $this->htmlDom = file_get_contents($config['file']);
+            $this->htmlDom = file_get_contents($file);
         }
         
         $m = 'buildWords';
