@@ -3,6 +3,16 @@
 /**
  * Description of WordDiff
  *
+ *  require_once 'HTML/WordDiff.php';
+ *       $init = array(
+ *           'lang' => 'en',
+ *           'file' => '/home/press/rss/2014/03/31/3952.html'
+ *       );
+ *       $wd = new HTML_WordDiff($init);
+ *        $percent = $wd->compare('/home/press/rss/2014/03/31/3954.html');
+ * 
+ * 
+ * 
  * @author chris
  */
 //
