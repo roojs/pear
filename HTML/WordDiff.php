@@ -170,8 +170,7 @@ class HTML_WordDiff
      */
     function buildWordsSino($target = 'original')
     {
-        $str = $this->DomToStrings();
-        $this->$target = preg_replace('/[^\pL\pS\pN]/u', '', $str);
+        $this->$target = $this->DomToStrings();
 //        $a = explode(' ', str_replace($this->alternatives, '', $this->article));
 //        $ret = array();
 //        foreach($a as $str){
