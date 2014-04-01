@@ -100,10 +100,8 @@ class HTML_WordDiff
         $m = 'buildWords';// default run sino-tibetan
         
         if(!isset($this->SinoTibetan[$this->lang])){
-            $m = 'buildWordsSino';
+            $m = 'buildWordsSino';// run the Sino-Tibetan
         }
-        
-        
         
         if(!method_exists($this, $m)){
             trigger_error("Method not found ($m)");
@@ -150,22 +148,17 @@ class HTML_WordDiff
             $ret[$str] += 1;
         }
         $this->$target = $ret;
-        
-//        $text = preg_replace("
-//  #((http|https|ftp)://(\S*?\.\S*?))(\s|\;|\)|\]|\[|\{|\}|,|\"|'|:|\<|$|\.\s)#ie",
-//  "'<a href=\"$1\" target=\"_blank\">$3</a>$4'",
-//  $text
-//);
     }
     
     /**
      * set the words array 
      * 
+     * for Sino-Tibetan languages etc. chinese, japanese
      * 
      * @param $String $target for the array index
      * 
      */
-    function buildWords_chinese($target = 'original')
+    function buildWordsSino($target = 'original')
     {
         $a = explode(' ', str_replace($this->alternatives, '', $this->article));
         $ret = array();
