@@ -168,7 +168,7 @@ class HTML_WordDiff
      * 
      * 
      * 
-     * @param string $article
+     * @param string/file path $file
      * @return int $percent percentage of match 
      * 
      */
