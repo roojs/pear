@@ -183,7 +183,7 @@ class HTML_WordDiff
 //        print_r($this->htmlDom);
         $ss = strip_tags($this->htmlDom);
         $string = preg_replace('/[^\pL\pS\pN]/u', '', $ss);
-        print_r($ss);
+        print_r($string);
         exit;
         
         
