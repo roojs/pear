@@ -181,6 +181,20 @@ class HTML_WordDiff
     function DomToStrings()
     {
         print_r($this->htmlDom);
+        
+        $pageDom = new DomDocument('1.0', 'utf-8');    
+        $pageDom->formatOutput = true;
+        $searchPage = mb_convert_encoding($this->htmlDom, 'HTML-ENTITIES', "UTF-8");
+        @$pageDom->loadHTML($searchPage);
+        
+        $ret = array();
+        $count = 1;
+        
+        $xp = new DOMXPath($pageDom);
+        //$q = "id('web')/ol/li/div"; 
+        $q = "//body";
+        $lists = $xp->query($q);
+        
         exit;
         return $string;
     }
