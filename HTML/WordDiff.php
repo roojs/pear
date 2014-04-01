@@ -132,11 +132,11 @@ class HTML_WordDiff
 //        echo $percent."\n"; 
 //        return;
         //remove URLs
-        $t = preg_replace('/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/i', '', $this->article);
+//        $t = preg_replace('/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/i', '', $this->article);
         
         //removes special chars
-        $string = str_replace(' ', '-', $t);
-        $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
+//        $string = str_replace(' ', '-', $t);
+//        $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
 
         $a = explode('-', $string);
         $ret = array();
@@ -182,7 +182,7 @@ class HTML_WordDiff
     {
 //        print_r($this->htmlDom);
         $ss = strip_tags($this->htmlDom);
-        $string = preg_replace('/[^\pL\pS\pN]/u', '', $ss);
+        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $ss);
         print_r($string);
         exit;
         
