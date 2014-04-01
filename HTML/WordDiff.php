@@ -123,21 +123,7 @@ class HTML_WordDiff
     function buildWords($target = 'original')
     {
         $str = $this->DomToStrings();
-//        return;
-//        $var_1 = 'PHP IS GREAT'; 
-//        $var_2 = 'WITH MYSQL'; 
-//
-//        similar_text($var_2, $var_1, $percent); 
-//
-//        echo $percent."\n"; 
-//        return;
-        //remove URLs
-//        $t = preg_replace('/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/i', '', $this->article);
         
-        //removes special chars
-//        $string = str_replace(' ', '-', $t);
-//        $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string);
-
         $a = explode('-', $str);
         $ret = array();
         foreach($a as $str){
@@ -154,10 +140,6 @@ class HTML_WordDiff
             $ret[$str] += 1;
         }
         $this->$target = $ret;
-        
-        
-//        print_r($this->$target);
-        
     }
     
     /**
@@ -171,46 +153,14 @@ class HTML_WordDiff
     function buildWordsSino($target = 'original')
     {
         $this->$target = $this->DomToStrings();
-//        $a = explode(' ', str_replace($this->alternatives, '', $this->article));
-//        $ret = array();
-//        foreach($a as $str){
-//            if($target == 'original'){
-//                $this->countTotal++;
-//            }
-//            if(!isset($ret[$str])){
-//                $ret[$str] = 1;
-//                continue;
-//            }
-//            $ret[$str] += 1;
-//        }
-//        $this->$target = $ret;
     }
     
     function DomToStrings()
     {
-//        print_r($this->htmlDom);
         $ss = strip_tags($this->htmlDom);
         $string = preg_replace('/[^\pL\pS\pN]/u', '-', $ss);
-//        print_r($string);
         return $string;
-        exit;
         
-        
-        $pageDom = new DomDocument('1.0', 'utf-8');    
-        $pageDom->formatOutput = true;
-        $searchPage = mb_convert_encoding($this->htmlDom, 'HTML-ENTITIES', "UTF-8");
-        @$pageDom->loadHTML($searchPage);
-        
-        $ret = array();
-        $count = 1;
-        
-        $xp = new DOMXPath($pageDom);
-        //$q = "id('web')/ol/li/div"; 
-        $q = "//body";
-        $lists = $xp->query($q);
-        print_r(mb_convert_encoding($pageDom->saveHTML($lists->item(0)), 'HTML-ENTITIES', "UTF-8"));
-        exit;
-        return $string;
     }
     
     /**
