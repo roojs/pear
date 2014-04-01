@@ -100,7 +100,7 @@ class HTML_WordDiff
     {
         $m = 'buildWords';// default run sino-tibetan
         
-        if(!isset($this->SinoTibetan[$this->lang])){
+        if(!in_array($this->lang, $this->SinoTibetan)){
             $m = 'buildWordsSino';// run the Sino-Tibetan
         }
         
