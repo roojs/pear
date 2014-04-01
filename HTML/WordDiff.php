@@ -113,7 +113,7 @@ class HTML_WordDiff
     /**
      * set the words array 
      * 
-     * for non Sino-Tibetan languages
+     * for non Sino-Tibetan languages etc. English, French
      * 
      *  
      * @param $String $target for the array index
@@ -121,6 +121,7 @@ class HTML_WordDiff
      */
     function buildWords($target = 'original')
     {
+        $str = $this->DomToStrings();
 //        $var_1 = 'PHP IS GREAT'; 
 //        $var_2 = 'WITH MYSQL'; 
 //
@@ -173,6 +174,13 @@ class HTML_WordDiff
             $ret[$str] += 1;
         }
         $this->$target = $ret;
+    }
+    
+    function DomToStrings()
+    {
+        print_r($this->htmlDom);
+        exit;
+        return $string;
     }
     
     /**
