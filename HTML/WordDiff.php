@@ -97,7 +97,14 @@ class HTML_WordDiff
     
     function _run()
     {
-        $m = 'buildWords_'.$this->lang;
+        $m = 'buildWords';// default run sino-tibetan
+        
+        if(!isset($this->SinoTibetan[$this->lang])){
+            $m = 'buildWordsSino';
+        }
+        
+        
+        
         if(!method_exists($this, $m)){
             trigger_error("Method not found ($m)");
             return;
