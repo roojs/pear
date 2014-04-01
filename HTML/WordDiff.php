@@ -235,7 +235,6 @@ class HTML_WordDiff
             return;
         }
         
-        $this->article = $article;
         $this->$m('target');
         
         $matchs = 0;
