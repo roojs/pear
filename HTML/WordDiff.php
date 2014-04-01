@@ -172,19 +172,19 @@ class HTML_WordDiff
     {
         $str = $this->DomToStrings();
         $this->$target = preg_replace('/[^\pL\pS\pN]/u', '', $str);
-        $a = explode(' ', str_replace($this->alternatives, '', $this->article));
-        $ret = array();
-        foreach($a as $str){
-            if($target == 'original'){
-                $this->countTotal++;
-            }
-            if(!isset($ret[$str])){
-                $ret[$str] = 1;
-                continue;
-            }
-            $ret[$str] += 1;
-        }
-        $this->$target = $ret;
+//        $a = explode(' ', str_replace($this->alternatives, '', $this->article));
+//        $ret = array();
+//        foreach($a as $str){
+//            if($target == 'original'){
+//                $this->countTotal++;
+//            }
+//            if(!isset($ret[$str])){
+//                $ret[$str] = 1;
+//                continue;
+//            }
+//            $ret[$str] += 1;
+//        }
+//        $this->$target = $ret;
     }
     
     function DomToStrings()
