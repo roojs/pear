@@ -108,11 +108,13 @@ class HTML_WordDiff
     /**
      * set the words array 
      * 
-     * for english only 
+     * for non Sino-Tibetan languages
+     * 
+     *  
      * @param $String $target for the array index
      * 
      */
-    function buildWords_en($target = 'original')
+    function buildWords($target = 'original')
     {
 //        $var_1 = 'PHP IS GREAT'; 
 //        $var_2 = 'WITH MYSQL'; 
