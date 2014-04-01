@@ -13,9 +13,7 @@ class HTML_WordDiff
 {
     //put your code here
     
-//    var $config;
     var $lang = 'en'; // the press release language
-    var $article = '';// not in used?
     var $original = array(); // original html words
     var $target = array(); // diff target html words
     var $countTotal = 0; // Total words count form original html
