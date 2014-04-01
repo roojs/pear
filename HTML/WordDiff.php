@@ -244,8 +244,8 @@ class HTML_WordDiff
                 $matchs += ($this->original[$k] == $this->target[$k]) ? $this->original[$k] : $this->original[$k] - $this->target[$k];
             }
         }
-        print_r($this->original);
-        print_r($this->target);
+//        print_r($this->original);
+//        print_r($this->target);
         $percent = (($matchs / $this->countTotal) * 1) * 100;
         return (int)$percent;
         
