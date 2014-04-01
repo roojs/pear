@@ -241,6 +241,11 @@ class HTML_WordDiff
         
         $this->$m('target');
         
+        if($m == 'buildWordsSino'){
+            similar_text($this->original, $this->target, $p1);
+            similar_text($this->target, $this->original, $p2);
+        }
+        
         $matchs = 0;
         
         foreach($this->original as $k=>$t){
