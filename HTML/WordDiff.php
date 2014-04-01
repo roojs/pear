@@ -151,6 +151,10 @@ class HTML_WordDiff
             $ret[$str] += 1;
         }
         $this->$target = $ret;
+        
+        
+        print_r($this->$target);
+        
     }
     
     /**
