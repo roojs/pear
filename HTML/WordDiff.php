@@ -188,6 +188,7 @@ class HTML_WordDiff
         $ss = strip_tags($this->htmlDom);
         $string = preg_replace('/[^\pL\pS\pN]/u', '-', $ss);
         print_r($string);
+        return $string;
         exit;
         
         
