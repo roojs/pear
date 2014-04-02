@@ -27,6 +27,7 @@ class HTML_WordDiff
     var $original = array(); // original html words
     var $target = array(); // diff target html words
     var $countTotal = 0; // Total words count form original html
+    var $targetTotal = 0; // Total words count form target html
     //word type classification
     var $nonSinoTibetan = array(//non Sino-Tibetan languages
         'aa',
@@ -140,6 +141,8 @@ class HTML_WordDiff
             }
             if($target == 'original'){
                 $this->countTotal++;
+            }else{
+                $this->targetTotal++;
             }
             if(!isset($ret[$str])){
                 $ret[$str] = 1;
@@ -214,11 +217,24 @@ class HTML_WordDiff
         
         foreach($this->original as $k=>$t){
             if(isset($this->target[$k])){
-                $matchs += ($this->original[$k] == $this->target[$k]) ? $this->original[$k] : $this->original[$k] - $this->target[$k];
+//                $matchs += $this->original[$k] + $this->target[$k];
+                if($this->original[$k] == $this->target[$k]){
+                    $matchs += $this->original[$k];
+                }else{
+                    if($this->original[$k] > $this->target[$k]){
+                        $matchs += $this->target[$k];
+                    }else{
+                        $matchs += $this->original[$k];
+                    }
+                }
+//              $matchs += ($this->original[$k] == $this->target[$k]) ? $this->original[$k] : $this->original[$k] - $this->target[$k];
             }
         }
-        
-        $percent = (($matchs / $this->countTotal) * 1) * 100;
+        print_r($matchs);
+        print_r("\n");
+        print_R(($this->countTotal + $this->targetTotal));  
+        print_r("\n");
+        $percent = ((($matchs / ($this->countTotal + $this->targetTotal)) * 1) * 100);
         return (int)$percent;
         
     }
