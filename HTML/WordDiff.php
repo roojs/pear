@@ -166,6 +166,14 @@ class HTML_WordDiff
     function DomToStrings()
     {
         
+        $pageDom = new DomDocument('1.0', 'utf-8');    
+        $pageDom->formatOutput = true;
+        $searchPage = mb_convert_encoding($this->htmlDom, 'HTML-ENTITIES', "UTF-8");
+        @$pageDom->loadHTML($searchPage);
+        $ss = mb_convert_encoding($pageDom->documentElement->getElementsByTagName('body')->item(0)->nodeValue, 'HTML-ENTITIES', "UTF-8");
+        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $ss);
+        return $string;
+        
         // Strip HTML Tags
         $string = strip_tags($this->htmlDom);
         // Clean up things like &amp;
