@@ -230,10 +230,10 @@ class HTML_WordDiff
 //              $matchs += ($this->original[$k] == $this->target[$k]) ? $this->original[$k] : $this->original[$k] - $this->target[$k];
             }
         }
-        print_r($matchs);
-        print_r("\n");
-        print_R(($this->countTotal + $this->targetTotal));  
-        print_r("\n");
+//        print_r($matchs);
+//        print_r("\n");
+//        print_R(($this->countTotal + $this->targetTotal));  
+//        print_r("\n");
         $percent = ((($matchs / ($this->countTotal + $this->targetTotal)) * 1) * 100);
         return (int)$percent;
         
