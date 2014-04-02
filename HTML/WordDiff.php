@@ -172,24 +172,8 @@ class HTML_WordDiff
         @$pageDom->loadHTML($searchPage);
         
         $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->nodeValue);
+        
         return $string;
-        
-        // Strip HTML Tags
-        $string = strip_tags($this->htmlDom);
-        // Clean up things like &amp;
-        $string = html_entity_decode($string);
-        // Strip out any url-encoded stuff
-        $string = urldecode($string);
-        // Replace non-AlNum characters with space
-        $string = preg_replace('/[^A-Za-z0-9]/', ' ', $string);
-        // Replace Multiple spaces with single space
-        $string = preg_replace('/ +/', ' ', $string);
-        // Trim the string of leading/trailing space
-        $string = trim($string);
-        
-//        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $ss);
-        return $string;
-        
     }
     
     /**
