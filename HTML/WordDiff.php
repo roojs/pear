@@ -170,8 +170,8 @@ class HTML_WordDiff
         $pageDom->formatOutput = true;
         $searchPage = mb_convert_encoding($this->htmlDom, 'HTML-ENTITIES', "UTF-8");
         @$pageDom->loadHTML($searchPage);
-        $ss = mb_convert_encoding($pageDom->documentElement->getElementsByTagName('body')->item(0)->nodeValue, 'HTML-ENTITIES', "UTF-8");
-        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $ss);
+        
+        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->nodeValue);
         return $string;
         
         // Strip HTML Tags
