@@ -230,7 +230,7 @@ class HTML_WordDiff
             trigger_error("Method not found ($m)");
             return;
         }
-        print_r($this);
+        //print_r($this);
         $this->$m('target');
         
         if($m == 'buildWordsSino'){
