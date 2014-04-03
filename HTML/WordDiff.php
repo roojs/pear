@@ -131,9 +131,8 @@ class HTML_WordDiff
      */
     function buildWords($target = 'original')
     {
-        $str = $this->DomToStrings();
+        $a = $this->DomToStrings();
         
-        $a = explode('-', $str);
         $ret = array();
         foreach($a as $str){
             if(empty($str)){
