@@ -174,10 +174,30 @@ class HTML_WordDiff
         $searchPage = mb_convert_encoding($this->htmlDom, 'HTML-ENTITIES', "UTF-8");
         @$pageDom->loadHTML($searchPage);
         
-        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
+        $words = $this->domExtractWords($pageDom->documentElement, array());
+        
+        //$string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
         
         return $string;
     }
+    
+    function domExtractWords($node, $words)
+    {
+        if ($node->nodeType == XML_TEXT_NODE) {
+        
+            foreach(preg_split('/\s+/', $node->value) as $word) {
+                $words[] = $word;
+            }
+            
+        }
+        foreach($node->childnodes as $n) {
+            $words = $this->domExtractWords($n, $words);
+        }
+        return $words;
+        
+        
+    }
+    
     
     /**
      * 
