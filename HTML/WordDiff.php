@@ -177,7 +177,7 @@ class HTML_WordDiff
         
         //$string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
         
-        return $string;
+        return $words;
     }
     
     function domExtractWords($node, $words)
