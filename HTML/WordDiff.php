@@ -256,7 +256,7 @@ class HTML_WordDiff
 //        print_r("\n");
 //        print_R(($this->countTotal + $this->targetTotal));  
 //        print_r("\n");
-        $percent = ((($matchs / ($this->countTotal + $this->targetTotal)) * 1) * 100);
+        $percent = ((($matchs / ($this->countTotal)) * 1) * 100);
         return (int)$percent;
         
     }
