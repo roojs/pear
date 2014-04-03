@@ -235,19 +235,22 @@ class HTML_WordDiff
         $matchs = 0;
         
         foreach($this->original as $k=>$t){
-            if(isset($this->target[$k])){
-//                $matchs += $this->original[$k] + $this->target[$k];
-                if($this->original[$k] == $this->target[$k]){
-                    $matchs += $this->original[$k];
-                }else{
-                    if($this->original[$k] > $this->target[$k]){
-                        $matchs += $this->target[$k];
-                    }else{
-                        $matchs += $this->original[$k];
-                    }
-                }
-//              $matchs += ($this->original[$k] == $this->target[$k]) ? $this->original[$k] : $this->original[$k] - $this->target[$k];
+            if(!isset($this->target[$k])){
+                continue;
             }
+            
+//                $matchs += $this->original[$k] + $this->target[$k];
+            if($this->original[$k] == $this->target[$k]){
+                $matchs += $this->original[$k];
+                continue;
+            }
+            
+            if($this->original[$k] > $this->target[$k]){
+                $matchs += $this->target[$k];
+                continue;
+            }
+            $matchs += $this->original[$k];
+            
         }
 //        print_r($matchs);
 //        print_r("\n");
