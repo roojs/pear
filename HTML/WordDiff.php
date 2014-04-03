@@ -189,6 +189,10 @@ class HTML_WordDiff
             }
             
         }
+        if (!$node->hasChildNodes()) {
+            return $words;
+        }
+        
         for($i = 0; $i < $node->childNodes->length; $i++) {
             $n = $node->childNodes->item($i);
             $words = $this->domExtractWords($n, $words);
