@@ -189,7 +189,8 @@ class HTML_WordDiff
             }
             
         }
-        foreach($node->childNodes as $n) {
+        for($i = 0; $i < $node->childNodes->length; $i++) {
+            $n = $node->childNodes->item($i);
             $words = $this->domExtractWords($n, $words);
         }
         return $words;
