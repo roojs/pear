@@ -162,7 +162,7 @@ class HTML_WordDiff
      */
     function buildWordsSino($target = 'original')
     {
-        $this->$target = str_replace('-', '', $this->DomToStrings());
+        $this->$target = implode('', $this->DomToStrings());
     }
     
     function DomToStrings()
