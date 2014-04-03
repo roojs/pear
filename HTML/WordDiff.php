@@ -184,6 +184,10 @@ class HTML_WordDiff
     
     function domExtractWords($node, $words)
     {
+        
+        if (empty($node)) {
+            return $words;
+        }
         if ($node->nodeType == XML_TEXT_NODE) {
         
             foreach(preg_split('/\s+/', $node->nodeValue) as $word) {
