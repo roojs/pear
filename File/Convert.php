@@ -1298,7 +1298,7 @@ class File_Convert_Solution
         }
         require_once 'System.php';
         
-        print_R($info);exit;
+        
         
         // revised version using pdfinfo and pdftoppm
         
