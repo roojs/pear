@@ -1277,6 +1277,7 @@ class File_Convert_Solution
     
     function pdftocairo($fn, $x, $y, $pg=false)
     {
+        print_R($info);exit;
         $xscale = 400; // min size?
         if (!empty($x) && $x> $xscale ) {
             $xscale = $x;
@@ -1311,7 +1312,7 @@ class File_Convert_Solution
         $match = array();
         // very presumtiuos...
        
-       print_R($info);exit;
+       
         if (!preg_match("/([0-9.]+)[^0-9]+([0-9.]+)/",$info, $match)) {
             $this->cmd .= " could not find 0-0 in the return string";
             return false;
