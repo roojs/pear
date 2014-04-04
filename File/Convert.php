@@ -1277,7 +1277,7 @@ class File_Convert_Solution
     
     function pdftocairo($fn, $x, $y, $pg=false)
     {
-        print_R($info);exit;
+        
         $xscale = 400; // min size?
         if (!empty($x) && $x> $xscale ) {
             $xscale = $x;
@@ -1292,7 +1292,7 @@ class File_Convert_Solution
         }
         $finaltarget = $target ; //. ($this->ext == 'png' ?  '' : '.jpeg');
         
-        
+        print_R($info);exit;
         if (!$this->debug && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
             return $finaltarget;
         }
