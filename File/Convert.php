@@ -398,7 +398,7 @@ class File_Convert
                 )
             ),
             
-            array('pdftoppm', // mulipage convert...
+            array('pdftocairo', // mulipage convert... was pdftoppn
                 array(
                     'application/pdf',
                //     'application/tiff',
