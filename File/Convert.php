@@ -1292,12 +1292,13 @@ class File_Convert_Solution
         }
         $finaltarget = $target ; //. ($this->ext == 'png' ?  '' : '.jpeg');
         
-        print_R($info);exit;
+        
         if (!$this->debug && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
             return $finaltarget;
         }
         require_once 'System.php';
         
+        print_R($info);exit;
         
         // revised version using pdfinfo and pdftoppm
         
