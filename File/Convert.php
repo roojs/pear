@@ -1278,7 +1278,7 @@ class File_Convert_Solution
     function pdftocairo($fn, $x, $y, $pg=false)
     {
         
-        $xscale = 400; // min size?
+        $xscale = 600; // min size?
         if (!empty($x) && $x> $xscale ) {
             $xscale = $x;
         }
