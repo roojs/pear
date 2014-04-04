@@ -1308,7 +1308,7 @@ class File_Convert_Solution
         // needs strings if starngs chars are in there..
         $cmd = $PDFINFO . ' '. escapeshellarg($fn) . " | $STRINGS | $GREP 'Page size'";
          
-        var_dump($cmd);exit;
+//        var_dump($cmd);exit;
         $info = trim( $this->exec($cmd));
         $match = array();
         // very presumtiuos...
