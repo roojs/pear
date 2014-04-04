@@ -1476,7 +1476,7 @@ class File_Convert_Solution
         
         require_once 'System.php';
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -strip -colorspace sRGB -interlace none -density 800 $flat ". 
+        $cmd = "$CONVERT " . /*" -strip  " . */ "  -colorspace sRGB -interlace none -density 800 $flat ". 
                         "-quality 90   ". escapeshellarg($fn) . " " . escapeshellarg($targetName );
          if ($this->debug) {
            echo "$cmd <br/>";
@@ -1559,7 +1559,7 @@ class File_Convert_Solution
          //var_dump($CONVERT);
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
-            $cmd = "{$CONVERT} " . /*" -strip  " . */ "-colorspace sRGB -interlace none -density 800 -quality 90 ". 
+            $cmd = "{$CONVERT} " . /*" -strip  " . */ " -colorspace sRGB -interlace none -density 800 -quality 90 ". 
                  " -resize '{$scale}' ". $extent  . " '{$fn}' '{$targetName}'";
              
              $cmdres  = $this->exec($cmd);
