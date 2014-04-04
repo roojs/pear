@@ -1128,10 +1128,18 @@ class File_Convert_Solution
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
+        
+        $targetName = $target;
+        $strip = '-strip';
+        if ($this->to == 'image/x-ms-bmp') {
+            $targetName = "bmp3:$target";
+            $strip = '';
+        }
+        
         require_once 'System.php';
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -strip -colorspace sRGB -interlace none -density 300 ". 
-                        "-quality 90 -resize '400x>' ". escapeshellarg($fn) . " " . escapeshellarg($target);
+        $cmd = "$CONVERT $strip -colorspace sRGB -interlace none -density 300 ". 
+                        "-quality 90 -resize '400x>' ". escapeshellarg($fn) . " " . escapeshellarg($targetName);
         
         $this->exec($cmd);
         clearstatcache();
@@ -1425,16 +1433,24 @@ class File_Convert_Solution
         if (!$this->debug && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
+        
+        $targetName = $target;
+        $strip = '-strip';
+        if ($this->to == 'image/x-ms-bmp') {
+            $targetName = "bmp3:$target";
+            $strip = '';
+        }
+        
         require_once 'System.php';
         
         $density = $xscale > 800 ? 300: 75; 
         
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT -strip -colorspace sRGB -interlace none -density $density ". 
+        $cmd = "$CONVERT $strip -colorspace sRGB -interlace none -density $density ". 
                         "-quality 90  -resize '". $xscale . "x>' "
                         . escapeshellarg($fn) . 
                         ($pg === false ? "[0] " : "[$pg] ") . 
-                        escapeshellarg($target);
+                        escapeshellarg($targetName);
         
 
         if ($this->debug) {
@@ -1470,13 +1486,15 @@ class File_Convert_Solution
         if ($this->to == 'image/jpeg') {
             $flat = " -background '#ffffff' --flatten ";
         }
+        $strip = '-strip';
         if ($this->to == 'image/x-ms-bmp') {
             $targetName = "bmp3:$target";
+            $strip = '';
         }
         
         require_once 'System.php';
         $CONVERT = System::which("convert");
-        $cmd = "$CONVERT " . /*" -strip  " . */ "  -colorspace sRGB -interlace none -density 800 $flat ". 
+        $cmd = "$CONVERT " . $strip .  "  -colorspace sRGB -interlace none -density 800 $flat ". 
                         "-quality 90   ". escapeshellarg($fn) . " " . escapeshellarg($targetName );
          if ($this->debug) {
            echo "$cmd <br/>";
@@ -1508,8 +1526,10 @@ class File_Convert_Solution
             return $target;
         }
         $targetName = $target;
+        $strip = '-strip';
         if ($this->to == 'image/x-ms-bmp') {
             $targetName = "bmp3:$target";
+            $strip = '';
         }
         
         //echo "GOT TARGET"  . $target;
@@ -1559,7 +1579,7 @@ class File_Convert_Solution
          //var_dump($CONVERT);
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
-            $cmd = "{$CONVERT} " . /*" -strip  " . */ " -colorspace sRGB -interlace none -density 800 -quality 90 ". 
+            $cmd = "{$CONVERT} " . $strip . " -colorspace sRGB -interlace none -density 800 -quality 90 ". 
                  " -resize '{$scale}' ". $extent  . " '{$fn}' '{$targetName}'";
              
              $cmdres  = $this->exec($cmd);
@@ -1708,12 +1728,17 @@ class File_Convert_Solution
         }
         require_once 'System.php';
         $CONVERT = System::which("convert");
-        
+        $targetName = $target;
+        $strip = '-strip';
+        if ($this->to == 'image/x-ms-bmp') {
+            $targetName = "bmp3:$target";
+            $strip = '';
+        }
 //         var_dump($CONVERT);exit;
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
-            $cmd = "{$CONVERT} -strip -colorspace sRGB -interlace none -density 300 -quality 90 ". 
-                 " -resize '{$scale}' ". $extent  . " '{$fn}' '{$target}'";
+            $cmd = "{$CONVERT} $strip -colorspace sRGB -interlace none -density 300 -quality 90 ". 
+                 " -resize '{$scale}' ". $extent  . " '{$fn}' '{$targetName}'";
              
              $cmdres  = $this->exec($cmd);
             $this->exec($cmd);
