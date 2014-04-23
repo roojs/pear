@@ -74,7 +74,7 @@ class HTML_WordDiff
     {
         //print_r($config);
         
-        if(!$config){ 
+        if(!$config){
             return;
         }
         
