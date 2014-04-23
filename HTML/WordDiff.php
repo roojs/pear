@@ -70,9 +70,13 @@ class HTML_WordDiff
      * @return type
      * 
      */
-    function __construct($config)
+    function __construct($config = false)
     {
         //print_r($config);
+        
+        if(!$config){ 
+            return;
+        }
         
         if(!is_array($config)){
             trigger_error("Word Diff got error, the argument IS NOT array");
