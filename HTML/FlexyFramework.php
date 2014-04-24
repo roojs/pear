@@ -88,6 +88,8 @@ class HTML_FlexyFramework {
     var $charset = false; // default UTF8
     var $dataObjectsCache = true;  // use dataobjects ini cache.. - let's try this as the default behaviour...
     var $dataObjectsCacheExpires = 72000; // 20 hours..
+    var $languages = false; // language settings -- see _handlelanguage
+    
     
 
     
@@ -171,6 +173,9 @@ class HTML_FlexyFramework {
             }
         }
         
+        $this->_handleLanguages();
+        
+        
         if (!empty($this->enable)) {
             $this->enableArray = explode(',', $this->enable);
             if (!in_array('Core',$this->enableArray )) {
@@ -253,6 +258,79 @@ class HTML_FlexyFramework {
         
         
     }
+    /**
+     *
+     *
+     *'languages' => array(
+            'param' => '_lang',
+            'avail' => array('en','zh_HK', 'zh_CN'),
+            'default' => 'en',
+            'cookie' => 'TalentPricing_lang',
+            'localemap' => array(
+                'en' => 'en_US.utf8',
+                'zh_HK' => 'zh_TW.utf8',
+                'zh_CN' => 'zh_CN.utf8',
+            )
+        ),
+    */
+    function _handleLanguages()
+    {
+        if (empty($this->languages)) {
+            return;
+        }
+        $cfg = $this->languages;
+           
+        $lang = isset($_COOKIE[$cfg['cookie']]) ?  $cfg['cookie']: $cfg['default'];
+
+    if (isset($_REQUEST['_lang'])) {
+        $lang = $_REQUEST['_lang'];
+    }
+    
+    if (!in_array($lang, array('en','zh_HK', 'zh_CN'))) {
+        $lang = 'zh_HK';
+    }
+    
+    //set the locale
+    switch($lang){
+        case 'en':
+            setlocale(LC_ALL, 'en_US.utf8');
+            break;
+        case 'zh_HK':
+            setlocale(LC_ALL, 'zh_TW.utf8');
+            break;
+        case 'zh_CN':
+            setlocale(LC_ALL, 'zh_CN.utf8');
+            break;
+    }
+    
+    
+    setcookie('Campaign_lang', $lang, 0, '/');
+    
+    new HTML_FlexyFramework( array(
+        'project'=> 'Campaign',
+//        'appName' => 'SupportHK',
+//        'appNameShort' => 'supporthk',
+        
+        'database' => 'mysql://root:@localhost/campaign', // local only
+
+        'version' => '0.2',
+        'Pman' => array(
+            'storedir' => '/home/campaign'
+        ),
+        'languages' => array(
+            'param' => '_lang',
+            'avail' => array('en','zh_HK', 'zh_CN'),
+            'default' => 'en',
+            'cookie' => 'TalentPricing_lang',
+            'localemap' => array(
+                'en' => 'en_US.utf8',
+                'zh_HK' => 'zh_TW.utf8',
+                'zh_CN' => 'zh_CN.utf8',
+            )
+        ),
+        
+    }
+    
     /**
      * overlay array properties..
      */
