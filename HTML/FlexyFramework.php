@@ -293,7 +293,10 @@ class HTML_FlexyFramework {
             setlocale(LC_ALL, $cfg['localemap'][$lang]);
         }
         setcookie($cfg['cookie'], $lang, 0, '/');
-        $this->locale = $lang; 
+        $this->locale = $lang;
+        if (!empty($this->HTML_Template_Flexy)) {
+            $this->HTML_Template_Flexy['locale'] = $lang;   //set a language for template engine
+        }
     }
     
     /**
