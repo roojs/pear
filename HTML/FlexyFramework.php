@@ -282,53 +282,18 @@ class HTML_FlexyFramework {
            
         $lang = isset($_COOKIE[$cfg['cookie']]) ?  $cfg['cookie']: $cfg['default'];
 
-    if (isset($_REQUEST['_lang'])) {
-        $lang = $_REQUEST['_lang'];
-    }
+        if (isset($_REQUEST[$cfg['param']])) {
+            $lang = $_REQUEST[$cfg['param']];
+        }
     
-    if (!in_array($lang, array('en','zh_HK', 'zh_CN'))) {
-        $lang = 'zh_HK';
-    }
-    
-    //set the locale
-    switch($lang){
-        case 'en':
-            setlocale(LC_ALL, 'en_US.utf8');
-            break;
-        case 'zh_HK':
-            setlocale(LC_ALL, 'zh_TW.utf8');
-            break;
-        case 'zh_CN':
-            setlocale(LC_ALL, 'zh_CN.utf8');
-            break;
-    }
-    
-    
-    setcookie('Campaign_lang', $lang, 0, '/');
-    
-    new HTML_FlexyFramework( array(
-        'project'=> 'Campaign',
-//        'appName' => 'SupportHK',
-//        'appNameShort' => 'supporthk',
-        
-        'database' => 'mysql://root:@localhost/campaign', // local only
-
-        'version' => '0.2',
-        'Pman' => array(
-            'storedir' => '/home/campaign'
-        ),
-        'languages' => array(
-            'param' => '_lang',
-            'avail' => array('en','zh_HK', 'zh_CN'),
-            'default' => 'en',
-            'cookie' => 'TalentPricing_lang',
-            'localemap' => array(
-                'en' => 'en_US.utf8',
-                'zh_HK' => 'zh_TW.utf8',
-                'zh_CN' => 'zh_CN.utf8',
-            )
-        ),
-        
+        if (!in_array($lang, $cfg['avail'])) {
+            $lang = $cfg['default'];
+        }
+        if (isset($cfg['localemap'][$lang])) {
+            setlocale(LC_ALL, $cfg['localemap'][$lang]);
+        }
+        setcookie($cfg['cookie'], $lang, 0, '/');
+        $this->locale = $lang; 
     }
     
     /**
