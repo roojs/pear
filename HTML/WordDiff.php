@@ -248,7 +248,7 @@ class HTML_WordDiff
             similar_text($this->target, $this->original, $p2);
             return ($p1 > $p2) ? (int)$p1 : (int)$p2;
         }
-        echo "ORIGINAL: ".print_r($this->original) ." \n \n TARGET: ". print_r($this->target) . "\n\n";
+//        echo "ORIGINAL: ".print_r($this->original) ." \n \n TARGET: ". print_r($this->target) . "\n\n";
         $matchs = 0;
         
         foreach($this->original as $k=>$t){
