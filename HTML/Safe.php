@@ -425,6 +425,8 @@ class HTML_Safe
         }
         $tree = tidy_parse_string($doc,array(),'UTF8');
         
+        print_r($tree);exit;
+        
         return $this->tidyTree($tree->root());
        // use tidy!!!!
        
