@@ -419,7 +419,7 @@ class HTML_Safe
         if (!extension_loaded('tidy')) {
             dl('tidy.so');
         }
-        print_r(strlen($doc));
+        print_r(strlen($doc));exit;
         // too large!!!?
         if (strlen($doc) > 100000) {
             $doc = substr($doc, 0, 100000);
