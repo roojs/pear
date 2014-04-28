@@ -153,7 +153,7 @@ class HTML_Safe
      * @access public
      */
     var $cssKeywords = array(
-        'absolute', 'behavior',       'behaviour',   'content', 'expression', 
+        'absolute', 'behavior',       'behaviour',    'expression', 
         'fixed',    'include-source', 'moz-binding',
         );
 
