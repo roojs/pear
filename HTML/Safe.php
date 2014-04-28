@@ -419,14 +419,14 @@ class HTML_Safe
         if (!extension_loaded('tidy')) {
             dl('tidy.so');
         }
-        print_r(strlen($doc));exit;
+//        print_r(strlen($doc));exit;
         // too large!!!?
-        if (strlen($doc) > 100000) {
-            $doc = substr($doc, 0, 100000);
+        if (strlen($doc) > 1000000) {
+            $doc = substr($doc, 0, 1000000);
         }
         $tree = tidy_parse_string($doc,array(),'UTF8');
         
-        print_r($tree);exit;
+//        print_r($tree);exit;
         
         return $this->tidyTree($tree->root());
        // use tidy!!!!
