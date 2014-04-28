@@ -462,7 +462,7 @@ class HTML_Safe
     }
     
     function tidyTree($node) {
-        // print_r($node);
+         print_r($node);
         
         switch ($node->type) {
             case TIDY_NODETYPE_TEXT:
