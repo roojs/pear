@@ -231,9 +231,9 @@ class HTML_WordDiff
         }
         
         $m = 'buildWords';
-        if(in_array($this->lang, $this->sinoTibetan)){
-            $m = 'buildWordsSino';// run the Sino-Tibetan
-        }
+//        if(in_array($this->lang, $this->sinoTibetan)){
+//            $m = 'buildWordsSino';// run the Sino-Tibetan
+//        }
         if(!method_exists($this, $m)){
             trigger_error("Method not found ($m)");
             return;
