@@ -116,7 +116,7 @@ class HTML_WordDiff
         $m = 'buildWords';// default run sino-tibetan
         
         if(in_array($this->lang, $this->sinoTibetan)){
-            $m = 'buildWordsSino';// run the Sino-Tibetan
+//            $m = 'buildWordsSino';// run the Sino-Tibetan
         }
         
         if(!method_exists($this, $m)){
