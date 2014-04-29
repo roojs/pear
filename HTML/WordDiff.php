@@ -263,10 +263,10 @@ class HTML_WordDiff
             }
             
             if($this->original[$k] > $this->target[$k]){
-                $matchs += $this->target[$k];
+                $matchs += $this->original[$k];
                 continue;
             }
-            $matchs += $this->original[$k];
+            $matchs += $this->target[$k];
             
         }
 //        print_r($matchs);
