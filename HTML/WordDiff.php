@@ -183,11 +183,12 @@ class HTML_WordDiff
 //        print_r(mb_detect_encoding($this->htmlDom));
 //        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8");
 //        print_r(mb_detect_encoding($searchPage));
+        
+        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8", 'HTML-ENTITIES');
         if($target == 'target'){
-            print_r($this->htmlDom);
+            print_r($searchPage);
             exit;
         }
-        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8", 'HTML-ENTITIES');
 //        print_r(mb_detect_encoding($searchPage));
 //        print_r($searchPage);exit;
         @$pageDom->loadHTML($searchPage);
