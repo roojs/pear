@@ -248,7 +248,7 @@ class HTML_WordDiff
     public function compare($file)
     {
         $this->htmlDom = $file;
-        
+        $this->debug_on = true;
         if(file_exists($file)){
             $this->htmlDom = file_get_contents($file);
         }
@@ -261,6 +261,7 @@ class HTML_WordDiff
             trigger_error("Method not found ($m)");
             return;
         }
+        
         //print_r($this);
         $this->$m('target');
         
