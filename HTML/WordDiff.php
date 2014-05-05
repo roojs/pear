@@ -184,7 +184,7 @@ class HTML_WordDiff
 //        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8");
 //        print_r(mb_detect_encoding($searchPage));
         
-        $searchPage = mb_convert_encoding($this->htmlDom, "BIG-5", 'HTML-ENTITIES');
+        $searchPage = mb_convert_encoding($this->htmlDom, "BIG-5");
 //        if($target == 'target'){
 //            print_r($searchPage);
 //            exit;
