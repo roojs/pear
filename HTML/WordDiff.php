@@ -185,7 +185,7 @@ class HTML_WordDiff
         @$pageDom->loadHTML($searchPage);
 //        exit;
         $words = $this->domExtractWords($pageDom->documentElement, array());
-        
+        print_r($words);
         //$string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
         
         return $words;
