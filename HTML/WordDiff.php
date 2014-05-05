@@ -191,7 +191,7 @@ class HTML_WordDiff
 //        }
 //        print_r(mb_detect_encoding($searchPage));
 //        print_r($searchPage);exit;
-        @$pageDom->loadHTML($searchPage);
+        @$pageDom->loadHTML($this->htmlDom);
 //        exit;
         $words = $this->domExtractWords($pageDom->documentElement, array());
 //        print_r($words);exit;
