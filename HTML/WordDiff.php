@@ -176,7 +176,8 @@ class HTML_WordDiff
         
         $pageDom = new DomDocument('1.0', 'utf-8');    
         $pageDom->formatOutput = true;
-        $searchPage = mb_convert_encoding($this->htmlDom, 'HTML-ENTITIES', "UTF-8");
+        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8");
+        $searchPage = mb_convert_encoding($searchPage, 'HTML-ENTITIES', "UTF-8");
         @$pageDom->loadHTML($searchPage);
         
         $words = $this->domExtractWords($pageDom->documentElement, array());
