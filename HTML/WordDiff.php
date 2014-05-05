@@ -137,7 +137,7 @@ class HTML_WordDiff
      */
     function buildWords($target = 'original')
     {
-        $a = $this->DomToStrings();
+        $a = $this->DomToStrings($target);
         if($target == 'target'){
             print_r($a);
             exit;
@@ -175,7 +175,7 @@ class HTML_WordDiff
         $this->$target = implode('', $this->DomToStrings());
     }
     
-    function DomToStrings()
+    function DomToStrings($target = '')
     {
         
         $pageDom = new DomDocument('1.0', 'utf-8');    
@@ -183,6 +183,10 @@ class HTML_WordDiff
 //        print_r(mb_detect_encoding($this->htmlDom));
 //        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8");
 //        print_r(mb_detect_encoding($searchPage));
+        if($target == 'target'){
+            print_r($this->htmlDom);
+            exit;
+        }
         $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8", 'HTML-ENTITIES');
 //        print_r(mb_detect_encoding($searchPage));
 //        print_r($searchPage);exit;
