@@ -181,6 +181,7 @@ class HTML_WordDiff
 //        print_r(mb_detect_encoding($searchPage));
         $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8", 'HTML-ENTITIES');
         print_r(mb_detect_encoding($searchPage));
+        print_r($searchPage);exit;
         @$pageDom->loadHTML($searchPage);
 //        exit;
         $words = $this->domExtractWords($pageDom->documentElement, array());
