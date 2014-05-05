@@ -197,7 +197,7 @@ class HTML_WordDiff
 //        print_r($words);exit;
         
 //        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
-        if($target == 'target'){
+        if($this->debug_on){
             print_r($words);
             exit;
         }
