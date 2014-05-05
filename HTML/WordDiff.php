@@ -211,12 +211,12 @@ class HTML_WordDiff
             return $words;
         }
         if ($node->nodeType == XML_TEXT_NODE) {// this is got the bug at sina....
-            
-            foreach(preg_split('/\s+/u', $node->nodeValue) as $word) {
-                if($this->debug_on){
-                    print_r($word);
+            if($this->debug_on){
+                    print_r($node->nodeValue);
                     print_r("\n");
                 }
+            foreach(preg_split('/\s+/u', $node->nodeValue) as $word) {
+                
                 $words[] = $word;
             }
             
