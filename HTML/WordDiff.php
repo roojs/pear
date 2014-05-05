@@ -196,7 +196,7 @@ class HTML_WordDiff
         $words = $this->domExtractWords($pageDom->documentElement, array());
 //        print_r($words);exit;
         if($target == 'target'){
-            print_r($pageDom->documentElement);
+            print_r($words);
             exit;
         }
         //$string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
