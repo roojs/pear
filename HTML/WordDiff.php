@@ -208,7 +208,6 @@ class HTML_WordDiff
     {
         
         if (empty($node)) {
-            print_r('in?');
             return $words;
         }
         if ($node->nodeType == XML_TEXT_NODE) {
