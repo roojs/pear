@@ -193,7 +193,7 @@ class HTML_WordDiff
 //        print_r($searchPage);exit;
         @$pageDom->loadHTML($searchPage);
 //        exit;
-//        $words = $this->domExtractWords($pageDom->documentElement, array());
+        $words = $this->domExtractWords($pageDom->documentElement, array());
 //        print_r($words);exit;
         
         $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
@@ -212,7 +212,7 @@ class HTML_WordDiff
         }
         if ($node->nodeType == XML_TEXT_NODE) {// this is got the bug at sina....
             
-            foreach(preg_split('/[^\pL\pS\pN]/u', $node->textContent) as $word) {
+            foreach(preg_split('/\s+/u', $node->textContent) as $word) {
                 if($this->debug_on){
                     print_r(mb_detect_encoding($node->textContent));
                     print_r("\n");
