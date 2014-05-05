@@ -244,7 +244,7 @@ class HTML_WordDiff
         }
         //print_r($this);
         $this->$m('target');
-        
+        print_r($this->htmlDom);exit;
 //        if($m == 'buildWordsSino'){
 //            echo "ORIGINAL: $this->original \n \n TARGET: $this->target\n\n";
 //            
