@@ -195,12 +195,12 @@ class HTML_WordDiff
 //        exit;
         $words = $this->domExtractWords($pageDom->documentElement, array());
 //        print_r($words);exit;
+        
+        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
         if($target == 'target'){
-            print_r($words);
+            print_r($string);
             exit;
         }
-        //$string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
-        
         return $words;
     }
     
