@@ -215,7 +215,7 @@ class HTML_WordDiff
                 print_r($node->textContent);
                 print_r("\n");
             }
-            foreach(preg_split('/\s+/u', $node->nodeValue) as $word) {
+            foreach(preg_split('/\s+/u', $node->textContent) as $word) {
                 
                 $words[] = $word;
             }
