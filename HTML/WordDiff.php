@@ -182,7 +182,7 @@ class HTML_WordDiff
         $searchPage = mb_convert_encoding($searchPage, 'HTML-ENTITIES', "UTF-8");
         print_r(mb_detect_encoding($searchPage));
         @$pageDom->loadHTML($searchPage);
-        
+        exit;
         $words = $this->domExtractWords($pageDom->documentElement, array());
         
         //$string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
