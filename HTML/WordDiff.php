@@ -180,12 +180,12 @@ class HTML_WordDiff
 //        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8");
 //        print_r(mb_detect_encoding($searchPage));
         $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8", 'HTML-ENTITIES');
-        print_r(mb_detect_encoding($searchPage));
+//        print_r(mb_detect_encoding($searchPage));
 //        print_r($searchPage);exit;
         @$pageDom->loadHTML($searchPage);
 //        exit;
         $words = $this->domExtractWords($pageDom->documentElement, array());
-        print_r($words);exit;
+//        print_r($words);exit;
         //$string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
         
         return $words;
