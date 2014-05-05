@@ -137,8 +137,8 @@ class HTML_WordDiff
      */
     function buildWords($target = 'original')
     {
-        $a = $this->DomToStrings($target);
-        if($target == 'target'){
+        $a = $this->DomToStrings();
+        if($this->debug_on){
             print_r($a);
             exit;
         }
