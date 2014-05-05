@@ -252,7 +252,7 @@ class HTML_WordDiff
     public function compare($file)
     {
         $this->htmlDom = $file;
-        $this->debug_on = true;
+//        $this->debug_on = true;
         if(file_exists($file)){
             $this->htmlDom = file_get_contents($file);
         }
