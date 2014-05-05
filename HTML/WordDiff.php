@@ -212,7 +212,7 @@ class HTML_WordDiff
         }
         if ($node->nodeType == XML_TEXT_NODE) {
         
-            foreach(preg_split('/\s+/', $node->nodeValue) as $word) {
+            foreach(preg_split('/\s+/u', $node->nodeValue) as $word) {
                 $words[] = $word;
             }
             
