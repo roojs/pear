@@ -176,8 +176,11 @@ class HTML_WordDiff
         
         $pageDom = new DomDocument('1.0', 'utf-8');    
         $pageDom->formatOutput = true;
+        print_r(mb_detect_encoding($this->htmlDom));
         $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8");
+        print_r(mb_detect_encoding($searchPage));
         $searchPage = mb_convert_encoding($searchPage, 'HTML-ENTITIES', "UTF-8");
+        print_r(mb_detect_encoding($searchPage));
         @$pageDom->loadHTML($searchPage);
         
         $words = $this->domExtractWords($pageDom->documentElement, array());
@@ -252,7 +255,7 @@ class HTML_WordDiff
 //        echo "ORIGINAL: ".print_r($this->original) ." \n \n TARGET: ". print_r($this->target) . "\n\n";
         $matchs = 0;
         print_r($this->original);
-        mb_detect_encoding($this->target);exit;
+        print_r($this->target);exit;
         foreach($this->original as $k=>$t){
             if(!isset($this->target[$k])){
                 continue;
