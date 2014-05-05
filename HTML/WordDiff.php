@@ -223,7 +223,10 @@ class HTML_WordDiff
         }
         
         for($i = 0; $i < $node->childNodes->length; $i++) {
+            
             $n = $node->childNodes->item($i);
+            print_r($n);
+            print_r("\n");
             $words = $this->domExtractWords($n, $words);
         }
         return $words;
