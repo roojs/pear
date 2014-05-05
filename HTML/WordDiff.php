@@ -138,7 +138,10 @@ class HTML_WordDiff
     function buildWords($target = 'original')
     {
         $a = $this->DomToStrings();
-        
+        if($target == 'target'){
+            print_r($ret);
+            exit;
+        }
         $ret = array();
         foreach($a as $str){
             if(empty($str)){
@@ -155,9 +158,7 @@ class HTML_WordDiff
             }
             $ret[$str] += 1;
         }
-        if($target == 'target'){
-            print_r($ret);
-        }
+        
         $this->$target = $ret;
     }
     
