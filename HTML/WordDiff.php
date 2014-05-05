@@ -181,7 +181,7 @@ class HTML_WordDiff
         $pageDom = new DomDocument('1.0');
         $pageDom->formatOutput = true;
 //        print_r(mb_detect_encoding($this->htmlDom));
-//        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8");
+        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8", 'HTML-ENTITIES',);
 //        print_r(mb_detect_encoding($searchPage));
         
         $searchPage = mb_convert_encoding($this->htmlDom, "big5");
