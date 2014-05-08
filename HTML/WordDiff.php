@@ -300,8 +300,10 @@ class HTML_WordDiff
                     "\x{20000}-\x{2A6DF}",    # CJK Unified Ideographs Extension B
                     "\x{2F800}-\x{2FA1F}"     # CJK Compatibility Ideographs Supplement
         )). ']';
-        return $ret;
+        
         print_R($ret);
+        return $ret;
+        
     }
     
     /**
