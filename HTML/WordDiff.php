@@ -220,9 +220,10 @@ class HTML_WordDiff
             
             preg_replace_callback('/'.$this->cjkpreg().'/', function($s) {
                 $words[] = $s;
-                return'',
+                return'';
                 
             }, $word);
+            
             foreach(preg_split('/\s+/u', $node->textContent) as $word) {
                 if($this->debug_on){
                     print_r(mb_detect_encoding($node->textContent));
