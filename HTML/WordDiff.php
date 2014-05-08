@@ -161,12 +161,7 @@ class HTML_WordDiff
                 continue;
             }
             
-            if($target == 'original'){
-                $this->countTotal++;
-            }else{
-                $this->targetTotal++;
-            }
-            
+             
             
             
             if(!isset($ret[$str])){
@@ -190,7 +185,11 @@ class HTML_WordDiff
             
             
         }
-        
+         if($target == 'original'){
+                $this->countTotal = array_sum(array_values($ret));
+            }else{
+                $this->targetTotal= array_sum(array_values($ret));
+            }
         $this->$target = $ret;
         $cache[md5($this->htmlDom)] = $ret;
     }
