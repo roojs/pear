@@ -282,8 +282,8 @@ class HTML_WordDiff
 //        }
 //        echo "ORIGINAL: ".print_r($this->original) ." \n \n TARGET: ". print_r($this->target) . "\n\n";
         $matchs = 0;
-        print_r($this->original);
-        print_r($this->target);exit;
+        //print_r($this->original);
+        //print_r($this->target);// exit;
         foreach($this->original as $k=>$t){
             if(!isset($this->target[$k])){
                 continue;
