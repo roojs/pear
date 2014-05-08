@@ -244,6 +244,8 @@ class HTML_WordDiff
             $str = preg_replace_callback('/'.$this->cjkpreg().'/u', array($this, 'addUTF8Word')  , $str);
             $words = $this->tmpWords;
             //var_dump($str);
+            $str = preg_replace('/[^\w]+/', ' ', $str);
+            
             foreach(preg_split('/\s+/u', $str) as $word) {
                 if($this->debug_on){
                     //print_r(mb_detect_encoding($node->textContent));
