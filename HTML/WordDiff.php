@@ -65,7 +65,8 @@ class HTML_WordDiff
      * 
      * @param Array $config
      * lang = language of article
-     * file = HTML file path or string
+     * file = name of file...
+     * string = string contents
      * 
      * @return type
      * 
