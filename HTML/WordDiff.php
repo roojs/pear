@@ -333,8 +333,8 @@ class HTML_WordDiff
             $this->htmlDom = $file['string'];
         }
         
-        $this->debug_on = true;
-        print_r('is target');
+//        $this->debug_on = true;
+//        print_r('is target');
         if(file_exists($file)){
             $this->htmlDom = file_get_contents($file);
         }
