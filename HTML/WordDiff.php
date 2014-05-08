@@ -178,7 +178,7 @@ class HTML_WordDiff
             // now deal with pairing..
             if ($last_w !== false) {
                 
-                if(!isset($ret[$str])){
+                if(!isset($ret[$last_w.'|'.$str])){
                     $ret[$last_w.'|'.$str] = 1;
 
                 } else {
