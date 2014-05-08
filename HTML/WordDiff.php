@@ -219,6 +219,8 @@ class HTML_WordDiff
         return $words;
     }
     
+    var $tmpWords = false;
+    
     function domExtractWords($node, $words)
     {
         if ($this->wordMax > 0 && count($words) >  $this->wordMax) {
@@ -233,14 +235,15 @@ class HTML_WordDiff
             $str = trim($node->textContent);
             //var_dump('xx'.$str);
             //var_dump($str);
+            $this->tmpWords = $words;
             $str = preg_replace_callback('/'.$this->cjkpreg().'/u', function($s) use  ($words) {
                
-                $words[] = $s[0];
+                $this->tmpWords[] = $s[0];
                 
                 return ' ';
                 
             }, $str);
-             
+            $words = $this->tmpWords;
             //var_dump($str);
             foreach(preg_split('/\s+/u', $str) as $word) {
                 if($this->debug_on){
