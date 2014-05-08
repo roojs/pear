@@ -210,7 +210,7 @@ class HTML_WordDiff
     
     function domExtractWords($node, $words)
     {
-        if (count($words) > 30000) {
+        if ($this->wordMax > 0 and count($words) > $this->wordMax) {
             return $words;
         }
         echo count($words) ."\n";
