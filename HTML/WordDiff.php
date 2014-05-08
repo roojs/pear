@@ -210,7 +210,7 @@ class HTML_WordDiff
     
     function domExtractWords($node, $words)
     {
-        
+        echo count($words);
         if (empty($node)) {
             return $words;
         }
