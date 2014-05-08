@@ -262,7 +262,7 @@ class HTML_WordDiff
     {
         
         if (is_array($file)) {
-            $this->htmlDom = $file['string']
+            $this->htmlDom = $file['string'];
         }
         
 //        $this->debug_on = true;
