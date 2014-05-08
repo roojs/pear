@@ -99,9 +99,11 @@ class HTML_WordDiff
             return;
         }
         
-        $this->htmlDom = $config['file'];
         
-        if(file_exists($config['file'])){
+        $this->htmlDom = isset($config['string']) ? $config['string'] : '';
+        
+        
+        if(isset($config['file']) && file_exists($config['file'])){
             $this->htmlDom = file_get_contents($config['file']);
         }
         
