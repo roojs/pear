@@ -28,6 +28,7 @@ class HTML_WordDiff
     var $target = array(); // diff target html words
     var $countTotal = 0; // Total words count form original html
     var $targetTotal = 0; // Total words count form target html
+    var $wordMax = -1;
     //word type classification
     var $nonSinoTibetan = array(//non Sino-Tibetan languages
         'aa',
