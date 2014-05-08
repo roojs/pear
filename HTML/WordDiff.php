@@ -206,7 +206,7 @@ class HTML_WordDiff
 //        }
 //        print_r(mb_detect_encoding($searchPage));
 //        print_r($searchPage);exit;
-       @ $pageDom->loadHTML($searchPage);
+       @ $pageDom->loadHTML('<?xml version="1.0" encoding="UTF-8"?>' . $searchPage);
 //        exit;
         $words = $this->domExtractWords($pageDom->documentElement, array());
 //         print_r($words);exit;
@@ -359,8 +359,8 @@ class HTML_WordDiff
 //        }
 //        echo "ORIGINAL: ".print_r($this->original) ." \n \n TARGET: ". print_r($this->target) . "\n\n";
         $matchs = 0;
-        print_r($this->original);
-        print_r($this->target);// exit;
+//        print_r($this->original);
+//        print_r($this->target);// exit;
         foreach($this->original as $k=>$t){
             if(!isset($this->target[$k])){
                 continue;
