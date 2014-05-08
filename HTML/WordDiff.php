@@ -273,6 +273,7 @@ class HTML_WordDiff
         if ($ret !== false) {
             return $ret;
         }
+        print_R($ret);
         $ret = '['.implode('', array(
                     "\x{2E80}-\x{2EFF}",      # CJK Radicals Supplement
                     "\x{2F00}-\x{2FDF}",      # Kangxi Radicals
