@@ -110,12 +110,7 @@ class HTML_WordDiff
         
         $this->lang = $config['lang'];
         
-        $this->_run();
-        
-    }
     
-    function _run()
-    {
         $m = 'buildWords';// default run sino-tibetan
         
         if(in_array($this->lang, $this->sinoTibetan)){
