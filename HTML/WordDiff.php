@@ -223,7 +223,7 @@ class HTML_WordDiff
     var $tmpWords = false;
     function addUTF8Word($s) {
         $this->tmpWords[] = $s[0];
-        print_r($this->tmpWords);
+//        print_r($this->tmpWords);
         return ' ';
     }
     
