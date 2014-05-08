@@ -231,15 +231,15 @@ class HTML_WordDiff
         if ($node->nodeType == XML_TEXT_NODE &&strlen(trim($node->textContent))) {// this is got the bug at sina....
             
             $str = trim($node->textContent);
-            var_dump('xx'.$str);
+            //var_dump('xx'.$str);
             //var_dump($str);
             $str = preg_replace_callback('/'.$this->cjkpreg().'/u', function($s) {
-                var_dump($s);
+                //var_dump($s);
                 $words[] = $s[0];
                 return ' ';
                 
             }, $str);
-            var_dump($str);
+            //var_dump($str);
             foreach(preg_split('/\s+/u', $str) as $word) {
                 if($this->debug_on){
                     //print_r(mb_detect_encoding($node->textContent));
