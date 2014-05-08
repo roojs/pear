@@ -88,7 +88,7 @@ class HTML_WordDiff
             trigger_error("the language is missing.");
             return;
         }
-        if(empty($config['file'])){
+        if(empty($config['file']) && !isset($config['string'])){
             trigger_error("File is missing");
             return;
         }
