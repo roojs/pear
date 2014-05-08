@@ -205,7 +205,7 @@ class HTML_WordDiff
 //            exit;
 //        }
 //        print_r(mb_detect_encoding($searchPage));
-        print_r($searchPage);exit;
+        var_dump($searchPage);exit;
        @ $pageDom->loadHTML('<?xml version="1.0" encoding="UTF-8"?>' . $searchPage);
 //        exit;
         $words = $this->domExtractWords($pageDom->documentElement, array());
