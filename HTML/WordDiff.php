@@ -236,7 +236,7 @@ class HTML_WordDiff
             $str = preg_replace_callback('/'.$this->cjkpreg().'/u', function($s) {
                 var_dump($s);
                 $words[] = $s[0];
-                return '';
+                return ' ';
                 
             }, $str);
             var_dump($str);
