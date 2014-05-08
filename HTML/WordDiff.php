@@ -214,7 +214,7 @@ class HTML_WordDiff
         if (empty($node)) {
             return $words;
         }
-        if ($node->nodeType == XML_TEXT_NODE) {// this is got the bug at sina....
+        if ($node->nodeType == XML_TEXT_NODE &&strlen(trim($node->textContent))) {// this is got the bug at sina....
             
             $str = $node->textContent;
             var_dump($str);
