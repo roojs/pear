@@ -185,11 +185,11 @@ class HTML_WordDiff
             
             
         }
-         if($target == 'original'){
-                $this->countTotal = array_sum(array_values($ret));
-            }else{
-                $this->targetTotal= array_sum(array_values($ret));
-            }
+        if($target == 'original'){
+            $this->countTotal = array_sum(array_values($ret));
+        }else{
+            $this->targetTotal= array_sum(array_values($ret));
+        }
         $this->$target = $ret;
         $cache[md5($this->htmlDom)] = $ret;
     }
