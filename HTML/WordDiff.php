@@ -217,6 +217,9 @@ class HTML_WordDiff
                     print_r(mb_detect_encoding($node->textContent));
                     print_r("\n");
                 }
+                if (!trim($word)) {
+                    continue;
+                }
                 $words[] = $word;
             }
             
