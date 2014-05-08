@@ -155,20 +155,40 @@ class HTML_WordDiff
             //exit;
         }
         $ret = array();
+        $last_w = false;
         foreach($a as $str){
-            if(empty($str)){
+            if(empty($str) || !trim(strlen($str)) {
                 continue;
             }
+            
             if($target == 'original'){
                 $this->countTotal++;
             }else{
                 $this->targetTotal++;
             }
+            
+            
+            
             if(!isset($ret[$str])){
                 $ret[$str] = 1;
-                continue;
+            
+            } else {
+                $ret[$str] += 1;
             }
-            $ret[$str] += 1;
+            // now deal with pairing..
+            if ($last_w !== false) {
+                
+                if(!isset($ret[$str])){
+                    $ret[$last_w.'|'.$str] = 1;
+
+                } else {
+                    $ret[$last_w.'|'.$str] += 1;
+                }    
+                
+            }
+            $last_w = $str;
+            
+            
         }
         
         $this->$target = $ret;
