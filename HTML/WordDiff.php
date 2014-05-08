@@ -253,13 +253,18 @@ class HTML_WordDiff
      * 
      * 
      * 
-     * @param string/file path $file
+     * @param (array|string) $file either file path or array('string'=>'....')
+     * 
      * @return int $percent percentage of match 
      * 
      */
     public function compare($file)
     {
-        $this->htmlDom = $file;
+        
+        if (is_array($file)) {
+            $this->htmlDom = $file['string']
+        }
+        
 //        $this->debug_on = true;
         if(file_exists($file)){
             $this->htmlDom = file_get_contents($file);
