@@ -220,6 +220,11 @@ class HTML_WordDiff
     }
     
     var $tmpWords = false;
+    function addUTF8Word($s) {
+          $this->tmpWords[] = $s[0];
+
+            return ' ';
+    }
     
     function domExtractWords($node, $words)
     {
@@ -236,13 +241,7 @@ class HTML_WordDiff
             //var_dump('xx'.$str);
             //var_dump($str);
             $this->tmpWords = $words;
-            $str = preg_replace_callback('/'.$this->cjkpreg().'/u', function($s) use  ($this) {
-               
-                $this->tmpWords[] = $s[0];
-                
-                return ' ';
-                
-            }, $str);
+            $str = preg_replace_callback('/'.$this->cjkpreg().'/u', array($this, 'addUTF8Word')  , $str);
             $words = $this->tmpWords;
             //var_dump($str);
             foreach(preg_split('/\s+/u', $str) as $word) {
