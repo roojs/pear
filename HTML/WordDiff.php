@@ -219,7 +219,7 @@ class HTML_WordDiff
             $str = $node->textContent;
             
             $str = preg_replace_callback('/'.$this->cjkpreg().'/u', function($s) {
-                var_dump($s[0]);
+                var_dump($s);
                 $words[] = $s[0];
                 return '';
                 
