@@ -191,7 +191,7 @@ class HTML_WordDiff
     function DomToStrings($target = '')
     {
         
-        $pageDom = new DomDocument('1.0');
+        $pageDom = new DomDocument('1.0', 'UTF-8');
         $pageDom->formatOutput = true;
         print_r(mb_detect_encoding($this->htmlDom));
         //$searchPage = mb_convert_encoding($this->htmlDom, "UTF-8",  "auto");
