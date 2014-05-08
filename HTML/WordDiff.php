@@ -248,7 +248,7 @@ class HTML_WordDiff
             
             foreach(preg_split('/\s+/u', $str) as $word) {
                 if($this->debug_on){
-                    //print_r(mb_detect_encoding($node->textContent));
+                    print_r(mb_detect_encoding($node->textContent));
                     //print_r("\n");
                 }
                 if (!trim($word)) {
