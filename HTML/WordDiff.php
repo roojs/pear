@@ -216,13 +216,13 @@ class HTML_WordDiff
         }
         if ($node->nodeType == XML_TEXT_NODE) {// this is got the bug at sina....
             
+            $str = $node->textContent;
             
-            
-            preg_replace_callback('/'.$this->cjkpreg().'/u', function($s) {
+            $str = preg_replace_callback('/'.$this->cjkpreg().'/u', function($s) {
                 $words[] = $s[0];
                 return '';
                 
-            }, $word);
+            }, $str);
             
             foreach(preg_split('/\s+/u', $node->textContent) as $word) {
                 if($this->debug_on){
