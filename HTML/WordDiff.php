@@ -196,8 +196,7 @@ class HTML_WordDiff
 //        print_r(mb_detect_encoding($this->htmlDom));
         $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8",  "auto");
 //        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8",  "HTML-ENTITIES");
-        print_r('print');
-        print_r($this->htmlDom);exit;
+//        echo $searchPage;
 //        print_r(mb_detect_encoding($searchPage));
         
 //        $searchPage = mb_convert_encoding($this->htmlDom, "big5");
@@ -206,11 +205,11 @@ class HTML_WordDiff
 //            exit;
 //        }
 //        print_r(mb_detect_encoding($searchPage));
-        var_dump($searchPage);exit;
+//        print_r($searchPage);exit;
        @ $pageDom->loadHTML('<?xml version="1.0" encoding="UTF-8"?>' . $searchPage);
 //        exit;
         $words = $this->domExtractWords($pageDom->documentElement, array());
-         print_r($words);exit;
+//         print_r($words);exit;
         
 //        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
         if($this->debug_on){
@@ -381,10 +380,9 @@ class HTML_WordDiff
             $matchs += $this->original[$k];
             
         }
-        print_r($matchs);
+//        print_r($matchs);
 //        print_r("\n");
-        print_R(($this->countTotal + $this->targetTotal));
-        exit;
+//        print_R(($this->countTotal + $this->targetTotal));  
 //        print_r("\n");
         $percent = ( $matchs / ($this->countTotal) * 100);
         return (int)$percent;
