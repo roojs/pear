@@ -215,7 +215,7 @@ class HTML_WordDiff
         if($this->debug_on){
             print_r('?????      ');
             print_r($words);
-             print_r($searchPage);
+             print_r('<?xml version="1.0" encoding="UTF-8"?>' . $searchPage);
 //            exit;
         }
         return $words;
