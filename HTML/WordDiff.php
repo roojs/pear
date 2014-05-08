@@ -236,7 +236,7 @@ class HTML_WordDiff
                 return '';
                 
             }, $str);
-           // var_dump($str);
+            var_dump($str);
             foreach(preg_split('/\s+/u', $str) as $word) {
                 if($this->debug_on){
                     //print_r(mb_detect_encoding($node->textContent));
