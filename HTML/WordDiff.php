@@ -303,7 +303,6 @@ class HTML_WordDiff
         
         print_R($ret);
         return $ret;
-        
     }
     
     /**
