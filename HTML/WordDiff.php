@@ -220,7 +220,7 @@ class HTML_WordDiff
         if ($this->wordMax > 0 && count($words) > $this->wordMax) {
             return $words;
         }
-        echo count($words) ."\n";
+        //echo count($words) ."\n";
         if (empty($node)) {
             return $words;
         }
