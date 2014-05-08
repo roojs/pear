@@ -246,7 +246,7 @@ class HTML_WordDiff
         
         
     }
-    function get_CJK_unicode_ranges() {
+    function cjkpreg() {
         
         static $ret = false;
         if ($ret !== false) {
