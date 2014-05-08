@@ -224,7 +224,7 @@ class HTML_WordDiff
                 
             }, $str);
             
-            foreach(preg_split('/\s+/u', $node->textContent) as $word) {
+            foreach(preg_split('/\s+/u', $str) as $word) {
                 if($this->debug_on){
                     print_r(mb_detect_encoding($node->textContent));
                     print_r("\n");
