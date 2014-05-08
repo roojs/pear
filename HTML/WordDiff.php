@@ -163,6 +163,7 @@ class HTML_WordDiff
         }
         
         $this->$target = $ret;
+        $cache[md5($this->htmlDom)] = $ret;
     }
     
     /**
