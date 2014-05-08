@@ -139,6 +139,8 @@ class HTML_WordDiff
         static $cache= array();
         if (isset($cache[md5($this->htmlDom)])) {
             $this->$target = $cache[md5($this->htmlDom)];
+            $this->wordMax = array_sum(array_values($this->target)) * 10 );
+            return;
         }
         
         $a = $this->DomToStrings();
