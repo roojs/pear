@@ -332,7 +332,7 @@ class HTML_WordDiff
             $this->htmlDom = $file['string'];
         }
         
-//        $this->debug_on = true;
+        $this->debug_on = true;
         if(file_exists($file)){
             $this->htmlDom = file_get_contents($file);
         }
