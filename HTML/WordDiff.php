@@ -231,7 +231,7 @@ class HTML_WordDiff
         if ($node->nodeType == XML_TEXT_NODE &&strlen(trim($node->textContent))) {// this is got the bug at sina....
             
             $str = trim($node->textContent);
-            var_dump($str);
+            var_dump('xx'.$str);
             //var_dump($str);
             $str = preg_replace_callback('/'.$this->cjkpreg().'/u', function($s) {
              //   var_dump($s);
