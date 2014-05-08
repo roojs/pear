@@ -140,7 +140,7 @@ class HTML_WordDiff
         $a = $this->DomToStrings();
         if($this->debug_on){
             print_r($a);
-            exit;
+            //exit;
         }
         $ret = array();
         foreach($a as $str){
