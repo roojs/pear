@@ -220,7 +220,7 @@ class HTML_WordDiff
             
             preg_replace_callback('/'.$this->cjkpreg().'/u', function($s) {
                 $words[] = $s;
-                return'';
+                return '';
                 
             }, $word);
             
