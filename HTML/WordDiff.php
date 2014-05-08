@@ -240,7 +240,7 @@ class HTML_WordDiff
                 return ' ';
                 
             }, $str);
-            var_dump($words); exit;
+            var_dump($words); 
             //var_dump($str);
             foreach(preg_split('/\s+/u', $str) as $word) {
                 if($this->debug_on){
