@@ -145,9 +145,9 @@ class HTML_WordDiff
             }
             
             if($target == 'original'){
-                $this->countTotal = array_sum(array_values($ret));
+                $this->countTotal = array_sum(array_values($this->$target));
             }else{
-                $this->targetTotal= array_sum(array_values($ret));
+                $this->targetTotal= array_sum(array_values($this->$target));
             }
             
             return;
