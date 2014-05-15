@@ -362,7 +362,7 @@ class HTML_WordDiff
         
 //        $this->debug_on = true;
 //        print_r('is target');
-        if( is_string($file) && file_exists($file)){
+        if(is_string($file) && file_exists($file)){
             $this->htmlDom = file_get_contents($file);
         }
         
