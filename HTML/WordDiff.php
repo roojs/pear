@@ -237,11 +237,11 @@ class HTML_WordDiff
 //            exit;
 //        }
 //        print_r(mb_detect_encoding($searchPage));
-        print_r($searchPage);
+      // print_r($searchPage);
        @ $pageDom->loadHTML('<?xml version="1.0" encoding="UTF-8"?>' . $searchPage);
 //        exit;
         $words = $this->domExtractWords($pageDom->documentElement, array());
-         print_r($words);exit;
+       // print_r($words);exit;
         
 //        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
         if($this->debug_on){
