@@ -282,7 +282,7 @@ class HTML_WordDiff
             }
             $words = $this->tmpWords;
             // remove puncutianion..
-            $str = preg_replace('/[^\w]+/', ' ', $str);
+            $str = preg_replace('/[^\w]+/u', ' ', $str);
             
             foreach(preg_split('/\s+/u', $str) as $word) {
                 if($this->debug_on){
