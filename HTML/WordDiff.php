@@ -125,6 +125,11 @@ class HTML_WordDiff
         $this->$m();
     }
     
+    function isSino()
+    {
+        return in_array($this->lang, $this->sinoTibetan);
+    }
+    
     /**
      * set the words array 
      * 
