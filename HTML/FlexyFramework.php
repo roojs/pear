@@ -22,6 +22,11 @@
 //  A Page (URL) to Object Mapper
 //  Cleaned up version.. - for use on new projects -- not BC!! beware!!!
 
+
+//-----------------------------------------------------------
+// Debian APACHE - some idiot disabled AcceptPathInfo - it needs adding back.
+//-----------------------------------------------------------
+
  
  
 // Initialize Static Options
