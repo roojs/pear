@@ -469,7 +469,7 @@ class PEAR
      * @see PEAR::setErrorHandling
      * @since PHP 4.0.5
      */
-    static function &raiseError($message = null,
+    function &raiseError($message = null,
                          $code = null,
                          $mode = null,
                          $options = null,
@@ -485,7 +485,7 @@ class PEAR
             $message->error_message_prefix = '';
             $message     = $message->getMessage();
         }
-        /*
+
         if (
             isset($this) &&
             isset($this->_expected_errors) &&
@@ -499,7 +499,6 @@ class PEAR
                 $mode = PEAR_ERROR_RETURN;
             }
         }
-        */
 
         // No mode given, try global ones
         if ($mode === null) {
