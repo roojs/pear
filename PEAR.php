@@ -302,13 +302,13 @@ class PEAR
      */
     function setErrorHandling($mode = null, $options = null)
     {
-        if (isset($this) && is_a($this, 'PEAR')) {
-            $setmode     = &$this->_default_error_mode;
-            $setoptions  = &$this->_default_error_options;
-        } else {
+        //if (isset($this) && is_a($this, 'PEAR')) {
+        //    $setmode     = &$this->_default_error_mode;
+        //    $setoptions  = &$this->_default_error_options;
+        //} else {
             $setmode     = &$GLOBALS['_PEAR_default_error_mode'];
             $setoptions  = &$GLOBALS['_PEAR_default_error_options'];
-        }
+        //}
 
         switch ($mode) {
             case PEAR_ERROR_EXCEPTION:
