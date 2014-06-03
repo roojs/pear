@@ -538,7 +538,7 @@ class Console_Getargs
  * @license  http://www.php.net/license/3_0.txt PHP License 3.0
  * @link     http://pear.php.net/package/Console_Getargs
  */
-class Console_Getargs_Options
+class Console_Getargs_Options extends PEAR
 {
 
     /**
