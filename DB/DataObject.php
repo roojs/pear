@@ -2774,7 +2774,7 @@ class DB_DataObject extends DB_DataObject_Overload
     
     
 
-    function factory($table = '')
+    static function factory($table = '')
     {
         global $_DB_DATAOBJECT;
         
@@ -2798,7 +2798,7 @@ class DB_DataObject extends DB_DataObject_Overload
        }
         
        
-        
+        /*
         if ($table === '') {
             if (is_a($this,'DB_DataObject') && strlen($this->tableName())) {
                 $table = $this->tableName();
@@ -2809,6 +2809,7 @@ class DB_DataObject extends DB_DataObject_Overload
             }
         }
         
+        */
         // does this need multi db support??
         $cp = isset($_DB_DATAOBJECT['CONFIG']['class_prefix']) ?
             explode(PATH_SEPARATOR, $_DB_DATAOBJECT['CONFIG']['class_prefix']) : '';
