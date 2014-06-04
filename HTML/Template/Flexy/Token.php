@@ -192,7 +192,7 @@ class HTML_Template_Flexy_Token {
     * @static
     */
   
-    function buildTokens($tokenizer) 
+    static function buildTokens($tokenizer) 
     {
     
         global $_HTML_TEMPLATE_FLEXY_TOKEN;
