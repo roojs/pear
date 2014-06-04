@@ -409,7 +409,7 @@ class HTML_Template_Flexy_Token {
     * @access   public
     * @static
     */
-    function buildChildren($id) 
+    static function buildChildren($id) 
     {
         global $_HTML_TEMPLATE_FLEXY_TOKEN;
         
