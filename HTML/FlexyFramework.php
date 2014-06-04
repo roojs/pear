@@ -41,7 +41,7 @@ require_once 'DB/DataObject.php';
 
 // remove E_ANAL - and depricated as it's a mess.
  
-error_reporting(E_ALL & ~E_STRICT & ~E_DEPRICATED);
+error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED);
 //ini_set('display_errors','off');
 //ini_set('log_errors','off');
 
