@@ -39,9 +39,9 @@ require_once 'DB/DataObject.php';
 // To be removed ?? or made optional or something..
  
 
-// remove E_ANAL
+// remove E_ANAL - and depricated as it's a mess.
  
-error_reporting(E_ALL & ~E_STRICT);
+error_reporting(E_ALL & ~E_STRICT & ~E_DEPRICATED);
 //ini_set('display_errors','off');
 //ini_set('log_errors','off');
 
