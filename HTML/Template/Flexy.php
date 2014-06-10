@@ -288,11 +288,6 @@ class HTML_Template_Flexy
         $ret = false;
         foreach ($dirs as $tmplDir) {
             if (@!file_exists($tmplDir . DIRECTORY_SEPARATOR .$file)) {
-                
-                print_r($tmplDir);
-                echo "<br/>";
-                print_r($file);
-                echo "<br/>";
                 continue;
             }
             
