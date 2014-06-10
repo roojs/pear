@@ -345,6 +345,7 @@ class HTML_Template_Flexy
         $this->currentTemplate  = false;
         
         if (preg_match('/(.*)(\.[a-z]+)$/i',$file,$parts)) {
+            print_r($parts);exit;
             $newfile = $parts[1].'.'.$this->options['locale'] .$parts[2];
             //var_dump($newfile);
             $match = $this->resolvePath($newfile);
