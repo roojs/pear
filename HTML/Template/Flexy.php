@@ -285,7 +285,6 @@ class HTML_Template_Flexy
         if ($this->options['templateDirOrder'] == 'reverse') {
             $dirs = array_reverse($dirs);
         }
-        print_r($dirs);exit;
         $ret = false;
         foreach ($dirs as $tmplDir) {
             if (@!file_exists($tmplDir . DIRECTORY_SEPARATOR .$file)) {
