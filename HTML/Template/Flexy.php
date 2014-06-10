@@ -290,7 +290,7 @@ class HTML_Template_Flexy
             if (@!file_exists($tmplDir . DIRECTORY_SEPARATOR .$file)) {
                 continue;
             }
-            print_r($file);exit;
+            print_r('run');exit;
             if (!$this->options['multiSource'] && ($ret !== false)) {
                   return $this->raiseError("You have more than one template Named {$file} in your paths, found in both".
                         "<BR>{$this->currentTemplate }<BR>{$tmplDir}" . DIRECTORY_SEPARATOR . $file,  
