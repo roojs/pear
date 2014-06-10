@@ -68,7 +68,7 @@ class System
      * @static
      * @access private
      */
-    function _parseArgs($argv, $short_options, $long_options = null)
+    static function _parseArgs($argv, $short_options, $long_options = null)
     {
         if (!is_array($argv) && $argv !== null) {
             // Find all items, quoted or otherwise
@@ -93,7 +93,7 @@ class System
      * @static
      * @access private
      */
-    function raiseError($error)
+    static function raiseError($error)
     {
         if (PEAR::isError($error)) {
             $error = $error->getMessage();
@@ -127,7 +127,7 @@ class System
      * @static
      * @access   private
      */
-    function _dirToStruct($sPath, $maxinst, $aktinst = 0, $silent = false)
+   static  function _dirToStruct($sPath, $maxinst, $aktinst = 0, $silent = false)
     {
         $struct = array('dirs' => array(), 'files' => array());
         if (($dir = @opendir($sPath)) === false) {
@@ -170,7 +170,7 @@ class System
      * @static
      * @see System::_dirToStruct()
      */
-    function _multipleToStruct($files)
+    static function _multipleToStruct($files)
     {
         $struct = array('dirs' => array(), 'files' => array());
         settype($files, 'array');
@@ -196,7 +196,7 @@ class System
      * @static
      * @access   public
      */
-    function rm($args)
+    static function rm($args)
     {
         $opts = System::_parseArgs($args, 'rf'); // "f" does nothing but I like it :-)
         if (PEAR::isError($opts)) {
@@ -242,7 +242,7 @@ class System
      * @static
      * @access   public
      */
-    function mkDir($args)
+    static function mkDir($args)
     {
         $opts = System::_parseArgs($args, 'pm:');
         if (PEAR::isError($opts)) {
@@ -313,7 +313,7 @@ class System
      * @static
      * @access   public
      */
-    function &cat($args)
+    static function &cat($args)
     {
         $ret = null;
         $files = array();
@@ -440,7 +440,7 @@ class System
      * @static
      * @access private
      */
-    function _removeTmpFiles()
+    static function _removeTmpFiles()
     {
         if (count($GLOBALS['_System_temp_files'])) {
             $delete = $GLOBALS['_System_temp_files'];
@@ -459,7 +459,7 @@ class System
      * @static
      * @return string The temporary directory on the system
      */
-    function tmpdir()
+    static function tmpdir()
     {
         if (OS_WINDOWS) {
             if ($var = isset($_ENV['TMP']) ? $_ENV['TMP'] : getenv('TMP')) {
@@ -564,7 +564,7 @@ class System
      * @static
      *
      */
-    function find($args)
+    static function find($args)
     {
         if (!is_array($args)) {
             $args = preg_split('/\s+/', $args, -1, PREG_SPLIT_NO_EMPTY);
