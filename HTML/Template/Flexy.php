@@ -291,6 +291,8 @@ class HTML_Template_Flexy
                 
                 print_r($tmplDir);
                 echo "<br/>";
+                print_r($file);
+                echo "<br/>";
                 continue;
             }
             
