@@ -286,6 +286,7 @@ class HTML_Template_Flexy
             $dirs = array_reverse($dirs);
         }
         $ret = false;
+        print_r($file);exit;
         foreach ($dirs as $tmplDir) {
             if (@!file_exists($tmplDir . DIRECTORY_SEPARATOR .$file)) {
                 continue;
