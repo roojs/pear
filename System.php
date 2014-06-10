@@ -492,7 +492,7 @@ class System
      * @static
      * @author Stig Bakken <ssb@php.net>
      */
-    function which($program, $fallback = false)
+    static function which($program, $fallback = false)
     {
         // enforce API
         if (!is_string($program) || '' == $program) {
