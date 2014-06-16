@@ -2778,7 +2778,7 @@ class DB_DataObject extends DB_DataObject_Overload
     {
         global $_DB_DATAOBJECT;
         
-        
+        print_r($table);
         // multi-database support.. - experimental.
         $database = '';
        
