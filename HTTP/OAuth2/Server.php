@@ -250,7 +250,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
      */
     public function handleTokenRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null)
     {
-        $this->response = is_null($response) ? new Response() : $response;
+        $this->response = is_null($response) ? new HTTP_OAuth2_Response() : $response;
         $this->getTokenController()->handleTokenRequest($request, $this->response);
 
         return $this->response;
@@ -258,7 +258,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
 
     public function grantAccessToken(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null)
     {
-        $this->response = is_null($response) ? new Response() : $response;
+        $this->response = is_null($response) ? new HTTP_OAuth2_Response() : $response;
         $value = $this->getTokenController()->grantAccessToken($request, $this->response);
 
         return $value;
@@ -321,7 +321,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
      */
     public function validateAuthorizeRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null)
     {
-        $this->response = is_null($response) ? new Response() : $response;
+        $this->response = is_null($response) ? new HTTP_OAuth2_Response() : $response;
         $value = $this->getAuthorizeController()->validateAuthorizeRequest($request, $this->response);
 
         return $value;
@@ -329,7 +329,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
 
     public function verifyResourceRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null, $scope = null)
     {
-        $this->response = is_null($response) ? new Response() : $response;
+        $this->response = is_null($response) ? new HTTP_OAuth2_Response() : $response;
         $value = $this->getResourceController()->verifyResourceRequest($request, $this->response, $scope);
 
         return $value;
@@ -337,7 +337,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
 
     public function getAccessTokenData(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null)
     {
-        $this->response = is_null($response) ? new Response() : $response;
+        $this->response = is_null($response) ? new HTTP_OAuth2_Response() : $response;
         $value = $this->getResourceController()->getAccessTokenData($request, $this->response);
 
         return $value;
