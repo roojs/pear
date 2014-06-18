@@ -387,7 +387,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
                 }
             }
         } elseif (!is_null($key) && !is_numeric($key)) {
-            throw new \InvalidArgumentException(sprintf('unknown storage key "%s", must be one of [%s]', $key, implode(', ', array_keys($this->storageMap))));
+            throw new InvalidArgumentException(sprintf('unknown storage key "%s", must be one of [%s]', $key, implode(', ', array_keys($this->storageMap))));
         } else {
             $set = false;
             foreach ($this->storageMap as $type => $interface) {
@@ -398,12 +398,12 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
             }
 
             if (!$set) {
-                throw new \InvalidArgumentException(sprintf('storage of class "%s" must implement one of [%s]', get_class($storage), implode(', ', $this->storageMap)));
+                throw new InvalidArgumentException(sprintf('storage of class "%s" must implement one of [%s]', get_class($storage), implode(', ', $this->storageMap)));
             }
         }
     }
 
-    public function addResponseType(ResponseTypeInterface $responseType, $key = null)
+    public function addResponseType(HTTP_OAuth2_ResponseType_ResponseTypeInterface $responseType, $key = null)
     {
         if (isset($this->responseTypeMap[$key])) {
             if (!$responseType instanceof $this->responseTypeMap[$key]) {
