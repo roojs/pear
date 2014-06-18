@@ -248,7 +248,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
      *
      * @ingroup oauth2_section_4
      */
-    public function handleTokenRequest(RequestInterface $request, ResponseInterface $response = null)
+    public function handleTokenRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null)
     {
         $this->response = is_null($response) ? new Response() : $response;
         $this->getTokenController()->handleTokenRequest($request, $this->response);
@@ -256,7 +256,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
         return $this->response;
     }
 
-    public function grantAccessToken(RequestInterface $request, ResponseInterface $response = null)
+    public function grantAccessToken(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null)
     {
         $this->response = is_null($response) ? new Response() : $response;
         $value = $this->getTokenController()->grantAccessToken($request, $this->response);
@@ -292,7 +292,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
      *
      * @ingroup oauth2_section_4
      */
-    public function handleAuthorizeRequest(RequestInterface $request, ResponseInterface $response, $is_authorized, $user_id = null)
+    public function handleAuthorizeRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response, $is_authorized, $user_id = null)
     {
         $this->response = $response;
         $this->getAuthorizeController()->handleAuthorizeRequest($request, $this->response, $is_authorized, $user_id);
@@ -319,7 +319,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
      *
      * @ingroup oauth2_section_3
      */
-    public function validateAuthorizeRequest(RequestInterface $request, ResponseInterface $response = null)
+    public function validateAuthorizeRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null)
     {
         $this->response = is_null($response) ? new Response() : $response;
         $value = $this->getAuthorizeController()->validateAuthorizeRequest($request, $this->response);
@@ -327,7 +327,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
         return $value;
     }
 
-    public function verifyResourceRequest(RequestInterface $request, ResponseInterface $response = null, $scope = null)
+    public function verifyResourceRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null, $scope = null)
     {
         $this->response = is_null($response) ? new Response() : $response;
         $value = $this->getResourceController()->verifyResourceRequest($request, $this->response, $scope);
@@ -335,7 +335,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
         return $value;
     }
 
-    public function getAccessTokenData(RequestInterface $request, ResponseInterface $response = null)
+    public function getAccessTokenData(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null)
     {
         $this->response = is_null($response) ? new Response() : $response;
         $value = $this->getResourceController()->getAccessTokenData($request, $this->response);
@@ -343,7 +343,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
         return $value;
     }
 
-    public function addGrantType(GrantTypeInterface $grantType, $key = null)
+    public function addGrantType(HTTP_OAuth2_GrantType_GrantTypeInterface $grantType, $key = null)
     {
         if (is_string($key)) {
             $this->grantTypes[$key] = $grantType;
