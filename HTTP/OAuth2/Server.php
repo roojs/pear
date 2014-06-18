@@ -567,7 +567,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
         if (isset($this->storages['authorization_code'])) {
             $config = array_intersect_key($this->config, array_flip(explode(' ', 'enforce_redirect auth_code_lifetime')));
             if ($this->config['use_openid_connect']) {
-                if (!$this->storages['authorization_code'] instanceof OpenIDAuthorizationCodeInterface) {
+                if (!$this->storages['authorization_code'] instanceof HTTP_OAuth2_OpenID_Storage_AuthorizationCodeInterface) {
                     throw new \LogicException("Your authorization_code storage must implement OAuth2\OpenID\Storage\AuthorizationCodeInterface to work when 'use_openid_connect' is true");
                 }
                 $responseTypes['code'] = new OpenIDAuthorizationCodeResponseType($this->storages['authorization_code'], $config);
