@@ -490,12 +490,12 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
         }
 
         if (!isset($this->storages['client'])) {
-            throw new \LogicException("You must supply a storage object implementing OAuth2\Storage\ClientInterface to use the token server");
+            throw new LogicException("You must supply a storage object implementing OAuth2\Storage\ClientInterface to use the token server");
         }
 
         $accessTokenResponseType = $this->getAccessTokenResponseType();
 
-        return new TokenController($accessTokenResponseType, $this->storages['client'], $this->grantTypes, $this->clientAssertionType, $this->getScopeUtil());
+        return new HTTP_OAuth2_Controller_TokenController($accessTokenResponseType, $this->storages['client'], $this->grantTypes, $this->clientAssertionType, $this->getScopeUtil());
     }
 
     protected function createDefaultResourceController()
