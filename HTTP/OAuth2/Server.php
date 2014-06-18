@@ -1,13 +1,13 @@
 <?php
 
-require_once 'HTTP/OAuth2/Controller/HTTP_OAuth2_ResourceControllerInterface';
-require_once 'HTTP/OAuth2/Controller/HTTP_OAuth2_ResourceController';
-require_once 'HTTP/OAuth2/OpenID/Controller/HTTP_OAuth2_UserInfoControllerInterface';
-require_once 'HTTP/OAuth2/OpenID/Controller/HTTP_OAuth2_UserInfoController';
-require_once 'HTTP/OAuth2/OpenID/Controller/HTTP_OAuth2_AuthorizeController';
-require_once 'HTTP/OAuth2/OpenID/ResponseType/HTTP_OAuth2_AuthorizationCode';
-require_once 'HTTP/OAuth2/OpenID/Storage/HTTP_OAuth2_AuthorizationCodeInterface';
-require_once 'HTTP/OAuth2/OpenID/GrantType/HTTP_OAuth2_AuthorizationCode';
+require_once 'HTTP/OAuth2/Controller/HTTP_OAuth2_Controller_ResourceControllerInterface';
+require_once 'HTTP/OAuth2/Controller/HTTP_OAuth2_Controller_ResourceController';
+require_once 'HTTP/OAuth2/OpenID/Controller/HTTP_OAuth2_OpenID_Controller_UserInfoControllerInterface';
+require_once 'HTTP/OAuth2/OpenID/Controller/HTTP_OAuth2_OpenID_Controller_UserInfoController';
+require_once 'HTTP/OAuth2/OpenID/Controller/HTTP_OAuth2_OpenID_Controller_AuthorizeController';
+require_once 'HTTP/OAuth2/OpenID/ResponseType/HTTP_OAuth2_OpenID_ResponseType_AuthorizationCode';
+require_once 'HTTP/OAuth2/OpenID/Storage/HTTP_OAuth2_OpenID_Storage_AuthorizationCodeInterface';
+require_once 'HTTP/OAuth2/OpenID/GrantType/HTTP_OAuth2_OpenID_GrantType_AuthorizationCode';
 require_once 'HTTP/OAuth2/Controller/HTTP_OAuth2_AuthorizeControllerInterface';
 require_once 'HTTP/OAuth2/Controller/HTTP_OAuth2_AuthorizeController';
 require_once 'HTTP/OAuth2/Controller/HTTP_OAuth2_TokenControllerInterface';
