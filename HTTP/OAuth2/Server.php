@@ -407,11 +407,11 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
     {
         if (isset($this->responseTypeMap[$key])) {
             if (!$responseType instanceof $this->responseTypeMap[$key]) {
-                throw new \InvalidArgumentException(sprintf('responseType of type "%s" must implement interface "%s"', $key, $this->responseTypeMap[$key]));
+                throw new InvalidArgumentException(sprintf('responseType of type "%s" must implement interface "%s"', $key, $this->responseTypeMap[$key]));
             }
             $this->responseTypes[$key] = $responseType;
         } elseif (!is_null($key) && !is_numeric($key)) {
-            throw new \InvalidArgumentException(sprintf('unknown responseType key "%s", must be one of [%s]', $key, implode(', ', array_keys($this->responseTypeMap))));
+            throw new InvalidArgumentException(sprintf('unknown responseType key "%s", must be one of [%s]', $key, implode(', ', array_keys($this->responseTypeMap))));
         } else {
             $set = false;
             foreach ($this->responseTypeMap as $type => $interface) {
@@ -422,7 +422,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
             }
 
             if (!$set) {
-                throw new \InvalidArgumentException(sprintf('Unknown response type %s.  Please implement one of [%s]', get_class($responseType), implode(', ', $this->responseTypeMap)));
+                throw new InvalidArgumentException(sprintf('Unknown response type %s.  Please implement one of [%s]', get_class($responseType), implode(', ', $this->responseTypeMap)));
             }
         }
     }
