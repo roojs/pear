@@ -722,7 +722,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
 
     protected function createDefaultTokenIdTokenResponseType()
     {
-        return new TokenIdToken($this->getAccessTokenResponseType(), $this->getIdTokenResponseType());
+        return new HTTP_OAuth2_OpenID_ResponseType_TokenIdToken($this->getAccessTokenResponseType(), $this->getIdTokenResponseType());
     }
 
     public function getResponse()
