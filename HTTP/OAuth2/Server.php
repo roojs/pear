@@ -522,15 +522,15 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
     {
         if ($this->config['use_crypto_tokens']) {
             // overwrites access token storage with crypto token storage if "use_crypto_tokens" is set
-            if (!isset($this->storages['access_token']) || !$this->storages['access_token'] instanceof CryptoTokenInterface) {
+            if (!isset($this->storages['access_token']) || !$this->storages['access_token'] instanceof HTTP_OAuth2_Storage_CryptoTokenInterface) {
                 $this->storages['access_token'] = $this->createDefaultCryptoTokenStorage();
             }
         } elseif (!isset($this->storages['access_token'])) {
-            throw new \LogicException("You must supply a storage object implementing OAuth2\Storage\AccessTokenInterface or use CryptoTokens to use the UserInfo server");
+            throw new LogicException("You must supply a storage object implementing OAuth2\Storage\AccessTokenInterface or use CryptoTokens to use the UserInfo server");
         }
 
         if (!isset($this->storages['user_claims'])) {
-            throw new \LogicException("You must supply a storage object implementing OAuth2\OpenID\Storage\UserClaimsInterface to use the UserInfo server");
+            throw new LogicException("You must supply a storage object implementing OAuth2\OpenID\Storage\UserClaimsInterface to use the UserInfo server");
         }
 
         if (!$this->tokenType) {
@@ -539,7 +539,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
 
         $config = array_intersect_key($this->config, array('www_realm' => ''));
 
-        return new UserInfoController($this->tokenType, $this->storages['access_token'], $this->storages['user_claims'], $config, $this->getScopeUtil());
+        return new HTTP_OAuth2_OpenID_Controller_UserInfoController($this->tokenType, $this->storages['access_token'], $this->storages['user_claims'], $config, $this->getScopeUtil());
     }
 
     protected function getDefaultTokenType()
