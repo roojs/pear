@@ -1,5 +1,7 @@
 <?php
 
+namespace OAuth2;
+
 use OAuth2\Controller\ResourceControllerInterface;
 use OAuth2\Controller\ResourceController;
 use OAuth2\OpenID\Controller\UserInfoControllerInterface;
@@ -38,7 +40,7 @@ use OAuth2\Storage\CryptoTokenInterface;
 * @see OAuth2\Controller\AuthorizeController
 * @see OAuth2\Controller\TokenController
 */
-class OAuth2_Server implements ResourceControllerInterface,
+class Server implements ResourceControllerInterface,
     AuthorizeControllerInterface,
     TokenControllerInterface,
     UserInfoControllerInterface
