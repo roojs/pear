@@ -656,14 +656,14 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
     protected function createDefaultCryptoTokenStorage()
     {
         if (!isset($this->storages['public_key'])) {
-            throw new \LogicException("You must supply a storage object implementing OAuth2\Storage\PublicKeyInterface to use crypto tokens");
+            throw new LogicException("You must supply a storage object implementing OAuth2\Storage\PublicKeyInterface to use crypto tokens");
         }
         $tokenStorage = null;
         if (!empty($this->config['store_encrypted_token_string']) && isset($this->storages['access_token'])) {
             $tokenStorage = $this->storages['access_token'];
         }
         // wrap the access token storage as required.
-        return new CryptoTokenStorage($this->storages['public_key'], $tokenStorage);
+        return new HTTP_OAuth2_Storage_CryptoToken($this->storages['public_key'], $tokenStorage);
     }
 
     /**
@@ -672,7 +672,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
     protected function createDefaultCryptoTokenResponseType()
     {
         if (!isset($this->storages['public_key'])) {
-            throw new \LogicException("You must supply a storage object implementing OAuth2\Storage\PublicKeyInterface to use crypto tokens");
+            throw new LogicException("You must supply a storage object implementing OAuth2\Storage\PublicKeyInterface to use crypto tokens");
         }
 
         $tokenStorage = null;
