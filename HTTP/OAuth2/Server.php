@@ -687,13 +687,13 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
 
         $config = array_intersect_key($this->config, array_flip(explode(' ', 'store_encrypted_token_string')));
 
-        return new CryptoToken($this->storages['public_key'], $tokenStorage, $refreshStorage, $config);
+        return new HTTP_OAuth2_ResponseType_CryptoToken($this->storages['public_key'], $tokenStorage, $refreshStorage, $config);
     }
 
     protected function createDefaultAccessTokenResponseType()
     {
         if (!isset($this->storages['access_token'])) {
-            throw new \LogicException("You must supply a response type implementing OAuth2\ResponseType\AccessTokenInterface, or a storage object implementing OAuth2\Storage\AccessTokenInterface to use the token server");
+            throw new LogicException("You must supply a response type implementing OAuth2\ResponseType\AccessTokenInterface, or a storage object implementing OAuth2\Storage\AccessTokenInterface to use the token server");
         }
 
         $refreshStorage = null;
@@ -704,7 +704,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
         $config = array_intersect_key($this->config, array_flip(explode(' ', 'access_lifetime refresh_token_lifetime')));
         $config['token_type'] = $this->tokenType ? $this->tokenType->getTokenType() :  $this->getDefaultTokenType()->getTokenType();
 
-        return new AccessToken($this->storages['access_token'], $refreshStorage, $config);
+        return new HTTP_OAuth2_ResponseType_AccessToken($this->storages['access_token'], $refreshStorage, $config);
     }
 
     protected function createDefaultIdTokenResponseType()
