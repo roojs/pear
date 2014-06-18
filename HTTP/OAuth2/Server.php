@@ -100,7 +100,7 @@ class HTTP_OAuth2_Server implements HTTP_OAuth2_ResourceControllerInterface,
      *
      * @ingroup oauth2_section_7
      */
-    public function __construct($storage = array(), array $config = array(), array $grantTypes = array(), array $responseTypes = array(), HTTP_OAuth2_TokenType_TokenTypeInterface $tokenType = null, ScopeInterface $scopeUtil = null, ClientAssertionTypeInterface $clientAssertionType = null)
+    public function __construct($storage = array(), array $config = array(), array $grantTypes = array(), array $responseTypes = array(), HTTP_OAuth2_TokenType_TokenTypeInterface $tokenType = null, HTTP_OAuth2_ScopeInterface $scopeUtil = null, HTTP_OAuth2_ClientAssertionType_ClientAssertionTypeInterface $clientAssertionType = null)
     {
         $storage = is_array($storage) ? $storage : array($storage);
         $this->storages = array();
