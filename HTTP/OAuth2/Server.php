@@ -588,7 +588,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
         $grantTypes = array();
 
         if (isset($this->storages['user_credentials'])) {
-            $grantTypes['password'] = new UserCredentials($this->storages['user_credentials']);
+            $grantTypes['password'] = new HTTP_OAuth2_GrantType_UserCredentials($this->storages['user_credentials']);
         }
 
         if (isset($this->storages['client_credentials'])) {
