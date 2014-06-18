@@ -38,10 +38,10 @@ require_once 'HTTP/OAuth2/Storage/CryptoTokenInterface';
 * @see OAuth2\Controller\AuthorizeController
 * @see OAuth2\Controller\TokenController
 */
-class Server implements ResourceControllerInterface,
-    AuthorizeControllerInterface,
-    TokenControllerInterface,
-    UserInfoControllerInterface
+class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
+    HTTP_OAuth2_Controller_AuthorizeControllerInterface,
+    HTTP_OAuth2_Controller_TokenControllerInterface,
+    HTTP_OAuth2_OpenID_Controller_UserInfoControllerInterface
 {
     // misc properties
     protected $response;
@@ -176,7 +176,7 @@ class Server implements ResourceControllerInterface,
     /**
      * every getter deserves a setter
      */
-    public function setAuthorizeController(AuthorizeControllerInterface $authorizeController)
+    public function setAuthorizeController(HTTP_OAuth2_Controller_AuthorizeControllerInterface $authorizeController)
     {
         $this->authorizeController = $authorizeController;
     }
@@ -184,7 +184,7 @@ class Server implements ResourceControllerInterface,
     /**
      * every getter deserves a setter
      */
-    public function setTokenController(TokenControllerInterface $tokenController)
+    public function setTokenController(HTTP_OAuth2_Controller_TokenControllerInterface $tokenController)
     {
         $this->tokenController = $tokenController;
     }
@@ -192,7 +192,7 @@ class Server implements ResourceControllerInterface,
     /**
      * every getter deserves a setter
      */
-    public function setResourceController(ResourceControllerInterface $resourceController)
+    public function setResourceController(HTTP_OAuth2_Controller_ResourceControllerInterface $resourceController)
     {
         $this->resourceController = $resourceController;
     }
@@ -200,7 +200,7 @@ class Server implements ResourceControllerInterface,
     /**
      * every getter deserves a setter
      */
-    public function setUserInfoController(UserInfoControllerInterface $userInfoController)
+    public function setUserInfoController(HTTP_OAuth2_OpenID_Controller_UserInfoControllerInterface $userInfoController)
     {
         $this->userInfoController = $userInfoController;
     }
