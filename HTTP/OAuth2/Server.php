@@ -1,7 +1,5 @@
 <?php
 
-
-
 require_once 'HTTP/OAuth2/Controller/HTTP_OAuth2_ResourceControllerInterface';
 require_once 'HTTP/OAuth2/Controller/HTTP_OAuth2_ResourceController';
 require_once 'HTTP/OAuth2/OpenID/Controller/HTTP_OAuth2_UserInfoControllerInterface';
