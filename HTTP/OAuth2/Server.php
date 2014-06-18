@@ -2,7 +2,6 @@
 
 namespace OAuth2;
 
-
 use OAuth2\Controller\ResourceControllerInterface;
 use OAuth2\Controller\ResourceController;
 use OAuth2\OpenID\Controller\UserInfoControllerInterface;
