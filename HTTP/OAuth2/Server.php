@@ -478,7 +478,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
         if (is_null($this->clientAssertionType)) {
             // see if HttpBasic assertion type is requred.  If so, then create it from storage classes.
             foreach ($this->grantTypes as $grantType) {
-                if (!$grantType instanceof ClientAssertionTypeInterface) {
+                if (!$grantType instanceof HTTP_OAuth2_ClientAssertionType_ClientAssertionTypeInterface) {
                     if (!isset($this->storages['client_credentials'])) {
                         throw new \LogicException("You must supply a storage object implementing OAuth2\Storage\ClientCredentialsInterface to use the token server");
                     }
