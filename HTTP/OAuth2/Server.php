@@ -220,7 +220,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
      *
      * @see http://openid.net/specs/openid-connect-core-1_0.html#UserInfo
      */
-    public function handleUserInfoRequest(RequestInterface $request, ResponseInterface $response = null)
+    public function handleUserInfoRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null)
     {
         $this->response = is_null($response) ? new Response() : $response;
         $this->getUserInfoController()->handleUserInfoRequest($request, $this->response);
