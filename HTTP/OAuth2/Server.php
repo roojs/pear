@@ -515,7 +515,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
 
         $config = array_intersect_key($this->config, array('www_realm' => ''));
 
-        return new ResourceController($this->tokenType, $this->storages['access_token'], $config, $this->getScopeUtil());
+        return new HTTP_OAuth2_Controller_ResourceController($this->tokenType, $this->storages['access_token'], $config, $this->getScopeUtil());
     }
 
     protected function createDefaultUserInfoController()
