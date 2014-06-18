@@ -62,22 +62,22 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
     protected $clientAssertionType;
 
     protected $storageMap = array(
-        'access_token' => 'OAuth2\Storage\AccessTokenInterface',
-        'authorization_code' => 'OAuth2\Storage\AuthorizationCodeInterface',
-        'client_credentials' => 'OAuth2\Storage\ClientCredentialsInterface',
-        'client' => 'OAuth2\Storage\ClientInterface',
-        'refresh_token' => 'OAuth2\Storage\RefreshTokenInterface',
-        'user_credentials' => 'OAuth2\Storage\UserCredentialsInterface',
-        'user_claims' => 'OAuth2\OpenID\Storage\UserClaimsInterface',
-        'public_key' => 'OAuth2\Storage\PublicKeyInterface',
-        'jwt_bearer' => 'OAuth2\Storage\JWTBearerInterface',
-        'scope' => 'OAuth2\Storage\ScopeInterface',
+        'access_token' => 'HTTP_OAuth2_Storage_AccessTokenInterface',
+        'authorization_code' => 'HTTP_OAuth2_Storage_AuthorizationCodeInterface',
+        'client_credentials' => 'HTTP_OAuth2_Storage_ClientCredentialsInterface',
+        'client' => 'HTTP_OAuth2_Storage_ClientInterface',
+        'refresh_token' => 'HTTP_OAuth2_Storage_RefreshTokenInterface',
+        'user_credentials' => 'HTTP_OAuth2_Storage_UserCredentialsInterface',
+        'user_claims' => 'HTTP_OAuth2_OpenID_Storage_UserClaimsInterface',
+        'public_key' => 'HTTP_OAuth2_Storage_PublicKeyInterface',
+        'jwt_bearer' => 'HTTP_OAuth2_Storage_JWTBearerInterface',
+        'scope' => 'HTTP_OAuth2_Storage_ScopeInterface',
     );
     protected $responseTypeMap = array(
-        'token' => 'OAuth2\ResponseType\AccessTokenInterface',
-        'code' => 'OAuth2\ResponseType\AuthorizationCodeInterface',
-        'id_token' => 'OAuth2\OpenID\ResponseType\IdTokenInterface',
-        'token id_token' => 'OAuth2\OpenID\ResponseType\TokenIdTokenInterface',
+        'token' => 'HTTP_OAuth2_ResponseType_AccessTokenInterface',
+        'code' => 'HTTP_OAuth2_ResponseType_AuthorizationCodeInterface',
+        'id_token' => 'HTTP_OAuth2_OpenID_ResponseType_IdTokenInterface',
+        'token id_token' => 'HTTP_OAuth2_OpenID_ResponseType_TokenIdTokenInterface',
     );
 
     /**
