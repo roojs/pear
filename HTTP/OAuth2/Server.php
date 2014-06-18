@@ -372,17 +372,17 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
         // if explicitly set to a valid key, do not "magically" set below
         if (isset($this->storageMap[$key])) {
             if (!is_null($storage) && !$storage instanceof $this->storageMap[$key]) {
-                throw new \InvalidArgumentException(sprintf('storage of type "%s" must implement interface "%s"', $key, $this->storageMap[$key]));
+                throw new InvalidArgumentException(sprintf('storage of type "%s" must implement interface "%s"', $key, $this->storageMap[$key]));
             }
             $this->storages[$key] = $storage;
 
             // special logic to handle "client" and "client_credentials" strangeness
             if ($key === 'client' && !isset($this->storages['client_credentials'])) {
-                if ($storage instanceof \OAuth2\Storage\ClientCredentialsInterface) {
+                if ($storage instanceof HTTP_OAuth2_Storage_ClientCredentialsInterface) {
                     $this->storages['client_credentials'] = $storage;
                 }
             } elseif ($key === 'client_credentials' && !isset($this->storages['client'])) {
-                if ($storage instanceof \OAuth2\Storage\ClientInterface) {
+                if ($storage instanceof HTTP_OAuth2_Storage_ClientInterface) {
                     $this->storages['client'] = $storage;
                 }
             }
