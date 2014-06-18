@@ -572,12 +572,12 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
                 }
                 $responseTypes['code'] = new HTTP_OAuth2_OpenID_ResponseType_AuthorizationCode($this->storages['authorization_code'], $config);
             } else {
-                $responseTypes['code'] = new AuthorizationCodeResponseType($this->storages['authorization_code'], $config);
+                $responseTypes['code'] = new HTTP_OAuth2_ResponseType_AuthorizationCode($this->storages['authorization_code'], $config);
             }
         }
 
         if (count($responseTypes) == 0) {
-            throw new \LogicException("You must supply an array of response_types in the constructor or implement a OAuth2\Storage\AuthorizationCodeInterface storage object or set 'allow_implicit' to true and implement a OAuth2\Storage\AccessTokenInterface storage object");
+            throw new LogicException("You must supply an array of response_types in the constructor or implement a OAuth2\Storage\AuthorizationCodeInterface storage object or set 'allow_implicit' to true and implement a OAuth2\Storage\AccessTokenInterface storage object");
         }
 
         return $responseTypes;
