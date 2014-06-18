@@ -546,7 +546,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
     {
         $config = array_intersect_key($this->config, array_flip(explode(' ', 'token_param_name token_bearer_header_name')));
 
-        return new Bearer($config);
+        return new HTTP_OAuth2_TokenType_Bearer($config);
     }
 
     protected function getDefaultResponseTypes()
