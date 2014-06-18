@@ -480,10 +480,10 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
             foreach ($this->grantTypes as $grantType) {
                 if (!$grantType instanceof HTTP_OAuth2_ClientAssertionType_ClientAssertionTypeInterface) {
                     if (!isset($this->storages['client_credentials'])) {
-                        throw new \LogicException("You must supply a storage object implementing OAuth2\Storage\ClientCredentialsInterface to use the token server");
+                        throw new LogicException("You must supply a storage object implementing OAuth2\Storage\ClientCredentialsInterface to use the token server");
                     }
                     $config = array_intersect_key($this->config, array_flip(explode(' ', 'allow_credentials_in_request_body allow_public_clients')));
-                    $this->clientAssertionType = new HttpBasic($this->storages['client_credentials'], $config);
+                    $this->clientAssertionType = new HTTP_OAuth2_ClientAssertionType_HttpBasic($this->storages['client_credentials'], $config);
                     break;
                 }
             }
