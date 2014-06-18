@@ -448,7 +448,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
     protected function createDefaultAuthorizeController()
     {
         if (!isset($this->storages['client'])) {
-            throw new \LogicException("You must supply a storage object implementing OAuth2\Storage\ClientInterface to use the authorize server");
+            throw new LogicException("You must supply a storage object implementing OAuth2\Storage\ClientInterface to use the authorize server");
         }
         if (0 == count($this->responseTypes)) {
             $this->responseTypes = $this->getDefaultResponseTypes();
@@ -463,10 +463,10 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
         $config = array_intersect_key($this->config, array_flip(explode(' ', 'allow_implicit enforce_state require_exact_redirect_uri')));
 
         if ($this->config['use_openid_connect']) {
-            return new OpenIDAuthorizeController($this->storages['client'], $this->responseTypes, $config, $this->getScopeUtil());
+            return new HTTP_OAuth2_OpenID_Controller_AuthorizeController($this->storages['client'], $this->responseTypes, $config, $this->getScopeUtil());
         }
 
-        return new AuthorizeController($this->storages['client'], $this->responseTypes, $config, $this->getScopeUtil());
+        return new HTTP_OAuth2_Controller_AuthorizeController($this->storages['client'], $this->responseTypes, $config, $this->getScopeUtil());
     }
 
     protected function createDefaultTokenController()
