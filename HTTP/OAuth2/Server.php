@@ -593,12 +593,12 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
 
         if (isset($this->storages['client_credentials'])) {
             $config = array_intersect_key($this->config, array('allow_credentials_in_request_body' => ''));
-            $grantTypes['client_credentials'] = new ClientCredentials($this->storages['client_credentials'], $config);
+            $grantTypes['client_credentials'] = new HTTP_OAuth2_GrantType_ClientCredentials($this->storages['client_credentials'], $config);
         }
 
         if (isset($this->storages['refresh_token'])) {
             $config = array_intersect_key($this->config, array('always_issue_new_refresh_token' => ''));
-            $grantTypes['refresh_token'] = new RefreshToken($this->storages['refresh_token'], $config);
+            $grantTypes['refresh_token'] = new HTTP_OAuth2_GrantType_RefreshToken($this->storages['refresh_token'], $config);
         }
 
         if (isset($this->storages['authorization_code'])) {
