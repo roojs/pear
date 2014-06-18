@@ -222,7 +222,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
      */
     public function handleUserInfoRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null)
     {
-        $this->response = is_null($response) ? new Response() : $response;
+        $this->response = is_null($response) ? new HTTP_OAuth2_Response() : $response;
         $this->getUserInfoController()->handleUserInfoRequest($request, $this->response);
 
         return $this->response;
