@@ -603,10 +603,10 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
 
         if (isset($this->storages['authorization_code'])) {
             if ($this->config['use_openid_connect']) {
-                if (!$this->storages['authorization_code'] instanceof OpenIDAuthorizationCodeInterface) {
-                    throw new \LogicException("Your authorization_code storage must implement OAuth2\OpenID\Storage\AuthorizationCodeInterface to work when 'use_openid_connect' is true");
+                if (!$this->storages['authorization_code'] instanceof HTTP_OAuth2_OpenID_Storage_AuthorizationCodeInterface) {
+                    throw new LogicException("Your authorization_code storage must implement OAuth2\OpenID\Storage\AuthorizationCodeInterface to work when 'use_openid_connect' is true");
                 }
-                $grantTypes['authorization_code'] = new OpenIDAuthorizationCodeGrantType($this->storages['authorization_code']);
+                $grantTypes['authorization_code'] = new HTTP_OAuth2_OpenID_GrantType_AuthorizationCode($this->storages['authorization_code']);
             } else {
                 $grantTypes['authorization_code'] = new AuthorizationCode($this->storages['authorization_code']);
             }
