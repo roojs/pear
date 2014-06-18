@@ -608,12 +608,12 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
                 }
                 $grantTypes['authorization_code'] = new HTTP_OAuth2_OpenID_GrantType_AuthorizationCode($this->storages['authorization_code']);
             } else {
-                $grantTypes['authorization_code'] = new AuthorizationCode($this->storages['authorization_code']);
+                $grantTypes['authorization_code'] = new HTTP_OAuth2_GrantType_AuthorizationCode($this->storages['authorization_code']);
             }
         }
 
         if (count($grantTypes) == 0) {
-            throw new \LogicException("Unable to build default grant types - You must supply an array of grant_types in the constructor");
+            throw new LogicException("Unable to build default grant types - You must supply an array of grant_types in the constructor");
         }
 
         return $grantTypes;
