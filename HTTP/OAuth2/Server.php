@@ -431,7 +431,7 @@ class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
     {
         if (!$this->scopeUtil) {
             $storage = isset($this->storages['scope']) ? $this->storages['scope'] : null;
-            $this->scopeUtil = new Scope($storage);
+            $this->scopeUtil = new HTTP_OAuth2_Scope($storage);
         }
 
         return $this->scopeUtil;
