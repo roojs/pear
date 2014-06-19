@@ -2,7 +2,7 @@
 
 require_once 'HTTP/OAuth2/ResponseType/ResponseTypeInterface';
 
-interface IdTokenInterface extends ResponseTypeInterface
+interface HTTP_OAuth2_OpenID_ResponseType_IdTokenInterface extends HTTP_OAuth2_ResponseType_ResponseTypeInterface
 {
     /**
      * Create the id token.
