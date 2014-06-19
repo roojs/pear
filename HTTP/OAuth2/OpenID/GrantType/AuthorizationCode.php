@@ -1,10 +1,10 @@
 <?php
 
-require_once 'HTTP/OAuth2/GrantType/AuthorizationCode';
-require_once 'HTTP/OAuth2/Storage/AuthorizationCodeInterface';
-require_once 'HTTP/OAuth2/ResponseType/AccessTokenInterface';
-require_once 'HTTP/OAuth2/RequestInterface';
-require_once 'HTTP/OAuth2/ResponseInterface';
+require_once 'HTTP/OAuth2/GrantType/AuthorizationCode.php';
+require_once 'HTTP/OAuth2/Storage/AuthorizationCodeInterface.php';
+require_once 'HTTP/OAuth2/ResponseType/AccessTokenInterface.php';
+require_once 'HTTP/OAuth2/RequestInterface.php';
+require_once 'HTTP/OAuth2/ResponseInterface.php';
 
 /**
  *
