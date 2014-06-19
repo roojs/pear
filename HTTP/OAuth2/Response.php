@@ -9,7 +9,7 @@
  * This class borrows heavily from the Symfony2 Framework and is part of the symfony package
  * @see Symfony\Component\HttpFoundation\Request (https://github.com/symfony/symfony)
  */
-class Response implements ResponseInterface
+class HTTP_OAuth2_Response implements HTTP_OAuth2_ResponseInterface
 {
     public $version;
     protected $statusCode = 200;
