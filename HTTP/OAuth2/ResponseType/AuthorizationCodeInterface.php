@@ -4,7 +4,7 @@
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface AuthorizationCodeInterface extends ResponseTypeInterface
+interface HTTP_OAuth2_ResponseType_AuthorizationCodeInterface extends HTTP_OAuth2_ResponseType_ResponseTypeInterface
 {
     /**
      * @return
