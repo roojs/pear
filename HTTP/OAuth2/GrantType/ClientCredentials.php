@@ -9,7 +9,7 @@ require_once 'HTTP/OAuth2/Storage/ClientCredentialsInterface';
  *
  * @see OAuth2\ClientAssertionType_HttpBasic
  */
-class ClientCredentials extends HttpBasic implements GrantTypeInterface
+class HTTP_OAuth2_GrantType_ClientCredentials extends HTTP_OAuth2_ClientAssertionType_HttpBasic implements HTTP_OAuth2_GrantType_GrantTypeInterface
 {
     private $clientData;
 
