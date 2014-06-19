@@ -69,7 +69,6 @@ class HTTP_OAuth2_Storage_Pdo implements HTTP_OAuth2_Storage_AuthorizationCodeIn
     public function checkClientCredentials($client_id, $client_secret = null)
     {
         $stmt = $this->db->prepare(sprintf('SELECT * from %s where client_id = :client_id', $this->config['client_table']));
-        print_r(compact('client_id'));exit;
         $stmt->execute(compact('client_id'));
         $result = $stmt->fetch();
 
