@@ -7,7 +7,7 @@ require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface';
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-class AuthorizationCode extends BaseAuthorizationCode implements AuthorizationCodeInterface
+class HTTP_OAuth2_OpenID_ResponseType_AuthorizationCode extends HTTP_OAuth2_ResponseType_AuthorizationCode implements HTTP_OAuth2_OpenID_Storage_AuthorizationCodeInterface
 {
     public function __construct(AuthorizationCodeStorageInterface $storage, array $config = array())
     {
