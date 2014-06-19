@@ -1,6 +1,6 @@
 <?php
 
-require_once 'HTTP/OAuth2/ResponseType/AuthorizationCodeInterface';
+require_once 'HTTP/OAuth2/ResponseType/AuthorizationCodeInterface.php';
 
 /**
  *
