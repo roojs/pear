@@ -6,12 +6,12 @@ require_once 'HTTP/OAuth2/Storage/AuthorizationCodeInterface';
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-class AuthorizationCode implements AuthorizationCodeInterface
+class HTTP_OAuth2_ResponseType_AuthorizationCode implements HTTP_OAuth2_ResponseType_AuthorizationCodeInterface
 {
     protected $storage;
     protected $config;
 
-    public function __construct(AuthorizationCodeStorageInterface $storage, array $config = array())
+    public function __construct(HTTP_OAuth2_Storage_AuthorizationCodeInterface $storage, array $config = array())
     {
         $this->storage = $storage;
         $this->config = array_merge(array(
