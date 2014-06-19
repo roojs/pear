@@ -6,7 +6,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
 /**
 *
 */
-class Bearer implements TokenTypeInterface
+class HTTP_OAuth2_TokenType_Bearer implements TokenTypeInterface
 {
     private $config;
 
