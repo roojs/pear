@@ -11,7 +11,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
 /**
  * @see OAuth2\Controller\UserInfoControllerInterface
  */
-class HTTP_OAuth2_OpenID_Controller_UserInfoController extends ResourceController implements UserInfoControllerInterface
+class HTTP_OAuth2_OpenID_Controller_UserInfoController extends HTTP_OAuth2_Controller_ResourceController implements HTTP_OAuth2_OpenID_Controller_UserInfoControllerInterface
 {
     private $token;
 
@@ -21,7 +21,7 @@ class HTTP_OAuth2_OpenID_Controller_UserInfoController extends ResourceControlle
     protected $config;
     protected $scopeUtil;
 
-    public function __construct(TokenTypeInterface $tokenType, AccessTokenInterface $tokenStorage, UserClaimsInterface $userClaimsStorage, $config = array(), ScopeInterface $scopeUtil = null)
+    public function __construct(HTTP_OAuth2_TokenType_TokenTypeInterface $tokenType, HTTP_OAuth2_Storage_AccessTokenInterface $tokenStorage, HTTP_OAuth2_OpenID_Storage_UserClaimsInterface $userClaimsStorage, $config = array(), HTTP_OAuth2_ScopeInterface $scopeUtil = null)
     {
         $this->tokenType = $tokenType;
         $this->tokenStorage = $tokenStorage;
