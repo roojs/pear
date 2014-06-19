@@ -16,9 +16,9 @@ require_once 'HTTP/OAuth2/ResponseInterface';
  *  > return json_encode($resource); // valid token!  Send the stuff!
  *
  */
-interface ResourceControllerInterface
+interface HTTP_OAuth2_Controller_ResourceControllerInterface
 {
-    public function verifyResourceRequest(RequestInterface $request, ResponseInterface $response, $scope = null);
+    public function verifyResourceRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response, $scope = null);
 
-    public function getAccessTokenData(RequestInterface $request, ResponseInterface $response);
+    public function getAccessTokenData(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response);
 }
