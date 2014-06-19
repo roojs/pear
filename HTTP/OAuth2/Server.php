@@ -29,6 +29,7 @@ require_once 'HTTP/OAuth2/GrantType/RefreshToken.php';
 require_once 'HTTP/OAuth2/GrantType/AuthorizationCode.php';
 require_once 'HTTP/OAuth2/Storage/CryptoToken.php';
 require_once 'HTTP/OAuth2/Storage/CryptoTokenInterface.php';
+require_once 'HTTP/OAuth2/Response.php';
 
 /**
 * Server class for OAuth2
