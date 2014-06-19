@@ -14,31 +14,31 @@ require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface';
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-class Pdo implements AuthorizationCodeInterface,
-    AccessTokenInterface,
-    ClientCredentialsInterface,
-    UserCredentialsInterface,
-    RefreshTokenInterface,
-    JwtBearerInterface,
-    ScopeInterface,
-    PublicKeyInterface,
-    UserClaimsInterface,
-    OpenIDAuthorizationCodeInterface
+class HTTP_OAuth2_Storage_Pdo implements HTTP_OAuth2_Storage_AuthorizationCodeInterface,
+    HTTP_OAuth2_Storage_AccessTokenInterface,
+    HTTP_OAuth2_Storage_ClientCredentialsInterface,
+    HTTP_OAuth2_Storage_UserCredentialsInterface,
+    HTTP_OAuth2_Storage_RefreshTokenInterface,
+    HTTP_OAuth2_Storage_JwtBearerInterface,
+    HTTP_OAuth2_Storage_ScopeInterface,
+    HTTP_OAuth2_Storage_PublicKeyInterface,
+    HTTP_OAuth2_Storage_UserClaimsInterface,
+    HTTP_OAuth2_OpenID_Storage_AuthorizationCodeInterface
 {
     protected $db;
     protected $config;
 
     public function __construct($connection, $config = array())
     {
-        if (!$connection instanceof \PDO) {
+        if (!$connection instanceof PDO) {
             if (is_string($connection)) {
                 $connection = array('dsn' => $connection);
             }
             if (!is_array($connection)) {
-                throw new \InvalidArgumentException('First argument to OAuth2\Storage\Pdo must be an instance of PDO, a DSN string, or a configuration array');
+                throw new InvalidArgumentException('First argument to OAuth2\Storage\Pdo must be an instance of PDO, a DSN string, or a configuration array');
             }
             if (!isset($connection['dsn'])) {
-                throw new \InvalidArgumentException('configuration array must contain "dsn"');
+                throw new InvalidArgumentException('configuration array must contain "dsn"');
             }
             // merge optional parameters
             $connection = array_merge(array(
@@ -46,12 +46,12 @@ class Pdo implements AuthorizationCodeInterface,
                 'password' => null,
                 'options' => array(),
             ), $connection);
-            $connection = new \PDO($connection['dsn'], $connection['username'], $connection['password'], $connection['options']);
+            $connection = new PDO($connection['dsn'], $connection['username'], $connection['password'], $connection['options']);
         }
         $this->db = $connection;
 
         // debugging
-        $connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $this->config = array_merge(array(
             'client_table' => 'oauth_clients',
