@@ -9,7 +9,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
  *
  * @author    Brent Shaffer <bshafs at gmail dot com>
  */
-class HttpBasic implements ClientAssertionTypeInterface
+class HTTP_OAuth2_ClientAssertionType_HttpBasic implements HTTP_OAuth2_ClientAssertionType_ClientAssertionTypeInterface
 {
     private $clientData;
 
@@ -28,7 +28,7 @@ class HttpBasic implements ClientAssertionTypeInterface
      * );
      * @endcode
      */
-    public function __construct(ClientCredentialsInterface $storage, array $config = array())
+    public function __construct(HTTP_OAuth2_Storage_ClientCredentialsInterface $storage, array $config = array())
     {
         $this->storage = $storage;
         $this->config = array_merge(array(
@@ -37,14 +37,14 @@ class HttpBasic implements ClientAssertionTypeInterface
         ), $config);
     }
 
-    public function validateRequest(RequestInterface $request, ResponseInterface $response)
+    public function validateRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
         if (!$clientData = $this->getClientCredentials($request, $response)) {
             return false;
         }
 
         if (!isset($clientData['client_id'])) {
-            throw new \LogicException('the clientData array must have "client_id" set');
+            throw new LogicException('the clientData array must have "client_id" set');
         }
 
         if (!isset($clientData['client_secret']) || $clientData['client_secret'] == '') {
@@ -95,7 +95,7 @@ class HttpBasic implements ClientAssertionTypeInterface
      *
      * @ingroup oauth2_section_2
      */
-    public function getClientCredentials(RequestInterface $request, ResponseInterface $response = null)
+    public function getClientCredentials(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null)
     {
         if (!is_null($request->headers('PHP_AUTH_USER')) && !is_null($request->headers('PHP_AUTH_PW'))) {
             return array('client_id' => $request->headers('PHP_AUTH_USER'), 'client_secret' => $request->headers('PHP_AUTH_PW'));
