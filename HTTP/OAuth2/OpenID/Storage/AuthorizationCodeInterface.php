@@ -1,6 +1,6 @@
 <?php
 
-require_once 'HTTP/OAuth2/Storage/AuthorizationCodeInterface';
+require_once 'HTTP/OAuth2/Storage/AuthorizationCodeInterface.php';
 /**
  * Implement this interface to specify where the OAuth2 Server
  * should get/save authorization codes for the "Authorization Code"
