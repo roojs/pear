@@ -74,7 +74,7 @@ class HTTP_OAuth2_Scope implements HTTP_OAuth2_ScopeInterface
         }
     }
 
-    public function getScopeFromRequest(RequestInterface $request)
+    public function getScopeFromRequest(HTTP_OAuth2_RequestInterface $request)
     {
         // "scope" is valid if passed in either POST or QUERY
         return $request->request('scope', $request->query('scope'));
