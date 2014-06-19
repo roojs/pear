@@ -2,6 +2,7 @@
 
 require_once 'HTTP/OAuth2/Encryption/EncryptionInterface.php';
 require_once 'HTTP/OAuth2/Encryption/Jwt.php';
+require_once 'HTTP/OAuth2/Storage/CryptoTokenInterface.php';
 
 /**
  *
