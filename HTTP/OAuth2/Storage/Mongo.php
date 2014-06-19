@@ -14,27 +14,27 @@ require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface';
  *
  * @author Julien Chaumond <chaumond@gmail.com>
  */
-class Mongo implements AuthorizationCodeInterface,
-    AccessTokenInterface,
-    ClientCredentialsInterface,
-    UserCredentialsInterface,
-    RefreshTokenInterface,
-    JwtBearerInterface,
-    OpenIDAuthorizationCodeInterface
+class HTTP_OAuth2_Storage_Mongo implements HTTP_OAuth2_Storage_AuthorizationCodeInterface,
+    HTTP_OAuth2_Storage_AccessTokenInterface,
+    HTTP_OAuth2_Storage_ClientCredentialsInterface,
+    HTTP_OAuth2_Storage_UserCredentialsInterface,
+    HTTP_OAuth2_Storage_RefreshTokenInterface,
+    HTTP_OAuth2_Storage_JwtBearerInterface,
+    HTTP_OAuth2_OpenID_Storage_AuthorizationCodeInterface
 {
     protected $db;
     protected $config;
 
     public function __construct($connection, $config = array())
     {
-        if ($connection instanceof \MongoDB) {
+        if ($connection instanceof MongoDB) {
             $this->db = $connection;
         } else {
             if (!is_array($connection)) {
-                throw new \InvalidArgumentException('First argument to OAuth2\Storage\Mongo must be an instance of MongoDB or a configuration array');
+                throw new InvalidArgumentException('First argument to OAuth2\Storage\Mongo must be an instance of MongoDB or a configuration array');
             }
             $server = sprintf('mongodb://%s:%d', $connection['host'], $connection['port']);
-            $m = new \MongoClient($server);
+            $m = new MongoClient($server);
             $this->db = $m->{$connection['database']};
         }
 
