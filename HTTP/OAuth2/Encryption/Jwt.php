@@ -105,7 +105,7 @@ class HTTP_OAuth2_Encryption_Jwt implements HTTP_OAuth2_Encryption_EncryptionInt
                 return $this->generateRSASignature($input, $key, defined('OPENSSL_ALGO_SHA512') ? OPENSSL_ALGO_SHA512 : 'sha512');
 
             default:
-                throw new \Exception("Unsupported or invalid signing algorithm.");
+                throw new Exception("Unsupported or invalid signing algorithm.");
         }
     }
 
