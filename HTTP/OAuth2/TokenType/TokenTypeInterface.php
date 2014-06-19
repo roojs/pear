@@ -1,7 +1,7 @@
 <?php
 
-require_once 'HTTP/OAuth2/RequestInterface';
-require_once 'HTTP/OAuth2/ResponseInterface';
+require_once 'HTTP/OAuth2/RequestInterface.php';
+require_once 'HTTP/OAuth2/ResponseInterface.php';
 
 interface HTTP_OAuth2_TokenType_TokenTypeInterface
 {
