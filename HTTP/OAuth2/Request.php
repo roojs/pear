@@ -5,7 +5,7 @@
  * This class is taken from the Symfony2 Framework and is part of the Symfony package.
  * See Symfony\Component\HttpFoundation\Request (https://github.com/symfony/symfony)
  */
-class Request implements RequestInterface
+class HTTP_OAuth2_Request implements HTTP_OAuth2_RequestInterface
 {
     public $attributes;
     public $request;
@@ -98,7 +98,7 @@ class Request implements RequestInterface
     public function getContent($asResource = false)
     {
         if (false === $this->content || (true === $asResource && null !== $this->content)) {
-            throw new \LogicException('getContent() can only be called once when using the resource return type.');
+            throw new LogicException('getContent() can only be called once when using the resource return type.');
         }
 
         if (true === $asResource) {
