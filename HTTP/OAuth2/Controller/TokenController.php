@@ -42,7 +42,7 @@ class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_T
         $this->scopeUtil = $scopeUtil;
     }
 
-    public function handleTokenRequest(RequestInterface $request, ResponseInterface $response)
+    public function handleTokenRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
         if ($token = $this->grantAccessToken($request, $response)) {
             // @see http://tools.ietf.org/html/rfc6749#section-5.1
@@ -70,7 +70,7 @@ class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_T
      *
      * @ingroup oauth2_section_4
      */
-    public function grantAccessToken(RequestInterface $request, ResponseInterface $response)
+    public function grantAccessToken(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
         if (strtolower($request->server('REQUEST_METHOD')) != 'post') {
             $response->setError(405, 'invalid_request', 'The request method must be POST when requesting an access token', '#section-3.2');
@@ -106,7 +106,7 @@ class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_T
          * @see OAuth2\GrantType\JWTBearer
          * @see OAuth2\GrantType\ClientCredentials
          */
-        if (!$grantType instanceof ClientAssertionTypeInterface) {
+        if (!$grantType instanceof HTTP_OAuth2_ClientAssertionType_ClientAssertionTypeInterface) {
             if (!$this->clientAssertionType->validateRequest($request, $response)) {
                 return null;
             }
@@ -123,7 +123,7 @@ class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_T
             return null;
         }
 
-        if ($grantType instanceof ClientAssertionTypeInterface) {
+        if ($grantType instanceof HTTP_OAuth2_ClientAssertionType_ClientAssertionTypeInterface) {
             $clientId = $grantType->getClientId();
         } else {
             // validate the Client ID (if applicable)
@@ -207,7 +207,7 @@ class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_T
      * @param identifier - string
      * a string passed in as "grant_type" in the response that will call this grantType
      */
-    public function addGrantType(GrantTypeInterface $grantType, $identifier = null)
+    public function addGrantType(HTTP_OAuth2_GrantType_GrantTypeInterface $grantType, $identifier = null)
     {
         if (is_null($identifier) || is_numeric($identifier)) {
             $identifier = $grantType->getQuerystringIdentifier();
