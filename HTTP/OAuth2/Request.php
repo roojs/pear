@@ -190,7 +190,7 @@ class HTTP_OAuth2_Request implements HTTP_OAuth2_RequestInterface
     {
         $class = __CLASS__;
         $request = new $class($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER);
-
+        print_r($request);exit;
         $contentType = $request->server('CONTENT_TYPE', '');
         $requestMethod = $request->server('REQUEST_METHOD', 'GET');
         if (0 === strpos($contentType, 'application/x-www-form-urlencoded')
