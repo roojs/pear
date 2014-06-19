@@ -3,7 +3,7 @@
 require_once 'HTTP/OAuth2/ResponseType/AccessTokenInterface';
 require_once 'HTTP/OAuth2/ResponseType/ResponseTypeInterface';
 
-class HTTP_OAuth2_ResponseType_TokenIdToken implements HTTP_OAuth2_ResponseType_TokenIdTokenInterface
+class HTTP_OAuth2_OpenID_ResponseType_TokenIdToken implements HTTP_OAuth2_ResponseType_TokenIdTokenInterface
 {
     protected $accessToken;
     protected $idToken;
