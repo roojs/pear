@@ -6,7 +6,7 @@
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface ClientInterface
+interface HTTP_OAuth2_Storage_ClientInterface
 {
     /**
      * Get client details corresponding client_id.
