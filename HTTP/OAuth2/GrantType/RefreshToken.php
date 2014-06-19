@@ -9,7 +9,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-class RefreshToken implements GrantTypeInterface
+class HTTP_OAuth2_GrantType_RefreshToken implements HTTP_OAuth2_GrantType_GrantTypeInterface
 {
     private $refreshToken;
 
@@ -27,7 +27,7 @@ class RefreshToken implements GrantTypeInterface
      * );
      * @endcode
      */
-    public function __construct(RefreshTokenInterface $storage, $config = array())
+    public function __construct(HTTP_OAuth2_Storage_RefreshTokenInterface $storage, $config = array())
     {
         $this->config = array_merge(array(
             'always_issue_new_refresh_token' => false
@@ -40,7 +40,7 @@ class RefreshToken implements GrantTypeInterface
         return 'refresh_token';
     }
 
-    public function validateRequest(RequestInterface $request, ResponseInterface $response)
+    public function validateRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
         if (!$request->request("refresh_token")) {
             $response->setError(400, 'invalid_request', 'Missing parameter: "refresh_token" is required');
@@ -81,7 +81,7 @@ class RefreshToken implements GrantTypeInterface
         return $this->refreshToken['scope'];
     }
 
-    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
+    public function createAccessToken(HTTP_OAuth2_ResponseType_AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
     {
         /*
          * It is optional to force a new refresh token when a refresh token is used.
