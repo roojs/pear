@@ -9,7 +9,7 @@ require_once 'HTTP/OAuth2/Scope';
 /**
  * @see OAuth2\Controller\AuthorizeControllerInterface
  */
-class AuthorizeController implements AuthorizeControllerInterface
+class HTTP_OAuth2_Controller_AuthorizeController implements HTTP_OAuth2_Controller_AuthorizeControllerInterface
 {
     private $scope;
     private $state;
@@ -41,7 +41,7 @@ class AuthorizeController implements AuthorizeControllerInterface
      * @param OAuth2\ScopeInterface $scopeUtil
      * OPTIONAL Instance of OAuth2\ScopeInterface to validate the requested scope
      */
-    public function __construct(ClientInterface $clientStorage, array $responseTypes = array(), array $config = array(), ScopeInterface $scopeUtil = null)
+    public function __construct(HTTP_OAuth2_Storage_ClientInterface $clientStorage, array $responseTypes = array(), array $config = array(), HTTP_OAuth2_ScopeInterface $scopeUtil = null)
     {
         $this->clientStorage = $clientStorage;
         $this->responseTypes = $responseTypes;
@@ -58,7 +58,7 @@ class AuthorizeController implements AuthorizeControllerInterface
         $this->scopeUtil = $scopeUtil;
     }
 
-    public function handleAuthorizeRequest(RequestInterface $request, ResponseInterface $response, $is_authorized, $user_id = null)
+    public function handleAuthorizeRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response, $is_authorized, $user_id = null)
     {
         if (!is_bool($is_authorized)) {
             throw new \InvalidArgumentException('Argument "is_authorized" must be a boolean.  This method must know if the user has granted access to the client.');
@@ -121,7 +121,7 @@ class AuthorizeController implements AuthorizeControllerInterface
         return $params;
     }
 
-    public function validateAuthorizeRequest(RequestInterface $request, ResponseInterface $response)
+    public function validateAuthorizeRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
         // Make sure a valid client id was supplied (we can not redirect because we were unable to verify the URI)
         if (!$client_id = $request->query("client_id")) {
