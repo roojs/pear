@@ -4,7 +4,7 @@
  * @link https://github.com/F21/jwt
  * @author F21
  */
-class Jwt implements EncryptionInterface
+class HTTP_OAuth2_Encryption_Jwt implements HTTP_OAuth2_Encryption_EncryptionInterface
 {
     public function encode($payload, $key, $algo = 'HS256')
     {
