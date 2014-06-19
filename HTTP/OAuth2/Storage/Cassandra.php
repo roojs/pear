@@ -56,7 +56,7 @@ class HTTP_OAuth2_Storage_Cassandra implements HTTP_OAuth2_Storage_Authorization
             $this->cassandra = $connection;
         } else {
             if (!is_array($connection)) {
-                throw new \InvalidArgumentException('First argument to OAuth2\Storage\Mongo must be an instance of MongoDB or a configuration array');
+                throw new InvalidArgumentException('First argument to OAuth2\Storage\Mongo must be an instance of MongoDB or a configuration array');
             }
             $connection = array_merge(array(
                 'keyspace' => 'oauth2',
