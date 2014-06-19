@@ -1,8 +1,8 @@
 <?php
 
-require_once 'HTTP/phpcassa/ColumnFamily';
-require_once 'HTTP/phpcassa/ColumnSlice';
-require_once 'HTTP/phpcassa/Connection/ConnectionPool';
+//require_once 'HTTP/phpcassa/ColumnFamily';
+//require_once 'HTTP/phpcassa/ColumnSlice';
+//require_once 'HTTP/phpcassa/Connection/ConnectionPool';
 require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface';
 
 /**
