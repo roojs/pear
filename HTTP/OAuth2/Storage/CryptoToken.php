@@ -7,7 +7,7 @@ require_once 'HTTP/OAuth2/Encryption/Jwt';
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-class CryptoToken implements CryptoTokenInterface
+class HTTP_OAuth2_Storage_CryptoToken implements HTTP_OAuth2_Storage_CryptoTokenInterface
 {
     protected $publicKeyStorage;
     protected $tokenStorage;
@@ -37,12 +37,12 @@ class CryptoToken implements CryptoTokenInterface
      * @param OAuth2\Encryption\EncryptionInterface $encryptionUtil
      * (optional) class to use for "encode" and "decode" functions.
      */
-    public function __construct(PublicKeyInterface $publicKeyStorage, AccessTokenInterface $tokenStorage = null, EncryptionInterface $encryptionUtil = null)
+    public function __construct(HTTP_OAuth2_Storage_PublicKeyInterface $publicKeyStorage, HTTP_OAuth2_Storage_AccessTokenInterface $tokenStorage = null, HTTP_OAuth2_Encryption_EncryptionInterface $encryptionUtil = null)
     {
         $this->publicKeyStorage = $publicKeyStorage;
         $this->tokenStorage = $tokenStorage;
         if (is_null($encryptionUtil)) {
-            $encryptionUtil = new Jwt;
+            $encryptionUtil = new HTTP_OAuth2_Encryption_Jwt();
         }
         $this->encryptionUtil = $encryptionUtil;
     }
