@@ -7,7 +7,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
 /**
  * @see OAuth2\Controller\AuthorizeControllerInterface
  */
-class AuthorizeController extends BaseAuthorizeController implements AuthorizeControllerInterface
+class HTTP_OAuth2_OpenID_Controller_AuthorizeController extends HTTP_OAuth2_Controller_AuthorizeController implements HTTP_OAuth2_OpenID_Controller_AuthorizeControllerInterface
 {
     private $nonce;
 
