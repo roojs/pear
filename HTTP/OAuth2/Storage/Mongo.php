@@ -326,12 +326,12 @@ class HTTP_OAuth2_Storage_Mongo implements HTTP_OAuth2_Storage_AuthorizationCode
     public function getJti($client_id, $subject, $audience, $expiration, $jti)
     {
         //TODO: Needs mongodb implementation.
-        throw new \Exception('getJti() for the MongoDB driver is currently unimplemented.');
+        throw new Exception('getJti() for the MongoDB driver is currently unimplemented.');
     }
 
     public function setJti($client_id, $subject, $audience, $expiration, $jti)
     {
         //TODO: Needs mongodb implementation.
-        throw new \Exception('setJti() for the MongoDB driver is currently unimplemented.');
+        throw new Exception('setJti() for the MongoDB driver is currently unimplemented.');
     }
 }
