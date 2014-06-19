@@ -189,6 +189,7 @@ class HTTP_OAuth2_Request implements HTTP_OAuth2_RequestInterface
     public static function createFromGlobals()
     {
         $class = __CLASS__;
+        print_r($class);exit;
         $request = new $class($_GET, $_POST, array(), $_COOKIE, $_FILES, $_SERVER);
 
         $contentType = $request->server('CONTENT_TYPE', '');
