@@ -7,7 +7,7 @@
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface RefreshTokenInterface
+interface HTTP_OAuth2_Storage_RefreshTokenInterface
 {
     /**
      * Grant refresh access tokens.

@@ -7,7 +7,7 @@
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface UserCredentialsInterface
+interface HTTP_OAuth2_Storage_UserCredentialsInterface
 {
     /**
      * Grant access tokens for basic user credentials.

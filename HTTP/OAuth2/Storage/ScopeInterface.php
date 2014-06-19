@@ -7,7 +7,7 @@
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface ScopeInterface
+interface HTTP_OAuth2_Storage_ScopeInterface
 {
     /**
      * Check if the provided scope exists.
