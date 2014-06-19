@@ -109,7 +109,7 @@ class HTTP_OAuth2_Response implements HTTP_OAuth2_ResponseInterface
     {
         $this->statusCode = (int) $statusCode;
         if ($this->isInvalid()) {
-            throw new \InvalidArgumentException(sprintf('The HTTP status code "%s" is not valid.', $statusCode));
+            throw new InvalidArgumentException(sprintf('The HTTP status code "%s" is not valid.', $statusCode));
         }
 
         $this->statusText = false === $text ? '' : (null === $text ? self::$statusTexts[$this->statusCode] : $text);
@@ -177,7 +177,7 @@ class HTTP_OAuth2_Response implements HTTP_OAuth2_ResponseInterface
                 return json_encode($this->parameters);
             case 'xml':
                 // this only works for single-level arrays
-                $xml = new \SimpleXMLElement('<response/>');
+                $xml = new SimpleXMLElement('<response/>');
                 foreach ($this->parameters as $key => $param) {
                     $xml->addChild($param, $key);
                 }
@@ -185,7 +185,7 @@ class HTTP_OAuth2_Response implements HTTP_OAuth2_ResponseInterface
                 return $xml->asXML();
         }
 
-        throw new \InvalidArgumentException(sprintf('The format %s is not supported'));
+        throw new InvalidArgumentException(sprintf('The format %s is not supported'));
 
     }
 
