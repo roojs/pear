@@ -2,6 +2,7 @@
 
 require_once 'HTTP/OAuth2/ResponseType/AuthorizationCode.php';
 require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface.php';
+require_once 'HTTP/OAuth2/OpenID/ResponseType/AuthorizationCodeInterface.php';
 
 /**
  *
