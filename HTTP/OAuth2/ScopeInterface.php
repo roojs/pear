@@ -34,5 +34,5 @@ interface HTTP_OAuth2_ScopeInterface extends HTTP_OAuth2_Storage_ScopeInterface
      * @return
      * string representation of requested scope
      */
-    public function getScopeFromRequest(RequestInterface $request);
+    public function getScopeFromRequest(HTTP_OAuth2_RequestInterface $request);
 }
