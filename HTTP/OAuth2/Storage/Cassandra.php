@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * we may need this??
+ */
 //require_once 'HTTP/phpcassa/ColumnFamily';
 //require_once 'HTTP/phpcassa/ColumnSlice';
 //require_once 'HTTP/phpcassa/Connection/ConnectionPool';
