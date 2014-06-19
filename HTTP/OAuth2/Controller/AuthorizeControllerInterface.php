@@ -21,7 +21,7 @@ require_once 'HTTP/ *  > $response = new OAuth2/Response()';
 require_once 'HTTP/ *  > $response->send()';
  *
  */
-interface AuthorizeControllerInterface
+interface HTTP_OAuth2_Controller_AuthorizeControllerInterface
 {
     /**
      * List of possible authentication response types.
@@ -35,7 +35,7 @@ interface AuthorizeControllerInterface
     const RESPONSE_TYPE_AUTHORIZATION_CODE = 'code';
     const RESPONSE_TYPE_ACCESS_TOKEN = 'token';
 
-    public function handleAuthorizeRequest(RequestInterface $request, ResponseInterface $response, $is_authorized, $user_id = null);
+    public function handleAuthorizeRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response, $is_authorized, $user_id = null);
 
-    public function validateAuthorizeRequest(RequestInterface $request, ResponseInterface $response);
+    public function validateAuthorizeRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response);
 }
