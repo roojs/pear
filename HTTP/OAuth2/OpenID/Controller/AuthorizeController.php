@@ -1,6 +1,7 @@
 <?php
 
 require_once 'HTTP/OAuth2/Controller/AuthorizeController.php';
+require_once 'HTTP/OAuth2/OpenID/Controller/AuthorizeControllerInterface.php';
 require_once 'HTTP/OAuth2/RequestInterface.php';
 require_once 'HTTP/OAuth2/ResponseInterface.php';
 
