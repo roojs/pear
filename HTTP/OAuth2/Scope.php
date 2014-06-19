@@ -6,7 +6,7 @@ require_once 'HTTP/OAuth2/Storage/ScopeInterface';
 /**
 * @see OAuth2\ScopeInterface
 */
-class Scope implements ScopeInterface
+class HTTP_OAuth2_Scope implements HTTP_OAuth2_Storage_ScopeInterface
 {
     protected $storage;
 
@@ -17,11 +17,11 @@ class Scope implements ScopeInterface
     public function __construct($storage = null)
     {
         if (is_null($storage) || is_array($storage)) {
-            $storage = new Memory((array) $storage);
+            $storage = new HTTP_OAuth2_Storage_Memory((array) $storage);
         }
 
-        if (!$storage instanceof ScopeStorageInterface) {
-            throw new \InvalidArgumentException("Argument 1 to OAuth2\Scope must be null, an array, or instance of OAuth2\Storage\ScopeInterface");
+        if (!$storage instanceof HTTP_OAuth2_Storage_ScopeInterface) {
+            throw new InvalidArgumentException("Argument 1 to OAuth2\Scope must be null, an array, or instance of OAuth2\Storage\ScopeInterface");
         }
 
         $this->storage = $storage;
