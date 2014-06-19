@@ -28,7 +28,7 @@ class HTTP_OAuth2_OpenID_Controller_AuthorizeController extends HTTP_OAuth2_Cont
         return $params;
     }
 
-    public function validateAuthorizeRequest(RequestInterface $request, ResponseInterface $response)
+    public function validateAuthorizeRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
         if (!parent::validateAuthorizeRequest($request, $response)) {
             return false;
