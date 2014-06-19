@@ -6,7 +6,7 @@ require_once 'HTTP/OAuth2/ResponseType/AuthorizationCodeInterface';
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface AuthorizationCodeInterface extends BaseAuthorizationCodeInterface
+interface HTTP_OAuth2_OpenID_ResponseType_AuthorizationCodeInterface extends HTTP_OAuth2_ResponseType_AuthorizationCodeInterface
 {
     /**
      * Handle the creation of the authorization code.
