@@ -1,11 +1,11 @@
 <?php
 
-require_once 'HTTP/OAuth2/Encryption/EncryptionInterface';
-require_once 'HTTP/OAuth2/Encryption/Jwt';
-require_once 'HTTP/OAuth2/Storage/AccessTokenInterface';
-require_once 'HTTP/OAuth2/Storage/RefreshTokenInterface';
-require_once 'HTTP/OAuth2/Storage/PublicKeyInterface';
-require_once 'HTTP/OAuth2/Storage/Memory';
+require_once 'HTTP/OAuth2/Encryption/EncryptionInterface.php';
+require_once 'HTTP/OAuth2/Encryption/Jwt.php';
+require_once 'HTTP/OAuth2/Storage/AccessTokenInterface.php';
+require_once 'HTTP/OAuth2/Storage/RefreshTokenInterface.php';
+require_once 'HTTP/OAuth2/Storage/PublicKeyInterface.php';
+require_once 'HTTP/OAuth2/Storage/Memory.php';
 
 /**
  *
