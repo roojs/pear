@@ -44,6 +44,7 @@ class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_T
 
     public function handleTokenRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
+        print_r($request);exit;
         if ($token = $this->grantAccessToken($request, $response)) {
             // @see http://tools.ietf.org/html/rfc6749#section-5.1
             // server MUST disable caching in headers when tokens are involved
