@@ -1,8 +1,8 @@
 <?php
 
-require_once 'HTTP/OAuth2/Storage/ClientCredentialsInterface';
-require_once 'HTTP/OAuth2/RequestInterface';
-require_once 'HTTP/OAuth2/ResponseInterface';
+require_once 'HTTP/OAuth2/Storage/ClientCredentialsInterface.php';
+require_once 'HTTP/OAuth2/RequestInterface.php';
+require_once 'HTTP/OAuth2/ResponseInterface.php';
 
 /**
  * Validate a client via Http Basic authentication
