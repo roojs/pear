@@ -6,7 +6,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
 /**
 *
 */
-class HTTP_OAuth2_TokenType_Bearer implements TokenTypeInterface
+class HTTP_OAuth2_TokenType_Bearer implements HTTP_OAuth2_TokenType_TokenTypeInterface
 {
     private $config;
 
@@ -28,7 +28,7 @@ class HTTP_OAuth2_TokenType_Bearer implements TokenTypeInterface
      *
      * @see https://github.com/bshaffer/oauth2-server-php/issues/349#issuecomment-37993588
      */
-    public function requestHasToken(RequestInterface $request)
+    public function requestHasToken(HTTP_OAuth2_RequestInterface $request)
     {
         $headers = $request->headers('AUTHORIZATION');
 
@@ -58,7 +58,7 @@ class HTTP_OAuth2_TokenType_Bearer implements TokenTypeInterface
      * @see http://code.google.com/p/android/issues/detail?id=6684
      *
      */
-    public function getAccessTokenParameter(RequestInterface $request, ResponseInterface $response)
+    public function getAccessTokenParameter(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
         $headers = $request->headers('AUTHORIZATION');
 
