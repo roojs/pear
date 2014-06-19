@@ -489,7 +489,7 @@ class HTTP_OAuth2_Server implements HTTP_OAuth2_Controller_ResourceControllerInt
                 }
             }
         }
-
+        print_r($this->clientAssertionType);exit;
         if (!isset($this->storages['client'])) {
             throw new LogicException("You must supply a storage object implementing OAuth2\Storage\ClientInterface to use the token server");
         }
