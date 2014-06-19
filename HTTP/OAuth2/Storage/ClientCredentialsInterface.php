@@ -6,7 +6,7 @@
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface ClientCredentialsInterface extends ClientInterface
+interface HTTP_OAuth2_Storage_ClientCredentialsInterface extends HTTP_OAuth2_Storage_ClientInterface
 {
 
     /**
