@@ -237,14 +237,14 @@ class HTTP_OAuth2_Response implements HTTP_OAuth2_ResponseInterface
         $this->addHttpHeaders($httpHeaders);
 
         if (!$this->isClientError() && !$this->isServerError()) {
-            throw new \InvalidArgumentException(sprintf('The HTTP status code is not an error ("%s" given).', $statusCode));
+            throw new InvalidArgumentException(sprintf('The HTTP status code is not an error ("%s" given).', $statusCode));
         }
     }
 
     public function setRedirect($statusCode = 302, $url, $state = null, $error = null, $errorDescription = null, $errorUri = null)
     {
         if (empty($url)) {
-            throw new \InvalidArgumentException('Cannot redirect to an empty URL.');
+            throw new InvalidArgumentException('Cannot redirect to an empty URL.');
         }
 
         $parameters = array();
@@ -269,7 +269,7 @@ class HTTP_OAuth2_Response implements HTTP_OAuth2_ResponseInterface
         $this->addHttpHeaders(array('Location' =>  $url));
 
         if (!$this->isRedirection()) {
-            throw new \InvalidArgumentException(sprintf('The HTTP status code is not a redirect ("%s" given).', $statusCode));
+            throw new InvalidArgumentException(sprintf('The HTTP status code is not a redirect ("%s" given).', $statusCode));
         }
     }
 
