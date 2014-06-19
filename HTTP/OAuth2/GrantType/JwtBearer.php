@@ -1,12 +1,12 @@
 <?php
 
-require_once 'HTTP/OAuth2/ClientAssertionType/ClientAssertionTypeInterface';
-require_once 'HTTP/OAuth2/Storage/JwtBearerInterface';
-require_once 'HTTP/OAuth2/Encryption/Jwt';
-require_once 'HTTP/OAuth2/Encryption/EncryptionInterface';
-require_once 'HTTP/OAuth2/ResponseType/AccessTokenInterface';
-require_once 'HTTP/OAuth2/RequestInterface';
-require_once 'HTTP/OAuth2/ResponseInterface';
+require_once 'HTTP/OAuth2/ClientAssertionType/ClientAssertionTypeInterface.php';
+require_once 'HTTP/OAuth2/Storage/JwtBearerInterface.php';
+require_once 'HTTP/OAuth2/Encryption/Jwt.php';
+require_once 'HTTP/OAuth2/Encryption/EncryptionInterface.php';
+require_once 'HTTP/OAuth2/ResponseType/AccessTokenInterface.php';
+require_once 'HTTP/OAuth2/RequestInterface.php';
+require_once 'HTTP/OAuth2/ResponseInterface.php';
 
 /**
  * The JWT bearer authorization grant implements JWT (JSON Web Tokens) as a grant type per the IETF draft.
