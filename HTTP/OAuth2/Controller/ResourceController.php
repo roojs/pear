@@ -10,7 +10,7 @@ require_once 'HTTP/OAuth2/Scope';
 /**
  * @see OAuth2\Controller\ResourceControllerInterface
  */
-class ResourceController implements ResourceControllerInterface
+class HTTP_OAuth2_Controller_ResourceController implements HTTP_OAuth2_Controller_ResourceControllerInterface
 {
     private $token;
 
@@ -19,7 +19,7 @@ class ResourceController implements ResourceControllerInterface
     protected $config;
     protected $scopeUtil;
 
-    public function __construct(TokenTypeInterface $tokenType, AccessTokenInterface $tokenStorage, $config = array(), ScopeInterface $scopeUtil = null)
+    public function __construct(HTTP_OAuth2_TokenType_TokenTypeInterface $tokenType, HTTP_OAuth2_Storage_AccessTokenInterface $tokenStorage, $config = array(), HTTP_OAuth2_ScopeInterface $scopeUtil = null)
     {
         $this->tokenType = $tokenType;
         $this->tokenStorage = $tokenStorage;
@@ -34,7 +34,7 @@ class ResourceController implements ResourceControllerInterface
         $this->scopeUtil = $scopeUtil;
     }
 
-    public function verifyResourceRequest(RequestInterface $request, ResponseInterface $response, $scope = null)
+    public function verifyResourceRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response, $scope = null)
     {
         $token = $this->getAccessTokenData($request, $response);
 
