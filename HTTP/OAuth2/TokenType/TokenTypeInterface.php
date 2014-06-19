@@ -3,7 +3,7 @@
 require_once 'HTTP/OAuth2/RequestInterface';
 require_once 'HTTP/OAuth2/ResponseInterface';
 
-interface TokenTypeInterface
+interface HTTP_OAuth2_TokenType_TokenTypeInterface
 {
     /**
      * Token type identification string
@@ -15,5 +15,5 @@ interface TokenTypeInterface
     /**
      * Retrieves the token string from the request object
      */
-    public function getAccessTokenParameter(RequestInterface $request, ResponseInterface $response);
+    public function getAccessTokenParameter(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response);
 }
