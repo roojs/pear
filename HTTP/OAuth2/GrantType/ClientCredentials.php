@@ -13,7 +13,7 @@ class HTTP_OAuth2_GrantType_ClientCredentials extends HTTP_OAuth2_ClientAssertio
 {
     private $clientData;
 
-    public function __construct(ClientCredentialsInterface $storage, array $config = array())
+    public function __construct(HTTP_OAuth2_Storage_ClientCredentialsInterface $storage, array $config = array())
     {
         /**
          * The client credentials grant type MUST only be used by confidential clients
