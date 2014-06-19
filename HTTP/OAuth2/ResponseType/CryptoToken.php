@@ -11,7 +11,7 @@ require_once 'HTTP/OAuth2/Storage/Memory';
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-class CryptoToken extends AccessToken
+class HTTP_OAuth2_ResponseType_CryptoToken extends HTTP_OAuth2_ResponseType_AccessToken
 {
     protected $publicKeyStorage;
     protected $encryptionUtil;
@@ -22,7 +22,7 @@ class CryptoToken extends AccessToken
      *       whether the entire encrypted string is stored,
      *       or just the token ID is stored
      */
-    public function __construct(PublicKeyInterface $publicKeyStorage = null, AccessTokenStorageInterface $tokenStorage = null, RefreshTokenInterface $refreshStorage = null, array $config = array(), EncryptionInterface $encryptionUtil = null)
+    public function __construct(HTTP_OAuth2_Storage_PublicKeyInterface $publicKeyStorage = null, HTTP_OAuth2_Storage_AccessTokenInterface $tokenStorage = null, HTTP_OAuth2_Storage_RefreshTokenInterface $refreshStorage = null, array $config = array(), HTTP_OAuth2_Encryption_EncryptionInterface $encryptionUtil = null)
     {
         $this->publicKeyStorage = $publicKeyStorage;
         $config = array_merge(array(
