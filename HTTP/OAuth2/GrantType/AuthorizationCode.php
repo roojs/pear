@@ -9,7 +9,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-class AuthorizationCode implements GrantTypeInterface
+class HTTP_OAuth2_GrantType_AuthorizationCode implements HTTP_OAuth2_GrantType_GrantTypeInterface
 {
     protected $storage;
     protected $authCode;
@@ -18,7 +18,7 @@ class AuthorizationCode implements GrantTypeInterface
      * @param OAuth2\Storage\AuthorizationCodeInterface $storage
      * REQUIRED Storage class for retrieving authorization code information
      */
-    public function __construct(AuthorizationCodeInterface $storage)
+    public function __construct(HTTP_OAuth2_Storage_AuthorizationCodeInterface $storage)
     {
         $this->storage = $storage;
     }
@@ -28,7 +28,7 @@ class AuthorizationCode implements GrantTypeInterface
         return 'authorization_code';
     }
 
-    public function validateRequest(RequestInterface $request, ResponseInterface $response)
+    public function validateRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
         if (!$request->request('code')) {
             $response->setError(400, 'invalid_request', 'Missing parameter: "code" is required');
@@ -56,7 +56,7 @@ class AuthorizationCode implements GrantTypeInterface
         }
 
         if (!isset($authCode['expires'])) {
-            throw new \Exception('Storage must return authcode with a value for "expires"');
+            throw new Exception('Storage must return authcode with a value for "expires"');
         }
 
         if ($authCode["expires"] < time()) {
