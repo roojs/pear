@@ -3,12 +3,12 @@
 require_once 'HTTP/OAuth2/ResponseType/AccessTokenInterface';
 require_once 'HTTP/OAuth2/ResponseType/ResponseTypeInterface';
 
-class TokenIdToken implements TokenIdTokenInterface
+class HTTP_OAuth2_ResponseType_TokenIdToken implements HTTP_OAuth2_ResponseType_TokenIdTokenInterface
 {
     protected $accessToken;
     protected $idToken;
 
-    public function __construct(AccessTokenInterface $accessToken, IdToken $idToken)
+    public function __construct(HTTP_OAuth2_ResponseType_AccessTokenInterface $accessToken, HTTP_OAuth2_ResponseType_IdToken $idToken)
     {
         $this->accessToken = $accessToken;
         $this->idToken = $idToken;
