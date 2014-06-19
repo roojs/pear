@@ -1,34 +1,34 @@
 <?php
 
 require_once 'HTTP/OAuth2/Controller/ResourceControllerInterface.php';
-require_once 'HTTP/OAuth2/Controller/ResourceController';
-require_once 'HTTP/OAuth2/OpenID/Controller/UserInfoControllerInterface';
-require_once 'HTTP/OAuth2/OpenID/Controller/UserInfoController';
-require_once 'HTTP/OAuth2/OpenID/Controller/AuthorizeController';
-require_once 'HTTP/OAuth2/OpenID/ResponseType/AuthorizationCode';
-require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface';
-require_once 'HTTP/OAuth2/OpenID/GrantType/AuthorizationCode';
-require_once 'HTTP/OAuth2/Controller/AuthorizeControllerInterface';
-require_once 'HTTP/OAuth2/Controller/AuthorizeController';
-require_once 'HTTP/OAuth2/Controller/TokenControllerInterface';
-require_once 'HTTP/OAuth2/Controller/TokenController';
-require_once 'HTTP/OAuth2/ClientAssertionType/ClientAssertionTypeInterface';
-require_once 'HTTP/OAuth2/ClientAssertionType/HttpBasic';
-require_once 'HTTP/OAuth2/ResponseType/ResponseTypeInterface';
-require_once 'HTTP/OAuth2/ResponseType/AuthorizationCode';
-require_once 'HTTP/OAuth2/ResponseType/AccessToken';
-require_once 'HTTP/OAuth2/ResponseType/CryptoToken';
-require_once 'HTTP/OAuth2/OpenID/ResponseType/IdToken';
-require_once 'HTTP/OAuth2/OpenID/ResponseType/TokenIdToken';
-require_once 'HTTP/OAuth2/TokenType/TokenTypeInterface';
-require_once 'HTTP/OAuth2/TokenType/Bearer';
-require_once 'HTTP/OAuth2/GrantType/GrantTypeInterface';
-require_once 'HTTP/OAuth2/GrantType/UserCredentials';
-require_once 'HTTP/OAuth2/GrantType/ClientCredentials';
-require_once 'HTTP/OAuth2/GrantType/RefreshToken';
-require_once 'HTTP/OAuth2/GrantType/AuthorizationCode';
-require_once 'HTTP/OAuth2/Storage/CryptoToken';
-require_once 'HTTP/OAuth2/Storage/CryptoTokenInterface';
+require_once 'HTTP/OAuth2/Controller/ResourceController.php';
+require_once 'HTTP/OAuth2/OpenID/Controller/UserInfoControllerInterface.php';
+require_once 'HTTP/OAuth2/OpenID/Controller/UserInfoController.php';
+require_once 'HTTP/OAuth2/OpenID/Controller/AuthorizeController.php';
+require_once 'HTTP/OAuth2/OpenID/ResponseType/AuthorizationCode.php';
+require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface.php';
+require_once 'HTTP/OAuth2/OpenID/GrantType/AuthorizationCode.php';
+require_once 'HTTP/OAuth2/Controller/AuthorizeControllerInterface.php';
+require_once 'HTTP/OAuth2/Controller/AuthorizeController.php';
+require_once 'HTTP/OAuth2/Controller/TokenControllerInterface.php';
+require_once 'HTTP/OAuth2/Controller/TokenController.php';
+require_once 'HTTP/OAuth2/ClientAssertionType/ClientAssertionTypeInterface.php';
+require_once 'HTTP/OAuth2/ClientAssertionType/HttpBasic.php';
+require_once 'HTTP/OAuth2/ResponseType/ResponseTypeInterface.php';
+require_once 'HTTP/OAuth2/ResponseType/AuthorizationCode.php';
+require_once 'HTTP/OAuth2/ResponseType/AccessToken.php';
+require_once 'HTTP/OAuth2/ResponseType/CryptoToken.php';
+require_once 'HTTP/OAuth2/OpenID/ResponseType/IdToken.php';
+require_once 'HTTP/OAuth2/OpenID/ResponseType/TokenIdToken.php';
+require_once 'HTTP/OAuth2/TokenType/TokenTypeInterface.php';
+require_once 'HTTP/OAuth2/TokenType/Bearer.php';
+require_once 'HTTP/OAuth2/GrantType/GrantTypeInterface.php';
+require_once 'HTTP/OAuth2/GrantType/UserCredentials.php';
+require_once 'HTTP/OAuth2/GrantType/ClientCredentials.php';
+require_once 'HTTP/OAuth2/GrantType/RefreshToken.php';
+require_once 'HTTP/OAuth2/GrantType/AuthorizationCode.php';
+require_once 'HTTP/OAuth2/Storage/CryptoToken.php';
+require_once 'HTTP/OAuth2/Storage/CryptoTokenInterface.php';
 
 /**
 * Server class for OAuth2
