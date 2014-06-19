@@ -10,7 +10,7 @@
  * @author F21
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface JwtBearerInterface
+interface HTTP_OAuth2_Storage_JwtBearerInterface
 {
     /**
      * Get the public key associated with a client_id
