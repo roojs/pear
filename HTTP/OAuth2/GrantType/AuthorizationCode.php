@@ -89,7 +89,7 @@ class HTTP_OAuth2_GrantType_AuthorizationCode implements HTTP_OAuth2_GrantType_G
         return isset($this->authCode['user_id']) ? $this->authCode['user_id'] : null;
     }
 
-    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
+    public function createAccessToken(HTTP_OAuth2_ResponseType_AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
     {
         $token = $accessToken->createAccessToken($client_id, $user_id, $scope);
         $this->storage->expireAuthorizationCode($this->authCode['code']);
