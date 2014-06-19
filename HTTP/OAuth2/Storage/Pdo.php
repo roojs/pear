@@ -22,7 +22,7 @@ class HTTP_OAuth2_Storage_Pdo implements HTTP_OAuth2_Storage_AuthorizationCodeIn
     HTTP_OAuth2_Storage_JwtBearerInterface,
     HTTP_OAuth2_Storage_ScopeInterface,
     HTTP_OAuth2_Storage_PublicKeyInterface,
-    HTTP_OAuth2_Storage_UserClaimsInterface,
+    HTTP_OAuth2_OpenID_Storage_UserClaimsInterface,
     HTTP_OAuth2_OpenID_Storage_AuthorizationCodeInterface
 {
     protected $db;
