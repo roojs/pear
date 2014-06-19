@@ -7,7 +7,7 @@ require_once 'HTTP/OAuth2/Storage/ScopeInterface.php';
  *
  * @see OAuth2\Storage\ScopeInterface
  */
-interface HTTP_OAuth2_ScopeInterface extends HTTP_OAuth2_Storage_ScopeStorageInterface
+interface HTTP_OAuth2_ScopeInterface extends HTTP_OAuth2_Storage_ScopeInterface
 {
     /**
      * Check if everything in required scope is contained in available scope.
