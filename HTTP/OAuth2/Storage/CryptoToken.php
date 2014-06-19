@@ -1,7 +1,7 @@
 <?php
 
-require_once 'HTTP/OAuth2/Encryption/EncryptionInterface';
-require_once 'HTTP/OAuth2/Encryption/Jwt';
+require_once 'HTTP/OAuth2/Encryption/EncryptionInterface.php';
+require_once 'HTTP/OAuth2/Encryption/Jwt.php';
 
 /**
  *
