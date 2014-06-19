@@ -7,7 +7,7 @@ require_once 'HTTP/OAuth2/Storage/RefreshTokenInterface';
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-class AccessToken implements AccessTokenInterface
+class HTTP_OAuth2_ResponseType_AccessToken implements HTTP_OAuth2_ResponseType_AccessTokenInterface
 {
     protected $tokenStorage;
     protected $refreshStorage;
@@ -28,7 +28,7 @@ class AccessToken implements AccessTokenInterface
      * );
      * @endcode
      */
-    public function __construct(AccessTokenStorageInterface $tokenStorage, RefreshTokenInterface $refreshStorage = null, array $config = array())
+    public function __construct(HTTP_OAuth2_Storage_AccessTokenInterface $tokenStorage, HTTP_OAuth2_Storage_RefreshTokenInterface $refreshStorage = null, array $config = array())
     {
         $this->tokenStorage = $tokenStorage;
         $this->refreshStorage = $refreshStorage;
