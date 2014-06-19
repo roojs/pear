@@ -79,7 +79,6 @@ class HTTP_OAuth2_Request implements HTTP_OAuth2_RequestInterface
     public function headers($name, $default = null)
     {
         $headers = array_change_key_case($this->headers);
-        print_r($headers);exit;
         $name = strtolower($name);
         return isset($headers[$name]) ? $headers[$name] : $default;
     }
