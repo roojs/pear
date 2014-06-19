@@ -2,6 +2,7 @@
 
 require_once 'HTTP/OAuth2/ResponseType/AccessTokenInterface.php';
 require_once 'HTTP/OAuth2/ResponseType/ResponseTypeInterface.php';
+require_once 'HTTP/OAuth2/ResponseType/TokenIdTokenInterface.php';
 
 class HTTP_OAuth2_OpenID_ResponseType_TokenIdToken implements HTTP_OAuth2_ResponseType_TokenIdTokenInterface
 {
