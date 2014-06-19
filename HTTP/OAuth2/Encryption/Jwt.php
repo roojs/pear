@@ -112,7 +112,7 @@ class HTTP_OAuth2_Encryption_Jwt implements HTTP_OAuth2_Encryption_EncryptionInt
     private function generateRSASignature($input, $key, $algo)
     {
         if (!openssl_sign($input, $signature, $key, $algo)) {
-            throw new \Exception("Unable to sign data.");
+            throw new Exception("Unable to sign data.");
         }
 
         return $signature;
