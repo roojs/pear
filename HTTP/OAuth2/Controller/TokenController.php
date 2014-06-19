@@ -1,13 +1,13 @@
 <?php
 
-require_once 'HTTP/OAuth2/ResponseType/AccessTokenInterface';
-require_once 'HTTP/OAuth2/ClientAssertionType/ClientAssertionTypeInterface';
-require_once 'HTTP/OAuth2/GrantType/GrantTypeInterface';
-require_once 'HTTP/OAuth2/ScopeInterface';
-require_once 'HTTP/OAuth2/Scope';
-require_once 'HTTP/OAuth2/Storage/ClientInterface';
-require_once 'HTTP/OAuth2/RequestInterface';
-require_once 'HTTP/OAuth2/ResponseInterface';
+require_once 'HTTP/OAuth2/ResponseType/AccessTokenInterface.php';
+require_once 'HTTP/OAuth2/ClientAssertionType/ClientAssertionTypeInterface.php';
+require_once 'HTTP/OAuth2/GrantType/GrantTypeInterface.php';
+require_once 'HTTP/OAuth2/ScopeInterface.php';
+require_once 'HTTP/OAuth2/Scope.php';
+require_once 'HTTP/OAuth2/Storage/ClientInterface.php';
+require_once 'HTTP/OAuth2/RequestInterface.php';
+require_once 'HTTP/OAuth2/ResponseInterface.php';
 
 /**
  * @see OAuth2\Controller\TokenControllerInterface
