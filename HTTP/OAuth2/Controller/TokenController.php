@@ -71,14 +71,14 @@ class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_T
      * @ingroup oauth2_section_4
      */
     public function grantAccessToken(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
-    {
+    { print_r($request);exit;
         if (strtolower($request->server('REQUEST_METHOD')) != 'post') {
             $response->setError(405, 'invalid_request', 'The request method must be POST when requesting an access token', '#section-3.2');
             $response->addHttpHeaders(array('Allow' => 'POST'));
 
             return null;
         }
-        print_r($request);exit;
+       
         /**
          * Determine grant type from request
          * and validate the request for that grant type
