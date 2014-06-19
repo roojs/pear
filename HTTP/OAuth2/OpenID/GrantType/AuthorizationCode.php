@@ -10,9 +10,9 @@ require_once 'HTTP/OAuth2/ResponseInterface';
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-class AuthorizationCode extends BaseAuthorizationCode
+class HTTP_OAuth2_OpenID_GrantType_AuthorizationCode extends HTTP_OAuth2_GrantType_AuthorizationCode
 {
-    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
+    public function createAccessToken(HTTP_OAuth2_ResponseType_AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
     {
         $includeRefreshToken = true;
         if (isset($this->authCode['id_token'])) {
