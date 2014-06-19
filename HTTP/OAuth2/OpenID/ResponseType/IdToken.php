@@ -6,14 +6,14 @@ require_once 'HTTP/OAuth2/Storage/RefreshTokenInterface';
 require_once 'HTTP/OAuth2/Storage/PublicKeyInterface';
 require_once 'HTTP/OAuth2/OpenID/Storage/UserClaimsInterface';
 
-class IdToken implements IdTokenInterface
+class HTTP_OAuth2_OpenID_ResponseType_IdToken implements HTTP_OAuth2_OpenID_ResponseType_IdTokenInterface
 {
     protected $userClaimsStorage;
     protected $publicKeyStorage;
     protected $config;
     protected $encryptionUtil;
 
-    public function __construct(UserClaimsInterface $userClaimsStorage, PublicKeyInterface $publicKeyStorage, array $config = array(), EncryptionInterface $encryptionUtil = null)
+    public function __construct(HTTP_OAuth2_OpenID_Storage_UserClaimsInterface $userClaimsStorage, HTTP_OAuth2_Storage_PublicKeyInterface $publicKeyStorage, array $config = array(), HTTP_OAuth2_Encryption_EncryptionInterface $encryptionUtil = null)
     {
         $this->userClaimsStorage = $userClaimsStorage;
         $this->publicKeyStorage = $publicKeyStorage;
@@ -23,7 +23,7 @@ class IdToken implements IdTokenInterface
         $this->encryptionUtil = $encryptionUtil;
 
         if (!isset($config['issuer'])) {
-            throw new \LogicException('config parameter "issuer" must be set');
+            throw new LogicException('config parameter "issuer" must be set');
         }
         $this->config = array_merge(array(
             'id_lifetime' => 3600,
@@ -104,7 +104,7 @@ class IdToken implements IdTokenInterface
         // support an array for user_id / auth_time
         if (is_array($userInfo)) {
             if (!isset($userInfo['user_id'])) {
-                throw new \LogicException('if $user_id argument is an array, user_id index must be set');
+                throw new LogicException('if $user_id argument is an array, user_id index must be set');
             }
 
             $auth_time = isset($userInfo['auth_time']) ? $userInfo['auth_time'] : null;
