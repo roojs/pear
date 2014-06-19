@@ -78,7 +78,7 @@ class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_T
 
             return null;
         }
-
+        print_r($request);exit;
         /**
          * Determine grant type from request
          * and validate the request for that grant type
