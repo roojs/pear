@@ -1,7 +1,7 @@
 <?php
 
-require_once 'HTTP/OAuth2/Storage/AccessTokenInterface';
-require_once 'HTTP/OAuth2/Storage/RefreshTokenInterface';
+require_once 'HTTP/OAuth2/Storage/AccessTokenInterface.php';
+require_once 'HTTP/OAuth2/Storage/RefreshTokenInterface.php';
 
 /**
  *
