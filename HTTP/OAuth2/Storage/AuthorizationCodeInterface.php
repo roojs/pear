@@ -7,7 +7,7 @@
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface AuthorizationCodeInterface
+interface HTTP_OAuth2_Storage_AuthorizationCodeInterface
 {
     /**
      * The Authorization Code grant type supports a response type of "code".
