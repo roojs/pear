@@ -4,7 +4,7 @@
  * Implement this interface to specify where the OAuth2 Server
  * should retrieve user claims for the OpenID Connect id_token.
  */
-interface UserClaimsInterface
+interface HTTP_OAuth2_OpenID_Storage_UserClaimsInterface
 {
     // valid scope values to pass into the user claims API call
     const VALID_CLAIMS = 'profile email address phone';
