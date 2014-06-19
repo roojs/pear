@@ -1,5 +1,7 @@
 <?php
 
+require_once 'HTTP/OAuth2/Storage/ClientInterface.php';
+
 /**
  * Implement this interface to specify how the OAuth2 Server
  * should verify client credentials
