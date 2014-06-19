@@ -11,7 +11,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
 /**
  * @see OAuth2\Controller\UserInfoControllerInterface
  */
-class UserInfoController extends ResourceController implements UserInfoControllerInterface
+class HTTP_OAuth2_OpenID_Controller_UserInfoController extends ResourceController implements UserInfoControllerInterface
 {
     private $token;
 
