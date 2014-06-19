@@ -69,7 +69,7 @@ class HTTP_OAuth2_Controller_ResourceController implements HTTP_OAuth2_Controlle
         return (bool) $token;
     }
 
-    public function getAccessTokenData(RequestInterface $request, ResponseInterface $response)
+    public function getAccessTokenData(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
         // Get the token parameter
         if ($token_param = $this->tokenType->getAccessTokenParameter($request, $response)) {
