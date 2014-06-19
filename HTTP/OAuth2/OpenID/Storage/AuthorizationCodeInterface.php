@@ -8,7 +8,7 @@ require_once 'HTTP/OAuth2/Storage/AuthorizationCodeInterface';
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface AuthorizationCodeInterface extends BaseAuthorizationCodeInterface
+interface HTTP_OAuth2_OpenID_Storage_AuthorizationCodeInterface extends HTTP_OAuth2_Storage_AuthorizationCodeInterface
 {
     /**
      * Take the provided authorization code values and store them somewhere.
