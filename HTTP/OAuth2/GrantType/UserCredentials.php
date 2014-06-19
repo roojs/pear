@@ -9,7 +9,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-class UserCredentials implements GrantTypeInterface
+class HTTP_OAuth2_GrantType_UserCredentials implements HTTP_OAuth2_GrantType_GrantTypeInterface
 {
     private $userInfo;
 
@@ -19,7 +19,7 @@ class UserCredentials implements GrantTypeInterface
      * @param OAuth2\Storage\UserCredentialsInterface $storage
      * REQUIRED Storage class for retrieving user credentials information
      */
-    public function __construct(UserCredentialsInterface $storage)
+    public function __construct(HTTP_OAuth2_Storage_UserCredentialsInterface $storage)
     {
         $this->storage = $storage;
     }
@@ -29,7 +29,7 @@ class UserCredentials implements GrantTypeInterface
         return 'password';
     }
 
-    public function validateRequest(RequestInterface $request, ResponseInterface $response)
+    public function validateRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
         if (!$request->request("password") || !$request->request("username")) {
             $response->setError(400, 'invalid_request', 'Missing parameters: "username" and "password" required');
@@ -52,7 +52,7 @@ class UserCredentials implements GrantTypeInterface
         }
 
         if (!isset($userInfo['user_id'])) {
-            throw new \LogicException("you must set the user_id on the array returned by getUserDetails");
+            throw new LogicException("you must set the user_id on the array returned by getUserDetails");
         }
 
         $this->userInfo = $userInfo;
@@ -75,7 +75,7 @@ class UserCredentials implements GrantTypeInterface
         return isset($this->userInfo['scope']) ? $this->userInfo['scope'] : null;
     }
 
-    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
+    public function createAccessToken(HTTP_OAuth2_ResponseType_AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
     {
         return $accessToken->createAccessToken($client_id, $user_id, $scope);
     }
