@@ -6,7 +6,7 @@ require_once 'HTTP/OAuth2/Storage/ScopeInterface.php';
 /**
 * @see OAuth2\ScopeInterface
 */
-class HTTP_OAuth2_Scope implements HTTP_OAuth2_Storage_ScopeInterface
+class HTTP_OAuth2_Scope implements HTTP_OAuth2_ScopeInterface
 {
     protected $storage;
 
