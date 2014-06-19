@@ -1,8 +1,8 @@
 <?php
 
-require_once 'HTTP/OAuth2/ClientAssertionType/HttpBasic';
-require_once 'HTTP/OAuth2/ResponseType/AccessTokenInterface';
-require_once 'HTTP/OAuth2/Storage/ClientCredentialsInterface';
+require_once 'HTTP/OAuth2/ClientAssertionType/HttpBasic.php';
+require_once 'HTTP/OAuth2/ResponseType/AccessTokenInterface.php';
+require_once 'HTTP/OAuth2/Storage/ClientCredentialsInterface.php';
 
 /**
  * @author Brent Shaffer <bshafs at gmail dot com>
