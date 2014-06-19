@@ -1,6 +1,6 @@
 <?php
 
-interface EncryptionInterface
+interface HTTP_OAuth2_Encryption_EncryptionInterface
 {
     public function encode($payload, $key, $algorithm = null);
     public function decode($payload, $key, $algorithm = null);
