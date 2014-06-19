@@ -249,7 +249,7 @@ class HTTP_OAuth2_Storage_Redis implements HTTP_OAuth2_Storage_AuthorizationCode
     public function setScope($scope, $client_id = null, $type = 'supported')
     {
         if (!in_array($type, array('default', 'supported'))) {
-            throw new \InvalidArgumentException('"$type" must be one of "default", "supported"');
+            throw new InvalidArgumentException('"$type" must be one of "default", "supported"');
         }
 
         if (is_null($client_id)) {
@@ -299,12 +299,12 @@ class HTTP_OAuth2_Storage_Redis implements HTTP_OAuth2_Storage_AuthorizationCode
     public function getJti($client_id, $subject, $audience, $expiration, $jti)
     {
         //TODO: Needs redis implementation.
-        throw new \Exception('getJti() for the Redis driver is currently unimplemented.');
+        throw new Exception('getJti() for the Redis driver is currently unimplemented.');
     }
 
     public function setJti($client_id, $subject, $audience, $expiration, $jti)
     {
         //TODO: Needs redis implementation.
-        throw new \Exception('setJti() for the Redis driver is currently unimplemented.');
+        throw new Exception('setJti() for the Redis driver is currently unimplemented.');
     }
 }
