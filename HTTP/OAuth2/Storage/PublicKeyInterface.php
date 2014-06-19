@@ -6,7 +6,7 @@
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface PublicKeyInterface
+interface HTTP_OAuth2_Storage_PublicKeyInterface
 {
     public function getPublicKey($client_id = null);
     public function getPrivateKey($client_id = null);
