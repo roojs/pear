@@ -13,7 +13,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
 require_once 'HTTP/ *  > $response->send()';
  *
  */
-interface TokenControllerInterface
+interface HTTP_OAuth2_Controller_TokenControllerInterface
 {
     /**
      * handleTokenRequest
@@ -24,7 +24,7 @@ interface TokenControllerInterface
      * OAuth2\ResponseInterface - An instance of OAuth2\ResponseInterface to contain the response data
      *
      */
-    public function handleTokenRequest(RequestInterface $request, ResponseInterface $response);
+    public function handleTokenRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response);
 
-    public function grantAccessToken(RequestInterface $request, ResponseInterface $response);
+    public function grantAccessToken(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response);
 }
