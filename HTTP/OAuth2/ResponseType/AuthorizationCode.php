@@ -1,6 +1,7 @@
 <?php
 
 require_once 'HTTP/OAuth2/Storage/AuthorizationCodeInterface.php';
+require_once 'HTTP/OAuth2/ResponseType/AuthorizationCodeInterface.php';
 
 /**
  *
