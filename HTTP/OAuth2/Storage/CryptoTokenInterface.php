@@ -6,7 +6,7 @@
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface CryptoTokenInterface extends AccessTokenInterface
+interface HTTP_OAuth2_Storage_CryptoTokenInterface extends HTTP_OAuth2_Storage_AccessTokenInterface
 {
 
 }
