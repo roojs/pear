@@ -6,7 +6,7 @@
  *
  * @see OAuth2\Response
  */
-interface ResponseInterface
+interface HTTP_OAuth2_ResponseInterface
 {
     public function addParameters(array $parameters);
 
