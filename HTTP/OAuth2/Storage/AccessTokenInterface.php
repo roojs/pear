@@ -6,7 +6,7 @@
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface AccessTokenInterface
+interface HTTP_OAuth2_Storage_AccessTokenInterface
 {
     /**
      * Look up the supplied oauth_token from storage.
