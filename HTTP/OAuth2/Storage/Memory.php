@@ -2,6 +2,7 @@
 
 require_once 'HTTP/OAuth2/OpenID/Storage/UserClaimsInterface.php';
 require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface.php';
+require_once 'HTTP/OAuth2/Storage/UserCredentialsInterface.php';
 
 /**
  * Simple in-memory storage for all storage types
