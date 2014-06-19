@@ -5,6 +5,7 @@ require_once 'HTTP/OAuth2/Encryption/Jwt.php';
 require_once 'HTTP/OAuth2/Storage/RefreshTokenInterface.php';
 require_once 'HTTP/OAuth2/Storage/PublicKeyInterface.php';
 require_once 'HTTP/OAuth2/OpenID/Storage/UserClaimsInterface.php';
+require_once 'HTTP/OAuth2/OpenID/ResponseType/IdTokenInterface.php';
 
 class HTTP_OAuth2_OpenID_ResponseType_IdToken implements HTTP_OAuth2_OpenID_ResponseType_IdTokenInterface
 {
