@@ -16,7 +16,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
  * @author F21
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-class JwtBearer implements GrantTypeInterface, ClientAssertionTypeInterface
+class HTTP_OAuth2_GrantType_JwtBearer implements HTTP_OAuth2_GrantType_GrantTypeInterface, HTTP_OAuth2_ClientAssertionType_ClientAssertionTypeInterface
 {
     private $jwt;
 
@@ -34,13 +34,13 @@ class JwtBearer implements GrantTypeInterface, ClientAssertionTypeInterface
      * @param OAuth2\Encryption\JWT OPTIONAL $jwtUtil
      * The class used to decode, encode and verify JWTs.
      */
-    public function __construct(JwtBearerInterface $storage, $audience, EncryptionInterface $jwtUtil = null)
+    public function __construct(HTTP_OAuth2_Storage_JwtBearerInterface $storage, $audience, HTTP_OAuth2_Encryption_EncryptionInterface $jwtUtil = null)
     {
         $this->storage = $storage;
         $this->audience = $audience;
 
         if (is_null($jwtUtil)) {
-            $jwtUtil = new Jwt();
+            $jwtUtil = new HTTP_OAuth2_Encryption_Jwt();
         }
 
         $this->jwtUtil = $jwtUtil;
@@ -67,7 +67,7 @@ class JwtBearer implements GrantTypeInterface, ClientAssertionTypeInterface
      *
      * @see OAuth2\GrantType\GrantTypeInterface::getTokenData()
      */
-    public function validateRequest(RequestInterface $request, ResponseInterface $response)
+    public function validateRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
         if (!$request->request("assertion")) {
             $response->setError(400, 'invalid_request', 'Missing parameters: "assertion" required');
@@ -210,7 +210,7 @@ class JwtBearer implements GrantTypeInterface, ClientAssertionTypeInterface
      *
      * @see OAuth2\GrantType\GrantTypeInterface::createAccessToken()
      */
-    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
+    public function createAccessToken(HTTP_OAuth2_ResponseType_AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
     {
         $includeRefreshToken = false;
 
