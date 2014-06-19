@@ -46,7 +46,7 @@ class HTTP_OAuth2_ClientAssertionType_HttpBasic implements HTTP_OAuth2_ClientAss
         if (!isset($clientData['client_id'])) {
             throw new LogicException('the clientData array must have "client_id" set');
         }
-
+        print_r($this);exit;
         if (!isset($clientData['client_secret']) || $clientData['client_secret'] == '') {
             if (!$this->config['allow_public_clients']) {
                 $response->setError(400, 'invalid_client', 'client credentials are required');
