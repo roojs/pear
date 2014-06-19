@@ -1,9 +1,9 @@
 <?php
 
-require_once 'HTTP/OAuth2/Storage/UserCredentialsInterface';
-require_once 'HTTP/OAuth2/ResponseType/AccessTokenInterface';
-require_once 'HTTP/OAuth2/RequestInterface';
-require_once 'HTTP/OAuth2/ResponseInterface';
+require_once 'HTTP/OAuth2/Storage/UserCredentialsInterface.php';
+require_once 'HTTP/OAuth2/ResponseType/AccessTokenInterface.php';
+require_once 'HTTP/OAuth2/RequestInterface.php';
+require_once 'HTTP/OAuth2/ResponseInterface.php';
 
 /**
  *
