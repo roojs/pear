@@ -44,7 +44,7 @@ class HTTP_OAuth2_GrantType_ClientCredentials extends HTTP_OAuth2_ClientAssertio
         return isset($this->clientData['user_id']) ? $this->clientData['user_id'] : null;
     }
 
-    public function createAccessToken(AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
+    public function createAccessToken(HTTP_OAuth2_ResponseType_AccessTokenInterface $accessToken, $client_id, $user_id, $scope)
     {
         /**
          * Client Credentials Grant does NOT include a refresh token
