@@ -1,6 +1,6 @@
 <?php
 
-interface RequestInterface
+interface HTTP_OAuth2_RequestInterface
 {
     public function query($name, $default = null);
 
