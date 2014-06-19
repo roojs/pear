@@ -4,7 +4,7 @@
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-interface AccessTokenInterface extends ResponseTypeInterface
+interface HTTP_OAuth2_ResponseType_AccessTokenInterface extends HTTP_OAuth2_ResponseType_ResponseTypeInterface
 {
     /**
      * Handle the creation of access token, also issue refresh token if supported / desirable.
