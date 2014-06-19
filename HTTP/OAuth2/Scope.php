@@ -1,7 +1,7 @@
 <?php
 
-require_once 'HTTP/OAuth2/Storage/Memory';
-require_once 'HTTP/OAuth2/Storage/ScopeInterface';
+require_once 'HTTP/OAuth2/Storage/Memory.php';
+require_once 'HTTP/OAuth2/Storage/ScopeInterface.php';
 
 /**
 * @see OAuth2\ScopeInterface

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'HTTP/OAuth2/Storage/ScopeInterface';
+require_once 'HTTP/OAuth2/Storage/ScopeInterface.php';
 
 /**
  * Class to handle scope implementation logic
