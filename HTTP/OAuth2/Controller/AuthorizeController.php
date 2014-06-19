@@ -5,6 +5,7 @@ require_once 'HTTP/OAuth2/ScopeInterface.php';
 require_once 'HTTP/OAuth2/RequestInterface.php';
 require_once 'HTTP/OAuth2/ResponseInterface.php';
 require_once 'HTTP/OAuth2/Scope.php';
+require_once 'HTTP/OAuth2/Controller/AuthorizeControllerInterface.php';
 
 /**
  * @see OAuth2\Controller\AuthorizeControllerInterface
