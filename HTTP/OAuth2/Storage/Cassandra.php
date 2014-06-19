@@ -2,7 +2,7 @@
 
 require_once 'HTTP/phpcassa/ColumnFamily';
 require_once 'HTTP/phpcassa/ColumnSlice';
-require_once 'HTTP/phpcassa/Connection/ConnectionPool';
+require_once 'phpcassa/Connection/ConnectionPool';
 require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface';
 
 /**
@@ -26,14 +26,14 @@ require_once 'HTTP/ *  $storage->setClientDetails($client_id, $client_secret, $r
  *
  * @see test/lib/OAuth2/Storage/Bootstrap::getCassandraStorage
  */
-class Cassandra implements AuthorizationCodeInterface,
-    AccessTokenInterface,
-    ClientCredentialsInterface,
-    UserCredentialsInterface,
-    RefreshTokenInterface,
-    JwtBearerInterface,
-    ScopeInterface,
-    OpenIDAuthorizationCodeInterface
+class HTTP_OAuth2_Storage_Cassandra implements HTTP_OAuth2_Storage_AuthorizationCodeInterface,
+    HTTP_OAuth2_Storage_AccessTokenInterface,
+    HTTP_OAuth2_Storage_ClientCredentialsInterface,
+    HTTP_OAuth2_Storage_UserCredentialsInterface,
+    HTTP_OAuth2_Storage_RefreshTokenInterface,
+    HTTP_OAuth2_Storage_JwtBearerInterface,
+    HTTP_OAuth2_Storage_ScopeInterface,
+    HTTP_OAuth2_OpenID_Storage_AuthorizationCodeInterface
 {
 
     private $cache;
