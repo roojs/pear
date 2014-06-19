@@ -1,5 +1,6 @@
 <?php
 
+require_once 'HTTP/OAuth2/ResponseType/ResponseTypeInterface.php';
 /**
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
