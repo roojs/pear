@@ -1,8 +1,8 @@
 <?php
 
-require_once 'HTTP/OAuth2/Controller/AuthorizeController';
-require_once 'HTTP/OAuth2/RequestInterface';
-require_once 'HTTP/OAuth2/ResponseInterface';
+require_once 'HTTP/OAuth2/Controller/AuthorizeController.php';
+require_once 'HTTP/OAuth2/RequestInterface.php';
+require_once 'HTTP/OAuth2/ResponseInterface.php';
 
 /**
  * @see OAuth2\Controller\AuthorizeControllerInterface
