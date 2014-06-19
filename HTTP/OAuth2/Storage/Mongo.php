@@ -1,6 +1,6 @@
 <?php
 
-require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface';
+require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface.php';
 
 /**
  * Simple MongoDB storage for all storage types

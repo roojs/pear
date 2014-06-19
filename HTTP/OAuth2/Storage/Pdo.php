@@ -1,7 +1,7 @@
 <?php
 
-require_once 'HTTP/OAuth2/OpenID/Storage/UserClaimsInterface';
-require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface';
+require_once 'HTTP/OAuth2/OpenID/Storage/UserClaimsInterface.php';
+require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface.php';
 /**
  * Simple PDO storage for all storage types
  *
