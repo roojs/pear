@@ -7,7 +7,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
 /**
  * Interface for all OAuth2 Grant Types
  */
-interface GrantTypeInterface
+interface HTTP_OAuth2_GrantType_GrantTypeInterface
 {
     public function getQuerystringIdentifier();
     public function validateRequest(RequestInterface $request, ResponseInterface $response);
