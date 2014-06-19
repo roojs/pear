@@ -1,12 +1,12 @@
 <?php
 
-require_once 'HTTP/OAuth2/TokenType/TokenTypeInterface';
-require_once 'HTTP/OAuth2/Storage/AccessTokenInterface';
-require_once 'HTTP/OAuth2/OpenID/Storage/UserClaimsInterface';
-require_once 'HTTP/OAuth2/Controller/ResourceController';
-require_once 'HTTP/OAuth2/ScopeInterface';
-require_once 'HTTP/OAuth2/RequestInterface';
-require_once 'HTTP/OAuth2/ResponseInterface';
+require_once 'HTTP/OAuth2/TokenType/TokenTypeInterface.php';
+require_once 'HTTP/OAuth2/Storage/AccessTokenInterface.php';
+require_once 'HTTP/OAuth2/OpenID/Storage/UserClaimsInterface.php';
+require_once 'HTTP/OAuth2/Controller/ResourceController.php';
+require_once 'HTTP/OAuth2/ScopeInterface.php';
+require_once 'HTTP/OAuth2/RequestInterface.php';
+require_once 'HTTP/OAuth2/ResponseInterface.php';
 
 /**
  * @see OAuth2\Controller\UserInfoControllerInterface
