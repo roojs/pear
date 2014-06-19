@@ -38,7 +38,7 @@ require_once 'HTTP/OAuth2/Storage/CryptoTokenInterface.php';
 * @see OAuth2\Controller\AuthorizeController
 * @see OAuth2\Controller\TokenController
 */
-class Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
+class HTTP_OAuth2_Server implements HTTP_OAuth2_Controller_ResourceControllerInterface,
     HTTP_OAuth2_Controller_AuthorizeControllerInterface,
     HTTP_OAuth2_Controller_TokenControllerInterface,
     HTTP_OAuth2_OpenID_Controller_UserInfoControllerInterface
