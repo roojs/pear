@@ -32,12 +32,12 @@ class HTTP_OAuth2_OpenID_Controller_UserInfoController extends HTTP_OAuth2_Contr
         ), $config);
 
         if (is_null($scopeUtil)) {
-            $scopeUtil = new Scope();
+            $scopeUtil = new HTTP_OAuth2_Scope();
         }
         $this->scopeUtil = $scopeUtil;
     }
 
-    public function handleUserInfoRequest(RequestInterface $request, ResponseInterface $response)
+    public function handleUserInfoRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
         if (!$this->verifyResourceRequest($request, $response, 'openid')) {
             return;
