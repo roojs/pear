@@ -156,7 +156,7 @@ class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_T
          *
          * @see http://tools.ietf.org/html/rfc6749#section-3.3
          */
-        print_r($request);exit;
+        
         $requestedScope = $this->scopeUtil->getScopeFromRequest($request);
         $availableScope = $grantType->getScope();
 
