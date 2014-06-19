@@ -15,7 +15,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
 require_once 'HTTP/ *  > $response->send()';
  *
  */
-interface UserInfoControllerInterface
+interface HTTP_OAuth2_OpenID_Controller_UserInfoControllerInterface
 {
-    public function handleUserInfoRequest(RequestInterface $request, ResponseInterface $response);
+    public function handleUserInfoRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response);
 }
