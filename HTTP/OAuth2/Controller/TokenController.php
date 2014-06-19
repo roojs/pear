@@ -12,7 +12,7 @@ require_once 'HTTP/OAuth2/ResponseInterface';
 /**
  * @see OAuth2\Controller\TokenControllerInterface
  */
-class TokenController implements TokenControllerInterface
+class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_TokenControllerInterface
 {
     protected $accessToken;
     protected $grantTypes;
@@ -20,12 +20,12 @@ class TokenController implements TokenControllerInterface
     protected $scopeUtil;
     protected $clientStorage;
 
-    public function __construct(AccessTokenInterface $accessToken, ClientInterface $clientStorage, array $grantTypes = array(), ClientAssertionTypeInterface $clientAssertionType = null, ScopeInterface $scopeUtil = null)
+    public function __construct(HTTP_OAuth2_ResponseType_AccessTokenInterface $accessToken, HTTP_OAuth2_Storage_ClientInterface $clientStorage, array $grantTypes = array(), HTTP_OAuth2_ClientAssertionType_ClientAssertionTypeInterface $clientAssertionType = null, HTTP_OAuth2_ScopeInterface $scopeUtil = null)
     {
         if (is_null($clientAssertionType)) {
             foreach ($grantTypes as $grantType) {
-                if (!$grantType instanceof ClientAssertionTypeInterface) {
-                    throw new \InvalidArgumentException('You must supply an instance of OAuth2\ClientAssertionType\ClientAssertionTypeInterface or only use grant types which implement OAuth2\ClientAssertionType\ClientAssertionTypeInterface');
+                if (!$grantType instanceof HTTP_OAuth2_ClientAssertionType_ClientAssertionTypeInterface) {
+                    throw new InvalidArgumentException('You must supply an instance of OAuth2\ClientAssertionType\ClientAssertionTypeInterface or only use grant types which implement OAuth2\ClientAssertionType\ClientAssertionTypeInterface');
                 }
             }
         }
