@@ -11,16 +11,16 @@ require_once 'HTTP/OAuth2/OpenID/Storage/AuthorizationCodeInterface';
  *
  * @author Brent Shaffer <bshafs at gmail dot com>
  */
-class Memory implements AuthorizationCodeInterface,
-    UserCredentialsInterface,
-    UserClaimsInterface,
-    AccessTokenInterface,
-    ClientCredentialsInterface,
-    RefreshTokenInterface,
-    JwtBearerInterface,
-    ScopeInterface,
-    PublicKeyInterface,
-    OpenIDAuthorizationCodeInterface
+class HTTP_OAuth2_Storage_Memory implements HTTP_OAuth2_Storage_AuthorizationCodeInterface,
+    HTTP_OAuth2_Storage_UserCredentialsInterface,
+    HTTP_OAuth2_OpenID_Storage_UserClaimsInterface,
+    HTTP_OAuth2_Storage_AccessTokenInterface,
+    HTTP_OAuth2_Storage_ClientCredentialsInterface,
+    HTTP_OAuth2_Storage_RefreshTokenInterface,
+    HTTP_OAuth2_Storage_JwtBearerInterface,
+    HTTP_OAuth2_Storage_ScopeInterface,
+    HTTP_OAuth2_Storage_PublicKeyInterface,
+    HTTP_OAuth2_OpenID_Storage_AuthorizationCodeInterface
 {
     public $authorizationCodes;
     public $userCredentials;
