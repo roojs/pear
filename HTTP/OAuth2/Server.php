@@ -332,7 +332,7 @@ class HTTP_OAuth2_Server implements HTTP_OAuth2_Controller_ResourceControllerInt
     {
         $this->response = is_null($response) ? new HTTP_OAuth2_Response() : $response;
         $value = $this->getResourceController()->verifyResourceRequest($request, $this->response, $scope);
-
+        print_r($value);exit;
         return $value;
     }
 
