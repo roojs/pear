@@ -61,7 +61,7 @@ class HTTP_OAuth2_TokenType_Bearer implements HTTP_OAuth2_TokenType_TokenTypeInt
     public function getAccessTokenParameter(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
         $headers = $request->headers('AUTHORIZATION');
-        print_r($headers);exit;
+
         /**
          * Ensure more than one method is not used for including an
          * access token
