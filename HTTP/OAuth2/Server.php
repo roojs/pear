@@ -330,10 +330,9 @@ class HTTP_OAuth2_Server implements HTTP_OAuth2_Controller_ResourceControllerInt
 
     public function verifyResourceRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null, $scope = null)
     {
-        print_r($request);exit;
         $this->response = is_null($response) ? new HTTP_OAuth2_Response() : $response;
         $value = $this->getResourceController()->verifyResourceRequest($request, $this->response, $scope);
-        
+
         return $value;
     }
 
