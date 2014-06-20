@@ -74,7 +74,7 @@ class HTTP_OAuth2_TokenType_Bearer implements HTTP_OAuth2_TokenType_TokenTypeInt
 
             return null;
         }
-
+        print_r($methodsUsed);exit;
         /**
          * If no authentication is provided, set the status code
          * to 401 and return no other error information
