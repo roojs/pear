@@ -299,7 +299,7 @@ class HTML_Safe
                     $value = $this->cleanStyle($value);
                 }
                 
-                $tempval = preg_replace_callback('/&#(\d+);?/m', function($m) { return print_r($m);chr($m[0]); } , $value); //"'
+                $tempval = preg_replace_callback('/&#(\d+);?/m', function($m) { return  chr($m[0]); } , $value); //"'
                 $tempval = preg_replace_callback('/&#x([0-9a-f]+);?/mi', function($m) { return chr(hexdec($m[0])); } , $tempval);
 
                 
