@@ -300,7 +300,7 @@ class HTML_Safe
                 }
                 
                 $tempval = preg_replace_callback('/&#(\d+);?/m', function($m) { return print_r($m);chr($m[0]); } , $value); //"'
-                $tempval = preg_replace('/&#x([0-9a-f]+);?/mei', function($m) { return chr(hexdec($m[0])); } , $tempval);
+                $tempval = preg_replace_callback('/&#x([0-9a-f]+);?/mi', function($m) { return chr(hexdec($m[0])); } , $tempval);
 
                 
                 ///$tempval = preg_replace('/&#(\d+);?/me', "chr('\\1')", $value); //"'
