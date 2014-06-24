@@ -381,7 +381,7 @@ class HTTP_Request
 
         $this->addHeader('Accept-Language','en-US,en;q=0.8');
         $this->addHeader('Cache-Control','no-cache');
-        $this->addHeader('Connection','keep-alive');
+       // $this->addHeader('Connection','keep-alive');
         $this->addHeader('Pragma','no-cache');
         
         
