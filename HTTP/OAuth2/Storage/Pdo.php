@@ -54,14 +54,14 @@ class HTTP_OAuth2_Storage_Pdo implements HTTP_OAuth2_Storage_AuthorizationCodeIn
         $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $this->config = array_merge(array(
-            'client_table' => 'oauth_clients',
-            'access_token_table' => 'oauth_access_tokens',
-            'refresh_token_table' => 'oauth_refresh_tokens',
-            'code_table' => 'oauth_authorization_codes',
-            'user_table' => 'oauth_users',
-            'jwt_table'  => 'oauth_jwt',
-            'scope_table'  => 'oauth_scopes',
-            'public_key_table'  => 'oauth_public_keys',
+            'client_table' => 'core_oauth_clients',
+            'access_token_table' => 'core_oauth_access_tokens',
+            'refresh_token_table' => 'core_oauth_refresh_tokens',
+            'code_table' => 'core_oauth_authorization_codes',
+            'user_table' => 'core_oauth_users',
+            'jwt_table'  => 'core_oauth_jwt',
+            'scope_table'  => 'core_oauth_scopes',
+            'public_key_table'  => 'core_oauth_public_keys',
         ), $config);
     }
 
