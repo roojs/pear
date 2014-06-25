@@ -43,12 +43,12 @@ class HTTP_OAuth2_Storage_Mongo implements HTTP_OAuth2_Storage_AuthorizationCode
         ini_set('mongo.native_long', 1);
 
         $this->config = array_merge(array(
-            'client_table' => 'core_oauth_clients',
-            'access_token_table' => 'core_oauth_access_tokens',
-            'refresh_token_table' => 'core_oauth_refresh_tokens',
-            'code_table' => 'core_oauth_authorization_codes',
-            'user_table' => 'core_oauth_users',
-            'jwt_table' => 'core_oauth_jwt',
+            'client_table' => 'oauth_clients',
+            'access_token_table' => 'oauth_access_tokens',
+            'refresh_token_table' => 'oauth_refresh_tokens',
+            'code_table' => 'oauth_authorization_codes',
+            'user_table' => 'oauth_users',
+            'jwt_table' => 'oauth_jwt',
         ), $config);
     }
 
