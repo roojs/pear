@@ -152,7 +152,7 @@ class HTTP_OAuth2_Server implements HTTP_OAuth2_Controller_ResourceControllerInt
         if (is_null($this->tokenController)) {
             $this->tokenController = $this->createDefaultTokenController();
         }
-        
+        print_r($this->tokenController);exit;
         return $this->tokenController;
     }
 
