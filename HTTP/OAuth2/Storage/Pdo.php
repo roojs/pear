@@ -111,8 +111,8 @@ class HTTP_OAuth2_Storage_Pdo implements HTTP_OAuth2_Storage_AuthorizationCodeIn
 
     public function checkRestrictedGrantType($client_id, $grant_type)
     {
-        print_r($grant_type);exit;
         $details = $this->getClientDetails($client_id);
+        print_r($details);exit;
         if (isset($details['grant_types'])) {
             $grant_types = explode(' ', $details['grant_types']);
 
