@@ -141,6 +141,7 @@ class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_T
          * Validate the client can use the requested grant type
          */
         if (!$this->clientStorage->checkRestrictedGrantType($clientId, $grantTypeIdentifier)) {
+            print_r('run');exit;
             $response->setError(400, 'unauthorized_client', 'The grant type is unauthorized for this client_id');
 
             return false;
