@@ -41,13 +41,13 @@ class HTTP_OAuth2_Storage_Redis implements HTTP_OAuth2_Storage_AuthorizationCode
     {
         $this->redis = $redis;
         $this->config = array_merge(array(
-            'client_key' => 'core_oauth_clients:',
-            'access_token_key' => 'core_oauth_access_tokens:',
-            'refresh_token_key' => 'core_oauth_refresh_tokens:',
-            'code_key' => 'core_oauth_authorization_codes:',
-            'user_key' => 'core_oauth_users:',
-            'jwt_key' => 'core_oauth_jwt:',
-            'scope_key' => 'core_oauth_scopes:',
+            'client_key' => 'oauth_clients:',
+            'access_token_key' => 'oauth_access_tokens:',
+            'refresh_token_key' => 'oauth_refresh_tokens:',
+            'code_key' => 'oauth_authorization_codes:',
+            'user_key' => 'oauth_users:',
+            'jwt_key' => 'oauth_jwt:',
+            'scope_key' => 'oauth_scopes:',
         ), $config);
     }
 
