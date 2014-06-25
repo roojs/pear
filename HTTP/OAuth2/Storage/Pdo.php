@@ -64,7 +64,6 @@ class HTTP_OAuth2_Storage_Pdo implements HTTP_OAuth2_Storage_AuthorizationCodeIn
             'public_key_table'  => 'oauth_public_keys',
         ), $config);
         
-        print_r($this->config);
     }
 
     /* OAuth2\Storage\ClientCredentialsInterface */
