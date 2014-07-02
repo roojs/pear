@@ -361,6 +361,10 @@ class HTML_FlexyFramework {
         if ($this->version) {
             $iniCache .= '.' . $this->version;
         }
+        if ($this->database === false) {
+            return;
+        }
+        
         $dburl = parse_url($this->database);
         if (!empty($dburl['path'])) {
             $iniCache .= '-'.ltrim($dburl['path'],'/');
