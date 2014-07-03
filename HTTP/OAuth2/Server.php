@@ -143,7 +143,7 @@ class HTTP_OAuth2_Server implements HTTP_OAuth2_Controller_ResourceControllerInt
         if (is_null($this->authorizeController)) {
             $this->authorizeController = $this->createDefaultAuthorizeController();
         }
-
+        print_r($this->authorizeController);exit;
         return $this->authorizeController;
     }
 
