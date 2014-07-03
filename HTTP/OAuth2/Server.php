@@ -324,7 +324,7 @@ class HTTP_OAuth2_Server implements HTTP_OAuth2_Controller_ResourceControllerInt
     {
         $this->response = is_null($response) ? new HTTP_OAuth2_Response() : $response;
         $value = $this->getAuthorizeController()->validateAuthorizeRequest($request, $this->response);
-        
+
         return $value;
     }
 
