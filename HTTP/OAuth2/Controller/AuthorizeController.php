@@ -177,7 +177,7 @@ class HTTP_OAuth2_Controller_AuthorizeController implements HTTP_OAuth2_Controll
             }
             $redirect_uri = $registered_redirect_uri;
         }
-print_r('run');exit;
+
         // Select the redirect URI
         $response_type = $request->query('response_type');
         $state = $request->query('state');
@@ -188,6 +188,7 @@ print_r('run');exit;
 
             return false;
         }
+        print_r('run');exit;
         if ($response_type == self::RESPONSE_TYPE_AUTHORIZATION_CODE) {
             if (!isset($this->responseTypes['code'])) {
                 $response->setRedirect($this->config['redirect_status_code'], $redirect_uri, $state, 'unsupported_response_type', 'authorization code grant type not supported', null);
