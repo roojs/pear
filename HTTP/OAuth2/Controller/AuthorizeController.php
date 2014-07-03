@@ -124,6 +124,7 @@ class HTTP_OAuth2_Controller_AuthorizeController implements HTTP_OAuth2_Controll
 
     public function validateAuthorizeRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
+        
         // Make sure a valid client id was supplied (we can not redirect because we were unable to verify the URI)
         if (!$client_id = $request->query("client_id")) {
             // We don't have a good URI to use
@@ -131,7 +132,7 @@ class HTTP_OAuth2_Controller_AuthorizeController implements HTTP_OAuth2_Controll
 
             return false;
         }
-
+print_r('run');exit;
         // Get client details
         if (!$clientData = $this->clientStorage->getClientDetails($client_id)) {
             $response->setError(400, 'invalid_client', 'The client id supplied is invalid');
@@ -215,7 +216,7 @@ class HTTP_OAuth2_Controller_AuthorizeController implements HTTP_OAuth2_Controll
                 return false;
             }
         }
-        print_r('run');exit;
+        
         // validate requested scope if it exists
         $requestedScope = $this->scopeUtil->getScopeFromRequest($request);
 
