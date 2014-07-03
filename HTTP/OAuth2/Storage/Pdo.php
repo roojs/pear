@@ -302,7 +302,7 @@ class HTTP_OAuth2_Storage_Pdo implements HTTP_OAuth2_Storage_AuthorizationCodeIn
 
     public function getUser($username)
     {
-        $stmt = $this->db->prepare($sql = sprintf('SELECT * from %s where username=:username', $this->config['user_table']));
+        $stmt = $this->db->prepare($sql = sprintf('SELECT * from %s where {$this->config['user_table.username']}=:username', $this->config['user_table']));
         $stmt->execute(array('username' => $username));
 
         if (!$userInfo = $stmt->fetch()) {
