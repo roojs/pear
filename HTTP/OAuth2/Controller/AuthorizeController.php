@@ -181,9 +181,10 @@ class HTTP_OAuth2_Controller_AuthorizeController implements HTTP_OAuth2_Controll
         // Select the redirect URI
         $response_type = $request->query('response_type');
         $state = $request->query('state');
-print_r('run');exit;
+
         // type and client_id are required
         if (!$response_type || !in_array($response_type, $this->getValidResponseTypes())) {
+            print_r('run');exit;
             $response->setRedirect($this->config['redirect_status_code'], $redirect_uri, $state, 'invalid_request', 'Invalid or missing response type', null);
 
             return false;
