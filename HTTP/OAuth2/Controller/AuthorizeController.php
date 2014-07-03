@@ -124,7 +124,6 @@ class HTTP_OAuth2_Controller_AuthorizeController implements HTTP_OAuth2_Controll
 
     public function validateAuthorizeRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
-        
         // Make sure a valid client id was supplied (we can not redirect because we were unable to verify the URI)
         if (!$client_id = $request->query("client_id")) {
             // We don't have a good URI to use
@@ -184,12 +183,10 @@ class HTTP_OAuth2_Controller_AuthorizeController implements HTTP_OAuth2_Controll
 
         // type and client_id are required
         if (!$response_type || !in_array($response_type, $this->getValidResponseTypes())) {
-            print_r('run');exit;
             $response->setRedirect($this->config['redirect_status_code'], $redirect_uri, $state, 'invalid_request', 'Invalid or missing response type', null);
 
             return false;
         }
-        
         if ($response_type == self::RESPONSE_TYPE_AUTHORIZATION_CODE) {
             if (!isset($this->responseTypes['code'])) {
                 $response->setRedirect($this->config['redirect_status_code'], $redirect_uri, $state, 'unsupported_response_type', 'authorization code grant type not supported', null);
@@ -218,7 +215,7 @@ class HTTP_OAuth2_Controller_AuthorizeController implements HTTP_OAuth2_Controll
                 return false;
             }
         }
-        
+
         // validate requested scope if it exists
         $requestedScope = $this->scopeUtil->getScopeFromRequest($request);
 
