@@ -62,7 +62,6 @@ class HTTP_OAuth2_Storage_Pdo implements HTTP_OAuth2_Storage_AuthorizationCodeIn
             'jwt_table'  => 'oauth_jwt',
             'scope_table'  => 'oauth_scopes',
             'public_key_table'  => 'oauth_public_keys',
-            'user_table.username' => 'username'
         ), $config);
         
     }
@@ -212,6 +211,7 @@ class HTTP_OAuth2_Storage_Pdo implements HTTP_OAuth2_Storage_AuthorizationCodeIn
     /* OAuth2\Storage\UserCredentialsInterface */
     public function checkUserCredentials($username, $password)
     {
+        print_r('run');
         if ($user = $this->getUser($username)) {
             return $this->checkPassword($user, $password);
         }
@@ -302,11 +302,7 @@ class HTTP_OAuth2_Storage_Pdo implements HTTP_OAuth2_Storage_AuthorizationCodeIn
 
     public function getUser($username)
     {
-        $stmt = $this->db->prepare($sql = sprintf(
-                    'SELECT * from %s where %s=:username', 
-                        $this->config['user_table'],
-                        $this->config['user_table.username'])
-            );
+        $stmt = $this->db->prepare($sql = sprintf('SELECT * from %s where username=:username', $this->config['user_table']));
         $stmt->execute(array('username' => $username));
 
         if (!$userInfo = $stmt->fetch()) {
@@ -326,9 +322,9 @@ class HTTP_OAuth2_Storage_Pdo implements HTTP_OAuth2_Storage_AuthorizationCodeIn
 
         // if it exists, update it.
         if ($this->getUser($username)) {
-            $stmt = $this->db->prepare($sql = sprintf('UPDATE %s SET password=:password, first_name=:firstName, last_name=:lastName where %s=:username', $this->config['user_table'], $this->config['user_table.username']));
+            $stmt = $this->db->prepare($sql = sprintf('UPDATE %s SET password=:password, first_name=:firstName, last_name=:lastName where username=:username', $this->config['user_table']));
         } else {
-            $stmt = $this->db->prepare(sprintf('INSERT INTO %s (%s, password, first_name, last_name) VALUES (:username, :password, :firstName, :lastName)', $this->config['user_table'], $this->config['user_table.username']));
+            $stmt = $this->db->prepare(sprintf('INSERT INTO %s (username, password, first_name, last_name) VALUES (:username, :password, :firstName, :lastName)', $this->config['user_table']));
         }
 
         return $stmt->execute(compact('username', 'password', 'firstName', 'lastName'));
