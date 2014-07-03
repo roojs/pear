@@ -213,7 +213,7 @@ class HTTP_OAuth2_Storage_Pdo implements HTTP_OAuth2_Storage_AuthorizationCodeIn
     public function checkUserCredentials($username, $password)
     {
         if ($user = $this->getUser($username)) {
-            print_r($this);exit;
+            print_r($this->checkPassword());exit;
             return $this->checkPassword($user, $password);
         }
 
