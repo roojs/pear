@@ -215,7 +215,7 @@ class HTTP_OAuth2_Controller_AuthorizeController implements HTTP_OAuth2_Controll
                 return false;
             }
         }
-
+        print_r('run');exit;
         // validate requested scope if it exists
         $requestedScope = $this->scopeUtil->getScopeFromRequest($request);
 
