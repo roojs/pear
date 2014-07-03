@@ -124,7 +124,6 @@ class HTTP_OAuth2_Controller_AuthorizeController implements HTTP_OAuth2_Controll
 
     public function validateAuthorizeRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response)
     {
-        print_r($request);exit;
         // Make sure a valid client id was supplied (we can not redirect because we were unable to verify the URI)
         if (!$client_id = $request->query("client_id")) {
             // We don't have a good URI to use
