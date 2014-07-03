@@ -132,7 +132,7 @@ class HTTP_OAuth2_Controller_AuthorizeController implements HTTP_OAuth2_Controll
 
             return false;
         }
-print_r('run');exit;
+
         // Get client details
         if (!$clientData = $this->clientStorage->getClientDetails($client_id)) {
             $response->setError(400, 'invalid_client', 'The client id supplied is invalid');
@@ -177,7 +177,7 @@ print_r('run');exit;
             }
             $redirect_uri = $registered_redirect_uri;
         }
-
+print_r('run');exit;
         // Select the redirect URI
         $response_type = $request->query('response_type');
         $state = $request->query('state');
