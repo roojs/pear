@@ -62,6 +62,7 @@ class HTTP_OAuth2_Storage_Pdo implements HTTP_OAuth2_Storage_AuthorizationCodeIn
             'jwt_table'  => 'oauth_jwt',
             'scope_table'  => 'oauth_scopes',
             'public_key_table'  => 'oauth_public_keys',
+            'user_table.username' => 'username'
         ), $config);
         
     }
