@@ -161,7 +161,7 @@ class HTTP_OAuth2_Server implements HTTP_OAuth2_Controller_ResourceControllerInt
         if (is_null($this->resourceController)) {
             $this->resourceController = $this->createDefaultResourceController();
         }
-
+        print_r($this->resourceController);exit;
         return $this->resourceController;
     }
 
