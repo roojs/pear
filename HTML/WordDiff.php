@@ -59,7 +59,7 @@ class HTML_WordDiff
     );
     
     var $htmlDom = false; // HTML Dom elements
-    var $debug_on = true;
+    var $debug_on = false;
     /**
      * Constructor
      * 
