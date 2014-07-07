@@ -59,7 +59,7 @@ class HTML_WordDiff
     );
     
     var $htmlDom = false; // HTML Dom elements
-    var $debug_on = true;
+    var $debug_on = false;
     /**
      * Constructor
      * 
@@ -349,7 +349,7 @@ class HTML_WordDiff
             $this->htmlDom = $file['string'];
         }
         
-//        $this->debug_on = true;
+        $this->debug_on = true;
 //        print_r('is target');
         if(is_string($file) && file_exists($file)){
             $this->htmlDom = file_get_contents($file);
