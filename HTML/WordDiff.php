@@ -162,7 +162,7 @@ class HTML_WordDiff
         }
         if($this->debug_on){
             print_r($a);
-            //exit;
+            exit;
         }
         $ret = array();
         $last_w = false;
