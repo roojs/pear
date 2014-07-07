@@ -190,7 +190,7 @@ class HTML_WordDiff
             }
             $last_w = $str;
         }
-        
+        print_r($ret);
         if($target == 'original'){
             $this->countTotal = array_sum(array_values($ret));
         }else{
