@@ -161,8 +161,8 @@ class HTML_WordDiff
             $this->wordMax = 10*count($a);
         }
         if($this->debug_on){
-            print_r($a);
-            exit;
+//            print_r($a);
+//            exit;
         }
         $ret = array();
         $last_w = false;
