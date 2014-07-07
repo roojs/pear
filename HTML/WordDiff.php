@@ -94,6 +94,7 @@ class HTML_WordDiff
             return;
         }
         
+        // not in used now??
         if(!in_array($this->lang, $this->nonSinoTibetan)){
             if(!in_array($this->lang, $this->sinoTibetan)){
                 trigger_error("This ({$this->lang}) language is not on our word type classification");
@@ -113,10 +114,6 @@ class HTML_WordDiff
         
     
         $m = 'buildWords';// default run sino-tibetan
-        
-        if(in_array($this->lang, $this->sinoTibetan)){
-//            $m = 'buildWordsSino';// run the Sino-Tibetan
-        }
         
         if(!method_exists($this, $m)){
             trigger_error("Method not found ($m)");
