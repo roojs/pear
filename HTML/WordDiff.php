@@ -169,20 +169,17 @@ class HTML_WordDiff
         }
         $ret = array();
         $last_w = false;
+        
         foreach($a as $str){
             if(empty($str) || !trim(strlen($str))) {
                 continue;
             }
-            
-             
-            
-            
-            if(!isset($ret[$str])){
-                $ret[$str] = 1;
-            
-            } else {
-                $ret[$str] += 1;
-            }
+//            if(!isset($ret[$str])){
+//                $ret[$str] = 1;
+//            
+//            } else {
+//                $ret[$str] += 1;
+//            }
             // now deal with pairing..
             if ($last_w !== false) {
                 
@@ -195,9 +192,8 @@ class HTML_WordDiff
                 
             }
             $last_w = $str;
-            
-            
         }
+        
         if($target == 'original'){
             $this->countTotal = array_sum(array_values($ret));
         }else{
