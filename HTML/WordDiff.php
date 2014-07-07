@@ -207,19 +207,6 @@ class HTML_WordDiff
         $cache[md5($this->htmlDom)] = $ret;
     }
     
-    /**
-     * set the words array 
-     * 
-     * for Sino-Tibetan languages etc. chinese, japanese
-     * 
-     * @param $String $target for the array index
-     * 
-     */
-    function buildWordsSino($target = 'original')
-    {
-        $this->$target = implode('', $this->DomToStrings());
-    }
-    
     function DomToStrings($target = '')
     {
         
@@ -376,9 +363,6 @@ class HTML_WordDiff
         }
         
         $m = 'buildWords';
-//        if(in_array($this->lang, $this->sinoTibetan)){
-//            $m = 'buildWordsSino';// run the Sino-Tibetan
-//        }
         if(!method_exists($this, $m)){
             trigger_error("Method not found ($m)");
             return;
@@ -387,14 +371,6 @@ class HTML_WordDiff
         //print_r($this);
         $this->$m('target');
         
-//        if($m == 'buildWordsSino'){
-//            echo "ORIGINAL: $this->original \n \n TARGET: $this->target\n\n";
-//            
-//            similar_text($this->original, $this->target, $p1);
-//            similar_text($this->target, $this->original, $p2);
-//            return ($p1 > $p2) ? (int)$p1 : (int)$p2;
-//        }
-//        echo "ORIGINAL: ".print_r($this->original) ." \n \n TARGET: ". print_r($this->target) . "\n\n";
         $matchs = 0;
      //  print_r($this->original);
      //  print_r($this->target);// exit;
