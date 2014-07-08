@@ -98,6 +98,13 @@ class XML_RSS extends XML_Parser
         'CATEGORY', 'GENERATOR', 'DOCS', 'CLOUD', 'TTL',
         'RATING' 
     );
+    var $feedTags = array(
+        'TITLE', 'LINK', 'DESCRIPTION', 'IMAGE',
+        'ITEMS', 'TEXTINPUT', 'LANGUAGE', 'COPYRIGHT',
+        'MANAGINGEditor', 'WEBMASTER', 'PUBDATE', 'LASTBUILDDATE',
+        'CATEGORY', 'GENERATOR', 'DOCS', 'CLOUD', 'TTL',
+        'RATING' 
+    );
 
     /**
      * @var array
