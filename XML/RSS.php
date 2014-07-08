@@ -237,7 +237,7 @@ class XML_RSS extends XML_Parser
                 $this->attribs = $attribs;
                 break;
              
-             case 'LINK':
+            case 'LINK':
                 //print_r($attribs);exit;
                 
                 
@@ -247,7 +247,9 @@ class XML_RSS extends XML_Parser
                 }
                 $this->activeTag = $element;
                 break;
-                
+            
+            
+               
             default:
                 $this->activeTag = $element;
                 break;
