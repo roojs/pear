@@ -99,7 +99,13 @@ class XML_RSS extends XML_Parser
         'RATING' 
     );
     
-
+    var $sourceTags = array(
+        'TITLE', 'LINK', 'DESCRIPTION', 'IMAGE',
+        'ITEMS', 'TEXTINPUT', 'LANGUAGE', 'COPYRIGHT',
+        'MANAGINGEditor', 'WEBMASTER', 'PUBDATE', 'LASTBUILDDATE',
+        'CATEGORY', 'GENERATOR', 'DOCS', 'CLOUD', 'TTL',
+        'RATING' 
+    );
     /**
      * @var array
      */
