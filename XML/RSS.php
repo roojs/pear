@@ -57,7 +57,9 @@ class XML_RSS extends XML_Parser
      * @var array
      */
     var $items = array();
+    var $source = array();
 
+    
     /**
      * @var array
      */
