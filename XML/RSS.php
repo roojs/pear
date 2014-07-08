@@ -354,7 +354,7 @@ class XML_RSS extends XML_Parser
             $tagName = strtolower($this->insideTag);
             $tagName = $tagName == 'entry' ? 'item' : $tagName;
             $var = $this->{$tagName . 'Tags'};
-            var_dump($tagName.'Tags');
+            //var_dump($tagName.'Tags');
             if (in_array($this->activeTag, $var)
                 || in_array($this->activeTag, $this->moduleTags)
             ) {
@@ -404,7 +404,9 @@ class XML_RSS extends XML_Parser
         if ($type == 'entry') {
             $type = 'item';
         }
-        
+        if ($type == 'source') {
+            return;
+        }
         if ($field == 'category') {
             $this->{$type}[$field][] = $value;
         } else if ($field == 'title' && $type == 'source') {
