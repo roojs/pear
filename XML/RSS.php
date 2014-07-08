@@ -98,13 +98,7 @@ class XML_RSS extends XML_Parser
         'CATEGORY', 'GENERATOR', 'DOCS', 'CLOUD', 'TTL',
         'RATING' 
     );
-    var $feedTags = array(
-        'TITLE', 'LINK', 'DESCRIPTION', 'IMAGE',
-        'ITEMS', 'TEXTINPUT', 'LANGUAGE', 'COPYRIGHT',
-        'MANAGINGEditor', 'WEBMASTER', 'PUBDATE', 'LASTBUILDDATE',
-        'CATEGORY', 'GENERATOR', 'DOCS', 'CLOUD', 'TTL',
-        'RATING' 
-    );
+    
 
     /**
      * @var array
@@ -224,8 +218,11 @@ class XML_RSS extends XML_Parser
             case 'TEXTINPUT':
                 
             // atom...
-            case 'ENTRY':
             case 'FEED':
+                $element = "CHANNEL";
+                
+            case 'ENTRY':
+            
                 
                 
                 $this->insideTag = $element;
