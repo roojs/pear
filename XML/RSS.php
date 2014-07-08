@@ -86,7 +86,7 @@ class XML_RSS extends XML_Parser
     /**
      * @var array
      */
-    var $parentTags = array('CHANNEL', 'ITEM', 'IMAGE', 'TEXTINPUT', 'ENTRY');
+    var $parentTags = array('CHANNEL', 'ITEM', 'IMAGE', 'TEXTINPUT', 'ENTRY', 'FEED');
 
     /**
      * @var array
