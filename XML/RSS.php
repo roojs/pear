@@ -212,14 +212,15 @@ class XML_RSS extends XML_Parser
         }
        //ar_dump($element);
         switch ($element) {
+            case 'FEED':
+                $element = "CHANNEL";
             case 'CHANNEL':
             case 'ITEM':
             case 'IMAGE':
             case 'TEXTINPUT':
                 
             // atom...
-            case 'FEED':
-                $element = "CHANNEL";
+            
                 
             case 'ENTRY':
             
