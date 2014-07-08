@@ -352,7 +352,7 @@ class XML_RSS extends XML_Parser
             $tagName = strtolower($this->insideTag);
             $tagName = $tagName == 'entry' ? 'item' : $tagName;
             $var = $this->{$tagName . 'Tags'};
-
+            var_dump($tagName.'Tags');
             if (in_array($this->activeTag, $var)
                 || in_array($this->activeTag, $this->moduleTags)
             ) {
