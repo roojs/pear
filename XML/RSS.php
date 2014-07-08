@@ -273,6 +273,9 @@ class XML_RSS extends XML_Parser
         if (substr($element, 0, 4) == "RSS:") {
             $element = substr($element, 4);
         }
+        if ($element == 'FEED') {
+            $element = "CHANNEL";
+        }
 
         if ($element == $this->insideTag) {
             array_pop($this->insideTagStack);
