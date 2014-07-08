@@ -223,7 +223,7 @@ class XML_RSS extends XML_Parser
             
                 
             case 'ENTRY':
-            
+            case 'SOURCE': // so we ignore sources for atom feeds?
                 
                 
                 $this->insideTag = $element;
