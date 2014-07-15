@@ -125,7 +125,8 @@ class HTML_CSS_Selector_Token_Tokenizer
             }
 
             $result = substr($s, $start, $next - $start);
-            if ('\\' === $result[strlen($result) - 1]) {
+            
+            if (strlen($result)  && '\\' === $result[strlen($result) - 1]) {
                 // next quote character is escaped
                 $pos = $next + 1;
                 continue;
