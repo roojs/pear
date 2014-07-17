@@ -206,6 +206,8 @@ class HTML_WordDiff
         $pageDom = new DomDocument('1.0', 'UTF-8');
         $pageDom->formatOutput = true;
 //        print_r(mb_detect_encoding($this->htmlDom));
+        
+        // may produce errors - so we hide them...
         $searchPage = @mb_convert_encoding($this->htmlDom, "UTF-8",  "auto");
 //        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8",  "HTML-ENTITIES");
 //        echo $searchPage;
