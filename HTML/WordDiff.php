@@ -206,7 +206,7 @@ class HTML_WordDiff
         $pageDom = new DomDocument('1.0', 'UTF-8');
         $pageDom->formatOutput = true;
 //        print_r(mb_detect_encoding($this->htmlDom));
-        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8",  "auto");
+        $searchPage = @mb_convert_encoding($this->htmlDom, "UTF-8",  "auto");
 //        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8",  "HTML-ENTITIES");
 //        echo $searchPage;
 //        print_r(mb_detect_encoding($searchPage));
@@ -251,7 +251,7 @@ class HTML_WordDiff
         if (empty($node)) {
             return $words;
         }
-        if ($node->nodeType == XML_TEXT_NODE &&strlen(trim($node->textContent))) {// this is got the bug at sina....
+        if ($node->nodeType == XML_TEXT_NODE && strlen(trim($node->textContent))) {// this is got the bug at sina....
             
             $str = trim($node->textContent);
             //var_dump('xx'.$str);
