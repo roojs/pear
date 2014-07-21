@@ -105,7 +105,7 @@ class HTML_Javascript_Convert
      * @return mixed   a PEAR_Error if no script was started
      *                 or the converted variable
      */
-    function convertVar($var, $varname, $global = false)
+    static function convertVar($var, $varname, $global = false)
     {
         $var_type    = gettype($var);
         switch ( $var_type ) {
