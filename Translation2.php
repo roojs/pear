@@ -148,7 +148,7 @@ class Translation2
      * @return object Translation2 instance or PEAR_Error on failure
      * @static
      */
-    function & factory($driver, $options = '', $params = array())
+    static function & factory($driver, $options = '', $params = array())
     {
         $tr = new Translation2;
         $tr->storage = Translation2::_storageFactory($driver, $options);
