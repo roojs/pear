@@ -174,7 +174,7 @@ class Translation2
      * @static
      * @access private
      */
-    function & _storageFactory($driver, $options = '')
+    static  function & _storageFactory($driver, $options = '')
     {
         $storage_path  = 'Translation2/Container/'.strtolower($driver).'.php';
         $storage_class = 'Translation2_Container_'.strtolower($driver);
