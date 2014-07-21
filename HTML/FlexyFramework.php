@@ -750,7 +750,7 @@ class HTML_FlexyFramework {
     */
   
     
-    function run($request,$args=array()) 
+    static function run($request,$args=array()) 
     {
         $GLOBALS[__CLASS__]->_run($request,true,$args);
         return false;
