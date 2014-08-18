@@ -141,6 +141,10 @@ class Net_URL
         $this->querystring = array();
         $this->anchor      = '';
 
+        if (!preg_match('/^\/\//i', $this->url)) {
+            $this->url = 'http:'. $this->url;
+        }
+        
         // Only use defaults if not an absolute URL given
         if (!preg_match('/^[a-z0-9]+:\/\//i', $this->url)) {
             $this->protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https' : 'http');
