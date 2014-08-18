@@ -141,6 +141,7 @@ class Net_URL
         $this->querystring = array();
         $this->anchor      = '';
 
+        // if starts with '//' then prefix it..
         if (!preg_match('/^\/\//i', $this->url)) {
             $this->url = 'http:'. $this->url;
         }
