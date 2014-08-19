@@ -206,7 +206,11 @@ class HTML_WordDiff
         if (preg_match('#charset=([^"]+)#', $this->htmlDom,$matches)) {
             //var_dump($matches);exit;
             $charset = $matches[1];
-            
+            $pageDom = new DomDocument('1.0', $charset);
+            $pageDom->formatOutput = true;
+            $pageDom->loadHTML('<?xml version="1.0" encoding="UTF-8"?>' . $this->htmlDom);
+            print_r($pageDom->saveHTML());;
+            exit;
         }
         
         $pageDom = new DomDocument('1.0', 'UTF-8');
