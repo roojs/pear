@@ -232,7 +232,7 @@ class HTML_WordDiff
       // print_r($searchPage);
        @ $pageDom->loadHTML('<?xml version="1.0" encoding="UTF-8"?>' . $searchPage);
 //        exit;
-        $words = $this->domExtractWords($pageDom->documentElement, array());
+        $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
        // print_r($words);exit;
         
 //        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
@@ -254,7 +254,7 @@ class HTML_WordDiff
         return ' ';
     }
     
-    function domExtractWords($node, $words)
+    function domExtractWords($node, $words, $charset)
     {
         if ($this->wordMax > 0 && count($words) >  $this->wordMax) {
             return $words;
