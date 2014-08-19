@@ -235,7 +235,7 @@ class HTML_WordDiff
         if($this->debug_on){
             print_r('?????      ');
             print_r($words);
-             print_r($searchPage);
+            print_r($pageDom->saveHTML());;
 //            exit;
         }
         return $words;
