@@ -217,10 +217,6 @@ class HTML_WordDiff
         
         // change language if encoding does not match...
         
-        if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
-            $this->htmlDom = @iconv($charset,'BIG5', $this->htmlDom);
-            $charset = 'BIG5';
-        }
         
         
 //        print_r(mb_detect_encoding($this->htmlDom));
@@ -276,7 +272,13 @@ class HTML_WordDiff
             
             $str = trim($node->textContent);
             if ($charset != 'auto') {
-                $str = mb_convert_encoding($str, "UTF-8",  $charset);
+                
+                if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
+                    $str = mb_convert_encoding($str, "BIG5",  $charset);
+                    $str = mb_convert_encoding($str, "UTF-8",  "BIG5");
+                } else {
+                    $str = mb_convert_encoding($str, "UTF-8",  $charset);
+                }
             }
             
             //var_dump('xx'.$str);
