@@ -93,6 +93,10 @@ class HTML_WordDiff
             trigger_error("File is missing");
             return;
         }
+        if (isset($config['debug_on'])) {
+            $this->debug_on = $config['debug_on'];
+        }
+        
         
         // not in used now??
         if(!in_array($this->lang, $this->nonSinoTibetan)){
