@@ -254,7 +254,7 @@ class HTML_WordDiff
         return ' ';
     }
     
-    function domExtractWords($node, $words, $charset)
+    function domExtractWords($node, $words, $charset="auto")
     {
         if ($this->wordMax > 0 && count($words) >  $this->wordMax) {
             return $words;
@@ -304,7 +304,7 @@ class HTML_WordDiff
             //    print_r($n);
             //    print_r("\n");
             //}
-            $words = $this->domExtractWords($n, $words);
+            $words = $this->domExtractWords($n, $words,$charset);
         }
         return $words;
         
