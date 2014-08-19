@@ -282,7 +282,7 @@ class HTML_WordDiff
             }
             
             //var_dump('xx'.$str);
-            //var_dump($str);
+             var_dump($str);
             $this->tmpWords = $words;
             //if ($this->isSino()) {
             $str = preg_replace_callback('/'.$this->cjkpreg().'/u', array($this, 'addUTF8Word')  , $str);
