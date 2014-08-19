@@ -214,6 +214,12 @@ class HTML_WordDiff
         
         $pageDom = new DomDocument('1.0', $charset);
         $pageDom->formatOutput = true;
+        
+        if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
+            $this->htmlDom = @iconv($charset,'big5', $this->htmlDom);
+            $charset = 'big5';
+        }
+        
 //        print_r(mb_detect_encoding($this->htmlDom));
         
         // may produce errors - so we hide them...
