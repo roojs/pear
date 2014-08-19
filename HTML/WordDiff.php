@@ -202,18 +202,13 @@ class HTML_WordDiff
     
     function DomToStrings($target = '')
     {
-        $charset = 'auto';
+        $charset = 'UTF-8';
         if (preg_match('#charset=([^"]+)#', $this->htmlDom,$matches)) {
             //var_dump($matches);exit;
             $charset = $matches[1];
-            $pageDom = new DomDocument('1.0', $charset);
-            $pageDom->formatOutput = true;
-            $pageDom->loadHTML('<?xml version="1.0" encoding="UTF-8"?>' . $this->htmlDom);
-            print_r($pageDom->saveHTML());;
-            exit;
         }
         
-        $pageDom = new DomDocument('1.0', 'UTF-8');
+        $pageDom = new DomDocument('1.0', $charset);
         $pageDom->formatOutput = true;
 //        print_r(mb_detect_encoding($this->htmlDom));
         
