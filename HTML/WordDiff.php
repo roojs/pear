@@ -202,9 +202,11 @@ class HTML_WordDiff
     
     function DomToStrings($target = '')
     {
-        
+        $charset = 'auto';
         if (preg_match('#charset=([^"]+)#', $this->htmlDom,$matches)) {
             var_dump($matches);exit;
+            $charset = $matches[1];
+            
         }
         
         $pageDom = new DomDocument('1.0', 'UTF-8');
@@ -212,7 +214,7 @@ class HTML_WordDiff
 //        print_r(mb_detect_encoding($this->htmlDom));
         
         // may produce errors - so we hide them...
-        $searchPage = @mb_convert_encoding($this->htmlDom, "UTF-8",  "auto");
+        $searchPage = @mb_convert_encoding($this->htmlDom, "UTF-8",  $charset);
 //        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8",  "HTML-ENTITIES");
 //        echo $searchPage;
 //        print_r(mb_detect_encoding($searchPage));
