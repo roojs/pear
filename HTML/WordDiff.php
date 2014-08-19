@@ -371,11 +371,17 @@ class HTML_WordDiff
             $this->htmlDom = file_get_contents($file);
         }
         
+        
+        
         $m = 'buildWords';
         if(!method_exists($this, $m)){
             trigger_error("Method not found ($m)");
             return;
         }
+        
+        // if it's langauge is zh_HK or zh_TW -> then
+        // convert 
+        
         
         //print_r($this);
         $this->$m('target');
