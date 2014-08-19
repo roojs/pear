@@ -218,8 +218,8 @@ class HTML_WordDiff
         // change language if encoding does not match...
         
         if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
-            $this->htmlDom = @iconv($charset,'big5', $this->htmlDom);
-            $charset = 'big5';
+            $this->htmlDom = @iconv($charset,'BIG5', $this->htmlDom);
+            $charset = 'BIG5';
         }
         
         
