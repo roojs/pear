@@ -203,7 +203,7 @@ class HTML_WordDiff
     function DomToStrings($target = '')
     {
         
-        if (preg_match('#charset\=[^"]+#', $this->htmlDom,$matches)) {
+        if (preg_match('#charset=[^"]+#', $this->htmlDom,$matches)) {
             var_dump($matches);exit;
         }
         
