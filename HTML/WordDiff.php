@@ -203,6 +203,10 @@ class HTML_WordDiff
     function DomToStrings($target = '')
     {
         
+        if (preg_match('/charset=[^"]+/', $this->htmlDom,$matches)) {
+            var_dump($matches);exit;
+        }
+        
         $pageDom = new DomDocument('1.0', 'UTF-8');
         $pageDom->formatOutput = true;
 //        print_r(mb_detect_encoding($this->htmlDom));
