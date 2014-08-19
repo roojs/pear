@@ -277,7 +277,7 @@ class HTML_WordDiff
                 
                 if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
                     var_dump($str);
-                    $str = mb_convert_encoding($str, "BIG5",  $charset);
+                    $str = mb_convert_encoding($str, "BIG5",  "UTF-8");
                     var_dump($str);
                     $str = mb_convert_encoding($str, "UTF-8",  "BIG5");
                     var_dump($str);
