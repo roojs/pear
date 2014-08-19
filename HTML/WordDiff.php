@@ -204,7 +204,7 @@ class HTML_WordDiff
     {
         $charset = 'auto';
         if (preg_match('#charset=([^"]+)#', $this->htmlDom,$matches)) {
-            var_dump($matches);exit;
+            //var_dump($matches);exit;
             $charset = $matches[1];
             
         }
