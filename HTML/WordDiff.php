@@ -222,8 +222,8 @@ class HTML_WordDiff
 //        print_r(mb_detect_encoding($this->htmlDom));
         
         // may produce errors - so we hide them...
-        $searchPage = @mb_convert_encoding($this->htmlDom, "UTF-8" ,  $charset=="UTF-8" ? "auto" :$charset);
-        $charset = 'UTF-8';
+        $searchPage = @mb_convert_encoding($this->htmlDom, $charset ,  $charset=="UTF-8" ? "auto" :$charset);
+        
         
         
 //        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8",  "HTML-ENTITIES");
