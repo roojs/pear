@@ -266,6 +266,10 @@ class HTML_WordDiff
         if ($node->nodeType == XML_TEXT_NODE && strlen(trim($node->textContent))) {// this is got the bug at sina....
             
             $str = trim($node->textContent);
+            if ($charset != 'auto') {
+                $str = mb_convert_encoding($str, "UTF-8",  $charset);
+            }
+            
             //var_dump('xx'.$str);
             //var_dump($str);
             $this->tmpWords = $words;
