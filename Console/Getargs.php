@@ -295,7 +295,7 @@ class Console_Getargs
      * @access public
      * @return string the formatted help text
      */
-    function getHelp($config, $helpHeader = null, $helpFooter = '', $maxlength = 78, $indent = 0)
+    static function getHelp($config, $helpHeader = null, $helpFooter = '', $maxlength = 78, $indent = 0)
     {
         // Start with an empty help message and build it piece by piece
         $help = '';
