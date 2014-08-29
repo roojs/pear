@@ -55,7 +55,7 @@ define('CONSOLE_GETARGS_ERROR_USER', -2);
  *
  * This error will be RETURNed when the user asked to 
  * see the help by using <kbd>-h</kbd> or <kbd>--help</kbd> in the command line, you can then print
- * the help ascii art text by using the {@link Console_Getargs::getHelp()} method
+ * the help ascii art text by using the {@link Console_Getargs::tp()} method
  */
 define('CONSOLE_GETARGS_HELP', -3);
 
