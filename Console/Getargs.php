@@ -450,7 +450,7 @@ class Console_Getargs
      * @author  Scott Mattocks
      * @package Console_Getargs
      */
-    function getOptionalRequired(&$config)
+    static function getOptionalRequired(&$config)
     {
         // Parse the config array and look for optional/required
         // tags.
