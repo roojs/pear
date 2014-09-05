@@ -2861,7 +2861,8 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         if (!$rclass || !class_exists($rclass)) {
-            return DB_DataObject::raiseError(
+            $do = new DB_DataObject();
+            $do->raiseError(
                 "factory could not find class " . 
                 (is_array($class) ? implode(PATH_SEPARATOR, $class)  : $class  ). 
                 "from $table",
