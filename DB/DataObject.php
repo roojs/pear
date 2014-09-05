@@ -2861,8 +2861,8 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         if (!$rclass || !class_exists($rclass)) {
-            $do = new DB_DataObject();
-            $do->raiseError(
+            $dor = new DB_DataObject();
+            $dor->raiseError(
                 "factory could not find class " . 
                 (is_array($class) ? implode(PATH_SEPARATOR, $class)  : $class  ). 
                 "from $table",
@@ -2947,7 +2947,8 @@ class DB_DataObject extends DB_DataObject_Overload
                 }
             }
             if (!$found) {
-                DB_DataObject::raiseError(
+                $dor = new DB_DataObject();
+                $dor->raiseError(
                     "autoload:Could not find class " . implode(',', $cls) .
                     " using class_location value :" . $search .
                     " using include_path value :" . ini_get('include_path'), 
@@ -2968,7 +2969,8 @@ class DB_DataObject extends DB_DataObject_Overload
             }
         }
         if (!$ce) {
-            DB_DataObject::raiseError(
+            $dor = new DB_DataObject();
+            $dor->raiseError(
                 "autoload:Could not autoload " . implode(',', $cls) , 
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
             return false;
@@ -4649,7 +4651,8 @@ class DB_DataObject extends DB_DataObject_Overload
             $error = $message;
         } else {
             require_once 'DB/DataObject/Error.php';
-            $error = PEAR::raiseError($message, $type, $behaviour,
+            $dor = new PEAR();
+            $error = $dor->raiseError($message, $type, $behaviour,
                             $opts=null, $userinfo=null, 'DB_DataObject_Error'
                         );
         }
@@ -4802,7 +4805,8 @@ class DB_DataObject extends DB_DataObject_Overload
 
         $obj = DB_DataObject::factory(substr($class,strlen($_DB_DATAOBJECT['CONFIG']['class_prefix'])));
         if (PEAR::isError($obj)) {
-            DB_DataObject::raiseError("could not autoload $class", DB_DATAOBJECT_ERROR_NOCLASS);
+            $dor = new DB_DataObject();
+            $dor->raiseError("could not autoload $class", DB_DATAOBJECT_ERROR_NOCLASS);
             $r = false;
             return $r;
         }
@@ -4811,7 +4815,8 @@ class DB_DataObject extends DB_DataObject_Overload
             $_DB_DATAOBJECT['CACHE'][$lclass] = array();
         }
         if (!$obj->get($k,$v)) {
-            DB_DataObject::raiseError("No Data return from get $k $v", DB_DATAOBJECT_ERROR_NODATA);
+            $dor = new DB_DataObject();
+            $dor->raiseError("No Data return from get $k $v", DB_DATAOBJECT_ERROR_NODATA);
             
             $r = false;
             return $r;
