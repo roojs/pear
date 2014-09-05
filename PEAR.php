@@ -536,6 +536,8 @@ class PEAR
         return $a;
     }
 
+    
+    
     /**
      * Simpler form of raiseError with fewer options.  In most cases
      * message, code and userinfo are enough.
