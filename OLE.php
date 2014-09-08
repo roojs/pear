@@ -533,7 +533,7 @@ class OLE extends PEAR
     * @access public
     * @static
     */
-    function OLE2LocalDate($string)
+    static  function OLE2LocalDate($string)
     {
         if (strlen($string) != 8) {
             return new PEAR_Error("Expecting 8 byte string");
@@ -567,4 +567,4 @@ class OLE extends PEAR
         return floor($big_date);
     }
 }
-?>
+ 
