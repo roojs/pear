@@ -38,7 +38,7 @@ class HTML_Template_Flexy_Factory {
     * @access   public
     */
   
-    function fromArray($ar,$ret=array()) 
+    static function fromArray($ar,$ret=array()) 
     {
         
         foreach($ar as $k=>$v) {
@@ -66,7 +66,7 @@ class HTML_Template_Flexy_Factory {
     * @access   public
     */
   
-    function fromArrayPrefixed($prefix, $ar,$ret=array()) 
+    static  function fromArrayPrefixed($prefix, $ar,$ret=array()) 
     {
       
         foreach($ar as $k=>$v) {
