@@ -660,6 +660,7 @@ class HTML_FlexyFramework {
         if ($this->debug) {
             require_once 'Benchmark/Timer.php'; 
             $this->timer = new BenchMark_Timer(true);
+            register_shutdown_function(function() { echo $this->timer->getOutput(); });
         }
 
     }
@@ -882,7 +883,7 @@ class HTML_FlexyFramework {
         if ($this->timer) {
             $this->timer->setMarker("After $request output"); 
             $this->timer->stop(); //?? really - yes...
-            echo $this->timer->getOutput();
+           
             
         }
         
