@@ -882,6 +882,8 @@ class HTML_FlexyFramework {
         if ($this->timer) {
             $this->timer->setMarker("After $request output"); 
             $this->timer->stop(); //?? really - yes...
+            echo $this->timer->getOutput();
+            
         }
         
         if ($this->cli) {
