@@ -147,7 +147,7 @@ class HTML_Template_Flexy_Factory {
     * @access   public
     */
   
-    function &setRequired(&$ret,$set,$format='<span class="required">*</span>') 
+    static function &setRequired(&$ret,$set,$format='<span class="required">*</span>') 
     {
         
         
@@ -183,7 +183,7 @@ class HTML_Template_Flexy_Factory {
     * @return   array    Array of HTML_Elements
     * @access   public
     */
-    function freeze(&$array) {
+    static function freeze(&$array) {
     
         foreach($array as $k=>$v) {
             $array[$k]->override = $array[$k]->value;
