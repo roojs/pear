@@ -2862,7 +2862,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         if (!$rclass || !class_exists($rclass)) {
             $dor = new DB_DataObject();
-            $dor->raiseError(
+            return $dor->raiseError(
                 "factory could not find class " . 
                 (is_array($class) ? implode(PATH_SEPARATOR, $class)  : $class  ). 
                 "from $table",
