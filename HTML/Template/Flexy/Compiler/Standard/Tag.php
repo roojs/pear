@@ -159,7 +159,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
             
             if (strtoupper($k) == 'FLEXY:RAW') {
                 if (!is_array($v) || !isset($v[1]) || !is_object($v[1])) {
-                    return HTML_Template_Flexy::raiseError(
+                    return HTML_Template_Flexy::staticRaiseError(
                         'flexy:raw only accepts a variable or method call as an argument, eg.'.
                         ' flexy:raw="{somevalue}" you provided something else.' .
                         " Error on Line {$this->element->line} &lt;{$this->element->tag}&gt;",
@@ -345,7 +345,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
         
         
         if ($foreachObj === false) {
-            return HTML_Template_Flexy::raiseError(
+            return HTML_Template_Flexy::staticRaiseError(
                 "Missing Arguments: An flexy:foreach attribute was foundon Line {$this->element->line} 
                 in tag &lt;{$this->element->tag} flexy:foreach=&quot;$foreach&quot; .....&gt;<BR>
                 the syntax is  &lt;sometag flexy:foreach=&quot;onarray,withvariable[,withanothervar] &gt;<BR>",
@@ -360,7 +360,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
             if ($this->element->getAttribute('/') === false) {
             
             
-                return HTML_Template_Flexy::raiseError(
+                return HTML_Template_Flexy::staticRaiseError(
                     "A flexy:foreach attribute was found in &lt;{$this->element->name} tag without a corresponding &lt;/{$this->element->tag}
                         tag on Line {$this->element->line} &lt;{$this->element->tag}&gt;",
                      null, HTML_TEMPLATE_FLEXY_ERROR_DIE);
@@ -392,7 +392,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
         }
         
         if (isset($this->element->hasForeach)) {
-            return HTML_Template_Flexy::raiseError(
+            return HTML_Template_Flexy::staticRaiseError(
                 "You may not use FOREACH and IF tags in the same tag on Line {$this->element->line} &lt;{$this->element->tag}&gt;",
                  null, HTML_TEMPLATE_FLEXY_ERROR_DIE);
         }
@@ -412,7 +412,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
         
         if (!preg_match('/^[_A-Z][A-Z0-9_]*(\[[0-9]+\])?((\[|%5B)[A-Z0-9_]+(\]|%5D))*'.
                 '(\.[_A-Z][A-Z0-9_]*((\[|%5B)[A-Z0-9_]+(\]|%5D))*)*(\\([^)]*\))?$/i',$if)) {
-            return HTML_Template_Flexy::raiseError(
+            return HTML_Template_Flexy::staticRaiseError(
                 "IF tags only accept simple object.variable or object.method() values on 
                     Line {$this->element->line} &lt;{$this->element->tag}&gt;
                     {$if}",

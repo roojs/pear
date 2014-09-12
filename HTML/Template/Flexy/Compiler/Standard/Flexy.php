@@ -185,7 +185,7 @@ class HTML_Template_Flexy_Compiler_Standard_Flexy  {
         }
         if (!isset($element->ucAttributes['CALL'])) {
             
-            return HTML_Template_Flexy::raiseError(
+            return HTML_Template_Flexy::staticRaiseError(
                 ' tag flexy:function needs an argument call or name'.
                 " Error on Line {$element->line} &lt;{$element->tag}&gt;",
                          null,   HTML_TEMPLATE_FLEXY_ERROR_DIE);
