@@ -146,7 +146,7 @@ class HTML_Template_Flexy_Assign {
         // Final error catch.  We should not have gotten to this point.
         //
         
-        return HTML_Template_Flexy::raiseError(
+        return HTML_Template_Flexy::staticRaiseError(
             "invalid type sent to assign, ". print_r($args,true),
             HTML_TEMPLATE_FLEXY_ASSIGN_ERROR_INVALIDARGS             
         );
@@ -192,7 +192,7 @@ class HTML_Template_Flexy_Assign {
         }
         
         // final error catch
-        return HTML_Template_Flexy::raiseError(
+        return HTML_Template_Flexy::staticRaiseError(
             "invalid type sent to assignRef, ". print_r($name,true),
             HTML_TEMPLATE_FLEXY_ASSIGN_ERROR_INVALIDARGS 
  

@@ -233,7 +233,7 @@ class HTML_Template_Flexy_Token {
                     "<font color='red'>". htmlspecialchars(substr($tokenizer->yy_buffer,$tokenizer->yy_buffer_end,100)) . 
                     ".......</font></PRE>";
                     
-                return HTML_Template_Flexy::raiseError('HTML_Template_Flexy::Syntax error in ".
+                return HTML_Template_Flexy::staticRaiseError('HTML_Template_Flexy::Syntax error in ".
                     "Template line:'. $tokenizer->yyline .
                     $err
                    , HTML_TEMPLATE_FLEXY_ERROR_SYNTAX ,HTML_TEMPLATE_FLEXY_ERROR_RETURN);
@@ -243,7 +243,7 @@ class HTML_Template_Flexy_Token {
             }
             if ( $tokenizer->value->token == 'Php' ) {
                 if (!$GLOBALS['_HTML_TEMPLATE_FLEXY']['currentOptions']['allowPHP']) {
-                    return HTML_Template_Flexy::raiseError('PHP code found in script (Token)',
+                    return HTML_Template_Flexy::staticRaiseError('PHP code found in script (Token)',
                         HTML_TEMPLATE_FLEXY_ERROR_SYNTAX,HTML_TEMPLATE_FLEXY_ERROR_RETURN
                     );
                 }
@@ -558,7 +558,7 @@ class HTML_Template_Flexy_Token {
         } 
         if (!@$GLOBALS['_HTML_TEMPLATE_FLEXY']['currentOptions']['privates'] &&
                 ($string{0} == '_')) {
-                return HTML_Template_Flexy::raiseError('HTML_Template_Flexy::Attempt to access private variable:'.
+                return HTML_Template_Flexy::staticRaiseError('HTML_Template_Flexy::Attempt to access private variable:'.
                     " on line {$this->line} of {$GLOBALS['_HTML_TEMPLATE_FLEXY']['filename']}".
                     ", Use options[privates] to allow this."
                    , HTML_TEMPLATE_FLEXY_ERROR_SYNTAX ,HTML_TEMPLATE_FLEXY_ERROR_RETURN);

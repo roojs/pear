@@ -111,7 +111,7 @@ class HTML_Template_Flexy_Plugin
                 return $class;
             }
         }
-        return HTML_Template_Flexy::raiseError("could not find plugin with method: '$name'");
+        return HTML_Template_Flexy::staticRaiseError("could not find plugin with method: '$name'");
     }
     
     

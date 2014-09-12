@@ -113,7 +113,7 @@ class HTML_Template_Flexy_Factory {
         }
         // check what you send this.. !!!
         if (!is_array($set)) {
-            return HTML_Template_Flexy::raiseError(
+            return HTML_Template_Flexy::staticRaiseError(
                 'invalid arguments "$set" (should be an array) sent to HTML_Template_Flexy_Factory::setErrors', 
                 0, HTML_TEMPLATE_FLEXY_ERROR_DIE);
         }
