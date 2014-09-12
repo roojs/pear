@@ -56,7 +56,7 @@ class HTML_Template_Flexy_Element_Xul {
                 }
                 if (!is_object($element->children[0]) || !is_a($element->children[0],'HTML_Template_Flexy_Element')) {
                     // oh sh*t big problem!
-                    return HTML_Template_Flexy::raiseError(
+                    return HTML_Template_Flexy::staticRaiseError(
                         __CLASS__ . '::setValue expected a Flexy Element as the child of a menuitem but got something else! '. 
                             print_r($element,true), 
                         HTML_TEMPLATE_FLEXY_ERROR_SYNTAX,
@@ -147,7 +147,7 @@ class HTML_Template_Flexy_Element_Xul {
         }
         if (!is_object($element->children[0]) ||  !is_a($element->children[0],'HTML_Template_Flexy_Element')) {
             // oh sh*t big problem!
-            return HTML_Template_Flexy::raiseError(
+            return HTML_Template_Flexy::staticRaiseError(
                 __CLASS__ . '::setValue expected a menupopup as the child of a menuitem?', 
                 HTML_TEMPLATE_FLEXY_ERROR_SYNTAX,
                 HTML_TEMPLATE_FLEXY_ERROR_DIE);
