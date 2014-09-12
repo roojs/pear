@@ -986,15 +986,22 @@ class HTML_Template_Flexy
         }
         return $p->raiseError($message, $type, $fatal);
     }
-    function staticRaiseError($message, $type = null, $fatal = HTML_TEMPLATE_FLEXY_ERROR_RETURN ) 
+    /**
+    * static version of raiseError 
+    * @see HTML_Template_Flexy::raiseError
+    * 
+    * @param   string message
+    * @param   int      error type.
+    * @param   int      an equivalant to pear error return|die etc.
+    *
+    * @return   object      pear error.
+    * @static
+    * @access   public
+    */
+    static function staticRaiseError($message, $type = null, $fatal = HTML_TEMPLATE_FLEXY_ERROR_RETURN ) 
     {
         HTML_Template_Flexy::debug("<B>HTML_Template_Flexy::raiseError</B>$message");
         require_once 'PEAR.php';
-        if (HTML_Template_Flexy_is_a($this,'HTML_Template_Flexy') &&  ($fatal == HTML_TEMPLATE_FLEXY_ERROR_DIE)) {
-            // rewrite DIE!
-            $p = new PEAR();
-            return $p->raiseError($message, $type, $this->options['fatalError']);
-        }
         if (isset($GLOBALS['_HTML_TEMPLATE_FLEXY']['fatalError']) &&  ($fatal == HTML_TEMPLATE_FLEXY_ERROR_DIE)) {
             
             $p = new PEAR();
