@@ -149,7 +149,7 @@ class HTML_Template_Flexy_Tree {
         while ($t = $tokenizer->yylex()) {  
             
             if ($t == HTML_TEMPLATE_FLEXY_TOKEN_ERROR) {
-                return HTML_Template_Flexy::raiseError(
+                return HTML_Template_Flexy::staticRaiseError(
                     array(
                             "HTML_Template_Flexy_Tree::Syntax error in File: %s (Line %s)\n".
                             "Tokenizer Error: %s\n".

@@ -173,7 +173,8 @@ class HTML_Template_Flexy_Translator {
         
         if (!in_array($displayLang, $this->options['targetLangs'] )) {
             require_once 'PEAR.php';
-            return PEAR::raiseError('Unknown Language :' .$displayLang);
+            $p = new PEAR();
+            return $p->raiseError('Unknown Language :' .$displayLang);
         }
         
         $this->translate = $displayLang;
