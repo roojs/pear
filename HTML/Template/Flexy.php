@@ -978,7 +978,8 @@ class HTML_Template_Flexy
         require_once 'PEAR.php';
         if (HTML_Template_Flexy_is_a($this,'HTML_Template_Flexy') &&  ($fatal == HTML_TEMPLATE_FLEXY_ERROR_DIE)) {
             // rewrite DIE!
-            return PEAR::raiseError($message, $type, $this->options['fatalError']);
+            $p = new PEAR();
+            return $p->raiseError($message, $type, $this->options['fatalError']);
         }
         if (isset($GLOBALS['_HTML_TEMPLATE_FLEXY']['fatalError']) &&  ($fatal == HTML_TEMPLATE_FLEXY_ERROR_DIE)) {
             
