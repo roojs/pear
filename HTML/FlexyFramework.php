@@ -1131,7 +1131,9 @@ class HTML_FlexyFramework {
         }
         $oldpid = file_get_contents($lock);
         if (!file_exists('/proc/' . $oldpid)) {
+            
             file_put_contents($lock, getmypid());
+            echo "check single: lock : PROC NOT EXIST\n";
             return true;
         }
         // file exists, but process might not be the same..
@@ -1139,6 +1141,7 @@ class HTML_FlexyFramework {
         $cmd = file_get_contents('/proc/' . $oldpid.'/cmdline');
         if (!preg_match('/php/i',$cmd) || !preg_match('/'.$name.'/i',$cmd)) {
             file_put_contents($lock, getmypid());
+            echo "check single: lock : CMDLINE !have PHP \n";
             return true;
         }
         die("process " . $sig . " already running\n");
