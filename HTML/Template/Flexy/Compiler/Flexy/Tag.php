@@ -1354,7 +1354,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
         global $_HTML_TEMPLATE_FLEXY;
         $message = "Error:{$_HTML_TEMPLATE_FLEXY['filename']} on Line {$this->element->line}" .
                    " in Tag &lt;{$this->element->tag}&gt;:<BR>\n" . $message;
-        return HTML_Template_Flexy::raiseError($message, $type, $fatal);
+        return HTML_Template_Flexy::staticRaiseError($message, $type, $fatal);
     }
     
    
