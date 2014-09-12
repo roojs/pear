@@ -670,7 +670,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
             } else if ($_HTML_TEMPLATE_FLEXY['elements'][$id] != false) {
                 
            
-                return HTML_Template_Flexy::raiseError(
+                return HTML_Template_Flexy::staticRaiseError(
                     "Error:{$_HTML_TEMPLATE_FLEXY['filename']} on Line {$this->element->line} ".
                     "in Tag &lt;{$this->element->tag}&gt;:<BR>".
                     "The Dynamic tag Name '$id' has already been used previously by ".
@@ -681,7 +681,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
            
             $id = $this->element->getAttribute('ID');
             if (!$id) {
-                return HTML_Template_Flexy::raiseError("Error in {$_HTML_TEMPLATE_FLEXY['filename']} on Line {$this->element->line} &lt;{$this->element->tag}&gt: 
+                return HTML_Template_Flexy::staticRaiseError("Error in {$_HTML_TEMPLATE_FLEXY['filename']} on Line {$this->element->line} &lt;{$this->element->tag}&gt: 
                  Radio Input's require an ID tag..",
                  null, HTML_TEMPLATE_FLEXY_ERROR_DIE);
             }
@@ -806,7 +806,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
             }
             $parts = explode (':', $bit);
             if (!isset($parts[1])) {
-                return HTML_Template_Flexy::raiseError('HTML_Template_Flexy: url_rewrite syntax incorrect'. 
+                return HTML_Template_Flexy::staticRaiseError('HTML_Template_Flexy: url_rewrite syntax incorrect'. 
                     print_r(array($bits,$bits),true),null,HTML_TEMPLATE_FLEXY_ERROR_DIE);
             }
             $new = preg_replace('#^'.$parts[0].'#',$parts[1], $new);
