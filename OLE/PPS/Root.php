@@ -17,7 +17,7 @@
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
-// $Id$
+// $Id: Root.php 322720 2012-01-25 12:56:57Z clockwerx $
 
 
 require_once 'OLE/PPS.php';
@@ -53,8 +53,7 @@ class OLE_PPS_Root extends OLE_PPS
     */
     function OLE_PPS_Root($time_1st, $time_2nd, $raChild)
     {
-        $system = new System();
-        $this->_tmp_dir = $system->tmpdir();
+        $this->_tmp_dir = System::tmpdir();
         $this->OLE_PPS(
            null, 
            OLE::Asc2Ucs('Root Entry'),
@@ -621,7 +620,7 @@ class OLE_PPS_Root extends OLE_PPS
       else
         fwrite($FILE, pack("V", -2));
 
-      fwrite($FILE, pack("V", $num_sb_blocks));
+      fwrite($FILE, pack("V", 1));
 
       // Extra BDList Start, Count
       if($bbd_info["blockchain_list_entries"] < $bbd_info["header_blockchain_list_entries"])
