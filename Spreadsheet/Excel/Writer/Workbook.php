@@ -174,11 +174,10 @@ class Spreadsheet_Excel_Writer_Workbook extends Spreadsheet_Excel_Writer_BIFFwri
     function Spreadsheet_Excel_Writer_Workbook($filename)
     {
         // It needs to call its parent's constructor explicitly
-        
         $this->Spreadsheet_Excel_Writer_BIFFwriter();
 
         $this->_filename         = $filename;
-        $this->_parser           =  new Spreadsheet_Excel_Writer_Parser($this->_byte_order, $this->_BIFF_version);
+        $this->_parser           = new Spreadsheet_Excel_Writer_Parser($this->_byte_order, $this->_BIFF_version);
         $this->_1904             = 0;
         $this->_activesheet      = 0;
         $this->_firstsheet       = 0;
@@ -197,7 +196,7 @@ class Spreadsheet_Excel_Writer_Workbook extends Spreadsheet_Excel_Writer_BIFFwri
         $this->_string_sizeinfo  = 3;
 
         // Add the default format for hyperlinks
-        $this->_url_format = $this->addFormat(array('color' => 'blue', 'underline' => 1));
+        $this->_url_format =& $this->addFormat(array('color' => 'blue', 'underline' => 1));
         $this->_str_total       = 0;
         $this->_str_unique      = 0;
         $this->_str_table       = array();
@@ -323,6 +322,10 @@ class Spreadsheet_Excel_Writer_Workbook extends Spreadsheet_Excel_Writer_BIFFwri
             if (strlen($name) > 31) {
                 return $this->raiseError("Sheetname $name must be <= 31 chars");
             }
+        } else {
+            if(function_exists('iconv')) {
+                $name = iconv('UTF-8','UTF-16LE',$name);
+            }
         }
 
         // Check that the worksheet name doesn't already exist: a fatal Excel error.
@@ -339,7 +342,7 @@ class Spreadsheet_Excel_Writer_Workbook extends Spreadsheet_Excel_Writer_BIFFwri
                                    $this->_str_total, $this->_str_unique,
                                    $this->_str_table, $this->_url_format,
                                    $this->_parser, $this->_tmp_dir);
-        
+
         $this->_worksheets[$index] = &$worksheet;    // Store ref for iterator
         $this->_sheetnames[$index] = $name;          // Store EXTERNSHEET names
         $this->_parser->setExtSheet($name, $index);  // Register worksheet name with parser
@@ -774,6 +777,7 @@ class Spreadsheet_Excel_Writer_Workbook extends Spreadsheet_Excel_Writer_BIFFwri
     * @access private
     */
     function _storeExterns()
+
     {
         // Create EXTERNCOUNT with number of worksheets
         $this->_storeExterncount(count($this->_worksheets));
@@ -929,11 +933,15 @@ class Spreadsheet_Excel_Writer_Workbook extends Spreadsheet_Excel_Writer_BIFFwri
         }
 
         $grbit     = 0x0000;                    // Visibility and sheet type
-        $cch       = strlen($sheetname);        // Length of sheet name
+        if ($this->_BIFF_version == 0x0600) {
+            $cch       = mb_strlen($sheetname,'UTF-16LE'); // Length of sheet name
+        } else {
+            $cch       = strlen($sheetname);        // Length of sheet name
+        }
 
         $header    = pack("vv",  $record, $length);
         if ($this->_BIFF_version == 0x0600) {
-            $data      = pack("Vvv", $offset, $grbit, $cch);
+            $data      = pack("VvCC", $offset, $grbit, $cch, 0x1);
         } else {
             $data      = pack("VvC", $offset, $grbit, $cch);
         }
@@ -1015,12 +1023,23 @@ class Spreadsheet_Excel_Writer_Workbook extends Spreadsheet_Excel_Writer_BIFFwri
             $length    = 3 + strlen($format);      // Number of bytes to follow
         }
 
-        $cch       = strlen($format);             // Length of format string
+        if ( $this->_BIFF_version == 0x0600 && function_exists('iconv') ) {     // Encode format String
+            if (mb_detect_encoding($format, 'auto') !== 'UTF-16LE'){
+                $format = iconv(mb_detect_encoding($format, 'auto'),'UTF-16LE',$format);
+            }
+            $encoding = 1;
+            $cch = function_exists('mb_strlen') ? mb_strlen($format, 'UTF-16LE') : (strlen($format) / 2);
+        } else {
+            $encoding = 0;
+            $cch  = strlen($format);             // Length of format string
+        }
+        $length = strlen($format);
 
-        $header    = pack("vv", $record, $length);
         if ($this->_BIFF_version == 0x0600) {
+            $header    = pack("vv", $record, 5 + $length);
             $data      = pack("vvC", $ifmt, $cch, $encoding);
         } elseif ($this->_BIFF_version == 0x0500) {
+            $header    = pack("vv", $record, 3 + $length);
             $data      = pack("vC", $ifmt, $cch);
         }
         $this->_append($header . $data . $format);
@@ -1280,7 +1299,7 @@ class Spreadsheet_Excel_Writer_Workbook extends Spreadsheet_Excel_Writer_BIFFwri
         $header = pack("vvv",  $record, $length, $ccv);
         $this->_append($header . $data);
     }
-  
+
     /**
     * Calculate
     * Handling of the SST continue blocks is complicated by the need to include an

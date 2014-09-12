@@ -675,7 +675,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         if (preg_match("/^([A-Ia-i]?[A-Za-z])(\d+)\:([A-Ia-i]?[A-Za-z])(\d+)$/", $range)) {
             list($cell1, $cell2) = explode(':', $range);
         } elseif (preg_match("/^([A-Ia-i]?[A-Za-z])(\d+)\.\.([A-Ia-i]?[A-Za-z])(\d+)$/", $range)) {
-            list($cell1, $cell2) = explode('\.\.', $range);
+            list($cell1, $cell2) = explode('..', $range);
 
         } else {
             // TODO: use real error codes
