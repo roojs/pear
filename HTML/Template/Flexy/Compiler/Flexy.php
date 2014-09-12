@@ -206,7 +206,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
              
             
         } else {
-            return HTML_Template_Flexy::raiseError('HTML_Template_Flexy::failed to write to '.$flexy->compiledTemplate,
+            return HTML_Template_Flexy::staticRaiseError('HTML_Template_Flexy::failed to write to '.$flexy->compiledTemplate,
                 HTML_TEMPLATE_FLEXY_ERROR_FILE, HTML_TEMPLATE_FLEXY_ERROR_RETURN);
         }
         // gettext strings
@@ -841,7 +841,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             require_once 'HTML/Template/Flexy/Compiler/Flexy/Tag.php';
             $this->tagHandlers[$namespace] = &HTML_Template_Flexy_Compiler_Flexy_Tag::factory($namespace, $this);
             if (!$this->tagHandlers[$namespace] ) {
-                return HTML_Template_Flexy::raiseError('HTML_Template_Flexy::failed to create Namespace Handler '.$namespace . 
+                return HTML_Template_Flexy::staticRaiseError('HTML_Template_Flexy::failed to create Namespace Handler '.$namespace . 
                     ' in file ' . $GLOBALS['_HTML_TEMPLATE_FLEXY']['filename'],
                     HTML_TEMPLATE_FLEXY_ERROR_SYNTAX, HTML_TEMPLATE_FLEXY_ERROR_RETURN);
             }
