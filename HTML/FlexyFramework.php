@@ -1122,7 +1122,7 @@ class HTML_FlexyFramework {
             mkdir($fdir, 0777);
         }
         
-        $lock = $fdir.'/'. md5($sig);
+        $lock = $fdir.'/'. md5($sig) . '.' . get_class($class);
         echo "check single: lock : $lock\n";
         if (!file_exists($lock)) {
             file_put_contents($lock, getmypid());
