@@ -1106,7 +1106,7 @@ class HTML_FlexyFramework {
       
     static function ensureSingle($sig, $class) 
     {
-        echo "check single: $sig / $class \n";
+        echo "check single: $sig / ". get_class($class) ."\n";
         $ff = HTML_FlexyFramework::get();
         if (function_exists('posix_getpwuid')) {
             $uinfo = posix_getpwuid( posix_getuid () ); 
