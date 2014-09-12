@@ -17,7 +17,7 @@
 // | Based on OLE::Storage_Lite by Kawai, Takanori                        |
 // +----------------------------------------------------------------------+
 //
-// $Id: OLE.php,v 1.15 2007/12/18 20:59:11 schmidt Exp $
+// $Id: OLE.php 260165 2008-05-23 16:33:58Z schmidt $
 
 
 /**
@@ -194,6 +194,11 @@ class OLE extends PEAR
         $this->sbat = array();
         $shortBlockCount = $sbbatBlockCount * $this->bigBlockSize / 4;
         $sbatFh = $this->getStream($sbatFirstBlockId);
+        if (!$sbatFh) {
+            // Avoid an infinite loop if ChainedBlockStream.php somehow is
+            // missing
+            return false;
+        }
         for ($blockId = 0; $blockId < $shortBlockCount; $blockId++) {
             $this->sbat[$blockId] = $this->_readInt4($sbatFh);
         }
@@ -470,7 +475,7 @@ class OLE extends PEAR
     * @param string $ascii The ASCII string to transform
     * @return string The string in Unicode
     */
-    static function Asc2Ucs($ascii)
+    function Asc2Ucs($ascii)
     {
         $rawname = '';
         for ($i = 0; $i < strlen($ascii); $i++) {
@@ -488,7 +493,7 @@ class OLE extends PEAR
     * @param integer $date A timestamp 
     * @return string The string for the OLE container
     */
-    static  function LocalDate2OLE($date = null)
+    function LocalDate2OLE($date = null)
     {
         if (!isset($date)) {
             return "\x00\x00\x00\x00\x00\x00\x00\x00";
@@ -533,7 +538,7 @@ class OLE extends PEAR
     * @access public
     * @static
     */
-    static  function OLE2LocalDate($string)
+    function OLE2LocalDate($string)
     {
         if (strlen($string) != 8) {
             return new PEAR_Error("Expecting 8 byte string");
@@ -567,4 +572,4 @@ class OLE extends PEAR
         return floor($big_date);
     }
 }
- 
+?>
