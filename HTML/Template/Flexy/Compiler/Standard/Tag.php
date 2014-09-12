@@ -467,7 +467,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
                 $this->element->postfix = array($this->element->factory("End",'', $this->element->line));
             } else {
             
-                return HTML_Template_Flexy::raiseError(
+                return HTML_Template_Flexy::staticRaiseError(
                     "An flexy:if attribute was found in &lt;{$this->element->name} tag without a corresponding &lt;/{$this->element->name}
                         tag on Line {$this->element->line} &lt;{$this->element->tag}&gt;",
                      null, HTML_TEMPLATE_FLEXY_ERROR_DIE);
@@ -546,7 +546,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
         global $_HTML_TEMPLATE_FLEXY;
         static $tmpId=0;
         if (!$id) {
-            return HTML_Template_Flexy::raiseError(
+            return HTML_Template_Flexy::staticRaiseError(
                 "Error:{$_HTML_TEMPLATE_FLEXY['filename']} on Line {$this->element->line} &lt;{$this->element->tag}&gt;: " .
                 " Dynamic tags require an ID value",
                 null, HTML_TEMPLATE_FLEXY_ERROR_DIE);
@@ -556,7 +556,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
         if (($this->element->getAttribute('FLEXY:IF') !== false) || 
             ($this->element->getAttribute('FLEXY:FOREACH') !== false) )
         {
-            return HTML_Template_Flexy::raiseError(
+            return HTML_Template_Flexy::staticRaiseError(
                 "Error:{$_HTML_TEMPLATE_FLEXY['filename']} on Line {$this->element->line} &lt;{$this->element->tag}&gt;: " .
                 " You can not mix flexy:if= or flexy:foreach= with dynamic form elements  " . 
                 " (turn off tag to element code with flexyIgnore=0, use flexy:ignore=&quot;yes&quot; in the tag" .
@@ -580,7 +580,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
         
         if (isset($_HTML_TEMPLATE_FLEXY['elements'][$id])) {
            // echo "<PRE>";print_r($this);print_r($_HTML_TEMPLATE_FLEXY['elements']);echo "</PRE>";
-            return HTML_Template_Flexy::raiseError(
+            return HTML_Template_Flexy::staticRaiseError(
                 "Error:{$_HTML_TEMPLATE_FLEXY['filename']} on Line {$this->element->line} in Tag &lt;{$this->element->tag}&gt;:<BR> " . 
                  "The Dynamic tag Name '$id' has already been used previously by  tag &lt;{$_HTML_TEMPLATE_FLEXY['elements'][$id]->tag}&gt;",
                  null,HTML_TEMPLATE_FLEXY_ERROR_DIE);
@@ -631,7 +631,7 @@ class HTML_Template_Flexy_Compiler_Standard_Tag {
         
         if ($lang == "PHP") {
             
-            return HTML_Template_Flexy::raiseError('PHP code found in script',
+            return HTML_Template_Flexy::staticRaiseError('PHP code found in script',
                 HTML_TEMPLATE_FLEXY_ERROR_SYNTAX,HTML_TEMPLATE_FLEXY_ERROR_RETURN
             );
         }
