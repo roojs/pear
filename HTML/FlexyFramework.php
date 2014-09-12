@@ -1106,7 +1106,7 @@ class HTML_FlexyFramework {
       
     static function ensureSingle($sig, $class) 
     {
-        echo "check single: $sig / ". get_class($class) ."\n";
+        //echo "check single: $sig / ". get_class($class) ."\n";
         $ff = HTML_FlexyFramework::get();
         if (function_exists('posix_getpwuid')) {
             $uinfo = posix_getpwuid( posix_getuid () ); 
@@ -1123,17 +1123,17 @@ class HTML_FlexyFramework {
         }
         
         $lock = $fdir.'/'. md5($sig) . '.' . get_class($class);
-        echo "check single: lock : $lock\n";
+        //echo "check single: lock : $lock\n";
         if (!file_exists($lock)) {
             file_put_contents($lock, getmypid());
-            echo "check single: lock : DOES NOT EXIST\n";
+            //echo "check single: lock : DOES NOT EXIST\n";
             return true;
         }
         $oldpid = file_get_contents($lock);
         if (!file_exists('/proc/' . $oldpid)) {
             
             file_put_contents($lock, getmypid());
-            echo "check single: lock : PROC NOT EXIST\n";
+          //  echo "check single: lock : PROC NOT EXIST\n";
             return true;
         }
         // file exists, but process might not be the same..
