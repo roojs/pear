@@ -983,9 +983,11 @@ class HTML_Template_Flexy
         }
         if (isset($GLOBALS['_HTML_TEMPLATE_FLEXY']['fatalError']) &&  ($fatal == HTML_TEMPLATE_FLEXY_ERROR_DIE)) {
             
-            return PEAR::raiseError($message, $type,$GLOBALS['_HTML_TEMPLATE_FLEXY']['fatalError']);
+            $p = new PEAR();
+            return $p->raiseError($message, $type,$GLOBALS['_HTML_TEMPLATE_FLEXY']['fatalError']);
         }
-        return PEAR::raiseError($message, $type, $fatal);
+        $p = new PEAR();
+        return $p->raiseError($message, $type, $fatal);
     }
 
 
