@@ -254,7 +254,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
             
             default:
             //something unexspected
-                return HTML_Template_Flexy::raiseError(
+                return HTML_Template_Flexy::staticRaiseError(
                     ' Flexy:Include SRC needs a string or variable/method as value. '.
                     " Error on Line {$element->line} &lt;{$element->tag}&gt;",
                     null, HTML_TEMPLATE_FLEXY_ERROR_DIE); 
@@ -323,7 +323,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Flexy  {
         }
         if (!isset($element->ucAttributes['CALL'])) {
             
-            return HTML_Template_Flexy::raiseError(
+            return HTML_Template_Flexy::staticRaiseError(
                 ' tag flexy:function needs an argument call or name'.
                 " Error on Line {$element->line} &lt;{$element->tag}&gt;",
                          null,   HTML_TEMPLATE_FLEXY_ERROR_DIE);
