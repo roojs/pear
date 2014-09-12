@@ -1126,6 +1126,7 @@ class HTML_FlexyFramework {
         echo "check single: lock : $lock\n";
         if (!file_exists($lock)) {
             file_put_contents($lock, getmypid());
+            echo "check single: lock : DOES NOT EXIST\n";
             return true;
         }
         $oldpid = file_get_contents($lock);
