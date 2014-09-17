@@ -324,7 +324,7 @@ class Spreadsheet_Excel_Writer_Workbook extends Spreadsheet_Excel_Writer_BIFFwri
             }
         } else {
             if(function_exists('iconv')) {
-                $name = iconv('UTF-8','UTF-16LE',$name);
+                $name = @iconv('UTF-8','UTF-16LE',$name);
             }
         }
 
@@ -1025,7 +1025,7 @@ class Spreadsheet_Excel_Writer_Workbook extends Spreadsheet_Excel_Writer_BIFFwri
 
         if ( $this->_BIFF_version == 0x0600 && function_exists('iconv') ) {     // Encode format String
             if (mb_detect_encoding($format, 'auto') !== 'UTF-16LE'){
-                $format = iconv(mb_detect_encoding($format, 'auto'),'UTF-16LE',$format);
+                $format = @iconv(mb_detect_encoding($format, 'auto'),'UTF-16LE',$format);
             }
             $encoding = 1;
             $cch = function_exists('mb_strlen') ? mb_strlen($format, 'UTF-16LE') : (strlen($format) / 2);
