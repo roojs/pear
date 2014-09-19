@@ -111,7 +111,7 @@ class HTTP_OAuth2_TokenType_Bearer implements HTTP_OAuth2_TokenType_TokenTypeInt
                 $contentType = substr($contentType, 0, $pos);
             }
 
-            if ($contentType !== null && ($contentType != 'application/x-www-form-urlencoded' || $contentType != 'multipart/form-data')) {
+            if ($contentType !== null && ($contentType != 'application/x-www-form-urlencoded' && $contentType != 'multipart/form-data')) {
                 // IETF specifies content-type. NB: Not all webservers populate this _SERVER variable
                 // @see http://tools.ietf.org/html/rfc6750#section-2.2
                 $response->setError(400, 'invalid_request', 'The content type for POST requests must be "application/x-www-form-urlencoded" OR "multipart/form-data"   --  ' . $contentType);
