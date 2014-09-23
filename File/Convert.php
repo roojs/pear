@@ -292,6 +292,7 @@ class File_Convert
                 array(
                       'application/vnd.ms-excel',
                       'text/csv',
+                      'text/xml'
                       )
             ),
             
