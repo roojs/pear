@@ -88,6 +88,7 @@ class File_MimeType
                 
                 array( 'text/calendar', array('ifb')),
                 array( 'text/csv', array('csv')),
+                array( 'text/xml', array('xml')),
                 array( 'text/sgml', array('sgml')),
                 array( 'text/sgml', array('sgm')),
                 // bjs is a Pman json file..
