@@ -821,6 +821,10 @@ class File_Convert_Solution
                 $format = 'Gnumeric_stf:stf_csv';
                 break;
             
+            case 'text/xml':
+                $format = 'Gnumeric_XmlIO:sax';
+                break;
+            
             default:
                  die("ssconvert used on unknown format:" . $this->to);
         }
