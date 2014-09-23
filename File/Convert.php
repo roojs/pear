@@ -103,10 +103,8 @@ class File_Convert
             
             //echo '<PRE>';print_r($action);
             if (!$action) {
-                print_r('run in??');exit;
                 return false;
             }
-            print_r('run out??');exit;
             $action->debug = $this->debug;
             $fn = $action->runconvert($this->fn, $x, $y, $pg);
             if (!$fn) {
