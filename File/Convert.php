@@ -642,7 +642,7 @@ class File_Convert_Solution
             $this->cmd = "ERROR:". $fn . " does not exist";
             return false;
         }
-        print_r('inn!!1');exit;
+        
         require_once 'File/MimeType.php';
         $mt = new File_MimeType();
         $this->ext = $mt->toExt($this->to);
@@ -654,6 +654,7 @@ class File_Convert_Solution
         if (!$this->ext) {
             return false;
         }
+        print_r('inn!!1');exit;
         $method = $this->method;
         
         return $this->$method($fn, $x, $y, $pg);
