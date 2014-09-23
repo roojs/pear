@@ -644,9 +644,7 @@ class File_Convert_Solution
         }
         require_once 'File/MimeType.php';
         $mt = new File_MimeType();
-        print_r($this->to);exit;
         $this->ext = $mt->toExt($this->to);
-        
         if ($this->debug) {
             print_r(array('runconvert', func_get_args()));
             print_r($this);
