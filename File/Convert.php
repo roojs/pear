@@ -780,7 +780,7 @@ class File_Convert_Solution
     {
         
         
-        print_r('run here');exit;
+        
         
         $ext = $this->ext;
         $target = $fn . '.' . $ext;
@@ -848,7 +848,7 @@ class File_Convert_Solution
         }
         
        
-        echo $cmd;exit;
+        ///echo $cmd;
         $this->exec($cmd);
         
         clearstatcache();
