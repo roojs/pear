@@ -125,7 +125,7 @@ class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_T
         if (!$grantType->validateRequest($request, $response)) {
             return null;
         }
-
+        print_r($grantType);exit;
         if ($grantType instanceof HTTP_OAuth2_ClientAssertionType_ClientAssertionTypeInterface) {
             $clientId = $grantType->getClientId();
         } else {
