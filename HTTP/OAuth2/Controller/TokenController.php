@@ -97,7 +97,7 @@ class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_T
         }
 
         $grantType = $this->grantTypes[$grantTypeIdentifier];
-
+        print_r($grantType);exit;
         /**
          * Retrieve the client information from the request
          * ClientAssertionTypes allow for grant types which also assert the client data
