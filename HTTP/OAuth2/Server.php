@@ -252,6 +252,7 @@ class HTTP_OAuth2_Server implements HTTP_OAuth2_Controller_ResourceControllerInt
     public function handleTokenRequest(HTTP_OAuth2_RequestInterface $request, HTTP_OAuth2_ResponseInterface $response = null)
     {
         $this->response = is_null($response) ? new HTTP_OAuth2_Response() : $response;
+        print_r($this->getTokenController());exit;
         $this->getTokenController()->handleTokenRequest($request, $this->response);
         
         return $this->response;
