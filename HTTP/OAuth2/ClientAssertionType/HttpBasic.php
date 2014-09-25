@@ -72,7 +72,6 @@ class HTTP_OAuth2_ClientAssertionType_HttpBasic implements HTTP_OAuth2_ClientAss
 
     public function getClientId()
     {
-        print_r($this->clientData);exit;
         return $this->clientData['client_id'];
     }
 
