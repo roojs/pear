@@ -106,7 +106,7 @@ class HTTP_OAuth2_Controller_TokenController implements HTTP_OAuth2_Controller_T
          * @see OAuth2\GrantType\JWTBearer
          * @see OAuth2\GrantType\ClientCredentials
          */
-        print_r($grantType);exit;
+        
         if (!$grantType instanceof HTTP_OAuth2_ClientAssertionType_ClientAssertionTypeInterface) {
         
             if (!$this->clientAssertionType->validateRequest($request, $response)) {
