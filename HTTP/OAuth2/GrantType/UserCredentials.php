@@ -36,7 +36,7 @@ class HTTP_OAuth2_GrantType_UserCredentials implements HTTP_OAuth2_GrantType_Gra
 
             return null;
         }
-        print_r($this->storage);exit;
+
         if (!$this->storage->checkUserCredentials($request->request("username"), $request->request("password"))) {
             $response->setError(401, 'invalid_grant', 'Invalid username and password combination');
 
