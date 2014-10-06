@@ -107,7 +107,7 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function createFromLogin($login, $type, $key = 0)
+    static function createFromLogin($login, $type, $key = 0)
     {
         switch ($type) {
         case 'reverse':
