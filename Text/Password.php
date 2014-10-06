@@ -52,7 +52,7 @@ class Text_Password {
      *                 or numeric, alphabetical or alphanumeric.
      * @return string  Returns the generated password.
      */
-    function create($length = 10, $type = 'pronounceable', $chars = '')
+    static function create($length = 10, $type = 'pronounceable', $chars = '')
     {
         switch ($type) {
         case 'unpronounceable' :
@@ -79,7 +79,7 @@ class Text_Password {
      *                 or numeric, alphabetical or alphanumeric.
      * @return array   Array containing the passwords
      */
-    function createMultiple($number, $length = 10, $type = 'pronounceable', $chars = '')
+    static function createMultiple($number, $length = 10, $type = 'pronounceable', $chars = '')
     {
         $passwords = array();
 
