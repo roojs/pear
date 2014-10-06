@@ -153,7 +153,7 @@ class Text_Password {
      * @param  integer Key
      * @return array   Array containing the passwords
      */
-    function createMultipleFromLogin($login, $type, $key = 0)
+    static function createMultipleFromLogin($login, $type, $key = 0)
     {
         $passwords = array();
         $number    = count($login);
@@ -182,7 +182,7 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function _xor($login, $key)
+    static function _xor($login, $key)
     {
         $tmp = '';
 
@@ -210,7 +210,7 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function _rotx($login, $key)
+    static function _rotx($login, $key)
     {
         $tmp = '';
         $login = strtolower($login);
@@ -243,7 +243,7 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function _rotxpp($login, $key)
+    static function _rotxpp($login, $key)
     {
         $tmp = '';
         $login = strtolower($login);
@@ -308,7 +308,7 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function _asciiRotx($login, $key)
+    static function _asciiRotx($login, $key)
     {
         $tmp = '';
 
@@ -342,7 +342,7 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function _asciiRotxpp($login, $key)
+    static function _asciiRotxpp($login, $key)
     {
         $tmp = '';
 
@@ -376,7 +376,7 @@ class Text_Password {
      * @param  integer Key
      * @return string
      */
-    function _asciiRotxmm($login, $key)
+    static function _asciiRotxmm($login, $key)
     {
         $tmp = '';
 
@@ -409,7 +409,7 @@ class Text_Password {
      * @param  string  Login
      * @return string
      */
-    function _shuffle($login)
+    static function _shuffle($login)
     {
         $tmp = array();
 
@@ -432,7 +432,7 @@ class Text_Password {
      * @param  integer Length of the password
      * @return string  Returns the password
      */
-    function _createPronounceable($length)
+    static function _createPronounceable($length)
     {
 
         $retVal = '';
@@ -477,7 +477,7 @@ class Text_Password {
      *                 or numeric, alphabetical or alphanumeric.
      * @return string  Returns the password
      */
-    function _createUnpronounceable($length, $chars)
+    static function _createUnpronounceable($length, $chars)
     {
         $password = '';
 
@@ -530,4 +530,4 @@ class Text_Password {
          return $password;
     }
 }
-?>
+ 
