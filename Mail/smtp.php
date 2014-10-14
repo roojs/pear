@@ -271,6 +271,7 @@ class Mail_smtp extends Mail {
             $this->_smtp->rset();
             return $headerElements;
         }
+        print_R($headerElements);exit;
         list($from, $textHeaders) = $headerElements;
 
         /* Since few MTAs are going to allow this header to be forged
@@ -330,7 +331,6 @@ class Mail_smtp extends Mail {
 
         /* Send the message's headers and the body as SMTP data. */
         $res = $this->_smtp->data($textHeaders . "\r\n\r\n" . $body);
-        print_R($this->_smtp->getResponse());exit;
 		list(,$args) = $this->_smtp->getResponse();
 
 		if (preg_match("/Ok: queued as (.*)/", $args, $queued)) {
