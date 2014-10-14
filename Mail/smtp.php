@@ -271,7 +271,6 @@ class Mail_smtp extends Mail {
             $this->_smtp->rset();
             return $headerElements;
         }
-        print_R($headers);exit;
         list($from, $textHeaders) = $headerElements;
 
         /* Since few MTAs are going to allow this header to be forged
