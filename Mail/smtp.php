@@ -405,7 +405,7 @@ class Mail_smtp extends Mail {
 
         /* Configure the SMTP connection. */
         if ($this->debug) {
-            $this->_smtp->setDebug(true);
+            $this->_smtp->setDebug(true, $this->debug_handler);
         }
 
         /* Attempt to connect to the configured SMTP server. */
