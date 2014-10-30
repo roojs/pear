@@ -148,9 +148,9 @@ class Mail_smtp extends Mail {
     var $debug = false;
 
     /**
-     * Turn on Net_SMTP debugging?
+     * Net_SMTP debug handler, should be a method 
      *
-     * @var boolean $debug
+     * @var Callable $debug_handler
      */
     var $debug_handler = null;
 
