@@ -148,6 +148,13 @@ class Mail_smtp extends Mail {
     var $debug = false;
 
     /**
+     * Turn on Net_SMTP debugging?
+     *
+     * @var boolean $debug
+     */
+    var $debug_handler = null;
+
+    /**
      * Indicates whether or not the SMTP connection should persist over
      * multiple calls to the send() method.
      *
