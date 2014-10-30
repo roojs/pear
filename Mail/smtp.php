@@ -194,6 +194,7 @@ class Mail_smtp extends Mail {
      *     verp        Whether to use VERP or not. Defaults to false.
      *                 DEPRECATED as of 1.2.0 (use setMailParams()).
      *     debug       Activate SMTP debug mode? Defaults to false.
+     *     debug_handler    Callable for SMTP debug mode? Defaults to null
      *     persist     Should the SMTP connection persist?
      *     pipelining  Use SMTP command pipelining
      *
@@ -214,6 +215,7 @@ class Mail_smtp extends Mail {
         if (isset($params['localhost'])) $this->localhost = $params['localhost'];
         if (isset($params['timeout'])) $this->timeout = $params['timeout'];
         if (isset($params['debug'])) $this->debug = (bool)$params['debug'];
+        if (isset($params['debug_handler'])) $this->debug_handler = $params['debug_handler'];
         if (isset($params['persist'])) $this->persist = (bool)$params['persist'];
         if (isset($params['pipelining'])) $this->pipelining = (bool)$params['pipelining'];
         if (isset($params['socket_options'])) $this->socket_options = $params['socket_options'];
