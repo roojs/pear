@@ -7,7 +7,7 @@
 		function __construct($params = array()) {
             
             
-            
+                        print_R($this);exit;
 			parent::__construct('login');
 
 			$this->clID = $this->createElement('clID');
