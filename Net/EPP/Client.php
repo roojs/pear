@@ -114,7 +114,7 @@
 		*/
 		function request($xml) {
 			$res = $this->sendFrame($xml);
-                        pritn_R($res);exit;
+                        print_R($res);exit;
 			return $this->getFrame();
 		}
 
