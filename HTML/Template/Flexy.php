@@ -711,7 +711,7 @@ class HTML_Template_Flexy
     {  
         
         
-        if (HTML_Template_Flexy_is_a($this,'HTML_Template_Flexy')) {
+        if (isset($this) && HTML_Template_Flexy_is_a($this,'HTML_Template_Flexy')) {
             if (!$this->options['debug']) {
                 return;
             }
