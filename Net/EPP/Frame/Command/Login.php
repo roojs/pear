@@ -27,8 +27,8 @@
 //
 //			$this->svcs = $this->createElement('svcs');
 //			$this->command->appendChild($this->svcs);
-                
-            $this->addCommandParams($params);
+//                
+//            $this->addCommandParams($params);
                 
                 
 		}
