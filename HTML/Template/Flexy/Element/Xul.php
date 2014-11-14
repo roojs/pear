@@ -126,7 +126,7 @@ class HTML_Template_Flexy_Element_Xul {
      * @access   public
      */
      
-    function setOptions(&$element, $array,$noValue=false) {
+    static function setOptions(&$element, $array,$noValue=false) {
         if (!is_array($array)) {
             $element->children = array();
             return;
