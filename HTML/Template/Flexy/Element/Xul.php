@@ -35,7 +35,7 @@ class HTML_Template_Flexy_Element_Xul {
      * @access   public
      */
      
-    function setValue(&$element,$value) {
+    static function setValue(&$element,$value) {
         // store the value in all situations
         $element->value = $value;
         $tag = $element->tag;
