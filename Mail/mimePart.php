@@ -916,7 +916,7 @@ class Mail_mimePart
      * @return array            String tokens array
      * @access private
      */
-    function _explodeQuotedString($delimiter, $string)
+    static function _explodeQuotedString($delimiter, $string)
     {
         $result = array();
         $strlen = strlen($string);
@@ -1049,7 +1049,7 @@ class Mail_mimePart
      * @access public
      * @since 1.6.0
      */
-    function encodeQP($str)
+    static  function encodeQP($str)
     {
         // Bug #17226 RFC 2047 restricts some characters
         // if the word is inside a phrase, permitted chars are only:
@@ -1079,7 +1079,7 @@ class Mail_mimePart
      * @access public
      * @since 1.8.0
      */
-    function encodeMB($str, $charset, $encoding, $prefix_len=0, $eol="\r\n")
+    static function encodeMB($str, $charset, $encoding, $prefix_len=0, $eol="\r\n")
     {
         if (!function_exists('mb_substr') || !function_exists('mb_strlen')) {
             return;
