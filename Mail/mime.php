@@ -1321,7 +1321,7 @@ class Mail_mime
      * @access public
      * @since 1.5.3
      */
-    static function encodeHeader($name, $value, $charset, $encoding)
+    function encodeHeader($name, $value, $charset, $encoding)
     {
         return Mail_mimePart::encodeHeader(
             $name, $value, $charset, $encoding, $this->_build_params['eol']
