@@ -512,7 +512,7 @@ class Validate
      *
      * @access public
      */
-    function email($email, $options = null)
+    static  function email($email, $options = null)
     {
         static $dom_cache = array();
         $check_domain = false;
@@ -612,7 +612,7 @@ class Validate
      *
      * @access public
      */
-    function string($string, $options)
+    static  function string($string, $options)
     {
         $format     = null;
         $min_length = 0;
@@ -674,7 +674,7 @@ class Validate
      *
      * @access public
      */
-    function uri($url, $options = null)
+    static function uri($url, $options = null)
     {
         $strict = ';/?:@$,';
         $domain_check = false;
