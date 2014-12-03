@@ -888,7 +888,7 @@ class DB_DataObject extends DB_DataObject_Overload
             return;
         }
         // check input...= 0 or '    ' == error!
-        if ((is_string($index) && !trim($having)) || (is_array($index) && !count($index)) ) {
+        if ((is_string($index) && !trim($index)) || (is_array($index) && !count($index)) ) {
             return $this->raiseError("Having: No Valid Arguments", DB_DATAOBJECT_ERROR_INVALIDARGS);
         }
         $index = is_array($index) ? implode(', ', $index) : $index;
@@ -897,7 +897,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $this->_query['useindex'] = " USE INDEX ({$index}) ";
             return;
         }
-        $this->_query['having'] =  substr($this->_query['having'],0, -2) . ", {$index}) ";
+        $this->_query['useindex'] =  substr($this->_query['useindex'],0, -2) . ", {$index}) ";
     }
     /**
      * Sets the Limit
