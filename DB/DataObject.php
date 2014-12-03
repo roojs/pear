@@ -346,7 +346,7 @@ class DB_DataObject extends DB_DataObject_Overload
                $this->_query['derive_select']
                .' FROM ( SELECT'.
                     $this->_query['data_select'] . " \n" .
-                    " FROM   $tn \n" .
+                    " FROM   $tn  " . $this->_query['useindex'] . " \n" .
                     $this->_join . " \n" .
                     $this->_query['condition'] . " \n" .
                     $this->_query['group_by'] . " \n" .
@@ -362,7 +362,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         $sql = 'SELECT ' .
             $this->_query['data_select'] . " \n" .
-            " FROM   $tn \n" .
+            " FROM   $tn  " . $this->_query['useindex'] . " \n" .
             $this->_join . " \n" .
             $this->_query['condition'] . " \n" .
             $this->_query['group_by'] . " \n" .
