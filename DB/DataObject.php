@@ -884,7 +884,7 @@ class DB_DataObject extends DB_DataObject_Overload
             return false;
         }
         if ($index=== false) {
-            $this->_query['useindex'] = array();
+            $this->_query['useindex'] = '';
             return;
         }
         // check input...= 0 or '    ' == error!
@@ -897,7 +897,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $this->_query['useindex'] = " USE INDEX ({$index}) ";
             return;
         }
-        $this->_query['having'] .= " AND {$having}";
+        $this->_query['having'] =  substring(" AND {$having}";
     }
     /**
      * Sets the Limit
