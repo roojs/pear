@@ -863,6 +863,43 @@ class DB_DataObject extends DB_DataObject_Overload
     }
 
     /**
+     * Adds a using Index
+     *
+     * $object->useIndex(); //reset the use Index 
+     * $object->useIndex("some_index");
+     *
+     * Note do not put unfiltered user input into theis method.
+     * This is mysql specific at present? - might need altering to support other databases.
+     * 
+     * @param  string|array  $index  index or indexes to use.
+     * @access public
+     * @return none|PEAR::Error - invalid args only
+     */
+    function useIndex($index = false)
+    {
+        if ($this->_query === false) {
+            $this->raiseError(
+                "You cannot do two queries on the same object (copy it before finding)", 
+                DB_DATAOBJECT_ERROR_INVALIDARGS);
+            return false;
+        }
+        if ($index=== false) {
+            $this->_query['useindex'] = array();
+            return;
+        }
+        // check input...= 0 or '    ' == error!
+        if ((is_string($index) && !trim($having)) || (is_array($index) && !count($index)) ) {
+            return $this->raiseError("Having: No Valid Arguments", DB_DATAOBJECT_ERROR_INVALIDARGS);
+        }
+        $index = is_array($index) ? implode(', ', $index) : $index;
+        
+        if (!$this->_query['useindex']) {
+            $this->_query['useindex'] = " USE INDEX ({$index}) ";
+            return;
+        }
+        $this->_query['having'] .= " AND {$having}";
+    }
+    /**
      * Sets the Limit
      *
      * $boject->limit(); // clear limit
