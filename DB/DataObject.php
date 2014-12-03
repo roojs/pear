@@ -1845,6 +1845,7 @@ class DB_DataObject extends DB_DataObject_Overload
         'group_by'    => '', // the GROUP BY condition
         'order_by'    => '', // the ORDER BY condition
         'having'      => '', // the HAVING condition
+        'useindex'   => '', // the USE INDEX condition
         'limit_start' => '', // the LIMIT condition
         'limit_count' => '', // the LIMIT condition
         'data_select' => '*', // the columns to be SELECTed
