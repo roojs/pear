@@ -897,7 +897,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $this->_query['useindex'] = " USE INDEX ({$index}) ";
             return;
         }
-        $this->_query['having'] =  substring(" AND {$having}";
+        $this->_query['having'] =  substr($this->_query['having'],0, -2) . ", {$index}) ";
     }
     /**
      * Sets the Limit
