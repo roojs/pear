@@ -446,7 +446,8 @@ class File_Convert
                 array( 
                     'application/rtf',
                     'application/vnd.oasis.opendocument.text',
-                    'application/x-abiword'
+                    'application/x-abiword',
+                    'application/mswordapplication'
                 )
             ),
             
