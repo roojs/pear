@@ -1029,7 +1029,7 @@ class File_Convert_Solution
             return false;
         }
         $cmd = "$abiword  --import-extension=$fext --to=" . escapeshellarg($target) . ' ' .escapeshellarg($fn);
-        //echo $cmd;exit;
+//        echo $cmd;exit;
         $this->exec($cmd);
        
         clearstatcache();
