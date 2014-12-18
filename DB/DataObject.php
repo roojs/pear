@@ -4817,7 +4817,7 @@ class DB_DataObject extends DB_DataObject_Overload
     /**
      * (deprecated - use ::get / and your own caching method)
      */
-    function staticGet($class, $k, $v = null)
+    static function staticGet($class, $k, $v = null)
     {
         $lclass = strtolower($class);
         global $_DB_DATAOBJECT;
