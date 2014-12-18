@@ -1999,7 +1999,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 explode(PATH_SEPARATOR,$_DB_DATAOBJECT['CONFIG']["ini_{$this->_database}"]);
         }
                     
-         
+         print_R('got');exit;
         $_DB_DATAOBJECT['INI'][$this->_database] = array();
         foreach ($schemas as $ini) {
              if (file_exists($ini) && is_file($ini)) {
