@@ -1965,7 +1965,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (empty($_DB_DATAOBJECT['CONFIG'])) {
             DB_DataObject::_loadConfig();
         }
-        
+        print_R('got');exit;
         // we do not have the data for this table yet...
         
         // if we are configured to use the proxy..
@@ -1999,7 +1999,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 explode(PATH_SEPARATOR,$_DB_DATAOBJECT['CONFIG']["ini_{$this->_database}"]);
         }
                     
-         print_R('got');exit;
+         
         $_DB_DATAOBJECT['INI'][$this->_database] = array();
         foreach ($schemas as $ini) {
              if (file_exists($ini) && is_file($ini)) {
