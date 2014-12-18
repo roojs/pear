@@ -1951,7 +1951,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $this->_connect();
         }
         
-        print_R($_DB_DATAOBJECT);exit;
+        
         // if this table is already loaded this table..
         if (!empty($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()])) {
             return true;
