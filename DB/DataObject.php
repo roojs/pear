@@ -1932,7 +1932,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 }
                 return $_DB_DATAOBJECT['INI'][$x->_database];            
             } else {
-        
+                print_R($args);exit;
                 $_DB_DATAOBJECT['INI'][$args[0]] = isset($_DB_DATAOBJECT['INI'][$args[0]]) ?
                     $_DB_DATAOBJECT['INI'][$args[0]] + $args[1] : $args[1];
                 
