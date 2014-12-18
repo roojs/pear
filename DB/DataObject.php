@@ -2160,7 +2160,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (count($args)) {
             $this->_database_keys = $args;
         }
-        print_R('run');exit;
+        print_R($this->_database_keys);exit;
         if (isset($this->_database_keys)) {
             return $this->_database_keys;
         }
