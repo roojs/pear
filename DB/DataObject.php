@@ -2172,7 +2172,7 @@ class DB_DataObject extends DB_DataObject_Overload
             return array_keys($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"]);
         }
         $this->databaseStructure();
-        
+        print_R($_DB_DATAOBJECT);exit;
         if (isset($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"])) {
             return array_keys($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"]);
         }
