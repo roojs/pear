@@ -1907,7 +1907,7 @@ class DB_DataObject extends DB_DataObject_Overload
         global $_DB_DATAOBJECT;
         
         // Assignment code 
-        print_r(func_get_args());exit;
+        
         if ($args = func_get_args()) {
         
             if (count($args) == 1) {
