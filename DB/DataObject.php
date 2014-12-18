@@ -1998,7 +1998,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 $_DB_DATAOBJECT['CONFIG']["ini_{$this->_database}"] :
                 explode(PATH_SEPARATOR,$_DB_DATAOBJECT['CONFIG']["ini_{$this->_database}"]);
         }
-                    
+             print_R($schemas);exit;       
          
         $_DB_DATAOBJECT['INI'][$this->_database] = array();
         foreach ($schemas as $ini) {
