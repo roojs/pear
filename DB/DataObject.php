@@ -1907,7 +1907,7 @@ class DB_DataObject extends DB_DataObject_Overload
         global $_DB_DATAOBJECT;
         
         // Assignment code 
-        
+        print_r(func_get_args());exit;
         if ($args = func_get_args()) {
         
             if (count($args) == 1) {
@@ -1932,7 +1932,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 }
                 return $_DB_DATAOBJECT['INI'][$x->_database];            
             } else {
-                
+        
                 $_DB_DATAOBJECT['INI'][$args[0]] = isset($_DB_DATAOBJECT['INI'][$args[0]]) ?
                     $_DB_DATAOBJECT['INI'][$args[0]] + $args[1] : $args[1];
                 
@@ -1945,7 +1945,7 @@ class DB_DataObject extends DB_DataObject_Overload
           
         }
         
-        print_R($args);exit;
+        
         
         if (!$this->_database) {
             $this->_connect();
