@@ -2023,6 +2023,7 @@ class DB_DataObject extends DB_DataObject_Overload
             }
              
         }
+        print_R($_DB_DATAOBJECT);exit;
         // are table name lowecased..
         if (!empty($_DB_DATAOBJECT['CONFIG']['portability']) && $_DB_DATAOBJECT['CONFIG']['portability'] & 1) {
             foreach($_DB_DATAOBJECT['INI'][$this->_database] as $k=>$v) {
