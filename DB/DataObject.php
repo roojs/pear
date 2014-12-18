@@ -1945,7 +1945,7 @@ class DB_DataObject extends DB_DataObject_Overload
           
         }
         
-        
+        print_R('run');exit;
         
         if (!$this->_database) {
             $this->_connect();
