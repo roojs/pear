@@ -84,6 +84,9 @@ class File_MimeType
                 array( 'image/bmp', array('bmp')),
                 array( 'image/cgm', array('cgm')),
                 
+                array( 'image/x-icon', array('ico')),
+                array( 'image/vnd.microsoft.icon', array('ico')),
+                
                 array( 'image/svg', array('svg')),
                 
                 array( 'text/calendar', array('ifb')),
