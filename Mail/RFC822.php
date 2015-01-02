@@ -332,7 +332,7 @@ class Mail_RFC822 {
     function _splitCheck($parts, $char)
     {
         $string = $parts[0];
-$this->error = $string;
+debug_print_backtrace();
         for ($i = 0; $i < count($parts); $i++) {
             if ($this->_hasUnclosedQuotes($string)
                 || $this->_hasUnclosedBrackets($string, '<>')
