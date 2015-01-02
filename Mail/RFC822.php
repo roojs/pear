@@ -332,7 +332,7 @@ class Mail_RFC822 {
     function _splitCheck($parts, $char)
     {
         $string = $parts[0];
-        $this->error =$string;
+        //$this->error =$string;
 //debug_print_backtrace();
         //trigger_error("test");
         for ($i = 0; $i < count($parts); $i++) {
@@ -344,7 +344,7 @@ class Mail_RFC822 {
                 if (isset($parts[$i + 1])) {
                     $string = $string . $char . $parts[$i + 1];
                 } else {
-                    //$this->error = 'Invalid address spec. Unclosed bracket or quotes';
+                    $this->error = 'Invalid address spec. Unclosed bracket or quotes';
                     return false;
                 }
             } else {
