@@ -333,7 +333,7 @@ class Mail_RFC822 {
     {
         $string = $parts[0];
 //debug_print_backtrace();
-        trigger_error("test");
+        //trigger_error("test");
         for ($i = 0; $i < count($parts); $i++) {
             if ($this->_hasUnclosedQuotes($string)
                 || $this->_hasUnclosedBrackets($string, '<>')
