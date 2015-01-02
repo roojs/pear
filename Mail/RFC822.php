@@ -342,7 +342,7 @@ $this->error = $string;
                 if (isset($parts[$i + 1])) {
                     $string = $string . $char . $parts[$i + 1];
                 } else {
-                    $this->error = 'Invalid address spec. Unclosed bracket or quotes';
+                    //$this->error = 'Invalid address spec. Unclosed bracket or quotes';
                     return false;
                 }
             } else {
