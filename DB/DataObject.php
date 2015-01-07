@@ -4018,7 +4018,7 @@ class DB_DataObject extends DB_DataObject_Overload
         global $_DB_DATAOBJECT;
         $keys  = $this->keys();
         $items = $this->table();
-        print_R($items);exit;
+        
         if (!$items) {
             $this->raiseError(
                 "setFrom:Could not find table definition for {$this->tableName()}", 
