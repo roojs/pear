@@ -937,6 +937,9 @@ class Mail_mimeDecode extends PEAR
         if (!$headerlist) {
             return $this->raiseError("Message did not contain headers");
         }
+
+        print_r($headerlist);
+        exit;
         foreach($headerlist as $item) {
             $header[$item['name']] = $item['value'];
             switch (strtolower($item['name'])) {
