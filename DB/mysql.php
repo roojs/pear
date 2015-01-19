@@ -257,7 +257,7 @@ class DB_mysql extends DB_common
             }
         }
         
-        mysql_set_charset('utf8', $this->connection);
+        //mysql_set_charset('utf8', $this->connection);
         
         if ($dsn['database']) {
             if (!@mysql_select_db($dsn['database'], $this->connection)) {
