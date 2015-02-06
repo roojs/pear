@@ -284,10 +284,11 @@ class HTML_FlexyFramework_Page  {
 
         $template_engine = new HTML_Template_Flexy();
         $template_engine->compile($this->template);
-        echo "<pre>";print_r($this);exit;
+
         if ($this->elements) { /* BC crap! */
             $this->elements = HTML_Template_Flexy_Factory::setErrors($this->elements,$this->errors);
         }
+        echo "<pre>";print_r($this);exit;
         $template_engine->elements = $this->elements;
         $template_engine->outputObject($this,$this->elements);
         
