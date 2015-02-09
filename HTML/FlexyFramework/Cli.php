@@ -115,7 +115,7 @@ Available commands:
                 }
                 $clp[] = preg_replace('/\.php$/','', $d);
                 
-                print_r("CLP:          " . implode('/', $clp)."\n");
+                //print_r("CLP:          " . implode('/', $clp)."\n");
                 $this->cliShortHelp(implode('/', $clp ));
                 continue;
             }
@@ -154,7 +154,7 @@ Available commands:
     function cliShortHelp($p) { 
         ////print_r("CHKFILE:         $p\n ");
         list($classname,$subRequest) = $this->ff->requestToClassName($p,FALSE);
-        var_dump($classname);
+        //var_dump($classname);
         // does it have a description.
         try { 
             $cls = new ReflectionClass($classname);        
