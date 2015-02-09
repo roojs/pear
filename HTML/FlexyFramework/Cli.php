@@ -107,7 +107,7 @@ Available commands:
             
             
             
-            print_r("CHK:          " . implode('/', $chk)."\n");
+            //print_r("CHK:          " . implode('/', $chk)."\n");
             // is it a file.. and .PHP...
             if (!is_dir(implode('/', $chk))) {
                 if (!preg_match('/\.php$/',$d)) {
