@@ -115,7 +115,7 @@ Available commands:
                 }
                 $clp[] = preg_replace('/\.php$/','', $d);
                 
-                //print_r("CLP:          " . implode('/', $clp)."\n");
+                print_r("CLP:          " . implode('/', $clp)."\n");
                 $this->cliShortHelp(implode('/', $clp ));
                 continue;
             }
