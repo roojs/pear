@@ -1131,7 +1131,7 @@ class DB_DataObject extends DB_DataObject_Overload
            
            
             // Ignore variables which aren't set to a value
-            if ( (!isset($this->$k) || ($v == 1 && $this->$k == ''))
+            if ( (!isset($this->$k) || ($v == 1 && $this->$k === ''))
                     && $ignore_null
             ) {
                 continue;
