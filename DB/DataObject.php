@@ -1127,10 +1127,8 @@ class DB_DataObject extends DB_DataObject_Overload
                 continue;
             }
         
-            
-           
-           
-            // Ignore variables which aren't set to a value
+             
+            // Ignore INTEGERS which aren't set to a value - or empty string..
             if ( (!isset($this->$k) || ($v == 1 && $this->$k === ''))
                     && $ignore_null
             ) {
@@ -1379,6 +1377,7 @@ class DB_DataObject extends DB_DataObject_Overload
       
         foreach($items as $k => $v) {
             
+            // I think this is ignoring empty vlalues
             if ((!isset($this->$k) || ($v == 1 && $this->$k === ''))
                     && $ignore_null
             ) {
