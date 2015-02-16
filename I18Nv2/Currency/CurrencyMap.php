@@ -237,7 +237,8 @@ class I18Nv2_CountryMap{
     );
     
     function getCountryCode($currency_code){
-        return self::$s_map
+        $array = array_flip(self::$s_map);
+        return $array[$currency_code];
     }
 
     function getCurrencyCode($country_code){
