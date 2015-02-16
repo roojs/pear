@@ -235,13 +235,6 @@ class I18Nv2_CurrencyMap{
         'ZM' => 'ZMK',
         'ZW' => 'ZWD'
     );
-    
-    function get(){
-        return 'a';
-        if(!empty($_REQUEST['currency'])){
-
-        }
-    }
 
     function getCountryCode($currency_code){
         $array = array_flip(self::$s_map);
