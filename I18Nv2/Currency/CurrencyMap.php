@@ -1,7 +1,7 @@
 <?php
 
 class I18Nv2_CountryMap{
-    static $map = array(
+    static $s_map = array(
         'NZ' => 'NZD',
         'CK' => 'NZD',
         'NU' => 'NZD',
@@ -235,5 +235,13 @@ class I18Nv2_CountryMap{
         'ZM' => 'ZMK',
         'ZW' => 'ZWD'
     );
+    
+    function getCountryCode($currency_code){
+        return self::$s_map
+    }
+
+    function getCurrencyCode($country_code){
+        return self::$s_map[$country_code];
+    }
 }
 ?>
