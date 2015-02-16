@@ -1,6 +1,6 @@
 <?php
 
-class I18Nv2_CountryMap{
+class I18Nv2_CurrencyMap{
     static $s_map = array(
         'NZ' => 'NZD',
         'CK' => 'NZD',
