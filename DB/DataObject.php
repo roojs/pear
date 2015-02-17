@@ -263,7 +263,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * @return  int     No. of rows
      */
     function get($k = null, $v = null)
-    {exit;
+    {
         global $_DB_DATAOBJECT;
         if (empty($_DB_DATAOBJECT['CONFIG'])) {
             DB_DataObject::_loadConfig();
