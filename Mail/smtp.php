@@ -414,7 +414,8 @@ class Mail_smtp extends Mail {
                                    $this->host . ':' . $this->port,
                                    $res);
             $txt = implode("\n" , $this->_smtp->_arguments);
-            return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_CONNECT,
+            $p = new PEAR();
+            return $p->raiseError($error, PEAR_MAIL_SMTP_ERROR_CONNECT,
                     null,null,    array(
                             'smtpcode' => $code,
                             'smtptext' => $txt
