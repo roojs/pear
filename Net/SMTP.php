@@ -264,7 +264,8 @@ class Net_SMTP
         $result = $this->_socket->write($data);
         if (!$result || PEAR::isError($result)) {
             $msg = ($result) ? $result->getMessage() : "unknown error";
-            return PEAR::raiseError("Failed to write to socket: $msg",
+            $p = new PEAR();
+            return $p->raiseError("Failed to write to socket: $msg",
                                     null, PEAR_ERROR_RETURN);
         }
         // we have to set timeout, so it works..
