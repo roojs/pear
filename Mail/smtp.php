@@ -434,7 +434,8 @@ class Mail_smtp extends Mail {
                                        $res);
                 $txt = implode("\n" , $this->_smtp->_arguments);
                 $this->_smtp->rset();
-                return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_AUTH,
+                $p = new PEAR();
+                return $p->raiseError($error, PEAR_MAIL_SMTP_ERROR_AUTH,
                     null,null,    array(
                             'smtpcode' => $code,
                             'smtptext' => $txt
