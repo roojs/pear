@@ -90,7 +90,7 @@ class HTML_Template_Flexy_Compiler {
     * @return   string   to compile (if not using a file as the source)
     * @access   public
     */
-    function compile(&$flexy,$string = false) 
+    function compile($flexy,$string = false) 
     {
         echo "No compiler implemented!";
     }
