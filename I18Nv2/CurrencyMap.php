@@ -238,6 +238,11 @@ class I18Nv2_CurrencyMap{
 
     function getCountryCode($currency_code){
         $array = array_flip(self::$s_map);
+        
+        if(!array_key_exists($currency_code, self::$s_map)){
+            return false;
+        }
+        
         return $array[$currency_code];
     }
 
