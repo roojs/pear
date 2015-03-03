@@ -242,6 +242,10 @@ class I18Nv2_CurrencyMap{
     }
 
     function getCurrencyCode($country_code){
+        if(!array_key_exists($country_code, self::$s_map)){
+            return false;
+        }
+        
         return self::$s_map[$country_code];
     }
 }
