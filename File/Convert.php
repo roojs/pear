@@ -175,7 +175,7 @@ class File_Convert
             die("not available in this format was: {$this->mimetype}, request: {$this->to}<BR>
                 Running - $cmd");
         }
-       
+        clearstatcache();
         if (!file_exists($this->target)) {
             print_r($this->target);
             die("file missing");
