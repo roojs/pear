@@ -237,7 +237,16 @@ class File_Convert
             exit;
         }
         $fh = fopen($fn, 'rb');
-        fpassthru($fh);
+        //fpassthru($fh);
+        
+        // passthrough seems to have problems -- trying fread
+        while(!feof($fh))
+        {
+            echo @fread($fh, 1024*8);
+            ob_flush();
+            flush();
+        }
+        
         fclose($fh);
         if ($delete_after) {
             unlink($fn);
