@@ -176,7 +176,9 @@ class File_Convert
                 Running - $cmd");
         }
         clearstatcache();
-        if (!file_exists($this->target)) {
+        if (!file_exists($this->target))
+        {
+            trigger_error("Target does not exist: {$this->target}");
             print_r($this->target);
             die("file missing");
        }
