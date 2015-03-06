@@ -233,7 +233,7 @@ class File_Convert
         
         if ($_SERVER["REQUEST_METHOD"] == 'HEAD') {
             //fclose($fh);
-            //exit;
+            exit;
         }
         $fh = fopen($fn, 'r');
         fpassthru($fh);
