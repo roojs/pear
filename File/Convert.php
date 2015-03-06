@@ -230,8 +230,8 @@ class File_Convert
        // if ($type != 'inline') {
             header('Content-Disposition: '.$type.'; filename="' . htmlspecialchars($filename).  '"');
        // }
-        
-        @trigger_error("Serving: {$this->target} ". filesize($fn));
+        ini_set('display_errors', 0);
+        trigger_error("Serving: {$this->target} ". filesize($fn));
         if ($_SERVER["REQUEST_METHOD"] == 'HEAD') {
             //fclose($fh);
             exit;
