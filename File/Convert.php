@@ -236,7 +236,7 @@ class File_Convert
             //fclose($fh);
             exit;
         }
-        $fh = fopen($fn, 'r');
+        $fh = fopen($fn, 'rb');
         fpassthru($fh);
         fclose($fh);
         if ($delete_after) {
