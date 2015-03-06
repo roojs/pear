@@ -236,6 +236,8 @@ class File_Convert
             //fclose($fh);
             exit;
         }
+        
+        
         $fh = fopen($fn, 'rb');
         //fpassthru($fh);
         
@@ -248,6 +250,7 @@ class File_Convert
         }
         
         fclose($fh);
+        
         if ($delete_after) {
             unlink($fn);
         }
@@ -255,6 +258,9 @@ class File_Convert
         
         
     }
+    
+    
+    
     
     
     var $methods =  array(
