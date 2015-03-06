@@ -231,7 +231,7 @@ class File_Convert
             header('Content-Disposition: '.$type.'; filename="' . htmlspecialchars($filename).  '"');
        // }
         
-        trigger_error("Serving: {$this->target} ". filesize($fn));
+        @trigger_error("Serving: {$this->target} ". filesize($fn));
         if ($_SERVER["REQUEST_METHOD"] == 'HEAD') {
             //fclose($fh);
             exit;
