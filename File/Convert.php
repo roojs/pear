@@ -934,6 +934,7 @@ class File_Convert_Solution
         if ($this->debug) {
             echo $cmd ."\n";
         }
+        print_R($cmd);exit;
         $this->exec($cmd);
         
         clearstatcache();
