@@ -153,7 +153,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $style =  $this->parseProps();
-             print_R($this->style);exit;
+             
             if($style['columnNum'] == 0){
                 $height = '';
                 if(array_key_exists('height' . $style['rowNum'], $this->style)){
