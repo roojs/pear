@@ -76,9 +76,11 @@ class Document_Word_Writer_Section_Image
 		$_supportedImageTypes = array('jpg', 'jpeg', 'gif', 'png', 'bmp', 'tif', 'tiff');
 		
 		$inf = pathinfo($src);
+                
                 if(empty($inf['extension'])){
-                    print_R($inf);exit;
+                    return false;
                 }
+                
 		$ext = strtolower($inf['extension']);
 		if(file_exists($src) && in_array($ext, $_supportedImageTypes)) {
                         require_once __DIR__ . '/../Style/Image.php';
