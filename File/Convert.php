@@ -503,7 +503,6 @@ class File_Convert
             $pos[$t[0]] = $t[2]; // list of targets
             
         }
-        print_R($pos);exit;
         $stack[] = $from;
         $res = array();
         foreach($pos as $conv => $ar) {
