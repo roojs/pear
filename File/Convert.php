@@ -657,7 +657,6 @@ class File_Convert_Solution
     // convertion methods
     function runconvert($fn, $x=0,$y=0, $pg=false)
     {
-        print_R($fn);exit;
         if (!file_exists($fn)) {
             $this->cmd = "ERROR:". $fn . " does not exist";
             return false;
