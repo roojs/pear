@@ -98,7 +98,7 @@ class File_Convert
     {
          //echo '<PRE>'; print_r(array('convert', func_get_args()));
         if ($toMimetype != $this->mimetype) {
-            print_r($this->mimetype);exit;
+
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
             
             //echo '<PRE>';print_r($action);
