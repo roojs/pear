@@ -673,7 +673,7 @@ class File_Convert_Solution
             return false;
         }
         $method = $this->method;
-        
+        print_R($method);exit;
         return $this->$method($fn, $x, $y, $pg);
     }
     
