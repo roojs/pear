@@ -259,6 +259,7 @@ class Document_Word_Writer_Section
                 require_once __DIR__ . '/Media.php';
 		$image = new Document_Word_Writer_Section_Image($src, $style);
 		if(is_null($image->getSource())) {
+                    return false;
                     trigger_error('Source does not exist or unsupported image type.');
 		}
                 
