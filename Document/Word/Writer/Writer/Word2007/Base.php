@@ -513,7 +513,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                             }
                             
                         }
-                        print_R($calcWidth);exit;
+                        
 //                        if($hasMerge && $autoWidth){
 //                            $width = $width * $cellStyle->_merge;
 //                        }
