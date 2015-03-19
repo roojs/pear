@@ -506,20 +506,20 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                 ($cellStyle->_mergeto - $cellStyle->_columnNum) > 1
                         ) {
                             
-                            $hasMerge = true;
-                            $merge = $cellStyle->_mergeto - $cellStyle->_columnNum;
-                            
-                            $tblStyle = $table->getStyle();
-                            
-                            for ($i = $cellStyle->_columnNum; $i < $cellStyle->_mergeto; $i++){
-                                $key = '_width' . $i . '_dax';
-                                
-                                if(isset($tblStyle->{$key})){
-                                    $calcWidth += $tblStyle->{$key} * 1;
-                                    continue;
-                                }
-                                $autoWidth = true;
-                            }
+//                            $hasMerge = true;
+//                            $merge = $cellStyle->_mergeto - $cellStyle->_columnNum;
+//                            
+//                            $tblStyle = $table->getStyle();
+//                            
+//                            for ($i = $cellStyle->_columnNum; $i < $cellStyle->_mergeto; $i++){
+//                                $key = '_width' . $i . '_dax';
+//                                
+//                                if(isset($tblStyle->{$key})){
+//                                    $calcWidth += $tblStyle->{$key} * 1;
+//                                    continue;
+//                                }
+//                                $autoWidth = true;
+//                            }
                             
                         }
                         
@@ -538,9 +538,9 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         $objWriter->endElement();
                         
 //                        if($hasMerge){
-//                            $objWriter->startElement('w:gridSpan');
-//                            $objWriter->writeAttribute('w:val', $merge);
-//                            $objWriter->endElement();
+                            $objWriter->startElement('w:gridSpan');
+                            $objWriter->writeAttribute('w:val', 2);
+                            $objWriter->endElement();
 //                        }
 
                         if($cellStyle instanceof Document_Word_Writer_Style_Cell) {
