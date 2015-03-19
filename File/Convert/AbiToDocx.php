@@ -167,6 +167,7 @@ class File_Convert_AbiToDocx
                 $cellWidth = $this->converttoDax($this->style['width' . $style['columnNum']],null);
                 $style['width' . $style['columnNum'] . '_dax'] = $cellWidth;
             }
+            print_R($style);exit;
             //echo "CW? " . $cellWidth . "|";
             $this->section = $this->section->addCell($cellWidth, $style);
          }
