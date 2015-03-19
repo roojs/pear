@@ -498,20 +498,21 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         $hasMerge = false;
                         $calcWidth = 0;
                         
-//                        if($cellStyle instanceof Document_Word_Writer_Style_Cell && isset($cellStyle->_columnNum) && isset($cellStyle->_merge)) {
-//                            $hasMerge = true;
-//                            $tblStyle = $table->getStyle();
-//                            
-//                            for ($i = $cellStyle->_columnNum; $i < $cellStyle->_merge; $i++){
-//                                $key = "_wdith{$i}";
-//                                if(isset($tblStyle->{$key})){
-//                                    $calcWidth += $tblStyle->{$key};
-//                                    continue;
-//                                }
-//                                $autoWidth = true;
-//                                break;
-//                            }
-//                        }
+                        if($cellStyle instanceof Document_Word_Writer_Style_Cell && isset($cellStyle->_columnNum) && isset($cellStyle->_merge)) {
+                            $hasMerge = true;
+                            $tblStyle = $table->getStyle();
+                            
+                            for ($i = $cellStyle->_columnNum; $i < $cellStyle->_merge; $i++){
+                                $key = "_wdith{$i}";
+                                if(isset($tblStyle->{$key})){
+                                    $calcWidth += $tblStyle->{$key};
+                                    continue;
+                                }
+                                $autoWidth = true;
+                                break;
+                            }
+                            print_R($tblStyle);exit;
+                        }
                         
                         if($hasMerge && $autoWidth){
                             $width = $width * $cellStyle->_merge;
