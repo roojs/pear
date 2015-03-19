@@ -144,7 +144,6 @@ class File_Convert_AbiToDocx
             $this->style =  $this->parseProps();
 //            print_r($this->style);
             $this->section = $this->section->addTable($this->style); // Add table
-            var_dump($$this->section);exit;
             
         }
         
