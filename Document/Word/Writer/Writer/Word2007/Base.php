@@ -506,20 +506,20 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                 ($cellStyle->_mergeto - $cellStyle->_columnNum) > 1
                         ) {
                             
-                            $hasMerge = true;
-                            $merge = $cellStyle->_mergeto - $cellStyle->_columnNum;
-                            
-                            $tblStyle = $table->getStyle();
-                            
-                            for ($i = $cellStyle->_columnNum; $i < $cellStyle->_merge; $i++){
-                                $key = '_width' . $i . '_dax';
-                                
-                                if(isset($tblStyle->{$key})){
-                                    $calcWidth += $tblStyle->{$key} * 1;
-                                    continue;
-                                }
-                                $autoWidth = true;
-                            }
+//                            $hasMerge = true;
+//                            $merge = $cellStyle->_mergeto - $cellStyle->_columnNum;
+//                            
+//                            $tblStyle = $table->getStyle();
+//                            
+//                            for ($i = $cellStyle->_columnNum; $i < $cellStyle->_merge; $i++){
+//                                $key = '_width' . $i . '_dax';
+//                                
+//                                if(isset($tblStyle->{$key})){
+//                                    $calcWidth += $tblStyle->{$key} * 1;
+//                                    continue;
+//                                }
+//                                $autoWidth = true;
+//                            }
                             
                         }
                         
