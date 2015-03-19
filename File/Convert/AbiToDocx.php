@@ -372,7 +372,14 @@ class File_Convert_AbiToDocx
                             $attrArray['rowNum'] = trim($prop);
                         }
                         break;
-                    
+                        
+                    case 'right-attach':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['merge'] = trim($prop);
+                        }
+                        break;
+                        
                     case 'top-color':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
@@ -393,6 +400,7 @@ class File_Convert_AbiToDocx
                             $attrArray['borderRightColor'] = trim($prop);
                         }
                         break;
+                        
                     case 'bot-color':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
@@ -406,6 +414,7 @@ class File_Convert_AbiToDocx
                             $attrArray['bgColor'] = trim($prop);
                         }
                         break;
+                        
                     case 'font-weight':
                             $attrArray['bold'] = ($attr[1] == 'bold') ? trim($attr[1]) : false;
                             
