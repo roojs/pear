@@ -476,6 +476,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
             $_heights = $table->getRowHeights();
             for($i=0; $i<$_cRows; $i++) {
                 $row = $_rows[$i];
+                print_R($row);exit;
                 $height = $_heights[$i];
 
                 $objWriter->startElement('w:tr');
