@@ -515,13 +515,13 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                             
                         }
                         
-                        if($hasMerge && $autoWidth){
-                            $width = $width * $cellStyle->_merge;
-                        }
-                        
-                        if($hasMerge && !$autoWidth){
-                            $width = $calcWidth;
-                        }
+//                        if($hasMerge && $autoWidth){
+//                            $width = $width * $cellStyle->_merge;
+//                        }
+//                        
+//                        if($hasMerge && !$autoWidth){
+//                            $width = $calcWidth;
+//                        }
 
                         $objWriter->startElement('w:tcPr');
                         $objWriter->startElement('w:tcW');
