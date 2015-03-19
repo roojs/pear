@@ -280,8 +280,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->style =  $this->parseProps();
-            echo $this->style;
-            echo "\n";
+           
 //            $this->section->createTextRun($this->style);
         }
         
