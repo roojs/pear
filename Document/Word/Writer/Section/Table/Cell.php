@@ -86,7 +86,7 @@ class Document_Word_Writer_Section_Table_Cell
 		$this->_insideOf = $insideOf;
 		$this->_pCount = $pCount;
 		$this->_width = $width;
-		print_R($this->_width);exit;
+		
 		if(!is_null($style)) {
 			if(is_array($style)) {
 				$this->_style = new Document_Word_Writer_Style_Cell();
