@@ -511,7 +511,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                 $autoWidth = true;
                                 break;
                             }
-                            print_R($tblStyle);exit;
+                            print_R($calcWidth);exit;
                         }
                         
                         if($hasMerge && $autoWidth){
