@@ -415,6 +415,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	protected function _writeTable(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Table $table) 
         {
             $_rows = $table->getRows();
+            print_R($_rows);exit;
             $_cRows = count($_rows);
 
             if ($_cRows > 0) {
@@ -487,7 +488,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         $objWriter->endElement();
                         $objWriter->endElement();
                 }
-
+                
                 foreach($row as $cell) {
                         $objWriter->startElement('w:tc');
 
