@@ -493,7 +493,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 
                         $cellStyle = $cell->getStyle();
                         $width = $cell->getWidth();
-                        print_R($tblStyle);exit;
+                        
                         $autoWidth = false;
                         $hasMerge = false;
                         $calcWidth = 0;
@@ -505,7 +505,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                             for ($i = $cellStyle->_columnNum; $i < $cellStyle->_merge; $i++){
                                 $key = '_wdith' . $i . '_dax';
                                 if(isset($tblStyle->{$key})){
-                                    $calcWidth += $tblStyle->{$key};
+                                    $calcWidth += $tblStyle->{$key} * 1;
                                     continue;
                                 }
                                 $autoWidth = true;
