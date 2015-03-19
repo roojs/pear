@@ -510,7 +510,6 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                     continue;
                                 }
                                 $autoWidth = true;
-                                break;
                             }
                             
                         }
