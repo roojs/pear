@@ -503,7 +503,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                             $tblStyle = $table->getStyle();
                             
                             for ($i = $cellStyle->_columnNum; $i < $cellStyle->_merge; $i++){
-                                $key = '_wdith' . $i . '_dax';
+                                $key = '_wdith' . $i . '_dax'; //_width0_dax
+                                print_R($key);exit;
                                 print_R($tblStyle);exit;
                                 if(isset($tblStyle->{$key})){
                                     $calcWidth += $tblStyle->{$key} * 1;
