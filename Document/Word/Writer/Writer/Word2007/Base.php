@@ -541,7 +541,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         $objWriter->endElement();
 
                         $_elements = $cell->getElements();
-                        print_R($_elements);exit;
+                        
                         if(count($_elements) > 0) {
                                 foreach($_elements as $element) {
                                         if($element instanceof Document_Word_Writer_Section_Text) {
