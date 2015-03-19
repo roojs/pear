@@ -493,7 +493,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 
                         $cellStyle = $cell->getStyle();
                         $width = $cell->getWidth();
-                        
+                        print_R($cellStyle);exit;
                         $autoWidth = false;
                         $hasMerge = false;
                         $calcWidth = 0;
