@@ -504,7 +504,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                             
                             for ($i = $cellStyle->_columnNum; $i < $cellStyle->_merge; $i++){
                                 $key = '_wdith' . $i . '_dax';
-                                print_R($tblStyle->{$key});exit;
+                                print_R($tblStyle);exit;
                                 if(isset($tblStyle->{$key})){
                                     $calcWidth += $tblStyle->{$key} * 1;
                                     continue;
