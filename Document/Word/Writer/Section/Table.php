@@ -131,7 +131,6 @@ class Document_Word_Writer_Section_Table
 	public function addCell($width, $style = null) 
         {
             $width = (int) $width;
-            print_r($width);exit;
             require_once __DIR__.'/Table/Cell.php';
             $cell = new Document_Word_Writer_Section_Table_Cell($this->_insideOf, $this->_pCount, $width, $style);
             $i = count($this->_rows) - 1;
