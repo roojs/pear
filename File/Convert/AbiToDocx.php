@@ -158,6 +158,7 @@ class File_Convert_AbiToDocx
                 $height = '';
                 if(array_key_exists('height' . $style['rowNum'], $this->style)){
                     $height = $this->converttoDax($this->style['height' . $style['rowNum']],null);
+                    $style['height' . $style['rowNum'] . '_dax'] = $height;
                 }
                 $this->section->addRow($height);
             }
