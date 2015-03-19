@@ -142,7 +142,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->style =  $this->parseProps();
-//            print_r($this->style);
+            print_r($this->style);exit;
             $this->section = $this->section->addTable($this->style); // Add table
             
         }
