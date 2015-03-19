@@ -69,7 +69,7 @@ class File_Convert_AbiToDocx
           
             while ($this->xr->read()){
                 //$this->dumpsections($sections);
-                 // echo $this->xr->name . '::' . count($sections). "<br/>"; 
+                  echo $this->xr->name . '::' . count($sections). "<br/>"; 
                  $method = 'handle_'.$this->xr->name;
                  
                  
@@ -82,7 +82,7 @@ class File_Convert_AbiToDocx
                         $this->style = array_pop($state);
                         $this->section = array_pop($sections);
                         array_pop($stack);
-                       // echo "AFTER POP:"; $this->dumpsections($sections); 
+                        echo "AFTER POP:"; $this->dumpsections($sections); 
                      }
                      continue;
                 }
@@ -122,7 +122,7 @@ class File_Convert_AbiToDocx
                    $sections[] = $this->section;
                    $state[] = $this->style;
                 }
-                
+                echo "HANLED {$method} <br/>";
                 $this->$method();  
                
             }
