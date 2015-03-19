@@ -43,7 +43,7 @@ class File_Convert_AbiToDocx
                 $this->writer = new Document_Word_Writer(); // New Word Document
                 $this->section = $this->writer->createSection();
                 $this->pass = 1;
-                $this->parseAbi();exit;
+                $this->parseAbi();
                 $this->pass = 2;
                 $this->parseAbi();
                 $this->saveDocx( $fn ); // uses this->writer...
@@ -276,13 +276,9 @@ class File_Convert_AbiToDocx
         {
             if(is_array($this->style) && array_key_exists('href', $this->style)){
                 $this->style = array_merge($this->style , $this->parseProps());
-                print_R($this->style);exit;
                 return;
             }
-            echo "out";
-            
             $this->style =  $this->parseProps();
-            print_R($this->style);exit;
 //            $this->section->createTextRun($this->style);
         }
         
