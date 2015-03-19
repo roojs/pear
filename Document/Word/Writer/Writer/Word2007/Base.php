@@ -492,17 +492,21 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         $objWriter->startElement('w:tc');
 
                         $cellStyle = $cell->getStyle();
+                        $width = $cell->getWidth();
                         
+                        if($cellStyle instanceof Document_Word_Writer_Style_Cell && !empty($cellStyle->_merge)) {
+                            $tblStyle = $table->getStyle();
+                            print_R($tblStyle);exit;
+                        }
+
                         $objWriter->startElement('w:tcPr');
-                        
+                        $objWriter->startElement('w:tcW');
+                        $objWriter->writeAttribute('w:w', $width);
+                        $objWriter->writeAttribute('w:type', 'dxa');
+                        $objWriter->endElement();
+
                         if($cellStyle instanceof Document_Word_Writer_Style_Cell) {
                                 $this->_writeCellStyle($objWriter, $cellStyle);
-                        } else {
-                            $width = $cell->getWidth();
-                            $objWriter->startElement('w:tcW');
-                            $objWriter->writeAttribute('w:w', $width);
-                            $objWriter->writeAttribute('w:type', 'dxa');
-                            $objWriter->endElement();
                         }
 
                         $objWriter->endElement();
@@ -594,12 +598,6 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	
 	protected function _writeCellStyle(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Style_Cell $style = null) 
         {
-//                $width = $cell->getWidth();
-//                $objWriter->startElement('w:tcW');
-//                $objWriter->writeAttribute('w:w', $width);
-//                $objWriter->writeAttribute('w:type', 'dxa');
-//                $objWriter->endElement();
-                
 		$bgColor = $style->getBgColor();
 		$valign = $style->getVAlign();
 		$textDir = $style->getTextDirection();
