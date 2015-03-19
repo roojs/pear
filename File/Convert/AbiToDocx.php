@@ -72,7 +72,7 @@ class File_Convert_AbiToDocx
                  // echo $this->xr->name . '::' . count($sections). "<br/>"; 
                  $method = 'handle_'.$this->xr->name;
                  
-                 print_R($method);exit;
+                 
                  if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                      if($this->xr->name == 'section'){
                          $this->keepSection = false;
