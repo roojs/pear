@@ -515,7 +515,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                                 $key = '_width' . $i . '_dax';
                                 
                                 if(isset($tblStyle->{$key})){
-                                    $calcWidth = $calcWidth + $tblStyle->{$key} * 1;
+//                                    $calcWidth = $calcWidth + $tblStyle->{$key} * 1;
                                     continue;
                                 }
                                 $autoWidth = true;
