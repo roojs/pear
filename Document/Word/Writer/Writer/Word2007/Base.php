@@ -492,7 +492,6 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         $objWriter->startElement('w:tc');
 
                         $cellStyle = $cell->getStyle();
-                        print_R($cellStyle);exit;
                         $width = $cell->getWidth();
 
                         $objWriter->startElement('w:tcPr');
