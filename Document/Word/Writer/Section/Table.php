@@ -139,6 +139,7 @@ class Document_Word_Writer_Section_Table
 
             if (!empty($width)) {
                 $this->_colWidths[$col] = max($width, empty($this->_colWidths[$col] ) ? 0 : $this->_colWidths[$col] ); 
+                print_R($this->_colWidths[$col]);exit;
             }
             return $cell;
 	}
