@@ -493,9 +493,15 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 
                         $cellStyle = $cell->getStyle();
                         $width = $cell->getWidth();
-                        print_r($cellStyle);exit;
-                        if($cellStyle instanceof Document_Word_Writer_Style_Cell && !empty($cellStyle->_merge)) {
+                        
+                        $autoWidth = false;
+                        
+                        if($cellStyle instanceof Document_Word_Writer_Style_Cell && isset($cellStyle->_columnNum) && isset($cellStyle->_merge)) {
                             $tblStyle = $table->getStyle();
+                            
+                            for ($i = $cellStyle->_columnNum; $i < $cellStyle->_merge; $i++){
+                                if()
+                            }
                             
                         }
 
