@@ -68,7 +68,6 @@ class File_Convert_AbiToDocx
             $stack = array();
           
             while ($this->xr->read()){
-                print_R($this->xr);exit;
                 //$this->dumpsections($sections);
                  // echo $this->xr->name . '::' . count($sections). "<br/>"; 
                  $method = 'handle_'.$this->xr->name;
