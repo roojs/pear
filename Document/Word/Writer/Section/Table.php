@@ -136,11 +136,9 @@ class Document_Word_Writer_Section_Table
             $i = count($this->_rows) - 1;
             $this->_rows[$i][] = $cell;
             $col = count($this->_rows[$i] ) -1;
-            
+
             if (!empty($width)) {
-                print_R('run');exit;
                 $this->_colWidths[$col] = max($width, empty($this->_colWidths[$col] ) ? 0 : $this->_colWidths[$col] ); 
-                
             }
             return $cell;
 	}
