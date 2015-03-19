@@ -43,7 +43,7 @@ class File_Convert_AbiToDocx
                 $this->writer = new Document_Word_Writer(); // New Word Document
                 $this->section = $this->writer->createSection();
                 $this->pass = 1;
-                $this->parseAbi();
+                $this->parseAbi();exit;
                 $this->pass = 2;
                 $this->parseAbi();
                 $this->saveDocx( $fn ); // uses this->writer...
