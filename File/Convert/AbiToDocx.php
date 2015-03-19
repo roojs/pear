@@ -44,7 +44,6 @@ class File_Convert_AbiToDocx
                 $this->section = $this->writer->createSection();
                 $this->pass = 1;
                 $this->parseAbi();
-                print_R($this->style);exit;
                 $this->pass = 2;
                 $this->parseAbi();
                 $this->saveDocx( $fn ); // uses this->writer...
@@ -280,8 +279,6 @@ class File_Convert_AbiToDocx
                 return;
             }
             $this->style =  $this->parseProps();
-            print_r( $this->style);
-            echo "\n";
 //            $this->section->createTextRun($this->style);
         }
         
