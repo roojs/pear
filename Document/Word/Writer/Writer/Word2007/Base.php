@@ -525,6 +525,12 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         $objWriter->writeAttribute('w:w', $width);
                         $objWriter->writeAttribute('w:type', 'dxa');
                         $objWriter->endElement();
+                        
+                        if($hasMerge){
+                            $objWriter->startElement('w:gridSpan');
+                            $objWriter->writeAttribute('w:val', $cellStyle->_merge);
+                            $objWriter->endElement();
+                        }
 
                         if($cellStyle instanceof Document_Word_Writer_Style_Cell) {
                                 $this->_writeCellStyle($objWriter, $cellStyle);
