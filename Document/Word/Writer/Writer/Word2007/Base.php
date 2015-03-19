@@ -511,22 +511,14 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                             
                             $tblStyle = $table->getStyle();
                             
-//                            echo 'column number';
-//                            echo "\n";
-//                            echo $cellStyle->_columnNum;
-//                            echo "\n";
-//                            echo 'column mergeto';
-//                            echo "\n";
-//                            echo $cellStyle->_mergeto;
-//                            echo "\n";
-                            for ($i = $cellStyle->_columnNum; $i < $cellStyle->_mergeto; $i++){
-//                                $key = '_width' . $i . '_dax';
-//                                
-//                                if(isset($tblStyle->{$key})){
-//                                    $calcWidth = $calcWidth + $tblStyle->{$key} * 1;
-//                                    continue;
-//                                }
-//                                $autoWidth = true;
+                            for ($t = $cellStyle->_columnNum; $t < $cellStyle->_mergeto; $t++){
+                                $key = '_width' . $t . '_dax';
+                                
+                                if(isset($tblStyle->{$key})){
+                                    $calcWidth = $calcWidth + $tblStyle->{$key} * 1;
+                                    continue;
+                                }
+                                $autoWidth = true;
                             }
                             
                         }
