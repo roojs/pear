@@ -348,6 +348,7 @@ class File_Convert_AbiToDocx
                         $props = explode('/', $attr[1]);
                         foreach($props as $index => $prop){
                             $attrArray['width'.$index] = trim($prop);
+                            $attrArray['width'.$index.'_dax'] = $this->converttoDax(trim($prop),null);
                         }
                         break;
                     
