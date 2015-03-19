@@ -373,6 +373,13 @@ class File_Convert_AbiToDocx
                         }
                         break;
                         
+                    case 'right-attach':
+                        $props = explode('/', $attr[1]);
+                        foreach($props as $prop){
+                            $attrArray['mergeto'] = trim($prop);
+                        }
+                        break;
+                        
                     case 'top-color':
                         $props = explode('/', $attr[1]);
                         foreach($props as $prop){
