@@ -158,14 +158,12 @@ class File_Convert_AbiToDocx
                 $height = '';
                 if(array_key_exists('height' . $style['rowNum'], $this->style)){
                     $height = $this->converttoDax($this->style['height' . $style['rowNum']],null);
-//                    $style['height' . $style['rowNum'] . '_dax'] = $height;
                 }
                 $this->section->addRow($height);
             }
             $cellWidth = '';
             if (isset($this->style['width' . $style['columnNum'] ])) {
                 $cellWidth = $this->converttoDax($this->style['width' . $style['columnNum']],null);
-//                $style['width' . $style['columnNum'] . '_dax'] = $cellWidth;
             }
             
             //echo "CW? " . $cellWidth . "|";
