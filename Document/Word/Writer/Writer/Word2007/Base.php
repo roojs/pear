@@ -492,14 +492,13 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         $objWriter->startElement('w:tc');
 
                         $cellStyle = $cell->getStyle();
-                        $width = $cell->getWidth();
-
+                        
                         $objWriter->startElement('w:tcPr');
                         
-
                         if($cellStyle instanceof Document_Word_Writer_Style_Cell) {
                                 $this->_writeCellStyle($objWriter, $cellStyle);
                         } else {
+                            $width = $cell->getWidth();
                             $objWriter->startElement('w:tcW');
                             $objWriter->writeAttribute('w:w', $width);
                             $objWriter->writeAttribute('w:type', 'dxa');
