@@ -498,7 +498,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         $hasMerge = false;
                         $calcWidth = 0;
                         $merge = 0;
-                        print_R($cellStyle);
+                        
                         if(
                                 $cellStyle instanceof Document_Word_Writer_Style_Cell && 
                                 isset($cellStyle->_columnNum) && 
@@ -524,7 +524,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         }
                         
                         if($hasMerge && $autoWidth){
-                            $width = $width * $cellStyle->_merge;
+                            $width = $width * $merge;
                         }
                         
                         if($hasMerge && !$autoWidth){
