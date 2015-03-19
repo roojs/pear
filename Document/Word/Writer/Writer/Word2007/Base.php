@@ -494,7 +494,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         $cellStyle = $cell->getStyle();
                         $width = $cell->getWidth();
                         
-                        $autoWidth = false;
+                        $autoWidth = true;
                         $hasMerge = false;
                         $calcWidth = 0;
                         $merge = 0;
@@ -523,13 +523,13 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                             
                         }
                         
-//                        if($hasMerge && $autoWidth){
-//                            $width = $width * $merge;
-//                        }
-//                        
-//                        if($hasMerge && !$autoWidth){
-//                            $width = $calcWidth;
-//                        }
+                        if($hasMerge && $autoWidth){
+                            $width = $width * $merge;
+                        }
+                        
+                        if($hasMerge && !$autoWidth){
+                            $width = $calcWidth;
+                        }
 
                         $objWriter->startElement('w:tcPr');
                         $objWriter->startElement('w:tcW');
