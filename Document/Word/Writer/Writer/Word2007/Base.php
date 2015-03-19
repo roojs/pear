@@ -594,6 +594,12 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	
 	protected function _writeCellStyle(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Style_Cell $style = null) 
         {
+//                $width = $cell->getWidth();
+//                $objWriter->startElement('w:tcW');
+//                $objWriter->writeAttribute('w:w', $width);
+//                $objWriter->writeAttribute('w:type', 'dxa');
+//                $objWriter->endElement();
+                
 		$bgColor = $style->getBgColor();
 		$valign = $style->getVAlign();
 		$textDir = $style->getTextDirection();
