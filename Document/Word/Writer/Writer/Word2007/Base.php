@@ -511,7 +511,11 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                             
                             $tblStyle = $table->getStyle();
                             
+                            echo 'column number';
+                            echo "\n";
                             echo $cellStyle->_columnNum;
+                            echo "\n";
+                            echo 'column mergeto';
                             echo "\n";
                             echo $cellStyle->_mergeto;
                             echo "\n";
