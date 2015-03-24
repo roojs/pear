@@ -67,7 +67,7 @@ class File_Convert_AbiToDocx
             $sections = array();
             $stack = array();
             
-            // this may produce warnings...
+            // this may produce warnings... - &gt; confuses the XML reader.. (as we are using it in abiword generation.)
             
             while (@$this->xr->read()){
                 //$this->dumpsections($sections);
