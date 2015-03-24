@@ -190,7 +190,7 @@ class Services_Joker {
             return array();
         }
         $raw_arr = explode("\n", $text);
-        
+        $result = array();
         foreach ($raw_arr as $key => $value)
         {
             if (!$keyval) {
@@ -208,7 +208,7 @@ class Services_Joker {
 
         }
     
-        return (is_array($result) ? $result : $this->config["empty_result"]);
+        return $result;
     }
     
     function parseResponseHeaders($header)
