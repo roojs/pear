@@ -29,6 +29,22 @@ class Services_Joker {
         
     }
     
+    /*---------- actual functions... ------*/
+    
+    
+    function login($u,$p)
+    {
+        $res = $this->execute('login', array(
+            'username' => $u,
+            'password' => $p
+        ));
+        
+    }
+    
+    
+    /*------------ handle the connections etc.. */
+    
+    
     
     function execute($request, $params)
     {
@@ -72,8 +88,7 @@ class Services_Joker {
         
         if (isset($sessdata["response_header"]["auth-sid"]) && $sessdata["response_header"]["auth-sid"]) {
             $this->sessid = $sessdata["response_header"]["auth-sid"];
-           
-            return true;
+            
         }
         
         //status
