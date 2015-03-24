@@ -6,6 +6,9 @@ class Services_Joker {
     
     var $sessid = false;
     
+    var $dmapi_url = '';
+    var $outgoing_network_interface = false;
+    
     function __construct($cfg)
     {
         
@@ -24,7 +27,7 @@ class Services_Joker {
    
        
             //send the request
-        $raw_res = $this->query_host($this->config["dmapi_url"], $this->http_query, true);
+        $raw_res = $this->query_host($this->dmapi_url, $http_query, true);
             $temp_arr = @explode("\r\n\r\n", $raw_res, 2);
 
             //split the response for further processing
@@ -61,6 +64,42 @@ class Services_Joker {
         
         
     }
+    
+    function sendQuery($params = "", $get_header = false)
+    {        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $this->dmapi_url.$params);
+        
+        if (preg_match("/^https:\/\//i", $this->dmapi_url)) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        }
+        
+        if ($this->config["set_outgoing_network_interface"]) {
+            curl_setopt($ch, CURLOPT_INTERFACE, $this->config["outgoing_network_interface"]);
+        }
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->config["curlopt_connecttimeout"]);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $this->config["curlopt_timeout"]);        
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        if ($get_header) {
+            curl_setopt($ch, CURLOPT_HEADER, 1);
+        } else {
+            curl_setopt($ch, CURLOPT_HEADER, 0);
+        }
+        
+        if ($this->config["curlexec_proceed"]) {
+            $result = curl_exec($ch);
+        }
+
+        if (curl_errno($ch)) {
+            $this->log->req_status("e", "function query_host(): ".curl_error($ch));
+        } else {
+            $_SESSION["last_request_time"] = time();
+            curl_close($ch);
+        }       
+        return $result;
+    }
+    
     
     function paramsToString($formdata, $sessid, $build_log_query = false, $numeric_prefix = null)
     {
