@@ -62,4 +62,60 @@ class Services_Joker {
         
     }
     
+    function paramsToString($formdata, $sessid, $build_log_query = false, $numeric_prefix = null)
+    {
+        
+        if (!is_array($formdata)) {
+            throw new PEAR_Exception(__CLASS__.'::'.__FUNCTION__ .': formdata not an array');
+        }
+        
+        if ($sessid) { // && $sessid != $this->config["no_content"]) {
+            $formdata["auth-sid"] = $sessid;
+        }
+ 
+
+        //The IP of the user should be always present in the requests
+        $formdata["client-ip"] = $_SERVER["REMOTE_ADDR"];
+
+        //Some values should not be present in the logs -- this is configurable ?? why??
+        /*if ($build_log_query) {
+            foreach ($this->hide_field_values as $value)
+            {
+                if (isset($formdata[$value])) {
+                    $formdata[$value] = $this->hide_value_text;
+                }
+            }
+        }
+        */
+
+        // If the array is empty, return null
+        if (empty($formdata)) {
+             throw new PEAR_Exception(__CLASS__.'::'.__FUNCTION__ .': formdata empty');
+        }
+
+        // Start building the query
+        $tmp = array ();
+        foreach ($formdata as $key => $val)
+        {            
+            if (is_integer($key) && $numeric_prefix != null) {
+                $key = $numeric_prefix . $key;
+            }
+
+            if (is_scalar($val) && (trim($val) != "")) {                
+                //if (trim(strtolower($val)) == $this->config["empty_field_value"]) {                    
+                //    $val = "";
+                //}
+                //if (!$build_log_query) {
+                    $tmp_val = urlencode($key).'='.urlencode(trim($val));
+                //} else {
+                //    $tmp_val = $key.'='.trim($val);
+                //}
+                $tmp[] = $tmp_val;
+                continue;
+            }
+        }
+        return = implode('&', $tmp);
+        
+    }
+    
 }
