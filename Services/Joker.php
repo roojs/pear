@@ -2,6 +2,8 @@
 
 /** based on the Joker.com API example code */
 
+require_once 'PEAR/Exception.php';
+
 class Services_Joker {
     
     var $sessid = false;
@@ -10,6 +12,9 @@ class Services_Joker {
     var $outgoing_network_interface = false;
     var $timeout = 30;
     var $connect_timeout = 30;
+
+
+    var $account_balance = 0; // returned data?
     
     function __construct($cfg)
     {
@@ -30,42 +35,45 @@ class Services_Joker {
        
             //send the request
         $raw_res = $this->query_host($http_query, true);
-            $temp_arr = @explode("\r\n\r\n", $raw_res, 2);
-
-            //split the response for further processing
-            if (is_array($temp_arr) && 2 == count($temp_arr)) {
-                $response = $this->parse_response($temp_arr[1]);
-                $response["http_header"] = $temp_arr[0];
-                //get account balance
-                if (isset($response["response_header"]["account-balance"])) {
-                    $_SESSION["auto_config"]["account_balance"] = $response["response_header"]["account-balance"];
-                }
-            } else {
-                $this->log->req_status("e", "function execute_request(): Couldn't split the response into http header and response header/body\nRaw result:\n$raw_res");
-                return false;
-            }
-            //status
-            if ($this->http_srv_response($response["http_header"]) && $this->request_status($response)) {
-                $this->log->req_status("i", "function execute_request(): Request was successful");
-                $this->log->debug($request);
-                $this->log->debug($response);
-                return true;
-            } else {
-                $http_code = $this->get_http_code($response["http_header"]);
-                if ("401" == $http_code) {
-                    //kills web session
-                    session_destroy();
-                    //deletes session auth-id
-                    $sessid = "";
-                }            
-            }
-        } else {
-            $this->log->req_status("e", "function execute_request(): Request $request is not supported in this version of DMAPI.");
+        $temp_arr = @explode("\r\n\r\n", $raw_res, 2); // headers + body...
+        if (!is_array($temp_arr) || 2 != count($temp_arr)) {
+            throw new PEAR_Exception(__CLASS__.'::'.__FUNCTION__ .': returned '. curl_error($ch));
         }
-        return false;
         
+        $response = $this->parseResponse($temp_arr[1]);
+        $response["http_header"] = $temp_arr[0];
+                //get account balance
+        if (isset($response["response_header"]["account-balance"])) {
+            $this->account_balance = $response["response_header"]["account-balance"];
+        }
+        
+        $success = true;
+        if (!isset($sessdata["response_header"]["status-code"]) || $sessdata["response_header"]["status-code"] != "0") {
+            $success = false;
+        }
+        $http_code = $this->get_http_code($response["http_header"]);
+
+        if ($http_code[0] != '2') {
+            $success = false;
+        }
+        
+        //status
+        if ($success) {
+            return $response;
+        }
+        
+            
+        if ("401" == $http_code) {
+            //kills web session
+            session_destroy();
+            //deletes session auth-id
+            $sessid = "";
+        }            
+        return '';    
         
     }
+    
+    
     
     function sendQuery($params = "", $get_header = false)
     {        
