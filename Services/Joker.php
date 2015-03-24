@@ -51,8 +51,13 @@ class Services_Joker {
         if (!isset($sessdata["response_header"]["status-code"]) || $sessdata["response_header"]["status-code"] != "0") {
             $success = false;
         }
-        $http_code = $this->get_http_code($response["http_header"]);
-
+        
+        $http_code  = "-";
+        preg_match("/^HTTP\/1.[0-1]\b ([0-9]{3}) /i", $response["http_header"], $matches);
+        if (is_array($matches) && $matches[1]) {
+             $http_code = $matches[1];
+        } 
+        
         if ($http_code[0] != '2') {
             $success = false;
         }
