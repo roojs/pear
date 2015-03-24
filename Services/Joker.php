@@ -172,7 +172,7 @@ class Services_Joker {
                 continue;
             }
         }
-        return = implode('&', $tmp);
+        return  implode('&', $tmp);
         
     }
     
