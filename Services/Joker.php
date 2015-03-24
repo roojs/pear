@@ -20,7 +20,7 @@ class Services_Joker {
         //if ($this->is_request_available($request)) {
         
         $http_query =  "/request/" . $request . "?" . $this->paramsToString($params,$this->sessid);
-        $log_http_query = "/request/" . $request . "?" . $this->paramsToString($params,$this->sessid,true);
+        //$log_http_query = "/request/" . $request . "?" . $this->paramsToString($params,$this->sessid,true);
    
        
             //send the request
