@@ -18,6 +18,7 @@ class Services_Joker {
     
     function __construct($cfg)
     {
+        // do nothing???
         
         
     }
