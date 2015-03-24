@@ -23,6 +23,12 @@ class Services_Joker {
         
         
     }
+    function __destruct()
+    {
+        // write the session id to $_SESSION???
+        
+    }
+    
     
     function execute($request, $params)
     {
