@@ -41,6 +41,16 @@ class Services_Joker {
         var_dump($res);
     }
     
+    function query_domain_list($pattern='*') // limit ?
+    {
+        $res = $this->execute('query-domain-list', array(
+            'pattern' => $pattern='*',
+            "showstatus" => 1,
+            "showgrants" => 1
+        ));
+        print_r($res);
+        return $res;
+    }
     
     /*------------ handle the connections etc.. */
     
