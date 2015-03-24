@@ -92,7 +92,32 @@ class Services_Joker {
         return '';
         
     }
-    
+    function parseResponse($res)
+    {
+        $raw_arr = explode("\n\n", trim($res));
+        $arr_elements = count($raw_arr);
+        if ($arr_elements < 1) {
+            return array();
+        }
+        if ($arr_elements < 2) {
+            return array(
+                "response_header" => $this->parse_response_header($raw_arr[0])
+            );
+        }
+        if ($arr_elements < 3) {
+             return array(
+                "response_header" => $this->parse_response_header($raw_arr[0])
+                "response_body"] => $raw_arr[1]
+            );
+        }
+        $head = array_shift($raw_arr);
+        $skip = array_shift($raw_arr);
+        return array(
+                "response_header" => $this->parse_response_header($head)
+                "response_body"] => implode("\n\n",$raw_arr)
+        );
+         
+    }
     
     
     function sendQuery($params = "", $get_header = false)
