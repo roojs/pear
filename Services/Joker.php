@@ -70,7 +70,7 @@ class Services_Joker {
             
         if ("401" == $http_code) {
             //kills web session
-            session_destroy();
+            //session_destroy();
             //deletes session auth-id
             $this->sessid = "";
         }            
