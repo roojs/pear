@@ -85,22 +85,17 @@ class Services_Joker {
         curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);        
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         
-        if ($get_header) {
-            curl_setopt($ch, CURLOPT_HEADER, 1);
-        } else {
-            curl_setopt($ch, CURLOPT_HEADER, 0);
-        }
         
-        if ($this->config["curlexec_proceed"]) {
+        curl_setopt($ch, CURLOPT_HEADER, $get_header ? 1: 0);
+        
+        //if ($this->config["curlexec_proceed"]) {
             $result = curl_exec($ch);
-        }
+        //}
 
         if (curl_errno($ch)) {
-            $this->log->req_status("e", "function query_host(): ".curl_error($ch));
-        } else {
-            $_SESSION["last_request_time"] = time();
-            curl_close($ch);
-        }       
+            throw new PEAR_Exception(__CLASS__.'::'.__FUNCTION__ .': returned '. curl_error($ch));
+        }
+        curl_close($ch);
         return $result;
     }
     
