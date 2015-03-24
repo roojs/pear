@@ -143,7 +143,40 @@ class Services_Joker {
         );
          
     }
-    
+    function parseResponseList($response)
+    {
+        $text = trim($response["response_body"]);
+        $columns = array();
+        $separator = " ";
+        if (!isset($response["response_header"]["columns"])) {
+            return $this->parseText($text);
+        } else {
+            $columns = explode(",", $response["response_header"]["columns"]);
+        }
+        if (isset($response["response_header"]["separator"])) {
+            switch ($response["response_header"]["separator"]) {
+                case "SPACE":
+                    $separator = " ";
+                    break;
+                case "TAB":
+                    $separator = "\t";
+                    break;
+            }
+        }
+        if ($text != "") {
+            $raw_arr = explode("\n", $text);
+            if (is_array($raw_arr)) {
+                foreach ($raw_arr as $key => $value)
+                {
+                    $temp_val = explode($separator, $value, count($columns));
+                    for ($i=count($temp_val);$i<count($columns);$i++) { $temp_val[] = "";}
+                    $result[$key] = array_combine($columns,$temp_val);
+
+                }
+            }
+        }
+        return (is_array($result) ? $result : $this->config["empty_result"]);
+    }
     function parseResponseHeaders($header)
     {
         $raw_arr = explode("\n", trim($header));
