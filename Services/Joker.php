@@ -38,7 +38,7 @@ class Services_Joker {
             'username' => $u,
             'password' => $p
         ));
-        
+        var_dump($res);
     }
     
     
