@@ -150,9 +150,9 @@ class Services_Joker {
         $separator = " ";
         if (!isset($response["response_header"]["columns"])) {
             return $this->parseText($text);
-        } else {
-            $columns = explode(",", $response["response_header"]["columns"]);
-        }
+        } 
+        $columns = explode(",", $response["response_header"]["columns"]);
+        
         if (isset($response["response_header"]["separator"])) {
             switch ($response["response_header"]["separator"]) {
                 case "SPACE":
@@ -163,20 +163,27 @@ class Services_Joker {
                     break;
             }
         }
-        if ($text != "") {
-            $raw_arr = explode("\n", $text);
-            if (is_array($raw_arr)) {
-                foreach ($raw_arr as $key => $value)
-                {
-                    $temp_val = explode($separator, $value, count($columns));
-                    for ($i=count($temp_val);$i<count($columns);$i++) { $temp_val[] = "";}
-                    $result[$key] = array_combine($columns,$temp_val);
-
-                }
-            }
+        if (empty($text)) {
+            return array();
         }
-        return (is_array($result) ? $result : $this->config["empty_result"]);
+        
+        $result = array();
+        $raw_arr = explode("\n", $text);
+        
+        foreach ($raw_arr as $key => $value) {
+            
+            $temp_val = explode($separator, $value, count($columns));
+            // padd...
+            for ($i=count($temp_val);$i<count($columns);$i++) {
+                $temp_val[] = "";
+            }
+            $result[$key] = array_combine($columns,$temp_val);
+
+            
+        }
+        return $result;
     }
+    
     function parseResponseHeaders($header)
     {
         $raw_arr = explode("\n", trim($header));
