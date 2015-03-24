@@ -64,7 +64,7 @@ class Services_Joker {
         
         if (isset($sessdata["response_header"]["auth-sid"]) && $sessdata["response_header"]["auth-sid"]) {
             $this->sessid = $sessdata["response_header"]["auth-sid"];
-            $this->saveSession();
+           
             return true;
         }
         
@@ -79,8 +79,7 @@ class Services_Joker {
             //session_destroy();
             //deletes session auth-id
             $this->sessid = "";
-            $this->saveSession();
-            // save session?
+             // save session?
         }            
         return '';
         
