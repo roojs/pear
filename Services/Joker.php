@@ -52,7 +52,7 @@ class Services_Joker {
             $success = false;
         }
         
-        $http_code  = "-";
+        $http_code  = "0";
         preg_match("/^HTTP\/1.[0-1]\b ([0-9]{3}) /i", $response["http_header"], $matches);
         if (is_array($matches) && $matches[1]) {
              $http_code = $matches[1];
