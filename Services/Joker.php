@@ -8,6 +8,8 @@ class Services_Joker {
     
     var $dmapi_url = '';
     var $outgoing_network_interface = false;
+    var $timeout = 30;
+    var $connect_timeout = 30;
     
     function __construct($cfg)
     {
@@ -27,7 +29,7 @@ class Services_Joker {
    
        
             //send the request
-        $raw_res = $this->query_host($this->dmapi_url, $http_query, true);
+        $raw_res = $this->query_host($http_query, true);
             $temp_arr = @explode("\r\n\r\n", $raw_res, 2);
 
             //split the response for further processing
@@ -75,12 +77,14 @@ class Services_Joker {
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         }
         
-        if ($this->config["set_outgoing_network_interface"]) {
-            curl_setopt($ch, CURLOPT_INTERFACE, $this->config["outgoing_network_interface"]);
+        if ($this->outgoing_network_interface) {
+            curl_setopt($ch, CURLOPT_INTERFACE, $this->outgoing_network_interface);
         }
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->config["curlopt_connecttimeout"]);
-        curl_setopt($ch, CURLOPT_TIMEOUT, $this->config["curlopt_timeout"]);        
+        
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->connect_timeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);        
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        
         if ($get_header) {
             curl_setopt($ch, CURLOPT_HEADER, 1);
         } else {
