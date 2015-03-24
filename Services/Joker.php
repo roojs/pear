@@ -72,9 +72,9 @@ class Services_Joker {
             //kills web session
             session_destroy();
             //deletes session auth-id
-            $sessid = "";
+            $this->sessid = "";
         }            
-        return '';    
+        return '';
         
     }
     
