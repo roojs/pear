@@ -149,7 +149,7 @@ class Services_Joker {
         $columns = array();
         $separator = " ";
         if (!isset($response["response_header"]["columns"])) {
-            return $this->parseText($text);
+            return $this->parseResponseText($text);
         } 
         $columns = explode(",", $response["response_header"]["columns"]);
         
