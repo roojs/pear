@@ -183,6 +183,33 @@ class Services_Joker {
         }
         return $result;
     }
+    function parseResponseText($text, $keyval = false, $limit = 0)
+    {
+        $text = trim($text);
+        if (empty($text)) {
+            return array();
+        }
+        $raw_arr = explode("\n", $text);
+        
+        foreach ($raw_arr as $key => $value)
+        {
+            if (!$keyval) {
+                if ($limit>0) {
+                    $result[$key] = explode(" ",$value,$limit);
+                } else {
+                    $result[$key] = explode(" ",$value);
+                }
+                continue;
+            }
+            
+            $temp_val = explode(" ", $value);
+            $val1 = array_shift($temp_val);
+            $result[$key] = array($val1,implode(" ",$temp_val));
+
+        }
+    
+        return (is_array($result) ? $result : $this->config["empty_result"]);
+    }
     
     function parseResponseHeaders($header)
     {
