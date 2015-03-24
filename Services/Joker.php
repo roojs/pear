@@ -19,6 +19,7 @@ class Services_Joker {
     function __construct($cfg)
     {
         // do nothing???
+        // or should it login/load session etc...?
         
         
     }
