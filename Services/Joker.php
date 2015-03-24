@@ -101,24 +101,55 @@ class Services_Joker {
         }
         if ($arr_elements < 2) {
             return array(
-                "response_header" => $this->parse_response_header($raw_arr[0])
+                "response_header" => $this->parseResponseHeaders($raw_arr[0])
             );
         }
         if ($arr_elements < 3) {
              return array(
-                "response_header" => $this->parse_response_header($raw_arr[0])
-                "response_body"] => $raw_arr[1]
+                "response_header" => $this->parseResponseHeaders($raw_arr[0]),
+                "response_body" => $raw_arr[1]
             );
         }
         $head = array_shift($raw_arr);
         $skip = array_shift($raw_arr);
         return array(
-                "response_header" => $this->parse_response_header($head)
-                "response_body"] => implode("\n\n",$raw_arr)
+                "response_header" => $this->parseResponseHeaders($head),
+                "response_body" => implode("\n\n",$raw_arr)
         );
          
     }
     
+    function parseResponseHeaders($header)
+    {
+        $raw_arr = explode("\n", trim($header));
+        $result = array();
+        
+        foreach ($raw_arr as $key => $value) {
+            $keyval = array();
+            if (!preg_match("/^([^\s]+):\s*(.*)\s*$/", $value, $keyval)) {
+                continue;
+            }
+            $keyval[1] = strtolower($keyval[1]);
+            if (isset($arr[$keyval[1]])) {
+                if (!is_array($arr[$keyval[1]])) {
+                    $prev = $arr[$keyval[1]];
+                    $arr[$keyval[1]] = array();
+                    $arr[$keyval[1]][] = $prev;
+                    $arr[$keyval[1]][] = $keyval[2];
+                } else {
+                    $arr[$keyval[1]][] = $keyval[2];
+                }
+            } else {
+                if ($keyval[2] != "") {
+                    $arr[$keyval[1]] = $keyval[2];
+                } else {
+                    $arr[$keyval[1]] = "";
+                }
+            }
+            
+        }
+        return $arr;
+    }
     
     function sendQuery($params = "", $get_header = false)
     {        
