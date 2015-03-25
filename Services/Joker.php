@@ -99,6 +99,7 @@ class Services_Joker {
                 // dyndns
                 $vals = explode('=', $r[0]);
                 $ret[] = array($vals[0] => $vals[1]);
+                continue;
             }
             
             foreach($r as $i=>$v) {
