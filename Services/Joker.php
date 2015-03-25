@@ -181,7 +181,7 @@ class Services_Joker {
             return $parstr;
         }
         
-        $http_query =  "/request/" . $request
+        $http_query =  "/request/" . $request;
         //$log_http_query = "/request/" . $request . "?" . $this->paramsToString($params,$this->sessid,true);
    
        
