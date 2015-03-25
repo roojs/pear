@@ -274,6 +274,8 @@ class Services_Joker {
             throw new PEAR_Exception(__CLASS__.'::'.__FUNCTION__ .': returned '. curl_error($ch));
         }
         curl_close($ch);
+        $this->debug("SEND: " . $params);
+        $this->debug("RETURN: " . $result);
         return $result;
     }
     
