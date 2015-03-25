@@ -95,6 +95,12 @@ class Services_Joker {
         $ret = array();
         foreach($res as $r) {
             $rr = array();
+            if (count($r) == 1) {
+                // dyndns
+                $vals = explode('=', $r[0]);
+                $ret[] = array($vals[0] => $vals[1]);
+            }
+            
             foreach($r as $i=>$v) {
                 $rr[$keys[$i]] = $v;
             }
