@@ -141,6 +141,25 @@ class Services_Joker {
         }
         /// build the  records..
         
+        
+        //echo '<PRE>'; print_r($zone); 
+        
+        
+        
+        $res = $this->execute('dns-zone-put', array(
+            'domain' => $domain,
+            'zone' => implode("\n", $zone)
+            
+        ));
+        if (is_object($res)) {
+            return $res;
+        }
+        $res = $this->parseResponseList($res);
+        //print_r($res);
+        return $res;
+    }
+    function dns_zone_toString($dyndns, $new)
+    {
         $zone = array();
         $zone[] = '$dyndns=' . (empty($dyndns) ? 'no::' : ('yes:'.$dyndns));
         
@@ -167,23 +186,10 @@ class Services_Joker {
             }
             $zone[] = implode("\t", $row);
         }
-        //echo '<PRE>'; print_r($zone); 
         
         
         
-        $res = $this->execute('dns-zone-put', array(
-            'domain' => $domain,
-            'zone' => implode("\n", $zone)
-            
-        ));
-        if (is_object($res)) {
-            return $res;
-        }
-        $res = $this->parseResponseList($res);
-        //print_r($res);
-        return $res;
     }
-    
     
     
     /*------------ handle the connections etc.. */
