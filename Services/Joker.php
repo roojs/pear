@@ -186,7 +186,7 @@ class Services_Joker {
    
        
             //send the request
-        $raw_res = $this->sendQuery($http_query, $parstr true);
+        $raw_res = $this->sendQuery($http_query, $parstr, true);
         $temp_arr = @explode("\r\n\r\n", $raw_res, 2); // headers + body...
         if (!is_array($temp_arr) || 2 != count($temp_arr)) {
             return $this->raiseError(__CLASS__.'::'.__FUNCTION__ .': returned '. curl_error($ch));
@@ -365,12 +365,12 @@ class Services_Joker {
         return $arr;
     }
     
-    function sendQuery($params = "", $get_header = false)
+    function sendQuery($urlpart, $params = "", $get_header = false)
     {        
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->dmapi_url.'?'.$params);
-        //curl_setopt($ch, CURLOPT_POST, true);
-        //curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($ch, CURLOPT_URL, $this->dmapi_url.$urlpart);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
         
         
         if (preg_match("/^https:\/\//i", $this->dmapi_url)) {
