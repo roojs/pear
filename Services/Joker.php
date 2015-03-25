@@ -128,8 +128,8 @@ class Services_Joker {
             $success = false;
         }
         
-        if (isset($sessdata["response_header"]["auth-sid"]) && $sessdata["response_header"]["auth-sid"]) {
-            $this->sessid = $sessdata["response_header"]["auth-sid"];
+        if (isset($response["response_header"]["auth-sid"]) && $response["response_header"]["auth-sid"]) {
+            $this->sessid = $response["response_header"]["auth-sid"];
             
         }
         
