@@ -70,7 +70,7 @@ class Services_Joker {
    
        
             //send the request
-        $raw_res = $this->query_host($http_query, true);
+        $raw_res = $this->sendQuery($http_query, true);
         $temp_arr = @explode("\r\n\r\n", $raw_res, 2); // headers + body...
         if (!is_array($temp_arr) || 2 != count($temp_arr)) {
             throw new PEAR_Exception(__CLASS__.'::'.__FUNCTION__ .': returned '. curl_error($ch));
