@@ -124,7 +124,7 @@ class Services_Joker {
         $zone = array();
         $zone[] = '$dyndns=' . (empty($dyndns) ? 'no::' : ('yes:'.$dyndns));
         
-        $keys = array(   'label', 'type' ,  'pri' , 'target', 'ttl', 'valid-from' ,'valid-to',   'parameters');
+        $keys = array(   'label', 'type' ,  'pri' , 'target', 'ttl'); //, 'valid-from' ,'valid-to',   'parameters');
         
         $defaults = array(
             'pri' => 0,
