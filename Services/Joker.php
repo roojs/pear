@@ -369,7 +369,7 @@ class Services_Joker {
             return;
         }
         
-        trigger_error($str, E_USER_NOTICE);
+        echo '<PRE>' . $str . '<PRE>';
         
         
     }
