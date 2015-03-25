@@ -105,6 +105,7 @@ class Services_Joker {
         
         $response = $this->parseResponse($temp_arr[1]);
         
+        var_dump($response);exit;
         
         $response["http_header"] = $temp_arr[0];
                 //get account balance
@@ -131,6 +132,7 @@ class Services_Joker {
             $this->sessid = $sessdata["response_header"]["auth-sid"];
             
         }
+        
         
         //status
         if ($success) {
