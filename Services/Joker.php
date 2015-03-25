@@ -56,7 +56,7 @@ class Services_Joker {
     function query_domain_list($pattern='*') // limit ?
     {
         $res = $this->login();
-        var_dump($res);exit;
+        //var_dump($res);exit;
         if ($res !== true) {
             return $res;
         }
