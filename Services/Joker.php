@@ -141,7 +141,7 @@ class Services_Joker {
                 }
                 $row[] = isset($r[$k]) ? $r[$k] : (isset($defaults[$k]) ? $defaults[$k] : '');
             }
-            $zone[] = implode(" ", $row);
+            $zone[] = implode("\t", $row);
         }
         echo '<PRE>'; print_r($zone); 
         
