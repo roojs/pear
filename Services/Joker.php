@@ -9,6 +9,7 @@ class Services_Joker {
     var $username = '';
     var $password = '';
     var $sessid = false;
+    var $public_ip = false;
     
     var $dmapi_url = 'https://dmapi.ote.joker.com';
     var $outgoing_network_interface = false;
