@@ -144,7 +144,7 @@ class Services_Joker {
         
         //echo '<PRE>'; print_r($zone); 
         
-        $zone = dns_zone_toString($dyndns,$records);
+        $zone = $this->dns_zone_toString($dyndns,$records);
         
         $res = $this->execute('dns-zone-put', array(
             'domain' => $domain,
