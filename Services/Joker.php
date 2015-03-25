@@ -103,7 +103,7 @@ class Services_Joker {
         
        
         
-        return $res;
+        return $ret;
     }
     /**
      *@param string $domain the domain to change
