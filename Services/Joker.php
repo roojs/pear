@@ -114,7 +114,7 @@ class Services_Joker {
         }
         
         $success = true;
-        if (!isset($sessdata["response_header"]["status-code"]) || $sessdata["response_header"]["status-code"] != "0") {
+        if (!isset($response["response_header"]["status-code"]) || $response["response_header"]["status-code"] != "0") {
             $success = false;
         }
         
