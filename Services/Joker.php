@@ -273,7 +273,7 @@ class Services_Joker {
         $columns = array();
         $separator = " ";
         if (!isset($response["response_header"]["columns"])) {
-            return $text; // $this->parseResponseText($text); << that should be manual based on the query...
+            return $this->parseResponseText($text);
         } 
         $columns = explode(",", $response["response_header"]["columns"]);
         
