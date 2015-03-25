@@ -186,7 +186,7 @@ class Services_Joker {
             }
             $zone[] = implode("\t", $row);
         }
-        return implode("\n", $sone);
+        return implode("\n", $zone);
         
         
     }
