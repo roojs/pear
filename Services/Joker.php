@@ -362,5 +362,15 @@ class Services_Joker {
         
         
     }
-    
+    function raiseError($message = null,
+                         $code = null,
+                         $mode = null,
+                         $options = null,
+                         $userinfo = null,
+                         $error_class = null,
+                         $skipmsg = false)
+    {
+        $p = new PEAR();
+        return $p->raiseError($message,$code,$mode,$options,$userinfo,$error_class,$skipmsg);
+    }
 }
