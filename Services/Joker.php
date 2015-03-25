@@ -381,6 +381,7 @@ class Services_Joker {
                          $error_class = null,
                          $skipmsg = false)
     {
+        $this->debug("ERROR: $message");
         $p = new PEAR();
         return $p->raiseError($message,$code,$mode,$options,$userinfo,$error_class,$skipmsg);
     }
