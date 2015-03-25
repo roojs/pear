@@ -63,6 +63,9 @@ class Services_Joker {
             "showstatus" => 1,
             "showgrants" => 1
         ));
+        if (is_object($res)) {
+            return $res;
+        }
         $res = $this->parseResponseList($res);
         print_r($res);
         return $res;
