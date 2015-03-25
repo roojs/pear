@@ -16,7 +16,7 @@ class Services_Joker {
 
     var $account_balance = 0; // returned data?
     
-    function __construct($cfg)
+    function __construct($cfg=array())
     {
         // do nothing???
         // or should it login/load session etc...?
