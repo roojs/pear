@@ -266,6 +266,9 @@ class Services_Joker {
     }
     function parseResponseList($response)
     {
+        if (empty($response["response_body"])) {
+            return '';
+        }
         $text = trim($response["response_body"]);
         $columns = array();
         $separator = " ";
