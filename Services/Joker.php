@@ -43,6 +43,7 @@ class Services_Joker {
     
     function query_domain_list($pattern='*') // limit ?
     {
+        
         $res = $this->execute('query-domain-list', array(
             'pattern' => $pattern='*',
             "showstatus" => 1,
