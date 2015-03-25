@@ -128,15 +128,18 @@ class Services_Joker {
         
         $defaults = array(
             'pri' => 0,
+            'valid-from' => 0,
+            'valid-to' => 0,
         );
         foreach($records as $r) {
             $row = array();
             foreach($keys as $i=>$k) {
-                if ($i <5 && !isset($r[$k]))  {
+                if ($i <5 && !isset($r[$k]) && !isset($defaults[$k]))  {
                     return $this->raiseError("invalid record ". print_R($r,true));
                 }
-                $row[] = isset($r[$k]) ? $r[$k] : '';
+                $row[] = isset($r[$k]) ? $r[$k] : (isset($defaults[$k]) ? $defaults[$k] : '');
             }
+            $zone[] = implode("")
         }
         
         
