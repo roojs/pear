@@ -90,6 +90,19 @@ class Services_Joker {
         }
         $res = $this->parseResponseList($res);
         //print_r($res);
+        
+        $keys = array(   'label', 'type' ,  'pri' , 'target', 'ttl'); //, 'valid-from' ,'valid-to',   'parameters');
+        $ret = array();
+        foreach($res as $r) {
+            $rr = array()
+            foreach($r as $i=>$v) {
+                $rr[$keys[$i]] = $v;
+            }
+            $ret[] = $rr;
+        }
+        
+       
+        
         return $res;
     }
     /**
