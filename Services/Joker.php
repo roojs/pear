@@ -48,7 +48,8 @@ class Services_Joker {
             'username' => $this->username,
             'password' => $this->password
         ));
-        return $res;
+        return empty($this->sessid) ? $res : true;
+    
     }
     
     function query_domain_list($pattern='*') // limit ?
