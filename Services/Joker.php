@@ -94,7 +94,7 @@ class Services_Joker {
         $keys = array(   'label', 'type' ,  'pri' , 'target', 'ttl'); //, 'valid-from' ,'valid-to',   'parameters');
         $ret = array();
         foreach($res as $r) {
-            $rr = array()
+            $rr = array();
             foreach($r as $i=>$v) {
                 $rr[$keys[$i]] = $v;
             }
