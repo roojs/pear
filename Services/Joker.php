@@ -161,7 +161,7 @@ class Services_Joker {
     function dns_zone_toString($dyndns, $records)
     {
         $zone = array();
-        $zone[] = '$dyndns=' . (empty($dyndns) ? 'no::' : ('yes:'.$dyndns));
+        $zone[] = '$dyndns=' . (empty($dyndns) || $dyndns == 'no::' ? 'no::' : ('yes:'.$dyndns));
         
         $keys = array(   'label', 'type' ,  'pri' , 'target', 'ttl'); //, 'valid-from' ,'valid-to',   'parameters');
         
