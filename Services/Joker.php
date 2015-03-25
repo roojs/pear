@@ -148,7 +148,7 @@ class Services_Joker {
         
         $res = $this->execute('dns-zone-put', array(
             'domain' => $domain,
-            'zone' => implode("\n", $zone)
+            'zone' =>  $zone
             
         ));
         if (is_object($res)) {
