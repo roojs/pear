@@ -147,7 +147,7 @@ class Services_Joker {
         
         
         
-        $res = $this->execute('dns-zone-get', array(
+        $res = $this->execute('dns-zone-put', array(
             'domain' => $domain,
             'zone' => implode("\n", $zone)
             
