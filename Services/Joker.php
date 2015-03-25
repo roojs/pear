@@ -73,7 +73,10 @@ class Services_Joker {
     
     /*------------ handle the connections etc.. */
     
-    
+    /**
+     *
+     *@ returns array|PEAR_Error
+     */
     
     function execute($request, $params)
     {
@@ -82,7 +85,12 @@ class Services_Joker {
         // unless it's a login/query-request-list
         //if ($this->is_request_available($request)) {
         
-        $http_query =  "/request/" . $request . "?" . $this->paramsToString($params,$this->sessid);
+        $parstr = $this->paramsToString($params,$this->sessid);
+        if (is_object($parstr)) {
+            return $parstr;
+        }
+        
+        $http_query =  "/request/" . $request . "?" . $parstr;
         //$log_http_query = "/request/" . $request . "?" . $this->paramsToString($params,$this->sessid,true);
    
        
@@ -90,10 +98,12 @@ class Services_Joker {
         $raw_res = $this->sendQuery($http_query, true);
         $temp_arr = @explode("\r\n\r\n", $raw_res, 2); // headers + body...
         if (!is_array($temp_arr) || 2 != count($temp_arr)) {
-            throw new PEAR_Exception(__CLASS__.'::'.__FUNCTION__ .': returned '. curl_error($ch));
+            return $this->raiseError(__CLASS__.'::'.__FUNCTION__ .': returned '. curl_error($ch));
         }
         
         $response = $this->parseResponse($temp_arr[1]);
+        
+        
         $response["http_header"] = $temp_arr[0];
                 //get account balance
         if (isset($response["response_header"]["account-balance"])) {
@@ -288,7 +298,7 @@ class Services_Joker {
         //}
 
         if (curl_errno($ch)) {
-            throw new PEAR_Exception(__CLASS__.'::'.__FUNCTION__ .': returned '. curl_error($ch));
+            return $this->raiseError(__CLASS__.'::'.__FUNCTION__ .': returned '. curl_error($ch));
         }
         curl_close($ch);
         $this->debug("SEND: " . $params);
@@ -301,7 +311,7 @@ class Services_Joker {
     {
         
         if (!is_array($formdata)) {
-            throw new PEAR_Exception(__CLASS__.'::'.__FUNCTION__ .': formdata not an array');
+            return $this->raiseError(__CLASS__.'::'.__FUNCTION__ .': formdata not an array');
         }
         
         if ($sessid) { // && $sessid != $this->config["no_content"]) {
@@ -325,7 +335,7 @@ class Services_Joker {
 
         // If the array is empty, return null
         if (empty($formdata)) {
-             throw new PEAR_Exception(__CLASS__.'::'.__FUNCTION__ .': formdata empty');
+            return $this->raiseError(__CLASS__.'::'.__FUNCTION__ .': formdata empty');
         }
 
         // Start building the query
