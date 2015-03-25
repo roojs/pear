@@ -73,6 +73,26 @@ class Services_Joker {
         return $res;
     }
     
+    
+    function dns_zone_get($domain)
+    {
+        $res = $this->login();
+        //var_dump($res);exit;
+        if ($res !== true) {
+            return $res;
+        }
+        $res = $this->execute('dns-zone-get', array(
+            'domain' => $domain
+            
+        ));
+        if (is_object($res)) {
+            return $res;
+        }
+        $res = $this->parseResponseList($res);
+        //print_r($res);
+        return $res;
+    }
+    
     /*------------ handle the connections etc.. */
     
     /**
