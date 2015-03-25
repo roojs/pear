@@ -182,6 +182,9 @@ class Services_Joker {
                 if (!isset($r[$k]) && !isset($defaults[$k]))  {
                     return $this->raiseError("invalid record ". print_R($r,true));
                 }
+                if ($k == 'ttl' && empty($r[$k])) {
+                    $r[$k] =  $defaults[$k] ;
+                }
                 $row[] = isset($r[$k]) ? $r[$k] : (isset($defaults[$k]) ? $defaults[$k] : '');
             }
             $zone[] = implode("\t", $row);
