@@ -6,6 +6,8 @@ require_once 'PEAR/Exception.php';
 
 class Services_Joker {
     
+    var $username = '';
+    var $password = '';
     var $sessid = false;
     
     var $dmapi_url = 'https://dmapi.ote.joker.com';
@@ -18,6 +20,9 @@ class Services_Joker {
     
     function __construct($cfg=array())
     {
+        foreach($cfg as $k=>$v) {
+            $this->$k = $v;
+        }
         // do nothing???
         // or should it login/load session etc...?
         
@@ -32,7 +37,7 @@ class Services_Joker {
     /*---------- actual functions... ------*/
     
     
-    function login($u,$p)
+    function login()
     {
         // are we logged in
         if (!empty($this->sessid)) {
@@ -40,8 +45,8 @@ class Services_Joker {
         }
         
         $res = $this->execute('login', array(
-            'username' => $u,
-            'password' => $p
+            'username' => $this->username,
+            'password' => $this->password
         ));
         return $res;
     }
