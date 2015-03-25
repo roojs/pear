@@ -144,7 +144,7 @@ class Services_Joker {
         
         //echo '<PRE>'; print_r($zone); 
         
-        
+        $zone = dns_zone_toString($dyndns,$records);
         
         $res = $this->execute('dns-zone-put', array(
             'domain' => $domain,
@@ -158,7 +158,7 @@ class Services_Joker {
         //print_r($res);
         return $res;
     }
-    function dns_zone_toString($dyndns, $new)
+    function dns_zone_toString($dyndns, $records)
     {
         $zone = array();
         $zone[] = '$dyndns=' . (empty($dyndns) ? 'no::' : ('yes:'.$dyndns));
@@ -186,7 +186,7 @@ class Services_Joker {
             }
             $zone[] = implode("\t", $row);
         }
-        
+        return implode("\n", $sone);
         
         
     }
