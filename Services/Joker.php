@@ -143,7 +143,7 @@ class Services_Joker {
             }
             $zone[] = implode(" ", $row);
         }
-        //echo '<PRE>'; print_r($zone); exit;
+        echo '<PRE>'; print_r($zone); 
         
         
         
