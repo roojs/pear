@@ -335,7 +335,11 @@ class Services_Joker {
     }
     function debug($str)
     {
+        if (empty($this->debug)) {
+            return;
+        }
         
+        trigger_error($str, E_USER_NOTICE);
         
         
     }
