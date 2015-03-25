@@ -333,5 +333,11 @@ class Services_Joker {
         return  implode('&', $tmp);
         
     }
+    function debug($str)
+    {
+        
+        
+        
+    }
     
 }
