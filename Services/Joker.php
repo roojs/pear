@@ -11,7 +11,7 @@ class Services_Joker {
     var $sessid = false;
     var $public_ip = false;
     
-    var $dmapi_url = 'https://dmapi.ote.joker.com';
+    var $dmapi_url = 'https://dmapi.joker.com';
     var $outgoing_network_interface = false;
     var $timeout = 30;
     var $connect_timeout = 30;
