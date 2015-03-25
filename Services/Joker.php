@@ -92,6 +92,71 @@ class Services_Joker {
         //print_r($res);
         return $res;
     }
+    /**
+     *@param string $domain the domain to change
+     *@param string $dyndns empty string or user:pass
+     *@param array $records array of records:
+     *format:
+     * array(
+            array(
+                'label' => www',
+                'type' => 'A',
+                'pri' => 0
+                'target' => '192.168.0.1',
+                'ttl' => '' 
+                'valid-from' => '',// optional from now on..
+                'valid-to' => '',
+                'parameters' => ''
+            )
+     )
+     *
+     */
+    
+    function dns_zone_put($domain, $dyndns, $records)
+    {
+        $res = $this->login();
+        //var_dump($res);exit;
+        if ($res !== true) {
+            return $res;
+        }
+        /// build the  records..
+        
+        $zone = array();
+        $zone[] = '$dyndns=' . (empty($dyndns) ? 'no::' : ('yes:'.$dyndns));
+        
+        $keys = array(   'label', 'type' ,  'pri' , 'target', 'ttl', 'valid-from' ,'valid-to',   'parameters');
+        
+        $defaults = array(
+            'pri' => 0,
+        );
+        foreach($records as $r) {
+            $row = array();
+            foreach($keys as $i=>$k) {
+                if ($i <5 && !isset($r[$k]))  {
+                    return $this->raiseError("invalid record ". print_R($r,true));
+                }
+                $row[] = isset($r[$k]) ? $r[$k] : '';
+            }
+        }
+        
+        
+        
+        
+        
+        
+        $res = $this->execute('dns-zone-get', array(
+            'domain' => $domain
+            
+        ));
+        if (is_object($res)) {
+            return $res;
+        }
+        $res = $this->parseResponseList($res);
+        //print_r($res);
+        return $res;
+    }
+    
+    
     
     /*------------ handle the connections etc.. */
     
