@@ -155,6 +155,10 @@ class Services_Joker {
         );
         foreach($records as $r) {
             $row = array();
+            if (isset($r['$dyndns'])) { // skip - if input is based on output of get...
+                continue;
+            }
+            
             foreach($keys as $i=>$k) {
                 if (!isset($r[$k]) && !isset($defaults[$k]))  {
                     return $this->raiseError("invalid record ". print_R($r,true));
