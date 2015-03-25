@@ -34,11 +34,16 @@ class Services_Joker {
     
     function login($u,$p)
     {
+        // are we logged in
+        if (!empty($this->sessid)) {
+            return true;
+        }
+        
         $res = $this->execute('login', array(
             'username' => $u,
             'password' => $p
         ));
-        var_dump($res);
+        return $res;
     }
     
     function query_domain_list($pattern='*') // limit ?
