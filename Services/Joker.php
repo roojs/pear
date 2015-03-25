@@ -69,7 +69,7 @@ class Services_Joker {
             return $res;
         }
         $res = $this->parseResponseList($res);
-        print_r($res);
+        //print_r($res);
         return $res;
     }
     
