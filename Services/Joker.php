@@ -101,9 +101,9 @@ class Services_Joker {
             array(
                 'label' => www',
                 'type' => 'A',
-                'pri' => 0
+                'pri' => 0  // optional
                 'target' => '192.168.0.1',
-                'ttl' => '' 
+                'ttl' => '' // optional
                 'valid-from' => '',// optional from now on..
                 'valid-to' => '',
                 'parameters' => ''
@@ -130,25 +130,26 @@ class Services_Joker {
             'pri' => 0,
             'valid-from' => 0,
             'valid-to' => 0,
+            'ttl' => 86400,
+            'parameters' => '',
         );
         foreach($records as $r) {
             $row = array();
             foreach($keys as $i=>$k) {
-                if ($i <5 && !isset($r[$k]) && !isset($defaults[$k]))  {
+                if (!isset($r[$k]) && !isset($defaults[$k]))  {
                     return $this->raiseError("invalid record ". print_R($r,true));
                 }
                 $row[] = isset($r[$k]) ? $r[$k] : (isset($defaults[$k]) ? $defaults[$k] : '');
             }
-            $zone[] = implode("")
+            $zone[] = implode(" ", $row);
         }
-        
-        
-        
+        echo '<PRE>'; print_r($zone); exit;
         
         
         
         $res = $this->execute('dns-zone-get', array(
-            'domain' => $domain
+            'domain' => $domain,
+            'zone' => implode("\n", $zone)
             
         ));
         if (is_object($res)) {
