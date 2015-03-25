@@ -321,7 +321,7 @@ class Services_Joker {
  
 
         //The IP of the user should be always present in the requests
-        $formdata["client-ip"] = $_SERVER["REMOTE_ADDR"];
+        $formdata["client-ip"] = !empty($this->public_ip) ? $this->public_ip : $_SERVER["REMOTE_ADDR"];
 
         //Some values should not be present in the logs -- this is configurable ?? why??
         /*if ($build_log_query) {
