@@ -181,12 +181,12 @@ class Services_Joker {
             return $parstr;
         }
         
-        $http_query =  "/request/" . $request . "?" . $parstr;
+        $http_query =  "/request/" . $request
         //$log_http_query = "/request/" . $request . "?" . $this->paramsToString($params,$this->sessid,true);
    
        
             //send the request
-        $raw_res = $this->sendQuery($http_query, true);
+        $raw_res = $this->sendQuery($http_query, $parstr true);
         $temp_arr = @explode("\r\n\r\n", $raw_res, 2); // headers + body...
         if (!is_array($temp_arr) || 2 != count($temp_arr)) {
             return $this->raiseError(__CLASS__.'::'.__FUNCTION__ .': returned '. curl_error($ch));
