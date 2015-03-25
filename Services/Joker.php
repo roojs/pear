@@ -368,9 +368,9 @@ class Services_Joker {
     function sendQuery($params = "", $get_header = false)
     {        
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->dmapi_url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($ch, CURLOPT_URL, $this->dmapi_url.'?'.$params);
+        //curl_setopt($ch, CURLOPT_POST, true);
+        //curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
         
         
         if (preg_match("/^https:\/\//i", $this->dmapi_url)) {
