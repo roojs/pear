@@ -80,6 +80,10 @@ class File_Convert_AbiToDocx
                 echo "\n";
                  $method = 'handle_'.$this->xr->name;
                  
+                 if($this->xr->nodeType == XMLReader::CDATA){
+                     $text = "<![CDATA[ {$this->xr->value} ]]>";
+                     $this->section->addText($text, $this->style);
+                 }
                  
                  if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                      if($this->xr->name == 'section'){
