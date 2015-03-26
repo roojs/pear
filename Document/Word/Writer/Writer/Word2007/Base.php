@@ -53,11 +53,9 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 			}
 		}
 		require_once __DIR__ . '/../../Shared/String.php';
-                print_R($text->getText());exit;
-		$strText = htmlspecialchars($text->getText()); // technically write->text() does this..
-                
+		$strText = $text->getText();//htmlspecialchars($text->getText()); // technically write->text() does this..
 		$strText = Document_Word_Writer_Shared_String::ControlCharacterPHP2OOXML($strText);
-		$strText = str_replace('&amp;', '&', $strText); // htmlspecialchars going overboard..
+//		$strText = str_replace('&amp;', '&', $strText); // htmlspecialchars going overboard..
 		$objWriter->startElement('w:r');
 			if($SfIsObject) {
 				$this->_writeTextStyle($objWriter, $styleFont);
