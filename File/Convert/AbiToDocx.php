@@ -104,7 +104,6 @@ class File_Convert_AbiToDocx
                         $this->section->addLink($this->style['href'], $text,  $this->style);
                        
                     }else{
-                        print_r($this->section);exit;
                         $this->section->addText($text, $this->style);
                     }
                     continue;
