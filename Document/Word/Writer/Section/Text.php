@@ -97,7 +97,7 @@ class Document_Word_Writer_Section_Text
 		}
 		
 		$this->_text = $text;
-		
+		print_r($this);exit;
 		return $this;
 	}
 	
