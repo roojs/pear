@@ -72,8 +72,8 @@ class File_Convert_AbiToDocx
             while ($this->xr->read()){
                 //$this->dumpsections($sections);
                  // echo $this->xr->name . '::' . count($sections). "<br/>"; 
-                
                  $method = 'handle_'.$this->xr->name;
+                 
                  
                  if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
                      if($this->xr->name == 'section'){
@@ -101,7 +101,6 @@ class File_Convert_AbiToDocx
                         $this->section->addPreserveText(str_replace("#", "", $text), $this->style,$this->style);
                         
                     }elseif(is_array($this->style) && array_key_exists('href', $this->style)) {
-                        print_R($text);exit;
                         $this->section->addLink($this->style['href'], $text,  $this->style);
                        
                     }else{
