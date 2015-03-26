@@ -86,9 +86,7 @@ class Document_Word_Writer_Section_TextRun
         {
                 require_once __DIR__ . '/Text.php';
 		//$text = utf8_encode($text);
-                print_R($text);exit;
                 $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
-                
 		$text = new Document_Word_Writer_Section_Text($text, $styleFont);
 		$this->_elementCollection[] = $text;
 		return $text;
