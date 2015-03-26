@@ -114,6 +114,7 @@ class Document_Word_Writer_Section
 	 */
 	public function addText($text, $styleFont = null, $styleParagraph = null) 
         {
+            print_R('run');exit;
                 require_once __DIR__ . '/Section/Text.php';
 		//$givenText = utf8_encode($text);
                 print_R($text);exit;
