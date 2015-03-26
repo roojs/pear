@@ -78,6 +78,7 @@ class File_Convert_AbiToDocx
                  if($this->xr->nodeType == XMLReader::CDATA){
                      $text = "<![CDATA[ {$this->xr->value} ]]>";
                      $this->section->addText($text, $this->style);
+                     continue;
                  }
                  
                  if ($this->xr->nodeType == XMLReader::END_ELEMENT) {
