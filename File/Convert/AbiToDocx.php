@@ -74,6 +74,10 @@ class File_Convert_AbiToDocx
                  // echo $this->xr->name . '::' . count($sections). "<br/>"; 
                 echo $this->xr->name;
                 echo "\n";
+                echo $this->xr->nodeType;
+                echo "\n";
+                echo $this->xr->value;
+                echo "\n";
                  $method = 'handle_'.$this->xr->name;
                  
                  
