@@ -101,6 +101,7 @@ class File_Convert_AbiToDocx
                         $this->section->addPreserveText(str_replace("#", "", $text), $this->style,$this->style);
                         
                     }elseif(is_array($this->style) && array_key_exists('href', $this->style)) {
+                        print_R($text);exit;
                         $this->section->addLink($this->style['href'], $text,  $this->style);
                        
                     }else{
