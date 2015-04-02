@@ -646,7 +646,7 @@ class HTML_CSS_Less {
 		switch ($prop[0]) {
             case 'assign':
                 list(, $name, $value) = $prop;
-                if (isset($this->registeredVars['@'.$name])) {
+                if (isset($this->registeredVars[substr($name,1)])) {
                     break;
                 }
                 
