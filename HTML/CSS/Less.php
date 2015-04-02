@@ -646,8 +646,9 @@ class HTML_CSS_Less {
 		switch ($prop[0]) {
             case 'assign':
                 list(, $name, $value) = $prop;
-                var_dump($name,$value);
-                print_r($this->registeredVars);
+                if (isset($this->registeredVars['@'.$name])) {
+                    break;
+                }
                 
                 if ($name[0] == $this->vPrefix) {
                     $this->set($name, $value);
