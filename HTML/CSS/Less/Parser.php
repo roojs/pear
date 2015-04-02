@@ -62,12 +62,12 @@ class HTML_CSS_Less_Parser {
 
 		if (!self::$operatorString) {
 			self::$operatorString =
-				'('.implode('|', array_map(array('lessc', 'preg_quote'),
+				'('.implode('|', array_map(array('HTML_CSS_Less', 'preg_quote'),
 					array_keys(self::$precedence))).')';
 
-			$commentSingle = lessc::preg_quote(self::$commentSingle);
-			$commentMultiLeft = lessc::preg_quote(self::$commentMultiLeft);
-			$commentMultiRight = lessc::preg_quote(self::$commentMultiRight);
+			$commentSingle = HTML_CSS_Less::preg_quote(self::$commentSingle);
+			$commentMultiLeft = HTML_CSS_Less::preg_quote(self::$commentMultiLeft);
+			$commentMultiRight = HTML_CSS_Less::preg_quote(self::$commentMultiRight);
 
 			self::$commentMulti = $commentMultiLeft.'.*?'.$commentMultiRight;
 			self::$whitePattern = '/'.$commentSingle.'[^\n]*\s*|('.self::$commentMulti.')\s*|\s+/Ais';
