@@ -47,7 +47,7 @@ class I18Nv2
      * @param   string  $locale     a valid locale like en_US or de_DE
      * @param   int     $cat        the locale category - usually LC_ALL
      */
-    function setLocale($locale = null, $cat = LC_ALL)
+    static function setLocale($locale = null, $cat = LC_ALL)
     {
         if (!strlen($locale)) {
             return setLocale($cat, null);
