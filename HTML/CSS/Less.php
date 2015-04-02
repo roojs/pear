@@ -646,6 +646,7 @@ class HTML_CSS_Less {
 		switch ($prop[0]) {
             case 'assign':
                 list(, $name, $value) = $prop;
+                // ignore values which we have injected...
                 if (isset($this->registeredVars[substr($name,1)])) {
                     break;
                 }
