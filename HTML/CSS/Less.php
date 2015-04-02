@@ -189,25 +189,25 @@ class HTML_CSS_Less {
 	 */
 	protected function compileBlock($block) {
 		switch ($block->type) {
-		case "root":
-			$this->compileRoot($block);
-			break;
-		case null:
-			$this->compileCSSBlock($block);
-			break;
-		case "media":
-			$this->compileMedia($block);
-			break;
-		case "directive":
-			$name = "@" . $block->name;
-			if (!empty($block->value)) {
-				$name .= " " . $this->compileValue($this->reduce($block->value));
-			}
-
-			$this->compileNestedBlock($block, array($name));
-			break;
-		default:
-			$this->throwError("unknown block type: $block->type\n");
+            case "root":
+                $this->compileRoot($block);
+                break;
+            case null:
+                $this->compileCSSBlock($block);
+                break;
+            case "media":
+                $this->compileMedia($block);
+                break;
+            case "directive":
+                $name = "@" . $block->name;
+                if (!empty($block->value)) {
+                    $name .= " " . $this->compileValue($this->reduce($block->value));
+                }
+    
+                $this->compileNestedBlock($block, array($name));
+                break;
+            default:
+                $this->throwError("unknown block type: $block->type\n");
 		}
 	}
 
@@ -1803,7 +1803,7 @@ class HTML_CSS_Less {
 		if (!empty($this->registeredVars)) {
 			$this->injectVariables($this->registeredVars);
 		}
-        print_r($this->env->store);exit;
+       
 		$this->sourceParser = $this->parser; // used for error messages
 		$this->compileBlock($root);
 
