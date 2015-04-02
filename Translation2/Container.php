@@ -351,9 +351,9 @@ class Translation2_Container
             $option = $GLOBALS['_PEAR_default_error_options'];
         }
         if ($mode == PEAR_ERROR_RETURN) {
-            return PEAR::raiseError($msg, $code, $mode, $option);
+            return PEAR::staticRaiseError($msg, $code, $mode, $option);
         } else {
-            PEAR::raiseError($msg, $code, $mode, $option);
+            PEAR::staticRaiseError($msg, $code, $mode, $option);
         }
     }
 
