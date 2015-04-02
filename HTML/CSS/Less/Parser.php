@@ -292,7 +292,7 @@ class HTML_CSS_Less_Parser {
 	protected function isDirective($dirname, $directives) {
 		// TODO: cache pattern in parser
 		$pattern = implode("|",
-			array_map(array("lessc", "preg_quote"), $directives));
+			array_map(array("HTML_CSS_Less", "preg_quote"), $directives));
 		$pattern = '/^(-[a-z-]+-)?(' . $pattern . ')$/i';
 
 		return preg_match($pattern, $dirname);
@@ -317,7 +317,7 @@ class HTML_CSS_Less_Parser {
 
 		if (count($values) == 0) return false;
 
-		$exps = lessc::compressList($values, ' ');
+		$exps = HTML_CSS_Less::compressList($values, ' ');
 		return true;
 	}
 
@@ -415,7 +415,7 @@ class HTML_CSS_Less_Parser {
 
 		if (count($values) == 0) return false;
 
-		$value = lessc::compressList($values, ', ');
+		$value = HTML_CSS_Less::compressList($values, ', ');
 		return true;
 	}
 
@@ -580,7 +580,7 @@ class HTML_CSS_Less_Parser {
 		$this->eatWhiteDefault = false;
 
 		$stop = array("'", '"', "@{", $end);
-		$stop = array_map(array("lessc", "preg_quote"), $stop);
+		$stop = array_map(array("HTML_CSS_Less", "preg_quote"), $stop);
 		// $stop[] = self::$commentMulti;
 
 		if (!is_null($rejectStrs)) {
@@ -656,7 +656,7 @@ class HTML_CSS_Less_Parser {
 
 		// look for either ending delim , escape, or string interpolation
 		$patt = '([^\n]*?)(@\{|\\\\|' .
-			lessc::preg_quote($delim).')';
+			HTML_CSS_Less::preg_quote($delim).')';
 
 		$oldWhite = $this->eatWhiteDefault;
 		$this->eatWhiteDefault = false;
@@ -1173,7 +1173,7 @@ class HTML_CSS_Less_Parser {
 		}
 
 		if (!isset(self::$literalCache[$what])) {
-			self::$literalCache[$what] = lessc::preg_quote($what);
+			self::$literalCache[$what] = HTML_CSS_Less::preg_quote($what);
 		}
 
 		return $this->match(self::$literalCache[$what], $m, $eatWhitespace);
@@ -1213,7 +1213,7 @@ class HTML_CSS_Less_Parser {
 		} else {
 			$validChars = $allowNewline ? "." : "[^\n]";
 		}
-		if (!$this->match('('.$validChars.'*?)'.lessc::preg_quote($what), $m, !$until)) return false;
+		if (!$this->match('('.$validChars.'*?)'.HTML_CSS_Less::preg_quote($what), $m, !$until)) return false;
 		if ($until) $this->count -= strlen($what); // give back $what
 		$out = $m[1];
 		return true;
