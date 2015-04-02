@@ -536,7 +536,16 @@ class PEAR
         return $a;
     }
 
-    
+    static function staticRaiseError ($message = null,
+                         $code = null,
+                         $mode = null,
+                         $options = null,
+                         $userinfo = null,
+                         $error_class = null,
+                         $skipmsg = false) {
+        $p = new PEAR();
+        return $p->raiseError($message  ,$code ,  $mode , $options , $userinfo , $error_class , $skipmsg );
+    }
     
     /**
      * Simpler form of raiseError with fewer options.  In most cases
