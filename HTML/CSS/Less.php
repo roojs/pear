@@ -1803,7 +1803,7 @@ class HTML_CSS_Less {
 		if (!empty($this->registeredVars)) {
 			$this->injectVariables($this->registeredVars);
 		}
-
+        print_r($this->env->store);exit;
 		$this->sourceParser = $this->parser; // used for error messages
 		$this->compileBlock($root);
 
