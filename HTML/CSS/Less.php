@@ -1960,6 +1960,7 @@ class HTML_CSS_Less {
             
 			$className = __CLASS__ . '_Formatter_'.$this->formatterName;
 		}
+        
         require_once str_replace('_', '/', $className)  . '.php'; // not wonderfully safe..
 
 		return new $className;
