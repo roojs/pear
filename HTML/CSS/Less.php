@@ -644,135 +644,136 @@ class HTML_CSS_Less {
 		$this->sourceLoc = isset($prop[-1]) ? $prop[-1] : -1;
 
 		switch ($prop[0]) {
-		case 'assign':
-			list(, $name, $value) = $prop;
-			if ($name[0] == $this->vPrefix) {
-				$this->set($name, $value);
-			} else {
-				$out->lines[] = $this->formatter->property($name,
-						$this->compileValue($this->reduce($value)));
-			}
-			break;
-		case 'block':
-			list(, $child) = $prop;
-			$this->compileBlock($child);
-			break;
-		case 'mixin':
-			list(, $path, $args, $suffix) = $prop;
-
-			$orderedArgs = array();
-			$keywordArgs = array();
-			foreach ((array)$args as $arg) {
-				$argval = null;
-				switch ($arg[0]) {
-				case "arg":
-					if (!isset($arg[2])) {
-						$orderedArgs[] = $this->reduce(array("variable", $arg[1]));
-					} else {
-						$keywordArgs[$arg[1]] = $this->reduce($arg[2]);
-					}
-					break;
-
-				case "lit":
-					$orderedArgs[] = $this->reduce($arg[1]);
-					break;
-				default:
-					$this->throwError("Unknown arg type: " . $arg[0]);
-				}
-			}
-
-			$mixins = $this->findBlocks($block, $path, $orderedArgs, $keywordArgs);
-
-			if ($mixins === null) {
-				// fwrite(STDERR,"failed to find block: ".implode(" > ", $path)."\n");
-				break; // throw error here??
-			}
-
-			foreach ($mixins as $mixin) {
-				if ($mixin === $block && !$orderedArgs) {
-					continue;
-				}
-
-				$haveScope = false;
-				if (isset($mixin->parent->scope)) {
-					$haveScope = true;
-					$mixinParentEnv = $this->pushEnv();
-					$mixinParentEnv->storeParent = $mixin->parent->scope;
-				}
-
-				$haveArgs = false;
-				if (isset($mixin->args)) {
-					$haveArgs = true;
-					$this->pushEnv();
-					$this->zipSetArgs($mixin->args, $orderedArgs, $keywordArgs);
-				}
-
-				$oldParent = $mixin->parent;
-				if ($mixin != $block) $mixin->parent = $block;
-
-				foreach ($this->sortProps($mixin->props) as $subProp) {
-					if ($suffix !== null &&
-						$subProp[0] == "assign" &&
-						is_string($subProp[1]) &&
-						$subProp[1]{0} != $this->vPrefix)
-					{
-						$subProp[2] = array(
-							'list', ' ',
-							array($subProp[2], array('keyword', $suffix))
-						);
-					}
-
-					$this->compileProp($subProp, $mixin, $out);
-				}
-
-				$mixin->parent = $oldParent;
-
-				if ($haveArgs) $this->popEnv();
-				if ($haveScope) $this->popEnv();
-			}
-
-			break;
-		case 'raw':
-			$out->lines[] = $prop[1];
-			break;
-		case "directive":
-			list(, $name, $value) = $prop;
-			$out->lines[] = "@$name " . $this->compileValue($this->reduce($value)).';';
-			break;
-		case "comment":
-			$out->lines[] = $prop[1];
-			break;
-		case "import";
-			list(, $importPath, $importId) = $prop;
-			$importPath = $this->reduce($importPath);
-
-			if (!isset($this->env->imports)) {
-				$this->env->imports = array();
-			}
-
-			$result = $this->tryImport($importPath, $block, $out);
-
-			$this->env->imports[$importId] = $result === false ?
-				array(false, "@import " . $this->compileValue($importPath).";") :
-				$result;
-
-			break;
-		case "import_mixin":
-			list(,$importId) = $prop;
-			$import = $this->env->imports[$importId];
-			if ($import[0] === false) {
-				if (isset($import[1])) {
-					$out->lines[] = $import[1];
-				}
-			} else {
-				list(, $bottom, $parser, $importDir) = $import;
-				$this->compileImportedProps($bottom, $block, $out, $parser, $importDir);
-			}
-
-			break;
-		default:
-			$this->throwError("unknown op: {$prop[0]}\n");
-		}
+            case 'assign':
+                list(, $name, $value) = $prop;
+                var_dump($name,$value);
+                if ($name[0] == $this->vPrefix) {
+                    $this->set($name, $value);
+                } else {
+                    $out->lines[] = $this->formatter->property($name,
+                            $this->compileValue($this->reduce($value)));
+                }
+                break;
+            case 'block':
+                list(, $child) = $prop;
+                $this->compileBlock($child);
+                break;
+            case 'mixin':
+                list(, $path, $args, $suffix) = $prop;
+    
+                $orderedArgs = array();
+                $keywordArgs = array();
+                foreach ((array)$args as $arg) {
+                    $argval = null;
+                    switch ($arg[0]) {
+                    case "arg":
+                        if (!isset($arg[2])) {
+                            $orderedArgs[] = $this->reduce(array("variable", $arg[1]));
+                        } else {
+                            $keywordArgs[$arg[1]] = $this->reduce($arg[2]);
+                        }
+                        break;
+    
+                    case "lit":
+                        $orderedArgs[] = $this->reduce($arg[1]);
+                        break;
+                    default:
+                        $this->throwError("Unknown arg type: " . $arg[0]);
+                    }
+                }
+    
+                $mixins = $this->findBlocks($block, $path, $orderedArgs, $keywordArgs);
+    
+                if ($mixins === null) {
+                    // fwrite(STDERR,"failed to find block: ".implode(" > ", $path)."\n");
+                    break; // throw error here??
+                }
+    
+                foreach ($mixins as $mixin) {
+                    if ($mixin === $block && !$orderedArgs) {
+                        continue;
+                    }
+    
+                    $haveScope = false;
+                    if (isset($mixin->parent->scope)) {
+                        $haveScope = true;
+                        $mixinParentEnv = $this->pushEnv();
+                        $mixinParentEnv->storeParent = $mixin->parent->scope;
+                    }
+    
+                    $haveArgs = false;
+                    if (isset($mixin->args)) {
+                        $haveArgs = true;
+                        $this->pushEnv();
+                        $this->zipSetArgs($mixin->args, $orderedArgs, $keywordArgs);
+                    }
+    
+                    $oldParent = $mixin->parent;
+                    if ($mixin != $block) $mixin->parent = $block;
+    
+                    foreach ($this->sortProps($mixin->props) as $subProp) {
+                        if ($suffix !== null &&
+                            $subProp[0] == "assign" &&
+                            is_string($subProp[1]) &&
+                            $subProp[1]{0} != $this->vPrefix)
+                        {
+                            $subProp[2] = array(
+                                'list', ' ',
+                                array($subProp[2], array('keyword', $suffix))
+                            );
+                        }
+    
+                        $this->compileProp($subProp, $mixin, $out);
+                    }
+    
+                    $mixin->parent = $oldParent;
+    
+                    if ($haveArgs) $this->popEnv();
+                    if ($haveScope) $this->popEnv();
+                }
+    
+                break;
+            case 'raw':
+                $out->lines[] = $prop[1];
+                break;
+            case "directive":
+                list(, $name, $value) = $prop;
+                $out->lines[] = "@$name " . $this->compileValue($this->reduce($value)).';';
+                break;
+            case "comment":
+                $out->lines[] = $prop[1];
+                break;
+            case "import";
+                list(, $importPath, $importId) = $prop;
+                $importPath = $this->reduce($importPath);
+    
+                if (!isset($this->env->imports)) {
+                    $this->env->imports = array();
+                }
+    
+                $result = $this->tryImport($importPath, $block, $out);
+    
+                $this->env->imports[$importId] = $result === false ?
+                    array(false, "@import " . $this->compileValue($importPath).";") :
+                    $result;
+    
+                break;
+            case "import_mixin":
+                list(,$importId) = $prop;
+                $import = $this->env->imports[$importId];
+                if ($import[0] === false) {
+                    if (isset($import[1])) {
+                        $out->lines[] = $import[1];
+                    }
+                } else {
+                    list(, $bottom, $parser, $importDir) = $import;
+                    $this->compileImportedProps($bottom, $block, $out, $parser, $importDir);
+                }
+    
+                break;
+            default:
+                $this->throwError("unknown op: {$prop[0]}\n");
+            }
 	}
 
 
