@@ -3808,7 +3808,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $map = $this->links( );
         
         $this->databaseStructure();
-        $dbstructure = $_GLOBALS['DB_DATAOBJECT']['INI'][$this->_database];
+        $dbstructure = $GLOBALS['DB_DATAOBJECT']['INI'][$this->_database];
         //print_r($map);
         $tabdef = $this->table();
          
