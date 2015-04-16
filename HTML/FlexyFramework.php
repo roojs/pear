@@ -283,8 +283,7 @@ class HTML_FlexyFramework {
         if (
                 empty($this->languages) ||
                 (
-                        !isset($cfg['cookie']) &&
-                        !isset($cfg['default'])
+                        !isset($cfg['cookie']) && !isset($cfg['default'])
                 )
         ) {
             return;
