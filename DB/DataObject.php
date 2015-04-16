@@ -3800,6 +3800,7 @@ class DB_DataObject extends DB_DataObject_Overload
      */
     function autoJoin($cfg = array())
     {
+        global $_DB_DATAOBJECT;
         //var_Dump($cfg);exit;
         $pre_links = $this->links();
         if (!empty($cfg['links'])) {
@@ -3808,7 +3809,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $map = $this->links( );
         
         $this->databaseStructure();
-        $dbstructure = $GLOBALS['DB_DATAOBJECT']['INI'][$this->_database];
+        $dbstructure = $_DB_DATAOBJECT['INI'][$this->_database];
         //print_r($map);
         $tabdef = $this->table();
          
