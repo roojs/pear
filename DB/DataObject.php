@@ -3807,6 +3807,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         $map = $this->links( );
         
+        $dbstructure = $this->databaseStructure();
         
         //print_r($map);
         $tabdef = $this->table();
@@ -3874,6 +3875,12 @@ class DB_DataObject extends DB_DataObject_Overload
             
             list($tab,$col) = explode(':', $info);
             // what about multiple joins on the same table!!!
+            
+            // if links point to a table that does not exist - ignore.
+            if (!isset($dbstructure[$tab])) {
+                continue;
+            }
+            
             $xx = DB_DataObject::factory($tab);
             if (!is_object($xx) || !is_a($xx, 'DB_DataObject')) {
                 continue;
