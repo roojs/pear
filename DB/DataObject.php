@@ -3878,6 +3878,9 @@ class DB_DataObject extends DB_DataObject_Overload
             
             // if links point to a table that does not exist - ignore.
             if (!isset($dbstructure[$tab])) {
+                print_r($dbstructure);
+                var_dump($tab);exit;
+                
                 continue;
             }
             
