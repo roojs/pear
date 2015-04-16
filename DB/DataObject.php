@@ -3807,8 +3807,8 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         $map = $this->links( );
         
-        $dbstructure = $this->databaseStructure();
-        
+        $this->databaseStructure();
+        $dbstructure = $_GLOBALS['DB_DATAOBJECT']['INI'][$this->_database];
         //print_r($map);
         $tabdef = $this->table();
          
@@ -3878,9 +3878,7 @@ class DB_DataObject extends DB_DataObject_Overload
             
             // if links point to a table that does not exist - ignore.
             if (!isset($dbstructure[$tab])) {
-                print_r($dbstructure);
-                var_dump($tab);exit;
-                
+                  
                 continue;
             }
             
