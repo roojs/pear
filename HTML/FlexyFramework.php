@@ -280,7 +280,13 @@ class HTML_FlexyFramework {
     */
     function _handleLanguages()
     {
-        if (empty($this->languages)) {
+        if (
+                empty($this->languages) ||
+                (
+                        !isset($cfg['cookie']) &&
+                        !isset($cfg['default'])
+                )
+        ) {
             return;
         }
         $cfg = $this->languages;
