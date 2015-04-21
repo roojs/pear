@@ -250,7 +250,7 @@ class Date_Calc
      * @access public
      * @static
      */
-    function dateToDays($day, $month, $year)
+    static function dateToDays($day, $month, $year)
     {
         $century = (int)substr($year, 0, 2);
         $year = (int)substr($year, 2, 2);
@@ -1913,7 +1913,7 @@ class Date_Calc
      * @access public
      * @static
      */
-    function isValidDate($day, $month, $year)
+    static function isValidDate($day, $month, $year)
     {
         if ($year < 0 || $year > 9999) {
             return false;
@@ -2056,7 +2056,7 @@ class Date_Calc
      * @access public
      * @static
      */
-    function dateDiff($day1, $month1, $year1, $day2, $month2, $year2)
+    static function dateDiff($day1, $month1, $year1, $day2, $month2, $year2)
     {
         if (!Date_Calc::isValidDate($day1, $month1, $year1)) {
             return -1;
