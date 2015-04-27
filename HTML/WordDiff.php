@@ -165,7 +165,7 @@ class HTML_WordDiff
             $this->wordMax = 10*count($a);
         }
         if($this->debug_on){
-             print_r($a);
+            var_Dump("domstrings"); print_r($a);
 //            exit;
         }
         $ret = array();
