@@ -220,7 +220,7 @@ class HTML_WordDiff
         
         
 //        print_r(mb_detect_encoding($this->htmlDom));
-        vardump(strlen($this->htmlDom));
+        var_dump(strlen($this->htmlDom));
         // may produce errors - so we hide them...
         $searchPage = preg_replace('#charset=[a-z0-9-]+#i', $this->htmlDom, '');
         //$searchPage = $this->htmlDom; //@mb_convert_encoding($this->htmlDom, $charset ,  $charset=="UTF-8" ? "auto" :$charset);
