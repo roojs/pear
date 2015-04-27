@@ -220,12 +220,10 @@ class HTML_WordDiff
         
         
 //        print_r(mb_detect_encoding($this->htmlDom));
-        var_dump(strlen($this->htmlDom));
+       
         // may produce errors - so we hide them...
         $searchPage = preg_replace('#charset=([^"]+)#', '', $this->htmlDom);
         //$searchPage = $this->htmlDom; //@mb_convert_encoding($this->htmlDom, $charset ,  $charset=="UTF-8" ? "auto" :$charset);
-        
-        var_dump($searchPage);
                  
         
 //        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8",  "HTML-ENTITIES");
