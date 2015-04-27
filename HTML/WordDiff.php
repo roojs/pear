@@ -207,10 +207,10 @@ class HTML_WordDiff
     function DomToStrings($target = '')
     {
         $charset = 'UTF-8';
-        if (preg_match('#charset=([^"]+)#', $this->htmlDom,$matches)) {
+        //if (preg_match('#charset=([^"]+)#', $this->htmlDom,$matches)) {
             //var_dump($matches);exit;
-            $charset = $matches[1];
-        }
+        //    $charset = $matches[1];
+        //}
         
         $pageDom = new DomDocument('1.0', $charset);
         $pageDom->formatOutput = true;
