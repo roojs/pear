@@ -224,7 +224,7 @@ class HTML_WordDiff
         // may produce errors - so we hide them...
         $searchPage = @mb_convert_encoding($this->htmlDom, $charset ,  $charset=="UTF-8" ? "auto" :$charset);
         
-        var_dump($searchPage);
+        //var_dump($searchPage);
                  
         
 //        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8",  "HTML-ENTITIES");
@@ -238,7 +238,7 @@ class HTML_WordDiff
 //        }
 //        print_r(mb_detect_encoding($searchPage));
       // print_r($searchPage);
-       @ $pageDom->loadHTML(($charset == 'UTF-8' ? '<?xml version="1.0" encoding="UTF-8"?>' : ''). $searchPage);
+        $pageDom->loadHTML(($charset == 'UTF-8' ? '<?xml version="1.0" encoding="UTF-8"?>' : ''). $searchPage);
 //        exit;
         $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
        // print_r($words);exit;
