@@ -1042,7 +1042,8 @@ class DB_DataObject_Generator extends DB_DataObject
             $p = str_repeat(' ',max(2,  (30 - strlen($t->name))));
 
             $length = empty($t->len) ? '' : '('.$t->len.')';
-            $body .="    {$var} \${$t->name};  {$p}// {$t->type}$length  {$t->flags}\n";
+            $flags = strlen($flags) ? (' '. trim($flags)) : '';
+            $body .="    {$var} \${$t->name};  {$p}// {$t->type}{$length}{$flags}\n";
             
             // can not do set as PEAR::DB table info doesnt support it.
             //if (substr($t->Type,0,3) == "set")
