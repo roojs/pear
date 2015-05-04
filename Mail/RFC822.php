@@ -502,6 +502,7 @@ class Mail_RFC822 {
         //                         geezer
         // ... or any other format valid by RFC 822.
         for ($i = 0; $i < count($addresses); $i++) {
+            print_R($addresses[$i]);exit;
             if (!$this->validateMailbox($addresses[$i])) {
                 if (empty($this->error)) {
                     $this->error = 'Validation failed for: ' . $addresses[$i];
