@@ -660,7 +660,7 @@ class Mail_RFC822 {
         }
 
         $mailbox = trim($mailbox);
-
+        print_r(substr($mailbox, -1));exit;
         // Check for name + route-addr
         if (substr($mailbox, -1) == '>' && substr($mailbox, 0, 1) != '<') {
             $parts  = explode('<', $mailbox);
