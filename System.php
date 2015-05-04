@@ -387,7 +387,7 @@ class System
      * @static
      * @access  public
      */
-    function mktemp($args = null)
+    static function mktemp($args = null)
     {
         static $first_time = true;
         $opts = System::_parseArgs($args, 't:d');
