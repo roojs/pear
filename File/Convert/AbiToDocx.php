@@ -69,7 +69,7 @@ class File_Convert_AbiToDocx
             
             // this may produce warnings... - &gt; confuses the XML reader.. (as we are using it in abiword generation.)
             
-            while (@$this->xr->read()){
+            while ($this->xr->read()){
                 //$this->dumpsections($sections);
                  // echo $this->xr->name . '::' . count($sections). "<br/>"; 
                  $method = 'handle_'.$this->xr->name;
