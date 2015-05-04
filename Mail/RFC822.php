@@ -675,7 +675,6 @@ class Mail_RFC822 {
 
         // Only got addr-spec
         } else {
-            print_R('run??');exit;
             // First snip angle brackets if present.
             if (substr($mailbox, 0, 1) == '<' && substr($mailbox, -1) == '>') {
                 $addr_spec = substr($mailbox, 1, -1);
