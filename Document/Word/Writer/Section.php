@@ -177,13 +177,19 @@ class Document_Word_Writer_Section
 	 * @return PHPWord_Section_Table
 	 */
 	public function addTable($style = null) 
-        {
-                require_once __DIR__.'/Section/Table.php';
+    {
+        require_once __DIR__.'/Section/Table.php';
 		$table = new Document_Word_Writer_Section_Table('section', $this->_sectionCount, $style);
 		$this->_elementCollection[] = $table;
 		return $table;
 	}
-	
+	public static function staticAddTable($th, $style = null) 
+    {
+        require_once __DIR__.'/Section/Table.php';
+		$table = new Document_Word_Writer_Section_Table('section', $th->_sectionCount, $style);
+		$th->_elementCollection[] = $table;
+		return $table;
+	}
 	/**
 	 * Add a ListItem Element
 	 * 
