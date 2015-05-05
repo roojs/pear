@@ -119,24 +119,26 @@ class Document_Word_Writer_Section_TextRun
 		return $link;
 	}
 	public function addImage($src, $style = null) 
-        {
-            Document_Word_Writer_Section::addImage($src, $style);
+    {
+        Document_Word_Writer_Section::addImage($src, $style);
+    }
+        
+    public function addTextBreak($count = 1) 
+    {
+       require_once __DIR__ . '/Section/TextBreak.php';
+        for($i=1; $i<=$count; $i++) {
+            $this->_elementCollection[] = new Document_Word_Writer_Section_TextBreak();
         }
-        
-        public function addTextBreak($count = 1) 
-        {
-            Document_Word_Writer_Section::addTextBreak($count);
-	}
-        
-        public function addPageBreak() 
-        {      
+    }
+    public function addPageBreak() 
+    {      
             Document_Word_Writer_Section::addPageBreak();
 	}
         
-        public function addPreserveText($text, $styleFont = null, $styleParagraph = null) 
-        {
-            require_once __DIR__ . '/Footer.php';
-            Document_Word_Writer_Section_Footer::addPreserveText($text, $styleFont, $styleParagraph);
+    public function addPreserveText($text, $styleFont = null, $styleParagraph = null) 
+    {
+        require_once __DIR__ . '/Footer.php';
+        Document_Word_Writer_Section_Footer::addPreserveText($text, $styleFont, $styleParagraph);
 	}
         
 	/**
@@ -158,4 +160,5 @@ class Document_Word_Writer_Section_TextRun
         {
 		return $this->_styleParagraph;
 	}
+    
 }
