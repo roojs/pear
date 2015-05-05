@@ -161,13 +161,18 @@ class Document_Word_Writer_Section
             }
 	}
 	
+    public function addPageBreak()
+    {
+        self:staticAddPageBreak($this);
+    }
 	/**
 	 * Add a PageBreak Element
 	 */
-	public function addPageBreak() 
-        {
-                require_once __DIR__ . '/Section/PageBreak.php';
-		$this->_elementCollection[] = new Document_Word_Writer_Section_PageBreak();
+    
+	public static function staticAddPageBreak($th) 
+    {
+        require_once __DIR__ . '/Section/PageBreak.php';
+		$th->_elementCollection[] = new Document_Word_Writer_Section_PageBreak();
 	}
 	
 	/**
