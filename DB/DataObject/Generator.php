@@ -895,7 +895,7 @@ class DB_DataObject_Generator extends DB_DataObject
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
        
         $this->_extends = empty($options['extends']) ? $this->_extends : $options['extends'];
-        $this->_extendsFile = empty($options['extends_location']) ? $this->_extendsFile : $options['extends_location'];
+        $this->_extendsFile = !isset($options['extends_location']) ? $this->_extendsFile : $options['extends_location'];
      
 
         foreach($this->tables as $this->table) {
