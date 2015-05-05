@@ -155,10 +155,10 @@ class Document_Word_Writer_Section
 	 */
 	public function addTextBreak($count = 1) 
         {
-                require_once __DIR__ . '/Section/TextBreak.php';
-		for($i=1; $i<=$count; $i++) {
-			$this->_elementCollection[] = new Document_Word_Writer_Section_TextBreak();
-		}
+            require_once __DIR__ . '/Section/TextBreak.php';
+            for($i=1; $i<=$count; $i++) {
+                $this->_elementCollection[] = new Document_Word_Writer_Section_TextBreak();
+            }
 	}
 	
 	/**
