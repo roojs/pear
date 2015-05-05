@@ -129,7 +129,7 @@ class Document_Word_Writer_Section_TextRun
     }
     public function addPageBreak() 
     {      
-        Document_Word_Writer_Section::staticAddPageBreak();
+        Document_Word_Writer_Section::staticAddPageBreak($this);
 	}
         
     public function addPreserveText($text, $styleFont = null, $styleParagraph = null) 
