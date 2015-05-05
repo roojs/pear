@@ -178,10 +178,7 @@ class Document_Word_Writer_Section
 	 */
 	public function addTable($style = null) 
     {
-        require_once __DIR__.'/Section/Table.php';
-		$table = new Document_Word_Writer_Section_Table('section', $this->_sectionCount, $style);
-		$this->_elementCollection[] = $table;
-		return $table;
+        return self::staticAddTable($this, $style);
 	}
 	public static function staticAddTable($th, $style = null) 
     {
