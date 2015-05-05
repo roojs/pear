@@ -1288,7 +1288,7 @@ class DB_DataObject_Generator extends DB_DataObject
         $class_prefix  = empty($options['class_prefix']) ? '' : $options['class_prefix'];
         
         $this->_extends = empty($options['extends']) ? $this->_extends : $options['extends'];
-        $this->_extendsFile = empty($options['extends_location']) ? $this->_extendsFile : $options['extends_location'];
+        $this->_extendsFile = !isset($options['extends_location']) ? $this->_extendsFile : $options['extends_location'];
  
         $classname = $this->classname = $this->getClassNameFromTableName($this->table);
         
