@@ -978,7 +978,8 @@ class DB_DataObject_Generator extends DB_DataObject
         
         // requires - if you set extends_location = (blank) then no require line will be set
         // this can be used if you have an autoloader
-        if (!empty($this->_extendsFile) {
+        
+        if (!empty($this->_extendsFile)) {
             $head .= "require_once '{$this->_extendsFile}';\n\n";
         }
         // add dummy class header in...
