@@ -155,7 +155,7 @@ class Document_Word_Writer_Section
 	 */
     
     public function addTextBreak($count = 1) {
-        return self:staticAddTextBreak($count);
+        return self::staticAddTextBreak($count);
     }
 	public static function staticAddTextBreak($th, $count = 1) 
     {
