@@ -256,10 +256,14 @@ class Document_Word_Writer_Section
 	 * @param mixed $style
 	 * @return PHPWord_Section_Image
 	 */
-	public function addImage($src, $style = null) 
+    public function addImage($src, $style = null) {
+        return self::staticAddImage($this, $src,$style);
+    }
+    
+	public static function staticAddImage($th, $src, $style = null) 
         {
-                require_once __DIR__ . '/Section/Image.php';
-                require_once __DIR__ . '/Media.php';
+        require_once __DIR__ . '/Section/Image.php';
+        require_once __DIR__ . '/Media.php';
 		$image = new Document_Word_Writer_Section_Image($src, $style);
 		if(is_null($image->getSource())) {
                     return false;
@@ -269,7 +273,7 @@ class Document_Word_Writer_Section
                 $rID = Document_Word_Writer_Media::addSectionMediaElement($src, 'image');
                 $image->setRelationId($rID);
 
-                $this->_elementCollection[] = $image;
+                $th->_elementCollection[] = $image;
                 return $image;
 		 
 			
