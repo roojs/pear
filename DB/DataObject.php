@@ -410,7 +410,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug($n, "find",1);
         }
-        if (!$this->__table) {
+        if (!strlen($this->tableName())) {
             // xdebug can backtrace this!
             trigger_error("NO \$__table SPECIFIED in class definition",E_USER_ERROR);
         }
@@ -2424,7 +2424,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $dsn = isset($this->_database_dsn) ? $this->_database_dsn : null;
         
         if (!$dsn) {
-            if (!$this->_database && !empty($this->__table)) {
+            if (!$this->_database && !strlen($this->tableName())) {
                 $this->_database = isset($options["table_{$this->tableName()}"]) ? $options["table_{$this->tableName()}"] : null;
             }
             if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
@@ -3525,7 +3525,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     if ($joinCol !== false) {
                         $this->raiseError( 
                             "joinAdd: You cannot target a join column in the " .
-                            "'link from' table ({$obj->__table}). " . 
+                            "'link from' table ({$obj->tableName()}). " . 
                             "Either remove the fourth argument to joinAdd() ".
                             "({$joinCol}), or alter your links.ini file.",
                             DB_DATAOBJECT_ERROR_NODATA);
@@ -3608,7 +3608,7 @@ class DB_DataObject extends DB_DataObject_Overload
              
             if (!$items) {
                 $this->raiseError(
-                    "joinAdd: No table definition for {$obj->__table}", 
+                    "joinAdd: No table definition for {$obj->tableName()}", 
                     DB_DATAOBJECT_ERROR_INVALIDCONFIG);
                 return false;
             }
