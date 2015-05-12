@@ -2073,6 +2073,9 @@ class DB_DataObject extends DB_DataObject_Overload
         if (count($args)) {
             $this->__table = $args[0];
         }
+        if (empty($this->__table)) {
+            return '';
+        }
         if (!empty($_DB_DATAOBJECT['CONFIG']['portability']) && $_DB_DATAOBJECT['CONFIG']['portability'] & 1) {
             return strtolower($this->__table);
         }
