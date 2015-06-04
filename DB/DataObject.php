@@ -665,7 +665,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 ($method == false ? clone($this)  : $this->$method())
                 : $this->$k;
         }
-        var_dump($ret);
+ 
         return $ret;
          
     }
