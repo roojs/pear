@@ -3528,7 +3528,7 @@ class DB_DataObject extends DB_DataObject_Overload
                             "joinAdd: You cannot target a join column in the " .
                             "'link from' table ({$obj->tableName()}). " . 
                             "Either remove the fourth argument to joinAdd() ".
-                            "({$joinCol}), or alter your links.ini file.',
+                            "({$joinCol}), or alter your links.ini file.",
                             DB_DATAOBJECT_ERROR_NODATA);
                         return false;
                     }
