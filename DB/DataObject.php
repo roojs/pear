@@ -3524,7 +3524,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     // not sure if 1:1 table could cause probs here..
                     
                     if ($joinCol !== false) {
-                        print_r($obj->links());
+                        print_r($olinks);
                         $this->raiseError( 
                             "joinAdd: You cannot target a join column in the " .
                             "'link from' table ({$obj->tableName()}). " . 
