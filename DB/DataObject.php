@@ -3494,6 +3494,12 @@ class DB_DataObject extends DB_DataObject_Overload
         //print_r($obj->links());
         if (!$ofield && ($olinks = $obj->links())) {
             
+            if (!empty($_REQUEST['_evtype_align'])) {
+                var_dump("did not find match in links");
+                var_dump($links);
+            }
+            
+            
             foreach ($olinks as $k => $linkVar) {
                 /* link contains {this column} = array ( {linked table}:{linked column} )*/
                 if (!is_array($linkVar)) {
