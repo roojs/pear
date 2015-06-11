@@ -3494,12 +3494,6 @@ class DB_DataObject extends DB_DataObject_Overload
         //print_r($obj->links());
         if (!$ofield && ($olinks = $obj->links())) {
             
-            if (!empty($_REQUEST['_evtype_align'])) {
-                var_dump("did not find match in links");
-                var_dump($links);
-            }
-            
-            
             foreach ($olinks as $k => $linkVar) {
                 /* link contains {this column} = array ( {linked table}:{linked column} )*/
                 if (!is_array($linkVar)) {
@@ -3534,7 +3528,7 @@ class DB_DataObject extends DB_DataObject_Overload
                             "joinAdd: You cannot target a join column in the " .
                             "'link from' table ({$obj->tableName()}). " . 
                             "Either remove the fourth argument to joinAdd() ".
-                            "({$joinCol}), or alter your links.ini file.",
+                            "({$joinCol}), or alter your links.ini file. ",
                             DB_DATAOBJECT_ERROR_NODATA);
                         return false;
                     }
@@ -3901,9 +3895,6 @@ class DB_DataObject extends DB_DataObject_Overload
             // we ignore include here... - as
              
             // this is borked ... for multiple jions..
-            if (!empty($_REQUEST['_evtype_align'])) {
-                var_dump(array($this->tablename(), $xx->tableName(), 'join_'.$ocl.'_'. $col, $ocl));
-            }
             $this->joinAdd($xx, 'LEFT', 'join_'.$ocl.'_'. $col, $ocl);
             
             if (!empty($cfg['exclude']) && in_array($ocl, $cfg['exclude'])) {
