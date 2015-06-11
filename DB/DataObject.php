@@ -3895,6 +3895,7 @@ class DB_DataObject extends DB_DataObject_Overload
             // we ignore include here... - as
              
             // this is borked ... for multiple jions..
+            var_dump(array($this->tablename(), $xx->tableName(), 'join_'.$ocl.'_'. $col, $ocl));
             $this->joinAdd($xx, 'LEFT', 'join_'.$ocl.'_'. $col, $ocl);
             
             if (!empty($cfg['exclude']) && in_array($ocl, $cfg['exclude'])) {
