@@ -166,7 +166,7 @@ class Mail_mimeDecode extends PEAR
      * @param string The input to decode
      * @access public
      */
-    function __construct($input)
+    function Mail_mimeDecode($input)
     {
         list($header, $body)   = $this->_splitBodyHeader($input);
 
@@ -176,11 +176,6 @@ class Mail_mimeDecode extends PEAR
         $this->_decode_bodies  = false;
         $this->_include_bodies = true;
         $this->_rfc822_bodies  = false;
-    }
-    // BC
-    function Mail_mimeDecode($input)
-    {
-        $this->__construct($input);
     }
 
     /**
@@ -335,6 +330,7 @@ class Mail_mimeDecode extends PEAR
                 case 'multipart/digest':
                 case 'multipart/alternative':
                 case 'multipart/related':
+                case 'multipart/relative': //#20431 - android
                 case 'multipart/mixed':
                 case 'application/vnd.wap.multipart.related':
                     if(!isset($content_type['other']['boundary'])){
@@ -718,7 +714,7 @@ class Mail_mimeDecode extends PEAR
         }
         // eatline is used by multipart/signed.
         $tmp = $eatline ?
-            preg_split("/\n--".preg_quote($boundary, '/')."(|--)\n/", $input) :
+            preg_split("/\r?\n--".preg_quote($boundary, '/')."(|--)\n/", $input) :
             preg_split("/--".preg_quote($boundary, '/')."((?=\s)|--)/", $input);
 
         $len = count($tmp) -1;
@@ -942,7 +938,6 @@ class Mail_mimeDecode extends PEAR
         if (!$headerlist) {
             return $this->raiseError("Message did not contain headers");
         }
-
         foreach($headerlist as $item) {
             $header[$item['name']] = $item['value'];
             switch (strtolower($item['name'])) {
