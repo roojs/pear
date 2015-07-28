@@ -288,6 +288,8 @@ class HTML_FlexyFramework {
         ) {
             return;
         }
+        
+        
         $cfg = $this->languages;
            
         $lang = isset($_COOKIE[$cfg['cookie']]) ?  $cfg['cookie']: $cfg['default'];
