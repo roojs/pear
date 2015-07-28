@@ -311,7 +311,7 @@ class HTML_FlexyFramework {
         if (!empty($this->HTML_Template_Flexy)) {
             $this->HTML_Template_Flexy['locale'] = $lang;   //set a language for template engine
         }
-        print_R($this);exit;
+         
     }
     
     /**
