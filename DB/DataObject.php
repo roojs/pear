@@ -2002,7 +2002,6 @@ class DB_DataObject extends DB_DataObject_Overload
          
         $_DB_DATAOBJECT['INI'][$this->_database] = array();
         foreach ($schemas as $ini) {
-            var_dump($ini);
              if (file_exists($ini) && is_file($ini)) {
                 
                 $_DB_DATAOBJECT['INI'][$this->_database] = array_merge(
