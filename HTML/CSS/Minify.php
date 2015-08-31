@@ -621,4 +621,15 @@ class HTML_CSS_Minify
 
         return trim($content);
     }
+    
+    
+    function convertPath($from, $to, $path)
+    {
+        
+        
+        
+        
+    }
+    
+    
 }
