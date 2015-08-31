@@ -361,7 +361,7 @@ class HTML_CSS_Minify
              * of the move code...)
              */
             
-            $source = $source ?: '';
+            $source = empty($source) ? '' : $source;
             
             $css = $this->move($source, empty($serve_url) ?  $source : $serve_url, $css);
 
