@@ -45,7 +45,7 @@ class HTML_CSS_Minify
     {
         $this->baseURL = $baseURL;
         foreach($files as $f) {
-            $this->data[$baseURL . '/'. $key] = file_get_contents($baseDir. '/'. $f);
+            $this->data[$baseURL . '/'. $f] = file_get_contents($baseDir. '/'. $f);
         }
         
     }
