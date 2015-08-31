@@ -365,7 +365,7 @@ class HTML_CSS_Minify
              
             
             // fix relative url
-            $url = $this->convertPath($base_url_to, $match['path']);
+            $url = $this->convertPath($serve_url, $match['path']);
 
             // build replacement
             $search[] = $match[0];
