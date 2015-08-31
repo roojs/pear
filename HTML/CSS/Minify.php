@@ -650,7 +650,7 @@ class HTML_CSS_Minify
         $to = mb_substr($to, mb_strlen($shared));
         
         $to = str_repeat('../', mb_substr_count($to, '/'));
-        return $to.ltrim($path, '/');
+        return $to . ltrim($path, '/');
     }
     
     
