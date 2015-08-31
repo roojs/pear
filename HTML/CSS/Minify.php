@@ -506,9 +506,12 @@ class HTML_CSS_Minify
         foreach ($matches as $match) {
             // determine if it's a url() or an @import match
             $type = (strpos($match[0], '@import') === 0 ? 'import' : 'url');
-
+            
+            
+             
+            
             // fix relative url
-            $url = $converter->convert($match['path']);
+            $url = $this->convertPath($base_url, $base_url_to, $match['path']);
 
             // build replacement
             $search[] = $match[0];
