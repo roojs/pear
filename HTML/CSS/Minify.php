@@ -3,6 +3,19 @@
 
 // Based on CSS minifier. by  Matthias Mullie - see  https://github.com/matthiasmullie/minify/issues
  
+ /**
+ * CSS minifier.
+ *
+ * Please report bugs on https://github.com/matthiasmullie/minify/issues
+ *
+ * @author Matthias Mullie <minify@mullie.eu>
+ * @author Tijs Verkoyen <minify@verkoyen.eu>
+ *
+ * @copyright Copyright (c) 2012, Matthias Mullie. All rights reserved.
+ * @license MIT License
+ */
+ 
+ 
  
 class HTML_CSS_Minify
 {
