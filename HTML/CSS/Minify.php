@@ -475,7 +475,53 @@ class HTML_CSS_Minify
 
         return trim($content);
     }
-    
+      /**
+     * Strings are a pattern we need to match, in order to ignore potential
+     * code-like content inside them, but we just want all of the string
+     * content to remain untouched.
+     *
+     * This method will replace all string content with simple STRING#
+     * placeholder text, so we've rid all strings from characters that may be
+     * misinterpreted. Original string content will be saved in $this->extracted
+     * and after doing all other minifying, we can restore the original content
+     * via restoreStrings()
+     *
+     * @param string[optional] $chars
+     */
+    protected function extractStrings($chars = '\'"')
+    {
+        // PHP only supports $this inside anonymous functions since 5.4
+        $minifier = $this;
+        $callback = function ($match) use ($minifier) {
+            if (!$match[1]) {
+                /*
+                 * Empty strings need no placeholder; they can't be confused for
+                 * anything else anyway.
+                 * But we still needed to match them, for the extraction routine
+                 * to skip over this particular string.
+                 */
+                return $match[0];
+            }
+            $count = count($minifier->extracted);
+            $placeholder = $match[1].$count.$match[1];
+            $minifier->extracted[$placeholder] = $match[1].$match[2].$match[1];
+            return $placeholder;
+        };
+        /*
+         * The \\ messiness explained:
+         * * Don't count ' or " as end-of-string if it's escaped (has backslash
+         * in front of it)
+         * * Unless... that backslash itself is escaped (another leading slash),
+         * in which case it's no longer escaping the ' or "
+         * * So there can be either no backslash, or an even number
+         * * multiply all of that times 4, to account for the escaping that has
+         * to be done to pass the backslash into the PHP string without it being
+         * considered as escape-char (times 2) and to get it in the regex,
+         * escaped (times 2)
+         */
+        $this->registerPattern('/(['.$chars.'])(.*?(?<!\\\\)(\\\\\\\\)*+)\\1/s', $callback);
+    }
+
     
     function convertPath($in_to, $path)
     {
