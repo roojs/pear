@@ -673,6 +673,7 @@ class HTML_CSS_Minify
             }
         }
         $shared =  implode('/', $shared);
+        print_r($shared);
         
         
         $path = mb_substr($path, mb_strlen($shared));
