@@ -76,9 +76,9 @@ class HTML_CSS_Minify
     {
         $this->baseURL = $baseURL;
         foreach($files as $f) {
-            
+            $this->data[$baseURL . '/'. $key] = $this->load($baseDir. '/'. $f);
         }
-        $this->data[$key] = $this->load($data);;
+        
     }
 
     /**
