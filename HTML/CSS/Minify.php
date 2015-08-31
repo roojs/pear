@@ -327,7 +327,7 @@ class HTML_CSS_Minify
      * Minify the data.
      * Perform CSS optimizations.
      *
-     * @param  string[optional] $path Path to write the data to.
+     * @param  string[optional] $serve_url Path where the new file will be served from 
      * @return string           The minified data.
      */
     public function minify($path = null)
