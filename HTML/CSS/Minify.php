@@ -25,8 +25,12 @@ class HTML_CSS_Minify
      * @var string[]
      */
     protected $data = array();
-
- 
+    /**
+     * The base URL of the original file..
+     *
+     * @var string[]
+     */
+    var $baseURL = ''
     
     /**
      * Init the minify class - optionally, code may be passed along already.
@@ -262,7 +266,7 @@ class HTML_CSS_Minify
      * @param  string    $content   The CSS content to update relative urls for.
      * @return string
      */
-    protected function move($base_url, $base_url_to, $content)
+    protected function move($serve_url, $content)
     {
         /*
          * Relative path references will usually be enclosed by url(). @import
