@@ -648,7 +648,7 @@ class HTML_CSS_Minify
     function convertPath($in_to, $path)
     {
         require_once 'Net/URL.php';
-        $a = new NetURL();
+        $a = new Net_URL();
         $path = $a->resolvePath($this->baseURL . '/'. $path); // not sure if that's a good idea..
         $to = $a->resolvePath($in_to);
         
