@@ -103,20 +103,7 @@ class HTML_CSS_Minify
     }
    
 
-    /**
-     * Minify the data & (optionally) saves it to a file.
-     *
-     * @param  string[optional] $path Path to write the data to.
-     * @return string           The minified data.
-     */
-    public function minify( )
-    {
-        $content = $this->execute($path);
-
-         
-
-        return $content;
-    }
+  
 
     /**
      * Set the maximum size if files to be imported.
@@ -343,7 +330,7 @@ class HTML_CSS_Minify
      * @param  string[optional] $path Path to write the data to.
      * @return string           The minified data.
      */
-    public function execute($path = null)
+    public function minify($path = null)
     {
         $content = '';
 
