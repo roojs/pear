@@ -41,7 +41,7 @@ class HTML_CSS_Minify
      * 
      */
     
-    public function __construct($baseURL, $baseDir, $files  )
+    public function __construct($baseURL, $files  )
     {
         $this->baseURL = $baseURL;
         foreach($files as $f) {
