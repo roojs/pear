@@ -367,8 +367,13 @@ class HTML_CSS_Minify
 
             // if no target path is given, relative paths were not converted, so
             // they'll still be relative to the source file then
-            $css = $this->importFiles($path ?: $source, $css);
-            $css = $this->combineImports($path ?: $source, $css);
+            
+            
+            //$css = $this->importFiles($path ?: $source, $css);
+            
+            
+            // combined imports are not done
+            //$css = $this->combineImports($path ?: $source, $css);
 
             // combine css
             $content .= $css;
