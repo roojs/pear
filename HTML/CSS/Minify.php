@@ -101,28 +101,7 @@ class HTML_CSS_Minify
             $this->data[$key] = $value;
         }
     }
-    /**
-     * Save to file
-     *
-     * @param  string    $content The minified data.
-     * @param  string    $path    The path to save the minified data to.
-     * @throws Exception
-     */
-    protected function save($content, $path)
-    {
-        // create file & open for writing
-        if (($handler = @fopen($path, 'w')) === false) {
-            throw new Exception('The file "'.$path.'" could not be opened. Check if PHP has enough permissions.');
-        }
-
-        // write to file
-        if (@fwrite($handler, $content) === false) {
-            throw new Exception('The file "'.$path.'" could not be written to. Check if PHP has enough permissions.');
-        }
-
-        // close the file
-        @fclose($handler);
-    }
+   
 
     /**
      * Minify the data & (optionally) saves it to a file.
@@ -130,14 +109,11 @@ class HTML_CSS_Minify
      * @param  string[optional] $path Path to write the data to.
      * @return string           The minified data.
      */
-    public function minify($path = null)
+    public function minify( )
     {
         $content = $this->execute($path);
 
-        // save to path
-        if ($path !== null) {
-            $this->save($content, $path);
-        }
+         
 
         return $content;
     }
