@@ -495,7 +495,19 @@ class HTML_CSS_Minify
         }
     }
 
-    
+    /**
+     * Register a pattern to execute against the source content.
+     *
+     * @param  string          $pattern     PCRE pattern.
+     * @param  string|callable $replacement Replacement value for matched pattern.
+     * @throws Exception
+     */
+    protected function registerPattern($pattern, $replacement = '')
+    {
+        // study the pattern, we'll execute it more than once
+        $pattern .= 'S';
+        $this->patterns[] = array($pattern, $replacement);
+    }
       /**
      * Strings are a pattern we need to match, in order to ignore potential
      * code-like content inside them, but we just want all of the string
