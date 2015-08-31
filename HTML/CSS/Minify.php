@@ -67,12 +67,9 @@ class HTML_CSS_Minify
      * Init the minify class - optionally, code may be passed along already.
      */
     
-     public function __construct(/* $data = null, ... */)
+    public function __construct($baseURL = '', $files )
     {
-        // it's possible to add the source through the constructor as well ;)
-        if (func_num_args()) {
-            call_user_func_array(array($this, 'add'), func_get_args());
-        }
+        
     }
 
     /**
