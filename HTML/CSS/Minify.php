@@ -387,8 +387,8 @@ class HTML_CSS_Minify
              */
             require_once 'Net/URL.php';
             $source = $source ?: '';
-            $converter = new Net_URL($source, $path ?: $source);
-            $css = $this->move($converter, $css);
+            
+            $css = $this->move($source, empty($path) ?  $source : $path, $css);
 
             // if no target path is given, relative paths were not converted, so
             // they'll still be relative to the source file then
