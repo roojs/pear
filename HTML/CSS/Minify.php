@@ -330,7 +330,7 @@ class HTML_CSS_Minify
      * @param  string[optional] $serve_url Path where the new file will be served from 
      * @return string           The minified data.
      */
-    public function minify($path = null)
+    public function minify($serve_url = null)
     {
         $content = '';
 
@@ -363,7 +363,7 @@ class HTML_CSS_Minify
             
             $source = $source ?: '';
             
-            $css = $this->move($source, empty($path) ?  $source : $path, $css);
+            $css = $this->move($source, empty($serve_url) ?  $source : $serve_url, $css);
 
             // if no target path is given, relative paths were not converted, so
             // they'll still be relative to the source file then
