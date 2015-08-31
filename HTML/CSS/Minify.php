@@ -623,12 +623,34 @@ class HTML_CSS_Minify
     }
     
     
-    function convertPath($from, $to, $path)
+    function convertPath($in_from, $in_to, $path)
     {
         
+        $a = new NetURL();
+        $path = $a->resolvePath($from . '/'. $path); // not sure if that's a good idea..
+        $to = $a->resolvePath($in_to);
         
         
         
+        $path1 = $path ? explode('/', $path) : array();
+        $path2 = $to ? explode('/', $to) : array();
+        $shared = array();
+        // compare paths & strip identical ancestors
+        foreach ($path1 as $i => $chunk) {
+            if (isset($path2[$i]) && $path1[$i] == $path2[$i]) {
+                $shared[] = $chunk;
+            } else {
+                break;
+            }
+        }
+        $shared =  implode('/', $shared);
+        
+        
+        $path = mb_substr($path, mb_strlen($shared));
+        $to = mb_substr($to, mb_strlen($shared));
+        
+        $to = str_repeat('../', mb_substr_count($to, '/'));
+        return $to.ltrim($path, '/');
     }
     
     
