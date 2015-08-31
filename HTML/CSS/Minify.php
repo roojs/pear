@@ -65,9 +65,14 @@ class HTML_CSS_Minify
     
     /**
      * Init the minify class - optionally, code may be passed along already.
+     *
+     *@param string $baseURL the url location normally served from . eg. /template/images/css
+     *@param string $baseDir the location on the disk eg. /var/www/myproject/templates/images/css
+     *@param array $files the list of files
+     * 
      */
     
-    public function __construct($baseURL, $baseDir, $files = array() )
+    public function __construct($baseURL, $baseDir, $files  )
     {
         $this->baseURL = $baseURL;
         foreach($files as $f) {
