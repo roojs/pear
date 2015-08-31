@@ -67,7 +67,7 @@ class HTML_CSS_Minify
      * Init the minify class - optionally, code may be passed along already.
      */
     
-    public function __construct($baseURL = '', $files )
+    public function __construct($baseURL = '', $files = array() )
     {
         
     }
