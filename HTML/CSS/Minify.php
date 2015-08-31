@@ -385,8 +385,9 @@ class HTML_CSS_Minify
              * conversion happens (because we still want it to go through most
              * of the move code...)
              */
+            require_once 'Net/URL.php';
             $source = $source ?: '';
-            $converter = new Converter($source, $path ?: $source);
+            $converter = new Net_URL($source, $path ?: $source);
             $css = $this->move($converter, $css);
 
             // if no target path is given, relative paths were not converted, so
