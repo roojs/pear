@@ -30,7 +30,7 @@ class HTML_CSS_Minify
      *
      * @var string[]
      */
-    var $baseURL = ''
+    var $baseURL = '';
     
     /**
      * Init the minify class - optionally, code may be passed along already.
