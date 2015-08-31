@@ -26,42 +26,7 @@ class HTML_CSS_Minify
      */
     protected $data = array();
 
-    /**
-     * Array of patterns to match.
-     *
-     * @var string[]
-     */
-    protected $patterns = array();
-
-    /**
-     * This array will hold content of strings and regular expressions that have
-     * been extracted from the JS source code, so we can reliably match "code",
-     * without having to worry about potential "code-like" characters inside.
-     *
-     * @var string[]
-     */
-    public $extracted = array();
-    /**
-     * @var int
-     */
-    protected $maxImportSize = 5;
-
-    /**
-     * @var string[]
-     */
-    protected $importExtensions = array(
-        'gif' => 'data:image/gif',
-        'png' => 'data:image/png',
-        'jpe' => 'data:image/jpeg',
-        'jpg' => 'data:image/jpeg',
-        'jpeg' => 'data:image/jpeg',
-        'svg' => 'data:image/svg+xml',
-        'woff' => 'data:application/x-font-woff',
-        'tif' => 'image/tiff',
-        'tiff' => 'image/tiff',
-        'xbm' => 'image/x-xbitmap',
-    );
-
+ 
     
     /**
      * Init the minify class - optionally, code may be passed along already.
@@ -83,37 +48,9 @@ class HTML_CSS_Minify
 
     
    
-
-  
-
-    /**
-     * Set the maximum size if files to be imported.
-     *
-     * Files larger than this size (in kB) will not be imported into the CSS.
-     * Importing files into the CSS as data-uri will save you some connections,
-     * but we should only import relatively small decorative images so that our
-     * CSS file doesn't get too bulky.
-     *
-     * @param int $size Size in kB
-     */
-    public function setMaxImportSize($size)
-    {
-        $this->maxImportSize = $size;
-    }
-
-    /**
-     * Set the type of extensions to be imported into the CSS (to save network
-     * connections).
-     * Keys of the array should be the file extensions & respective values
-     * should be the data type.
-     *
-     * @param string[] $extensions Array of file extensions
-     */
-    public function setImportExtensions($extensions)
-    {
-        $this->importExtensions = $extensions;
-    }
-
+    // not enabled at present..
+   
+ 
     /**
      * Combine CSS from import statements.
      * @import's will be loaded and their content merged into the original file,
@@ -255,55 +192,7 @@ class HTML_CSS_Minify
         return $content;
     }
 
-    /**
-     * Import files into the CSS, base64-ized.
-     * @url(image.jpg) images will be loaded and their content merged into the
-     * original file, to save HTTP requests.
-     *
-     * @param  string $source  The file to import files for.
-     * @param  string $content The CSS content to import files for.
-     * @return string
-     */
-    protected function importFiles($source, $content)
-    {
-        $extensions = array_keys($this->importExtensions);
-        $regex = '/url\((["\']?)((?!["\']?data:).*?\.('.implode('|', $extensions).'))\\1\)/i';
-        if ($extensions && preg_match_all($regex, $content, $matches, PREG_SET_ORDER)) {
-            $search = array();
-            $replace = array();
-
-            // loop the matches
-            foreach ($matches as $match) {
-                // get the path for the file that will be imported
-                $path = $match[2];
-                $path = dirname($source).'/'.$path;
-                $extension = $match[3];
-
-                // only replace the import with the content if we're able to get
-                // the content of the file, and it's relatively small
-                $import = @file_exists($path);
-                $import = $import && is_file($path);
-                $import = $import && filesize($path) <= $this->maxImportSize * 1024;
-                if (!$import) {
-                    continue;
-                }
-
-                // grab content && base64-ize
-                $importContent = $this->load($path);
-                $importContent = base64_encode($importContent);
-
-                // build replacement
-                $search[] = $match[0];
-                $replace[] = 'url('.$this->importExtensions[$extension].';base64,'.$importContent.')';
-            }
-
-            // replace the import statements
-            $content = str_replace($search, $replace, $content);
-        }
-
-        return $content;
-    }
-
+     
     /**
      * Minify the data.
      * Perform CSS optimizations.
