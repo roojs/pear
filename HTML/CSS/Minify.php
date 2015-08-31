@@ -76,37 +76,12 @@ class HTML_CSS_Minify
     {
         $this->baseURL = $baseURL;
         foreach($files as $f) {
-            $this->data[$baseURL . '/'. $key] = $this->load($baseDir. '/'. $f);
+            $this->data[$baseURL . '/'. $key] = file_get_contents($baseDir. '/'. $f);
         }
         
     }
 
-    /**
-     * Add a file or straight-up code to be minified.
-     *
-     * @param string $data
-     */
-    public function add($data /* $data = null, ... */)
-    {
-        // bogus "usage" of parameter $data: scrutinizer warns this variable is
-        // not used (we're using func_get_args instead to support overloading),
-        // but it still needs to be defined because it makes no sense to have
-        // this function without argument :)
-        $args = array($data) + func_get_args();
-
-        // this method can be overloaded
-        foreach ($args as $data) {
-            // redefine var
-            $data = (string) $data;
-
-            // load data
-            $value = $this->load($data);
-            $key = ($data != $value) ? $data : count($this->data);
-
-            // store data
-            $this->data[$key] = $value;
-        }
-    }
+    
    
 
   
