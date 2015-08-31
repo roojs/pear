@@ -475,6 +475,27 @@ class HTML_CSS_Minify
 
         return trim($content);
     }
+    /**
+     * This is where a pattern is matched against $content and the matches
+     * are replaced by their respective value.
+     * This function will be called plenty of times, where $content will always
+     * move up 1 character.
+     *
+     * @param  string          $pattern     Pattern to match.
+     * @param  string|callable $replacement Replacement value.
+     * @param  string          $content     Content to match pattern against.
+     * @return string
+     */
+    protected function replacePattern($pattern, $replacement, $content)
+    {
+        if (is_callable($replacement)) {
+            return preg_replace_callback($pattern, $replacement, $content, 1, $count);
+        } else {
+            return preg_replace($pattern, $replacement, $content, 1, $count);
+        }
+    }
+
+    
       /**
      * Strings are a pattern we need to match, in order to ignore potential
      * code-like content inside them, but we just want all of the string
