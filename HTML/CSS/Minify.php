@@ -554,6 +554,77 @@ class HTML_CSS_Minify
          */
         $this->registerPattern('/(['.$chars.'])(.*?(?<!\\\\)(\\\\\\\\)*+)\\1/s', $callback);
     }
+    /**
+     * We can't "just" run some regular expressions against JavaScript: it's a
+     * complex language. E.g. having an occurrence of // xyz would be a comment,
+     * unless it's used within a string. Of you could have something that looks
+     * like a 'string', but inside a comment.
+     * The only way to accurately replace these pieces is to traverse the JS one
+     * character at a time and try to find whatever starts first.
+     *
+     * @param  string $content The content to replace patterns in.
+     * @return string The (manipulated) content.
+     */
+    protected function replace($content)
+    {
+        $processed = '';
+        $positions = array_fill(0, count($this->patterns), -1);
+        $matches = array();
+        while ($content) {
+            // find first match for all patterns
+            foreach ($this->patterns as $i => $pattern) {
+                list($pattern, $replacement) = $pattern;
+                // no need to re-run matches that are still in the part of the
+                // content that hasn't been processed
+                if ($positions[$i] >= 0) {
+                    continue;
+                }
+                $match = null;
+                if (preg_match($pattern, $content, $match)) {
+                    $matches[$i] = $match;
+                    // we'll store the match position as well; that way, we
+                    // don't have to redo all preg_matches after changing only
+                    // the first (we'll still know where those others are)
+                    $positions[$i] = strpos($content, $match[0]);
+                } else {
+                    // if the pattern couldn't be matched, there's no point in
+                    // executing it again in later runs on this same content;
+                    // ignore this one until we reach end of content
+                    unset($matches[$i]);
+                    $positions[$i] = strlen($content);
+                }
+            }
+            // no more matches to find: everything's been processed, break out
+            if (!$matches) {
+                $processed .= $content;
+                break;
+            }
+            // see which of the patterns actually found the first thing (we'll
+            // only want to execute that one, since we're unsure if what the
+            // other found was not inside what the first found)
+            $discardLength = min($positions);
+            $firstPattern = array_search($discardLength, $positions);
+            $match = $matches[$firstPattern][0];
+            // execute the pattern that matches earliest in the content string
+            list($pattern, $replacement) = $this->patterns[$firstPattern];
+            $replacement = $this->replacePattern($pattern, $replacement, $content);
+            // figure out which part of the string was unmatched; that's the
+            // part we'll execute the patterns on again next
+            $content = substr($content, $discardLength);
+            $unmatched = (string) substr($content, strpos($content, $match) + strlen($match));
+            // move the replaced part to $processed and prepare $content to
+            // again match batch of patterns against
+            $processed .= substr($replacement, 0, strlen($replacement) - strlen($unmatched));
+            $content = $unmatched;
+            // first match has been replaced & that content is to be left alone,
+            // the next matches will start after this replacement, so we should
+            // fix their offsets
+            foreach ($positions as $i => $position) {
+                $positions[$i] -= $discardLength + strlen($match);
+            }
+        }
+        return $processed;
+    }
 
     
     function convertPath($in_to, $path)
