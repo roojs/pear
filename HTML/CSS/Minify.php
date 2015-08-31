@@ -8,6 +8,28 @@ namespace MatthiasMullie\Minify;
 class HTML_CSS_Minify
 {
     /**
+     * The data to be minified
+     *
+     * @var string[]
+     */
+    protected $data = array();
+
+    /**
+     * Array of patterns to match.
+     *
+     * @var string[]
+     */
+    protected $patterns = array();
+
+    /**
+     * This array will hold content of strings and regular expressions that have
+     * been extracted from the JS source code, so we can reliably match "code",
+     * without having to worry about potential "code-like" characters inside.
+     *
+     * @var string[]
+     */
+    public $extracted = array();
+    /**
      * @var int
      */
     protected $maxImportSize = 5;
@@ -27,6 +49,86 @@ class HTML_CSS_Minify
         'tiff' => 'image/tiff',
         'xbm' => 'image/x-xbitmap',
     );
+
+    
+    /**
+     * Init the minify class - optionally, code may be passed along already.
+     */
+    
+     public function __construct(/* $data = null, ... */)
+    {
+        // it's possible to add the source through the constructor as well ;)
+        if (func_num_args()) {
+            call_user_func_array(array($this, 'add'), func_get_args());
+        }
+    }
+
+    /**
+     * Add a file or straight-up code to be minified.
+     *
+     * @param string $data
+     */
+    public function add($data /* $data = null, ... */)
+    {
+        // bogus "usage" of parameter $data: scrutinizer warns this variable is
+        // not used (we're using func_get_args instead to support overloading),
+        // but it still needs to be defined because it makes no sense to have
+        // this function without argument :)
+        $args = array($data) + func_get_args();
+
+        // this method can be overloaded
+        foreach ($args as $data) {
+            // redefine var
+            $data = (string) $data;
+
+            // load data
+            $value = $this->load($data);
+            $key = ($data != $value) ? $data : count($this->data);
+
+            // store data
+            $this->data[$key] = $value;
+        }
+    }
+    /**
+     * Save to file
+     *
+     * @param  string    $content The minified data.
+     * @param  string    $path    The path to save the minified data to.
+     * @throws Exception
+     */
+    protected function save($content, $path)
+    {
+        // create file & open for writing
+        if (($handler = @fopen($path, 'w')) === false) {
+            throw new Exception('The file "'.$path.'" could not be opened. Check if PHP has enough permissions.');
+        }
+
+        // write to file
+        if (@fwrite($handler, $content) === false) {
+            throw new Exception('The file "'.$path.'" could not be written to. Check if PHP has enough permissions.');
+        }
+
+        // close the file
+        @fclose($handler);
+    }
+
+    /**
+     * Minify the data & (optionally) saves it to a file.
+     *
+     * @param  string[optional] $path Path to write the data to.
+     * @return string           The minified data.
+     */
+    public function minify($path = null)
+    {
+        $content = $this->execute($path);
+
+        // save to path
+        if ($path !== null) {
+            $this->save($content, $path);
+        }
+
+        return $content;
+    }
 
     /**
      * Set the maximum size if files to be imported.
