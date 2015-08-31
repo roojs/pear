@@ -412,7 +412,7 @@ class HTML_CSS_Minify
      * @param  string    $content   The CSS content to update relative urls for.
      * @return string
      */
-    protected function move(Converter $converter, $content)
+    protected function move($base_url, $base_url_to, $content)
     {
         /*
          * Relative path references will usually be enclosed by url(). @import
