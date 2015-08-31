@@ -658,6 +658,7 @@ class HTML_CSS_Minify
         $path = $a->resolvePath($this->baseURL . '/'. $path); // not sure if that's a good idea..
         $to = $a->resolvePath($in_to);
         
+        print_r(array($path,$to));
         
         
         $path1 = $path ? explode('/', $path) : array();
