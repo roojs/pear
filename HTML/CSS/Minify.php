@@ -626,6 +626,24 @@ class HTML_CSS_Minify
         return $processed;
     }
 
+    /**
+     * This method will restore all extracted data (strings, regexes) that were
+     * replaced with placeholder text in extract*(). The original content was
+     * saved in $this->extracted.
+     *
+     * @param  string $content
+     * @return string
+     */
+    protected function restoreExtractedData($content)
+    {
+        if (!$this->extracted) {
+            // nothing was extracted, nothing to restore
+            return $content;
+        }
+        $content = strtr($content, $this->extracted);
+        $this->extracted = array();
+        return $content;
+    }
     
     function convertPath($in_to, $path)
     {
