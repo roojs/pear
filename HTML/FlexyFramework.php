@@ -192,6 +192,8 @@ class HTML_FlexyFramework {
   
     function _parseConfig()
     {
+        
+        // make sure required values are set.. (anything that is not defaulted to false..)
         foreach(get_class_vars(__CLASS__) as $k =>$v) {
             if ($v === false && !isset($this->$k)) {
                 die("$k is not set");
