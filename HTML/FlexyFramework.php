@@ -129,12 +129,18 @@ class HTML_FlexyFramework {
    //     return $this->__construct($config);
     //}
     
+    // used to be $_GLOBALS[__CLASS__]
+    
+    static $singleton; 
+    
+    
     function __construct($config)
     {
-        if (isset($GLOBALS[__CLASS__])) {
+        if (isset(self::$singleton)) {
             trigger_error("FlexyFramework Construct called twice!", E_ERROR);
         }
-        $GLOBALS[__CLASS__] = &$this;
+        
+        self::$singleton = $this;
         
         $this->calls = 0;
 
@@ -167,7 +173,7 @@ class HTML_FlexyFramework {
     
     static function get()
     {
-        return $GLOBALS[__CLASS__];
+        return self::$singleton;
     }
   
   
@@ -762,7 +768,7 @@ class HTML_FlexyFramework {
     
     static function run($request,$args=array()) 
     {
-        $GLOBALS[__CLASS__]->_run($request,true,$args);
+        self::$singleton->_run($request,true,$args);
         return false;
     }
     
