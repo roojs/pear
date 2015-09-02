@@ -152,23 +152,25 @@ class HTML_FlexyFramework {
         }
         $this->_parseConfig();
         
-      // echo '<PRE>'; print_r($this);exit;
+        // echo '<PRE>'; print_r($this);exit;
         if ($this->cli) {
             $args = $_SERVER['argv'];
             array_shift($args );
             array_shift($args );
             $this->_run($this->run,false,$args);
-        } else {
-            // handle apache mod_rewrite..
-            if (!empty($_SERVER['REDIRECT_URL'])) {
-                 
-                $this->_run($_SERVER['SCRIPT_NAME'] . $_SERVER['REQUEST_URI'],false);
-                return ;
-            }
-            
-            $this->_run($_SERVER['REQUEST_URI'],false);
-            
+            return;
         }
+    
+        // handle apache mod_rewrite..
+        if (!empty($_SERVER['REDIRECT_URL'])) {
+             
+            $this->_run($_SERVER['SCRIPT_NAME'] . $_SERVER['REQUEST_URI'],false);
+            return ;
+        }
+        
+        $this->_run($_SERVER['REQUEST_URI'],false);
+            
+        
     }
     
     static function get()
