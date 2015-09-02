@@ -1060,25 +1060,28 @@ class HTML_FlexyFramework {
         // technically each module should do a check here... similar to this..
         
         
-        if (!$classname) {
-            for ($i=$l;$i >-1;$i--) {
-                $location = implode('/',$request_array) . ".php";
-                $this->debug("baseDIR = {$this->baseDir}");
-                $floc = "{$this->baseDir}/$location";
-                //$this->debug("CHECK LOCATION $floc");
-                if (!empty($location) && @file_exists($floc )) {             // hide? error???
-                    require_once $floc ;
-                    $classname = $this->classPrefix . implode('_',$request_array);
-                    $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
-                    break;
-                } 
-                $this->debug("$floc  - !!FOUND NOT FILE!!");
-                
-                $sub_request_array[] = $original_request_array[$i];
-                unset($request_array[$i]);
-                unset($original_request_array[$i]);
-            }
+        for ($i=$l;$i >-1;$i--) {
+            $location = implode('/',$request_array) . ".php";
+            $this->debug("baseDIR = {$this->baseDir}");
+            $floc = "{$this->baseDir}/$location";
+            //$this->debug("CHECK LOCATION $floc");
+            if (!empty($location) && @file_exists($floc )) {             // hide? error???
+                require_once $floc ;
+                $classname = $this->classPrefix . implode('_',$request_array);
+                $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
+                break;
+            } 
+            $this->debug("$floc  - !!FOUND NOT FILE!!");
+            
+            // in here check the 'projectExtends' versions..?
+            
+            
+            
+            $sub_request_array[] = $original_request_array[$i];
+            unset($request_array[$i]);
+            unset($original_request_array[$i]);
         }
+         
         // is this really needed here!
         
         $classname = preg_replace('/[^a-z0-9]/i','_',$classname);
