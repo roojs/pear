@@ -94,7 +94,7 @@ class HTML_FlexyFramework {
     var $dataObjectsCache = true;  // use dataobjects ini cache.. - let's try this as the default behaviour...
     var $dataObjectsCacheExpires = 72000; // 20 hours..
     var $languages = false; // language settings -- see _handlelanguage
-    
+    var $projectExtends = false; // if this is an array, it's a fallback of 'Projects' that can be called
     
 
     
