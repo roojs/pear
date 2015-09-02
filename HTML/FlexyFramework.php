@@ -202,7 +202,7 @@ class HTML_FlexyFramework {
         
         $this->_handleLanguages();
         
-        
+        // enable modules.
         if (!empty($this->enable)) {
             $this->enableArray = explode(',', $this->enable);
             if (!in_array('Core',$this->enableArray )) {
@@ -214,7 +214,6 @@ class HTML_FlexyFramework {
         $this->cli = php_sapi_name() == 'cli'; 
         
         // will these work ok with cli?
-    
         $bits = explode(basename($_SERVER["SCRIPT_FILENAME"]), $_SERVER["SCRIPT_NAME"]);
         if (!$this->cli) {
             $bits[0] = str_replace('%2F','/',urlencode($bits[0]));
@@ -235,6 +234,7 @@ class HTML_FlexyFramework {
         if (!isset($this->database) && isset($this->DB_DataObject['database'])) {
             $this->database = $this->DB_DataObject['database'];
         }
+        
         $this->classPrefix   = $this->project . '_';
         
         // list the available options..
@@ -827,7 +827,9 @@ class HTML_FlexyFramework {
             return false;
         }
         
-        // make page data/object accessable at anypoint in time using  this 
+        // make page data/object accessable at anypoint in time using  this
+        // not sure if this is used anymore?
+        
         $classobj = &PEAR::getStaticProperty('HTML_FlexyFramework', 'page');
         
         $classobj =  new  $classname();  // normally do not have constructors.
