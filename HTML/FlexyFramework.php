@@ -118,20 +118,20 @@ class HTML_FlexyFramework {
     var $ext; // the striped extention.
     
     var $dataObjectsOriginalIni = ''; // 1 houre..
-    /**
-     * 
-     * Constructor - with assoc. array of props as option
-     * And BC version!!!!
-     * 
-     */
-    
-   // function HTML_FlexyFramework($config) {
-   //     return $this->__construct($config);
-    //}
     
     // used to be $_GLOBALS[__CLASS__]
     
     static $singleton; 
+    
+    
+    /**
+     * 
+     * Constructor - with assoc. array of props as option
+     * called by index.php usually, and runs the app code,
+     *
+     * uses 'universal construcor' format, so the argument relates directly to properties of this object.
+     * 
+     */
     
     
     function __construct($config)
@@ -172,12 +172,23 @@ class HTML_FlexyFramework {
             
         
     }
-    
+    /**
+     * This is the standard way to get information about the application settings.
+     * $ff = HTML_FlexyFramework::get();
+     * if ($ff->SomeVar[...])....
+     *
+     */
     static function get()
     {
         return self::$singleton;
     }
   
+  
+    /**
+     * parse the configuration set by the constructor.
+     * 
+     *
+     */
   
     function _parseConfig()
     {
