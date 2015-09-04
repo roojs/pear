@@ -743,6 +743,7 @@ if (PEAR_ZE2) {
 
 function _PEAR_call_destructors()
 {
+    print_R('run');exit;
     global $_PEAR_destructor_object_list;
     if (is_array($_PEAR_destructor_object_list) &&
         sizeof($_PEAR_destructor_object_list))
