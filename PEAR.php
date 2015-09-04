@@ -156,12 +156,9 @@ class PEAR
         if ($error_class !== null) {
             $this->_error_class = $error_class;
         }
-print_R($classname);
-            echo "\n";
+
         while ($classname && strcasecmp($classname, "pear")) {
             $destructor = "_$classname";
-//            print_R($destructor);
-//            echo "\n";
             if (method_exists($this, $destructor)) {
                 global $_PEAR_destructor_object_list;
                 $_PEAR_destructor_object_list[] = &$this;
@@ -174,7 +171,6 @@ print_R($classname);
                 $classname = get_parent_class($classname);
             }
         }
-        exit;
     }
 
     /**
