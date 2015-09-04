@@ -612,6 +612,17 @@ class HTML_FlexyFramework {
             
         }
         
+        if(!empty($this->projectExtends)){
+            foreach ($this->projectExtends as $e){
+                $add = $this->baseDir . '/' . $e .'/templates';
+                if (!in_array($add,$src) && file_exists($add)) {
+                    $src[] = $add;
+                }
+            }
+        }
+        
+        print_R($src);exit;
+        
         // images may come from multiple places: - if we have multiple template directories.?
         // how do we deal with this..?
         // images/ << should always be mapped to master!
