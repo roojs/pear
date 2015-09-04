@@ -212,10 +212,7 @@ class PEAR
         if (!array_key_exists($var, $properties[$class])) {
             $properties[$class][$var] = null;
         }
-        PRINT_R($class);
-        echo "\n";
-        PRINT_R($var);
-        echo "\n";
+
         return $properties[$class][$var];
     }
 
