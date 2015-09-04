@@ -256,7 +256,7 @@ class HTML_Template_Flexy
                 $this->options[$key] = $aOption;
             }
         }
-        print_R($this);exit;
+        
         foreach( $options as $key=>$aOption)  {
            $this->options[$key] = $aOption;
         }
