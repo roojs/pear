@@ -1083,14 +1083,16 @@ class HTML_FlexyFramework {
                     
                     if (!empty($location) && @file_exists($floc)) {             // hide? error???
                         require_once $floc ;
-                        $classname = $this->projectExtends . '_' . implode('_',$request_array);
-
+                        $classname = $e . '_' . implode('_',$request_array);
+                        $has_extend_class = true;
                         $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
                         break;
                     } 
                 }
                 
-                
+                if(!empty($has_extend_class)){
+                    break;
+                }
                 
             }
             
