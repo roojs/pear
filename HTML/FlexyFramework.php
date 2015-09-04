@@ -645,8 +645,6 @@ class HTML_FlexyFramework {
     }
     function _exposeToPear()
     {
-        print_R(__CLASS__);
-        print_r(get_class_vars(__CLASS__));exit;
         $cls = array_keys(get_class_vars(__CLASS__));
         $base = array();
         
