@@ -185,6 +185,7 @@ class PEAR
      * @return void
      */
     function _PEAR() {
+        print_R('run');exit;
         if ($this->_debug) {
             printf("PEAR destructor called, class=%s\n", strtolower(get_class($this)));
         }
