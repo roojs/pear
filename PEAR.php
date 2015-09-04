@@ -156,7 +156,7 @@ class PEAR
         if ($error_class !== null) {
             $this->_error_class = $error_class;
         }
-        print_R($classname);
+
         while ($classname && strcasecmp($classname, "pear")) {
             $destructor = "_$classname";
             if (method_exists($this, $destructor)) {
