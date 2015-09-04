@@ -600,7 +600,7 @@ class HTML_FlexyFramework {
                 $this->baseDir . '/'. $this->appNameShort. '/templates'
             );
         }
-        print_R($src);exit;
+        
         if (!empty($this->enableArray)) {
             foreach($this->enableArray as $m) {
                 $add = $this->baseDir . '/' . $m .'/templates';
