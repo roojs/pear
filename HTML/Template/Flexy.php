@@ -243,7 +243,7 @@ class HTML_Template_Flexy
       
     function HTML_Template_Flexy( $options=array() )
     {
-        
+        print_R($this);exit;
         $baseoptions = array();
         if (class_exists('PEAR5',false)) {
             $baseoptions = &PEAR5::getStaticProperty('HTML_Template_Flexy','options');
