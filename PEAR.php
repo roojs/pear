@@ -204,6 +204,7 @@ class PEAR
     */
     static function &getStaticProperty($class, $var)
     {
+        return $properties;
         static $properties;
         if (!isset($properties[$class])) {
             $properties[$class] = array();
