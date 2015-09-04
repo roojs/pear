@@ -1068,6 +1068,7 @@ class HTML_FlexyFramework {
             if (!empty($location) && @file_exists($floc )) {             // hide? error???
                 require_once $floc ;
                 $classname = $this->classPrefix . implode('_',$request_array);
+                print_R($classname);exit;
                 $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
                 break;
             } 
