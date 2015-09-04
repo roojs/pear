@@ -618,8 +618,11 @@ class HTML_FlexyFramework {
         // for overridden appdir ones we will have to se rootURL etc.
         
         $url_rewrite = 'images/:'. $this->rootURL . '/'. $this->project. '/templates/images/';
+        print_R($src);exit;
+        $templateDir = array(
+            implode(PATH_SEPARATOR, $src)
+        );
         
-        print_R($this);exit;
         $this->applyIf('HTML_Template_Flexy', array(
             'templateDir' => implode(PATH_SEPARATOR, $src),
             'compileDir' => $compileDir,
