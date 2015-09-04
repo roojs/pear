@@ -615,7 +615,7 @@ class HTML_FlexyFramework {
         if(!empty($this->projectExtends)){
             foreach ($this->projectExtends as $e){
                 
-                $add = $this->baseDir . '/' . $e .'/templates';
+                $add = $this->rootDir . '/' . $e .'/templates';
                 print_R($add);exit;
                 if (!in_array($add,$src) && file_exists($add)) {
                     $src[] = $add;
