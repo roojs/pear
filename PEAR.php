@@ -160,7 +160,6 @@ class PEAR
         while ($classname && strcasecmp($classname, "pear")) {
             $destructor = "_$classname";
             if (method_exists($this, $destructor)) {
-                PRINT_R($destructor);EXIT;
                 global $_PEAR_destructor_object_list;
                 $_PEAR_destructor_object_list[] = &$this;
                 if (!isset($GLOBALS['_PEAR_SHUTDOWN_REGISTERED'])) {
