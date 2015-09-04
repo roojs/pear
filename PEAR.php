@@ -169,6 +169,7 @@ class PEAR
                 break;
             } else {
                 $classname = get_parent_class($classname);
+                print_R($classname);
             }
         }
     }
