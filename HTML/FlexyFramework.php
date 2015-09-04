@@ -1039,9 +1039,7 @@ class HTML_FlexyFramework {
         
         
         $request_array=explode("/",$request);
-        
         $original_request_array = $request_array;
-        print_r($original_request_array);exit;
         $sub_request_array = array();
         $l = count($request_array)-1;
         if ($l > 10) { // ?? configurable?
