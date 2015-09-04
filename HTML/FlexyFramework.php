@@ -646,6 +646,8 @@ class HTML_FlexyFramework {
     function _exposeToPear()
     {
         $cls = array_keys(get_class_vars(__CLASS__));
+        print_R($cls);
+        echo "\n";
         $base = array();
         
         // anything that get's set, that's not in our default properties
