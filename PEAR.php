@@ -213,6 +213,7 @@ class PEAR
             $properties[$class][$var] = null;
         }
         PRINT_R($var);
+        echo "\n";
         return $properties[$class][$var];
     }
 
