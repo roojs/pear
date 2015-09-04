@@ -148,7 +148,6 @@ class PEAR
      */
     function PEAR($error_class = null)
     {
-        RETURN;
         $classname = strtolower(get_class($this));
         if ($this->_debug) {
             print "PEAR constructor called, class=$classname\n";
