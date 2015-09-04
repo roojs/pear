@@ -607,7 +607,9 @@ class HTML_FlexyFramework {
                 if (!in_array($add,$src) && file_exists($add)) {
                     $src[] = $add;
                 }
+                
             }
+            
         }
         
         // images may come from multiple places: - if we have multiple template directories.?
