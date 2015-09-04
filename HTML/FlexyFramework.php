@@ -1075,15 +1075,23 @@ class HTML_FlexyFramework {
             // in here check the 'projectExtends' versions..?
             
             if(!empty($this->projectExtends)){
-                $floc = "{$this->rootDir}/{$this->projectExtends}/$location";
                 
-                if (!empty($location) && @file_exists($floc )) {             // hide? error???
-                    require_once $floc ;
-                    $classname = $this->projectExtends . '_' . implode('_',$request_array);
+                $has_extend_class = false;
+                
+                foreach ($this->projectExtends as $e){
+                    $floc = "{$this->rootDir}/{$e}/$location";
                     
-                    $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
-                    break;
-                } 
+                    if (!empty($location) && @file_exists($floc)) {             // hide? error???
+                        require_once $floc ;
+                        $classname = $this->projectExtends . '_' . implode('_',$request_array);
+
+                        $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
+                        break;
+                    } 
+                }
+                
+                
+                
             }
             
             
