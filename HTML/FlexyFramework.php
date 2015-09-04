@@ -1039,6 +1039,7 @@ class HTML_FlexyFramework {
         
         
         $request_array=explode("/",$request);
+        print_r($request_array);exit;
         $original_request_array = $request_array;
         $sub_request_array = array();
         $l = count($request_array)-1;
