@@ -1071,6 +1071,8 @@ class HTML_FlexyFramework {
                 $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
                 break;
             } 
+            
+            print_r($this->baseDir);exit;
             $this->debug("$floc  - !!FOUND NOT FILE!!");
             
             // in here check the 'projectExtends' versions..?
