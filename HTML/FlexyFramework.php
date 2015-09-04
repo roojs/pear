@@ -1071,11 +1071,18 @@ class HTML_FlexyFramework {
                 $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
                 break;
             } 
-            
+            print_r($this->classPrefix);exit;
             // in here check the 'projectExtends' versions..?
             
             if(!empty($this->projectExtends)){
-                $floc = "$this->rootDir .'/'. $this->projectExtends";
+                $floc = "{$this->rootDir}/{$this->projectExtends}/$location";
+                
+                if (!empty($location) && @file_exists($floc )) {             // hide? error???
+                    require_once $floc ;
+                    $classname = $this->classPrefix . implode('_',$request_array);
+                    $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
+                    break;
+                } 
             }
             
             
