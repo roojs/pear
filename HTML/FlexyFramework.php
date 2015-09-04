@@ -619,6 +619,7 @@ class HTML_FlexyFramework {
         
         $url_rewrite = 'images/:'. $this->rootURL . '/'. $this->project. '/templates/images/';
         
+        print_R($this);exit;
         $this->applyIf('HTML_Template_Flexy', array(
             'templateDir' => implode(PATH_SEPARATOR, $src),
             'compileDir' => $compileDir,
