@@ -248,10 +248,8 @@ class HTML_Template_Flexy
         if (class_exists('PEAR5',false)) {
             $baseoptions = &PEAR5::getStaticProperty('HTML_Template_Flexy','options');
         }
-        print_R($baseoptions);exit;
         if (empty($baseoptions) && class_exists('PEAR')) {
             $baseoptions = &PEAR::getStaticProperty('HTML_Template_Flexy','options');
-            
         }
         if ($baseoptions ) {
             foreach( $baseoptions as  $key=>$aOption)  {
