@@ -4134,7 +4134,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $rf = ($this->_resultFields !== false) ? $this->_resultFields : 
                 (isset($_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid]) ?
                  $_DB_DATAOBJECT['RESULTFIELDS'][$this->_DB_resultid] : false);
-        print_R($rf);exit;
+        
         $ar = ($rf !== false) ?
             (($hideEmpty === 0) ? $rf : array_merge($rf, $this->table())) :
             $this->table();
