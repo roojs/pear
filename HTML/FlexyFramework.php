@@ -621,7 +621,7 @@ class HTML_FlexyFramework {
             }
         }
         
-        print_R($src);exit;
+        
         // images may come from multiple places: - if we have multiple template directories.?
         // how do we deal with this..?
         // images/ << should always be mapped to master!
