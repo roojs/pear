@@ -589,7 +589,18 @@ class HTML_FlexyFramework {
         
         // templates. -- all this should be cached!!!
         $src = array();
+        
+        if(!empty($this->projectExtends)){
+            foreach ($this->projectExtends as $e){
+                $add = $this->rootDir . '/' . $e .'/templates';
+                if (!in_array($add,$src) && file_exists($add)) {
+                    $src[] = $add;
+                }
+            }
+        }
+        
         $src[] = $this->baseDir . '/templates';
+        
         if ($this->appNameShort) {
             // in app based version, template directory is in Core
             
@@ -611,16 +622,6 @@ class HTML_FlexyFramework {
             }
             
         }
-        
-        if(!empty($this->projectExtends)){
-            foreach ($this->projectExtends as $e){
-                $add = $this->rootDir . '/' . $e .'/templates';
-                if (!in_array($add,$src) && file_exists($add)) {
-                    $src[] = $add;
-                }
-            }
-        }
-        
         
         // images may come from multiple places: - if we have multiple template directories.?
         // how do we deal with this..?
