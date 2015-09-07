@@ -373,6 +373,7 @@ class HTML_Template_Flexy
             }
               
         }
+        print_R($this->currentTemplate);exit;
         if ($this->currentTemplate === false)  {
             // check if the compile dir has been created
             return $this->raiseError("Could not find Template {$file} in any of the directories<br>" . 
