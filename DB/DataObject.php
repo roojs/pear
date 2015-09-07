@@ -4139,7 +4139,6 @@ class DB_DataObject extends DB_DataObject_Overload
             (($hideEmpty === 0) ? $rf : array_merge($rf, $this->table())) :
             $this->table();
 
-        print_r($ar);exit;
         foreach($ar as $k=>$v) {
              
             if (!isset($this->$k)) {
