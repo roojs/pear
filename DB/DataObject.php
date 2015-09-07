@@ -2900,7 +2900,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $x = new DB_DataObject_Generator;
             return $x->$proxyMethod( $d->_database, $table);
         }
-        
+        print_R($rclass);
         if (!$rclass || !class_exists($rclass)) {
             $dor = new DB_DataObject();
             return $dor->raiseError(
