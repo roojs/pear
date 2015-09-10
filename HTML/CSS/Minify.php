@@ -236,7 +236,7 @@ class HTML_CSS_Minify
              */
             
             $source = empty($source) ? '' : $source;
-            print_R($source);exit;
+            
             $css = $this->move(empty($serve_url) ?  $source : $serve_url, $css);
 
             // if no target path is given, relative paths were not converted, so
