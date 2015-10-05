@@ -270,7 +270,7 @@ class Mail_smtp extends Mail {
         }
 
         if (!is_array($headers)) {
-            return $thisraiseError('$headers must be an array');
+            return $this->raiseError('$headers must be an array');
         }
 
         $this->_sanitizeHeaders($headers);
@@ -291,7 +291,7 @@ class Mail_smtp extends Mail {
 
         if (!isset($from)) {
             $this->_smtp->rset();
-            return PEAR::raiseError('No From: address has been provided',
+            return $this->raiseError('No From: address has been provided',
                                     PEAR_MAIL_SMTP_ERROR_FROM);
         }
 
@@ -306,7 +306,7 @@ class Mail_smtp extends Mail {
                     "Failed to set sender: $from", $res, PEAR_MAIL_SMTP_ERROR_SENDER);
             $txt = implode("\n" , $this->_smtp->_arguments);
             $this->_smtp->rset();
-            return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER,
+            return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER,
                     null,null,    array(
                             'smtpcode' => $code,
                             'smtptext' => $txt
@@ -327,7 +327,7 @@ class Mail_smtp extends Mail {
                 $txt = implode("\n" , $this->_smtp->_arguments);
                 
                 $this->_smtp->rset();
-                return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_RECIPIENT,
+                return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_RECIPIENT,
                     null,null,
                     array(
                             'smtpcode' => $code,
@@ -353,7 +353,7 @@ class Mail_smtp extends Mail {
             list($code,$error) = $this->_error('Failed to send data', $res);
             $txt = implode("\n" , $this->_smtp->_arguments);
             $this->_smtp->rset();
-            return PEAR::raiseError($error, PEAR_MAIL_SMTP_ERROR_DATA,
+            return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_DATA,
                 null,null,    array(
                             'smtpcode' => $code,
                             'smtptext' => $txt
@@ -399,7 +399,7 @@ class Mail_smtp extends Mail {
 
         /* If we still don't have an SMTP object at this point, fail. */
         if (is_object($this->_smtp) === false) {
-            return PEAR::raiseError('Failed to create a Net_SMTP object',
+            return $this->raiseError('Failed to create a Net_SMTP object',
                                     PEAR_MAIL_SMTP_ERROR_CREATE);
         }
 
@@ -414,8 +414,7 @@ class Mail_smtp extends Mail {
                                    $this->host . ':' . $this->port,
                                    $res);
             $txt = implode("\n" , $this->_smtp->_arguments);
-            $p = new PEAR();
-            return $p->raiseError($error, PEAR_MAIL_SMTP_ERROR_CONNECT,
+            return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_CONNECT,
                     null,null,    array(
                             'smtpcode' => $code,
                             'smtptext' => $txt
@@ -434,8 +433,7 @@ class Mail_smtp extends Mail {
                                        $res);
                 $txt = implode("\n" , $this->_smtp->_arguments);
                 $this->_smtp->rset();
-                $p = new PEAR();
-                return $p->raiseError($error, PEAR_MAIL_SMTP_ERROR_AUTH,
+                return $p = new PEAR();raiseError($error, PEAR_MAIL_SMTP_ERROR_AUTH,
                     null,null,    array(
                             'smtpcode' => $code,
                             'smtptext' => $txt
