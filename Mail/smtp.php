@@ -33,7 +33,7 @@
  * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
+ *RA
  * @category    HTTP
  * @package     HTTP_Request
  * @author      Jon Parise <jon@php.net> 
@@ -270,7 +270,7 @@ class Mail_smtp extends Mail {
         }
 
         if (!is_array($headers)) {
-            return PEAR::raiseError('$headers must be an array');
+            return $thisraiseError('$headers must be an array');
         }
 
         $this->_sanitizeHeaders($headers);
