@@ -210,11 +210,11 @@ class HTML_CSS_InlineStyle
     }
 
     /**
-* Extracts the stylesheet nodes nodes specified by the xpath
-*
-* @param string $xpathQuery xpath query to the desired stylesheet
-* @return array the extracted stylesheets
-*/
+    * Extracts the stylesheet nodes nodes specified by the xpath
+    *
+    * @param string $xpathQuery xpath query to the desired stylesheet
+    * @return array the extracted stylesheets
+    */
     public function extractStylesheetsWithXpath($xpathQuery)
     {
         $stylesheets = array();
@@ -230,10 +230,10 @@ class HTML_CSS_InlineStyle
     }
 
     /**
-* Parses a stylesheet to selectors and properties
-* @param string $stylesheet
-* @return array
-*/
+    * Parses a stylesheet to selectors and properties
+    * @param string $stylesheet
+    * @return array
+    */
     public function parseStylesheet($stylesheet)
     {
         $parsed = array();
@@ -291,10 +291,10 @@ class HTML_CSS_InlineStyle
     }
 
     /**
-* Parses style properties to a array which can be merged by mergeStyles()
-* @param string $style
-* @return array
-*/
+    * Parses style properties to a array which can be merged by mergeStyles()
+    * @param string $style
+    * @return array
+    */
     public function _styleToArray($style)
     {
         $styles = array();
@@ -315,11 +315,11 @@ class HTML_CSS_InlineStyle
     }
 
     /**
-* Merges two sets of style properties taking !important into account
-* @param array $styleA
-* @param array $styleB
-* @return array
-*/
+    * Merges two sets of style properties taking !important into account
+    * @param array $styleA
+    * @param array $styleB
+    * @return array
+    */
     private function _mergeStyles(array $styleA, array $styleB)
     {
         foreach($styleB as $prop => $val) {
