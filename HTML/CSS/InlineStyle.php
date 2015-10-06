@@ -42,10 +42,10 @@ class HTML_CSS_InlineStyle
     private $_dom_xpath;
 
     /**
-* Prepare all the necessary objects
-*
-* @param string $html
-*/
+    * Prepare all the necessary objects
+    *
+    * @param string $html
+    */
     public function __construct($html = '')
     {
         if ($html) {
@@ -57,20 +57,20 @@ class HTML_CSS_InlineStyle
     }
 
     /**
-* Load HTML file
-*
-* @param string $filename
-*/
+    * Load HTML file
+    *
+    * @param string $filename
+    */
     public function loadHTMLFile($filename)
     {
         $this->loadHTML(file_get_contents($filename));
     }
 
     /**
-* Load HTML string (UTF-8 encoding assumed)
-*
-* @param string $html
-*/
+    * Load HTML string (UTF-8 encoding assumed)
+    *
+    * @param string $html
+    */
     public function loadHTML($html)
     {
         $this->_dom = new DOMDocument();
@@ -85,11 +85,11 @@ class HTML_CSS_InlineStyle
     }
 
     /**
-* Applies one or more stylesheets to the current document
-*
-* @param string $stylesheet
-* @return InlineStyle self
-*/
+    * Applies one or more stylesheets to the current document
+    *
+    * @param string $stylesheet
+    * @return InlineStyle self
+    */
     public function applyStylesheet($stylesheet)
     {
          
@@ -125,11 +125,11 @@ class HTML_CSS_InlineStyle
     }
 
     /**
-* Applies a style rule on the document
-* @param string $selector
-* @param string $style
-* @return InlineStyle self
-*/
+    * Applies a style rule on the document
+    * @param string $selector
+    * @param string $style
+    * @return InlineStyle self
+    */
     public function applyRule($selector, $style)
     {
         if($selector) {
@@ -156,22 +156,22 @@ class HTML_CSS_InlineStyle
     }
 
     /**
-* Returns the DOMDocument as html
-*
-* @return string the HTML
-*/
+    * Returns the DOMDocument as html
+    *
+    * @return string the HTML
+    */
     public function getHTML()
     {
         return $this->_dom->saveHTML();
     }
 
     /**
-* Recursively extracts the stylesheet nodes from the DOMNode
-*
-* @param \DOMNode $node leave empty to extract from the whole document
-* @param string $base The base URI for relative stylesheets
-* @return array the extracted stylesheets
-*/
+    * Recursively extracts the stylesheet nodes from the DOMNode
+    *
+    * @param \DOMNode $node leave empty to extract from the whole document
+    * @param string $base The base URI for relative stylesheets
+    * @return array the extracted stylesheets
+    */
     public function extractStylesheets($node = null, $base = '')
     {
         if(null === $node) {
