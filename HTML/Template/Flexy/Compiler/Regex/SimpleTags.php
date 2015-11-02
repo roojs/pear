@@ -163,8 +163,10 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
 
     function urlencoded_variables ($input) {
         $input = preg_replace(
-            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+)".urlencode(stripslashes($this->stop))."/ie",
-            "'<?php echo htmlspecialchars(".$this->error."$'.str_replace('.','->','\\1').')?>'",
+            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+)".urlencode(stripslashes($this->stop))."/i",
+              function($m) {
+                return '<?php echo htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . ')?>';
+            },
             $input);
 
 
