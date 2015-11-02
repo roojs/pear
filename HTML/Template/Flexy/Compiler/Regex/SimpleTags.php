@@ -105,8 +105,6 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
                 return '<?php echo ' . $this->error . '$' . str_replace('.','->',$m[0])  . ' ?>';
             },
             
-            
-            "'<?php echo ".$this->error."$'.str_replace('.','->','\\1').'?>'",
             $input);
 
         $input = preg_replace_callback(
