@@ -204,7 +204,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
            function($m) {
                 return $this->modifiers(
                     $this->error . '$' . str_replace('.','->',$m[1]) .'('.
-                        '$'. str_replace('.','->',$m[2])
+                        '$'. str_replace('.','->',$m[2]) .
                     ')',
                     empty($m[4]) ? '' : $m[4]
                 );
@@ -212,19 +212,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             $input
         );
         
-        $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+)\(([a-z0-9_.]+)\)".$this->stop."/ie",
-            "'<?php echo htmlspecialchars(".$this->error."$'.str_replace('.','->','\\1').'($' .  str_replace('.','->','\\2') . '))?>'",
-            $input);
-
-        $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+)\(([a-z0-9_.]+)\):h".$this->stop."/ie",
-            "'<?php echo ".$this->error."$'.str_replace('.','->','\\1').'($' .  str_replace('.','->','\\2') . ')?>'",
-            $input);
-        $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+)\(([a-z0-9_.]+)\):s".$this->stop."/ie",
-            "'<?php highlight_string($'.str_replace('.','->','\\1').'($' .  str_replace('.','->','\\2') . '));?>'",
-            $input);
+       
         /* double vars     */
         $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)\(([a-z0-9_.]+),([a-z0-9_.]+)\)".$this->stop."/ie",
