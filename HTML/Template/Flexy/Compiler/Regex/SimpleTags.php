@@ -378,6 +378,10 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
         return $input;
     }
     
+    
+    var $modifiers = "h|u|ru|r|n|uu|s";
+    
+    
     function modifiers ($val, $mod)
     {
         switch($mod) {
