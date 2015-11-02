@@ -257,8 +257,8 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
            function($m) {
                 return $this->modifiers(
                     $this->error . '$' . str_replace('.','->',$m[1]) .'('.
-                         var_export($m[2],true) . ',' .
-                        '$'. str_replace('.','->',$m[3]) . 
+                        '$'. str_replace('.','->',$m[3]) . ',' .
+                         var_export($m[2],true) .
                     ')',
                     empty($m[5]) ? '' : $m[5]
                 );
