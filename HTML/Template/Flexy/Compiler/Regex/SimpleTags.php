@@ -171,17 +171,17 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
 
 
         $input = preg_replace_callback(
-            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):h".urlencode(stripslashes($this->stop))."/ie",
+            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):h".urlencode(stripslashes($this->stop))."/i",
             "'<?php echo ".$this->error."$'.str_replace('.','->','\\1').'?>'",
             $input);
 
         $input = preg_replace_callback(
-            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):u".urlencode(stripslashes($this->stop))."/ie",
+            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):u".urlencode(stripslashes($this->stop))."/i",
             "'<?php echo urlencode(".$this->error."$'.str_replace('.','->','\\1').')?>'",
             $input);
 
         $input = preg_replace_callback(
-            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):uu".urlencode(stripslashes($this->stop))."/ie",
+            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):uu".urlencode(stripslashes($this->stop))."/i",
             "'<?php echo urlencode(urlencode(".$this->error."$'.str_replace('.','->','\\1').'))?>'",
             $input);
         return $input;
