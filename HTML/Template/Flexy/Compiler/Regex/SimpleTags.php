@@ -278,17 +278,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             $input
         );
         
-        /*strings or integers */
-        $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+)\(\#([^\#]+)\#\)".$this->stop."/ie",
-            "'<?php echo htmlspecialchars(\$'.str_replace('.','->','\\1') . '(\''. str_replace(\"'\",\"\\\'\",'\\2') . '\'))?>'",
-            $input);
-
-        $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+)\(\#([^\#]+)\#\):h".$this->stop."/ie",
-            "'<?php echo ".$this->error."$'.str_replace('.','->','\\1').'(\"' .  str_replace(\"'\",\"\\\'\",'\\2') . '\")?>'",
-            $input);
-
+        
         return $input;
     }
     /**
