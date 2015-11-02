@@ -301,8 +301,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
 
 
     function looping($input) {
-
-
+ 
         $input = preg_replace_callback(
             "/".$this->start."foreach:([a-z0-9_.]+),([a-z0-9_.]+)".$this->stop."/ie",
             "'<?php if (".$this->error."$' . str_replace('.','->','\\1') . ') foreach( $' . str_replace('.','->','\\1') . ' as $' . str_replace('.','->','\\2') . ') { ?>'",
