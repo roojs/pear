@@ -189,9 +189,9 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
         $input = preg_replace_callback(
             "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):uu".urlencode(stripslashes($this->stop))."/i",
               function($m) {
-                return '<?php echo urlencode(urlencode(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?>';)
+                return '<?php echo urlencode(urlencode(' . $this->error . '$' . str_replace('.','->',$m[0])  . '));?>';
             },
-            $input);
+        $input);
         return $input;
     }
      /**
