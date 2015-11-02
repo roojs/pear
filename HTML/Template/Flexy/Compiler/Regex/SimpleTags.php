@@ -93,7 +93,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
     function variables ($input)
     {
         $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+)(:(h|u|ru|r|n))?".$this->stop."/i",
+            "/".$this->start."([a-z0-9_.]+)(:({$this->modifiers}))?".$this->stop."/i",
             function($m) {
                 return $this->modifiers(
                     $this->error . '$' . str_replace('.','->',$m[0]) ,
@@ -131,7 +131,8 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
     function urlencoded_variables ($input) {
         
         $input = preg_replace_callback(
-            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+)(:(h|u|ru|r|n|uu))?".$thisurlencode(stripslashes($this->stop))."/i",
+            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+)(:({$this->modifiers}))?".
+                    $thisurlencode(stripslashes($this->stop))."/i",
          
             function($m) {
                 return $this->modifiers(
