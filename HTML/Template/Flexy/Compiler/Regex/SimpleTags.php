@@ -398,6 +398,9 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             case 'u':
                 return '<?php echo urlencode(' . $val . ');?>';
             
+            case 'uu':
+                return '<?php echo urlencode(urlencode(' . $val . '));?>';
+            
             case 'ru':
                 return '<?php echo rawurlencode(' . $val . ');?>';
             
