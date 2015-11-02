@@ -99,28 +99,28 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             $input);
 
 
-        $input = preg_replace(
-            "/".$this->start."([a-z0-9_.]+):h".$this->stop."/ie",
+        $input = preg_replace_callback(
+            "/".$this->start."([a-z0-9_.]+):h".$this->stop."/i",
             "'<?php echo ".$this->error."$'.str_replace('.','->','\\1').'?>'",
             $input);
 
-        $input = preg_replace(
-            "/".$this->start."([a-z0-9_.]+):u".$this->stop."/ie",
+        $input = preg_replace_callback(
+            "/".$this->start."([a-z0-9_.]+):u".$this->stop."/i",
             "'<?php echo urlencode(".$this->error."$'.str_replace('.','->','\\1').')?>'",
             $input);
 
-        $input = preg_replace(
-            "/".$this->start."([a-z0-9_.]+):ru".$this->stop."/ie",
+        $input = preg_replace_callback(
+            "/".$this->start."([a-z0-9_.]+):ru".$this->stop."/i",
             "'<?php echo rawurlencode(".$this->error."$'.str_replace('.','->','\\1').')?>'",
             $input);
 
-        $input = preg_replace(
-            "/".$this->start."([a-z0-9_.]+):r".$this->stop."/ie",
+        $input = preg_replace_callback((
+            "/".$this->start."([a-z0-9_.]+):r".$this->stop."/i",
             "'<PRE><?php echo print_r($'.str_replace('.','->','\\1').')?></PRE>'",
             $input);
 
-        $input = preg_replace(
-            "/".$this->start."([a-z0-9_.]+):n".$this->stop."/ie",
+        $input = preg_replace_callback((
+            "/".$this->start."([a-z0-9_.]+):n".$this->stop."/i",
             "'<?php echo nl2br(htmlspecialchars(".$this->error."$'.str_replace('.','->','\\1').'))?>'",
             $input);
         return $input;
