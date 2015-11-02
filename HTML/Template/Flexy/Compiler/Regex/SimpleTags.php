@@ -122,14 +122,20 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
            
             $input);
 
-        $input = preg_replace_callback((
+        $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+):r".$this->stop."/i",
-            "'<PRE><?php echo print_r($'.str_replace('.','->','\\1').')?></PRE>'",
+            
+            function($m) {
+                return '<PRE><?php print_r(' . $this->error . '$' . str_replace('.','->',$m[0])  . ')?></PRE>';
+            },
+            
             $input);
 
-        $input = preg_replace_callback((
+        $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+):n".$this->stop."/i",
-            "'<?php echo nl2br(htmlspecialchars(".$this->error."$'.str_replace('.','->','\\1').'))?>'",
+             function($m) {
+                return '<?php echo nl2br(htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . '))?>';
+            },
             $input);
         return $input;
 
