@@ -406,7 +406,25 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
     
     function modifiers ($val, $mod)
     {
-        
+        switch($mod) {
+            case 'h':
+                return '<?php echo ' . $val . ';?>';
+            
+            case 'u':
+                return '<?php echo urlencode(' . $val . ');?>';
+            
+            case 'ru':
+                return '<?php echo rawurlencode(' . $val . ');?>';
+            
+            case 'r':
+                return '<?php   print_r(' . $val . ');?>';
+            
+            case 'n':
+                return '<?php  nl2br(htmlspecialchar(' . $val . '));?>';
+           
+            default:
+                return '<?php echo htmlspecialchars(' . $val . ');?>';
+        }
     }
 
 
