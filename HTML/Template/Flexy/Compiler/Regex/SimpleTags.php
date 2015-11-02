@@ -182,7 +182,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
 
         /* no vars */
         $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+)\(\)(:(h|u|ru|r|n|uu))?".$this->stop."/ie",
+            "/".$this->start."([a-z0-9_.]+)\(\)(:({$this->modifiers}))?".$this->stop."/ie",
            
            function($m) {
                 return $this->modifiers(
