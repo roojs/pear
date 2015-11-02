@@ -96,7 +96,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             "/".$this->start."([a-z0-9_.]+)(:({$this->modifiers}))?".$this->stop."/i",
             function($m) {
                 return $this->modifiers(
-                    $this->error . '$' . str_replace('.','->',$m[0]) ,
+                    $this->error . '$' . str_replace('.','->',$m[1]) ,
                     empty($m[3]) ? '' : $m[3]
                 );
             },
@@ -136,7 +136,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
          
             function($m) {
                 return $this->modifiers(
-                    $this->error . '$' . str_replace('.','->',$m[0]) ,
+                    $this->error . '$' . str_replace('.','->',$m[1]) ,
                     empty($m[3]) ? '' : $m[3]
                 );
             },
@@ -186,14 +186,32 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
            
            function($m) {
                 return $this->modifiers(
-                    $this->error . '$' . str_replace('.','->',$m[0]) .'()',
+                    $this->error . '$' . str_replace('.','->',$m[1]) .'()',
                     empty($m[3]) ? '' : $m[3]
                 );
             },
+            $input
+        );
            
-        // more regexes.. would make this less lines, but more confusing....
+        // more complex regex .. would make this less lines, but more confusing....
+        
         
         /* single vars */
+        
+        $input = preg_replace_callback(
+            "/".$this->start."([a-z0-9_.]+)\(([a-z0-9_.]+)\)(:({$this->modifiers}))?".$this->stop."/ie",
+           
+           function($m) {
+                return $this->modifiers(
+                    $this->error . '$' . str_replace('.','->',$m[1]) .'('.
+                        '$'. str_replace('.','->',$m[2])
+                    ')',
+                    empty($m[4]) ? '' : $m[4]
+                );
+            },
+            $input
+        );
+        
         $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)\(([a-z0-9_.]+)\)".$this->stop."/ie",
             "'<?php echo htmlspecialchars(".$this->error."$'.str_replace('.','->','\\1').'($' .  str_replace('.','->','\\2') . '))?>'",
