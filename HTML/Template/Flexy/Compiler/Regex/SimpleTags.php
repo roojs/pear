@@ -181,10 +181,16 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
 
         /* no vars */
         $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+)\(\)".$this->stop."/ie",
-            function($m) {
-                return '<?php echo htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . '());?>';
+            "/".$this->start."([a-z0-9_.]+)\(\)(:(h|u|ru|r|n|uu))?".$this->stop."/ie",
+           
+           function($m) {
+                return $this->modifiers(
+                    $this->error . '$' . str_replace('.','->',$m[0]) ,
+                    empty($m[3]) ? '' : $m[3]
+                );
             },
+           
+           
             "'<?php echo htmlspecialchars(".$this->error."$'.str_replace('.','->','\\1').'())?>'",
             $input);
 
