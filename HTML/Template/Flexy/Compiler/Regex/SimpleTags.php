@@ -99,9 +99,8 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
                     $this->error . '$' . str_replace('.','->',$m[0]) ,
                     empty($m[3]) ? '' : $m[3]
                 );
-                
-                }
             },
+            
             $input);
 
  
