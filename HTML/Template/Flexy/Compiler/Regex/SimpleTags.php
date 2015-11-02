@@ -144,36 +144,38 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
     */
 
     function urlencoded_variables ($input) {
-        $input = preg_replace_callback(
-            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+)".urlencode(stripslashes($this->stop))."/i",
+        
+         $input = preg_replace_callback(
+            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+)(:(h|u|ru|r|n|uu))?".$thisurlencode(stripslashes($this->stop))."/i",
             function($m) {
-                return '<?php echo htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?>';
+                $val = $this->error . '$' . str_replace('.','->',$m[0]) ;
+                switch(empty($m[3]) ? '' : $m[3]) {
+                    case 'h':
+                        return '<?php echo ' . $val . ';?>';
+                    
+                    case 'u':
+                        return '<?php echo urlencode(' . $val . ');?>';
+                    
+                    case 'uu':
+                        return '<?php echo urlencode(urlencode(' . $val . '));?>';
+                    
+                    case 'ru':
+                        return '<?php echo rawurlencode(' . $val . ');?>';
+                    
+                    case 'r':
+                        return '<?php   print_r(' . $val . ');?>';
+                    
+                    case 'n':
+                        return '<?php  nl2br(htmlspecialchar(' . $val . '));?>';
+                   
+                    default:
+                        return '<?php echo htmlspecialchars(' . $val . ');?>';
+                }
             },
             $input);
 
-
-        $input = preg_replace_callback(
-            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):h".urlencode(stripslashes($this->stop))."/i",
-            function($m) {
-                return '<?php echo ' . $this->error . '$' . str_replace('.','->',$m[0])  . ';?>';
-            },
-            
-            $input);
-
-        $input = preg_replace_callback(
-            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):u".urlencode(stripslashes($this->stop))."/i",
-             function($m) {
-                return '<?php echo urlencode(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?>';
-            },
-             
-            $input);
-    
-        $input = preg_replace_callback(
-            "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):uu".urlencode(stripslashes($this->stop))."/i",
-              function($m) {
-                return '<?php echo urlencode(urlencode(' . $this->error . '$' . str_replace('.','->',$m[0])  . '));?>';
-            },
-        $input);
+ 
+         
         return $input;
     }
      /**
