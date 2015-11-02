@@ -145,7 +145,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
 
     function urlencoded_variables ($input) {
         
-         $input = preg_replace_callback(
+        $input = preg_replace_callback(
             "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+)(:(h|u|ru|r|n|uu))?".$thisurlencode(stripslashes($this->stop))."/i",
             function($m) {
                 $val = $this->error . '$' . str_replace('.','->',$m[0]) ;
