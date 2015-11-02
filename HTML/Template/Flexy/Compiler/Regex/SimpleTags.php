@@ -92,27 +92,30 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
 
     function variables ($input) {
         $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+)".$this->stop."/i",
+            "/".$this->start."([a-z0-9_.]+)(:(h|u|ru|r|n))?".$this->stop."/i",
             function($m) {
-                return '<?php echo htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?>';
+                $val = $this->error . '$' . str_replace('.','->',$m[0]) ;
+                switch(empty($m[3]) ? '' : $m[3]):
+                    case 'h':
+                        return '<?php echo ' . $val . ';?>';
+                    
+                    case 'u':
+                        return '<?php echo urlencode(' . $val . ');?>';
+                    
+                    case 'ru':
+                        return '<?php echo rawurlencode(' . $val . ');?>';
+                    
+                     case 'r':
+                        return '<?php   print_r(' . $val . ');?>';
+                    
+                    
+                    default:
+                        return '<?php echo htmlspecialchars(' . $val . ');?>';
+                    
             },
             $input);
 
-
-        $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+):h".$this->stop."/i",
-            function($m) {
-                return '<?php echo ' . $this->error . '$' . str_replace('.','->',$m[0])  . '; ?>';
-            },
-            
-            $input);
-
-        $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+):u".$this->stop."/i",
-            function($m) {
-                return '<?php echo urlencode(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?>';
-            },
-            $input);
+ 
 
         $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+):ru".$this->stop."/i",
