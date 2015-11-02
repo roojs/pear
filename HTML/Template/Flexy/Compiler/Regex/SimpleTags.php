@@ -105,10 +105,12 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
                     case 'ru':
                         return '<?php echo rawurlencode(' . $val . ');?>';
                     
-                     case 'r':
+                    case 'r':
                         return '<?php   print_r(' . $val . ');?>';
                     
-                    
+                    case 'n':
+                        return '<?php  nl2br(htmlspecialchar(' . $val . '));?>';
+                   
                     default:
                         return '<?php echo htmlspecialchars(' . $val . ');?>';
                     
@@ -116,23 +118,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             $input);
 
  
-
-        $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+):ru".$this->stop."/i",
-            function($m) {
-                return '<?php echo rawurlencode(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?>';
-            },
-           
-            $input);
-
-        $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+):r".$this->stop."/i",
-            
-            function($m) {
-                return '<PRE><?php print_r(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?></PRE>';
-            },
-            
-            $input);
+ 
 
         $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+):n".$this->stop."/i",
