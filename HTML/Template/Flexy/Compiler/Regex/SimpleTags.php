@@ -191,17 +191,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
                 );
             },
            
-           
-            "'<?php echo htmlspecialchars(".$this->error."$'.str_replace('.','->','\\1').'())?>'",
-            $input);
-
-        $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+)\(\):h".$this->stop."/ie",
-            "'<?php echo ".$this->error."$'.str_replace('.','->','\\1').'()?>'",
-            $input);
-        
-        // some really bad coding....
-        
+        // more regexes.. would make this less lines, but more confusing....
         
         /* single vars */
         $input = preg_replace_callback(
