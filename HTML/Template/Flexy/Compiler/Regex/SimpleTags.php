@@ -90,12 +90,13 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
 
 
 
-    function variables ($input) {
+    function variables ($input)
+    {
         $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)(:(h|u|ru|r|n))?".$this->stop."/i",
             function($m) {
                 $val = $this->error . '$' . str_replace('.','->',$m[0]) ;
-                switch(empty($m[3]) ? '' : $m[3]):
+                switch(empty($m[3]) ? '' : $m[3]) {
                     case 'h':
                         return '<?php echo ' . $val . ';?>';
                     
@@ -113,20 +114,12 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
                    
                     default:
                         return '<?php echo htmlspecialchars(' . $val . ');?>';
-                    
+                }
             },
             $input);
 
  
- 
-
-        $input = preg_replace_callback(
-            "/".$this->start."([a-z0-9_.]+):n".$this->stop."/i",
-             function($m) {
-                return '<?php echo nl2br(htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . '));?>';
-            },
-            $input);
-        return $input;
+  
 
     }
      /**
