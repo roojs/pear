@@ -109,7 +109,10 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
 
         $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+):u".$this->stop."/i",
-            "'<?php echo urlencode(".$this->error."$'.str_replace('.','->','\\1').')?>'",
+            function($m) {
+                return '<?php echo urlencode(' . $this->error . '$' . str_replace('.','->',$m[0])  . ')?>';
+            },
+            
             $input);
 
         $input = preg_replace_callback(
