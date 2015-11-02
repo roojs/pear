@@ -94,7 +94,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
         $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)".$this->stop."/i",
             function($m) {
-                return '<?php echo htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . ')?>';
+                return '<?php echo htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?>';
             },
             $input);
 
@@ -102,7 +102,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
         $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+):h".$this->stop."/i",
             function($m) {
-                return '<?php echo ' . $this->error . '$' . str_replace('.','->',$m[0])  . ' ?>';
+                return '<?php echo ' . $this->error . '$' . str_replace('.','->',$m[0])  . '; ?>';
             },
             
             $input);
@@ -110,14 +110,14 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
         $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+):u".$this->stop."/i",
             function($m) {
-                return '<?php echo urlencode(' . $this->error . '$' . str_replace('.','->',$m[0])  . ')?>';
+                return '<?php echo urlencode(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?>';
             },
             $input);
 
         $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+):ru".$this->stop."/i",
             function($m) {
-                return '<?php echo rawurlencode(' . $this->error . '$' . str_replace('.','->',$m[0])  . ')?>';
+                return '<?php echo rawurlencode(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?>';
             },
            
             $input);
@@ -126,7 +126,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             "/".$this->start."([a-z0-9_.]+):r".$this->stop."/i",
             
             function($m) {
-                return '<PRE><?php print_r(' . $this->error . '$' . str_replace('.','->',$m[0])  . ')?></PRE>';
+                return '<PRE><?php print_r(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?></PRE>';
             },
             
             $input);
@@ -134,7 +134,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
         $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+):n".$this->stop."/i",
              function($m) {
-                return '<?php echo nl2br(htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . '))?>';
+                return '<?php echo nl2br(htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . '));?>';
             },
             $input);
         return $input;
@@ -153,7 +153,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
     * %??i.xyz:ru%??           maps to  <?php echo urlencode($i->xyz)?>
     *           THIS IS PROBABLY THE ONE TO USE!
     *
-    * %??i.xyz:uu%??           maps to <?php echo urlencode(urlencode($i->xyz))?>
+    * %??i.xyz:uu%??           maps to <?php echo urlencode(urlencode($i->xyz))?> WHY?????
     *
     *
     * @param   string    $input the template
@@ -165,24 +165,27 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
         $input = preg_replace_callback(
             "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+)".urlencode(stripslashes($this->stop))."/i",
               function($m) {
-                return '<?php echo htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . '); ?>';
+                return '<?php echo htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?>';
             },
             $input);
 
 
         $input = preg_replace_callback(
             "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):h".urlencode(stripslashes($this->stop))."/i",
-             function($m) {
-                return '<?php echo ' . $this->error . '$' . str_replace('.','->',$m[0])  . '; ?>';
+            function($m) {
+                return '<?php echo ' . $this->error . '$' . str_replace('.','->',$m[0])  . ';?>';
             },
-            "'<?php echo ".$this->error."$'.str_replace('.','->','\\1').'?>'",
+            
             $input);
 
         $input = preg_replace_callback(
             "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):u".urlencode(stripslashes($this->stop))."/i",
-            "'<?php echo urlencode(".$this->error."$'.str_replace('.','->','\\1').')?>'",
+             function($m) {
+                return '<?php echo urlencode(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?>';
+            },
+             
             $input);
-
+    
         $input = preg_replace_callback(
             "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):uu".urlencode(stripslashes($this->stop))."/i",
             "'<?php echo urlencode(urlencode(".$this->error."$'.str_replace('.','->','\\1').'))?>'",
