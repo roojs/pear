@@ -164,7 +164,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
     function urlencoded_variables ($input) {
         $input = preg_replace_callback(
             "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+)".urlencode(stripslashes($this->stop))."/i",
-              function($m) {
+            function($m) {
                 return '<?php echo htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . ');?>';
             },
             $input);
@@ -228,52 +228,55 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
     function methods($input) {
 
         /* no vars */
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)\(\)".$this->stop."/ie",
+            function($m) {
+                return '<?php echo htmlspecialchars(' . $this->error . '$' . str_replace('.','->',$m[0])  . '());?>';
+            },
             "'<?php echo htmlspecialchars(".$this->error."$'.str_replace('.','->','\\1').'())?>'",
             $input);
 
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)\(\):h".$this->stop."/ie",
             "'<?php echo ".$this->error."$'.str_replace('.','->','\\1').'()?>'",
             $input);
         /* single vars */
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)\(([a-z0-9_.]+)\)".$this->stop."/ie",
             "'<?php echo htmlspecialchars(".$this->error."$'.str_replace('.','->','\\1').'($' .  str_replace('.','->','\\2') . '))?>'",
             $input);
 
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)\(([a-z0-9_.]+)\):h".$this->stop."/ie",
             "'<?php echo ".$this->error."$'.str_replace('.','->','\\1').'($' .  str_replace('.','->','\\2') . ')?>'",
             $input);
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)\(([a-z0-9_.]+)\):s".$this->stop."/ie",
             "'<?php highlight_string($'.str_replace('.','->','\\1').'($' .  str_replace('.','->','\\2') . '));?>'",
             $input);
         /* double vars     */
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)\(([a-z0-9_.]+),([a-z0-9_.]+)\)".$this->stop."/ie",
             "'<?php echo htmlspecialchars(".$this->error."$'.str_replace('.','->','\\1').'($' .  str_replace('.','->','\\2') . ',$' .  str_replace('.','->','\\3') . '))?>'",
             $input);
           /* double vars:: # #'d  ,var */
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)\(\#([^\#]+)\#,([a-z0-9_.]+)\)".$this->stop."/ie",
             "'<?php echo htmlspecialchars(".$this->error."$'.str_replace('.','->','\\1').'(\''. str_replace(\"'\",\"\\\'\",'\\2') . '\',$' .  str_replace('.','->','\\3') . '))?>'",
             $input);
           /* double vars:: var , # #'d  */
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)\(([a-z0-9_.]+),\#([^\#]+)\#\)".$this->stop."/ie",
             "'<?php echo htmlspecialchars(".$this->error."$'.str_replace('.','->','\\1').'($' .  str_replace('.','->','\\2') . ',\''. str_replace(\"'\",\"\\\'\",'\\3') . '\'))?>'",
             $input);
 
         /*strings or integers */
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)\(\#([^\#]+)\#\)".$this->stop."/ie",
             "'<?php echo htmlspecialchars(\$'.str_replace('.','->','\\1') . '(\''. str_replace(\"'\",\"\\\'\",'\\2') . '\'))?>'",
             $input);
 
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."([a-z0-9_.]+)\(\#([^\#]+)\#\):h".$this->stop."/ie",
             "'<?php echo ".$this->error."$'.str_replace('.','->','\\1').'(\"' .  str_replace(\"'\",\"\\\'\",'\\2') . '\")?>'",
             $input);
@@ -302,11 +305,11 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
     function looping($input) {
 
 
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."foreach:([a-z0-9_.]+),([a-z0-9_.]+)".$this->stop."/ie",
             "'<?php if (".$this->error."$' . str_replace('.','->','\\1') . ') foreach( $' . str_replace('.','->','\\1') . ' as $' . str_replace('.','->','\\2') . ') { ?>'",
             $input);
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."foreach:([a-z0-9_.]+),([a-z0-9_.]+),([a-z0-9_.]+)".$this->stop."/ie",
             "'<?php if (".$this->error."$' . str_replace('.','->','\\1') . ') foreach( $' . str_replace('.','->','\\1') . ' as $' . str_replace('.','->','\\2') . '=>$' .  str_replace('.','->','\\3') .') { ?>'",
             $input);
@@ -332,12 +335,12 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
 
     function conditionals($input) {
 
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."if:([a-z0-9_.]+)".$this->stop."/ie",
             "'<?php if (".$this->error."$' . str_replace('.','->','\\1') . ') { ?>'",
             $input);
 
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."if:([a-z0-9_.]+)\(\)".$this->stop."/ie",
             "'<?php if (".$this->error."$' . str_replace('.','->','\\1') . '()) { ?>'",
             $input);
@@ -383,7 +386,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             return $input;
         }
         
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."include:([a-z0-9_.]+)".$this->stop."/ie",
             "'<?php
                 if ((".$this->error."$' . str_replace('.','->','\\1') . ') &&
@@ -393,19 +396,19 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
                     "/\{$' . str_replace('.','->','\\1') . '}.en.php\");?>'",
             $input);
 
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."include:#([a-z0-9_.]+)#".$this->stop."/ie",
             "'<?php if (file_exists(\"" .  $this->engine->options['compileDir'] . "/\\1.en.php\")) include(\"" .
             $this->engine->options['compileDir'] . "/\\1.en.php\");?>'",
             $input);
 
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."t_include:#([a-z0-9_.]+)#".$this->stop."/ie",
             "'<?php if (file_exists(\"" .  $this->engine->options['templateDir'] .
             "/\\1\")) include(\"" .  $this->engine->options['templateDir'] . "/\\1\");?>'",
             $input);
 
-        $input = preg_replace(
+        $input = preg_replace_callback(
             "/".$this->start."q_include:#([a-z0-9_.]+)#".$this->stop."/ie",
             "'<?php  HTML_Template_Flexy::staticQuickTemplate(\"\\1\",\$t); ?>'",
             $input);
