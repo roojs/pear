@@ -398,6 +398,9 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             
             case 'n':
                 return '<?php  nl2br(htmlspecialchar(' . $val . '));?>';
+            
+            case 's':
+                return '<?php  highlight_string(' . $val . ');?>';
            
             default:
                 return '<?php echo htmlspecialchars(' . $val . ');?>';
