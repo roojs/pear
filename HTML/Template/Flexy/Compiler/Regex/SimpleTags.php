@@ -223,9 +223,10 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
            function($m) {
                 return $this->modifiers(
                     $this->error . '$' . str_replace('.','->',$m[1]) .'('.
-                        '$'. str_replace('.','->',$m[2]) .
+                        '$'. str_replace('.','->',$m[2]) . ','
+                        '$'. str_replace('.','->',$m[3]) . ','
                     ')',
-                    empty($m[4]) ? '' : $m[4]
+                    empty($m[5]) ? '' : $m[5]
                 );
             },
             $input
