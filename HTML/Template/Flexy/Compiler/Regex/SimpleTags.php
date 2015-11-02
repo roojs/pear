@@ -172,6 +172,9 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
 
         $input = preg_replace_callback(
             "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+):h".urlencode(stripslashes($this->stop))."/i",
+             function($m) {
+                return '<?php echo ' . $this->error . '$' . str_replace('.','->',$m[0])  . '; ?>';
+            },
             "'<?php echo ".$this->error."$'.str_replace('.','->','\\1').'?>'",
             $input);
 
