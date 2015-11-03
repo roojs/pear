@@ -424,9 +424,9 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             function($m) {
                 return  '<?php
                 if (file_exists("' .  $this->engine->options['compileDir'] .
-                    '/'  $m[1] .'.en.php"))
+                    '/' .  $m[1] .'.en.php"))
                 include "' .  $this->engine->options['compileDir'] .
-                    '/{$' .  str_replace('.','->',$m[1]) . '}.en.php");?>';
+                    '/' .  $m[1]. '.en.php");?>';
             },
             $input
         );
