@@ -423,9 +423,8 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             "/".$this->start."include:#([a-z0-9_.]+)#".$this->stop."/i", 
             function($m) {
                 return  '<?php
-                if (('.$this->error.'$' . str_replace('.','->',$m[1]) . ') &&
-                    file_exists("' .  $this->engine->options['compileDir'] .
-                    '/{$' .  str_replace('.','->',$m[1]) . '}.en.php"))
+                if (file_exists("' .  $this->engine->options['compileDir'] .
+                    '/'  $m[1] .'.en.php"))
                 include "' .  $this->engine->options['compileDir'] .
                     '/{$' .  str_replace('.','->',$m[1]) . '}.en.php");?>';
             },
