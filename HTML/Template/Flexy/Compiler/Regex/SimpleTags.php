@@ -132,7 +132,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
         
         $input = preg_replace_callback(
             "/".urlencode(stripslashes($this->start))."([a-z0-9_.]+)(:({$this->modifiers}))?".
-                    $thisurlencode(stripslashes($this->stop))."/i",
+                     urlencode(stripslashes($this->stop))."/i",
          
             function($m) {
                 return $this->modifiers(
