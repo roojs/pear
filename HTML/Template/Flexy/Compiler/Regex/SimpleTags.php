@@ -355,7 +355,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             },
             $input
         );
-          $input = preg_replace_callback(
+        $input = preg_replace_callback(
             "/".$this->start."if:([a-z0-9_.]+)(\)".$this->stop."/i",
             function($m) {
                 return '<?php if ('.$this->error.'$' .
@@ -404,6 +404,16 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
         if (is_array($this->engine->options['templateDir'])) {
             return $input;
         }
+        
+        $input = preg_replace_callback(
+             "/".$this->start."include:([a-z0-9_.]+)".$this->stop."/i",
+            function($m) {
+                return '<?php if ('.$this->error.'$' .
+                        str_replace('.','->',$m[1])  . '())  { ?>';
+            },
+            $input
+        );
+        
         
         $input = preg_replace_callback(
             "/".$this->start."include:([a-z0-9_.]+)".$this->stop."/i",
