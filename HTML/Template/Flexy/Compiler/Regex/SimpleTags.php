@@ -406,10 +406,15 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
         }
         
         $input = preg_replace_callback(
-             "/".$this->start."include:([a-z0-9_.]+)".$this->stop."/i",
+            "/".$this->start."include:([a-z0-9_.]+)".$this->stop."/i",
             function($m) {
-                return '<?php if ('.$this->error.'$' .
-                        str_replace('.','->',$m[1])  . '())  { ?>';
+                return  '<?php
+                if (('.$this->error.'$' . str_replace('.','->',$m[1]) . ') &&
+                    file_exists(\"" .  $this->engine->options['compileDir'] .
+                    "/\{$' . str_replace('.','->','\\1') . '}.en.php\"))
+                include(\"" .  $this->engine->options['compileDir'] .
+                    "/\{$' . str_replace('.','->','\\1') . '}.en.php\");?>'",
+            $input);
             },
             $input
         );
