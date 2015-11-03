@@ -443,19 +443,15 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             $input
         );
         
-
         $input = preg_replace_callback(
-            "/".$this->start."t_include:#([a-z0-9_.]+)#".$this->stop."/i",
-            "'<?php if (file_exists(\"" .  $this->engine->options['templateDir'] .
-            "/\\1\")) include(\"" .  $this->engine->options['templateDir'] . "/\\1\");?>'",
-            $input);
-
-        $input = preg_replace_callback(
-            "/".$this->start."q_include:#([a-z0-9_.]+)#".$this->stop."/i",
-            "'<?php  HTML_Template_Flexy::staticQuickTemplate(\"\\1\",\$t); ?>'",
-            $input);
-
-        return $input;
+            "/".$this->start."include:#([a-z0-9_.]+)#".$this->stop."/i", 
+            function($m) {
+                return  '<?php
+                HTML_Template_Flexy::staticQuickTemplate("'.  $m[1] . '",$t);?>';
+            },
+            $input
+        );
+ 
     }
     
     
