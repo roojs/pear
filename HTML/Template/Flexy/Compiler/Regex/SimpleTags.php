@@ -410,7 +410,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             function($m) {
                 return  '<?php
                 if (('.$this->error.'$' . str_replace('.','->',$m[1]) . ') &&
-                    file_exists(\"" .  $this->engine->options['compileDir'] .
+                    file_exists("' .  $this->engine->options['compileDir'] .
                     "/\{$' .  str_replace('.','->',$m[1]) . '}.en.php\"))
                 include(\"" .  $this->engine->options['compileDir'] .
                     "/\{$' .  str_replace('.','->',$m[1]) . '}.en.php\");?>'",
