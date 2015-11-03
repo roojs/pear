@@ -350,12 +350,8 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
         $input = preg_replace_callback(
             "/".$this->start."if:([a-z0-9_.]+)".$this->stop."/i",
             function($m) {
-            
                 return '<?php if ('.$this->error.'$' .
-                str_replace('.','->','\\1') . ') foreach(' . 
-                        '$'. str_replace('.','->',$m[1]) . ' as ' .
-                        '$'. str_replace('.','->',$m[2]) . ' => ' .  // not sure if '->' is really needed here...
-                        '$'. str_replace('.','->',$m[3]) . ' { ?>';
+                        str_replace('.','->',$m[1])  . ')  { ?>';
             },
             $input
         );
