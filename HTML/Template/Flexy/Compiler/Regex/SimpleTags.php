@@ -363,11 +363,7 @@ class HTML_Template_Flexy_Compiler_Regex_SimpleTags
             },
             $input
         );
-        $input = preg_replace_callback(
-            "/".$this->start."if:([a-z0-9_.]+)\(\)".$this->stop."/i",
-            "'<?php if (".$this->error."$' . str_replace('.','->','\\1') . '()) { ?>'",
-            $input);
-
+         
         return $input;
     }
     /**
