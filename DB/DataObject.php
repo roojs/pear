@@ -639,7 +639,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * 
      * @param    string|false  $k key
      * @param    string|false  $v value
-     * @param    string|false  $method method to call on each result to get array value (eg. 'toArray')
+     * @param    string|false|callable  $method method to call on each result to get array value (eg. 'toArray')
      * @access  public
      * @return  array  format dependant on arguments, may be empty
      */
