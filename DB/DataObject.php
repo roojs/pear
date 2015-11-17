@@ -667,7 +667,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 continue;
             }
             $ret[] = $k === false ? 
-               (!is_string($method) && is_callable($method) ? call_user_func($method, $this) :  $this->$method())
+               ((!is_string($method) && is_callable($method)) ? call_user_func($method, $this) :  $this->$method())
                 : $this->$k;
                 
                 
