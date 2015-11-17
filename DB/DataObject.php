@@ -631,7 +631,12 @@ class DB_DataObject extends DB_DataObject_Overload
      * $x->whereAdd('something = 1');
      * $ar = $x->fetchAll(false,false,'toArray');
      *
+     * F) array of custom arrays (for example)
+     * $x = DB_DataObject::factory('mytable');
+     * $x->whereAdd('something = 1');
+     * $ar = $x->fetchAll(false,false,function($o) { return $o->toArray('%s', false); });
      *
+     * 
      * @param    string|false  $k key
      * @param    string|false  $v value
      * @param    string|false  $method method to call on each result to get array value (eg. 'toArray')
