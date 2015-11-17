@@ -631,15 +631,10 @@ class DB_DataObject extends DB_DataObject_Overload
      * $x->whereAdd('something = 1');
      * $ar = $x->fetchAll(false,false,'toArray');
      *
-     * F) array of custom arrays (for example)
-     * $x = DB_DataObject::factory('mytable');
-     * $x->whereAdd('something = 1');
-     * $ar = $x->fetchAll(false,false,function($o) { return $o->toArray('%s', false); });
      *
-     * 
      * @param    string|false  $k key
      * @param    string|false  $v value
-     * @param    string|false|callable  $method method to call on each result to get array value (eg. 'toArray')
+     * @param    string|false  $method method to call on each result to get array value (eg. 'toArray')
      * @access  public
      * @return  array  format dependant on arguments, may be empty
      */
@@ -667,12 +662,9 @@ class DB_DataObject extends DB_DataObject_Overload
                 continue;
             }
             $ret[] = $k === false ? 
-               ((!is_string($method) && is_callable($method)) ? call_user_func($method, $this) :  $this->$method())
+                ($method == false ? clone($this)  : $this->$method())
                 : $this->$k;
-                
-                
-           
-        } 
+        }
  
         return $ret;
          
