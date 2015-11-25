@@ -1091,7 +1091,7 @@ class HTML_FlexyFramework {
                 
                 foreach ($this->projectExtends as $e){
                     $floc = "{$this->rootDir}/{$e}/$location";
-                    
+                    $this->debug("Trying file: $floc");
                     if (!empty($location) && @file_exists($floc)) {             // hide? error???
                         require_once $floc ;
                         $classname = $e . '_' . implode('_',$request_array);
