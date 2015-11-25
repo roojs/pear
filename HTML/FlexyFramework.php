@@ -1086,7 +1086,7 @@ class HTML_FlexyFramework {
             // in here check the 'projectExtends' versions..?
             
             if(!empty($this->projectExtends)){
-                
+                $this->debug("Trying project Extends<BR>");
                 $has_extend_class = false;
                 
                 foreach ($this->projectExtends as $e){
