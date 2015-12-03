@@ -505,7 +505,6 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             case 'n': 
                 // blank or value..
                 $numberformat = @$GLOBALS['_HTML_TEMPLATE_FLEXY']['currentOptions']['numberFormat'];
-                print_R($numberformat);exit;
                 $prefix = 'echo number_format(';
                 $suffix = $GLOBALS['_HTML_TEMPLATE_FLEXY']['currentOptions']['numberFormat'] . ')';
                 break;
