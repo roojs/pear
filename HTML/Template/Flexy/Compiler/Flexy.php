@@ -490,7 +490,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         
         $suffix = '';
         $modifier = strlen(trim($element->modifier)) ? $element->modifier : ' ';
-        
+        print_R($modifier);exit;
         switch ($modifier) {
             case 'h':
                 break;
