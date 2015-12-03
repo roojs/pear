@@ -456,10 +456,10 @@ class HTML_Template_Flexy
             
             
         }
-//        if (!$recompile) {
-//            $this->debug("File looks like it is uptodate.");
-//            return true;
-//        }
+        if (!$recompile) {
+            $this->debug("File looks like it is uptodate.");
+            return true;
+        }
         
         
         
@@ -484,9 +484,7 @@ class HTML_Template_Flexy
         
         require_once 'HTML/Template/Flexy/Compiler.php';
         $this->compiler = HTML_Template_Flexy_Compiler::factory($this->options);
-        print_r($this->compiler);exit;
         $ret = $this->compiler->compile($this);
-        print_r($this->compiler);
         if (HTML_Template_Flexy_is_a($ret,'PEAR_Error')) {
             return $this->raiseError('HTML_Template_Flexy fatal error:' .$ret->message,
                 $ret->code,  HTML_TEMPLATE_FLEXY_ERROR_DIE);
