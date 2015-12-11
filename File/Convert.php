@@ -490,7 +490,6 @@ class File_Convert
         }
         $pos = array();
 //        print_r($this->methods);
-        print_R($from);exit;
         foreach($this->methods as $t) {
             if (!in_array($from, $t[1])) {
                 continue;
