@@ -106,7 +106,6 @@ class File_Convert
                 return false;
             }
             $action->debug = $this->debug;
-            print_R($action);exit;
             $fn = $action->runconvert($this->fn, $x, $y, $pg);
             if (!$fn) {
                 $this->to = $toMimetype;
