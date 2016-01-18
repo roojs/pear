@@ -211,7 +211,7 @@ class HTML_CSS_Minify
         // loop files
         foreach ($this->data as $source => $css) {
             
-            $content = '/* ' . substr($source, strlen($this->baseURL)) . " */\n";
+            $content .= '/* ' . substr($source, strlen($this->baseURL)) . " */\n";
             /*
              * Let's first take out strings & comments, since we can't just remove
              * whitespace anywhere. If whitespace occurs inside a string, we should
