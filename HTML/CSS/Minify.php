@@ -252,7 +252,7 @@ class HTML_CSS_Minify
             //$css = $this->combineImports($path ?: $source, $css);
 
             // combine css
-            $content .= $css . "\n";
+            $content .= $css . "\n"; // line breaks would be nice occasionally.
         }
 
         return $content;
