@@ -649,12 +649,14 @@ class HTML_CSS_Minify
     
     function convertPath($in_to, $path)
     {
+        
+         
         // it's a // url (eg. use https if already in https mode...)
         if (preg_match('#^//#', $path)) {
             return $path;
         }
         
-        //print_r(array($this->baseURL, $in_to, $path ));
+        print_r(array($this->baseURL, $in_to, $path ));
         require_once 'Net/URL.php';
         $a = new Net_URL();
         $path = $a->resolvePath($this->baseURL . '/'. $path); // not sure if that's a good idea..
