@@ -660,6 +660,8 @@ class HTML_CSS_Minify
         require_once 'Net/URL.php';
         $a = new Net_URL();
         $path = $a->resolvePath($this->baseURL . '/'. $path); // not sure if that's a good idea..
+        var_dump($path);
+        
         $to = $a->resolvePath($in_to);
         
         //print_r(array($path,$to));
