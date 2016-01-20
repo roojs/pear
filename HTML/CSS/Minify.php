@@ -656,7 +656,7 @@ class HTML_CSS_Minify
             return $path;
         }
         
-        print_r(array($this->baseURL, $in_to, $path ));
+        //print_r(array($this->baseURL, $in_to, $path ));
         require_once 'Net/URL.php';
         $a = new Net_URL();
         $path = $a->resolvePath($this->baseURL . '/'. $path); // not sure if that's a good idea..
@@ -664,7 +664,7 @@ class HTML_CSS_Minify
         
         $to = rtrim($a->resolvePath($in_to),'/');
         
-        print_r(array($path,$to));
+        //print_r(array($path,$to));
         
         
         $path1 = $path ? explode('/', $path) : array();
@@ -687,7 +687,7 @@ class HTML_CSS_Minify
         
         $to = str_repeat('../', mb_substr_count($to, '/'));
         $ret = $to . ltrim($path, '/');
-        print_r(array($ret));
+        //print_r(array($ret));
         return $ret;
     }
     
