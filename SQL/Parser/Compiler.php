@@ -20,7 +20,7 @@
 // | Authors: John Griffin <jgriffin316@netscape.net>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id: Compiler.php 308312 2011-02-14 04:19:01Z alan_k $
+// $Id: Compiler.php 338539 2016-01-26 04:02:46Z alan_k $
 //
 
 require_once 'PEAR.php';
@@ -40,8 +40,8 @@ class SQL_Parser_Compiler
 {
     var $tree;
     var $quote_identifier = '`';
-// {{{ function SQL_Parser_Compiler($array = null)
-    function SQL_Parser_Compiler($array = null)
+// {{{ function __construct($array = null)
+    function __construct($array = null)
     {
         $this->tree = $array;
     }
