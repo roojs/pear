@@ -21,7 +21,7 @@
 // |          Jason Pell <jasonpell@hotmail.com>                          |
 // +----------------------------------------------------------------------+
 //
-// $Id: Lexer.php 263419 2008-07-24 15:22:46Z cybot $
+// $Id: Lexer.php 338539 2016-01-26 04:02:46Z alan_k $
 //
 
 include dirname(__FILE__) . '/ctype.php';
@@ -68,7 +68,7 @@ class SQL_Parser_Lexer
     // }}}
 
     // {{{ incidental functions
-    function SQL_Parser_Lexer($string = '', $lookahead = 0, $lexeropts)
+    function __construct($string = '', $lookahead = 0, $lexeropts)
     {
         $this->string = $string;
         $this->stringLen = strlen($string);
