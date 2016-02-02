@@ -710,7 +710,7 @@ class DB_DataObject_Generator extends DB_DataObject
                     
                 case 'TIMESTAMP': // do other databases use this???
                     
-                    $type = ($dbtype == 'mysql') ?
+                    $type = ($dbtype == 'mysql' || $dbtype == 'mysqli') ?
                         DB_DATAOBJECT_MYSQLTIMESTAMP : 
                         DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME;
                     break;    
