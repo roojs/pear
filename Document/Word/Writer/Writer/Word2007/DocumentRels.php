@@ -177,7 +177,7 @@ class Document_Word_Writer_Writer_Word2007_DocumentRels extends Document_Word_Wr
 
 			$objWriter->endElement();
 		} else {
-			var_dump(array($pType , $pTarget));
+			var_dump(array(strlen($pType)  , strlen($pTarget))));
 			throw new Exception("Invalid parameters passed.");
 		}
 	}
