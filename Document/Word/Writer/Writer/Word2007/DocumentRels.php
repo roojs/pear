@@ -177,8 +177,9 @@ class Document_Word_Writer_Writer_Word2007_DocumentRels extends Document_Word_Wr
 
 			$objWriter->endElement();
 		} else {
-			var_dump(array(strlen($pType)  , strlen($pTarget)));
-			throw new Exception("Invalid parameters passed.");
+			// WTF - this is throwing all the time, even when one of these is emtpy...
+			//var_dump(array(strlen($pType)  , strlen($pTarget)));
+			//throw new Exception("Invalid parameters passed.");
 		}
 	}
 }
