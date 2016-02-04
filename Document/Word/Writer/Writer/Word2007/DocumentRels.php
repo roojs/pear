@@ -156,6 +156,8 @@ class Document_Word_Writer_Writer_Word2007_DocumentRels extends Document_Word_Wr
 		return $objWriter->getData();
 	}
 	
+	
+	
 	private function _writeRelationship(Document_Word_Writer_Shared_XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '') 
         {
 		if($pType != '' && $pTarget != '') {
@@ -175,8 +177,9 @@ class Document_Word_Writer_Writer_Word2007_DocumentRels extends Document_Word_Wr
 
 			$objWriter->endElement();
 		} else {
+			var_dump(array($pType , $pTarget));
 			throw new Exception("Invalid parameters passed.");
 		}
 	}
 }
-?>
+ 
