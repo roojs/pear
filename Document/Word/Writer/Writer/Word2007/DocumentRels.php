@@ -160,7 +160,7 @@ class Document_Word_Writer_Writer_Word2007_DocumentRels extends Document_Word_Wr
 	
 	private function _writeRelationship(Document_Word_Writer_Shared_XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '') 
         {
-		if($pType != '' && $pTarget != '') {
+		if(strlen($pType)  && strlen($pTarget)) {
 			if(strpos($pId, 'rId') === false) {
 				$pId = 'rId' . $pId;
 			}
