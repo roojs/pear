@@ -221,7 +221,7 @@ class Services_Joker {
         $raw_res = $this->sendQuery( "/request/" . $request, $parstr, true);
         $temp_arr = @explode("\r\n\r\n", $raw_res, 2); // headers + body...
         if (!is_array($temp_arr) || 2 != count($temp_arr)) {
-            return $this->raiseError(__CLASS__.'::'.__FUNCTION__ .': returned '. curl_error($ch));
+            return $this->raiseError(__CLASS__.'::'.__FUNCTION__ .': returned '. curl_error($this->ch));
         }
         
         $response = $this->parseResponse($temp_arr[1]);
