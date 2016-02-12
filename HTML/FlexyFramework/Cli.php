@@ -78,6 +78,10 @@ Available commands:
         $pr = $this->ff->project;
         
         $this->cliHelpSearch($p,$pr);
+        foreach($this->ff->projectExtends as $pr) {
+            $this->cliHelpSearch($p,$pr);
+        }
+        
         echo "\n\n";
         exit;
     }
