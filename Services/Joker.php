@@ -399,10 +399,10 @@ class Services_Joker {
         }
         return $arr;
     }
-    
+    var $ch;
     function sendQuery($urlpart, $params = "", $get_header = false)
     {        
-        $ch = curl_init();
+        $this->ch = $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->dmapi_url.$urlpart);
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
