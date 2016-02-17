@@ -231,6 +231,7 @@ class HTML_FlexyFramework {
             $bits[0] = str_replace('%2F','/',urlencode($bits[0]));
             $this->baseURL = $bits[0] . basename($_SERVER["SCRIPT_FILENAME"]);
             if (!empty($_SERVER['PATH_TRANSLATED'])) {
+                phpinfo();exit;
                // $this->baseURL = ''; // ??? this is if we replace top level...
             }
         }
