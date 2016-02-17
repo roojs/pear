@@ -82,7 +82,7 @@ class HTML_FlexyFramework {
     var $database; // set to true even if nodatabase=true
     
     // optional
-    var $debug = true;
+    var $debug = false;
     var $enable = false; // modules
     var $disable = false; // modules or permissions
     var $appName = false;
