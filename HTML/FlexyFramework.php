@@ -171,6 +171,13 @@ class HTML_FlexyFramework {
             $this->_run($_SERVER['SCRIPT_NAME'] . $_SERVER['REQUEST_URI'],false);
             return ;
         }
+        if (!empty($_SERVER['PATH_TRANSLATED'])) {
+             
+            $this->_run($_SERVER['SCRIPT_NAME'] . $_SERVER['REQUEST_URI'],false);
+            return ;
+        }
+        
+        
         
         $this->_run($_SERVER['REQUEST_URI'],false);
             
