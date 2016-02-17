@@ -167,12 +167,13 @@ class HTML_FlexyFramework {
         
         
         if (!empty($_SERVER['REDIRECT_URL'])) {
-             
+            
             $this->_run($_SERVER['SCRIPT_NAME'] . $_SERVER['REQUEST_URI'],false);
             return ;
         }
         if (!empty($_SERVER['PATH_TRANSLATED'])) {
-             
+            // try PATH_TRANSLATED excluding SCRIPT_FILENAME
+            
             $this->_run($_SERVER['SCRIPT_NAME'] . $_SERVER['REQUEST_URI'],false);
             return ;
         }
