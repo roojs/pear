@@ -230,9 +230,10 @@ class HTML_FlexyFramework {
         if (!$this->cli) {
             $bits[0] = str_replace('%2F','/',urlencode($bits[0]));
             $this->baseURL = $bits[0] . basename($_SERVER["SCRIPT_FILENAME"]);
-            if (!empty($_SERVER['PATH_TRANSLATED'])) {
-                phpinfo();exit;
-               // $this->baseURL = ''; // ??? this is if we replace top level...
+            
+            if (strpos($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME']) != 0) {
+                
+                $this->baseURL = ''; // ??? this is if we replace top level...
             }
         }
         // if cli - you have to have set baseURL...
