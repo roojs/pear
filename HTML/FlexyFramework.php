@@ -174,7 +174,7 @@ class HTML_FlexyFramework {
         if (!empty($_SERVER['PATH_TRANSLATED'])) {
             // try PATH_TRANSLATED excluding DOCUMENT_ROOT
             // var_Dump(substr( $_SERVER['PATH_TRANSLATED'], strlen( $_SERVER['DOCUMENT_ROOT'])));
-            $this->_run( substr( $_SERVER['PATH_TRANSLATED'], strlen( $_SERVER['DOCUMENT_ROOT'])),false);
+            $this->_run( substr( $_SERVER['PATH_TRANSLATED'], strlen( $_SERVER['DOCUMENT_ROOT']) +1 ),false);
             return ;
         }
         
