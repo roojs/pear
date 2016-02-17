@@ -162,6 +162,10 @@ class HTML_FlexyFramework {
         }
     
         // handle apache mod_rewrite..
+        // it looks like this might not work anymore..
+        
+        
+        
         if (!empty($_SERVER['REDIRECT_URL'])) {
              
             $this->_run($_SERVER['SCRIPT_NAME'] . $_SERVER['REQUEST_URI'],false);
