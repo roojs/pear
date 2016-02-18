@@ -54,7 +54,7 @@ class File_Convert
         if ($toMimetype != $this->mimetype) {
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
             
-            // echo '<PRE>';print_r($action);
+             echo '<PRE>';print_r($action);
             if (!$action) {
                 return false;
             }
