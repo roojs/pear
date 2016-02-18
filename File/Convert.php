@@ -481,7 +481,6 @@ class File_Convert
      
     function getConvMethods($from, $to, $stack = array())
     {
-        
             // these source types have to use unoconv....
         //print_r(array('getConvMethods', func_get_args()));
         // $pos[converter] => array( list of targets);
