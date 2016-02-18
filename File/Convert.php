@@ -527,7 +527,6 @@ class File_Convert
                 if ($try === false) {
                     continue; // mo way to convert
                 }
-                print_R($try);exit;
 //                print_r($conv);exit;
                 $first = new File_Convert_Solution($conv, $from, $targ);
                 $first->convert = $this;
