@@ -495,6 +495,7 @@ class File_Convert
                 continue;
             }
             if (in_array($to,$t[2])) {
+                print_R($t);exit;
                 $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
                 $ret->convert = $this;
                 return $ret;
