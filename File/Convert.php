@@ -499,7 +499,6 @@ class File_Convert
                 $ret->convert = $this;
                 return $ret;
             }
-            print_R($t);exit;
             // from matches..
             $pos[$t[0]] = $t[2]; // list of targets
             
