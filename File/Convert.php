@@ -521,6 +521,7 @@ class File_Convert
                 
                 $ns = $stack;
                 $ns[] = $targ;
+                print_R($to);exit;
                 $try = $this->getConvMethods($targ, $to, $ns);
                 // try will be an array of method, from, to (or false)
                 
