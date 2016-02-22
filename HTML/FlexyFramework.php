@@ -171,13 +171,6 @@ class HTML_FlexyFramework {
             $this->_run($_SERVER['SCRIPT_NAME'] . $_SERVER['REQUEST_URI'],false);
             return ;
         }
-        if (!empty($_SERVER['PATH_TRANSLATED'])) {
-            // try PATH_TRANSLATED excluding DOCUMENT_ROOT
-            // var_Dump(substr( $_SERVER['PATH_TRANSLATED'], strlen( $_SERVER['DOCUMENT_ROOT'])));
-            $this->_run(   $_SERVER['SCRIPT_NAME'] .$_SERVER['PATH_INFO'] ,false);
-            return ;
-        }
-        
         
         
         $this->_run($_SERVER['REQUEST_URI'],false);
