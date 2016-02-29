@@ -78,6 +78,7 @@ Available commands:
         $pr = $this->ff->project;
         
         $this->cliHelpSearch($p,$pr);
+        var_dump($this->ff->projectExtends );
         foreach($this->ff->projectExtends as $pr) {
             $this->cliHelpSearch($p,$pr);
         }
