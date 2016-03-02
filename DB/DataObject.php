@@ -2595,7 +2595,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         if (strtoupper($string) == 'ROLLBACK') {
-            $this->debug('ROOLBACK');
+            $this->debug('ROLLBACK');
             $DB->rollback();
             if ($_DB_driver == 'DB') {
                 $DB->autoCommit(true);
