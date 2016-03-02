@@ -2575,6 +2575,7 @@ class DB_DataObject extends DB_DataObject_Overload
             strtoupper($string) == 'BEGIN' ||
             strtoupper($string) == 'START TRANSACTION'
         ) {
+            $this->debug('BEGIN');
             if ($_DB_driver == 'DB') {
                 $DB->autoCommit(false);
                 $DB->simpleQuery('BEGIN');
@@ -2585,6 +2586,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         if (strtoupper($string) == 'COMMIT') {
+            $this->debug('COMMIT');
             $res = $DB->commit();
             if ($_DB_driver == 'DB') {
                 $DB->autoCommit(true);
@@ -2593,6 +2595,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         if (strtoupper($string) == 'ROLLBACK') {
+            $this->debug('ROOLBACK');
             $DB->rollback();
             if ($_DB_driver == 'DB') {
                 $DB->autoCommit(true);
