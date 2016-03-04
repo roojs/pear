@@ -861,7 +861,7 @@ class HTML_FlexyFramework {
         $classobj->bootLoader  = $this;
         $classobj->request = $newRequest;
         $classobj->timer = &$this->timer;
-        
+        print_R($this);exit;
         $this->page = $classobj;
         if ($this->cli && !$isRedirect ) { // redirect always just takes redirect args..
             require_once 'HTML/FlexyFramework/Cli.php';
