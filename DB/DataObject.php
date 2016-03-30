@@ -3824,6 +3824,7 @@ class DB_DataObject extends DB_DataObject_Overload
        
         
         $keys = array_keys($tabdef);
+        print_R($keys);exit;
         if (!empty($cfg['exclude'])) {
             $keys = array_intersect($keys, array_diff($keys, $cfg['exclude'])); 
         }
