@@ -3877,7 +3877,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $ret['cols'][$k] = $this->tableName(). '.' . $k;
         }
         
-         exit;
+         
         
         foreach($map as $ocl=>$info) {
             
