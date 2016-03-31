@@ -457,8 +457,6 @@ class HTML_FlexyFramework {
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
         
-        print_R($dbini);
-        exit;
         
         $iniCache = $this->DB_DataObject[$dbini];
         $iniCacheTmp = $iniCache . '.tmp' .md5(rand());  // random to stop two processes using the same file.
