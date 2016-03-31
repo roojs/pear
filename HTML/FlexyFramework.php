@@ -457,7 +457,7 @@ class HTML_FlexyFramework {
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
         
-        print_R($dburl);
+        print_R($dbini);
         exit;
         
         $iniCache = $this->DB_DataObject[$dbini];
