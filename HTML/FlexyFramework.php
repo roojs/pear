@@ -461,6 +461,7 @@ class HTML_FlexyFramework {
         $iniCache = $this->DB_DataObject[$dbini];
         $iniCacheTmp = $iniCache . '.tmp' .md5(rand());  // random to stop two processes using the same file.
         // has it expired..
+        print_R($this->dataObjectsCacheExpires);exit;
         $force = ($force ? $force : !file_exists($iniCache)) || !$this->dataObjectsCacheExpires;
         // $this->debug('generateDataobjectsCache: after check : force=' . ($force ? 'yes' : 'no'));
          // not force or not expired, do not bother..
