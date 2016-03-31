@@ -623,6 +623,8 @@ class HTML_FlexyFramework {
         }
         
         if (!empty($this->enableArray)) {
+             
+            
             foreach($this->enableArray as $m) {
                 $add = $this->baseDir . '/' . $m .'/templates';
                 if (!in_array($add,$src) && file_exists($add)) {
