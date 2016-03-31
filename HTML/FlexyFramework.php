@@ -632,7 +632,7 @@ class HTML_FlexyFramework {
             
         }
         if ($this->appNameShort) {
-            $src[] =  $this->baseDir . '/'. $this->appNameShort. '/templates',
+            $src[] =  $this->baseDir . '/'. $this->appNameShort. '/templates';
         }
          
          
