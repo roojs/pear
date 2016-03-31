@@ -614,8 +614,7 @@ class HTML_FlexyFramework {
         if ($this->appNameShort) {
             // in app based version, template directory is in Core
             
-            $src = array(   
-              
+            $src = array(  
                 $this->baseDir . '/Core/templates'
             );
         }
@@ -633,7 +632,6 @@ class HTML_FlexyFramework {
             
         }
         if ($this->appNameShort) {
-            // in app based version, template directory is in Core
             $src[] =  $this->baseDir . '/'. $this->appNameShort. '/templates',
         }
          
