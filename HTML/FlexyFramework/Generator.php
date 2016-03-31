@@ -243,8 +243,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             }
             $ff->debug("Adding in $ini");
             // prefer first ?
-            $links = self::mergeIni( parse_ini_file($ini, true), $links); 
-            print_R($links);exit;
+            $links = self::mergeIni( parse_ini_file($ini, true), $links);   
         }
         $iniLinksCache = preg_replace('/\.ini$/', '.links.ini', $iniCache);
         $out = array();
