@@ -617,8 +617,9 @@ class HTML_FlexyFramework {
             
             
             $src = array(   
-                $this->baseDir . '/Core/templates', 
-                $this->baseDir . '/'. $this->appNameShort. '/templates'
+                
+                $this->baseDir . '/'. $this->appNameShort. '/templates',
+                $this->baseDir . '/Core/templates'
             );
         }
         
