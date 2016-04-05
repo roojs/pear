@@ -196,7 +196,13 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 			$imagetype = image_type_to_mime_type($imagedata[2]);
 			$imageext = image_type_to_extension($imagedata[2]);
 			$imageext = str_replace('.', '', $imageext);
-			if($imageext == 'jpeg') $imageext = 'jpg';
+			if (empty($imageext)) {
+				throw new Exception("could not get extendsion from $src");
+			}
+			
+			if($imageext == 'jpeg') {
+				$imageext = 'jpg';
+			}
 			
 			if(!in_array($imagetype, $this->_imageTypes)) {
 				$this->_imageTypes[$imageext] = $imagetype;
