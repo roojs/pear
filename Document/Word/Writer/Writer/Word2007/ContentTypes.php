@@ -164,7 +164,7 @@ class Document_Word_Writer_Writer_Word2007_ContentTypes extends Document_Word_Wr
 			$objWriter->writeAttribute('ContentType', 	$pContentType);
 			$objWriter->endElement();
 		} else {
-			throw new Exception("Invalid parameters passed.");
+			throw new Exception("Invalid parameters passed. pPartname={$pPartname} pContentType={$pContentType}");
 		}
 	}
 
