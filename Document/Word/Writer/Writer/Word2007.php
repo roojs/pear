@@ -147,7 +147,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 		
 			// build docx file
 			// Write dynamic files
-			print_r(array($this->_imageTypes, $this->_objectTypes));
+			 
 			
             $objZip->addFromString('[Content_Types].xml',
 							$this->getWriterPart('contenttypes')->writeContentTypes($this->_imageTypes, $this->_objectTypes, $_cHdrs, $_cFtrs));
