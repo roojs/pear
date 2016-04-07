@@ -439,7 +439,7 @@ class File_Convert_AbiToDocx
                         $key = trim($attr[0]);
                         if (empty($attr[1])) {
                             // bit annoying.. but we currently only convert from trustes sources, so do not need to handle this. 
-                            PEAR::staticRaiseError("value missing in style key={$attr[0]}  for prop={$attribute}",0,PEAR_ERROR_EXCEPTION);
+                            PEAR::staticRaiseError("value missing in style key={$attr[0]}  for prop={$attribute}",0,PEAR_ERROR_DIE);
                         }
                         $value = trim($attr[1]);
                         if(array_key_exists($key, $this->styleMatch)){
