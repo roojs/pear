@@ -77,7 +77,8 @@ class Document_Word_Writer_Section_Footer
         {
                 require_once __DIR__ . '/Text.php';
 		//$givenText = utf8_encode($text);
-                $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
+        $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
+		require_once 'Text.php';
 		$text = new Document_Word_Writer_Section_Text($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $text;
 		return $text;
@@ -103,6 +104,7 @@ class Document_Word_Writer_Section_Footer
 	 */
 	public function createTextRun($styleParagraph = null) 
         {
+		require_once 'TextRun.php';
 		$textRun = new Document_Word_Writer_Section_TextRun($styleParagraph);
 		$this->_elementCollection[] = $textRun;
 		return $textRun;
@@ -116,6 +118,7 @@ class Document_Word_Writer_Section_Footer
 	 */
 	public function addTable($style = null) 
         {
+		require_once 'Table.php';
 		$table = new Document_Word_Writer_Section_Table('footer', $this->_footerCount, $style);
 		$this->_elementCollection[] = $table;
 		return $table;
@@ -130,6 +133,7 @@ class Document_Word_Writer_Section_Footer
 	 */
 	public function addImage($src, $style = null) 
         {
+		require_once 'Image.php';
 		$image = new Document_Word_Writer_Section_Image($src, $style);
 		
 		if(!is_null($image->getSource())) {
@@ -152,6 +156,7 @@ class Document_Word_Writer_Section_Footer
 	 */
 	public function addMemoryImage($link, $style = null) 
         {
+		require_once 'MemoryImage.php';
 		$memoryImage = new Document_Word_Writer_Section_MemoryImage($link, $style);
 		if(!is_null($memoryImage->getSource())) {
 			$rID = Document_Word_Writer_Media::addFooterMediaElement($this->_footerCount, $link, $memoryImage);
@@ -175,7 +180,8 @@ class Document_Word_Writer_Section_Footer
 	public function addPreserveText($text, $styleFont = null, $styleParagraph = null) 
         {
 		$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
-                require_once __DIR__ . '/Footer/PreserveText.php';
+        require_once __DIR__ . '/Footer/PreserveText.php';
+
 		$ptext = new Document_Word_Writer_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $ptext;
 		return $ptext;
