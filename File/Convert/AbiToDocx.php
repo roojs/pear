@@ -340,6 +340,9 @@ class File_Convert_AbiToDocx
             foreach ($data as $attrs){
                 
                 $attr = explode(':', $attrs);
+                if (empty($attr[0])) {
+                    continue;
+                }
                 
                 switch (trim($attr[0])){
                     case 'table-width-fixed':
