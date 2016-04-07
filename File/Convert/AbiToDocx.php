@@ -339,7 +339,7 @@ class File_Convert_AbiToDocx
         
             foreach ($data as $attrs){
                 
-                $attr = explode(':', $attrs);
+                $attr = explode(':', trim($attrs));
                 if (empty($attr[0])) {
                     continue;
                 }
