@@ -335,7 +335,7 @@ class File_Convert_AbiToDocx
             if(empty($attribute)){
                 return array();
             }
-            $data = explode(';', $attribute);
+            $data = explode(';', trim($attribute));
         
             foreach ($data as $attrs){
                 
