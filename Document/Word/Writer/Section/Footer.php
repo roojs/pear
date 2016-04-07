@@ -75,10 +75,10 @@ class Document_Word_Writer_Section_Footer
 	 */
 	public function addText($text, $styleFont = null, $styleParagraph = null) 
         {
-                require_once __DIR__ . '/Text.php';
+        require_once __DIR__ . '/Text.php';
 		//$givenText = utf8_encode($text);
         $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
-		require_once 'Text.php';
+		
 		$text = new Document_Word_Writer_Section_Text($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $text;
 		return $text;
@@ -91,7 +91,7 @@ class Document_Word_Writer_Section_Footer
 	 */
 	public function addTextBreak($count = 1) 
 		{
-		require_once 'TextBreak.php';
+		require_once __DIR__  . '/TextBreak.php';
 		for($i=1; $i<=$count; $i++) {
 			$this->_elementCollection[] = new Document_Word_Writer_Section_TextBreak();
 		}
@@ -104,7 +104,7 @@ class Document_Word_Writer_Section_Footer
 	 */
 	public function createTextRun($styleParagraph = null) 
         {
-		require_once 'TextRun.php';
+		require_once __DIR__  . '/TextRun.php';
 		$textRun = new Document_Word_Writer_Section_TextRun($styleParagraph);
 		$this->_elementCollection[] = $textRun;
 		return $textRun;
@@ -118,7 +118,7 @@ class Document_Word_Writer_Section_Footer
 	 */
 	public function addTable($style = null) 
         {
-		require_once 'Table.php';
+		require_once __DIR__  . '/Table.php';
 		$table = new Document_Word_Writer_Section_Table('footer', $this->_footerCount, $style);
 		$this->_elementCollection[] = $table;
 		return $table;
@@ -133,7 +133,7 @@ class Document_Word_Writer_Section_Footer
 	 */
 	public function addImage($src, $style = null) 
         {
-		require_once 'Image.php';
+		require_once __DIR__  . '/Image.php';
 		$image = new Document_Word_Writer_Section_Image($src, $style);
 		
 		if(!is_null($image->getSource())) {
@@ -156,7 +156,7 @@ class Document_Word_Writer_Section_Footer
 	 */
 	public function addMemoryImage($link, $style = null) 
         {
-		require_once 'MemoryImage.php';
+		require_once __DIR__  . '/MemoryImage.php';
 		$memoryImage = new Document_Word_Writer_Section_MemoryImage($link, $style);
 		if(!is_null($memoryImage->getSource())) {
 			$rID = Document_Word_Writer_Media::addFooterMediaElement($this->_footerCount, $link, $memoryImage);
