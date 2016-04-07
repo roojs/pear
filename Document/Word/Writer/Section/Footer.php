@@ -89,7 +89,8 @@ class Document_Word_Writer_Section_Footer
 	 * @param int $count
 	 */
 	public function addTextBreak($count = 1) 
-        {
+		{
+		require_once 'TextBreak.php';
 		for($i=1; $i<=$count; $i++) {
 			$this->_elementCollection[] = new Document_Word_Writer_Section_TextBreak();
 		}
