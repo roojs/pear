@@ -31,7 +31,7 @@ class Document_Word_Writer_Writer_Word2007_ContentTypes extends Document_Word_Wr
 	
 	public function writeContentTypes($_imageTypes, $_objectTypes, $_cHdrs, $_cFtrs) 
         {
-                require_once __DIR__.'/../../Shared/XMLWriter.php';
+        require_once __DIR__.'/../../Shared/XMLWriter.php';
 		// Create XML writer
 		$objWriter = null;
 		if ($this->getParentWriter()->getUseDiskCaching()) {
