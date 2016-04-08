@@ -301,7 +301,7 @@ class HTML_Template_Flexy
             $ret = $tmplDir;
             
         }
-        $this->debug("using file: $ret/$file);
+        $this->debug("using file: $ret/$file");
             
         return $ret;
         
