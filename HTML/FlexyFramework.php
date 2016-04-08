@@ -599,9 +599,7 @@ class HTML_FlexyFramework {
         
         // templates. -- all this should be cached!!!
         $src = array();
-        
-        
-        
+         
         
         if ($this->appNameShort) {
             // in app based version, template directory is in Core
