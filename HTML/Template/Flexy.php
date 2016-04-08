@@ -288,7 +288,7 @@ class HTML_Template_Flexy
         $ret = false;
         foreach ($dirs as $tmplDir) {
             if (@!file_exists($tmplDir . DIRECTORY_SEPARATOR .$file)) {
-                $this->debug("skip no file: $tmplDir . DIRECTORY_SEPARATOR .$file");
+                $this->debug("skip no file: $tmplDir/$file");
                 continue;
             }
             
@@ -297,11 +297,11 @@ class HTML_Template_Flexy
                         "<BR>{$this->currentTemplate }<BR>{$tmplDir}" . DIRECTORY_SEPARATOR . $file,  
                         HTML_TEMPLATE_FLEXY_ERROR_INVALIDARGS , HTML_TEMPLATE_FLEXY_ERROR_DIE);
             }
-            $this->debug("found file: $tmplDir . DIRECTORY_SEPARATOR .$file");
+            $this->debug("found file: $tmplDir/$file");
             $ret = $tmplDir;
             
         }
-        $this->debug("using file: $ret" . DIRECTORY_SEPARATOR .$file);
+        $this->debug("using file: $ret/$file);
             
         return $ret;
         
