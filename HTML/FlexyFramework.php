@@ -600,6 +600,17 @@ class HTML_FlexyFramework {
         // templates. -- all this should be cached!!!
         $src = array();
         
+        
+        
+        
+        if ($this->appNameShort) {
+            // in app based version, template directory is in Core
+            
+            $src = array(  
+                $this->baseDir . '/Core/templates'
+            );
+        }
+        
         if(!empty($this->projectExtends)){
             foreach ($this->projectExtends as $e){
                 $add = $this->rootDir . '/' . $e .'/templates';
@@ -612,14 +623,6 @@ class HTML_FlexyFramework {
         $src[] = $this->baseDir . '/templates';
         
         
-        
-        if ($this->appNameShort) {
-            // in app based version, template directory is in Core
-            
-            $src = array(  
-                $this->baseDir . '/Core/templates'
-            );
-        }
         
         if (!empty($this->enableArray)) {
              
