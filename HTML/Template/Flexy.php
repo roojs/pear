@@ -301,7 +301,7 @@ class HTML_Template_Flexy
             $ret = $tmplDir;
             
         }
-        $this->debug("using file: $ret");
+        $this->debug("using file: $ret" . DIRECTORY_SEPARATOR .$file);
             
         return $ret;
         
