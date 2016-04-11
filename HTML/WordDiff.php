@@ -160,7 +160,7 @@ class HTML_WordDiff
         }
         
         $a = $this->DomToStrings();
-        
+        print_R($a);exit;
         if ($this->wordMax < 0) {
             $this->wordMax = 10*count($a);
         }
