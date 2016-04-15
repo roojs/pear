@@ -1528,7 +1528,7 @@ class Date_Calc
      * @see Date_Calc::beginOfMonthBySpan()
      * @deprecated Method deprecated in Release 1.4.4
      */
-    function beginOfMonth($month = 0, $year = 0, $format = DATE_CALC_FORMAT)
+    static function beginOfMonth($month = 0, $year = 0, $format = DATE_CALC_FORMAT)
     {
         if (empty($year)) {
             $year = Date_Calc::dateNow('%Y');
@@ -1557,7 +1557,7 @@ class Date_Calc
      * @see Date_Calc::beginOfMonthBySpan()
      * @deprecated Method deprecated in Release 1.4.4
      */
-    function beginOfPrevMonth($day = 0, $month = 0, $year = 0,
+    static function beginOfPrevMonth($day = 0, $month = 0, $year = 0,
                               $format = DATE_CALC_FORMAT)
     {
         if (empty($year)) {
@@ -1598,7 +1598,7 @@ class Date_Calc
      * @see Date_Calc::endOfMonthBySpan()
      * @deprecated Method deprecated in Release 1.4.4
      */
-    function endOfPrevMonth($day = 0, $month = 0, $year = 0,
+    static function endOfPrevMonth($day = 0, $month = 0, $year = 0,
                             $format = DATE_CALC_FORMAT)
     {
         if (empty($year)) {
