@@ -203,7 +203,7 @@ class Config_Container_PHPConstants extends Config_Container
         $string .= ' *' . chr(10);
         $string .= '**/' . chr(10);
         $string .= $this->toString($obj);
-        $string .= "\n?>"; // <? : Fix my syntax coloring
+        $string .= "\n?>"; // < ? : Fix my syntax coloring
         
         $len = strlen($string);
         @flock($fp, LOCK_EX);
