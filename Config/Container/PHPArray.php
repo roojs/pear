@@ -243,7 +243,7 @@ class Config_Container_PHPArray {
     {
         $fp = @fopen($datasrc, 'w');
         if ($fp) {
-            $string = "<?php\n". $this->toString($obj) ."?>"; // <? : Fix my syntax coloring
+            $string = "<?php\n". $this->toString($obj) ."?>"; // < ? : Fix my syntax coloring
             $len = strlen($string);
             @flock($fp, LOCK_EX);
             @fwrite($fp, $string, $len);
