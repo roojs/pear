@@ -4,7 +4,7 @@ require_once 'I18Nv2/CommonList.php';
 
 class I18Nv2_PhonePrefix extends I18Nv2_CommonList
 {
-    function loadLanguage($language = false)
+    function loadLanguage($language)
     {
         $this->codes = array(
             '+93' 	=> 'AF',
