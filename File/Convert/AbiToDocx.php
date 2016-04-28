@@ -180,6 +180,8 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
+            echo $this->pass;
+            echo "\n";
             echo "handle p!!!!!!!!!!!!!!!!!!!!!!";
             echo "\n";
             $style =  $this->parseProps();
