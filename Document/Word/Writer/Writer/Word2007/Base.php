@@ -84,7 +84,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	protected function _writeTextRun(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_TextRun $textrun) 
         {
 		
-              
+              print_r('run???');exit;
                $elements = $textrun->getElements();
 		$styleParagraph = $textrun->getParagraphStyle();
 		
