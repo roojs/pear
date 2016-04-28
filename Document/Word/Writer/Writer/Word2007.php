@@ -65,7 +65,6 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 	
 	public function save($pFilename = null) 
         {
-            
 		if(!is_null($this->_document)) {
 			
 			// If $pFilename is php://output or php://stdout, make it a temporary file...
@@ -116,6 +115,9 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 					}
 				}
 			}
+			
+			
+			
 			$_cHdrs    = 0;
 			$_cFtrs    = 0;
 			$rID       = Document_Word_Writer_Media::countSectionMediaElements() + 6;
@@ -155,7 +157,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 			$objZip->addFromString('word/document.xml', $this->getWriterPart('document')->writeDocument($this->_document));
 			$objZip->addFromString('word/_rels/document.xml.rels', $this->getWriterPart('documentrels')->writeDocumentRels($sectionElements));
 			$objZip->addFromString('word/styles.xml', $this->getWriterPart('styles')->writeStyles($this->_document));
-            print_r('in???');exit;
+            
                         // Write static files
 			$objZip->addFile(__DIR__ . '/../_staticDocParts/numbering.xml', 'word/numbering.xml');
 			$objZip->addFile(__DIR__ . '/../_staticDocParts/settings.xml', 'word/settings.xml');
