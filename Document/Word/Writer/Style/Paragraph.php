@@ -74,7 +74,6 @@ class Document_Word_Writer_Style_Paragraph
 		$this->_spaceBefore     = null;
 		$this->_spaceAfter      = null;
 		$this->_spacing         = null;
-                $this->_listStyle      = null;
 	}
 	
 	/**
