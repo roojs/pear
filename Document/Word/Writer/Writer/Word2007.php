@@ -65,6 +65,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 	
 	public function save($pFilename = null) 
         {
+            
 		if(!is_null($this->_document)) {
 			
 			// If $pFilename is php://output or php://stdout, make it a temporary file...
@@ -116,7 +117,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 				}
 			}
 			
-			
+			print_r('in???');exit;
 			
 			$_cHdrs    = 0;
 			$_cFtrs    = 0;
