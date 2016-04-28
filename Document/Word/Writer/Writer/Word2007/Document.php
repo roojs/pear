@@ -67,7 +67,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
                         $pSection++;
 
                         $_elements = $section->getElements();
-
+                        print_R($_elements);exit;
                         foreach($_elements as $element) {
                                 if($element instanceof Document_Word_Writer_Section_Text) {
                                         $this->_writeText($objWriter, $element);
