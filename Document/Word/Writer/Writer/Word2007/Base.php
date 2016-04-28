@@ -153,33 +153,33 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
         
 		if(!is_null($align) || !is_null($spacing) || !is_null($spaceBefore) || !is_null($spaceAfter)) {
 			
-                if(!$withoutPPR) {
-                    $objWriter->startElement('w:pPr');
-                }
+            if(!$withoutPPR) {
+                $objWriter->startElement('w:pPr');
+            }
 			
-                if(!is_null($align)) {
-                        $objWriter->startElement('w:jc');
-                                $objWriter->writeAttribute('w:val', $align);
-                        $objWriter->endElement();
-                }
+			if(!is_null($align)) {
+				$objWriter->startElement('w:jc');
+					$objWriter->writeAttribute('w:val', $align);
+				$objWriter->endElement();
+			}
+			
+			if(!is_null($spaceBefore) || !is_null($spaceAfter) || !is_null($spacing)) {
+				
+				$objWriter->startElement('w:spacing');
+				
+					if(!is_null($spaceBefore)) {
+						$objWriter->writeAttribute('w:before', $spaceBefore);
+					}
+					if(!is_null($spaceAfter)) {
+						$objWriter->writeAttribute('w:after', $spaceAfter);
+					}
+					if(!is_null($spacing)) {
+						$objWriter->writeAttribute('w:line', $spacing);
+						$objWriter->writeAttribute('w:lineRule', 'auto');
+					}
 
-                if(!is_null($spaceBefore) || !is_null($spaceAfter) || !is_null($spacing)) {
-
-                        $objWriter->startElement('w:spacing');
-
-                                if(!is_null($spaceBefore)) {
-                                        $objWriter->writeAttribute('w:before', $spaceBefore);
-                                }
-                                if(!is_null($spaceAfter)) {
-                                        $objWriter->writeAttribute('w:after', $spaceAfter);
-                                }
-                                if(!is_null($spacing)) {
-                                        $objWriter->writeAttribute('w:line', $spacing);
-                                        $objWriter->writeAttribute('w:lineRule', 'auto');
-                                }
-
-                        $objWriter->endElement();
-                }
+				$objWriter->endElement();
+			}
 			
             if(!$withoutPPR) {
 			    $objWriter->endElement(); // w:pPr
