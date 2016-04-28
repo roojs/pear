@@ -437,7 +437,7 @@ class File_Convert_AbiToDocx
 //                        
                     default :
                         $key = trim($attr[0]);
-                        if (empty($attr[1])) {
+                        if (empty($attr[1]) && $attr[1] != 0) {
                             // bit annoying.. but we currently only convert from trustes sources, so do not need to handle this. 
                             PEAR::staticRaiseError("value missing in style key={$attr[0]}  for prop={$attribute}",0,PEAR_ERROR_DIE);
                         }
