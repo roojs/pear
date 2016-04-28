@@ -158,8 +158,13 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
             }
 			
 			if(!empty($isList)) {
-				$objWriter->startElement('w:jc');
-					$objWriter->writeAttribute('w:val', $align);
+				$objWriter->startElement('w:numPr');
+                                    $objWriter->startElement('w:ilvl');
+                                        $objWriter->writeAttribute('w:val', 0);
+                                    $objWriter->endElement();
+                                    $objWriter->startElement('w:numId');
+                                        $objWriter->writeAttribute('w:val', 10);
+                                    $objWriter->endElement();
 				$objWriter->endElement();
 			}
                         
