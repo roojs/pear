@@ -192,6 +192,8 @@ class File_Convert_AbiToDocx
             }
             // p must create a text run.. otherwise cells do not work..
              $this->section = $this->section->createTextRun($this->style);
+             
+             print_R($this->section);exit;
             
         }
         
