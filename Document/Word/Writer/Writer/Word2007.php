@@ -89,7 +89,6 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 			require_once __DIR__ . '/../Media.php';
 			$sectionElements = array();
 			$_secElements = Document_Word_Writer_Media::getSectionMediaElements();
-                        print_R($_secElements);exit;
 			foreach($_secElements as $element) { // loop through section media elements
 				if($element['type'] != 'hyperlink') {
 					$this->_addFileToPackage($objZip, $element);
