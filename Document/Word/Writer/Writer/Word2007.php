@@ -125,7 +125,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 			//echo '<PRE>';print_r($_sections);exit;
 			foreach($_sections as $section) {
 				$_header = $section->getHeader();
-                                print_r($_header);exit;
+                                print_r($_header);
 				if(!is_null($_header)) {
 					$_cHdrs++;
 					$_header->setRelationId(++$rID);
