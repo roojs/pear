@@ -93,7 +93,7 @@ class File_Convert_AbiToDocx
 //                    print_r($this->xr->name);
                 
                 if ($this->xr->name == '#text' && count($stack) &&  $this->pass==2 && in_array($stack[count($stack)-1], $textNode)) {
-                    print_R($textNode);echo "\n";
+                    print_R($this->xr->name);echo "\n";
                     // the reader does not clean out the htmlizums...
                     $text =   $this->xr->value;
                     
