@@ -177,13 +177,14 @@ class File_Convert_AbiToDocx
          
         function handle_p()
         {
-            if ($this->pass != 2) {
-                return;
-            }
             echo $this->pass;
             echo "\n";
             echo "handle p!!!!!!!!!!!!!!!!!!!!!!";
             echo "\n";
+            if ($this->pass != 2) {
+                return;
+            }
+            
             $style =  $this->parseProps();
             print_r($style);echo "\n";
             if(!empty($style)){
