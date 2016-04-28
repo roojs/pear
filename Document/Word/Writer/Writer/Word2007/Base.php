@@ -87,7 +87,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
               
                $elements = $textrun->getElements();
 		$styleParagraph = $textrun->getParagraphStyle();
-		
+		print_r($elements);exit;
 		$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph) ? true : false;
 		
 		$objWriter->startElement('w:p');
