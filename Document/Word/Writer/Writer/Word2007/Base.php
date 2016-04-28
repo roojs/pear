@@ -144,49 +144,53 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 	
 	protected function _writeParagraphStyle(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Style_Paragraph $style, $withoutPPR = false) 
         {
-            $align = $style->getAlign();
-            // microsoft office default line spacing is 10pt, we need to set it to 0 if we have not set the spacing..
-            $spaceBefore = is_null($style->getSpaceBefore()) ? 0 : $style->getSpaceBefore();
-            $spaceAfter = is_null($style->getSpaceAfter()) ? 0 : $style->getSpaceAfter();
-            $spacing = is_nan($style->getSpacing()) ? 0 : $style->getSpacing();
-            $isList = is_null($style->getListStyle()) ? '' : $style->getListStyle();
-
-            if(!is_null($align) || !is_null($spacing) || !is_null($spaceBefore) || !is_null($spaceAfter) || !empty($isList)) {
-
-                if(!$withoutPPR) {
-                    $objWriter->startElement('w:pPr');
-                }
-                
-                if(!is_null($align)) {
-                        $objWriter->startElement('w:jc');
-                                $objWriter->writeAttribute('w:val', $align);
-                        $objWriter->endElement();
-                }
-                
-                
-
-                if(!is_null($spaceBefore) || !is_null($spaceAfter) || !is_null($spacing)) {
-
-                        $objWriter->startElement('w:spacing');
-
-                                if(!is_null($spaceBefore)) {
-                                        $objWriter->writeAttribute('w:before', $spaceBefore);
-                                }
-                                if(!is_null($spaceAfter)) {
-                                        $objWriter->writeAttribute('w:after', $spaceAfter);
-                                }
-                                if(!is_null($spacing)) {
-                                        $objWriter->writeAttribute('w:line', $spacing);
-                                        $objWriter->writeAttribute('w:lineRule', 'auto');
-                                }
-
-                        $objWriter->endElement();
-                }
-
-                if(!$withoutPPR) {
-                                $objWriter->endElement(); // w:pPr
-                }
+		$align = $style->getAlign();
+                // microsoft office default line spacing is 10pt, we need to set it to 0 if we have not set the spacing..
+		$spaceBefore = is_null($style->getSpaceBefore()) ? 0 : $style->getSpaceBefore();
+		$spaceAfter = is_null($style->getSpaceAfter()) ? 0 : $style->getSpaceAfter();
+		$spacing = is_nan($style->getSpacing()) ? 0 : $style->getSpacing();
+		$isList = is_null($style->getListStyle()) ? '' : $style->getListStyle();
+        
+		if(!is_null($align) || !is_null($spacing) || !is_null($spaceBefore) || !is_null($spaceAfter) || !empty($isList)) {
+			
+            if(!$withoutPPR) {
+                $objWriter->startElement('w:pPr');
             }
+			
+			if(!empty($isList)) {
+				$objWriter->startElement('w:jc');
+					$objWriter->writeAttribute('w:val', $align);
+				$objWriter->endElement();
+			}
+                        
+                        if(!is_null($align)) {
+				$objWriter->startElement('w:jc');
+					$objWriter->writeAttribute('w:val', $align);
+				$objWriter->endElement();
+			}
+			
+			if(!is_null($spaceBefore) || !is_null($spaceAfter) || !is_null($spacing)) {
+				
+				$objWriter->startElement('w:spacing');
+				
+					if(!is_null($spaceBefore)) {
+						$objWriter->writeAttribute('w:before', $spaceBefore);
+					}
+					if(!is_null($spaceAfter)) {
+						$objWriter->writeAttribute('w:after', $spaceAfter);
+					}
+					if(!is_null($spacing)) {
+						$objWriter->writeAttribute('w:line', $spacing);
+						$objWriter->writeAttribute('w:lineRule', 'auto');
+					}
+
+				$objWriter->endElement();
+			}
+			
+            if(!$withoutPPR) {
+			    $objWriter->endElement(); // w:pPr
+            }
+		}
 	}
 	
 	protected function _writeLink(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Link $link, $withoutP = false) 
