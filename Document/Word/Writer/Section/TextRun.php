@@ -84,8 +84,6 @@ class Document_Word_Writer_Section_TextRun
 	 */
 	public function addText($text = null, $styleFont = null) 
         {
-            print_R($text);exit;
-            echo "\n";
                 require_once __DIR__ . '/Text.php';
 		//$text = utf8_encode($text);
                 $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
