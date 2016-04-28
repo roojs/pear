@@ -189,6 +189,7 @@ class Document_Word_Writer_Style_Paragraph
 	 */
 	public function getListStyle() 
         {
+            print_R($this);exit;
                 return $this['_list-style'];
 	}
 }
