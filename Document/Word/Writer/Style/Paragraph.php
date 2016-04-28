@@ -90,6 +90,11 @@ class Document_Word_Writer_Style_Paragraph
 		if($key == '_spacing') {
 			$value += 240; // because line height of 1 matches 240 twips
 		}
+                
+                if($key == '_list-style'){
+                    $key = str_replace('-', '_', $key);
+                }
+                
 		$this->$key = $value;
 	}
 
