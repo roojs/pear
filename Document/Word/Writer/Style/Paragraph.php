@@ -63,6 +63,8 @@ class Document_Word_Writer_Style_Paragraph
 	 * @var int
 	 */
 	private $_spacing;
+        
+        private $_list_style;
 	
 	
 	/**
@@ -74,6 +76,7 @@ class Document_Word_Writer_Style_Paragraph
 		$this->_spaceBefore     = null;
 		$this->_spaceAfter      = null;
 		$this->_spacing         = null;
+                $this->_list_style      = null;
 	}
 	
 	/**
