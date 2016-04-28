@@ -145,7 +145,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 		
 			// build docx file
 			// Write dynamic files
-			 print_r('in???');exit;
+			 
 			
             $objZip->addFromString('[Content_Types].xml',
 							$this->getWriterPart('contenttypes')->writeContentTypes($this->_imageTypes, $this->_objectTypes, $_cHdrs, $_cFtrs));
@@ -155,7 +155,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 			$objZip->addFromString('word/document.xml', $this->getWriterPart('document')->writeDocument($this->_document));
 			$objZip->addFromString('word/_rels/document.xml.rels', $this->getWriterPart('documentrels')->writeDocumentRels($sectionElements));
 			$objZip->addFromString('word/styles.xml', $this->getWriterPart('styles')->writeStyles($this->_document));
-            
+            print_r('in???');exit;
                         // Write static files
 			$objZip->addFile(__DIR__ . '/../_staticDocParts/numbering.xml', 'word/numbering.xml');
 			$objZip->addFile(__DIR__ . '/../_staticDocParts/settings.xml', 'word/settings.xml');
