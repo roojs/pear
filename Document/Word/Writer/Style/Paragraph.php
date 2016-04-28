@@ -182,5 +182,15 @@ class Document_Word_Writer_Style_Paragraph
 	   $this->_spacing = $pValue;
 	   return $this;
 	}
+        
+        /**
+	 * Get Paragraph List Style
+	 * 
+	 * @return string
+	 */
+	public function getListStyle() 
+        {
+                return $this->_list-style;
+	}
 }
 ?>
