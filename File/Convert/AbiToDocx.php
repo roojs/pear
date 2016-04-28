@@ -104,7 +104,7 @@ class File_Convert_AbiToDocx
                         $this->section->addLink($this->style['href'], $text,  $this->style);
                        
                     }else{
-//                        $this->section->addText($text, $this->style);
+                        $this->section->addText($text, $this->style);
                     }
                     continue;
                 }
@@ -191,7 +191,7 @@ class File_Convert_AbiToDocx
                 return;
             }
             // p must create a text run.. otherwise cells do not work..
-             $this->section = $this->section->createTextRun($this->style);
+//             $this->section = $this->section->createTextRun($this->style);
             
         }
         
