@@ -93,11 +93,10 @@ class File_Convert_AbiToDocx
 //                    print_r($this->xr->name);
                 
                 if ($this->xr->name == '#text' && count($stack) &&  $this->pass==2 && in_array($stack[count($stack)-1], $textNode)) {
-                    print_R($this->xr->name);echo "\n";
+                    
                     // the reader does not clean out the htmlizums...
                     $text =   $this->xr->value;
-                    print_R($text);echo "\n";
-                    print_R($this->style);echo "\n";
+                    
                     if(strpos($text, '{#PAGE#}') !== false || strpos($text, '{#NUMPAGES#}') !== false){
                         $this->section->addPreserveText(str_replace("#", "", $text), $this->style,$this->style);
                         
@@ -105,9 +104,7 @@ class File_Convert_AbiToDocx
                         $this->section->addLink($this->style['href'], $text,  $this->style);
                        
                     }else{
-                        echo "in here????";
-                        echo "\n";
-                        $this->section->addText($text, $this->style);
+//                        $this->section->addText($text, $this->style);
                     }
                     continue;
                 }
@@ -179,16 +176,11 @@ class File_Convert_AbiToDocx
          
         function handle_p()
         {
-            echo $this->pass;
-            echo "\n";
-            echo "handle p!!!!!!!!!!!!!!!!!!!!!!";
-            echo "\n";
             if ($this->pass != 2) {
                 return;
             }
             
             $style =  $this->parseProps();
-            print_r($style);echo "\n";
             if(!empty($style)){
                 $this->style = array_merge($style, Document_Word_Writer_Style::getStyles());
             }else{
