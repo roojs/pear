@@ -183,6 +183,7 @@ class File_Convert_AbiToDocx
             echo "handle p!!!!!!!!!!!!!!!!!!!!!!";
             echo "\n";
             $style =  $this->parseProps();
+            print_r($style);echo "\n";
             if(!empty($style)){
                 $this->style = array_merge($style, Document_Word_Writer_Style::getStyles());
             }else{
