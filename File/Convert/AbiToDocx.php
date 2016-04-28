@@ -91,7 +91,7 @@ class File_Convert_AbiToDocx
                 
                 $textNode = array('p','c','a');
 //                    print_r($this->xr->name);
-                
+                print_r($stack);echo "\n";
                 if ($this->xr->name == '#text' && count($stack) &&  $this->pass==2 && in_array($stack[count($stack)-1], $textNode)) {
                     print_R($this->xr->name);echo "\n";
                     // the reader does not clean out the htmlizums...
