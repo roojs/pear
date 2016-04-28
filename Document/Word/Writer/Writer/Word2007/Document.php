@@ -57,7 +57,6 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$objWriter->startElement('w:body');
 		
 		$_sections = $pPHPWord->getSections();
-                print_R($_sections);exit;
 		$countSections = count($_sections);
 		$pSection = 0;
 		
