@@ -190,7 +190,7 @@ class Document_Word_Writer_Style_Paragraph
 	 */
 	public function getListStyle() 
         {
-                return $this->_list-style;
+                return $this['_list-style'];
 	}
 }
 ?>
