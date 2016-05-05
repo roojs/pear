@@ -225,7 +225,7 @@ class File_Convert
         if (empty($filename)) {
             $filename = $sfn;
         }
-        
+        print_R($type);exit;
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
             header('Content-Disposition: '.$type.'; filename="' . htmlspecialchars($filename).  '"');
