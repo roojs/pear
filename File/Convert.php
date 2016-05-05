@@ -226,7 +226,7 @@ class File_Convert
             $filename = $sfn;
         }
         
-//        header('Content-length: '. filesize($fn));
+        header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
             header('Content-Disposition: '.$type.'; filename="' . htmlspecialchars($filename).  '"');
        // }
