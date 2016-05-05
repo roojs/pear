@@ -237,7 +237,8 @@ class File_Convert
             exit;
         }
         
-        
+        readfile($fn);
+        exit;
         $fh = fopen($fn, 'rb');
         //fpassthru($fh);
         
