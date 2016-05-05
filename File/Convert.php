@@ -228,7 +228,7 @@ class File_Convert
         
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
-            header('Content-Disposition: '.$type.'; filename="' . htmlspecialchars($filename).  '"');
+            header('Content-Disposition: inline; filename="' . htmlspecialchars($filename).  '"');
        // }
         ini_set('display_errors', 0);
         trigger_error("Serving: {$this->target} ". filesize($fn));
