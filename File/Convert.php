@@ -966,7 +966,7 @@ class File_Convert_Solution
             $cmd .= File_Convert::$options['wkhtmltopdf'];
         }
         
-        print_r(File_Convert);exit;
+        print_r(File_Convert::$options);exit;
         
         $res = $this->exec($cmd);
         clearstatcache();
