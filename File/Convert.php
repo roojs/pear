@@ -964,7 +964,7 @@ class File_Convert_Solution
         }
         
         $cmd = $conv .' -n ' . escapeshellarg($fn) . ' ' .escapeshellarg($target);
-        
+        print_R($cmd);exit;
         $res = $this->exec($cmd);
         clearstatcache();
         
