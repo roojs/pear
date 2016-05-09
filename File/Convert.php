@@ -45,7 +45,6 @@ class File_Convert
         $this->fn = $fn;
         $this->mimetype = $mimetype;
         $this->options = $options;
-        print_R($this->options);exit;
      }
     
     
