@@ -606,7 +606,7 @@ class HTML_FlexyFramework {
         $src = array();
          
         
-        if ($this->appNameShort && !in_array('Core', explode(','$this->disable ? $this->disable : '')) {
+        if ($this->appNameShort && !in_array('Core', explode(','$this->disable ? $this->disable : ''))) {
             // in app based version, template directory is in Core
             
             $src = array(  
