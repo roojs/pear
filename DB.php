@@ -1099,7 +1099,7 @@ class DB_result
      *
      * @return void
      */
-    function DB_result(&$dbh, $result, $options = array())
+    function __construct(&$dbh, $result, $options = array())
     {
         $this->autofree    = $dbh->options['autofree'];
         $this->dbh         = &$dbh;
@@ -1472,7 +1472,7 @@ class DB_row
      *
      * @return void
      */
-    function DB_row(&$arr)
+    function __construct(&$arr)
     {
         foreach ($arr as $key => $value) {
             $this->$key = &$arr[$key];
