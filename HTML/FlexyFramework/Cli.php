@@ -43,7 +43,7 @@ class HTML_FlexyFramework_Cli
     var $ff; // the Framework instance.
     
     
-    function HTML_FlexyFramework_Cli($ff)
+    function __construct($ff)
     {
         $this->ff = $ff;
     }
