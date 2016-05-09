@@ -538,7 +538,7 @@ class HTML_FlexyFramework {
                         $dbreq[] = $bd.'/'.$m.'/DataObjects';
                         continue;
                     }
-                    // look in MODULE/DataObjects
+                    // look in MODULE/DataObjects ?? DO WE SUPPORT THIS ANYMORE???
                     if (file_exists($bd.'/../'.$m.'/DataObjects')) {
                         $dbinis[] = $bd.'/../'.$m.'/DataObjects/'. strtolower($this->project).'.ini';
                         $dbcls[] = $td. '_DataObjects_';
