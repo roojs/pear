@@ -957,7 +957,12 @@ class File_Convert_Solution
             
         }
         require_once 'System.php';
+        
         $conv = System::which('wkhtmltopdf');
+        
+        if (!empty(File_Convert::$options['wkhtmltopdf.bin'])) {
+            $conv = System::which(File_Convert::$options['wkhtmltopdf.bin']);
+        }
         
         if (!empty(File_Convert::$options['wkhtmltopdf'])) {
             $conv .= File_Convert::$options['wkhtmltopdf'];
