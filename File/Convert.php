@@ -45,7 +45,6 @@ class File_Convert
         $this->fn = $fn;
         $this->mimetype = $mimetype;
         $this->options = $options;
-        print_R($this->options);exit;
      }
     
     
@@ -967,7 +966,7 @@ class File_Convert_Solution
             $cmd .= File_Convert::$options['wkhtmltopdf'];
         }
         
-        print_r(File_Convert::$options['wkhtmltopdf']);exit;
+        print_r(File_Convert::$options);exit;
         
         $res = $this->exec($cmd);
         clearstatcache();
