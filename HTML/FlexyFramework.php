@@ -525,25 +525,30 @@ class HTML_FlexyFramework {
 
         if (!empty($this->enableArray)) {
                 
-            foreach($this->enableArray as $m) {
-                // look in Pman/MODULE/DataObjects/*
-                 if (file_exists($this->baseDir.'/'.$m.'/DataObjects')) {
-                    $dbinis[] = $this->baseDir.'/'.$m.'/DataObjects/'. strtolower($this->project).'.ini';
-                    $dbcls[] = $this->project .'_'. $m . '_DataObjects_';
-                    $dbreq[] = $this->baseDir.'/'.$m.'/DataObjects';
-                    continue;
-                }
-                // look in MODULE/DataObjects
-                if (file_exists($this->baseDir.'/../'.$m.'/DataObjects')) {
-                    $dbinis[] = $this->baseDir.'/../'.$m.'/DataObjects/'. strtolower($this->project).'.ini';
-                    $dbcls[] = $m . '_DataObjects_';
-                    $dbreq[] = $this->baseDir.'/../'.$m.'/DataObjects';
-                }
+            $tops = array_merge( array($this->project), empty($this->projectExtends) ? array() : $this->projectExtends);
+            
+            foreach($tops as $td) {
                     
-                    
-                  
-            }
-                 
+                $bd = $this->rootDir .'/'.$td;
+                foreach($this->enableArray as $m) {
+                    // look in Pman/MODULE/DataObjects/*
+                     if (file_exists($bd.'/'.$m.'/DataObjects')) {
+                        $dbinis[] = $bd.'/'.$m.'/DataObjects/'. strtolower($this->project).'.ini';
+                        $dbcls[] = $td.'_'. $m . '_DataObjects_';
+                        $dbreq[] = $bd.'/'.$m.'/DataObjects';
+                        continue;
+                    }
+                    // look in MODULE/DataObjects
+                    if (file_exists($bd.'/../'.$m.'/DataObjects')) {
+                        $dbinis[] = $bd.'/../'.$m.'/DataObjects/'. strtolower($this->project).'.ini';
+                        $dbcls[] = $td. '_DataObjects_';
+                        $dbreq[] = $bd.'/../'.$m.'/DataObjects';
+                    }
+                        
+                        
+                      
+                }
+            }     
         } else {
             
             if (isset($this->DB_DataObject['schema_location'])) {
