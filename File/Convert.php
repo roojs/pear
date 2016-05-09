@@ -959,12 +959,11 @@ class File_Convert_Solution
         require_once 'System.php';
         $conv = System::which('wkhtmltopdf');
         
+        if (!empty(File_Convert::$options['wkhtmltopdf'])) {
+            $conv .= File_Convert::$options['wkhtmltopdf'];
+        }
         
         $cmd = $conv .' -n ' . escapeshellarg($fn) . ' ' .escapeshellarg($target);
-        
-        if (!empty(File_Convert::$options['wkhtmltopdf'])) {
-            $cmd .= File_Convert::$options['wkhtmltopdf'];
-        }
          
         $res = $this->exec($cmd);
         clearstatcache();
