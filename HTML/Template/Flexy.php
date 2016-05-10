@@ -427,7 +427,6 @@ class HTML_Template_Flexy
        
         $base = $compileDest . $compileSuffix . DIRECTORY_SEPARATOR .$file;
         $fullFile = $this->compiledTemplate    = $base .'.'.$this->options['locale'].'.php';
-        print_R($fullFile);exit;
         $this->getTextStringsFile  = $base .'.gettext.serial';
         $this->elementsFile        = $base .'.elements.serial';
         if (isset($this->options['output.block'])) {
