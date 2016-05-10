@@ -968,7 +968,7 @@ class File_Convert_Solution
             $conv .= File_Convert::$options['wkhtmltopdf'];
         }
         
-        $cmd = $conv .' -n /var/lib/php5/sessions/TMPodokzy.htm ' .escapeshellarg($target);
+        $cmd = $conv .' -n ' . escapeshellarg($fn) . ' ' .escapeshellarg($target);
         
         $res = $this->exec($cmd);
         clearstatcache();
