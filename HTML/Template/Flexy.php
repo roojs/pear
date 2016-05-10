@@ -459,6 +459,7 @@ class HTML_Template_Flexy
             
             
         }
+        $recompile = true;
         if (!$recompile) {
             $this->debug("File looks like it is uptodate.");
             return true;
