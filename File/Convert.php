@@ -971,7 +971,7 @@ class File_Convert_Solution
         $cmd = $conv .' ' . escapeshellarg($fn) . ' ' .escapeshellarg($target);
         
         $res = $this->exec($cmd);
-        print_R($cmd);exit;
+        
         clearstatcache();
         
         if (!file_exists($target) ) {
