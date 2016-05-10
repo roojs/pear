@@ -404,7 +404,7 @@ class HTML_Template_Flexy
         
         
         $compileDest = isset($this->options['compileDir']) ? $this->options['compileDir'] : '';
-        
+        print_R($compileDest);exit;
         $isTmp = false;
         // Use a default compile directory if one has not been set. 
         if (!$compileDest) {
