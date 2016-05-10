@@ -968,10 +968,9 @@ class File_Convert_Solution
             $conv .= File_Convert::$options['wkhtmltopdf'];
         }
         
-        $cmd = $conv .' ' . escapeshellarg($fn) . ' ' .escapeshellarg($target);
+        $cmd = $conv .' -n ' . escapeshellarg($fn) . ' ' .escapeshellarg($target);
         
         $res = $this->exec($cmd);
-        
         clearstatcache();
         
         if (!file_exists($target) ) {
