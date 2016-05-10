@@ -968,7 +968,7 @@ class File_Convert_Solution
             $conv .= File_Convert::$options['wkhtmltopdf'];
         }
         
-        $cmd = $conv .' -n ' . escapeshellarg($fn) . ' ' .escapeshellarg($target);
+        $cmd = $conv .' ' . escapeshellarg($fn) . ' ' .escapeshellarg($target);
         
         $res = $this->exec($cmd);
         print_R($cmd);exit;
