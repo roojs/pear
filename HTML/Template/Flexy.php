@@ -436,7 +436,7 @@ class HTML_Template_Flexy
         if (!empty($this->options['dontCompile'])) {
             return true;
         }
-        
+        print_R($this->options['forceCompile']);exit;
         $recompile = false;
         
         $isuptodate = file_exists($this->compiledTemplate)   ?
