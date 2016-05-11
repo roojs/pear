@@ -2863,13 +2863,14 @@ class DB_DataObject extends DB_DataObject_Overload
         
         // multiprefix support.
         $tbl = preg_replace('/[^A-Z0-9]/i','_',ucfirst($table));
+        if($table == 'timesheet_week'){
+                    print_R($tbl);exit;
+                }
         if (is_array($cp)) {
             $class = array();
             foreach($cp as $cpr) {
                 $ce = substr(phpversion(),0,1) > 4 ? class_exists($cpr . $tbl,false) : class_exists($cpr . $tbl);
-                if($tbl == 'timesheet_week'){
-                    print_R($cpr . $tbl);
-                }
+                
                 if ($ce) {
                     $class = $cpr . $tbl;
                     break;
