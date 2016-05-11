@@ -565,7 +565,7 @@ class HTML_FlexyFramework {
             $dbreq[] = $this->baseDir.'/DataObjects';
         }
             
-        print_R($dbreq);exit;
+        
         $this->applyIf('DB_DataObject', array(   
         
             'class_location' =>  implode(PATH_SEPARATOR,$dbreq),
