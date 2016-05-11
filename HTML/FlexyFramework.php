@@ -210,7 +210,9 @@ class HTML_FlexyFramework {
         // enable modules.
         if (!empty($this->enable)) {
             $this->enableArray = explode(',', $this->enable);
-            if (!in_array('Core',$this->enableArray )) {
+            
+            
+            if (!in_array('Core',$this->enableArray ) && !in_array('Core', explode(',', $this->disable ? $this->disable : ''))) {
                 $this->enable = 'Core,'. $this->enable ;
                 $this->enableArray = explode(',', $this->enable);
             }
