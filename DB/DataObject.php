@@ -2866,6 +2866,9 @@ class DB_DataObject extends DB_DataObject_Overload
         
         if (is_array($cp)) {
             $class = array();
+            if($table == 'timesheet_week'){
+                    print_R($cp);exit;
+                }
             foreach($cp as $cpr) {
                 $ce = substr(phpversion(),0,1) > 4 ? class_exists($cpr . $tbl,false) : class_exists($cpr . $tbl);
                 
