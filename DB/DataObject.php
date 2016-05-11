@@ -2834,6 +2834,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (empty($_DB_DATAOBJECT['CONFIG'])) {
             DB_DataObject::_loadConfig();
         }
+        print_r($_DB_DATAOBJECT['CONFIG']);exit;
         // no configuration available for database
         if (!empty($database) && empty($_DB_DATAOBJECT['CONFIG']['database_'.$database])) {
                 $do = new DB_DataObject();
