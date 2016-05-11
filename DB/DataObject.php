@@ -2878,7 +2878,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $ce = substr(phpversion(),0,1) > 4 ? class_exists($class,false) : class_exists($class);
         }
         
-        
+        print_R($class);exit;
         $rclass = $ce ? $class  : DB_DataObject::_autoloadClass($class, $table);
         // proxy = full|light
         if (!$rclass && isset($_DB_DATAOBJECT['CONFIG']['proxy'])) { 
