@@ -2912,7 +2912,9 @@ class DB_DataObject extends DB_DataObject_Overload
                 "from $table",
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
         }
- 
+        if($table == 'timesheet_week'){
+            print_R($rclass);exit;
+        }
         $ret = new $rclass();
  
         if (!empty($database)) {
