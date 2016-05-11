@@ -2872,6 +2872,8 @@ class DB_DataObject extends DB_DataObject_Overload
                 if($table == 'timesheet_week'){
                     print_R($cpr . $tbl);
                     echo "\n";
+                    print_R(class_exists($cpr . $tbl,false));
+                    echo "\n";
                 }
                 if ($ce) {
                     $class = $cpr . $tbl;
