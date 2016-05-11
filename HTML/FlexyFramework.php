@@ -533,7 +533,6 @@ class HTML_FlexyFramework {
             foreach($tops as $td) {
                     
                 $bd = $this->rootDir .'/'.$td;
-                print_R($bd);exit;
                 foreach($this->enableArray as $m) {
                     // look in Pman/MODULE/DataObjects/*
                      if (file_exists($bd.'/'.$m.'/DataObjects')) {
