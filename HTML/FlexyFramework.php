@@ -529,7 +529,7 @@ class HTML_FlexyFramework {
         if (!empty($this->enableArray)) {
                 
             $tops = array_merge( array($this->project), empty($this->projectExtends) ? array() : $this->projectExtends);
-            
+            print_r($this->enableArray);exit;
             foreach($tops as $td) {
                     
                 $bd = $this->rootDir .'/'.$td;
