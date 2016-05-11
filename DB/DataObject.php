@@ -2863,18 +2863,10 @@ class DB_DataObject extends DB_DataObject_Overload
         
         // multiprefix support.
         $tbl = preg_replace('/[^A-Z0-9]/i','_',ucfirst($table));
-        
         if (is_array($cp)) {
             $class = array();
-            
             foreach($cp as $cpr) {
                 $ce = substr(phpversion(),0,1) > 4 ? class_exists($cpr . $tbl,false) : class_exists($cpr . $tbl);
-                if($table == 'timesheet_week'){
-                    print_R($cpr . $tbl);
-                    echo "\n";
-                    print_R(class_exists($cpr . $tbl,false));
-                    echo "\n";
-                }
                 if ($ce) {
                     $class = $cpr . $tbl;
                     break;
@@ -2885,9 +2877,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $class = $tbl;
             $ce = substr(phpversion(),0,1) > 4 ? class_exists($class,false) : class_exists($class);
         }
-        if($table == 'timesheet_week'){
-                    exit;
-                }
+        
         
         $rclass = $ce ? $class  : DB_DataObject::_autoloadClass($class, $table);
         // proxy = full|light
