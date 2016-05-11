@@ -2859,7 +2859,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $cp = isset($_DB_DATAOBJECT['CONFIG']['class_prefix']) ?
             explode(PATH_SEPARATOR, $_DB_DATAOBJECT['CONFIG']['class_prefix']) : '';
         
-        //print_r($cp);
+        print_r($cp);exit;
         
         // multiprefix support.
         $tbl = preg_replace('/[^A-Z0-9]/i','_',ucfirst($table));
