@@ -2880,9 +2880,6 @@ class DB_DataObject extends DB_DataObject_Overload
         
         
         $rclass = $ce ? $class  : DB_DataObject::_autoloadClass($class, $table);
-        if($table == 'timesheet_week'){
-            print_R($rclass);exit;
-        }
         // proxy = full|light
         if (!$rclass && isset($_DB_DATAOBJECT['CONFIG']['proxy'])) { 
         
@@ -2915,7 +2912,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 "from $table",
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
         }
-        
+ 
         $ret = new $rclass();
  
         if (!empty($database)) {
