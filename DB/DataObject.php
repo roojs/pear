@@ -2868,7 +2868,7 @@ class DB_DataObject extends DB_DataObject_Overload
             foreach($cp as $cpr) {
                 $ce = substr(phpversion(),0,1) > 4 ? class_exists($cpr . $tbl,false) : class_exists($cpr . $tbl);
                 if($table == 'timesheet_week'){
-                    print_R($cpr . $tbl);exit;
+                    print_R($cpr . $tbl);
                 }
                 if ($ce) {
                     $class = $cpr . $tbl;
@@ -2880,7 +2880,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $class = $tbl;
             $ce = substr(phpversion(),0,1) > 4 ? class_exists($class,false) : class_exists($class);
         }
-        
+        exit;
         
         $rclass = $ce ? $class  : DB_DataObject::_autoloadClass($class, $table);
         // proxy = full|light
