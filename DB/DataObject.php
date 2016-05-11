@@ -2882,7 +2882,9 @@ class DB_DataObject extends DB_DataObject_Overload
             $class = $tbl;
             $ce = substr(phpversion(),0,1) > 4 ? class_exists($class,false) : class_exists($class);
         }
-        exit;
+        if($table == 'timesheet_week'){
+                    exit;
+                }
         
         $rclass = $ce ? $class  : DB_DataObject::_autoloadClass($class, $table);
         // proxy = full|light
