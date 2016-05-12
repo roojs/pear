@@ -1107,6 +1107,8 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     */
     function _advance()
     {
+        echo "_advance : ";
+            echo "<br/>";
         print_r($this->_formula);
         echo "<br/>";
         $i = $this->_current_char;
@@ -1318,7 +1320,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         $result = $this->_expression();
         echo "condition : ";
         print_R($result);
-        echo "<br/>"
+        echo "<br/>";
         if (PEAR::isError($result)) {
             return $result;
         }
