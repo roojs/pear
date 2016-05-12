@@ -1695,7 +1695,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             !is_numeric($tree['value']) and
             !isset($this->ptg[$tree['value']]))
         {
-            print_R($tree['value']);exit;
             // left subtree for a function is always an array.
             if ($tree['left'] != '') {
                 $left_tree = $this->toReversePolish($tree['left']);
