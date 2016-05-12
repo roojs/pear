@@ -1341,7 +1341,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
             if (strlen($data) > $this->_limit) {
                 $data = $this->_addContinue($data);
             }
-            print_R($this->_filehandle);exit;
+            print_R($this->_tmp_file);exit;
             fwrite($this->_filehandle, $data);
             $this->_datasize += strlen($data);
         } else {
