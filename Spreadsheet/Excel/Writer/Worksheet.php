@@ -1868,7 +1868,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
             return -1;
         }
         
-        print_r($error);exit;
+        print_r($this->_parser->_parse_tree);exit;
         
         $formula = $this->_parser->toReversePolish();
         if ($this->isError($formula)) {
