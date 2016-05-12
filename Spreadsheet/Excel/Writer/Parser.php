@@ -551,11 +551,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         // match references like A1 or $A$1
         } elseif (preg_match('/^\$?([A-Ia-i]?[A-Za-z])\$?(\d+)$/',$token)) {
             return $this->_convertRef2d($token);
-            
-        // VLOOKUP - Sheet1.A6:C100
-        } elseif (preg_match('/^\w+\.[A-Za-z][0-9]+\:[A-Za-z][0-9]+$/u',$token)){
-            return $this->_convertRef3d($token);
-            
+        
         // match external references like Sheet1!A1 or Sheet1:Sheet2!A1
         } elseif (preg_match("/^\w+(\:\w+)?\![A-Ia-i]?[A-Za-z](\d+)$/u",$token)) {
             return $this->_convertRef3d($token);
@@ -563,7 +559,11 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         // match external references like 'Sheet1'!A1 or 'Sheet1:Sheet2'!A1
         } elseif (preg_match("/^'[\w -]+(\:[\w -]+)?'\![A-Ia-i]?[A-Za-z](\d+)$/u",$token)) {
             return $this->_convertRef3d($token);
-
+            
+        // VLOOKUP - Sheet1.A6:C100
+        } elseif (preg_match('/^\w+\.[A-Za-z][0-9]+\:[A-Za-z][0-9]+$/u',$token)){
+            return $this->_convertRef3d($token);
+            
         // match ranges like A1:B2
         } elseif (preg_match("/^(\$)?[A-Ia-i]?[A-Za-z](\$)?(\d+)\:(\$)?[A-Ia-i]?[A-Za-z](\$)?(\d+)$/",$token)) {
             return $this->_convertRange2d($token);
