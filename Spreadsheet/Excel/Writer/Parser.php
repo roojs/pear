@@ -738,7 +738,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
 
         // Split the range into 2 cell refs
         list($cell1, $cell2) = explode(':', $range);
-        print_r($cell2);exit;
+        
         // Convert the cell references
         if (preg_match("/^(\$)?[A-Ia-i]?[A-Za-z](\$)?(\d+)$/", $cell1)) {
             $cell_array1 = $this->_cellToPackedRowcol($cell1);
