@@ -927,7 +927,12 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
                 list($sheet1, $sheet2) = array($sheet2, $sheet1);
             }
         } else { // Single sheet name only.
+            echo "start looking for $ext_ref";
+            echo "<br/>";
             $sheet1 = $this->_getSheetIndex($ext_ref);
+            echo "end looking for $ext_ref";
+            echo "<br/>";
+            echo $sheet1;
             if ($sheet1 == -1) {
                 return $this->raiseError("Unknown sheet name $ext_ref in formula");
             }
