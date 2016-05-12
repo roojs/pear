@@ -1107,15 +1107,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     */
     function _advance()
     {
-        echo "_advance : ";
-            echo "<br/>";
-            echo "formula : ";
-        print_r($this->_formula);
-        echo "<br/>";
         $i = $this->_current_char;
-        echo "_current_char : ";
-        print_r($this->_current_char);
-        echo "<br/>";
         $formula_length = strlen($this->_formula);
         // eat up white spaces
         if ($i < $formula_length) {
@@ -1128,34 +1120,21 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             }
             $token = '';
         }
-        echo "_lookahead : ";
-        print_r($this->_lookahead);
-        echo "<br/>";
-        print_r(array($i, $formula_length));
-        echo "<BR/>";
+
         while ($i < $formula_length) {
             $token .= $this->_formula{$i};
-            echo "tmp token : ";
-            print_R($token);
-            echo "<BR/>";
             if ($i < ($formula_length - 1)) {
                 $this->_lookahead = $this->_formula{$i+1};
             } else {
                 $this->_lookahead = '';
             }
-            
+
             if ($this->_match($token) != '') {
                 //if ($i < strlen($this->_formula) - 1) {
                 //    $this->_lookahead = $this->_formula{$i+1};
                 //}
-                echo "_lookahead : ";
-                print_r($this->_lookahead);
-                echo "<br/>";
                 $this->_current_char = $i + 1;
                 $this->_current_token = $token;
-                echo "token : ";
-                print_r($token);
-                echo "<br/>";
                 return 1;
             }
 
@@ -1240,15 +1219,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
                 {
                     return $token;
                 }
-                // Sheet1.A6:C100
-                if (preg_match('/^\w+(\:\w+)?\.[A-Za-z][0-9]+\:[A-Za-z][0-9]+$/u',$token) and
-                   !preg_match("/[0-9]/",$this->_lookahead) and 
-                   ($this->_lookahead != ':') and ($this->_lookahead != '.') and
-                   ($this->_lookahead != '!'))
-                {
-                    return $token;
-                }
-                
                 // If it's an external reference (Sheet1!A1 or Sheet1:Sheet2!A1)
                 elseif (preg_match("/^\w+(\:\w+)?\![A-Ia-i]?[A-Za-z][0-9]+$/u",$token) and
                        !preg_match("/[0-9]/",$this->_lookahead) and
@@ -1323,7 +1293,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         $this->_lookahead    = $formula{1};
         $this->_advance();
         $this->_parse_tree   = $this->_condition();
-        print_R($this->_parse_tree);exit;
         if (PEAR::isError($this->_parse_tree)) {
             return $this->_parse_tree;
         }
@@ -1340,9 +1309,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     function _condition()
     {
         $result = $this->_expression();
-        echo "condition : ";
-        print_R($result);
-        echo "<br/>";
         if (PEAR::isError($result)) {
             return $result;
         }
@@ -1396,7 +1362,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         }
             $result = $this->_createTree('ptgConcat', $result, $result2);
         }
-        
         return $result;
     }
 
@@ -1424,9 +1389,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             return $result;
         }
         $result = $this->_term();
-        echo "_expression : ";
-        print_R($result);
-        echo "<br/>";
         if (PEAR::isError($result)) {
             return $result;
         }
@@ -1476,9 +1438,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     function _term()
     {
         $result = $this->_fact();
-        echo "_term : ";
-        print_R($result);
-        echo "<br/>";
         if (PEAR::isError($result)) {
             return $result;
         }
@@ -1533,15 +1492,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             $this->_advance();
             return $result;
         }
-        
-        // Sheet1.A6:C100 or Sheet1:Sheet2.A6:C100
-        if (preg_match('/^\w+(\:\w+)?\.[A-Za-z][0-9]+\:[A-Za-z][0-9]+$/u', $this->_current_token))
-        {
-            $result = $this->_createTree($this->_current_token, '', '');
-            $this->_advance();
-            return $result;
-        }
-                
         // If it's an external reference (Sheet1!A1 or Sheet1:Sheet2!A1)
         elseif (preg_match("/^\w+(\:\w+)?\![A-Ia-i]?[A-Za-z][0-9]+$/u",$this->_current_token))
         {
@@ -1588,9 +1538,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         elseif (preg_match("/^[A-Z0-9\xc0-\xdc\.]+$/i",$this->_current_token))
         {
             $result = $this->_func();
-            echo "_fact : ";
-            print_R($result);
-            echo "<br/>";
             return $result;
         }
         return $this->raiseError("Syntax error: ".$this->_current_token.
@@ -1610,18 +1557,8 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         $num_args = 0; // number of arguments received
         $function = strtoupper($this->_current_token);
         $result   = ''; // initialize result
-        echo "_func : ";
-            echo "<br/>";
-        print_r($this->_current_token);
-        echo "<br/>";
         $this->_advance();
-        print_r($this->_current_token);
-        echo "<br/>";
         $this->_advance();         // eat the "("
-        print_r($this->_current_token);
-        echo "<br/>";
-        
-        
         while ($this->_current_token != ')') {
         /**/
             if ($num_args > 0) {
@@ -1629,36 +1566,21 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
                     $this->_current_token == SPREADSHEET_EXCEL_WRITER_SEMICOLON)
                 {
                     $this->_advance();  // eat the "," or ";"
-                    
-                    echo "<br/>";
-                    echo "in???";
-                    echo "<br/>";
-                    echo $this->_current_token;
-                    echo "<br/>";
                 } else {
                     return $this->raiseError("Syntax error: comma expected in ".
                                       "function $function, arg #{$num_args}");
                 }
                 $result2 = $this->_condition();
-                print_r('while results : ');
-                print_r($result2);
-                echo "<br/>";
                 if (PEAR::isError($result2)) {
                     return $result2;
                 }
                 $result = $this->_createTree('arg', $result, $result2);
-                print_r('while results : ');
-                print_r($result);
-                echo "<br/>";
             } else { // first argument
                 $result2 = $this->_condition();
                 if (PEAR::isError($result2)) {
                     return $result2;
                 }
                 $result = $this->_createTree('arg', '', $result2);
-                echo "result 2 : ";
-                print_r($result);
-                echo "<br/>";
             }
             $num_args++;
         }
