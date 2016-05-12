@@ -1143,14 +1143,14 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             } else {
                 $this->_lookahead = '';
             }
-            echo "_lookahead : ";
-                print_r($this->_lookahead);
-                echo "<br/>";
+            
             if ($this->_match($token) != '') {
                 //if ($i < strlen($this->_formula) - 1) {
                 //    $this->_lookahead = $this->_formula{$i+1};
                 //}
-                
+                echo "_lookahead : ";
+                print_r($this->_lookahead);
+                echo "<br/>";
                 $this->_current_char = $i + 1;
                 $this->_current_token = $token;
                 echo "token : ";
