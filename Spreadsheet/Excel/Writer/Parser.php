@@ -1011,12 +1011,10 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
 
         // Set the high bits to indicate if row or col are relative.
         if ($this->_BIFF_version == 0x0500) {
-            print_r('1');exit;
             $row    |= $col_rel << 14;
             $row    |= $row_rel << 15;
             $col     = pack('C', $col);
         } elseif ($this->_BIFF_version == 0x0600) {
-            print_r('2');exit;
             $col    |= $col_rel << 14;
             $col    |= $row_rel << 15;
             $col     = pack('v', $col);
