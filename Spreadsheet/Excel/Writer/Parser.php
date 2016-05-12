@@ -1109,9 +1109,11 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     {
         echo "_advance : ";
             echo "<br/>";
+            echo "formula : ";
         print_r($this->_formula);
         echo "<br/>";
         $i = $this->_current_char;
+        echo "_current_char : ";
         print_r($this->_current_char);
         echo "<br/>";
         $formula_length = strlen($this->_formula);
@@ -1126,6 +1128,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             }
             $token = '';
         }
+        echo "_lookahead : ";
         print_r($this->_lookahead);
         echo "<br/>";
         while ($i < $formula_length) {
