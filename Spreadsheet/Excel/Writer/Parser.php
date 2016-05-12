@@ -1016,6 +1016,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             $col     = pack('C', $col);
         } elseif ($this->_BIFF_version == 0x0600) {
             $col    |= $col_rel << 14;
+            print_R($col);exit;
             $col    |= $row_rel << 15;
             $col     = pack('v', $col);
         }
