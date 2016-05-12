@@ -719,7 +719,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     function _convertRange3d($token)
     {
         $class = 2; // as far as I know, this is magick.
-
+        print_R('run???');exit;
         // Split the ref at the ! symbol
         list($ext_ref, $range) = explode('!', $token);
 
