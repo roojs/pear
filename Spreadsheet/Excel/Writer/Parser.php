@@ -850,7 +850,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         } else {
             return $this->raiseError("Unknown class $class", 0, PEAR_ERROR_DIE);
         }
-        print_r($ptgRef . $ext_ref. $row . $col);exit;
+        
         return $ptgRef . $ext_ref. $row . $col;
     }
 
