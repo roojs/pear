@@ -1635,6 +1635,9 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
                     return $result2;
                 }
                 $result = $this->_createTree('arg', $result, $result2);
+                print_r('while results : ');
+                print_r($result);
+                echo "<br/>";
             } else { // first argument
                 $result2 = $this->_condition();
                 if (PEAR::isError($result2)) {
