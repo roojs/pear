@@ -730,7 +730,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
                 return $ext_ref;
             }
         } elseif ($this->_BIFF_version == 0x0600) {
-            print_r($ext_ref);exit;
              $ext_ref = $this->_getRefIndex($ext_ref);
              if (PEAR::isError($ext_ref)) {
                  return $ext_ref;
