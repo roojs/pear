@@ -735,7 +735,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
                  return $ext_ref;
              }
         }
-
+        var_dump($ext_ref);exit;
         // Split the range into 2 cell refs
         list($cell1, $cell2) = explode(':', $range);
         
