@@ -826,12 +826,13 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
 
         // Convert the external reference part (different for BIFF8)
         if ($this->_BIFF_version == 0x0500) {
-            print_R('$cell');exit;
+            
             $ext_ref = $this->_packExtRef($ext_ref);
             if (PEAR::isError($ext_ref)) {
                 return $ext_ref;
             }
         } elseif ($this->_BIFF_version == 0x0600) {
+            print_R('$cell');exit;
             $ext_ref = $this->_getRefIndex($ext_ref);
             if (PEAR::isError($ext_ref)) {
                 return $ext_ref;
