@@ -953,7 +953,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             $this->_references[$total_references] = $ref;
             $index = $total_references;
         }
-
+        print_R($index);exit;
         return pack('v', $index);
     }
 
