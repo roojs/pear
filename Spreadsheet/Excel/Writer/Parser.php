@@ -1611,10 +1611,9 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         if (($args >= 0) and ($args != $num_args)) {
             return $this->raiseError("Incorrect number of arguments in function $function() ");
         }
-        
+
         $result = $this->_createTree($function, $result, $num_args);
         $this->_advance();         // eat the ")"
-        
         return $result;
     }
 
@@ -1711,11 +1710,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             // add it's left subtree and return.
             return $left_tree.$this->_convertFunction($tree['value'], $tree['right']);
         } else {
-            echo $tree['value'];
-            echo "<br/>";
             $converted_tree = $this->_convert($tree['value']);
-            echo 'converted : ' . $converted_tree;
-            echo "<br/>";
             if (PEAR::isError($converted_tree)) {
                 return $converted_tree;
             }
