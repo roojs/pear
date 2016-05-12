@@ -1134,7 +1134,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         print_r(array($i, $formula_length));
         while ($i < $formula_length) {
             $token .= $this->_formula{$i};
-            print_R($token);exit;
+            print_R($token);
             if ($i < ($formula_length - 1)) {
                 $this->_lookahead = $this->_formula{$i+1};
             } else {
