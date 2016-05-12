@@ -1389,7 +1389,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             return $result;
         }
         $result = $this->_term();
-        print_R($result);exit;
         if (PEAR::isError($result)) {
             return $result;
         }
@@ -1439,6 +1438,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     function _term()
     {
         $result = $this->_fact();
+        print_R($result);exit
         if (PEAR::isError($result)) {
             return $result;
         }
