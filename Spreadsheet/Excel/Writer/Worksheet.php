@@ -1867,7 +1867,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
             $this->writeString($row, $col, $error->getMessage());
             return -1;
         }
-
+        
         $formula = $this->_parser->toReversePolish();
         if ($this->isError($formula)) {
             $this->writeString($row, $col, $formula->getMessage());
