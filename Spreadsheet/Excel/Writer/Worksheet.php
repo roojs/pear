@@ -1343,9 +1343,9 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
             }
             
             $metaDatas = stream_get_meta_data($this->_filehandle);
-            print_R($metaDatas);exit;
             
             fwrite($this->_filehandle, $data);
+            print_R($metaDatas);exit;
             $this->_datasize += strlen($data);
         } else {
             parent::_append($data);
