@@ -1862,6 +1862,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
         }
 
         // Parse the formula using the parser in Parser.php
+        print_R($formula);exit;
         $error = $this->_parser->parse($formula);
         if ($this->isError($error)) {
             $this->writeString($row, $col, $error->getMessage());
