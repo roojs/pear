@@ -1082,6 +1082,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     function _cellToRowcol($cell)
     {
         preg_match('/(\$)?([A-I]?[A-Z])(\$)?(\d+)/',$cell,$match);
+        print_r($match);
         // return absolute column if there is a $ in the ref
         $col_rel = empty($match[1]) ? 1 : 0;
         $col_ref = $match[2];
