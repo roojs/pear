@@ -1611,10 +1611,10 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         if (($args >= 0) and ($args != $num_args)) {
             return $this->raiseError("Incorrect number of arguments in function $function() ");
         }
-        print_R($num_args);exit;
+        
         $result = $this->_createTree($function, $result, $num_args);
         $this->_advance();         // eat the ")"
-        print_r($result);exit;
+        
         return $result;
     }
 
