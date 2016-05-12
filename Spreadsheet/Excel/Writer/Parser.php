@@ -1403,7 +1403,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         $result = $this->_term();
         echo "_expression : ";
         print_R($result);
-        echo "<br/>"
+        echo "<br/>";
         if (PEAR::isError($result)) {
             return $result;
         }
@@ -1455,7 +1455,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         $result = $this->_fact();
         echo "_term : ";
         print_R($result);
-        echo "<br/>"
+        echo "<br/>";
         if (PEAR::isError($result)) {
             return $result;
         }
@@ -1558,7 +1558,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             $result = $this->_func();
             echo "_fact : ";
             print_R($result);
-            echo "<br/>"
+            echo "<br/>";
             return $result;
         }
         return $this->raiseError("Syntax error: ".$this->_current_token.
