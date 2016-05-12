@@ -964,6 +964,8 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     */
     function _getSheetIndex($sheet_name)
     {
+        return 0;
+        
         if(function_exists('iconv')) {
             $sheet_name = @iconv('UTF-8','UTF-16LE',$sheet_name);
         }
