@@ -942,7 +942,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         $index = -1;
         for ($i = 0; $i < $total_references; $i++) {
             if ($ref == $this->_references[$i]) {
-                print_R('rn??');exit;
                 $index = $i;
                 break;
             }
