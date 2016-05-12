@@ -1100,7 +1100,9 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         // Convert 1-index to zero-index
         $row--;
         $col--;
-        print_r(($row, $col, $row_rel, $col_rel));exit;
+        
+        print_r(array($row, $col, $row_rel, $col_rel));exit;
+        
         return array($row, $col, $row_rel, $col_rel);
     }
 
