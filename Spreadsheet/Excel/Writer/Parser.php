@@ -1621,6 +1621,9 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
                     return $result2;
                 }
                 $result = $this->_createTree('arg', '', $result2);
+                echo "result 2 : ";
+                print_r($result);
+                echo "<br/>";
             }
             $num_args++;
         }
