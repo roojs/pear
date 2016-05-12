@@ -1476,7 +1476,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     */
     function _fact()
     {
-        print_R($this->_current_token);exit;
         if ($this->_current_token == SPREADSHEET_EXCEL_WRITER_OPEN) {
             $this->_advance();         // eat the "("
             $result = $this->_parenthesizedExpression();
@@ -1538,6 +1537,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         // if it's a function call
         elseif (preg_match("/^[A-Z0-9\xc0-\xdc\.]+$/i",$this->_current_token))
         {
+            print_R('run???');exit;
             $result = $this->_func();
             return $result;
         }
