@@ -1336,7 +1336,6 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
     */
     function _append($data)
     {
-        print_R($data);exit;
         if ($this->_using_tmpfile) {
             // Add CONTINUE records if necessary
             if (strlen($data) > $this->_limit) {
