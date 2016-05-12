@@ -1620,8 +1620,11 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
                     $this->_current_token == SPREADSHEET_EXCEL_WRITER_SEMICOLON)
                 {
                     $this->_advance();  // eat the "," or ";"
+                    
                     echo "<br/>";
                     echo "in???";
+                    echo "<br/>";
+                    echo $this->_current_token;
                     echo "<br/>";
                 } else {
                     return $this->raiseError("Syntax error: comma expected in ".
