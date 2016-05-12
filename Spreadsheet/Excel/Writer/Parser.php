@@ -1701,6 +1701,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             }
         }
         $polish .= $converted_tree;
+        var_dump($polish);
         return $polish;
     }
 }
