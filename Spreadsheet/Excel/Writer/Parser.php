@@ -1631,6 +1631,9 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
                                       "function $function, arg #{$num_args}");
                 }
                 $result2 = $this->_condition();
+                print_r('while results : ');
+                print_r($result2);
+                echo "<br/>";
                 if (PEAR::isError($result2)) {
                     return $result2;
                 }
