@@ -731,12 +731,11 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             }
         } elseif ($this->_BIFF_version == 0x0600) {
              $ext_ref = $this->_getRefIndex($ext_ref);
-             
              if (PEAR::isError($ext_ref)) {
                  return $ext_ref;
              }
         }
-        var_dump($ext_ref);exit;
+
         // Split the range into 2 cell refs
         list($cell1, $cell2) = explode(':', $range);
         
@@ -771,7 +770,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             return $this->raiseError("Unknown class $class", 0, PEAR_ERROR_DIE);
         }
         
-        var_dump($ext_ref);exit;
         return $ptgArea . $ext_ref . $row1 . $row2 . $col1. $col2;
     }
 
@@ -939,7 +937,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         // assume all references belong to this document
         $supbook_index = 0x00;
         $ref = pack('vvv', $supbook_index, $sheet1, $sheet2);
-        
         $total_references = count($this->_references);
         $index = -1;
         for ($i = 0; $i < $total_references; $i++) {
@@ -953,8 +950,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             $this->_references[$total_references] = $ref;
             $index = $total_references;
         }
-        print_r('run?');
-        print_R($index);exit;
+
         return pack('v', $index);
     }
 
