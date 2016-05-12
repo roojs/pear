@@ -1107,7 +1107,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     */
     function _advance()
     {
-        print_R($this->_formula);exit;
         $i = $this->_current_char;
         $formula_length = strlen($this->_formula);
         // eat up white spaces
