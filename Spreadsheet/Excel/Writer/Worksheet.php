@@ -692,7 +692,6 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
         // Return data stored on disk
         if ($this->_using_tmpfile) {
             if ($tmp = fread($this->_filehandle, $buffer)) {
-                print_R($tmp);exit;
                 return $tmp;
             }
         }
