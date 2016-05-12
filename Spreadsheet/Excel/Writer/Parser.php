@@ -1696,6 +1696,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             return $left_tree.$this->_convertFunction($tree['value'], $tree['right']);
         } else {
             $converted_tree = $this->_convert($tree['value']);
+            print_r($converted_tree);exit;
             if (PEAR::isError($converted_tree)) {
                 return $converted_tree;
             }
