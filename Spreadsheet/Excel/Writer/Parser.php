@@ -972,7 +972,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     {
         print_r($sheet_name);
         echo "</br>";
-        print_R($this->_ext_sheets);
+        var_dump($this->_ext_sheets);
         echo "<br/>";
         if (!isset($this->_ext_sheets[$sheet_name])) {
             return -1;
