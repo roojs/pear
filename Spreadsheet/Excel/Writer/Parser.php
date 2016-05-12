@@ -742,6 +742,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         // Convert the cell references
         if (preg_match("/^(\$)?[A-Ia-i]?[A-Za-z](\$)?(\d+)$/", $cell1)) {
             $cell_array1 = $this->_cellToPackedRowcol($cell1);
+            print_R($cell_array1);exit;
             if (PEAR::isError($cell_array1)) {
                 return $cell_array1;
             }
