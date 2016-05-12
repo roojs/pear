@@ -1576,6 +1576,8 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         $num_args = 0; // number of arguments received
         $function = strtoupper($this->_current_token);
         $result   = ''; // initialize result
+        echo "_func : ";
+            echo "<br/>"
         print_r($this->_current_token);
         echo "<br/>";
         $this->_advance();
