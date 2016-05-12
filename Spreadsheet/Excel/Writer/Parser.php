@@ -1557,9 +1557,10 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         $num_args = 0; // number of arguments received
         $function = strtoupper($this->_current_token);
         $result   = ''; // initialize result
+        print_r($this->_current_token);exit;
         $this->_advance();
         $this->_advance();         // eat the "("
-        print_r($this->_current_token);exit;
+        
         while ($this->_current_token != ')') {
         /**/
             if ($num_args > 0) {
