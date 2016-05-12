@@ -1135,6 +1135,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
                 //}
                 $this->_current_char = $i + 1;
                 $this->_current_token = $token;
+                print_R($this->_current_char);exit;
                 return 1;
             }
 
