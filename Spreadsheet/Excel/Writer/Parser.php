@@ -1535,7 +1535,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         }
         
         // Sheet1.A6:C100 or Sheet1:Sheet2.A6:C100
-        if (preg_match('/^\w+(\:\w+)?\.[A-Za-z][0-9]+\:[A-Za-z][0-9]+$/u',$token))
+        if (preg_match('/^\w+(\:\w+)?\.[A-Za-z][0-9]+\:[A-Za-z][0-9]+$/u', $this->_current_token))
         {
             $result = $this->_createTree($this->_current_token, '', '');
             $this->_advance();
