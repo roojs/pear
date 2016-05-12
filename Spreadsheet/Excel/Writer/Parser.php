@@ -1290,6 +1290,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     function parse($formula)
     {
         print_R($formula);exit;
+        
         $this->_current_char = 0;
         $this->_formula      = $formula;
         $this->_lookahead    = $formula{1};
