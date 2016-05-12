@@ -1533,6 +1533,16 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             $this->_advance();
             return $result;
         }
+        
+        // Sheet1.A6:C100 or Sheet1:Sheet2.A6:C100
+        if (preg_match('/^\w+(\:\w+)?\.[A-Za-z][0-9]+\:[A-Za-z][0-9]+$/u',$token) and
+           !preg_match("/[0-9]/",$this->_lookahead) and 
+           ($this->_lookahead != ':') and ($this->_lookahead != '.') and
+           ($this->_lookahead != '!'))
+        {
+            return $token;
+        }
+                
         // If it's an external reference (Sheet1!A1 or Sheet1:Sheet2!A1)
         elseif (preg_match("/^\w+(\:\w+)?\![A-Ia-i]?[A-Za-z][0-9]+$/u",$this->_current_token))
         {
