@@ -1109,20 +1109,18 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     {
         $i = $this->_current_char;
         $formula_length = strlen($this->_formula);
-        
         // eat up white spaces
         if ($i < $formula_length) {
             while ($this->_formula{$i} == " ") {
                 $i++;
             }
-            
+
             if ($i < ($formula_length - 1)) {
                 $this->_lookahead = $this->_formula{$i+1};
-                print_R($this->_lookahead);
             }
             $token = '';
         }
-        print_R($this->_lookahead);exit;
+
         while ($i < $formula_length) {
             $token .= $this->_formula{$i};
             if ($i < ($formula_length - 1)) {
