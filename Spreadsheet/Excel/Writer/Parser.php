@@ -554,7 +554,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
 
         // match external references like Sheet1!A1 or Sheet1:Sheet2!A1
         } elseif (preg_match("/^\w+(\:\w+)?\![A-Ia-i]?[A-Za-z](\d+)$/u",$token)) {
-            print_r($token);exit;
+            print_r('???');exit;
             return $this->_convertRef3d($token);
 
         // match external references like 'Sheet1'!A1 or 'Sheet1:Sheet2'!A1
