@@ -1873,7 +1873,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
             $this->writeString($row, $col, $formula->getMessage());
             return -1;
         }
-        print_r($formula);exit;
+        
         $formlen    = strlen($formula);    // Length of the binary string
         $length     = 0x16 + $formlen;     // Length of the record data
 
