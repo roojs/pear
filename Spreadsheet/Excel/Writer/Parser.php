@@ -1614,6 +1614,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
 
         $result = $this->_createTree($function, $result, $num_args);
         $this->_advance();         // eat the ")"
+        print_r($result);exit;
         return $result;
     }
 
