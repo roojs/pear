@@ -1864,13 +1864,13 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
         // Parse the formula using the parser in Parser.php
         $error = $this->_parser->parse($formula);
         if ($this->isError($error)) {
-            $this->writeString($row, $col, '111');
+            $this->writeString($row, $col, $error->getMessage());
             return -1;
         }
 
         $formula = $this->_parser->toReversePolish();
         if ($this->isError($formula)) {
-            $this->writeString($row, $col, '222');
+            $this->writeString($row, $col, $formula->getMessage());
             return -1;
         }
 
