@@ -1558,13 +1558,13 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         $function = strtoupper($this->_current_token);
         $result   = ''; // initialize result
         print_r($this->_current_token);
-        echo "\n";
+        echo "<br/>";
         $this->_advance();
         print_r($this->_current_token);
-        echo "\n";
+        echo "<br/>";
         $this->_advance();         // eat the "("
         print_r($this->_current_token);
-        echo "\n";
+        echo "<br/>";
         exit;
         
         while ($this->_current_token != ')') {
