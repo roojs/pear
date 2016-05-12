@@ -1136,6 +1136,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         while ($i < $formula_length) {
             $token .= $this->_formula{$i};
             echo "tmp token : ";
+            echo "<br/>";
             print_R($token);
             echo "<BR/>";
             if ($i < ($formula_length - 1)) {
