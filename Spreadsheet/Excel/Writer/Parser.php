@@ -939,7 +939,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         // assume all references belong to this document
         $supbook_index = 0x00;
         $ref = pack('vvv', $supbook_index, $sheet1, $sheet2);
-        print_R($ref);exit;
+        
         $total_references = count($this->_references);
         $index = -1;
         for ($i = 0; $i < $total_references; $i++) {
@@ -953,6 +953,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             $this->_references[$total_references] = $ref;
             $index = $total_references;
         }
+        print_r('run?');
         print_R($index);exit;
         return pack('v', $index);
     }
