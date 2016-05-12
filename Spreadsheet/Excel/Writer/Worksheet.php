@@ -645,7 +645,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
             $this->_storeDataValidity();
         }*/
         $this->_storeEof();
-
+        print_r(file_get_contents($this->_tmp_file));exit;
         if ( $this->_tmp_file != '' ) {
           if ( $this->_filehandle ) {
             fclose($this->_filehandle);
