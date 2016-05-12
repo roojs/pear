@@ -1115,9 +1115,10 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             while ($this->_formula{$i} == " ") {
                 $i++;
             }
-            print_R($i);exit;
+            
             if ($i < ($formula_length - 1)) {
                 $this->_lookahead = $this->_formula{$i+1};
+                print_R($this->_lookahead);
             }
             $token = '';
         }
