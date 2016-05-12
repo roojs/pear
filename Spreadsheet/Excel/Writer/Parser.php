@@ -928,6 +928,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             }
         } else { // Single sheet name only.
             $sheet1 = $this->_getSheetIndex($ext_ref);
+            print_R($this);exit;
             if ($sheet1 == -1) {
                 return $this->raiseError("Unknown sheet name $ext_ref in formula");
             }
