@@ -820,13 +820,13 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     function _convertRef3d($cell)
     {
         $class = 2; // as far as I know, this is magick.
-        print_r($this->_BIFF_version);exit;
-        print_R($cell);exit;
+        
         // Split the ref at the ! symbol
         list($ext_ref, $cell) = explode('!', $cell);
 
         // Convert the external reference part (different for BIFF8)
         if ($this->_BIFF_version == 0x0500) {
+            print_R('$cell');exit;
             $ext_ref = $this->_packExtRef($ext_ref);
             if (PEAR::isError($ext_ref)) {
                 return $ext_ref;
