@@ -731,7 +731,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             }
         } elseif ($this->_BIFF_version == 0x0600) {
              $ext_ref = $this->_getRefIndex($ext_ref);
-             print_R($ext_ref);exit;
+             
              if (PEAR::isError($ext_ref)) {
                  return $ext_ref;
              }
@@ -939,6 +939,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         // assume all references belong to this document
         $supbook_index = 0x00;
         $ref = pack('vvv', $supbook_index, $sheet1, $sheet2);
+        print_R($ref);exit;
         $total_references = count($this->_references);
         $index = -1;
         for ($i = 0; $i < $total_references; $i++) {
