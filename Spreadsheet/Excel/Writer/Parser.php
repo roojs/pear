@@ -575,7 +575,10 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         // match external ranges like 'Sheet1'!A1 or 'Sheet1:Sheet2'!A1:B2
         } elseif (preg_match("/^'[\w -]+(\:[\w -]+)?'\!([A-Ia-i]?[A-Za-z])?(\d+)\:([A-Ia-i]?[A-Za-z])?(\d+)$/u",$token)) {
             return $this->_convertRange3d($token);
-
+            
+        // Sheet1.A6:C100 or Sheet1:Sheet2.A6:C100
+        } elseif (preg_match('/^\w+(\:\w+)?\.[A-Za-z][0-9]+\:[A-Za-z][0-9]+$/u',$token)){
+            return $this->_convertRange3d($token);
         // operators (including parentheses)
         } elseif (isset($this->ptg[$token])) {
             return pack("C", $this->ptg[$token]);
