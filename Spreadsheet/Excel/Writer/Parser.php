@@ -552,7 +552,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         } elseif (preg_match('/^\$?([A-Ia-i]?[A-Za-z])\$?(\d+)$/',$token)) {
             return $this->_convertRef2d($token);
             
-        // VLOOKUP - Sheet1.A6:C100 or Sheet1:Sheet2.A6:C100
+        // VLOOKUP - Sheet1.A6:C100
         } elseif (preg_match('/^\w+\.[A-Za-z][0-9]+\:[A-Za-z][0-9]+$/u',$token)){
             return $this->_convertRef3d($token);
             
@@ -1223,8 +1223,8 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
                 {
                     return $token;
                 }
-                // Sheet1.A6:C100 or Sheet1:Sheet2.A6:C100
-                if (preg_match('/^\w+(\:\w+)?\.[A-Za-z][0-9]+\:[A-Za-z][0-9]+$/u',$token) and
+                // VLOOKUP - Sheet1.A6:C100
+                if (preg_match('/^\w+\.[A-Za-z][0-9]+\:[A-Za-z][0-9]+$/u',$token) and
                    !preg_match("/[0-9]/",$this->_lookahead) and 
                    ($this->_lookahead != ':') and ($this->_lookahead != '.') and
                    ($this->_lookahead != '!'))
