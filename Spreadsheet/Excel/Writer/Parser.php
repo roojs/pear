@@ -832,7 +832,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
                 return $ext_ref;
             }
         }
-        var_dump($cell);exit;
+
         // Convert the cell reference part
         list($row, $col) = $this->_cellToPackedRowcol($cell);
 
