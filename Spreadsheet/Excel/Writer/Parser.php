@@ -965,6 +965,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     */
     function _getSheetIndex($sheet_name)
     {
+        print_R($sheet_name);
         print_R($this->_ext_sheets);exit;
         if (!isset($this->_ext_sheets[$sheet_name])) {
             return -1;
