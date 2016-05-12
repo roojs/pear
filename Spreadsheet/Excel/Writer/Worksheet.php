@@ -1869,7 +1869,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
         }
 
         $formula = $this->_parser->toReversePolish();
-        print_R($formula);exit;
+        print_R(unpack('C', $formula));exit;
         if ($this->isError($formula)) {
             $this->writeString($row, $col, $formula->getMessage());
             return -1;
