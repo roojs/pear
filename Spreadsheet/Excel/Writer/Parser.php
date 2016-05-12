@@ -964,9 +964,9 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     */
     function _getSheetIndex($sheet_name)
     {
-//        if(function_exists('iconv')) {
-//            $sheet_name = @iconv('UTF-8','UTF-16LE',$sheet_name);
-//        }
+        if(function_exists('iconv')) {
+            $sheet_name = @iconv('UTF-8','UTF-16LE',$sheet_name);
+        }
         
         if (!isset($this->_ext_sheets[$sheet_name])) {
             return -1;

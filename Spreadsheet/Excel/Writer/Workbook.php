@@ -323,9 +323,9 @@ class Spreadsheet_Excel_Writer_Workbook extends Spreadsheet_Excel_Writer_BIFFwri
                 return $this->raiseError("Sheetname $name must be <= 31 chars");
             }
         } else {
-//            if(function_exists('iconv')) {
-//                $name = @iconv('UTF-8','UTF-16LE',$name);
-//            }
+            if(function_exists('iconv')) {
+                $name = @iconv('UTF-8','UTF-16LE',$name);
+            }
         }
 
         // Check that the worksheet name doesn't already exist: a fatal Excel error.
