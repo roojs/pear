@@ -1566,7 +1566,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         $result   = ''; // initialize result
         print_r($this->_current_token);
         echo "<br/>";
-        $this->_advance();
+//        $this->_advance();
         print_r($this->_current_token);
         echo "<br/>";
         $this->_advance();         // eat the "("
