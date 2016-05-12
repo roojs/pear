@@ -511,7 +511,6 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
         // Open tmp file for storing Worksheet data
         if ($this->_tmp_dir === '') {
             $fh = tmpfile();
-            print_R($fh);exit;
         } else {
             // For people with open base dir restriction
             $this->_tmp_file = tempnam($this->_tmp_dir, "Spreadsheet_Excel_Writer");
@@ -1342,7 +1341,6 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
             if (strlen($data) > $this->_limit) {
                 $data = $this->_addContinue($data);
             }
-            print_R($this->_tmp_file);exit;
             fwrite($this->_filehandle, $data);
             $this->_datasize += strlen($data);
         } else {
