@@ -1538,8 +1538,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         elseif (preg_match("/^[A-Z0-9\xc0-\xdc\.]+$/i",$this->_current_token))
         {
             $result = $this->_func();
-            echo "run????";
-            print_R($result);exit;
             return $result;
         }
         return $this->raiseError("Syntax error: ".$this->_current_token.
