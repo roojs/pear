@@ -617,7 +617,6 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
         }
 
         // Prepend the COLINFO records if they exist
-        print_R($this->_colinfo);EXIT;
         if (!empty($this->_colinfo)) {
             $colcount = count($this->_colinfo);
             for ($i = 0; $i < $colcount; $i++) {
