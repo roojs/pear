@@ -1082,7 +1082,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     function _cellToRowcol($cell)
     {
         preg_match('/(\$)?([A-I]?[A-Z])(\$)?(\d+)/',$cell,$match);
-        print_r($match);
         // return absolute column if there is a $ in the ref
         $col_rel = empty($match[1]) ? 1 : 0;
         $col_ref = $match[2];
@@ -1101,7 +1100,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         // Convert 1-index to zero-index
         $row--;
         $col--;
-        print_R(array($row, $col, $row_rel, $col_rel));exit;
+
         return array($row, $col, $row_rel, $col_rel);
     }
 
@@ -1702,7 +1701,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             }
         }
         $polish .= $converted_tree;
-        var_dump($polish);
         return $polish;
     }
 }
