@@ -1880,7 +1880,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
         $header    = pack("vv",      $record, $length);
         $data      = pack("vvvdvVv", $row, $col, $xf, $num,
                                      $grbit, $unknown, $formlen);
-        print_R($header);exit;
+        
         $this->_append($header . $data . $formula);
         return 0;
     }
