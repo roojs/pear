@@ -933,6 +933,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             echo "end looking for $ext_ref";
             echo "<br/>";
             echo $sheet1;
+            exit;
             if ($sheet1 == -1) {
                 return $this->raiseError("Unknown sheet name $ext_ref in formula");
             }
