@@ -928,7 +928,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             }
         } else { // Single sheet name only.
             $sheet1 = $this->_getSheetIndex($ext_ref);
-            print_R($ext_ref);exit;
             if ($sheet1 == -1) {
                 return $this->raiseError("Unknown sheet name $ext_ref in formula");
             }
@@ -965,8 +964,6 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
     */
     function _getSheetIndex($sheet_name)
     {
-        print_R($sheet_name);
-        print_R($this->_ext_sheets);exit;
         if (!isset($this->_ext_sheets[$sheet_name])) {
             return -1;
         } else {
