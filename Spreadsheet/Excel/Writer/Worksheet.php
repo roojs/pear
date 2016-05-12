@@ -1338,6 +1338,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
     {
         if ($this->_using_tmpfile) {
             // Add CONTINUE records if necessary
+            print_R($this->_limit);exit;
             if (strlen($data) > $this->_limit) {
                 $data = $this->_addContinue($data);
             }
