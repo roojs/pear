@@ -4032,7 +4032,7 @@ class DB_DataObject extends DB_DataObject_Overload
         global $_DB_DATAOBJECT;
         $keys  = $this->keys();
         $items = $this->table();
-           var_dump($items);
+            
      
         if (!$items) {
             $this->raiseError(
