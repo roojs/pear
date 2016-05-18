@@ -642,7 +642,7 @@ class HTML_FlexyFramework {
             }
             
         }
-        print_R($this->enableArray);exit;
+        print_R($this->baseDir);exit;
         if (!empty($this->projectExtends)) {
             foreach ($this->projectExtends as $extend){
                 foreach($this->enableArray as $m) {
