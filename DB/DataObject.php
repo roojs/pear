@@ -4436,7 +4436,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $this->$col = $value;
             return true;
         }
-        echo "FROM VALUE $col, {$cols[$col]}, $value\n";
+        //echo "FROM VALUE $col, {$cols[$col]}, $value\n";
         switch (true) {
             // set to null and column is can be null...
             case ((!($cols[$col] & DB_DATAOBJECT_NOTNULL)) && DB_DataObject::_is_null($value, false)):
