@@ -647,6 +647,7 @@ class HTML_FlexyFramework {
             foreach ($this->projectExtends as $extend){
                 foreach($this->enableArray as $m) {
                     $add = $this->rootURL . '/' . $extend . '/' . $m .'/templates';
+                    print_R($add);exit;
                     if (!in_array($add,$src) && file_exists($add) && $this->appNameShort != $m) {
                         $src[] = $add;
                     }
