@@ -659,7 +659,6 @@ class HTML_FlexyFramework {
             $src[] =  $this->baseDir . '/'. $this->appNameShort. '/templates';
         }
         
-          
         // images may come from multiple places: - if we have multiple template directories.?
         // how do we deal with this..?
         // images/ << should always be mapped to master!
