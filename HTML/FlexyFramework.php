@@ -643,7 +643,7 @@ class HTML_FlexyFramework {
             
         }
         
-        if (!empty($this->projectExtends)) {
+        if (!empty($this->projectExtends) && !empty($this->enableArray))  {
             foreach ($this->projectExtends as $extend){
                 foreach($this->enableArray as $m) {
                     $add = $this->rootDir . '/' . $extend . '/' . $m .'/templates';
