@@ -650,7 +650,6 @@ class HTML_FlexyFramework {
                     if (!in_array($add,$src) && file_exists($add) && $this->appNameShort != $m) {
                         $src[] = $add;
                     }
-
                 }
             }
 
