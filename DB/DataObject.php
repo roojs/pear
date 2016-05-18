@@ -4032,14 +4032,14 @@ class DB_DataObject extends DB_DataObject_Overload
         global $_DB_DATAOBJECT;
         $keys  = $this->keys();
         $items = $this->table();
-        
+           var_dump($items);
+     
         if (!$items) {
             $this->raiseError(
                 "setFrom:Could not find table definition for {$this->tableName()}", 
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
             return;
         }
-        var_dump($items);
         $overload_return = array();
         foreach (array_keys($items) as $k) {
             if (in_array($k,$keys)) {
