@@ -4039,6 +4039,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
             return;
         }
+        print_r($items);
         $overload_return = array();
         foreach (array_keys($items) as $k) {
             if (in_array($k,$keys)) {
