@@ -71,10 +71,10 @@ class Image_Transform_Driver_Imagick3 extends Image_Transform
      */
     function __construct()
     {
-        if (PEAR::loadExtension('imagick')) {
+        if (PEAR5::loadExtension('imagick')) {
             include 'Image/Transform/Driver/Imagick/ImageTypes.php';
         } else {
-            $this->isError(PEAR::raiseError('Could not find the imagick extension.',
+            $this->isError(PEAR5::raiseError('Could not find the imagick extension.',
                 IMAGE_TRANSFORM_ERROR_UNSUPPORTED));
         }
     }
@@ -102,7 +102,7 @@ class Image_Transform_Driver_Imagick3 extends Image_Transform
 
         $this->image = $image;
         $result = $this->_get_image_details($image);
-        if (PEAR::isError($result)) {
+        if (PEAR5::isError($result)) {
             return $result;
         }
 
@@ -341,7 +341,7 @@ class Image_Transform_Driver_Imagick3 extends Image_Transform
     {
         // Sanity check
         if (!$this->intersects($width, $height, $x, $y)) {
-            return PEAR::raiseError('Nothing to crop', IMAGE_TRANSFORM_ERROR_OUTOFBOUND);
+            return PEAR5::raiseError('Nothing to crop', IMAGE_TRANSFORM_ERROR_OUTOFBOUND);
         }
         try {
             $this->imagick->cropImage($width, $height, $x, $y);
@@ -432,6 +432,6 @@ class Image_Transform_Driver_Imagick3 extends Image_Transform
      */
     function raiseError($message, $code = 0)
     {
-        return PEAR::raiseError($message, $code);
+        return PEAR5::raiseError($message, $code);
     }
 }
