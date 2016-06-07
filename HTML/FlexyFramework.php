@@ -283,7 +283,7 @@ class HTML_FlexyFramework {
         $this->_parseConfigTemplate();
         $this->_parseConfigMail();
  
-       echo '<PRE>';print_r($this);exit;
+        //echo '<PRE>';print_r($this);exit;
         
         $this->_exposeToPear();
         $this->_validateEnv();
@@ -293,7 +293,7 @@ class HTML_FlexyFramework {
         
         $this->_validateDatabase();
         $this->_validateTemplate();
-        
+        echo '<PRE>';print_r($this);exit;
         
     }
     /**
