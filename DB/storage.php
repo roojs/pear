@@ -96,7 +96,7 @@ class DB_storage extends PEAR
      */
     function DB_storage($table, $keycolumn, &$dbh, $validator = null)
     {
-        $this->PEAR('DB_Error');
+        parent::__construct('DB_Error');
         $this->_table = $table;
         $this->_keycolumn = $keycolumn;
         $this->_dbh = $dbh;

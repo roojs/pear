@@ -130,7 +130,7 @@ class DB_fbsql extends DB_common
      */
     function DB_fbsql()
     {
-        $this->DB_common();
+        parent::__construct();
     }
 
     // }}}

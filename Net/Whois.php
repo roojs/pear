@@ -134,7 +134,7 @@ class Net_Whois extends PEAR
      */
     function Net_Whois()
     {
-        $this->PEAR();
+        parent::__construct();
 
         $this->setPort();
         $this->setAuthoritative();

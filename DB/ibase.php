@@ -186,7 +186,7 @@ class DB_ibase extends DB_common
      */
     function DB_ibase()
     {
-        $this->DB_common();
+        parent::__construct();
     }
 
     // }}}

@@ -146,7 +146,7 @@ class DB_dbase extends DB_common
      */
     function DB_dbase()
     {
-        $this->DB_common();
+        parent::__construct();
     }
 
     // }}}

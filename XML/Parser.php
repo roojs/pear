@@ -226,7 +226,7 @@ class XML_Parser extends PEAR
      */
     function __construct($srcenc = null, $mode = 'event', $tgtenc = null)
     {
-        $this->PEAR('XML_Parser_Error');
+        parent::__construct('XML_Parser_Error');
 
         $this->mode   = $mode;
         $this->srcenc = $srcenc;
@@ -761,7 +761,7 @@ class XML_Parser_Error extends PEAR_Error
                 xml_get_current_line_number($msgorparser),
                 xml_get_current_column_number($msgorparser));
         }
-        $this->PEAR_Error($msgorparser, $code, $mode, $level);
+        parent::__construct($msgorparser, $code, $mode, $level);
     }
     // }}}
 }

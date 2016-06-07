@@ -179,7 +179,7 @@ class DB_oci8 extends DB_common
      */
     function DB_oci8()
     {
-        $this->DB_common();
+        parent::__construct();
     }
 
     // }}}

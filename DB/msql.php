@@ -132,7 +132,7 @@ class DB_msql extends DB_common
      */
     function DB_msql()
     {
-        $this->DB_common();
+        parent::__construct();
     }
 
     // }}}

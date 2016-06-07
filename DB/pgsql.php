@@ -154,7 +154,7 @@ class DB_pgsql extends DB_common
      */
     function DB_pgsql()
     {
-        $this->DB_common();
+        parent::__construct();
     }
 
     // }}}

@@ -44,7 +44,7 @@ class Cache_Error extends PEAR_Error
   */
   function Cache_Error($msg, $file = __FILE__, $line = __LINE__) {
     
-    $this->PEAR_Error(sprintf("%s [%s on line %d].", $msg, $file, $line));
+   parent::__construct(sprintf("%s [%s on line %d].", $msg, $file, $line));
     
   } // end func Cache_Error
   

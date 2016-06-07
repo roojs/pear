@@ -147,7 +147,7 @@ class DB_sybase extends DB_common
      */
     function DB_sybase()
     {
-        $this->DB_common();
+        parent::__construct();
     }
 
     // }}}

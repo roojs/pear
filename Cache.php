@@ -128,7 +128,7 @@ class Cache extends PEAR
     */
     function Cache($container, $container_options = '')
     {
-        $this->PEAR();
+        parent::__construct();
         $container = strtolower($container);
         $container_class = 'Cache_Container_' . $container;
         $container_classfile = 'Cache/Container/' . $container . '.php';

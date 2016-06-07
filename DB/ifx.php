@@ -173,7 +173,7 @@ class DB_ifx extends DB_common
      */
     function DB_ifx()
     {
-        $this->DB_common();
+        parent::__construct();
     }
 
     // }}}

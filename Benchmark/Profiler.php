@@ -165,7 +165,7 @@ class Benchmark_Profiler extends PEAR
             $this->start();
         }
 
-        $this->PEAR();
+        parent::__construct();
     }
 
     /**

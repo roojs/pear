@@ -159,7 +159,7 @@ class DB_odbc extends DB_common
      */
     function DB_odbc()
     {
-        $this->DB_common();
+        parent::__construct();
     }
 
     // }}}

@@ -600,7 +600,7 @@ class XML_Serializer extends PEAR
      */
     function XML_Serializer( $options = null )
     {
-        $this->PEAR();
+        parent::__construct();
         if (is_array($options)) {
             $this->options = array_merge($this->_defaultOptions, $options);
         } else {
