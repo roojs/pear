@@ -198,7 +198,7 @@ class Image_Transform
      * @see PEAR::isError()
      * @see Image_Transform::setOption()
      */
-    function factory($driver = '')
+    static function factory($driver = '')
     {
         if ($driver == '') {
             $extensions = array(
@@ -212,13 +212,13 @@ class Image_Transform
             }
 
             foreach ($extensions as $ext => $ext_driver) {
-                if (PEAR::loadExtension($ext)) {
+                if (PEAR5::loadExtension($ext)) {
                     $driver = $ext_driver;
                     break;
                 }
             }
             if (!$driver) {
-                return PEAR::raiseError(
+                return PEAR5::raiseError(
                     'No image library specified and none can be found.'
                     . ' You must specify driver in factory() call.',
                     IMAGE_TRANSFORM_ERROR_ARGUMENT
