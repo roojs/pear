@@ -42,7 +42,7 @@ require_once 'PEAR.php';
  */
 
 /**
- * The code returned by many methods upon success
+ * The code returned by many methods upon success970
  */
 define('DB_OK', 1);
 
@@ -459,7 +459,7 @@ class DB
             // expose php errors with sufficient debug level
             include_once "DB/{$type}.php";
         } else {
-            @include_once "DB/{$type}.php";
+            include_once "DB/{$type}.php";
         }
 
         $classname = "DB_${type}";
@@ -520,9 +520,9 @@ class DB
      *
      * @uses DB::parseDSN(), DB_common::setOption(), PEAR::isError()
      */
-    static function &connect($dsn, $options = array())
+    static function connect($dsn, $options = array())
     {
-        $dsninfo = DB::parseDSN($dsn);
+         $dsninfo = DB::parseDSN($dsn);
         $type = $dsninfo['phptype'];
 
         if (!is_array($options)) {
@@ -549,7 +549,7 @@ class DB
             return $tmp;
         }
 
-        @$obj = new $classname;
+        $obj = new $classname;
 
         foreach ($options as $option => $value) {
             $test = $obj->setOption($option, $value);
@@ -967,10 +967,10 @@ class DB_Error extends PEAR_Error
                       $level = E_USER_NOTICE, $debuginfo = null)
     {
         if (is_int($code)) {
-            $this->PEAR_Error('DB Error: ' . DB::errorMessage($code), $code,
+            parent::__construct('DB Error: ' . DB::errorMessage($code), $code,
                               $mode, $level, $debuginfo);
         } else {
-            $this->PEAR_Error("DB Error: $code", DB_ERROR,
+            parent::__construct("DB Error: $code", DB_ERROR,
                               $mode, $level, $debuginfo);
         }
     }
