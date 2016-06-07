@@ -280,11 +280,10 @@ class HTML_FlexyFramework {
             $this->_configDataObjectsCache();
         }
         
-        
         $this->_parseConfigTemplate();
         $this->_parseConfigMail();
-        
-       // echo '<PRE>';print_r($this);exit;
+ 
+       echo '<PRE>';print_r($this);exit;
         
         $this->_exposeToPear();
         $this->_validateEnv();
@@ -294,7 +293,6 @@ class HTML_FlexyFramework {
         
         $this->_validateDatabase();
         $this->_validateTemplate();
-        
         
         
     }
@@ -754,17 +752,20 @@ class HTML_FlexyFramework {
         
         // database is the only setting - we dont support mult databses?
             
+            
         $x = new DB_Dataobject;
         $x->_database = $this->database;
-                    
         if (PEAR::isError($err = $x->getDatabaseConnection())) {
-                    
+                                
+
                 $this->fatalError("Configuration or Database Error: could not connect to Database, <BR>
                     Please check the value given to HTML_FlexyFramework, or run with debug on!<BR>
                      <BR> ".$err->toString());
         }
         // reset dont die!
         $options['dont_die'] = $dd ;
+        
+        
     }
     function _validateTemplate()
     {
