@@ -2503,6 +2503,7 @@ class DB_DataObject extends DB_DataObject_Overload
             } else {
                 $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5] = DB::connect($dsn);
             }
+            var_dump(16);
              
         } else {
             /* assumption is MDB2 */
