@@ -745,7 +745,7 @@ class HTML_FlexyFramework {
     
     function _validateDatabase()
     {
-        echo "<PRE>"; print_r($this);
+        //echo "<PRE>"; print_r($this);
 
         if ($this->nodatabase) {
             return;
