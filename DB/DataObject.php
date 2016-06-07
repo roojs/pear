@@ -2376,6 +2376,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (empty($_DB_DATAOBJECT['CONFIG'])) {
             $this->_loadConfig();
         }
+        var_Dump(9);
         // Set database driver for reference 
         $db_driver = empty($_DB_DATAOBJECT['CONFIG']['db_driver']) ? 
                 'DB' : $_DB_DATAOBJECT['CONFIG']['db_driver'];
@@ -2413,10 +2414,11 @@ class DB_DataObject extends DB_DataObject_Overload
             }
             // theoretically we have a md5, it's listed in connections and it's not an error.
             // so everything is ok!
+            var_dump(13);
             return true;
             
         }
-
+        var_dump(11);
         // it's not currently connected!
         // try and work out what to use for the dsn !
 
@@ -2449,7 +2451,7 @@ class DB_DataObject extends DB_DataObject_Overload
                  
         }
         
-        
+        var_dump(14);
         if (is_string($dsn)) {
             $this->_database_dsn_md5 = md5($dsn);
         } else {
@@ -2480,7 +2482,7 @@ class DB_DataObject extends DB_DataObject_Overload
             return true;
         }
 
-        
+        var_dump(12);
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug("NEW CONNECTION TP DATABASE :" .$this->_database , "CONNECT",3);
             /* actualy make a connection */
