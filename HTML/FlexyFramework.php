@@ -745,10 +745,11 @@ class HTML_FlexyFramework {
     
     function _validateDatabase()
     {
+        echo "<PRE>"; var_dump($this);
+
         if ($this->nodatabase == true) {
             return;
         }
-        echo "<PRE>"; print_R($config);
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
         $dd = empty($options['dont_die']) ? false : true;
         $options['dont_die'] = true;
