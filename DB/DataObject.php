@@ -2439,7 +2439,7 @@ class DB_DataObject extends DB_DataObject_Overload
                   
             }
         }
-        
+
         // if still no database...
         if (!$dsn) {
             return $this->raiseError(
@@ -2479,6 +2479,8 @@ class DB_DataObject extends DB_DataObject_Overload
             }
             return true;
         }
+
+        
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug("NEW CONNECTION TP DATABASE :" .$this->_database , "CONNECT",3);
             /* actualy make a connection */
@@ -2511,7 +2513,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5] = MDB2::connect($dsn,$db_options);
             
         }
-        
+ 
         
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug(print_r($_DB_DATAOBJECT['CONNECTIONS'],true), "CONNECT",5);
@@ -2928,8 +2930,9 @@ class DB_DataObject extends DB_DataObject_Overload
      * @param  string  $table  Table trying to load.
      * @access private
      * @return string classname on Success
+     * @static
      */
-    function _autoloadClass($class, $table=false)
+    static function _autoloadClass($class, $table=false)
     {
         global $_DB_DATAOBJECT;
         
@@ -4281,10 +4284,12 @@ class DB_DataObject extends DB_DataObject_Overload
     function getDatabaseConnection()
     {
         global $_DB_DATAOBJECT;
-
+        var_dump(7);
         if (($e = $this->_connect()) !== true) {
+            print_R($e);
             return $e;
         }
+
         if (!isset($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5])) {
             $r = false;
             return $r;
