@@ -745,9 +745,9 @@ class HTML_FlexyFramework {
     
     function _validateDatabase()
     {
-        //echo "<PRE>"; print_r($this);
+        echo "<PRE>"; print_r($this);
 
-        if ($this->nodatabase === true) {
+        if ($this->nodatabase) {
             return;
         }
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
