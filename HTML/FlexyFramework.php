@@ -769,7 +769,7 @@ class HTML_FlexyFramework {
         }
         // reset dont die!
         $options['dont_die'] = $dd ;
-        
+        die("got this far");
         
     }
     function _validateTemplate()
