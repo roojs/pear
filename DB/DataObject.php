@@ -3892,7 +3892,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 continue;
             }
             
-            if (!empty($cfg['exclude']) && in_array($ocl .'.*', $cfg['exclude'])) {
+            if (!empty($cfg['exclude']) && in_array($tab .'.*', $cfg['exclude'])) {
                 continue;
             }
             
