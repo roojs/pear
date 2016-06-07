@@ -746,23 +746,19 @@ class HTML_FlexyFramework {
     function _validateDatabase()
     {
         //echo "<PRE>"; var_dump($this);
-        var_dump(1);
+
         if ($this->nodatabase === true) {
             return;
         }
-        var_dump(2);
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
         $dd = empty($options['dont_die']) ? false : true;
         $options['dont_die'] = true;
         
         // database is the only setting - we dont support mult databses?
-        //echo "<PRE>"; var_dump($this);
-
-          var_dump(3);  
+          
+            
         $x = new DB_Dataobject;
         $x->_database = $this->database;
-        
-        var_dump(4);
         if (PEAR::isError($err = $x->getDatabaseConnection())) {
                                 
 
@@ -770,10 +766,9 @@ class HTML_FlexyFramework {
                     Please check the value given to HTML_FlexyFramework, or run with debug on!<BR>
                      <BR> ".$err->toString());
         }
-        var_dump(5);
         // reset dont die!
         $options['dont_die'] = $dd ;
-        die("got this far");
+        
         
     }
     function _validateTemplate()
