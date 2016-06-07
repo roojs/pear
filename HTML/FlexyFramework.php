@@ -286,9 +286,11 @@ class HTML_FlexyFramework {
         //echo '<PRE>';print_r($this);exit;
         
         $this->_exposeToPear();
-                echo '<PRE>';print_r($this);exit;
+                
 
         $this->_validateEnv();
+        
+        echo '<PRE>';var_dump($ishelp);exit;
         if ($ishelp) {
             return;
         }
