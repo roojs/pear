@@ -168,7 +168,7 @@ class DB_mysql extends DB_common
      */
     function DB_mysql()
     {
-        $this->DB_common();
+        parent::__construct(); 
     }
 
     // }}}
