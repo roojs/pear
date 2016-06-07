@@ -29,7 +29,7 @@
 /**
  * Include for error handling
  */
-require_once 'PEAR.php';
+require_once 'PEAR5.php';
 
 /**
  * Error code for unsupported library, image format or methods
