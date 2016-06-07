@@ -49,7 +49,7 @@ class PEAR_Frontend_CLI extends PEAR_Frontend
 
     function PEAR_Frontend_CLI()
     {
-        parent::PEAR();
+        parent::__construct();
         $term = getenv('TERM'); //(cox) $_ENV is empty for me in 4.1.1
         if (function_exists('posix_isatty') && !posix_isatty(1)) {
             // output is being redirected to a file or through a pipe

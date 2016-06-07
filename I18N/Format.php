@@ -79,7 +79,7 @@ class I18N_Format extends PEAR
 // FIXXME if no locale is given try to use the local on of the system
 // if it cant be detected use english and the user probable will use setFormat anyway
     {
-        parent::PEAR();
+        parent::__construct();
         $this->_locale = $locale;
 
 //FIXXME catch locales that we dont have a class for yet, and use default class, which

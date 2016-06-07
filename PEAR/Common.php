@@ -167,7 +167,7 @@ class PEAR_Common extends PEAR
      */
     function PEAR_Common()
     {
-        parent::PEAR();
+        parent::__construct();
         $this->config = &PEAR_Config::singleton();
         $this->debug = $this->config->get('verbose');
     }
