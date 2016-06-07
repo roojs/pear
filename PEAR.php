@@ -706,7 +706,7 @@ class PEAR
     * @param string $ext The extension name
     * @return bool Success or not on the dl() call
     */
-    static function loadExtension($ext)
+    function loadExtension($ext)
     {
         if (extension_loaded($ext)) {
             return true;
