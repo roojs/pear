@@ -3830,8 +3830,8 @@ class DB_DataObject extends DB_DataObject_Overload
         if (!empty($cfg['exclude'])) {
             $keys = array_intersect($keys, array_diff($keys, $cfg['exclude'])); 
         }
+        
         if (!empty($cfg['include'])) {
-            
             $keys =  array_intersect($keys,  $cfg['include']); 
         }
         
@@ -3889,6 +3889,10 @@ class DB_DataObject extends DB_DataObject_Overload
             
             // if links point to a table that does not exist - ignore.
             if (!isset($dbstructure[$tab])) {
+                continue;
+            }
+            
+            if (!empty($cfg['exclude']) && in_array($ocl .'.*', $cfg['exclude'])) {
                 continue;
             }
             
