@@ -103,8 +103,8 @@ class Benchmark_Timer extends PEAR
         if ($this->auto) {
             $this->start();
         }
-
-        $this->PEAR();
+  
+        parent::__construct();
     }
 
     /**
