@@ -747,7 +747,7 @@ class HTML_FlexyFramework {
     {
         echo "<PRE>"; var_dump($this);
 
-        if ($this->nodatabase == true) {
+        if ($this->nodatabase === true) {
             return;
         }
         $options = &PEAR::getStaticProperty('DB_DataObject','options');
@@ -755,7 +755,8 @@ class HTML_FlexyFramework {
         $options['dont_die'] = true;
         
         // database is the only setting - we dont support mult databses?
-            
+        echo "<PRE>"; var_dump($this);
+
             
         $x = new DB_Dataobject;
         $x->_database = $this->database;
