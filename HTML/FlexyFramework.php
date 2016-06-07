@@ -1314,8 +1314,7 @@ class HTML_FlexyFramework {
     {
         
         
-        print_R($msg);
-        if ($this->fatalAction) {
+         if ($this->fatalAction) {
             HTML_FlexyFramework::run($this->fatalAction,$msg);
             exit;
         }
