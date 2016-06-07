@@ -29,7 +29,7 @@
 /**
  * Include for error handling
  */
-require_once 'PEAR5.php';
+require_once 'PEAR.php';
 
 /**
  * Error code for unsupported library, image format or methods
@@ -212,13 +212,13 @@ class Image_Transform
             }
 
             foreach ($extensions as $ext => $ext_driver) {
-                if (PEAR5::loadExtension($ext)) {
+                if (PEAR::loadExtension($ext)) {
                     $driver = $ext_driver;
                     break;
                 }
             }
             if (!$driver) {
-                return PEAR5::raiseError(
+                return PEAR::staticRaiseError(
                     'No image library specified and none can be found.'
                     . ' You must specify driver in factory() call.',
                     IMAGE_TRANSFORM_ERROR_ARGUMENT
@@ -243,7 +243,7 @@ class Image_Transform
 
         $file = 'Image/Transform/Driver/' . $driver . '.php';
         if (!@fclose(@fopen($file, 'r', true))) {
-            return PEAR::raiseError('Driver failed to load file ' . $file,
+            return PEAR::staticRaiseError('Driver failed to load file ' . $file,
                                     IMAGE_TRANSFORM_DRIVER_FILE_MISSING);
         }
 
@@ -253,7 +253,7 @@ class Image_Transform
             include_once $file;
 
             if (!class_exists($classname)) {
-                return PEAR::raiseError(
+                return PEAR::staticRaiseError(
                     'Image library ' . $driver . ' not supported... aborting.',
                     IMAGE_TRANSFORM_ERROR_UNSUPPORTED
                 );
@@ -323,7 +323,7 @@ class Image_Transform
     function scaleByX($new_x)
     {
         if ($new_x <= 0) {
-            return PEAR::raiseError('New size must be strictly positive',
+            return PEAR::staticRaiseError('New size must be strictly positive',
                                         IMAGE_TRANSFORM_ERROR_OUTOFBOUND);
         }
         $new_y = round(($new_x / $this->img_x) * $this->img_y, 0);
@@ -353,7 +353,7 @@ class Image_Transform
     function scaleByY($new_y)
     {
         if ($new_y <= 0) {
-            return PEAR::raiseError('New size must be strictly positive',
+            return PEAR::staticRaiseError('New size must be strictly positive',
                                         IMAGE_TRANSFORM_ERROR_OUTOFBOUND);
         }
         $new_x = round(($new_y / $this->img_y) * $this->img_x, 0);
@@ -410,7 +410,7 @@ class Image_Transform
     function scaleByFactor($size)
     {
         if ($size <= 0) {
-            return PEAR::raiseError('New size must be strictly positive',
+            return PEAR::staticRaiseError('New size must be strictly positive',
                                         IMAGE_TRANSFORM_ERROR_OUTOFBOUND);
         }
         $new_x = round($size * $this->img_x, 0);
@@ -431,7 +431,7 @@ class Image_Transform
     function scaleMaxLength($size)
     {
         if ($size <= 0) {
-            return PEAR::raiseError('New size must be strictly positive',
+            return PEAR::staticRaiseError('New size must be strictly positive',
                                         IMAGE_TRANSFORM_ERROR_OUTOFBOUND);
         }
         if ($this->img_x >= $this->img_y) {
@@ -474,7 +474,7 @@ class Image_Transform
     function fit($width, $height)
     {
         if ($width <= 0 || $height <= 0) {
-            return PEAR::raiseError("Invalid arguments.",
+            return PEAR::staticRaiseError("Invalid arguments.",
                 IMAGE_TRANSFORM_ERROR_ARGUMENT);
         }
         $x = $this->img_x / $width;
@@ -500,7 +500,7 @@ class Image_Transform
      */
     function fitOnCanvas($width, $height, $posn='center')
     {
-        return PEAR::raiseError('fitOnCanvas() method not supported by driver',
+        return PEAR::staticRaiseError('fitOnCanvas() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
@@ -588,7 +588,7 @@ class Image_Transform
         //  9 = JPC,  10 = JP2, 11 = JPX, 12 = JB2, 13 = SWC, 14 = IFF,
         // 15 = WBMP, 16 = XBM
         if (!is_array($data)) {
-            return PEAR::raiseError("Cannot fetch image or images details.", true);
+            return PEAR::staticRaiseError("Cannot fetch image or images details.", true);
         }
 
         switch ($data[2]) {
@@ -639,7 +639,7 @@ class Image_Transform
                 $type = 'xbm';
                 break;
             default:
-                return PEAR::raiseError("Cannot recognize image format",
+                return PEAR::staticRaiseError("Cannot recognize image format",
                     IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
         }
         $this->img_x = $this->new_x = $data[0];
@@ -817,7 +817,7 @@ class Image_Transform
      */
     function getHandle()
     {
-        return PEAR::raiseError('getHandle() method not supported by driver',
+        return PEAR::staticRaiseError('getHandle() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }//function getHandle()
 
@@ -972,7 +972,7 @@ class Image_Transform
      */
     function _resize()
     {
-        return PEAR::raiseError('Resize method not supported by driver',
+        return PEAR::staticRaiseError('Resize method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
@@ -985,7 +985,7 @@ class Image_Transform
      */
     function normalize()
     {
-        return PEAR::raiseError('Normalize method not supported by driver',
+        return PEAR::staticRaiseError('Normalize method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
@@ -1002,7 +1002,7 @@ class Image_Transform
      */
     function load($filename)
     {
-        return PEAR::raiseError('load() method not supported by driver',
+        return PEAR::staticRaiseError('load() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
@@ -1020,7 +1020,7 @@ class Image_Transform
      */
     function display($type, $quality = null)
     {
-        return PEAR::raiseError('display() method not supported by driver',
+        return PEAR::staticRaiseError('display() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
@@ -1053,7 +1053,7 @@ class Image_Transform
      */
     function save($filename, $type, $quality = null)
     {
-        return PEAR::raiseError('save() method not supported by driver',
+        return PEAR::staticRaiseError('save() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
@@ -1068,7 +1068,7 @@ class Image_Transform
      */
     function free()
     {
-        return PEAR::raiseError('free() method not supported by driver',
+        return PEAR::staticRaiseError('free() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
@@ -1165,19 +1165,19 @@ class Image_Transform
      */
     function addText()
     {
-        return PEAR::raiseError('addText() method not supported by driver',
+        return PEAR::staticRaiseError('addText() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
     function addDropShadow()
     {
-        return PEAR::raiseError('addDropShadow() method not supported by driver',
+        return PEAR::staticRaiseError('addDropShadow() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
     function addBorder()
     {
-        return PEAR::raiseError('addBorder() method not supported by driver',
+        return PEAR::staticRaiseError('addBorder() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
@@ -1194,13 +1194,13 @@ class Image_Transform
      **/
     function crop($width, $height, $x = 0, $y = 0)
     {
-        return PEAR::raiseError('crop() method not supported by driver',
+        return PEAR::staticRaiseError('crop() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
     function canvasResize()
     {
-        return PEAR::raiseError('canvasResize() method not supported by driver',
+        return PEAR::staticRaiseError('canvasResize() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
@@ -1214,7 +1214,7 @@ class Image_Transform
      **/
     function gamma($outputgamma = 1.0)
     {
-        return PEAR::raiseError('gamma() method not supported by driver',
+        return PEAR::staticRaiseError('gamma() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
@@ -1229,7 +1229,7 @@ class Image_Transform
      */
     function rotate($angle, $options = null)
     {
-        return PEAR::raiseError('rotate() method not supported by driver',
+        return PEAR::staticRaiseError('rotate() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
@@ -1242,7 +1242,7 @@ class Image_Transform
      **/
     function mirror()
     {
-        return PEAR::raiseError('mirror() method not supported by driver',
+        return PEAR::staticRaiseError('mirror() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
@@ -1255,7 +1255,7 @@ class Image_Transform
      **/
     function flip()
     {
-        return PEAR::raiseError('flip() method not supported by driver',
+        return PEAR::staticRaiseError('flip() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
@@ -1267,7 +1267,7 @@ class Image_Transform
      **/
     function greyscale()
     {
-        return PEAR::raiseError('greyscale() method not supported by driver',
+        return PEAR::staticRaiseError('greyscale() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
     }
 
