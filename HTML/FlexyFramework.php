@@ -295,8 +295,7 @@ class HTML_FlexyFramework {
         }
 
         $this->_validateDatabase();
-                        echo '<PRE>';print_r($this);exit;
-
+ 
         $this->_validateTemplate();
         
     }
@@ -1315,7 +1314,7 @@ class HTML_FlexyFramework {
     {
         
         
-        
+        print_R($msg);
         if ($this->fatalAction) {
             HTML_FlexyFramework::run($this->fatalAction,$msg);
             exit;
