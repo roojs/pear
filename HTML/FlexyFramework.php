@@ -290,14 +290,14 @@ class HTML_FlexyFramework {
 
         $this->_validateEnv();
         
-        echo '<PRE>';var_dump($ishelp);exit;
         if ($ishelp) {
             return;
         }
-        
+
         $this->_validateDatabase();
+                        echo '<PRE>';print_r($this);exit;
+
         $this->_validateTemplate();
-        echo '<PRE>';print_r($this);exit;
         
     }
     /**
