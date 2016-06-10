@@ -190,7 +190,7 @@ class Mail_Queue extends PEAR
      */
     function Mail_Queue($container_options, $mail_options)
     {
-        parent::_construct();
+        parent::__construct();
         if (isset($mail_options['pearErrorMode'])) {
             $this->pearErrorMode = $mail_options['pearErrorMode'];
             // ugly hack to propagate 'pearErrorMode'
