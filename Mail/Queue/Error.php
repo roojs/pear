@@ -77,10 +77,10 @@ class Mail_Queue_Error extends PEAR_Error
 
         $debuginfo .= (empty($debuginfo) ? '' : ' - '). 'FILE: '.$file.', LINE: '.$line;
         if (is_int($code)) {
-            $this->PEAR_Error('Mail Queue Error: ' . Mail_Queue::errorMessage($code),
+            parent::__construct('Mail Queue Error: ' . Mail_Queue::errorMessage($code),
                               $code, $mode, $level, $debuginfo);
         } else {
-            $this->PEAR_Error('Mail Queue Error: ' . $code, MAILQUEUE_ERROR, $mode,
+            parent::__construct('Mail Queue Error: ' . $code, MAILQUEUE_ERROR, $mode,
                               $level, $debuginfo);
         }
     }
