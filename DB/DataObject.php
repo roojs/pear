@@ -3886,7 +3886,7 @@ class DB_DataObject extends DB_DataObject_Overload
         foreach($map as $ocl=>$info) {
             if (strpos($info, ':') === false) {
                 $this->raiseError(
-                    "format of links.ini is not correct for table {$this->tableName()} " . print_R($map,true), 
+                    "format of links.ini is not correct for table {$this->tableName()} - missing 'colon:' in value - " . print_R($map,true), 
                     DB_DATAOBJECT_ERROR_INVALIDCONFIG);
                 continue;
             }
