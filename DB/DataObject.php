@@ -3884,12 +3884,12 @@ class DB_DataObject extends DB_DataObject_Overload
         
         
         foreach($map as $ocl=>$info) {
-            if (strpos($info, ':') === false) {}
+            if (strpos($info, ':') === false) {
                 $this->raiseError(
                     "format of links.ini is not correct for table {$this->tableName()} " . print_R($map,true), 
                     DB_DATAOBJECT_ERROR_INVALIDCONFIG);
                 continue;
-        }
+            }
             list($tab,$col) = explode(':', $info);
             // what about multiple joins on the same table!!!
             
