@@ -3881,10 +3881,14 @@ class DB_DataObject extends DB_DataObject_Overload
             $ret['cols'][$k] = $this->tableName(). '.' . $k;
         }
         
-        print_R($map);
+        
         
         foreach($map as $ocl=>$info) {
-            
+            if (strpos($info, ':') === false) {}
+                $this->raiseError(
+                    "format of links.ini is not correct for table {$this->tableName()} " . print_R($map,true), 
+                    DB_DATAOBJECT_ERROR_INVALIDCONFIG);
+            return;
             list($tab,$col) = explode(':', $info);
             // what about multiple joins on the same table!!!
             
