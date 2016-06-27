@@ -185,7 +185,7 @@ class HTML_Javascript_Convert
      * @return mixed   a PEAR_Error if no script was started
      *                 or the converted string
      */
-    function convertString($str, $varname, $global = false)
+    static function convertString($str, $varname, $global = false)
     {
         $var = '';
         if ($global) {
