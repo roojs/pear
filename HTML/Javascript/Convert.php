@@ -76,7 +76,7 @@ class HTML_Javascript_Convert
      * @access public
      * @source
      */
-    function escapeString($str)
+    static function escapeString($str)
     {
         $js_escape = array(
             "\r"    => '\r',
