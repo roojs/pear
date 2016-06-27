@@ -156,7 +156,7 @@ class HTML_Javascript_Convert
      * @return mixed   false if the error code is invalid,
      *                 or a PEAR_Error otherwise
      */
-    function raiseError($code,$str='')
+    static  function raiseError($code,$str='')
     {
         require_once 'PEAR.php';
         switch ($code) {
@@ -210,7 +210,7 @@ class HTML_Javascript_Convert
      * @param  boolean $global  set to true to make the JS variable global
      * @return string  the value as javascript 
      */
-    function convertBoolean($bool, $varname, $global = false)
+    static function convertBoolean($bool, $varname, $global = false)
     {
         $var = '';
         if ($global) {
@@ -232,7 +232,7 @@ class HTML_Javascript_Convert
      * @param  boolean $global  set to true to make the JS variable global
      * @return string  the value as javascript 
      */
-    function convertNull($varname, $global = false)
+    static function convertNull($varname, $global = false)
     {
         $var = '';
         if($global) {
@@ -258,7 +258,7 @@ class HTML_Javascript_Convert
      * @return mixed   a PEAR_Error if no script was started
      *                 or the converted array
      */
-    function convertArray($arr, $varname, $global = false, $level=0)
+    static  function convertArray($arr, $varname, $global = false, $level=0)
     {
         $var = '';
         if ($global) {
@@ -323,7 +323,7 @@ class HTML_Javascript_Convert
      * @param  boolean $new     if true, the JS var will be set
      * @return mixed   a PEAR_Error or the converted array
      */
-    function convertArrayToProperties( $array, $varname, $global=false, $new=true )
+    static  function convertArrayToProperties( $array, $varname, $global=false, $new=true )
     {
         if(is_array($array)){
             $cnt = sizeof($array)-1;
@@ -360,7 +360,7 @@ class HTML_Javascript_Convert
      * @access public
      * @return mixed return
      */
-    function convertValue( $val )
+    static function convertValue( $val )
     {
         switch ( gettype($val) ) {
             case 'boolean':
