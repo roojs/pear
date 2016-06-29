@@ -1188,7 +1188,7 @@ class File_Convert_Solution
         }
         
         
-        $ext = $this->ext; //'png'; //$this->ext;
+        $ext = 'png'; /// older versions only support PNG.  $this->ext; //'png'; //$this->ext;
         
         $target = $fn . '-' . $xscale . '.' .  $ext;
         if ($pg !== false) {
