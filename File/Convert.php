@@ -1175,7 +1175,10 @@ class File_Convert_Solution
         return  file_exists($target)  && filesize($target) ? $target : false;
         
     }
-    
+    /**
+     * This is the 'failback' version if pdfcario is not installed...
+     *
+     */
     
     function pdftoppm($fn, $x, $y, $pg=false)
     {
