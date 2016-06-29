@@ -1231,7 +1231,7 @@ class File_Convert_Solution
         
         $PDFTOPPM = System::which("pdftoppm");
         if (!$PDFTOPPM) {
-            echo "pdftoppm to available - install librsvg2-bin";
+            echo "pdftoppm to available - install poppler-utils";
             return false;
             
         }
@@ -1372,6 +1372,11 @@ class File_Convert_Solution
 //        print_r($yscale);
         
         $PDFTOPPM = System::which("pdftocairo");
+        if (!$PDFTOPPM) {
+            echo "pdftocairo to available - install poppler-utils";
+            return false;
+            
+        }
         $cmd = "$PDFTOPPM   -f $pg " 
                     . "-l $pg  " 
                     //. "-png "
