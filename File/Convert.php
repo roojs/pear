@@ -1373,8 +1373,7 @@ class File_Convert_Solution
         
         $PDFTOPPM = System::which("pdftocairo");
         if (!$PDFTOPPM) {
-            echo "pdftocairo to available - install poppler-utils";
-            return false;
+            return $this->pdftoppm($fn,$x,$y, $pg);
             
         }
         $cmd = "$PDFTOPPM   -f $pg " 
