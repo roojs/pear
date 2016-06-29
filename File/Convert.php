@@ -1230,6 +1230,11 @@ class File_Convert_Solution
 //        print_r($yscale);
         
         $PDFTOPPM = System::which("pdftoppm");
+        if (!$PDFTOPPM) {
+            echo "pdftoppm to available - install librsvg2-bin";
+            return false;
+            
+        }
         $cmd = "$PDFTOPPM -f $pg " 
                     . "-l $pg  " 
                     //. "-png "
