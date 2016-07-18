@@ -718,7 +718,11 @@ class File_Convert_Solution
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
+        
         require_once 'System.php';
+        
+        $timeout = System::which('timeout');
+        
         $xvfb = System::which('xvfb-run');
         if (empty($xvfb)) {
             $this->cmd = "Missing xvfb";
@@ -731,7 +735,7 @@ class File_Convert_Solution
         }
         // before we used stdout -- not sure why.
         //$cmd = "$xvfb -a  $uno -f $ext --stdout " . escapeshellarg($fn) . " 1> " . escapeshellarg($target);
-        $cmd = "$xvfb -a  $uno -f $ext -o " . escapeshellarg($target) . " " . escapeshellarg($fn);
+        $cmd = "$timeout 30s $xvfb -a  $uno -f $ext -o " . escapeshellarg($target) . " " . escapeshellarg($fn);
         ////  echo $cmd;
         $res = $this->exec($cmd);
         
