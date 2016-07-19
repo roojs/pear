@@ -935,9 +935,10 @@ class DB_DataObject extends DB_DataObject_Overload
             || (($b !== null) && (!is_int($b) && ((string)((int)$b) !== (string)$b)))) {
             return $this->raiseError("limit: No Valid Arguments", DB_DATAOBJECT_ERROR_INVALIDARGS);
         }
-        global $_DB_DATAOBJECT;
-        $this->_connect();
-        $DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
+        // this is not actually used?
+        //global $_DB_DATAOBJECT;
+        //$this->_connect();
+        //$DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
         
         $this->_query['limit_start'] = ($b == null) ? 0 : (int)$a;
         $this->_query['limit_count'] = ($b == null) ? (int)$a : (int)$b;
