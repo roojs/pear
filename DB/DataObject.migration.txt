@@ -96,7 +96,10 @@ links() -- introspection?
 databaseStructure() -> introspection..
 
 
+--------------------
+_call (move to DB_DataObject_Overload.... )
 
+fromValue/toValue ? used by call really, but are kind of usefull?
 
 
 
