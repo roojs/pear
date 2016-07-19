@@ -1,0 +1,77 @@
+
+
+Migrating DataObjects to use PDO
+?? change to PDO_DataObject ???   in theory DB_DataObject extends PDO_DataObjects can be used to support it?
+
+** replaces DB as the backend?
+
+_build_select
+-> quoteIdentifiers
+
+
+find -
+-> modifyLImitQuery
+-> cleaning of RESULTS object?
+
+fetch
+-> use of result->fetchRow() (query and statement object in pdo)
+-> catching of end of results.
+-> clearing resultfields 
+-> in theory it could fetch into the object.?? = however we covert '.' to '_' ... may be an issue in some scenarios?
+BC?
+
+
+selectAs
+-> quoteIdentifier
+
+insert
+-> determine Dbtype ( for empty insert)
+-> quoteIdentifier
+-> sequence inserts and setOption seqname_format..... ??
+-> dbtype - used to deterime method to get inserted id
+
+update
+-> quoteIdentifier
+
+delete
+-> quoteIdentifier
+-> modifyLimitQuery / setLimit ??
+
+count
+-> 
+
+
+-----
+Things that need implementations (not really provided by PDO?)
+quoteIdentifiers
+modifyLimitQuery
+
+
+
+
+
+Other Changes
+-> move globals -> static instances props..
+-> constants to -> object constants..
+
+?? overload support ?? 
+ -- removed - in theory you can just wrap dataobjects, and add the two methods....
+ ** we can remove _call and  why is __sleep defined as it is??
+
+fetchRow
+-> ?? should we event support this??? depricate?
+ 
+
+
+
+
+
+
+
+
+
+
+STAGE 2:
+- use 'prepared' statements rather than constructing the SQL
+  ** this may be problematic as methods may need changing... like 'whereAdd' etc...
+
