@@ -68,7 +68,9 @@ _autoloadClass ?? move to 'PDO_DataObject_Factory' ?
 
 joinAdd / autoJoin -- move code to PDO_DataObject_Join()
 
---------------------------_>>>> got to setFrom
+toArray - needs resultfields - to determine fields that where returned..
+-> ?? depricate link_loaded?? - it's so not recomended to use this.
+
 
 -----
 Things that need implementations (not really provided by PDO?)
