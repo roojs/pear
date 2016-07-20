@@ -43,6 +43,7 @@ insert
 -> quoteIdentifier
 -> sequence inserts and setOption seqname_format..... ??
 -> dbtype - used to deterime method to get inserted id
+-- sequence handling?? see config options? is there anything more we do about sequences relating to pear?
 
 update
 -> quoteIdentifier
@@ -128,11 +129,15 @@ _call (move to DB_DataObject_Overload.... )
 fromValue/toValue ? used by call really, but are kind of usefull?
 
 
- 
+---------------------------------- 
 
 Other Changes
 -> move globals -> static instances props..
 -> constants to -> object constants..
+
+storing resultobject in DO?? - how does that affect print_r ?
+
+
 
 ?? overload support ?? 
  -- removed - in theory you can just wrap dataobjects, and add the two methods....
@@ -172,7 +177,19 @@ _createForiegnKeys
 -------------------------------------
 Configuration / settings..
 
+DB portability -- lowercase ?? and other stuff???
+
+database -> new format?
+db_driver << not needed anymore..
+dont_use_pear_sequences <<??? need to work out how this affects our code.!?!?
+
+
+
 ----------------------------------------------------
+
+
+
+
 
 STAGE 2:
 - use 'prepared' statements rather than constructing the SQL
