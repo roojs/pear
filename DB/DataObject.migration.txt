@@ -71,6 +71,10 @@ joinAdd / autoJoin -- move code to PDO_DataObject_Join()
 toArray - needs resultfields - to determine fields that where returned..
 -> ?? depricate link_loaded?? - it's so not recomended to use this.
 
+-----------
+Directly accessing database
+getDatabaseConnection() -- this will have to throw an error... - as it's can not work..
+
 
 -----
 Things that need implementations (not really provided by PDO?)
