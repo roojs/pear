@@ -101,6 +101,14 @@ dbtype - need way to determine that?
 ------------------------
 Introspection
 
+-- Pro/Cons on splitting this - it's called quite a bit.. so basically esential to operations.
+--- contains quite a bit of code 
+  ** we could go on the principle, that anything that relates to 'real instrospection goes in it' - and move new getListof stuff
+  ** then if stuff is cached, then we can not call it...
+  ** if you are being clever and using the keys() -> to set data -> then use the extra class..
+  ** basically the base class should provide 90% usages without loading the introspection...
+
+
 databaseStructure
 -> ?? move to DataObject_Introspection?
 -> DB->getListOf('tables')
@@ -137,9 +145,33 @@ fetchRow
 -> ?? should we even support this??? depricate?
 
 
+----------------------------------------------
+DB_DataObject_Cast->PDO_DataObject_Cast
+** change constants to refer to PDO object...
+** needs knowledge of database type (from 'db')
+
+DB_DataObject_Error->PDO_DataObject_Error  -- trivial changes
+DB_DataObject_Links->PDO_DataObject_Error  -- minor changes
+
+-------------------------------------------
+DB_DataObject_Generator->PDO_DataObject_Generator
+** needs access to dbtype.
+-> getListOf('schema.tables'); or  getListOf('tables'); 
+->  $__DB->getListOf(is_string($options['build_views']) ?
+                                    $options['build_views'] : 'views');
 
 
- 
+->$__DB->quoteIdentifier()
+->$DB->tableInfo()
+
+_createForiegnKeys
+-> runs queries to seleect various details for postgres...
+
+
+
+-------------------------------------
+Configuration / settings..
+
 ----------------------------------------------------
 
 STAGE 2:
