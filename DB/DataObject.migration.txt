@@ -5,6 +5,20 @@ Migrating DataObjects to use PDO
 
 ** replaces DB as the backend?
 
+
+-------------------------
+Testing strategy
+
+Develop a test plan
+* using phpt http://qa.php.net/write-test.php
+* how can we compare 'old' Dataobjects to 'new' one?
+* for the tests running against the old version? - support fake 'DB'?
+* add an extra setting (unittest={fake pdo object})
+   - so any pdo work uses the fake pdo object if in unittest mode..
+   
+
+-------------------------
+Run throught of DataObject.php
 _build_select
 -> quoteIdentifiers
 
@@ -74,7 +88,7 @@ toArray - needs resultfields - to determine fields that where returned..
 -----------
 Directly accessing database
 getDatabaseConnection() -- this will have to throw an error... - as it's can not work..
-
+getPDOConnection() << replacement?
 
 -----
 Things that need implementations (not really provided by PDO?)
@@ -106,8 +120,7 @@ _call (move to DB_DataObject_Overload.... )
 fromValue/toValue ? used by call really, but are kind of usefull?
 
 
-
-
+ 
 
 Other Changes
 -> move globals -> static instances props..
@@ -120,14 +133,14 @@ Other Changes
 ?? config? - 
  - reduce empty checks / set defaults on config values, so that we can just check booleans.
 
-
-
 fetchRow
--> ?? should we event support this??? depricate?
- 
+-> ?? should we even support this??? depricate?
+
+
+
 
  
-
+----------------------------------------------------
 
 STAGE 2:
 - use 'prepared' statements rather than constructing the SQL
