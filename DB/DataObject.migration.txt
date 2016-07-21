@@ -51,9 +51,11 @@ d) PDO_DataObject class
 -------------------------
 Namespaces?? autoloading?
 
-class_exists(...) ? '': require_once '....' << 
+in general require_once - wrap with class_exists...
+class_exists(...) ? '': require_once '....'; << 
 
 For namespacing - we could generate code for this...
+if we go for it, then namespace would be PDO\DataObject ? not much real benefit though..
 
 
 ------------------
