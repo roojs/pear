@@ -7,7 +7,8 @@ a) skeleton class
       PDO_DataObject::INT etc...
       PDO_DataObject::ERROR_INVALIDARGS
       PDO_DataObject::WHEREADD_ONLY
- - globals replacements
+ 
+- globals replacements
  
      RESULTS:: ?? not needed? << use private $_pdo_result
      RESULTSEQ:: ?? not needed...
@@ -21,8 +22,12 @@ a) skeleton class
      CACHE -- part of staticGet? - should we remove this?
      OVERLOADED -- remove
      QUERYENDTIME -- we can probably add this to the $_pdo_result / PDOStatement Object
+- utilFunctions
+     quoteIdentifier 
+     dbType 
 
-a) PDO_DataObjects_Introspection 
+
+b) PDO_DataObjects_Introspection 
      databaseStructure -- all conditions except plain 'ini' 
   
  - PDO_DataObjects_Introspection_Mysql .. Pgsql .. msql .. sqlite (maybe others from DB)
@@ -32,7 +37,8 @@ a) PDO_DataObjects_Introspection
       getListOf('views');
       tableInfo()
 
-
+c) Generator
+ - 
 
 
 
@@ -105,7 +111,7 @@ _connect ....
 -> connection options??? -- check what we use?
 
 _query
--> transaction begin / autocommit?
+-> transaction begin / autocommit?  PDO::beginTransaction
 -> query/exec
 -> set 'N' using result->numRows()
 -> return $DB->affectedRows();  if insert/update etc...
