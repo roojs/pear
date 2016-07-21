@@ -17,7 +17,8 @@ a) skeleton class
      INI:: PDO_DataObject::$ini
      LINKS:: PDO_DataObject::$links
      SEQUENCE:: PDO_DataObject::$sequence ??? -- cache of sequence keys (modifyable)
-     LASTERROR
+     LASTERROR  PDO_DataObject::$last_error -- just used for reference by others.
+     CACHE -- part of static get? - should we remove this?
 
 a) PDO_DataObjects_Introspection 
      databaseStructure -- all conditions except plain 'ini' 
@@ -120,6 +121,8 @@ joinAdd / autoJoin -- move code to PDO_DataObject_Join()
 
 toArray - needs resultfields - to determine fields that where returned..
 -> ?? depricate link_loaded?? - it's so not recomended to use this.
+
+staticGet -- depricate?
 
 -----------
 Directly accessing database
