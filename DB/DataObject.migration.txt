@@ -1,4 +1,39 @@
 
+Proposed Stages
+
+a) skeleton class
+ - with new configuration format   static PDO_DataObject::$config[....] 
+ - with constants.  
+      PDO_DataObject::INT etc...
+      PDO_DataObject::ERROR_INVALIDARGS
+      PDO_DataObject::WHEREADD_ONLY
+ - globals replacements
+ 
+     RESULTS:: ?? not needed? << use private $_pdo_result
+     RESULTSEQ:: ?? not needed...
+     RESULTFIELDS:: probably not needed - info available from $_pdo_result->getColumnMeta / numColumns()
+     
+     CONNECTIONS:: PDO_DataObject::$connections
+     INI:: PDO_DataObject::$ini
+     LINKS:: PDO_DataObject::$links
+     SEQUENCE:: PDO_DataObject::$sequence ??? -- cache of sequence keys (modifyable)
+     LASTERROR
+
+a) PDO_DataObjects_Introspection 
+     databaseStructure -- all conditions except plain 'ini' 
+  
+ - PDO_DataObjects_Introspection_Mysql .. Pgsql .. msql .. sqlite (maybe others from DB)
+ - implementations of 
+      getListOf('schema.tables');
+      getListOf('tables'); 
+      getListOf('views');
+      tableInfo()
+
+
+
+
+
+
 
 Migrating DataObjects to use PDO
 ?? change to PDO_DataObject ???   in theory DB_DataObject extends PDO_DataObjects can be used to support it?
@@ -143,8 +178,6 @@ storing resultobject in DO?? - how does that affect print_r ?
  -- removed - in theory you can just wrap dataobjects, and add the two methods....
  ** we can remove _call and  why is __sleep defined as it is??
 
-?? config? - 
- - reduce empty checks / set defaults on config values, so that we can just check booleans.
 
 fetchRow
 -> ?? should we even support this??? depricate?
@@ -176,6 +209,17 @@ _createForiegnKeys
 
 -------------------------------------
 Configuration / settings..
+
+All configuration will be 
+   DB_DataObject::$config[....]   
+   -- defaults values set where possible.
+   -- avoid 'empty' checks in code where possible.
+   -- we can document configuration options in there...
+
+
+
+?? config? - 
+ - reduce empty checks / set defaults on config values, so that we can just check booleans.
 
 DB portability -- lowercase ?? and other stuff???
 
