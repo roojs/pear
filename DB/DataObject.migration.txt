@@ -18,7 +18,9 @@ a) skeleton class
      LINKS:: PDO_DataObject::$links
      SEQUENCE:: PDO_DataObject::$sequence ??? -- cache of sequence keys (modifyable)
      LASTERROR  PDO_DataObject::$last_error -- just used for reference by others.
-     CACHE -- part of static get? - should we remove this?
+     CACHE -- part of staticGet? - should we remove this?
+     OVERLOADED -- remove
+     QUERYENDTIME -- we can probably add this to the $_pdo_result / PDOStatement Object
 
 a) PDO_DataObjects_Introspection 
      databaseStructure -- all conditions except plain 'ini' 
