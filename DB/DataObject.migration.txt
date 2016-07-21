@@ -206,7 +206,7 @@ DB_DataObject_Links->PDO_DataObject_Error  -- minor changes
 -------------------------------------------
 DB_DataObject_Generator->PDO_DataObject_Generator
 ** needs access to dbtype.
--> getListOf('schema.tables'); or  getListOf('tables'); 
+-> getListOf('scshema.tables'); or  getListOf('tables'); 
 ->  $__DB->getListOf(is_string($options['build_views']) ?
                                     $options['build_views'] : 'views');
 
