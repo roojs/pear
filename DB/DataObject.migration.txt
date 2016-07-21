@@ -24,7 +24,8 @@ a) skeleton class
      QUERYENDTIME -- we can probably add this to the $_pdo_result / PDOStatement Object
 - utilFunctions
      quoteIdentifier 
-     dbType 
+     dbType $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+
 
 
 b) PDO_DataObjects_Introspection 
@@ -234,7 +235,9 @@ All configuration will be
 
 DB portability -- lowercase ?? and other stuff???
 
-database -> new format?
+
+database -> new format? 
+need to support 'username' & 'password' ?
 db_driver << not needed anymore..
 dont_use_pear_sequences <<??? need to work out how this affects our code.!?!?
 
