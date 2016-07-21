@@ -7,7 +7,10 @@ a) skeleton class
       PDO_DataObject::INT etc...
       PDO_DataObject::ERROR_INVALIDARGS
       PDO_DataObject::WHEREADD_ONLY
- 
+
+ - connect?
+
+
 - globals replacements
  
      RESULTS:: ?? not needed? << use private $_pdo_result
@@ -39,10 +42,21 @@ b) PDO_DataObjects_Introspection
       tableInfo()
 
 c) Generator
- - 
+ - should mostly deal with introspection / quoteIdentifer etc...
+
+d) PDO_DataObject class
+ remaining code.
 
 
+-------------------------
+Namespaces?? autoloading?
 
+class_exists(...) ? '': require_once '....' << 
+
+For namespacing - we could generate code for this...
+
+
+------------------
 
 
 Migrating DataObjects to use PDO
