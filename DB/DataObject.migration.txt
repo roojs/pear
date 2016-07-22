@@ -12,7 +12,7 @@ a) skeleton class
 
 
 - globals replacements
- 
+     CONFIG:: -> PDO_DataObject::$config
      RESULTS:: ?? not needed? << use private $_pdo_result
      RESULTSEQ:: ?? not needed...
      RESULTFIELDS:: probably not needed - info available from $_pdo_result->getColumnMeta / numColumns()
@@ -25,13 +25,21 @@ a) skeleton class
      CACHE -- part of staticGet? - should we remove this?
      OVERLOADED -- remove
      QUERYENDTIME -- we can probably add this to the $_pdo_result / PDOStatement Object
+
+
 - utilFunctions
      quoteIdentifier 
-     dbType $pdo->getAttribute(PDO::ATTR_DRIVER_NAME);
+     dbType $pdo->getAttribute(PDO::ATTR_DRIVER_NAME); -- not needed, just do this...
+  
 
+Tests:
+    quoteIdentifer
+    
 
 
 b) PDO_DataObjects_Introspection 
+
+
      databaseStructure -- all conditions except plain 'ini' 
   
  - PDO_DataObjects_Introspection_Mysql .. Pgsql .. msql .. sqlite (maybe others from DB)
@@ -40,6 +48,11 @@ b) PDO_DataObjects_Introspection
       getListOf('tables'); 
       getListOf('views');
       tableInfo()
+
+Test:
+   $do = new PDO_DataObjects({config}); 
+   $x = new PDO_DataObjects_Introspection($dataObject);
+   $x->getListOf(...)
 
 c) Generator
  - should mostly deal with introspection / quoteIdentifer etc...
