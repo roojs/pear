@@ -62,7 +62,10 @@ c) Generator
  - should mostly deal with introspection / quoteIdentifer etc...
 
 d) PDO_DataObject class
- remaining code.
+  * factory / loading
+  * condition building
+  * query and modify methods.
+
 
 
 -------------------------
