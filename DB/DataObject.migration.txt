@@ -212,7 +212,7 @@ Things that need implementations (not really provided by PDO?)
 quoteIdentifiers
 modifyLimitQuery
 escapeSimple
-dbtype - need way to determine that?
+dbtype - standard PDO call...
 
 
 ------------------------
