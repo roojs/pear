@@ -203,7 +203,7 @@ toArray - needs resultfields - to determine fields that where returned..
 staticGet -- depricate?
 
 -----------
-Directly accessing database
+Directly accessing database (BC BREAK!)
 getDatabaseConnection() -- this will have to throw an error... - as it's can not work..
 getPDOConnection() << replacement?
 
