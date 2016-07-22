@@ -35,8 +35,8 @@ a) skeleton class
 Tests:
     quoteIdentifer
     
-
-
+Target:END OF WEEK 1
+-------------------------
 b) PDO_DataObjects_Introspection 
 
 
@@ -49,6 +49,8 @@ b) PDO_DataObjects_Introspection
       getListOf('views');
       tableInfo()
 
+
+
 Tests:
    $do = new PDO_DataObjects( array( 'table' => 'test', 'database' => 'xxxx' )); ?? for testing only?
    or  new PDO_DataObjects('xxxx/test');
@@ -58,6 +60,8 @@ Tests:
    == do a test of all the methods... - based on dummy $pdo ? 
   -- these tests are not relivant to compatibility..
 
+Target:END OF WEEK 3
+-------------------------
 c) Query  / fetch methods of PDO_DataObject
   -- needed for generator?
 
@@ -65,9 +69,9 @@ Tests:
   -- make sure simple fake tests work... 
   
 
-
-
-c) Generator
+Target:END OF WEEK 4
+-------------------------
+d) Generator
  - creating .ini files / generating code etc...
 
 Tests:
@@ -76,8 +80,9 @@ Tests:
   -- these tests should generate compatible code.
 
 
-
-d) PDO_DataObject class
+Target:END OF WEEK 6
+-------------------------
+e) PDO_DataObject class
   * factory / loading
   * condition building
   * query and modify methods.
@@ -91,13 +96,13 @@ Tests:
   test of update
 
 
-
+Target:END OF WEEK 8
 
 
 -------------------------
 Namespaces?? autoloading? packaging
 
-in general require_once - wrap with class_exists...
+autoloading: in general we still prefer require_once however make the code compatible with class_exists...
 class_exists(...) ? '': require_once '....'; << 
 
 For namespacing - we will not bother at this point, I'd rather go with some 'automated' code parse to convert it to 
