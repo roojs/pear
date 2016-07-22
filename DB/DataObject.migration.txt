@@ -70,17 +70,27 @@ Tests:
 c) Generator
  - creating .ini files / generating code etc...
 
+Tests:
    == do a test of all the methods... - based on dummy $pdo ? 
   -- tests can be run against old + new...
   -- these tests should generate compatible code.
 
 
-Tests:
 
 d) PDO_DataObject class
   * factory / loading
   * condition building
   * query and modify methods.
+Tests:
+  needs fake DB and PDO objects
+  test both DB_DAtaObject and PDO_DataObject for compatibility
+  test settings like compatibilitylevel (eg. lowercase everything)
+  test settings like null???
+  test of query conditions
+  test of fetch all/fetch 
+  test of update
+
+
 
 
 
