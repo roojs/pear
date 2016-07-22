@@ -35,7 +35,7 @@ a) skeleton class
 Tests:
     quoteIdentifer
     
-Target:END OF WEEK 1
+Target:END OF WEEK 1 (est. 2 days)
 -------------------------
 b) PDO_DataObjects_Introspection 
 
@@ -60,7 +60,7 @@ Tests:
    == do a test of all the methods... - based on dummy $pdo ? 
   -- these tests are not relivant to compatibility..
 
-Target:END OF WEEK 3
+Target:END OF WEEK 3 (est. 4 days)
 -------------------------
 c) Query  / fetch methods of PDO_DataObject
   -- needed for generator?
@@ -69,7 +69,7 @@ Tests:
   -- make sure simple fake tests work... 
   
 
-Target:END OF WEEK 4
+Target:END OF WEEK 4 (est. 2 days)
 -------------------------
 d) Generator
  - creating .ini files / generating code etc...
@@ -80,7 +80,7 @@ Tests:
   -- these tests should generate compatible code.
 
 
-Target:END OF WEEK 6
+Target:END OF WEEK 6 (est. 4 days)
 -------------------------
 e) PDO_DataObject class
   * factory / loading
@@ -96,7 +96,7 @@ Tests:
   test of update
 
 
-Target:END OF WEEK 8
+Target:END OF WEEK 8 (est. 4 days)
 
 
 -------------------------
