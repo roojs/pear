@@ -59,7 +59,8 @@ Test:
 
 
 c) Generator
- - should mostly deal with introspection / quoteIdentifer etc...
+ - creating .ini files / generating code etc...
+
 
 d) PDO_DataObject class
   * factory / loading
