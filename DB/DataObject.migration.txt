@@ -49,18 +49,33 @@ b) PDO_DataObjects_Introspection
       getListOf('views');
       tableInfo()
 
-Test:
+Tests:
    $do = new PDO_DataObjects( array( 'table' => 'test', 'database' => 'xxxx' )); ?? for testing only?
    or  new PDO_DataObjects('xxxx/test');
 
    $x = new PDO_DataObjects_Introspection($do);
    $x->getListOf(...)
+   == do a test of all the methods... - based on dummy $pdo ? 
+  -- these tests are not relivant to compatibility..
+
+c) Query  / fetch methods of PDO_DataObject
+  -- needed for generator?
+
+Tests:
+  -- make sure simple fake tests work... 
+  
 
 
 
 c) Generator
  - creating .ini files / generating code etc...
 
+   == do a test of all the methods... - based on dummy $pdo ? 
+  -- tests can be run against old + new...
+  -- these tests should generate compatible code.
+
+
+Tests:
 
 d) PDO_DataObject class
   * factory / loading
