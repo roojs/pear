@@ -42,14 +42,13 @@ b) PDO_DataObjects_Introspection
 
      databaseStructure -- all conditions except plain 'ini' 
   
- - PDO_DataObjects_Introspection_Mysql .. Pgsql .. msql .. sqlite (maybe others from DB)
+ - may require sub 'versions' PDO_DataObjects_Introspection_Mysql .. Pgsql .. msql .. sqlite (maybe others from DB)
  - implementations of 
       getListOf('schema.tables');
       getListOf('tables'); 
       getListOf('views');
       tableInfo()
-
-
+      
 
 Tests:
    $do = new PDO_DataObjects( array( 'table' => 'test', 'database' => 'xxxx' )); ?? for testing only?
@@ -64,7 +63,8 @@ Target:END OF WEEK 3 (est. 4 days)
 -------------------------
 c) Query  / fetch methods of PDO_DataObject
   -- needed for generator?
-
+   modifyLimitQuery
+   escapeSimple
 Tests:
   -- make sure simple fake tests work... 
   
