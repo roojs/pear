@@ -321,4 +321,5 @@ dont_use_pear_sequences <<??? need to work out how this affects our code.!?!?
 STAGE 2:
 - use 'prepared' statements rather than constructing the SQL
   ** this may be problematic as methods may need changing... like 'whereAdd' etc...
+  ** hence postpone this and ignore at present.
 
