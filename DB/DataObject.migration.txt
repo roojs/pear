@@ -50,9 +50,13 @@ b) PDO_DataObjects_Introspection
       tableInfo()
 
 Test:
-   $do = new PDO_DataObjects({config}); 
-   $x = new PDO_DataObjects_Introspection($dataObject);
+   $do = new PDO_DataObjects( array( 'table' => 'test', 'database' => 'xxxx' )); ?? for testing only?
+   or  new PDO_DataObjects('xxxx/test');
+
+   $x = new PDO_DataObjects_Introspection($do);
    $x->getListOf(...)
+
+
 
 c) Generator
  - should mostly deal with introspection / quoteIdentifer etc...
