@@ -967,11 +967,17 @@ class File_Convert_Solution
         
         if (!empty(File_Convert::$options['wkhtmltopdf.bin'])) {
             $conv = System::which(File_Convert::$options['wkhtmltopdf.bin']);
+            if (!$conv) {
+                die("could not find ". File_Convert::$options['wkhtmltopdf.bin']);
+            }
         }
         
         if (!empty(File_Convert::$options['wkhtmltopdf'])) {
             $conv .= File_Convert::$options['wkhtmltopdf'];
+             
         }
+        
+        
         
         $cmd = $conv .' -n ' . escapeshellarg($fn) . ' ' .escapeshellarg($target);
         
