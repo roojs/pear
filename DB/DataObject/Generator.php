@@ -325,7 +325,8 @@ class DB_DataObject_Generator extends DB_DataObject
         }
         // the temporary table array is now the right one (tables names matching
         // with regex expressions have been removed)
-        $this->tables = sort($tmp_table);
+        sort($tmp_table);
+        $this->tables = $tmp_table;
          
         //print_r($this->_definitions);
     }
