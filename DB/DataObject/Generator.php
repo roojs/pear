@@ -528,6 +528,7 @@ class DB_DataObject_Generator extends DB_DataObject
 
         foreach($fk as $table => $details) {
             $links_ini .= "[$table]\n";
+            ksort($details);
             foreach ($details as $col => $ref) {
                 $links_ini .= "$col = $ref\n";
             }
