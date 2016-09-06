@@ -1096,7 +1096,7 @@ class HTML_FlexyFramework {
         $l = count($request_array)-1;
         if ($l > 10) { // ?? configurable?
             //PEAR::raiseError("Request To Long");
-            $this->fatalError("Request To Long - " . $request_array);
+            $this->fatalError("Request To Long - " . $request);
         }
 
         
