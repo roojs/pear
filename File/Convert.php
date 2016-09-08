@@ -1526,7 +1526,7 @@ class File_Convert_Solution
     function convert($fn) // image only..
     {
         
-        
+        $frame = '';
         $ext = $this->ext;
         $target = $fn . '.' . $ext;
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
@@ -1542,11 +1542,14 @@ class File_Convert_Solution
             $targetName = "bmp3:$target";
             $strip = '';
         }
+        if ($this->from == 'image/gif') {
+            $frame = '[0]';
+        }
         
         require_once 'System.php';
         $CONVERT = System::which("convert");
         $cmd = "$CONVERT " . $strip .  "  -colorspace sRGB -interlace none -density 800 $flat ". 
-                        "-quality 90   ". escapeshellarg($fn) . " " . escapeshellarg($targetName );
+                        "-quality 90   ". escapeshellarg($fn . $frame) . " " . escapeshellarg($targetName );
          if ($this->debug) {
            echo "$cmd <br/>";
            
