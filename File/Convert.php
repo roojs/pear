@@ -246,7 +246,7 @@ class File_Convert
         while(!feof($fh))
         {
             echo @fread($fh, 1024*8);
-            ob_flush();
+            @ob_flush();
             flush();
         }
         
