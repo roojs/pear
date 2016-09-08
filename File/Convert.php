@@ -1534,7 +1534,7 @@ class File_Convert_Solution
         }
         $flat = '';
         $targetName = $target;
-        if ($this->to == 'image/jpeg') {
+        if ($this->to == 'image/jpeg' && $this->from != 'image/gif') {
             $flat = " -background '#ffffff' --flatten ";
         }
         $strip = '-strip';
