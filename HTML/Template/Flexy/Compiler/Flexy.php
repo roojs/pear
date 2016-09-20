@@ -211,6 +211,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         }
         // gettext strings
          
+        // sometimes this happen's at the same time, and we get errors displayed...
         if (file_exists($flexy->getTextStringsFile)) {
             @unlink($flexy->getTextStringsFile);
         }
