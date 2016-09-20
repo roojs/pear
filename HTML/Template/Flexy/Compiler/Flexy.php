@@ -212,7 +212,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         // gettext strings
          
         if (file_exists($flexy->getTextStringsFile)) {
-            unlink($flexy->getTextStringsFile);
+            @unlink($flexy->getTextStringsFile);
         }
 
         if($gettextStrings && ($cfp = fopen( $flexy->getTextStringsFile, 'w') ) ) {
