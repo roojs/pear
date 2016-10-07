@@ -2823,16 +2823,17 @@ class DB_DataObject extends DB_DataObject_Overload
     
     
 
-    static function factory($table = '')
+    static function factory($in_table = '')
     {
         global $_DB_DATAOBJECT;
         
         
         // multi-database support.. - experimental.
         $database = '';
-       
-        if (strpos( $table,'/') !== false ) {
-            list($database,$table) = explode('.',$table, 2);
+        $table = $in_table;
+        
+        if (strpos( $in_table,'/') !== false ) {
+            list($database,$in_table) = explode('.',$in_table, 2);
           
         }
          
