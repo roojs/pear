@@ -2826,11 +2826,22 @@ class DB_DataObject extends DB_DataObject_Overload
     static function factory($in_table = '')
     {
         global $_DB_DATAOBJECT;
-        
+        static $cache = array();
         
         // multi-database support.. - experimental.
         $database = '';
         $table = $in_table;
+        
+        if (isset($cache[$in_table])) {
+            $rclass = $cache[$in_table];
+            $ret = new $rclass();
+ 
+            if (!empty($database)) {
+                DB_DataObject::debug("Setting database to $database","FACTORY",1);
+                $ret->database($database);
+            }
+            return $ret;
+        }
         
         if (strpos( $in_table,'/') !== false ) {
             list($database,$in_table) = explode('.',$in_table, 2);
@@ -2929,6 +2940,7 @@ class DB_DataObject extends DB_DataObject_Overload
             DB_DataObject::debug("Setting database to $database","FACTORY",1);
             $ret->database($database);
         }
+        $cache[$in_table] = $rclass;
         return $ret;
     }
     /**
