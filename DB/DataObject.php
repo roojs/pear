@@ -2832,6 +2832,13 @@ class DB_DataObject extends DB_DataObject_Overload
         $database = '';
         $table = $in_table;
         
+        
+        
+        if (strpos( $in_table,'/') !== false ) {
+            list($database,$in_table) = explode('.',$in_table, 2);
+          
+        }
+        
         if (isset($cache[$in_table])) {
             $rclass = $cache[$in_table];
             $ret = new $rclass();
@@ -2843,10 +2850,6 @@ class DB_DataObject extends DB_DataObject_Overload
             return $ret;
         }
         
-        if (strpos( $in_table,'/') !== false ) {
-            list($database,$in_table) = explode('.',$in_table, 2);
-          
-        }
          
         if (empty($_DB_DATAOBJECT['CONFIG'])) {
             DB_DataObject::_loadConfig();
