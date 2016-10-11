@@ -1114,10 +1114,17 @@ class HTML_FlexyFramework {
         
         for ($i=$l;$i >-1;$i--) {
             $location = implode('/',$request_array) . ".php";
+            if ($location == '.php') {
+                $this->debug("SKIP first path check, as request str is empty");
+            }
+            
             $this->debug("baseDIR = {$this->baseDir}");
             
             $floc = "{$this->baseDir}/$location";
             $this->debug("CHECK LOCATION = $location");
+            
+            
+            
             if (!empty($location) && $location != '.php' && @file_exists($floc )) {             // hide? error???
                 require_once $floc ;
                 $classname = $this->classPrefix . implode('_',$request_array);
