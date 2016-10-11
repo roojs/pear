@@ -215,10 +215,10 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         $ff->debug("class_location = ". $ff->DB_DataObject['class_location']);
         
         
-        $project = strtolower(explode('/', $ff->project)[0]);
+        $lproject = strtolower(explode('/', $ff->project)[0]);
         
         foreach($inis as $path) {
-            $ini = $path . '/'. strtolower( $ff->project) . '.links.ini';
+            $ini = $path . '/'. strtolower( $lproject ) . '.links.ini';
              //var_dump($ini);
             if (!file_exists($ini)) {
                 $ff->debug("Framework Generator:writeCache PROJECT.links.ini does not exist in $path - trying glob");
