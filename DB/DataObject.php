@@ -3196,6 +3196,33 @@ class DB_DataObject extends DB_DataObject_Overload
                 
             }
         }
+        
+        
+        if (!empty($cfg['table_alias'])) {
+            $ta = $cfg['table_alias'];
+            foreach($lcfg[$this->_database] as $k=>$v) {
+                $kk = $k;
+                if (isset($ta[$k])) {
+                    $kk = $ta[$k];
+                    if (!isset($lcfg[$this->_database][$kk])) {
+                        $lcfg[$this->_database][$kk] = array();
+                    }
+                }
+                foreach($v as $l => $t_c) {
+                    $bits = explode(':',$t_c);
+                    $tt = isset($ta[$bits[0]]) ? $ta[$bits[0]] : $bits[0];
+                    if ($tt == $bits[0] && $kk == $k) {
+                        continue;
+                    }
+                    
+                    $lcfg[$this->_database][$kk][$l] = $tt .':'. $bits[1];
+                    
+                    
+                }
+                
+            }
+        }
+        
         //echo '<PRE>';print_r($lcfg);exit;
         
         // if there is no link data at all on the file!
@@ -3207,13 +3234,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (isset($lcfg[$this->_database][$this->tableName()])) {
             return $lcfg[$this->_database][$this->tableName()];
         }
-        /*
-         if (!empty($cfg['table_alias']) && isset($cfg['table_alias'][$this->__table])) {
-            
-            if (isset($lcfg[$this->_database][$this->__table])) {
-                return $lcfg[$this->_database][$this->__table];
-            }
-        }
+        
         */
         return array();
     }
