@@ -3234,8 +3234,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (isset($lcfg[$this->_database][$this->tableName()])) {
             return $lcfg[$this->_database][$this->tableName()];
         }
-        
-        */
+         
         return array();
     }
     
