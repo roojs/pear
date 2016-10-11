@@ -3118,13 +3118,13 @@ class DB_DataObject extends DB_DataObject_Overload
         if (isset($lcfg[$this->_database][$this->tableName()])) {
             return $lcfg[$this->_database][$this->tableName()];
         }
-        
+        /*
         if (!empty($cfg['table_alias']) && isset($cfg['table_alias'][$this->__table])) {
             
             if (isset($lcfg[$this->_database][$this->__table])) {
                 return $lcfg[$this->_database][$this->__table];
             }
-        }
+        }*/
 
         // loaded 
         if (isset($lcfg[$this->_database])) {
@@ -3207,13 +3207,14 @@ class DB_DataObject extends DB_DataObject_Overload
         if (isset($lcfg[$this->_database][$this->tableName()])) {
             return $lcfg[$this->_database][$this->tableName()];
         }
-        
+        /*
          if (!empty($cfg['table_alias']) && isset($cfg['table_alias'][$this->__table])) {
             
             if (isset($lcfg[$this->_database][$this->__table])) {
                 return $lcfg[$this->_database][$this->__table];
             }
         }
+        */
         return array();
     }
     
