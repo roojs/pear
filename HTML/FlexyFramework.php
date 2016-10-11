@@ -1118,7 +1118,7 @@ class HTML_FlexyFramework {
             
             $floc = "{$this->baseDir}/$location";
             $this->debug("CHECK LOCATION = $location");
-            if (!empty($location) && @file_exists($floc )) {             // hide? error???
+            if (!empty($location) && $location != '.php' && @file_exists($floc )) {             // hide? error???
                 require_once $floc ;
                 $classname = $this->classPrefix . implode('_',$request_array);
                 $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
