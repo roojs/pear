@@ -527,6 +527,8 @@ class HTML_FlexyFramework {
         $dbreq =  array(); //array( dirname(__FILE__) . '/Pman/DataObjects/');
         $dbcls =  array(); //array('Pman_DataObjects_');
 
+        $project = explode('/',$this->project)[0]; 
+        
         if (!empty($this->enableArray)) {
                 
             $tops = array_merge( array($this->project), empty($this->projectExtends) ? array() : $this->projectExtends);
