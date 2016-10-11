@@ -3487,7 +3487,7 @@ class DB_DataObject extends DB_DataObject_Overload
         /// CHANGED 26 JUN 2009 - we prefer links from our local table over the remote one.
         
         /* otherwise see if there are any links from this table to the obj. */
-        //print_r($this->links());
+        print_r($this->links());
         if (($ofield === false) && ($links = $this->links())) {
             // this enables for support for arrays of links in ini file.
             // link contains this_column[] =  linked_table:linked_column
@@ -3500,7 +3500,6 @@ class DB_DataObject extends DB_DataObject_Overload
                 }
                 foreach($linkVar as $v) {
 
-                    
                     
                     /* link contains {this column} = {linked table}:{linked column} */
                     $ar = explode(':', $v);
