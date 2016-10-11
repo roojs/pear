@@ -3545,7 +3545,7 @@ class DB_DataObject extends DB_DataObject_Overload
             }
         }
          /* look up the links for obj table */
-        //print_r($obj->links());
+        print_r($obj->links());
         if (!$ofield && ($olinks = $obj->links())) {
             
             foreach ($olinks as $k => $linkVar) {
