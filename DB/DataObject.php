@@ -2146,11 +2146,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $ret = array();
         if (isset($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()])) {
             $ret =  $_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()];
-        } else if (isset($_DB_DATAOBJECT['CONFIG']['table_alias'][$this->tableName()])) {
-            
-            $ret =  $_DB_DATAOBJECT['INI'][$this->_database][$this->__table]; // 'old' table name
-            
-        }
+        } 
         
         return $ret;
     }
