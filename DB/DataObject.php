@@ -2143,6 +2143,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $this->databaseStructure();
  
         var_dump($this->tableName());exit;
+        
         $ret = array();
         if (isset($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()])) {
             $ret =  $_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()];
