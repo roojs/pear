@@ -2079,10 +2079,16 @@ class DB_DataObject extends DB_DataObject_Overload
         if (empty($this->__table)) {
             return '';
         }
+        $table = $this->__table;
         if (!empty($_DB_DATAOBJECT['CONFIG']['portability']) && $_DB_DATAOBJECT['CONFIG']['portability'] & 1) {
-            return strtolower($this->__table);
+            $table = strtolower($this->__table);
         }
-        return $this->__table;
+        if (!empty($_DB_DATAOBJECT['CONFIG']['table_alias']) && isset($_DB_DATAOBJECT['CONFIG']['table_alias'][$table])) {
+            return $_DB_DATAOBJECT['CONFIG']['table_alias'][$table];
+           
+        }
+        
+        return $table;
     }
     
     /**
@@ -2831,12 +2837,21 @@ class DB_DataObject extends DB_DataObject_Overload
         // multi-database support.. - experimental.
         $database = '';
         $table = $in_table;
-        
-        
-        
+         
         if (strpos( $in_table,'/') !== false ) {
             list($database,$in_table) = explode('.',$in_table, 2);
-          
+        }
+        
+        if (empty($_DB_DATAOBJECT['CONFIG'])) {
+            DB_DataObject::_loadConfig();
+        }
+        if (!empty($_DB_DATAOBJECT['CONFIG']['table_alias'])) {
+            // old name -> loads 'new' class...
+            $flip  = array_flip($_DB_DATAOBJECT['CONFIG']['table_alias']);
+            if (isset($flip[$table])) {
+                $table = $flip[$table];
+                $in_table = (strlen($database) ? "$database/" : '') . $table;
+            }
         }
         
         if (isset($cache[$in_table])) {
@@ -2851,9 +2866,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
          
-        if (empty($_DB_DATAOBJECT['CONFIG'])) {
-            DB_DataObject::_loadConfig();
-        }
+       
         // no configuration available for database
         if (!empty($database) && empty($_DB_DATAOBJECT['CONFIG']['database_'.$database])) {
                 $do = new DB_DataObject();
