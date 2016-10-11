@@ -248,8 +248,7 @@ class HTML_FlexyFramework {
             $this->database = $this->DB_DataObject['database'];
         }
         
-        var_dump($this->project);exit;
-        $this->classPrefix   = $this->project . '_';
+         $this->classPrefix   = str_replace('/', '_', $this->project) . '_';
         
         // list the available options..
         if ($this->cli && empty($_SERVER['argv'][1])) {
