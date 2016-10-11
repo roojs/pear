@@ -1189,7 +1189,7 @@ class HTML_FlexyFramework {
         if (file_exists($this->baseDir.'.php')) {
             
             
-            $classname = basename($this->baseDir);
+            $classname = str_replace('/', '_', $this->project); //   basename($this->baseDir);
             
             $this->debug("FOUND {$this->baseDir} requring and checking class $classname");   
             require_once $this->baseDir.'.php';
