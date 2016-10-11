@@ -539,14 +539,14 @@ class HTML_FlexyFramework {
                 foreach($this->enableArray as $m) {
                     // look in Pman/MODULE/DataObjects/*
                      if (file_exists($bd.'/'.$m.'/DataObjects')) {
-                        $dbinis[] = $bd.'/'.$m.'/DataObjects/'. strtolower($this->project).'.ini';
+                        $dbinis[] = $bd.'/'.$m.'/DataObjects/'. strtolower($project).'.ini';
                         $dbcls[] = $td.'_'. $m . '_DataObjects_';
                         $dbreq[] = $bd.'/'.$m.'/DataObjects';
                         continue;
                     }
                     // look in MODULE/DataObjects ?? DO WE SUPPORT THIS ANYMORE???
                     if (file_exists($bd.'/../'.$m.'/DataObjects')) {
-                        $dbinis[] = $bd.'/../'.$m.'/DataObjects/'. strtolower($this->project).'.ini';
+                        $dbinis[] = $bd.'/../'.$m.'/DataObjects/'. strtolower($project).'.ini';
                         $dbcls[] = $td. '_DataObjects_';
                         $dbreq[] = $bd.'/../'.$m.'/DataObjects';
                     }
@@ -564,7 +564,7 @@ class HTML_FlexyFramework {
             }
             // non modular.
             
-            $dbcls[] = $this->project .'_DataObjects_';
+            $dbcls[] = $project .'_DataObjects_';
             $dbreq[] = $this->baseDir.'/DataObjects';
         }
             
