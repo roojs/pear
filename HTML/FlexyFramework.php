@@ -1115,8 +1115,9 @@ class HTML_FlexyFramework {
         for ($i=$l;$i >-1;$i--) {
             $location = implode('/',$request_array) . ".php";
             $this->debug("baseDIR = {$this->baseDir}");
+            
             $floc = "{$this->baseDir}/$location";
-            $this->debug("CHECK LOCATION $floc");
+            $this->debug("CHECK LOCATION = $location");
             if (!empty($location) && @file_exists($floc )) {             // hide? error???
                 require_once $floc ;
                 $classname = $this->classPrefix . implode('_',$request_array);
