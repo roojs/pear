@@ -248,6 +248,7 @@ class HTML_FlexyFramework {
             $this->database = $this->DB_DataObject['database'];
         }
         
+        var_dump($this->project);exit;
         $this->classPrefix   = $this->project . '_';
         
         // list the available options..
