@@ -1116,6 +1116,7 @@ class HTML_FlexyFramework {
             $location = implode('/',$request_array) . ".php";
             if ($location == '.php') {
                 $this->debug("SKIP first path check, as request str is empty");
+                break;
             }
             
             $this->debug("baseDIR = {$this->baseDir}");
