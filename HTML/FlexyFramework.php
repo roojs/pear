@@ -531,7 +531,7 @@ class HTML_FlexyFramework {
         
         if (!empty($this->enableArray)) {
                 
-            $tops = array_merge( array($this->project), empty($this->projectExtends) ? array() : $this->projectExtends);
+            $tops = array_merge( array($project), empty($this->projectExtends) ? array() : $this->projectExtends);
             
             foreach($tops as $td) {
                     
