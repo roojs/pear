@@ -3537,6 +3537,9 @@ class DB_DataObject extends DB_DataObject_Overload
                     
                     /* link contains {this column} = {linked table}:{linked column} */
                     $ar = explode(':', $v);
+                    if (!isset($ar[1])) {
+                        return $this->raiseError("invalid join for key = $k", DB_DATAOBJECT_ERROR_INVALIDCONFIG,PEAR_ERROR_DIE);
+                    }
                     // Feature Request #4266 - Allow joins with multiple keys
                     if (strpos($k, ',') !== false) {
                         $k = explode(',', $k);
