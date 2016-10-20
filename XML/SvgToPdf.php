@@ -123,7 +123,7 @@ class XML_SvgToPDF {
             
             // we originally used ARIALUNI.ttf'
             
-            $font = 'usr/share/fonts/truetype/msttcorefonts/Arial.ttf';
+            $font = '/usr/share/fonts/truetype/msttcorefonts/Arial.ttf';
             
             if (!file_exists($font)) {
                 die("install msttcorefonts package");
