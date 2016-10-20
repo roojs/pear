@@ -120,6 +120,12 @@ class XML_SvgToPDF {
             require_once ('Fpdf/tFPDF.php');
 
             $pdf = new tFPDF($orientation ,'mm','A4');
+            
+            // we originally used ARIALUNI.ttf'
+            
+            $font = 'usr/share/fonts/truetype/msttcorefonts/Arial.ttf';
+            
+            if (!)
             $pdf->AddFont('ARIALUNI','','ARIALUNI.ttf',true);
 //            $pdf->SetFont('ARIALUNI','',14);
 //            require_once 'Fpdf/Chinese-unicode.php';
