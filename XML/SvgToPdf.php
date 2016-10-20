@@ -125,7 +125,9 @@ class XML_SvgToPDF {
             
             $font = 'usr/share/fonts/truetype/msttcorefonts/Arial.ttf';
             
-            if (!)
+            if (!file_exists($font)) {
+                die("install msttcorefonts package");
+            }
             $pdf->AddFont('ARIALUNI','',$font,true);
 //            $pdf->SetFont('ARIALUNI','',14);
 //            require_once 'Fpdf/Chinese-unicode.php';
