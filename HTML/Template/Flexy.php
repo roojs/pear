@@ -319,6 +319,7 @@ class HTML_Template_Flexy
     */
     function compile( $file )
     {
+        print_R($this->options['templateDir']);exit;
         if (!$file) {
             return $this->raiseError('HTML_Template_Flexy::compile no file selected',
                 HTML_TEMPLATE_FLEXY_ERROR_INVALIDARGS,HTML_TEMPLATE_FLEXY_ERROR_DIE);
