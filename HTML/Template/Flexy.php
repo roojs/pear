@@ -378,7 +378,7 @@ class HTML_Template_Flexy
         }
         if ($this->currentTemplate === false)  {
             // check if the compile dir has been created
-            return $this->raiseError("Could not find Template {$file} in any of the directories<br>" . 
+            return $this->raiseError("Could not find Template? {$file} in any of the directories<br>" . 
                 implode("<BR>",$this->options['templateDir']) ,
                 HTML_TEMPLATE_FLEXY_ERROR_INVALIDARGS, HTML_TEMPLATE_FLEXY_ERROR_DIE);
         }
