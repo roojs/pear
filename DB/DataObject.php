@@ -2142,11 +2142,11 @@ class DB_DataObject extends DB_DataObject_Overload
         
         $this->databaseStructure();
  
-        
+         
         $ret = array();
         if (isset($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()])) {
             $ret =  $_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()];
-        }
+        } 
         
         return $ret;
     }
@@ -2837,9 +2837,7 @@ class DB_DataObject extends DB_DataObject_Overload
         // multi-database support.. - experimental.
         $database = '';
         $table = $in_table;
-        
-        
-        
+         
         if (strpos( $in_table,'/') !== false ) {
             list($database,$in_table) = explode('.',$in_table, 2);
         }
@@ -2847,13 +2845,11 @@ class DB_DataObject extends DB_DataObject_Overload
         if (empty($_DB_DATAOBJECT['CONFIG'])) {
             DB_DataObject::_loadConfig();
         }
-        // table aliases..
-        // we rename table 'Person' to 'core_person'..
-         
-        
         if (!empty($_DB_DATAOBJECT['CONFIG']['table_alias'])) {
-            if (isset($_DB_DATAOBJECT['CONFIG']['table_alias'][$table])) {
-                $table = $_DB_DATAOBJECT['CONFIG']['table_alias'][$table];
+            // old name -> loads 'new' class...
+            $flip  = array_flip($_DB_DATAOBJECT['CONFIG']['table_alias']);
+            if (isset($flip[$table])) {
+                $table = $flip[$table];
                 $in_table = (strlen($database) ? "$database/" : '') . $table;
             }
         }
@@ -3122,6 +3118,13 @@ class DB_DataObject extends DB_DataObject_Overload
         if (isset($lcfg[$this->_database][$this->tableName()])) {
             return $lcfg[$this->_database][$this->tableName()];
         }
+        /*
+        if (!empty($cfg['table_alias']) && isset($cfg['table_alias'][$this->__table])) {
+            
+            if (isset($lcfg[$this->_database][$this->__table])) {
+                return $lcfg[$this->_database][$this->__table];
+            }
+        }*/
 
         // loaded 
         if (isset($lcfg[$this->_database])) {
@@ -3193,6 +3196,33 @@ class DB_DataObject extends DB_DataObject_Overload
                 
             }
         }
+        
+        
+        if (!empty($cfg['table_alias'])) {
+            $ta = $cfg['table_alias'];
+            foreach($lcfg[$this->_database] as $k=>$v) {
+                $kk = $k;
+                if (isset($ta[$k])) {
+                    $kk = $ta[$k];
+                    if (!isset($lcfg[$this->_database][$kk])) {
+                        $lcfg[$this->_database][$kk] = array();
+                    }
+                }
+                foreach($v as $l => $t_c) {
+                    $bits = explode(':',$t_c);
+                    $tt = isset($ta[$bits[0]]) ? $ta[$bits[0]] : $bits[0];
+                    if ($tt == $bits[0] && $kk == $k) {
+                        continue;
+                    }
+                    
+                    $lcfg[$this->_database][$kk][$l] = $tt .':'. $bits[1];
+                    
+                    
+                }
+                
+            }
+        }
+        
         //echo '<PRE>';print_r($lcfg);exit;
         
         // if there is no link data at all on the file!
@@ -3204,7 +3234,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (isset($lcfg[$this->_database][$this->tableName()])) {
             return $lcfg[$this->_database][$this->tableName()];
         }
-        
+         
         return array();
     }
     
@@ -3491,7 +3521,7 @@ class DB_DataObject extends DB_DataObject_Overload
         /// CHANGED 26 JUN 2009 - we prefer links from our local table over the remote one.
         
         /* otherwise see if there are any links from this table to the obj. */
-        //print_r($this->links());
+        
         if (($ofield === false) && ($links = $this->links())) {
             // this enables for support for arrays of links in ini file.
             // link contains this_column[] =  linked_table:linked_column
@@ -3505,9 +3535,12 @@ class DB_DataObject extends DB_DataObject_Overload
                 foreach($linkVar as $v) {
 
                     
-                    
                     /* link contains {this column} = {linked table}:{linked column} */
                     $ar = explode(':', $v);
+                    if (!isset($ar[1])) {
+                        return $this->raiseError("invalid join for [{$this->tableName()}] $k = ". var_export($linkVar,true),
+                                                    DB_DATAOBJECT_ERROR_INVALIDCONFIG,PEAR_ERROR_DIE);
+                    }
                     // Feature Request #4266 - Allow joins with multiple keys
                     if (strpos($k, ',') !== false) {
                         $k = explode(',', $k);
