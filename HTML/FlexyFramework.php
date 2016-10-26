@@ -1116,6 +1116,7 @@ class HTML_FlexyFramework {
         
         for ($i=$l;$i >-1;$i--) {
             $location = implode('/',$request_array) . ".php";
+            print_R($location);exit;
             if ($location == '.php') {
                 $this->debug("SKIP first path check, as request str is empty");
                 break;
