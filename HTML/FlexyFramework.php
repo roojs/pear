@@ -271,7 +271,7 @@ class HTML_FlexyFramework {
              
         }
         
-        
+        print_r($ishelp);exit;
         $this->run = $this->cli ? $_SERVER['argv'][1] : false;
      
         
