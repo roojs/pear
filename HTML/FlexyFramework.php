@@ -157,7 +157,6 @@ class HTML_FlexyFramework {
             $args = $_SERVER['argv'];
             array_shift($args );
             array_shift($args );
-            print_R($this->run);exit;
             $this->_run($this->run,false,$args);
             return;
         }
