@@ -1124,7 +1124,6 @@ class HTML_FlexyFramework {
             $this->debug("baseDIR = {$this->baseDir}");
             
             $floc = "{$this->baseDir}/$location";
-            print_R($floc);exit;
             $this->debug("CHECK LOCATION = $location");
             
             
