@@ -873,7 +873,7 @@ class HTML_FlexyFramework {
         // find the class/file to load
         list($classname,$subRequest) = $this->requestToClassName($newRequest,FALSE);
         
-        print_R($classname);exit;
+        print_R($subRequest);exit;
         $this->debug("requestToClassName return = CLASSNAME: $classname SUB REQUEST: $subRequest");
         
         // assume that this was handled by getclassname ?????
