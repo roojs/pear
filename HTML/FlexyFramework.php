@@ -258,7 +258,6 @@ class HTML_FlexyFramework {
             exit;
         }
         
-        print_r('in??');exit;
         
         // see if it's a framework assignment.
         $ishelp = false;
