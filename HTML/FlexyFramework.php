@@ -147,6 +147,8 @@ class HTML_FlexyFramework {
         $m = explode(' ',microtime());
         $this->start = $m[0] + $m[1];
         
+        $this->loadModuleConfig($config);
+        
         foreach($config as $k=>$v) {
             $this->$k = $v;
         }
@@ -187,7 +189,31 @@ class HTML_FlexyFramework {
     {
         return self::$singleton;
     }
-  
+    /*
+     * looks for files in the path and load up the default values for config?
+     */
+    function loadModuleConfig($cfg)
+    {
+        if (empty($cfg['enable'])) {
+            return;
+        }
+        $proj = $cfg['project'];
+        $rootDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
+
+        foreach(explode(',',$cfg['enable']) as $m) {
+            $cls = $proj.'_'. $m . '_Config';
+
+            if (!file_exists($rootDir . '/'.str_replace('_','/', $cls). '.php')) {
+                continue;
+            }
+            require_once str_replace('_','/', $cls). '.php';
+            $c = new $cls();
+            if (method_exists($c,'init')) {
+                $c->init($this);
+            }
+        }
+    }
+    
   
     /**
      * parse the configuration set by the constructor.
