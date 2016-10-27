@@ -147,7 +147,7 @@ class HTML_FlexyFramework {
         $m = explode(' ',microtime());
         $this->start = $m[0] + $m[1];
         
-        $this->loadModuleConfig($config);
+        $config = $this->loadModuleConfig($config);
         
         foreach($config as $k=>$v) {
             $this->$k = $v;
@@ -195,7 +195,7 @@ class HTML_FlexyFramework {
     function loadModuleConfig($cfg)
     {
         if (empty($cfg['enable'])) {
-            return;
+            return $cfg;
         }
         $proj = $cfg['project'];
         $rootDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
@@ -209,9 +209,10 @@ class HTML_FlexyFramework {
             require_once str_replace('_','/', $cls). '.php';
             $c = new $cls();
             if (method_exists($c,'init')) {
-                $c->init($this);
+                $cfg = $c->init($this,$cfg);
             }
         }
+        return $cfg;
     }
     
   
