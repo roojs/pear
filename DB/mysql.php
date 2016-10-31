@@ -1032,10 +1032,22 @@ class DB_mysql extends DB_common
                 return 'SELECT DISTINCT User FROM mysql.user';
             case 'databases':
                 return 'SHOW DATABASES';
+            case 'views':
+                return "SELECT
+                        distinct(TABLE_NAME)
+                    FROM
+                        information_schema.TABLES
+                    WHERE
+                        table_type = 'VIEW'
+                        AND
+                        TABLE_SCHEMA=DATABASE()
+                    ";
+            
             default:
                 return null;
         }
     }
+    
 
     // }}}
 
