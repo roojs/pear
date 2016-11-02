@@ -2905,9 +2905,10 @@ class DB_DataObject extends DB_DataObject_Overload
                 
                 if ($ce && empty($class)) {
                     $class = $cpr . $tbl;
-                   break;
+                    break;
                 }
                 $class[] = $cpr . $tbl;
+                $ce = false; // it's an array of options...
             }
         } else {
             $class = $tbl;
