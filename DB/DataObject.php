@@ -3040,7 +3040,6 @@ class DB_DataObject extends DB_DataObject_Overload
             }
         }
         
-        var_dump($file);
         include_once $file;
         
        
@@ -3059,8 +3058,6 @@ class DB_DataObject extends DB_DataObject_Overload
                 DB_DATAOBJECT_ERROR_INVALIDCONFIG);
             return false;
         }
-        echo "\n";
-        print_r($class);
         return $class;
     }
     
