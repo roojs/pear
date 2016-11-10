@@ -490,6 +490,11 @@ class HTML_FlexyFramework {
         
         
         $iniCache = $this->DB_DataObject[$dbini];
+        if ($force && file_exists($iniCache)) {
+            unlink($iniCache);
+            clearstatcache();
+        }
+        
         $iniCacheTmp = $iniCache . '.tmp' .md5(rand());  // random to stop two processes using the same file.
         // has it expired..
         $force = ($force ? $force : !file_exists($iniCache)) || !$this->dataObjectsCacheExpires;
@@ -500,6 +505,8 @@ class HTML_FlexyFramework {
                 return;
             }
         }
+        
+        
         
          //echo "GENERATE?";
         
