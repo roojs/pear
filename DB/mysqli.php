@@ -384,6 +384,7 @@ class DB_mysqli extends DB_common
      */
     function simpleQuery($query)
     {
+        print_R($query);
         $ismanip = $this->_checkManip($query);
         $this->last_query = $query;
         $query = $this->modifyQuery($query);
