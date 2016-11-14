@@ -292,6 +292,10 @@ class DB_mysqli extends DB_common
         if ($dsn['dbsyntax']) {
             $this->dbsyntax = $dsn['dbsyntax'];
         }
+        
+        if (!empty($dsn['abort'])) {
+            $this->features['abort'] = true;
+        }
 
         $ini = ini_get('track_errors');
         @ini_set('track_errors', 1);
