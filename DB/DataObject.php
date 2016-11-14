@@ -2390,7 +2390,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         // is it already connected ?    
         if ($this->_database_dsn_md5 && !empty($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5])) {
-            
+            print_R($this);exit;
             // connection is an error...
             if (PEAR::isError($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5])) {
                 return $this->raiseError(
