@@ -84,6 +84,7 @@ class DB_mysqli extends DB_common
         'prepare'       => false,
         'ssl'           => true,
         'transactions'  => true,
+        'abort'         => false
     );
 
     /**
