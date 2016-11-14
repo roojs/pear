@@ -1748,7 +1748,6 @@ class DB_DataObject extends DB_DataObject_Overload
         }
          
         $result  = $_DB_DATAOBJECT['RESULTS'][$t->_DB_resultid];
-        print_r($result);exit;
         $l = $result->fetchRow(DB_DATAOBJECT_FETCHMODE_ORDERED);
         // free the results - essential on oracle.
         $t->free();
