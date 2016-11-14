@@ -2678,7 +2678,6 @@ class DB_DataObject extends DB_DataObject_Overload
             $_DB_DATAOBJECT['QUERYENDTIME'] = $t[0]+$t[1];
             $this->debug('QUERY DONE IN  '.($t[0]+$t[1]-$time)." seconds", 'query',1);
         }
-        print_R($result);exit;
         switch (strtolower(substr(trim($string),0,6))) {
             case 'insert':
             case 'update':
