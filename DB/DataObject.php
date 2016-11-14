@@ -2447,7 +2447,7 @@ class DB_DataObject extends DB_DataObject_Overload
                   
             }
         }
-        print_R($dsn);exit;
+
         // if still no database...
         if (!$dsn) {
             return $this->raiseError(
