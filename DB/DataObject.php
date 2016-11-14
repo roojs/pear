@@ -2930,7 +2930,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     require_once 'DB/DataObject/Generator.php';
             
             $d = new DB_DataObject;
-           
+            print_r($d);exit;
             $d->__table = $table;
             
             $ret = $d->_connect();
