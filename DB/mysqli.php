@@ -409,7 +409,7 @@ class DB_mysqli extends DB_common
             $result = @mysqli_query($this->connection, $query, MYSQLI_ASYNC);
         }
         
-        print_R($result);exit;
+        print_R($this->connection);exit;
         
         
         if (!$result) {
