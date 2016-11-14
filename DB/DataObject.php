@@ -2952,7 +2952,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
  
         $ret = new $rclass();
-        print_R($ret);exit;
+ 
         if (!empty($database)) {
             DB_DataObject::debug("Setting database to $database","FACTORY",1);
             $ret->database($database);
