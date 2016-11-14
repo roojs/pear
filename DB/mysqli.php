@@ -436,8 +436,6 @@ class DB_mysqli extends DB_common
         
         $result = $this->connection->reap_async_query();
         
-        print_R($result);exit;
-        
         if (!$result) {
             return $this->mysqliRaiseError();
         }
