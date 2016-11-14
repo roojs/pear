@@ -2487,7 +2487,7 @@ class DB_DataObject extends DB_DataObject_Overload
             }
             return true;
         }
-
+        print_R('run??');exit;
         
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug("NEW CONNECTION TP DATABASE :" .$this->_database , "CONNECT",3);
