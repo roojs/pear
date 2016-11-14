@@ -556,7 +556,7 @@ class HTML_FlexyFramework {
         }
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
-                print_r($dbini);exit;
+                
         $dbinis =  array(); //array(dirname(__FILE__) . '/Pman/DataObjects/pman.ini');
         $dbreq =  array(); //array( dirname(__FILE__) . '/Pman/DataObjects/');
         $dbcls =  array(); //array('Pman_DataObjects_');
