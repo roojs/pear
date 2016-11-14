@@ -403,9 +403,15 @@ class DB_mysqli extends DB_common
             $this->transaction_opcount++;
         }
         
-        global $_DB_DATAOBJECT;
+        if(empty($this->features['abort'])){
+            $result = @mysqli_query($this->connection, $query);
+        } else {
+            $result = @mysqli_query($this->connection, $query, MYSQLI_ASYNC);
+        }
         
-        $result = @mysqli_query($this->connection, $query);
+        
+        
+        
         if (!$result) {
             return $this->mysqliRaiseError();
         }
