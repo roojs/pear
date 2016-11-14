@@ -402,6 +402,9 @@ class DB_mysqli extends DB_common
             }
             $this->transaction_opcount++;
         }
+        
+        global $_DB_DATAOBJECT;
+        
         $result = @mysqli_query($this->connection, $query);
         if (!$result) {
             return $this->mysqliRaiseError();
