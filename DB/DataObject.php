@@ -2505,7 +2505,6 @@ class DB_DataObject extends DB_DataObject_Overload
             $db_options = PEAR::getStaticProperty('DB','options');
             // allow for fake DB....
             class_exists('DB') ? '' : require_once 'DB.php';
-            print_R($db_options);exit;
             if ($db_options) {
                 $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5] = DB::connect($dsn,$db_options);
             } else {
