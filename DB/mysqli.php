@@ -434,12 +434,15 @@ class DB_mysqli extends DB_common
             
         } while (!$poll);
         
+        $result = $this->connection->reap_async_query();
+        
         if (!$result) {
             return $this->mysqliRaiseError();
         }
         if (is_object($result)) {
             return $result;
         }
+        
         return DB_OK;
     }
 
