@@ -405,14 +405,33 @@ class DB_mysqli extends DB_common
         
         if(empty($this->features['abort'])){
             $result = @mysqli_query($this->connection, $query);
-        } else {
-            $result = @mysqli_query($this->connection, $query, MYSQLI_ASYNC);
+            
+            if (!$result) {
+                return $this->mysqliRaiseError();
+            }
+            if (is_object($result)) {
+                return $result;
+            }
+            return DB_OK;
+            
         }
+        
+        $result = @mysqli_query($this->connection, $query, MYSQLI_ASYNC);
         
         $thread_id = $this->connection->thread_id;
         
         ignore_user_abort(true);
         
+        do  {
+            // Poll MySQL
+            $links = $errors = $reject = array($this->connection);
+            $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
+
+            // Check if the connection is aborted and the query was killed
+            if (connection_aborted() && mysqli_kill($kill_con, $thread_id)) {
+                die();
+            }
+        } while (!$poll);
         
         if (!$result) {
             return $this->mysqliRaiseError();
