@@ -427,8 +427,8 @@ class DB_mysqli extends DB_common
         do  {
             
             // Poll MySQL
-            $links = $errors = $reject = array($this->connection);
-            $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
+//            $links = $errors = $reject = array($this->connection);
+//            $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
             
 //            file_put_contents("/tmp/test/{$thread_id}.txt", "poll : {$poll}...\n", FILE_APPEND);
             
@@ -437,7 +437,7 @@ class DB_mysqli extends DB_common
 //            file_put_contents("/tmp/test/{$thread_id}.txt", "aborted : {$aborted}...\n", FILE_APPEND);
             
             // Check if the connection is aborted and the query was killed
-            if ($aborted && mysqli_kill($this->connection, $thread_id)) {
+            if ($aborted) {
 //                file_put_contents("/tmp/test/{$thread_id}.txt", "die...\n", FILE_APPEND);
                 die('die');
             }
