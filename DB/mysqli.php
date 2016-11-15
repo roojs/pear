@@ -427,26 +427,24 @@ class DB_mysqli extends DB_common
         do  {
             
             // Poll MySQL
-//            $links = $errors = $reject = array($this->connection);
-//            $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
+            $links = $errors = $reject = array($this->connection);
+            $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
             
-//            file_put_contents("/tmp/test/{$thread_id}.txt", "poll : {$poll}...\n", FILE_APPEND);
+            file_put_contents("/tmp/test/{$thread_id}.txt", "poll : {$poll}...\n", FILE_APPEND);
             
             $aborted = connection_aborted();
             
             file_put_contents("/tmp/test/{$thread_id}.txt", "aborted : {$aborted}...\n", FILE_APPEND);
             
             // Check if the connection is aborted and the query was killed
-            if ($aborted) {
+            if ($aborted && mysqli_kill($this->connection, $thread_id)) {
                 file_put_contents("/tmp/test/{$thread_id}.txt", "die...\n", FILE_APPEND);
-                die('die');
+                die();
             }
             
-            sleep(1);
-            
-        } while (true);
+        } while (!$poll);
         
-//        file_put_contents("/tmp/test/{$thread_id}.txt", "END...\n", FILE_APPEND);
+        file_put_contents("/tmp/test/{$thread_id}.txt", "END...\n", FILE_APPEND);
         
         $result = $this->connection->reap_async_query();
         
