@@ -426,8 +426,8 @@ class DB_mysqli extends DB_common
         
         if(mysqli_kill($this->connection, $thread_id)){
             die();
-            
         }
+        
         do  {
             
             // Poll MySQL
