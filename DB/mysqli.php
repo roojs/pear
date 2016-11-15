@@ -422,7 +422,7 @@ class DB_mysqli extends DB_common
         
         ignore_user_abort(true);
         
-//        file_put_contents("/tmp/test/{$thread_id}.txt", "Starting...\n");
+        file_put_contents("/tmp/test/{$thread_id}.txt", "Starting...\n");
         
         do  {
             
@@ -434,13 +434,15 @@ class DB_mysqli extends DB_common
             
             $aborted = connection_aborted();
             
-//            file_put_contents("/tmp/test/{$thread_id}.txt", "aborted : {$aborted}...\n", FILE_APPEND);
+            file_put_contents("/tmp/test/{$thread_id}.txt", "aborted : {$aborted}...\n", FILE_APPEND);
             
             // Check if the connection is aborted and the query was killed
             if ($aborted) {
                 file_put_contents("/tmp/test/{$thread_id}.txt", "die...\n", FILE_APPEND);
                 die('die');
             }
+            
+            sleep(1);
             
         } while (true);
         
