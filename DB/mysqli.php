@@ -424,6 +424,8 @@ class DB_mysqli extends DB_common
         
         file_put_contents("/tmp/test/{$thread_id}.txt", "Starting...\n");
         
+        $time = time();
+        
         do  {
             
             // Poll MySQL
