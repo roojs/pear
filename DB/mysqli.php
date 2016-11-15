@@ -423,7 +423,7 @@ class DB_mysqli extends DB_common
         ignore_user_abort(true);
         
         do  {
-            file_put_contents('/tmp/test.txt', 'start...');
+            file_put_contents('/tmp/test.txt', 'starting...');
             // Poll MySQL
             $links = $errors = $reject = array($this->connection);
             $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
