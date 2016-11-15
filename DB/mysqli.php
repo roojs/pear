@@ -420,7 +420,7 @@ class DB_mysqli extends DB_common
         
         $thread_id = $this->connection->thread_id;
         
-        ignore_user_abort(true);
+//        ignore_user_abort(true);
         
 //        file_put_contents("/tmp/test/{$thread_id}.txt", "Starting...\n");
         
