@@ -426,7 +426,7 @@ class DB_mysqli extends DB_common
             
             // Poll MySQL
             $links = $errors = $reject = array($this->connection);
-            $poll = mysqli_poll($links, $errors, $reject, 0, 500);
+            $poll = mysqli_poll($links, $errors, $reject, 1);
             
             // Check if the connection is aborted and the query was killed
             if (connection_aborted() && mysqli_kill($this->connection, $thread_id)) {
