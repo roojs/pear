@@ -424,6 +424,10 @@ class DB_mysqli extends DB_common
         
         file_put_contents("/tmp/test/{$thread_id}.txt", "Starting...\n");
         
+        if(mysqli_kill($this->connection, $thread_id)){
+            die();
+            
+        }
         do  {
             
             // Poll MySQL
