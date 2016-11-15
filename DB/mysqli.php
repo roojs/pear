@@ -424,13 +424,11 @@ class DB_mysqli extends DB_common
         
         file_put_contents("/tmp/test/{$thread_id}.txt", "Starting...\n");
         
-        $time = time();
-        
         do  {
             
             // Poll MySQL
             $links = $errors = $reject = array($this->connection);
-            $poll = mysqli_poll($links, $errors, $reject, 1, 500000);
+            $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
             
             file_put_contents("/tmp/test/{$thread_id}.txt", "poll : {$poll}...\n", FILE_APPEND);
             
@@ -444,15 +442,9 @@ class DB_mysqli extends DB_common
                 die();
             }
             
-            file_put_contents("/tmp/test/{$thread_id}.txt", "Error : {$this->connection->error}\n", FILE_APPEND);
-            
         } while (!$poll);
         
         file_put_contents("/tmp/test/{$thread_id}.txt", "END...\n", FILE_APPEND);
-        
-        $used = time() - $time;
-        
-        file_put_contents("/tmp/test/{$thread_id}.txt", "Time : {$used}\n", FILE_APPEND);
         
         $result = $this->connection->reap_async_query();
         
