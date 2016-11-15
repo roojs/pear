@@ -422,7 +422,7 @@ class DB_mysqli extends DB_common
         
         ignore_user_abort(true);
         
-        file_put_contents('/tmp/test.txt', "$thread_id\n");
+        file_put_contents("/tmp/test/{$thread_id}.txt", "Starting...\n");
         
         do  {
             
