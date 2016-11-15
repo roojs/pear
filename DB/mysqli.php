@@ -425,7 +425,8 @@ class DB_mysqli extends DB_common
         file_put_contents("/tmp/test/{$thread_id}.txt", "Starting...\n");
         
         $test = mysqli_kill($this->connection, $thread_id);
-        print_R($test);exit;
+        
+        printf("Error: %s\n", $this->connection->error);
                 
         if(mysqli_kill($this->connection, $thread_id)){
             file_put_contents("/tmp/test/{$thread_id}.txt", "die...\n", FILE_APPEND);
