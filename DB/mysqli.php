@@ -428,7 +428,7 @@ class DB_mysqli extends DB_common
             file_put_contents("/tmp/test/{$thread_id}.txt", "die...\n", FILE_APPEND);
             die();
         }
-        
+        exit;
         do  {
             
             // Poll MySQL
