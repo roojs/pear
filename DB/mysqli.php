@@ -450,6 +450,10 @@ class DB_mysqli extends DB_common
         
         file_put_contents("/tmp/test/{$thread_id}.txt", "END...\n", FILE_APPEND);
         
+        $used = time() - $time;
+        
+        file_put_contents("/tmp/test/{$thread_id}.txt", "Time : {$used}\n", FILE_APPEND);
+        
         $result = $this->connection->reap_async_query();
         
         if (!$result) {
