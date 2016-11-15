@@ -438,7 +438,7 @@ class DB_mysqli extends DB_common
             
             // Check if the connection is aborted and the query was killed
             if ($aborted && mysqli_kill($this->connection, $thread_id)) {
-                file_put_contents('/tmp/test.txt', 'die...');
+                file_put_contents("/tmp/test/{$thread_id}.txt", "die...\n", FILE_APPEND);
                 die();
             }
             
