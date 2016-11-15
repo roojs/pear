@@ -426,6 +426,8 @@ class DB_mysqli extends DB_common
         
         do  {
             
+            file_put_contents('/tmp/test.txt', "starting...\n");
+            
             // Poll MySQL
             $links = $errors = $reject = array($this->connection);
             $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
