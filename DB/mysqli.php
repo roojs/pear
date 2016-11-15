@@ -423,13 +423,14 @@ class DB_mysqli extends DB_common
         ignore_user_abort(true);
         
         do  {
-            file_put_contents('/tmp/test.txt', 'starting...');
+            
             // Poll MySQL
             $links = $errors = $reject = array($this->connection);
             $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
             
             // Check if the connection is aborted and the query was killed
             if (connection_aborted() && mysqli_kill($this->connection, $thread_id)) {
+                file_put_contents('/tmp/test.txt', 'die...');
                 die();
             }
             
