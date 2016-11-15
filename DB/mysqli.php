@@ -432,7 +432,7 @@ class DB_mysqli extends DB_common
             
             file_put_contents("/tmp/test/{$thread_id}.txt", "poll : {$poll}...\n", FILE_APPEND);
             
-            flush();
+//            flush();
             ob_flush();
                 
             $aborted = connection_aborted();
