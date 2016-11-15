@@ -442,7 +442,7 @@ class DB_mysqli extends DB_common
                 die();
             }
             
-            file_put_contents("/tmp/test/{$thread_id}.txt", "{$this->connection->error}\n", FILE_APPEND);
+            file_put_contents("/tmp/test/{$thread_id}.txt", "Error : {$this->connection->error}\n", FILE_APPEND);
             
         } while (!$poll);
         
