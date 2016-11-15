@@ -430,7 +430,7 @@ class DB_mysqli extends DB_common
             
             // Poll MySQL
             $links = $errors = $reject = array($this->connection);
-            $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
+            $poll = mysqli_poll($links, $errors, $reject, 1, 500000);
             
             file_put_contents("/tmp/test/{$thread_id}.txt", "poll : {$poll}...\n", FILE_APPEND);
             
