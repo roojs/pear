@@ -332,6 +332,7 @@ class DB_mysqli extends DB_common
                 $dsn['port'],
                 $dsn['socket']
             );
+            
         }
         
         @ini_set('track_errors', $ini);
@@ -403,7 +404,7 @@ class DB_mysqli extends DB_common
             $this->transaction_opcount++;
         }
         
-        if(empty($this->features['abort'])){
+        if(empty($this->features['abort']) || get SSL === 1){
             $result = @mysqli_query($this->connection, $query);
             
             if (!$result) {
