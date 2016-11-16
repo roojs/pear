@@ -438,15 +438,17 @@ class DB_mysqli extends DB_common
         
         ignore_user_abort(true);
         
-        header('Fake Header:ROOJS');
-        ob_flush();
-        flush();
+        
+//        ob_flush();
+//        flush();
 
         file_put_contents("/tmp/test/{$thread_id}.txt", "Starting...\n");
         
         do  {
             
-            echo "0";
+            header('Fake Header:ROOJS');
+//            
+//            echo "0";
             ob_flush();
             flush();
             // Poll MySQL
