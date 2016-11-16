@@ -127,12 +127,6 @@ class DB_mysqli extends DB_common
     var $connection;
     
     /**
-     * The raw database connection created by PHP
-     * @var resource
-     */
-    var $kill_connection;
-
-    /**
      * The DSN information for connecting to a database
      * @var array
      */
