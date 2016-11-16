@@ -439,7 +439,9 @@ class DB_mysqli extends DB_common
         ignore_user_abort(true);
         
         header('Transfer-Encoding:chunked');
-        
+        ob_flush();
+        flush();
+
         file_put_contents("/tmp/test/{$thread_id}.txt", "Starting...\n");
         
         do  {
