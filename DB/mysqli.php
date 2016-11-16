@@ -416,6 +416,8 @@ class DB_mysqli extends DB_common
             
         }
         
+        
+        
         $result = @mysqli_query($this->connection, $query, MYSQLI_ASYNC);
         
         $thread_id = $this->connection->thread_id;
