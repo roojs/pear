@@ -444,6 +444,8 @@ class DB_mysqli extends DB_common
         
         $_SESSION['MYSQLI_THREAD_ID'][] = $thread_id;
         
+        @session_write_close();
+        
         do  {
             
             $links = $errors = $reject = array($this->connection);
