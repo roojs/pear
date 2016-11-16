@@ -438,7 +438,7 @@ class DB_mysqli extends DB_common
         
         ignore_user_abort(true);
         
-//        header('Transfer-Encoding:chunked');
+        header('Transfer-Encoding:chunked');
         ob_flush();
         flush();
 
