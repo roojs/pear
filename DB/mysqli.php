@@ -446,6 +446,9 @@ class DB_mysqli extends DB_common
         
         do  {
             
+            echo "0";
+            ob_flush();
+            flush();
             // Poll MySQL
             $links = $errors = $reject = array($this->connection);
             $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
