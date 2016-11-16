@@ -333,7 +333,7 @@ class DB_mysqli extends DB_common
                 $dsn['socket']
             );
         }
-
+        
         @ini_set('track_errors', $ini);
 
         if (!$this->connection) {
