@@ -404,7 +404,7 @@ class DB_mysqli extends DB_common
             $this->transaction_opcount++;
         }
         
-        if(empty($this->features['abort']) || get SSL === 1){
+        if(empty($this->features['abort'])){
             $result = @mysqli_query($this->connection, $query);
             
             if (!$result) {
