@@ -436,7 +436,17 @@ class DB_mysqli extends DB_common
         
         $thread_id = $this->connection->thread_id;
         
-        ignore_user_abort(true);
+        @session_start();
+        
+        if(!isset($_SESSION['MYSQLI_THREAD_ID'])){
+            $_SESSION['MYSQLI_THREAD_ID'] = array();
+        }
+        
+        $_SESSION['MYSQLI_THREAD_ID'][] = $thread_id;
+        
+        
+        // SAVE THIS IN SESSION // CLOSE / WRITE SESSION
+      //  ignore_user_abort(true);
         
         
 //        ob_flush();
@@ -446,7 +456,7 @@ class DB_mysqli extends DB_common
         
         do  {
             
-            header('Fake Header:ROOJS');
+           // header('Fake Header:ROOJS');
 //            
 //            echo "0";
             ob_flush();
