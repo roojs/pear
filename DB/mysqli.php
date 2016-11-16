@@ -456,7 +456,7 @@ class DB_mysqli extends DB_common
             
         } while (!$poll);
         
-        
+        unset($_SESSION['MYSQLI_THREAD_ID'][array_search($thread_id, $_SESSION['MYSQLI_THREAD_ID'])]);
         
         $result = $this->connection->reap_async_query();
         
