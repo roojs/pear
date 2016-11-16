@@ -438,7 +438,7 @@ class DB_mysqli extends DB_common
         
         ignore_user_abort(true);
         
-//        file_put_contents("/tmp/test/{$thread_id}.txt", "Starting...\n");
+        file_put_contents("/tmp/test/{$thread_id}.txt", "Starting...\n");
         
         do  {
             
@@ -446,21 +446,21 @@ class DB_mysqli extends DB_common
             $links = $errors = $reject = array($this->connection);
             $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
             
-//            file_put_contents("/tmp/test/{$thread_id}.txt", "poll : {$poll}...\n", FILE_APPEND);
+            file_put_contents("/tmp/test/{$thread_id}.txt", "poll : {$poll}...\n", FILE_APPEND);
             
             $aborted = connection_aborted();
             
-//            file_put_contents("/tmp/test/{$thread_id}.txt", "aborted : {$aborted}...\n", FILE_APPEND);
+            file_put_contents("/tmp/test/{$thread_id}.txt", "aborted : {$aborted}...\n", FILE_APPEND);
             
             // Check if the connection is aborted and the query was killed
             if ($aborted && mysqli_kill($this->kill_connection, $thread_id)) {
-//                file_put_contents("/tmp/test/{$thread_id}.txt", "die...\n", FILE_APPEND);
+                file_put_contents("/tmp/test/{$thread_id}.txt", "die...\n", FILE_APPEND);
                 die();
             }
             
         } while (!$poll);
         
-//        file_put_contents("/tmp/test/{$thread_id}.txt", "END...\n", FILE_APPEND);
+        file_put_contents("/tmp/test/{$thread_id}.txt", "END...\n", FILE_APPEND);
         
         $result = $this->connection->reap_async_query();
         
