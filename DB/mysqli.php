@@ -444,7 +444,7 @@ class DB_mysqli extends DB_common
         @session_start();
         
         if(!in_array($thread_id, $_SESSION['MYSQLI_THREAD_ID'])){
-            return $this->mysqliRaiseError();
+            return $this->mysqliRaiseError(DB_ERROR_CONNECT_FAILED);
         }
         
         unset($_SESSION['MYSQLI_THREAD_ID'][array_search($thread_id, $_SESSION['MYSQLI_THREAD_ID'])]);
