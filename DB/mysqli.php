@@ -444,42 +444,19 @@ class DB_mysqli extends DB_common
         
         $_SESSION['MYSQLI_THREAD_ID'][] = $thread_id;
         
-        
-        // SAVE THIS IN SESSION // CLOSE / WRITE SESSION
-      //  ignore_user_abort(true);
-        
-        
-//        ob_flush();
-//        flush();
-
-        file_put_contents("/tmp/test/{$thread_id}.txt", "Starting...\n");
-        
         do  {
             
-           // header('Fake Header:ROOJS');
-//            
-//            echo "0";
-            ob_flush();
-            flush();
-            // Poll MySQL
             $links = $errors = $reject = array($this->connection);
             $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
             
-            file_put_contents("/tmp/test/{$thread_id}.txt", "poll : {$poll}...\n", FILE_APPEND);
-            
-            $aborted = connection_aborted();
-            
-            file_put_contents("/tmp/test/{$thread_id}.txt", "aborted : {$aborted}...\n", FILE_APPEND);
-            
-            // Check if the connection is aborted and the query was killed
-            if ($aborted && mysqli_kill($this->kill_connection, $thread_id)) {
-                file_put_contents("/tmp/test/{$thread_id}.txt", "die...\n", FILE_APPEND);
-                die();
-            }
+//            if ($aborted && mysqli_kill($this->kill_connection, $thread_id)) {
+//                file_put_contents("/tmp/test/{$thread_id}.txt", "die...\n", FILE_APPEND);
+//                die();
+//            }
             
         } while (!$poll);
         
-        file_put_contents("/tmp/test/{$thread_id}.txt", "END...\n", FILE_APPEND);
+//        file_put_contents("/tmp/test/{$thread_id}.txt", "END...\n", FILE_APPEND);
         
         $result = $this->connection->reap_async_query();
         
