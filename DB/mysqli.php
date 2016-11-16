@@ -436,7 +436,11 @@ class DB_mysqli extends DB_common
         
         $thread_id = $this->connection->thread_id;
         
-        @session_start();
+        $isRunning = session_status() == PHP_SESSION_ACTIVE;
+        
+        if(!$isRunning){
+            @session_start();
+        }
         
         if(!isset($_SESSION['MYSQLI_THREAD_ID'])){
             $_SESSION['MYSQLI_THREAD_ID'] = array();
@@ -457,7 +461,9 @@ class DB_mysqli extends DB_common
         
         unset($_SESSION['MYSQLI_THREAD_ID'][array_search($thread_id, $_SESSION['MYSQLI_THREAD_ID'])]);
         
-        @session_write_close();
+        if(!$isRunning){
+            @session_write_close();
+        }
         
         $result = $this->connection->reap_async_query();
         
