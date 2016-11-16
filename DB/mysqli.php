@@ -449,11 +449,6 @@ class DB_mysqli extends DB_common
             $links = $errors = $reject = array($this->connection);
             $poll = mysqli_poll($links, $errors, $reject, 0, 500000);
             
-//            if ($aborted && mysqli_kill($this->kill_connection, $thread_id)) {
-//                file_put_contents("/tmp/test/{$thread_id}.txt", "die...\n", FILE_APPEND);
-//                die();
-//            }
-            
         } while (!$poll);
         
         unset($_SESSION['MYSQLI_THREAD_ID'][array_search($thread_id, $_SESSION['MYSQLI_THREAD_ID'])]);
