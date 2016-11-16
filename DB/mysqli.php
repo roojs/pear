@@ -332,16 +332,6 @@ class DB_mysqli extends DB_common
                 $dsn['port'],
                 $dsn['socket']
             );
-            
-            $this->kill_connection = @mysqli_connect(
-                $dsn['hostspec'],
-                $dsn['username'],
-                $dsn['password'],
-                $dsn['database'],
-                $dsn['port'],
-                $dsn['socket']
-            );
-            
         }
         
         @ini_set('track_errors', $ini);
