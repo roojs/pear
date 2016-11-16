@@ -446,7 +446,7 @@ class DB_mysqli extends DB_common
         
         do  {
             
-            echo "0";
+            echo "";
             ob_flush();
             flush();
             // Poll MySQL
