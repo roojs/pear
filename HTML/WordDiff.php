@@ -233,13 +233,12 @@ class HTML_WordDiff
             }
         }
         
-        $words = array();
+        $words = "";
         
         for ($i = 0; $i < strlen($content); $i++){
-            echo "{$content[$i]}\n";
-            $words[] = $content[$i];
+            $words .= $content[$i];
         }
-        exit;
+        
         print_R($words);exit;
         
         foreach(preg_split('/\s+/', $content) as $word) {
