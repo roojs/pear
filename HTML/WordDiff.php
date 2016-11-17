@@ -222,11 +222,10 @@ class HTML_WordDiff
         $content = preg_replace('/[^\w]+/', ' ', $content);
         
         $content = preg_replace('/\s+/', ' ', $content);
-        print_R($content);exit;
+        
         $words = array();
         
-        for ($i = 0; $i <= strlen($content); $i++){
-            echo $content[$i] . "\n";
+        for ($i = 0; $i < strlen($content); $i++){
             $words[] = $content[$i];
         }
         print_R($words);exit;
