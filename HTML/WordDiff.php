@@ -216,7 +216,7 @@ class HTML_WordDiff
         @$pageDom->loadHTML(($charset == 'UTF-8' ? '<?xml version="1.0" encoding="UTF-8"?>' : ''). $searchPage);
 
         $sentence = $this->parse_node($pageDom->documentElement, array(), $charset);
-        echo "test\n";
+        
         print_R($sentence);exit;
         
         $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
