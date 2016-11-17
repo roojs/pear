@@ -236,6 +236,12 @@ class HTML_WordDiff
         $words = "";
         
         for ($i = 0; $i < strlen($content); $i++){
+            
+            if(empty($content[$i])){
+                continue;
+            }
+            
+            
             $words .= $content[$i];
         }
         
