@@ -239,6 +239,8 @@ class HTML_WordDiff
             
             $word = mb_substr($content, $i, 1);
             
+            echo "$word \n";
+            
             if(preg_match('/'.$this->cjkpreg().'/u', $word)){
                 echo "is cjk \n";
                 $words .= " $word ";
