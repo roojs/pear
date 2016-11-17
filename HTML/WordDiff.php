@@ -142,6 +142,7 @@ class HTML_WordDiff
      */
     function buildWords($target = 'original')
     {
+        print_R($this);exit;
         static $cache= array();
         if (isset($cache[md5($this->htmlDom)])) {
             $this->$target = $cache[md5($this->htmlDom)];
