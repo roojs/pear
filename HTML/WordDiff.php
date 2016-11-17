@@ -222,7 +222,7 @@ class HTML_WordDiff
         print_R($content);exit;
         
         $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
-       // print_r($words);exit;
+        
         
 //        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
         if($this->debug_on){
