@@ -288,7 +288,11 @@ class HTML_WordDiff
                 }
             }
             
-            echo "$str\n";exit;
+            echo "$str\n";
+            
+            $str = preg_split('/'.$this->cjkpreg().'/u', $str );
+            
+            exit;
             
             //var_dump('xx'.$str);
              //var_dump($str);
