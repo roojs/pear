@@ -243,9 +243,7 @@ class HTML_WordDiff
         }
         
         if ($node->nodeType == XML_TEXT_NODE) {
-        
-            $sentence[] = trim($node->textContent);
-            
+            $sentence[] = $node->textContent;
         }
         
         if (!$node->hasChildNodes()) {
