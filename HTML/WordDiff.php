@@ -354,7 +354,7 @@ class HTML_WordDiff
         
         foreach($this->original as $k => $t){
             
-            if(!isset($this->{$target}[$k])){
+            if(!isset($this->target[$k])){
                 continue;
             }
             
