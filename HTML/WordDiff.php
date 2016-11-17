@@ -231,7 +231,7 @@ class HTML_WordDiff
                 continue;
             }
             
-            $word = trim($word);
+            $str = trim($word);
             
             if ($charset != 'auto') {
                 
@@ -247,6 +247,8 @@ class HTML_WordDiff
                     $str = mb_convert_encoding($str, "UTF-8",  $charset);
                 }
             }
+            
+            
             
             $words[] = $word;
         }
