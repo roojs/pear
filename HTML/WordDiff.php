@@ -240,13 +240,11 @@ class HTML_WordDiff
             $word = mb_substr($content, $i, 1);
             
             if(preg_match('/'.$this->cjkpreg().'/u', $word)){
-                echo "{$word} is cjk \n";
                 $words .= " $word ";
                 continue;
             }
             
             if (preg_match('/[^\w]+/', $word)) {
-                echo "{$word} is punct \n";
                 $words .= ' ';
                 continue;
             }
