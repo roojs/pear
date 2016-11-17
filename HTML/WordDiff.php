@@ -224,15 +224,10 @@ class HTML_WordDiff
         $content = preg_replace('/\s+/', ' ', $content);
         
         if ($charset != 'auto') {
-                
             if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
-                //var_dump("ORIG" . $str);
                 $content = mb_convert_encoding($content, $charset,  "UTF-8");
-                //var_dump("$charset:" .$str);
                 $content = mb_convert_encoding($content, "BIG5",$charset);
-                //var_dump("BIG5:".$str);
                 $content = mb_convert_encoding($content, "UTF-8",  "BIG5");
-                //var_dump("UTF-8:".$str);
             } else {
                 $content = mb_convert_encoding($content, "UTF-8",  $charset);
             }
