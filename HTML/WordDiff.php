@@ -215,9 +215,13 @@ class HTML_WordDiff
         
         @$pageDom->loadHTML(($charset == 'UTF-8' ? '<?xml version="1.0" encoding="UTF-8"?>' : ''). $searchPage);
 
-        $sentence = implode('', $this->parse_node($pageDom->documentElement, array(), $charset));
+        $sentence = $this->parse_node($pageDom->documentElement, array(), $charset);
         
         print_R($sentence);exit;
+        
+        $content = implode('', $sentence);
+        
+        print_R($content);exit;
         
         $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
        // print_r($words);exit;
