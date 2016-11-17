@@ -290,9 +290,9 @@ class HTML_WordDiff
             
             echo "$str\n";
             
-            $str = preg_split('/'.$this->cjkpreg().'/u', $str );
+            $str = utf8_encode($str);
             
-            print_R($str);
+            echo "$str \n";
             
             exit;
             
