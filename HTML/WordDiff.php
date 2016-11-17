@@ -124,7 +124,6 @@ class HTML_WordDiff
             return;
         }
         $this->$m();
-        print_R($this->target);exit;
     }
     
     function isSino()
@@ -144,6 +143,7 @@ class HTML_WordDiff
     function buildWords($target = 'original')
     {
         static $cache= array();
+        
         if (isset($cache[md5($this->htmlDom)])) {
             $this->$target = $cache[md5($this->htmlDom)];
             
