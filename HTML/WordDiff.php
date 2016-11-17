@@ -352,8 +352,9 @@ class HTML_WordDiff
         
         $matchs = 0;
         
-        foreach($this->original as $k=>$t){
-            if(!isset($this->target[$k])){
+        foreach($this->original as $k => $t){
+            
+            if(!isset($this->{$target}[$k])){
                 continue;
             }
             
