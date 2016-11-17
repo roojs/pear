@@ -245,6 +245,9 @@ class HTML_WordDiff
         echo "node type : {$node->nodeType} \n";
         
         if ($node->nodeType == XML_TEXT_NODE) {
+            
+            echo "node content : {$node->textContent} \n";
+            
             $sentence[] = trim($node->textContent);
         }
         
