@@ -218,10 +218,11 @@ class HTML_WordDiff
         $sentence = $this->parse_node($pageDom->documentElement, array(), $charset);
         
         $content = implode('', $sentence);
-        print_R($content);exit;
-        $content = preg_replace('/[^\w]+/', ' ', $content);
+        
+        $content = preg_replace('/\n+/', ' ', $content);
         
         $content = preg_replace('/\s+/', ' ', $content);
+        
         print_R($content);exit;
         if ($charset != 'auto') {
             if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
