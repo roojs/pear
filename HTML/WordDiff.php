@@ -223,7 +223,7 @@ class HTML_WordDiff
        
         // may produce errors - so we hide them...
         $searchPage = preg_replace('#charset=([^"]+)#', '', $this->htmlDom);
-        $searchPage = "Lee Wood將駐守香港，負責拓展香港業務，並向大都會人壽亞洲區執行官（Regional Executive）Damien Green匯報。";
+        $searchPage = "Lee Wood將駐守香港，負責拓展香港業務%，並向大都會人壽亞洲區執行官（Regional Executive）Damien Green匯報。";
         //$searchPage = $this->htmlDom; //@mb_convert_encoding($this->htmlDom, $charset ,  $charset=="UTF-8" ? "auto" :$charset);
                  
         
