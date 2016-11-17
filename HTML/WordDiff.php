@@ -159,14 +159,14 @@ class HTML_WordDiff
             return;
         }
         
-        $a = $this->DomToStrings();
+        $words = $this->DomToStrings();
         
         if ($this->wordMax < 0) {
-            $this->wordMax = 10 * count($a);
+            $this->wordMax = 10 * count($word);
         }
         
         if($this->debug_on){
-            var_Dump("domstrings"); print_r($a);
+            var_Dump("domstrings"); print_r($word);
         }
         
         $ret = array();
