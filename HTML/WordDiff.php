@@ -223,7 +223,6 @@ class HTML_WordDiff
        
         // may produce errors - so we hide them...
         $searchPage = preg_replace('#charset=([^"]+)#', '', $this->htmlDom);
-        
         //$searchPage = $this->htmlDom; //@mb_convert_encoding($this->htmlDom, $charset ,  $charset=="UTF-8" ? "auto" :$charset);
                  
         
@@ -241,7 +240,7 @@ class HTML_WordDiff
         @$pageDom->loadHTML(($charset == 'UTF-8' ? '<?xml version="1.0" encoding="UTF-8"?>' : ''). $searchPage);
 //        exit;
         $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
-        print_r($words);exit;
+       // print_r($words);exit;
         
 //        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
         if($this->debug_on){
