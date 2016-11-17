@@ -124,6 +124,7 @@ class HTML_WordDiff
             return;
         }
         $this->$m();
+        print_R($this->target);exit;
     }
     
     function isSino()
