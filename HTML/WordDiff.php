@@ -222,7 +222,7 @@ class HTML_WordDiff
         $content = preg_replace('/[^\w]+/', ' ', $content);
         
         $content = preg_replace('/\s+/', ' ', $content);
-        
+        print_R($content);exit;
         if ($charset != 'auto') {
             if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
                 $content = mb_convert_encoding($content, $charset,  "UTF-8");
