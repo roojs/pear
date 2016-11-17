@@ -288,7 +288,7 @@ class HTML_WordDiff
                 }
             }
             
-            print_R($str);exit;
+            print_R($str[0]);exit;
             
             //var_dump('xx'.$str);
              //var_dump($str);
