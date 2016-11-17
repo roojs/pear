@@ -235,6 +235,23 @@ class HTML_WordDiff
         if (empty($node)) {
             return $sentence;
         }
+        
+        if ($node->nodeType == XML_TEXT_NODE && strlen(trim($node->textContent))) {
+            $sentence[] = $node->textContent
+        }
+        
+        if (!$node->hasChildNodes()) {
+            return $sentence;
+        }
+        
+        for($i = 0; $i < $node->childNodes->length; $i++) {
+            
+            $n = $node->childNodes->item($i);
+            
+            $sentence = $this->domExtractWords($n, $sentence, $charset);
+        }
+        
+        return $sentence;
     }
     
     
