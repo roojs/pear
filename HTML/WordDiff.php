@@ -162,8 +162,9 @@ class HTML_WordDiff
         $a = $this->DomToStrings();
         
         if ($this->wordMax < 0) {
-            $this->wordMax = 10*count($a);
+            $this->wordMax = 10 * count($a);
         }
+        
         if($this->debug_on){
             var_Dump("domstrings"); print_r($a);
 //            exit;
