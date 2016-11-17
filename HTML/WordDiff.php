@@ -239,25 +239,21 @@ class HTML_WordDiff
             
             $word = mb_substr($content, $i, 1);
             
-            if(preg_match('/[^\pL\pN\pP\pS\pZ]/u', $word)){
-                echo "{$word} is punct \n";
+            if(preg_match('/'.$this->cjkpreg().'/u', $word)){
+                echo "is cjk \n";
+                $words .= " $word ";
+                continue;
             }
             
-//            if(preg_match('/'.$this->cjkpreg().'/u', $word)){
-//                echo "is cjk \n";
-//                $words .= " $word ";
-//                continue;
-//            }
-//            
-//            if (preg_match('/[^\w]+/', $word)) {
-//                echo "is punct \n";
-//                $words .= ' ';
-//                continue;
-//            }
-//            
-//            $words .= $word;
+            if (preg_match('/[^\w]+/', $word)) {
+                echo "is punct \n";
+                $words .= ' ';
+                continue;
+            }
+            
+            $words .= $word;
         }
-        exit;
+        
         print_R($words);exit;
         
         foreach(preg_split('/\s+/', $content) as $word) {
