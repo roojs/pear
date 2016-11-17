@@ -230,6 +230,10 @@ class HTML_WordDiff
         return $words;
     }
     
+    function parse_node()
+    {
+        
+    }
     
     
     var $tmpWords = false;
