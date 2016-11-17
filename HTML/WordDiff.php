@@ -214,12 +214,6 @@ class HTML_WordDiff
         $searchPage = preg_replace('#charset=([^"]+)#', '', $this->htmlDom);
         
         @$pageDom->loadHTML(($charset == 'UTF-8' ? '<?xml version="1.0" encoding="UTF-8"?>' : ''). $searchPage);
-
-        $content = preg_replace('/\n+/', '', $pageDom->documentElement->nodeValue);
-                
-                
-        print_R($content);exit;
-        
         
         $sentence = $this->parse_node($pageDom->documentElement, array(), $charset);
         
