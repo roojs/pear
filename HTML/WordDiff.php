@@ -237,10 +237,10 @@ class HTML_WordDiff
         
         for ($i = 0; $i < strlen($content); $i++){
             
-//            echo "$content[$i]\n";
+            echo "$content[$i]\n";
             
             if (ctype_punct($content[$i])) {
-//                echo "is punct\n";
+                echo "is punct\n";
                 $words .= ' ';
                 continue;
             }
