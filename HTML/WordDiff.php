@@ -275,7 +275,7 @@ class HTML_WordDiff
                     $str = mb_convert_encoding($str, "UTF-8",  "BIG5");
                     //var_dump("UTF-8:".$str);
                 } else {
-                    echo "run here \n";
+                    
                     $str = mb_convert_encoding($str, "UTF-8",  $charset);
                 }
             }
