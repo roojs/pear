@@ -150,7 +150,7 @@ class HTML_WordDiff
             if ($this->wordMax < 0) {
                 $this->wordMax = array_sum(array_values($this->$target)) * 10 ;
             }
-            print_R($this->wordMax);exit;
+            print_R($this->$target);exit;
             if($target == 'original'){
                 $this->countTotal = array_sum(array_values($this->$target));
             }else{
