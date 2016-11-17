@@ -275,6 +275,8 @@ class HTML_WordDiff
             return $words;
         }
         
+        echo "node type : {$node->nodeType} \n";
+        
         if ($node->nodeType == XML_TEXT_NODE && strlen(trim($node->textContent))) {// this is got the bug at sina....
             
             $str = trim($node->textContent);
