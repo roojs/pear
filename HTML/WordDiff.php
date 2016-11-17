@@ -241,6 +241,9 @@ class HTML_WordDiff
 //        exit;
         echo "START...\n";
         $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
+        
+        print_R($words);
+        exit;
        // print_r($words);exit;
         
 //        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
