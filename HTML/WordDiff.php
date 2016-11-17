@@ -287,10 +287,13 @@ class HTML_WordDiff
                     $str = mb_convert_encoding($str, "UTF-8",  $charset);
                 }
             }
+            
             echo "$str \n";
+            
             for ($i = 0; $i < mb_strlen($str); $i++){
                 echo "$str[$i] \n";
             }
+            
             exit;
             //print_R(mb_strlen($str));exit;
             
