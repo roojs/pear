@@ -206,7 +206,7 @@ class HTML_WordDiff
     
     function DomToStrings($target = '')
     {
-        $strings = array('ABasdk!@!$#', '!@ # $', '*&$(),，');
+        $strings = array('ABasdk!@!$#', '!@ # $', '*&$(),');
         foreach ($strings as $testcase) {
             if (ctype_punct($testcase)) {
                 echo "The string $testcase consists of all punctuation.\n";
