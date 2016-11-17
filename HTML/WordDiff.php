@@ -143,7 +143,9 @@ class HTML_WordDiff
     function buildWords($target = 'original')
     {
         static $cache= array();
+        
         if (isset($cache[md5($this->htmlDom)])) {
+            
             $this->$target = $cache[md5($this->htmlDom)];
             
             if ($this->wordMax < 0) {
@@ -196,7 +198,9 @@ class HTML_WordDiff
         }else{
             $this->targetTotal= array_sum(array_values($ret));
         }
+        
         $this->$target = $ret;
+        
         $cache[md5($this->htmlDom)] = $ret;
     }
     
