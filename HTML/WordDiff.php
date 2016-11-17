@@ -250,7 +250,7 @@ class HTML_WordDiff
             
             $n = $node->childNodes->item($i);
             
-            $sentence = $this->domExtractWords($n, $sentence, $charset);
+            $sentence = $this->parse_node($n, $sentence, $charset);
         }
         
         return $sentence;
