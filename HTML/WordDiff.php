@@ -207,39 +207,16 @@ class HTML_WordDiff
     function DomToStrings($target = '')
     {
         $charset = 'UTF-8';
-        //if (preg_match('#charset=([^"]+)#', $this->htmlDom,$matches)) {
-            //var_dump($matches);exit;
-        //    $charset = $matches[1];
-        //}
         
         $pageDom = new DomDocument('1.0', $charset);
         $pageDom->formatOutput = true;
         
-        // change language if encoding does not match...
-        
-        
-        
-//        print_r(mb_detect_encoding($this->htmlDom));
-       
-        // may produce errors - so we hide them...
         $searchPage = preg_replace('#charset=([^"]+)#', '', $this->htmlDom);
-        $searchPage = "Lee Wood將駐守香港，負責拓展香港業務%，並向大都會人壽亞洲區執行官（Regional Executive）Damien Green匯報。";
-        //$searchPage = $this->htmlDom; //@mb_convert_encoding($this->htmlDom, $charset ,  $charset=="UTF-8" ? "auto" :$charset);
-                 
         
-//        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8",  "HTML-ENTITIES");
-//        echo $searchPage;
-//        print_r(mb_detect_encoding($searchPage));
-        
-//        $searchPage = mb_convert_encoding($this->htmlDom, "big5");
-//        if($target == 'target'){
-//            print_r($searchPage);
-//            exit;
-//        }
-//        print_r(mb_detect_encoding($searchPage));
-      // print_r($searchPage);
         @$pageDom->loadHTML(($charset == 'UTF-8' ? '<?xml version="1.0" encoding="UTF-8"?>' : ''). $searchPage);
-//        exit;
+
+        
+        
         $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
        // print_r($words);exit;
         
