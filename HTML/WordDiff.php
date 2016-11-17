@@ -219,7 +219,16 @@ class HTML_WordDiff
         
         $content = preg_replace('/\s+/', ' ', preg_replace('/\n+/', ' ', implode('', $sentence)));
         
-        print_R($content);exit;
+        $words = array();
+        
+        foreach(preg_split('/\s+/', $content) as $word) {
+            
+            if (!trim($word)) {
+                continue;
+            }
+            // fixme - break unicode chars
+            $words[] = $word;
+        }
         
         $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
         
