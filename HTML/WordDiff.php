@@ -241,11 +241,11 @@ class HTML_WordDiff
             
             echo "$word \n";
             
-            if(preg_match('/'.$this->cjkpreg().'/u', $word)){
-                echo "is cjk \n";
-                $words .= " $word ";
-                continue;
-            }
+//            if(preg_match('/'.$this->cjkpreg().'/u', $word)){
+//                echo "is cjk \n";
+//                $words .= " $word ";
+//                continue;
+//            }
             
             if (preg_match('/[^\w]+/', $word)) {
                 echo "is punct \n";
