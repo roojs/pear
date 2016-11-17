@@ -228,9 +228,9 @@ class HTML_WordDiff
         $words = array();
         
         for ($i = 0; $i <= strlen($content); $i++){
-            
+            $words[] = $content[$i];
         }
-        
+        print_R($words);exit;
         foreach(preg_split('/\s+/', $content) as $word) {
             
             if (!trim($word)) {
