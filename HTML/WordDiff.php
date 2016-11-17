@@ -217,6 +217,8 @@ class HTML_WordDiff
 
         $sentence = $this->parse_node($pageDom->documentElement, array(), $charset);
         
+        print_R($sentence);exit;
+        
         $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
        // print_r($words);exit;
         
