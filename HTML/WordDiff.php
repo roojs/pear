@@ -172,17 +172,12 @@ class HTML_WordDiff
         $ret = array();
         $last_w = false;
         
-        foreach($words as $word){
+        foreach($words as $str){
+            
             if(empty($str) || !trim(strlen($str))) {
                 continue;
             }
-//            if(!isset($ret[$str])){
-//                $ret[$str] = 1;
-//            
-//            } else {
-//                $ret[$str] += 1;
-//            }
-            // now deal with pairing..
+            
             if ($last_w !== false) {
                 
                 if(!isset($ret[$last_w.'|'.$str])){
@@ -193,6 +188,7 @@ class HTML_WordDiff
                 }    
                 
             }
+            
             $last_w = $str;
         }
 //        print_r($ret);
