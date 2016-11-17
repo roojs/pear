@@ -368,6 +368,7 @@ class HTML_WordDiff
                 $matchs += $this->target[$k];
                 continue;
             }
+            
             $matchs += $this->original[$k];
             
         }
