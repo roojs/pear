@@ -223,6 +223,7 @@ class HTML_WordDiff
        
         // may produce errors - so we hide them...
         $searchPage = preg_replace('#charset=([^"]+)#', '', $this->htmlDom);
+        print_R($searchPage);exit;
         //$searchPage = $this->htmlDom; //@mb_convert_encoding($this->htmlDom, $charset ,  $charset=="UTF-8" ? "auto" :$charset);
                  
         
