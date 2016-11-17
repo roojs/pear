@@ -149,7 +149,7 @@ class HTML_WordDiff
             $this->$target = $cache[md5($this->htmlDom)];
             
             if ($this->wordMax < 0) {
-                $this->wordMax = array_sum(array_values($this->target)) * 10 ;
+                $this->wordMax = array_sum(array_values($this->$target)) * 10 ;
             }
             
             if($target == 'original'){
