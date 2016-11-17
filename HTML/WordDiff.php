@@ -167,8 +167,8 @@ class HTML_WordDiff
         
         if($this->debug_on){
             var_Dump("domstrings"); print_r($a);
-//            exit;
         }
+        
         $ret = array();
         $last_w = false;
         
