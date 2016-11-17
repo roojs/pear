@@ -219,9 +219,9 @@ class HTML_WordDiff
         
         $content = implode('', $sentence);
         
-        $content = preg_replace('/\n+/u', ' ', $content);
+        $content = preg_replace('/\n+/', ' ', $content);
         
-        $content = preg_replace('/\s+/u', ' ', $content);
+        $content = preg_replace('/\s+/', ' ', $content);
         
         if ($charset != 'auto') {
             if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
@@ -252,7 +252,7 @@ class HTML_WordDiff
             $words .= $word;
         }
 
-        print_R($words);exit;
+        $words = preg_split('/\s+/', $charset)
         
         foreach(preg_split('/\s+/', $content) as $word) {
             
