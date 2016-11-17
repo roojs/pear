@@ -220,7 +220,7 @@ class HTML_WordDiff
         $content = implode('', $sentence);
         
         $content = preg_replace('/[^\w]+/', ' ', $content);
-        
+        print_R($content);exit;
         $content = preg_replace('/\s+/', ' ', $content);
         print_R($content);exit;
         if ($charset != 'auto') {
