@@ -291,6 +291,7 @@ class HTML_WordDiff
             for ($i = 0; $i < mb_strlen($str); $i++){
                 echo "$str[$i] \n";
             }
+            exit;
             //print_R(mb_strlen($str));exit;
             
             //var_dump('xx'.$str);
