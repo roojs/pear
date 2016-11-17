@@ -239,7 +239,7 @@ class HTML_WordDiff
             
             $word = mb_substr($content, $i, 1);
             
-            if(preg_match('/[^\pL\pN\pP\pS\pZ]/u', $word)){
+            if(preg_match('/[\pL\pN\pP\pS\pZ]/u', $word)){
                 echo "{$word} is punct \n";
             }
             
