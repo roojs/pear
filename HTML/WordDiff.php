@@ -252,7 +252,9 @@ class HTML_WordDiff
             $words .= $word;
         }
 
-        $words = preg_split('/\s+/', $charset)
+        $words = preg_split('/\s+/', $words);
+        
+        print_R($words);exit;
         
         foreach(preg_split('/\s+/', $content) as $word) {
             
