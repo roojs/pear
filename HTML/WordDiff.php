@@ -292,7 +292,10 @@ class HTML_WordDiff
             
             echo mb_strlen($str) . "\n";
             
-            echo mb_substr($str, 0, 1) . "\n";
+            for ($i = 0; $i < mb_strlen($str); $i++){
+                echo mb_substr($str, 0, $i) . "\n";
+            }
+            
             
             exit;
             
