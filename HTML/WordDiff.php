@@ -239,7 +239,7 @@ class HTML_WordDiff
             echo "{$content[$i]}\n";
             $words[] = $content[$i];
         }
-        
+        exit;
         print_R($words);exit;
         
         foreach(preg_split('/\s+/', $content) as $word) {
