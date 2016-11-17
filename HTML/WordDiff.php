@@ -226,6 +226,7 @@ class HTML_WordDiff
         $words = array();
         
         for ($i = 0; $i <= strlen($content); $i++){
+            echo $content[$i] . "\n";
             $words[] = $content[$i];
         }
         print_R($words);exit;
