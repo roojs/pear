@@ -160,7 +160,7 @@ class HTML_WordDiff
         }
         
         $a = $this->DomToStrings();
-        print_R($a);exit;
+        
         if ($this->wordMax < 0) {
             $this->wordMax = 10*count($a);
         }
@@ -239,11 +239,7 @@ class HTML_WordDiff
       // print_r($searchPage);
         @$pageDom->loadHTML(($charset == 'UTF-8' ? '<?xml version="1.0" encoding="UTF-8"?>' : ''). $searchPage);
 //        exit;
-        echo "START...\n";
         $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
-        
-        print_R($words);
-        exit;
        // print_r($words);exit;
         
 //        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
@@ -274,15 +270,9 @@ class HTML_WordDiff
         if (empty($node)) {
             return $words;
         }
-        
-        echo "node type : {$node->nodeType} \n";
-        
         if ($node->nodeType == XML_TEXT_NODE && strlen(trim($node->textContent))) {// this is got the bug at sina....
             
             $str = trim($node->textContent);
-            
-            echo "content : {$str} \n";
-            
             if ($charset != 'auto') {
                 
                 if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
@@ -321,7 +311,6 @@ class HTML_WordDiff
             }
             
         }
-        
         if (!$node->hasChildNodes()) {
             return $words;
         }
