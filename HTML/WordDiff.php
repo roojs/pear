@@ -172,7 +172,7 @@ class HTML_WordDiff
         $ret = array();
         $last_w = false;
         
-        foreach($words as $str){
+        foreach($words as $word){
             if(empty($str) || !trim(strlen($str))) {
                 continue;
             }
