@@ -221,6 +221,8 @@ class HTML_WordDiff
         
         $content = preg_replace('/\s+/', ' ', $content);
         
+        $content = preg_replace_callback('/'.$this->cjkpreg().'/u', array($this, 'addUTF8Word')  , $content);
+        
         print_R($this->tmpWords);exit;
         print_R($content);exit;
         
