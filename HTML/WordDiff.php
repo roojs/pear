@@ -240,6 +240,7 @@ class HTML_WordDiff
             $word = mb_substr($content, $i, 1);
             
             echo "$word \n";
+            echo mb_strlen($word) . "\n";
             
             if (ctype_punct($word)) {
                 echo "is punct \n";
