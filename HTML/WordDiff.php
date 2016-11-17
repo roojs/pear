@@ -226,7 +226,9 @@ class HTML_WordDiff
             if (!trim($word)) {
                 continue;
             }
-            // fixme - break unicode chars
+            
+            
+            
             $words[] = $word;
         }
         
