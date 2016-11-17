@@ -292,8 +292,7 @@ class HTML_WordDiff
             
             $str = utf8_encode($str);
             
-            $str[1];
-            echo "$str \n";
+            echo "$str[1] \n";
             
             exit;
             
