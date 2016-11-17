@@ -246,6 +246,7 @@ class HTML_WordDiff
             }
             
             if(preg_match('/'.$this->cjkpreg().'/u', $content[$i])){
+                echo "is cjk\n";
                 $words .= " {$content[$i]} ";
                 continue;
             }
