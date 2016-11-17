@@ -182,16 +182,15 @@ class HTML_WordDiff
                 
                 if(!isset($ret[$last_w.'|'.$str])){
                     $ret[$last_w.'|'.$str] = 1;
-
                 } else {
                     $ret[$last_w.'|'.$str] += 1;
-                }    
-                
+                }
             }
             
             $last_w = $str;
+            
         }
-//        print_r($ret);
+
         if($target == 'original'){
             $this->countTotal = array_sum(array_values($ret));
         }else{
