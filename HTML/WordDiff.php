@@ -292,6 +292,8 @@ class HTML_WordDiff
             
             $str = preg_split('/'.$this->cjkpreg().'/u', $str );
             
+            echo "$str \n";
+            
             exit;
             
             //var_dump('xx'.$str);
