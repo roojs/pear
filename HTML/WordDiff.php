@@ -242,17 +242,10 @@ class HTML_WordDiff
             return $sentence;
         }
         
-        echo "node type : {$node->nodeType} \n";
-        
         if ($node->nodeType == XML_TEXT_NODE) {
-            
-            echo "node content : {$node->textContent} \n";
-            
+        
             $sentence[] = trim($node->textContent);
             
-            print_R($sentence);
-            
-            echo implode("", $sentence) . "\n";
         }
         
         if (!$node->hasChildNodes()) {
