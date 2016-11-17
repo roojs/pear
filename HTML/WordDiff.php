@@ -408,7 +408,7 @@ class HTML_WordDiff
                     "\x{2E80}-\x{2EFF}",      # CJK Radicals Supplement
                     "\x{2F00}-\x{2FDF}",      # Kangxi Radicals
                     "\x{2FF0}-\x{2FFF}",      # Ideographic Description Characters
-                    "\x{3000}-\x{303F}",      # CJK Symbols and Punctuation
+//                    "\x{3000}-\x{303F}",      # CJK Symbols and Punctuation
                     "\x{3040}-\x{309F}",      # Hiragana
                     "\x{30A0}-\x{30FF}",      # Katakana
                     "\x{3100}-\x{312F}",      # Bopomofo
