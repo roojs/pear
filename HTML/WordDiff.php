@@ -254,35 +254,6 @@ class HTML_WordDiff
 
         $words = preg_split('/\s+/', trim($words));
         
-        print_R($words);exit;
-        
-        foreach(preg_split('/\s+/', $content) as $word) {
-            
-            if (!trim($word)) {
-                continue;
-            }
-            
-            $str = trim($word);
-            
-            if ($charset != 'auto') {
-                
-                if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
-                    //var_dump("ORIG" . $str);
-                    $str = mb_convert_encoding($str, $charset,  "UTF-8");
-                    //var_dump("$charset:" .$str);
-                    $str = mb_convert_encoding($str, "BIG5",$charset);
-                    //var_dump("BIG5:".$str);
-                    $str = mb_convert_encoding($str, "UTF-8",  "BIG5");
-                    //var_dump("UTF-8:".$str);
-                } else {
-                    
-                    $str = mb_convert_encoding($str, "UTF-8",  $charset);
-                }
-            }
-            
-            $words[] = $str;
-        }
-        
         return $words;
     }
     
