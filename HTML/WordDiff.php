@@ -221,6 +221,7 @@ class HTML_WordDiff
         
         $content = preg_replace('/\s+/', ' ', $content);
         
+        print_R($this->tmpWords);exit;
         print_R($content);exit;
         
         $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
