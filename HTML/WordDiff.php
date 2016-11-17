@@ -241,7 +241,7 @@ class HTML_WordDiff
             
             echo "$word \n";
             
-            if(preg_match('/pP$/u', $word)){
+            if(preg_match('/[^\pL\pN\pP\pS\pZ]/u', $word)){
                 echo "is punct \n";
             }
             
