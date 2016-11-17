@@ -307,6 +307,8 @@ class HTML_WordDiff
             // remove puncutianion..
             $str = preg_replace('/[^\w]+/u', ' ', $str);
             
+            echo "after replace : {$str} \n";
+            
             foreach(preg_split('/\s+/u', $str) as $word) {
                 if($this->debug_on){
 //                    print_r(mb_detect_encoding($node->textContent));
