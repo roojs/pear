@@ -290,12 +290,6 @@ class HTML_WordDiff
             
             echo "$str\n";
             
-            $str = utf8_encode($str);
-            
-            $t = utf8_decode($str[1]);
-            
-            echo "$t \n";
-            
             exit;
             
             //var_dump('xx'.$str);
