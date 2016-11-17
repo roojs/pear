@@ -290,6 +290,7 @@ class HTML_WordDiff
             
             echo "$str\n";
             
+            echo mb_strlen($str) . "\n";
             
             exit;
             
