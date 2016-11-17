@@ -249,6 +249,8 @@ class HTML_WordDiff
             echo "node content : {$node->textContent} \n";
             
             $sentence[] = trim($node->textContent);
+            
+            print_R($sentence);
         }
         
         if (!$node->hasChildNodes()) {
