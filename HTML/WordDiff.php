@@ -239,10 +239,8 @@ class HTML_WordDiff
             
             $word = mb_substr($content, $i, 1);
             
-            echo "$word \n";
-            
             if(preg_match('/[^\pL\pN\pP\pS\pZ]/u', $word)){
-                echo "is punct \n";
+                echo "{$word} is punct \n";
             }
             
 //            if(preg_match('/'.$this->cjkpreg().'/u', $word)){
