@@ -29,7 +29,6 @@ class HTML_WordDiff
     var $countTotal = 0; // Total words count form original html
     var $targetTotal = 0; // Total words count form target html
     var $wordMax = -1;
-    var $words = array();
     //word type classification
     var $nonSinoTibetan = array(//non Sino-Tibetan languages
         'aa',
@@ -284,6 +283,7 @@ class HTML_WordDiff
     }
     
     
+    var $tmpWords = false;
     function addUTF8Word($s) {
         
         echo "calling addUTF8Word \n";
