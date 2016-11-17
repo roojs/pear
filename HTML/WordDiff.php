@@ -283,7 +283,6 @@ class HTML_WordDiff
     }
     
     
-    var $tmpWords = false;
     function addUTF8Word($s) {
         
         echo "calling addUTF8Word \n";
