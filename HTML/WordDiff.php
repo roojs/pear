@@ -233,8 +233,6 @@ class HTML_WordDiff
             }
         }
         
-        print_R($content);exit;
-        
         $words = array();
         
         for ($i = 0; $i < strlen($content); $i++){
