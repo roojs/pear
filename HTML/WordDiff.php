@@ -239,6 +239,8 @@ class HTML_WordDiff
             
             $word = mb_substr($content, $i, 1);
             
+            echo "$word \n";
+            
             if (ctype_punct($word)) {
                 $words .= ' ';
                 continue;
@@ -251,6 +253,8 @@ class HTML_WordDiff
             
             $words .= $word;
         }
+        
+        exit;
         
         print_R($words);exit;
         
