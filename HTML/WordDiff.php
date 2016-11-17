@@ -242,6 +242,7 @@ class HTML_WordDiff
             echo "$word \n";
             
             if (ctype_punct($word)) {
+                echo "is punct \n";
                 $words .= ' ';
                 continue;
             }
