@@ -224,6 +224,9 @@ class HTML_WordDiff
         $content = preg_replace_callback('/'.$this->cjkpreg().'/u', array($this, 'addUTF8Word')  , $content);
         
         $content = "Lee Wood將駐守香港，負責拓展香港業務，並向大都會人壽亞洲區執行官（Regional Executive）Damien Green匯報。";
+        
+        mb_convert_encoding($content, "UTF-8",  $charset);
+        
         print_R($this->tmpWords);exit;
         print_R($content);exit;
         
