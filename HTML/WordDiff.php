@@ -223,15 +223,15 @@ class HTML_WordDiff
         
         $content = preg_replace('/\s+/', ' ', $content);
         
-        if ($charset != 'auto') {
-            if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
-                $content = mb_convert_encoding($content, $charset,  "UTF-8");
-                $content = mb_convert_encoding($content, "BIG5",$charset);
-                $content = mb_convert_encoding($content, "UTF-8",  "BIG5");
-            } else {
-                $content = mb_convert_encoding($content, "UTF-8",  $charset);
-            }
-        }
+//        if ($charset != 'auto') {
+//            if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
+//                $content = mb_convert_encoding($content, $charset,  "UTF-8");
+//                $content = mb_convert_encoding($content, "BIG5",$charset);
+//                $content = mb_convert_encoding($content, "UTF-8",  "BIG5");
+//            } else {
+//                $content = mb_convert_encoding($content, "UTF-8",  $charset);
+//            }
+//        }
         
         $words = array();
         
