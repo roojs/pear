@@ -233,7 +233,7 @@ class HTML_WordDiff
                 continue;
             }
             
-            $word = trim($word);
+            $str = trim($word);
             
             if ($charset != 'auto') {
                 
