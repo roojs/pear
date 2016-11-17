@@ -217,9 +217,9 @@ class HTML_WordDiff
         
         $content = trim($pageDom->documentElement->nodeValue);
         
-        $content = preg_replace('/\n+/g', ' ', $content);
+        $content = preg_replace('/\n+/', ' ', $content);
         
-        $content = preg_replace('/\s+/g', ' ', $content);
+        $content = preg_replace('/\s+/', ' ', $content);
         
         print_R($content);exit;
         
