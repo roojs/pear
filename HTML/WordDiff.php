@@ -206,16 +206,6 @@ class HTML_WordDiff
     
     function DomToStrings($target = '')
     {
-        $strings = array('ABasdk!@!$#', '!@ # $', '*&$(),，');
-        foreach ($strings as $testcase) {
-            if (ctype_punct($testcase)) {
-                echo "The string $testcase consists of all punctuation.\n";
-            } else {
-                echo "The string $testcase does not consist of all punctuation.\n";
-            }
-        }
-        exit;
-
         $charset = 'UTF-8';
         
         $pageDom = new DomDocument('1.0', $charset);
@@ -251,15 +241,15 @@ class HTML_WordDiff
             
             echo "$word \n";
             
-            if (ctype_punct($word)) {
-                echo "is punct \n";
-                $words .= ' ';
-                continue;
-            }
-            
             if(preg_match('/'.$this->cjkpreg().'/u', $word)){
                 echo "is cjk \n";
                 $words .= " $word ";
+                continue;
+            }
+            
+            if (preg_match('/[^\w]+/', $word)) {
+                echo "is punct \n";
+                $words .= ' ';
                 continue;
             }
             
