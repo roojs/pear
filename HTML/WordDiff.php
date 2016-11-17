@@ -221,6 +221,8 @@ class HTML_WordDiff
         
         $content = preg_replace('/\n+/', ' ', $content);
         
+        $content = preg_replace('/\s+/', ' ', $content);
+        
         $content = preg_replace('/[^\w]+/', ' ', $content);
         
         $words = array();
@@ -231,7 +233,7 @@ class HTML_WordDiff
                 continue;
             }
             
-            $str = trim($word);
+            $word = trim($word);
             
             if ($charset != 'auto') {
                 
@@ -247,8 +249,6 @@ class HTML_WordDiff
                     $str = mb_convert_encoding($str, "UTF-8",  $charset);
                 }
             }
-            
-            
             
             $words[] = $word;
         }
