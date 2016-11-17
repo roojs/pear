@@ -217,8 +217,14 @@ class HTML_WordDiff
         
         $sentence = $this->parse_node($pageDom->documentElement, array(), $charset);
         
-        $content = preg_replace('/\s+/', ' ', preg_replace('/\n+/', ' ', implode('', $sentence)));
+        $content = implode('', $sentence);
         
+        $content = preg_replace('/\n+/', ' ', $content);
+        
+        $content = preg_replace('/\s+/', ' ', $content);
+        
+        $content = preg_replace('/[^\w]+/', ' ', $content);
+                
         $words = array();
         
         foreach(preg_split('/\s+/', $content) as $word) {
