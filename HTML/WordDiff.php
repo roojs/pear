@@ -212,7 +212,7 @@ class HTML_WordDiff
         $pageDom->formatOutput = true;
         
         $searchPage = preg_replace('#charset=([^"]+)#', '', $this->htmlDom);
-        
+        print_r($searchPage);exit;
         @$pageDom->loadHTML(($charset == 'UTF-8' ? '<?xml version="1.0" encoding="UTF-8"?>' : ''). $searchPage);
         
         $sentence = $this->parse_node($pageDom->documentElement, array(), $charset);
