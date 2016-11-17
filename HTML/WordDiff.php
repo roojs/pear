@@ -273,6 +273,9 @@ class HTML_WordDiff
         if ($node->nodeType == XML_TEXT_NODE && strlen(trim($node->textContent))) {// this is got the bug at sina....
             
             $str = trim($node->textContent);
+            
+            echo "node content : {$str} \n";
+            
             if ($charset != 'auto') {
                 
                 if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
