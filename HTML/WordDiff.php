@@ -290,7 +290,7 @@ class HTML_WordDiff
             
             echo "$str\n";
             
-            print_r(count_chars($str, 1));
+            print_r(count_chars($str, 3));
             
             exit;
             
