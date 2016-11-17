@@ -256,6 +256,10 @@ class HTML_WordDiff
     
     var $tmpWords = false;
     function addUTF8Word($s) {
+        
+        echo "calling add UTF8Word \n";
+        print_R($s);
+        
         $this->tmpWords[] = $s[0];
 //        print_r($this->tmpWords);
         return ' ';
@@ -290,6 +294,8 @@ class HTML_WordDiff
                     $str = mb_convert_encoding($str, "UTF-8",  $charset);
                 }
             }
+            
+            echo "node content mb convert : {$str} \n";
             
             //var_dump('xx'.$str);
              //var_dump($str);
