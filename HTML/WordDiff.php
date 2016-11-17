@@ -250,7 +250,7 @@ class HTML_WordDiff
                 }
             }
             
-            $words[] = $word;
+            $words[] = $str;
         }
         
         $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
