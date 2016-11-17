@@ -216,7 +216,7 @@ class HTML_WordDiff
         
         @$pageDom->loadHTML(($charset == 'UTF-8' ? '<?xml version="1.0" encoding="UTF-8"?>' : ''). $searchPage);
         
-        $sentence = $this->parse_node($pageDom->documentElement, array(), $charset);
+        $sentence = $this->domExtractWords($pageDom->documentElement, array(), $charset);
         
         $content = implode('', $sentence);
         
@@ -258,7 +258,7 @@ class HTML_WordDiff
         return $words;
     }
     
-    function parse_node($node, $sentence, $charset)
+    function domExtractWords($node, $sentence, $charset)
     {
         if (empty($node)) {
             return $sentence;
@@ -276,7 +276,7 @@ class HTML_WordDiff
             
             $n = $node->childNodes->item($i);
             
-            $sentence = $this->parse_node($n, $sentence, $charset);
+            $sentence = $this->domExtractWords($n, $sentence, $charset);
         }
         
         return $sentence;
