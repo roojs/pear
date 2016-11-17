@@ -219,11 +219,10 @@ class HTML_WordDiff
         
         $content = implode('', $sentence);
         
-//        $content = preg_replace('/\n+/', ' ', $content);
+        $content = preg_replace('/[^\w]+/', ' ', $content);
         
         $content = preg_replace('/\s+/', ' ', $content);
         
-        $content = preg_replace('/[^\w]+/', ' ', $content);
         print_R($content);exit;
         $words = array();
         
