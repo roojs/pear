@@ -232,12 +232,13 @@ class HTML_WordDiff
                 $content = mb_convert_encoding($content, "UTF-8",  $charset);
             }
         }
-            
+        
         $words = array();
         
         for ($i = 0; $i < strlen($content); $i++){
             $words[] = $content[$i];
         }
+        
         print_R($words);exit;
         
         foreach(preg_split('/\s+/', $content) as $word) {
