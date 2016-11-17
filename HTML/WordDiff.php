@@ -239,16 +239,16 @@ class HTML_WordDiff
             
             $word = mb_substr($content, $i, 1);
             
+            echo "$word \n";
+            
             if (ctype_punct($word)) {
-                echo "$word \n";
                 echo "is punct \n";
                 $words .= ' ';
                 continue;
             }
             
             if(preg_match('/'.$this->cjkpreg().'/u', $word)){
-                echo "$word \n";
-                echo "is punct \n";
+                echo "is cjk \n";
                 $words .= " $word ";
                 continue;
             }
