@@ -292,6 +292,8 @@ class HTML_WordDiff
             
             echo mb_strlen($str) . "\n";
             
+            echo mb_substr($str, 0, 1) . "\n";
+            
             exit;
             
             //var_dump('xx'.$str);
