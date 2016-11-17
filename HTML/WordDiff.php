@@ -349,7 +349,7 @@ class HTML_WordDiff
                     "\x{2F800}-\x{2FA1F}"     # CJK Compatibility Ideographs Supplement
         )). ']';
         
-        print_R($ret);exit;
+//        print_R($ret);
         return $ret;
     }
     
