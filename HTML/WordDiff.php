@@ -146,11 +146,11 @@ class HTML_WordDiff
         
         if (isset($cache[md5($this->htmlDom)])) {
             $this->$target = $cache[md5($this->htmlDom)];
-            print_R($this->target);exit;
-            if ($this->wordMax < 0) {
-                $this->wordMax = array_sum(array_values($this->target)) * 10 ;
-            }
             
+            if ($this->wordMax < 0) {
+                $this->wordMax = array_sum(array_values($this->$target)) * 10 ;
+            }
+            print_R($this->wordMax);exit;
             if($target == 'original'){
                 $this->countTotal = array_sum(array_values($this->$target));
             }else{
