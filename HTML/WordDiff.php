@@ -217,7 +217,10 @@ class HTML_WordDiff
 
         $sentence = $this->parse_node($pageDom->documentElement, array(), $charset);
         
+        print_R($sentence);exit;
+        
         $content = implode('', $sentence);
+        
         
         print_R($content);exit;
         
