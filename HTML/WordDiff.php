@@ -288,6 +288,8 @@ class HTML_WordDiff
                 }
             }
             
+            print_R($str);exit;
+            
             //var_dump('xx'.$str);
              //var_dump($str);
             $this->tmpWords = $words;
