@@ -248,7 +248,8 @@ class HTML_WordDiff
             }
             
             if(preg_match('/'.$this->cjkpreg().'/u', $word)){
-                $words .= " {$content[$i]} ";
+                echo "is punct \n";
+                $words .= " $word ";
                 continue;
             }
             
