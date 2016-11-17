@@ -207,55 +207,114 @@ class HTML_WordDiff
     function DomToStrings($target = '')
     {
         $charset = 'UTF-8';
-        //if (preg_match('#charset=([^"]+)#', $this->htmlDom,$matches)) {
-            //var_dump($matches);exit;
-        //    $charset = $matches[1];
-        //}
         
         $pageDom = new DomDocument('1.0', $charset);
         $pageDom->formatOutput = true;
         
-        // change language if encoding does not match...
-        
-        
-        
-//        print_r(mb_detect_encoding($this->htmlDom));
-       
-        // may produce errors - so we hide them...
         $searchPage = preg_replace('#charset=([^"]+)#', '', $this->htmlDom);
-        //$searchPage = $this->htmlDom; //@mb_convert_encoding($this->htmlDom, $charset ,  $charset=="UTF-8" ? "auto" :$charset);
-                 
         
-//        $searchPage = mb_convert_encoding($this->htmlDom, "UTF-8",  "HTML-ENTITIES");
-//        echo $searchPage;
-//        print_r(mb_detect_encoding($searchPage));
-        
-//        $searchPage = mb_convert_encoding($this->htmlDom, "big5");
-//        if($target == 'target'){
-//            print_r($searchPage);
-//            exit;
-//        }
-//        print_r(mb_detect_encoding($searchPage));
-      // print_r($searchPage);
         @$pageDom->loadHTML(($charset == 'UTF-8' ? '<?xml version="1.0" encoding="UTF-8"?>' : ''). $searchPage);
-//        exit;
-        $words = $this->domExtractWords($pageDom->documentElement, array(), $charset);
-       // print_r($words);exit;
         
-//        $string = preg_replace('/[^\pL\pS\pN]/u', '-', $pageDom->documentElement->getElementsByTagName('body')->item(0)->textContent);
-        if($this->debug_on){
-            print_r("parsed      ");
-            print_r($words);
-           // print_r($pageDom->saveHTML());;
-//            exit;
+        $sentence = $this->parse_node($pageDom->documentElement, array(), $charset);
+        
+        $content = implode('', $sentence);
+        
+        $content = preg_replace('/\n+/u', ' ', $content);
+        
+        $content = preg_replace('/\s+/u', ' ', $content);
+        
+        if ($charset != 'auto') {
+            if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
+                $content = mb_convert_encoding($content, $charset,  "UTF-8");
+                $content = mb_convert_encoding($content, "BIG5",$charset);
+                $content = mb_convert_encoding($content, "UTF-8",  "BIG5");
+            } else {
+                $content = mb_convert_encoding($content, "UTF-8",  $charset);
+            }
         }
+        
+        $words = "";
+        
+        for ($i = 0; $i < mb_strlen($content); $i++){
+            
+            $word = mb_substr($content, $i, 1);
+            
+            if (ctype_punct($word)) {
+                $words .= ' ';
+                continue;
+            }
+            
+            if(preg_match('/'.$this->cjkpreg().'/u', $word)){
+                $words .= " {$content[$i]} ";
+                continue;
+            }
+            
+            $words .= $word;
+        }
+        
+        print_R($words);exit;
+        
+        foreach(preg_split('/\s+/', $content) as $word) {
+            
+            if (!trim($word)) {
+                continue;
+            }
+            
+            $str = trim($word);
+            
+            if ($charset != 'auto') {
+                
+                if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
+                    //var_dump("ORIG" . $str);
+                    $str = mb_convert_encoding($str, $charset,  "UTF-8");
+                    //var_dump("$charset:" .$str);
+                    $str = mb_convert_encoding($str, "BIG5",$charset);
+                    //var_dump("BIG5:".$str);
+                    $str = mb_convert_encoding($str, "UTF-8",  "BIG5");
+                    //var_dump("UTF-8:".$str);
+                } else {
+                    
+                    $str = mb_convert_encoding($str, "UTF-8",  $charset);
+                }
+            }
+            
+            $words[] = $str;
+        }
+        
         return $words;
     }
     
+    function parse_node($node, $sentence, $charset)
+    {
+        if (empty($node)) {
+            return $sentence;
+        }
+        
+        if ($node->nodeType == XML_TEXT_NODE) {
+            $sentence[] = $node->textContent;
+        }
+        
+        if (!$node->hasChildNodes()) {
+            return $sentence;
+        }
+        
+        for($i = 0; $i < $node->childNodes->length; $i++) {
+            
+            $n = $node->childNodes->item($i);
+            
+            $sentence = $this->parse_node($n, $sentence, $charset);
+        }
+        
+        return $sentence;
+    }
     
     
     var $tmpWords = false;
     function addUTF8Word($s) {
+        
+        echo "calling addUTF8Word \n";
+        print_R($s);
+        
         $this->tmpWords[] = $s[0];
 //        print_r($this->tmpWords);
         return ' ';
@@ -270,9 +329,13 @@ class HTML_WordDiff
         if (empty($node)) {
             return $words;
         }
+        
         if ($node->nodeType == XML_TEXT_NODE && strlen(trim($node->textContent))) {// this is got the bug at sina....
             
             $str = trim($node->textContent);
+            
+            echo "node content : {$str} \n";
+            
             if ($charset != 'auto') {
                 
                 if (($this->lang == 'zh_HK' || $this->lang == 'zh_TW') && $charset == 'gb2312') {
@@ -288,16 +351,7 @@ class HTML_WordDiff
                 }
             }
             
-            echo "$str\n";
-            
-            echo mb_strlen($str) . "\n";
-            
-            for ($i = 0; $i < mb_strlen($str); $i++){
-                echo mb_substr($str, $i, 1) . "\n";
-            }
-            
-            
-            exit;
+            echo "node content mb convert : {$str} \n";
             
             //var_dump('xx'.$str);
              //var_dump($str);
@@ -308,6 +362,8 @@ class HTML_WordDiff
             $words = $this->tmpWords;
             // remove puncutianion..
             $str = preg_replace('/[^\w]+/u', ' ', $str);
+            
+            echo "after replace : {$str} \n";
             
             foreach(preg_split('/\s+/u', $str) as $word) {
                 if($this->debug_on){
