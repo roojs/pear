@@ -125,7 +125,6 @@ class XML_SvgToPDF {
             
             $font = '/usr/share/fonts/truetype/msttcorefonts/Arial.ttf';
             
-
 //            if (!file_exists('/usr/share/fonts/truetype/msttcorefonts/Arial.ttf')) {
 //                die("install msttcorefonts package");
 //            }
