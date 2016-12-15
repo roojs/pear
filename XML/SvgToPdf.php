@@ -130,8 +130,8 @@ class XML_SvgToPDF {
                 die("install msttcorefonts package");
             }
             //$pdf->AddFont('ARIALUNI','',$font,true);
-            $pdf->AddFont('ARIALUNI','','/usr/share/fonts/truetype/msttcorefonts/Arial.ttf',true);
-            $pdf->AddFont('ARIALUNI','B','/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf',true);
+//            $pdf->AddFont('ARIALUNI','','/usr/share/fonts/truetype/msttcorefonts/Arial.ttf',true);
+//            $pdf->AddFont('ARIALUNI','B','/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf',true);
             
 //            $pdf->SetFont('ARIALUNI','',14);
 //            require_once 'Fpdf/Chinese-unicode.php';
