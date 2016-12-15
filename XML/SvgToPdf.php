@@ -131,7 +131,7 @@ class XML_SvgToPDF {
 //            }
             
             $pdf->AddFont('ARIALUNI','','/usr/share/fonts/truetype/freefont/FreeSans.ttf',true);
-            $pdf->AddFont('ARIALUNI','B','/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf',true);
+            $pdf->AddFont('ARIALUNI','B','/usr/share/fonts/truetype/freefont/FreeSansBold.ttf',true);
             
             //$pdf->AddFont('ARIALUNI','',$font,true);
             
