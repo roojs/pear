@@ -130,8 +130,8 @@ class XML_SvgToPDF {
 //                die("install msttcorefonts package");
 //            }
             
-            $pdf->AddFont('ARIALUNI','','/usr/share/fonts/truetype/msttcorefonts/FreeSans.ttf',true);
-            $pdf->AddFont('ARIALUNI','B','/usr/share/fonts/truetype/msttcorefonts/FreeMonoBold.ttf',true);
+            $pdf->AddFont('ARIALUNI','','/usr/share/fonts/freefont/msttcorefonts/FreeSans.ttf',true);
+            $pdf->AddFont('ARIALUNI','B','/usr/share/fonts/freefont/msttcorefonts/FreeMonoBold.ttf',true);
             
             //$pdf->AddFont('ARIALUNI','',$font,true);
             
