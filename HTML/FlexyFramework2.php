@@ -774,7 +774,7 @@ class HTML_FlexyFramework {
                 
         }
         // set up error handling - 
-        $this->error = new HTML_FlexyFramework2_Error();
+        //$this->error = new HTML_FlexyFramework2_Error();
         
         /// fudge work around bugs in PEAR::setErrorHandling(,)
         //$GLOBALS['_PEAR_default_error_mode'] = PEAR_ERROR_CALLBACK;
