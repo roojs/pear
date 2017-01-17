@@ -447,13 +447,12 @@ class HTML_FlexyFramework {
         $dbini = 'ini_'. basename($dburl['path']);
         $this->debug(__METHOD__ . " : ini file : $dbini");
         //override ini setting... - store original..
-        if (isset($this->DB_DataObject[$dbini])) {
-            $this->dataObjectsOriginalIni = $this->DB_DataObject[$dbini];
+        
+        if (isset($this->PDO_DataObject[$dbini])) {
+            $this->dataObjectsOriginalIni = $this->PDO_DataObject[$dbini];
             ///print_r($this->DB_DataObject);exit;
         }
         // 
-        
-        
         
         $this->DB_DataObject[$dbini] =   $iniCache;
         // we now have the configuration file name..
