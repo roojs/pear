@@ -311,7 +311,7 @@ class HTML_FlexyFramework {
  
         //echo '<PRE>';print_r($this);exit;
         
-        $this->_exposeToPear();
+        //$this->_exposeToPear();
                 
 
         $this->_validateEnv();
@@ -725,6 +725,14 @@ class HTML_FlexyFramework {
            'port' => 25,
         ));
     }
+    
+    /**
+     * exposes to PEAR::getStaticProperty..
+     * at present, only FlexyFramework uses this..
+     * // we should really stop it..
+     * ctor for Flexy - should read from config...
+     */
+    /*
     function _exposeToPear()
     {
         $cls = array_keys(get_class_vars(__CLASS__));
@@ -744,6 +752,7 @@ class HTML_FlexyFramework {
        // $options = $base;
          //   apply them..
     }
+    */
     
     
     function _validateEnv() 
