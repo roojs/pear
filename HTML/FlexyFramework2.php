@@ -44,7 +44,7 @@ error_reporting(E_ALL & ~E_STRICT );
 //ini_set('display_errors','off');
 //ini_set('log_errors','off');
 
-//PEAR::setErrorHandling(PEAR_ERROR_TRIGGER, E_USER_ERROR);
+
 
 
 
@@ -889,7 +889,7 @@ class HTML_FlexyFramework {
     * @see      see also methods.....
     */
   
-    function _run($request,$isRedirect = false,$args = array()) 
+    private function _run($request,$isRedirect = false,$args = array()) 
     {
         
         // clean the request up.
@@ -929,7 +929,7 @@ class HTML_FlexyFramework {
         $this->page = $classobj;
         if ($this->cli && !$isRedirect ) { // redirect always just takes redirect args..
             require_once 'HTML/FlexyFramework/Cli.php';
-            $fcli = new HTML_FlexyFramework_Cli($this);
+            $fcli = new HTML_FlexyFramework2_Cli($this);
             $nargs = $fcli->cliParse($classname);
             $args = $nargs === false ? $args : $nargs; /// replace if found.
             $classobj->cli_args = $nargs;
@@ -1118,8 +1118,8 @@ class HTML_FlexyFramework {
         
         // special classes ::
         if ($this->cli && in_array($request, array('DataObjects'))) {
-            require_once 'HTML/FlexyFramework/'. $request . '.php';
-            return array('HTML_FlexyFramework_'. $request,'');
+            require_once 'HTML/FlexyFramework2/'. $request . '.php';
+            return array('HTML_FlexyFramework2_'. $request,'');
         }
         
         
@@ -1249,7 +1249,7 @@ class HTML_FlexyFramework {
     /**
     * ensure Single CLi process 
     * usage:
-    * HTML_FlexyFramework::ensureSingle(__FILE__, $this);
+    * HTML_FlexyFramework2::ensureSingle(__FILE__, $this);
     * @param string filename of running class
     * @param object class
     */
@@ -1257,7 +1257,7 @@ class HTML_FlexyFramework {
     static function ensureSingle($sig, $class) 
     {
         //echo "check single: $sig / ". get_class($class) ."\n";
-        $ff = HTML_FlexyFramework::get();
+        $ff = HTML_FlexyFramework2::get();
         if (function_exists('posix_getpwuid')) {
             $uinfo = posix_getpwuid( posix_getuid () ); 
             $user = $uinfo['name'];
@@ -1304,7 +1304,7 @@ class HTML_FlexyFramework {
      */
     static function ensureSingleClear($sig, $class)
     {
-        $ff = HTML_FlexyFramework::get();
+        $ff = HTML_FlexyFramework2::get();
         if (function_exists('posix_getpwuid')) {
             $uinfo = posix_getpwuid( posix_getuid () ); 
             $user = $uinfo['name'];
@@ -1340,8 +1340,8 @@ class HTML_FlexyFramework {
             return;
         }
         echo $this->cli ? 
-              "HTML_FlexyFramework::debug  - ".$output."\n" 
-            : "<B>HTML_FlexyFramework::debug</B> - ".$output."<BR>\n";
+              "HTML_FlexyFramework2::debug  - ".$output."\n" 
+            : "<B>HTML_FlexyFramework2::debug</B> - ".$output."<BR>\n";
     
     }
     /**
@@ -1358,7 +1358,7 @@ class HTML_FlexyFramework {
         
         
          if ($this->fatalAction) {
-            HTML_FlexyFramework::run($this->fatalAction,$msg);
+            HTML_FlexyFramework2::run($this->fatalAction,$msg);
             exit;
         }
         
@@ -1367,7 +1367,7 @@ class HTML_FlexyFramework {
             
             print_r($this);
         }
-        $ff = HTML_FlexyFramework::get();
+        $ff = HTML_FlexyFramework2::get();
         $ff->debug($msg);
         exit;
     }    
