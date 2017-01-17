@@ -517,7 +517,7 @@ class HTML_FlexyFramework {
             mkdir(dirname($iniCache),0700, true);
         }
         
-        $this->DB_DataObject[$dbini] = $iniCacheTmp;
+        $this->PDO_DataObject[$dbini] = $iniCacheTmp;
         //$this->_exposeToPear();
         
         
@@ -528,8 +528,8 @@ class HTML_FlexyFramework {
         
         HTML_FlexyFramework2_Generator::writeCache($iniCacheTmp, $iniCache); 
         // reset the cache to the correct lcoation.
-        $this->DB_DataObject[$dbini] = $iniCache;
-        $this->_exposeToPear();
+        $this->PDO_DataObject[$dbini] = $iniCache;
+        //$this->_exposeToPear();
         
         //$GLOBALS['_DB_DATAOBJECT']['INI'][$this->database] =   parse_ini_file($iniCache, true);
         //$GLOBALS['_DB_DATAOBJECT']['SEQUENCE']
