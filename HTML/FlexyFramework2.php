@@ -741,8 +741,8 @@ class HTML_FlexyFramework {
             $options = &PEAR::getStaticProperty($k,'options');
             $options = $v;
         }
-        $options = &PEAR::getStaticProperty('HTML_FlexyFramework2','options');
-        $options = $base;
+       // $options = &PEAR::getStaticProperty('HTML_FlexyFramework2','options');
+       // $options = $base;
          //   apply them..
     }
     
