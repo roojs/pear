@@ -615,7 +615,7 @@ class HTML_FlexyFramework {
          
            //   'debug' => 5,
         ));
-        PDO_DataObject::::config($this->PDO_DataObject)
+        PDO_DataObject::config($this->PDO_DataObject);
       //  print_r($this->DB_DataObject);exit;
     }
     /**
