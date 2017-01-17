@@ -487,7 +487,7 @@ class HTML_FlexyFramework {
         $dbini = 'ini_'. basename($dburl['path']);
         
         
-        $iniCache = $this->DB_DataObject[$dbini];
+        $iniCache = $this->PDO_DataObject[$dbini];
         if ($force && file_exists($iniCache)) {
             unlink($iniCache);
             clearstatcache();
@@ -510,8 +510,8 @@ class HTML_FlexyFramework {
         
         // force quoting of column names..
         // unless it forced off..
-        if (!isset($this->DB_DataObject['quote_identifiers_tableinfo'] )) { 
-            $this->DB_DataObject['quote_identifiers_tableinfo'] = true;
+        if (!isset($this->DB_DataObject['quote_identifiers'] )) { 
+            $this->DB_DataObject['quote_identifiers'] = true;
         }
         if (!file_exists(dirname($iniCache))) {
             mkdir(dirname($iniCache),0700, true);
