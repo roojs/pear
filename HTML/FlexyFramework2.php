@@ -798,7 +798,7 @@ class HTML_FlexyFramework {
                                 
 
                 $this->fatalError("Configuration or Database Error: could not connect to Database, <BR>
-                    Please check the value given to HTML_FlexyFramework, or run with debug on!<BR>
+                    Please check the value given to HTML_FlexyFramework2, or run with debug on!<BR>
                      <BR> ".$err->toString());
         }
         // reset dont die!
@@ -916,10 +916,8 @@ class HTML_FlexyFramework {
         
         // make page data/object accessable at anypoint in time using  this
         // not sure if this is used anymore - or even works..?
-        $classobj = &PEAR::getStaticProperty('HTML_FlexyFramework', 'page');
         
         $classobj =  new  $classname();  // normally do not have constructors.
-        
         
         $classobj->baseURL = $this->baseURL;
         $classobj->rootURL = $this->rootURL;
