@@ -510,15 +510,15 @@ class HTML_FlexyFramework {
         
         // force quoting of column names..
         // unless it forced off..
-        if (!isset($this->DB_DataObject['quote_identifiers'] )) { 
-            $this->DB_DataObject['quote_identifiers'] = true;
+        if (!isset($this->PDO_DataObject['quote_identifiers'] )) { 
+            $this->PDO_DataObject['quote_identifiers'] = true;
         }
         if (!file_exists(dirname($iniCache))) {
             mkdir(dirname($iniCache),0700, true);
         }
         
         $this->DB_DataObject[$dbini] = $iniCacheTmp;
-        $this->_exposeToPear();
+        //$this->_exposeToPear();
         
         
         // DB_DataObject::debugLevel(1);      
