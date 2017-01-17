@@ -270,8 +270,8 @@ class HTML_FlexyFramework {
       
         //var_dump($this->baseURL);
         
-        if (!isset($this->database) && isset($this->DB_DataObject['database'])) {
-            $this->database = $this->DB_DataObject['database'];
+        if (!isset($this->database) && isset($this->PDO_DataObject['database'])) {
+            $this->database = $this->PDO_DataObject['database'];
         }
         
          $this->classPrefix   = str_replace('/', '_', $this->project) . '_';
