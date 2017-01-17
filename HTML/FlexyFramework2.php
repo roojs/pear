@@ -32,8 +32,7 @@
 // Initialize Static Options
 require_once 'HTML/FlexyFramework2/Page.php';  
 require_once 'HTML/FlexyFramework2/Error.php';
-// better done here..
-require_once 'PDO/DataObject.php';
+
 
 // To be removed ?? or made optional or something..
  
@@ -454,7 +453,7 @@ class HTML_FlexyFramework {
         }
         // 
         
-        $this->DB_DataObject[$dbini] =   $iniCache;
+        $this->PDO_DataObject[$dbini] =   $iniCache;
         // we now have the configuration file name..
         
         
@@ -552,6 +551,10 @@ class HTML_FlexyFramework {
         if ($this->nodatabase && !$this->database) {
             return;
         }
+        
+        // better done here.. ?? only include if we have database configuration?
+        require_once 'PDO/DataObject.php';
+        
         $dburl = parse_url($this->database);
         $dbini = 'ini_'. basename($dburl['path']);
                 
@@ -589,8 +592,8 @@ class HTML_FlexyFramework {
             }     
         } else {
             
-            if (isset($this->DB_DataObject['schema_location'])) {
-                $dbinis[] = $this->DB_DataObject['schema_location'] .'/'.basename($dburl['path']).'.ini';
+            if (isset($this->PDO_DataObject['schema_location'])) {
+                $dbinis[] = $this->PDO_DataObject['schema_location'] .'/'.basename($dburl['path']).'.ini';
             } else {
                 $dbinis[] = $this->baseDir.'/DataObjects/'.basename($dburl['path']).'.ini';
             }
@@ -601,7 +604,7 @@ class HTML_FlexyFramework {
         }
             
         
-        $this->applyIf('DB_DataObject', array(   
+        $this->applyIf('PDO_DataObject', array(   
         
             'class_location' =>  implode(PATH_SEPARATOR,$dbreq),
             'class_prefix' =>  implode(PATH_SEPARATOR,$dbcls),
