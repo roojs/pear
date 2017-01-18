@@ -442,9 +442,7 @@ class HTML_FlexyFramework {
         $this->debug(__METHOD__ . " : ini cache : $iniCache");
         
         $dburl = parse_url($this->database);
-        $dbini = 'ini_'. basename($dburl['path']);
-        $this->debug(__METHOD__ . " : ini file : $dbini");
-        //override ini setting... - store original..
+         //override ini setting... - store original..
         
         if (isset($this->PDO_DataObject['schema_location'])) {
             $this->dataObjectsOriginalIni = $this->PDO_DataObject['schema_location'];
@@ -525,6 +523,7 @@ class HTML_FlexyFramework {
         
         $this->PDO_DataObject['schema_location'] = $iniCacheTmp;
         PDO_DataObject::config($this->PDO_DataObject);
+        
         //$this->_exposeToPear();
         
         
