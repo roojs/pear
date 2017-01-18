@@ -804,9 +804,6 @@ class HTML_FlexyFramework2 {
         if ($this->nodatabase) {
             return;
         }
-        $options = &PEAR::getStaticProperty('DB_DataObject','options');
-        $dd = empty($options['dont_die']) ? false : true;
-        $options['dont_die'] = true;
         
         // database is the only setting - we dont support mult databses?
           
