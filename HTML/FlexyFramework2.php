@@ -466,7 +466,10 @@ class HTML_FlexyFramework {
         
     }
     /**
-     *  _generateDataobjectsCache:
+     * generateDataobjectsCache:
+     *
+     * if the 'cache file' does not exist, then
+     * create it using HTML_FlexyFramework2_Generator
      * 
      * create xxx.ini and xxx.links.ini 
      * 
@@ -520,7 +523,8 @@ class HTML_FlexyFramework {
             mkdir(dirname($iniCache),0700, true);
         }
         
-        $this->PDO_DataObject[$dbini] = $iniCacheTmp;
+        $this->PDO_DataObject['schema_location'] = $iniCacheTmp;
+        PDO_DataObject::config($this->PDO_DataObject);
         //$this->_exposeToPear();
         
         
