@@ -69,7 +69,7 @@ error_reporting(E_ALL & ~E_STRICT );
 *
 */
  
-class HTML_FlexyFramework {
+class HTML_FlexyFramework2 {
     
     /**
      * Confirgurable items..
