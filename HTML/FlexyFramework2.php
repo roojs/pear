@@ -610,7 +610,7 @@ class HTML_FlexyFramework {
             'database'        => $this->database,    
             ///'require_prefix' => 
          //   'schema_location' => dirname(__FILE__) . '/Pman/DataObjects/',
-             $dbini=> implode(PATH_SEPARATOR,$dbinis),
+             'schema_location' => implode(PATH_SEPARATOR,$dbinis),
          
            //   'debug' => 5,
         ));
