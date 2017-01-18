@@ -449,6 +449,8 @@ class HTML_FlexyFramework {
         if (isset($config['schema_location'][$dburl['path']])) {
             $this->dataObjectsOriginalIni = $config['schema_location'][$dburl['path']];
             ///print_r($this->DB_DataObject);exit;
+        } else {
+             $config['schema_location'] = array();
         }
         //
         $config['schema_location'][$dburl['path']] = $iniCache;
