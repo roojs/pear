@@ -489,11 +489,9 @@ class HTML_FlexyFramework {
         $dbnick =  basename($dburl['path']);
         
         
-        if (is_array($this->PDO_DataObject['schema_location'])) {
-            $iniCache = $this->PDO_DataObject['schema_location'][$dbnick];
-        } else {
-            $iniCache = $this->PDO_DataObject['schema_location'];
-        }
+       
+        $iniCache = $this->PDO_DataObject['schema_location'];
+        
         if ($force && file_exists($iniCache)) {
             unlink($iniCache);
             clearstatcache();
