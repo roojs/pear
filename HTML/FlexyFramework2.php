@@ -451,8 +451,9 @@ class HTML_FlexyFramework {
             ///print_r($this->DB_DataObject);exit;
         }
         // 
-        
-        PDO_DataObject::config('schema_location',   $iniCache);
+        $this->PDO_DataObject['schema_location'] = array();
+        $this->PDO_DataObject['schema_location'][$dburl['path']] = $iniCache;
+        PDO_DataObject::config($this->PDO_DataObject);
         // we now have the configuration file name..
         
         
