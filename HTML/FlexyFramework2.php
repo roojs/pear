@@ -520,7 +520,7 @@ class HTML_FlexyFramework {
         
         
         // DB_DataObject::debugLevel(1);      
-        require_once 'HTML/FlexyFramework/Generator.php';
+        require_once 'HTML/FlexyFramework2/Generator.php';
         $generator = new HTML_FlexyFramework2_Generator();
         $generator->start();
         
