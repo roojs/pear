@@ -450,9 +450,10 @@ class HTML_FlexyFramework {
             $this->dataObjectsOriginalIni = $config['schema_location'][$dburl['path']];
             ///print_r($this->DB_DataObject);exit;
         }
-        // 
+        //
+        $config['schema_location'][$dburl['path']] = $iniCache;
         
-        PDO_DataObject::config('schema_location',   $iniCache);
+        PDO_DataObject::config('schema_location',   $config['schema_location']);
         // we now have the configuration file name..
         
         
