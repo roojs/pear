@@ -804,9 +804,11 @@ class HTML_FlexyFramework {
         // database is the only setting - we dont support mult databses?
           
             
-        $x = new DB_Dataobject;
-        $x->_database = $this->database;
-        if (PEAR::isError($err = $x->getDatabaseConnection())) {
+        $x = new PDO_Dataobject();
+        PDO_Dataobject::config('database', $this->database);
+        try {
+            $x->PDO();
+        } catch (Exception $e) {
                                 
 
                 $this->fatalError("Configuration or Database Error: could not connect to Database, <BR>
