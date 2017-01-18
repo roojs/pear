@@ -442,23 +442,17 @@ class HTML_FlexyFramework {
         $this->debug(__METHOD__ . " : ini cache : $iniCache");
         
         $dburl = parse_url($this->database);
-        
-        $config = PDO_DataObject::config();
+        $dbini = 'ini_'. basename($dburl['path']);
+        $this->debug(__METHOD__ . " : ini file : $dbini");
         //override ini setting... - store original..
         
-        if (isset($config['schema_location'][$dburl['path']])) {
-            $this->dataObjectsOriginalIni = $config['schema_location'][$dburl['path']];
+        if (isset($this->PDO_DataObject['schema_location'])) {
+            $this->dataObjectsOriginalIni = $this->PDO_DataObject['schema_location'];
             ///print_r($this->DB_DataObject);exit;
-        } else {
-            $config['schema_location'] = array();
         }
-        if (!is_array($config['schema_location'])) {
-            $config['schema_location'] = array();
-        }
-        //
-        $config['schema_location'][$dburl['path']] = $iniCache;
+        // 
         
-        PDO_DataObject::config('schema_location',   $config['schema_location']);
+        PDO_DataObject::config('schema_location',   $iniCache);
         // we now have the configuration file name..
         
         
