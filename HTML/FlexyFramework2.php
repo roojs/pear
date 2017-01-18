@@ -31,7 +31,6 @@
  
 // Initialize Static Options
 require_once 'HTML/FlexyFramework2/Page.php';  
-require_once 'HTML/FlexyFramework2/Error.php';
 
 
 // To be removed ?? or made optional or something..
