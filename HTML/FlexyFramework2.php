@@ -479,6 +479,8 @@ class HTML_FlexyFramework {
     {
         //$this->debug('generateDataobjectsCache: force=' . ($force ? 'yes' : 'no'));
         if (!$this->dataObjectsCache) { // does not use dataObjects Caching..
+             PDO_DataObject::config('schema_location', $this->dataObjectsOriginalIni );
+            
             $this->debug('generateDataobjectsCache', 'dataObjectsCache - empty');
             return;
         }
