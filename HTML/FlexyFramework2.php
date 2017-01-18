@@ -819,8 +819,7 @@ class HTML_FlexyFramework2 {
                     Please check the value given to HTML_FlexyFramework2, or run with debug on!<BR>
                      <BR> ".$err->toString());
         }
-        // reset dont die!
-        $options['dont_die'] = $dd ;
+        
         
         
     }
