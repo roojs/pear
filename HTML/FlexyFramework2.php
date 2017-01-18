@@ -420,7 +420,7 @@ class HTML_FlexyFramework {
         
 
         $iniCache = ini_get('session.save_path') .'/' . 
-               'dbcfg-' . $user . '/'. str_replace('/', '_', $this->project) ;
+               'pdocfg-' . $user . '/'. str_replace('/', '_', $this->project) ;
         
         
         if ($this->appNameShort) {
