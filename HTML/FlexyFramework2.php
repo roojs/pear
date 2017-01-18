@@ -524,7 +524,6 @@ class HTML_FlexyFramework {
         $this->PDO_DataObject['schema_location'] = $iniCacheTmp;
         PDO_DataObject::config($this->PDO_DataObject);
         
-        //$this->_exposeToPear();
         
         
         // DB_DataObject::debugLevel(1);      
