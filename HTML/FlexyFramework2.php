@@ -483,10 +483,10 @@ class HTML_FlexyFramework {
         }
         
         $dburl = parse_url($this->database);
-        $dbini = 'ini_'. basename($dburl['path']);
+        $dbnick =  basename($dburl['path']);
         
         
-        $iniCache = $this->PDO_DataObject['schema_location'];
+        $iniCache = $this->PDO_DataObject['schema_location'][$dbnick];
         if ($force && file_exists($iniCache)) {
             unlink($iniCache);
             clearstatcache();
