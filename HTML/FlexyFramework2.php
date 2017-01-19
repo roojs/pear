@@ -451,6 +451,7 @@ class HTML_FlexyFramework2 {
         // 
         $this->PDO_DataObject['schema_location']   = $iniCache;
         PDO_DataObject::config($this->PDO_DataObject);
+        
         // we now have the configuration file name..
          
         if (!file_exists($iniCache) || empty( $this->dataObjectsCacheExpires)) {

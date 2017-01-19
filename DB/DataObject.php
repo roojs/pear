@@ -2090,7 +2090,14 @@ class DB_DataObject extends DB_DataObject_Overload
         
         return $table;
     }
-    
+    /**
+     * Wrapper for migration to PDO DataObjects
+     */
+    function databaseNickname()
+    {
+        return $this->database();
+    }
+  
     /**
      * Return or assign the name of the current database
      *
@@ -2108,6 +2115,16 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         return $this->_database;
+    }
+    
+    
+    /**
+     * Wrapper for migration to PDO DataObjects
+     */
+  
+    function tableColumns()
+    {
+        return call_user_func_array(array($this,'table'), func_get_args());
     }
   
     /**
