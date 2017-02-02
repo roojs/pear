@@ -971,7 +971,7 @@ if (class_exists('PEAR_Error')) {
         function __construct($message = 'unknown error', $code = null,
                                      $mode = null, $options = null, $userinfo = null)
         {
-            parent::PEAR_Error($message, $code, $mode, $options, $userinfo);
+            parent::__construct($message, $code, $mode, $options, $userinfo);
         }
     }
 
