@@ -292,6 +292,22 @@ class DB_DataObject extends DB_DataObject_Overload
     }
     
     /**
+     * FC to PDO_DataObjects - load method
+     * It's also usefull to get rid of staticGet
+     *
+     *
+     */
+    function load($k = null, $v = null)
+    {
+        if (!$this->get($k,$v)) {
+            return false;
+        }
+        
+        return $this;
+    }
+    
+    
+    /**
      * Get the value of the primary id
      *
      * While I normally use 'id' as the PRIMARY KEY value, some database use
