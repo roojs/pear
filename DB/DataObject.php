@@ -3350,7 +3350,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * 
      * Example - Getting the related objects
      * 
-     * $person = new DataObjects_Person;
+     * $person = DB_DataObject::factory('Person');
      * $person->get(12);
      * $children = $person->getLinkArray('children');
      * 
