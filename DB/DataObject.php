@@ -294,8 +294,8 @@ class DB_DataObject extends DB_DataObject_Overload
     /**
      * FC to PDO_DataObjects - load method
      * It's also usefull to get rid of staticGet
-     *
-     *
+     * 
+     * @see PDO_DataObject::load
      */
     function load($k = null, $v = null)
     {
