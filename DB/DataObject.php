@@ -3421,8 +3421,8 @@ class DB_DataObject extends DB_DataObject_Overload
      *
      * example (requires links.ini to be set up correctly)
      * // get all the images for product 24
-     * $i = new DataObject_Image();
-     * $pi = new DataObjects_Product_image();
+     * $i = DB_DataObject::factory('image');
+     * $pi = DB_DAtaObject::factory('product_image');
      * $pi->product_id = 24; // set the product id to 24
      * $i->joinAdd($pi); // add the product_image connectoin
      * $i->find();
