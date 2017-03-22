@@ -4190,7 +4190,7 @@ class DB_DataObject extends DB_DataObject_Overload
             if (is_object($from)) {
                 continue;
             }
-                       var_dump($k);
+                       
  
             if (empty($from[sprintf($format,$k)]) && $skipEmpty) {
                 continue;
