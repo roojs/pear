@@ -4161,6 +4161,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         $overload_return = array();
         foreach (array_keys($items) as $k) {
+            var_dump($k);
             if (in_array($k,$keys)) {
                 continue; // dont overwrite keys
             }
