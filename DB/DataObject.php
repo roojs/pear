@@ -4195,7 +4195,9 @@ class DB_DataObject extends DB_DataObject_Overload
             if (empty($from[sprintf($format,$k)]) && $skipEmpty) {
                 continue;
             }
-            var_dump($k);var_dump(isset($from[sprintf($format,$k)]));
+            var_dump($k);
+            var_dump("ISSET=" . (isset($from[sprintf($format,$k)]) ? "Y":"N"));
+            
             if (!isset($from[sprintf($format,$k)]) && !DB_DataObject::_is_null($from, sprintf($format,$k))) {
                 continue;
             }
