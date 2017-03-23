@@ -635,7 +635,7 @@ function SetFont($family, $style='', $size=0)
 			$this->fonts[$fontkey]=array('i'=>$i, 'type'=>'core', 'name'=>$name, 'up'=>-100, 'ut'=>50, 'cw'=>$cw);
 		}
 		else
-			$this->Error('Undefined font: '.$family.' '.$style);
+			$this->Error('Undefined font aa: '.$family.' '.$style);
 	}
 	//Select it
 	$this->FontFamily=$family;
