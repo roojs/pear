@@ -516,7 +516,9 @@ class HTML_FlexyFramework {
             $this->DB_DataObject['quote_identifiers_tableinfo'] = true;
         }
         if (!file_exists(dirname($iniCache))) {
-            mkdir(dirname($iniCache),0700, true);
+            if (!mkdir(dirname($iniCache),0700, true)) {
+                die("Failed to make cache directory : $iniCache");
+            }
         }
         
         $this->DB_DataObject[$dbini] = $iniCacheTmp;
