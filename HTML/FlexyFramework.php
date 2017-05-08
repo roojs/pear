@@ -517,7 +517,7 @@ class HTML_FlexyFramework {
         }
         if (!file_exists(dirname($iniCache))) {
             if (!mkdir(dirname($iniCache),0700, true)) {
-                die("Failed to make cache directory : $iniCache");
+                die("Failed to make cache directory : $iniCache\n");
             }
         }
         
