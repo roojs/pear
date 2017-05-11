@@ -89,6 +89,8 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
         $pdf->setLineWidth($this->style['stroke-width']/ 3.543307);
      
         $c = array();
+        /*
+         *Not sure why this was added..
         if (count($this->d) > 2) {
             $cc = array();
             foreach($this->d as $a) { 
@@ -102,7 +104,9 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
             }
             $pdf->line($cc,0,0,0);
             return;
-        }   
+        }
+        */
+        
 
         foreach($this->d as $a) {
             switch($a[0]) {
