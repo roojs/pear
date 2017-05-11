@@ -117,7 +117,7 @@ class XML_SvgToPDF {
 
         if (@$data['language'] == 'big5') {
           //die("trying chinese");
-            require_once ('Fpdf/tFPDF.php');
+            require_once  'Fpdf/tFPDF.php' ;
 
             $pdf = new tFPDF($orientation ,'mm','A4');
             
