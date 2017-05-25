@@ -164,6 +164,9 @@ class HTML_FlexyFramework2 {
         // handle apache mod_rewrite..
         // it looks like this might not work anymore..
         
+        if ($this->initOnly) {
+            return;
+        }
         
         
         if (!empty($_SERVER['REDIRECT_URL'])) {
