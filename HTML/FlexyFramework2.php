@@ -92,7 +92,8 @@ class HTML_FlexyFramework2 {
     var $dataObjectsCacheExpires = 72000; // 20 hours..
     var $languages = false; // language settings -- see _handlelanguage
     var $projectExtends = false; // if this is an array, it's a fallback of 'Projects' that can be called
-    
+    var $initOnly = false; // use to prevent run() being called...
+                // use $this->run($_SERVER['REQUEST_URI'],false); to manually boot it..
 
     
     // derived.
