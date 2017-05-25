@@ -167,7 +167,7 @@ class Document_Word_Writer_Section
 	
     public function addPageBreak()
     {
-        self:staticAddPageBreak($this);
+        self::staticAddPageBreak($this);
     }
 	/**
 	 * Add a PageBreak Element
