@@ -268,9 +268,6 @@ class DB_DataObject extends DB_DataObject_Overload
         if (empty($_DB_DATAOBJECT['CONFIG'])) {
             DB_DataObject::_loadConfig();
         }
-        
-        print_R($_DB_DATAOBJECT['CONFIG']);exit;
-        
         $keys = array();
         
         if ($v === null) {
