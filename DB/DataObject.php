@@ -269,11 +269,10 @@ class DB_DataObject extends DB_DataObject_Overload
             DB_DataObject::_loadConfig();
         }
         $keys = array();
-        print_R($k);
+        
         if ($v === null) {
             $v = $k;
             $keys = $this->keys();
-            print_r($keys);
             if (!$keys) {
                 $this->raiseError("No Keys available for {$this->tableName()}", DB_DATAOBJECT_ERROR_INVALIDCONFIG);
                 return false;
@@ -283,7 +282,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug("$k $v " .print_r($keys,true), "GET");
         }
-        print_R($v);
+        
         if ($v === null) {
             $this->raiseError("No Value specified for get", DB_DATAOBJECT_ERROR_INVALIDARGS);
             return false;
