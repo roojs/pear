@@ -273,7 +273,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if ($v === null) {
             $v = $k;
             $keys = $this->keys();
-            print_r($keys);exit;
+            print_r($keys);
             if (!$keys) {
                 $this->raiseError("No Keys available for {$this->tableName()}", DB_DATAOBJECT_ERROR_INVALIDCONFIG);
                 return false;
