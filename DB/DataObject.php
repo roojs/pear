@@ -283,7 +283,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug("$k $v " .print_r($keys,true), "GET");
         }
-        
+        print_R($v);
         if ($v === null) {
             $this->raiseError("No Value specified for get", DB_DATAOBJECT_ERROR_INVALIDARGS);
             return false;
