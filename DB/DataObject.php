@@ -269,7 +269,7 @@ class DB_DataObject extends DB_DataObject_Overload
             DB_DataObject::_loadConfig();
         }
         $keys = array();
-        
+        print_R($k);
         if ($v === null) {
             $v = $k;
             $keys = $this->keys();
