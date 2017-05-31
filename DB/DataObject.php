@@ -3988,8 +3988,6 @@ class DB_DataObject extends DB_DataObject_Overload
             $ret['cols'][$k] = $this->tableName(). '.' . $k;
         }
         
-        print_R($map);exit;
-        
         foreach($map as $ocl=>$info) {
             if (strpos($info, ':') === false) {
                 $this->raiseError(
