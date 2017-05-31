@@ -3921,7 +3921,6 @@ class DB_DataObject extends DB_DataObject_Overload
         global $_DB_DATAOBJECT;
         //var_Dump($cfg);exit;
         $pre_links = $this->links();
-        print_r($pre_links);exit;
         if (!empty($cfg['links'])) {
             $this->links(array_merge( $pre_links , $cfg['links']));
         }
@@ -3988,6 +3987,8 @@ class DB_DataObject extends DB_DataObject_Overload
         foreach($keys as $k) {
             $ret['cols'][$k] = $this->tableName(). '.' . $k;
         }
+        
+        
         
         foreach($map as $ocl=>$info) {
             if (strpos($info, ':') === false) {
