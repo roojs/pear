@@ -3955,7 +3955,7 @@ class DB_DataObject extends DB_DataObject_Overload
             'count' => false,
         );
         
-        print_R('run??');exit;
+        
         
         $has_distinct = false;
         if (!empty($cfg['distinct']) && $keys) {
