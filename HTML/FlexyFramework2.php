@@ -1407,9 +1407,4 @@ class HTML_FlexyFramework2 {
         exit;
     }    
 }
-<<<<<<< HEAD
-
-
  
-=======
->>>>>>> 490dbc58ad283821dbcf099e64722a0fa168e41d
