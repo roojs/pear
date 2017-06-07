@@ -1104,6 +1104,7 @@ class HTML_FlexyFramework2 {
         
         if (!$request && !$isRedirect) {
             if ($this->baseURL && (strlen($startRequest) < strlen($this->baseURL))) {
+                
                 // needs to handle https + port
                 $http = ((!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on')) ? 'https' : 'http';
                 $sp = '';
@@ -1114,6 +1115,7 @@ class HTML_FlexyFramework2 {
                         $sp .= ':'.((int) $_SERVER['SERVER_PORT']);
                     }
                 }
+                phpinfo();exit;
                 $host = !empty($_SERVER["HTTP_X_FORWARDED_HOST"]) ? $_SERVER["HTTP_X_FORWARDED_HOST"] : $_SERVER["HTTP_HOST"];
                 header('Location: '.$http.'://'.$host .$sp . $this->baseURL);
  
