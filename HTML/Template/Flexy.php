@@ -281,6 +281,7 @@ class HTML_Template_Flexy
    
     function resolvePath ( $file )
     {
+        print_r('run??');exit;
         $dirs = array_unique($this->options['templateDir']);
         if ($this->options['templateDirOrder'] == 'reverse') {
             $dirs = array_reverse($dirs);
@@ -288,7 +289,7 @@ class HTML_Template_Flexy
         $ret = false;
         foreach ($dirs as $tmplDir) {
             if (@!file_exists($tmplDir . DIRECTORY_SEPARATOR .$file)) {
-                echo "skip no file: $tmplDir/$file";
+                $this->debug("skip no file: $tmplDir/$file");
                 continue;
             }
             
