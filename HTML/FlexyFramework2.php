@@ -895,6 +895,43 @@ class HTML_FlexyFramework2 {
         return false;
     }
     
+    /**
+     * initPage - load the page up, and set the variables, but do not actually run it.
+     * - used where we want features from this framework, buy may actually be running another one..
+     * 
+     */
+    public function initPage($request, $isRedirect=false, $args=array())
+    {
+        $newRequest = $this->_getRequest($request,$isRedirect);
+        
+        // find the class/file to load
+        list($classname,$subRequest) = $this->requestToClassName($newRequest,FALSE);
+        
+        
+        $this->debug("requestToClassName return = CLASSNAME: $classname SUB REQUEST: $subRequest");
+        
+        // assume that this was handled by getclassname ?????
+        if (!$classname) {
+            return false;
+        }
+        
+        // make page data/object accessable at anypoint in time using  this
+        // not sure if this is used anymore - or even works..?
+        
+        $classobj =  new  $classname();  // normally do not have constructors.
+        
+        $classobj->baseURL = $this->baseURL;
+        $classobj->rootURL = $this->rootURL;
+        $classobj->rootDir = $this->rootDir;
+        $classobj->bootLoader  = $this;
+        $classobj->request = $newRequest;
+        $classobj->timer = &$this->timer;
+        $classobj->subrequest = $subRequest;
+         
+        $this->page = $classobj;
+        return $classobj;
+    }
+    
     
     /**
     * The main execution loop
@@ -922,36 +959,13 @@ class HTML_FlexyFramework2 {
             exit;
         }
         
-        $newRequest = $this->_getRequest($request,$isRedirect);
-        
-        // find the class/file to load
-        list($classname,$subRequest) = $this->requestToClassName($newRequest,FALSE);
+        $classobj  = $this->initPage($request,$isRedirect,$args);
         
         
-        $this->debug("requestToClassName return = CLASSNAME: $classname SUB REQUEST: $subRequest");
-        
-        // assume that this was handled by getclassname ?????
-        if (!$classname) {
-            return false;
-        }
-        
-        // make page data/object accessable at anypoint in time using  this
-        // not sure if this is used anymore - or even works..?
-        
-        $classobj =  new  $classname();  // normally do not have constructors.
-        
-        $classobj->baseURL = $this->baseURL;
-        $classobj->rootURL = $this->rootURL;
-        $classobj->rootDir = $this->rootDir;
-        $classobj->bootLoader  = $this;
-        $classobj->request = $newRequest;
-        $classobj->timer = &$this->timer;
-        
-        $this->page = $classobj;
         if ($this->cli && !$isRedirect ) { // redirect always just takes redirect args..
             require_once 'HTML/FlexyFramework/Cli.php';
             $fcli = new HTML_FlexyFramework2_Cli($this);
-            $nargs = $fcli->cliParse($classname);
+            $nargs = $fcli->cliParse(get_class($classobj));
             $args = $nargs === false ? $args : $nargs; /// replace if found.
             $classobj->cli_args = $nargs;
         }
@@ -960,7 +974,7 @@ class HTML_FlexyFramework2 {
         // echo "CHECK GET AUTH?";
         if (!method_exists($classobj, 'getAuth')) {
         //    echo "NO GET AUTH?";
-            $this->fatalError("class $classname does not have a getAuth Method");
+            $this->fatalError("class ". get_class($classobj) . " does not have a getAuth Method");
             return false;
         }
         
@@ -987,7 +1001,7 @@ class HTML_FlexyFramework2 {
         }
         /* allow redirect from start */
         if (method_exists($classobj,"start")) {
-            if (is_string($redirect = $classobj->start($subRequest,$isRedirect,$args)))  {
+            if (is_string($redirect = $classobj->start($classobj->subrequest,$isRedirect,$args)))  {
                 $this->debug("REDIRECT $redirect <BR>");
                 return $this->_run($redirect,TRUE);
             }
@@ -1393,3 +1407,9 @@ class HTML_FlexyFramework2 {
         exit;
     }    
 }
+<<<<<<< HEAD
+
+
+ 
+=======
+>>>>>>> 490dbc58ad283821dbcf099e64722a0fa168e41d
