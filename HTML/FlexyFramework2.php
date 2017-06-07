@@ -898,6 +898,8 @@ class HTML_FlexyFramework2 {
     /**
      * initPage - load the page up, and set the variables, but do not actually run it.
      * - used where we want features from this framework, buy may actually be running another one..
+     *
+     * call with ($_SERVER["SCRIPT_NAME"]) for root page...
      * 
      */
     public function initPage($request, $isRedirect=false, $args=array())
