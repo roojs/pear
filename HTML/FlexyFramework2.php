@@ -1394,12 +1394,11 @@ class HTML_FlexyFramework2 {
     }    
 }
 
-
+/* Backward compatibility */
 class HTML_FlexyFramework {
     static function get() {
         return HTML_FlexyFramework2::get();
     }
-    
 }
 
  
