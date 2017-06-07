@@ -288,7 +288,7 @@ class HTML_Template_Flexy
         $ret = false;
         foreach ($dirs as $tmplDir) {
             if (@!file_exists($tmplDir . DIRECTORY_SEPARATOR .$file)) {
-                echo "skip no file: $tmplDir/$file \n";
+                $this->debug("skip no file: $tmplDir/$file");
                 continue;
             }
             
