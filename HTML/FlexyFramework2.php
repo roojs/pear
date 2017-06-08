@@ -898,6 +898,8 @@ class HTML_FlexyFramework2 {
     /**
      * initPage - load the page up, and set the variables, but do not actually run it.
      * - used where we want features from this framework, buy may actually be running another one..
+     *
+     * call with ($_SERVER["SCRIPT_NAME"]) for root page...
      * 
      */
     public function initPage($request, $isRedirect=false, $args=array())
@@ -1104,6 +1106,7 @@ class HTML_FlexyFramework2 {
         
         if (!$request && !$isRedirect) {
             if ($this->baseURL && (strlen($startRequest) < strlen($this->baseURL))) {
+                
                 // needs to handle https + port
                 $http = ((!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on')) ? 'https' : 'http';
                 $sp = '';
@@ -1114,6 +1117,9 @@ class HTML_FlexyFramework2 {
                         $sp .= ':'.((int) $_SERVER['SERVER_PORT']);
                     }
                 }
+                var_dump($startRequest);
+                echo '<PRE>';               print_R($this);
+                phpinfo();exit;
                 $host = !empty($_SERVER["HTTP_X_FORWARDED_HOST"]) ? $_SERVER["HTTP_X_FORWARDED_HOST"] : $_SERVER["HTTP_HOST"];
                 header('Location: '.$http.'://'.$host .$sp . $this->baseURL);
  
