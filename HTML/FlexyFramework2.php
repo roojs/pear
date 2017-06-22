@@ -965,7 +965,7 @@ class HTML_FlexyFramework2 {
         
         
         if ($this->cli && !$isRedirect ) { // redirect always just takes redirect args..
-            require_once 'HTML/FlexyFramework/Cli.php';
+            require_once 'HTML/FlexyFramework2/Cli.php';
             $fcli = new HTML_FlexyFramework2_Cli($this);
             $nargs = $fcli->cliParse(get_class($classobj));
             $args = $nargs === false ? $args : $nargs; /// replace if found.
