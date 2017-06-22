@@ -580,19 +580,18 @@ class HTML_FlexyFramework2 {
             $tops = array_merge( array($project), empty($this->projectExtends) ? array() : $this->projectExtends);
             
             foreach($tops as $td) {
-                var_dump($td);  
-                $bd = $this->rootDir .'/'.$td;
+                 $bd = $this->rootDir .'/'.$td;
                 foreach($this->enableArray as $m) {
                     // look in Pman/MODULE/DataObjects/*
                      if (file_exists($bd.'/'.$m.'/DataObjects')) {
-                        $dbinis[] = $bd.'/'.$m.'/DataObjects/'. strtolower($project).'.ini';
+                        $dbinis[] = $bd.'/'.$m.'/DataObjects/'. strtolower($td).'.ini';
                         $dbcls[] = $td.'_'. $m . '_DataObjects_';
                         $dbreq[] = $bd.'/'.$m.'/DataObjects';
                         continue;
                     }
                     // look in MODULE/DataObjects ?? DO WE SUPPORT THIS ANYMORE???
                     if (file_exists($bd.'/../'.$m.'/DataObjects')) {
-                        $dbinis[] = $bd.'/../'.$m.'/DataObjects/'. strtolower($project).'.ini';
+                        $dbinis[] = $bd.'/../'.$m.'/DataObjects/'. strtolower($td).'.ini';
                         $dbcls[] = $td. '_DataObjects_';
                         $dbreq[] = $bd.'/../'.$m.'/DataObjects';
                     }
