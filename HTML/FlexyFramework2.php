@@ -290,7 +290,7 @@ class HTML_FlexyFramework2 {
         // see if it's a framework assignment.
         $ishelp = false;
         if ($this->cli) {
-            require_once 'HTML/FlexyFramework/Cli.php';
+            require_once 'HTML/FlexyFramework2/Cli.php';
             $fcli = new HTML_FlexyFramework2_Cli($this);
             $res = $fcli->parseDefaultOpts();
             if ($res === true) {
