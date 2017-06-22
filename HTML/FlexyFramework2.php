@@ -539,6 +539,7 @@ class HTML_FlexyFramework2 {
         HTML_FlexyFramework2_Generator::writeCache($iniCacheTmp, $iniCache); 
         // reset the cache to the correct lcoation.
         PDO_DataObject::config('schema_location',  $iniCache);
+        $this->PDO_DataObject['schema_location'] = $iniCache;
         //$this->_exposeToPear();
         
         //$GLOBALS['_DB_DATAOBJECT']['INI'][$this->database] =   parse_ini_file($iniCache, true);
