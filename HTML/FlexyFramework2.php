@@ -627,7 +627,7 @@ class HTML_FlexyFramework2 {
            //   'debug' => 5,
         ));
         PDO_DataObject::config($this->PDO_DataObject);
-       print_r($this->PDO_DataObject);exit;
+       //print_r($this->PDO_DataObject);exit;
     }
     /**
      Set up thetemplate
