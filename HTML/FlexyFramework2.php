@@ -280,7 +280,7 @@ class HTML_FlexyFramework2 {
         
         // list the available options..
         if ($this->cli && empty($_SERVER['argv'][1])) {
-            require_once 'HTML/FlexyFramework/Cli.php';
+            require_once 'HTML/FlexyFramework2/Cli.php';
             $fcli = new HTML_FlexyFramework2_Cli($this);
             $fcli->cliHelp();
             exit;
