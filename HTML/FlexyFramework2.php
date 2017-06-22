@@ -580,7 +580,7 @@ class HTML_FlexyFramework2 {
             $tops = array_merge( array($project), empty($this->projectExtends) ? array() : $this->projectExtends);
             
             foreach($tops as $td) {
-                    
+                var_dump($td);  
                 $bd = $this->rootDir .'/'.$td;
                 foreach($this->enableArray as $m) {
                     // look in Pman/MODULE/DataObjects/*
