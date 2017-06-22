@@ -290,7 +290,7 @@ class HTML_FlexyFramework2 {
         // see if it's a framework assignment.
         $ishelp = false;
         if ($this->cli) {
-            require_once 'HTML/FlexyFramework/Cli.php';
+            require_once 'HTML/FlexyFramework2/Cli.php';
             $fcli = new HTML_FlexyFramework2_Cli($this);
             $res = $fcli->parseDefaultOpts();
             if ($res === true) {
@@ -539,6 +539,7 @@ class HTML_FlexyFramework2 {
         HTML_FlexyFramework2_Generator::writeCache($iniCacheTmp, $iniCache); 
         // reset the cache to the correct lcoation.
         PDO_DataObject::config('schema_location',  $iniCache);
+        $this->PDO_DataObject['schema_location'] = $iniCache;
         //$this->_exposeToPear();
         
         //$GLOBALS['_DB_DATAOBJECT']['INI'][$this->database] =   parse_ini_file($iniCache, true);
@@ -580,19 +581,18 @@ class HTML_FlexyFramework2 {
             $tops = array_merge( array($project), empty($this->projectExtends) ? array() : $this->projectExtends);
             
             foreach($tops as $td) {
-                    
-                $bd = $this->rootDir .'/'.$td;
+                 $bd = $this->rootDir .'/'.$td;
                 foreach($this->enableArray as $m) {
                     // look in Pman/MODULE/DataObjects/*
                      if (file_exists($bd.'/'.$m.'/DataObjects')) {
-                        $dbinis[] = $bd.'/'.$m.'/DataObjects/'. strtolower($project).'.ini';
+                        $dbinis[] = $bd.'/'.$m.'/DataObjects/'. strtolower($td).'.ini';
                         $dbcls[] = $td.'_'. $m . '_DataObjects_';
                         $dbreq[] = $bd.'/'.$m.'/DataObjects';
                         continue;
                     }
                     // look in MODULE/DataObjects ?? DO WE SUPPORT THIS ANYMORE???
                     if (file_exists($bd.'/../'.$m.'/DataObjects')) {
-                        $dbinis[] = $bd.'/../'.$m.'/DataObjects/'. strtolower($project).'.ini';
+                        $dbinis[] = $bd.'/../'.$m.'/DataObjects/'. strtolower($td).'.ini';
                         $dbcls[] = $td. '_DataObjects_';
                         $dbreq[] = $bd.'/../'.$m.'/DataObjects';
                     }
@@ -627,7 +627,7 @@ class HTML_FlexyFramework2 {
            //   'debug' => 5,
         ));
         PDO_DataObject::config($this->PDO_DataObject);
-      //  print_r($this->DB_DataObject);exit;
+        
     }
     /**
      Set up thetemplate
@@ -965,7 +965,7 @@ class HTML_FlexyFramework2 {
         
         
         if ($this->cli && !$isRedirect ) { // redirect always just takes redirect args..
-            require_once 'HTML/FlexyFramework/Cli.php';
+            require_once 'HTML/FlexyFramework2/Cli.php';
             $fcli = new HTML_FlexyFramework2_Cli($this);
             $nargs = $fcli->cliParse(get_class($classobj));
             $args = $nargs === false ? $args : $nargs; /// replace if found.
