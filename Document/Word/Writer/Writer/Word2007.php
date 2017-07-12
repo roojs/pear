@@ -196,6 +196,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
                         print_R($imagedata);
 			$imagetype = image_type_to_mime_type($imagedata[2]);
 			$imageext = image_type_to_extension($imagedata[2]);
+                        printR_($imageext);
 			$imageext = str_replace('.', '', $imageext);
 			if (empty($imageext)) {
 				throw new Exception("could not get extendsion from $src");
