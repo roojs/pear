@@ -889,9 +889,9 @@ class HTML_FlexyFramework2 {
     */
   
     
-    static function run($request,$args=array(), $redirect=true) 
+    static function run($request,$args=array()) 
     {
-        self::$singleton->_run($request,$redirect,$args);
+        self::$singleton->_run($request,true,$args);
         return false;
     }
     
