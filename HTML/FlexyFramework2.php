@@ -949,7 +949,7 @@ class HTML_FlexyFramework2 {
     * @see      see also methods.....
     */
   
-    private function _run($request,$isRedirect = false,$args = array()) 
+    public function _run($request,$isRedirect = false,$args = array()) 
     {
         
         // clean the request up.
