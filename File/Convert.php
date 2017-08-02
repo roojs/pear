@@ -762,6 +762,9 @@ class File_Convert_Solution
         
         fclose($lock);
         
+        /// this is to prevent soffice staying alive if we timeout...
+        `/usr/bin/killall -9 soffice.bin`;
+        
         clearstatcache();
         
 //        print_R($target);
