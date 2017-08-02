@@ -719,6 +719,9 @@ class File_Convert_Solution
             return $target;
         }
         
+        
+        
+        
         require_once 'System.php';
         
         $timeout = System::which('timeout');
@@ -737,7 +740,27 @@ class File_Convert_Solution
         //$cmd = "$xvfb -a  $uno -f $ext --stdout " . escapeshellarg($fn) . " 1> " . escapeshellarg($target);
         $cmd = "$timeout 30s $xvfb -a  $uno -f $ext -o " . escapeshellarg($target) . " " . escapeshellarg($fn);
         ////  echo $cmd;
+        
+        // do some locking
+        $lock = fopen(ini_get('session.save-path') . '/file-convert-unoconv.lock', 'r+');
+        $tries = 5;
+        while ($tries >0) {
+            if (!flock($lock, LOCK_EX | LOCK_NB)) {
+                sleep(10);
+                $tries--;
+                continue;
+            }
+            $tries = -10;
+            break; // got a lock.
+        
+        }
+        if ($tries != -10) {
+            die("could not get a lock to run unoconv");
+        }
+        
         $res = $this->exec($cmd);
+        
+        fclose($lock);
         
         clearstatcache();
         
