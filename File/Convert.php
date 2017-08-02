@@ -743,7 +743,7 @@ class File_Convert_Solution
         
         // do some locking
         $lock = fopen(ini_get('session.save_path') . '/file-convert-unoconv.lock', 'r+');
-        $tries = 5;
+        $tries = 1;
         while ($tries >0) {
             if (!flock($lock, LOCK_EX | LOCK_NB)) {
                 sleep(10);
