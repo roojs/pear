@@ -755,7 +755,7 @@ class File_Convert_Solution
         
         }
         if ($tries != -10) {
-            die("could not get a lock to run unoconv - ini_get('session.save_path') . '/file-convert-unoconv.lock'");
+            die("could not get a lock to run unoconv - " . ini_get('session.save_path') . '/file-convert-unoconv.lock');
         }
         
         $res = $this->exec($cmd);
