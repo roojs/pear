@@ -7,7 +7,7 @@ require_once 'PDO/DataObject.php';
 class DB_DataObject extends PDO_DataObject {
     static function factory($v)
     {
-        return PDO_DataObject::factory($v);
+        return PDO_DataObject::factory($v = '');
     }
     static function debugLevel($v)
     {
