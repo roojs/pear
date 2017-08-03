@@ -9,7 +9,7 @@ class DB_DataObject extends PDO_DataObject {
     {
         return PDO_DataObject::factory($v = '');
     }
-    static function debugLevel($v)
+    static function debugLevel($v = null)
     {
         return PDO_DataObject::debugLevel($v);
     }
