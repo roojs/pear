@@ -158,7 +158,7 @@ Available commands:
      *
      */
     function cliShortHelp($p) { 
-         print_r("CHKFILE:         $p\n ");
+        ////print_r("CHKFILE:         $p\n ");
         list($classname,$subRequest) = $this->ff->requestToClassName($p,FALSE);
         //var_dump($classname);
         // does it have a description.
