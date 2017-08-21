@@ -201,11 +201,11 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 			}
 			
 			if($imageext == 'jpeg') {
-				$imageext = 'jpg';
+                            $imageext = 'jpg';
 			}
 			
 			if(!in_array($imagetype, $this->_imageTypes)) {
-				$this->_imageTypes[$imageext] = $imagetype;
+                            $this->_imageTypes[$imageext] = $imagetype;
 			}
 		} else {
 			if(!in_array($extension, $this->_objectTypes)) {
