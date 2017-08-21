@@ -228,11 +228,11 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
 			$objWriter->startElement('w:hyperlink');
 				$objWriter->writeAttribute('r:id', 'rId'.$rID);
-				$objWriter->writeAttribute('w:history', '1');
+//				$objWriter->writeAttribute('w:history', '1');
 				
 				$objWriter->startElement('w:r');
 					if($SfIsObject) {
-						$this->_writeTextStyle($objWriter, $styleFont, true);
+						$this->_writeTextStyle($objWriter, $styleFont);
 					} elseif(!$SfIsObject && !is_null($styleFont)) {
 						$objWriter->startElement('w:rPr');
 							$objWriter->startElement('w:rStyle');
@@ -343,7 +343,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                
 	}
 	
-	protected function _writeTextStyle(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Style_Font $style, $is_link = false) 
+	protected function _writeTextStyle(Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Style_Font $style) 
         {
 		$font = $style->getName();
 		$bold = $style->getBold();
@@ -356,12 +356,6 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
 		$objWriter->startElement('w:rPr');
 		
-                if(!empty($is_link)){
-                    $objWriter->startElement('w:rStyle');
-                            $objWriter->writeAttribute('w:val', 'InternetLink');
-                    $objWriter->endElement();
-                }
-                
 		// Font
 		if($font != 'Arial') {
 			$objWriter->startElement('w:rFonts');
