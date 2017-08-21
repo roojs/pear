@@ -228,7 +228,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
 			$objWriter->startElement('w:hyperlink');
 				$objWriter->writeAttribute('r:id', 'rId'.$rID);
-//				$objWriter->writeAttribute('w:history', '1');
+				$objWriter->writeAttribute('w:history', '1');
 				
 				$objWriter->startElement('w:r');
 					if($SfIsObject) {
