@@ -356,6 +356,10 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		
 		$objWriter->startElement('w:rPr');
 		
+                if(!empty($is_link)){
+                    
+                }
+                
 		// Font
 		if($font != 'Arial') {
 			$objWriter->startElement('w:rFonts');
