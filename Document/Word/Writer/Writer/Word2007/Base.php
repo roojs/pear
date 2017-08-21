@@ -357,8 +357,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$objWriter->startElement('w:rPr');
 		
                 if(!empty($is_link)){
-                    $objWriter->startElement('w:color');
-                            $objWriter->writeAttribute('w:val', $color);
+                    $objWriter->startElement('w:rStyle');
+                            $objWriter->writeAttribute('w:val', 'InternetLink');
                     $objWriter->endElement();
                 }
                 
