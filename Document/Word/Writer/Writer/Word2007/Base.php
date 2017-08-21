@@ -232,7 +232,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 				
 				$objWriter->startElement('w:r');
 					if($SfIsObject) {
-						$this->_writeTextStyle($objWriter, $styleFont, true);
+						$this->_writeTextStyle($objWriter, $styleFont);
 					} elseif(!$SfIsObject && !is_null($styleFont)) {
 						$objWriter->startElement('w:rPr');
 							$objWriter->startElement('w:rStyle');
