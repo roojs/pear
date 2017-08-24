@@ -821,7 +821,7 @@ class HTML_FlexyFramework2 {
 
                 $this->fatalError("Configuration or Database Error: could not connect to Database, <BR>
                     Please check the value given to HTML_FlexyFramework2, or run with debug on!<BR>
-                     <BR> ".$err->toString());
+                     <BR> ".$e->toString());
         }
         
         
