@@ -267,8 +267,7 @@ class HTML_FlexyFramework2 {
         $this->baseDir = $this->rootDir .'/'. $this->project;
         $this->rootURL = dirname($this->baseURL);
         $this->rootURL = ($this->rootURL == '/') ? '' : $this->rootURL;
-        
-        
+         
       
         //var_dump($this->baseURL);
         
@@ -941,7 +940,7 @@ class HTML_FlexyFramework2 {
     * recursivly self called if redirects (eg. return values from page start methods)
     * 
     * @param   string from $_REQUEST or redirect from it'self.
-    * @param   boolean isRedirect  = is the request a redirect 
+    * @param   boolean isRedirect  = is the request a redirect  TRUE = always handle as 'GET', 1 = handle as POST/GET depending on method, 0 = handle as initial request.
     *
     *
     * @return   false || other    false indicates no page was served!
