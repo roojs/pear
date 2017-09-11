@@ -218,6 +218,9 @@ class HTML_WordDiff
         
         $sentence = $this->domExtractWords($pageDom->documentElement, array(), $charset);
         
+        var_Dump($sentence);exit;
+        
+        
         $content = implode('', $sentence);
         
         $content = preg_replace('/\n+/', ' ', $content);
