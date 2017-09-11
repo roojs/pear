@@ -244,7 +244,7 @@ class HTML_WordDiff
             $word = mb_substr($content, $i, 1);
             
             if(preg_match('/'.$this->cjkpreg().'/u', $word)){
-                $words .= " $word ";
+                $words .= " {$word}xx ";
                 continue;
             }
             
