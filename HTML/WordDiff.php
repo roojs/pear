@@ -292,6 +292,7 @@ class HTML_WordDiff
             return $ret;
         }
         
+        
         $ret = '['.implode('', array(
                     "\x{0E00}-\x{0E7F}", // thai ??
                     "\x{2E80}-\x{2EFF}",      # CJK Radicals Supplement
