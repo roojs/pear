@@ -293,6 +293,7 @@ class HTML_WordDiff
         }
         
         $ret = '['.implode('', array(
+                    "\x{0E00}-\x{0E7F}", // thai ??
                     "\x{2E80}-\x{2EFF}",      # CJK Radicals Supplement
                     "\x{2F00}-\x{2FDF}",      # Kangxi Radicals
                     "\x{2FF0}-\x{2FFF}",      # Ideographic Description Characters
