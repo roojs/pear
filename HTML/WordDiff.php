@@ -248,7 +248,7 @@ class HTML_WordDiff
                 continue;
             }
             
-            if (preg_match('/[^\w]+/', $word)) {
+            if (preg_match('/[^\w]+/u', $word)) {
                 $words .= ' ';
                 continue;
             }
