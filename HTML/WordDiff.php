@@ -218,7 +218,7 @@ class HTML_WordDiff
         
         $sentence = $this->domExtractWords($pageDom->documentElement, array(), $charset);
         
-        var_Dump($sentence);exit;
+        
         
         
         $content = implode('', $sentence);
@@ -257,7 +257,7 @@ class HTML_WordDiff
         }
 
         $words = preg_split('/\s+/', trim($words));
-        
+        var_Dump($words);exit;
         return $words;
     }
     
