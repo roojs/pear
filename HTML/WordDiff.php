@@ -257,7 +257,7 @@ class HTML_WordDiff
         }
 
         $words = preg_split('/\s+/', trim($words));
-         var_dump($words);exit;
+         //var_dump($words);exit;
         return $words;
     }
     
