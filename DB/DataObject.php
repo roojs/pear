@@ -4946,8 +4946,6 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         return false;
-        
-    	
     }
     
     
