@@ -4950,6 +4950,20 @@ class DB_DataObject extends DB_DataObject_Overload
     	
     }
     
+    
+    /**
+     * FC for PDO DataObject.
+     *
+     * @category introspect
+     * @access public
+     * @return array associative array of table => array ( col -> table:col )
+     */
+    function databaseLinks()
+    {
+        $this->links(); // force loading using this method.
+        return $_DB_DATAOBJECT['LINKS'][$this->_database];
+    }
+    
     /**
      * (deprecated - use ::get / and your own caching method)
      */
