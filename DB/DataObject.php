@@ -4958,6 +4958,7 @@ class DB_DataObject extends DB_DataObject_Overload
      */
     function databaseLinks()
     {
+        global $_DB_DATAOBJECT;
         $this->links(); // force loading using this method.
         return $_DB_DATAOBJECT['LINKS'][$this->_database];
     }
