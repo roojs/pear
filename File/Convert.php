@@ -742,7 +742,7 @@ class File_Convert_Solution
         ////  echo $cmd;
         
         // do some locking
-        $lock = fopen(ini_get('session.save_path') . '/file-convert-unoconv.lock', 'r+');
+        $lock = fopen(ini_get('session.save_path') . '/file-convert-unoconv.lock', 'wr+');
         $tries = 3;
         while ($tries >0) {
             if (!flock($lock, LOCK_EX | LOCK_NB)) {
