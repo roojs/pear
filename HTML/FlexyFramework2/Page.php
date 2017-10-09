@@ -280,7 +280,7 @@ class HTML_FlexyFramework2_Page  {
     */    
     function outputBody()
     {
-
+        print_R($this->template);
         require_once 'HTML/Template/Flexy.php' ;
 
         $template_engine = new HTML_Template_Flexy(HTML_FlexyFramework2::get()->HTML_Template_Flexy);
