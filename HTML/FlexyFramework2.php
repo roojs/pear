@@ -674,6 +674,7 @@ class HTML_FlexyFramework2 {
                 }
             }
         }
+        print_R($src);exit;
         
         $src[] = $this->baseDir . '/templates';
         
