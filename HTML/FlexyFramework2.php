@@ -669,7 +669,6 @@ class HTML_FlexyFramework2 {
         if(!empty($this->projectExtends)){
             foreach ($this->projectExtends as $e){
                 $add = $this->rootDir . '/' . $e .'/templates';
-                print_R($add);exit;
                 if (!in_array($add,$src) && file_exists($add)) {
                     $src[] = $add;
                 }
@@ -694,6 +693,7 @@ class HTML_FlexyFramework2 {
                 foreach ($this->projectExtends as $extend){
                     foreach($this->enableArray as $m) {
                         $add = $this->rootDir . '/' . $extend . '/' . $m .'/templates';
+                        print_r($add);
                         if (!in_array($add,$src) && file_exists($add) && $this->appNameShort != $m) {
                             $src[] = $add;
                         }
@@ -702,7 +702,7 @@ class HTML_FlexyFramework2 {
     
             }
         }
-         
+         exit;
         
         if ($this->appNameShort) {
             $src[] =  $this->baseDir . '/'. $this->appNameShort. '/templates';
