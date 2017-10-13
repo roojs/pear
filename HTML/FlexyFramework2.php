@@ -669,12 +669,12 @@ class HTML_FlexyFramework2 {
         if(!empty($this->projectExtends)){
             foreach ($this->projectExtends as $e){
                 $add = $this->rootDir . '/' . $e .'/templates';
+                print_R($add);exit;
                 if (!in_array($add,$src) && file_exists($add)) {
                     $src[] = $add;
                 }
             }
         }
-        print_R($src);exit;
         
         $src[] = $this->baseDir . '/templates';
         
