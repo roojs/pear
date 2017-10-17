@@ -352,6 +352,8 @@ class HTML_FlexyFramework {
             return;
         }
         
+        $cfg = $this->languages;
+        
         $default = $cfg['default'];
         
         if(!empty($_SERVER["HTTP_ACCEPT_LANGUAGE"])){
@@ -367,9 +369,6 @@ class HTML_FlexyFramework {
             print_r($langs);exit;
             
         }
-        
-        
-        $cfg = $this->languages;
            
         $lang = isset($_COOKIE[$cfg['cookie']]) ?  $_COOKIE[$cfg['cookie']] : $cfg['default'];
 
