@@ -352,8 +352,8 @@ class HTML_FlexyFramework {
             return;
         }
         
-        $locale = locale_accept_from_http($_SERVER['HTTP_ACCEPT_LANGUAGE']);
-        echo $locale;exit;
+        $test = parseDefaultLanguage($_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+        print_r($test);exit;
         
         $cfg = $this->languages;
            
