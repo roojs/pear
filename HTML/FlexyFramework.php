@@ -379,7 +379,8 @@ class HTML_FlexyFramework {
          
     }
     
-    function parseDefaultLanguage($http_accept, $deflang = "en") {
+    function parseDefaultLanguage($http_accept, $deflang = "en") 
+    {
         if(isset($http_accept) && strlen($http_accept) > 1)  {
            # Split possible languages into array
            $x = explode(",",$http_accept);
@@ -390,7 +391,7 @@ class HTML_FlexyFramework {
               else
                  $lang[$val] = 1.0;
            }
-
+           
            #return default language (highest q-value)
            $qval = 0.0;
            foreach ($lang as $key => $value) {
