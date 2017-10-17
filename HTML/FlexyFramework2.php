@@ -341,6 +341,11 @@ class HTML_FlexyFramework2 {
             )
         ),
     */
+    var $languagesMapping = array(
+        'zh' => 'zh_HK',
+        'en-US' => 'en'
+    );
+    
     function _handleLanguages()
     {
         if (
@@ -352,10 +357,31 @@ class HTML_FlexyFramework2 {
             return;
         }
         
-        
         $cfg = $this->languages;
+        
+        $default = $cfg['default'];
+        
+        if(!empty($_SERVER["HTTP_ACCEPT_LANGUAGE"])){
+            
+            $brower_langs = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+            
+            foreach ($brower_langs as $bl) {
+                $l = preg_replace('/;(.*)/', '', $bl);
+                
+                if(array_key_exists($l, $this->languagesMapping)){
+                    $l = $this->languagesMapping[$l];
+                }
+                
+                if(!in_array($l, $cfg['avail'])){
+                    continue;
+                }
+                
+                $default = $l;
+                break;
+            }
+        }
            
-        $lang = isset($_COOKIE[$cfg['cookie']]) ?  $_COOKIE[$cfg['cookie']] : $cfg['default'];
+        $lang = isset($_COOKIE[$cfg['cookie']]) ?  $_COOKIE[$cfg['cookie']] : $default;
 
         if (isset($_REQUEST[$cfg['param']])) {
             $lang = $_REQUEST[$cfg['param']];
