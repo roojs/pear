@@ -352,7 +352,21 @@ class HTML_FlexyFramework {
             return;
         }
         
-        $test = $this->parseDefaultLanguage($_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+        $default = $cfg['default'];
+        
+        if(!empty($_SERVER["HTTP_ACCEPT_LANGUAGE"])){
+            
+            $brower_langs = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+            
+            $langs = array();
+            
+            foreach ($brower_langs as $bl) {
+                $langs[] = preg_replace('/;(.*)/', '', $bl);
+            }
+            
+            
+            
+        }
         
         
         $cfg = $this->languages;
