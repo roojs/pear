@@ -369,7 +369,7 @@ class HTML_FlexyFramework {
             foreach ($brower_langs as $bl) {
                 $l = preg_replace('/;(.*)/', '', $bl);
                 
-                if(in_array($l, $this->languagesMapping)){
+                if(array_key_exists($l, $this->languagesMapping)){
                     $l = $this->languagesMapping[$l];
                 }
                 
