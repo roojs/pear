@@ -366,17 +366,23 @@ class HTML_FlexyFramework {
             
             $brower_langs = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
             
-            $langs = array();
-            
             foreach ($brower_langs as $bl) {
-                $langs[] = preg_replace('/;(.*)/', '', $bl);
+                $l = preg_replace('/;(.*)/', '', $bl);
+                
+                if(in_array($l, $this->languagesMapping)){
+                    $l = $this->languagesMapping[$l];
+                }
+                
+                if(!in_array($l, $cfg['avail'])){
+                    continue;
+                }
+                
+                $default = $l;
+                break;
             }
-            
-            print_r($langs);exit;
-            
         }
            
-        $lang = isset($_COOKIE[$cfg['cookie']]) ?  $_COOKIE[$cfg['cookie']] : $cfg['default'];
+        $lang = isset($_COOKIE[$cfg['cookie']]) ?  $_COOKIE[$cfg['cookie']] : $default;
 
         if (isset($_REQUEST[$cfg['param']])) {
             $lang = $_REQUEST[$cfg['param']];
