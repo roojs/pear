@@ -362,24 +362,24 @@ class HTML_FlexyFramework {
         
         $default = $cfg['default'];
         
-        if(!empty($_SERVER["HTTP_ACCEPT_LANGUAGE"])){
-            
-            $brower_langs = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
-            
-            foreach ($brower_langs as $bl) {
-                $l = preg_replace('/;(.*)/', '', $bl);
-                
-                if(array_key_exists($l, $this->languagesMapping)){
-                    $l = $this->languagesMapping[$l];
-                }
-                
-                if(!in_array($l, $cfg['avail'])){
-                    continue;
-                }
-                
-                $default = $l;
-                break;
-            }
+//        if(!empty($_SERVER["HTTP_ACCEPT_LANGUAGE"])){
+//            
+//            $brower_langs = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+//            
+//            foreach ($brower_langs as $bl) {
+//                $l = preg_replace('/;(.*)/', '', $bl);
+//                
+//                if(array_key_exists($l, $this->languagesMapping)){
+//                    $l = $this->languagesMapping[$l];
+//                }
+//                
+//                if(!in_array($l, $cfg['avail'])){
+//                    continue;
+//                }
+//                
+//                $default = $l;
+//                break;
+//            }
         }
            
         $lang = isset($_COOKIE[$cfg['cookie']]) ?  $_COOKIE[$cfg['cookie']] : $default;
