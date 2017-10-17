@@ -352,6 +352,7 @@ class HTML_FlexyFramework {
             return;
         }
         
+        print_R($_SERVER['HTTP_ACCEPT_LANGUAGE']);exit;
         
         $cfg = $this->languages;
            
