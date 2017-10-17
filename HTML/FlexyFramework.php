@@ -384,6 +384,7 @@ class HTML_FlexyFramework {
         if(isset($http_accept) && strlen($http_accept) > 1)  {
            # Split possible languages into array
            $x = explode(",",$http_accept);
+           
            foreach ($x as $val) {
               #check for q-value and create associative array. No q-value means 1 by rule
               if(preg_match("/(.*);q=([0-1]{0,1}.\d{0,4})/i",$val,$matches))
