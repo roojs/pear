@@ -364,6 +364,8 @@ class HTML_FlexyFramework {
                 $langs[] = preg_replace('/;(.*)/', '', $bl);
             }
             
+            print_r($langs);exit;
+            
         }
         
         
