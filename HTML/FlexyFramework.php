@@ -342,11 +342,6 @@ class HTML_FlexyFramework {
         ),
     */
     
-    var $languagesMapping = array(
-        'zh' => 'zh_HK',
-        'en-US' => 'en'
-    );
-    
     function _handleLanguages()
     {
         if (
@@ -369,9 +364,7 @@ class HTML_FlexyFramework {
             foreach ($brower_langs as $bl) {
                 $l = preg_replace('/;(.*)/', '', $bl);
                 
-                if(array_key_exists($l, $this->languagesMapping)){
-                    $l = $this->languagesMapping[$l];
-                }
+                $l = str_replace('-', '_', $l);
                 
                 if(!in_array($l, $cfg['avail'])){
                     continue;
