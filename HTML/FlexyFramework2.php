@@ -341,10 +341,6 @@ class HTML_FlexyFramework2 {
             )
         ),
     */
-    var $languagesMapping = array(
-        'zh' => 'zh_HK',
-        'en-US' => 'en'
-    );
     
     function _handleLanguages()
     {
