@@ -85,7 +85,7 @@ class HTML_Template_Flexy_Token {
     * @access   public
     */
   
-    function factory($token,$value,$line,$charPos=0) {
+    static function factory($token,$value,$line,$charPos=0) {
         // try not to reload the same class to often
         static $loaded = array();
         
