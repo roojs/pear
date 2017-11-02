@@ -279,7 +279,12 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
         
         flock($fp, LOCK_UN);
         fclose($fp);
-        unlink($iniCache.".lock");
+        
+        clearstatcache();
+        
+        if(file_exists($iniCache.".lock")){
+            unlink($iniCache.".lock");
+        }
         
     }
     /* bit like merge recursive, but it avoids doing stuff with arrays.. */
