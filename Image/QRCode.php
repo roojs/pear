@@ -49,7 +49,7 @@
  * Exception handling
  */
 
-require_once 'QRCode/Exception.php';
+require_once 'Image/QRCode/Exception.php';
 
 /**
  * QRCode
