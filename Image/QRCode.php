@@ -372,6 +372,7 @@ class Image_QRCode
      */
     public function __construct($options = array())
     {
+        /*
         $this->path = "@data_dir@" . DIRECTORY_SEPARATOR . "Image_QRCode" .
             DIRECTORY_SEPARATOR . "data";
         if ("@data_dir@" == "@" . "data_dir@") {
@@ -385,7 +386,11 @@ class Image_QRCode
             // development path
             $this->image_path = dirname(__FILE__) . "/../imagedata";
         }
-
+         */
+        
+        $this->path = dirname(__FILE__) . "/QRCode/data";
+        $this->image_path = dirname(__FILE__) . "/QRCode/imagedata";
+        
         $this->version = 0;
         $this->version_ul = 40;
 
