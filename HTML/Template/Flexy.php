@@ -359,6 +359,7 @@ class HTML_Template_Flexy
                 $this->currentTemplate = $match . DIRECTORY_SEPARATOR .$newfile;
                 $tmplDirUsed = $match;
             }
+            print_r($file);exit;
             
         }
         // look in all the posible locations for the template directory..
