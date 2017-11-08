@@ -332,6 +332,7 @@ class HTML_Template_Flexy
         //Remove the slash if there is one in front, just to be safe.
         $file = ltrim($file,DIRECTORY_SEPARATOR);
         
+        print_r($file);exit;
         
         if (strpos($file,'#')) {
             list($file,$this->options['output.block']) = explode('#', $file);
