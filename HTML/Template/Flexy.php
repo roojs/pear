@@ -282,6 +282,7 @@ class HTML_Template_Flexy
     function resolvePath ( $file )
     {
         $dirs = array_unique($this->options['templateDir']);
+        var_dump($dirs);exit;
         if ($this->options['templateDirOrder'] == 'reverse') {
             $dirs = array_reverse($dirs);
         }
