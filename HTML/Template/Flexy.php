@@ -302,6 +302,9 @@ class HTML_Template_Flexy
             
         }
         $this->debug("using file: $ret/$file");
+        
+        print_R($ret);exit;
+        
         return $ret;
         
     }
