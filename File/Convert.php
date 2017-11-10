@@ -96,6 +96,12 @@ class File_Convert
     
     function convert($toMimetype, $x= 0, $y =0, $pg=false) 
     {
+        $pg = (int) $pg;
+        
+        if(empty($pg) || is_nan($pg * 1)){
+            $pg = false;
+        }
+        
          //echo '<PRE>'; print_r(array('convert', func_get_args()));
         if ($toMimetype != $this->mimetype) {
 
