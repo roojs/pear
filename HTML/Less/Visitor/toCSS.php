@@ -4,8 +4,8 @@ require_once 'HTML/Less/VisitorReplacing.php';
 
 require_once 'HTML/Less/Exception/Compiler.php';
 
-require_once 'HTML/Less/VisitorReplacing.php';
-require_once 'HTML/Less/VisitorReplacing.php';
+require_once 'HTML/Less/Tree/Comment.php';
+require_once 'HTML/Less/Tree/Expression.php';
 require_once 'HTML/Less/VisitorReplacing.php';
 require_once 'HTML/Less/VisitorReplacing.php';
 require_once 'HTML/Less/VisitorReplacing.php';
