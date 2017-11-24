@@ -73,7 +73,7 @@ class HTML_Less_Visitor_processExtends extends HTML_Less_Visitor {
                         $newSelector = $this->extendSelector($matches, $selectorPath, $selfSelector);
 
                         // but now we create a new extend from it
-                        $newExtend = new Less_Tree_Extend($targetExtend->selector, $targetExtend->option, 0);
+                        $newExtend = new HTML_Less_Tree_Extend($targetExtend->selector, $targetExtend->option, 0);
                         $newExtend->selfSelectors = $newSelector;
 
                         // add the extend onto the list of extends for that selector
