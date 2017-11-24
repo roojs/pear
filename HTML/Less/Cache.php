@@ -180,25 +180,25 @@ class HTML_Less_Cache {
                 return $parser_options['output'];
             }
 
-            return Less_Cache::$cache_dir . $parser_options['output'];
+            return HTML_Less_Cache::$cache_dir . $parser_options['output'];
         }
 
-        return Less_Cache::$cache_dir . $compiled_name;
+        return HTML_Less_Cache::$cache_dir . $compiled_name;
     }
 
     private static function CompiledName($files, $extrahash) {
 
         //save the file list
-        $temp = array(Less_Version::cache_version);
+        $temp = array(HTML_Less_Version::cache_version);
         foreach ($files as $file) {
             $temp[] = filemtime($file) . "\t" . filesize($file) . "\t" . $file;
         }
 
-        return Less_Cache::$prefix . sha1(json_encode($temp) . $extrahash) . '.css';
+        return HTML_Less_Cache::$prefix . sha1(json_encode($temp) . $extrahash) . '.css';
     }
 
     public static function SetCacheDir($dir) {
-        Less_Cache::$cache_dir = $dir;
+        HTML_Less_Cache::$cache_dir = $dir;
         self::CheckCacheDir();
     }
 
