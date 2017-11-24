@@ -109,6 +109,8 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
 
         if (count($env->mediaBlocks) > 1) {
             $selectors = $this->emptySelectors();
+            
+            require_once 'HTML/Less/Tree/Ruleset.php';
             $result = new HTML_Less_Tree_Ruleset($selectors, $env->mediaBlocks);
             $result->multiMedia = true;
         }
