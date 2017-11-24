@@ -13,6 +13,7 @@ require_once __DIR__ . '/Exception/Chunk.php';
 require_once __DIR__ . '/Tree/Comment.php';
 require_once __DIR__ . '/Tree/Quoted.php';
 require_once __DIR__ . '/Tree/Keyword.php';
+require_once __DIR__ . '/Tree/Color.php';
 
 /**
  * Class for parsing and compiling less files into css
