@@ -11,7 +11,7 @@ class HTML_Less_Exception_Parser extends Exception {
     /**
      * The current file
      *
-     * @var Less_ImportedFile
+     * @var HTML_Less_ImportedFile
      */
     public $currentFile;
 
@@ -30,7 +30,7 @@ class HTML_Less_Exception_Parser extends Exception {
      * @param string $message
      * @param Exception $previous Previous exception
      * @param integer $index The current parser index
-     * @param Less_FileInfo|string $currentFile The file
+     * @param HTML_Less_FileInfo|string $currentFile The file
      * @param integer $code The exception code
      */
     public function __construct($message = null, Exception $previous = null, $index = null, $currentFile = null, $code = 0) {
