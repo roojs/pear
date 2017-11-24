@@ -1240,11 +1240,11 @@ class HTML_Less_Parser
         $this->expectChar(')');
 
 
-        if (isset($value->value) || $value instanceof Less_Tree_Variable) {
-            return $this->NewObj2('Less_Tree_Url', array($value, $this->env->currentFileInfo));
+        if (isset($value->value) || $value instanceof HTML_Less_Tree_Variable) {
+            return $this->NewObj2('HTML_Less_Tree_Url', array($value, $this->env->currentFileInfo));
         }
 
-        return $this->NewObj2('Less_Tree_Url', array($this->NewObj1('Less_Tree_Anonymous', $value), $this->env->currentFileInfo));
+        return $this->NewObj2('HTML_Less_Tree_Url', array($this->NewObj1('HTML_Less_Tree_Anonymous', $value), $this->env->currentFileInfo));
     }
 
     //
