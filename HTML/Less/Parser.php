@@ -2422,7 +2422,7 @@ class HTML_Less_Parser
     /**
      * Parses the conditions
      *
-     * @return Less_Tree_Condition|null
+     * @return HTML_Less_Tree_Condition|null
      */
     private function parseConditions() {
         $index = $this->pos;
@@ -2437,7 +2437,7 @@ class HTML_Less_Parser
                     break;
                 }
 
-                $return = $this->NewObj4('Less_Tree_Condition', array('or', $return, $b, $index));
+                $return = $this->NewObj4('HTML_Less_Tree_Condition', array('or', $return, $b, $index));
             }
             return $return;
         }
@@ -2458,16 +2458,16 @@ class HTML_Less_Parser
             if ($op) {
                 $b = $this->MatchFuncs(array('parseAddition', 'parseEntitiesKeyword', 'parseEntitiesQuoted'));
                 if ($b) {
-                    $c = $this->NewObj5('Less_Tree_Condition', array($op[0], $a, $b, $index, $negate));
+                    $c = $this->NewObj5('HTML_Less_Tree_Condition', array($op[0], $a, $b, $index, $negate));
                 } else {
                     $this->Error('Unexpected expression');
                 }
             } else {
-                $k = $this->NewObj1('Less_Tree_Keyword', 'true');
-                $c = $this->NewObj5('Less_Tree_Condition', array('=', $a, $k, $index, $negate));
+                $k = $this->NewObj1('HTML_Less_Tree_Keyword', 'true');
+                $c = $this->NewObj5('HTML_Less_Tree_Condition', array('=', $a, $k, $index, $negate));
             }
             $this->expectChar(')');
-            return $this->MatchReg('/\\Gand/') ? $this->NewObj3('Less_Tree_Condition', array('and', $c, $this->parseCondition())) : $c;
+            return $this->MatchReg('/\\Gand/') ? $this->NewObj3('HTML_Less_Tree_Condition', array('and', $c, $this->parseCondition())) : $c;
         }
     }
 
