@@ -379,6 +379,9 @@ class HTML_Less_Parser
     private function PostVisitors($evaldRoot) {
 
         $visitors = array();
+        
+        require_once 'HTML/Less/Visitor/joinSelector.php';
+        
         $visitors[] = new HTML_Less_Visitor_joinSelector();
         if (self::$has_extends) {
             $visitors[] = new HTML_Less_Visitor_processExtends();
