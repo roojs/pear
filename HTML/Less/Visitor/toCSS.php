@@ -2,14 +2,6 @@
 
 require_once 'HTML/Less/VisitorReplacing.php';
 
-require_once 'HTML/Less/Exception/Compiler.php';
-
-require_once 'HTML/Less/Tree/Comment.php';
-require_once 'HTML/Less/Tree/Expression.php';
-require_once 'HTML/Less/Tree/Rule.php';
-require_once 'HTML/Less/Tree/NameValue.php';
-require_once 'HTML/Less/Tree/Value.php';
-
 /**
  * toCSS Visitor
  *
@@ -95,7 +87,9 @@ class HTML_Less_Visitor_toCSS extends HTML_Less_VisitorReplacing {
         if (!$rulesetNode->firstRoot) {
             return;
         }
-
+        
+        require_once 'HTML/Less/Exception/Compiler.php';
+        
         foreach ($rulesetNode->rules as $ruleNode) {
             if ($ruleNode instanceof HTML_Less_Tree_Rule && !$ruleNode->variable) {
                 $msg = "properties must be inside selector blocks, they cannot be in the root. Index " . $ruleNode->index . ($ruleNode->currentFileInfo ? (' Filename: ' . $ruleNode->currentFileInfo['filename']) : null);
