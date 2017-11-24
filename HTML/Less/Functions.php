@@ -632,6 +632,7 @@ class HTML_Less_Functions {
         }
         $result = str_replace('%%', '%', $result);
 
+        require_once 'HTML/Less/Tree/Quoted.php';
         return new HTML_Less_Tree_Quoted($string->quote, $result, $string->escaped);
     }
 
