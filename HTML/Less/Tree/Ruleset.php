@@ -369,7 +369,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
         foreach ($this->rules as $rule) {
 
             $class = get_class($rule);
-            if (($class === 'Less_Tree_Media') || ($class === 'Less_Tree_Directive') || ($this->root && $class === 'Less_Tree_Comment') || ($class === 'Less_Tree_Ruleset' && $rule->rules)) {
+            if (($class === 'HTML_Less_Tree_Media') || ($class === 'HTML_Less_Tree_Directive') || ($this->root && $class === 'HTML_Less_Tree_Comment') || ($class === 'HTML_Less_Tree_Ruleset' && $rule->rules)) {
                 $rulesetNodes[] = $rule;
             } else {
                 $ruleNodes[] = $rule;
@@ -404,7 +404,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
                 }
             }
 
-            $output->add((Less_Parser::$options['compress'] ? '{' : " {") . $tabRuleStr);
+            $output->add((HTML_Less_Parser::$options['compress'] ? '{' : " {") . $tabRuleStr);
         }
 
         // Compile rules and rulesets
