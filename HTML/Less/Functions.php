@@ -1,5 +1,12 @@
 <?php
 
+require_once 'HTML/Less/Mime.php';
+require_once 'HTML/Less/Parser.php';
+
+require_once 'HTML/Less/Exception/Compiler.php';
+
+
+
 /**
  * Builtin functions
  *
