@@ -504,10 +504,13 @@ class HTML_Less_Functions {
 
         $alpha = $color1->alpha * $p + $color2->alpha * (1 - $p);
 
+        require_once 'HTML/Less/Tree/Color.php';
+        
         return new HTML_Less_Tree_Color($rgb, $alpha);
     }
 
     public function greyscale($color) {
+        require_once 'HTML/Less/Tree/Dimension.php';
         return $this->desaturate($color, new HTML_Less_Tree_Dimension(100, '%'));
     }
 
