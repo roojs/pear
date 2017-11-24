@@ -54,7 +54,7 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
     /**
      * The root node
      *
-     * @var Less_Tree_Ruleset
+     * @var HTML_Less_Tree_Ruleset
      */
     protected $root;
 
@@ -76,13 +76,13 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
     /**
      * Constructor
      *
-     * @param Less_Tree_Ruleset $root The root node
+     * @param HTML_Less_Tree_Ruleset $root The root node
      * @param array $options Array of options
      */
-    public function __construct(Less_Tree_Ruleset $root, $contentsMap, $options = array()) {
+    public function __construct(HTML_Less_Tree_Ruleset $root, $contentsMap, $options = array()) {
         $this->root = $root;
         $this->contentsMap = $contentsMap;
-        $this->encoder = new Less_SourceMap_Base64VLQ();
+        $this->encoder = new HTML_Less_SourceMap_Base64VLQ();
 
         $this->SetOptions($options);
 
