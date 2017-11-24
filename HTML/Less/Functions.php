@@ -901,7 +901,7 @@ class HTML_Less_Functions {
 
             $mimetype = HTML_Less_Mime::lookup($filePath);
 
-            $charset = Less_Mime::charsets_lookup($mimetype);
+            $charset = HTML_Less_Mime::charsets_lookup($mimetype);
             $useBase64 = !in_array($charset, array('US-ASCII', 'UTF-8'));
             if ($useBase64) {
                 $mimetype .= ';base64';
@@ -923,7 +923,7 @@ class HTML_Less_Functions {
         $DATA_URI_MAX_KB = 32;
         $fileSizeInKB = round(strlen($buf) / 1024);
         if ($fileSizeInKB >= $DATA_URI_MAX_KB) {
-            $url = new Less_Tree_Url(($filePathNode ? $filePathNode : $mimetypeNode), $this->currentFileInfo);
+            $url = new HTML_Less_Tree_Url(($filePathNode ? $filePathNode : $mimetypeNode), $this->currentFileInfo);
             return $url->compile($this);
         }
 
@@ -932,7 +932,7 @@ class HTML_Less_Functions {
             $filePath = '"data:' . $mimetype . ',' . $buf . '"';
         }
 
-        return new Less_Tree_Url(new Less_Tree_Anonymous($filePath));
+        return new HTML_Less_Tree_Url(new HTML_Less_Tree_Anonymous($filePath));
     }
 
     //svg-gradient
@@ -942,7 +942,7 @@ class HTML_Less_Functions {
         $arguments = func_get_args();
 
         if (count($arguments) < 3) {
-            throw new Less_Exception_Compiler($throw_message);
+            throw new HTML_Less_Exception_Compiler($throw_message);
         }
 
         $stops = array_slice($arguments, 1);
@@ -972,7 +972,7 @@ class HTML_Less_Functions {
                 $rectangleDimension = 'x="-50" y="-50" width="101" height="101"';
                 break;
             default:
-                throw new Less_Exception_Compiler("svg-gradient direction must be 'to bottom', 'to right', 'to bottom right', 'to top right' or 'ellipse at center'");
+                throw new HTML_Less_Exception_Compiler("svg-gradient direction must be 'to bottom', 'to right', 'to bottom right', 'to top right' or 'ellipse at center'");
         }
 
         $returner = '<?xml version="1.0" ?>' .
@@ -988,8 +988,8 @@ class HTML_Less_Functions {
                 $position = null;
             }
 
-            if (!($color instanceof Less_Tree_Color) || (!(($i === 0 || $i + 1 === count($stops)) && $position === null) && !($position instanceof Less_Tree_Dimension))) {
-                throw new Less_Exception_Compiler($throw_message);
+            if (!($color instanceof HTML_Less_Tree_Color) || (!(($i === 0 || $i + 1 === count($stops)) && $position === null) && !($position instanceof HTML_Less_Tree_Dimension))) {
+                throw new HTML_Less_Exception_Compiler($throw_message);
             }
             if ($position) {
                 $positionValue = $position->toCSS();
@@ -1011,7 +1011,7 @@ class HTML_Less_Functions {
             $returner = "'data:image/svg+xml," . $returner . "'";
         }
 
-        return new Less_Tree_URL(new Less_Tree_Anonymous($returner));
+        return new HTML_Less_Tree_URL(new HTML_Less_Tree_Anonymous($returner));
     }
 
     /**
@@ -1044,15 +1044,15 @@ class HTML_Less_Functions {
             $r[$i] = $cr * 255;
         }
 
-        return new Less_Tree_Color($r, $ar);
+        return new HTML_Less_Tree_Color($r, $ar);
     }
 
     public function multiply($color1 = null, $color2 = null) {
-        if (!$color1 instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to multiply must be a color' . ($color1 instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color1 instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to multiply must be a color' . ($color1 instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
-        if (!$color2 instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The second argument to multiply must be a color' . ($color2 instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color2 instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The second argument to multiply must be a color' . ($color2 instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         return $this->colorBlend(array($this, 'colorBlendMultiply'), $color1, $color2);
