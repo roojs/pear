@@ -536,7 +536,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
                         // it is not lost
                         if ($sel) {
                             $sel[0]->elements = array_slice($sel[0]->elements, 0);
-                            $sel[0]->elements[] = new Less_Tree_Element($el->combinator, '', $el->index, $el->currentFileInfo);
+                            $sel[0]->elements[] = new HTML_Less_Tree_Element($el->combinator, '', $el->index, $el->currentFileInfo);
                         }
                         $selectorsMultiplied[] = $sel;
                     } else {
@@ -571,7 +571,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
                                 $newJoinedSelectorEmpty = false;
 
                                 // join the elements so far with the first part of the parent
-                                $newJoinedSelector->elements[] = new Less_Tree_Element($el->combinator, $parentSel[0]->elements[0]->value, $el->index, $el->currentFileInfo);
+                                $newJoinedSelector->elements[] = new HTML_Less_Tree_Element($el->combinator, $parentSel[0]->elements[0]->value, $el->index, $el->currentFileInfo);
 
                                 $newJoinedSelector->elements = array_merge($newJoinedSelector->elements, array_slice($parentSel[0]->elements, 1));
                             }
