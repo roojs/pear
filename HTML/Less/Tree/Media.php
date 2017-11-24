@@ -89,7 +89,7 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
     public function markReferenced() {
         $this->rules[0]->markReferenced();
         $this->isReferenced = true;
-        Less_Tree::ReferencedArray($this->rules[0]->rules);
+        HTML_Less_Tree::ReferencedArray($this->rules[0]->rules);
     }
 
     // evaltop
@@ -98,7 +98,7 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
 
         if (count($env->mediaBlocks) > 1) {
             $selectors = $this->emptySelectors();
-            $result = new Less_Tree_Ruleset($selectors, $env->mediaBlocks);
+            $result = new HTML_Less_Tree_Ruleset($selectors, $env->mediaBlocks);
             $result->multiMedia = true;
         }
 
