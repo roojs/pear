@@ -657,12 +657,12 @@ class HTML_Less_Parser
             if (HTML_Less_Parser::$options['cache_method'] == 'callback') {
                 if (is_callable(HTML_Less_Parser::$options['cache_callback_set'])) {
                     call_user_func_array(
-                        HTML_Less_Parser::$options['cache_callback_set'], array($this, $file_path, $cache_file, $rules)
+                            HTML_Less_Parser::$options['cache_callback_set'], array($this, $file_path, $cache_file, $rules)
                     );
                 }
             } else {
                 //msg('write cache file');
-                switch (Less_Parser::$options['cache_method']) {
+                switch (HTML_Less_Parser::$options['cache_method']) {
                     case 'serialize':
                         file_put_contents($cache_file, serialize($rules));
                         break;
@@ -675,7 +675,7 @@ class HTML_Less_Parser
                         break;
                 }
 
-                Less_Cache::CleanCache();
+                HTML_Less_Cache::CleanCache();
             }
         }
 
