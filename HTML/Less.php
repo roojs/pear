@@ -8,6 +8,7 @@
  */
 
 require_once __DIR__ . '/Less/Version.php';
+require_once __DIR__ . '/Less/Parser.php';
 
 class HTML_Less 
 {
@@ -90,6 +91,7 @@ class HTML_Less
 
         $this->setVariables($presets);
 
+        
         $parser = new Less_Parser($this->getOptions());
         $parser->setImportDirs($this->getImportDirs());
         foreach ($this->libFunctions as $name => $func) {
