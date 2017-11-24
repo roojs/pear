@@ -87,9 +87,9 @@ class HTML_Less_Visitor_toCSS extends HTML_Less_VisitorReplacing {
         }
 
         foreach ($rulesetNode->rules as $ruleNode) {
-            if ($ruleNode instanceof Less_Tree_Rule && !$ruleNode->variable) {
+            if ($ruleNode instanceof HTML_Less_Tree_Rule && !$ruleNode->variable) {
                 $msg = "properties must be inside selector blocks, they cannot be in the root. Index " . $ruleNode->index . ($ruleNode->currentFileInfo ? (' Filename: ' . $ruleNode->currentFileInfo['filename']) : null);
-                throw new Less_Exception_Compiler($msg);
+                throw new HTML_Less_Exception_Compiler($msg);
             }
         }
     }
@@ -154,7 +154,7 @@ class HTML_Less_Visitor_toCSS extends HTML_Less_VisitorReplacing {
     /**
      * Helper function for visitiRuleset
      *
-     * return array|Less_Tree_Ruleset
+     * return array|HTML_Less_Tree_Ruleset
      */
     private function visitRulesetRoot($rulesetNode) {
         $rulesetNode->accept($this);
