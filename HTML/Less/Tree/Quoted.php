@@ -1,5 +1,11 @@
 <?php
 
+require_once 'HTML/Less/Parser.php';
+require_once 'HTML/Less/Tree.php';
+
+require_once 'HTML/Less/Tree.php';
+require_once 'HTML/Less/Tree/Variable.php';
+
 /**
  * Quoted
  *
