@@ -7,9 +7,10 @@
  *  - Symfony 2
  */
 
-require_once __DIR__ . '/Less/Parser.php';
+require_once __DIR__ . '/Less/Version.php';
 
-class HTML_Less {
+class HTML_Less 
+{
 
     static public $VERSION = Less_Version::less_version;
     public $importDir = '';
@@ -19,20 +20,24 @@ class HTML_Less {
     private $formatterName;
     private $options = array();
 
-    public function __construct($lessc = null, $sourceName = null) {
+    public function __construct($lessc = null, $sourceName = null) 
+    {
         
     }
 
-    public function setImportDir($dirs) {
+    public function setImportDir($dirs) 
+    {
         $this->importDir = (array) $dirs;
     }
 
-    public function addImportDir($dir) {
+    public function addImportDir($dir) 
+    {
         $this->importDir = (array) $this->importDir;
         $this->importDir[] = $dir;
     }
 
-    public function setFormatter($name) {
+    public function setFormatter($name) 
+    {
         $this->formatterName = $name;
     }
 
