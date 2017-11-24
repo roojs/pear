@@ -92,7 +92,7 @@ class HTML_Less_Tree_Rule extends HTML_Less_Tree {
             throw $e;
         }
 
-        Less_Parser::$options['strictMath'] = $strictMathBypass;
+        HTML_Less_Parser::$options['strictMath'] = $strictMathBypass;
 
         return $return;
     }
