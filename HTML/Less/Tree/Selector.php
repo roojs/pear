@@ -50,13 +50,13 @@ class HTML_Less_Tree_Selector extends HTML_Less_Tree {
             $this->condition = $visitor->visitObj($this->condition);
         }
 
-        if ($visitor instanceof Less_Visitor_extendFinder) {
+        if ($visitor instanceof HTML_Less_Visitor_extendFinder) {
             $this->CacheElements();
         }
     }
 
     public function createDerived($elements, $extendList = null, $evaldCondition = null) {
-        $newSelector = new Less_Tree_Selector($elements, ($extendList ? $extendList : $this->extendList), null, $this->index, $this->currentFileInfo, $this->isReferenced);
+        $newSelector = new HTML_Less_Tree_Selector($elements, ($extendList ? $extendList : $this->extendList), null, $this->index, $this->currentFileInfo, $this->isReferenced);
         $newSelector->evaldCondition = $evaldCondition ? $evaldCondition : $this->evaldCondition;
         return $newSelector;
     }
