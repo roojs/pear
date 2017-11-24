@@ -1114,11 +1114,11 @@ class HTML_Less_Parser
 
         if (HTML_Less_Colors::hasOwnProperty($keyword)) {
             // detect named color
-            return $this->NewObj1('Less_Tree_Color', substr(Less_Colors::color($keyword), 1));
+            return $this->NewObj1('HTML_Less_Tree_Color', substr(HTML_Less_Colors::color($keyword), 1));
         }
 
         if ($keyword === 'transparent') {
-            return $this->NewObj3('Less_Tree_Color', array(array(0, 0, 0), 0, true));
+            return $this->NewObj3('HTML_Less_Tree_Color', array(array(0, 0, 0), 0, true));
         }
     }
 
