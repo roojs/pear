@@ -1,14 +1,6 @@
 <?php
 
-require_once 'HTML/Less/Parser.php';
 require_once 'HTML/Less/Tree.php';
-
-require_once 'HTML/Less/Tree/Anonymous.php';
-require_once 'HTML/Less/Tree/Element.php';
-require_once 'HTML/Less/Tree/Expression.php';
-require_once 'HTML/Less/Tree/Ruleset.php';
-require_once 'HTML/Less/Tree/Selector.php';
-require_once 'HTML/Less/Tree/Value.php';
 
 /**
  * Media
@@ -32,8 +24,10 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
 
         $selectors = $this->emptySelectors();
 
+        require_once 'HTML/Less/Tree/Value.php';
         $this->features = new HTML_Less_Tree_Value($features);
 
+        require_once 'HTML/Less/Tree/Ruleset.php';
         $this->rules = array(new HTML_Less_Tree_Ruleset($selectors, $value));
         $this->rules[0]->allowImports = true;
     }
