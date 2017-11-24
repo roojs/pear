@@ -13,6 +13,7 @@ require_once 'HTML/Less/SourceMap/Generator.php';
 
 require_once 'HTML/Less/Tree/Alpha.php';
 require_once 'HTML/Less/Tree/Anonymous.php';
+require_once 'HTML/Less/Tree/Assignment.php';
 require_once 'HTML/Less/Tree/Attribute.php';
 require_once 'HTML/Less/Tree/Call.php';
 require_once 'HTML/Less/Tree/Color.php';
@@ -34,23 +35,21 @@ require_once 'HTML/Less/Tree/Operation.php';
 require_once 'HTML/Less/Tree/Paren.php';
 require_once 'HTML/Less/Tree/Quoted.php';
 require_once 'HTML/Less/Tree/Rule.php';
-
-
-
-
 require_once 'HTML/Less/Tree/Ruleset.php';
+require_once 'HTML/Less/Tree/RulesetCall.php';
 
 
 
 
-require_once 'HTML/Less/Tree/Assignment.php';
+
+
 require_once 'HTML/Less/Tree/Variable.php';
 require_once 'HTML/Less/Tree/Url.php';
 
 
 require_once 'HTML/Less/Tree/UnicodeDescriptor.php';
 
-require_once 'HTML/Less/Tree/RulesetCall.php';
+
 
 require_once 'HTML/Less/Tree/Selector.php';
 
