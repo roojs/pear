@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/Cache.php';
+require_once __DIR__ . '/Environment.php';
 
 /**
  * Class for parsing and compiling less files into css
@@ -43,7 +44,7 @@ class HTML_Less_Parser
     private $mb_internal_encoding = ''; // for remember exists value of mbstring.internal_encoding
 
     /**
-     * @var Less_Environment
+     * @var HTML_Less_Environment
      */
     private $env;
     protected $rules = array();
@@ -59,13 +60,13 @@ class HTML_Less_Parser
     public static $contentsMap = array();
 
     /**
-     * @param Less_Environment|array|null $env
+     * @param HTML_Less_Environment|array|null $env
      */
-    public function __construct($env = null) {
-
+    public function __construct($env = null) 
+    {
         // Top parser on an import tree must be sure there is one "env"
         // which will then be passed around by reference.
-        if ($env instanceof Less_Environment) {
+        if ($env instanceof HTML_Less_Environment) {
             $this->env = $env;
         } else {
             $this->SetOptions(Less_Parser::$default_options);
@@ -92,7 +93,7 @@ class HTML_Less_Parser
         self::$imports = array();
         self::$contentsMap = array();
 
-        $this->env = new Less_Environment($options);
+        $this->env = new HTML_Less_Environment($options);
 
         //set new options
         if (is_array($options)) {
@@ -498,7 +499,7 @@ class HTML_Less_Parser
      */
     public function SetFileInfo($filename, $uri_root = '') {
 
-        $filename = Less_Environment::normalizePath($filename);
+        $filename = HTML_Less_Environment::normalizePath($filename);
         $dirname = preg_replace('/[^\/\\\\]*$/', '', $filename);
 
         if (!empty($uri_root)) {
@@ -1926,7 +1927,7 @@ class HTML_Less_Parser
             $rules = $this->parseBlock();
             if (is_array($rules)) {
                 $this->forget();
-                return $this->NewObj2('Less_Tree_Ruleset', array($selectors, $rules)); //Less_Environment::$strictImports
+                return $this->NewObj2('Less_Tree_Ruleset', array($selectors, $rules)); //HTML_Less_Environment::$strictImports
             }
         }
 
