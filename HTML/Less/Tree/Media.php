@@ -169,12 +169,14 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
     }
 
     public function permute($arr) {
-        if (!$arr)
+        if (!$arr){
             return array();
-
-        if (count($arr) == 1)
+        }
+        
+        if (count($arr) == 1){
             return $arr[0];
-
+        }
+        
         $result = array();
         $rest = $this->permute(array_slice($arr, 1));
         foreach ($rest as $r) {
@@ -190,9 +192,11 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
 
     public function bubbleSelectors($selectors) {
 
-        if (!$selectors)
+        if (!$selectors){
             return;
-
+        }
+        
+        require_once 'HTML/Less/Tree/Ruleset.php';
         $this->rules = array(new HTML_Less_Tree_Ruleset($selectors, array($this->rules[0])));
     }
 
