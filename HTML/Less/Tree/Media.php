@@ -137,14 +137,14 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
                 array_splice($path, $i, 0, array(new HTML_Less_Tree_Anonymous('and')));
             }
 
-            $expressions[] = new Less_Tree_Expression($path);
+            $expressions[] = new HTML_Less_Tree_Expression($path);
         }
-        $this->features = new Less_Tree_Value($expressions);
+        $this->features = new HTML_Less_Tree_Value($expressions);
 
 
 
         // Fake a tree-node that doesn't output anything.
-        return new Less_Tree_Ruleset(array(), array());
+        return new HTML_Less_Tree_Ruleset(array(), array());
     }
 
     public function permute($arr) {
