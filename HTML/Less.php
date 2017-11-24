@@ -7,7 +7,7 @@
  *  - Symfony 2
  */
 
-class lessc {
+class HTML_Less {
 
     static public $VERSION = Less_Version::less_version;
     public $importDir = '';
