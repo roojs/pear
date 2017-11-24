@@ -1,6 +1,6 @@
 <?php
 
-
+require_once 'HTML/Less/Exception/Parser.php';
 
 /**
  * Chunk Exception
