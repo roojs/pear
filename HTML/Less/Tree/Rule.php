@@ -6,6 +6,8 @@ require_once 'HTML/Less/Parser.php';
 require_once 'HTML/Less/Tree.php';
 
 require_once 'HTML/Less/Exception/Compiler.php';
+require_once 'HTML/Less/Exception/Parser.php';
+
 require_once 'HTML/Less/Tree/Value.php';
 require_once 'HTML/Less/Tree/Ruleset.php';
 require_once 'HTML/Less/Tree/Keyword.php';
