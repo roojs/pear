@@ -952,7 +952,9 @@ class HTML_Less_Functions {
         if (is_object($unit) && property_exists($unit, 'value')) {
             $unit = $unit->value;
         }
-
+        
+        require_once 'HTML/Less/Tree/Keyword.php';
+        
         return ($n instanceof HTML_Less_Tree_Dimension) && $n->unit->is($unit) ? new HTML_Less_Tree_Keyword('true') : new HTML_Less_Tree_Keyword('false');
     }
 
@@ -960,6 +962,7 @@ class HTML_Less_Functions {
      * @param string $type
      */
     private function _isa($n, $type) {
+        require_once 'HTML/Less/Tree/Keyword.php';
         return is_a($n, $type) ? new HTML_Less_Tree_Keyword('true') : new HTML_Less_Tree_Keyword('false');
     }
 
