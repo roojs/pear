@@ -217,7 +217,9 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
         if ($evald_path) {
 
             $import_dirs = array();
-
+            
+            require_once 'HTML/Less/Environment.php';
+            
             if (HTML_Less_Environment::isPathRelative($evald_path)) {
                 //if the path is relative, the file should be in the current directory
                 $import_dirs[$this->currentFileInfo['currentDirectory']] = $this->currentFileInfo['uri_root'];
@@ -230,6 +232,7 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
             }
 
             // always look in user supplied import directories
+            require_once 'HTML/Less/Parser.php';
             $import_dirs = array_merge($import_dirs, HTML_Less_Parser::$options['import_dirs']);
 
 
