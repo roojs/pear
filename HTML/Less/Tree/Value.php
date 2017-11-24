@@ -1,7 +1,6 @@
 <?php
 
 require_once 'HTML/Less/Tree.php';
-require_once 'HTML/Less/Environment.php';
 
 /**
  * Value
@@ -40,6 +39,9 @@ class HTML_Less_Tree_Value extends HTML_Less_Tree {
      */
     function genCSS($output) {
         $len = count($this->value);
+        
+        require_once 'HTML/Less/Environment.php';
+        
         for ($i = 0; $i < $len; $i++) {
             $this->value[$i]->genCSS($output);
             if ($i + 1 < $len) {
