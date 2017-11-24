@@ -1158,7 +1158,10 @@ class HTML_Less_Functions {
         } else {
             $returner = "'data:image/svg+xml," . $returner . "'";
         }
-
+        
+        require_once 'HTML/Less/Tree/Url.php';
+        require_once 'HTML/Less/Tree/Anonymous.php';
+        
         return new HTML_Less_Tree_Url(new HTML_Less_Tree_Anonymous($returner));
     }
 
