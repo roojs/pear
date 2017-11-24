@@ -757,6 +757,7 @@ class HTML_Less_Functions {
         } else if (is_numeric($args[0])) {
             return call_user_func_array($fn, $args);
         } else {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler("math functions take numbers as parameters");
         }
     }
@@ -769,6 +770,7 @@ class HTML_Less_Functions {
         $arg_count = count($args);
 
         if ($arg_count < 1) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('one or more arguments required');
         }
 
