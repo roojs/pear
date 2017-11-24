@@ -1,5 +1,7 @@
 <?php
 
+require_once 'HTML/Less/Tree.php';
+
 /**
  * Alpha
  *
