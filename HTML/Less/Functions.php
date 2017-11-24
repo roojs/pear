@@ -173,6 +173,10 @@ class HTML_Less_Functions {
         }
 
         $c = $color->toHSL();
+        
+        require_once 'HTML/Less/Tree/Dimension.php';
+        require_once 'HTML/Less/Tree/Parser.php';
+        
         return new HTML_Less_Tree_Dimension(HTML_Less_Parser::round($c['s'] * 100), '%');
     }
 
