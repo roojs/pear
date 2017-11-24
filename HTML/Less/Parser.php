@@ -1529,7 +1529,7 @@ class HTML_Less_Parser
             }
 
 
-            if ($val instanceof Less_Tree_Variable) {
+            if ($val instanceof HTML_Less_Tree_Variable) {
 
                 if ($this->MatchChar(':')) {
                     if ($expressions) {
@@ -1597,7 +1597,7 @@ class HTML_Less_Parser
                 $isSemiColonSeperated = true;
 
                 if (count($expressions) > 1) {
-                    $value = $this->NewObj1('Less_Tree_Value', $expressions);
+                    $value = $this->NewObj1('HTML_Less_Tree_Value', $expressions);
                 }
                 $argsSemiColon[] = array('name' => $name, 'value' => $value);
 
@@ -1672,7 +1672,7 @@ class HTML_Less_Parser
 
             if (is_array($ruleset)) {
                 $this->forget();
-                return $this->NewObj5('Less_Tree_Mixin_Definition', array($name, $params, $ruleset, $cond, $variadic));
+                return $this->NewObj5('HTML_Less_Tree_Mixin_Definition', array($name, $params, $ruleset, $cond, $variadic));
             }
 
             $this->restore();
