@@ -1,5 +1,14 @@
 <?php
 
+require_once 'HTML/Less/Tree.php';
+require_once 'HTML/Less/Exception/Compiler.php';
+
+require_once 'HTML/Less/Tree/Selector.php';
+require_once 'HTML/Less/Tree/Selector.php';
+require_once 'HTML/Less/Tree/Selector.php';
+require_once 'HTML/Less/Tree/Selector.php';
+require_once 'HTML/Less/Tree/Selector.php';
+
 class HTML_Less_Tree_Mixin_Call extends HTML_Less_Tree {
 
     public $selector;
@@ -177,7 +186,7 @@ class HTML_Less_Tree_Mixin_Call extends HTML_Less_Tree {
     private function IsRecursive($env, $mixin) {
 
         foreach ($env->frames as $recur_frame) {
-            if (!($mixin instanceof Less_Tree_Mixin_Definition)) {
+            if (!($mixin instanceof HTML_Less_Tree_Mixin_Definition)) {
 
                 if ($mixin === $recur_frame) {
                     return true;
