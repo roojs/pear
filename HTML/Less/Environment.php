@@ -50,7 +50,9 @@ class HTML_Less_Environment {
         self::$tabLevel = 0;
         self::$lastRule = false;
         self::$mixin_stack = 0;
-
+        
+        require_once 'HTML/Less/Parser.php';
+        
         if (HTML_Less_Parser::$options['compress']) {
 
             HTML_Less_Environment::$_outputMap = array(
@@ -91,6 +93,9 @@ class HTML_Less_Environment {
     }
 
     public static function isMathOn() {
+        
+        require_once 'HTML/Less/Parser.php';
+        
         return !HTML_Less_Parser::$options['strictMath'] || HTML_Less_Environment::$parensStack;
     }
 
