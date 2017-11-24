@@ -128,6 +128,9 @@ class HTML_Less_Parser
 
             case 'cache_dir':
                 if (is_string($value)) {
+                    
+                    require_once 'HTML/Less/Cache.php';
+                    
                     HTML_Less_Cache::SetCacheDir($value);
                     HTML_Less_Cache::CheckCacheDir();
                 }
