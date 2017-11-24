@@ -2818,7 +2818,7 @@ class HTML_Less_Parser {
 
         require_once 'HTML/Less/Cache.php';
 
-        return (HTML_Less_Parser::$options['cache_method'] && (HTML_Less_::$cache_dir || (HTML_Less_Parser::$options['cache_method'] == 'callback')));
+        return (HTML_Less_Parser::$options['cache_method'] && (HTML_Less_Cache::$cache_dir || (HTML_Less_Parser::$options['cache_method'] == 'callback')));
     }
 
 }
