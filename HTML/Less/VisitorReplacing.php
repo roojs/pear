@@ -8,70 +8,67 @@ require_once 'HTML/Less/Visitor.php';
  * @package Less
  * @subpackage visitor
  */
-class HTML_Less_VisitorReplacing extends HTML_Less_Visitor{
+class HTML_Less_VisitorReplacing extends HTML_Less_Visitor {
 
-	public function visitObj( $node ){
+    public function visitObj($node) {
 
-		$funcName = 'visit'.$node->type;
-		if( isset($this->_visitFnCache[$funcName]) ){
+        $funcName = 'visit' . $node->type;
+        if (isset($this->_visitFnCache[$funcName])) {
 
-			$visitDeeper = true;
-			$node = $this->$funcName( $node, $visitDeeper );
+            $visitDeeper = true;
+            $node = $this->$funcName($node, $visitDeeper);
 
-			if( $node ){
-				if( $visitDeeper && is_object($node) ){
-					$node->accept($this);
-				}
+            if ($node) {
+                if ($visitDeeper && is_object($node)) {
+                    $node->accept($this);
+                }
 
-				$funcName = $funcName . "Out";
-				if( isset($this->_visitFnCache[$funcName]) ){
-					$this->$funcName( $node );
-				}
-			}
+                $funcName = $funcName . "Out";
+                if (isset($this->_visitFnCache[$funcName])) {
+                    $this->$funcName($node);
+                }
+            }
+        } else {
+            $node->accept($this);
+        }
 
-		}else{
-			$node->accept($this);
-		}
+        return $node;
+    }
 
-		return $node;
-	}
+    public function visitArray($nodes) {
 
-	public function visitArray( $nodes ){
+        $newNodes = array();
+        foreach ($nodes as $node) {
+            $evald = $this->visitObj($node);
+            if ($evald) {
+                if (is_array($evald)) {
+                    self::flatten($evald, $newNodes);
+                } else {
+                    $newNodes[] = $evald;
+                }
+            }
+        }
+        return $newNodes;
+    }
 
-		$newNodes = array();
-		foreach($nodes as $node){
-			$evald = $this->visitObj($node);
-			if( $evald ){
-				if( is_array($evald) ){
-					self::flatten($evald,$newNodes);
-				}else{
-					$newNodes[] = $evald;
-				}
-			}
-		}
-		return $newNodes;
-	}
+    public function flatten($arr, &$out) {
 
-	public function flatten( $arr, &$out ){
+        foreach ($arr as $item) {
+            if (!is_array($item)) {
+                $out[] = $item;
+                continue;
+            }
 
-		foreach($arr as $item){
-			if( !is_array($item) ){
-				$out[] = $item;
-				continue;
-			}
+            foreach ($item as $nestedItem) {
+                if (is_array($nestedItem)) {
+                    self::flatten($nestedItem, $out);
+                } else {
+                    $out[] = $nestedItem;
+                }
+            }
+        }
 
-			foreach($item as $nestedItem){
-				if( is_array($nestedItem) ){
-					self::flatten( $nestedItem, $out);
-				}else{
-					$out[] = $nestedItem;
-				}
-			}
-		}
-
-		return $out;
-	}
+        return $out;
+    }
 
 }
-
-
