@@ -61,6 +61,9 @@ class HTML_Less_Cache {
 
         //create a file for variables
         if (!empty($modify_vars)) {
+            
+            require_once 'HTML/Less/Parser.php';
+            
             $lessvars = HTML_Less_Parser::serializeVars($modify_vars);
             $vars_file = HTML_Less_Cache::$cache_dir . HTML_Less_Cache::$prefix_vars . sha1($lessvars) . '.less';
 
