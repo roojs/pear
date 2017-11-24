@@ -665,6 +665,9 @@ class HTML_Less_Parser
         $rules = $this->parsePrimary();
 
         if ($this->pos < $this->input_len) {
+            
+            require_once 'HTML/Less/Exception/Chunk.php';
+            
             throw new HTML_Less_Exception_Chunk($this->input, null, $this->furthest, $this->env->currentFileInfo);
         }
 
