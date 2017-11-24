@@ -34,8 +34,6 @@ class HTML_Less_Tree_Condition extends HTML_Less_Tree {
         $a = $this->lvalue->compile($env);
         $b = $this->rvalue->compile($env);
 
-        require_once 'HTML/Less/Parser.php';
-        
         switch ($this->op) {
             case 'and':
                 $result = $a && $b;
@@ -46,6 +44,9 @@ class HTML_Less_Tree_Condition extends HTML_Less_Tree {
                 break;
 
             default:
+                
+                require_once 'HTML/Less/Parser.php';
+                
                 if (HTML_Less_Parser::is_method($a, 'compare')) {
                     $result = $a->compare($b);
                 } elseif (HTML_Less_Parser::is_method($b, 'compare')) {
