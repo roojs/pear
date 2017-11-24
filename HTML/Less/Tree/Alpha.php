@@ -6,46 +6,46 @@
  * @package Less
  * @subpackage tree
  */
-class Less_Tree_Alpha extends Less_Tree{
-	public $value;
-	public $type = 'Alpha';
+class HTML_Less_Tree_Alpha extends HTML_Less_Tree {
 
-	public function __construct($val){
-		$this->value = $val;
-	}
+    public $value;
+    public $type = 'Alpha';
 
-	//function accept( $visitor ){
-	//	$this->value = $visitor->visit( $this->value );
-	//}
+    public function __construct($val) {
+        $this->value = $val;
+    }
 
-	public function compile($env){
+    //function accept( $visitor ){
+    //	$this->value = $visitor->visit( $this->value );
+    //}
 
-		if( is_object($this->value) ){
-			$this->value = $this->value->compile($env);
-		}
+    public function compile($env) {
 
-		return $this;
-	}
+        if (is_object($this->value)) {
+            $this->value = $this->value->compile($env);
+        }
+
+        return $this;
+    }
 
     /**
-     * @see Less_Tree::genCSS
+     * @see HTML_Less_Tree::genCSS
      */
-	public function genCSS( $output ){
+    public function genCSS($output) {
 
-		$output->add( "alpha(opacity=" );
+        $output->add("alpha(opacity=");
 
-		if( is_string($this->value) ){
-			$output->add( $this->value );
-		}else{
-			$this->value->genCSS( $output);
-		}
+        if (is_string($this->value)) {
+            $output->add($this->value);
+        } else {
+            $this->value->genCSS($output);
+        }
 
-		$output->add( ')' );
-	}
+        $output->add(')');
+    }
 
-	public function toCSS(){
-		return "alpha(opacity=" . (is_string($this->value) ? $this->value : $this->value->toCSS()) . ")";
-	}
-
+    public function toCSS() {
+        return "alpha(opacity=" . (is_string($this->value) ? $this->value : $this->value->toCSS()) . ")";
+    }
 
 }
