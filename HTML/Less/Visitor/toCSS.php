@@ -193,14 +193,14 @@ class HTML_Less_Visitor_toCSS extends HTML_Less_VisitorReplacing {
         $ruleCache = array();
         for ($i = count($rules) - 1; $i >= 0; $i--) {
             $rule = $rules[$i];
-            if ($rule instanceof Less_Tree_Rule || $rule instanceof Less_Tree_NameValue) {
+            if ($rule instanceof HTML_Less_Tree_Rule || $rule instanceof HTML_Less_Tree_NameValue) {
 
                 if (!isset($ruleCache[$rule->name])) {
                     $ruleCache[$rule->name] = $rule;
                 } else {
                     $ruleList = & $ruleCache[$rule->name];
 
-                    if ($ruleList instanceof Less_Tree_Rule || $ruleList instanceof Less_Tree_NameValue) {
+                    if ($ruleList instanceof HTML_Less_Tree_Rule || $ruleList instanceof HTML_Less_Tree_NameValue) {
                         $ruleList = $ruleCache[$rule->name] = array($ruleCache[$rule->name]->toCSS());
                     }
 
@@ -224,7 +224,7 @@ class HTML_Less_Visitor_toCSS extends HTML_Less_VisitorReplacing {
         for ($i = 0; $i < $rules_len; $i++) {
             $rule = $rules[$i];
 
-            if (($rule instanceof Less_Tree_Rule) && $rule->merge) {
+            if (($rule instanceof HTML_Less_Tree_Rule) && $rule->merge) {
 
                 $key = $rule->name;
                 if ($rule->important) {
@@ -271,7 +271,7 @@ class HTML_Less_Visitor_toCSS extends HTML_Less_VisitorReplacing {
         foreach ($values as $p) {
             $mapped[] = $p->value;
         }
-        return new Less_Tree_Expression($mapped);
+        return new HTML_Less_Tree_Expression($mapped);
     }
 
     public static function toValue($values) {
