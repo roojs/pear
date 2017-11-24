@@ -468,14 +468,14 @@ class HTML_Less_Functions {
         if (is_string($str)) {
             return new HTML_Less_Tree_Anonymous($str);
         }
-        return new Less_Tree_Anonymous($str instanceof Less_Tree_JavaScript ? $str->expression : $str->value);
+        return new HTML_Less_Tree_Anonymous($str instanceof HTML_Less_Tree_JavaScript ? $str->expression : $str->value);
     }
 
     public function escape($str) {
 
         $revert = array('%21' => '!', '%2A' => '*', '%27' => "'", '%3F' => '?', '%26' => '&', '%2C' => ',', '%2F' => '/', '%40' => '@', '%2B' => '+', '%24' => '$');
 
-        return new Less_Tree_Anonymous(strtr(rawurlencode($str->value), $revert));
+        return new HTML_Less_Tree_Anonymous(strtr(rawurlencode($str->value), $revert));
     }
 
     /**
