@@ -237,7 +237,9 @@ class HTML_Less_Tree_Color extends HTML_Less_Tree {
      */
     public static function fromKeyword($keyword) {
         $keyword = strtolower($keyword);
-
+        
+        require_once 'HTML/Less/Colors.php';
+        
         if (HTML_Less_Colors::hasOwnProperty($keyword)) {
             // detect named color
             return new HTML_Less_Tree_Color(substr(HTML_Less_Colors::color($keyword), 1));
