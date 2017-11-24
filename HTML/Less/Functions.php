@@ -49,7 +49,7 @@ class HTML_Less_Functions {
     }
 
     public static function number($n) {
-
+        
         if ($n instanceof HTML_Less_Tree_Dimension) {
             return floatval($n->unit->is('%') ? $n->value / 100 : $n->value);
         } else if (is_numeric($n)) {
