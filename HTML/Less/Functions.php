@@ -527,6 +527,8 @@ class HTML_Less_Functions {
             $dark = $this->rgba(0, 0, 0, 1.0);
         }
 
+        require_once 'HTML/Less/Exception/Compiler.php';
+        
         if (!$dark instanceof HTML_Less_Tree_Color) {
             throw new HTML_Less_Exception_Compiler('The second argument to contrast must be a color' . ($dark instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
