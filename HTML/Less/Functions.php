@@ -1077,7 +1077,9 @@ class HTML_Less_Functions {
             $buf = $useBase64 ? base64_encode($buf) : rawurlencode($buf);
             $filePath = '"data:' . $mimetype . ',' . $buf . '"';
         }
-
+        
+        require_once 'HTML/Less/Tree/Anonymous.php';
+        
         return new HTML_Less_Tree_Url(new HTML_Less_Tree_Anonymous($filePath));
     }
 
