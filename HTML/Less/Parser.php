@@ -2073,11 +2073,11 @@ class HTML_Less_Parser
                 $features = $this->parseMediaFeatures();
                 if ($this->MatchChar(';')) {
                     if ($features) {
-                        $features = $this->NewObj1('Less_Tree_Value', $features);
+                        $features = $this->NewObj1('HTML_Less_Tree_Value', $features);
                     }
 
                     $this->forget();
-                    return $this->NewObj5('Less_Tree_Import', array($path, $features, $options, $this->pos, $this->env->currentFileInfo));
+                    return $this->NewObj5('HTML_Less_Tree_Import', array($path, $features, $options, $this->pos, $this->env->currentFileInfo));
                 }
             }
         }
@@ -2136,10 +2136,10 @@ class HTML_Less_Parser
                 $e = $this->parseValue();
                 if ($this->MatchChar(')')) {
                     if ($p && $e) {
-                        $r = $this->NewObj7('Less_Tree_Rule', array($p, $e, null, null, $this->pos, $this->env->currentFileInfo, true));
-                        $nodes[] = $this->NewObj1('Less_Tree_Paren', $r);
+                        $r = $this->NewObj7('HTML_Less_Tree_Rule', array($p, $e, null, null, $this->pos, $this->env->currentFileInfo, true));
+                        $nodes[] = $this->NewObj1('HTML_Less_Tree_Paren', $r);
                     } elseif ($e) {
-                        $nodes[] = $this->NewObj1('Less_Tree_Paren', $e);
+                        $nodes[] = $this->NewObj1('HTML_Less_Tree_Paren', $e);
                     } else {
                         return null;
                     }
