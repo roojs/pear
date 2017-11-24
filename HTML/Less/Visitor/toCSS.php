@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * toCSS Visitor
  *
@@ -275,13 +277,13 @@ class HTML_Less_Visitor_toCSS extends HTML_Less_VisitorReplacing {
     }
 
     public static function toValue($values) {
-        //return new Less_Tree_Value($values); ??
+        //return new HTML_Less_Tree_Value($values); ??
 
         $mapped = array();
         foreach ($values as $p) {
             $mapped[] = $p;
         }
-        return new Less_Tree_Value($mapped);
+        return new HTML_Less_Tree_Value($mapped);
     }
 
 }
