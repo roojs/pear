@@ -1,6 +1,7 @@
 <?php
 
 require_once 'HTML/Less/Configurable.php';
+require_once 'HTML/Less/Tree/Ruleset.php';
 
 /**
  * Source map generator
@@ -98,6 +99,9 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
      * @return string
      */
     public function generateCSS() {
+        
+        require_once 'HTML/Less/Output/Mapped.php';
+        
         $output = new HTML_Less_Output_Mapped($this->contentsMap, $this);
 
         // catch the output
@@ -120,6 +124,7 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
 
         // inline the map
         if (!$sourceMapUrl) {
+            require_once 'HTML/Less/Functions.php';
             $sourceMapUrl = sprintf('data:application/json,%s', HTML_Less_Functions::encodeURIComponent($sourceMapContent));
         }
 
