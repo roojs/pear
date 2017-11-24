@@ -1,5 +1,9 @@
 <?php
 
+require_once 'HTML/Less/Environment.php';
+require_once 'HTML/Less/Output.php';
+require_once 'HTML/Less/Parser.php';
+
 /**
  * Tree
  *
