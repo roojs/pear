@@ -568,7 +568,7 @@ class HTML_Less_Parser
      * @param array $dirs
      */
     public function SetImportDirs($dirs) {
-        Less_Parser::$options['import_dirs'] = array();
+        HTML_Less_Parser::$options['import_dirs'] = array();
 
         foreach ($dirs as $path => $uri_root) {
 
