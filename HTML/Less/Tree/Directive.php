@@ -1,7 +1,6 @@
 <?php
 
 require_once 'HTML/Less/Tree.php';
-require_once 'HTML/Less/Tree/Directive.php';
 
 /**
  * Directive
