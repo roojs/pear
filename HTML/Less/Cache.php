@@ -148,6 +148,9 @@ class HTML_Less_Cache {
         }
 
         $parser_options['cache_dir'] = HTML_Less_Cache::$cache_dir;
+        
+        require_once 'HTML/Less/Parser.php';
+        
         $parser = new HTML_Less_Parser($parser_options);
 
 
