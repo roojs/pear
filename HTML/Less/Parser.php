@@ -1103,7 +1103,7 @@ class HTML_Less_Parser
             if ($color) {
                 return $color;
             }
-            return $this->NewObj1('Less_Tree_Keyword', $k);
+            return $this->NewObj1('HTML_Less_Tree_Keyword', $k);
         }
     }
 
