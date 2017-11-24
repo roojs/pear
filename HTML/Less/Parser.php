@@ -2383,7 +2383,7 @@ class HTML_Less_Parser
     /**
      * Parses an addition operation
      *
-     * @return Less_Tree_Operation|null
+     * @return HTML_Less_Tree_Operation|null
      */
     private function parseAddition() {
 
@@ -2412,7 +2412,7 @@ class HTML_Less_Parser
 
                 $m->parensInOp = true;
                 $a->parensInOp = true;
-                $return = $this->NewObj3('Less_Tree_Operation', array($op, array($return, $a), $isSpaced));
+                $return = $this->NewObj3('HTML_Less_Tree_Operation', array($op, array($return, $a), $isSpaced));
             }
         }
 
