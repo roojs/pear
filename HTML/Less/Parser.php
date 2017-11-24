@@ -696,7 +696,9 @@ class HTML_Less_Parser
                         file_put_contents($cache_file, '<?php return ' . var_export($rules, true) . '; ?>');
                         break;
                 }
-
+                
+                require_once 'HTML/Less/Cache.php';
+                
                 HTML_Less_Cache::CleanCache();
             }
         }
