@@ -1340,7 +1340,7 @@ class HTML_Less_Parser
         }
         $str = $this->MatchReg('/\\G`([^`]*)`/');
         if ($str) {
-            return $this->NewObj3('Less_Tree_Javascript', array($str[1], $this->pos, $e));
+            return $this->NewObj3('HTML_Less_Tree_Javascript', array($str[1], $this->pos, $e));
         }
     }
 
@@ -1363,7 +1363,7 @@ class HTML_Less_Parser
 	private function parseRulesetCall() {
 
         if ($this->input[$this->pos] === '@' && ($name = $this->MatchReg('/\\G(@[\w-]+)\s*\(\s*\)\s*;/'))) {
-            return $this->NewObj1('Less_Tree_RulesetCall', $name[1]);
+            return $this->NewObj1('HTML_Less_Tree_RulesetCall', $name[1]);
         }
     }
 
@@ -1399,7 +1399,7 @@ class HTML_Less_Parser
                 $option = $option[1];
             }
 
-            $extendList[] = $this->NewObj3('Less_Tree_Extend', array($this->NewObj1('Less_Tree_Selector', $elements), $option, $index));
+            $extendList[] = $this->NewObj3('HTML_Less_Tree_Extend', array($this->NewObj1('HTML_Less_Tree_Selector', $elements), $option, $index));
         } while ($this->MatchChar(","));
 
         $this->expect('/\\G\)/');
@@ -1448,7 +1448,7 @@ class HTML_Less_Parser
 
             if ($this->parseEnd()) {
                 $this->forget();
-                return $this->NewObj5('Less_Tree_Mixin_Call', array($elements, $args, $index, $this->env->currentFileInfo, $important));
+                return $this->NewObj5('HTML_Less_Tree_Mixin_Call', array($elements, $args, $index, $this->env->currentFileInfo, $important));
             }
         }
 
@@ -1465,7 +1465,7 @@ class HTML_Less_Parser
             if (!$e) {
                 break;
             }
-            $elements[] = $this->NewObj4('Less_Tree_Element', array($c, $e[0], $elemIndex, $this->env->currentFileInfo));
+            $elements[] = $this->NewObj4('HTML_Less_Tree_Element', array($c, $e[0], $elemIndex, $this->env->currentFileInfo));
             $c = $this->MatchChar('>');
         }
 
@@ -1513,7 +1513,7 @@ class HTML_Less_Parser
 
 
             $nameLoop = null;
-            if ($arg instanceof Less_Tree_Expression) {
+            if ($arg instanceof HTML_Less_Tree_Expression) {
                 $arg->throwAwayComments();
             }
             $value = $arg;
