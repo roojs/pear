@@ -46,7 +46,7 @@ class HTML_Less_Visitor_extendFinder extends HTML_Less_Visitor {
         // get &:extend(.a); rules which apply to all selectors in this ruleset
         if ($rulesetNode->rules) {
             foreach ($rulesetNode->rules as $rule) {
-                if ($rule instanceof Less_Tree_Extend) {
+                if ($rule instanceof HTML_Less_Tree_Extend) {
                     $allSelectorsExtendList[] = $rule;
                     $rulesetNode->extendOnEveryPath = true;
                 }
