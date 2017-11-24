@@ -46,7 +46,7 @@ class HTML_Less_Tree_Quoted extends HTML_Less_Tree {
         $value = $this->value;
         if (preg_match_all('/`([^`]+)`/', $this->value, $matches)) {
             foreach ($matches as $i => $match) {
-                $js = new Less_Tree_JavaScript($matches[1], $this->index, true);
+                $js = new HTML_Less_Tree_JavaScript($matches[1], $this->index, true);
                 $js = $js->compile()->value;
                 $value = str_replace($matches[0][$i], $js, $value);
             }
@@ -54,19 +54,19 @@ class HTML_Less_Tree_Quoted extends HTML_Less_Tree {
 
         if (preg_match_all('/@\{([\w-]+)\}/', $value, $matches)) {
             foreach ($matches[1] as $i => $match) {
-                $v = new Less_Tree_Variable('@' . $match, $this->index, $this->currentFileInfo);
+                $v = new HTML_Less_Tree_Variable('@' . $match, $this->index, $this->currentFileInfo);
                 $v = $v->compile($env);
-                $v = ($v instanceof Less_Tree_Quoted) ? $v->value : $v->toCSS();
+                $v = ($v instanceof HTML_Less_Tree_Quoted) ? $v->value : $v->toCSS();
                 $value = str_replace($matches[0][$i], $v, $value);
             }
         }
 
-        return new Less_Tree_Quoted($this->quote . $value . $this->quote, $value, $this->escaped, $this->index, $this->currentFileInfo);
+        return new HTML_Less_Tree_Quoted($this->quote . $value . $this->quote, $value, $this->escaped, $this->index, $this->currentFileInfo);
     }
 
     public function compare($x) {
 
-        if (!Less_Parser::is_method($x, 'toCSS')) {
+        if (!HTML_Less_Parser::is_method($x, 'toCSS')) {
             return -1;
         }
 
