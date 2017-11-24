@@ -418,17 +418,17 @@ class HTML_Less_Functions {
 
         $alpha = $color1->alpha * $p + $color2->alpha * (1 - $p);
 
-        return new Less_Tree_Color($rgb, $alpha);
+        return new HTML_Less_Tree_Color($rgb, $alpha);
     }
 
     public function greyscale($color) {
-        return $this->desaturate($color, new Less_Tree_Dimension(100, '%'));
+        return $this->desaturate($color, new HTML_Less_Tree_Dimension(100, '%'));
     }
 
     public function contrast($color, $dark = null, $light = null, $threshold = null) {
         // filter: contrast(3.2);
         // should be kept as is, so check for color
-        if (!$color instanceof Less_Tree_Color) {
+        if (!$color instanceof HTML_Less_Tree_Color) {
             return null;
         }
         if (!$light) {
@@ -438,11 +438,11 @@ class HTML_Less_Functions {
             $dark = $this->rgba(0, 0, 0, 1.0);
         }
 
-        if (!$dark instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The second argument to contrast must be a color' . ($dark instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$dark instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The second argument to contrast must be a color' . ($dark instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
-        if (!$light instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The third argument to contrast must be a color' . ($light instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$light instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The third argument to contrast must be a color' . ($light instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         //Figure out which is actually light and dark!
@@ -454,7 +454,7 @@ class HTML_Less_Functions {
         if (!$threshold) {
             $threshold = 0.43;
         } else {
-            $threshold = Less_Functions::number($threshold);
+            $threshold = HTML_Less_Functions::number($threshold);
         }
 
         if ($color->luma() < $threshold) {
@@ -466,7 +466,7 @@ class HTML_Less_Functions {
 
     public function e($str) {
         if (is_string($str)) {
-            return new Less_Tree_Anonymous($str);
+            return new HTML_Less_Tree_Anonymous($str);
         }
         return new Less_Tree_Anonymous($str instanceof Less_Tree_JavaScript ? $str->expression : $str->value);
     }
