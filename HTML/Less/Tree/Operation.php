@@ -50,7 +50,7 @@ class HTML_Less_Tree_Operation extends HTML_Less_Tree {
     }
 
     /**
-     * @see Less_Tree::genCSS
+     * @see HTML_Less_Tree::genCSS
      */
     public function genCSS($output) {
         $this->operands[0]->genCSS($output);
