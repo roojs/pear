@@ -45,7 +45,7 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
             throw new HTML_Less_Exception_Compiler("Multiple units in dimension. Correct the units or use the unit function. Bad unit: " . $this->unit->toString());
         }
 
-        $value = Less_Functions::fround($this->value);
+        $value = HTML_Less_Functions::fround($this->value);
         $strValue = (string) $value;
 
         if ($value !== 0 && $value < 0.000001 && $value > -0.000001) {
@@ -54,7 +54,7 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
             $strValue = preg_replace('/\.?0+$/', '', $strValue);
         }
 
-        if (Less_Parser::$options['compress']) {
+        if (HTML_Less_Parser::$options['compress']) {
             // Zero values doesn't need a unit
             if ($value === 0 && $this->unit->isLength()) {
                 $output->add($strValue);
