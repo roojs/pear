@@ -1065,6 +1065,9 @@ class HTML_Less_Functions {
         // and the --ieCompat flag is enabled, return a normal url() instead.
         $DATA_URI_MAX_KB = 32;
         $fileSizeInKB = round(strlen($buf) / 1024);
+        
+        require_once 'HTML/Less/Tree/Url.php';
+        
         if ($fileSizeInKB >= $DATA_URI_MAX_KB) {
             $url = new HTML_Less_Tree_Url(($filePathNode ? $filePathNode : $mimetypeNode), $this->currentFileInfo);
             return $url->compile($this);
