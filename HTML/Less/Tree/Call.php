@@ -1,11 +1,6 @@
 <?php
 
-require_once 'HTML/Less/Functions.php';
 require_once 'HTML/Less/Tree.php';
-
-require_once 'HTML/Less/Exception/Compiler.php';
-
-require_once 'HTML/Less/Tree/DefaultFunc.php';
 
 /**
  * Call
@@ -72,21 +67,26 @@ class HTML_Less_Tree_Call extends HTML_Less_Tree {
 
         $result = null;
         if ($nameLC === 'default') {
+            require_once 'HTML/Less/Tree/DefaultFunc.php';
             $result = HTML_Less_Tree_DefaultFunc::compile();
         } else {
-
+            
+            require_once 'HTML/Less/Functions.php';
+            
             if (method_exists('HTML_Less_Functions', $nameLC)) { // 1.
                 try {
 
                     $func = new HTML_Less_Functions($env, $this->currentFileInfo);
                     $result = call_user_func_array(array($func, $nameLC), $args);
                 } catch (Exception $e) {
+                    require_once 'HTML/Less/Exception/Compiler.php';
                     throw new HTML_Less_Exception_Compiler('error evaluating function `' . $this->name . '` ' . $e->getMessage() . ' index: ' . $this->index);
                 }
             } elseif (isset($env->functions[$nameLC]) && is_callable($env->functions[$nameLC])) {
                 try {
                     $result = call_user_func_array($env->functions[$nameLC], $args);
                 } catch (Exception $e) {
+                    require_once 'HTML/Less/Exception/Compiler.php';
                     throw new HTML_Less_Exception_Compiler('error evaluating function `' . $this->name . '` ' . $e->getMessage() . ' index: ' . $this->index);
                 }
             }
