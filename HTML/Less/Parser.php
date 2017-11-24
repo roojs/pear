@@ -584,7 +584,7 @@ class HTML_Less_Parser
                 }
             }
 
-            Less_Parser::$options['import_dirs'][$path] = $uri_root;
+            HTML_Less_Parser::$options['import_dirs'][$path] = $uri_root;
         }
     }
 
