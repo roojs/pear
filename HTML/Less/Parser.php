@@ -1842,7 +1842,7 @@ class HTML_Less_Parser
         }
 
         if ($elements) {
-            return $this->NewObj5('Less_Tree_Selector', array($elements, $extendList, $condition, $index, $this->env->currentFileInfo));
+            return $this->NewObj5('HTML_Less_Tree_Selector', array($elements, $extendList, $condition, $index, $this->env->currentFileInfo));
         }
         if ($extendList) {
             $this->Error('Extend must be used to extend a selector, it cannot be used on its own');
@@ -1873,7 +1873,7 @@ class HTML_Less_Parser
 
         $this->expectChar(']');
 
-        return $this->NewObj3('Less_Tree_Attribute', array($key, $op[0], $val));
+        return $this->NewObj3('HTML_Less_Tree_Attribute', array($key, $op[0], $val));
     }
 
     //
@@ -1893,7 +1893,7 @@ class HTML_Less_Parser
         $block = $this->parseBlock();
 
         if ($block) {
-            $block = $this->NewObj2('Less_Tree_Ruleset', array(null, $block));
+            $block = $this->NewObj2('HTML_Less_Tree_Ruleset', array(null, $block));
         }
 
         return $block;
@@ -1902,7 +1902,7 @@ class HTML_Less_Parser
     private function parseDetachedRuleset() {
         $blockRuleset = $this->parseBlockRuleset();
         if ($blockRuleset) {
-            return $this->NewObj1('Less_Tree_DetachedRuleset', $blockRuleset);
+            return $this->NewObj1('HTML_Less_Tree_DetachedRuleset', $blockRuleset);
         }
     }
 
