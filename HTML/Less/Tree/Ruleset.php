@@ -623,6 +623,8 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
 
     function mergeElementsOnToSelectors($elements, &$selectors) {
 
+        require_once 'HTML/Less/Tree/Selector.php';
+        
         if (!$selectors) {
             $selectors[] = array(new HTML_Less_Tree_Selector($elements));
             return;
