@@ -58,14 +58,14 @@ class HTML_Less_Tree_Expression extends HTML_Less_Tree {
             if (!$this->parensInOp) {
                 HTML_Less_Environment::$parensStack--;
             } elseif (!HTML_Less_Environment::isMathOn() && !$doubleParen) {
-                $returnValue = new Less_Tree_Paren($returnValue);
+                $returnValue = new HTML_Less_Tree_Paren($returnValue);
             }
         }
         return $returnValue;
     }
 
     /**
-     * @see Less_Tree::genCSS
+     * @see HTML_Less_Tree::genCSS
      */
     public function genCSS($output) {
         $val_len = count($this->value);
