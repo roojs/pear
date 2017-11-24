@@ -1,5 +1,24 @@
 <?php
 
+require_once 'HTML/Less/Environment.php';
+require_once 'HTML/Less/Parser.php';
+require_once 'HTML/Less/Tree.php';
+
+require_once 'HTML/Less/Tree/DetachedRuleset.php';
+require_once 'HTML/Less/Tree/Rule.php';
+require_once 'HTML/Less/Tree/RulesetCall.php';
+require_once 'HTML/Less/Tree/DefaultFunc.php';
+require_once 'HTML/Less/Tree/Import.php';
+require_once 'HTML/Less/Tree/NameValue.php';
+require_once 'HTML/Less/Tree/Selector.php';
+require_once 'HTML/Less/Tree/Media.php';
+require_once 'HTML/Less/Tree/Directive.php';
+require_once 'HTML/Less/Tree/Comment.php';
+require_once 'HTML/Less/Tree/Element.php';
+
+require_once 'HTML/Less/Tree/Mixin/Call.php';
+require_once 'HTML/Less/Tree/Mixin/Definition.php';
+
 /**
  * Ruleset
  *
@@ -611,7 +630,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
     function mergeElementsOnToSelectors($elements, &$selectors) {
 
         if (!$selectors) {
-            $selectors[] = array(new Less_Tree_Selector($elements));
+            $selectors[] = array(new HTML_Less_Tree_Selector($elements));
             return;
         }
 
@@ -623,7 +642,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
                 $last = count($sel) - 1;
                 $sel[$last] = $sel[$last]->createDerived(array_merge($sel[$last]->elements, $elements));
             } else {
-                $sel[] = new Less_Tree_Selector($elements);
+                $sel[] = new HTML_Less_Tree_Selector($elements);
             }
         }
     }
