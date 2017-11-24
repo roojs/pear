@@ -44,7 +44,7 @@ class HTML_Less_Tree_Expression extends HTML_Less_Tree {
                 $returnValue = new HTML_Less_Tree_Expression($ret);
             } else {
 
-                if (($this->value[0] instanceof Less_Tree_Expression) && $this->value[0]->parens && !$this->value[0]->parensInOp) {
+                if (($this->value[0] instanceof HTML_Less_Tree_Expression) && $this->value[0]->parens && !$this->value[0]->parensInOp) {
                     $doubleParen = true;
                 }
 
