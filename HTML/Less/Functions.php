@@ -186,24 +186,24 @@ class HTML_Less_Functions {
         }
 
         $hsv = $color->toHSV();
-        return new Less_Tree_Dimension(Less_Parser::round($hsv['s'] * 100), '%');
+        return new HTML_Less_Tree_Dimension(HTML_Less_Parser::round($hsv['s'] * 100), '%');
     }
 
     public function hsvvalue($color = null) {
-        if (!$color instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to hsvvalue must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to hsvvalue must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         $hsv = $color->toHSV();
-        return new Less_Tree_Dimension(Less_Parser::round($hsv['v'] * 100), '%');
+        return new HTML_Less_Tree_Dimension(HTML_Less_Parser::round($hsv['v'] * 100), '%');
     }
 
     public function red($color = null) {
-        if (!$color instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to red must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to red must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
-        return new Less_Tree_Dimension($color->rgb[0]);
+        return new HTML_Less_Tree_Dimension($color->rgb[0]);
     }
 
     public function green($color = null) {
