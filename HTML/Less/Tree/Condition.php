@@ -1,5 +1,10 @@
 <?php
 
+require_once 'HTML/Less/Parser.php';
+require_once 'HTML/Less/Tree.php';
+
+require_once 'HTML/Less/Exception/Compiler.php';
+
 /**
  * Condition
  *
