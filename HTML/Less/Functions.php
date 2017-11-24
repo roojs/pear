@@ -747,7 +747,8 @@ class HTML_Less_Functions {
         $values = array(); // key is the unit.toString() for unified tree.Dimension values,
         // value is the index into the order array.
 
-
+        require_once 'HTML/Less/Tree/Dimension.php';
+        
         for ($i = 0; $i < $arg_count; $i++) {
             $current = $args[$i];
             if (!($current instanceof HTML_Less_Tree_Dimension)) {
@@ -758,7 +759,6 @@ class HTML_Less_Functions {
             }
 
             if ($current->unit->toString() === '' && !$unitClone) {
-                require_once 'HTML/Less/Tree/Dimension.php';
                 $temp = new HTML_Less_Tree_Dimension($current->value, $unitClone);
                 $currentUnified = $temp->unify();
             } else {
