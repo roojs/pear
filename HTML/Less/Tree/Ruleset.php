@@ -1,23 +1,6 @@
 <?php
 
-require_once 'HTML/Less/Environment.php';
-require_once 'HTML/Less/Parser.php';
 require_once 'HTML/Less/Tree.php';
-
-require_once 'HTML/Less/Tree/DetachedRuleset.php';
-require_once 'HTML/Less/Tree/Rule.php';
-require_once 'HTML/Less/Tree/RulesetCall.php';
-require_once 'HTML/Less/Tree/DefaultFunc.php';
-require_once 'HTML/Less/Tree/Import.php';
-require_once 'HTML/Less/Tree/NameValue.php';
-require_once 'HTML/Less/Tree/Selector.php';
-require_once 'HTML/Less/Tree/Media.php';
-require_once 'HTML/Less/Tree/Directive.php';
-require_once 'HTML/Less/Tree/Comment.php';
-require_once 'HTML/Less/Tree/Element.php';
-
-require_once 'HTML/Less/Tree/Mixin/Call.php';
-require_once 'HTML/Less/Tree/Mixin/Definition.php';
 
 /**
  * Ruleset
@@ -45,6 +28,9 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
     public $first_oelements;
 
     public function SetRulesetIndex() {
+        
+        require_once 'HTML/Less/Parser.php';
+        
         $this->ruleset_id = HTML_Less_Parser::$next_id++;
         $this->originalRuleset = $this->ruleset_id;
 
@@ -207,6 +193,9 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
         $hasOnePassingSelector = false;
         $selectors = array();
         if ($this->selectors) {
+            
+            require_once 'HTML/Less/Tree/DefaultFunc.php';
+            
             HTML_Less_Tree_DefaultFunc::error("it is currently only allowed in parametric mixin guards,");
 
             foreach ($this->selectors as $s) {
