@@ -1,10 +1,14 @@
 <?php
 
+require_once 'HTML/Less/Parser.php';
+require_once 'HTML/Less/Tree.php';
+require_once 'HTML/Less/Environment.php';
+
 /**
  * A simple css name-value pair
  * ex: width:100px;
  *
- * In bootstrap, there are about 600-1,000 simple name-value pairs (depending on how forgiving the match is) -vs- 6,020 dynamic rules (Less_Tree_Rule)
+ * In bootstrap, there are about 600-1,000 simple name-value pairs (depending on how forgiving the match is) -vs- 6,020 dynamic rules (HTML_Less_Tree_Rule)
  * Using the name-value object can speed up bootstrap compilation slightly, but it breaks color keyword interpretation: color:red -> color:#FF0000;
  *
  * @package Less
@@ -30,10 +34,10 @@ class HTML_Less_Tree_NameValue extends HTML_Less_Tree {
 
         $output->add(
                 $this->name
-                . Less_Environment::$_outputMap[': ']
+                . HTML_Less_Environment::$_outputMap[': ']
                 . $this->value
                 . $this->important
-                . (((Less_Environment::$lastRule && Less_Parser::$options['compress'])) ? "" : ";")
+                . (((HTML_Less_Environment::$lastRule && HTML_Less_Parser::$options['compress'])) ? "" : ";")
                 , $this->currentFileInfo, $this->index);
     }
 
@@ -42,7 +46,7 @@ class HTML_Less_Tree_NameValue extends HTML_Less_Tree {
     }
 
     public function makeImportant() {
-        $new = new Less_Tree_NameValue($this->name, $this->value, $this->index, $this->currentFileInfo);
+        $new = new HTML_Less_Tree_NameValue($this->name, $this->value, $this->index, $this->currentFileInfo);
         $new->important = ' !important';
         return $new;
     }
