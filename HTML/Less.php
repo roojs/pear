@@ -296,7 +296,6 @@ class HTML_Less {
     protected function addParsedFile($file) 
     {
         require_once 'HTML/Less/Parser.php';
-        
         $this->allParsedFiles[HTML_Less_Parser::AbsPath($file)] = filemtime($file);
     }
 
