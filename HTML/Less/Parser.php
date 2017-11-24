@@ -1213,7 +1213,7 @@ class HTML_Less_Parser
 
         $value = $this->parseEntity();
         if ($value) {
-            return $this->NewObj2('Less_Tree_Assignment', array($key[0], $value));
+            return $this->NewObj2('HTML_Less_Tree_Assignment', array($key[0], $value));
         }
     }
 
