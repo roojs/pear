@@ -292,7 +292,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
     public function variables() {
         $this->_variables = array();
         foreach ($this->rules as $r) {
-            if ($r instanceof Less_Tree_Rule && $r->variable === true) {
+            if ($r instanceof HTML_Less_Tree_Rule && $r->variable === true) {
                 $this->_variables[$r->name] = $r;
             }
         }
@@ -321,7 +321,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
             $first_oelement = $selector->_oelements[0];
 
             foreach ($this->rules as $rule) {
-                if ($rule instanceof Less_Tree_Ruleset && $rule->ruleset_id != $self) {
+                if ($rule instanceof HTML_Less_Tree_Ruleset && $rule->ruleset_id != $self) {
 
                     if (isset($rule->first_oelements[$first_oelement])) {
 
@@ -329,7 +329,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
                             $match = $selector->match($ruleSelector);
                             if ($match) {
                                 if ($selector->elements_len > $match) {
-                                    $this->lookups[$key] = array_merge($this->lookups[$key], $rule->find(new Less_Tree_Selector(array_slice($selector->elements, $match)), $self));
+                                    $this->lookups[$key] = array_merge($this->lookups[$key], $rule->find(new HTML_Less_Tree_Selector(array_slice($selector->elements, $match)), $self));
                                 } else {
                                     $this->lookups[$key][] = $rule;
                                 }
@@ -345,12 +345,12 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
     }
 
     /**
-     * @see Less_Tree::genCSS
+     * @see HTML_Less_Tree::genCSS
      */
     public function genCSS($output) {
 
         if (!$this->root) {
-            Less_Environment::$tabLevel++;
+            HTML_Less_Environment::$tabLevel++;
         }
 
         $tabRuleStr = $tabSetStr = '';
