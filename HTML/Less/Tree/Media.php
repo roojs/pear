@@ -52,6 +52,9 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
         $media = new HTML_Less_Tree_Media(array(), array(), $this->index, $this->currentFileInfo);
 
         $strictMathBypass = false;
+        
+        require_once 'HTML/Less/Parser.php';
+        
         if (HTML_Less_Parser::$options['strictMath'] === false) {
             $strictMathBypass = true;
             HTML_Less_Parser::$options['strictMath'] = true;
@@ -84,6 +87,10 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
     }
 
     public function emptySelectors() {
+        
+        require_once 'HTML/Less/Tree/Element.php';
+        require_once 'HTML/Less/Tree/Selector.php';
+        
         $el = new HTML_Less_Tree_Element('', '&', $this->index, $this->currentFileInfo);
         $sels = array(new HTML_Less_Tree_Selector(array($el), array(), null, $this->index, $this->currentFileInfo));
         $sels[0]->mediaEmpty = true;
