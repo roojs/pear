@@ -6,12 +6,10 @@
  *  - Drupal 7, by the less module v3.0+ (https://drupal.org/project/less)
  *  - Symfony 2
  */
-
 require_once __DIR__ . '/Less/Version.php';
 require_once __DIR__ . '/Less/Parser.php';
 
-class HTML_Less 
-{
+class HTML_Less {
 
     static public $VERSION = Less_Version::less_version;
     public $importDir = '';
@@ -21,61 +19,73 @@ class HTML_Less
     private $formatterName;
     private $options = array();
 
-    public function __construct($lessc = null, $sourceName = null) {
+    public function __construct($lessc = null, $sourceName = null) 
+    {
         
     }
 
-    public function setImportDir($dirs) {
+    public function setImportDir($dirs) 
+    {
         $this->importDir = (array) $dirs;
     }
 
-    public function addImportDir($dir) {
+    public function addImportDir($dir) 
+    {
         $this->importDir = (array) $this->importDir;
         $this->importDir[] = $dir;
     }
 
-    public function setFormatter($name) {
+    public function setFormatter($name) 
+    {
         $this->formatterName = $name;
     }
 
-    public function setPreserveComments($preserve) {
+    public function setPreserveComments($preserve) 
+    {
         
     }
 
-    public function registerFunction($name, $func) {
+    public function registerFunction($name, $func) 
+    {
         $this->libFunctions[$name] = $func;
     }
 
-    public function unregisterFunction($name) {
+    public function unregisterFunction($name) 
+    {
         unset($this->libFunctions[$name]);
     }
 
-    public function setVariables($variables) {
+    public function setVariables($variables) 
+    {
         foreach ($variables as $name => $value) {
             $this->setVariable($name, $value);
         }
     }
 
-    public function setVariable($name, $value) {
+    public function setVariable($name, $value) 
+    {
         $this->registeredVars[$name] = $value;
     }
 
-    public function unsetVariable($name) {
+    public function unsetVariable($name) 
+    {
         unset($this->registeredVars[$name]);
     }
 
-    public function setOptions($options) {
+    public function setOptions($options) 
+    {
         foreach ($options as $name => $value) {
             $this->setOption($name, $value);
         }
     }
 
-    public function setOption($name, $value) {
+    public function setOption($name, $value) 
+    {
         $this->options[$name] = $value;
     }
 
-    public function parse($buffer, $presets = array()) {
-
+    public function parse($buffer, $presets = array()) 
+    {
         $this->setVariables($presets);
 
         $parser = new HTML_Less_Parser($this->getOptions());
