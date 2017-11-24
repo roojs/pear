@@ -574,18 +574,18 @@ class HTML_Less_Functions {
     }
 
     public function mod($a, $b) {
-        return new Less_Tree_Dimension($a->value % $b->value, $a->unit);
+        return new HTML_Less_Tree_Dimension($a->value % $b->value, $a->unit);
     }
 
     public function pow($x, $y) {
         if (is_numeric($x) && is_numeric($y)) {
-            $x = new Less_Tree_Dimension($x);
-            $y = new Less_Tree_Dimension($y);
-        } elseif (!($x instanceof Less_Tree_Dimension) || !($y instanceof Less_Tree_Dimension)) {
-            throw new Less_Exception_Compiler('Arguments must be numbers');
+            $x = new HTML_Less_Tree_Dimension($x);
+            $y = new HTML_Less_Tree_Dimension($y);
+        } elseif (!($x instanceof HTML_Less_Tree_Dimension) || !($y instanceof HTML_Less_Tree_Dimension)) {
+            throw new HTML_Less_Exception_Compiler('Arguments must be numbers');
         }
 
-        return new Less_Tree_Dimension(pow($x->value, $y->value), $x->unit);
+        return new HTML_Less_Tree_Dimension(pow($x->value, $y->value), $x->unit);
     }
 
     // var mathFunctions = [{name:"ce ...
@@ -634,7 +634,7 @@ class HTML_Less_Functions {
         $fn = array_shift($args);
         $unit = array_shift($args);
 
-        if ($args[0] instanceof Less_Tree_Dimension) {
+        if ($args[0] instanceof HTML_Less_Tree_Dimension) {
 
             if ($unit === null) {
                 $unit = $args[0]->unit;
