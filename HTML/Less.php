@@ -194,7 +194,8 @@ class HTML_Less {
         return $out;
     }
 
-    public function checkedCompile($in, $out) {
+    public function checkedCompile($in, $out) 
+    {
         if (!is_file($out) || filemtime($in) > filemtime($out)) {
             $this->compileFile($in, $out);
             return true;
@@ -222,7 +223,8 @@ class HTML_Less {
      * @param bool $force Force rebuild?
      * @return array lessphp cache structure
      */
-    public function cachedCompile($in, $force = false) {
+    public function cachedCompile($in, $force = false) 
+    {
         // assume no root
         $root = null;
 
@@ -265,25 +267,29 @@ class HTML_Less {
         }
     }
 
-    public function ccompile($in, $out, $less = null) {
+    public function ccompile($in, $out, $less = null) 
+    {
         if ($less === null) {
             $less = new self;
         }
         return $less->checkedCompile($in, $out);
     }
 
-    public static function cexecute($in, $force = false, $less = null) {
+    public static function cexecute($in, $force = false, $less = null) 
+    {
         if ($less === null) {
             $less = new self;
         }
         return $less->cachedCompile($in, $force);
     }
 
-    public function allParsedFiles() {
+    public function allParsedFiles() 
+    {
         return $this->allParsedFiles;
     }
 
-    protected function addParsedFile($file) {
+    protected function addParsedFile($file) 
+    {
         $this->allParsedFiles[Less_Parser::AbsPath($file)] = filemtime($file);
     }
 
