@@ -71,7 +71,7 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
     }
 
     /**
-     * @see Less_Tree::genCSS
+     * @see HTML_Less_Tree::genCSS
      */
     public function genCSS($output) {
         if ($this->css) {
@@ -101,10 +101,10 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
      * @return string
      */
     public function getPath() {
-        if ($this->path instanceof Less_Tree_Quoted) {
+        if ($this->path instanceof HTML_Less_Tree_Quoted) {
             $path = $this->path->value;
             $path = ( isset($this->css) || preg_match('/(\.[a-z]*$)|([\?;].*)$/', $path)) ? $path : $path . '.less';
-        } else if ($this->path instanceof Less_Tree_URL) {
+        } else if ($this->path instanceof HTML_Less_Tree_URL) {
             $path = $this->path->value->value;
         } else {
             return null;
@@ -115,7 +115,7 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
     }
 
     public function compileForImport($env) {
-        return new Less_Tree_Import($this->path->compile($env), $this->features, $this->options, $this->index, $this->currentFileInfo);
+        return new HTML_Less_Tree_Import($this->path->compile($env), $this->features, $this->options, $this->index, $this->currentFileInfo);
     }
 
     public function compilePath($env) {
