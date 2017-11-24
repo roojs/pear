@@ -750,6 +750,9 @@ class HTML_Less_Functions {
                 $args[0] = $args[0]->unify();
             }
             $args[0] = (float) $args[0]->value;
+            
+            require_once 'HTML/Less/Tree/Dimension.php';
+            
             return new HTML_Less_Tree_Dimension(call_user_func_array($fn, $args), $unit);
         } else if (is_numeric($args[0])) {
             return call_user_func_array($fn, $args);
