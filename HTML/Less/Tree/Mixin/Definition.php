@@ -61,6 +61,9 @@ class HTML_Less_Tree_Mixin_Definition extends HTML_Less_Tree_Ruleset {
         $mixinEnv = null;
         $argsLength = 0;
 
+        require_once 'HTML/Less/Tree/Rule.php';
+        require_once 'HTML/Less/Exception/Compiler.php';
+        
         if ($args) {
             $argsLength = count($args);
             for ($i = 0; $i < $argsLength; $i++) {
@@ -88,7 +91,10 @@ class HTML_Less_Tree_Mixin_Definition extends HTML_Less_Tree_Ruleset {
                 }
             }
         }
-
+        
+        require_once 'HTML/Less/Tree/Expression.php';
+        require_once 'HTML/Less/Environment.php';
+        
         $argIndex = 0;
         foreach ($params as $i => $param) {
 
