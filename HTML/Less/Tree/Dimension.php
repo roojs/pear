@@ -1,6 +1,7 @@
 <?php
 
 require_once 'HTML/Less/Tree.php';
+
 /**
  * Dimension
  *
@@ -16,6 +17,8 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
     public function __construct($value, $unit = null) {
         $this->value = floatval($value);
 
+        require_once 'HTML/Less/Tree/Unit.php';
+        
         if ($unit && ($unit instanceof HTML_Less_Tree_Unit)) {
             $this->unit = $unit;
         } elseif ($unit) {
@@ -34,6 +37,7 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
     }
 
     public function toColor() {
+        require_once 'HTML/Less/Tree/Color.php';
         return new HTML_Less_Tree_Color(array($this->value, $this->value, $this->value));
     }
 
@@ -42,10 +46,15 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
      */
     public function genCSS($output) {
 
+        require_once 'HTML/Less/Parser.php';
+        
         if (HTML_Less_Parser::$options['strictUnits'] && !$this->unit->isSingular()) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler("Multiple units in dimension. Correct the units or use the unit function. Bad unit: " . $this->unit->toString());
         }
 
+        require_once 'HTML/Less/Functions.php';
+        
         $value = HTML_Less_Functions::fround($this->value);
         $strValue = (string) $value;
 
@@ -84,7 +93,9 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
      * @param string $op
      */
     public function operate($op, $other) {
-
+        
+        require_once 'HTML/Less/Functions.php';
+        
         $value = HTML_Less_Functions::operate($op, $this->value, $other->value);
         $unit = clone $this->unit;
 
@@ -97,8 +108,11 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
                 // do nothing
             } else {
                 $other = $other->convertTo($this->unit->usedUnits());
-
+                
+                require_once 'HTML/Less/Parser.php';
+                
                 if (HTML_Less_Parser::$options['strictUnits'] && $other->unit->toString() !== $unit->toCSS()) {
+                    require_once 'HTML/Less/Exception/Compiler.php';
                     throw new HTML_Less_Exception_Compiler("Incompatible units. Change the units or use the unit function. Bad units: '" . $unit->toString() . "' and " . $other->unit->toString() . "'.");
                 }
 
