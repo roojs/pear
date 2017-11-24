@@ -1,8 +1,6 @@
 <?php
 
 require_once 'HTML/Less/Tree.php';
-require_once 'HTML/Less/Parser.php';
-require_once 'HTML/Less/Tree/UnitConversions.php';
 
 /**
  * Unit
@@ -31,7 +29,9 @@ class HTML_Less_Tree_Unit extends HTML_Less_Tree {
      * @see HTML_Less_Tree::genCSS
      */
     public function genCSS($output) {
-
+        
+        require_once 'HTML/Less/Parser.php';
+        
         if ($this->numerator) {
             $output->add($this->numerator[0]);
         } elseif ($this->denominator) {
