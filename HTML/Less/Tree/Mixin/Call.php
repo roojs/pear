@@ -118,21 +118,21 @@ class HTML_Less_Tree_Mixin_Call extends HTML_Less_Tree {
                 if (($candidate === $defNone) || ($candidate === $defaultResult)) {
                     try {
                         $mixin = $candidates[$m]['mixin'];
-                        if (!($mixin instanceof Less_Tree_Mixin_Definition)) {
-                            $mixin = new Less_Tree_Mixin_Definition('', array(), $mixin->rules, null, false);
+                        if (!($mixin instanceof HTML_Less_Tree_Mixin_Definition)) {
+                            $mixin = new HTML_Less_Tree_Mixin_Definition('', array(), $mixin->rules, null, false);
                             $mixin->originalRuleset = $mixins[$m]->originalRuleset;
                         }
                         $rules = array_merge($rules, $mixin->evalCall($env, $args, $this->important)->rules);
                     } catch (Exception $e) {
-                        //throw new Less_Exception_Compiler($e->getMessage(), $e->index, null, $this->currentFileInfo['filename']);
-                        throw new Less_Exception_Compiler($e->getMessage(), null, null, $this->currentFileInfo);
+                        //throw new HTML_Less_Exception_Compiler($e->getMessage(), $e->index, null, $this->currentFileInfo['filename']);
+                        throw new HTML_Less_Exception_Compiler($e->getMessage(), null, null, $this->currentFileInfo);
                     }
                 }
             }
 
             if ($match) {
                 if (!$this->currentFileInfo || !isset($this->currentFileInfo['reference']) || !$this->currentFileInfo['reference']) {
-                    Less_Tree::ReferencedArray($rules);
+                    HTML_Less_Tree::ReferencedArray($rules);
                 }
 
                 return $rules;
@@ -140,9 +140,9 @@ class HTML_Less_Tree_Mixin_Call extends HTML_Less_Tree {
         }
 
         if ($isOneFound) {
-            throw new Less_Exception_Compiler('No matching definition was found for `' . $this->Format($args) . '`', null, $this->index, $this->currentFileInfo);
+            throw new HTML_Less_Exception_Compiler('No matching definition was found for `' . $this->Format($args) . '`', null, $this->index, $this->currentFileInfo);
         } else {
-            throw new Less_Exception_Compiler(trim($this->selector->toCSS()) . " is undefined in " . $this->currentFileInfo['filename'], null, $this->index);
+            throw new HTML_Less_Exception_Compiler(trim($this->selector->toCSS()) . " is undefined in " . $this->currentFileInfo['filename'], null, $this->index);
         }
     }
 
