@@ -12,6 +12,17 @@ require_once __DIR__ . '/Tree/Quoted.php';
 require_once __DIR__ . '/Tree/Keyword.php';
 require_once __DIR__ . '/Tree/Color.php';
 
+require_once __DIR__ . '/Tree/Call.php';
+require_once __DIR__ . '/Tree/Assignment.php';
+require_once __DIR__ . '/Tree/Variable.php';
+require_once __DIR__ . '/Tree/Url.php';
+require_once __DIR__ . '/Tree/Anonymous.php';
+require_once __DIR__ . '/Tree/Dimension.php';
+require_once __DIR__ . '/Tree/UnicodeDescriptor.php';
+require_once __DIR__ . '/Tree/Javascript.php';
+require_once __DIR__ . '/Tree/RulesetCall.php';
+require_once __DIR__ . '/Tree/Extend.php';
+require_once __DIR__ . '/Tree/Selector.php';
 require_once __DIR__ . '/Tree/Color.php';
 require_once __DIR__ . '/Tree/Color.php';
 require_once __DIR__ . '/Tree/Color.php';
@@ -28,18 +39,8 @@ require_once __DIR__ . '/Tree/Color.php';
 require_once __DIR__ . '/Tree/Color.php';
 require_once __DIR__ . '/Tree/Color.php';
 require_once __DIR__ . '/Tree/Color.php';
-require_once __DIR__ . '/Tree/Color.php';
-require_once __DIR__ . '/Tree/Color.php';
-require_once __DIR__ . '/Tree/Color.php';
-require_once __DIR__ . '/Tree/Color.php';
-require_once __DIR__ . '/Tree/Color.php';
-require_once __DIR__ . '/Tree/Color.php';
-require_once __DIR__ . '/Tree/Color.php';
-require_once __DIR__ . '/Tree/Color.php';
-require_once __DIR__ . '/Tree/Color.php';
-require_once __DIR__ . '/Tree/Color.php';
-require_once __DIR__ . '/Tree/Color.php';
-require_once __DIR__ . '/Tree/Color.php';
+
+require_once __DIR__ . '/Tree/Mixin/Call.php';
 
 
 require_once __DIR__ . '/SourceMap/Generator.php';
