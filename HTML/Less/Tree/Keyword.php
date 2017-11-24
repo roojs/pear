@@ -2,8 +2,6 @@
 
 require_once 'HTML/Less/Tree.php';
 
-require_once 'HTML/Less/Exception/Compiler.php';
-
 /**
  * Keyword
  *
@@ -32,6 +30,7 @@ class HTML_Less_Tree_Keyword extends HTML_Less_Tree {
     public function genCSS($output) {
 
         if ($this->value === '%') {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler("Invalid % without number");
         }
 
