@@ -1,5 +1,9 @@
 <?php
 
+require_once 'HTML/Less/Tree.php';
+
+require_once 'HTML/Less/Tree/Anonymous.php';
+
 /**
  * Javascript
  *
