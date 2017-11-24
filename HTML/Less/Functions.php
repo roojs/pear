@@ -260,18 +260,25 @@ class HTML_Less_Functions {
 
     public function blue($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to blue must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
+        require_once 'HTML/Less/Tree/Dimension.php';
+        
         return new HTML_Less_Tree_Dimension($color->rgb[2]);
     }
 
     public function alpha($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to alpha must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         $c = $color->toHSL();
+        
+        require_once 'HTML/Less/Tree/Dimension.php';
+        
         return new HTML_Less_Tree_Dimension($c['a']);
     }
 
