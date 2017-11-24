@@ -157,8 +157,8 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
 
         if (is_string($conversions)) {
             $derivedConversions = array();
-            foreach (Less_Tree_UnitConversions::$groups as $i) {
-                if (isset(Less_Tree_UnitConversions::${$i}[$conversions])) {
+            foreach (HTML_Less_Tree_UnitConversions::$groups as $i) {
+                if (isset(HTML_Less_Tree_UnitConversions::${$i}[$conversions])) {
                     $derivedConversions = array($i => $conversions);
                 }
             }
@@ -167,7 +167,7 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
 
 
         foreach ($conversions as $groupName => $targetUnit) {
-            $group = Less_Tree_UnitConversions::${$groupName};
+            $group = HTML_Less_Tree_UnitConversions::${$groupName};
 
             //numerator
             foreach ($unit->numerator as $i => $atomicUnit) {
@@ -196,7 +196,7 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
 
         $unit->cancel();
 
-        return new Less_Tree_Dimension($value, $unit);
+        return new HTML_Less_Tree_Dimension($value, $unit);
     }
 
 }
