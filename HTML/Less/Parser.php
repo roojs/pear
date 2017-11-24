@@ -1721,7 +1721,7 @@ class HTML_Less_Parser
         }
 
         $this->expectChar(')');
-        return $this->NewObj1('Less_Tree_Alpha', $value);
+        return $this->NewObj1('HTML_Less_Tree_Alpha', $value);
     }
 
     //
@@ -1747,7 +1747,7 @@ class HTML_Less_Parser
             $this->save();
             if ($this->MatchChar('(')) {
                 if (($v = $this->parseSelector()) && $this->MatchChar(')')) {
-                    $e = $this->NewObj1('Less_Tree_Paren', $v);
+                    $e = $this->NewObj1('HTML_Less_Tree_Paren', $v);
                     $this->forget();
                 } else {
                     $this->restore();
@@ -1758,7 +1758,7 @@ class HTML_Less_Parser
         }
 
         if (!is_null($e)) {
-            return $this->NewObj4('Less_Tree_Element', array($c, $e, $index, $this->env->currentFileInfo));
+            return $this->NewObj4('HTML_Less_Tree_Element', array($c, $e, $index, $this->env->currentFileInfo));
         }
     }
 
