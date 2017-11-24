@@ -337,6 +337,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
                             $match = $selector->match($ruleSelector);
                             if ($match) {
                                 if ($selector->elements_len > $match) {
+                                    require_once 'HTML/Less/Tree/Selector.php';
                                     $this->lookups[$key] = array_merge($this->lookups[$key], $rule->find(new HTML_Less_Tree_Selector(array_slice($selector->elements, $match)), $self));
                                 } else {
                                     $this->lookups[$key][] = $rule;
