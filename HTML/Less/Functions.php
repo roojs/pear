@@ -1013,6 +1013,8 @@ class HTML_Less_Functions {
         
         if (HTML_Less_Environment::isPathRelative($filePath)) {
 
+            require_once 'HTML/Less/Parser.php';
+            
             if (HTML_Less_Parser::$options['relativeUrls']) {
                 $temp = $this->currentFileInfo['currentDirectory'];
             } else {
@@ -1037,7 +1039,9 @@ class HTML_Less_Functions {
               useBase64 = ['US-ASCII', 'UTF-8'].indexOf(charset) < 0;
               if (useBase64) mimetype += ';base64';
              */
-
+            
+            require_once 'HTML/Less/Mime.php';
+            
             $mimetype = HTML_Less_Mime::lookup($filePath);
 
             $charset = HTML_Less_Mime::charsets_lookup($mimetype);
