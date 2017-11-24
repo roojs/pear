@@ -1,6 +1,6 @@
 <?php
 
-require_once( dirname(__FILE__).'/Version.php');
+//require_once( dirname(__FILE__).'/Version.php');
 
 /**
  * Utility for handling the generation and caching of css files
@@ -9,7 +9,7 @@ require_once( dirname(__FILE__).'/Version.php');
  * @subpackage cache
  *
  */
-class Less_Cache{
+class HTML_Less_Cache{
 
 	// directory less.php can use for storing data
 	public static $cache_dir	= false;
