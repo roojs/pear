@@ -2658,7 +2658,9 @@ class HTML_Less_Parser
      */
     public function NewObj0($class) {
         
-        require_once implode('/', explode('_', $class)) . '.php';
+        $classPath = implode('/', explode('_', $class)) . '.php';
+        
+        require_once $classPath;
         
         $obj = new $class();
         if ($this->CacheEnabled()) {
