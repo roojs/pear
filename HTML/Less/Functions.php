@@ -152,6 +152,9 @@ class HTML_Less_Functions {
     }
 
     public function hue($color = null) {
+        
+        require_once 'HTML/Less/Exception/Compiler.php';
+        
         if (!$color instanceof HTML_Less_Tree_Color) {
             throw new HTML_Less_Exception_Compiler('The first argument to hue must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
