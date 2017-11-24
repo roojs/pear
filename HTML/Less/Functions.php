@@ -638,6 +638,7 @@ class HTML_Less_Functions {
 
     public function unit($val, $unit = null) {
         if (!($val instanceof HTML_Less_Tree_Dimension)) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to unit must be a number' . ($val instanceof HTML_Less_Tree_Operation ? '. Have you forgotten parenthesis?' : '.'));
         }
 
@@ -650,6 +651,9 @@ class HTML_Less_Functions {
         } else {
             $unit = "";
         }
+        
+        require_once 'HTML/Less/Tree/Dimension.php';
+        
         return new HTML_Less_Tree_Dimension($val->value, $unit);
     }
 
