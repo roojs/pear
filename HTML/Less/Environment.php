@@ -7,7 +7,7 @@
  * @package Less
  * @subpackage environment
  */
-class Less_Environment{
+class HTML_Less_Environment{
 
 	//public $paths = array();				// option - unmodified - paths to search for imports on
 	//public static $files = array();		// list of files that have been imported, used for import-once
