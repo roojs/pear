@@ -11,7 +11,7 @@ class HTML_Less_Output_Mapped extends HTML_Less_Output {
     /**
      * The source map generator
      *
-     * @var Less_SourceMap_Generator
+     * @var HTML_Less_SourceMap_Generator
      */
     protected $generator;
 
@@ -40,7 +40,7 @@ class HTML_Less_Output_Mapped extends HTML_Less_Output {
      * Constructor
      *
      * @param array $contentsMap Array of filename to contents map
-     * @param Less_SourceMap_Generator $generator
+     * @param HTML_Less_SourceMap_Generator $generator
      */
     public function __construct(array $contentsMap, $generator) {
         $this->contentsMap = $contentsMap;
