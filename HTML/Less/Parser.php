@@ -66,9 +66,6 @@ class HTML_Less_Parser
         if ($env instanceof HTML_Less_Environment) {
             $this->env = $env;
         } else {
-            
-            require_once 'HTML/Less/Parser.php';
-            
             $this->SetOptions(HTML_Less_Parser::$default_options);
             $this->Reset($env);
         }
