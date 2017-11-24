@@ -1,9 +1,6 @@
 <?php
 
-require_once 'HTML/Less/Parser.php';
 require_once 'HTML/Less/Tree.php';
-
-require_once 'HTML/Less/Tree/Selector.php';
 
 /**
  * Extend
@@ -54,6 +51,7 @@ class HTML_Less_Tree_Extend extends HTML_Less_Tree {
     }
 
     public function compile($env) {
+        require_once 'HTML/Less/Parser.php';
         HTML_Less_Parser::$has_extends = true;
         $this->selector = $this->selector->compile($env);
         return $this;
@@ -73,7 +71,7 @@ class HTML_Less_Tree_Extend extends HTML_Less_Tree {
             }
             $selfElements = array_merge($selfElements, $selectors[$i]->elements);
         }
-
+        require_once 'HTML/Less/Tree/Selector.php';
         $this->selfSelectors = array(new HTML_Less_Tree_Selector($selfElements));
     }
 
