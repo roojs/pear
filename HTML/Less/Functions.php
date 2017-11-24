@@ -850,6 +850,10 @@ class HTML_Less_Functions {
         foreach ($order as $a) {
             $args[] = $a->toCSS($this->env);
         }
+        
+        require_once 'HTML/Less/Tree/Anonymous.php';
+        require_once 'HTML/Less/Environment.php';
+        
         return new HTML_Less_Tree_Anonymous(($isMin ? 'min(' : 'max(') . implode(HTML_Less_Environment::$_outputMap[','], $args) . ')');
     }
 
