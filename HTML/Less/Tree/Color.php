@@ -224,13 +224,13 @@ class HTML_Less_Tree_Color extends HTML_Less_Tree {
     public static function fromKeyword($keyword) {
         $keyword = strtolower($keyword);
 
-        if (Less_Colors::hasOwnProperty($keyword)) {
+        if (HTML_Less_Colors::hasOwnProperty($keyword)) {
             // detect named color
-            return new Less_Tree_Color(substr(Less_Colors::color($keyword), 1));
+            return new HTML_Less_Tree_Color(substr(HTML_Less_Colors::color($keyword), 1));
         }
 
         if ($keyword === 'transparent') {
-            return new Less_Tree_Color(array(0, 0, 0), 0, true);
+            return new HTML_Less_Tree_Color(array(0, 0, 0), 0, true);
         }
     }
 
