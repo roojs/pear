@@ -1,139 +1,136 @@
 <?php
-
 /*
-class HTML_Less_Visitor_import extends HTML_Less_VisitorReplacing{
-
-	public $_visitor;
-	public $_importer;
-	public $importCount;
-
-	function __construct( $evalEnv ){
-		$this->env = $evalEnv;
-		$this->importCount = 0;
-		parent::__construct();
-	}
 
 
-	function run( $root ){
-		$root = $this->visitObj($root);
-		$this->isFinished = true;
 
-		//if( $this->importCount === 0) {
-		//	$this->_finish();
-		//}
-	}
+class HTML_Less_Visitor_import extends HTML_Less_VisitorReplacing {
 
-	function visitImport($importNode, &$visitDeeper ){
-		$importVisitor = $this;
-		$inlineCSS = $importNode->options['inline'];
+    public $_visitor;
+    public $_importer;
+    public $importCount;
 
-		if( !$importNode->css || $inlineCSS ){
-			$evaldImportNode = $importNode->compileForImport($this->env);
+    function __construct($evalEnv) {
+        $this->env = $evalEnv;
+        $this->importCount = 0;
+        parent::__construct();
+    }
 
-			if( $evaldImportNode && (!$evaldImportNode->css || $inlineCSS) ){
-				$importNode = $evaldImportNode;
-				$this->importCount++;
-				$env = clone $this->env;
+    function run($root) {
+        $root = $this->visitObj($root);
+        $this->isFinished = true;
 
-				if( (isset($importNode->options['multiple']) && $importNode->options['multiple']) ){
-					$env->importMultiple = true;
-				}
+        //if( $this->importCount === 0) {
+        //	$this->_finish();
+        //}
+    }
 
-				//get path & uri
-				$path_and_uri = null;
-				if( is_callable(HTML_Less_Parser::$options['import_callback']) ){
-					$path_and_uri = call_user_func(HTML_Less_Parser::$options['import_callback'],$importNode);
-				}
+    function visitImport($importNode, &$visitDeeper) {
+        $importVisitor = $this;
+        $inlineCSS = $importNode->options['inline'];
 
-				if( !$path_and_uri ){
-					$path_and_uri = $importNode->PathAndUri();
-				}
+        if (!$importNode->css || $inlineCSS) {
+            $evaldImportNode = $importNode->compileForImport($this->env);
 
-				if( $path_and_uri ){
-					list($full_path, $uri) = $path_and_uri;
-				}else{
-					$full_path = $uri = $importNode->getPath();
-				}
+            if ($evaldImportNode && (!$evaldImportNode->css || $inlineCSS)) {
+                $importNode = $evaldImportNode;
+                $this->importCount++;
+                $env = clone $this->env;
 
+                if ((isset($importNode->options['multiple']) && $importNode->options['multiple'])) {
+                    $env->importMultiple = true;
+                }
 
-				//import once
-				if( $importNode->skip( $full_path, $env) ){
-					return array();
-				}
+                //get path & uri
+                $path_and_uri = null;
+                if (is_callable(HTML_Less_Parser::$options['import_callback'])) {
+                    $path_and_uri = call_user_func(HTML_Less_Parser::$options['import_callback'], $importNode);
+                }
 
-				if( $importNode->options['inline'] ){
-					//todo needs to reference css file not import
-					//$contents = new HTML_Less_Tree_Anonymous($importNode->root, 0, array('filename'=>$importNode->importedFilename), true );
+                if (!$path_and_uri) {
+                    $path_and_uri = $importNode->PathAndUri();
+                }
 
-					HTML_Less_Parser::AddParsedFile($full_path);
-					$contents = new HTML_Less_Tree_Anonymous( file_get_contents($full_path), 0, array(), true );
-
-					if( $importNode->features ){
-						return new HTML_Less_Tree_Media( array($contents), $importNode->features->value );
-					}
-
-					return array( $contents );
-				}
+                if ($path_and_uri) {
+                    list($full_path, $uri) = $path_and_uri;
+                } else {
+                    $full_path = $uri = $importNode->getPath();
+                }
 
 
-				// css ?
-				if( $importNode->css ){
-					$features = ( $importNode->features ? $importNode->features->compile($env) : null );
-					return new HTML_Less_Tree_Import( $importNode->compilePath( $env), $features, $importNode->options, $this->index);
-				}
+                //import once
+                if ($importNode->skip($full_path, $env)) {
+                    return array();
+                }
 
-				return $importNode->ParseImport( $full_path, $uri, $env );
-			}
+                if ($importNode->options['inline']) {
+                    //todo needs to reference css file not import
+                    //$contents = new HTML_Less_Tree_Anonymous($importNode->root, 0, array('filename'=>$importNode->importedFilename), true );
 
-		}
+                    HTML_Less_Parser::AddParsedFile($full_path);
+                    $contents = new HTML_Less_Tree_Anonymous(file_get_contents($full_path), 0, array(), true);
 
-		$visitDeeper = false;
-		return $importNode;
-	}
+                    if ($importNode->features) {
+                        return new HTML_Less_Tree_Media(array($contents), $importNode->features->value);
+                    }
+
+                    return array($contents);
+                }
 
 
-	function visitRule( $ruleNode, &$visitDeeper ){
-		$visitDeeper = false;
-		return $ruleNode;
-	}
+                // css ?
+                if ($importNode->css) {
+                    $features = ( $importNode->features ? $importNode->features->compile($env) : null );
+                    return new HTML_Less_Tree_Import($importNode->compilePath($env), $features, $importNode->options, $this->index);
+                }
 
-	function visitDirective($directiveNode, $visitArgs){
-		array_unshift($this->env->frames,$directiveNode);
-		return $directiveNode;
-	}
+                return $importNode->ParseImport($full_path, $uri, $env);
+            }
+        }
 
-	function visitDirectiveOut($directiveNode) {
-		array_shift($this->env->frames);
-	}
+        $visitDeeper = false;
+        return $importNode;
+    }
 
-	function visitMixinDefinition($mixinDefinitionNode, $visitArgs) {
-		array_unshift($this->env->frames,$mixinDefinitionNode);
-		return $mixinDefinitionNode;
-	}
+    function visitRule($ruleNode, &$visitDeeper) {
+        $visitDeeper = false;
+        return $ruleNode;
+    }
 
-	function visitMixinDefinitionOut($mixinDefinitionNode) {
-		array_shift($this->env->frames);
-	}
+    function visitDirective($directiveNode, $visitArgs) {
+        array_unshift($this->env->frames, $directiveNode);
+        return $directiveNode;
+    }
 
-	function visitRuleset($rulesetNode, $visitArgs) {
-		array_unshift($this->env->frames,$rulesetNode);
-		return $rulesetNode;
-	}
+    function visitDirectiveOut($directiveNode) {
+        array_shift($this->env->frames);
+    }
 
-	function visitRulesetOut($rulesetNode) {
-		array_shift($this->env->frames);
-	}
+    function visitMixinDefinition($mixinDefinitionNode, $visitArgs) {
+        array_unshift($this->env->frames, $mixinDefinitionNode);
+        return $mixinDefinitionNode;
+    }
 
-	function visitMedia($mediaNode, $visitArgs) {
-		array_unshift($this->env->frames, $mediaNode->ruleset);
-		return $mediaNode;
-	}
+    function visitMixinDefinitionOut($mixinDefinitionNode) {
+        array_shift($this->env->frames);
+    }
 
-	function visitMediaOut($mediaNode) {
-		array_shift($this->env->frames);
-	}
+    function visitRuleset($rulesetNode, $visitArgs) {
+        array_unshift($this->env->frames, $rulesetNode);
+        return $rulesetNode;
+    }
+
+    function visitRulesetOut($rulesetNode) {
+        array_shift($this->env->frames);
+    }
+
+    function visitMedia($mediaNode, $visitArgs) {
+        array_unshift($this->env->frames, $mediaNode->ruleset);
+        return $mediaNode;
+    }
+
+    function visitMediaOut($mediaNode) {
+        array_shift($this->env->frames);
+    }
 
 }
 */
-
-
