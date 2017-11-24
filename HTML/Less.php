@@ -143,7 +143,7 @@ class HTML_Less {
         $parser->parse($string);
         $out = $parser->getCss();
 
-        $parsed = Less_Parser::AllParsedFiles();
+        $parsed = HTML_Less_Parser::AllParsedFiles();
         foreach ($parsed as $file) {
             $this->addParsedFile($file);
         }
