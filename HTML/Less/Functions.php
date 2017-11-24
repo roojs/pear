@@ -484,7 +484,7 @@ class HTML_Less_Functions {
         if (is_string($str)) {
             return new HTML_Less_Tree_Anonymous($str);
         }
-        return new HTML_Less_Tree_Anonymous($str instanceof HTML_Less_Tree_JavaScript ? $str->expression : $str->value);
+        return new HTML_Less_Tree_Anonymous($str instanceof HTML_Less_Tree_Javascript ? $str->expression : $str->value);
     }
 
     public function escape($str) {
