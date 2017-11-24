@@ -4,7 +4,7 @@ require_once 'HTML/Less/Cache.php';
 require_once 'HTML/Less/Colors.php';
 require_once 'HTML/Less/Environment.php';
 require_once 'HTML/Less/Tree.php';
-//require_once 'HTML/Less/Version.php';
+require_once 'HTML/Less/Version.php';
 
 require_once 'HTML/Less/Exception/Chunk.php';
 require_once 'HTML/Less/Exception/Parser.php';
