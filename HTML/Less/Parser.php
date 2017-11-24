@@ -699,9 +699,9 @@ class HTML_Less_Parser
         $this->input_len = strlen($this->input);
 
 
-        if (Less_Parser::$options['sourceMap'] && $this->env->currentFileInfo) {
+        if (HTML_Less_Parser::$options['sourceMap'] && $this->env->currentFileInfo) {
             $uri = $this->env->currentFileInfo['currentUri'];
-            Less_Parser::$contentsMap[$uri] = $this->input;
+            HTML_Less_Parser::$contentsMap[$uri] = $this->input;
         }
     }
 
@@ -726,9 +726,9 @@ class HTML_Less_Parser
             $parts[] = filesize($file_path);
             $parts[] = filemtime($file_path);
             $parts[] = $env;
-            $parts[] = Less_Version::cache_version;
-            $parts[] = Less_Parser::$options['cache_method'];
-            return Less_Cache::$cache_dir . Less_Cache::$prefix . base_convert(sha1(json_encode($parts)), 16, 36) . '.lesscache';
+            $parts[] = HTML_Less_Version::cache_version;
+            $parts[] = HTML_Less_Parser::$options['cache_method'];
+            return HTML_Less_Cache::$cache_dir . HTML_Less_Cache::$prefix . base_convert(sha1(json_encode($parts)), 16, 36) . '.lesscache';
         }
     }
 
