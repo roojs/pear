@@ -5,6 +5,9 @@ require_once __DIR__ . '/Environment.php';
 require_once __DIR__ . '/Tree/Ruleset.php';
 require_once __DIR__ . '/SourceMap/Generator.php';
 require_once __DIR__ . '/Tree.php';
+require_once __DIR__ . '/Visitor/joinSelector.php';
+require_once __DIR__ . '/Visitor/processExtends.php';
+require_once __DIR__ . '/Visitor/toCSS.php';
 
 /**
  * Class for parsing and compiling less files into css
