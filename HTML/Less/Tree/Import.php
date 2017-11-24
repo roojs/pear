@@ -8,7 +8,7 @@ require_once 'HTML/Less/Tree/Anonymous.php';
 require_once 'HTML/Less/Tree/Media.php';
 require_once 'HTML/Less/Tree/Quoted.php';
 require_once 'HTML/Less/Tree/Ruleset.php';
-require_once 'HTML/Less/Tree/URL.php';
+require_once 'HTML/Less/Tree/Url.php';
 
 /**
  * CSS @import node
