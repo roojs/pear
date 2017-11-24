@@ -2794,6 +2794,9 @@ class HTML_Less_Parser
     }
 
     public function Error($msg) {
+        
+        require_once 'HTML/Less/Exception/Parser.php';
+        
         throw new HTML_Less_Exception_Parser($msg, null, $this->furthest, $this->env->currentFileInfo);
     }
 
