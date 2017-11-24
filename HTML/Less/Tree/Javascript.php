@@ -2,8 +2,6 @@
 
 require_once 'HTML/Less/Tree.php';
 
-require_once 'HTML/Less/Tree/Anonymous.php';
-
 /**
  * Javascript
  *
@@ -28,6 +26,7 @@ class HTML_Less_Tree_Javascript extends HTML_Less_Tree {
     }
 
     public function compile() {
+        require_once 'HTML/Less/Tree/Anonymous.php';
         return new HTML_Less_Tree_Anonymous('/* Sorry, can not do JavaScript evaluation in PHP... :( */');
     }
 
