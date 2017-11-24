@@ -21,7 +21,7 @@ class HTML_Less {
 
     public function __construct($lessc = null, $sourceName = null) 
     {
-        $this->testParser = new HTML_Less_Parser($this->getOptions());
+        print_r(HTML_Less_Version::less_version);
     }
 
     public function setImportDir($dirs) 
