@@ -3,7 +3,7 @@
 require_once 'HTML/Less/Parser.php';
 require_once 'HTML/Less/Tree.php';
 
-require_once 'HTML/Less/Tree/JavaScript.php';
+require_once 'HTML/Less/Tree/Javascript.php';
 require_once 'HTML/Less/Tree/Variable.php';
 
 /**
@@ -52,7 +52,7 @@ class HTML_Less_Tree_Quoted extends HTML_Less_Tree {
         $value = $this->value;
         if (preg_match_all('/`([^`]+)`/', $this->value, $matches)) {
             foreach ($matches as $i => $match) {
-                $js = new HTML_Less_Tree_JavaScript($matches[1], $this->index, true);
+                $js = new HTML_Less_Tree_Javascript($matches[1], $this->index, true);
                 $js = $js->compile()->value;
                 $value = str_replace($matches[0][$i], $js, $value);
             }
