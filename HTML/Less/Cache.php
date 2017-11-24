@@ -76,7 +76,7 @@ class HTML_Less_Cache {
 
         // generate name for compiled css file
         $hash = md5(json_encode($less_files));
-        $list_file = Less_Cache::$cache_dir . Less_Cache::$prefix . $hash . '.list';
+        $list_file = HTML_Less_Cache::$cache_dir . HTML_Less_Cache::$prefix . $hash . '.list';
 
         // check cached content
         if (!isset($parser_options['use_cache']) || $parser_options['use_cache'] === true) {
