@@ -6,8 +6,7 @@
  *  - Drupal 7, by the less module v3.0+ (https://drupal.org/project/less)
  *  - Symfony 2
  */
-//require_once 'HTML/Less/Version.php';
-require_once 'HTML/Less/Parser.php';
+require_once 'HTML/Less/Version.php';
 
 class HTML_Less {
 
