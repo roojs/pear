@@ -2,8 +2,6 @@
 
 require_once 'HTML/Less/Visitor.php';
 
-require_once 'HTML/Less/Tree/Extend.php';
-
 /**
  * Extend Finder Visitor
  *
