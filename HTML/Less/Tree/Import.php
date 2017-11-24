@@ -1,14 +1,6 @@
 <?php
 
-require_once 'HTML/Less/Environment.php';
-require_once 'HTML/Less/Parser.php';
 require_once 'HTML/Less/Tree.php';
-
-require_once 'HTML/Less/Tree/Anonymous.php';
-require_once 'HTML/Less/Tree/Media.php';
-require_once 'HTML/Less/Tree/Quoted.php';
-require_once 'HTML/Less/Tree/Ruleset.php';
-require_once 'HTML/Less/Tree/Url.php';
 
 /**
  * CSS @import node
@@ -135,7 +127,8 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
             $rootpath = $this->currentFileInfo['rootpath'];
         }
 
-
+        require_once 'HTML/Less/Environment.php';
+        
         if (!($path instanceof HTML_Less_Tree_Url)) {
             if ($rootpath) {
                 $pathValue = $path->value;
@@ -146,8 +139,6 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
             }
             $path->value = HTML_Less_Environment::normalizePath($path->value);
         }
-
-
 
         return $path;
     }
