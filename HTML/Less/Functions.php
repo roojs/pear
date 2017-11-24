@@ -1,5 +1,7 @@
 <?php
 
+require_once 'HTML/Less/Exception/Compiler.php';
+
 /**
  * Builtin functions
  *
