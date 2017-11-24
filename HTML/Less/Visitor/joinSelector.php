@@ -1,5 +1,7 @@
 <?php
 
+require_once 'HTML/Less/Visitor.php';
+
 /**
  * Join Selector Visitor
  *
@@ -11,7 +13,7 @@ class HTML_Less_Visitor_joinSelector extends HTML_Less_Visitor {
     public $contexts = array(array());
 
     /**
-     * @param Less_Tree_Ruleset $root
+     * @param HTML_Less_Tree_Ruleset $root
      */
     public function run($root) {
         return $this->visitObj($root);
