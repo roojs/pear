@@ -113,7 +113,7 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
 
         // Extract the media-query conditions separated with `,` (OR).
         foreach ($path as $key => $p) {
-            $value = $p->features instanceof Less_Tree_Value ? $p->features->value : $p->features;
+            $value = $p->features instanceof HTML_Less_Tree_Value ? $p->features->value : $p->features;
             $path[$key] = is_array($value) ? $value : array($value);
         }
 
@@ -130,7 +130,7 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
         foreach ($permuted as $path) {
 
             for ($i = 0, $len = count($path); $i < $len; $i++) {
-                $path[$i] = Less_Parser::is_method($path[$i], 'toCSS') ? $path[$i] : new Less_Tree_Anonymous($path[$i]);
+                $path[$i] = HTML_Less_Parser::is_method($path[$i], 'toCSS') ? $path[$i] : new HTML_Less_Tree_Anonymous($path[$i]);
             }
 
             for ($i = count($path) - 1; $i > 0; $i--) {
