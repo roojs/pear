@@ -1,5 +1,7 @@
 <?php
 
+require_once 'HTML/Less/Output.php';
+
 /**
  * Parser output with source map
  *
