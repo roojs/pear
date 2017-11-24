@@ -6,163 +6,158 @@
  * @package Less
  * @subpackage tree
  */
-class Less_Tree_Selector extends Less_Tree{
+class HTML_Less_Tree_Selector extends HTML_Less_Tree {
 
-	public $elements;
-	public $condition;
-	public $extendList = array();
-	public $_css;
-	public $index;
-	public $evaldCondition = false;
-	public $type = 'Selector';
-	public $currentFileInfo = array();
-	public $isReferenced;
-	public $mediaEmpty;
+    public $elements;
+    public $condition;
+    public $extendList = array();
+    public $_css;
+    public $index;
+    public $evaldCondition = false;
+    public $type = 'Selector';
+    public $currentFileInfo = array();
+    public $isReferenced;
+    public $mediaEmpty;
+    public $elements_len = 0;
+    public $_oelements;
+    public $_oelements_len;
+    public $cacheable = true;
 
-	public $elements_len = 0;
+    /**
+     * @param boolean $isReferenced
+     */
+    public function __construct($elements, $extendList = array(), $condition = null, $index = null, $currentFileInfo = null, $isReferenced = null) {
 
-	public $_oelements;
-	public $_oelements_len;
-	public $cacheable = true;
+        $this->elements = $elements;
+        $this->elements_len = count($elements);
+        $this->extendList = $extendList;
+        $this->condition = $condition;
+        if ($currentFileInfo) {
+            $this->currentFileInfo = $currentFileInfo;
+        }
+        $this->isReferenced = $isReferenced;
+        if (!$condition) {
+            $this->evaldCondition = true;
+        }
 
-	/**
-	 * @param boolean $isReferenced
-	 */
-	public function __construct( $elements, $extendList = array() , $condition = null, $index=null, $currentFileInfo=null, $isReferenced=null ){
-
-		$this->elements = $elements;
-		$this->elements_len = count($elements);
-		$this->extendList = $extendList;
-		$this->condition = $condition;
-		if( $currentFileInfo ){
-			$this->currentFileInfo = $currentFileInfo;
-		}
-		$this->isReferenced = $isReferenced;
-		if( !$condition ){
-			$this->evaldCondition = true;
-		}
-
-		$this->CacheElements();
-	}
+        $this->CacheElements();
+    }
 
     public function accept($visitor) {
-		$this->elements = $visitor->visitArray($this->elements);
-		$this->extendList = $visitor->visitArray($this->extendList);
-		if( $this->condition ){
-			$this->condition = $visitor->visitObj($this->condition);
-		}
+        $this->elements = $visitor->visitArray($this->elements);
+        $this->extendList = $visitor->visitArray($this->extendList);
+        if ($this->condition) {
+            $this->condition = $visitor->visitObj($this->condition);
+        }
 
-		if( $visitor instanceof Less_Visitor_extendFinder ){
-			$this->CacheElements();
-		}
-	}
+        if ($visitor instanceof Less_Visitor_extendFinder) {
+            $this->CacheElements();
+        }
+    }
 
-    public function createDerived( $elements, $extendList = null, $evaldCondition = null ){
-		$newSelector = new Less_Tree_Selector( $elements, ($extendList ? $extendList : $this->extendList), null, $this->index, $this->currentFileInfo, $this->isReferenced);
-		$newSelector->evaldCondition = $evaldCondition ? $evaldCondition : $this->evaldCondition;
-		return $newSelector;
-	}
+    public function createDerived($elements, $extendList = null, $evaldCondition = null) {
+        $newSelector = new Less_Tree_Selector($elements, ($extendList ? $extendList : $this->extendList), null, $this->index, $this->currentFileInfo, $this->isReferenced);
+        $newSelector->evaldCondition = $evaldCondition ? $evaldCondition : $this->evaldCondition;
+        return $newSelector;
+    }
 
+    public function match($other) {
 
-	public function match( $other ){
+        if (!$other->_oelements || ($this->elements_len < $other->_oelements_len)) {
+            return 0;
+        }
 
-		if( !$other->_oelements || ($this->elements_len < $other->_oelements_len) ){
-			return 0;
-		}
+        for ($i = 0; $i < $other->_oelements_len; $i++) {
+            if ($this->elements[$i]->value !== $other->_oelements[$i]) {
+                return 0;
+            }
+        }
 
-		for( $i = 0; $i < $other->_oelements_len; $i++ ){
-			if( $this->elements[$i]->value !== $other->_oelements[$i]) {
-				return 0;
-			}
-		}
+        return $other->_oelements_len; // return number of matched elements
+    }
 
-		return $other->_oelements_len; // return number of matched elements
-	}
+    public function CacheElements() {
 
+        $this->_oelements = array();
+        $css = '';
 
-	public function CacheElements(){
+        foreach ($this->elements as $v) {
 
-		$this->_oelements = array();
-		$css = '';
+            $css .= $v->combinator;
+            if (!$v->value_is_object) {
+                $css .= $v->value;
+                continue;
+            }
 
-		foreach($this->elements as $v){
+            if (!property_exists($v->value, 'value') || !is_string($v->value->value)) {
+                $this->cacheable = false;
+                return;
+            }
+            $css .= $v->value->value;
+        }
 
-			$css .= $v->combinator;
-			if( !$v->value_is_object ){
-				$css .= $v->value;
-				continue;
-			}
+        $this->_oelements_len = preg_match_all('/[,&#\.\w-](?:[\w-]|(?:\\\\.))*/', $css, $matches);
+        if ($this->_oelements_len) {
+            $this->_oelements = $matches[0];
 
-			if( !property_exists($v->value,'value') || !is_string($v->value->value) ){
-				$this->cacheable = false;
-				return;
-			}
-			$css .= $v->value->value;
-		}
+            if ($this->_oelements[0] === '&') {
+                array_shift($this->_oelements);
+                $this->_oelements_len--;
+            }
+        }
+    }
 
-		$this->_oelements_len = preg_match_all('/[,&#\.\w-](?:[\w-]|(?:\\\\.))*/', $css, $matches);
-		if( $this->_oelements_len ){
-			$this->_oelements = $matches[0];
+    public function isJustParentSelector() {
+        return !$this->mediaEmpty &&
+                count($this->elements) === 1 &&
+                $this->elements[0]->value === '&' &&
+                ($this->elements[0]->combinator === ' ' || $this->elements[0]->combinator === '');
+    }
 
-			if( $this->_oelements[0] === '&' ){
-				array_shift($this->_oelements);
-				$this->_oelements_len--;
-			}
-		}
-	}
+    public function compile($env) {
 
-	public function isJustParentSelector(){
-		return !$this->mediaEmpty &&
-			count($this->elements) === 1 &&
-			$this->elements[0]->value === '&' &&
-			($this->elements[0]->combinator === ' ' || $this->elements[0]->combinator === '');
-	}
+        $elements = array();
+        foreach ($this->elements as $el) {
+            $elements[] = $el->compile($env);
+        }
 
-	public function compile($env) {
+        $extendList = array();
+        foreach ($this->extendList as $el) {
+            $extendList[] = $el->compile($el);
+        }
 
-		$elements = array();
-		foreach($this->elements as $el){
-			$elements[] = $el->compile($env);
-		}
+        $evaldCondition = false;
+        if ($this->condition) {
+            $evaldCondition = $this->condition->compile($env);
+        }
 
-		$extendList = array();
-		foreach($this->extendList as $el){
-			$extendList[] = $el->compile($el);
-		}
+        return $this->createDerived($elements, $extendList, $evaldCondition);
+    }
 
-		$evaldCondition = false;
-		if( $this->condition ){
-			$evaldCondition = $this->condition->compile($env);
-		}
+    /**
+     * @see Less_Tree::genCSS
+     */
+    public function genCSS($output, $firstSelector = true) {
 
-		return $this->createDerived( $elements, $extendList, $evaldCondition );
-	}
+        if (!$firstSelector && $this->elements[0]->combinator === "") {
+            $output->add(' ', $this->currentFileInfo, $this->index);
+        }
 
+        foreach ($this->elements as $element) {
+            $element->genCSS($output);
+        }
+    }
 
-	/**
-	 * @see Less_Tree::genCSS
-	 */
-    public function genCSS( $output, $firstSelector = true ){
+    public function markReferenced() {
+        $this->isReferenced = true;
+    }
 
-		if( !$firstSelector && $this->elements[0]->combinator === "" ){
-			$output->add(' ', $this->currentFileInfo, $this->index);
-		}
+    public function getIsReferenced() {
+        return !isset($this->currentFileInfo['reference']) || !$this->currentFileInfo['reference'] || $this->isReferenced;
+    }
 
-		foreach($this->elements as $element){
-			$element->genCSS( $output );
-		}
-	}
-
-    public function markReferenced(){
-		$this->isReferenced = true;
-	}
-
-    public function getIsReferenced(){
-		return !isset($this->currentFileInfo['reference']) || !$this->currentFileInfo['reference'] || $this->isReferenced;
-	}
-
-    public function getIsOutput(){
-		return $this->evaldCondition;
-	}
+    public function getIsOutput() {
+        return $this->evaldCondition;
+    }
 
 }
