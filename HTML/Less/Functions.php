@@ -748,31 +748,31 @@ class HTML_Less_Functions {
     }
 
     public function getunit($n) {
-        return new Less_Tree_Anonymous($n->unit);
+        return new HTML_Less_Tree_Anonymous($n->unit);
     }
 
     public function argb($color) {
-        if (!$color instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to argb must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to argb must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
-        return new Less_Tree_Anonymous($color->toARGB());
+        return new HTML_Less_Tree_Anonymous($color->toARGB());
     }
 
     public function percentage($n) {
-        return new Less_Tree_Dimension($n->value * 100, '%');
+        return new HTML_Less_Tree_Dimension($n->value * 100, '%');
     }
 
     public function color($n) {
 
-        if ($n instanceof Less_Tree_Quoted) {
+        if ($n instanceof HTML_Less_Tree_Quoted) {
             $colorCandidate = $n->value;
-            $returnColor = Less_Tree_Color::fromKeyword($colorCandidate);
+            $returnColor = HTML_Less_Tree_Color::fromKeyword($colorCandidate);
             if ($returnColor) {
                 return $returnColor;
             }
             if (preg_match('/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})/', $colorCandidate)) {
-                return new Less_Tree_Color(substr($colorCandidate, 1));
+                return new HTML_Less_Tree_Color(substr($colorCandidate, 1));
             }
             throw new Less_Exception_Compiler("argument must be a color keyword or 3/6 digit hex e.g. #FFF");
         } else {
