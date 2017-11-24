@@ -1,6 +1,9 @@
 <?php
 
+require_once 'HTML/Less/Parser.php';
 require_once 'HTML/Less/Version.php';
+
+require_once 'HTML/Less/Exception/Parser.php';
 
 /**
  * Utility for handling the generation and caching of css files
