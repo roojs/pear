@@ -6,11 +6,6 @@
  *  - Drupal 7, by the less module v3.0+ (https://drupal.org/project/less)
  *  - Symfony 2
  */
-// Register autoloader for non-composer installations
-if (!class_exists('Less_Parser')) {
-    require_once __DIR__ . '/lib/Less/Autoloader.php';
-    Less_Autoloader::register();
-}
 
 class lessc {
 
