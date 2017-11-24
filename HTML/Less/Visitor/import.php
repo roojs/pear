@@ -65,11 +65,11 @@ class HTML_Less_Visitor_import extends HTML_Less_VisitorReplacing{
 					//todo needs to reference css file not import
 					//$contents = new HTML_Less_Tree_Anonymous($importNode->root, 0, array('filename'=>$importNode->importedFilename), true );
 
-					Less_Parser::AddParsedFile($full_path);
-					$contents = new Less_Tree_Anonymous( file_get_contents($full_path), 0, array(), true );
+					HTML_Less_Parser::AddParsedFile($full_path);
+					$contents = new HTML_Less_Tree_Anonymous( file_get_contents($full_path), 0, array(), true );
 
 					if( $importNode->features ){
-						return new Less_Tree_Media( array($contents), $importNode->features->value );
+						return new HTML_Less_Tree_Media( array($contents), $importNode->features->value );
 					}
 
 					return array( $contents );
@@ -79,7 +79,7 @@ class HTML_Less_Visitor_import extends HTML_Less_VisitorReplacing{
 				// css ?
 				if( $importNode->css ){
 					$features = ( $importNode->features ? $importNode->features->compile($env) : null );
-					return new Less_Tree_Import( $importNode->compilePath( $env), $features, $importNode->options, $this->index);
+					return new HTML_Less_Tree_Import( $importNode->compilePath( $env), $features, $importNode->options, $this->index);
 				}
 
 				return $importNode->ParseImport( $full_path, $uri, $env );
