@@ -9,6 +9,7 @@ require_once __DIR__ . '/Visitor/joinSelector.php';
 require_once __DIR__ . '/Visitor/processExtends.php';
 require_once __DIR__ . '/Visitor/toCSS.php';
 require_once __DIR__ . '/Exception/Parser.php';
+require_once __DIR__ . '/Exception/Chunk.php';
 
 /**
  * Class for parsing and compiling less files into css
@@ -653,10 +654,10 @@ class HTML_Less_Parser
 
         //save the cache
         if ($cache_file) {
-            if (Less_Parser::$options['cache_method'] == 'callback') {
-                if (is_callable(Less_Parser::$options['cache_callback_set'])) {
+            if (HTML_Less_Parser::$options['cache_method'] == 'callback') {
+                if (is_callable(HTML_Less_Parser::$options['cache_callback_set'])) {
                     call_user_func_array(
-                            Less_Parser::$options['cache_callback_set'], array($this, $file_path, $cache_file, $rules)
+                        HTML_Less_Parser::$options['cache_callback_set'], array($this, $file_path, $cache_file, $rules)
                     );
                 }
             } else {
