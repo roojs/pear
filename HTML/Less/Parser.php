@@ -2670,6 +2670,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj1($class, $arg) {
+        
+        $classPath = implode('/', explode('_', $class)) . '.php';
+        
+        require_once $classPath;
+        
         $obj = new $class($arg);
         if ($this->CacheEnabled()) {
             $obj->cache_string = ' new ' . $class . '(' . HTML_Less_Parser::ArgString($arg) . ')';
@@ -2678,6 +2683,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj2($class, $args) {
+        
+        $classPath = implode('/', explode('_', $class)) . '.php';
+        
+        require_once $classPath;
+        
         $obj = new $class($args[0], $args[1]);
         if ($this->CacheEnabled()) {
             $this->ObjCache($obj, $class, $args);
@@ -2686,6 +2696,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj3($class, $args) {
+        
+        $classPath = implode('/', explode('_', $class)) . '.php';
+        
+        require_once $classPath;
+        
         $obj = new $class($args[0], $args[1], $args[2]);
         if ($this->CacheEnabled()) {
             $this->ObjCache($obj, $class, $args);
@@ -2694,6 +2709,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj4($class, $args) {
+        
+        $classPath = implode('/', explode('_', $class)) . '.php';
+        
+        require_once $classPath;
+        
         $obj = new $class($args[0], $args[1], $args[2], $args[3]);
         if ($this->CacheEnabled()) {
             $this->ObjCache($obj, $class, $args);
@@ -2702,6 +2722,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj5($class, $args) {
+        
+        $classPath = implode('/', explode('_', $class)) . '.php';
+        
+        require_once $classPath;
+        
         $obj = new $class($args[0], $args[1], $args[2], $args[3], $args[4]);
         if ($this->CacheEnabled()) {
             $this->ObjCache($obj, $class, $args);
@@ -2710,6 +2735,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj6($class, $args) {
+        
+        $classPath = implode('/', explode('_', $class)) . '.php';
+        
+        require_once $classPath;
+        
         $obj = new $class($args[0], $args[1], $args[2], $args[3], $args[4], $args[5]);
         if ($this->CacheEnabled()) {
             $this->ObjCache($obj, $class, $args);
@@ -2718,6 +2748,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj7($class, $args) {
+        
+        $classPath = implode('/', explode('_', $class)) . '.php';
+        
+        require_once $classPath;
+        
         $obj = new $class($args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6]);
         if ($this->CacheEnabled()) {
             $this->ObjCache($obj, $class, $args);
