@@ -55,6 +55,7 @@ class HTML_Less_Functions {
         } else if (is_numeric($n)) {
             return $n;
         } else {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler("color functions take numbers as parameters");
         }
     }
@@ -69,6 +70,7 @@ class HTML_Less_Functions {
 
     public function rgb($r = null, $g = null, $b = null) {
         if (is_null($r) || is_null($g) || is_null($b)) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler("rgb expects three parameters");
         }
         return $this->rgba($r, $g, $b, 1.0);
@@ -79,6 +81,9 @@ class HTML_Less_Functions {
         $rgb = array_map(array('HTML_Less_Functions', 'scaled'), $rgb);
 
         $a = self::number($a);
+        
+        require_once 'HTML/Less/Tree/Color.php';
+        
         return new HTML_Less_Tree_Color($rgb, $a);
     }
 
