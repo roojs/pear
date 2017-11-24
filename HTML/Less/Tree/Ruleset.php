@@ -236,7 +236,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
         for ($i = 0; $i < $rules_len; $i++) {
             $rule = $this->rules[$i];
 
-            if ($rule instanceof Less_Tree_Import) {
+            if ($rule instanceof HTML_Less_Tree_Import) {
                 $rules = $rule->compile($env);
                 if (is_array($rules)) {
                     array_splice($this->rules, $i, 1, $rules);
@@ -256,14 +256,14 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
 
         $important_rules = array();
         foreach ($this->rules as $rule) {
-            if ($rule instanceof Less_Tree_Rule || $rule instanceof Less_Tree_Ruleset || $rule instanceof Less_Tree_NameValue) {
+            if ($rule instanceof HTML_Less_Tree_Rule || $rule instanceof HTML_Less_Tree_Ruleset || $rule instanceof HTML_Less_Tree_NameValue) {
                 $important_rules[] = $rule->makeImportant();
             } else {
                 $important_rules[] = $rule;
             }
         }
 
-        return new Less_Tree_Ruleset($this->selectors, $important_rules, $this->strictImports);
+        return new HTML_Less_Tree_Ruleset($this->selectors, $important_rules, $this->strictImports);
     }
 
     public function matchArgs($args) {
