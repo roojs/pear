@@ -588,7 +588,8 @@ class HTML_Less_Functions {
 
         $result = preg_replace($expr, $replacement->value, $result);
 
-
+        require_once 'HTML/Less/Tree/Quoted.php';
+        
         if (property_exists($string, 'quote')) {
             return new HTML_Less_Tree_Quoted($string->quote, $result, $string->escaped);
         }
