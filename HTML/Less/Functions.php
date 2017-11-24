@@ -857,7 +857,7 @@ class HTML_Less_Functions {
 
     public function length($values) {
         $n = (property_exists($values, 'value') && is_array($values->value)) ? count($values->value) : 1;
-        return new Less_Tree_Dimension($n);
+        return new HTML_Less_Tree_Dimension($n);
     }
 
     public function datauri($mimetypeNode, $filePathNode = null) {
@@ -872,16 +872,16 @@ class HTML_Less_Functions {
         }
 
         $filePath = str_replace('\\', '/', $filePath);
-        if (Less_Environment::isPathRelative($filePath)) {
+        if (HTML_Less_Environment::isPathRelative($filePath)) {
 
-            if (Less_Parser::$options['relativeUrls']) {
+            if (HTML_Less_Parser::$options['relativeUrls']) {
                 $temp = $this->currentFileInfo['currentDirectory'];
             } else {
                 $temp = $this->currentFileInfo['entryPath'];
             }
 
             if (!empty($temp)) {
-                $filePath = Less_Environment::normalizePath(rtrim($temp, '/') . '/' . $filePath);
+                $filePath = HTML_Less_Environment::normalizePath(rtrim($temp, '/') . '/' . $filePath);
             }
         }
 
@@ -899,7 +899,7 @@ class HTML_Less_Functions {
               if (useBase64) mimetype += ';base64';
              */
 
-            $mimetype = Less_Mime::lookup($filePath);
+            $mimetype = HTML_Less_Mime::lookup($filePath);
 
             $charset = Less_Mime::charsets_lookup($mimetype);
             $useBase64 = !in_array($charset, array('US-ASCII', 'UTF-8'));
