@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * Process Extends Visitor
  *
@@ -409,7 +411,7 @@ class HTML_Less_Visitor_processExtends extends HTML_Less_Visitor {
                 $path[$last_key]->elements = array_merge($path[$last_key]->elements, $newElements);
             } else {
                 $path = array_merge($path, array_slice($selectorPath, $currentSelectorPathIndex, $match['pathIndex']));
-                $path[] = new Less_Tree_Selector($newElements);
+                $path[] = new HTML_Less_Tree_Selector($newElements);
             }
 
             $currentSelectorPathIndex = $match['endPathIndex'];
