@@ -164,25 +164,25 @@ class HTML_Less_Functions {
 
     public function lightness($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to lightness must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+            throw new HTML_Less_Exception_Compiler('The first argument to lightness must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         $c = $color->toHSL();
-        return new Less_Tree_Dimension(Less_Parser::round($c['l'] * 100), '%');
+        return new HTML_Less_Tree_Dimension(HTML_Less_Parser::round($c['l'] * 100), '%');
     }
 
     public function hsvhue($color = null) {
-        if (!$color instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to hsvhue must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to hsvhue must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         $hsv = $color->toHSV();
-        return new Less_Tree_Dimension(Less_Parser::round($hsv['h']));
+        return new HTML_Less_Tree_Dimension(HTML_Less_Parser::round($hsv['h']));
     }
 
     public function hsvsaturation($color = null) {
-        if (!$color instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to hsvsaturation must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to hsvsaturation must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         $hsv = $color->toHSV();
