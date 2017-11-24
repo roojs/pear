@@ -1940,7 +1940,7 @@ class HTML_Less_Parser
             $rules = $this->parseBlock();
             if (is_array($rules)) {
                 $this->forget();
-                return $this->NewObj2('Less_Tree_Ruleset', array($selectors, $rules)); //HTML_Less_Environment::$strictImports
+                return $this->NewObj2('HTML_Less_Tree_Ruleset', array($selectors, $rules)); //HTML_Less_Environment::$strictImports
             }
         }
 
