@@ -150,7 +150,7 @@ class HTML_Less_Functions {
         }
 
         $c = $color->toHSL();
-        return new Less_Tree_Dimension(Less_Parser::round($c['h']));
+        return new HTML_Less_Tree_Dimension(HTML_Less_Parser::round($c['h']));
     }
 
     public function saturation($color = null) {
