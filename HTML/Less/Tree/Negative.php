@@ -3,9 +3,9 @@
 require_once 'HTML/Less/Tree.php';
 require_once 'HTML/Less/Environment.php';
 
+require_once 'HTML/Less/Tree/Dimension.php';
+require_once 'HTML/Less/Tree/Negative.php';
 require_once 'HTML/Less/Tree/Operation.php';
-require_once 'HTML/Less/Environment.php';
-require_once 'HTML/Less/Environment.php';
 
 /**
  * Negative
