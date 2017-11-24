@@ -1,14 +1,6 @@
 <?php
 
-require_once 'HTML/Less/Environment.php';
-
 require_once 'HTML/Less/Tree/Ruleset.php';
-require_once 'HTML/Less/Tree/Selector.php';
-require_once 'HTML/Less/Tree/Element.php';
-require_once 'HTML/Less/Tree/Rule.php';
-require_once 'HTML/Less/Tree/Expression.php';
-
-require_once 'HTML/Less/Exception/Compiler.php';
 
 class HTML_Less_Tree_Mixin_Definition extends HTML_Less_Tree_Ruleset {
 
@@ -27,6 +19,10 @@ class HTML_Less_Tree_Mixin_Definition extends HTML_Less_Tree_Ruleset {
     // less.js : /lib/less/tree/mixin.js : tree.mixin.Definition
     public function __construct($name, $params, $rules, $condition, $variadic = false, $frames = array()) {
         $this->name = $name;
+        
+        require_once 'HTML/Less/Tree/Selector.php';
+        require_once 'HTML/Less/Tree/Element.php';
+        
         $this->selectors = array(new HTML_Less_Tree_Selector(array(new HTML_Less_Tree_Element(null, $name))));
 
         $this->params = $params;
