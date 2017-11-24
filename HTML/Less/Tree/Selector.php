@@ -1,5 +1,8 @@
 <?php
 
+require_once 'HTML/Less/Tree.php';
+require_once 'HTML/Less/Visitor/extendFinder.php';
+
 /**
  * Selector
  *
@@ -135,7 +138,7 @@ class HTML_Less_Tree_Selector extends HTML_Less_Tree {
     }
 
     /**
-     * @see Less_Tree::genCSS
+     * @see HTML_Less_Tree::genCSS
      */
     public function genCSS($output, $firstSelector = true) {
 
