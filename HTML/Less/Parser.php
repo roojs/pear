@@ -4,6 +4,7 @@ require_once __DIR__ . '/Cache.php';
 require_once __DIR__ . '/Environment.php';
 require_once __DIR__ . '/Tree/Ruleset.php';
 require_once __DIR__ . '/SourceMap/Generator.php';
+require_once __DIR__ . '/Tree.php';
 
 /**
  * Class for parsing and compiling less files into css
