@@ -1,10 +1,6 @@
 <?php
 
 require_once 'HTML/Less/Tree.php';
-require_once 'HTML/Less/Environment.php';
-
-require_once 'HTML/Less/Tree/Comment.php';
-require_once 'HTML/Less/Tree/Paren.php';
 
 /**
  * Expression
@@ -32,6 +28,8 @@ class HTML_Less_Tree_Expression extends HTML_Less_Tree {
 
         $doubleParen = false;
 
+        require_once 'HTML/Less/Environment.php';
+        
         if ($this->parens && !$this->parensInOp) {
             HTML_Less_Environment::$parensStack++;
         }
@@ -64,6 +62,7 @@ class HTML_Less_Tree_Expression extends HTML_Less_Tree {
             if (!$this->parensInOp) {
                 HTML_Less_Environment::$parensStack--;
             } elseif (!HTML_Less_Environment::isMathOn() && !$doubleParen) {
+                require_once 'HTML/Less/Tree/Paren.php';
                 $returnValue = new HTML_Less_Tree_Paren($returnValue);
             }
         }
