@@ -1,6 +1,7 @@
 <?php
 
-
+require_once 'HTML/Less/Parser.php';
+require_once 'HTML/Less/Tree.php';
 
 /**
  * Comment
