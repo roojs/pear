@@ -93,6 +93,8 @@ class HTML_Less_Parser
         self::$imports = array();
         self::$contentsMap = array();
 
+        require_once 'HTML/Less/Environment.php';
+        
         $this->env = new HTML_Less_Environment($options);
 
         //set new options
