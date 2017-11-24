@@ -275,6 +275,7 @@ class HTML_Less_Visitor_toCSS extends HTML_Less_VisitorReplacing {
         foreach ($values as $p) {
             $mapped[] = $p->value;
         }
+        require_once 'HTML/Less/Tree/Expression.php';
         return new HTML_Less_Tree_Expression($mapped);
     }
 
