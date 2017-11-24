@@ -226,7 +226,7 @@ class HTML_Less_Cache {
         static $clean = false;
 
 
-        if ($clean || empty(Less_Cache::$cache_dir)) {
+        if ($clean || empty(HTML_Less_Cache::$cache_dir)) {
             return;
         }
 
@@ -236,7 +236,7 @@ class HTML_Less_Cache {
         // css files removed based on the list files
         $remove_types = array('lesscache' => 1, 'list' => 1, 'less' => 1, 'map' => 1);
 
-        $files = scandir(Less_Cache::$cache_dir);
+        $files = scandir(HTML_Less_Cache::$cache_dir);
         if (!$files) {
             return;
         }
@@ -246,7 +246,7 @@ class HTML_Less_Cache {
 
 
             // don't delete if the file wasn't created with less.php
-            if (strpos($file, Less_Cache::$prefix) !== 0) {
+            if (strpos($file, HTML_Less_Cache::$prefix) !== 0) {
                 continue;
             }
 
@@ -258,7 +258,7 @@ class HTML_Less_Cache {
                 continue;
             }
 
-            $full_path = Less_Cache::$cache_dir . $file;
+            $full_path = HTML_Less_Cache::$cache_dir . $file;
             $mtime = filemtime($full_path);
 
             // don't delete if it's a relatively new file
@@ -271,7 +271,7 @@ class HTML_Less_Cache {
             if ($type === 'list') {
                 self::ListFiles($full_path, $list, $css_file_name);
                 if ($css_file_name) {
-                    $css_file = Less_Cache::$cache_dir . $css_file_name;
+                    $css_file = HTML_Less_Cache::$cache_dir . $css_file_name;
                     if (file_exists($css_file)) {
                         unlink($css_file);
                     }
@@ -293,7 +293,7 @@ class HTML_Less_Cache {
         //pop the cached name that should match $compiled_name
         $css_file_name = array_pop($list);
 
-        if (!preg_match('/^' . Less_Cache::$prefix . '[a-f0-9]+\.css$/', $css_file_name)) {
+        if (!preg_match('/^' . HTML_Less_Cache::$prefix . '[a-f0-9]+\.css$/', $css_file_name)) {
             $list[] = $css_file_name;
             $css_file_name = false;
         }
