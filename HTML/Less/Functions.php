@@ -794,6 +794,7 @@ class HTML_Less_Functions {
             }
 
             if ($current->unit->toString() === '' && !$unitClone) {
+                require_once 'HTML/Less/Tree/Dimension';
                 $temp = new HTML_Less_Tree_Dimension($current->value, $unitClone);
                 $currentUnified = $temp->unify();
             } else {
@@ -821,6 +822,7 @@ class HTML_Less_Functions {
             } else {
 
                 if ($unitStatic && $unit !== $unitStatic) {
+                    require_once 'HTML/Less/Exception/Compiler.php';
                     throw new HTML_Less_Exception_Compiler('incompatible types');
                 }
                 $values[$unit] = count($order);
@@ -830,6 +832,7 @@ class HTML_Less_Functions {
 
 
             if ($order[$j]->unit->toString() === "" && $unitClone) {
+                require_once 'HTML/Less/Tree/Dimension';
                 $temp = new HTML_Less_Tree_Dimension($order[$j]->value, $unitClone);
                 $referenceUnified = $temp->unify();
             } else {
