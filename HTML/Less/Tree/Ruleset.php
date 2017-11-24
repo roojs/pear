@@ -416,21 +416,21 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
             // @page{ directive ends up with root elements inside it, a mix of rules and rulesets
             // In this instance we do not know whether it is the last property
             if ($i + 1 === $ruleNodes_len && (!$this->root || $rulesetNodes_len === 0 || $this->firstRoot )) {
-                Less_Environment::$lastRule = true;
+                HTML_Less_Environment::$lastRule = true;
             }
 
             $rule->genCSS($output);
 
-            if (!Less_Environment::$lastRule) {
+            if (!HTML_Less_Environment::$lastRule) {
                 $output->add($tabRuleStr);
             } else {
-                Less_Environment::$lastRule = false;
+                HTML_Less_Environment::$lastRule = false;
             }
         }
 
         if (!$this->root) {
             $output->add($tabSetStr . '}');
-            Less_Environment::$tabLevel--;
+            HTML_Less_Environment::$tabLevel--;
         }
 
         $firstRuleset = true;
@@ -446,7 +446,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
             $rulesetNodes[$i]->genCSS($output);
         }
 
-        if (!Less_Parser::$options['compress'] && $this->firstRoot) {
+        if (!HTML_Less_Parser::$options['compress'] && $this->firstRoot) {
             $output->add("\n");
         }
     }
