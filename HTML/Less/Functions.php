@@ -774,30 +774,30 @@ class HTML_Less_Functions {
             if (preg_match('/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})/', $colorCandidate)) {
                 return new HTML_Less_Tree_Color(substr($colorCandidate, 1));
             }
-            throw new Less_Exception_Compiler("argument must be a color keyword or 3/6 digit hex e.g. #FFF");
+            throw new HTML_Less_Exception_Compiler("argument must be a color keyword or 3/6 digit hex e.g. #FFF");
         } else {
-            throw new Less_Exception_Compiler("argument must be a string");
+            throw new HTML_Less_Exception_Compiler("argument must be a string");
         }
     }
 
     public function iscolor($n) {
-        return $this->_isa($n, 'Less_Tree_Color');
+        return $this->_isa($n, 'HTML_Less_Tree_Color');
     }
 
     public function isnumber($n) {
-        return $this->_isa($n, 'Less_Tree_Dimension');
+        return $this->_isa($n, 'HTML_Less_Tree_Dimension');
     }
 
     public function isstring($n) {
-        return $this->_isa($n, 'Less_Tree_Quoted');
+        return $this->_isa($n, 'HTML_Less_Tree_Quoted');
     }
 
     public function iskeyword($n) {
-        return $this->_isa($n, 'Less_Tree_Keyword');
+        return $this->_isa($n, 'HTML_Less_Tree_Keyword');
     }
 
     public function isurl($n) {
-        return $this->_isa($n, 'Less_Tree_Url');
+        return $this->_isa($n, 'HTML_Less_Tree_Url');
     }
 
     public function ispixel($n) {
