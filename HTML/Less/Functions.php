@@ -284,19 +284,27 @@ class HTML_Less_Functions {
 
     public function luma($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to luma must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
+        require_once 'HTML/Less/Tree/Dimension.php';
+        require_once 'HTML/Less/Tree/Parser.php';
+        
         return new HTML_Less_Tree_Dimension(HTML_Less_Parser::round($color->luma() * $color->alpha * 100), '%');
     }
 
     public function luminance($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to luminance must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         $luminance = (0.2126 * $color->rgb[0] / 255) + (0.7152 * $color->rgb[1] / 255) + (0.0722 * $color->rgb[2] / 255);
 
+        require_once 'HTML/Less/Tree/Dimension.php';
+        require_once 'HTML/Less/Tree/Parser.php';
+        
         return new HTML_Less_Tree_Dimension(HTML_Less_Parser::round($luminance * $color->alpha * 100), '%');
     }
 
