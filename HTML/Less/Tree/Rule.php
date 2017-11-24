@@ -1,5 +1,15 @@
 <?php
 
+require_once 'HTML/Less/Environment.php';
+require_once 'HTML/Less/Output.php';
+require_once 'HTML/Less/Parser.php';
+require_once 'HTML/Less/Tree.php';
+
+require_once 'HTML/Less/Exception/Compiler.php';
+require_once 'HTML/Less/Tree/Value.php';
+require_once 'HTML/Less/Tree/Ruleset.php';
+require_once 'HTML/Less/Tree/Keyword.php';
+
 /**
  * Rule
  *
@@ -98,7 +108,7 @@ class HTML_Less_Tree_Rule extends HTML_Less_Tree {
     }
 
     public function CompileName($env, $name) {
-        $output = new Less_Output();
+        $output = new HTML_Less_Output();
         foreach ($name as $n) {
             $n->compile($env)->genCSS($output);
         }
@@ -106,7 +116,7 @@ class HTML_Less_Tree_Rule extends HTML_Less_Tree {
     }
 
     public function makeImportant() {
-        return new Less_Tree_Rule($this->name, $this->value, '!important', $this->merge, $this->index, $this->currentFileInfo, $this->inline);
+        return new HTML_Less_Tree_Rule($this->name, $this->value, '!important', $this->merge, $this->index, $this->currentFileInfo, $this->inline);
     }
 
 }
