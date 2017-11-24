@@ -211,10 +211,10 @@ class HTML_Less_Cache {
             if (!mkdir(HTML_Less_Cache::$cache_dir)) {
                 throw new HTML_Less_Exception_Parser('Less.php cache directory couldn\'t be created: ' . HTML_Less_Cache::$cache_dir);
             }
-        } elseif (!is_dir(Less_Cache::$cache_dir)) {
-            throw new Less_Exception_Parser('Less.php cache directory doesn\'t exist: ' . Less_Cache::$cache_dir);
-        } elseif (!is_writable(Less_Cache::$cache_dir)) {
-            throw new Less_Exception_Parser('Less.php cache directory isn\'t writable: ' . Less_Cache::$cache_dir);
+        } elseif (!is_dir(HTML_Less_Cache::$cache_dir)) {
+            throw new HTML_Less_Exception_Parser('Less.php cache directory doesn\'t exist: ' . HTML_Less_Cache::$cache_dir);
+        } elseif (!is_writable(HTML_Less_Cache::$cache_dir)) {
+            throw new HTML_Less_Exception_Parser('Less.php cache directory isn\'t writable: ' . HTML_Less_Cache::$cache_dir);
         }
     }
 
