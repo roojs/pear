@@ -33,16 +33,16 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
     }
 
     public function toColor() {
-        return new Less_Tree_Color(array($this->value, $this->value, $this->value));
+        return new HTML_Less_Tree_Color(array($this->value, $this->value, $this->value));
     }
 
     /**
-     * @see Less_Tree::genCSS
+     * @see HTML_Less_Tree::genCSS
      */
     public function genCSS($output) {
 
-        if (Less_Parser::$options['strictUnits'] && !$this->unit->isSingular()) {
-            throw new Less_Exception_Compiler("Multiple units in dimension. Correct the units or use the unit function. Bad unit: " . $this->unit->toString());
+        if (HTML_Less_Parser::$options['strictUnits'] && !$this->unit->isSingular()) {
+            throw new HTML_Less_Exception_Compiler("Multiple units in dimension. Correct the units or use the unit function. Bad unit: " . $this->unit->toString());
         }
 
         $value = Less_Functions::fround($this->value);
