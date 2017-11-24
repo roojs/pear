@@ -1,7 +1,5 @@
 <?php
 
-require_once 'HTML/Less/Tree/Keyword.php';
-
 /**
  * DefaultFunc
  *
@@ -18,6 +16,7 @@ class HTML_Less_Tree_DefaultFunc {
             throw new Exception(self::$error_);
         }
         if (self::$value_ !== null) {
+            require_once 'HTML/Less/Tree/Keyword.php';
             return self::$value_ ? new Less_Tree_Keyword('true') : new Less_Tree_Keyword('false');
         }
     }
