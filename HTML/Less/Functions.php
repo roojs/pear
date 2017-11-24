@@ -991,6 +991,7 @@ class HTML_Less_Functions {
     }
 
     public function length($values) {
+        require_once 'HTML/Less/Tree/Dimension.php';
         $n = (property_exists($values, 'value') && is_array($values->value)) ? count($values->value) : 1;
         return new HTML_Less_Tree_Dimension($n);
     }
@@ -1007,6 +1008,9 @@ class HTML_Less_Functions {
         }
 
         $filePath = str_replace('\\', '/', $filePath);
+        
+        require_once 'HTML/Less/Environment.php';
+        
         if (HTML_Less_Environment::isPathRelative($filePath)) {
 
             if (HTML_Less_Parser::$options['relativeUrls']) {
