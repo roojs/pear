@@ -821,14 +821,14 @@ class HTML_Less_Functions {
             $unit = $unit->value;
         }
 
-        return ($n instanceof Less_Tree_Dimension) && $n->unit->is($unit) ? new Less_Tree_Keyword('true') : new Less_Tree_Keyword('false');
+        return ($n instanceof HTML_Less_Tree_Dimension) && $n->unit->is($unit) ? new HTML_Less_Tree_Keyword('true') : new HTML_Less_Tree_Keyword('false');
     }
 
     /**
      * @param string $type
      */
     private function _isa($n, $type) {
-        return is_a($n, $type) ? new Less_Tree_Keyword('true') : new Less_Tree_Keyword('false');
+        return is_a($n, $type) ? new HTML_Less_Tree_Keyword('true') : new HTML_Less_Tree_Keyword('false');
     }
 
     public function tint($color, $amount = null) {
