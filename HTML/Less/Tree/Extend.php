@@ -49,10 +49,10 @@ class HTML_Less_Tree_Extend extends HTML_Less_Tree {
     }
 
     public function compile($env) {
-        Less_Parser::$has_extends = true;
+        HTML_Less_Parser::$has_extends = true;
         $this->selector = $this->selector->compile($env);
         return $this;
-        //return new Less_Tree_Extend( $this->selector->compile($env), $this->option, $this->index);
+        //return new HTML_Less_Tree_Extend( $this->selector->compile($env), $this->option, $this->index);
     }
 
     public function findSelfSelectors($selectors) {
@@ -69,7 +69,7 @@ class HTML_Less_Tree_Extend extends HTML_Less_Tree {
             $selfElements = array_merge($selfElements, $selectors[$i]->elements);
         }
 
-        $this->selfSelectors = array(new Less_Tree_Selector($selfElements));
+        $this->selfSelectors = array(new HTML_Less_Tree_Selector($selfElements));
     }
 
 }
