@@ -193,7 +193,6 @@ class HTML_Less_Functions {
 
     public function hsvhue($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to hsvhue must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -207,7 +206,6 @@ class HTML_Less_Functions {
 
     public function hsvsaturation($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to hsvsaturation must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -221,7 +219,6 @@ class HTML_Less_Functions {
 
     public function hsvvalue($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to hsvvalue must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -235,7 +232,6 @@ class HTML_Less_Functions {
 
     public function red($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to red must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
         
@@ -246,7 +242,6 @@ class HTML_Less_Functions {
 
     public function green($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to green must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -257,7 +252,6 @@ class HTML_Less_Functions {
 
     public function blue($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to blue must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -268,7 +262,6 @@ class HTML_Less_Functions {
 
     public function alpha($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to alpha must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -281,7 +274,6 @@ class HTML_Less_Functions {
 
     public function luma($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to luma must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -293,7 +285,6 @@ class HTML_Less_Functions {
 
     public function luminance($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to luminance must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -311,8 +302,6 @@ class HTML_Less_Functions {
         if ($color instanceof HTML_Less_Tree_Dimension) {
             return null;
         }
-
-        require_once 'HTML/Less/Exception/Compiler.php';
         
         if (!$color instanceof HTML_Less_Tree_Color) {
             throw new HTML_Less_Exception_Compiler('The first argument to saturate must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
@@ -334,8 +323,6 @@ class HTML_Less_Functions {
      */
     public function desaturate($color = null, $amount = null) {
         
-        require_once 'HTML/Less/Exception/Compiler.php';
-        
         if (!$color instanceof LHTML_ess_Tree_Color) {
             throw new HTML_Less_Exception_Compiler('The first argument to desaturate must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
@@ -352,8 +339,6 @@ class HTML_Less_Functions {
     }
 
     public function lighten($color = null, $amount = null) {
-        
-        require_once 'HTML/Less/Exception/Compiler.php';
         
         if (!$color instanceof HTML_Less_Tree_Color) {
             throw new HTML_Less_Exception_Compiler('The first argument to lighten must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
@@ -372,8 +357,6 @@ class HTML_Less_Functions {
 
     public function darken($color = null, $amount = null) {
         
-        require_once 'HTML/Less/Exception/Compiler.php';
-        
         if (!$color instanceof HTML_Less_Tree_Color) {
             throw new HTML_Less_Exception_Compiler('The first argument to darken must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
@@ -390,8 +373,6 @@ class HTML_Less_Functions {
 
     public function fadein($color = null, $amount = null) {
         
-        require_once 'HTML/Less/Exception/Compiler.php';
-        
         if (!$color instanceof HTML_Less_Tree_Color) {
             throw new HTML_Less_Exception_Compiler('The first argument to fadein must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
@@ -406,8 +387,6 @@ class HTML_Less_Functions {
     }
 
     public function fadeout($color = null, $amount = null) {
-        
-        require_once 'HTML/Less/Exception/Compiler.php';
         
         if (!$color instanceof HTML_Less_Tree_Color) {
             throw new HTML_Less_Exception_Compiler('The first argument to fadeout must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
@@ -424,8 +403,6 @@ class HTML_Less_Functions {
 
     public function fade($color = null, $amount = null) {
         
-        require_once 'HTML/Less/Exception/Compiler.php';
-        
         if (!$color instanceof HTML_Less_Tree_Color) {
             throw new HTML_Less_Exception_Compiler('The first argument to fade must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
@@ -441,8 +418,6 @@ class HTML_Less_Functions {
     }
 
     public function spin($color = null, $amount = null) {
-        
-        require_once 'HTML/Less/Exception/Compiler.php';
         
         if (!$color instanceof HTML_Less_Tree_Color) {
             throw new HTML_Less_Exception_Compiler('The first argument to spin must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
@@ -469,8 +444,6 @@ class HTML_Less_Functions {
      * @param HTML_Less_Tree_Color $color1
      */
     public function mix($color1 = null, $color2 = null, $weight = null) {
-        
-        require_once 'HTML/Less/Exception/Compiler.php';
         
         if (!$color1 instanceof HTML_Less_Tree_Color) {
             throw new HTML_Less_Exception_Compiler('The first argument to mix must be a color' . ($color1 instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
@@ -523,8 +496,6 @@ class HTML_Less_Functions {
         if (!$dark) {
             $dark = $this->rgba(0, 0, 0, 1.0);
         }
-
-        require_once 'HTML/Less/Exception/Compiler.php';
         
         if (!$dark instanceof HTML_Less_Tree_Color) {
             throw new HTML_Less_Exception_Compiler('The second argument to contrast must be a color' . ($dark instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
@@ -635,7 +606,6 @@ class HTML_Less_Functions {
 
     public function unit($val, $unit = null) {
         if (!($val instanceof HTML_Less_Tree_Dimension)) {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to unit must be a number' . ($val instanceof HTML_Less_Tree_Operation ? '. Have you forgotten parenthesis?' : '.'));
         }
 
@@ -686,7 +656,6 @@ class HTML_Less_Functions {
             $x = new HTML_Less_Tree_Dimension($x);
             $y = new HTML_Less_Tree_Dimension($y);
         } elseif (!($x instanceof HTML_Less_Tree_Dimension) || !($y instanceof HTML_Less_Tree_Dimension)) {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('Arguments must be numbers');
         }
 
