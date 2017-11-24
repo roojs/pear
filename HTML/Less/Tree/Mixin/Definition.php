@@ -8,7 +8,7 @@ require_once 'HTML/Less/Tree/Element.php';
 require_once 'HTML/Less/Tree/Rule.php';
 require_once 'HTML/Less/Tree/Expression.php';
 
-require_once 'HTML/Less/Tree/Exception/Compiler.php';
+require_once 'HTML/Less/Exception/Compiler.php';
 
 class HTML_Less_Tree_Mixin_Definition extends HTML_Less_Tree_Ruleset {
 
