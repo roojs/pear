@@ -1165,7 +1165,7 @@ class HTML_Less_Parser
         }
 
         if ($name) {
-            return $this->NewObj4('Less_Tree_Call', array($name, $args, $index, $this->env->currentFileInfo));
+            return $this->NewObj4('HTML_Less_Tree_Call', array($name, $args, $index, $this->env->currentFileInfo));
         }
     }
 
