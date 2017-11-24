@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * Environment
  *
@@ -85,13 +87,13 @@ class HTML_Less_Environment {
     }
 
     public function copyEvalEnv($frames = array()) {
-        $new_env = new Less_Environment();
+        $new_env = new HTML_Less_Environment();
         $new_env->frames = $frames;
         return $new_env;
     }
 
     public static function isMathOn() {
-        return !Less_Parser::$options['strictMath'] || Less_Environment::$parensStack;
+        return !HTML_Less_Parser::$options['strictMath'] || HTML_Less_Environment::$parensStack;
     }
 
     public static function isPathRelative($path) {
