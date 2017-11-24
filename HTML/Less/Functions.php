@@ -794,7 +794,7 @@ class HTML_Less_Functions {
             }
 
             if ($current->unit->toString() === '' && !$unitClone) {
-                require_once 'HTML/Less/Tree/Dimension';
+                require_once 'HTML/Less/Tree/Dimension.php';
                 $temp = new HTML_Less_Tree_Dimension($current->value, $unitClone);
                 $currentUnified = $temp->unify();
             } else {
@@ -832,7 +832,7 @@ class HTML_Less_Functions {
 
 
             if ($order[$j]->unit->toString() === "" && $unitClone) {
-                require_once 'HTML/Less/Tree/Dimension';
+                require_once 'HTML/Less/Tree/Dimension.php';
                 $temp = new HTML_Less_Tree_Dimension($order[$j]->value, $unitClone);
                 $referenceUnified = $temp->unify();
             } else {
@@ -883,6 +883,7 @@ class HTML_Less_Functions {
     }
 
     public function percentage($n) {
+        require_once 'HTML/Less/Tree/Dimension.php';
         return new HTML_Less_Tree_Dimension($n->value * 100, '%');
     }
 
@@ -890,6 +891,7 @@ class HTML_Less_Functions {
 
         if ($n instanceof HTML_Less_Tree_Quoted) {
             $colorCandidate = $n->value;
+            require_once 'HTML/Less/Tree/Color';
             $returnColor = HTML_Less_Tree_Color::fromKeyword($colorCandidate);
             if ($returnColor) {
                 return $returnColor;
