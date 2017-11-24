@@ -1,10 +1,6 @@
 <?php
 
-require_once 'HTML/Less/Colors.php';
-require_once 'HTML/Less/Functions.php';
-require_once 'HTML/Less/Parser.php';
 require_once 'HTML/Less/Tree.php';
-
 
 /**
  * Color
@@ -67,6 +63,10 @@ class HTML_Less_Tree_Color extends HTML_Less_Tree {
     }
 
     public function toCSS($doNotCompress = false) {
+        
+        require_once 'HTML/Less/Parser.php';
+        require_once 'HTML/Less/Functions.php';
+        
         $compress = HTML_Less_Parser::$options['compress'] && !$doNotCompress;
         $alpha = HTML_Less_Functions::fround($this->alpha);
 
