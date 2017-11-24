@@ -140,6 +140,10 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
 
         $permuted = $this->permute($path);
         $expressions = array();
+        
+        require_once 'HTML/Less/Parser.php';
+        require_once 'HTML/Less/Tree/Anonymous.php';
+        
         foreach ($permuted as $path) {
 
             for ($i = 0, $len = count($path); $i < $len; $i++) {
