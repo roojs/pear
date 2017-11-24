@@ -377,9 +377,9 @@ class HTML_Less_Parser
         $visitors = array();
         $visitors[] = new HTML_Less_Visitor_joinSelector();
         if (self::$has_extends) {
-            $visitors[] = new Less_Visitor_processExtends();
+            $visitors[] = new HTML_Less_Visitor_processExtends();
         }
-        $visitors[] = new Less_Visitor_toCSS();
+        $visitors[] = new HTML_Less_Visitor_toCSS();
 
 
         if (Less_Parser::$options['plugins']) {
