@@ -118,6 +118,10 @@ class HTML_Less_Tree_Color extends HTML_Less_Tree {
      * @param string $op
      */
     public function operate($op, $other) {
+        
+        require_once 'HTML/Less/Colors.php';
+        require_once 'HTML/Less/Functions.php';
+
         $rgb = array();
         $alpha = $this->alpha * (1 - $other->alpha) + $other->alpha;
         for ($c = 0; $c < 3; $c++) {
