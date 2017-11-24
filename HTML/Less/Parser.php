@@ -2657,6 +2657,9 @@ class HTML_Less_Parser
      * @return mixed
      */
     public function NewObj0($class) {
+        
+        require_once implode('/', explode('_', $class)) . '.php';
+        
         $obj = new $class();
         if ($this->CacheEnabled()) {
             $obj->cache_string = ' new ' . $class . '()';
