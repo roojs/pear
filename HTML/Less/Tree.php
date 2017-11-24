@@ -19,7 +19,7 @@ class HTML_Less_Tree {
     /**
      * Generate CSS by adding it to the output object
      *
-     * @param Less_Output $output The output
+     * @param HTML_Less_Output $output The output
      * @return void
      */
     public function genCSS($output) {
@@ -27,12 +27,12 @@ class HTML_Less_Tree {
     }
 
     /**
-     * @param Less_Tree_Ruleset[] $rules
+     * @param HTML_Less_Tree_Ruleset[] $rules
      */
     public static function outputRuleset($output, $rules) {
 
         $ruleCnt = count($rules);
-        Less_Environment::$tabLevel++;
+        HTML_Less_Environment::$tabLevel++;
 
 
         // Compressed
