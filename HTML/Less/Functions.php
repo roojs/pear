@@ -337,10 +337,10 @@ class HTML_Less_Functions {
 
     public function fadeout($color = null, $amount = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to fadeout must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+            throw new HTML_Less_Exception_Compiler('The first argument to fadeout must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
-        if (!$amount instanceof Less_Tree_Dimension) {
-            throw new Less_Exception_Compiler('The second argument to fadeout must be a percentage' . ($amount instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$amount instanceof HTML_Less_Tree_Dimension) {
+            throw new HTML_Less_Exception_Compiler('The second argument to fadeout must be a percentage' . ($amount instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         $hsl = $color->toHSL();
