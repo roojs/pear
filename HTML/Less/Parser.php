@@ -2492,7 +2492,7 @@ class HTML_Less_Parser
 
         if ($negate) {
             $o->parensInOp = true;
-            $o = $this->NewObj1('Less_Tree_Negative', $o);
+            $o = $this->NewObj1('HTML_Less_Tree_Negative', $o);
         }
 
         return $o;
@@ -2505,7 +2505,7 @@ class HTML_Less_Parser
      * 	 1px solid black
      * 	 @var * 2
      *
-     * @return Less_Tree_Expression|null
+     * @return HTML_Less_Tree_Expression|null
      */
     private function parseExpression() {
         $entities = array();
@@ -2518,14 +2518,14 @@ class HTML_Less_Parser
                 if (!$this->PeekReg('/\\G\/[\/*]/')) {
                     $delim = $this->MatchChar('/');
                     if ($delim) {
-                        $entities[] = $this->NewObj1('Less_Tree_Anonymous', $delim);
+                        $entities[] = $this->NewObj1('HTML_Less_Tree_Anonymous', $delim);
                     }
                 }
             }
         } while ($e);
 
         if ($entities) {
-            return $this->NewObj1('Less_Tree_Expression', $entities);
+            return $this->NewObj1('HTML_Less_Tree_Expression', $entities);
         }
     }
 
@@ -2569,9 +2569,9 @@ class HTML_Less_Parser
             }
             foreach ($name as $k => $s) {
                 if (!$s || $s[0] !== '@') {
-                    $name[$k] = $this->NewObj1('Less_Tree_Keyword', $s);
+                    $name[$k] = $this->NewObj1('HTML_Less_Tree_Keyword', $s);
                 } else {
-                    $name[$k] = $this->NewObj3('Less_Tree_Variable', array('@' . substr($s, 2, -1), $index[$k], $this->env->currentFileInfo));
+                    $name[$k] = $this->NewObj3('HTML_Less_Tree_Variable', array('@' . substr($s, 2, -1), $index[$k], $this->env->currentFileInfo));
                 }
             }
             return $name;
@@ -2628,7 +2628,7 @@ class HTML_Less_Parser
     }
 
     /**
-     * Create Less_Tree_* objects and optionally generate a cache string
+     * Create HTML_Less_Tree_* objects and optionally generate a cache string
      *
      * @return mixed
      */
@@ -2643,7 +2643,7 @@ class HTML_Less_Parser
     public function NewObj1($class, $arg) {
         $obj = new $class($arg);
         if ($this->CacheEnabled()) {
-            $obj->cache_string = ' new ' . $class . '(' . Less_Parser::ArgString($arg) . ')';
+            $obj->cache_string = ' new ' . $class . '(' . HTML_Less_Parser::ArgString($arg) . ')';
         }
         return $obj;
     }
