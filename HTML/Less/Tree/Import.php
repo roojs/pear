@@ -238,12 +238,12 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
                     $path = rtrim($rootpath, '/\\') . '/' . ltrim($evald_path, '/\\');
 
                     if (file_exists($path)) {
-                        $full_path = Less_Environment::normalizePath($path);
-                        $uri = Less_Environment::normalizePath(dirname($rooturi . $evald_path));
+                        $full_path = HTML_Less_Environment::normalizePath($path);
+                        $uri = HTML_Less_Environment::normalizePath(dirname($rooturi . $evald_path));
                         return array($full_path, $uri);
                     } elseif (file_exists($path . '.less')) {
-                        $full_path = Less_Environment::normalizePath($path . '.less');
-                        $uri = Less_Environment::normalizePath(dirname($rooturi . $evald_path . '.less'));
+                        $full_path = HTML_Less_Environment::normalizePath($path . '.less');
+                        $uri = HTML_Less_Environment::normalizePath(dirname($rooturi . $evald_path . '.less'));
                         return array($full_path, $uri);
                     }
                 }
