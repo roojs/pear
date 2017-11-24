@@ -899,8 +899,11 @@ class HTML_Less_Functions {
             if (preg_match('/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})/', $colorCandidate)) {
                 return new HTML_Less_Tree_Color(substr($colorCandidate, 1));
             }
+            
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler("argument must be a color keyword or 3/6 digit hex e.g. #FFF");
         } else {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler("argument must be a string");
         }
     }
