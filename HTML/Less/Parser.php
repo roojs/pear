@@ -490,11 +490,11 @@ class HTML_Less_Parser
     /**
      * Allows a user to set variables values
      * @param array $vars
-     * @return Less_Parser
+     * @return HTML_Less_Parser
      */
     public function ModifyVars($vars) {
 
-        $this->input = Less_Parser::serializeVars($vars);
+        $this->input = HTML_Less_Parser::serializeVars($vars);
         $this->_parse();
 
         return $this;
@@ -549,14 +549,14 @@ class HTML_Less_Parser
             if (mkdir($dir)) {
                 return true;
             }
-            throw new Less_Exception_Parser('Less.php cache directory couldn\'t be created: ' . $dir);
+            throw new HTML_Less_Exception_Parser('Less.php cache directory couldn\'t be created: ' . $dir);
         } elseif (!is_dir($dir)) {
-            throw new Less_Exception_Parser('Less.php cache directory doesn\'t exist: ' . $dir);
+            throw new HTML_Less_Exception_Parser('Less.php cache directory doesn\'t exist: ' . $dir);
         } elseif (!is_writable($dir)) {
-            throw new Less_Exception_Parser('Less.php cache directory isn\'t writable: ' . $dir);
+            throw new HTML_Less_Exception_Parser('Less.php cache directory isn\'t writable: ' . $dir);
         } else {
             $dir = self::WinPath($dir);
-            Less_Cache::$cache_dir = rtrim($dir, '/') . '/';
+            HTML_Less_Cache::$cache_dir = rtrim($dir, '/') . '/';
             return true;
         }
     }
@@ -567,7 +567,7 @@ class HTML_Less_Parser
      * @param array $dirs
      */
     public function SetImportDirs($dirs) {
-        Less_Parser::$options['import_dirs'] = array();
+        HTML_Less_Parser::$options['import_dirs'] = array();
 
         foreach ($dirs as $path => $uri_root) {
 
