@@ -494,9 +494,9 @@ class HTML_Less_Functions {
 
 
         if (property_exists($string, 'quote')) {
-            return new Less_Tree_Quoted($string->quote, $result, $string->escaped);
+            return new HTML_Less_Tree_Quoted($string->quote, $result, $string->escaped);
         }
-        return new Less_Tree_Quoted('', $result);
+        return new HTML_Less_Tree_Quoted('', $result);
     }
 
     public static function replace_flags($flags) {
@@ -535,12 +535,12 @@ class HTML_Less_Functions {
         }
         $result = str_replace('%%', '%', $result);
 
-        return new Less_Tree_Quoted($string->quote, $result, $string->escaped);
+        return new HTML_Less_Tree_Quoted($string->quote, $result, $string->escaped);
     }
 
     public function unit($val, $unit = null) {
-        if (!($val instanceof Less_Tree_Dimension)) {
-            throw new Less_Exception_Compiler('The first argument to unit must be a number' . ($val instanceof Less_Tree_Operation ? '. Have you forgotten parenthesis?' : '.'));
+        if (!($val instanceof HTML_Less_Tree_Dimension)) {
+            throw new HTML_Less_Exception_Compiler('The first argument to unit must be a number' . ($val instanceof HTML_Less_Tree_Operation ? '. Have you forgotten parenthesis?' : '.'));
         }
 
         if ($unit) {
