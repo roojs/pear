@@ -214,6 +214,8 @@ class HTML_Less_Tree_Mixin_Definition extends HTML_Less_Tree_Ruleset {
 
         $frame = $this->compileParams($env, array_merge($this->frames, $env->frames), $args);
 
+        require_once 'HTML/Less/Environment.php';
+        
         $compile_env = new HTML_Less_Environment();
         $compile_env->frames = array_merge(
                 array($frame)  // the parameter variables
