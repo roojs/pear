@@ -522,7 +522,8 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
         // by the parents
         $newSelectors = array(array());
 
-
+        require_once 'HTML/Less/Tree/Element.php';
+        
         foreach ($selector->elements as $el) {
 
             // non parent reference elements just get added
