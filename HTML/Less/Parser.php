@@ -2320,7 +2320,7 @@ class HTML_Less_Parser
         } while ($e);
 
         if ($expressions) {
-            return $this->NewObj1('Less_Tree_Value', $expressions);
+            return $this->NewObj1('HTML_Less_Tree_Value', $expressions);
         }
     }
 
@@ -2336,7 +2336,7 @@ class HTML_Less_Parser
             $a = $this->parseAddition();
             if ($a) {
                 $this->expectChar(')');
-                return $this->NewObj2('Less_Tree_Expression', array(array($a), true)); //instead of $e->parens = true so the value is cached
+                return $this->NewObj2('HTML_Less_Tree_Expression', array(array($a), true)); //instead of $e->parens = true so the value is cached
             }
         }
     }
@@ -2344,7 +2344,7 @@ class HTML_Less_Parser
     /**
      * Parses multiplication operation
      *
-     * @return Less_Tree_Operation|null
+     * @return HTML_Less_Tree_Operation|null
      */
     function parseMultiplication() {
 
@@ -2374,7 +2374,7 @@ class HTML_Less_Parser
 
                 $m->parensInOp = true;
                 $a->parensInOp = true;
-                $return = $this->NewObj3('Less_Tree_Operation', array($op, array($return, $a), $isSpaced));
+                $return = $this->NewObj3('HTML_Less_Tree_Operation', array($op, array($return, $a), $isSpaced));
             }
         }
         return $return;
