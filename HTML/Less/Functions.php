@@ -1,17 +1,18 @@
 <?php
 
+require_once 'HTML/Less/Environment.php';
 require_once 'HTML/Less/Mime.php';
 require_once 'HTML/Less/Parser.php';
-Environment
+
 require_once 'HTML/Less/Exception/Compiler.php';
 
+require_once 'HTML/Less/Tree/Anonymous.php';
 require_once 'HTML/Less/Tree/Color.php';
 require_once 'HTML/Less/Tree/Expression.php';
-require_once 'HTML/Less/Tree/Anonymous.php';
 require_once 'HTML/Less/Tree/JavaScript.php';
-require_once 'HTML/Less/Tree/Quoted.php';
-require_once 'HTML/Less/Tree/Operation.php';
 require_once 'HTML/Less/Tree/Keyword.php';
+require_once 'HTML/Less/Tree/Operation.php';
+require_once 'HTML/Less/Tree/Quoted.php';
 require_once 'HTML/Less/Tree/Url.php';
 
 
