@@ -1,8 +1,6 @@
 <?php
 
-require_once 'HTML/Less/Parser.php';
 require_once 'HTML/Less/Tree.php';
-require_once 'HTML/Less/Environment.php';
 
 /**
  * A simple css name-value pair
@@ -31,7 +29,10 @@ class HTML_Less_Tree_NameValue extends HTML_Less_Tree {
     }
 
     public function genCSS($output) {
-
+        
+        require_once 'HTML/Less/Environment.php';
+        require_once 'HTML/Less/Parser.php';
+        
         $output->add(
                 $this->name
                 . HTML_Less_Environment::$_outputMap[': ']
