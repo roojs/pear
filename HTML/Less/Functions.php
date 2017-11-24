@@ -544,7 +544,7 @@ class HTML_Less_Functions {
         }
 
         if ($unit) {
-            if ($unit instanceof Less_Tree_Keyword) {
+            if ($unit instanceof HTML_Less_Tree_Keyword) {
                 $unit = $unit->value;
             } else {
                 $unit = $unit->toCSS();
@@ -552,7 +552,7 @@ class HTML_Less_Functions {
         } else {
             $unit = "";
         }
-        return new Less_Tree_Dimension($val->value, $unit);
+        return new HTML_Less_Tree_Dimension($val->value, $unit);
     }
 
     public function convert($val, $unit) {
@@ -566,11 +566,11 @@ class HTML_Less_Functions {
             $fraction = $f->value;
         }
 
-        return $this->_math('Less_Parser::round', null, $n, $fraction);
+        return $this->_math('HTML_Less_Parser::round', null, $n, $fraction);
     }
 
     public function pi() {
-        return new Less_Tree_Dimension(M_PI);
+        return new HTML_Less_Tree_Dimension(M_PI);
     }
 
     public function mod($a, $b) {
