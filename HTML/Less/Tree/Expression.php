@@ -82,7 +82,7 @@ class HTML_Less_Tree_Expression extends HTML_Less_Tree {
         if (is_array($this->value)) {
             $new_value = array();
             foreach ($this->value as $v) {
-                if ($v instanceof Less_Tree_Comment) {
+                if ($v instanceof HTML_Less_Tree_Comment) {
                     continue;
                 }
                 $new_value[] = $v;
