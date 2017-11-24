@@ -134,7 +134,7 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
             }
 
             for ($i = count($path) - 1; $i > 0; $i--) {
-                array_splice($path, $i, 0, array(new Less_Tree_Anonymous('and')));
+                array_splice($path, $i, 0, array(new HTML_Less_Tree_Anonymous('and')));
             }
 
             $expressions[] = new Less_Tree_Expression($path);
