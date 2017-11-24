@@ -170,6 +170,8 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
         $value = $this->value;
         $unit = clone $this->unit;
 
+        require_once 'HTML/Less/Tree/UnitConversions.php';
+        
         if (is_string($conversions)) {
             $derivedConversions = array();
             foreach (HTML_Less_Tree_UnitConversions::$groups as $i) {
