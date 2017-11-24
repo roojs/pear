@@ -207,9 +207,9 @@ class HTML_Less_Cache {
         HTML_Less_Cache::$cache_dir = str_replace('\\', '/', HTML_Less_Cache::$cache_dir);
         HTML_Less_Cache::$cache_dir = rtrim(HTML_Less_Cache::$cache_dir, '/') . '/';
 
-        if (!file_exists(Less_Cache::$cache_dir)) {
-            if (!mkdir(Less_Cache::$cache_dir)) {
-                throw new Less_Exception_Parser('Less.php cache directory couldn\'t be created: ' . Less_Cache::$cache_dir);
+        if (!file_exists(HTML_Less_Cache::$cache_dir)) {
+            if (!mkdir(HTML_Less_Cache::$cache_dir)) {
+                throw new HTML_Less_Exception_Parser('Less.php cache directory couldn\'t be created: ' . HTML_Less_Cache::$cache_dir);
             }
         } elseif (!is_dir(Less_Cache::$cache_dir)) {
             throw new Less_Exception_Parser('Less.php cache directory doesn\'t exist: ' . Less_Cache::$cache_dir);
