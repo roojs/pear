@@ -4,10 +4,11 @@ require_once 'HTML/Less/Tree.php';
 require_once 'HTML/Less/Exception/Compiler.php';
 
 require_once 'HTML/Less/Tree/Selector.php';
+require_once 'HTML/Less/Tree/Ruleset.php';
+require_once 'HTML/Less/Tree/DefaultFunc.php';
 require_once 'HTML/Less/Tree/Selector.php';
-require_once 'HTML/Less/Tree/Selector.php';
-require_once 'HTML/Less/Tree/Selector.php';
-require_once 'HTML/Less/Tree/Selector.php';
+
+require_once 'HTML/Less/Tree/Mixin/Definition.php';
 
 class HTML_Less_Tree_Mixin_Call extends HTML_Less_Tree {
 
