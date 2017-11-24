@@ -410,13 +410,13 @@ class HTML_Less_Parser
      *
      * @param string $str The string to convert
      * @param string $uri_root The url of the file
-     * @return Less_Tree_Ruleset|Less_Parser
+     * @return HTML_Less_Tree_Ruleset|HTML_Less_Parser
      */
     public function parse($str, $file_uri = null) {
 
         if (!$file_uri) {
             $uri_root = '';
-            $filename = 'anonymous-file-' . Less_Parser::$next_id++ . '.less';
+            $filename = 'anonymous-file-' . HTML_Less_Parser::$next_id++ . '.less';
         } else {
             $file_uri = self::WinPath($file_uri);
             $filename = $file_uri;
@@ -440,11 +440,11 @@ class HTML_Less_Parser
     /**
      * Parse a Less string from a given file
      *
-     * @throws Less_Exception_Parser
+     * @throws HTML_Less_Exception_Parser
      * @param string $filename The file to parse
      * @param string $uri_root The url of the file
      * @param bool $returnRoot Indicates whether the return value should be a css string a root node
-     * @return Less_Tree_Ruleset|Less_Parser
+     * @return HTML_Less_Tree_Ruleset|HTML_Less_Parser
      */
     public function parseFile($filename, $uri_root = '', $returnRoot = false) {
 
@@ -474,7 +474,7 @@ class HTML_Less_Parser
 
         if ($returnRoot) {
             $rules = $this->GetRules($filename);
-            $return = new Less_Tree_Ruleset(array(), $rules);
+            $return = new HTML_Less_Tree_Ruleset(array(), $rules);
         } else {
             $this->_parse($filename);
             $return = $this;
