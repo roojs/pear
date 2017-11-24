@@ -1,12 +1,6 @@
 <?php
 
-require_once 'HTML/Less/Environment.php';
 require_once 'HTML/Less/Tree.php';
-
-require_once 'HTML/Less/Tree/Dimension.php';
-require_once 'HTML/Less/Tree/Color.php';
-
-require_once 'HTML/Less/Exception/Compiler.php';
 
 /**
  * Operation
@@ -38,7 +32,8 @@ class HTML_Less_Tree_Operation extends HTML_Less_Tree {
         $a = $this->operands[0]->compile($env);
         $b = $this->operands[1]->compile($env);
 
-
+        require_once 'HTML/Less/Environment.php';
+        
         if (HTML_Less_Environment::isMathOn()) {
 
             if ($a instanceof HTML_Less_Tree_Dimension && $b instanceof HTML_Less_Tree_Color) {
@@ -48,6 +43,7 @@ class HTML_Less_Tree_Operation extends HTML_Less_Tree {
             }
 
             if (!method_exists($a, 'operate')) {
+                require_once 'HTML/Less/Exception/Compiler.php';
                 throw new HTML_Less_Exception_Compiler("Operation on an invalid type");
             }
 
