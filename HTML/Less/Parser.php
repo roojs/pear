@@ -561,7 +561,7 @@ class HTML_Less_Parser
      */
     public function SetCacheDir($dir) {
 
-        require_once 'HTML/Less/Exception/Parsert.php';
+        require_once 'HTML/Less/Exception/Parser.php';
         
         if (!file_exists($dir)) {
             if (mkdir($dir)) {
@@ -573,6 +573,9 @@ class HTML_Less_Parser
         } elseif (!is_writable($dir)) {
             throw new HTML_Less_Exception_Parser('Less.php cache directory isn\'t writable: ' . $dir);
         } else {
+            
+            require_once 'HTML/Less/Cache.php';
+            
             $dir = self::WinPath($dir);
             HTML_Less_Cache::$cache_dir = rtrim($dir, '/') . '/';
             return true;
