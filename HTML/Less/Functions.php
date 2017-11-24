@@ -39,8 +39,8 @@ class HTML_Less_Functions{
 			return $value;
 		}
 
-		if( Less_Parser::$options['numPrecision'] ){
-			$p = pow(10, Less_Parser::$options['numPrecision']);
+		if( HTML_Less_Parser::$options['numPrecision'] ){
+			$p = pow(10, HTML_Less_Parser::$options['numPrecision']);
 			return round( $value * $p) / $p;
 		}
 		return $value;
@@ -48,17 +48,17 @@ class HTML_Less_Functions{
 
 	public static function number($n){
 
-		if ($n instanceof Less_Tree_Dimension) {
+		if ($n instanceof HTML_Less_Tree_Dimension) {
 			return floatval( $n->unit->is('%') ? $n->value / 100 : $n->value);
 		} else if (is_numeric($n)) {
 			return $n;
 		} else {
-			throw new Less_Exception_Compiler("color functions take numbers as parameters");
+			throw new HTML_Less_Exception_Compiler("color functions take numbers as parameters");
 		}
 	}
 
 	public static function scaled($n, $size = 255 ){
-		if( $n instanceof Less_Tree_Dimension && $n->unit->is('%') ){
+		if( $n instanceof HTML_Less_Tree_Dimension && $n->unit->is('%') ){
 			return (float)$n->value * $size / 100;
 		} else {
 			return Less_Functions::number($n);
