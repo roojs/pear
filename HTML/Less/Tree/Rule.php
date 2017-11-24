@@ -1,16 +1,6 @@
 <?php
 
-require_once 'HTML/Less/Environment.php';
-require_once 'HTML/Less/Output.php';
-require_once 'HTML/Less/Parser.php';
 require_once 'HTML/Less/Tree.php';
-
-require_once 'HTML/Less/Exception/Compiler.php';
-require_once 'HTML/Less/Exception/Parser.php';
-
-require_once 'HTML/Less/Tree/Value.php';
-require_once 'HTML/Less/Tree/Ruleset.php';
-require_once 'HTML/Less/Tree/Keyword.php';
 
 /**
  * Rule
@@ -34,6 +24,9 @@ class HTML_Less_Tree_Rule extends HTML_Less_Tree {
      * @param string $important
      */
     public function __construct($name, $value = null, $important = null, $merge = null, $index = null, $currentFileInfo = null, $inline = false) {
+        
+        require_once 'HTML/Less/Tree/Value.php';
+        
         $this->name = $name;
         $this->value = ($value instanceof HTML_Less_Tree_Value || $value instanceof HTML_Less_Tree_Ruleset) ? $value : new HTML_Less_Tree_Value(array($value));
         $this->important = $important ? ' ' . trim($important) : '';
@@ -53,6 +46,9 @@ class HTML_Less_Tree_Rule extends HTML_Less_Tree {
      */
     public function genCSS($output) {
 
+        require_once 'HTML/Less/Environment.php';
+        require_once 'HTML/Less/Exception/Parser.php';
+        
         $output->add($this->name . HTML_Less_Environment::$_outputMap[': '], $this->currentFileInfo, $this->index);
         try {
             $this->value->genCSS($output);
@@ -61,6 +57,8 @@ class HTML_Less_Tree_Rule extends HTML_Less_Tree {
             $e->currentFile = $this->currentFileInfo;
             throw $e;
         }
+        
+        require_once 'HTML/Less/Parser.php';
         $output->add($this->important . (($this->inline || (HTML_Less_Environment::$lastRule && HTML_Less_Parser::$options['compress'])) ? "" : ";"), $this->currentFileInfo, $this->index);
     }
 
