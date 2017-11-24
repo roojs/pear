@@ -1258,7 +1258,7 @@ class HTML_Less_Parser
 	private function parseEntitiesVariable() {
         $index = $this->pos;
         if ($this->PeekChar('@') && ($name = $this->MatchReg('/\\G@@?[\w-]+/'))) {
-            return $this->NewObj3('Less_Tree_Variable', array($name[0], $index, $this->env->currentFileInfo));
+            return $this->NewObj3('HTML_Less_Tree_Variable', array($name[0], $index, $this->env->currentFileInfo));
         }
     }
 
@@ -1267,7 +1267,7 @@ class HTML_Less_Parser
         $index = $this->pos;
 
         if ($this->input_len > ($this->pos + 1) && $this->input[$this->pos] === '@' && ($curly = $this->MatchReg('/\\G@\{([\w-]+)\}/'))) {
-            return $this->NewObj3('Less_Tree_Variable', array('@' . $curly[1], $index, $this->env->currentFileInfo));
+            return $this->NewObj3('HTML_Less_Tree_Variable', array('@' . $curly[1], $index, $this->env->currentFileInfo));
         }
     }
 
@@ -1280,7 +1280,7 @@ class HTML_Less_Parser
     //
 	private function parseEntitiesColor() {
         if ($this->PeekChar('#') && ($rgb = $this->MatchReg('/\\G#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})/'))) {
-            return $this->NewObj1('Less_Tree_Color', $rgb[1]);
+            return $this->NewObj1('HTML_Less_Tree_Color', $rgb[1]);
         }
     }
 
