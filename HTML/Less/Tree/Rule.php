@@ -115,6 +115,9 @@ class HTML_Less_Tree_Rule extends HTML_Less_Tree {
     }
 
     public function CompileName($env, $name) {
+        
+        require_once 'HTML/Less/Output.php';
+        
         $output = new HTML_Less_Output();
         foreach ($name as $n) {
             $n->compile($env)->genCSS($output);
