@@ -990,13 +990,13 @@ class HTML_Less_Parser
 
         if ($this->input[$this->pos + 1] === '/') {
             $match = $this->MatchReg('/\\G\/\/.*/');
-            return $this->NewObj4('Less_Tree_Comment', array($match[0], true, $this->pos, $this->env->currentFileInfo));
+            return $this->NewObj4('HTML_Less_Tree_Comment', array($match[0], true, $this->pos, $this->env->currentFileInfo));
         }
 
         //$comment = $this->MatchReg('/\\G\/\*(?:[^*]|\*+[^\/*])*\*+\/\n?/');
         $comment = $this->MatchReg('/\\G\/\*(?s).*?\*+\/\n?/'); //not the same as less.js to prevent fatal errors
         if ($comment) {
-            return $this->NewObj4('Less_Tree_Comment', array($comment[0], false, $this->pos, $this->env->currentFileInfo));
+            return $this->NewObj4('HTML_Less_Tree_Comment', array($comment[0], false, $this->pos, $this->env->currentFileInfo));
         }
     }
 
