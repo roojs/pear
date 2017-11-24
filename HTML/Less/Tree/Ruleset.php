@@ -357,7 +357,10 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
      * @see HTML_Less_Tree::genCSS
      */
     public function genCSS($output) {
-
+        
+        require_once 'HTML/Less/Environment.php';
+        require_once 'HTML/Less/Parser.php';
+        
         if (!$this->root) {
             HTML_Less_Environment::$tabLevel++;
         }
