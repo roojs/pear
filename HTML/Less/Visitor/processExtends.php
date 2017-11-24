@@ -111,7 +111,7 @@ class HTML_Less_Visitor_processExtends extends HTML_Less_Visitor {
                     $selectorTwo = "{unable to calculate}";
                 }
 
-                throw new Less_Exception_Parser("extend circular reference detected. One of the circular extends is currently:" . $selectorOne . ":extend(" . $selectorTwo . ")");
+                throw new HTML_Less_Exception_Parser("extend circular reference detected. One of the circular extends is currently:" . $selectorOne . ":extend(" . $selectorTwo . ")");
             }
 
             // now process the new extends on the existing rules so that we can handle a extending b extending c ectending d extending e...
@@ -312,12 +312,12 @@ class HTML_Less_Visitor_processExtends extends HTML_Less_Visitor {
             return false;
         }
 
-        if ($elementValue1 instanceof Less_Tree_Attribute) {
+        if ($elementValue1 instanceof HTML_Less_Tree_Attribute) {
             return $this->isAttributeValuesEqual($elementValue1, $elementValue2);
         }
 
         $elementValue1 = $elementValue1->value;
-        if ($elementValue1 instanceof Less_Tree_Selector) {
+        if ($elementValue1 instanceof HTML_Less_Tree_Selector) {
             return $this->isSelectorValuesEqual($elementValue1, $elementValue2);
         }
 
@@ -325,12 +325,12 @@ class HTML_Less_Visitor_processExtends extends HTML_Less_Visitor {
     }
 
     /**
-     * @param Less_Tree_Selector $elementValue1
+     * @param HTML_Less_Tree_Selector $elementValue1
      */
     private function isSelectorValuesEqual($elementValue1, $elementValue2) {
 
         $elementValue2 = $elementValue2->value;
-        if (!($elementValue2 instanceof Less_Tree_Selector) || $elementValue1->elements_len !== $elementValue2->elements_len) {
+        if (!($elementValue2 instanceof HTML_Less_Tree_Selector) || $elementValue1->elements_len !== $elementValue2->elements_len) {
             return false;
         }
 
@@ -351,7 +351,7 @@ class HTML_Less_Visitor_processExtends extends HTML_Less_Visitor {
     }
 
     /**
-     * @param Less_Tree_Attribute $elementValue1
+     * @param HTML_Less_Tree_Attribute $elementValue1
      */
     private function isAttributeValuesEqual($elementValue1, $elementValue2) {
 
