@@ -254,7 +254,7 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
     /**
      * Parse the import url and return the rules
      *
-     * @return Less_Tree_Media|array
+     * @return HTML_Less_Tree_Media|array
      */
     public function ParseImport($full_path, $uri, $env) {
 
@@ -267,14 +267,14 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
             $import_env->importMultiple = true;
         }
 
-        $parser = new Less_Parser($import_env);
+        $parser = new HTML_Less_Parser($import_env);
         $root = $parser->parseFile($full_path, $uri, true);
 
 
-        $ruleset = new Less_Tree_Ruleset(array(), $root->rules);
+        $ruleset = new HTML_Less_Tree_Ruleset(array(), $root->rules);
         $ruleset->evalImports($import_env);
 
-        return $this->features ? new Less_Tree_Media($ruleset->rules, $this->features->value) : $ruleset->rules;
+        return $this->features ? new HTML_Less_Tree_Media($ruleset->rules, $this->features->value) : $ruleset->rules;
     }
 
     /**
@@ -284,9 +284,9 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
      */
     private function Skip($path, $env) {
 
-        $path = Less_Parser::AbsPath($path, true);
+        $path = HTML_Less_Parser::AbsPath($path, true);
 
-        if ($path && Less_Parser::FileParsed($path)) {
+        if ($path && HTML_Less_Parser::FileParsed($path)) {
 
             if (isset($this->currentFileInfo['reference'])) {
                 return true;
