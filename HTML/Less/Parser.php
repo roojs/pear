@@ -1,58 +1,58 @@
 <?php
 
-require_once __DIR__ . '/Less/Cache.php';
-require_once __DIR__ . '/Less/Colors.php';
-require_once __DIR__ . '/Less/Environment.php';
-require_once __DIR__ . '/Less/Tree.php';
-require_once __DIR__ . '/Less/Version.php';
+require_once 'HTML/Less/Cache.php';
+require_once 'HTML/Less/Colors.php';
+require_once 'HTML/Less/Environment.php';
+require_once 'HTML/Less/Tree.php';
+require_once 'HTML/Less/Version.php';
 
-require_once __DIR__ . '/Less/Tree/Ruleset.php';
-require_once __DIR__ . '/Less/Tree/Comment.php';
-require_once __DIR__ . '/Less/Tree/Quoted.php';
-require_once __DIR__ . '/Less/Tree/Keyword.php';
-require_once __DIR__ . '/Less/Tree/Color.php';
+require_once 'HTML/Less/Tree/Ruleset.php';
+require_once 'HTML/Less/Tree/Comment.php';
+require_once 'HTML/Less/Tree/Quoted.php';
+require_once 'HTML/Less/Tree/Keyword.php';
+require_once 'HTML/Less/Tree/Color.php';
 
-require_once __DIR__ . '/Less/Tree/Call.php';
-require_once __DIR__ . '/Less/Tree/Assignment.php';
-require_once __DIR__ . '/Less/Tree/Variable.php';
-require_once __DIR__ . '/Less/Tree/Url.php';
-require_once __DIR__ . '/Less/Tree/Anonymous.php';
-require_once __DIR__ . '/Less/Tree/Dimension.php';
-require_once __DIR__ . '/Less/Tree/UnicodeDescriptor.php';
-require_once __DIR__ . '/Less/Tree/Javascript.php';
-require_once __DIR__ . '/Less/Tree/RulesetCall.php';
-require_once __DIR__ . '/Less/Tree/Extend.php';
-require_once __DIR__ . '/Less/Tree/Selector.php';
-require_once __DIR__ . '/Less/Tree/Element.php';
-require_once __DIR__ . '/Less/Tree/Expression.php';
-require_once __DIR__ . '/Less/Tree/Value.php';
-require_once __DIR__ . '/Less/Tree/Alpha.php';
-require_once __DIR__ . '/Less/Tree/Paren.php';
-require_once __DIR__ . '/Less/Tree/Attribute.php';
-require_once __DIR__ . '/Less/Tree/DetachedRuleset.php';
-require_once __DIR__ . '/Less/Tree/NameValue.php';
-require_once __DIR__ . '/Less/Tree/Rule.php';
-require_once __DIR__ . '/Less/Tree/Import.php';
-require_once __DIR__ . '/Less/Tree/Media.php';
-require_once __DIR__ . '/Less/Tree/Directive.php';
-require_once __DIR__ . '/Less/Tree/Operation.php';
-require_once __DIR__ . '/Less/Tree/Condition.php';
-require_once __DIR__ . '/Less/Tree/Negative.php';
+require_once 'HTML/Less/Tree/Call.php';
+require_once 'HTML/Less/Tree/Assignment.php';
+require_once 'HTML/Less/Tree/Variable.php';
+require_once 'HTML/Less/Tree/Url.php';
+require_once 'HTML/Less/Tree/Anonymous.php';
+require_once 'HTML/Less/Tree/Dimension.php';
+require_once 'HTML/Less/Tree/UnicodeDescriptor.php';
+require_once 'HTML/Less/Tree/Javascript.php';
+require_once 'HTML/Less/Tree/RulesetCall.php';
+require_once 'HTML/Less/Tree/Extend.php';
+require_once 'HTML/Less/Tree/Selector.php';
+require_once 'HTML/Less/Tree/Element.php';
+require_once 'HTML/Less/Tree/Expression.php';
+require_once 'HTML/Less/Tree/Value.php';
+require_once 'HTML/Less/Tree/Alpha.php';
+require_once 'HTML/Less/Tree/Paren.php';
+require_once 'HTML/Less/Tree/Attribute.php';
+require_once 'HTML/Less/Tree/DetachedRuleset.php';
+require_once 'HTML/Less/Tree/NameValue.php';
+require_once 'HTML/Less/Tree/Rule.php';
+require_once 'HTML/Less/Tree/Import.php';
+require_once 'HTML/Less/Tree/Media.php';
+require_once 'HTML/Less/Tree/Directive.php';
+require_once 'HTML/Less/Tree/Operation.php';
+require_once 'HTML/Less/Tree/Condition.php';
+require_once 'HTML/Less/Tree/Negative.php';
 
-require_once __DIR__ . '/Less/Tree/Mixin/Call.php';
-require_once __DIR__ . '/Less/Tree/Mixin/Definition.php';
-
-
+require_once 'HTML/Less/Tree/Mixin/Call.php';
+require_once 'HTML/Less/Tree/Mixin/Definition.php';
 
 
-require_once __DIR__ . '/Less/SourceMap/Generator.php';
 
-require_once __DIR__ . '/Less/Visitor/joinSelector.php';
-require_once __DIR__ . '/Less/Visitor/processExtends.php';
-require_once __DIR__ . '/Less/Visitor/toCSS.php';
 
-require_once __DIR__ . '/Less/Exception/Parser.php';
-require_once __DIR__ . '/Less/Exception/Chunk.php';
+require_once 'HTML/Less/SourceMap/Generator.php';
+
+require_once 'HTML/Less/Visitor/joinSelector.php';
+require_once 'HTML/Less/Visitor/processExtends.php';
+require_once 'HTML/Less/Visitor/toCSS.php';
+
+require_once 'HTML/Less/Exception/Parser.php';
+require_once 'HTML/Less/Exception/Chunk.php';
 
 /**
  * Class for parsing and compiling less files into css
