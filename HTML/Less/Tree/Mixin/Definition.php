@@ -150,7 +150,7 @@ class HTML_Less_Tree_Mixin_Definition extends HTML_Less_Tree_Ruleset {
 
     public function evalCall($env, $args = NULL, $important = NULL) {
 
-        Less_Environment::$mixin_stack++;
+        HTML_Less_Environment::$mixin_stack++;
 
         $_arguments = array();
 
@@ -162,15 +162,15 @@ class HTML_Less_Tree_Mixin_Definition extends HTML_Less_Tree_Ruleset {
 
         $frame = $this->compileParams($env, $mixinFrames, $args, $_arguments);
 
-        $ex = new Less_Tree_Expression($_arguments);
-        array_unshift($frame->rules, new Less_Tree_Rule('@arguments', $ex->compile($env)));
+        $ex = new HTML_Less_Tree_Expression($_arguments);
+        array_unshift($frame->rules, new HTML_Less_Tree_Rule('@arguments', $ex->compile($env)));
 
 
-        $ruleset = new Less_Tree_Ruleset(null, $this->rules);
+        $ruleset = new HTML_Less_Tree_Ruleset(null, $this->rules);
         $ruleset->originalRuleset = $this->ruleset_id;
 
 
-        $ruleSetEnv = new Less_Environment();
+        $ruleSetEnv = new HTML_Less_Environment();
         $ruleSetEnv->frames = array_merge(array($this, $frame), $mixinFrames);
         $ruleset = $ruleset->compile($ruleSetEnv);
 
@@ -178,7 +178,7 @@ class HTML_Less_Tree_Mixin_Definition extends HTML_Less_Tree_Ruleset {
             $ruleset = $ruleset->makeImportant();
         }
 
-        Less_Environment::$mixin_stack--;
+        HTML_Less_Environment::$mixin_stack--;
 
         return $ruleset;
     }
@@ -196,7 +196,7 @@ class HTML_Less_Tree_Mixin_Definition extends HTML_Less_Tree_Ruleset {
 
         $frame = $this->compileParams($env, array_merge($this->frames, $env->frames), $args);
 
-        $compile_env = new Less_Environment();
+        $compile_env = new HTML_Less_Environment();
         $compile_env->frames = array_merge(
                 array($frame)  // the parameter variables
                 , $this->frames  // the parent namespace/mixin frames
