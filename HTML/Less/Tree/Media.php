@@ -8,7 +8,7 @@ require_once 'HTML/Less/Tree/Element.php';
 require_once 'HTML/Less/Tree/Expression.php';
 require_once 'HTML/Less/Tree/Ruleset.php';
 require_once 'HTML/Less/Tree/Selector.php';
-require_once 'HTML/Less/Tree.php';
+require_once 'HTML/Less/Tree/Value.php';
 
 /**
  * Media
