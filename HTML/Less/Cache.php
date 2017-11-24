@@ -1,7 +1,7 @@
 <?php
 
 require_once 'HTML/Less/Parser.php';
-require_once 'HTML/Less/Version.php';
+//require_once 'HTML/Less/Version.php';
 
 require_once 'HTML/Less/Exception/Parser.php';
 
