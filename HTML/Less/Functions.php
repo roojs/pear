@@ -1,21 +1,5 @@
 <?php
 
-require_once 'HTML/Less/Environment.php';
-require_once 'HTML/Less/Mime.php';
-require_once 'HTML/Less/Parser.php';
-
-require_once 'HTML/Less/Exception/Compiler.php';
-
-require_once 'HTML/Less/Tree/Anonymous.php';
-require_once 'HTML/Less/Tree/Color.php';
-require_once 'HTML/Less/Tree/Expression.php';
-require_once 'HTML/Less/Tree/Javascript.php';
-require_once 'HTML/Less/Tree/Keyword.php';
-require_once 'HTML/Less/Tree/Operation.php';
-require_once 'HTML/Less/Tree/Quoted.php';
-require_once 'HTML/Less/Tree/Url.php';
-
-
 /**
  * Builtin functions
  *
@@ -54,7 +38,9 @@ class HTML_Less_Functions {
         if ($value === 0) {
             return $value;
         }
-
+        
+        require_once 'HTML/Less/Parser.php';
+        
         if (HTML_Less_Parser::$options['numPrecision']) {
             $p = pow(10, HTML_Less_Parser::$options['numPrecision']);
             return round($value * $p) / $p;
