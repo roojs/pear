@@ -153,13 +153,16 @@ class HTML_Less_Functions {
 
     public function hue($color = null) {
         
-        require_once 'HTML/Less/Exception/Compiler.php';
-        
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to hue must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         $c = $color->toHSL();
+        
+        require_once 'HTML/Less/Tree/Dimension.php';
+        require_once 'HTML/Less/Tree/Parser.php';
+        
         return new HTML_Less_Tree_Dimension(HTML_Less_Parser::round($c['h']));
     }
 
