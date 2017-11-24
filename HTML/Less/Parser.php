@@ -742,6 +742,9 @@ class HTML_Less_Parser
 
         if ($file_path && $this->CacheEnabled()) {
 
+            require_once 'HTML/Less/Version.php';
+            require_once 'HTML/Less/Cache.php';
+            
             $env = get_object_vars($this->env);
             unset($env['frames']);
 
