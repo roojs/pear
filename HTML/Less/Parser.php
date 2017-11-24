@@ -2149,7 +2149,7 @@ class HTML_Less_Parser
         } while ($e);
 
         if ($nodes) {
-            return $this->NewObj1('Less_Tree_Expression', $nodes);
+            return $this->NewObj1('HTML_Less_Tree_Expression', $nodes);
         }
     }
 
@@ -2181,7 +2181,7 @@ class HTML_Less_Parser
             $rules = $this->parseBlock();
 
             if (is_array($rules)) {
-                return $this->NewObj4('Less_Tree_Media', array($rules, $features, $this->pos, $this->env->currentFileInfo));
+                return $this->NewObj4('HTML_Less_Tree_Media', array($rules, $features, $this->pos, $this->env->currentFileInfo));
             }
         }
     }
@@ -2282,7 +2282,7 @@ class HTML_Less_Parser
 
             $value = $this->MatchReg('/\\G[^{;]+/');
             if ($value) {
-                $value = $this->NewObj1('Less_Tree_Anonymous', trim($value[0]));
+                $value = $this->NewObj1('HTML_Less_Tree_Anonymous', trim($value[0]));
             }
         }
 
@@ -2292,7 +2292,7 @@ class HTML_Less_Parser
 
         if ($rules || (!$hasBlock && $value && $this->MatchChar(';'))) {
             $this->forget();
-            return $this->NewObj5('Less_Tree_Directive', array($name, $value, $rules, $index, $this->env->currentFileInfo));
+            return $this->NewObj5('HTML_Less_Tree_Directive', array($name, $value, $rules, $index, $this->env->currentFileInfo));
         }
 
         $this->restore();
