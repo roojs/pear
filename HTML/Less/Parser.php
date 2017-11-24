@@ -1136,6 +1136,8 @@ class HTML_Less_Parser
     private function FromKeyword($keyword) {
         $keyword = strtolower($keyword);
 
+        require_once 'HTML/Less/Colors.php';
+        
         if (HTML_Less_Colors::hasOwnProperty($keyword)) {
             // detect named color
             return $this->NewObj1('HTML_Less_Tree_Color', substr(HTML_Less_Colors::color($keyword), 1));
