@@ -207,16 +207,16 @@ class HTML_Less_Functions {
     }
 
     public function green($color = null) {
-        if (!$color instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to green must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to green must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
-        return new Less_Tree_Dimension($color->rgb[1]);
+        return new HTML_Less_Tree_Dimension($color->rgb[1]);
     }
 
     public function blue($color = null) {
-        if (!$color instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to blue must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to blue must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         return new Less_Tree_Dimension($color->rgb[2]);
