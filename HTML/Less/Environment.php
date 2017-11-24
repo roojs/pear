@@ -1,13 +1,14 @@
 <?php
 
-
-
 /**
  * Environment
  *
  * @package Less
  * @subpackage environment
  */
+
+require_once 'HTML/Less/Parser.php';
+
 class HTML_Less_Environment {
 
     //public $paths = array();				// option - unmodified - paths to search for imports on
