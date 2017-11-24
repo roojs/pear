@@ -67,7 +67,7 @@ class HTML_Less_Visitor_toCSS extends HTML_Less_VisitorReplacing {
             if (isset($this->charset) && $this->charset) {
 
                 //if( $directiveNode->debugInfo ){
-                //	$comment = new Less_Tree_Comment('/* ' . str_replace("\n",'',$directiveNode->toCSS())." */\n");
+                //	$comment = new HTML_Less_Tree_Comment('/* ' . str_replace("\n",'',$directiveNode->toCSS())." */\n");
                 //	$comment->debugInfo = $directiveNode->debugInfo;
                 //	return $this->visit($comment);
                 //}
