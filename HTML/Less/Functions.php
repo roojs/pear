@@ -1160,11 +1160,11 @@ class HTML_Less_Functions {
     }
 
     public function average($color1 = null, $color2 = null) {
-        if (!$color1 instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to average must be a color' . ($color1 instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color1 instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to average must be a color' . ($color1 instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
-        if (!$color2 instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The second argument to average must be a color' . ($color2 instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color2 instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The second argument to average must be a color' . ($color2 instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         return $this->colorBlend(array($this, 'colorBlendAverage'), $color1, $color2);
@@ -1176,11 +1176,11 @@ class HTML_Less_Functions {
     }
 
     public function negation($color1 = null, $color2 = null) {
-        if (!$color1 instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to negation must be a color' . ($color1 instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color1 instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to negation must be a color' . ($color1 instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
-        if (!$color2 instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The second argument to negation must be a color' . ($color2 instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color2 instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The second argument to negation must be a color' . ($color2 instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         return $this->colorBlend(array($this, 'colorBlendNegation'), $color1, $color2);
