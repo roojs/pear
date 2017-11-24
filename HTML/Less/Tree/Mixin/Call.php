@@ -1,14 +1,6 @@
 <?php
 
 require_once 'HTML/Less/Tree.php';
-require_once 'HTML/Less/Exception/Compiler.php';
-
-require_once 'HTML/Less/Tree/Selector.php';
-require_once 'HTML/Less/Tree/Ruleset.php';
-require_once 'HTML/Less/Tree/DefaultFunc.php';
-require_once 'HTML/Less/Tree/Selector.php';
-
-require_once 'HTML/Less/Tree/Mixin/Definition.php';
 
 class HTML_Less_Tree_Mixin_Call extends HTML_Less_Tree {
 
@@ -24,6 +16,9 @@ class HTML_Less_Tree_Mixin_Call extends HTML_Less_Tree {
      *
      */
     public function __construct($elements, $args, $index, $currentFileInfo, $important = false) {
+        
+        require_once 'HTML/Less/Tree/Selector.php';
+        
         $this->selector = new HTML_Less_Tree_Selector($elements);
         $this->arguments = $args;
         $this->index = $index;
@@ -50,7 +45,11 @@ class HTML_Less_Tree_Mixin_Call extends HTML_Less_Tree {
         foreach ($this->arguments as $a) {
             $args[] = array('name' => $a['name'], 'value' => $a['value']->compile($env));
         }
-
+        
+        require_once 'HTML/Less/Tree/DefaultFunc.php';
+        require_once 'HTML/Less/Tree/Mixin/Definition.php';
+        require_once 'HTML/Less/Exception/Compiler.php';
+        
         foreach ($env->frames as $frame) {
 
             $mixins = $frame->find($this->selector);
