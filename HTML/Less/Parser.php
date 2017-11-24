@@ -385,8 +385,8 @@ class HTML_Less_Parser
         $visitors[] = new HTML_Less_Visitor_toCSS();
 
 
-        if (Less_Parser::$options['plugins']) {
-            foreach (Less_Parser::$options['plugins'] as $plugin) {
+        if (HTML_Less_Parser::$options['plugins']) {
+            foreach (HTML_Less_Parser::$options['plugins'] as $plugin) {
                 if (property_exists($plugin, 'isPreEvalVisitor') && $plugin->isPreEvalVisitor) {
                     continue;
                 }
