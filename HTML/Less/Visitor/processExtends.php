@@ -387,7 +387,7 @@ class HTML_Less_Visitor_processExtends extends HTML_Less_Visitor {
             $match = $matches[$matchIndex];
             $selector = $selectorPath[$match['pathIndex']];
 
-            $firstElement = new Less_Tree_Element(
+            $firstElement = new HTML_Less_Tree_Element(
                     $match['initialCombinator'], $replacementSelector->elements[0]->value, $replacementSelector->elements[0]->index, $replacementSelector->elements[0]->currentFileInfo
             );
 
