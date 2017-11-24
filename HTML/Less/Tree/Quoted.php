@@ -1,10 +1,6 @@
 <?php
 
-require_once 'HTML/Less/Parser.php';
 require_once 'HTML/Less/Tree.php';
-
-require_once 'HTML/Less/Tree/Javascript.php';
-require_once 'HTML/Less/Tree/Variable.php';
 
 /**
  * Quoted
@@ -51,6 +47,9 @@ class HTML_Less_Tree_Quoted extends HTML_Less_Tree {
 
         $value = $this->value;
         if (preg_match_all('/`([^`]+)`/', $this->value, $matches)) {
+            
+            require_once 'HTML/Less/Tree/Javascript.php';
+            
             foreach ($matches as $i => $match) {
                 $js = new HTML_Less_Tree_Javascript($matches[1], $this->index, true);
                 $js = $js->compile()->value;
@@ -59,6 +58,9 @@ class HTML_Less_Tree_Quoted extends HTML_Less_Tree {
         }
 
         if (preg_match_all('/@\{([\w-]+)\}/', $value, $matches)) {
+            
+            require_once 'HTML/Less/Tree/Variable.php';
+            
             foreach ($matches[1] as $i => $match) {
                 $v = new HTML_Less_Tree_Variable('@' . $match, $this->index, $this->currentFileInfo);
                 $v = $v->compile($env);
@@ -71,7 +73,9 @@ class HTML_Less_Tree_Quoted extends HTML_Less_Tree {
     }
 
     public function compare($x) {
-
+        
+        require_once 'HTML/Less/Parser.php';
+        
         if (!HTML_Less_Parser::is_method($x, 'toCSS')) {
             return -1;
         }
