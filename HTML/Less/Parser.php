@@ -197,7 +197,7 @@ class HTML_Less_Parser
                 $css = $evaldRoot->toCSS();
             }
 
-            if (Less_Parser::$options['compress']) {
+            if (HTML_Less_Parser::$options['compress']) {
                 $css = preg_replace('/(^(\s)+)|((\s)+$)/', '', $css);
             }
         } catch (Exception $exc) {
@@ -288,8 +288,8 @@ class HTML_Less_Parser
      * @return bool|string
      */
     private function getVariableValue($var) {
-        if (!is_a($var, 'Less_Tree')) {
-            throw new Exception('var is not a Less_Tree object');
+        if (!is_a($var, 'HTML_Less_Tree')) {
+            throw new Exception('var is not a HTML_Less_Tree object');
         }
 
         switch ($var->type) {
