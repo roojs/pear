@@ -1195,6 +1195,8 @@ class HTML_Less_Functions {
             $r[$i] = $cr * 255;
         }
 
+        require_once 'HTML/Less/Tree/Color.php';
+        
         return new HTML_Less_Tree_Color($r, $ar);
     }
 
