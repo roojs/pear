@@ -1,12 +1,14 @@
 <?php
 
+
+
 /**
  * Negative
  *
  * @package Less
  * @subpackage tree
  */
-class Less_Tree_Negative extends Less_Tree{
+class HTML_Less_Tree_Negative extends HTML_Less_Tree{
 
 	public $value;
 	public $type = 'Negative';
@@ -20,7 +22,7 @@ class Less_Tree_Negative extends Less_Tree{
 	//}
 
     /**
-     * @see Less_Tree::genCSS
+     * @see HTML_Less_Tree::genCSS
      */
     public function genCSS( $output ){
 		$output->add( '-' );
@@ -28,10 +30,10 @@ class Less_Tree_Negative extends Less_Tree{
 	}
 
     public function compile($env) {
-		if( Less_Environment::isMathOn() ){
-			$ret = new Less_Tree_Operation('*', array( new Less_Tree_Dimension(-1), $this->value ) );
+		if( HTML_Less_Environment::isMathOn() ){
+			$ret = new HTML_Less_Tree_Operation('*', array( new HTML_Less_Tree_Dimension(-1), $this->value ) );
 			return $ret->compile($env);
 		}
-		return new Less_Tree_Negative( $this->value->compile($env) );
+		return new HTML_Less_Tree_Negative( $this->value->compile($env) );
 	}
 }
