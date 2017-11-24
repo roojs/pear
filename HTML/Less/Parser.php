@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/Cache.php';
+require_once __DIR__ . '/Colors.php';
 require_once __DIR__ . '/Environment.php';
 require_once __DIR__ . '/Tree/Ruleset.php';
 
@@ -11,7 +12,7 @@ require_once __DIR__ . '/Tree/Comment.php';
 require_once __DIR__ . '/Tree/Quoted.php';
 require_once __DIR__ . '/Tree/Keyword.php';
 require_once __DIR__ . '/Tree/Color.php';
-require_once __DIR__ . '/Colors.php';
+
 
 require_once __DIR__ . '/SourceMap/Generator.php';
 
