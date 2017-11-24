@@ -642,11 +642,11 @@ class HTML_Less_Functions {
                 $args[0] = $args[0]->unify();
             }
             $args[0] = (float) $args[0]->value;
-            return new Less_Tree_Dimension(call_user_func_array($fn, $args), $unit);
+            return new HTML_Less_Tree_Dimension(call_user_func_array($fn, $args), $unit);
         } else if (is_numeric($args[0])) {
             return call_user_func_array($fn, $args);
         } else {
-            throw new Less_Exception_Compiler("math functions take numbers as parameters");
+            throw new HTML_Less_Exception_Compiler("math functions take numbers as parameters");
         }
     }
 
@@ -658,7 +658,7 @@ class HTML_Less_Functions {
         $arg_count = count($args);
 
         if ($arg_count < 1) {
-            throw new Less_Exception_Compiler('one or more arguments required');
+            throw new HTML_Less_Exception_Compiler('one or more arguments required');
         }
 
         $j = null;
@@ -673,7 +673,7 @@ class HTML_Less_Functions {
 
         for ($i = 0; $i < $arg_count; $i++) {
             $current = $args[$i];
-            if (!($current instanceof Less_Tree_Dimension)) {
+            if (!($current instanceof HTML_Less_Tree_Dimension)) {
                 if (is_array($args[$i]->value)) {
                     $args[] = $args[$i]->value;
                 }
@@ -681,7 +681,7 @@ class HTML_Less_Functions {
             }
 
             if ($current->unit->toString() === '' && !$unitClone) {
-                $temp = new Less_Tree_Dimension($current->value, $unitClone);
+                $temp = new HTML_Less_Tree_Dimension($current->value, $unitClone);
                 $currentUnified = $temp->unify();
             } else {
                 $currentUnified = $current->unify();
@@ -708,7 +708,7 @@ class HTML_Less_Functions {
             } else {
 
                 if ($unitStatic && $unit !== $unitStatic) {
-                    throw new Less_Exception_Compiler('incompatible types');
+                    throw new HTML_Less_Exception_Compiler('incompatible types');
                 }
                 $values[$unit] = count($order);
                 $order[] = $current;
@@ -717,7 +717,7 @@ class HTML_Less_Functions {
 
 
             if ($order[$j]->unit->toString() === "" && $unitClone) {
-                $temp = new Less_Tree_Dimension($order[$j]->value, $unitClone);
+                $temp = new HTML_Less_Tree_Dimension($order[$j]->value, $unitClone);
                 $referenceUnified = $temp->unify();
             } else {
                 $referenceUnified = $order[$j]->unify();
