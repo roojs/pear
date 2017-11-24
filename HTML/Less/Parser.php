@@ -561,6 +561,8 @@ class HTML_Less_Parser
      */
     public function SetCacheDir($dir) {
 
+        require_once 'HTML/Less/Exception/Parsert.php';
+        
         if (!file_exists($dir)) {
             if (mkdir($dir)) {
                 return true;
