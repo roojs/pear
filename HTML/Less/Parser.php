@@ -1047,7 +1047,7 @@ class HTML_Less_Parser
         }
 
         $quoted = $char . $matched . $char;
-        return $this->NewObj5('Less_Tree_Quoted', array($quoted, $matched, $e, $index, $this->env->currentFileInfo));
+        return $this->NewObj5('HTML_Less_Tree_Quoted', array($quoted, $matched, $e, $index, $this->env->currentFileInfo));
     }
 
     /**
