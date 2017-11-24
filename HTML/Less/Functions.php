@@ -365,11 +365,11 @@ class HTML_Less_Functions {
     }
 
     public function spin($color = null, $amount = null) {
-        if (!$color instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to spin must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to spin must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
-        if (!$amount instanceof Less_Tree_Dimension) {
-            throw new Less_Exception_Compiler('The second argument to spin must be a number' . ($amount instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$amount instanceof HTML_Less_Tree_Dimension) {
+            throw new HTML_Less_Exception_Compiler('The second argument to spin must be a number' . ($amount instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         $hsl = $color->toHSL();
@@ -387,20 +387,20 @@ class HTML_Less_Functions {
     //
 
 	/**
-     * @param Less_Tree_Color $color1
+     * @param HTML_Less_Tree_Color $color1
      */
     public function mix($color1 = null, $color2 = null, $weight = null) {
-        if (!$color1 instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to mix must be a color' . ($color1 instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color1 instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to mix must be a color' . ($color1 instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
-        if (!$color2 instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The second argument to mix must be a color' . ($color2 instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color2 instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The second argument to mix must be a color' . ($color2 instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
         if (!$weight) {
-            $weight = new Less_Tree_Dimension('50', '%');
+            $weight = new HTML_Less_Tree_Dimension('50', '%');
         }
-        if (!$weight instanceof Less_Tree_Dimension) {
-            throw new Less_Exception_Compiler('The third argument to contrast must be a percentage' . ($weight instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$weight instanceof HTML_Less_Tree_Dimension) {
+            throw new HTML_Less_Exception_Compiler('The third argument to contrast must be a percentage' . ($weight instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         $p = $weight->value / 100.0;
