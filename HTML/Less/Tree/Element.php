@@ -3,7 +3,6 @@
 require_once 'HTML/Less/Tree.php';
 require_once 'HTML/Less/Environment.php';
 
-require_once 'HTML/Less/Tree/Element.php';
 /**
  * Element
  *
