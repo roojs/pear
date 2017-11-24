@@ -147,6 +147,8 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
 
         $evald = $this->compileForImport($env);
 
+        require_once 'HTML/Less/Parser.php';
+        
         //get path & uri
         $path_and_uri = null;
         if (is_callable(HTML_Less_Parser::$options['import_callback'])) {
