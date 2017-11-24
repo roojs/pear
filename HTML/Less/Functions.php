@@ -672,18 +672,24 @@ class HTML_Less_Functions {
     }
 
     public function pi() {
+        require_once 'HTML/Less/Tree/Dimension.php';
         return new HTML_Less_Tree_Dimension(M_PI);
     }
 
     public function mod($a, $b) {
+        require_once 'HTML/Less/Tree/Dimension.php';
         return new HTML_Less_Tree_Dimension($a->value % $b->value, $a->unit);
     }
 
     public function pow($x, $y) {
+        
+        require_once 'HTML/Less/Tree/Dimension.php';
+        
         if (is_numeric($x) && is_numeric($y)) {
             $x = new HTML_Less_Tree_Dimension($x);
             $y = new HTML_Less_Tree_Dimension($y);
         } elseif (!($x instanceof HTML_Less_Tree_Dimension) || !($y instanceof HTML_Less_Tree_Dimension)) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('Arguments must be numbers');
         }
 
