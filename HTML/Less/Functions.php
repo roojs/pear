@@ -723,7 +723,6 @@ class HTML_Less_Functions {
         } else if (is_numeric($args[0])) {
             return call_user_func_array($fn, $args);
         } else {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler("math functions take numbers as parameters");
         }
     }
@@ -736,7 +735,6 @@ class HTML_Less_Functions {
         $arg_count = count($args);
 
         if ($arg_count < 1) {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('one or more arguments required');
         }
 
@@ -788,7 +786,6 @@ class HTML_Less_Functions {
             } else {
 
                 if ($unitStatic && $unit !== $unitStatic) {
-                    require_once 'HTML/Less/Exception/Compiler.php';
                     throw new HTML_Less_Exception_Compiler('incompatible types');
                 }
                 $values[$unit] = count($order);
@@ -840,7 +837,6 @@ class HTML_Less_Functions {
 
     public function argb($color) {
         if (!$color instanceof HTML_Less_Tree_Color) {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to argb must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -870,10 +866,8 @@ class HTML_Less_Functions {
                 return new HTML_Less_Tree_Color(substr($colorCandidate, 1));
             }
             
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler("argument must be a color keyword or 3/6 digit hex e.g. #FFF");
         } else {
-            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler("argument must be a string");
         }
     }
