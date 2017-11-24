@@ -168,6 +168,7 @@ class HTML_Less_Functions {
 
     public function saturation($color = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to saturation must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
