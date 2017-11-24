@@ -607,10 +607,10 @@ class HTML_Less_Parser
 
         $cache_file = $this->CacheFile($file_path);
         if ($cache_file) {
-            if (Less_Parser::$options['cache_method'] == 'callback') {
-                if (is_callable(Less_Parser::$options['cache_callback_get'])) {
+            if (HTML_Less_Parser::$options['cache_method'] == 'callback') {
+                if (is_callable(HTML_Less_Parser::$options['cache_callback_get'])) {
                     $cache = call_user_func_array(
-                            Less_Parser::$options['cache_callback_get'], array($this, $file_path, $cache_file)
+                            HTML_Less_Parser::$options['cache_callback_get'], array($this, $file_path, $cache_file)
                     );
 
                     if ($cache) {
@@ -619,7 +619,7 @@ class HTML_Less_Parser
                     }
                 }
             } elseif (file_exists($cache_file)) {
-                switch (Less_Parser::$options['cache_method']) {
+                switch (HTML_Less_Parser::$options['cache_method']) {
 
                     // Using serialize
                     // Faster but uses more memory
@@ -645,7 +645,7 @@ class HTML_Less_Parser
         $rules = $this->parsePrimary();
 
         if ($this->pos < $this->input_len) {
-            throw new Less_Exception_Chunk($this->input, null, $this->furthest, $this->env->currentFileInfo);
+            throw new HTML_Less_Exception_Chunk($this->input, null, $this->furthest, $this->env->currentFileInfo);
         }
 
         $this->UnsetInput();
