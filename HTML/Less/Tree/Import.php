@@ -191,7 +191,7 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
         // css ?
         if ($evald->css) {
             $features = ( $evald->features ? $evald->features->compile($env) : null );
-            return new Less_Tree_Import($this->compilePath($env), $features, $this->options, $this->index);
+            return new HTML_Less_Tree_Import($this->compilePath($env), $features, $this->options, $this->index);
         }
 
 
@@ -201,7 +201,7 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
     /**
      * Using the import directories, get the full absolute path and uri of the import
      *
-     * @param Less_Tree_Import $evald
+     * @param HTML_Less_Tree_Import $evald
      */
     public function PathAndUri() {
 
@@ -211,7 +211,7 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
 
             $import_dirs = array();
 
-            if (Less_Environment::isPathRelative($evald_path)) {
+            if (HTML_Less_Environment::isPathRelative($evald_path)) {
                 //if the path is relative, the file should be in the current directory
                 $import_dirs[$this->currentFileInfo['currentDirectory']] = $this->currentFileInfo['uri_root'];
             } else {
@@ -223,7 +223,7 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
             }
 
             // always look in user supplied import directories
-            $import_dirs = array_merge($import_dirs, Less_Parser::$options['import_dirs']);
+            $import_dirs = array_merge($import_dirs, HTML_Less_Parser::$options['import_dirs']);
 
 
             foreach ($import_dirs as $rootpath => $rooturi) {
