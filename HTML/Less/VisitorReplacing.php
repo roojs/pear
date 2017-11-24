@@ -1,5 +1,7 @@
 <?php
 
+require_once 'HTML/Less/Visitor.php';
+
 /**
  * Replacing Visitor
  *
