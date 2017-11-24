@@ -7,8 +7,8 @@
  * @subpackage parser
  *
  */
-class HTML_Less_Parser 
-{
+class HTML_Less_Parser {
+
     /**
      * Default parser options
      */
@@ -59,8 +59,7 @@ class HTML_Less_Parser
     /**
      * @param HTML_Less_Environment|array|null $env
      */
-    public function __construct($env = null) 
-    {
+    public function __construct($env = null) {
         // Top parser on an import tree must be sure there is one "env"
         // which will then be passed around by reference.
         if ($env instanceof HTML_Less_Environment) {
@@ -91,7 +90,7 @@ class HTML_Less_Parser
         self::$contentsMap = array();
 
         require_once 'HTML/Less/Environment.php';
-        
+
         $this->env = new HTML_Less_Environment($options);
 
         //set new options
@@ -128,9 +127,9 @@ class HTML_Less_Parser
 
             case 'cache_dir':
                 if (is_string($value)) {
-                    
+
                     require_once 'HTML/Less/Cache.php';
-                    
+
                     HTML_Less_Cache::SetCacheDir($value);
                     HTML_Less_Cache::CheckCacheDir();
                 }
@@ -173,9 +172,9 @@ class HTML_Less_Parser
         setlocale(LC_NUMERIC, "C");
 
         try {
-            
+
             require_once 'HTML/Less/Tree/Ruleset.php';
-            
+
             $root = new HTML_Less_Tree_Ruleset(array(), $this->rules);
             $root->root = true;
             $root->firstRoot = true;
@@ -191,9 +190,9 @@ class HTML_Less_Parser
             $this->PostVisitors($evaldRoot);
 
             if (HTML_Less_Parser::$options['sourceMap']) {
-                
+
                 require_once 'HTML/Less/SourceMap/Generator.php';
-                
+
                 $generator = new HTML_Less_SourceMap_Generator($evaldRoot, HTML_Less_Parser::$contentsMap, HTML_Less_Parser::$options);
                 // will also save file
                 // FIXME: should happen somewhere else?
@@ -379,20 +378,20 @@ class HTML_Less_Parser
     private function PostVisitors($evaldRoot) {
 
         $visitors = array();
-        
+
         require_once 'HTML/Less/Visitor/joinSelector.php';
-        
+
         $visitors[] = new HTML_Less_Visitor_joinSelector();
-        
+
         if (self::$has_extends) {
-            
+
             require_once 'HTML/Less/Visitor/processExtends.php';
-            
+
             $visitors[] = new HTML_Less_Visitor_processExtends();
         }
-        
+
         require_once 'HTML/Less/Visitor/toCSS.php';
-        
+
         $visitors[] = new HTML_Less_Visitor_toCSS();
 
 
@@ -485,9 +484,9 @@ class HTML_Less_Parser
 
         if ($returnRoot) {
             $rules = $this->GetRules($filename);
-            
+
             require_once 'HTML/Less/Tree/Ruleset.php';
-            
+
             $return = new HTML_Less_Tree_Ruleset(array(), $rules);
         } else {
             $this->_parse($filename);
@@ -507,7 +506,7 @@ class HTML_Less_Parser
      * @return HTML_Less_Parser
      */
     public function ModifyVars($vars) {
-        
+
         $this->input = HTML_Less_Parser::serializeVars($vars);
         $this->_parse();
 
@@ -520,7 +519,7 @@ class HTML_Less_Parser
     public function SetFileInfo($filename, $uri_root = '') {
 
         require_once 'HTML/Less/Tree/Environment.php';
-        
+
         $filename = HTML_Less_Environment::normalizePath($filename);
         $dirname = preg_replace('/[^\/\\\\]*$/', '', $filename);
 
@@ -562,7 +561,7 @@ class HTML_Less_Parser
     public function SetCacheDir($dir) {
 
         require_once 'HTML/Less/Exception/Parser.php';
-        
+
         if (!file_exists($dir)) {
             if (mkdir($dir)) {
                 return true;
@@ -573,9 +572,9 @@ class HTML_Less_Parser
         } elseif (!is_writable($dir)) {
             throw new HTML_Less_Exception_Parser('Less.php cache directory isn\'t writable: ' . $dir);
         } else {
-            
+
             require_once 'HTML/Less/Cache.php';
-            
+
             $dir = self::WinPath($dir);
             HTML_Less_Cache::$cache_dir = rtrim($dir, '/') . '/';
             return true;
@@ -665,9 +664,9 @@ class HTML_Less_Parser
         $rules = $this->parsePrimary();
 
         if ($this->pos < $this->input_len) {
-            
+
             require_once 'HTML/Less/Exception/Chunk.php';
-            
+
             throw new HTML_Less_Exception_Chunk($this->input, null, $this->furthest, $this->env->currentFileInfo);
         }
 
@@ -696,9 +695,9 @@ class HTML_Less_Parser
                         file_put_contents($cache_file, '<?php return ' . var_export($rules, true) . '; ?>');
                         break;
                 }
-                
+
                 require_once 'HTML/Less/Cache.php';
-                
+
                 HTML_Less_Cache::CleanCache();
             }
         }
@@ -744,7 +743,7 @@ class HTML_Less_Parser
 
             require_once 'HTML/Less/Version.php';
             require_once 'HTML/Less/Cache.php';
-            
+
             $env = get_object_vars($this->env);
             unset($env['frames']);
 
@@ -1137,7 +1136,7 @@ class HTML_Less_Parser
         $keyword = strtolower($keyword);
 
         require_once 'HTML/Less/Colors.php';
-        
+
         if (HTML_Less_Colors::hasOwnProperty($keyword)) {
             // detect named color
             return $this->NewObj1('HTML_Less_Tree_Color', substr(HTML_Less_Colors::color($keyword), 1));
@@ -2657,11 +2656,11 @@ class HTML_Less_Parser
      * @return mixed
      */
     public function NewObj0($class) {
-        
+
         $classPath = implode('/', explode('_', $class)) . '.php';
-        
+
         require_once $classPath;
-        
+
         $obj = new $class();
         if ($this->CacheEnabled()) {
             $obj->cache_string = ' new ' . $class . '()';
@@ -2670,11 +2669,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj1($class, $arg) {
-        
+
         $classPath = implode('/', explode('_', $class)) . '.php';
-        
+
         require_once $classPath;
-        
+
         $obj = new $class($arg);
         if ($this->CacheEnabled()) {
             $obj->cache_string = ' new ' . $class . '(' . HTML_Less_Parser::ArgString($arg) . ')';
@@ -2683,11 +2682,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj2($class, $args) {
-        
+
         $classPath = implode('/', explode('_', $class)) . '.php';
-        
+
         require_once $classPath;
-        
+
         $obj = new $class($args[0], $args[1]);
         if ($this->CacheEnabled()) {
             $this->ObjCache($obj, $class, $args);
@@ -2696,11 +2695,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj3($class, $args) {
-        
+
         $classPath = implode('/', explode('_', $class)) . '.php';
-        
+
         require_once $classPath;
-        
+
         $obj = new $class($args[0], $args[1], $args[2]);
         if ($this->CacheEnabled()) {
             $this->ObjCache($obj, $class, $args);
@@ -2709,11 +2708,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj4($class, $args) {
-        
+
         $classPath = implode('/', explode('_', $class)) . '.php';
-        
+
         require_once $classPath;
-        
+
         $obj = new $class($args[0], $args[1], $args[2], $args[3]);
         if ($this->CacheEnabled()) {
             $this->ObjCache($obj, $class, $args);
@@ -2722,11 +2721,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj5($class, $args) {
-        
+
         $classPath = implode('/', explode('_', $class)) . '.php';
-        
+
         require_once $classPath;
-        
+
         $obj = new $class($args[0], $args[1], $args[2], $args[3], $args[4]);
         if ($this->CacheEnabled()) {
             $this->ObjCache($obj, $class, $args);
@@ -2735,11 +2734,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj6($class, $args) {
-        
+
         $classPath = implode('/', explode('_', $class)) . '.php';
-        
+
         require_once $classPath;
-        
+
         $obj = new $class($args[0], $args[1], $args[2], $args[3], $args[4], $args[5]);
         if ($this->CacheEnabled()) {
             $this->ObjCache($obj, $class, $args);
@@ -2748,11 +2747,11 @@ class HTML_Less_Parser
     }
 
     public function NewObj7($class, $args) {
-        
+
         $classPath = implode('/', explode('_', $class)) . '.php';
-        
+
         require_once $classPath;
-        
+
         $obj = new $class($args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6]);
         if ($this->CacheEnabled()) {
             $this->ObjCache($obj, $class, $args);
@@ -2794,9 +2793,9 @@ class HTML_Less_Parser
     }
 
     public function Error($msg) {
-        
-        require_once 'HTML/Less/Exception/Parser.php';
-        
+
+
+
         throw new HTML_Less_Exception_Parser($msg, null, $this->furthest, $this->env->currentFileInfo);
     }
 
@@ -2817,7 +2816,10 @@ class HTML_Less_Parser
     }
 
     public function CacheEnabled() {
-        return (HTML_Less_Parser::$options['cache_method'] && (HTML_Less_Cache::$cache_dir || (HTML_Less_Parser::$options['cache_method'] == 'callback')));
+
+        require_once 'HTML/Less/Cache.php';
+
+        return (HTML_Less_Parser::$options['cache_method'] && (HTML_Less_::$cache_dir || (HTML_Less_Parser::$options['cache_method'] == 'callback')));
     }
 
 }
