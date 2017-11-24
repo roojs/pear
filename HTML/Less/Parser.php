@@ -359,8 +359,8 @@ class HTML_Less_Parser
      */
     private function PreVisitors($root) {
 
-        if (Less_Parser::$options['plugins']) {
-            foreach (Less_Parser::$options['plugins'] as $plugin) {
+        if (HTML_Less_Parser::$options['plugins']) {
+            foreach (HTML_Less_Parser::$options['plugins'] as $plugin) {
                 if (!empty($plugin->isPreEvalVisitor)) {
                     $plugin->run($root);
                 }
