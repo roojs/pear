@@ -204,8 +204,8 @@ class HTML_Less_Cache {
 
     public static function CheckCacheDir() {
 
-        Less_Cache::$cache_dir = str_replace('\\', '/', Less_Cache::$cache_dir);
-        Less_Cache::$cache_dir = rtrim(Less_Cache::$cache_dir, '/') . '/';
+        HTML_Less_Cache::$cache_dir = str_replace('\\', '/', HTML_Less_Cache::$cache_dir);
+        HTML_Less_Cache::$cache_dir = rtrim(HTML_Less_Cache::$cache_dir, '/') . '/';
 
         if (!file_exists(Less_Cache::$cache_dir)) {
             if (!mkdir(Less_Cache::$cache_dir)) {
