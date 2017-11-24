@@ -2028,7 +2028,7 @@ class HTML_Less_Parser
 
             if ($value && $this->parseEnd()) {
                 $this->forget();
-                return $this->NewObj6('Less_Tree_Rule', array($name, $value, $important, $merge, $startOfRule, $this->env->currentFileInfo));
+                return $this->NewObj6('HTML_Less_Tree_Rule', array($name, $value, $important, $merge, $startOfRule, $this->env->currentFileInfo));
             } else {
                 $this->furthest = $this->pos;
                 $this->restore();
@@ -2045,7 +2045,7 @@ class HTML_Less_Parser
 
         if (preg_match('/\\G([^@+\/\'"*`(;{}-]*);/', $this->input, $match, 0, $this->pos)) {
             $this->pos += strlen($match[1]);
-            return $this->NewObj1('Less_Tree_Anonymous', $match[1]);
+            return $this->NewObj1('HTML_Less_Tree_Anonymous', $match[1]);
         }
     }
 
