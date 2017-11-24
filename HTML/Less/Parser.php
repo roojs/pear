@@ -11,6 +11,7 @@ require_once __DIR__ . '/Visitor/toCSS.php';
 require_once __DIR__ . '/Exception/Parser.php';
 require_once __DIR__ . '/Exception/Chunk.php';
 require_once __DIR__ . '/Tree/Comment.php';
+require_once __DIR__ . '/Tree/Quoted.php';
 
 /**
  * Class for parsing and compiling less files into css
