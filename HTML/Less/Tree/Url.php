@@ -25,7 +25,7 @@ class HTML_Less_Tree_Url extends HTML_Less_Tree {
     }
 
     /**
-     * @see Less_Tree::genCSS
+     * @see HTML_Less_Tree::genCSS
      */
     public function genCSS($output) {
         $output->add('url(');
@@ -34,14 +34,14 @@ class HTML_Less_Tree_Url extends HTML_Less_Tree {
     }
 
     /**
-     * @param Less_Functions $ctx
+     * @param HTML_Less_Functions $ctx
      */
     public function compile($ctx) {
         $val = $this->value->compile($ctx);
 
         if (!$this->isEvald) {
             // Add the base path if the URL is relative
-            if (Less_Parser::$options['relativeUrls'] && $this->currentFileInfo && is_string($val->value) && Less_Environment::isPathRelative($val->value)
+            if (HTML_Less_Parser::$options['relativeUrls'] && $this->currentFileInfo && is_string($val->value) && HTML_Less_Environment::isPathRelative($val->value)
             ) {
                 $rootpath = $this->currentFileInfo['uri_root'];
                 if (!$val->quote) {
@@ -50,14 +50,14 @@ class HTML_Less_Tree_Url extends HTML_Less_Tree {
                 $val->value = $rootpath . $val->value;
             }
 
-            $val->value = Less_Environment::normalizePath($val->value);
+            $val->value = HTML_Less_Environment::normalizePath($val->value);
         }
 
         // Add cache buster if enabled
-        if (Less_Parser::$options['urlArgs']) {
+        if (HTML_Less_Parser::$options['urlArgs']) {
             if (!preg_match('/^\s*data:/', $val->value)) {
                 $delimiter = strpos($val->value, '?') === false ? '?' : '&';
-                $urlArgs = $delimiter . Less_Parser::$options['urlArgs'];
+                $urlArgs = $delimiter . HTML_Less_Parser::$options['urlArgs'];
                 $hash_pos = strpos($val->value, '#');
                 if ($hash_pos !== false) {
                     $val->value = substr_replace($val->value, $urlArgs, $hash_pos, 0);
@@ -67,7 +67,7 @@ class HTML_Less_Tree_Url extends HTML_Less_Tree {
             }
         }
 
-        return new Less_Tree_URL($val, $this->currentFileInfo, true);
+        return new HTML_Less_Tree_URL($val, $this->currentFileInfo, true);
     }
 
 }
