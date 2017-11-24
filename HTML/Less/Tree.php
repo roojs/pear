@@ -35,11 +35,10 @@ class HTML_Less_Tree {
         $ruleCnt = count($rules);
         
         require_once 'HTML/Less/Environment.php';
+        require_once 'HTML/Less/Parser.php';
         
         HTML_Less_Environment::$tabLevel++;
 
-        require_once 'HTML/Less/Parser.php';
-        
         // Compressed
         if (HTML_Less_Parser::$options['compress']) {
             $output->add('{');
