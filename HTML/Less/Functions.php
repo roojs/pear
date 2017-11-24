@@ -61,20 +61,20 @@ class HTML_Less_Functions{
 		if( $n instanceof HTML_Less_Tree_Dimension && $n->unit->is('%') ){
 			return (float)$n->value * $size / 100;
 		} else {
-			return Less_Functions::number($n);
+			return HTML_Less_Functions::number($n);
 		}
 	}
 
 	public function rgb ($r = null, $g = null, $b = null){
 		if (is_null($r) || is_null($g) || is_null($b)) {
-			throw new Less_Exception_Compiler("rgb expects three parameters");
+			throw new HTML_Less_Exception_Compiler("rgb expects three parameters");
 		}
 		return $this->rgba($r, $g, $b, 1.0);
 	}
 
 	public function rgba($r = null, $g = null, $b = null, $a = null){
 		$rgb = array($r, $g, $b);
-		$rgb = array_map(array('Less_Functions','scaled'),$rgb);
+		$rgb = array_map(array('HTML_Less_Functions','scaled'),$rgb);
 
 		$a = self::number($a);
 		return new Less_Tree_Color($rgb, $a);
