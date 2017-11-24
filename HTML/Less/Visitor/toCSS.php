@@ -1,6 +1,14 @@
 <?php
 
+require_once 'HTML/Less/VisitorReplacing.php';
 
+require_once 'HTML/Less/Exception/Compiler.php';
+
+require_once 'HTML/Less/VisitorReplacing.php';
+require_once 'HTML/Less/VisitorReplacing.php';
+require_once 'HTML/Less/VisitorReplacing.php';
+require_once 'HTML/Less/VisitorReplacing.php';
+require_once 'HTML/Less/VisitorReplacing.php';
 
 /**
  * toCSS Visitor
