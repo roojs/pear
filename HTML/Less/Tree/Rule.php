@@ -74,19 +74,26 @@ class HTML_Less_Tree_Rule extends HTML_Less_Tree {
                 $name = $this->CompileName($env, $name);
             }
         }
-
+        
+        require_once 'HTML/Less/Parser.php';
+        
         $strictMathBypass = HTML_Less_Parser::$options['strictMath'];
         if ($name === "font" && !HTML_Less_Parser::$options['strictMath']) {
             HTML_Less_Parser::$options['strictMath'] = true;
         }
-
+        
+        require_once 'HTML/Less/Exception/Parser.php';
+        
         try {
             $evaldValue = $this->value->compile($env);
 
             if (!$this->variable && $evaldValue->type === "DetachedRuleset") {
+                require_once 'HTML/Less/Exception/Compiler.php';
                 throw new HTML_Less_Exception_Compiler("Rulesets cannot be evaluated on a property.", null, $this->index, $this->currentFileInfo);
             }
-
+            
+            require_once 'HTML/Less/Environment.php';
+            
             if (HTML_Less_Environment::$mixin_stack) {
                 $return = new HTML_Less_Tree_Rule($name, $evaldValue, $this->important, $this->merge, $this->index, $this->currentFileInfo, $this->inline);
             } else {
