@@ -795,7 +795,6 @@ class HTML_Less_Functions {
 
 
             if ($order[$j]->unit->toString() === "" && $unitClone) {
-                require_once 'HTML/Less/Tree/Dimension.php';
                 $temp = new HTML_Less_Tree_Dimension($order[$j]->value, $unitClone);
                 $referenceUnified = $temp->unify();
             } else {
