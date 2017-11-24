@@ -6,6 +6,11 @@ require_once 'HTML/Less/Environment.php';
 require_once 'HTML/Less/Tree.php';
 require_once 'HTML/Less/Version.php';
 
+require_once 'HTML/Less/Exception/Chunk.php';
+require_once 'HTML/Less/Exception/Parser.php';
+
+require_once 'HTML/Less/SourceMap/Generator.php';
+
 require_once 'HTML/Less/Tree/Ruleset.php';
 require_once 'HTML/Less/Tree/Comment.php';
 require_once 'HTML/Less/Tree/Quoted.php';
@@ -45,14 +50,13 @@ require_once 'HTML/Less/Tree/Mixin/Definition.php';
 
 
 
-require_once 'HTML/Less/SourceMap/Generator.php';
+
 
 require_once 'HTML/Less/Visitor/joinSelector.php';
 require_once 'HTML/Less/Visitor/processExtends.php';
 require_once 'HTML/Less/Visitor/toCSS.php';
 
-require_once 'HTML/Less/Exception/Parser.php';
-require_once 'HTML/Less/Exception/Chunk.php';
+
 
 /**
  * Class for parsing and compiling less files into css
