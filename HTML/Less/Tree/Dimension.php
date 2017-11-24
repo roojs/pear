@@ -84,7 +84,7 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
      */
     public function operate($op, $other) {
 
-        $value = Less_Functions::operate($op, $this->value, $other->value);
+        $value = HTML_Less_Functions::operate($op, $this->value, $other->value);
         $unit = clone $this->unit;
 
         if ($op === '+' || $op === '-') {
@@ -97,11 +97,11 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
             } else {
                 $other = $other->convertTo($this->unit->usedUnits());
 
-                if (Less_Parser::$options['strictUnits'] && $other->unit->toString() !== $unit->toCSS()) {
-                    throw new Less_Exception_Compiler("Incompatible units. Change the units or use the unit function. Bad units: '" . $unit->toString() . "' and " . $other->unit->toString() . "'.");
+                if (HTML_Less_Parser::$options['strictUnits'] && $other->unit->toString() !== $unit->toCSS()) {
+                    throw new HTML_Less_Exception_Compiler("Incompatible units. Change the units or use the unit function. Bad units: '" . $unit->toString() . "' and " . $other->unit->toString() . "'.");
                 }
 
-                $value = Less_Functions::operate($op, $this->value, $other->value);
+                $value = HTML_Less_Functions::operate($op, $this->value, $other->value);
             }
         } elseif ($op === '*') {
             $unit->numerator = array_merge($unit->numerator, $other->unit->numerator);
@@ -116,11 +116,11 @@ class HTML_Less_Tree_Dimension extends HTML_Less_Tree {
             sort($unit->denominator);
             $unit->cancel();
         }
-        return new Less_Tree_Dimension($value, $unit);
+        return new HTML_Less_Tree_Dimension($value, $unit);
     }
 
     public function compare($other) {
-        if ($other instanceof Less_Tree_Dimension) {
+        if ($other instanceof HTML_Less_Tree_Dimension) {
 
             if ($this->unit->isEmpty() || $other->unit->isEmpty()) {
                 $a = $this;
