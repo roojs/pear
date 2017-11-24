@@ -1,6 +1,5 @@
 <?php
 
-require_once 'HTML/Less/Parser.php';
 require_once 'HTML/Less/Tree.php';
 
 /**
@@ -34,10 +33,12 @@ class HTML_Less_Tree_Comment extends HTML_Less_Tree {
     }
 
     public function toCSS() {
+        require_once 'HTML/Less/Parser.php';
         return HTML_Less_Parser::$options['compress'] ? '' : $this->value;
     }
 
     public function isSilent() {
+        require_once 'HTML/Less/Parser.php';
         $isReference = ($this->currentFileInfo && isset($this->currentFileInfo['reference']) && (!isset($this->isReferenced) || !$this->isReferenced) );
         $isCompressed = HTML_Less_Parser::$options['compress'] && !preg_match('/^\/\*!/', $this->value);
         return $this->silent || $isReference || $isCompressed;
