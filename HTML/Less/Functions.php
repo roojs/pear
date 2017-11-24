@@ -236,7 +236,7 @@ class HTML_Less_Functions {
             throw new HTML_Less_Exception_Compiler('The first argument to luma must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
-        return new Less_Tree_Dimension(Less_Parser::round($color->luma() * $color->alpha * 100), '%');
+        return new HTML_Less_Tree_Dimension(HTML_Less_Parser::round($color->luma() * $color->alpha * 100), '%');
     }
 
     public function luminance($color = null) {
