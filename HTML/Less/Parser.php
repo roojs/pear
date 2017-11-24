@@ -191,6 +191,9 @@ class HTML_Less_Parser
             $this->PostVisitors($evaldRoot);
 
             if (HTML_Less_Parser::$options['sourceMap']) {
+                
+                require_once 'HTML/Less/SourceMap/Generator.php';
+                
                 $generator = new HTML_Less_SourceMap_Generator($evaldRoot, HTML_Less_Parser::$contentsMap, HTML_Less_Parser::$options);
                 // will also save file
                 // FIXME: should happen somewhere else?
