@@ -87,6 +87,8 @@ class HTML_Less {
     {
         $this->setVariables($presets);
 
+        require_once 'HTML/Less/Parser.php';
+        
         $parser = new HTML_Less_Parser($this->getOptions());
         $parser->setImportDirs($this->getImportDirs());
         foreach ($this->libFunctions as $name => $func) {
@@ -131,6 +133,8 @@ class HTML_Less {
 
         $this->allParsedFiles = array();
 
+        require_once 'HTML/Less/Parser.php';
+        
         $parser = new HTML_Less_Parser($this->getOptions());
         $parser->SetImportDirs($this->getImportDirs());
         if (count($this->registeredVars)) {
@@ -158,6 +162,8 @@ class HTML_Less {
             throw new Exception('load error: failed to find ' . $fname);
         }
 
+        require_once 'HTML/Less/Parser.php';
+        
         $pi = pathinfo($fname);
 
         $oldImport = $this->importDir;
@@ -289,6 +295,8 @@ class HTML_Less {
 
     protected function addParsedFile($file) 
     {
+        require_once 'HTML/Less/Parser.php';
+        
         $this->allParsedFiles[HTML_Less_Parser::AbsPath($file)] = filemtime($file);
     }
 
