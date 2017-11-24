@@ -78,7 +78,7 @@ class HTML_Less
 
         $this->setVariables($presets);
 
-        $parser = new Less_Parser($this->getOptions());
+        $parser = new HTML_Less_Parser($this->getOptions());
         $parser->setImportDirs($this->getImportDirs());
         foreach ($this->libFunctions as $name => $func) {
             $parser->registerFunction($name, $func);
@@ -120,7 +120,7 @@ class HTML_Less
 
         $this->allParsedFiles = array();
 
-        $parser = new Less_Parser($this->getOptions());
+        $parser = new HTML_Less_Parser($this->getOptions());
         $parser->SetImportDirs($this->getImportDirs());
         if (count($this->registeredVars)) {
             $parser->ModifyVars($this->registeredVars);
@@ -156,7 +156,7 @@ class HTML_Less
         $this->allParsedFiles = array();
         $this->addParsedFile($fname);
 
-        $parser = new Less_Parser($this->getOptions());
+        $parser = new HTML_Less_Parser($this->getOptions());
         $parser->SetImportDirs($this->getImportDirs());
         if (count($this->registeredVars)) {
             $parser->ModifyVars($this->registeredVars);
