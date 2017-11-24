@@ -172,7 +172,7 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
         if (!$selectors)
             return;
 
-        $this->rules = array(new Less_Tree_Ruleset($selectors, array($this->rules[0])));
+        $this->rules = array(new HTML_Less_Tree_Ruleset($selectors, array($this->rules[0])));
     }
 
 }
