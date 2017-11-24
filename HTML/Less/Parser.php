@@ -9,8 +9,8 @@ require_once __DIR__ . '/Cache.php';
  * @subpackage parser
  *
  */
-class HTML_Less_Parser {
-
+class HTML_Less_Parser 
+{
     /**
      * Default parser options
      */
