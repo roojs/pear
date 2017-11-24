@@ -891,7 +891,7 @@ class HTML_Less_Functions {
 
         if ($n instanceof HTML_Less_Tree_Quoted) {
             $colorCandidate = $n->value;
-            require_once 'HTML/Less/Tree/Color';
+            require_once 'HTML/Less/Tree/Color.php';
             $returnColor = HTML_Less_Tree_Color::fromKeyword($colorCandidate);
             if ($returnColor) {
                 return $returnColor;
