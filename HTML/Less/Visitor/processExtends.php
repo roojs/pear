@@ -2,15 +2,6 @@
 
 require_once 'HTML/Less/Visitor.php';
 
-require_once 'HTML/Less/Exception/Parser.php';
-
-require_once 'HTML/Less/Tree/Attribute.php';
-require_once 'HTML/Less/Tree/Element.php';
-require_once 'HTML/Less/Tree/Extend.php';
-require_once 'HTML/Less/Tree/Selector.php';
-
-require_once 'HTML/Less/Visitor/extendFinder.php';
-
 /**
  * Process Extends Visitor
  *
@@ -25,6 +16,7 @@ class HTML_Less_Visitor_processExtends extends HTML_Less_Visitor {
      * @param HTML_Less_Tree_Ruleset $root
      */
     public function run($root) {
+        require_once 'HTML/Less/Visitor/extendFinder.php';
         $extendFinder = new HTML_Less_Visitor_extendFinder();
         $extendFinder->run($root);
         if (!$extendFinder->foundExtends) {
@@ -84,6 +76,7 @@ class HTML_Less_Visitor_processExtends extends HTML_Less_Visitor {
                         $newSelector = $this->extendSelector($matches, $selectorPath, $selfSelector);
 
                         // but now we create a new extend from it
+                        require_once 'HTML/Less/Tree/Extend.php';
                         $newExtend = new HTML_Less_Tree_Extend($targetExtend->selector, $targetExtend->option, 0);
                         $newExtend->selfSelectors = $newSelector;
 
@@ -121,7 +114,7 @@ class HTML_Less_Visitor_processExtends extends HTML_Less_Visitor {
                     $selectorOne = "{unable to calculate}";
                     $selectorTwo = "{unable to calculate}";
                 }
-
+                require_once 'HTML/Less/Exception/Parser.php';
                 throw new HTML_Less_Exception_Parser("extend circular reference detected. One of the circular extends is currently:" . $selectorOne . ":extend(" . $selectorTwo . ")");
             }
 
@@ -392,6 +385,8 @@ class HTML_Less_Visitor_processExtends extends HTML_Less_Visitor {
         $path = array();
         $selectorPath_len = count($selectorPath);
 
+        require_once 'HTML/Less/Tree/Element.php';
+
         for ($matchIndex = 0, $matches_len = count($matches); $matchIndex < $matches_len; $matchIndex++) {
 
 
@@ -399,7 +394,7 @@ class HTML_Less_Visitor_processExtends extends HTML_Less_Visitor {
             $selector = $selectorPath[$match['pathIndex']];
 
             $firstElement = new HTML_Less_Tree_Element(
-                    $match['initialCombinator'], $replacementSelector->elements[0]->value, $replacementSelector->elements[0]->index, $replacementSelector->elements[0]->currentFileInfo
+                $match['initialCombinator'], $replacementSelector->elements[0]->value, $replacementSelector->elements[0]->index, $replacementSelector->elements[0]->currentFileInfo
             );
 
             if ($match['pathIndex'] > $currentSelectorPathIndex && $currentSelectorPathElementIndex > 0) {
@@ -420,6 +415,7 @@ class HTML_Less_Visitor_processExtends extends HTML_Less_Visitor {
                 $path[$last_key]->elements = array_merge($path[$last_key]->elements, $newElements);
             } else {
                 $path = array_merge($path, array_slice($selectorPath, $currentSelectorPathIndex, $match['pathIndex']));
+                require_once 'HTML/Less/Tree/Element.php';
                 $path[] = new HTML_Less_Tree_Selector($newElements);
             }
 
