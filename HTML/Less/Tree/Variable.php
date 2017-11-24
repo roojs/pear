@@ -1,7 +1,6 @@
 <?php
 
 require_once 'HTML/Less/Tree.php';
-require_once 'HTML/Less/Exception/Compiler.php';
 
 /**
  * Variable
@@ -27,7 +26,7 @@ class HTML_Less_Tree_Variable extends HTML_Less_Tree {
     }
 
     public function compile($env) {
-
+        
         if ($this->name[1] === '@') {
             $v = new HTML_Less_Tree_Variable(substr($this->name, 1), $this->index + 1, $this->currentFileInfo);
             $name = '@' . $v->compile($env)->value;
@@ -36,6 +35,7 @@ class HTML_Less_Tree_Variable extends HTML_Less_Tree {
         }
 
         if ($this->evaluating) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler("Recursive variable definition for " . $name, null, $this->index, $this->currentFileInfo);
         }
 
@@ -49,6 +49,7 @@ class HTML_Less_Tree_Variable extends HTML_Less_Tree {
             }
         }
 
+        require_once 'HTML/Less/Exception/Compiler.php';
         throw new HTML_Less_Exception_Compiler("variable " . $name . " is undefined in file " . $this->currentFileInfo["filename"], null, $this->index, $this->currentFileInfo);
     }
 
