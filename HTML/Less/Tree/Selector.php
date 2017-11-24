@@ -1,7 +1,6 @@
 <?php
 
 require_once 'HTML/Less/Tree.php';
-require_once 'HTML/Less/Visitor/extendFinder.php';
 
 /**
  * Selector
@@ -59,6 +58,7 @@ class HTML_Less_Tree_Selector extends HTML_Less_Tree {
     }
 
     public function createDerived($elements, $extendList = null, $evaldCondition = null) {
+        require_once 'HTML/Less/Tree/Selector.php';
         $newSelector = new HTML_Less_Tree_Selector($elements, ($extendList ? $extendList : $this->extendList), null, $this->index, $this->currentFileInfo, $this->isReferenced);
         $newSelector->evaldCondition = $evaldCondition ? $evaldCondition : $this->evaldCondition;
         return $newSelector;
