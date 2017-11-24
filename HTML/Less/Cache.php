@@ -193,6 +193,9 @@ class HTML_Less_Cache {
     private static function CompiledName($files, $extrahash) {
 
         //save the file list
+        
+        require_once 'HTML/Less/Version.php';
+        
         $temp = array(HTML_Less_Version::cache_version);
         foreach ($files as $file) {
             $temp[] = filemtime($file) . "\t" . filesize($file) . "\t" . $file;
@@ -211,6 +214,8 @@ class HTML_Less_Cache {
         HTML_Less_Cache::$cache_dir = str_replace('\\', '/', HTML_Less_Cache::$cache_dir);
         HTML_Less_Cache::$cache_dir = rtrim(HTML_Less_Cache::$cache_dir, '/') . '/';
 
+        require_once 'HTML/Less/Exception/Parser.php';
+        
         if (!file_exists(HTML_Less_Cache::$cache_dir)) {
             if (!mkdir(HTML_Less_Cache::$cache_dir)) {
                 throw new HTML_Less_Exception_Parser('Less.php cache directory couldn\'t be created: ' . HTML_Less_Cache::$cache_dir);
