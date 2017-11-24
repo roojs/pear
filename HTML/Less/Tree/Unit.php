@@ -71,6 +71,7 @@ class HTML_Less_Tree_Unit extends HTML_Less_Tree {
     }
 
     public function isAngle() {
+        require_once 'HTML/Less/Tree/UnitConversions.php';
         return isset(HTML_Less_Tree_UnitConversions::$angle[$this->toCSS()]);
     }
 
@@ -84,7 +85,9 @@ class HTML_Less_Tree_Unit extends HTML_Less_Tree {
 
     public function usedUnits() {
         $result = array();
-
+        
+        require_once 'HTML/Less/Tree/UnitConversions.php';
+        
         foreach (HTML_Less_Tree_UnitConversions::$groups as $groupName) {
             $group = HTML_Less_Tree_UnitConversions::${$groupName};
 
