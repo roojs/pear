@@ -4,8 +4,8 @@ require_once 'HTML/Less/Visitor.php';
 
 require_once 'HTML/Less/Exception/Parser.php';
 require_once 'HTML/Less/Tree/Attribute.php';
-require_once 'HTML/Less/Visitor.php';
-require_once 'HTML/Less/Visitor.php';
+require_once 'HTML/Less/Tree/Element.php';
+require_once 'HTML/Less/Tree/Extend.php';
 require_once 'HTML/Less/Visitor.php';
 require_once 'HTML/Less/Visitor/extendFinder.php';
 
