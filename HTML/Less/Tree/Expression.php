@@ -56,8 +56,8 @@ class HTML_Less_Tree_Expression extends HTML_Less_Tree {
 
         if ($this->parens) {
             if (!$this->parensInOp) {
-                Less_Environment::$parensStack--;
-            } elseif (!Less_Environment::isMathOn() && !$doubleParen) {
+                HTML_Less_Environment::$parensStack--;
+            } elseif (!HTML_Less_Environment::isMathOn() && !$doubleParen) {
                 $returnValue = new Less_Tree_Paren($returnValue);
             }
         }
