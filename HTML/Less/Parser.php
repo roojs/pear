@@ -2702,7 +2702,7 @@ class HTML_Less_Parser
     }
 
     public function ArgCache($args) {
-        return implode(',', array_map(array('Less_Parser', 'ArgString'), $args));
+        return implode(',', array_map(array('HTML_Less_Parser', 'ArgString'), $args));
     }
 
     /**
@@ -2730,7 +2730,7 @@ class HTML_Less_Parser
     }
 
     public function Error($msg) {
-        throw new Less_Exception_Parser($msg, null, $this->furthest, $this->env->currentFileInfo);
+        throw new HTML_Less_Exception_Parser($msg, null, $this->furthest, $this->env->currentFileInfo);
     }
 
     public static function WinPath($path) {
