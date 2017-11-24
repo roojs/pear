@@ -1,7 +1,5 @@
 <?php
 
-require_once 'HTML/Less/Parser.php';
-
 /**
  * Environment
  *
