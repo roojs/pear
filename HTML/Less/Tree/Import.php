@@ -295,7 +295,9 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
      * @return boolean|null
      */
     private function Skip($path, $env) {
-
+        
+        require_once 'HTML/Less/Parser.php';
+        
         $path = HTML_Less_Parser::AbsPath($path, true);
 
         if ($path && HTML_Less_Parser::FileParsed($path)) {
