@@ -8,6 +8,7 @@ require_once __DIR__ . '/Tree.php';
 require_once __DIR__ . '/Visitor/joinSelector.php';
 require_once __DIR__ . '/Visitor/processExtends.php';
 require_once __DIR__ . '/Visitor/toCSS.php';
+require_once __DIR__ . '/Exception/Parser.php';
 
 /**
  * Class for parsing and compiling less files into css
@@ -567,7 +568,7 @@ class HTML_Less_Parser
      * @param array $dirs
      */
     public function SetImportDirs($dirs) {
-        HTML_Less_Parser::$options['import_dirs'] = array();
+        Less_Parser::$options['import_dirs'] = array();
 
         foreach ($dirs as $path => $uri_root) {
 
