@@ -1302,9 +1302,9 @@ class HTML_Less_Parser
         if ($value) {
 
             if (isset($value[2])) {
-                return $this->NewObj2('Less_Tree_Dimension', array($value[1], $value[2]));
+                return $this->NewObj2('HTML_Less_Tree_Dimension', array($value[1], $value[2]));
             }
-            return $this->NewObj1('Less_Tree_Dimension', $value[1]);
+            return $this->NewObj1('HTML_Less_Tree_Dimension', $value[1]);
         }
     }
 
@@ -1316,7 +1316,7 @@ class HTML_Less_Parser
 	function parseUnicodeDescriptor() {
         $ud = $this->MatchReg('/\\G(U\+[0-9a-fA-F?]+)(\-[0-9a-fA-F?]+)?/');
         if ($ud) {
-            return $this->NewObj1('Less_Tree_UnicodeDescriptor', $ud[0]);
+            return $this->NewObj1('HTML_Less_Tree_UnicodeDescriptor', $ud[0]);
         }
     }
 
