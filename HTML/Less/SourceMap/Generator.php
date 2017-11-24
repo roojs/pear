@@ -1,13 +1,6 @@
 <?php
 
 require_once 'HTML/Less/Configurable.php';
-require_once 'HTML/Less/Functions.php';
-
-require_once 'HTML/Less/Output/Mapped.php';
-
-require_once 'HTML/Less/SourceMap/Base64VLQ.php';
-
-require_once 'HTML/Less/Tree/Ruleset.php';
 
 /**
  * Source map generator
