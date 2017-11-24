@@ -69,7 +69,7 @@ class HTML_Less_Parser
         if ($env instanceof HTML_Less_Environment) {
             $this->env = $env;
         } else {
-            $this->SetOptions(Less_Parser::$default_options);
+            $this->SetOptions(HTML_Less_Parser::$default_options);
             $this->Reset($env);
         }
 
@@ -97,7 +97,7 @@ class HTML_Less_Parser
 
         //set new options
         if (is_array($options)) {
-            $this->SetOptions(Less_Parser::$default_options);
+            $this->SetOptions(HTML_Less_Parser::$default_options);
             $this->SetOptions($options);
         }
 
@@ -129,13 +129,13 @@ class HTML_Less_Parser
 
             case 'cache_dir':
                 if (is_string($value)) {
-                    Less_Cache::SetCacheDir($value);
-                    Less_Cache::CheckCacheDir();
+                    HTML_Less_Cache::SetCacheDir($value);
+                    HTML_Less_Cache::CheckCacheDir();
                 }
                 return;
         }
 
-        Less_Parser::$options[$option] = $value;
+        HTML_Less_Parser::$options[$option] = $value;
     }
 
     /**
@@ -172,7 +172,7 @@ class HTML_Less_Parser
 
         try {
 
-            $root = new Less_Tree_Ruleset(array(), $this->rules);
+            $root = new HTML_Less_Tree_Ruleset(array(), $this->rules);
             $root->root = true;
             $root->firstRoot = true;
 
