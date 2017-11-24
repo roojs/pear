@@ -1,5 +1,14 @@
 <?php
 
+require_once 'HTML/Less/Tree.php';
+
+require_once 'HTML/Less/Tree.php';
+require_once 'HTML/Less/Tree.php';
+require_once 'HTML/Less/Tree.php';
+require_once 'HTML/Less/Tree/Color.php';
+require_once 'HTML/Less/Tree/Unit.php';
+
+
 /**
  * Dimension
  *
