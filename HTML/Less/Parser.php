@@ -28,7 +28,9 @@ require_once 'HTML/Less/Tree/Import.php';
 require_once 'HTML/Less/Tree/Javascript.php';
 require_once 'HTML/Less/Tree/Keyword.php';
 require_once 'HTML/Less/Tree/Media.php';
-
+require_once 'HTML/Less/Tree/NameValue.php';
+require_once 'HTML/Less/Tree/Negative.php';
+require_once 'HTML/Less/Tree/Operation.php';
 
 
 
@@ -54,14 +56,14 @@ require_once 'HTML/Less/Tree/Value.php';
 require_once 'HTML/Less/Tree/Paren.php';
 
 
-require_once 'HTML/Less/Tree/NameValue.php';
+
 require_once 'HTML/Less/Tree/Rule.php';
 
 
 
-require_once 'HTML/Less/Tree/Operation.php';
 
-require_once 'HTML/Less/Tree/Negative.php';
+
+
 
 require_once 'HTML/Less/Tree/Mixin/Call.php';
 require_once 'HTML/Less/Tree/Mixin/Definition.php';
