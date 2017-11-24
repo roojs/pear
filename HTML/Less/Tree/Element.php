@@ -1,7 +1,6 @@
 <?php
 
 require_once 'HTML/Less/Tree.php';
-require_once 'HTML/Less/Environment.php';
 
 /**
  * Element
@@ -39,6 +38,8 @@ class HTML_Less_Tree_Element extends HTML_Less_Tree {
 
     public function compile($env) {
 
+        require_once 'HTML/Less/Environment.php';
+        
         if (HTML_Less_Environment::$mixin_stack) {
             return new HTML_Less_Tree_Element($this->combinator, ($this->value_is_object ? $this->value->compile($env) : $this->value), $this->index, $this->currentFileInfo);
         }
@@ -70,7 +71,7 @@ class HTML_Less_Tree_Element extends HTML_Less_Tree {
             return '';
         }
 
-
+        require_once 'HTML/Less/Environment.php';
         return HTML_Less_Environment::$_outputMap[$this->combinator] . $value;
     }
 
