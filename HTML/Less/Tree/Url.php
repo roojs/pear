@@ -1,9 +1,6 @@
 <?php
 
 require_once 'HTML/Less/Tree.php';
-require_once 'HTML/Less/Parser.php';
-require_once 'HTML/Less/Environment.php';
-
 
 /**
  * Url
@@ -44,6 +41,9 @@ class HTML_Less_Tree_Url extends HTML_Less_Tree {
     public function compile($ctx) {
         $val = $this->value->compile($ctx);
 
+        require_once 'HTML/Less/Environment.php';
+        require_once 'HTML/Less/Parser.php';
+        
         if (!$this->isEvald) {
             // Add the base path if the URL is relative
             if (HTML_Less_Parser::$options['relativeUrls'] && $this->currentFileInfo && is_string($val->value) && HTML_Less_Environment::isPathRelative($val->value)
