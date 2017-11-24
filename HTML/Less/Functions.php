@@ -734,7 +734,7 @@ class HTML_Less_Functions {
         foreach ($order as $a) {
             $args[] = $a->toCSS($this->env);
         }
-        return new Less_Tree_Anonymous(($isMin ? 'min(' : 'max(') . implode(Less_Environment::$_outputMap[','], $args) . ')');
+        return new HTML_Less_Tree_Anonymous(($isMin ? 'min(' : 'max(') . implode(HTML_Less_Environment::$_outputMap[','], $args) . ')');
     }
 
     public function min() {
