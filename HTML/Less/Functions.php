@@ -874,9 +874,11 @@ class HTML_Less_Functions {
 
     public function argb($color) {
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to argb must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
+        require_once 'HTML/Less/Tree/Anonymous.php';
         return new HTML_Less_Tree_Anonymous($color->toARGB());
     }
 
