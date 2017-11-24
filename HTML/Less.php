@@ -101,7 +101,8 @@ class HTML_Less {
         return $parser->getCss();
     }
 
-    protected function getOptions() {
+    protected function getOptions() 
+    {
         $options = array('relativeUrls' => false);
         switch ($this->formatterName) {
             case 'compressed':
@@ -114,7 +115,8 @@ class HTML_Less {
         return $options;
     }
 
-    protected function getImportDirs() {
+    protected function getImportDirs() 
+    {
         $dirs_ = (array) $this->importDir;
         $dirs = array();
         foreach ($dirs_ as $dir) {
@@ -123,8 +125,8 @@ class HTML_Less {
         return $dirs;
     }
 
-    public function compile($string, $name = null) {
-
+    public function compile($string, $name = null) 
+    {
         $oldImport = $this->importDir;
         $this->importDir = (array) $this->importDir;
 
@@ -151,7 +153,8 @@ class HTML_Less {
         return $out;
     }
 
-    public function compileFile($fname, $outFname = null) {
+    public function compileFile($fname, $outFname = null) 
+    {
         if (!is_readable($fname)) {
             throw new Exception('load error: failed to find ' . $fname);
         }
