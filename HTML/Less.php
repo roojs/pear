@@ -41,43 +41,52 @@ class HTML_Less
         $this->formatterName = $name;
     }
 
-    public function setPreserveComments($preserve) {
+    public function setPreserveComments($preserve) 
+    {
         
     }
 
-    public function registerFunction($name, $func) {
+    public function registerFunction($name, $func) 
+    {
         $this->libFunctions[$name] = $func;
     }
 
-    public function unregisterFunction($name) {
+    public function unregisterFunction($name) 
+    {
         unset($this->libFunctions[$name]);
     }
 
-    public function setVariables($variables) {
+    public function setVariables($variables) 
+    {
         foreach ($variables as $name => $value) {
             $this->setVariable($name, $value);
         }
     }
 
-    public function setVariable($name, $value) {
+    public function setVariable($name, $value) 
+    {
         $this->registeredVars[$name] = $value;
     }
 
-    public function unsetVariable($name) {
+    public function unsetVariable($name) 
+    {
         unset($this->registeredVars[$name]);
     }
 
-    public function setOptions($options) {
+    public function setOptions($options) 
+    {
         foreach ($options as $name => $value) {
             $this->setOption($name, $value);
         }
     }
 
-    public function setOption($name, $value) {
+    public function setOption($name, $value) 
+    {
         $this->options[$name] = $value;
     }
 
-    public function parse($buffer, $presets = array()) {
+    public function parse($buffer, $presets = array()) 
+    {
 
         $this->setVariables($presets);
 
