@@ -126,15 +126,15 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
         }
 
 
-        if (!($path instanceof Less_Tree_URL)) {
+        if (!($path instanceof HTML_Less_Tree_URL)) {
             if ($rootpath) {
                 $pathValue = $path->value;
                 // Add the base path if the import is relative
-                if ($pathValue && Less_Environment::isPathRelative($pathValue)) {
+                if ($pathValue && HTML_Less_Environment::isPathRelative($pathValue)) {
                     $path->value = $this->currentFileInfo['uri_root'] . $pathValue;
                 }
             }
-            $path->value = Less_Environment::normalizePath($path->value);
+            $path->value = HTML_Less_Environment::normalizePath($path->value);
         }
 
 
@@ -148,8 +148,8 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
 
         //get path & uri
         $path_and_uri = null;
-        if (is_callable(Less_Parser::$options['import_callback'])) {
-            $path_and_uri = call_user_func(Less_Parser::$options['import_callback'], $evald);
+        if (is_callable(HTML_Less_Parser::$options['import_callback'])) {
+            $path_and_uri = call_user_func(HTML_Less_Parser::$options['import_callback'], $evald);
         }
 
         if (!$path_and_uri) {
@@ -170,13 +170,13 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
 
         if ($this->options['inline']) {
             //todo needs to reference css file not import
-            //$contents = new Less_Tree_Anonymous($this->root, 0, array('filename'=>$this->importedFilename), true );
+            //$contents = new HTML_Less_Tree_Anonymous($this->root, 0, array('filename'=>$this->importedFilename), true );
 
-            Less_Parser::AddParsedFile($full_path);
-            $contents = new Less_Tree_Anonymous(file_get_contents($full_path), 0, array(), true);
+            HTML_Less_Parser::AddParsedFile($full_path);
+            $contents = new HTML_Less_Tree_Anonymous(file_get_contents($full_path), 0, array(), true);
 
             if ($this->features) {
-                return new Less_Tree_Media(array($contents), $this->features->value);
+                return new HTML_Less_Tree_Media(array($contents), $this->features->value);
             }
 
             return array($contents);
