@@ -240,13 +240,13 @@ class HTML_Less_Functions {
     }
 
     public function luminance($color = null) {
-        if (!$color instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to luminance must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to luminance must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         $luminance = (0.2126 * $color->rgb[0] / 255) + (0.7152 * $color->rgb[1] / 255) + (0.0722 * $color->rgb[2] / 255);
 
-        return new Less_Tree_Dimension(Less_Parser::round($luminance * $color->alpha * 100), '%');
+        return new HTML_Less_Tree_Dimension(Less_Parser::round($luminance * $color->alpha * 100), '%');
     }
 
     public function saturate($color = null, $amount = null) {
