@@ -143,6 +143,7 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
         
         require_once 'HTML/Less/Parser.php';
         require_once 'HTML/Less/Tree/Anonymous.php';
+        require_once 'HTML/Less/Tree/Expression.php';
         
         foreach ($permuted as $path) {
 
@@ -156,11 +157,14 @@ class HTML_Less_Tree_Media extends HTML_Less_Tree {
 
             $expressions[] = new HTML_Less_Tree_Expression($path);
         }
+        
+        require_once 'HTML/Less/Tree/Value.php';
         $this->features = new HTML_Less_Tree_Value($expressions);
 
 
 
         // Fake a tree-node that doesn't output anything.
+        require_once 'HTML/Less/Tree/Ruleset.php';
         return new HTML_Less_Tree_Ruleset(array(), array());
     }
 
