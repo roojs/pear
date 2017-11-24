@@ -219,21 +219,21 @@ class HTML_Less_Functions {
             throw new HTML_Less_Exception_Compiler('The first argument to blue must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
-        return new Less_Tree_Dimension($color->rgb[2]);
+        return new HTML_Less_Tree_Dimension($color->rgb[2]);
     }
 
     public function alpha($color = null) {
-        if (!$color instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to alpha must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to alpha must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         $c = $color->toHSL();
-        return new Less_Tree_Dimension($c['a']);
+        return new HTML_Less_Tree_Dimension($c['a']);
     }
 
     public function luma($color = null) {
-        if (!$color instanceof Less_Tree_Color) {
-            throw new Less_Exception_Compiler('The first argument to luma must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
+        if (!$color instanceof HTML_Less_Tree_Color) {
+            throw new HTML_Less_Exception_Compiler('The first argument to luma must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
         return new Less_Tree_Dimension(Less_Parser::round($color->luma() * $color->alpha * 100), '%');
