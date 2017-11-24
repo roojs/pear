@@ -39,18 +39,18 @@ class HTML_Less_Cache{
 
 		//check $cache_dir
 		if( isset($parser_options['cache_dir']) ){
-			Less_Cache::$cache_dir = $parser_options['cache_dir'];
+			HTML_Less_Cache::$cache_dir = $parser_options['cache_dir'];
 		}
 
-		if( empty(Less_Cache::$cache_dir) ){
+		if( empty(HTML_Less_Cache::$cache_dir) ){
 			throw new Exception('cache_dir not set');
 		}
 
 		if( isset($parser_options['prefix']) ){
-			Less_Cache::$prefix = $parser_options['prefix'];
+			HTML_Less_Cache::$prefix = $parser_options['prefix'];
 		}
 
-		if( empty(Less_Cache::$prefix) ){
+		if( empty(HTML_Less_Cache::$prefix) ){
 			throw new Exception('prefix not set');
 		}
 
