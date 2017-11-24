@@ -1972,7 +1972,7 @@ class HTML_Less_Parser
                 $match[2] .= ' !important';
             }
 
-            return $this->NewObj4('Less_Tree_NameValue', array($match[1], $match[2], $index, $this->env->currentFileInfo));
+            return $this->NewObj4('HTML_Less_Tree_NameValue', array($match[1], $match[2], $index, $this->env->currentFileInfo));
         }
 
         $this->restore();
@@ -2006,7 +2006,7 @@ class HTML_Less_Parser
                 // prefer to try to parse first if its a variable or we are compressing
                 // but always fallback on the other one
                 //if( !$tryAnonymous && is_string($name) && $name[0] === '@' ){
-                if (!$tryAnonymous && (Less_Parser::$options['compress'] || $isVariable)) {
+                if (!$tryAnonymous && (HTML_Less_Parser::$options['compress'] || $isVariable)) {
                     $value = $this->MatchFuncs(array('parseValue', 'parseAnonymousValue'));
                 } else {
                     $value = $this->MatchFuncs(array('parseAnonymousValue', 'parseValue'));
