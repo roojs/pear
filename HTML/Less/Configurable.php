@@ -6,7 +6,7 @@
  * @package Less
  * @subpackage Core
  */
-abstract class Less_Configurable {
+abstract class HTML_Less_Configurable {
 
 	/**
 	 * Array of options
