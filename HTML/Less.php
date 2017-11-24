@@ -20,7 +20,7 @@ class HTML_Less {
 
     public function __construct($lessc = null, $sourceName = null) 
     {
-        print_r(HTML_Less_Version::less_version);
+        
     }
 
     public function setImportDir($dirs) 
