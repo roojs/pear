@@ -173,7 +173,9 @@ class HTML_Less_Parser
         setlocale(LC_NUMERIC, "C");
 
         try {
-
+            
+            require_once 'HTML/Less/Tree/Ruleset.php';
+            
             $root = new HTML_Less_Tree_Ruleset(array(), $this->rules);
             $root->root = true;
             $root->firstRoot = true;
