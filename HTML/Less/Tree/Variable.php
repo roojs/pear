@@ -26,7 +26,7 @@ class HTML_Less_Tree_Variable extends HTML_Less_Tree {
     }
 
     public function compile($env) {
-        
+
         if ($this->name[1] === '@') {
             $v = new HTML_Less_Tree_Variable(substr($this->name, 1), $this->index + 1, $this->currentFileInfo);
             $name = '@' . $v->compile($env)->value;
