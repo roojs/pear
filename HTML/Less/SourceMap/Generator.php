@@ -1,6 +1,10 @@
 <?php
 
-
+require_once 'HTML/Less/Configurable.php';
+require_once 'HTML/Less/Configurable.php';
+require_once 'HTML/Less/Configurable.php';
+require_once 'HTML/Less/Configurable.php';
+require_once 'HTML/Less/Configurable.php';
 
 /**
  * Source map generator
