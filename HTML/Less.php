@@ -11,7 +11,7 @@ require_once __DIR__ . '/Less/Parser.php';
 
 class HTML_Less {
 
-    static public $VERSION = Less_Version::less_version;
+    static public $VERSION = HTML_Less_Version::less_version;
     public $importDir = '';
     protected $allParsedFiles = array();
     protected $libFunctions = array();
@@ -164,7 +164,7 @@ class HTML_Less {
         $oldImport = $this->importDir;
 
         $this->importDir = (array) $this->importDir;
-        $this->importDir[] = Less_Parser::AbsPath($pi['dirname']) . '/';
+        $this->importDir[] = HTML_Less_Parser::AbsPath($pi['dirname']) . '/';
 
         $this->allParsedFiles = array();
         $this->addParsedFile($fname);
@@ -180,7 +180,7 @@ class HTML_Less {
         $parser->parseFile($fname);
         $out = $parser->getCss();
 
-        $parsed = Less_Parser::AllParsedFiles();
+        $parsed = HTML_Less_Parser::AllParsedFiles();
         foreach ($parsed as $file) {
             $this->addParsedFile($file);
         }
@@ -290,7 +290,7 @@ class HTML_Less {
 
     protected function addParsedFile($file) 
     {
-        $this->allParsedFiles[Less_Parser::AbsPath($file)] = filemtime($file);
+        $this->allParsedFiles[HTML_Less_Parser::AbsPath($file)] = filemtime($file);
     }
 
 }
