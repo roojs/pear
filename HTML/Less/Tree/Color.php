@@ -54,15 +54,15 @@ class HTML_Less_Tree_Color extends HTML_Less_Tree {
     }
 
     /**
-     * @see Less_Tree::genCSS
+     * @see HTML_Less_Tree::genCSS
      */
     public function genCSS($output) {
         $output->add($this->toCSS());
     }
 
     public function toCSS($doNotCompress = false) {
-        $compress = Less_Parser::$options['compress'] && !$doNotCompress;
-        $alpha = Less_Functions::fround($this->alpha);
+        $compress = HTML_Less_Parser::$options['compress'] && !$doNotCompress;
+        $alpha = HTML_Less_Functions::fround($this->alpha);
 
 
         //
@@ -78,7 +78,7 @@ class HTML_Less_Tree_Color extends HTML_Less_Tree {
 
             $values = array();
             foreach ($this->rgb as $c) {
-                $values[] = Less_Functions::clamp(round($c), 255);
+                $values[] = HTML_Less_Functions::clamp(round($c), 255);
             }
             $values[] = $alpha;
 
@@ -115,9 +115,9 @@ class HTML_Less_Tree_Color extends HTML_Less_Tree {
         $rgb = array();
         $alpha = $this->alpha * (1 - $other->alpha) + $other->alpha;
         for ($c = 0; $c < 3; $c++) {
-            $rgb[$c] = Less_Functions::operate($op, $this->rgb[$c], $other->rgb[$c]);
+            $rgb[$c] = HTML_Less_Functions::operate($op, $this->rgb[$c], $other->rgb[$c]);
         }
-        return new Less_Tree_Color($rgb, $alpha);
+        return new HTML_Less_Tree_Color($rgb, $alpha);
     }
 
     public function toRGB() {
@@ -187,7 +187,7 @@ class HTML_Less_Tree_Color extends HTML_Less_Tree {
     }
 
     public function toARGB() {
-        $argb = array_merge((array) Less_Parser::round($this->alpha * 255), $this->rgb);
+        $argb = array_merge((array) HTML_Less_Parser::round($this->alpha * 255), $this->rgb);
         return $this->toHex($argb);
     }
 
@@ -208,7 +208,7 @@ class HTML_Less_Tree_Color extends HTML_Less_Tree {
 
         $ret = '#';
         foreach ($v as $c) {
-            $c = Less_Functions::clamp(Less_Parser::round($c), 255);
+            $c = HTML_Less_Functions::clamp(HTML_Less_Parser::round($c), 255);
             if ($c < 16) {
                 $ret .= '0';
             }
