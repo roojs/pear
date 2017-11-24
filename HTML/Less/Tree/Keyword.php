@@ -6,39 +6,40 @@
  * @package Less
  * @subpackage tree
  */
-class Less_Tree_Keyword extends Less_Tree{
+class HTML_Less_Tree_Keyword extends HTML_Less_Tree {
 
-	public $value;
-	public $type = 'Keyword';
-
-	/**
-	 * @param string $value
-	 */
-	public function __construct($value){
-		$this->value = $value;
-	}
-
-	public function compile(){
-		return $this;
-	}
+    public $value;
+    public $type = 'Keyword';
 
     /**
-     * @see Less_Tree::genCSS
+     * @param string $value
      */
-	public function genCSS( $output ){
+    public function __construct($value) {
+        $this->value = $value;
+    }
 
-		if( $this->value === '%') {
-			throw new Less_Exception_Compiler("Invalid % without number");
-		}
+    public function compile() {
+        return $this;
+    }
 
-		$output->add( $this->value );
-	}
+    /**
+     * @see HTML_Less_Tree::genCSS
+     */
+    public function genCSS($output) {
 
-	public function compare($other) {
-		if ($other instanceof Less_Tree_Keyword) {
-			return $other->value === $this->value ? 0 : 1;
-		} else {
-			return -1;
-		}
-	}
+        if ($this->value === '%') {
+            throw new HTML_Less_Exception_Compiler("Invalid % without number");
+        }
+
+        $output->add($this->value);
+    }
+
+    public function compare($other) {
+        if ($other instanceof Less_Tree_Keyword) {
+            return $other->value === $this->value ? 0 : 1;
+        } else {
+            return -1;
+        }
+    }
+
 }
