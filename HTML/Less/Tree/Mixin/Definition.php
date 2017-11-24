@@ -182,7 +182,8 @@ class HTML_Less_Tree_Mixin_Definition extends HTML_Less_Tree_Ruleset {
         $ex = new HTML_Less_Tree_Expression($_arguments);
         array_unshift($frame->rules, new HTML_Less_Tree_Rule('@arguments', $ex->compile($env)));
 
-
+        require_once 'HTML/Less/Tree/Ruleset.php';
+        
         $ruleset = new HTML_Less_Tree_Ruleset(null, $this->rules);
         $ruleset->originalRuleset = $this->ruleset_id;
 
