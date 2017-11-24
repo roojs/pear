@@ -1,9 +1,6 @@
 <?php
 
-require_once 'HTML/Less/Parser.php';
 require_once 'HTML/Less/Tree.php';
-
-require_once 'HTML/Less/Exception/Compiler.php';
 
 /**
  * Condition
@@ -37,6 +34,8 @@ class HTML_Less_Tree_Condition extends HTML_Less_Tree {
         $a = $this->lvalue->compile($env);
         $b = $this->rvalue->compile($env);
 
+        require_once 'HTML/Less/Parser.php';
+        
         switch ($this->op) {
             case 'and':
                 $result = $a && $b;
@@ -52,6 +51,7 @@ class HTML_Less_Tree_Condition extends HTML_Less_Tree {
                 } elseif (HTML_Less_Parser::is_method($b, 'compare')) {
                     $result = $b->compare($a);
                 } else {
+                    require_once 'HTML/Less/Exception/Compiler.php';
                     throw new HTML_Less_Exception_Compiler('Unable to perform comparison', null, $this->index);
                 }
 
