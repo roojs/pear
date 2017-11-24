@@ -3,9 +3,9 @@
 require_once __DIR__ . '/Cache.php';
 require_once __DIR__ . '/Colors.php';
 require_once __DIR__ . '/Environment.php';
-
-
 require_once __DIR__ . '/Tree.php';
+require_once __DIR__ . '/Less/Version.php';
+
 require_once __DIR__ . '/Tree/Ruleset.php';
 require_once __DIR__ . '/Tree/Comment.php';
 require_once __DIR__ . '/Tree/Quoted.php';
@@ -39,10 +39,10 @@ require_once __DIR__ . '/Tree/Operation.php';
 require_once __DIR__ . '/Tree/Condition.php';
 require_once __DIR__ . '/Tree/Negative.php';
 
-
+require_once __DIR__ . '/Tree/Mixin/Call.php';
 require_once __DIR__ . '/Tree/Mixin/Definition.php';
 
-require_once __DIR__ . '/Tree/Mixin/Call.php';
+
 
 
 require_once __DIR__ . '/SourceMap/Generator.php';
