@@ -1,5 +1,10 @@
 <?php
 
+require_once 'HTML/Less/Tree.php';
+
+require_once 'HTML/Less/Exception/Compiler.php';
+
+
 /**
  * Keyword
  *
@@ -35,7 +40,7 @@ class HTML_Less_Tree_Keyword extends HTML_Less_Tree {
     }
 
     public function compare($other) {
-        if ($other instanceof Less_Tree_Keyword) {
+        if ($other instanceof HTML_Less_Tree_Keyword) {
             return $other->value === $this->value ? 0 : 1;
         } else {
             return -1;
