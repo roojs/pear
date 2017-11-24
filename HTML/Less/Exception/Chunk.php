@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * Chunk Exception
  *
@@ -18,7 +20,7 @@ class HTML_Less_Exception_Chunk extends HTML_Less_Exception_Parser {
      * @param string $input
      * @param Exception $previous Previous exception
      * @param integer $index The current parser index
-     * @param Less_FileInfo|string $currentFile The file
+     * @param HTML_Less_FileInfo|string $currentFile The file
      * @param integer $code The exception code
      */
     public function __construct($input, Exception $previous = null, $index = null, $currentFile = null, $code = 0) {
