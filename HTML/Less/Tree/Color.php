@@ -197,6 +197,7 @@ class HTML_Less_Tree_Color extends HTML_Less_Tree {
     }
 
     public function toARGB() {
+        require_once 'HTML/Less/Parser.php';
         $argb = array_merge((array) HTML_Less_Parser::round($this->alpha * 255), $this->rgb);
         return $this->toHex($argb);
     }
@@ -215,6 +216,9 @@ class HTML_Less_Tree_Color extends HTML_Less_Tree {
     }
 
     public function toHex($v) {
+
+        require_once 'HTML/Less/Functions.php';
+        require_once 'HTML/Less/Parser.php';
 
         $ret = '#';
         foreach ($v as $c) {
