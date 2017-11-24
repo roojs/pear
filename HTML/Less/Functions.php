@@ -159,11 +159,11 @@ class HTML_Less_Functions {
         }
 
         $c = $color->toHSL();
-        return new Less_Tree_Dimension(Less_Parser::round($c['s'] * 100), '%');
+        return new HTML_Less_Tree_Dimension(HTML_Less_Parser::round($c['s'] * 100), '%');
     }
 
     public function lightness($color = null) {
-        if (!$color instanceof Less_Tree_Color) {
+        if (!$color instanceof HTML_Less_Tree_Color) {
             throw new Less_Exception_Compiler('The first argument to lightness must be a color' . ($color instanceof Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
