@@ -7,6 +7,8 @@
  *  - Symfony 2
  */
 
+require_once __DIR__ . '/Less/Parser.php';
+
 class HTML_Less {
 
     static public $VERSION = Less_Version::less_version;
