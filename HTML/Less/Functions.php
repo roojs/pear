@@ -355,9 +355,11 @@ class HTML_Less_Functions {
 
     public function lighten($color = null, $amount = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to lighten must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
         if (!$amount instanceof HTML_Less_Tree_Dimension) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The second argument to lighten must be a percentage' . ($amount instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -371,9 +373,11 @@ class HTML_Less_Functions {
 
     public function darken($color = null, $amount = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to darken must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
         if (!$amount instanceof HTML_Less_Tree_Dimension) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The second argument to darken must be a percentage' . ($amount instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -386,9 +390,11 @@ class HTML_Less_Functions {
 
     public function fadein($color = null, $amount = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to fadein must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
         if (!$amount instanceof HTML_Less_Tree_Dimension) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The second argument to fadein must be a percentage' . ($amount instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -400,9 +406,11 @@ class HTML_Less_Functions {
 
     public function fadeout($color = null, $amount = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to fadeout must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
         if (!$amount instanceof HTML_Less_Tree_Dimension) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The second argument to fadeout must be a percentage' . ($amount instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -414,9 +422,11 @@ class HTML_Less_Functions {
 
     public function fade($color = null, $amount = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to fade must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
         if (!$amount instanceof HTML_Less_Tree_Dimension) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The second argument to fade must be a percentage' . ($amount instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -429,9 +439,11 @@ class HTML_Less_Functions {
 
     public function spin($color = null, $amount = null) {
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to spin must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
         if (!$amount instanceof HTML_Less_Tree_Dimension) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The second argument to spin must be a number' . ($amount instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
@@ -454,9 +466,11 @@ class HTML_Less_Functions {
      */
     public function mix($color1 = null, $color2 = null, $weight = null) {
         if (!$color1 instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to mix must be a color' . ($color1 instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
         if (!$color2 instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The second argument to mix must be a color' . ($color2 instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
         if (!$weight) {
