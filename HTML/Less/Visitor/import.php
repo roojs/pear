@@ -1,7 +1,12 @@
 <?php
 /*
 
+require_once 'HTML/Less/Parser.php';
+require_once 'HTML/Less/VisitorReplacing.php';
 
+require_once 'HTML/Less/Tree/Anonymous.php';
+require_once 'HTML/Less/Visitor.php';
+require_once 'HTML/Less/Visitor.php';
 
 class HTML_Less_Visitor_import extends HTML_Less_VisitorReplacing {
 
