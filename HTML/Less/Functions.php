@@ -868,6 +868,7 @@ class HTML_Less_Functions {
     }
 
     public function getunit($n) {
+        require_once 'HTML/Less/Tree/Anonymous.php';
         return new HTML_Less_Tree_Anonymous($n->unit);
     }
 
