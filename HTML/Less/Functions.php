@@ -570,6 +570,7 @@ class HTML_Less_Functions {
 
         $revert = array('%21' => '!', '%2A' => '*', '%27' => "'", '%3F' => '?', '%26' => '&', '%2C' => ',', '%2F' => '/', '%40' => '@', '%2B' => '+', '%24' => '$');
 
+        require_once 'HTML/Less/Tree/Anonymous.php';
         return new HTML_Less_Tree_Anonymous(strtr(rawurlencode($str->value), $revert));
     }
 
