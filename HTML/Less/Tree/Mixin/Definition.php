@@ -162,6 +162,8 @@ class HTML_Less_Tree_Mixin_Definition extends HTML_Less_Tree_Ruleset {
 
     public function evalCall($env, $args = NULL, $important = NULL) {
 
+        require_once 'HTML/Less/Environment.php';
+        
         HTML_Less_Environment::$mixin_stack++;
 
         $_arguments = array();
@@ -173,7 +175,10 @@ class HTML_Less_Tree_Mixin_Definition extends HTML_Less_Tree_Ruleset {
         }
 
         $frame = $this->compileParams($env, $mixinFrames, $args, $_arguments);
-
+        
+        require_once 'HTML/Less/Tree/Expression.php';
+        require_once 'HTML/Less/Tree/Rule.php';
+        
         $ex = new HTML_Less_Tree_Expression($_arguments);
         array_unshift($frame->rules, new HTML_Less_Tree_Rule('@arguments', $ex->compile($env)));
 
