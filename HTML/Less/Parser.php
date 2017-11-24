@@ -2750,7 +2750,7 @@ class HTML_Less_Parser
     }
 
     public function CacheEnabled() {
-        return (Less_Parser::$options['cache_method'] && (Less_Cache::$cache_dir || (Less_Parser::$options['cache_method'] == 'callback')));
+        return (HTML_Less_Parser::$options['cache_method'] && (HTML_Less_Cache::$cache_dir || (HTML_Less_Parser::$options['cache_method'] == 'callback')));
     }
 
 }
