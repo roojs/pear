@@ -77,7 +77,7 @@ class HTML_Less_Functions{
 		$rgb = array_map(array('HTML_Less_Functions','scaled'),$rgb);
 
 		$a = self::number($a);
-		return new Less_Tree_Color($rgb, $a);
+		return new HTML_Less_Tree_Color($rgb, $a);
 	}
 
 	public function hsl($h, $s, $l){
@@ -120,10 +120,10 @@ class HTML_Less_Functions{
 	 * @param double $a
 	 */
 	public function hsva($h, $s, $v, $a) {
-		$h = ((Less_Functions::number($h) % 360) / 360 ) * 360;
-		$s = Less_Functions::number($s);
-		$v = Less_Functions::number($v);
-		$a = Less_Functions::number($a);
+		$h = ((HTML_Less_Functions::number($h) % 360) / 360 ) * 360;
+		$s = HTML_Less_Functions::number($s);
+		$v = HTML_Less_Functions::number($v);
+		$a = HTML_Less_Functions::number($a);
 
 		$i = floor(($h / 60) % 6);
 		$f = ($h / 60) - $i;
