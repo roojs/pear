@@ -354,10 +354,10 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
         }
 
         $tabRuleStr = $tabSetStr = '';
-        if (!Less_Parser::$options['compress']) {
-            if (Less_Environment::$tabLevel) {
-                $tabRuleStr = "\n" . str_repeat(Less_Parser::$options['indentation'], Less_Environment::$tabLevel);
-                $tabSetStr = "\n" . str_repeat(Less_Parser::$options['indentation'], Less_Environment::$tabLevel - 1);
+        if (!HTML_Less_Parser::$options['compress']) {
+            if (HTML_Less_Environment::$tabLevel) {
+                $tabRuleStr = "\n" . str_repeat(HTML_Less_Parser::$options['indentation'], HTML_Less_Environment::$tabLevel);
+                $tabSetStr = "\n" . str_repeat(HTML_Less_Parser::$options['indentation'], HTML_Less_Environment::$tabLevel - 1);
             } else {
                 $tabSetStr = $tabRuleStr = "\n";
             }
