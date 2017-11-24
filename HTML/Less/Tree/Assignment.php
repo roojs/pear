@@ -2,8 +2,6 @@
 
 require_once 'HTML/Less/Tree.php';
 
-require_once 'HTML/Less/Tree/Anonymous.php';
-
 /**
  * Assignment
  *
@@ -26,6 +24,7 @@ class HTML_Less_Tree_Assignment extends HTML_Less_Tree {
     }
 
     public function compile($env) {
+        require_once 'HTML/Less/Tree/Anonymous.php';
         return new HTML_Less_Tree_Assignment($this->key, $this->value->compile($env));
     }
 
