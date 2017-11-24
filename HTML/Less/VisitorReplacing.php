@@ -6,7 +6,7 @@
  * @package Less
  * @subpackage visitor
  */
-class Less_VisitorReplacing extends Less_Visitor{
+class HTML_Less_VisitorReplacing extends HTML_Less_Visitor{
 
 	public function visitObj( $node ){
 
