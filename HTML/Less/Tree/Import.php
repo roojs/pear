@@ -176,9 +176,13 @@ class HTML_Less_Tree_Import extends HTML_Less_Tree {
             //$contents = new HTML_Less_Tree_Anonymous($this->root, 0, array('filename'=>$this->importedFilename), true );
 
             HTML_Less_Parser::AddParsedFile($full_path);
+            
+            require_once 'HTML/Less/Tree/Anonymous.php';
+            
             $contents = new HTML_Less_Tree_Anonymous(file_get_contents($full_path), 0, array(), true);
 
             if ($this->features) {
+                require_once 'HTML/Less/Tree/Media.php';
                 return new HTML_Less_Tree_Media(array($contents), $this->features->value);
             }
 
