@@ -507,7 +507,7 @@ class HTML_Less_Parser
      * @return HTML_Less_Parser
      */
     public function ModifyVars($vars) {
-
+        
         $this->input = HTML_Less_Parser::serializeVars($vars);
         $this->_parse();
 
@@ -519,6 +519,8 @@ class HTML_Less_Parser
      */
     public function SetFileInfo($filename, $uri_root = '') {
 
+        require_once 'HTML/Less/Tree/Environment.php';
+        
         $filename = HTML_Less_Environment::normalizePath($filename);
         $dirname = preg_replace('/[^\/\\\\]*$/', '', $filename);
 
