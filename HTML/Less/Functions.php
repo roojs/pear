@@ -316,9 +316,11 @@ class HTML_Less_Functions {
         }
 
         if (!$color instanceof HTML_Less_Tree_Color) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The first argument to saturate must be a color' . ($color instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
         if (!$amount instanceof HTML_Less_Tree_Dimension) {
+            require_once 'HTML/Less/Exception/Compiler.php';
             throw new HTML_Less_Exception_Compiler('The second argument to saturate must be a percentage' . ($amount instanceof HTML_Less_Tree_Expression ? ' (did you forgot commas?)' : ''));
         }
 
