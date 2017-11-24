@@ -96,7 +96,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
             $rule = $ruleset->rules[$i];
 
             // for rulesets, check if it is a css guard and can be removed
-            if ($rule instanceof Less_Tree_Ruleset && $rule->selectors && count($rule->selectors) === 1) {
+            if ($rule instanceof HTML_Less_Tree_Ruleset && $rule->selectors && count($rule->selectors) === 1) {
 
                 // check if it can be folded in (e.g. & where)
                 if ($rule->selectors[0]->isJustParentSelector()) {
@@ -105,7 +105,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
 
                     for ($j = 0; $j < count($rule->rules); $j++) {
                         $subRule = $rule->rules[$j];
-                        if (!($subRule instanceof Less_Tree_Rule) || !$subRule->variable) {
+                        if (!($subRule instanceof HTML_Less_Tree_Rule) || !$subRule->variable) {
                             array_splice($ruleset->rules, ++$i, 0, array($subRule));
                             $rsRuleCnt++;
                         }
@@ -129,21 +129,21 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
     }
 
     /**
-     * Compile Less_Tree_Mixin_Call objects
+     * Compile HTML_Less_Tree_Mixin_Call objects
      *
-     * @param Less_Tree_Ruleset $ruleset
+     * @param HTML_Less_Tree_Ruleset $ruleset
      * @param integer $rsRuleCnt
      */
     private function EvalMixinCalls($ruleset, $env, &$rsRuleCnt) {
         for ($i = 0; $i < $rsRuleCnt; $i++) {
             $rule = $ruleset->rules[$i];
 
-            if ($rule instanceof Less_Tree_Mixin_Call) {
+            if ($rule instanceof HTML_Less_Tree_Mixin_Call) {
                 $rule = $rule->compile($env);
 
                 $temp = array();
                 foreach ($rule as $r) {
-                    if (($r instanceof Less_Tree_Rule) && $r->variable) {
+                    if (($r instanceof HTML_Less_Tree_Rule) && $r->variable) {
                         // do not pollute the scope if the variable is
                         // already there. consider returning false here
                         // but we need a way to "return" variable from mixins
@@ -159,12 +159,12 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
                 $rsRuleCnt += $temp_count;
                 $i += $temp_count;
                 $ruleset->resetCache();
-            } elseif ($rule instanceof Less_Tree_RulesetCall) {
+            } elseif ($rule instanceof HTML_Less_Tree_RulesetCall) {
 
                 $rule = $rule->compile($env);
                 $rules = array();
                 foreach ($rule->rules as $r) {
-                    if (($r instanceof Less_Tree_Rule) && $r->variable) {
+                    if (($r instanceof HTML_Less_Tree_Rule) && $r->variable) {
                         continue;
                     }
                     $rules[] = $r;
@@ -188,7 +188,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
         $hasOnePassingSelector = false;
         $selectors = array();
         if ($this->selectors) {
-            Less_Tree_DefaultFunc::error("it is currently only allowed in parametric mixin guards,");
+            HTML_Less_Tree_DefaultFunc::error("it is currently only allowed in parametric mixin guards,");
 
             foreach ($this->selectors as $s) {
                 $selector = $s->compile($env);
@@ -198,7 +198,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
                 }
             }
 
-            Less_Tree_DefaultFunc::reset();
+            HTML_Less_Tree_DefaultFunc::reset();
         } else {
             $hasOnePassingSelector = true;
         }
@@ -209,7 +209,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
             $rules = array();
         }
 
-        $ruleset = new Less_Tree_Ruleset($selectors, $rules, $this->strictImports);
+        $ruleset = new HTML_Less_Tree_Ruleset($selectors, $rules, $this->strictImports);
 
         $ruleset->originalRuleset = $this->ruleset_id;
 
