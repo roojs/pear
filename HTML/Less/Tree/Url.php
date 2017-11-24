@@ -72,7 +72,7 @@ class HTML_Less_Tree_Url extends HTML_Less_Tree {
             }
         }
 
-        return new HTML_Less_Tree_URL($val, $this->currentFileInfo, true);
+        return new HTML_Less_Tree_Url($val, $this->currentFileInfo, true);
     }
 
 }
