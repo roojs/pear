@@ -1,9 +1,5 @@
 <?php
 
-require_once 'HTML/Less/Environment.php';
-require_once 'HTML/Less/Output.php';
-require_once 'HTML/Less/Parser.php';
-
 /**
  * Tree
  *
@@ -15,6 +11,7 @@ class HTML_Less_Tree {
     public $cache_string;
 
     public function toCSS() {
+        require_once 'HTML/Less/Output.php';
         $output = new HTML_Less_Output();
         $this->genCSS($output);
         return $output->toString();
@@ -36,9 +33,13 @@ class HTML_Less_Tree {
     public static function outputRuleset($output, $rules) {
 
         $ruleCnt = count($rules);
+        
+        require_once 'HTML/Less/Environment.php';
+        
         HTML_Less_Environment::$tabLevel++;
 
-
+        require_once 'HTML/Less/Parser.php';
+        
         // Compressed
         if (HTML_Less_Parser::$options['compress']) {
             $output->add('{');
