@@ -380,20 +380,19 @@ class HTML_Less_Parser {
         $visitors = array();
 
         require_once 'HTML/Less/Visitor/joinSelector.php';
-
+        
         $visitors[] = new HTML_Less_Visitor_joinSelector();
 
         if (self::$has_extends) {
-
+            
             require_once 'HTML/Less/Visitor/processExtends.php';
-
+            
             $visitors[] = new HTML_Less_Visitor_processExtends();
         }
 
         require_once 'HTML/Less/Visitor/toCSS.php';
-
+        
         $visitors[] = new HTML_Less_Visitor_toCSS();
-
 
         if (HTML_Less_Parser::$options['plugins']) {
             foreach (HTML_Less_Parser::$options['plugins'] as $plugin) {
