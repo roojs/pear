@@ -485,6 +485,9 @@ class HTML_Less_Parser
 
         if ($returnRoot) {
             $rules = $this->GetRules($filename);
+            
+            require_once 'HTML/Less/Tree/Ruleset.php';
+            
             $return = new HTML_Less_Tree_Ruleset(array(), $rules);
         } else {
             $this->_parse($filename);
