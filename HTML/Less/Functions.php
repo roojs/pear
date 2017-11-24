@@ -7,7 +7,7 @@
  * @subpackage function
  * @see http://lesscss.org/functions/
  */
-class Less_Functions{
+class HTML_Less_Functions{
 
 	public $env;
 	public $currentFileInfo;
