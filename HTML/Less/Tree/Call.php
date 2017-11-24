@@ -1,5 +1,12 @@
 <?php
 
+require_once 'HTML/Less/Functions.php';
+require_once 'HTML/Less/Tree.php';
+
+require_once 'HTML/Less/Tree.php';
+
+require_once 'HTML/Less/Tree.php';
+
 /**
  * Call
  *
