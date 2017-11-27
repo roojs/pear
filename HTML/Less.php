@@ -5,6 +5,7 @@
  * to be a drop-in replacement for following products:
  *  - Drupal 7, by the less module v3.0+ (https://drupal.org/project/less)
  *  - Symfony 2
+ *  https://github.com/oyejorge/less.php
  */
 require_once 'HTML/Less/Version.php';
 
