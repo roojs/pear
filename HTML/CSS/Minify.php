@@ -32,6 +32,8 @@ class HTML_CSS_Minify
      */
     var $baseURL = '';
     
+    var $extracted = array();
+    
     /**
      * Init the minify class - optionally, code may be passed along already.
      *
