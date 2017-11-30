@@ -972,8 +972,6 @@ class File_Convert_Solution
             echo $cmd ."\n";
         }
         
-        print_r($target);exit;
-        
         $this->exec($cmd);
         
         clearstatcache();
