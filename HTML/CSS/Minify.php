@@ -272,7 +272,6 @@ class HTML_CSS_Minify
      */
     protected function move($serve_url, $content)
     {
-        print_R($serve_url);exit;
         /*
          * Relative path references will usually be enclosed by url(). @import
          * is an exception, where url() is not necessary around the path (but is
