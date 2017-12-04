@@ -184,7 +184,7 @@ class HTML_Less {
             $parser->registerFunction($name, $func);
         }
         $parser->parseFile($fname);
-        print_R($parser->rules);exit;
+        print_R(HTML_Less_Parser::rules);exit;
         $out = $parser->getCss();
 
         $parsed = HTML_Less_Parser::AllParsedFiles();
