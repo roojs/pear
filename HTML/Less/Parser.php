@@ -31,6 +31,7 @@ class HTML_Less_Parser {
         'sourceMapURL' => null,
         'indentation' => '  ',
         'plugins' => array(),
+        'extra' => array()
     );
     public static $options = array();
     private $input;     // Less input string
