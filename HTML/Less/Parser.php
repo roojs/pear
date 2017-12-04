@@ -983,8 +983,6 @@ class HTML_Less_Parser {
 
             $node = $this->parseExtend(true);
             if ($node) {
-                echo "node 1 : \n";
-                print_r($node);
                 $root = array_merge($root, $node);
                 continue;
             }
@@ -993,8 +991,6 @@ class HTML_Less_Parser {
             $node = $this->MatchFuncs(array('parseMixinDefinition', 'parseNameValue', 'parseRule', 'parseRuleset', 'parseMixinCall', 'parseComment', 'parseRulesetCall', 'parseDirective'));
 
             if ($node) {
-                echo "node 2 : \n";
-                print_r($node);
                 $root[] = $node;
             } elseif (!$this->MatchReg('/\\G[\s\n;]+/')) {
                 break;
@@ -1004,7 +1000,7 @@ class HTML_Less_Parser {
                 break;
             }
         }
-        exit;
+
         return $root;
     }
 
