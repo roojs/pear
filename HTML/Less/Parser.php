@@ -982,6 +982,7 @@ class HTML_Less_Parser {
             }
 
             $node = $this->parseExtend(true);
+            print_R($node);exit;
             if ($node) {
                 $root = array_merge($root, $node);
                 continue;
