@@ -177,6 +177,9 @@ class HTML_Less {
 
         $parser = new HTML_Less_Parser($this->getOptions());
         $parser->SetImportDirs($this->getImportDirs());
+        
+        print_R($this->registeredVars);exit;
+        
         if (count($this->registeredVars)) {
             $parser->ModifyVars($this->registeredVars);
         }
