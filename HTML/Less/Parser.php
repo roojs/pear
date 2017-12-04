@@ -1931,7 +1931,7 @@ class HTML_Less_Parser {
     //
     // div, .class, body > p {...}
     //
-	private function parseRuleset() {
+    private function parseRuleset() {
         $selectors = array();
 
         $this->save();
