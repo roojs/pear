@@ -2213,7 +2213,7 @@ class HTML_Less_Parser {
     //
 	// @charset "utf-8";
     //
-	private function parseDirective() {
+    private function parseDirective() {
 
         if (!$this->PeekChar('@')) {
             return;
