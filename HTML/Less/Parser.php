@@ -712,6 +712,7 @@ class HTML_Less_Parser {
 
         if ($file_path) {
             $this->input = file_get_contents($file_path);
+            print_R($this->input);exit;
         }
 
         $this->pos = $this->furthest = 0;
