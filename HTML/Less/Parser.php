@@ -716,7 +716,7 @@ class HTML_Less_Parser {
             $this->input = '';
             
             if(!empty(HTML_Less_Parser::$options['extra'])){
-                $this->input = implode("\n", HTML_Less_Parser::$options['extra']);
+                $this->input .= implode("\n", HTML_Less_Parser::$options['extra']) . "\n";
             }
             
             $this->input = file_get_contents($file_path);
