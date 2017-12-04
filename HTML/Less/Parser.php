@@ -991,6 +991,8 @@ class HTML_Less_Parser {
             $node = $this->MatchFuncs(array('parseMixinDefinition', 'parseNameValue', 'parseRule', 'parseRuleset', 'parseMixinCall', 'parseComment', 'parseRulesetCall', 'parseDirective'));
 
             if ($node) {
+                echo "node : \n";
+                print_r($node);
                 $root[] = $node;
             } elseif (!$this->MatchReg('/\\G[\s\n;]+/')) {
                 break;
@@ -1000,7 +1002,7 @@ class HTML_Less_Parser {
                 break;
             }
         }
-
+        exit;
         return $root;
     }
 
