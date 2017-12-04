@@ -1045,7 +1045,7 @@ class HTML_Less_Parser {
     //
 	//	 "milky way" 'he\'s the one!'
     //
-	private function parseEntitiesQuoted() {
+    private function parseEntitiesQuoted() {
         $j = $this->pos;
         $e = false;
         $index = $this->pos;
@@ -1116,7 +1116,7 @@ class HTML_Less_Parser {
     //
 	//	 black border-collapse
     //
-	private function parseEntitiesKeyword() {
+    private function parseEntitiesKeyword() {
 
         //$k = $this->MatchReg('/\\G[_A-Za-z-][_A-Za-z0-9-]*/');
         $k = $this->MatchReg('/\\G%|\\G[_A-Za-z-][_A-Za-z0-9-]*/');
@@ -1156,7 +1156,7 @@ class HTML_Less_Parser {
     //
 	// The arguments are parsed with the `entities.arguments` parser.
     //
-	private function parseEntitiesCall() {
+    private function parseEntitiesCall() {
         $index = $this->pos;
 
         if (!preg_match('/\\G([\w-]+|%|progid:[\w\.]+)\(/', $this->input, $name, 0, $this->pos)) {
@@ -1222,7 +1222,7 @@ class HTML_Less_Parser {
     //
 	//	 filter: progid:DXImageTransform.Microsoft.Alpha( *opacity=50* )
     //
-	private function parseEntitiesAssignment() {
+    private function parseEntitiesAssignment() {
 
         $key = $this->MatchReg('/\\G\w+(?=\s?=)/');
         if (!$key) {
@@ -1246,7 +1246,7 @@ class HTML_Less_Parser {
     // standard function calls. The difference is that the argument doesn't have
     // to be enclosed within a string, so it can't be parsed as an Expression.
     //
-	private function parseEntitiesUrl() {
+    private function parseEntitiesUrl() {
 
 
         if ($this->input[$this->pos] !== 'u' || !$this->matchReg('/\\Gurl\(/')) {
@@ -1277,7 +1277,7 @@ class HTML_Less_Parser {
 	// We use a different parser for variable definitions,
     // see `parsers.variable`.
     //
-	private function parseEntitiesVariable() {
+    private function parseEntitiesVariable() {
         $index = $this->pos;
         if ($this->PeekChar('@') && ($name = $this->MatchReg('/\\G@@?[\w-]+/'))) {
             return $this->NewObj3('HTML_Less_Tree_Variable', array($name[0], $index, $this->env->currentFileInfo));
@@ -1300,7 +1300,7 @@ class HTML_Less_Parser {
     //
 	// `rgb` and `hsl` colors are parsed through the `entities.call` parser.
     //
-	private function parseEntitiesColor() {
+    private function parseEntitiesColor() {
         if ($this->PeekChar('#') && ($rgb = $this->MatchReg('/\\G#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})/'))) {
             return $this->NewObj1('HTML_Less_Tree_Color', $rgb[1]);
         }
@@ -1311,7 +1311,7 @@ class HTML_Less_Parser {
     //
 	//	 0.5em 95%
     //
-	private function parseEntitiesDimension() {
+    private function parseEntitiesDimension() {
 
         $c = @ord($this->input[$this->pos]);
 
@@ -1335,7 +1335,7 @@ class HTML_Less_Parser {
     //
 	// U+0?? or U+00A1-00A9
     //
-	function parseUnicodeDescriptor() {
+    function parseUnicodeDescriptor() {
         $ud = $this->MatchReg('/\\G(U\+[0-9a-fA-F?]+)(\-[0-9a-fA-F?]+)?/');
         if ($ud) {
             return $this->NewObj1('HTML_Less_Tree_UnicodeDescriptor', $ud[0]);
@@ -1347,7 +1347,7 @@ class HTML_Less_Parser {
     //
 	//	 `window.location.href`
     //
-	private function parseEntitiesJavascript() {
+    private function parseEntitiesJavascript() {
         $e = false;
         $j = $this->pos;
         if ($this->input[$j] === '~') {
@@ -1371,7 +1371,7 @@ class HTML_Less_Parser {
     //
 	//	 @fink:
     //
-	private function parseVariable() {
+    private function parseVariable() {
         if ($this->PeekChar('@') && ($name = $this->MatchReg('/\\G(@[\w-]+)\s*:/'))) {
             return $name[1];
         }
@@ -1382,7 +1382,7 @@ class HTML_Less_Parser {
     //
 	// @fink();
     //
-	private function parseRulesetCall() {
+    private function parseRulesetCall() {
 
         if ($this->input[$this->pos] === '@' && ($name = $this->MatchReg('/\\G(@[\w-]+)\s*\(\s*\)\s*;/'))) {
             return $this->NewObj1('HTML_Less_Tree_RulesetCall', $name[1]);
@@ -1392,7 +1392,7 @@ class HTML_Less_Parser {
     //
     // extend syntax - used to extend selectors
     //
-	function parseExtend($isRule = false) {
+    function parseExtend($isRule = false) {
 
         $index = $this->pos;
         $extendList = array();
@@ -1444,7 +1444,7 @@ class HTML_Less_Parser {
     // namespaced, but we only support the child and descendant
     // selector for now.
     //
-	private function parseMixinCall() {
+    private function parseMixinCall() {
 
         $char = $this->input[$this->pos];
         if ($char !== '.' && $char !== '#') {
@@ -1653,7 +1653,7 @@ class HTML_Less_Parser {
 	// Once we've got our params list, and a closing `)`, we parse
     // the `{...}` block.
     //
-	private function parseMixinDefinition() {
+    private function parseMixinDefinition() {
         $cond = null;
 
         $char = $this->input[$this->pos];
@@ -1707,7 +1707,7 @@ class HTML_Less_Parser {
     // Entities are the smallest recognized token,
     // and can be found inside a rule's value.
     //
-	private function parseEntity() {
+    private function parseEntity() {
 
         return $this->MatchFuncs(array('parseEntitiesLiteral', 'parseEntitiesVariable', 'parseEntitiesUrl', 'parseEntitiesCall', 'parseEntitiesKeyword', 'parseEntitiesJavascript', 'parseComment'));
     }
@@ -1717,7 +1717,7 @@ class HTML_Less_Parser {
     // because the `block` rule will be expecting it, but we still need to make sure
     // it's there, if ';' was omitted.
     //
-	private function parseEnd() {
+    private function parseEnd() {
         return $this->MatchChar(';') || $this->PeekChar('}');
     }
 
@@ -1726,7 +1726,7 @@ class HTML_Less_Parser {
     //
 	//	 alpha(opacity=88)
     //
-	private function parseAlpha() {
+    private function parseAlpha() {
 
         if (!$this->MatchReg('/\\G\(opacity=/i')) {
             return;
@@ -1758,7 +1758,7 @@ class HTML_Less_Parser {
     // they are made out of a `Combinator` (see combinator rule),
     // and an element name, such as a tag a class, or `*`.
     //
-	private function parseElement() {
+    private function parseElement() {
         $c = $this->parseCombinator();
         $index = $this->pos;
 
@@ -1792,7 +1792,7 @@ class HTML_Less_Parser {
     // as it's an empty space. We have to check the previous character
     // in the input, to see if it's a ` ` character.
     //
-	private function parseCombinator() {
+    private function parseCombinator() {
         if ($this->pos < $this->input_len) {
             $c = $this->input[$this->pos];
             if ($c === '>' || $c === '+' || $c === '~' || $c === '|' || $c === '^') {
