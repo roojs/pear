@@ -969,8 +969,6 @@ class File_Convert_Solution
         $cmd = "$html2text " . implode(' ', $opts)
             . "-utf8 -o " . escapeshellarg($target) . "  " . escapeshellarg($fn);
             
-        var_dump($cmd);exit;
-        
         if ($this->debug) {
             echo $cmd ."\n";
         }
