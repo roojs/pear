@@ -31,7 +31,7 @@ class HTML_Less_Parser {
         'sourceMapURL' => null,
         'indentation' => '  ',
         'plugins' => array(),
-        'extra' => array()
+        'variables' => array()
     );
     public static $options = array();
     private $input;     // Less input string
@@ -715,8 +715,8 @@ class HTML_Less_Parser {
             
             $this->input = '';
             
-            if(!empty(HTML_Less_Parser::$options['extra'])){
-                $this->input .= implode("\n", HTML_Less_Parser::$options['extra']);
+            if(!empty(HTML_Less_Parser::$options['variables'])){
+                $this->input .= implode("\n", HTML_Less_Parser::$options['variables']);
             }
             
             $this->input .= file_get_contents($file_path);
