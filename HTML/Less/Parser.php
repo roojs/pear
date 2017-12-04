@@ -1001,7 +1001,6 @@ class HTML_Less_Parser {
             }
         }
 
-        print_r($root);exit;
         return $root;
     }
 
