@@ -972,7 +972,7 @@ class HTML_Less_Parser {
 	// Only at one point is the primary rule not called from the
     // block rule: at the root level.
     //
-	private function parsePrimary() {
+    private function parsePrimary() {
         $root = array();
 
         while (true) {
