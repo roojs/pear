@@ -2081,7 +2081,7 @@ class HTML_Less_Parser {
     // file-system operation. The function used for importing is
     // stored in `import`, which we pass to the Import constructor.
     //
-	private function parseImport() {
+    private function parseImport() {
 
         $this->save();
 
