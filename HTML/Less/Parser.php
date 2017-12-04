@@ -44,7 +44,7 @@ class HTML_Less_Parser {
      * @var HTML_Less_Environment
      */
     private $env;
-    public $rules = array();
+    protected $rules = array();
     private static $imports = array();
     public static $has_extends = false;
     public static $next_id = 0;
