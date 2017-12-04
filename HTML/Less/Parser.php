@@ -843,7 +843,6 @@ class HTML_Less_Parser {
             foreach ($toks as $tok) {
                 $match = $this->$tok();
                 if ($match) {
-                    print_R($tok);exit;
                     return $match;
                 }
             }
