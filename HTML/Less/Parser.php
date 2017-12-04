@@ -712,8 +712,13 @@ class HTML_Less_Parser {
     public function SetInput($file_path) {
 
         if ($file_path) {
-            print_R(HTML_Less_Parser::$options['extra']);
-            exit;
+            
+            $this->input = '';
+            
+            if(!empty(HTML_Less_Parser::$options['extra'])){
+                $this->input = implode("\n", HTML_Less_Parser::$options['extra']);
+            }
+            
             $this->input = file_get_contents($file_path);
         }
 
