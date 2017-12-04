@@ -475,8 +475,9 @@ class HTML_Less_Parser {
         if ($filename) {
             $filename = self::AbsPath($filename, true);
         }
-        print_R($filename);exit;
         $uri_root = self::WinPath($uri_root);
+        
+        echo "{$uri_root}\n";exit;
 
         $this->SetFileInfo($filename, $uri_root);
 
