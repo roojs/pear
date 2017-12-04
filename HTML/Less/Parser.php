@@ -982,8 +982,6 @@ class HTML_Less_Parser {
             }
 
             $node = $this->parseExtend(true);
-            echo "node : \n";
-            print_r($node);exit;
             if ($node) {
                 $root = array_merge($root, $node);
                 continue;
@@ -1001,6 +999,8 @@ class HTML_Less_Parser {
             if ($this->PeekChar('}')) {
                 break;
             }
+            echo "node : \n";
+            print_r($node);exit;
         }
 
         return $root;
