@@ -843,7 +843,6 @@ class HTML_Less_Parser {
             foreach ($toks as $tok) {
                 $match = $this->$tok();
                 if ($match) {
-                    echo "{$tok}: \n";
                     return $match;
                 }
             }
@@ -992,8 +991,6 @@ class HTML_Less_Parser {
             $node = $this->MatchFuncs(array('parseMixinDefinition', 'parseNameValue', 'parseRule', 'parseRuleset', 'parseMixinCall', 'parseComment', 'parseRulesetCall', 'parseDirective'));
 
             if ($node) {
-                echo "node : \n";
-                print_r($node);
                 $root[] = $node;
             } elseif (!$this->MatchReg('/\\G[\s\n;]+/')) {
                 break;
@@ -1003,7 +1000,7 @@ class HTML_Less_Parser {
                 break;
             }
         }
-        exit;
+
         return $root;
     }
 
@@ -1934,7 +1931,7 @@ class HTML_Less_Parser {
     //
     // div, .class, body > p {...}
     //
-    private function parseRuleset() {
+	private function parseRuleset() {
         $selectors = array();
 
         $this->save();
