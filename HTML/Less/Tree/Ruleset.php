@@ -430,7 +430,7 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
             if ($i + 1 === $ruleNodes_len && (!$this->root || $rulesetNodes_len === 0 || $this->firstRoot )) {
                 HTML_Less_Environment::$lastRule = true;
             }
-            print_R($rule);exit;
+
             $rule->genCSS($output);
 
             if (!HTML_Less_Environment::$lastRule) {
