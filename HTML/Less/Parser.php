@@ -198,6 +198,7 @@ class HTML_Less_Parser {
                 // will also save file
                 // FIXME: should happen somewhere else?
                 $css = $generator->generateCSS();
+                print_R($css);exit;
             } else {
                 $css = $evaldRoot->toCSS();
             }
