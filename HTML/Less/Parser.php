@@ -716,7 +716,7 @@ class HTML_Less_Parser {
             $this->input = '';
             
             if(!empty(HTML_Less_Parser::$options['variables'])){
-                $this->input .= HTML_Less_Parser::$options['variables'] . "\n";
+                $this->input .= implode("\n", HTML_Less_Parser::$options['variables']);
             }
             
             $this->input .= file_get_contents($file_path);
