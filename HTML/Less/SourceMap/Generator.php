@@ -87,7 +87,6 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
         $this->contentsMap = $contentsMap;
         
         require_once 'HTML/Less/SourceMap/Base64VLQ.php';
-        
         $this->encoder = new HTML_Less_SourceMap_Base64VLQ();
 
         $this->SetOptions($options);
