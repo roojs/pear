@@ -103,7 +103,7 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
     public function generateCSS() {
         
         require_once 'HTML/Less/Output/Mapped.php';
-        
+        print_r($this->contentsMap);exit;
         $output = new HTML_Less_Output_Mapped($this->contentsMap, $this);
 
         // catch the output
