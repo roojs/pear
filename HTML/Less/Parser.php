@@ -29,7 +29,6 @@ class HTML_Less_Parser {
         'sourceMapBasepath' => null,
         'sourceMapWriteTo' => null,
         'sourceMapURL' => null,
-        'sourceMapEncode' => true,
         'indentation' => '  ',
         'plugins' => array(),
         'variables' => array()
