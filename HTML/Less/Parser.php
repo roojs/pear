@@ -198,7 +198,6 @@ class HTML_Less_Parser {
                 // will also save file
                 // FIXME: should happen somewhere else?
                 $css = $generator->generateCSS();
-                print_R($css);exit;
             } else {
                 $css = $evaldRoot->toCSS();
             }
@@ -723,7 +722,7 @@ class HTML_Less_Parser {
             $this->input .= file_get_contents($file_path);
             
         }
-
+        print_R(__DIR__);exit;
         $this->pos = $this->furthest = 0;
 
         // Remove potential UTF Byte Order Mark
