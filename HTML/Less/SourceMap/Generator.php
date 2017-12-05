@@ -260,7 +260,7 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
             unset($sourceMap['sourceRoot']);
         }
 
-        return json_encode($sourceMap);
+        return json_encode($sourceMap, JSON_PRETTY_PRINT);
     }
 
     /**
