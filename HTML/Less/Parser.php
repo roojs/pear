@@ -722,7 +722,7 @@ class HTML_Less_Parser {
             $this->input .= file_get_contents($file_path);
             
         }
-        
+        print_R(file_get_contents('Coba/Clients/capital_company/less/variables.less'));exit;
         print_R($this->input);exit;
 
         $this->pos = $this->furthest = 0;
