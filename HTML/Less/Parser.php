@@ -722,7 +722,7 @@ class HTML_Less_Parser {
             $this->input .= file_get_contents($file_path);
             
         }
-
+        
         $this->pos = $this->furthest = 0;
 
         // Remove potential UTF Byte Order Mark
