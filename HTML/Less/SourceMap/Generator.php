@@ -105,7 +105,7 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
         require_once 'HTML/Less/Output/Mapped.php';
         
         $output = new HTML_Less_Output_Mapped($this->contentsMap, $this);
-        print_R($output);exit;
+
         // catch the output
         $this->root->genCSS($output);
 
