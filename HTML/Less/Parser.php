@@ -701,8 +701,6 @@ class HTML_Less_Parser {
                 HTML_Less_Cache::CleanCache();
             }
         }
-        
-        print_R($rules);exit;
 
         return $rules;
     }
