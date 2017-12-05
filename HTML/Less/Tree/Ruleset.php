@@ -381,7 +381,6 @@ class HTML_Less_Tree_Ruleset extends HTML_Less_Tree {
         foreach ($this->rules as $rule) {
 
             $class = get_class($rule);
-            print_R($class);exit;
             if (($class === 'HTML_Less_Tree_Media') || ($class === 'HTML_Less_Tree_Directive') || ($this->root && $class === 'HTML_Less_Tree_Comment') || ($class === 'HTML_Less_Tree_Ruleset' && $rule->rules)) {
                 $rulesetNodes[] = $rule;
             } else {
