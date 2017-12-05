@@ -37,9 +37,7 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
         // base path for filename normalization
         'sourceMapRootpath' => '',
         // base path for filename normalization
-        'sourceMapBasepath' => '',
-        // encode the source map
-        'sourceMapEncode' => true
+        'sourceMapBasepath' => ''
     );
 
     /**
@@ -262,10 +260,6 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
             unset($sourceMap['sourceRoot']);
         }
 
-        if(!$this->getOption('sourceMapEncode', true)){
-            return $sourceMap;
-        }
-        
         return json_encode($sourceMap);
     }
 
