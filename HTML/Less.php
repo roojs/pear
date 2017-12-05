@@ -193,7 +193,6 @@ class HTML_Less {
 
         $this->importDir = $oldImport;
 
-        print_R($parser->getVariables());exit;
         if ($outFname !== null) {
             return file_put_contents($outFname, $out);
         }
