@@ -245,6 +245,8 @@ class HTML_Less_Parser {
      * @return array
      */
     public function getVariables() {
+        
+        print_R($this->rules);exit;
         $variables = array();
 
         $not_variable_type = array(
