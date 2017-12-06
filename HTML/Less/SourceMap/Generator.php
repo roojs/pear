@@ -113,6 +113,7 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
         $sourceMapUrl = $this->getOption('sourceMapURL');
         $sourceMapFilename = $this->getOption('sourceMapFilename');
         $sourceMapContent = $this->generateJson();
+        print_R($sourceMapContent);exit;
         $sourceMapWriteTo = $this->getOption('sourceMapWriteTo');
 
         if (!$sourceMapUrl && $sourceMapFilename) {
