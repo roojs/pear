@@ -217,7 +217,7 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
 
         $sourceMap = array();
         $mappings = $this->generateMappings();
-
+        print_R($mappings);exit;
         // File version (always the first entry in the object) and must be a positive integer.
         $sourceMap['version'] = self::VERSION;
 
