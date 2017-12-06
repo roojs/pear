@@ -113,7 +113,6 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
         $sourceMapUrl = $this->getOption('sourceMapURL');
         $sourceMapFilename = $this->getOption('sourceMapFilename');
         $sourceMapContent = $this->generateJson();
-        print_R($sourceMapContent);exit;
         $sourceMapWriteTo = $this->getOption('sourceMapWriteTo');
 
         if (!$sourceMapUrl && $sourceMapFilename) {
@@ -217,7 +216,7 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
 
         $sourceMap = array();
         $mappings = $this->generateMappings();
-        
+
         // File version (always the first entry in the object) and must be a positive integer.
         $sourceMap['version'] = self::VERSION;
 
@@ -235,7 +234,7 @@ class HTML_Less_SourceMap_Generator extends HTML_Less_Configurable {
             $sourceMap['sourceRoot'] = $root;
         }
 
-        print_R($this->sources);exit;
+
         // A list of original sources used by the 'mappings' entry.
         $sourceMap['sources'] = array();
         foreach ($this->sources as $source_uri => $source_filename) {
