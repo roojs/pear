@@ -1,0 +1,21 @@
+{
+    "name": "xero/xerooauth-php",
+    "description": "PHP class for the Xero APIs",
+    "type": "library",
+    "keywords": ["xero","accounting","api","oauth"],
+    "homepage": "https://github.com/XeroAPI/XeroOAuth-PHP",
+    "license": "MIT",
+     "support": {
+        "forum": "https://community.xero.com/developer/",
+        "issues": "https://github.com/XeroAPI/XeroOAuth-PHP/issues"
+    },
+    "autoload": {
+        "classmap": ["lib/"]
+    },
+    "require": {
+        "ext-openssl": "*",
+        "ext-curl": "*",
+        "php": ">=5.0.0"
+    }
+   
+}
