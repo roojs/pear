@@ -50,4 +50,5 @@ if ($checkErrors > 0) {
 	}
 	
 	testLinks ();
+	invoice_test();
 }
