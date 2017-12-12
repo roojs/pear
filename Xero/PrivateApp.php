@@ -84,7 +84,7 @@ class Xero_PrivateApp {
        if ($this->XeroOAuth->response['code'] != 200) {
             if ($this->XeroOAuth->response['helper'] == "TokenExpired") 
             {
-                $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['session_handle']);
+                $this->XeroOAuth->refreshToken($this->oauthSession['xero_oauth_token'], $this->oauthSession['xero_session_handle']);
             }
             
             return false;
