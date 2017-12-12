@@ -81,16 +81,18 @@ class Xero_PrivateApp {
    function refreshToken()
    {
        $response = $this->XeroOAuth->refreshToken($this->oauthSession['xero_oauth_token'], $this->oauthSession['xero_oauth_session_handle']);
-       if ($XeroOAuth->response['code'] != 200) {
+       if ($this->XeroOAuth->response['code'] != 200) {
+            if ($this->XeroOAuth->response['helper'] == "TokenExpired") 
+            {
+                $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['session_handle']);
+            }
             
             return false;
-       } else {
-            outputError($XeroOAuth);
-            if ($XeroOAuth->response['helper'] == "TokenExpired") $XeroOAuth->refreshToken($oauthSession['oauth_token'], $oauthSession['session_handle']);
+            
        }
        
-       $session = persistSession($response);
-       $oauthSession = retrieveSession();
+       $this->session = $this->persistSession($response);
+       $this->oauthSession = $this->retrieveSession();
        
        return true;
    }
