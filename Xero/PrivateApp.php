@@ -64,7 +64,7 @@ class Xero_PrivateApp {
        $this->initialCheck = $this->XeroOAuth->diagnostics ();
        $this->checkErrors = count ( $this->initialCheck );
 
-       if ($checkErrors > 0) {
+       if ($this->checkErrors > 0) {
 	        return false;	        
        }
       
