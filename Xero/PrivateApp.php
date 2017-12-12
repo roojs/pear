@@ -23,6 +23,8 @@ class Xero_PrivateApp {
    
    var $oauthSession;
    
+   var $session;
+   
    function __construct($config)
    {
    	
@@ -58,15 +60,17 @@ class Xero_PrivateApp {
 	        return false;	        
        }
       
-       $session = $this->persistSession ( array (
+       $this->session = $this->persistSession ( array (
 			'xero_oauth_token' => $this->XeroOAuth->config ['consumer_key'],
 			'xero_oauth_token_secret' => $this->XeroOAuth->config ['shared_secret'],
 			'xero_oauth_session_handle' => '' 
-	      ) );
+	    ) );
+	    
 	    $this->oauthSession = $this->retrieveSession ();
 	
 	    if (isset ( $this->oauthSession ['xero_oauth_token'] )) {
 		     $this->XeroOAuth->config ['access_token'] = $this->oauthSession ['xero_oauth_token'];
+		     
 		     $this->XeroOAuth->config ['access_token_secret'] = $this->oauthSession ['xero_oauth_token_secret'];
 		
 		    //include 'tests/tests.php';
@@ -74,6 +78,22 @@ class Xero_PrivateApp {
 	   
    }
    
+   function refreshToken()
+   {
+       $response = $this->XeroOAuth->refreshToken($this->oauthSession['xero_oauth_token'], $this->oauthSession['xero_oauth_session_handle']);
+       if ($XeroOAuth->response['code'] != 200) {
+            
+            return false;
+       } else {
+            outputError($XeroOAuth);
+            if ($XeroOAuth->response['helper'] == "TokenExpired") $XeroOAuth->refreshToken($oauthSession['oauth_token'], $oauthSession['session_handle']);
+       }
+       
+       $session = persistSession($response);
+       $oauthSession = retrieveSession();
+       
+       return true;
+   }
     /**
      * Persist the OAuth access token and session handle somewhere
      * In my example I am just using the session, but in real world, this is should be a storage engine
@@ -84,8 +104,13 @@ class Xero_PrivateApp {
    {
        if (isset($response)) {
            $_SESSION['xero_access_token']       = $response['xero_oauth_token'];
+           
            $_SESSION['xero_oauth_token_secret'] = $response['xero_oauth_token_secret'];
-      	  if(isset($response['xero_oauth_session_handle']))  $_SESSION['xero_session_handle']     = $response['xero_oauth_session_handle'];
+           
+      	  if(isset($response['xero_oauth_session_handle'])) 
+      	  {
+      	      $_SESSION['xero_session_handle']     = $response['xero_oauth_session_handle'];
+      	  } 
        } else {
         return false;
        }
@@ -101,12 +126,15 @@ class Xero_PrivateApp {
    {
        if (isset($_SESSION['xero_access_token'])) {
            $response['xero_oauth_token']            =    $_SESSION['xero_access_token'];
+           
            $response['xero_oauth_token_secret']     =    $_SESSION['xero_oauth_token_secret'];
+           
            $response['xero_oauth_session_handle']   =    $_SESSION['xero_session_handle'];
+           
            return $response;
-       } else {
-        return false;
-      }
+       }       
+       
+       return false;
 
    }   
    
