@@ -49,6 +49,27 @@ if ($checkErrors > 0) {
 		include 'tests/tests.php';
 	}
 	
-	testLinks ();
-	invoice_test();
+	echo "invoice test";
+	$response = $XeroOAuth->request('GET', $XeroOAuth->url('Invoices', 'core'), array('order' => 'Total DESC'));
+            if ($XeroOAuth->response['code'] == 200) {
+                $invoices = $XeroOAuth->parseResponse($XeroOAuth->response['response'], $XeroOAuth->response['format']);
+                echo "There are " . count($invoices->Invoices[0]). " invoices in this Xero organisation, the first one is: </br>";
+                //pr($invoices->Invoices[0]->Invoice);
+                print_r($invoices);
+            } else {
+                outputError($XeroOAuth);
+            }	
+	
+    $response = $XeroOAuth->request('GET', $XeroOAuth->url('Invoices/765133d8-e03d-41d9-9462-6357fe36621f', 'core'));
+            if ($XeroOAuth->response['code'] == 200) {
+                $invoices = $XeroOAuth->parseResponse($XeroOAuth->response['response'], $XeroOAuth->response['format']);
+                echo "There are " . count($invoices->Invoices[0]). " invoices in this Xero organisation, the first one is: </br>";
+                //pr($invoices->Invoices[0]->Invoice);
+                print_r($invoices);
+            } else {
+                outputError($XeroOAuth);
+            }		
+	
+	//testLinks ();
+	
 }
