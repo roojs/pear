@@ -55,6 +55,8 @@ class Xero_PrivateApp {
 		      'oauth_callback' => OAUTH_CALLBACK,
 		      'user_agent' => $this->useragent 
        ), $this->signatures ) );
+       
+       $this->connectXero();
    }
    
    function connectXero()
