@@ -2,7 +2,9 @@
 require 'Xero/Auth/XeroOAuth.php';
 
 define ( 'BASE_PATH', dirname(__FILE__) );
+
 define ( "XRO_APP_TYPE", "Private" );
+
 define ( "OAUTH_CALLBACK", "oob" );
 
 
@@ -54,23 +56,59 @@ class Xero_PrivateApp {
 
        if ($checkErrors > 0) {
 	        return false;	        
-      }
+       }
       
-      $session = persistSession ( array (
-			'oauth_token' => $this->XeroOAuth->config ['consumer_key'],
-			'oauth_token_secret' => $this->XeroOAuth->config ['shared_secret'],
-			'oauth_session_handle' => '' 
+       $session = $this->persistSession ( array (
+			'xero_oauth_token' => $this->XeroOAuth->config ['consumer_key'],
+			'xero_oauth_token_secret' => $this->XeroOAuth->config ['shared_secret'],
+			'xero_oauth_session_handle' => '' 
 	      ) );
-	   $this->oauthSession = retrieveSession ();
+	    $this->oauthSession = $this->retrieveSession ();
 	
-	   if (isset ( $this->oauthSession ['oauth_token'] )) {
-		    $this->XeroOAuth->config ['access_token'] = $this->oauthSession ['oauth_token'];
-		    $this->XeroOAuth->config ['access_token_secret'] = $this->oauthSession ['oauth_token_secret'];
+	    if (isset ( $this->oauthSession ['xero_oauth_token'] )) {
+		     $this->XeroOAuth->config ['access_token'] = $this->oauthSession ['xero_oauth_token'];
+		     $this->XeroOAuth->config ['access_token_secret'] = $this->oauthSession ['xero_oauth_token_secret'];
 		
 		    //include 'tests/tests.php';
-	   }
+	    }
 	   
    }
+   
+    /**
+     * Persist the OAuth access token and session handle somewhere
+     * In my example I am just using the session, but in real world, this is should be a storage engine
+     *
+     * @param array $params the response parameters as an array of key=value pairs
+     */
+   function persistSession($response)
+   {
+       if (isset($response)) {
+           $_SESSION['xero_access_token']       = $response['xero_oauth_token'];
+           $_SESSION['xero_oauth_token_secret'] = $response['xero_oauth_token_secret'];
+      	  if(isset($response['xero_oauth_session_handle']))  $_SESSION['xero_session_handle']     = $response['xero_oauth_session_handle'];
+       } else {
+        return false;
+       }
+
+   }
+
+   /**
+    * Retrieve the OAuth access token and session handle
+    * In my example I am just using the session, but in real world, this is should be a storage engine
+    *
+    */
+   function retrieveSession()
+   {
+       if (isset($_SESSION['xero_access_token'])) {
+           $response['xero_oauth_token']            =    $_SESSION['xero_access_token'];
+           $response['xero_oauth_token_secret']     =    $_SESSION['xero_oauth_token_secret'];
+           $response['xero_oauth_session_handle']   =    $_SESSION['xero_session_handle'];
+           return $response;
+       } else {
+        return false;
+      }
+
+   }   
    
    public function getInvoiceList()
    {
@@ -105,72 +143,3 @@ class Xero_PrivateApp {
    
 }
 
-$useragent = "XeroOAuth-PHP Private App Test";
-
-$signatures = array (
-		'consumer_key' => 'U7CCFZKXLHANQ0CUWYEPMP1LGCM837',
-		'shared_secret' => '7VIDBER73TS4IM5BJYF33JEYUEV1VE',
-		// API versions
-		'core_version' => '2.0',
-		'payroll_version' => '1.0',
-		'file_version' => '1.0' 
-);
-
-if (XRO_APP_TYPE == "Private" || XRO_APP_TYPE == "Partner") {
-	$signatures ['rsa_private_key'] = BASE_PATH . '/certs/privatekey.pem';
-	$signatures ['rsa_public_key'] = BASE_PATH . '/certs/publickey.cer';
-}
-
-$XeroOAuth = new XeroOAuth ( array_merge ( array (
-		'application_type' => XRO_APP_TYPE,
-		'oauth_callback' => OAUTH_CALLBACK,
-		'user_agent' => $useragent 
-), $signatures ) );
-include 'tests/testRunner.php';
-
-$initialCheck = $XeroOAuth->diagnostics ();
-$checkErrors = count ( $initialCheck );
-if ($checkErrors > 0) {
-	// you could handle any config errors here, or keep on truckin if you like to live dangerously
-	foreach ( $initialCheck as $check ) {
-		echo 'Error: ' . $check . PHP_EOL;
-	}
-} else {
-	$session = persistSession ( array (
-			'oauth_token' => $XeroOAuth->config ['consumer_key'],
-			'oauth_token_secret' => $XeroOAuth->config ['shared_secret'],
-			'oauth_session_handle' => '' 
-	) );
-	$oauthSession = retrieveSession ();
-	
-	if (isset ( $oauthSession ['oauth_token'] )) {
-		$XeroOAuth->config ['access_token'] = $oauthSession ['oauth_token'];
-		$XeroOAuth->config ['access_token_secret'] = $oauthSession ['oauth_token_secret'];
-		
-		include 'tests/tests.php';
-	}
-	
-	echo "invoice test";
-	$response = $XeroOAuth->request('GET', $XeroOAuth->url('Invoices', 'core'), array('order' => 'Total DESC'));
-            if ($XeroOAuth->response['code'] == 200) {
-                $invoices = $XeroOAuth->parseResponse($XeroOAuth->response['response'], $XeroOAuth->response['format']);
-                echo "There are " . count($invoices->Invoices[0]). " invoices in this Xero organisation, the first one is: </br>";
-                //pr($invoices->Invoices[0]->Invoice);
-                print_r($invoices);
-            } else {
-                outputError($XeroOAuth);
-            }	
-	
-    $response = $XeroOAuth->request('GET', $XeroOAuth->url('Invoices/765133d8-e03d-41d9-9462-6357fe36621f', 'core'));
-            if ($XeroOAuth->response['code'] == 200) {
-                $invoices = $XeroOAuth->parseResponse($XeroOAuth->response['response'], $XeroOAuth->response['format']);
-                echo "There are " . count($invoices->Invoices[0]). " invoices in this Xero organisation, the first one is: </br>";
-                //pr($invoices->Invoices[0]->Invoice);
-                print_r($invoices);
-            } else {
-                outputError($XeroOAuth);
-            }		
-	
-	//testLinks ();
-	
-}
