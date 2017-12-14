@@ -190,9 +190,9 @@ class Xero_PrivateApp {
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts' , 'core'), $param ,'','json');
        
        if ($this->XeroOAuth->response['code'] != 200) {
-           // Error 
+           // Error
+           echo 'Xero Error: ' . $this->XeroOAuth->response['response'] 
            return;      
-          //outputError($XeroOAuth);
        }
        
        $contact = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
@@ -221,8 +221,10 @@ class Xero_PrivateApp {
    	$response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml,'json');
    	
    	if ($this->XeroOAuth->response['code'] != 200) {
-           // Error 
-           return;      
+           // Error
+           echo 'Xero Error: ' . $this->XeroOAuth->response['response'] 
+           return;
+                 
       }
             
       $invoice = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
