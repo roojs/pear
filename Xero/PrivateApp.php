@@ -180,7 +180,24 @@ class Xero_PrivateApp {
        return $invoice;
    }
    
-   
+   public function getContactID($email)
+   {
+   	 if($invoiceID == '')
+   	 {
+   	     return;
+   	 }
+   	 $param = array('Where' => 'EmailAddress="{'. $email. '}"');
+       $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts' , 'core'), $param ,'','json');
+       
+       if ($this->XeroOAuth->response['code'] != 200) {
+           // Error 
+           return;      
+          //outputError($XeroOAuth);
+       }
+       
+       $contact = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+       return $contact;
+   }
    
 }
 
