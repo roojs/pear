@@ -211,5 +211,24 @@ class Xero_PrivateApp {
 	     
 	    return  $contact->Contacts[0]->ContactID;
    }
+   
+   public function createInvoice($xml)
+   {
+   	if($xml == '')
+   	{
+   	     return;
+   	}
+   	$response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml);
+   	
+   	if ($this->XeroOAuth->response['code'] != 200) {
+           // Error 
+           return;      
+      }
+            
+      $invoice = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+      
+      return $invoice;           
+     
+   }
 }
 
