@@ -218,7 +218,7 @@ class Xero_PrivateApp {
    	{
    	     return;
    	}
-   	$response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml);
+   	$response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml,'json');
    	
    	if ($this->XeroOAuth->response['code'] != 200) {
            // Error 
