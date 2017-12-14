@@ -180,5 +180,7 @@ class Xero_PrivateApp {
        return $invoice;
    }
    
+   
+   
 }
 
