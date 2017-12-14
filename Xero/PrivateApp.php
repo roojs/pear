@@ -153,6 +153,7 @@ class Xero_PrivateApp {
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices', 'core'), array('order' => 'Total DESC'));
        if ($this->XeroOAuth->response['code'] != 200) {
            // Error 
+           echo 'Xero Error: ' . $this->XeroOAuth->response['response']
            return;      
           //outputError($XeroOAuth);
        }	
@@ -171,7 +172,7 @@ class Xero_PrivateApp {
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices/' . $invoiceID , 'core'), $param ,'','json');
        
        if ($this->XeroOAuth->response['code'] != 200) {
-           // Error 
+       	  echo 'Xero Error: ' . $this->XeroOAuth->response['response']            
            return;      
           //outputError($XeroOAuth);
        }
