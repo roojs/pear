@@ -182,7 +182,7 @@ class Xero_PrivateApp {
    
    public function getContactID($email)
    {
-   	 if($invoiceID == '')
+   	 if($email == '')
    	 {
    	     return;
    	 }
