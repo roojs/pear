@@ -199,5 +199,17 @@ class Xero_PrivateApp {
        return $contact;
    }
    
+   
+   public function getContactID($email){
+   	
+   	 $contact = $this->getContact($email);
+    	
+       if(!count($contact->Contacts[0]))
+  	    {
+  		     return;
+	    }    
+	     
+	    return  $contact->Contacts[0]->ContactID;
+   }
 }
 
