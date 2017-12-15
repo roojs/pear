@@ -195,7 +195,8 @@ class Xero_PrivateApp {
    	 {
    	     return;
    	 }
-   	 $param = array('Where' => 'EmailAddress="'. $email. '"');
+   	 //$param = array('Where' => 'EmailAddress="'. $email. '"');
+   	 $param = array('Where' => 'Name="'. $email. '"');
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts' , 'core'), $param ,'','json');
        
        if ($this->XeroOAuth->response['code'] != 200) 
