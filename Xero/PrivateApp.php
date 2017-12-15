@@ -32,10 +32,6 @@ class Xero_PrivateApp {
    	 
        $this->SSL_KeyPath = BASE_PATH;    	 
        
-       //$consumer_key = 'U7CCFZKXLHANQ0CUWYEPMP1LGCM837';
-          	 
-   	 //$shared_secret = '7VIDBER73TS4IM5BJYF33JEYUEV1VE';
-   	 
        $this->signatures = array (
 		     'consumer_key' => $config['consumer_key'],
 		     'shared_secret' => $config['shared_secret'],
