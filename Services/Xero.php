@@ -168,7 +168,7 @@ class Services_Xero {
    
    public function getContact($name)
    {
-       if($email == '') {
+       if($name == '') {
            return;
        }
        
@@ -187,10 +187,10 @@ class Services_Xero {
    }
    
    
-   public function getContactID($email)
+   public function getContactID($name)
    {
    	
-       $contact = $this->getContact($email);
+       $contact = $this->getContact($name);
     	
        if(!count($contact->Contacts[0])) {
            return;
