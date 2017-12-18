@@ -22,7 +22,8 @@ class XeroOAuth {
     * @param string $config,
     *        	the configuration settings
     */
-   function __construct($config) {
+   function __construct($config) 
+   {
       $this->params = array ();
       $this->headers = array ();
       $this->auto_fixed_time = false;
@@ -101,7 +102,8 @@ class XeroOAuth {
     *        	the response headers
     * @return the string length of the header
     */
-   private function curlHeader($ch, $header) {
+   private function curlHeader($ch, $header) 
+   {
       $i = strpos ( $header, ':' );
       if (! empty ( $i )) {
          $key = str_replace ( '-', '_', strtolower ( substr ( $header, 0, $i ) ) );
@@ -124,7 +126,8 @@ class XeroOAuth {
     * @param string $data
     *        	the current curl buffer
     */
-   private function curlWrite($ch, $data) {
+   private function curlWrite($ch, $data) 
+   {
       $l = strlen ( $data );
       if (strpos ( $data, $this->config ['streaming_eol'] ) === false) {
          $this->buffer .= $data;
@@ -156,7 +159,8 @@ class XeroOAuth {
     *        	the response body from an OAuth flow method
     * @return array the response body safely decoded to an array of key => values
     */
-   function extract_params($body) {
+   function extract_params($body) 
+   {
       $kvs = explode ( '&', $body );
       $decoded = array ();
       foreach ( $kvs as $kv ) {
@@ -176,7 +180,8 @@ class XeroOAuth {
     *        	the scalar or array to encode
     * @return $data encoded in a way compatible with OAuth
     */
-   private function safe_encode($data) {
+   private function safe_encode($data) 
+   {
       if (is_array ( $data )) {
          return array_map ( array (
                $this,
@@ -203,7 +208,8 @@ class XeroOAuth {
     *        	the scalar or array to decode
     * @return $data decoded from the URL encoded form
     */
-   private function safe_decode($data) {
+   private function safe_decode($data) 
+   {
       if (is_array ( $data )) {
          return array_map ( array (
                $this,
@@ -225,7 +231,8 @@ class XeroOAuth {
     * @return void value is stored to a class variable
     * @author themattharris
     */
-   private function prepare_method($method) {
+   private function prepare_method($method) 
+   {
       $this->method = strtoupper ( $method );
    }
 	
@@ -236,7 +243,8 @@ class XeroOAuth {
     *
     * @return void response data is stored in the class variable 'response'
     */
-   private function curlit() {
+   private function curlit() 
+   {
       $this->request_params = array();
 	
 		
@@ -387,7 +395,8 @@ class XeroOAuth {
     *        	the format of the response. Default json. Set to an empty string to exclude the format
     *        	
     */
-   function request($method, $url, $params = array(), $xml = "", $format = 'xml') {
+   function request($method, $url, $params = array(), $xml = "", $format = 'xml') 
+   {
       // removed these as function parameters for now
       $useauth = true;
       $multipart = false;
@@ -477,7 +486,8 @@ class XeroOAuth {
     *        	the format of the response
     * @return string the concatenation of the host, API version and API method
     */
-   function parseResponse($response, $format) {
+   function parseResponse($response, $format) 
+   {
       if (isset ( $format )) {
          switch ($format) {
             case "pdf" :
@@ -501,7 +511,8 @@ class XeroOAuth {
     *        	the API method without extension
     * @return string the concatenation of the host, API version and API method
     */
-   function url($request, $api = "core") {
+   function url($request, $api = "core") 
+   {
       if ($request == "RequestToken") {
          $this->config ['host'] = $this->config ['site'] . '/oauth/';
       } elseif ($request == "Authorize") {
@@ -542,7 +553,8 @@ class XeroOAuth {
     *        	the current session handle for the session
     * @return array response array from request
     */
-   function refreshToken($accessToken, $sessionHandle) {
+   function refreshToken($accessToken, $sessionHandle) 
+   {
       $code = $this->request ( 'GET', $this->url ( 'AccessToken', '' ), array (
             'oauth_token' => $accessToken,
             'oauth_session_handle' => $sessionHandle 
@@ -568,38 +580,39 @@ class XeroOAuth {
     */
    public static function php_self($dropqs = true)
    {
-   $protocol = 'http';
-   if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on')
-      {
-      $protocol = 'https';
-      }
-   elseif (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443'))
-      {
-      $protocol = 'https';
-      }
+       $protocol = 'http';
+       if (isset($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) == 'on')
+       {
+          $protocol = 'https';
+       }
+       elseif (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443'))
+       {
+          $protocol = 'https';
+       }
 
-   $url = sprintf('%s://%s%s', $protocol, $_SERVER['SERVER_NAME'], $_SERVER['REQUEST_URI']);
-   $parts = parse_url($url);
-   $port = $_SERVER['SERVER_PORT'];
-   $scheme = $parts['scheme'];
-   $host = $parts['host'];
-   $path = @$parts['path'];
-   $qs = @$parts['query'];
-   $port or $port = ($scheme == 'https') ? '443' : '80';
-   if (($scheme == 'https' && $port != '443') || ($scheme == 'http' && $port != '80'))
-      {
-      $host = "$host:$port";
-      }
+       $url = sprintf('%s://%s%s', $protocol, $_SERVER['SERVER_NAME'], $_SERVER['REQUEST_URI']);
+       $parts = parse_url($url);
+       $port = $_SERVER['SERVER_PORT'];
+       $scheme = $parts['scheme'];
+       $host = $parts['host'];
+       $path = @$parts['path'];
+       $qs = @$parts['query'];
+       $port or $port = ($scheme == 'https') ? '443' : '80';
+       if (($scheme == 'https' && $port != '443') || ($scheme == 'http' && $port != '80'))
+       {
+          $host = "$host:$port";
+       }
 
-   $url = "$scheme://$host$path";
-   if (!$dropqs) return "{$url}?{$qs}";
-     else return $url;
+       $url = "$scheme://$host$path";
+       if (!$dropqs) return "{$url}?{$qs}";
+         else return $url;
    }
 	
    /*
     * Run some basic checks on our config options etc to make sure all is ok
     */
-   function diagnostics() {
+   function diagnostics() 
+   {
       $testOutput = array ();
 
       /* ENTRUST CERTIFICATE DEPRECATED
