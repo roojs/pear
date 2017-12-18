@@ -58,17 +58,17 @@ class Services_Xero {
        }
       
        $this->session = $this->persistSession ( array (
-         'xero_oauth_token' => $this->XeroOAuth->config ['consumer_key'],
-         'xero_oauth_token_secret' => $this->XeroOAuth->config ['shared_secret'],
-         'xero_oauth_session_handle' => '' 
+         'oauth_token' => $this->XeroOAuth->config ['consumer_key'],
+         'oauth_token_secret' => $this->XeroOAuth->config ['shared_secret'],
+         'oauth_session_handle' => '' 
        ) );
 	    
        $this->oauthSession = $this->retrieveSession ();
 	
-       if (isset ( $this->oauthSession ['xero_oauth_token'] )) {
-           $this->XeroOAuth->config ['access_token'] = $this->oauthSession ['xero_oauth_token'];
+       if (isset ( $this->oauthSession ['oauth_token'] )) {
+           $this->XeroOAuth->config ['access_token'] = $this->oauthSession ['oauth_token'];
 		     
-           $this->XeroOAuth->config ['access_token_secret'] = $this->oauthSession ['xero_oauth_token_secret'];
+           $this->XeroOAuth->config ['access_token_secret'] = $this->oauthSession ['oauth_token_secret'];
 		
        }
 	   
@@ -76,10 +76,10 @@ class Services_Xero {
    
    function refreshToken()
    {
-       $response = $this->XeroOAuth->refreshToken($this->oauthSession['xero_oauth_token'], $this->oauthSession['xero_oauth_session_handle']);
+       $response = $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['oauth_session_handle']);
        if ($this->XeroOAuth->response['code'] != 200) {
             if ($this->XeroOAuth->response['helper'] == "TokenExpired") {
-                $this->XeroOAuth->refreshToken($this->oauthSession['xero_oauth_token'], $this->oauthSession['xero_session_handle']);
+                $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['session_handle']);
             }
             
             return false;
@@ -100,12 +100,12 @@ class Services_Xero {
    function persistSession($response)
    {
        if (isset($response)) {
-           $_SESSION[__CLASS__]['xero_access_token'] = $response['xero_oauth_token'];
+           $_SESSION[__CLASS__]['access_token'] = $response['oauth_token'];
            
-           $_SESSION[__CLASS__]['xero_oauth_token_secret'] = $response['xero_oauth_token_secret'];
+           $_SESSION[__CLASS__]['oauth_token_secret'] = $response['oauth_token_secret'];
            
-           if(isset($response['xero_oauth_session_handle'])) {
-               $_SESSION[__CLASS__]['xero_session_handle']     = $response['xero_oauth_session_handle'];
+           if(isset($response['oauth_session_handle'])) {
+               $_SESSION[__CLASS__]['session_handle']     = $response['oauth_session_handle'];
            } 
        } else {
            return false;
@@ -120,12 +120,12 @@ class Services_Xero {
     */
    function retrieveSession()
    {
-       if (isset($_SESSION[__CLASS__]['xero_access_token'])) {
-           $response['xero_oauth_token']            =    $_SESSION[__CLASS__]['xero_access_token'];
+       if (isset($_SESSION[__CLASS__]['access_token'])) {
+           $response['oauth_token']            =    $_SESSION[__CLASS__]['access_token'];
            
-           $response['xero_oauth_token_secret']     =    $_SESSION[__CLASS__]['xero_oauth_token_secret'];
+           $response['oauth_token_secret']     =    $_SESSION[__CLASS__]['oauth_token_secret'];
            
-           $response['xero_oauth_session_handle']   =    $_SESSION[__CLASS__]['xero_session_handle'];
+           $response['oauth_session_handle']   =    $_SESSION[__CLASS__]['session_handle'];
            
            return $response;
        }       
