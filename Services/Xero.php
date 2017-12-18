@@ -42,8 +42,8 @@ class Services_Xero {
        );   	 
    	 
        if (XRO_APP_TYPE == "Private" || XRO_APP_TYPE == "Partner") {
-           $this->signatures ['rsa_private_key'] = $this->SSL_KeyPath . '/certs/privatekey.pem';
-           $this->signatures ['rsa_public_key'] = $this->SSL_KeyPath . '/certs/publickey.cer';
+           $this->signatures ['rsa_private_key'] = $this->SSL_KeyPath . '/privatekey.pem';
+           $this->signatures ['rsa_public_key'] = $this->SSL_KeyPath . '/publickey.cer';
        }
        
        require 'Xero/Auth/XeroOAuth.php';
