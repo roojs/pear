@@ -30,7 +30,7 @@ class Services_Xero {
    	
        $this->useragent = "XeroOAuth-PHP Private App Test";
    	 
-       $this->SSL_KeyPath = BASE_PATH;    	 
+       $this->SSL_KeyPath = $config['cert_dir'];    	 
        
        $this->signatures = array (
            'consumer_key' => $config['consumer_key'],
