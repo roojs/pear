@@ -1,9 +1,5 @@
 <?php
 
-
-//define ( "OAUTH_CALLBACK", "oob" );
-
-
 class Services_Xero {
    var $useragent;
 	
@@ -44,7 +40,7 @@ class Services_Xero {
        
        $this->XeroOAuth = new XeroOAuth ( array_merge ( array (
             'application_type' => $config['xero_app_type'],
-            'oauth_callback' => OAUTH_CALLBACK,
+            'oauth_callback' => 'oob',
             'user_agent' => $this->useragent,
             'ca_cert_path' => $config['cert_dir'] 
        ), $this->signatures ) );
