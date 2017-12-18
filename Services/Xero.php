@@ -51,7 +51,8 @@ class Services_Xero {
        $this->XeroOAuth = new XeroOAuth ( array_merge ( array (
             'application_type' => XRO_APP_TYPE,
             'oauth_callback' => OAUTH_CALLBACK,
-            'user_agent' => $this->useragent 
+            'user_agent' => $this->useragent,
+            'ca_cert_path' => $this->SSL_KeyPath 
        ), $this->signatures ) );
        
        $this->connectXero();
