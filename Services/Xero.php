@@ -70,7 +70,6 @@ class Services_Xero {
 		     
            $this->XeroOAuth->config ['access_token_secret'] = $this->oauthSession ['xero_oauth_token_secret'];
 		
-          //include 'tests/tests.php';
        }
 	   
    }
