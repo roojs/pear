@@ -138,10 +138,12 @@ class Services_Xero {
    {
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices', 'core'), array('order' => 'Total DESC'));
        if ($this->XeroOAuth->response['code'] != 200) {
-           // Error 
-           echo 'Xero Error: ' . $this->XeroOAuth->response['response'];
-           return;      
-          //outputError($XeroOAuth);
+           
+           require 'PEAR/Exception.php';
+            
+           throw new PEAR_Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+           
+           return;                
        }	
        
        $invoiceList = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
@@ -157,7 +159,11 @@ class Services_Xero {
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices/' . $invoiceID , 'core'), $param ,'','json');
        
        if ($this->XeroOAuth->response['code'] != 200) {
-           echo 'Xero Error: ' . $this->XeroOAuth->response['response'] ;      
+       	
+        	  require 'PEAR/Exception.php';
+            
+           throw new PEAR_Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+                 
            return;      
           //outputError($XeroOAuth);
        }
@@ -177,8 +183,11 @@ class Services_Xero {
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts' , 'core'), $param ,'','json');
        
        if ($this->XeroOAuth->response['code'] != 200) {
-           // Error
-           echo 'Xero Error: ' . $this->XeroOAuth->response['response'] ;
+           
+           require 'PEAR/Exception.php';
+            
+           throw new PEAR_Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+           
            return;      
        }
        
@@ -209,7 +218,10 @@ class Services_Xero {
    	
       if ($this->XeroOAuth->response['code'] != 200) {
            // Error
-           echo 'Xero Error: ' . $this->XeroOAuth->response['response'] ;
+        	  require 'PEAR/Exception.php';
+            
+           throw new PEAR_Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+           
            return;
                  
       }
