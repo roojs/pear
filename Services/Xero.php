@@ -49,7 +49,7 @@ class Services_Xero {
        require 'Xero/Auth/XeroOAuth.php';
        
        $this->XeroOAuth = new XeroOAuth ( array_merge ( array (
-            'application_type' => XRO_APP_TYPE,
+            'application_type' => $config['xero_app_type'],
             'oauth_callback' => OAUTH_CALLBACK,
             'user_agent' => $this->useragent,
             'ca_cert_path' => $this->SSL_KeyPath 
