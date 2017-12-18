@@ -108,12 +108,12 @@ class Xero_PrivateApp {
    function persistSession($response)
    {
        if (isset($response)) {
-           $_SESSION['xero_access_token']       = $response['xero_oauth_token'];
+           $_SESSION[__CLASS__]['xero_access_token'] = $response['xero_oauth_token'];
            
-           $_SESSION['xero_oauth_token_secret'] = $response['xero_oauth_token_secret'];
+           $_SESSION[__CLASS__]['xero_oauth_token_secret'] = $response['xero_oauth_token_secret'];
            
            if(isset($response['xero_oauth_session_handle'])) {
-               $_SESSION['xero_session_handle']     = $response['xero_oauth_session_handle'];
+               $_SESSION[__CLASS__]['xero_session_handle']     = $response['xero_oauth_session_handle'];
            } 
        } else {
            return false;
@@ -128,12 +128,12 @@ class Xero_PrivateApp {
     */
    function retrieveSession()
    {
-       if (isset($_SESSION['xero_access_token'])) {
-           $response['xero_oauth_token']            =    $_SESSION['xero_access_token'];
+       if (isset($_SESSION[__CLASS__]['xero_access_token'])) {
+           $response['xero_oauth_token']            =    $_SESSION[__CLASS__]['xero_access_token'];
            
-           $response['xero_oauth_token_secret']     =    $_SESSION['xero_oauth_token_secret'];
+           $response['xero_oauth_token_secret']     =    $_SESSION[__CLASS__]['xero_oauth_token_secret'];
            
-           $response['xero_oauth_session_handle']   =    $_SESSION['xero_session_handle'];
+           $response['xero_oauth_session_handle']   =    $_SESSION[__CLASS__]['xero_session_handle'];
            
            return $response;
        }       
