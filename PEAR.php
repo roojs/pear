@@ -1062,7 +1062,7 @@ class PEAR_Error
                        strtolower(get_class($this)), $this->message, $this->code,
                        implode("|", $modes), $levels[$this->level],
                        $this->error_message_prefix,
-                       $this->userinfo);
+                       is_string($this->userinfo) ? $this->userinfo : print_r($this->userinfo,true));
     }
 }
 
