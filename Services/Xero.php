@@ -1,5 +1,5 @@
 <?php
-require 'Xero/Auth/XeroOAuth.php';
+
 
 define ( 'BASE_PATH', dirname(__FILE__) );
 
@@ -45,6 +45,8 @@ class Services_Xero {
            $this->signatures ['rsa_private_key'] = $this->SSL_KeyPath . '/certs/privatekey.pem';
            $this->signatures ['rsa_public_key'] = $this->SSL_KeyPath . '/certs/publickey.cer';
        }
+       
+       require 'Xero/Auth/XeroOAuth.php';
        
        $this->XeroOAuth = new XeroOAuth ( array_merge ( array (
             'application_type' => XRO_APP_TYPE,
