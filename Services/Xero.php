@@ -19,8 +19,6 @@ class Services_Xero {
    
    var $checkErrors;
    
-   var $SSL_KeyPath;
-   
    var $oauthSession;
    
    var $session;
@@ -29,8 +27,6 @@ class Services_Xero {
    {
    	
        $this->useragent = "XeroOAuth-PHP Private App Test";
-   	 
-       $this->SSL_KeyPath = $config['cert_dir'];    	 
        
        $this->signatures = array (
            'consumer_key' => $config['consumer_key'],
@@ -42,8 +38,10 @@ class Services_Xero {
        );   	 
    	 
        if ($config['xero_app_type'] == "Private" || $config['xero_app_type'] == "Partner") {
-           $this->signatures ['rsa_private_key'] = $this->SSL_KeyPath . '/privatekey.pem';
-           $this->signatures ['rsa_public_key'] = $this->SSL_KeyPath . '/publickey.cer';
+       	
+           $this->signatures ['rsa_private_key'] = $config['cert_dir'] . '/privatekey.pem';
+           
+           $this->signatures ['rsa_public_key'] = $config['cert_dir'] . '/publickey.cer';
        }
        
        require 'Xero/Auth/XeroOAuth.php';
@@ -52,7 +50,7 @@ class Services_Xero {
             'application_type' => $config['xero_app_type'],
             'oauth_callback' => OAUTH_CALLBACK,
             'user_agent' => $this->useragent,
-            'ca_cert_path' => $this->SSL_KeyPath 
+            'ca_cert_path' => $config['cert_dir'] 
        ), $this->signatures ) );
        
        $this->connectXero();
