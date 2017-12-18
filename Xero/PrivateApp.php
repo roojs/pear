@@ -9,7 +9,7 @@ define ( "OAUTH_CALLBACK", "oob" );
 
 
 class Xero_PrivateApp {
-	var $useragent;
+   var $useragent;
 	
    var $signatures;	
 
@@ -28,28 +28,28 @@ class Xero_PrivateApp {
    function __construct($config)
    {
    	
-   	 $this->useragent = "XeroOAuth-PHP Private App Test";
+       $this->useragent = "XeroOAuth-PHP Private App Test";
    	 
        $this->SSL_KeyPath = BASE_PATH;    	 
        
        $this->signatures = array (
-		     'consumer_key' => $config['consumer_key'],
-		     'shared_secret' => $config['shared_secret'],
-		     // API versions
-		     'core_version' => '2.0',
-		     'payroll_version' => '1.0',
-		     'file_version' => '1.0' 
+           'consumer_key' => $config['consumer_key'],
+           'shared_secret' => $config['shared_secret'],
+           // API versions
+           'core_version' => '2.0',
+           'payroll_version' => '1.0',
+           'file_version' => '1.0' 
        );   	 
    	 
-    	 if (XRO_APP_TYPE == "Private" || XRO_APP_TYPE == "Partner") {
-	        $this->signatures ['rsa_private_key'] = $this->SSL_KeyPath . '/certs/privatekey.pem';
-	        $this->signatures ['rsa_public_key'] = $this->SSL_KeyPath . '/certs/publickey.cer';
+       if (XRO_APP_TYPE == "Private" || XRO_APP_TYPE == "Partner") {
+           $this->signatures ['rsa_private_key'] = $this->SSL_KeyPath . '/certs/privatekey.pem';
+           $this->signatures ['rsa_public_key'] = $this->SSL_KeyPath . '/certs/publickey.cer';
        }
        
        $this->XeroOAuth = new XeroOAuth ( array_merge ( array (
-		      'application_type' => XRO_APP_TYPE,
-		      'oauth_callback' => OAUTH_CALLBACK,
-		      'user_agent' => $this->useragent 
+            'application_type' => XRO_APP_TYPE,
+            'oauth_callback' => OAUTH_CALLBACK,
+            'user_agent' => $this->useragent 
        ), $this->signatures ) );
        
        $this->connectXero();
@@ -61,24 +61,24 @@ class Xero_PrivateApp {
        $this->checkErrors = count ( $this->initialCheck );
 
        if ($this->checkErrors > 0) {
-	        return false;	        
+           return false;	        
        }
       
        $this->session = $this->persistSession ( array (
-			'xero_oauth_token' => $this->XeroOAuth->config ['consumer_key'],
-			'xero_oauth_token_secret' => $this->XeroOAuth->config ['shared_secret'],
-			'xero_oauth_session_handle' => '' 
-	    ) );
+         'xero_oauth_token' => $this->XeroOAuth->config ['consumer_key'],
+         'xero_oauth_token_secret' => $this->XeroOAuth->config ['shared_secret'],
+         'xero_oauth_session_handle' => '' 
+       ) );
 	    
-	    $this->oauthSession = $this->retrieveSession ();
+       $this->oauthSession = $this->retrieveSession ();
 	
-	    if (isset ( $this->oauthSession ['xero_oauth_token'] )) {
-		     $this->XeroOAuth->config ['access_token'] = $this->oauthSession ['xero_oauth_token'];
+       if (isset ( $this->oauthSession ['xero_oauth_token'] )) {
+           $this->XeroOAuth->config ['access_token'] = $this->oauthSession ['xero_oauth_token'];
 		     
-		     $this->XeroOAuth->config ['access_token_secret'] = $this->oauthSession ['xero_oauth_token_secret'];
+           $this->XeroOAuth->config ['access_token_secret'] = $this->oauthSession ['xero_oauth_token_secret'];
 		
-		    //include 'tests/tests.php';
-	    }
+          //include 'tests/tests.php';
+       }
 	   
    }
    
@@ -112,9 +112,9 @@ class Xero_PrivateApp {
            
            $_SESSION['xero_oauth_token_secret'] = $response['xero_oauth_token_secret'];
            
-      	  if(isset($response['xero_oauth_session_handle'])) {
-      	      $_SESSION['xero_session_handle']     = $response['xero_oauth_session_handle'];
-      	  } 
+           if(isset($response['xero_oauth_session_handle'])) {
+               $_SESSION['xero_session_handle']     = $response['xero_oauth_session_handle'];
+           } 
        } else {
            return false;
        }
@@ -158,14 +158,14 @@ class Xero_PrivateApp {
    
    public function getInvoice($invoiceID)
    {
-   	 if($invoiceID == '') {
-   	     return;
-   	 }
-   	 $param = array();
+       if($invoiceID == '') {
+           return;
+       }
+       $param = array();
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices/' . $invoiceID , 'core'), $param ,'','json');
        
        if ($this->XeroOAuth->response['code'] != 200) {
-       	  echo 'Xero Error: ' . $this->XeroOAuth->response['response'] ;      
+           echo 'Xero Error: ' . $this->XeroOAuth->response['response'] ;      
            return;      
           //outputError($XeroOAuth);
        }
@@ -176,11 +176,11 @@ class Xero_PrivateApp {
    
    public function getContact($email)
    {
-   	 if($email == '') {
-   	     return;
-   	 }
-   	 //$param = array('Where' => 'EmailAddress="'. $email. '"');
-   	 $param = array('Where' => 'Name="'. $email. '"');
+       if($email == '') {
+           return;
+       }
+       //$param = array('Where' => 'EmailAddress="'. $email. '"');
+       $param = array('Where' => 'Name="'. $email. '"');
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts' , 'core'), $param ,'','json');
        
        if ($this->XeroOAuth->response['code'] != 200) {
@@ -197,23 +197,23 @@ class Xero_PrivateApp {
    public function getContactID($email)
    {
    	
-   	 $contact = $this->getContact($email);
+       $contact = $this->getContact($email);
     	
        if(!count($contact->Contacts[0])) {
-  		     return;
-	    }    
+           return;
+       }    
 	     
-	    return  $contact->Contacts[0]->ContactID;
+       return  $contact->Contacts[0]->ContactID;
    }
    
    public function createInvoice($xml)
    {
-   	if($xml == '') {
-   	     return;
-   	}
-   	$response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml,'json');
+      if($xml == '') {
+           return;
+      }
+      $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml,'json');
    	
-   	if ($this->XeroOAuth->response['code'] != 200) {
+      if ($this->XeroOAuth->response['code'] != 200) {
            // Error
            echo 'Xero Error: ' . $this->XeroOAuth->response['response'] ;
            return;
