@@ -8,7 +8,7 @@ define ( "XRO_APP_TYPE", "Private" );
 define ( "OAUTH_CALLBACK", "oob" );
 
 
-class Xero_PrivateApp {
+class Services_Xero {
    var $useragent;
 	
    var $signatures;	
