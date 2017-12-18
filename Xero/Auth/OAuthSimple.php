@@ -90,7 +90,8 @@ class OAuthSimple {
      * @param api_key {string}       The API Key (sometimes referred to as the consumer key) This value is usually supplied by the site you wish to use.
      * @param shared_secret (string) The shared secret. This value is also usually provided by the site you wish to use.
      */
-    public function __construct ($APIKey = "",$sharedSecret=""){
+    public function __construct ($APIKey = "",$sharedSecret="")
+    {
         if (!empty($APIKey))
             $this->_secrets{'consumer_key'}=$APIKey;
         if (!empty($sharedSecret))
@@ -104,7 +105,8 @@ class OAuthSimple {
     /** reset the parameters and url
     *
     */
-    function reset() {
+    function reset() 
+    {
         $this->_parameters=null;
         $this->path=null;
         $this->sbs=null;
@@ -115,7 +117,8 @@ class OAuthSimple {
     *
     * @param {string,object} List of parameters for the call, this can either be a URI string (e.g. "foo=bar&gorp=banana" or an object/hash)
     */
-    function setParameters ($parameters=Array()) {
+    function setParameters ($parameters=Array()) 
+    {
 
         if (is_string($parameters))
             $parameters = $this->_parseParameterString($parameters);
@@ -139,7 +142,8 @@ class OAuthSimple {
     }
 
     // convienence method for setParameters
-    function setQueryString ($parameters) {
+    function setQueryString ($parameters) 
+    {
         return $this->setParameters($parameters);
     }
 
@@ -147,7 +151,8 @@ class OAuthSimple {
     *
     * @param path {string} the fully qualified URI (excluding query arguments) (e.g "http://example.org/foo")
     */
-    function setURL ($path) {
+    function setURL ($path) 
+    {
         if (empty($path))
             throw new OAuthSimpleException('No path specified for OAuthSimple.setURL');
         $this->_path=$path;
@@ -158,7 +163,8 @@ class OAuthSimple {
     *
     * @param path {string} see .setURL
     */
-    function setPath ($path) {
+    function setPath ($path) 
+    {
         return $this->_path=$path;
     }
 
@@ -166,7 +172,8 @@ class OAuthSimple {
     *
     * @param action {string} HTTP Action word.
     */
-    function setAction ($action) {
+    function setAction ($action) 
+    {
         if (empty($action))
             $action = 'GET';
         $action = strtoupper($action);
@@ -180,7 +187,8 @@ class OAuthSimple {
     *
     * @param signatures {object} object/hash of the token/signature pairs {api_key:, shared_secret:, oauth_token: oauth_secret:}
     */
-    function signatures ($signatures) {
+    function signatures ($signatures) 
+    {
         if (!empty($signatures) && !is_array($signatures))
             throw new OAuthSimpleException('Must pass dictionary array to OAuthSimple.signatures');
         if (!empty($signatures)){
@@ -212,7 +220,8 @@ class OAuthSimple {
         return $this;
     }
 
-    function setTokensAndSecrets($signatures) {
+    function setTokensAndSecrets($signatures) 
+    {
         return $this->signatures($signatures);
     }
 
@@ -220,7 +229,8 @@ class OAuthSimple {
     *
     * @param method {string} Method of signing the transaction (only PLAINTEXT and SHA-MAC1 allowed for now)
     */
-    function setSignatureMethod ($method="") {
+    function setSignatureMethod ($method="") 
+    {
         if (empty($method))
             $method = $this->_default_signature_method;
         $method = strtoupper($method);
@@ -248,7 +258,8 @@ class OAuthSimple {
     *                   {action, path, parameters (array), method, signatures (array)}
     *                   all arguments are optional.
     */
-    function sign($args=array()) {
+    function sign($args=array()) 
+    {
         if (!empty($args['action']))
             $this->setAction($args['action']);
         if (!empty($args['path']))
@@ -279,7 +290,8 @@ class OAuthSimple {
     *
     * @param args {object} see .sign
     */
-    function getHeaderString ($args=array()) {
+    function getHeaderString ($args=array()) 
+    {
         if (empty($this->_parameters['oauth_signature']))
             $this->sign($args);
 
@@ -307,7 +319,8 @@ class OAuthSimple {
     // Start private methods. Here be Dragons.
     // No promises are kept that any of these functions will continue to exist
     // in future versions.
-    function _parseParameterString ($paramString) {
+    function _parseParameterString ($paramString) 
+    {
         $elements = explode('&',$paramString);
         $result = array();
         foreach ($elements as $element)
@@ -329,7 +342,8 @@ class OAuthSimple {
         return $result;
     }
 
-    function _oauthEscape($string) {
+    function _oauthEscape($string) 
+    {
         if ($string === 0)
             return 0;
         if (empty($string))
@@ -346,7 +360,8 @@ class OAuthSimple {
         return $string;
     }
 
-    function _getNonce($length=5) {
+    function _getNonce($length=5) 
+    {
         $result = '';
         $cLength = strlen($this->_nonce_chars);
         for ($i=0; $i < $length; $i++)
@@ -358,7 +373,8 @@ class OAuthSimple {
         return $result;
     }
 
-    function _getApiKey() {
+    function _getApiKey() 
+    {
         if (empty($this->_secrets['consumer_key']))
         {
             throw new OAuthSimpleException('No consumer_key set for OAuthSimple');
@@ -367,7 +383,8 @@ class OAuthSimple {
         return $this->_parameters['oauth_consumer_key'];
     }
 
-    function _getAccessToken() {
+    function _getAccessToken() 
+    {
         if (!isset($this->_secrets['oauth_secret']))
             return '';
         if (!isset($this->_secrets['oauth_token']))
@@ -376,11 +393,13 @@ class OAuthSimple {
         return $this->_parameters['oauth_token'];
     }
 
-    function _getTimeStamp() {
+    function _getTimeStamp() 
+    {
         return $this->_parameters['oauth_timestamp'] = time();
     }
 
-    function _normalizedParameters($filter='false') {
+    function _normalizedParameters($filter='false') 
+    {
         $elements = array();
         $ra = 0;
         ksort($this->_parameters);
@@ -404,9 +423,10 @@ class OAuthSimple {
         return join('&',$elements);
     }
 
-    function _readFile($filePath) {
+    function _readFile($filePath) 
+    {
 
-           $fp = fopen($filePath,"r");
+        $fp = fopen($filePath,"r");
 
         $file_contents = fread($fp,8192);
 
@@ -415,54 +435,55 @@ class OAuthSimple {
         return $file_contents;
     }
 
-    function _generateSignature () {
+    function _generateSignature () 
+    {
         $secretKey = '';
-    if(isset($this->_secrets['shared_secret']))
-        $secretKey = $this->_oauthEscape($this->_secrets['shared_secret']);
-    $secretKey .= '&';
-    if(isset($this->_secrets['oauth_secret']))
+        if(isset($this->_secrets['shared_secret']))
+            $secretKey = $this->_oauthEscape($this->_secrets['shared_secret']);
+            $secretKey .= '&';
+        if(isset($this->_secrets['oauth_secret']))
             $secretKey .= $this->_oauthEscape($this->_secrets['oauth_secret']);
-        switch($this->_parameters['oauth_signature_method'])
-        {
-            case 'RSA-SHA1':
+            switch($this->_parameters['oauth_signature_method'])
+            {
+                case 'RSA-SHA1':
 
-                $publickey = "";
-                // Fetch the public key
-                if($publickey = openssl_get_publickey($this->_readFile($this->_secrets['public_key']))){
+                    $publickey = "";
+                    // Fetch the public key
+                    if($publickey = openssl_get_publickey($this->_readFile($this->_secrets['public_key']))){
 
-                }else{
-                    throw new OAuthSimpleException('Cannot access public key for signing');
-                }
+                    }else{
+                        throw new OAuthSimpleException('Cannot access public key for signing');
+                    }
                 
-                $privatekeyid = "";
-                // Fetch the private key
-                if($privatekeyid = openssl_pkey_get_private($this->_readFile($this->_secrets['private_key'])))
-                {
-                    // Sign using the key
-                     $this->sbs = $this->_oauthEscape($this->_action).'&'.$this->_oauthEscape($this->_path).'&'.$this->_oauthEscape($this->_normalizedParameters());
+                    $privatekeyid = "";
+                    // Fetch the private key
+                    if($privatekeyid = openssl_pkey_get_private($this->_readFile($this->_secrets['private_key'])))
+                    {
+                        // Sign using the key
+                        $this->sbs = $this->_oauthEscape($this->_action).'&'.$this->_oauthEscape($this->_path).'&'.$this->_oauthEscape($this->_normalizedParameters());
 
-                       $ok = openssl_sign($this->sbs, $signature, $privatekeyid);
+                        $ok = openssl_sign($this->sbs, $signature, $privatekeyid);
 
-                      // Release the key resource
-                    openssl_free_key($privatekeyid);
+                        // Release the key resource
+                        openssl_free_key($privatekeyid);
 
-                       return base64_encode($signature);
+                        return base64_encode($signature);
 
-                }else{
-                    throw new OAuthSimpleException('Cannot access private key for signing');
-                }
+                    }else{
+                        throw new OAuthSimpleException('Cannot access private key for signing');
+                    }
 
 
-            case 'PLAINTEXT':
-                return urlencode($secretKey);
+                case 'PLAINTEXT':
+                    return urlencode($secretKey);
 
-            case 'HMAC-SHA1':
-                $this->sbs = $this->_oauthEscape($this->_action).'&'.$this->_oauthEscape($this->_path).'&'.$this->_oauthEscape($this->_normalizedParameters());
-                //error_log('SBS: '.$sigString);
-                return base64_encode(hash_hmac('sha1',$this->sbs,$secretKey,true));
+                case 'HMAC-SHA1':
+                    $this->sbs = $this->_oauthEscape($this->_action).'&'.$this->_oauthEscape($this->_path).'&'.$this->_oauthEscape($this->_normalizedParameters());
+                    //error_log('SBS: '.$sigString);
+                    return base64_encode(hash_hmac('sha1',$this->sbs,$secretKey,true));
 
-            default:
-                throw new OAuthSimpleException('Unknown signature method for OAuthSimple');
+                default:
+                    throw new OAuthSimpleException('Unknown signature method for OAuthSimple');
         }
     }
 }
