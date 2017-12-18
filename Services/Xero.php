@@ -1,11 +1,7 @@
 <?php
 
 
-//define ( 'BASE_PATH', dirname(__FILE__) );
-
-define ( "XRO_APP_TYPE", "Private" );
-
-define ( "OAUTH_CALLBACK", "oob" );
+//define ( "OAUTH_CALLBACK", "oob" );
 
 
 class Services_Xero {
