@@ -66,7 +66,8 @@ class XeroOAuth {
 		
       // Remove forced dependency on BASE_PATH constant.
       // Note that __DIR__ is PHP 5.3 and above only.
-      $base_path = defined ( 'BASE_PATH' ) ? BASE_PATH : dirname ( __DIR__ );
+      
+		$ca_cert_path = $config['ca_cert_path'];
 		
       $this->_xero_curl_options = array ( // you probably don't want to change any of these curl values
             'curl_connecttimeout' => 30,
@@ -75,7 +76,7 @@ class XeroOAuth {
             // to install the servers certificate in your local certificate store.
             'curl_ssl_verifypeer' => 2,
             // include ca-bundle.crt from http://curl.haxx.se/ca/cacert.pem
-            'curl_cainfo' => $base_path . '/certs/ca-bundle.crt',
+            'curl_cainfo' => $ca_cert_path . '/ca-bundle.crt',
             'curl_followlocation' => false, // whether to follow redirects or not
                                             // TRUE/1 is not a valid ssl verifyhost value with curl >= 7.28.1 and 2 is more secure as well.
                                             // More details here: http://php.net/manual/en/function.curl-setopt.php
