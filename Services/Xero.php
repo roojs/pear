@@ -191,7 +191,7 @@ class Services_Xero {
    {
    	
        $contact = $this->getContact($name);
-    	
+    	 print_r($contact);
        if(!count($contact->Contacts[0])) {
            return;
        }    
