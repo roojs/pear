@@ -615,23 +615,6 @@ class XeroOAuth {
    {
       $testOutput = array ();
 
-      /* ENTRUST CERTIFICATE DEPRECATED
-      if ($this->config ['application_type'] == 'Partner') {
-         if (! file_get_contents ( $this->config ['curl_ssl_cert'] )) {
-            $testOutput ['ssl_cert_error'] = "Can't read the Xero Entrust cert. You need one for partner API applications. http://developer.xero.com/documentation/getting-started/partner-applications/ \n";
-         } else {
-            $data = openssl_x509_parse ( file_get_contents ( $this->config ['curl_ssl_cert'] ) );
-            $validFrom = date ( 'Y-m-d H:i:s', $data ['validFrom_time_t'] );
-            if (time () < $data ['validFrom_time_t']) {
-               $testOutput ['ssl_cert_error'] = "Xero Entrust cert not yet valid - cert valid from " . $validFrom . "\n";
-            }
-            $validTo = date ( 'Y-m-d H:i:s', $data ['validTo_time_t'] );
-            if (time () > $data ['validTo_time_t']) {
-               $testOutput ['ssl_cert_error'] = "Xero Entrust cert expired - cert valid to " . $validFrom . "\n";
-            }
-         }
-      }
-      */
 		
       if ($this->config ['application_type'] == 'Partner' || $this->config ['application_type'] == 'Private') {
 			
