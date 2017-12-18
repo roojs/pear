@@ -1,7 +1,7 @@
 <?php
 
 
-define ( 'BASE_PATH', dirname(__FILE__) );
+//define ( 'BASE_PATH', dirname(__FILE__) );
 
 define ( "XRO_APP_TYPE", "Private" );
 
@@ -41,7 +41,7 @@ class Services_Xero {
            'file_version' => '1.0' 
        );   	 
    	 
-       if (XRO_APP_TYPE == "Private" || XRO_APP_TYPE == "Partner") {
+       if ($config['xero_app_type'] == "Private" || $config['xero_app_type'] == "Partner") {
            $this->signatures ['rsa_private_key'] = $this->SSL_KeyPath . '/privatekey.pem';
            $this->signatures ['rsa_public_key'] = $this->SSL_KeyPath . '/publickey.cer';
        }
