@@ -166,13 +166,13 @@ class Services_Xero {
        return $invoice;
    }
    
-   public function getContact($email)
+   public function getContact($name)
    {
        if($email == '') {
            return;
        }
        
-       $param = array('Where' => 'Name="'. $email. '"');
+       $param = array('Where' => 'Name="'. $name. '"');
        
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts' , 'core'), $param ,'','json');
        
