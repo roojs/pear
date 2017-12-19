@@ -329,8 +329,6 @@ class Services_Xero {
        $response = $this->XeroOAuth->request('GET', $this->url('Contacts' , 'core'), $param ,'','json');
        
        if ($this->XeroOAuth->response['code'] != 200) {
-           
-           //require 'PEAR/Exception.php';
             
            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
            
@@ -364,9 +362,8 @@ class Services_Xero {
    	
       if ($this->XeroOAuth->response['code'] != 200) {
            // Error
-        	  require 'PEAR/Exception.php';
-            
-           throw new PEAR_Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+        	   
+           throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
            
            return;
                  
