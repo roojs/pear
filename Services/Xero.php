@@ -137,7 +137,7 @@ class Services_Xero {
    {
    	 $r = array ();
    	 
-       if ($this->config ['application_type'] == 'Public') {
+       if ($this->config ['xero_app_type'] == 'Public') {
    	     return $r;
    	 }
    	 
