@@ -316,11 +316,6 @@ class Services_Xero {
        
        $this->__getNonce();
        
-       if (!empty($args['signatures']))
-           $this->signatures($args['signatures']);
-       if (empty($args['parameters']))
-           $args['parameters']=array();        // squelch the warning.
-       //$this->setParameters($args['parameters']);
        $normParams = $this->_normalizedParameters();
        $this->_parameters['oauth_signature'] = $this->_generateSignature($normParams);
        return Array(
