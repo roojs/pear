@@ -354,7 +354,7 @@ class Services_Xero {
            return;
       }
       
-      $response = $this->XeroOAuth->request('POST', $this->url('Invoices', 'core'), array(), $xml,'json');
+      $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml,'json');
    	
       if ($this->XeroOAuth->response['code'] != 200) {
            // Error
