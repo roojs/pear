@@ -316,6 +316,8 @@ class Services_Xero {
    
    public function getContact($name)
    {
+   	print_r($this->XeroOAuth->url('Contacts' , 'core'));
+   	print_r($this->url('Contacts' , 'core')); exit;
        if($name == '') {
            return;
        }
