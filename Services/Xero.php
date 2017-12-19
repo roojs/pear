@@ -90,7 +90,7 @@ class Services_Xero {
            return false;	        
        }       
        
-       print_r($this->config);exit;       
+       print_r($this->config);       
               
        require 'Xero/Auth/XeroOAuth.php';
        
@@ -119,7 +119,7 @@ class Services_Xero {
          'oauth_token_secret' => $this->XeroOAuth->config ['shared_secret'],
          'oauth_session_handle' => '' 
        ) );
-	    
+	    print_r($this->session);exit;
        $this->oauthSession = $this->retrieveSession ();
 	
        if (isset ( $this->oauthSession ['oauth_token'] )) {
