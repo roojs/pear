@@ -300,6 +300,7 @@ class Services_Xero {
        }
        
        $contact = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+       print_r($this->XeroOAuth->response['format']);
        return $contact;
    }
    
