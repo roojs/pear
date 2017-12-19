@@ -378,6 +378,7 @@ class XeroOAuth {
       $this->response ['response'] = $response;
       $this->response ['info'] = $info;
       $this->response ['format'] = $this->format;
+      echo "format: " . $this->format;
       return $code;
    }
 	
