@@ -267,7 +267,7 @@ class Services_Xero {
                'signatures' => $this->config 
          ) );
          
-         print_r($this->config);
+         //print_r($this->config);
          print_r($this->sign);
          print_r($this->init_param($param)); exit;
       } 
