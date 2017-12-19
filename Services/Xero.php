@@ -397,12 +397,18 @@ class Services_Xero {
    
    function _oauthEscape($string) 
    {
-        if ($string === 0)
-            return 0;
-        if (empty($string))
-            return '';
-        if (is_array($string))
-            throw new Exception('Array passed to _oauthEscape');
+        if ($string === 0) {
+            return 0;        
+        }
+
+        if (empty($string)) {
+            return '';        
+        }
+
+        if (is_array($string)) {
+            throw new Exception('Array passed to _oauthEscape');        
+        }
+
         $string = rawurlencode($string);
         $string = str_replace('+','%20',$string);
         $string = str_replace('!','%21',$string);
