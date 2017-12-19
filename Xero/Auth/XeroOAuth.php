@@ -397,7 +397,7 @@ class XeroOAuth {
     *        	the format of the response. Default json. Set to an empty string to exclude the format
     *        	
     */
-   function request($method, $url, $params = array(), $xml = "", $format ) 
+   function request($method, $url, $params = array(), $xml = "", $format = 'xml') 
    {
       // removed these as function parameters for now
       echo "format: ".$format;
