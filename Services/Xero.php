@@ -40,7 +40,7 @@ class Services_Xero {
        );
        
        // for public app type          	 
-   	 $signature_method = 'HMAC-SHA1';
+       $signature_method = 'HMAC-SHA1';
    	 
        if ($config['xero_app_type'] == "Private" || $config['xero_app_type'] == "Partner") {
        	
@@ -84,7 +84,7 @@ class Services_Xero {
        //$this->checkErrors = count ( $this->cert_check());
 
        if (count ( $this->cert_check()) > 0) {
-       	  require 'PEAR/Exception.php';
+           require 'PEAR/Exception.php';
             
            throw new PEAR_Exception('Xero Error: SSL Cert problem');
            return false;	        
@@ -125,11 +125,11 @@ class Services_Xero {
    
    function cert_check()
    {
-   	 $r = array ();
+       $r = array ();
    	 
        if ($this->config ['xero_app_type'] == 'Public') {
-   	     return $r;
-   	 }
+           return $r;
+       }
    	 
        if (! file_exists ( $this->signatures ['rsa_public_key'] )) {
            $r ['rsa_cert_error'] = "Can't read the self-signed SSL cert. Private and Partner API applications require a self-signed X509 cert http://developer.xero.com/documentation/advanced-docs/public-private-keypair/ \n";           
@@ -168,12 +168,12 @@ class Services_Xero {
 
        }   	 
        
-   	 return $r;
+       return $r;
    }   
    
    function url($request, $api = "core") 
    {
-   	switch ($request) {
+      switch ($request) {
           case "RequestToken" :
               $this->config ['host'] = $this->config ['site'] . '/oauth/';     
               break;
@@ -210,6 +210,92 @@ class Services_Xero {
             $this->config ['host'],
             $request 
       ) );
+   }   
+   
+   function request($method, $url, $params = array(), $xml = "", $format = 'xml') 
+   {
+      // removed these as function parameters for now
+      
+      $useauth = true;
+      $multipart = false;
+      $this->headers = array ();
+		
+      if (isset ( $format )) {
+         switch ($format) {
+            case "pdf" :
+               $this->headers ['Accept'] = 'application/pdf';
+               break;
+            case "json" :
+               $this->headers ['Accept'] = 'application/json';
+               break;
+            case "xml" :
+            default :
+               $this->headers ['Accept'] = 'application/xml';
+               break;
+         }
+      }
+		
+      if (isset ( $params ['If-Modified-Since'] )) {
+         $modDate = "If-Modified-Since: " . $params ['If-Modified-Since'];
+         $this->headers ['If-Modified-Since'] = $params ['If-Modified-Since'];
+      }
+		
+      if ($xml !== "") {
+         $xml = trim($xml);
+         $this->xml = $xml;
+      }
+		
+      if ($method == "POST")
+         $params ['xml'] = $xml;
+		
+      $this->prepare_method ( $method );
+      $this->config ['multipart'] = $multipart;
+      $this->url = $url;
+      $oauthObject = new OAuthSimple ();
+      try {
+         $this->sign = $oauthObject->sign ( array (
+               'path' => $url,
+               'action' => $method,
+               'parameters' => array_merge ( $params, array (
+                     'oauth_signature_method' => $this->config ['signature_method'] 
+               ) ),
+               'signatures' => $this->config 
+         ) );
+         
+         print_r($this->config);
+         print_r($this->sign); 
+      } 
+
+      catch ( Exception $e ) {
+         $errorMessage = 'XeroOAuth::request() ' . $e->getMessage ();
+         $this->response['response'] = $errorMessage;
+         $this->response['helper'] = $url;
+         return $this->response;
+      }
+      $this->format = $format;
+		
+      $curlRequest = $this->curlit ();
+		
+      if ($this->response ['code'] == 401 && isset ( $this->config ['session_handle'] )) {
+         if ((strpos ( $this->response ['response'], "oauth_problem=token_expired" ) !== false)) {
+            $this->response ['helper'] = "TokenExpired";
+         } else {
+            $this->response ['helper'] = "TokenFatal";
+         }
+      }
+      if ($this->response ['code'] == 403) {
+         $errorMessage = "It looks like your Xero Entrust cert issued by Xero is either invalid or has expired. See http://developer.xero.com/api-overview/http-response-codes/#403 for more";
+         // default IIS page isn't informative, a little swap
+         $this->response ['response'] = $errorMessage;
+         $this->response ['helper'] = "SetupIssue";
+      }
+      if ($this->response ['code'] == 0) {
+         $errorMessage = "It looks like your Xero Entrust cert issued by Xero is either invalid or has expired. See http://developer.xero.com/api-overview/http-response-codes/#403 for more";
+         $this->response ['response'] = $errorMessage;
+         $this->response ['helper'] = "SetupIssue";
+      }
+		
+      return $this->response;
    }   
    
    function refreshToken()
