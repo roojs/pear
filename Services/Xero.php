@@ -282,7 +282,7 @@ class Services_Xero {
    
    public function getInvoiceList()
    {
-       $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices', 'core'), array('order' => 'Total DESC'));
+       $response = $this->XeroOAuth->request('GET', $this->url('Invoices', 'core'), array('order' => 'Total DESC'));
        if ($this->XeroOAuth->response['code'] != 200) {
                        
            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
@@ -354,7 +354,7 @@ class Services_Xero {
            return;
       }
       
-      $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml,'json');
+      $response = $this->XeroOAuth->request('POST', $this->url('Invoices', 'core'), array(), $xml,'json');
    	
       if ($this->XeroOAuth->response['code'] != 200) {
            // Error
