@@ -385,7 +385,7 @@ class Services_Xero {
         if (empty($string))
             return '';
         if (is_array($string))
-            throw new OAuthSimpleException('Array passed to _oauthEscape');
+            throw new Exception('Array passed to _oauthEscape');
         $string = rawurlencode($string);
         $string = str_replace('+','%20',$string);
         $string = str_replace('!','%21',$string);
