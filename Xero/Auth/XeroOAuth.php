@@ -68,7 +68,7 @@ class XeroOAuth {
       // Remove forced dependency on BASE_PATH constant.
       // Note that __DIR__ is PHP 5.3 and above only.
       
-		$ca_cert_path = $config['ca_cert_path'];
+      $ca_cert_path = $config['ca_cert_path'];
 		
       $this->_xero_curl_options = array ( // you probably don't want to change any of these curl values
             'curl_connecttimeout' => 30,
@@ -355,7 +355,7 @@ class XeroOAuth {
 		
       if (isset ( $this->config ['prevent_request'] ) && false == $this->config ['prevent_request'])
          return;
-			
+		print_r($c);exit;	
          // do it!
       $response = curl_exec ( $c );
       if ($response === false) {
