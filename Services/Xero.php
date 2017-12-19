@@ -330,7 +330,7 @@ class Services_Xero {
        
        if ($this->XeroOAuth->response['code'] != 200) {
            
-           require_once 'PEAR/Exception.php';
+           //require 'PEAR/Exception.php';
             
            throw new PEAR_Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
            
