@@ -308,7 +308,7 @@ class Services_Xero {
    {
    	
        $contact = $this->getContact($name);
-    	 
+    	 print_r(json_decode($contact));
        if(!count($contact->Contacts[0])) {
            return;
        }    
