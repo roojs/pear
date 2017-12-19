@@ -278,6 +278,7 @@ class Services_Xero {
          $this->response['helper'] = $url;
          return $this->response;
       }
+      exit;
       $this->format = $format;
 		
       $curlRequest = $this->curlit ();
