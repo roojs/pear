@@ -179,6 +179,44 @@ class Services_Xero {
    	 return $r;
    }   
    
+   function url($request, $api = "core") 
+   {
+   	switch ($request) {
+          case "RequestToken" :
+              $this->config ['host'] = $this->config ['site'] . '/oauth/';     
+              break;
+          case "Authorize" :
+              $this->config ['host'] = $this->config ['authorize_url'];
+              $request = "";
+              break;
+          case "AccessToken" :
+              $this->config ['host'] = $this->config ['site'] . '/oauth/';
+              break; 
+          default :
+              if (isset ( $api )) {
+                  if ($api == "core") {
+                      $api_stem = "api.xro";
+                      $api_version = $this->config ['core_version'];
+                  }
+                  if ($api == "payroll") {
+                      $api_stem = "payroll.xro";
+                      $api_version = $this->config ['payroll_version'];
+                  }
+                  if ($api == "file") {
+                      $api_stem = "files.xro";
+                      $api_version = $this->config ['file_version'];
+                  }
+              }
+              $this->config ['host'] = $this->config ['xero_url'] . $api_stem . '/' . $api_version . '/';
+              break;
+      }
+      
+      return implode ( array (
+            $this->config ['host'],
+            $request 
+      ) );
+   }   
+   
    function refreshToken()
    {
        $response = $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['oauth_session_handle']);
