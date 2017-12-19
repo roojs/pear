@@ -355,7 +355,7 @@ class XeroOAuth {
 		
       if (isset ( $this->config ['prevent_request'] ) && false == $this->config ['prevent_request'])
          return;
-		print_r($c);exit;	
+			
          // do it!
       $response = curl_exec ( $c );
       if ($response === false) {
