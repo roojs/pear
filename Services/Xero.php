@@ -106,7 +106,7 @@ class Services_Xero {
        ), $this->signatures ) );
        
        $this->connectXero();
-       $this->init_param();
+       
    }
    
    function connectXero()
