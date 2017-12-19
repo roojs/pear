@@ -118,7 +118,7 @@ class OAuthSimple {
     * @param {string,object} List of parameters for the call, this can either be a URI string (e.g. "foo=bar&gorp=banana" or an object/hash)
     */
 
-    /*
+    
     function setParameters ($parameters=Array()) 
     {
 
@@ -142,7 +142,7 @@ class OAuthSimple {
             $this->_parameters['oauth_version']="1.0";
         return $this;
     }
-    */
+    
     
     // convienence method for setParameters
     //function setQueryString ($parameters) 
