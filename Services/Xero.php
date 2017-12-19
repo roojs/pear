@@ -41,6 +41,8 @@ class Services_Xero {
             'authorize_path' => 'oauth/Authorize' 
        );
        
+       $this->_nonce_chars="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+       
        // for public app type          	 
        $signature_method = 'HMAC-SHA1';
    	 
