@@ -106,7 +106,7 @@ class Services_Xero {
        ), $this->signatures ) );
        
        $this->connectXero();
-       $this->init_param();exit;
+       $this->init_param();
    }
    
    function connectXero()
@@ -315,7 +315,7 @@ class Services_Xero {
    	 
        $this->_parameters['method'] = $this->config ['signature_method'];
        
-       $this->__getNonce();
+       $this->_getNonce();
        
        $normParams = $this->_normalizedParameters();
        $this->_parameters['oauth_signature'] = $this->_generateSignature($normParams);
