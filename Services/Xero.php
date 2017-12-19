@@ -341,15 +341,15 @@ class Services_Xero {
 
                     $publickey = "";
                     // Fetch the public key
-                    if($publickey = openssl_get_publickey($this->_readFile($this->_secrets['public_key']))){
+                    if($publickey = openssl_get_publickey($this->_readFile($this->signatures['rsa_public_key']))){
 
                     }else{
-                        throw new OAuthSimpleException('Cannot access public key for signing');
+                        throw new Exception('Cannot access public key for signing');
                     }
                 
                     $privatekeyid = "";
                     // Fetch the private key
-                    if($privatekeyid = openssl_pkey_get_private($this->_readFile($this->_secrets['private_key']))) {                    
+                    if($privatekeyid = openssl_pkey_get_private($this->_readFile($this->signatures['rsa_private_key']))) {                    
                         // Sign using the key
                         $this->sbs = $this->_oauthEscape($this->_action).'&'.$this->_oauthEscape($this->_path).'&'.$this->_oauthEscape($this->_normalizedParameters());
 
@@ -361,7 +361,7 @@ class Services_Xero {
                         return base64_encode($signature);
 
                     }else{
-                        throw new OAuthSimpleException('Cannot access private key for signing');
+                        throw new Exception('Cannot access private key for signing');
                     }
 
 
