@@ -377,6 +377,19 @@ class Services_Xero {
                     throw new Exception('Unknown signature method for OAuthSimple');
         }
    }
+
+   function _getNonce($length=5) 
+   {
+        $result = '';
+        $cLength = strlen($this->_nonce_chars);
+        for ($i=0; $i < $length; $i++)
+        {
+            $rnum = rand(0,$cLength);
+            $result .= substr($this->_nonce_chars,$rnum,1);
+        }
+        $this->_parameters['oauth_nonce'] = $result;
+        return $result;
+   }   
    
    function _oauthEscape($string) 
    {
