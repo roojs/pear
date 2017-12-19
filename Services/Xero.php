@@ -269,7 +269,7 @@ class Services_Xero {
          
          print_r($this->config);
          print_r($this->sign);
-         print_r($this->init_param($param)); 
+         print_r($this->init_param($param)); exit;
       } 
 
       catch ( Exception $e ) {
