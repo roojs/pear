@@ -386,8 +386,7 @@ class Services_Xero {
    {
         $result = '';
         $cLength = strlen($this->_nonce_chars);
-        for ($i=0; $i < $length; $i++)
-        {
+        for ($i=0; $i < $length; $i++) {        
             $rnum = rand(0,$cLength);
             $result .= substr($this->_nonce_chars,$rnum,1);
         }
