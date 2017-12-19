@@ -298,12 +298,18 @@ class Services_Xero {
       return $this->response;
    }   
    
-   function get_sign($args=array()) 
+   function init_param($args=array()) 
    {
+       $this->_parameters['oauth_consumer_key']=$this->config['consumer_key'];
+
+       $this->_parameters['oauth_token'] = $this->config['consumer_key'];
+
+       $this->_parameters['oauth_timestamp'] = time();
+   	 
+   	 
        if (!empty($args['action']))
            $this->setAction($args['action']);
-       if (!empty($args['path']))
-           $this->setPath($args['path']);
+       
        if (!empty($args['method']))
            $this->setSignatureMethod($args['method']);
        if (!empty($args['signatures']))
