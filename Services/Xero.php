@@ -327,6 +327,31 @@ class Services_Xero {
            );
    }   
    
+   function _normalizedParameters($filter='false') 
+   {
+        $elements = array();
+        $ra = 0;
+        ksort($this->_parameters);
+        foreach ( $this->_parameters as $paramName=>$paramValue) {
+           if($paramName=='xml'){
+               if($filter=="true")
+                   continue;
+               }
+            if (preg_match('/\w+_secret/',$paramName))
+                continue;
+            if (is_array($paramValue))
+            {
+                sort($paramValue);
+                foreach($paramValue as $element)
+                    array_push($elements,$this->_oauthEscape($paramName).'='.$this->_oauthEscape($element));
+                continue;
+            }
+            array_push($elements,$this->_oauthEscape($paramName).'='.$this->_oauthEscape($paramValue));
+
+        }
+        return join('&',$elements);
+   }   
+   
    function _generateSignature () 
    {
         $secretKey = '';
