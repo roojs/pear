@@ -106,14 +106,6 @@ class Services_Xero {
    
    function connectXero()
    {
-       $this->initialCheck = $this->XeroOAuth->diagnostics ();
-       
-       $this->checkErrors = count ( $this->initialCheck );
-
-       if ($this->checkErrors > 0) {
-           return false;	        
-       }
-      
        $this->session = $this->persistSession ( array (
          'oauth_token' => $this->XeroOAuth->config ['consumer_key'],
          'oauth_token_secret' => $this->XeroOAuth->config ['shared_secret'],
