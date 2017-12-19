@@ -306,9 +306,9 @@ class Services_Xero {
 
        $this->_parameters['oauth_timestamp'] = time();
    	 
-   	 $this->_parameters['action'] = $args['action'];
+       $this->_parameters['action'] = $args['action'];
    	 
-   	 $this->_parameters['method'] = $this->config ['signature_method'];
+       $this->_parameters['method'] = $this->config ['signature_method'];
        
        
        if (!empty($args['signatures']))
@@ -327,8 +327,8 @@ class Services_Xero {
            );
    }   
    
-    function _generateSignature () 
-    {
+   function _generateSignature () 
+   {
         $secretKey = '';
         if(isset($this->config['shared_secret']))
             $secretKey = $this->_oauthEscape($this->config['shared_secret']);
@@ -377,7 +377,7 @@ class Services_Xero {
                 default:
                     throw new OAuthSimpleException('Unknown signature method for OAuthSimple');
         }
-    }   
+   }   
    
    function refreshToken()
    {
