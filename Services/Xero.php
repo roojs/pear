@@ -57,6 +57,29 @@ class Services_Xero {
            'authorize_url' => 'https://api.xero.com/oauth/Authorize',
           'signature_method' => $signature_method 
        );       
+      
+       $this->_xero_curl_options = array ( 
+            'curl_connecttimeout' => 30,
+            'curl_timeout' => 20,
+            // for security you may want to set this to TRUE. If you do you need
+            // to install the servers certificate in your local certificate store.
+            'curl_ssl_verifypeer' => 2,
+            // include ca-bundle.crt from http://curl.haxx.se/ca/cacert.pem
+            'curl_cainfo' => $config['ca_cert_path'] . '/ca-bundle.crt',
+            'curl_followlocation' => false, // whether to follow redirects or not
+                                            // TRUE/1 is not a valid ssl verifyhost value with curl >= 7.28.1 and 2 is more secure as well.
+                                            // More details here: http://php.net/manual/en/function.curl-setopt.php
+            'curl_ssl_verifyhost' => 2,
+            // support for proxy servers
+            'curl_proxy' => false, // really you don't want to use this if you are using streaming
+            'curl_proxyuserpwd' => false, // format username:password for proxy, if required
+            'curl_encoding' => '', // leave blank for all supported formats, else use gzip, deflate, identity
+            'curl_verbose' => true 
+       );
+		
+       $this->config = array_merge ( $this->_xero_defaults, $this->_xero_consumer_options, $this->_xero_curl_options, $config );       
+       
+       print_r($this->config);exit;       
               
        require 'Xero/Auth/XeroOAuth.php';
        
