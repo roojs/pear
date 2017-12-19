@@ -298,6 +298,30 @@ class Services_Xero {
       return $this->response;
    }   
    
+   function get_sign($args=array()) 
+   {
+       if (!empty($args['action']))
+           $this->setAction($args['action']);
+       if (!empty($args['path']))
+           $this->setPath($args['path']);
+       if (!empty($args['method']))
+           $this->setSignatureMethod($args['method']);
+       if (!empty($args['signatures']))
+           $this->signatures($args['signatures']);
+       if (empty($args['parameters']))
+           $args['parameters']=array();        // squelch the warning.
+       $this->setParameters($args['parameters']);
+       $normParams = $this->_normalizedParameters();
+       $this->_parameters['oauth_signature'] = $this->_generateSignature($normParams);
+       return Array(
+            'parameters' => $this->_parameters,
+            'signature' => $this->_oauthEscape($this->_parameters['oauth_signature']),
+            'signed_url' => $this->_path . '?' . $this->_normalizedParameters('true'),
+            'header' => $this->getHeaderString(),
+            'sbs'=> $this->sbs
+           );
+   }   
+   
    function refreshToken()
    {
        $response = $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['oauth_session_handle']);
