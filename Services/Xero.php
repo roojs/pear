@@ -376,8 +376,20 @@ class Services_Xero {
                 default:
                     throw new OAuthSimpleException('Unknown signature method for OAuthSimple');
         }
-   }   
-   
+   }
+      
+   function _readFile($filePath) 
+   {
+
+        $fp = fopen($filePath,"r");
+
+        $file_contents = fread($fp,8192);
+
+        fclose($fp);
+
+        return $file_contents;
+   }
+
    function refreshToken()
    {
        $response = $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['oauth_session_handle']);
