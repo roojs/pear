@@ -119,7 +119,9 @@ class Services_Xero {
          'oauth_token_secret' => $this->XeroOAuth->config ['shared_secret'],
          'oauth_session_handle' => '' 
        ) );
+       echo '1\r\n';
 	    print_r($this->session);
+	    
        $this->oauthSession = $this->retrieveSession ();
 	
        if (isset ( $this->oauthSession ['oauth_token'] )) {
@@ -128,6 +130,7 @@ class Services_Xero {
            $this->XeroOAuth->config ['access_token_secret'] = $this->oauthSession ['oauth_token_secret'];
 		
        }
+       echo '2\r\n';
 	    print_r($this->oauthSession);exit;
    }
    
