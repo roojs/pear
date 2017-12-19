@@ -457,7 +457,7 @@ class XeroOAuth {
          return $this->response;
       }
       $this->format = $format;
-		
+		echo "format: {$this->format}";
       $curlRequest = $this->curlit ();
 		
       if ($this->response ['code'] == 401 && isset ( $this->config ['session_handle'] )) {
