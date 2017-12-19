@@ -332,7 +332,7 @@ class Services_Xero {
            
            //require 'PEAR/Exception.php';
             
-           throw new PEAR_Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+           throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
            
            return;      
        }
