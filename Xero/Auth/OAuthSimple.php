@@ -446,7 +446,7 @@ class OAuthSimple {
             $secretKey .= '&';
         if(isset($this->_secrets['oauth_secret']))
             echo 'secret';
-            print_r($this->_secrets['oauth_secret']);
+            print_r($this->_secrets['oauth_secret']); exit;
             $secretKey .= $this->_oauthEscape($this->_secrets['oauth_secret']);
             switch($this->_parameters['oauth_signature_method'])
             {
