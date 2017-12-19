@@ -349,8 +349,7 @@ class Services_Xero {
                 
                     $privatekeyid = "";
                     // Fetch the private key
-                    if($privatekeyid = openssl_pkey_get_private($this->_readFile($this->_secrets['private_key'])))
-                    {
+                    if($privatekeyid = openssl_pkey_get_private($this->_readFile($this->_secrets['private_key']))) {                    
                         // Sign using the key
                         $this->sbs = $this->_oauthEscape($this->_action).'&'.$this->_oauthEscape($this->_path).'&'.$this->_oauthEscape($this->_normalizedParameters());
 
