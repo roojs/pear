@@ -306,12 +306,11 @@ class Services_Xero {
 
        $this->_parameters['oauth_timestamp'] = time();
    	 
+   	 $this->_parameters['action'] = $args['action'];
    	 
-       if (!empty($args['action']))
-           $this->setAction($args['action']);
+   	 $this->_parameters['method'] = $this->config ['signature_method'];
        
-       if (!empty($args['method']))
-           $this->setSignatureMethod($args['method']);
+       
        if (!empty($args['signatures']))
            $this->signatures($args['signatures']);
        if (empty($args['parameters']))
@@ -327,6 +326,58 @@ class Services_Xero {
             'sbs'=> $this->sbs
            );
    }   
+   
+    function _generateSignature () 
+    {
+        $secretKey = '';
+        if(isset($this->config['shared_secret']))
+            $secretKey = $this->_oauthEscape($this->config['shared_secret']);
+            $secretKey .= '&';
+        if(isset($this->_secrets['oauth_secret']))
+            $secretKey .= $this->_oauthEscape($this->_secrets['oauth_secret']);
+            switch($this->_parameters['oauth_signature_method'])
+            {
+                case 'RSA-SHA1':
+
+                    $publickey = "";
+                    // Fetch the public key
+                    if($publickey = openssl_get_publickey($this->_readFile($this->_secrets['public_key']))){
+
+                    }else{
+                        throw new OAuthSimpleException('Cannot access public key for signing');
+                    }
+                
+                    $privatekeyid = "";
+                    // Fetch the private key
+                    if($privatekeyid = openssl_pkey_get_private($this->_readFile($this->_secrets['private_key'])))
+                    {
+                        // Sign using the key
+                        $this->sbs = $this->_oauthEscape($this->_action).'&'.$this->_oauthEscape($this->_path).'&'.$this->_oauthEscape($this->_normalizedParameters());
+
+                        $ok = openssl_sign($this->sbs, $signature, $privatekeyid);
+
+                        // Release the key resource
+                        openssl_free_key($privatekeyid);
+
+                        return base64_encode($signature);
+
+                    }else{
+                        throw new OAuthSimpleException('Cannot access private key for signing');
+                    }
+
+
+                case 'PLAINTEXT':
+                    return urlencode($secretKey);
+
+                case 'HMAC-SHA1':
+                    $this->sbs = $this->_oauthEscape($this->_action).'&'.$this->_oauthEscape($this->_path).'&'.$this->_oauthEscape($this->_normalizedParameters());
+                    //error_log('SBS: '.$sigString);
+                    return base64_encode(hash_hmac('sha1',$this->sbs,$secretKey,true));
+
+                default:
+                    throw new OAuthSimpleException('Unknown signature method for OAuthSimple');
+        }
+    }   
    
    function refreshToken()
    {
