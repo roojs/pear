@@ -145,10 +145,10 @@ class OAuthSimple {
     
     
     // convienence method for setParameters
-    //function setQueryString ($parameters) 
-    //{
-    //    return $this->setParameters($parameters);
-    //}
+    function setQueryString ($parameters) 
+    {
+        return $this->setParameters($parameters);
+    }
 
     /** Set the target URL (does not include the parameters)
     *
