@@ -302,7 +302,7 @@ class Services_Xero {
    {
        $this->_parameters['oauth_consumer_key']=$this->config['consumer_key'];
 
-       $this->_parameters['oauth_token'] = $this->config['consumer_key'];
+       $this->_parameters['oauth_token'] = $this->oauthSession['oauth_token'];
 
        $this->_parameters['oauth_timestamp'] = time();
    	 
@@ -333,9 +333,9 @@ class Services_Xero {
         if(isset($this->config['shared_secret']))
             $secretKey = $this->_oauthEscape($this->config['shared_secret']);
             $secretKey .= '&';
-        if(isset($this->_secrets['oauth_secret']))
-            $secretKey .= $this->_oauthEscape($this->_secrets['oauth_secret']);
-            switch($this->_parameters['oauth_signature_method'])
+        if(isset($this->oauthSession['oauth_token_secret'])
+            $secretKey .= $this->_oauthEscape($this->oauthSession['oauth_token_secret']);
+            switch($this->config ['signature_method'])
             {
                 case 'RSA-SHA1':
 
