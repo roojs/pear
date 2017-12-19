@@ -339,8 +339,7 @@ class Services_Xero {
             $secretKey .= '&';
         if(isset($this->oauthSession['oauth_token_secret'])
             $secretKey .= $this->_oauthEscape($this->oauthSession['oauth_token_secret']);
-            switch($this->config ['signature_method'])
-            {
+            switch($this->config ['signature_method']) {            
                 case 'RSA-SHA1':
 
                     $publickey = "";
