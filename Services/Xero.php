@@ -319,6 +319,8 @@ class Services_Xero {
        
        $normParams = $this->_normalizedParameters();
        $this->_parameters['oauth_signature'] = $this->_generateSignature($normParams);
+       
+       print_r($this->_parameters);exit;
        return Array(
             'parameters' => $this->_parameters,
             'signature' => $this->_oauthEscape($this->_parameters['oauth_signature']),
