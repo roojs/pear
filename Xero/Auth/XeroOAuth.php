@@ -339,7 +339,7 @@ class XeroOAuth {
             $this->request_payload = implode ( '&', $ps );
          }
          curl_setopt ( $c, CURLOPT_POSTFIELDS, $this->request_payload);
-         print_r($this->request_payload); exit;
+         print_r($this->request_payload); 
       } else {
          // CURL will set length to -1 when there is no data
          $this->headers ['Content-Length'] = $contentLength;
