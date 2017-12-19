@@ -19,6 +19,8 @@ class Services_Xero {
    
    var $_xero_consumer_options;
    
+   var $_nonce_chars;
+   
    function __construct($config)
    {
    	
