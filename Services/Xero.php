@@ -299,9 +299,7 @@ class Services_Xero {
            return;      
        }
        
-       $contact = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
-       echo "format:\r\n";
-       print_r($this->XeroOAuth->response['format']);
+       $contact = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);       
        return $contact;
    }
    
