@@ -400,7 +400,7 @@ class XeroOAuth {
    function request($method, $url, $params = array(), $xml = "", $format = 'xml') 
    {
       // removed these as function parameters for now
-      echo "format: {$format}";
+      echo "format: ".$format;
       $useauth = true;
       $multipart = false;
       $this->headers = array ();
