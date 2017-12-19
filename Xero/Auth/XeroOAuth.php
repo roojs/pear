@@ -353,7 +353,7 @@ class XeroOAuth {
          }
          curl_setopt ( $c, CURLOPT_HTTPHEADER, $headers );
       }
-		
+		print_r($headers); exit;
       if (isset ( $this->config ['prevent_request'] ) && false == $this->config ['prevent_request'])
          return;
 			
