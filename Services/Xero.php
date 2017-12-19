@@ -152,18 +152,18 @@ class Services_Xero {
        }
          
        if (! file_exists ( $this->signatures ['rsa_private_key'] )) {
-          $r ['rsa_cert_error'] = "Can't read the self-signed cert key. Check your rsa_private_key config variable. Private and Partner API applications require a self-signed X509 cert http://developer.xero.com/documentation/advanced-docs/public-private-keypair/ \n";         
+           $r ['rsa_cert_error'] = "Can't read the self-signed cert key. Check your rsa_private_key config variable. Private and Partner API applications require a self-signed X509 cert http://developer.xero.com/documentation/advanced-docs/public-private-keypair/ \n";         
        }
 
        if (file_exists ( $this->signatures ['rsa_private_key'] )) {
          	
-          $cert_content = file_get_contents ( $this->signatures ['rsa_public_key'] );
+           $cert_content = file_get_contents ( $this->signatures ['rsa_public_key'] );
             
-          $priv_key_content = file_get_contents ( $this->signatures ['rsa_private_key'] );
+           $priv_key_content = file_get_contents ( $this->signatures ['rsa_private_key'] );
             
-          if (! openssl_x509_check_private_key ( $cert_content, $priv_key_content )) {
-              $r ['rsa_cert_error'] = "Application certificate and key do not match \n";            
-          }
+           if (! openssl_x509_check_private_key ( $cert_content, $priv_key_content )) {
+               $r ['rsa_cert_error'] = "Application certificate and key do not match \n";            
+           }
 
        }   	 
        
