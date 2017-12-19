@@ -444,7 +444,7 @@ class XeroOAuth {
                'signatures' => $this->config 
          ) );
          print_r($this->config);
-         print_r($this->sign); exit;
+         print_r($this->sign); 
       } 
 
       catch ( Exception $e ) {
