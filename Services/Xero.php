@@ -185,13 +185,16 @@ class Services_Xero {
           case "RequestToken" :
               $this->config ['host'] = $this->config ['site'] . '/oauth/';     
               break;
+              
           case "Authorize" :
               $this->config ['host'] = $this->config ['authorize_url'];
               $request = "";
               break;
+              
           case "AccessToken" :
               $this->config ['host'] = $this->config ['site'] . '/oauth/';
-              break; 
+              break;
+               
           default :
               if (isset ( $api )) {
                   if ($api == "core") {
@@ -323,7 +326,7 @@ class Services_Xero {
        
        $param = array('Where' => 'Name="'. $name. '"');
        
-       $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts' , 'core'), $param ,'','json');
+       $response = $this->XeroOAuth->request('GET', $this->url('Contacts' , 'core'), $param ,'','json');
        
        if ($this->XeroOAuth->response['code'] != 200) {
            
@@ -357,7 +360,7 @@ class Services_Xero {
            return;
       }
       
-      $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml,'json');
+      $response = $this->XeroOAuth->request('POST', $this->url('Invoices', 'core'), array(), $xml,'json');
    	
       if ($this->XeroOAuth->response['code'] != 200) {
            // Error
