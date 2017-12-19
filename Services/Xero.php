@@ -374,9 +374,27 @@ class Services_Xero {
                     return base64_encode(hash_hmac('sha1',$this->sbs,$secretKey,true));
 
                 default:
-                    throw new OAuthSimpleException('Unknown signature method for OAuthSimple');
+                    throw new Exception('Unknown signature method for OAuthSimple');
         }
    }
+   
+   function _oauthEscape($string) 
+   {
+        if ($string === 0)
+            return 0;
+        if (empty($string))
+            return '';
+        if (is_array($string))
+            throw new OAuthSimpleException('Array passed to _oauthEscape');
+        $string = rawurlencode($string);
+        $string = str_replace('+','%20',$string);
+        $string = str_replace('!','%21',$string);
+        $string = str_replace('*','%2A',$string);
+        $string = str_replace('\'','%27',$string);
+        $string = str_replace('(','%28',$string);
+        $string = str_replace(')','%29',$string);
+        return $string;
+   }   
       
    function _readFile($filePath) 
    {
