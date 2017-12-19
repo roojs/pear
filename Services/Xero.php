@@ -79,6 +79,17 @@ class Services_Xero {
 		
        $this->config = array_merge ( $this->_xero_defaults, $this->_xero_consumer_options, $this->_xero_curl_options, $config );       
        
+       //$initialCheck = $this->cert_check();
+       
+       //$this->checkErrors = count ( $this->cert_check());
+
+       if (count ( $this->cert_check()) > 0) {
+       	  require 'PEAR/Exception.php';
+            
+           throw new PEAR_Exception('Xero Error: SSL Cert problem');
+           return false;	        
+       }       
+       
        print_r($this->config);exit;       
               
        require 'Xero/Auth/XeroOAuth.php';
