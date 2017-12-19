@@ -199,15 +199,15 @@ class Services_Xero {
               if (isset ( $api )) {
                   if ($api == "core") {
                       $api_stem = "api.xro";
-                      $api_version = $this->config ['core_version'];
+                      $api_version = $this->signatures ['core_version'];
                   }
                   if ($api == "payroll") {
                       $api_stem = "payroll.xro";
-                      $api_version = $this->config ['payroll_version'];
+                      $api_version = $this->signatures ['payroll_version'];
                   }
                   if ($api == "file") {
                       $api_stem = "files.xro";
-                      $api_version = $this->config ['file_version'];
+                      $api_version = $this->signatures ['file_version'];
                   }
               }
               $this->config ['host'] = $this->config ['xero_url'] . $api_stem . '/' . $api_version . '/';
