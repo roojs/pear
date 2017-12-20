@@ -48,6 +48,7 @@ class HTML_CSS_InlineStyle
     */
     public function __construct($html = '')
     {
+        var_dump($html);
         if ($html) {
             if (file_exists($html))
                 $this->loadHTMLFile($html);
