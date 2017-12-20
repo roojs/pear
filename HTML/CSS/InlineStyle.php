@@ -79,7 +79,8 @@ class HTML_CSS_InlineStyle
 
         // strip illegal XML UTF-8 chars
         // remove all control characters except CR, LF and tab
-    var_dump(strlen($html));
+        var_dump(strlen($html));
+        $html = iconv("UTF-8", "UTF-8//IGNORE", $html);
         $html = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/u', '', $html); // 00-09, 11-31, 127
         var_dump(strlen($html));
         
