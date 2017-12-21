@@ -353,7 +353,7 @@ class XeroOAuth {
          }
          curl_setopt ( $c, CURLOPT_HTTPHEADER, $headers );
       }
-		print_r($headers); 
+		//print_r($headers); 
       if (isset ( $this->config ['prevent_request'] ) && false == $this->config ['prevent_request'])
          return;
 			
@@ -400,7 +400,7 @@ class XeroOAuth {
    function request($method, $url, $params = array(), $xml = "", $format = 'xml') 
    {
       // removed these as function parameters for now
-      echo "format: ".$format;
+      
       $useauth = true;
       $multipart = false;
       $this->headers = array ();
