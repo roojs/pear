@@ -48,7 +48,7 @@ class Services_Xero_Invoice {
         $this->lineItems[] = array('desc' => $desc,
                                    'qty' => $qty,
                                    'cost' => $cost,
-                                   'code' => $code
+                                   'acc_code' => $code
                                   );  
    }   
    
@@ -89,4 +89,8 @@ class Services_Xero_Invoice {
         return $inv_xml;
    } 
   
+   function toXMLString() {
+                
+        return $this->toXML()->asXML();
+   } 
 }
