@@ -2934,15 +2934,13 @@ class DB_DataObject extends DB_DataObject_Overload
         if (is_array($cp)) {
             $class = array();
             foreach($cp as $cpr) {
-                print_R($tbl);
                 $ce = substr(phpversion(),0,1) > 4 ? class_exists($cpr . $tbl,false) : class_exists($cpr . $tbl);
-                print_R($ce);
+                
                 if ($ce && empty($class)) {
                     $class = $cpr . $tbl;
                     break;
                 }
                 $class[] = $cpr . $tbl;
-                print_R($class);
                 $ce = false; // it's an array of options...
             }
         } else {
