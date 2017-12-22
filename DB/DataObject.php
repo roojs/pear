@@ -2886,7 +2886,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 $in_table = (strlen($database) ? "$database/" : '') . $table;
             }
         }
-        
+        print_R($cache);exit;
         if (isset($cache[$in_table])) {
             $rclass = $cache[$in_table];
             $ret = new $rclass();
