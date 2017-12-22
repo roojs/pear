@@ -43,12 +43,12 @@ class Services_Xero_Invoice {
        }
    }
    
-   function addLineItem($desc,$qty,$cost,$code)
+   function addLineItem($desc,$qty,$item_code,$acc_code)
    {
         $this->lineItems[] = array('desc' => $desc,
                                    'qty' => $qty,
-                                   'cost' => $cost,
-                                   'acc_code' => $code
+                                   'item_code' => $item_code,
+                                   'acc_code' => $acc_code
                                   );  
    }   
    
@@ -81,7 +81,7 @@ class Services_Xero_Invoice {
 
             $item->addChild('Quantity',$u['qty']);
 
-            $item->addChild('UnitAmount',$u['cost']);
+            $item->addChild('ItemCode',$u['item_code']);
 
             $item->addChild('AccountCode',$u['acc_code']);        	   
         }
