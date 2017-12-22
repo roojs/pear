@@ -1,5 +1,5 @@
 <?php
-// Allow OAuthSimple to be autoloaded instead of always including directly.
+// Allow Services_Xero_OAuthSign to be autoloaded instead of always including directly.
 // The class_exists() call fires the autoloader.
 if (! class_exists ( 'Services_Xero_OAuthSign' )) {
    require_once __DIR__ . DIRECTORY_SEPARATOR . 'Xero_OAuthSign.php';
@@ -436,7 +436,7 @@ class Services_Xero_OAuth {
       $this->prepare_method ( $method );
       $this->config ['multipart'] = $multipart;
       $this->url = $url;
-      $oauthObject = new OAuthSimple ();
+      $oauthObject = new Services_Xero_OAuthSign ();
       try {
          $this->sign = $oauthObject->sign ( array (
                'path' => $url,
