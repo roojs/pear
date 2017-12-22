@@ -3041,7 +3041,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 $file = $cl .'/'.preg_replace('/[^A-Z0-9]/i','_',ucfirst($table)).".php";
                 break;
         }
-        
+        print_R($file);exit;
         $cls = is_array($class) ? $class : array($class);
         
         if (is_array($file) || !file_exists($file)) {
