@@ -2934,7 +2934,6 @@ class DB_DataObject extends DB_DataObject_Overload
         if (is_array($cp)) {
             $class = array();
             foreach($cp as $cpr) {
-                printR_($tbl);exit;
                 $ce = substr(phpversion(),0,1) > 4 ? class_exists($cpr . $tbl,false) : class_exists($cpr . $tbl);
                 
                 if ($ce && empty($class)) {
