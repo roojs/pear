@@ -2948,10 +2948,6 @@ class DB_DataObject extends DB_DataObject_Overload
             $ce = substr(phpversion(),0,1) > 4 ? class_exists($class,false) : class_exists($class);
         }
         
-        if($ce){
-            print_r('run??');
-        }
-        print_R($ce);exit;
         //self::debug("CLASS TRY " . var_export($class,true) , __FUNCTION__,5);
         
         $rclass = $ce ? $class  : DB_DataObject::_autoloadClass($class, $table);
