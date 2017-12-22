@@ -2942,6 +2942,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     break;
                 }
                 $class[] = $cpr . $tbl;
+                print_R($class);
                 $ce = false; // it's an array of options...
             }
         } else {
