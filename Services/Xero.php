@@ -58,9 +58,10 @@ class Services_Xero {
           'signature_method' => $signature_method 
        );       
              
-       require 'Xero/Auth/XeroOAuth.php';
+       //require 'Xero/Auth/XeroOAuth.php';
+       require 'Services/Xero_OAuth.php';
        
-       $this->XeroOAuth = new XeroOAuth ( array_merge ( array (
+       $this->XeroOAuth = new Services_Xero_OAuth ( array_merge ( array (
             'application_type' => $config['xero_app_type'],
             'oauth_callback' => 'oob',
             'user_agent' => $this->useragent,
