@@ -1,16 +1,16 @@
 <?php
 // Allow OAuthSimple to be autoloaded instead of always including directly.
 // The class_exists() call fires the autoloader.
-if (! class_exists ( 'OAuthSimple' )) {
+if (! class_exists ( 'Services_Xero_OAuthSign' )) {
    require_once __DIR__ . DIRECTORY_SEPARATOR . 'Xero_OAuthSign.php';
 }
 
 /**
  * Define a custom Exception for easy trap and detection
  */
-class Services_Xero_OAuth extends Exception {
+class XeroOAuthException extends Exception {
 }
-class XeroOAuth {
+class Services_Xero_OAuth {
    var $_xero_defaults;
    var $_xero_consumer_options;
    var $_action;
