@@ -21,9 +21,26 @@ class Services_Xero_Invoice {
    {
        if (! empty ( $config ['date'] )) {
            $this->Date = $config ['date'];
-       } 
+       }
+        
+       if (! empty ( $config ['due_date'] )) {
+           $this->DueDate = $config ['due_date'];
+       }
        
+       if (! empty ( $config ['contact_id'] )) {
+           $this->ContactID = $config ['contact_id'];
+       }
        
+       if (! empty ( $config ['currency'] )) {
+           $this->CurrencyCode = $config ['currency'];
+       }
+       
+       if (! empty ( $config ['line_items'] )) {
+            foreach ($config ['line_items'] as $i)
+            {
+            	$this->addLineItem($i['desc'],$i['qty'],$i['cost'],$i['code']);
+            }
+       }
    }
    
    function addLineItem($desc,$qty,$cost,$code)
