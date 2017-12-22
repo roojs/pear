@@ -13,22 +13,26 @@ class Services_Xero_Invoice {
    
    var $InvoiceStatus = 'DRAFT';
    
+   var $LineAmountTypes = 'Exclusive';   
+   
    var $lineItems = array();   
    
    function __construct($config)
    {
-   	
+       if (! empty ( $config ['date'] )) {
+           $this->Date = $config ['date'];
+       } 
        
        
    }
    
    function addLineItem($desc,$qty,$cost,$code)
    {
-   	  $this->lineItems[] = array('desc' => $desc,
-   	                             'qty' => $qty,
-   	                             'cost' => $cost,
-   	                             'code' => $code
-   	                            );  
+        $this->lineItems[] = array('desc' => $desc,
+                                   'qty' => $qty,
+                                   'cost' => $cost,
+                                   'code' => $code
+                                  );  
    }   
    
    function toXML() {
@@ -48,7 +52,7 @@ class Services_Xero_Invoice {
 
         $inv->addChild('Date',$this->Date);
 
-        $inv->addChild('LineAmountTypes','Exclusive');
+        $inv->addChild('LineAmountTypes',$this->LineAmountTypes);
 
         $line_items = $inv->addChild('LineItems');
         
