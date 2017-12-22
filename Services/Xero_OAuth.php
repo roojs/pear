@@ -2,7 +2,7 @@
 // Allow OAuthSimple to be autoloaded instead of always including directly.
 // The class_exists() call fires the autoloader.
 if (! class_exists ( 'OAuthSimple' )) {
-   require_once __DIR__ . DIRECTORY_SEPARATOR . 'OAuthSimple.php';
+   require_once __DIR__ . DIRECTORY_SEPARATOR . 'Xero_OAuthSign.php';
 }
 
 /**
