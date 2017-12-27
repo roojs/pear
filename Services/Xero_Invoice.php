@@ -58,19 +58,19 @@ class Services_Xero_Invoice {
     	  
         $inv = $inv_xml->addChild('Invoice');
     	  
-        $inv->addChild('Type',$this->InvoiceType);
+        $inv->addChild('Type',$this->invoiceType);
 
-        $inv->addChild('CurrencyCode',$this->CurrencyCode);
+        $inv->addChild('CurrencyCode',$this->currencyCode);
 
-        $inv->addChild('Status',$this->InvoiceStatus);    	  
+        $inv->addChild('Status',$this->invoiceStatus);    	  
 
         $contact = $inv->addChild('Contact');
 
-        $contact->addChild('ContactID',$this->ContactID);
+        $contact->addChild('ContactID',$this->contactID);
 
-        $inv->addChild('Date',$this->Date);
+        $inv->addChild('Date',$this->date);
 
-        $inv->addChild('LineAmountTypes',$this->LineAmountTypes);
+        $inv->addChild('LineAmountTypes',$this->lineAmountTypes);
 
         $line_items = $inv->addChild('LineItems');
         
