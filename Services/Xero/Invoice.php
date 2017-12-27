@@ -22,23 +22,7 @@ class Services_Xero_Invoice {
    	 foreach ($config as $key => $val) {
    	     $this->$key = $val;           
        } 
-       /*
-       if (! empty ( $config ['date'] )) {
-           $this->date = $config ['date'];
-       }
-        
-       if (! empty ( $config ['due_date'] )) {
-           $this->dueDate = $config ['due_date'];
-       }
        
-       if (! empty ( $config ['contact_id'] )) {
-           $this->contactID = $config ['contact_id'];
-       }
-       
-       if (! empty ( $config ['currency'] )) {
-           $this->currencyCode = $config ['currency'];
-       }
-       */
        if (! empty ( $config ['line_items'] )) {
             foreach ($config ['line_items'] as $i)
             {
