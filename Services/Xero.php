@@ -59,7 +59,7 @@ class Services_Xero {
        );       
              
        //require 'Xero/Auth/XeroOAuth.php';
-       require 'Services/Xero_OAuth.php';
+       require 'Services/Xero/OAuth.php';
        
        $this->XeroOAuth = new Services_Xero_OAuth ( array_merge ( array (
             'application_type' => $config['xero_app_type'],
