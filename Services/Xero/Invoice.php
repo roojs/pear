@@ -42,7 +42,7 @@ class Services_Xero_Invoice {
        if (! empty ( $config ['line_items'] )) {
             foreach ($config ['line_items'] as $i)
             {
-               $this->addLineItem($i['desc'],$i['qty'],$i['cost'],$i['code']);
+               $this->addLineItem($i['Description'],$i['Quantity'],$i['ItemCode'],$i['AccountCode']);
             }
        }
    }
