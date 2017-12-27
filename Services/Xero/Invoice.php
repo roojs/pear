@@ -78,13 +78,13 @@ class Services_Xero_Invoice {
         {
             $item = $line_items->addChild('LineItem');
 
-            $item->addChild('Description',$u['desc']);
+            $item->addChild('Description',$u['Description']);
 
-            $item->addChild('Quantity',$u['qty']);
+            $item->addChild('Quantity',$u['Quantity']);
 
-            $item->addChild('ItemCode',$u['item_code']);
+            $item->addChild('ItemCode',$u['ItemCode']);
 
-            $item->addChild('AccountCode',$u['acc_code']);        	   
+            $item->addChild('AccountCode',$u['AccountCode']);        	   
         }
         
         return $inv_xml;
