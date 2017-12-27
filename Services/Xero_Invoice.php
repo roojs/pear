@@ -52,7 +52,8 @@ class Services_Xero_Invoice {
                                   );  
    }   
    
-   function toXML() {
+   function toXML() 
+   {
         $inv_xml = new SimpleXMLElement('<Invoices/>');
     	  
         $inv = $inv_xml->addChild('Invoice');
@@ -89,7 +90,8 @@ class Services_Xero_Invoice {
         return $inv_xml;
    } 
   
-   function toXMLString() {
+   function toXMLString() 
+   {
                 
         return $this->toXML()->asXML();
    } 
