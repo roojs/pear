@@ -81,13 +81,6 @@ class Services_Xero_Invoice {
                 $item->addChild($key,$val);
             } 
 
-            //$item->addChild('Description',$u['Description']);
-
-            //$item->addChild('Quantity',$u['Quantity']);
-
-            //$item->addChild('ItemCode',$u['ItemCode']);
-
-            //$item->addChild('AccountCode',$u['AccountCode']);        	   
         }
         
         return $inv_xml;
