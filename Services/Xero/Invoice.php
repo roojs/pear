@@ -74,17 +74,20 @@ class Services_Xero_Invoice {
 
         $line_items = $inv->addChild('LineItems');
         
-        foreach ($this->lineItems as $u)
-        {
+        foreach ($this->lineItems as $u) {        
             $item = $line_items->addChild('LineItem');
 
-            $item->addChild('Description',$u['Description']);
+            foreach ($u as $key => $val) {
+                $item->addChild($key,$val);
+            } 
 
-            $item->addChild('Quantity',$u['Quantity']);
+            //$item->addChild('Description',$u['Description']);
 
-            $item->addChild('ItemCode',$u['ItemCode']);
+            //$item->addChild('Quantity',$u['Quantity']);
 
-            $item->addChild('AccountCode',$u['AccountCode']);        	   
+            //$item->addChild('ItemCode',$u['ItemCode']);
+
+            //$item->addChild('AccountCode',$u['AccountCode']);        	   
         }
         
         return $inv_xml;
