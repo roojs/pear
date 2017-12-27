@@ -1,38 +1,38 @@
 <?php
 
 class Services_Xero_Invoice {
-   var $Date;
+   var $date;
 	
-   var $DueDate;	
+   var $dueDate;	
 
-   var $ContactID;
+   var $contactID;
    
-   var $CurrencyCode;
+   var $currencyCode;
    
-   var $InvoiceType = 'ACCREC';   
+   var $invoiceType = 'ACCREC';   
    
-   var $InvoiceStatus = 'DRAFT';
+   var $invoiceStatus = 'DRAFT';
    
-   var $LineAmountTypes = 'Exclusive';   
+   var $lineAmountTypes = 'Exclusive';   
    
    var $lineItems = array();   
    
    function __construct($config)
    {
        if (! empty ( $config ['date'] )) {
-           $this->Date = $config ['date'];
+           $this->date = $config ['date'];
        }
         
        if (! empty ( $config ['due_date'] )) {
-           $this->DueDate = $config ['due_date'];
+           $this->dueDate = $config ['due_date'];
        }
        
        if (! empty ( $config ['contact_id'] )) {
-           $this->ContactID = $config ['contact_id'];
+           $this->contactID = $config ['contact_id'];
        }
        
        if (! empty ( $config ['currency'] )) {
-           $this->CurrencyCode = $config ['currency'];
+           $this->currencyCode = $config ['currency'];
        }
        
        if (! empty ( $config ['line_items'] )) {
@@ -45,10 +45,10 @@ class Services_Xero_Invoice {
    
    function addLineItem($desc,$qty,$item_code,$acc_code)
    {
-        $this->lineItems[] = array('desc' => $desc,
-                                   'qty' => $qty,
-                                   'item_code' => $item_code,
-                                   'acc_code' => $acc_code
+        $this->lineItems[] = array('Description' => $desc,
+                                   'Quantity' => $qty,
+                                   'ItemCode' => $item_code,
+                                   'AccountCode' => $acc_code
                                   );  
    }   
    
