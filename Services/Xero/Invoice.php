@@ -18,7 +18,11 @@ class Services_Xero_Invoice {
    var $lineItems = array();   
    
    function __construct($config)
-   {
+   {   	
+   	 foreach ($config as $key => $val) {
+   	     $this->$key = $val;           
+       } 
+       /*
        if (! empty ( $config ['date'] )) {
            $this->date = $config ['date'];
        }
@@ -34,7 +38,7 @@ class Services_Xero_Invoice {
        if (! empty ( $config ['currency'] )) {
            $this->currencyCode = $config ['currency'];
        }
-       
+       */
        if (! empty ( $config ['line_items'] )) {
             foreach ($config ['line_items'] as $i)
             {
