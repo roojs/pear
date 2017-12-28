@@ -65,12 +65,12 @@ class Services_Xero_Invoice {
         $contact->appendChild($contact_id);   	  
    	  
         $element->appendChild($inv);
-        $element->appendChild($inv_type);
-        $element->appendChild($inv_curr);
-        $element->appendChild($inv_status);
-        $element->appendChild($contact);
-        $element->appendChild($inv_date);   	  
-        $element->appendChild($line_item_types);
+        $inv->appendChild($inv_type);
+        $inv->appendChild($inv_curr);
+        $inv->appendChild($inv_status);
+        $inv->appendChild($contact);
+        $inv->appendChild($inv_date);   	  
+        $inv->appendChild($line_item_types);
    	          
         print_r($doc->saveXML()); exit;   	  
    	  
