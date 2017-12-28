@@ -48,8 +48,11 @@ class Services_Xero_Invoice {
    	  
    	  $inv = $doc->createElement('Invoice');
    	  $inv_type = $doc->createElement('Type',$this->invoiceType);
+   	  $inv_curr = $doc->createElement('CurrencyCode',$this->currencyCode);
+   	  
    	  $element->appendChild($inv);
    	  $element->appendChild($inv_type);
+   	  $element->appendChild($inv_curr);
    	  
    	  print_r($doc->saveXML()); exit;   	  
    	  
