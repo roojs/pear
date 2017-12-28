@@ -43,6 +43,7 @@ class Services_Xero_Invoice {
    function toXML() 
    {
         $doc = new DOMDocument('1.0', 'utf-8');   	  
+        
         $element = $doc->createElement('Invoices');
         $doc->appendChild($element);  
    	  
@@ -91,7 +92,9 @@ class Services_Xero_Invoice {
             } 
             $line_items->appendChild($item);
         }   	  
-   	          
+   	  
+   	  return $doc;   
+   	  /*      
         print_r($doc->saveXML()); exit;   	  
    	  
         $inv_xml = new SimpleXMLElement('<Invoices/>');
@@ -124,11 +127,12 @@ class Services_Xero_Invoice {
         }
         
         return $inv_xml;
+        */
    } 
   
    function toXMLString() 
    {
                 
-        return $this->toXML()->asXML();
+        return $this->toXML()->saveXML();
    } 
 }
