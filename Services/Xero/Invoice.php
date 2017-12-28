@@ -42,9 +42,8 @@ class Services_Xero_Invoice {
    
    function toXML() 
    {
-   	  $doc = DOMDocument::loadXML('<Invoices></Invoices>');
-        //$node = $doc->getElementsByTagName('Invoices')->item(0);
-        $element = $doc->createElement('Invoice');
+   	  $doc = new DOMDocument('1.0', 'utf-8');   	  
+        $element = $doc->createElement('Invoices');
         $doc->appendChild($element);  
    	  
    	  print_r($doc->saveXML()); exit;   	  
