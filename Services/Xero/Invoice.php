@@ -58,19 +58,39 @@ class Services_Xero_Invoice {
    	  
         $line_item_types = $doc->createElement('LineAmountTypes',$this->lineAmountTypes);   	  
    	  
-        $contact = $doc->createElement('Contact');
-           	  
+   	  $line_items = $doc->createElement('LineItems');
+   	  
+   	  $contact = $doc->createElement('Contact');
+   	     	  
         $contact_id = $doc->createElement('ContactID',$this->contactID);   	  
    	    	     	  
         $contact->appendChild($contact_id);   	  
    	  
         $element->appendChild($inv);
+        
         $inv->appendChild($inv_type);
+        
         $inv->appendChild($inv_curr);
+        
         $inv->appendChild($inv_status);
+        
         $inv->appendChild($contact);
-        $inv->appendChild($inv_date);   	  
+        
+        $inv->appendChild($inv_date);
+           	  
         $inv->appendChild($line_item_types);
+        
+        $inv->appendChild($line_items);
+   	          
+        foreach ($this->lineItems as $u) {        
+            $item = $doc->createElement('LineItem');
+
+            foreach ($u as $key => $val) {
+            	 $el = $doc->createElement($key,$val);
+            	 $item->appendChild($el);                
+            } 
+            $line_items->appendChild($item);
+        }   	  
    	          
         print_r($doc->saveXML()); exit;   	  
    	  
