@@ -60,12 +60,14 @@ class Services_Xero_Invoice {
    	    	     	  
         $contact->appendChild($contact_id);   	  
    	    	  
+   	  $inv_date = $doc->createElement('Date',$this->date);
    	  
         $element->appendChild($inv);
         $element->appendChild($inv_type);
         $element->appendChild($inv_curr);
         $element->appendChild($inv_status);
-        $element->appendChild($contact);   	  
+        $element->appendChild($contact);
+        $element->appendChild($inv_date);   	  
    	  
         print_r($doc->saveXML()); exit;   	  
    	  
