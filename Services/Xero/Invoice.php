@@ -46,6 +46,8 @@ class Services_Xero_Invoice {
         $element = $doc->createElement('Invoices');
         $doc->appendChild($element);  
    	  
+   	  $inv = $doc->createElement('Invoice');
+   	  $element->appendChild($inv);
    	  print_r($doc->saveXML()); exit;   	  
    	  
         $inv_xml = new SimpleXMLElement('<Invoices/>');
