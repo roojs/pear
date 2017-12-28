@@ -230,13 +230,13 @@ class Services_Xero {
        return  $contact->Contacts[0]->ContactID;
    }
    
-   public function createInvoice($xml)
+   public function createInvoice($inv)
    {
-      if($xml == '') {
+      if($inv == '') {
            return;
       }
       
-      $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml,'json');
+      $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $inv->toXMLString(),'json');
    	
       if ($this->XeroOAuth->response['code'] != 200) {
            // Error
