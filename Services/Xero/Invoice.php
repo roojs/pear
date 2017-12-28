@@ -66,7 +66,7 @@ class Services_Xero_Invoice {
         $element->appendChild($inv_curr);
         $element->appendChild($inv_status);
         $element->appendChild($contact);   	  
-   	  var_dump($doc);
+   	  
         print_r($doc->saveXML()); exit;   	  
    	  
         $inv_xml = new SimpleXMLElement('<Invoices/>');
