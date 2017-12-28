@@ -19,8 +19,8 @@ class Services_Xero_Invoice {
    
    function __construct($config)
    {   	
-   	 foreach ($config as $key => $val) {
-   	     $this->$key = $val;           
+       foreach ($config as $key => $val) {
+           $this->$key = $val;           
        } 
        
        if (! empty ( $config ['line_items'] )) {
@@ -42,23 +42,32 @@ class Services_Xero_Invoice {
    
    function toXML() 
    {
-   	  $doc = new DOMDocument('1.0', 'utf-8');   	  
+        $doc = new DOMDocument('1.0', 'utf-8');   	  
         $element = $doc->createElement('Invoices');
         $doc->appendChild($element);  
    	  
-   	  $inv = $doc->createElement('Invoice');
+        $inv = $doc->createElement('Invoice');
    	  
-   	  $inv_type = $doc->createElement('Type',$this->invoiceType);
+        $inv_type = $doc->createElement('Type',$this->invoiceType);
    	  
-   	  $inv_curr = $doc->createElement('CurrencyCode',$this->currencyCode);
+        $inv_curr = $doc->createElement('CurrencyCode',$this->currencyCode);
    	  
-   	  $inv_status = $doc->createElement('Status',$this->invoiceStatus);   	  
+        $inv_status = $doc->createElement('Status',$this->invoiceStatus);   	  
+
+        $contact = $doc->createElement('Contact');
+           	  
+        $contact_id = $doc->createElement('ContactID',$this->contactID);   	  
+   	    	     	  
+        $contact->appendChild($contact_id);   	  
+   	    	  
    	  
-   	  $element->appendChild($inv);
-   	  $element->appendChild($inv_type);
-   	  $element->appendChild($inv_curr);
+        $element->appendChild($inv);
+        $element->appendChild($inv_type);
+        $element->appendChild($inv_curr);
+        $element->appendChild($inv_status);
+        $element->appendChild($contact);   	  
    	  
-   	  print_r($doc->saveXML()); exit;   	  
+        print_r($doc->saveXML()); exit;   	  
    	  
         $inv_xml = new SimpleXMLElement('<Invoices/>');
     	  
