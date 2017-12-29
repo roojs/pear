@@ -181,7 +181,7 @@ class Services_Xero {
        if(empty($param)) {
            return;
        }
-       //$param = array('Where' => $filter, 'ContactIDs'=> $contactID);
+       
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices' , 'core'), $param ,'','xml');
        
        if ($this->XeroOAuth->response['code'] != 200) {
