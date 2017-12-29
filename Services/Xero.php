@@ -182,7 +182,7 @@ class Services_Xero {
            return;
        }
        
-       $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices' , 'core'), $param ,'','xml');
+       $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices' , 'core'), $param ,'','json');
        
        if ($this->XeroOAuth->response['code'] != 200) {
        	 
