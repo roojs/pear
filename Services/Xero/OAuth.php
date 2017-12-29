@@ -446,7 +446,7 @@ class Services_Xero_OAuth {
                ) ),
                'signatures' => $this->config 
          ) );
-          
+         print_r($this->sign); 
       } 
 
       catch ( Exception $e ) {
