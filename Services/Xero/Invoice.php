@@ -42,6 +42,16 @@ class Services_Xero_Invoice {
                                   );  
    }   
    
+   function addLineItemWithID($desc,$qty,$item_code,$acc_code,$item_id)
+   {
+        $this->lineItems[] = array('Description' => $desc,
+                                   'Quantity' => $qty,
+                                   'ItemCode' => $item_code,
+                                   'AccountCode' => $acc_code,
+                                   'LineItemID' => $item_id
+                                  );  
+   }      
+   
    function toXML() 
    {
         $doc = new DOMDocument('1.0', 'utf-8');   	  
