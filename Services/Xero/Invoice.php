@@ -60,9 +60,12 @@ class Services_Xero_Invoice {
    	  
         $inv_curr = $doc->createElement('CurrencyCode',$this->currencyCode);
    	  
-        $inv_status = $doc->createElement('Status',$this->invoiceStatus);   	  
-          	  
-        $inv_date = $doc->createElement('Date',$this->date);
+        $inv_status = $doc->createElement('Status',$this->invoiceStatus);
+           	  
+        if(!empty($this->date))
+        {          	  
+            $inv_date = $doc->createElement('Date',$this->date);
+        }
    	  
         $line_item_types = $doc->createElement('LineAmountTypes',$this->lineAmountTypes);   	  
    	  
@@ -89,7 +92,10 @@ class Services_Xero_Invoice {
         
         $inv->appendChild($contact);
         
-        $inv->appendChild($inv_date);
+        if(!empty($this->date))
+        {
+            $inv->appendChild($inv_date);
+        }
            	  
         $inv->appendChild($line_item_types);
         
