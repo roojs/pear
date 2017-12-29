@@ -6,6 +6,8 @@ class Services_Xero_Invoice {
    var $dueDate;	
 
    var $contactID;
+
+   var $invoiceID ;   
    
    var $currencyCode;
    
@@ -45,24 +47,28 @@ class Services_Xero_Invoice {
         $doc = new DOMDocument('1.0', 'utf-8');   	  
         
         $element = $doc->createElement('Invoices');
-        
         $doc->appendChild($element);  
    	  
         $inv = $doc->createElement('Invoice');
    	  
         $inv_type = $doc->createElement('Type',$this->invoiceType);
+
+        if(!empty($this->invoiceID))
+        {
+           $inv_id = $doc->createElement('InvoiceID',$this->invoiceID);
+        }
    	  
         $inv_curr = $doc->createElement('CurrencyCode',$this->currencyCode);
    	  
         $inv_status = $doc->createElement('Status',$this->invoiceStatus);   	  
           	  
-   	  $inv_date = $doc->createElement('Date',$this->date);
+        $inv_date = $doc->createElement('Date',$this->date);
    	  
         $line_item_types = $doc->createElement('LineAmountTypes',$this->lineAmountTypes);   	  
    	  
-   	  $line_items = $doc->createElement('LineItems');
+        $line_items = $doc->createElement('LineItems');
    	  
-   	  $contact = $doc->createElement('Contact');
+        $contact = $doc->createElement('Contact');
    	     	  
         $contact_id = $doc->createElement('ContactID',$this->contactID);   	  
    	    	     	  
@@ -72,6 +78,11 @@ class Services_Xero_Invoice {
         
         $inv->appendChild($inv_type);
         
+        if(!empty($this->invoiceID))
+        {
+        	  $inv->appendChild($inv_id);           
+        }
+                
         $inv->appendChild($inv_curr);
         
         $inv->appendChild($inv_status);
@@ -88,47 +99,14 @@ class Services_Xero_Invoice {
             $item = $doc->createElement('LineItem');
 
             foreach ($u as $key => $val) {
-            	 $el = $doc->createElement($key,$val);
-            	 $item->appendChild($el);                
+                $el = $doc->createElement($key,$val);
+                $item->appendChild($el);                
             } 
             $line_items->appendChild($item);
         }   	  
    	  
-   	  return $doc;   
-   	  /*      
-        print_r($doc->saveXML()); exit;   	  
+        return $doc;   
    	  
-        $inv_xml = new SimpleXMLElement('<Invoices/>');
-    	  
-        $inv = $inv_xml->addChild('Invoice');
-    	  
-        $inv->addChild('Type',$this->invoiceType);
-
-        $inv->addChild('CurrencyCode',$this->currencyCode);
-
-        $inv->addChild('Status',$this->invoiceStatus);    	  
-
-        $contact = $inv->addChild('Contact');
-
-        $contact->addChild('ContactID',$this->contactID);
-
-        $inv->addChild('Date',$this->date);
-
-        $inv->addChild('LineAmountTypes',$this->lineAmountTypes);
-
-        $line_items = $inv->addChild('LineItems');
-        
-        foreach ($this->lineItems as $u) {        
-            $item = $line_items->addChild('LineItem');
-
-            foreach ($u as $key => $val) {
-                $item->addChild($key,$val);
-            } 
-
-        }
-        
-        return $inv_xml;
-        */
    } 
   
    function toXMLString() 
