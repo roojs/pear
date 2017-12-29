@@ -542,6 +542,11 @@ class Services_Xero_OAuth {
          $this->config ['host'] = $this->config ['xero_url'] . $api_stem . '/' . $api_version . '/';
       }
 		
+		print_r implode ( array (
+            $this->config ['host'],
+            $request 
+      ) );
+      
       return implode ( array (
             $this->config ['host'],
             $request 
