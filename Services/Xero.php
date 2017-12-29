@@ -176,6 +176,26 @@ class Services_Xero {
        return $invoiceList;           
    }
    
+   public function getInvoiceByFilter($filter)
+   {
+       if($invoiceID == '') {
+           return;
+       }
+       $param = array();
+       $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices', 'core'), $param ,'','json');
+       
+       if ($this->XeroOAuth->response['code'] != 200) {
+       	 
+           throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+                 
+           return;      
+          //outputError($XeroOAuth);
+       }
+       
+       $invoice = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+       return $invoice;
+   }   
+   
    public function getInvoice($invoiceID)
    {
        if($invoiceID == '') {
