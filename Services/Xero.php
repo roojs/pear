@@ -178,10 +178,10 @@ class Services_Xero {
    
    public function getInvoiceByFilter($filter)
    {
-       if($invoiceID == '') {
+       if($filter == '') {
            return;
        }
-       $param = array();
+       $param = array('Where' => $filter);
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices', 'core'), $param ,'','json');
        
        if ($this->XeroOAuth->response['code'] != 200) {
