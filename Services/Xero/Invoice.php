@@ -105,9 +105,9 @@ class Services_Xero_Invoice {
         foreach ($this->lineItems as $u) {        
             $item = $doc->createElement('LineItem');
 
-            foreach ($u as $key => $val) {
-                $el = $doc->createElement($key,$val);
+            foreach ($u as $key => $val) {                
                 if($val) {
+                	  $el = $doc->createElement($key,$val);
                     $item->appendChild($el);                
                 }                
             } 
