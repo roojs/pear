@@ -13,7 +13,7 @@ class Services_Xero_Invoice {
    
    var $invoiceType = 'ACCREC';   
    
-   var $invoiceStatus = 'DRAFT';
+   var $status = 'DRAFT';
    
    var $lineAmountTypes = 'Exclusive';   
    
@@ -61,7 +61,7 @@ class Services_Xero_Invoice {
    	  
         $inv_curr = $doc->createElement('CurrencyCode',$this->currencyCode);
    	  
-        $inv_status = $doc->createElement('Status',$this->invoiceStatus);
+        $inv_status = $doc->createElement('Status',$this->status);
            	  
         if(!empty($this->date))
         {          	  
