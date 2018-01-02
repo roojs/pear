@@ -33,24 +33,15 @@ class Services_Xero_Invoice {
        }
    }
    
-   function addLineItem($desc,$qty,$item_code,$acc_code)
+   function addLineItem($description,$quantity,$itemCode,$accountCode, $lineItemID=null )
    {
-        $this->lineItems[] = array('Description' => $desc,
-                                   'Quantity' => $qty,
-                                   'ItemCode' => $item_code,
-                                   'AccountCode' => $acc_code
-                                  );  
-   }   
-   
-   function addLineItemWithID($desc,$qty,$item_code,$acc_code,$item_id)
-   {
-        $this->lineItems[] = array('Description' => $desc,
-                                   'Quantity' => $qty,
-                                   'ItemCode' => $item_code,
-                                   'AccountCode' => $acc_code,
+        $this->lineItems[] = array('Description' => $description,
+                                   'Quantity' => $quantity,
+                                   'ItemCode' => $itemCode,
+                                   'AccountCode' => $accountCode,
                                    'LineItemID' => $item_id
                                   );  
-   }      
+   }   
    
    function toXML() 
    {
