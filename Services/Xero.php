@@ -194,7 +194,7 @@ class Services_Xero {
        
        $result = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
        
-       if(   !$result->Invoices 
+       if(    !$result->Invoices 
            || !count($result->Invoices[0]) 
            || !$result->Invoices[0]->InvoiceNumber
           ) {          	
@@ -222,7 +222,7 @@ class Services_Xero {
        
        $result = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
        
-       if(   !$result->Invoices 
+       if(    !$result->Invoices 
            || !count($result->Invoices[0]) 
            || !$result->Invoices[0]->InvoiceNumber
           ) {          	
@@ -283,9 +283,16 @@ class Services_Xero {
                  
       }
             
-      $invoice = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+      $result = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
       
-      return $invoice;           
+      if(     !$result->Invoices 
+           || !count($result->Invoices[0]) 
+           || !$result->Invoices[0]->InvoiceNumber
+          ) {          	
+          return;                        
+      }
+        
+      return $result->Invoices[0];           
      
    }
 }
