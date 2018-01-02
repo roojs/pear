@@ -33,13 +33,13 @@ class Services_Xero_Invoice {
        }
    }
    
-   function addLineItem($description,$quantity,$itemCode,$accountCode, $lineItemID=null )
+   function addLineItem($description,$quantity,$itemCode,$accountCode, $lineItemID)
    {
         $this->lineItems[] = array('Description' => $description,
                                    'Quantity' => $quantity,
                                    'ItemCode' => $itemCode,
                                    'AccountCode' => $accountCode,
-                                   'LineItemID' => $item_id
+                                   'LineItemID' => $lineItemID
                                   );  
    }   
    
