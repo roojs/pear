@@ -192,8 +192,16 @@ class Services_Xero {
           //outputError($XeroOAuth);
        }
        
-       $invoice = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
-       return $invoice;
+       $result = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+       
+       if(   !$result->Invoices 
+           || !count($result->Invoices[0]) 
+           || !$result->Invoices[0]->InvoiceNumber
+          ) {          	
+          return;                        
+       }
+        
+       return $result->Invoices[0];
    }   
    
    public function getInvoice($invoiceID)
