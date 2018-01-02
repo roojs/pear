@@ -25,12 +25,6 @@ class Services_Xero_Invoice {
            $this->$key = $val;           
        } 
        
-       if (! empty ( $config ['line_items'] )) {
-            foreach ($config ['line_items'] as $i)
-            {
-               $this->addLineItem($i['Description'],$i['Quantity'],$i['ItemCode'],$i['AccountCode']);
-            }
-       }
    }
    
    function addLineItem($description,$quantity,$itemCode,$accountCode, $lineItemID)
