@@ -29,12 +29,13 @@ class Services_Xero_Invoice {
    
    function addLineItem($description,$quantity,$itemCode,$accountCode, $lineItemID)
    {
-        $this->lineItems[] = array('Description' => $description,
-                                   'Quantity' => $quantity,
-                                   'ItemCode' => $itemCode,
-                                   'AccountCode' => $accountCode,
-                                   'LineItemID' => $lineItemID
-                                  );  
+        $this->lineItems[] = array(
+            'Description' => $description,
+            'Quantity' => $quantity,
+            'ItemCode' => $itemCode,
+            'AccountCode' => $accountCode,
+             'LineItemID' => $lineItemID
+        );  
    }   
    
    function toXML() 
