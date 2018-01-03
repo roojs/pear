@@ -193,7 +193,7 @@ class Services_Xero {
        }
        
        $result = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
-       
+       print_r($result);
        if(    !$result->Invoices 
            || !count($result->Invoices[0]) 
            || !$result->Invoices[0]->InvoiceNumber
