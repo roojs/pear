@@ -1,10 +1,22 @@
 <?php
 
+/**
+ *  Put standard header here...
+ *
+ */
+
 class Services_Xero
 {
-   var $useragent;
+   var $useragent = "XeroOAuth-PHP Private App Test";
 	
-   var $signatures;	
+   var $signatures = array (
+           'consumer_key' => '', //$config['consumer_key'],
+           'shared_secret' => '', //$config['shared_secret'],
+           // API versions
+           'core_version' => '2.0',
+           'payroll_version' => '1.0',
+           'file_version' => '1.0' 
+       );  
 
    var $XeroOAuth;
    
@@ -23,7 +35,6 @@ class Services_Xero
    function __construct($config)
    {
    	
-       $this->useragent = "XeroOAuth-PHP Private App Test";
        
        $this->signatures = array (
            'consumer_key' => $config['consumer_key'],
