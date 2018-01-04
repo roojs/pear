@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 /**
  *  Put standard header here...
@@ -7,63 +7,62 @@
 
 class Services_Xero
 {
-   var $useragent = "XeroOAuth-PHP Private App Test";
-	
-   var $signatures = array (
-           'consumer_key' => '', //$config['consumer_key'],
-           'shared_secret' => '', //$config['shared_secret'],
-           // API versions
-           'core_version' => '2.0',
-           'payroll_version' => '1.0',
-           'file_version' => '1.0' 
-       );  
-
-   var $XeroOAuth;
+    var $useragent = "XeroOAuth-PHP Private App Test";
+     
+    var $signatures = array (
+            'consumer_key' => '', //$config['consumer_key'],
+            'shared_secret' => '', //$config['shared_secret'],
+            // API versions
+            'core_version' => '2.0',
+            'payroll_version' => '1.0',
+            'file_version' => '1.0' 
+        );  
+    
+    var $XeroOAuth;
+    
+    var $initialCheck;
+    
+    var $checkErrors;
+    
+    var $oauthSession;
+    
+    var $session;
+    
+    var $_xero_defaults = array (
+        'xero_url' => 'https://api.xero.com/',
+        'site' => 'https://api.xero.com',
+        'authorize_url' => 'https://api.xero.com/oauth/Authorize',
+       'signature_method' => 'RSA-SHA1'
+    );       
    
-   var $initialCheck;
+    var $_xero_consumer_options = array (
+         'request_token_path' => 'oauth/RequestToken',
+         'access_token_path' => 'oauth/AccessToken',
+         'authorize_path' => 'oauth/Authorize' 
+    );
    
-   var $checkErrors;
-   
-   var $oauthSession;
-   
-   var $session;
-   
-   var $_xero_defaults;   
-   
-   var $_xero_consumer_options = array (
-        'request_token_path' => 'oauth/RequestToken',
-        'access_token_path' => 'oauth/AccessToken',
-        'authorize_path' => 'oauth/Authorize' 
-   )
-   
-   function __construct($config)
-   {
+    function __construct($config)
+    {
         foreach($config as $k=>$v) {
             $this->signatures[$k] = $v;
         }
        
        
-       $this->_xero_consumer_options = ;
-       
-       // for public app type          	 
-       $signature_method = 'HMAC-SHA1';
-   	 
-       if ($config['xero_app_type'] == "Private" || $config['xero_app_type'] == "Partner") {
+    
+       if (empty($config['xero_app_type']) || ($config['xero_app_type'] == "Private" || $config['xero_app_type'] == "Partner") {
        	
-           $this->signatures ['rsa_private_key'] = $config['cert_dir'] . '/privatekey.pem';
            
-           $this->signatures ['rsa_public_key'] = $config['cert_dir'] . '/publickey.cer';
            
-           $signature_method = 'RSA-SHA1';
-       }
        
-       $this->_xero_defaults = array (
-           'xero_url' => 'https://api.xero.com/',
-           'site' => 'https://api.xero.com',
-           'authorize_url' => 'https://api.xero.com/oauth/Authorize',
-          'signature_method' => $signature_method 
-       );       
+        if (!empty($config['xero_app_type']) && ($config['xero_app_type'] == "Public") {
+             $this->_xero_defaults['signature_method'] =  'HMAC-SHA1';
+        } else {
+            // fixme..
+            $this->signatures ['rsa_private_key'] = $config['cert_dir'] . '/privatekey.pem';
+            $this->signatures ['rsa_public_key'] = $config['cert_dir'] . '/publickey.cer'; 
+            
              
+        }
        //require 'Xero/Auth/XeroOAuth.php';
        require 'Services/Xero/OAuth.php';
        
