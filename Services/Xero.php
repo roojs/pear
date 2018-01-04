@@ -48,13 +48,9 @@ class Services_Xero
         }
        
        
-    
-       if (empty($config['xero_app_type']) || ($config['xero_app_type'] == "Private" || $config['xero_app_type'] == "Partner") {
-       	
-           
-           
+      
        
-        if (!empty($config['xero_app_type']) && ($config['xero_app_type'] == "Public") {
+        if (!empty($config['xero_app_type']) && ($config['xero_app_type'] == "Public")) {
              $this->_xero_defaults['signature_method'] =  'HMAC-SHA1';
         } else {
             // fixme..
