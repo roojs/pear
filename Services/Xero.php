@@ -1,6 +1,7 @@
 <?php
 
-class Services_Xero {
+class Services_Xero
+{
    var $useragent;
 	
    var $signatures;	
