@@ -30,26 +30,20 @@ class Services_Xero
    
    var $_xero_defaults;   
    
-   var $_xero_consumer_options;
+   var $_xero_consumer_options = array (
+        'request_token_path' => 'oauth/RequestToken',
+        'access_token_path' => 'oauth/AccessToken',
+        'authorize_path' => 'oauth/Authorize' 
+   )
    
    function __construct($config)
    {
-   	
+        foreach($config as $k=>$v) {
+            $this->signatures[$k] = $v;
+        }
        
-       $this->signatures = array (
-           'consumer_key' => $config['consumer_key'],
-           'shared_secret' => $config['shared_secret'],
-           // API versions
-           'core_version' => '2.0',
-           'payroll_version' => '1.0',
-           'file_version' => '1.0' 
-       );   	 
-		
-       $this->_xero_consumer_options = array (
-            'request_token_path' => 'oauth/RequestToken',
-            'access_token_path' => 'oauth/AccessToken',
-            'authorize_path' => 'oauth/Authorize' 
-       );
+       
+       $this->_xero_consumer_options = ;
        
        // for public app type          	 
        $signature_method = 'HMAC-SHA1';
