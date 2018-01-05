@@ -178,7 +178,7 @@ class Services_Xero
        return $invoiceList;           
    }
    
-   public function getInvoiceByFilter($param)
+   public function getInvoicesByFilter($param)
    {
        if(empty($param)) {
            return;
