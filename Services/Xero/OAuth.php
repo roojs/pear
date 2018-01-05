@@ -240,8 +240,7 @@ class Services_Xero_OAuth
 		
       // configure curl
         $c = curl_init ();
-        $useragent = (isset ( $this->config ['user_agent'] )) ? (empty ( $this->config ['user_agent'] ) ? 'XeroOAuth-PHP' : $this->config ['user_agent']) : 'XeroOAuth-PHP';
-        
+         
         curl_setopt_array ( $c, $this->_xero_curl_options);
         curl_setopt_array ( $c, array (
                          
@@ -252,61 +251,65 @@ class Services_Xero_OAuth
             CURLOPT_HEADERFUNCTION => array (   $this, 'curlHeader'   ),
             CURLOPT_HEADER => FALSE,
             CURLINFO_HEADER_OUT => TRUE 
-      ) );
-		
-      /* ENTRUST CERTIFICATE DEPRECATED
-      if ($this->config ['application_type'] == "Partner") {
-         curl_setopt_array ( $c, array (
-               // ssl client cert options for partner apps
-               CURLOPT_SSLCERT => $this->config ['curl_ssl_cert'],
-               CURLOPT_SSLKEYPASSWD => $this->config ['curl_ssl_password'],
-               CURLOPT_SSLKEY => $this->config ['curl_ssl_key'] 
-         ) );
-      }
-      */
-		 /*
-      if (isset ( $this->config ['is_streaming'] )) {
-         // process the body
-         $this->response ['content-length'] = 0;
-         curl_setopt ( $c, CURLOPT_TIMEOUT, 0 );
-         curl_setopt ( $c, CURLOPT_WRITEFUNCTION, array (
-               $this,
-               'curlWrite' 
-         ) );
-      }
-      */
-		
-      switch ($this->method) {
-         case 'GET' :
-            $contentLength = 0;
-            break;
-         case 'POST' :
-            curl_setopt ( $c, CURLOPT_POST, TRUE );
-            $post_body = $this->safe_encode ( $this->xml );
-            curl_setopt ( $c, CURLOPT_POSTFIELDS, $post_body );
-            $this->request_params ['xml'] = $post_body;
-            $contentLength = strlen ( $post_body );
-            $this->headers ['Content-Type'] = 'application/x-www-form-urlencoded';
-				
-            break;
-         case 'PUT' :
-            $fh = tmpfile();
-            if ($this->format == "file") {
-               $put_body = $this->xml;
-            } else {
-               $put_body = $this->safe_encode ( $this->xml );
-               $this->headers ['Content-Type'] = 'application/x-www-form-urlencoded';
-            }
-            fwrite ( $fh, $put_body );
-            rewind ( $fh );
-            curl_setopt ( $c, CURLOPT_PUT, true );
-            curl_setopt ( $c, CURLOPT_INFILE, $fh );
-            curl_setopt ( $c, CURLOPT_INFILESIZE, strlen ( $put_body ) );
-            $contentLength = strlen ( $put_body );
-				
-            break;
-         default :
-            curl_setopt ( $c, CURLOPT_CUSTOMREQUEST, $this->method );
+        ) );
+          
+        /* ENTRUST CERTIFICATE DEPRECATED
+        if ($this->config ['application_type'] == "Partner") {
+           curl_setopt_array ( $c, array (
+                 // ssl client cert options for partner apps
+                 CURLOPT_SSLCERT => $this->config ['curl_ssl_cert'],
+                 CURLOPT_SSLKEYPASSWD => $this->config ['curl_ssl_password'],
+                 CURLOPT_SSLKEY => $this->config ['curl_ssl_key'] 
+           ) );
+        }
+        */
+           /*
+        if (isset ( $this->config ['is_streaming'] )) {
+           // process the body
+           $this->response ['content-length'] = 0;
+           curl_setopt ( $c, CURLOPT_TIMEOUT, 0 );
+           curl_setopt ( $c, CURLOPT_WRITEFUNCTION, array (
+                 $this,
+                 'curlWrite' 
+           ) );
+        }
+        */
+          
+        switch ($this->method) {
+            case 'GET' :
+                $contentLength = 0;
+                break;
+            
+            case 'POST' :
+                curl_setopt ( $c, CURLOPT_POST, TRUE );
+                $post_body = $this->safe_encode ( $this->xml );
+                curl_setopt ( $c, CURLOPT_POSTFIELDS, $post_body );
+                $this->request_params ['xml'] = $post_body;
+                $contentLength = strlen ( $post_body );
+                $this->headers ['Content-Type'] = 'application/x-www-form-urlencoded';
+                    
+               break;
+            
+            case 'PUT' :
+               $fh = tmpfile();
+               if ($this->format == "file") {
+                  $put_body = $this->xml;
+               } else {
+                  $put_body = $this->safe_encode ( $this->xml );
+                  $this->headers ['Content-Type'] = 'application/x-www-form-urlencoded';
+               }
+               fwrite ( $fh, $put_body );
+               rewind ( $fh );
+               curl_setopt ( $c, CURLOPT_PUT, true );
+               curl_setopt ( $c, CURLOPT_INFILE, $fh );
+               curl_setopt ( $c, CURLOPT_INFILESIZE, strlen ( $put_body ) );
+               $contentLength = strlen ( $put_body );
+                   
+               break;
+            
+            
+            default :
+               curl_setopt ( $c, CURLOPT_CUSTOMREQUEST, $this->method );
       }
 		
       if (! empty ( $this->request_params )) {
