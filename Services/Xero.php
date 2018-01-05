@@ -248,7 +248,6 @@ class Services_Xero
         $param = array('Where' => 'Name="'. $name. '"');
         
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts' , 'core'), $param ,'','json');
-        
          
         if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
              
