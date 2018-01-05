@@ -37,15 +37,7 @@ class Services_Xero_Invoice {
    	  
         $inv = $element->appendChild($doc->createElement('Invoice'));
  
-       
-   	  
-           
-   	  
-        
-   	  
-        	  
-   	  
-        
+   	   
         $inv->appendChild($doc->createElement('Type',$this->invoiceType));
         
         // old invoice
@@ -68,7 +60,7 @@ class Services_Xero_Invoice {
            	  
         $inv->appendChild( $doc->createElement('LineAmountTypes',$this->lineAmountTypes) );
         
-        $line_items =  $inv->appendChild($doc->createElement('LineItems'););
+        $line_items =  $inv->appendChild($doc->createElement('LineItems'));
    	          
         foreach ($this->LineItems as $u) {        
             $item = $doc->createElement('LineItem');
