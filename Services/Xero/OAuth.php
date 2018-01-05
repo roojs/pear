@@ -310,34 +310,35 @@ class Services_Xero_OAuth
             
             default :
                curl_setopt ( $c, CURLOPT_CUSTOMREQUEST, $this->method );
-      }
+        } 
 		
-      if (! empty ( $this->request_params )) {
-         // if not doing multipart we need to implode the parameters
-         if (! $this->config ['multipart']) {
-            foreach ( $this->request_params as $k => $v ) {
-               $ps [] = "{$k}={$v}";
+        if (! empty ( $this->request_params )) {
+           // if not doing multipart we need to implode the parameters
+           if (! $this->config ['multipart']) {
+              foreach ( $this->request_params as $k => $v ) {
+                 $ps [] = "{$k}={$v}";
+              }
+              $this->request_payload = implode ( '&', $ps );
+           }
+           curl_setopt ( $c, CURLOPT_POSTFIELDS, $this->request_payload);
+            
+        } else {
+           // CURL will set length to -1 when there is no data
+           $this->headers ['Content-Length'] = $contentLength;
+        }
+		
+        $this->headers ['Expect'] = '';
+		
+        if (! empty ( $this->headers )) {
+            foreach ( $this->headers as $k => $v ) {
+               $headers [] = trim ( $k . ': ' . $v );
             }
-            $this->request_payload = implode ( '&', $ps );
-         }
-         curl_setopt ( $c, CURLOPT_POSTFIELDS, $this->request_payload);
-          
-      } else {
-         // CURL will set length to -1 when there is no data
-         $this->headers ['Content-Length'] = $contentLength;
-      }
-		
-      $this->headers ['Expect'] = '';
-		
-      if (! empty ( $this->headers )) {
-         foreach ( $this->headers as $k => $v ) {
-            $headers [] = trim ( $k . ': ' . $v );
-         }
-         curl_setopt ( $c, CURLOPT_HTTPHEADER, $headers );
-      }
-		 
-      if (isset ( $this->config ['prevent_request'] ) && false == $this->config ['prevent_request'])
-         return;
+            curl_setopt ( $c, CURLOPT_HTTPHEADER, $headers );
+        }
+           
+        //if (isset ( $this->config ['prevent_request'] ) && false == $this->config ['prevent_request']) {
+        //    return;
+        //}
 			
          // do it!
       $response = curl_exec ( $c );
