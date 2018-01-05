@@ -261,7 +261,9 @@ class Services_Xero
         return $contact->Contacts[0];
     }
    
-    
+   
+   
+   
    public function createInvoice($inv)
    {
         if($inv == '') {
