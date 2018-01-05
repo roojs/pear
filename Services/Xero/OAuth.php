@@ -462,7 +462,10 @@ class Services_Xero_OAuth
            $this->response ['response'] = $errorMessage;
            $this->response ['helper'] = "SetupIssue";
         }
-         
+        if ($this->response['code'] == 200 && !empty($this->XeroOAuth->response['format'])) {
+            $this->response['result'] = $this->parseResponse($this->response['response'], $this->response['format']);
+        }
+        
        return $this->response;
     }
 	
