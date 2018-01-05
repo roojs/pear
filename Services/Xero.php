@@ -15,7 +15,7 @@ class Services_Xero
             'user_agent' => "XeroOAuth-PHP Private App Test",
             'ca_cert_path' => '',
             
-        )
+    );
         
     
     var $signatures = array (
@@ -64,7 +64,7 @@ class Services_Xero
        
       
        
-        if (!empty($config['xero_app_type']) && ($config['xero_app_type'] == "Public")) {
+        if (!empty($config['application_type']) && ($config['application_type'] == "Public")) {
              $this->_xero_defaults['signature_method'] =  'HMAC-SHA1';
         } else {
             // fixme..
