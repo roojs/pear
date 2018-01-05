@@ -196,8 +196,8 @@ class Services_Xero
         
         $result = $this->XeroOAuth->response['result'];
         
-        if( !$result || !$this->XeroOAuth->response['result'] || empty($this->XeroOAuth->response['result']->Invoices)
-            return false;                        
+        if ( !$result || !$this->XeroOAuth->response['result'] || empty($this->XeroOAuth->response['result']->Invoices)) {
+            return false;
         }
         
         return $result->Invoices;
