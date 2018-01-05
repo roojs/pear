@@ -7,15 +7,10 @@
 
 class Services_Xero
 {
-    var $useragent = "XeroOAuth-PHP Private App Test";
+     
+     
     
-    var $oauth_config = array(
-          
-            
-    );
-        
-    
-    var $signatures = array (
+    var $oauth_config = array (
             'consumer_key' => '', //$config['consumer_key'],
             'shared_secret' => '', //$config['shared_secret'],
             // API versions
@@ -81,7 +76,7 @@ class Services_Xero
        //require 'Xero/Auth/XeroOAuth.php';
        require 'Services/Xero/OAuth.php';
        
-       $this->XeroOAuth = new Services_Xero_OAuth (   $this->signatures   );
+       $this->XeroOAuth = new Services_Xero_OAuth (   $this->oauth_config   );
        
        $this->connectXero();
        
