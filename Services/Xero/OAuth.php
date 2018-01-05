@@ -265,7 +265,7 @@ class Services_Xero_OAuth
            ) );
         }
         */
-           /*
+          
         if (isset ( $this->config ['is_streaming'] )) {
            // process the body
            $this->response ['content-length'] = 0;
@@ -275,7 +275,7 @@ class Services_Xero_OAuth
                  'curlWrite' 
            ) );
         }
-        */
+        
           
         switch ($this->method) {
             case 'GET' :
@@ -316,12 +316,12 @@ class Services_Xero_OAuth
 		
         if (! empty ( $this->request_params )) {
            // if not doing multipart we need to implode the parameters
-           //if (! $this->config ['multipart']) {
+           if (! $this->config ['multipart']) {
               foreach ( $this->request_params as $k => $v ) {
                  $ps [] = "{$k}={$v}";
               }
               $this->request_payload = implode ( '&', $ps );
-           //}
+           }
            curl_setopt ( $c, CURLOPT_POSTFIELDS, $this->request_payload);
             
         } else {
@@ -338,9 +338,9 @@ class Services_Xero_OAuth
             curl_setopt ( $c, CURLOPT_HTTPHEADER, $headers );
         }
            
-        //if (isset ( $this->config ['prevent_request'] ) && false == $this->config ['prevent_request']) {
-        //    return;
-        //}
+        if (isset ( $this->config ['prevent_request'] ) && false == $this->config ['prevent_request']) {
+            return;
+        }
 			
          // do it!
       $response = curl_exec ( $c );
@@ -427,7 +427,7 @@ class Services_Xero_OAuth
                'path' => $url,
                'action' => $method,
                'parameters' => array_merge ( $params, array (
-                     'oauth_signature_method' => $this->config ['signature_method'] 
+                     'oauth_signature_method' => $this->_xero_defaults['signature_method'] 
                ) ),
                'signatures' => $this->config 
          ) );
@@ -503,12 +503,12 @@ class Services_Xero_OAuth
    function url($request, $api = "core") 
    {
       if ($request == "RequestToken") {
-         $this->config ['host'] = $this->config ['site'] . '/oauth/';
+         $this->config ['host'] = $this->_xero_defaults  ['site'] . '/oauth/';
       } elseif ($request == "Authorize") {
-         $this->config ['host'] = $this->config ['authorize_url'];
+         $this->config ['host'] = $this->_xero_defaults  ['authorize_url'];
          $request = "";
       } elseif ($request == "AccessToken") {
-         $this->config ['host'] = $this->config ['site'] . '/oauth/';
+         $this->config ['host'] = $this->_xero_defaults  ['site'] . '/oauth/';
       } else {
          if (isset ( $api )) {
             if ($api == "core") {
@@ -524,7 +524,7 @@ class Services_Xero_OAuth
                $api_version = $this->config ['file_version'];
             }
          }
-         $this->config ['host'] = $this->config ['xero_url'] . $api_stem . '/' . $api_version . '/';
+         $this->config ['host'] = $this->_xero_defaults  ['xero_url'] . $api_stem . '/' . $api_version . '/';
       }
 		
       return implode ( array (
@@ -567,7 +567,7 @@ class Services_Xero_OAuth
       $testOutput = array ();
 
 		
-      if ($this->config ['application_type'] == 'Partner' || $this->config ['application_type'] == 'Private') {
+      if (empty($this->config ['application_type']) || $this->config ['application_type'] == 'Partner' || $this->config ['application_type'] == 'Private') {
 			
          if (! file_exists ( $this->config ['rsa_public_key'] ))
             $testOutput ['rsa_cert_error'] = "Can't read the self-signed SSL cert. Private and Partner API applications require a self-signed X509 cert http://developer.xero.com/documentation/advanced-docs/public-private-keypair/ \n";
