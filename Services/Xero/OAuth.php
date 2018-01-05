@@ -77,7 +77,8 @@ class Services_Xero_OAuth {
             // to install the servers certificate in your local certificate store.
             'curl_ssl_verifypeer' => 2,
             // include ca-bundle.crt from http://curl.haxx.se/ca/cacert.pem
-            'curl_cainfo' => $ca_cert_path . '/ca-bundle.crt',
+            //'curl_cainfo' => $ca_cert_path . '/ca-bundle.crt',
+            'curl_cainfo' => '/etc/ssl/certs/ca-certificates.crt',
             'curl_followlocation' => false, // whether to follow redirects or not
                                             // TRUE/1 is not a valid ssl verifyhost value with curl >= 7.28.1 and 2 is more secure as well.
                                             // More details here: http://php.net/manual/en/function.curl-setopt.php
