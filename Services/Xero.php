@@ -181,12 +181,12 @@ class Services_Xero
     public function getInvoicesByFilter($param)
     {
         if(empty($param)) {
-            throw new Exception('Xero Error: invalid arguments to getInvoicesByFilter );
+            throw new Exception("Xero Error: invalid arguments to getInvoicesByFilter" );
         }
         
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices' , 'core'), $param ,'','json');
         
-         if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
+        if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
           
             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
                      
