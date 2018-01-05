@@ -314,12 +314,12 @@ class Services_Xero_OAuth
 		
         if (! empty ( $this->request_params )) {
            // if not doing multipart we need to implode the parameters
-           if (! $this->config ['multipart']) {
+           //if (! $this->config ['multipart']) {
               foreach ( $this->request_params as $k => $v ) {
                  $ps [] = "{$k}={$v}";
               }
               $this->request_payload = implode ( '&', $ps );
-           }
+           //}
            curl_setopt ( $c, CURLOPT_POSTFIELDS, $this->request_payload);
             
         } else {
