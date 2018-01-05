@@ -382,89 +382,89 @@ class Services_Xero_OAuth
     *        	the format of the response. Default json. Set to an empty string to exclude the format
     *        	
     */
-   function request($method, $url, $params = array(), $xml = "", $format = 'xml') 
-   {
-      // removed these as function parameters for now
-      
-      $useauth = true;
-      $multipart = false;
-      $this->headers = array ();
-		
-      if (isset ( $format )) {
-         switch ($format) {
-            case "pdf" :
-               $this->headers ['Accept'] = 'application/pdf';
-               break;
-            case "json" :
-               $this->headers ['Accept'] = 'application/json';
-               break;
-            case "xml" :
-            default :
-               $this->headers ['Accept'] = 'application/xml';
-               break;
-         }
-      }
-		
-      if (isset ( $params ['If-Modified-Since'] )) {
-         $modDate = "If-Modified-Since: " . $params ['If-Modified-Since'];
-         $this->headers ['If-Modified-Since'] = $params ['If-Modified-Since'];
-      }
-		
-      if ($xml !== "") {
-         $xml = trim($xml);
-         $this->xml = $xml;
-      }
-		
-      if ($method == "POST")
-         $params ['xml'] = $xml;
-		
-      $this->prepare_method ( $method );
-      $this->config ['multipart'] = $multipart;
-      $this->url = $url;
-      $oauthObject = new Services_Xero_OAuthSign ();
-      try {
-         $this->sign = $oauthObject->sign ( array (
-               'path' => $url,
-               'action' => $method,
-               'parameters' => array_merge ( $params, array (
-                     'oauth_signature_method' => $this->_xero_defaults['signature_method'] 
-               ) ),
-               'signatures' => $this->config 
-         ) );
+    function request($method, $url, $params = array(), $xml = "", $format = 'xml') 
+    {
+       // removed these as function parameters for now
+       
+        $useauth = true;
+        $multipart = false;
+        $this->headers = array ();
           
-      } 
-
-      catch ( Exception $e ) {
-         $errorMessage = 'XeroOAuth::request() ' . $e->getMessage ();
-         $this->response['response'] = $errorMessage;
-         $this->response['helper'] = $url;
-         return $this->response;
-      }
-      $this->format = $format;
-		
-      $curlRequest = $this->curlit ();
-		
-      if ($this->response ['code'] == 401 && isset ( $this->config ['session_handle'] )) {
-         if ((strpos ( $this->response ['response'], "oauth_problem=token_expired" ) !== false)) {
-            $this->response ['helper'] = "TokenExpired";
-         } else {
-            $this->response ['helper'] = "TokenFatal";
-         }
-      }
-      if ($this->response ['code'] == 403) {
-         $errorMessage = "It looks like your Xero Entrust cert issued by Xero is either invalid or has expired. See http://developer.xero.com/api-overview/http-response-codes/#403 for more";
-         // default IIS page isn't informative, a little swap
-         $this->response ['response'] = $errorMessage;
-         $this->response ['helper'] = "SetupIssue";
-      }
-      if ($this->response ['code'] == 0) {
-         $errorMessage = "It looks like your Xero Entrust cert issued by Xero is either invalid or has expired. See http://developer.xero.com/api-overview/http-response-codes/#403 for more";
-         $this->response ['response'] = $errorMessage;
-         $this->response ['helper'] = "SetupIssue";
-      }
-		
-      return $this->response;
-   }
+        if (isset ( $format )) {
+           switch ($format) {
+              case "pdf" :
+                 $this->headers ['Accept'] = 'application/pdf';
+                 break;
+              case "json" :
+                 $this->headers ['Accept'] = 'application/json';
+                 break;
+              case "xml" :
+              default :
+                 $this->headers ['Accept'] = 'application/xml';
+                 break;
+           }
+        }
+          
+        if (isset ( $params ['If-Modified-Since'] )) {
+           $modDate = "If-Modified-Since: " . $params ['If-Modified-Since'];
+           $this->headers ['If-Modified-Since'] = $params ['If-Modified-Since'];
+        }
+          
+        if ($xml !== "") {
+           $xml = trim($xml);
+           $this->xml = $xml;
+        }
+          
+        if ($method == "POST")
+           $params ['xml'] = $xml;
+          
+        $this->prepare_method ( $method );
+        $this->config ['multipart'] = $multipart;
+        $this->url = $url;
+        $oauthObject = new Services_Xero_OAuthSign ();
+        try {
+           $this->sign = $oauthObject->sign ( array (
+                 'path' => $url,
+                 'action' => $method,
+                 'parameters' => array_merge ( $params, array (
+                       'oauth_signature_method' => $this->_xero_defaults['signature_method'] 
+                 ) ),
+                 'signatures' => $this->config 
+           ) );
+            
+        } 
+  
+        catch ( Exception $e ) {
+           $errorMessage = 'XeroOAuth::request() ' . $e->getMessage ();
+           $this->response['response'] = $errorMessage;
+           $this->response['helper'] = $url;
+           return $this->response;
+        }
+        $this->format = $format;
+          
+        $curlRequest = $this->curlit ();
+         
+        if ($this->response ['code'] == 401 && isset ( $this->config ['session_handle'] )) {
+           if ((strpos ( $this->response ['response'], "oauth_problem=token_expired" ) !== false)) {
+              $this->response ['helper'] = "TokenExpired";
+           } else {
+              $this->response ['helper'] = "TokenFatal";
+           }
+        }
+        if ($this->response ['code'] == 403) {
+           $errorMessage = "It looks like your Xero Entrust cert issued by Xero is either invalid or has expired. See http://developer.xero.com/api-overview/http-response-codes/#403 for more";
+           // default IIS page isn't informative, a little swap
+           $this->response ['response'] = $errorMessage;
+           $this->response ['helper'] = "SetupIssue";
+        }
+        if ($this->response ['code'] == 0) {
+           $errorMessage = "It looks like your Xero Entrust cert issued by Xero is either invalid or has expired. See http://developer.xero.com/api-overview/http-response-codes/#403 for more";
+           $this->response ['response'] = $errorMessage;
+           $this->response ['helper'] = "SetupIssue";
+        }
+         
+       return $this->response;
+    }
 	
    /**
     * Convert the response into usable data
