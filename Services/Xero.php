@@ -65,8 +65,8 @@ class Services_Xero
              $this->_xero_defaults['signature_method'] =  'HMAC-SHA1';
         } else {
             // fixme..
-            $this->signatures ['rsa_private_key'] = $config['ca_cert_path'] . '/privatekey.pem';
-            $this->signatures ['rsa_public_key'] = $config['ca_cert_path'] . '/publickey.cer'; 
+            $this->oauth_config ['rsa_private_key'] = $config['ca_cert_path'] . '/privatekey.pem';
+            $this->oauth_config ['rsa_public_key'] = $config['ca_cert_path'] . '/publickey.cer'; 
             
              
         }
