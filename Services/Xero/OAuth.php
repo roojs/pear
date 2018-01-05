@@ -466,7 +466,7 @@ class Services_Xero_OAuth
             $this->response['result'] = $this->parseResponse($this->response['response'], $this->response['format']);
         }
         
-       return $this->response;
+        return $this->response;
     }
 	
    /**
