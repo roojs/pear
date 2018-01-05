@@ -42,18 +42,15 @@ class Services_Xero_OAuth
         $this->auto_fixed_time = false;
         $this->buffer = null;
         $this->request_params = array();
-          
-        if (! empty ( $config ['application_type'] ) &&  $config ['application_type'] == 'Public') {
-              $this->_xero_defaults ['signature_method'] =  'HMAC-SHA1';
-          
+        
+        foreach($this->_xero_defaults as $k=$v) {
+            if (isset($config[$k])) {
+                $this->_xero_defaults[$k] = $config[$k];
+            }
         }
+         
 		
-      $this->_xero_consumer_options = array (
-            'request_token_path' => 'oauth/RequestToken',
-            'access_token_path' => 'oauth/AccessToken',
-            'authorize_path' => 'oauth/Authorize' 
-      );
-		
+       
       // Remove forced dependency on BASE_PATH constant.
       // Note that __DIR__ is PHP 5.3 and above only.
       
