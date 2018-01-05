@@ -10,11 +10,24 @@ if (! class_exists ( 'Services_Xero_OAuthSign' )) {
  */
 class XeroOAuthException extends Exception {
 }
-class Services_Xero_OAuth {
-   var $_xero_defaults;
-   var $_xero_consumer_options;
-   var $_action;
-   var $_nonce_chars;
+class Services_Xero_OAuth
+{
+    var $_xero_defaults =array (
+        'xero_url' => 'https://api.xero.com/',
+        'site' => 'https://api.xero.com',
+        'authorize_url' => 'https://api.xero.com/oauth/Authorize',
+        'signature_method' => 'RSA-SHA1' 
+    );
+    
+    
+    var $_xero_consumer_options = array (
+        'request_token_path' => 'oauth/RequestToken',
+        'access_token_path' => 'oauth/AccessToken',
+        'authorize_path' => 'oauth/Authorize',
+    );
+    
+    var $_action;
+    var $_nonce_chars;
 	
    /**
     * Creates a new XeroOAuth object
@@ -25,38 +38,14 @@ class Services_Xero_OAuth {
    function __construct($config) 
    {
       $this->params = array ();
-      $this->headers = array ();
-      $this->auto_fixed_time = false;
-      $this->buffer = null;
-      $this->request_params = array();
-		
-      if (! empty ( $config ['application_type'] )) {
-         switch ($config ['application_type']) {
-            case "Public" :
-               $this->_xero_defaults = array (
-                     'xero_url' => 'https://api.xero.com/',
-                     'site' => 'https://api.xero.com',
-                     'authorize_url' => 'https://api.xero.com/oauth/Authorize',
-                     'signature_method' => 'HMAC-SHA1' 
-               );
-               break;
-            case "Private" :
-               $this->_xero_defaults = array (
-                     'xero_url' => 'https://api.xero.com/',
-                     'site' => 'https://api.xero.com',
-                     'authorize_url' => 'https://api.xero.com/oauth/Authorize',
-                     'signature_method' => 'RSA-SHA1' 
-               );
-               break;
-            case "Partner" :
-               $this->_xero_defaults = array (
-                     'xero_url' => 'https://api.xero.com/',
-                     'site' => 'https://api.xero.com',
-                     'authorize_url' => 'https://api.xero.com/oauth/Authorize',
-                     'signature_method' => 'RSA-SHA1' 
-               );
-               break;
-         }
+        $this->headers = array ();
+        $this->auto_fixed_time = false;
+        $this->buffer = null;
+        $this->request_params = array();
+          
+      if (! empty ( $config ['application_type'] ) &&  $config ['application_type'] == 'Public') {
+            $this->_xero_defaults ['signature_method'] => 'HMAC-SHA1';
+        )
       }
 		
       $this->_xero_consumer_options = array (
