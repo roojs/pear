@@ -17,8 +17,7 @@ class Services_Xero_Invoice {
    
    var $lineAmountTypes = 'Exclusive';   
    
-   var $lineItems = array();   
-   
+    
    function __construct($config)
    {   	
        foreach ($config as $key => $val) {
@@ -26,18 +25,7 @@ class Services_Xero_Invoice {
        } 
        
    }
-   /*
-   function addLineItem($description,$quantity,$itemCode,$accountCode, $lineItemID)
-   {
-        $this->lineItems[] = array(
-            'Description' => $description,
-            'Quantity' => $quantity,
-            'ItemCode' => $itemCode,
-            'AccountCode' => $accountCode,
-             'LineItemID' => $lineItemID
-        );  
-   }
-   */
+   
    
    function toXML() 
    {
@@ -90,7 +78,7 @@ class Services_Xero_Invoice {
         
         $inv->appendChild($line_items);
    	          
-        foreach ($this->lineItems as $u) {        
+        foreach ($this->LineItems as $u) {        
             $item = $doc->createElement('LineItem');
 
             foreach ($u as $key => $val) {                
