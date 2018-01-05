@@ -60,6 +60,9 @@ class Services_Xero_OAuth
     */
     function __construct($config) 
     {
+        
+        // multipart .. not supported...
+        
         $this->params = array ();
         $this->headers = array ();
         $this->auto_fixed_time = false;
