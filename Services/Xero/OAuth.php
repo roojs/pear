@@ -37,16 +37,16 @@ class Services_Xero_OAuth
     */
    function __construct($config) 
    {
-      $this->params = array ();
+        $this->params = array ();
         $this->headers = array ();
         $this->auto_fixed_time = false;
         $this->buffer = null;
         $this->request_params = array();
           
-      if (! empty ( $config ['application_type'] ) &&  $config ['application_type'] == 'Public') {
-            $this->_xero_defaults ['signature_method'] => 'HMAC-SHA1';
-        )
-      }
+        if (! empty ( $config ['application_type'] ) &&  $config ['application_type'] == 'Public') {
+              $this->_xero_defaults ['signature_method'] =  'HMAC-SHA1';
+          
+        }
 		
       $this->_xero_consumer_options = array (
             'request_token_path' => 'oauth/RequestToken',
