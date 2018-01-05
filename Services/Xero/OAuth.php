@@ -561,8 +561,10 @@ class Services_Xero_OAuth
 	
    /*
     * Run some basic checks on our config options etc to make sure all is ok
+    * Oddly - this is run from the caller???
+    * 
     */
-   /*
+    
    function diagnostics() 
    {
       $testOutput = array ();
@@ -600,5 +602,5 @@ class Services_Xero_OAuth
 		
       return $testOutput;
    }
-    */
+    
 }
