@@ -175,7 +175,7 @@ class Services_Xero
    public function getInvoiceList()
    {
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices', 'core'), array('order' => 'Total DESC'));
-       if ($this->XeroOAuth->response['code'] != 200) {
+        if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
                        
            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
            
@@ -194,7 +194,7 @@ class Services_Xero
        
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices' , 'core'), $param ,'','json');
        
-       if ($this->XeroOAuth->response['code'] != 200) {
+        if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
        	 
            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
                  
@@ -222,7 +222,7 @@ class Services_Xero
         $param = array();
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices/' . $invoiceID , 'core'), $param ,'','json');
         
-        if ($this->XeroOAuth->response['code'] != 200) {
+        if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
           
             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
                   
