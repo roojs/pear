@@ -22,7 +22,7 @@ class Services_Xero
         
         'application_type' => 'Private',
         'oauth_callback' => 'oob',
-        'user_agent' => "XeroOAuth-PHP Private App Test",
+        CURLOPT_USERAGENT => "XeroOAuth-PHP Private App Test",
         'ca_cert_path' => '',
     );  
     
@@ -251,7 +251,10 @@ class Services_Xero
             return;      
         }
         
-        $contact = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);       
+        $contact = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+        
+        
+        
         return $contact;
     }
    
@@ -259,13 +262,13 @@ class Services_Xero
    public function getContactID($name)
    {
    	
-       $contact = $this->getContact($name);
-    	 
-       if(!count($contact->Contacts[0])) {
-           return;
-       }    
-	     
-       return  $contact->Contacts[0]->ContactID;
+        $contact = $this->getContact($name);
+          
+        if(!count($contact->Contacts[0])) {
+            return;
+        }    
+          
+        return  $contact->Contacts[0]->ContactID;
    }
    
    public function createInvoice($inv)
@@ -285,7 +288,7 @@ class Services_Xero
                  
       }
             
-      $result = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+      $result = $this->XeroOAuth->response['result'];
       
       if(     !$result->Invoices 
            || !count($result->Invoices[0]) 
