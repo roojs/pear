@@ -71,7 +71,11 @@ class Services_Xero_OAuth
                 $this->_xero_defaults[$k] = $config[$k];
             }
         }
-         
+        foreach($this->_xero_curl_options as $k=>$v) {
+            if (isset($config[$k])) {
+                $this->_xero_curl_options[$k] = $config[$k];
+            }
+        }
          
          
          
