@@ -37,7 +37,7 @@ class Services_Xero_Invoice {
    	  
         $inv = $doc->createElement('Invoice');
    	  
-        $inv_type = $doc->createElement('Type',$this->invoiceType);
+        $inv_type = $
 
    	  
            
@@ -48,7 +48,7 @@ class Services_Xero_Invoice {
    	  
         $element->appendChild($inv);
         
-        $inv->appendChild($inv_type);
+        $inv->appendChild($doc->createElement('Type',$this->invoiceType));
         
         // old invoice
         if(!empty($this->invoiceID))
