@@ -177,9 +177,9 @@ class Services_Xero
        $invoiceList = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
        return $invoiceList;           
    }
-   
-   public function getInvoicesByFilter($param)
-   {
+    
+    public function getInvoicesByFilter($param)
+    {
         if(empty($param)) {
             return;
         }
@@ -196,13 +196,12 @@ class Services_Xero
         
         $result = $this->XeroOAuth->response['result'];
         
-        if(    !$this->XeroOAuth->response['result'] || empty($this->XeroOAuth->response['result']->Invoices)
-           ) {          	
-           return;                        
+        if( !$result || !$this->XeroOAuth->response['result'] || empty($this->XeroOAuth->response['result']->Invoices)
+            return false;                        
         }
         
-       return $result->Invoices;
-   }   
+        return $result->Invoices;
+    }   
    
     public function getInvoice($invoiceID)
     {
