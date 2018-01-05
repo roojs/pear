@@ -251,7 +251,7 @@ class Services_Xero
             return;      
         }
         
-        $contact = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+        $contact = $this->XeroOAuth->response['result'];
         
         if (!$contact || empty($contact->Contacts[0])) {
             throw new Exception('Could not find contact: ' . $this->XeroOAuth->response['response']);
@@ -261,19 +261,7 @@ class Services_Xero
         return $contact->Contacts[0];
     }
    
-   
-   public function getContactID($name)
-   {
-   	
-        $contact = $this->getContact($name);
-          
-        if(!count($contact->Contacts[0])) {
-            return;
-        }    
-          
-        return  $contact->Contacts[0]->ContactID;
-   }
-   
+    
    public function createInvoice($inv)
    {
         if($inv == '') {
