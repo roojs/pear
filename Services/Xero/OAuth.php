@@ -26,37 +26,7 @@ class Services_Xero_OAuth
         'authorize_path' => 'oauth/Authorize',
     );
     
-    var $_action;
-    var $_nonce_chars;
-	
-   /**
-    * Creates a new XeroOAuth object
-    *
-    * @param string $config,
-    *        	the configuration settings
-    */
-   function __construct($config) 
-   {
-        $this->params = array ();
-        $this->headers = array ();
-        $this->auto_fixed_time = false;
-        $this->buffer = null;
-        $this->request_params = array();
-        
-        foreach($this->_xero_defaults as $k=$v) {
-            if (isset($config[$k])) {
-                $this->_xero_defaults[$k] = $config[$k];
-            }
-        }
-         
-		
-       
-      // Remove forced dependency on BASE_PATH constant.
-      // Note that __DIR__ is PHP 5.3 and above only.
-      
-      $ca_cert_path = $config['ca_cert_path'];
-		
-      $this->_xero_curl_options = array ( // you probably don't want to change any of these curl values
+    var $_xero_curl_options = array ( // you probably don't want to change any of these curl values
             'curl_connecttimeout' => 30,
             'curl_timeout' => 20,
             // for security you may want to set this to TRUE. If you do you need
@@ -75,6 +45,32 @@ class Services_Xero_OAuth
             'curl_encoding' => '', // leave blank for all supported formats, else use gzip, deflate, identity
             'curl_verbose' => true 
       );
+    
+    var $_action;
+    var $_nonce_chars;
+	
+   /**
+    * Creates a new XeroOAuth object
+    *
+    * @param string $config,
+    *        	the configuration settings
+    */
+   function __construct($config) 
+   {
+        $this->params = array ();
+        $this->headers = array ();
+        $this->auto_fixed_time = false;
+        $this->buffer = null;
+        $this->request_params = array();
+        
+        foreach($this->_xero_defaults as $k=>$v) {
+            if (isset($config[$k])) {
+                $this->_xero_defaults[$k] = $config[$k];
+            }
+        }
+         
+		
+        
 		
       $this->config = array_merge ( $this->_xero_defaults, $this->_xero_consumer_options, $this->_xero_curl_options, $config );
    }
