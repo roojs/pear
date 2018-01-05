@@ -10,10 +10,7 @@ class Services_Xero
     var $useragent = "XeroOAuth-PHP Private App Test";
     
     var $oauth_config = array(
-            'application_type' => 'Private',
-            'oauth_callback' => 'oob',
-            'user_agent' => "XeroOAuth-PHP Private App Test",
-            'ca_cert_path' => '',
+          
             
     );
         
@@ -27,6 +24,11 @@ class Services_Xero
             'file_version' => '1.0',
             'rsa_private_key' => '',
             'rsa_public_key' => '',
+            
+            'application_type' => 'Private',
+            'oauth_callback' => 'oob',
+            'user_agent' => "XeroOAuth-PHP Private App Test",
+            'ca_cert_path' => '',
         );  
     
     var $XeroOAuth;
@@ -79,9 +81,7 @@ class Services_Xero
        //require 'Xero/Auth/XeroOAuth.php';
        require 'Services/Xero/OAuth.php';
        
-       $this->XeroOAuth = new Services_Xero_OAuth ( array_merge ( array (
-          
-       ), $this->signatures ) );
+       $this->XeroOAuth = new Services_Xero_OAuth (   $this->signatures ) );
        
        $this->connectXero();
        
