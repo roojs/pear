@@ -40,7 +40,7 @@ class Services_Xero
         'xero_url' => 'https://api.xero.com/',
         'site' => 'https://api.xero.com',
         'authorize_url' => 'https://api.xero.com/oauth/Authorize',
-       'signature_method' => 'RSA-SHA1'
+        'signature_method' => 'RSA-SHA1'
     );       
    
     var $_xero_consumer_options = array (
@@ -52,9 +52,9 @@ class Services_Xero
    
     function __construct($config)
     {
-        foreach($this->signatures as $k=>$v) {
+        foreach($this->oauth_config as $k=>$v) {
             if (isset($config[$k])) {
-               $this->signatures[$k] = $v;
+               $this->oauth_config[$k] = $v;
             }
         }
        
