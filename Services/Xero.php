@@ -176,8 +176,7 @@ class Services_Xero
    {
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices', 'core'), array('order' => 'Total DESC'));
         if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
-                       
-           throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
            
            return;                
        }	
