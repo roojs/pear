@@ -27,8 +27,8 @@ class Services_Xero_Invoice {
    }
    
    
-   function toXML() 
-   {
+    function toXML() 
+    {
         $doc = new DOMDocument('1.0', 'utf-8');   	  
         
         
@@ -72,11 +72,13 @@ class Services_Xero_Invoice {
    	  
         return $doc;   
    	  
-   } 
+    } 
   
-   function toXMLString() 
-   {
-                
-        return $this->toXML()->saveXML();
-   } 
+  
+    
+    function toXMLString() 
+    {
+                 
+         return $this->toXML()->saveXML();
+    } 
 }
