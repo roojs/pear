@@ -196,9 +196,7 @@ class Services_Xero
         
         $result = $this->XeroOAuth->response['result'];
         
-        if(    !$result->Invoices 
-            || !count($result->Invoices) 
-            
+        if(    !$this->XeroOAuth->response['result'] || empty($this->XeroOAuth->response['result']->Invoices)
            ) {          	
            return;                        
         }
