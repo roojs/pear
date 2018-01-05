@@ -31,14 +31,13 @@ class Services_Xero_Invoice {
    {
         $doc = new DOMDocument('1.0', 'utf-8');   	  
         
-        $element = $doc->createElement('Invoices');
         
-        $doc->appendChild($element);  
+        
+        $element = $doc->appendChild($doc->createElement('Invoices') );  
    	  
         $inv = $doc->createElement('Invoice');
    	  
-        $inv_type = $
-
+       
    	  
            
    	  
