@@ -254,7 +254,7 @@ class Services_Xero
         $contact = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
         
         if (!$contact || empty($contact->Contacts[0])) {
-            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+            throw new Exception('Could not find contact: ' . $this->XeroOAuth->response['response']);
         }
         
         
