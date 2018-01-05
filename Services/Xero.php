@@ -43,12 +43,7 @@ class Services_Xero
         'signature_method' => 'RSA-SHA1'
     );       
    
-    var $_xero_consumer_options = array (
-         'request_token_path' => 'oauth/RequestToken',
-         'access_token_path' => 'oauth/AccessToken',
-         'authorize_path' => 'oauth/Authorize',
-         
-    );
+  
    
     function __construct($config)
     {
