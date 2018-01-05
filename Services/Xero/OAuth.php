@@ -411,13 +411,13 @@ class Services_Xero_OAuth
         }
           
         if ($xml !== "") {
-           $xml = trim($xml);
-           $this->xml = $xml;
+            $xml = trim($xml);
+            $this->xml = $xml;
         }
           
-        if ($method == "POST")
-           $params ['xml'] = $xml;
-          
+        if ($method == "POST") {
+            $params ['xml'] = $xml;
+        }
         $this->prepare_method ( $method );
         $this->config ['multipart'] = $multipart;
         $this->url = $url;
@@ -445,11 +445,11 @@ class Services_Xero_OAuth
         $curlRequest = $this->curlit ();
          
         if ($this->response ['code'] == 401 && isset ( $this->config ['session_handle'] )) {
-           if ((strpos ( $this->response ['response'], "oauth_problem=token_expired" ) !== false)) {
-              $this->response ['helper'] = "TokenExpired";
-           } else {
-              $this->response ['helper'] = "TokenFatal";
-           }
+            if ((strpos ( $this->response ['response'], "oauth_problem=token_expired" ) !== false)) {
+               $this->response ['helper'] = "TokenExpired";
+            } else {
+               $this->response ['helper'] = "TokenFatal";
+            }
         }
         if ($this->response ['code'] == 403) {
            $errorMessage = "It looks like your Xero Entrust cert issued by Xero is either invalid or has expired. See http://developer.xero.com/api-overview/http-response-codes/#403 for more";
@@ -464,7 +464,7 @@ class Services_Xero_OAuth
         }
         
          $this->response['result']  = false;
-        if ($this->response['code'] == 200 && !empty($this->XeroOAuth->response['format'])) {
+        if ($this->response['code'] == 200 && !empty($this->response['format'])) {
             $this->response['result'] = $this->parseResponse($this->response['response'], $this->response['format']);
         }
         
