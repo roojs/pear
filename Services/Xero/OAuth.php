@@ -27,25 +27,28 @@ class Services_Xero_OAuth
     );
     
     var $_xero_curl_options = array ( // you probably don't want to change any of these curl values
-        'curl_connecttimeout' => 30,
-        'curl_timeout' => 20,
+        CURLOPT_CONNECTTIMEOUT      => 30,
+        CURLOPT_TIMEOUT             => 20,
         // for security you may want to set this to TRUE. If you do you need
         // to install the servers certificate in your local certificate store.
-        'curl_ssl_verifypeer' => 2,
+        CURLOPT_SSL_VERIFYPEER       => 2,
         // include ca-bundle.crt from http://curl.haxx.se/ca/cacert.pem
         //'curl_cainfo' => $ca_cert_path . '/ca-bundle.crt',
-        'curl_cainfo' => '/etc/ssl/certs/ca-certificates.crt',
-        'curl_followlocation' => false, // whether to follow redirects or not
+        CURLOPT_SSL_VERIFYPEER       => '/etc/ssl/certs/ca-certificates.crt',
+        CURLOPT_FOLLOWLOCATION      => false, // whether to follow redirects or not
                                         // TRUE/1 is not a valid ssl verifyhost value with curl >= 7.28.1 and 2 is more secure as well.
                                         // More details here: http://php.net/manual/en/function.curl-setopt.php
-        'curl_ssl_verifyhost' => 2,
-        // support for proxy servers
-        'curl_proxy' => false, // really you don't want to use this if you are using streaming
-        'curl_proxyuserpwd' => false, // format username:password for proxy, if required
-        'curl_encoding' => '', // leave blank for all supported formats, else use gzip, deflate, identity
-        'curl_verbose' => true 
+        CURLOPT_SSL_VERIFYHOST      => 2,
+                            // support for proxy servers
+        CURLOPT_PROXY => false, // really you don't want to use this if you are using streaming
+        CURLOPT_PROXYUSERPWD    => false, // format username:password for proxy, if required
+        CURLOPT_ENCODING        => '', // leave blank for all supported formats, else use gzip, deflate, identity
+        CURLOPT_VERBOSE         => true ,
+        CURLOPT_USERAGENT       => 'XeroOAuth-PHP',
+
       );
-    
+                
+      
     var $_action;
     var $_nonce_chars;
 	
@@ -232,9 +235,15 @@ class Services_Xero_OAuth
 	
 		
       // configure curl
-      $c = curl_init ();
-      $useragent = (isset ( $this->config ['user_agent'] )) ? (empty ( $this->config ['user_agent'] ) ? 'XeroOAuth-PHP' : $this->config ['user_agent']) : 'XeroOAuth-PHP';
-      curl_setopt_array ( $c, array (
+        $c = curl_init ();
+        $useragent = (isset ( $this->config ['user_agent'] )) ? (empty ( $this->config ['user_agent'] ) ? 'XeroOAuth-PHP' : $this->config ['user_agent']) : 'XeroOAuth-PHP';
+        
+        curl_setopt_array ( $c, $this->_xero_curl_options);
+        curl_setopt_array ( $c, array (
+                         
+                         CURLOPT_RETURNTRANSFER      => TRUE,
+      
+      
             CURLOPT_USERAGENT => $useragent,
             CURLOPT_CONNECTTIMEOUT      => $this->config ['curl_connecttimeout'],
             CURLOPT_TIMEOUT             => $this->config ['curl_timeout'],
@@ -248,10 +257,7 @@ class Services_Xero_OAuth
             CURLOPT_URL                 => $this->sign ['signed_url'],
             CURLOPT_VERBOSE             => $this->config ['curl_verbose'],
             // process the headers
-            CURLOPT_HEADERFUNCTION => array (
-                  $this,
-                  'curlHeader' 
-            ),
+            CURLOPT_HEADERFUNCTION => array (   $this, 'curlHeader'   ),
             CURLOPT_HEADER => FALSE,
             CURLINFO_HEADER_OUT => TRUE 
       ) );
