@@ -8,7 +8,16 @@
 class Services_Xero
 {
     var $useragent = "XeroOAuth-PHP Private App Test";
-     
+    
+    var $oauth_config = array(
+            'application_type' => 'Private',
+            'oauth_callback' => 'oob',
+            'user_agent' => "XeroOAuth-PHP Private App Test",
+            'ca_cert_path' => '',
+            
+        )
+        
+    
     var $signatures = array (
             'consumer_key' => '', //$config['consumer_key'],
             'shared_secret' => '', //$config['shared_secret'],
@@ -59,19 +68,19 @@ class Services_Xero
              $this->_xero_defaults['signature_method'] =  'HMAC-SHA1';
         } else {
             // fixme..
-            $this->signatures ['rsa_private_key'] = $config['cert_dir'] . '/privatekey.pem';
-            $this->signatures ['rsa_public_key'] = $config['cert_dir'] . '/publickey.cer'; 
+            $this->signatures ['rsa_private_key'] = $config['ca_cert_path'] . '/privatekey.pem';
+            $this->signatures ['rsa_public_key'] = $config['ca_cert_path'] . '/publickey.cer'; 
             
              
         }
+        
+       
+        
        //require 'Xero/Auth/XeroOAuth.php';
        require 'Services/Xero/OAuth.php';
        
        $this->XeroOAuth = new Services_Xero_OAuth ( array_merge ( array (
-            'application_type' => $config['xero_app_type'],
-            'oauth_callback' => 'oob',
-            'user_agent' => $this->useragent,
-            'ca_cert_path' => $config['cert_dir'] 
+          
        ), $this->signatures ) );
        
        $this->connectXero();
