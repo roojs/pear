@@ -81,7 +81,7 @@ class Services_Xero
        //require 'Xero/Auth/XeroOAuth.php';
        require 'Services/Xero/OAuth.php';
        
-       $this->XeroOAuth = new Services_Xero_OAuth (   $this->signatures ) );
+       $this->XeroOAuth = new Services_Xero_OAuth (   $this->signatures   );
        
        $this->connectXero();
        
