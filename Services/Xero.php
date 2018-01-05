@@ -15,7 +15,9 @@ class Services_Xero
             // API versions
             'core_version' => '2.0',
             'payroll_version' => '1.0',
-            'file_version' => '1.0' 
+            'file_version' => '1.0',
+            'rsa_private_key' => '',
+            'rsa_public_key' => '',
         );  
     
     var $XeroOAuth;
@@ -38,13 +40,16 @@ class Services_Xero
     var $_xero_consumer_options = array (
          'request_token_path' => 'oauth/RequestToken',
          'access_token_path' => 'oauth/AccessToken',
-         'authorize_path' => 'oauth/Authorize' 
+         'authorize_path' => 'oauth/Authorize',
+         
     );
    
     function __construct($config)
     {
-        foreach($config as $k=>$v) {
-            $this->signatures[$k] = $v;
+        foreach($this->signatures as $k=>$v) {
+            if (isset($config[$k])) {
+               $this->signatures[$k] = $v;
+            }
         }
        
        
