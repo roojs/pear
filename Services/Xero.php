@@ -64,7 +64,7 @@ class Services_Xero
         if (!empty($config['application_type']) && ($config['application_type'] == "Public")) {
              $this->_xero_defaults['signature_method'] =  'HMAC-SHA1';
         } else {
-            // fixme..
+           
             $this->oauth_config ['rsa_private_key'] = $config['ca_cert_path'] . '/privatekey.pem';
             $this->oauth_config ['rsa_public_key'] = $config['ca_cert_path'] . '/publickey.cer'; 
             
