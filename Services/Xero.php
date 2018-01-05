@@ -54,12 +54,10 @@ class Services_Xero
     {
         foreach($this->oauth_config as $k=>$v) {
             if (isset($config[$k])) {
-               $this->oauth_config[$k] = $v;
+               $this->oauth_config[$k] = $config[$k];
             }
         }
-       
-       
-      
+        
        
         if (!empty($config['application_type']) && ($config['application_type'] == "Public")) {
              $this->_xero_defaults['signature_method'] =  'HMAC-SHA1';
@@ -251,8 +249,7 @@ class Services_Xero
         
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts' , 'core'), $param ,'','json');
         
-        var_dump($responze);
-        
+         
         if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
              
             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
