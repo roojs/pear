@@ -236,17 +236,17 @@ class Services_Xero_OAuth
       $useragent = (isset ( $this->config ['user_agent'] )) ? (empty ( $this->config ['user_agent'] ) ? 'XeroOAuth-PHP' : $this->config ['user_agent']) : 'XeroOAuth-PHP';
       curl_setopt_array ( $c, array (
             CURLOPT_USERAGENT => $useragent,
-            CURLOPT_CONNECTTIMEOUT => $this->config ['curl_connecttimeout'],
-            CURLOPT_TIMEOUT => $this->config ['curl_timeout'],
-            CURLOPT_RETURNTRANSFER => TRUE,
-            CURLOPT_SSL_VERIFYPEER => $this->config ['curl_ssl_verifypeer'],
-            CURLOPT_CAINFO => $this->config ['curl_cainfo'],
-            CURLOPT_SSL_VERIFYHOST => $this->config ['curl_ssl_verifyhost'],
-            CURLOPT_FOLLOWLOCATION => $this->config ['curl_followlocation'],
-            CURLOPT_PROXY => $this->config ['curl_proxy'],
-            CURLOPT_ENCODING => $this->config ['curl_encoding'],
-            CURLOPT_URL => $this->sign ['signed_url'],
-            CURLOPT_VERBOSE => $this->config ['curl_verbose'],
+            CURLOPT_CONNECTTIMEOUT      => $this->config ['curl_connecttimeout'],
+            CURLOPT_TIMEOUT             => $this->config ['curl_timeout'],
+            CURLOPT_RETURNTRANSFER      => TRUE,
+            CURLOPT_SSL_VERIFYPEER      => $this->config ['curl_ssl_verifypeer'],
+            CURLOPT_CAINFO              => $this->config ['curl_cainfo'],
+            CURLOPT_SSL_VERIFYHOST      => $this->config ['curl_ssl_verifyhost'],
+            CURLOPT_FOLLOWLOCATION      => $this->config ['curl_followlocation'],
+            CURLOPT_PROXY               => $this->config ['curl_proxy'],
+            CURLOPT_ENCODING            => $this->config ['curl_encoding'],
+            CURLOPT_URL                 => $this->sign ['signed_url'],
+            CURLOPT_VERBOSE             => $this->config ['curl_verbose'],
             // process the headers
             CURLOPT_HEADERFUNCTION => array (
                   $this,
