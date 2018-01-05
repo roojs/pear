@@ -273,32 +273,33 @@ class Services_Xero
    
    public function createInvoice($inv)
    {
-      if($inv == '') {
-           return;
-      }
-      
-      $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $inv->toXMLString(),'json');
-   	
-       if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
-           // Error
-        	   
-           throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
-           
-           return;
-                 
-      }
-            
-      $result = $this->XeroOAuth->response['result'];
-      
-      if(     !$result->Invoices 
-           || !count($result->Invoices[0]) 
-           || !$result->Invoices[0]->InvoiceNumber
-          ) {          	
-          return;                        
-      }
+        if($inv == '') {
+             return;
+        }
         
-      return $result->Invoices[0];           
-     
-   }
+        $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $inv->toXMLString(),'json');
+      
+         if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
+             // Error
+                 
+             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+             
+             return;
+                   
+        }
+              
+        $result = $this->XeroOAuth->response['result'];
+        
+        if(  !$result ||
+             !$result->Invoices  || 
+             !count($result->Invoices[0]) || 
+             !$result->Invoices[0]->InvoiceNumber
+            ) {          	
+            return;                        
+        }
+          
+        return $result->Invoices[0];           
+       
+     }
 }
 
