@@ -461,7 +461,7 @@ class Net_XMPP_XMLStream {
                         return false;
                     }
                 }
-                $this->log->log("RECV: $buff", XMPPHP_Log::LEVEL_VERBOSE);
+                $this->log->log("RECV: $buff", Net_XMPP_Log::LEVEL_VERBOSE);
                 xml_parse($this->parser, $buff, false);
             } else {
                 # $updated == 0 means no changes during timeout.
@@ -478,7 +478,8 @@ class Net_XMPP_XMLStream {
      *
      * @return string
      */
-    public function process() {
+    public function process() 
+    {
         $this->__process(NULL);
     }
 
@@ -488,7 +489,8 @@ class Net_XMPP_XMLStream {
      * @param integer $timeout
      * @return string
      */
-    public function processTime($timeout = NULL) {
+    public function processTime($timeout = NULL) 
+    {
         if (is_null($timeout)) {
             return $this->__process(NULL);
         } else {
