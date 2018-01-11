@@ -409,7 +409,8 @@ class Net_XMPP_XMLStream {
      *
      * @return boolean
      */
-    public function isDisconnected() {
+    public function isDisconnected() 
+    {
         return $this->disconnected;
     }
 
@@ -419,8 +420,8 @@ class Net_XMPP_XMLStream {
      * NULL -> wait forever and ever
      * integer -> process for this amount of time 
      */
-    private function __process($maximum = 5) {
-
+    private function __process($maximum = 5) 
+    {
         $remaining = $maximum;
 
         do {
@@ -440,7 +441,7 @@ class Net_XMPP_XMLStream {
             }
             $updated = @stream_select($read, $write, $except, $secs, $usecs);
             if ($updated === false) {
-                $this->log->log("Error on stream_select()", XMPPHP_Log::LEVEL_VERBOSE);
+                $this->log->log("Error on stream_select()", Net_XMPP_Log::LEVEL_VERBOSE);
                 if ($this->reconnect) {
                     $this->doReconnect();
                 } else {
