@@ -806,7 +806,8 @@ class Net_XMPP_XMLStream {
     /**
      * Setup the XML parser
      */
-    public function setupParser() {
+    public function setupParser() 
+    {
         $this->parser = xml_parser_create('UTF-8');
         xml_parser_set_option($this->parser, XML_OPTION_SKIP_WHITE, 1);
         xml_parser_set_option($this->parser, XML_OPTION_TARGET_ENCODING, 'UTF-8');
@@ -815,7 +816,8 @@ class Net_XMPP_XMLStream {
         xml_set_character_data_handler($this->parser, 'charXML');
     }
 
-    public function readyToProcess() {
+    public function readyToProcess() 
+    {
         $read = array($this->socket);
         $write = array();
         $except = array();
