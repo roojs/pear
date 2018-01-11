@@ -575,7 +575,7 @@ class Net_XMPP_XMLStream {
             $ns = $this->ns_map[$name[0]];
             $name = $name[1];
         }
-        $obj = new Net_XMPP_XMLXMLObj($name, $ns, $attr);
+        $obj = new Net_XMPP_XMLObj($name, $ns, $attr);
         if ($this->xml_depth > 1) {
             $this->xmlobj[$this->xml_depth - 1]->subs[] = $obj;
         }
