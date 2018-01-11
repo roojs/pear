@@ -41,7 +41,7 @@ require_once 'Net/XMPP.php';
  * @copyright  2008 Nathanael C. Fritz
  * @version	$Id$
  */
-class XMPPHP_BOSH extends Net_XMPP {
+class Net_XMPP_BOSH extends Net_XMPP {
 
     protected $rid;
     protected $sid;
