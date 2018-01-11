@@ -146,7 +146,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param boolean $useEncryption
      */
-    public function useEncryption($useEncryption = true) {
+    public function useEncryption($useEncryption = true) 
+    {
         $this->use_encryption = $useEncryption;
     }
 
@@ -155,7 +156,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param boolean $autoSubscribe
      */
-    public function autoSubscribe($autoSubscribe = true) {
+    public function autoSubscribe($autoSubscribe = true) 
+    {
         $this->auto_subscribe = $autoSubscribe;
     }
 
@@ -167,7 +169,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * @param string $type
      * @param string $subject
      */
-    public function message($to, $body, $type = 'chat', $subject = null, $payload = null) {
+    public function message($to, $body, $type = 'chat', $subject = null, $payload = null) 
+    {
         if (is_null($type)) {
             $type = 'chat';
         }
@@ -194,7 +197,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * @param string $show
      * @param string $to
      */
-    public function presence($status = null, $show = 'available', $to = null, $type = 'available', $priority = 0) {
+    public function presence($status = null, $show = 'available', $to = null, $type = 'available', $priority = 0) 
+    {
         if ($type == 'available')
             $type = '';
         $to = htmlspecialchars($to);
@@ -228,7 +232,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $jid
      */
-    public function subscribe($jid) {
+    public function subscribe($jid) 
+    {
         $this->send("<presence type='subscribe' to='{$jid}' from='{$this->fulljid}' />");
         #$this->send("<presence type='subscribed' to='{$jid}' from='{$this->fulljid}' />");
     }
@@ -238,7 +243,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    public function message_handler($xml) {
+    public function message_handler($xml) 
+    {
         if (isset($xml->attrs['type'])) {
             $payload['type'] = $xml->attrs['type'];
         } else {
@@ -256,7 +262,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    public function presence_handler($xml) {
+    public function presence_handler($xml) 
+    {
         $payload['type'] = (isset($xml->attrs['type'])) ? $xml->attrs['type'] : 'available';
         $payload['show'] = (isset($xml->sub('show')->data)) ? $xml->sub('show')->data : $payload['type'];
         $payload['from'] = $xml->attrs['from'];
@@ -285,7 +292,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function features_handler($xml) {
+    protected function features_handler($xml) 
+    {
         if ($xml->hasSub('starttls') and $this->use_encryption) {
             $this->send("<starttls xmlns='urn:ietf:params:xml:ns:xmpp-tls'><required /></starttls>");
         } elseif ($xml->hasSub('bind') and $this->authed) {
@@ -307,7 +315,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function sasl_success_handler($xml) {
+    protected function sasl_success_handler($xml) 
+    {
         $this->log->log("Auth success!");
         $this->authed = true;
         $this->reset();
@@ -318,7 +327,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function sasl_failure_handler($xml) {
+    protected function sasl_failure_handler($xml) 
+    {
         $this->log->log("Auth failed!", XMPPHP_Log::LEVEL_ERROR);
         $this->disconnect();
 
@@ -330,7 +340,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function resource_bind_handler($xml) {
+    protected function resource_bind_handler($xml) 
+    {
         if ($xml->attrs['type'] == 'result') {
             $this->log->log("Bound to " . $xml->sub('bind')->sub('jid')->data);
             $this->fulljid = $xml->sub('bind')->sub('jid')->data;
@@ -346,7 +357,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * Retrieves the roster
      *
      */
-    public function getRoster() {
+    public function getRoster() 
+    {
         $id = $this->getID();
         $this->send("<iq xmlns='jabber:client' type='get' id='$id'><query xmlns='jabber:iq:roster' /></iq>");
     }
@@ -357,7 +369,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function roster_iq_handler($xml) {
+    protected function roster_iq_handler($xml) 
+    {
         $status = "result";
         $xmlroster = $xml->sub('query');
         foreach ($xmlroster->subs as $item) {
@@ -391,7 +404,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function session_start_handler($xml) {
+    protected function session_start_handler($xml) 
+    {
         $this->log->log("Session started");
         $this->session_started = true;
         $this->event('session_start');
@@ -402,7 +416,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function tls_proceed_handler($xml) {
+    protected function tls_proceed_handler($xml) 
+    {
         $this->log->log("Starting TLS encryption");
         stream_socket_enable_crypto($this->socket, true, STREAM_CRYPTO_METHOD_SSLv23_CLIENT);
         $this->reset();
@@ -412,7 +427,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * Retrieves the vcard
      *
      */
-    public function getVCard($jid = Null) {
+    public function getVCard($jid = Null) 
+    {
         $id = $this->getID();
         $this->addIdHandler($id, 'vcard_get_handler');
         if ($jid) {
@@ -427,7 +443,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param XML Object $xml
      */
-    protected function vcard_get_handler($xml) {
+    protected function vcard_get_handler($xml) 
+    {
         $vcard_array = array();
         $vcard = $xml->sub('vcard');
         // go through all of the sub elements and add them to the vcard array
