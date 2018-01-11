@@ -343,7 +343,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      */
     protected function sasl_failure_handler($xml) 
     {
-        $this->log->log("Auth failed!", XMPPHP_Log::LEVEL_ERROR);
+        $this->log->log("Auth failed!", Net_XMPP_Log::LEVEL_ERROR);
         $this->disconnect();
 
         throw new XMPPHP_Exception('Auth failed!');
