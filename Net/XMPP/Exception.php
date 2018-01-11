@@ -38,7 +38,7 @@
  * @copyright  2008 Nathanael C. Fritz
  * @version    $Id$
  */
-class XMPPHP_Exception extends Exception 
+class Net_XMPP_Exception extends Exception 
 {
     
 }
