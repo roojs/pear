@@ -618,7 +618,7 @@ class Net_XMPP_XMLStream {
                         if ($searchxml !== null) {
                             if ($handler[2] === null)
                                 $handler[2] = $this;
-                            $this->log->log("Calling {$handler[1]}", XMPPHP_Log::LEVEL_DEBUG);
+                            $this->log->log("Calling {$handler[1]}", Net_XMPP_Log::LEVEL_DEBUG);
                             $handler[2]->$handler[1]($this->xmlobj[2]);
                         }
                     }
