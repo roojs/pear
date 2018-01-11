@@ -52,7 +52,8 @@ class Net_XMPP_Roster
      * Constructor
      * 
      */
-    public function __construct($roster_array = array()) {
+    public function __construct($roster_array = array()) 
+    {
         if ($this->verifyRoster($roster_array)) {
             $this->roster_array = $roster_array; //Allow for prepopulation with existing roster
         } else {
@@ -66,7 +67,8 @@ class Net_XMPP_Roster
      *
      * @param array $roster_array
      */
-    protected function verifyRoster($roster_array) {
+    protected function verifyRoster($roster_array) 
+    {
         #TODO once we know *what* a valid roster array looks like
         return True;
     }
@@ -80,7 +82,8 @@ class Net_XMPP_Roster
      * @param string $name
      * @param array $groups
      */
-    public function addContact($jid, $subscription, $name = '', $groups = array()) {
+    public function addContact($jid, $subscription, $name = '', $groups = array()) 
+    {
         $contact = array('jid' => $jid, 'subscription' => $subscription, 'name' => $name, 'groups' => $groups);
         if ($this->isContact($jid)) {
             $this->roster_array[$jid]['contact'] = $contact;
@@ -95,7 +98,8 @@ class Net_XMPP_Roster
      *
      * @param string $jid
      */
-    public function getContact($jid) {
+    public function getContact($jid) 
+    {
         if ($this->isContact($jid)) {
             return $this->roster_array[$jid]['contact'];
         }
