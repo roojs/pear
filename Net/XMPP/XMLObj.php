@@ -38,7 +38,7 @@
  * @copyright  2008 Nathanael C. Fritz
  * @version	$Id$
  */
-class XMPPHP_XMLObj 
+class Net_XMPP_XMLObj 
 {
     /**
      * Tag name
