@@ -345,8 +345,10 @@ class Net_XMPP_XMLStream {
                 $conflag = STREAM_CLIENT_CONNECT;
             }
             $conntype = 'tcp';
-            if ($this->use_ssl)
+            if ($this->use_ssl){
                 $conntype = 'ssl';
+            }
+            
             $this->log->log("Connecting to $conntype://{$this->host}:{$this->port}");
             try {
                 $this->socket = @stream_socket_client("$conntype://{$this->host}:{$this->port}", $errno, $errstr, $timeout, $conflag);
