@@ -772,17 +772,18 @@ class Net_XMPP_XMLStream {
         }
 
         $sentbytes = @fwrite($this->socket, $msg);
-        $this->log->log("SENT: " . mb_substr($msg, 0, $sentbytes, '8bit'), XMPPHP_Log::LEVEL_VERBOSE);
+        $this->log->log("SENT: " . mb_substr($msg, 0, $sentbytes, '8bit'), Net_XMPP_Log::LEVEL_VERBOSE);
         if ($sentbytes === FALSE) {
-            $this->log->log("ERROR sending message; reconnecting.", XMPPHP_Log::LEVEL_ERROR);
+            $this->log->log("ERROR sending message; reconnecting.", Net_XMPP_Log::LEVEL_ERROR);
             $this->doReconnect();
             return false;
         }
-        $this->log->log("Successfully sent $sentbytes bytes.", XMPPHP_Log::LEVEL_VERBOSE);
+        $this->log->log("Successfully sent $sentbytes bytes.", Net_XMPP_Log::LEVEL_VERBOSE);
         return $sentbytes;
     }
 
-    public function time() {
+    public function time() 
+    {
         list($usec, $sec) = explode(" ", microtime());
         return (float) $sec + (float) $usec;
     }
@@ -790,7 +791,8 @@ class Net_XMPP_XMLStream {
     /**
      * Reset connection
      */
-    public function reset() {
+    public function reset() 
+    {
         $this->xml_depth = 0;
         unset($this->xmlobj);
         $this->xmlobj = array();
