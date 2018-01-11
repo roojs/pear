@@ -267,7 +267,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
         $payload['from'] = $xml->attrs['from'];
         $payload['body'] = $xml->sub('body')->data;
         $payload['xml'] = $xml;
-        $this->log->log("Message: {$xml->sub('body')->data}", XMPPHP_Log::LEVEL_DEBUG);
+        $this->log->log("Message: {$xml->sub('body')->data}", Net_XMPP_Log::LEVEL_DEBUG);
         $this->event('message', $payload);
     }
 
