@@ -180,11 +180,17 @@ class Net_XMPP extends Net_XMPP_XMLStream
         $subject = htmlspecialchars($subject);
 
         $out = "<message from=\"{$this->fulljid}\" to=\"$to\" type='$type'>";
-        if ($subject)
+        
+        if ($subject) {
             $out .= "<subject>$subject</subject>";
+        }
+            
         $out .= "<body>$body</body>";
-        if ($payload)
+        
+        if ($payload) {
             $out .= $payload;
+        }
+            
         $out .= "</message>";
 
         $this->send($out);
