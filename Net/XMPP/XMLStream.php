@@ -207,13 +207,14 @@ class Net_XMPP_XMLStream {
      * @param string  $loglevel
      * @param boolean $is_server
      */
-    public function __construct($host = null, $port = null, $printlog = false, $loglevel = null, $is_server = false) {
+    public function __construct($host = null, $port = null, $printlog = false, $loglevel = null, $is_server = false) 
+    {
         $this->reconnect = !$is_server;
         $this->is_server = $is_server;
         $this->host = $host;
         $this->port = $port;
         $this->setupParser();
-        $this->log = new XMPPHP_Log($printlog, $loglevel);
+        $this->log = new Net_XMPP_Log($printlog, $loglevel);
     }
 
     /**
