@@ -590,7 +590,8 @@ class Net_XMPP_XMLStream {
      * @param resource $parser
      * @param string   $name
      */
-    public function endXML($parser, $name) {
+    public function endXML($parser, $name) 
+    {
         #$this->log->log("Ending $name",  XMPPHP_Log::LEVEL_DEBUG);
         #print "$name\n";
         if ($this->been_reset) {
@@ -677,7 +678,8 @@ class Net_XMPP_XMLStream {
      * @param resource $parser
      * @param string   $data
      */
-    public function charXML($parser, $data) {
+    public function charXML($parser, $data) 
+    {
         if (array_key_exists($this->xml_depth, $this->xmlobj)) {
             $this->xmlobj[$this->xml_depth]->data .= $data;
         }
