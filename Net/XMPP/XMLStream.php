@@ -344,7 +344,7 @@ class Net_XMPP_XMLStream {
             } else {
                 $conflag = STREAM_CLIENT_CONNECT;
             }
-            $conntype = 'tls';
+            $conntype = 'tcp';
             if ($this->use_ssl){
                 $conntype = 'ssl';
             }
