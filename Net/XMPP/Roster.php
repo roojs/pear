@@ -111,7 +111,8 @@ class Net_XMPP_Roster
      *
      * @param string $jid
      */
-    public function isContact($jid) {
+    public function isContact($jid) 
+    {
         return (array_key_exists($jid, $this->roster_array));
     }
 
@@ -124,7 +125,8 @@ class Net_XMPP_Roster
      * @param string $show
      * @param string $status
      */
-    public function setPresence($presence, $priority, $show, $status) {
+    public function setPresence($presence, $priority, $show, $status) 
+    {
         list($jid, $resource) = split("/", $presence);
         if ($show != 'unavailable') {
             if (!$this->isContact($jid)) {
