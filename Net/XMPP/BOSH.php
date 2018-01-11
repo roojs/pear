@@ -162,7 +162,8 @@ class Net_XMPP_BOSH extends Net_XMPP
         #$this->__parseBuffer();
     }
 
-    public function reset() {
+    public function reset() 
+    {
         $this->xml_depth = 0;
         unset($this->xmlobj);
         $this->xmlobj = array();
@@ -177,17 +178,28 @@ class Net_XMPP_BOSH extends Net_XMPP
         xml_parse($this->parser, $buff, false);
     }
 
-    public function loadSession() {
-        if (isset($_SESSION['XMPPHP_BOSH_RID']))
+    public function loadSession() 
+    {
+        if (isset($_SESSION['XMPPHP_BOSH_RID'])){
             $this->rid = $_SESSION['XMPPHP_BOSH_RID'];
-        if (isset($_SESSION['XMPPHP_BOSH_SID']))
+        }
+        
+        if (isset($_SESSION['XMPPHP_BOSH_SID'])) {
             $this->sid = $_SESSION['XMPPHP_BOSH_SID'];
-        if (isset($_SESSION['XMPPHP_BOSH_authed']))
+        }
+            
+        if (isset($_SESSION['XMPPHP_BOSH_authed'])) {
             $this->authed = $_SESSION['XMPPHP_BOSH_authed'];
-        if (isset($_SESSION['XMPPHP_BOSH_jid']))
+        }
+            
+        if (isset($_SESSION['XMPPHP_BOSH_jid'])) {
             $this->jid = $_SESSION['XMPPHP_BOSH_jid'];
-        if (isset($_SESSION['XMPPHP_BOSH_fulljid']))
+        }
+            
+        if (isset($_SESSION['XMPPHP_BOSH_fulljid'])) {
             $this->fulljid = $_SESSION['XMPPHP_BOSH_fulljid'];
+        }
+            
     }
 
     public function saveSession() {
