@@ -221,7 +221,8 @@ class Net_XMPP_XMLStream {
      * Destructor
      * Cleanup connection
      */
-    public function __destruct() {
+    public function __destruct() 
+    {
         if (!$this->disconnected && $this->socket) {
             $this->disconnect();
         }
@@ -232,7 +233,8 @@ class Net_XMPP_XMLStream {
      *
      * @return XMPPHP_Log
      */
-    public function getLog() {
+    public function getLog() 
+    {
         return $this->log;
     }
 
@@ -241,7 +243,8 @@ class Net_XMPP_XMLStream {
      *
      * @return integer
      */
-    public function getId() {
+    public function getId() 
+    {
         $this->lastid++;
         return $this->lastid;
     }
