@@ -184,8 +184,8 @@ class Net_XMPP_BOSH extends Net_XMPP
             $this->rid = $_SESSION['Net_XMPP_BOSH_RID'];
         }
         
-        if (isset($_SESSION['XMPPHP_BOSH_SID'])) {
-            $this->sid = $_SESSION['XMPPHP_BOSH_SID'];
+        if (isset($_SESSION['Net_XMPP_BOSH_SID'])) {
+            $this->sid = $_SESSION['Net_XMPP_BOSH_SID'];
         }
             
         if (isset($_SESSION['XMPPHP_BOSH_authed'])) {
@@ -204,7 +204,7 @@ class Net_XMPP_BOSH extends Net_XMPP
 
     public function saveSession() {
         $_SESSION['Net_XMPP_BOSH_RID'] = (string) $this->rid;
-        $_SESSION['XMPPHP_BOSH_SID'] = (string) $this->sid;
+        $_SESSION['Net_XMPP_BOSH_SID'] = (string) $this->sid;
         $_SESSION['XMPPHP_BOSH_authed'] = (boolean) $this->authed;
         $_SESSION['XMPPHP_BOSH_jid'] = (string) $this->jid;
         $_SESSION['XMPPHP_BOSH_fulljid'] = (string) $this->fulljid;
