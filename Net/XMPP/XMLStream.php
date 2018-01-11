@@ -373,24 +373,27 @@ class Net_XMPP_XMLStream {
     /**
      * Reconnect XMPP Host
      */
-    public function doReconnect() {
+    public function doReconnect() 
+    {
         if (!$this->is_server) {
-            $this->log->log("Reconnecting ($this->reconnectTimeout)...", XMPPHP_Log::LEVEL_WARNING);
+            $this->log->log("Reconnecting ($this->reconnectTimeout)...", Net_XMPP_Log::LEVEL_WARNING);
             $this->connect($this->reconnectTimeout, false, false);
             $this->reset();
             $this->event('reconnect');
         }
     }
 
-    public function setReconnectTimeout($timeout) {
+    public function setReconnectTimeout($timeout) 
+    {
         $this->reconnectTimeout = $timeout;
     }
 
     /**
      * Disconnect from XMPP Host
      */
-    public function disconnect() {
-        $this->log->log("Disconnecting...", XMPPHP_Log::LEVEL_VERBOSE);
+    public function disconnect() 
+    {
+        $this->log->log("Disconnecting...", Net_XMPP_Log::LEVEL_VERBOSE);
         if (false == (bool) $this->socket) {
             return;
         }
