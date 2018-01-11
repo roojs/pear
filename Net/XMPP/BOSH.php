@@ -104,13 +104,15 @@ class Net_XMPP_BOSH extends Net_XMPP
         return $output;
     }
 
-    public function __buildBody($sub = null) {
+    public function __buildBody($sub = null) 
+    {
         $xml = new SimpleXMLElement("<body xmlns='http://jabber.org/protocol/httpbind' xmlns:xmpp='urn:xmpp:xbosh' />");
         $xml->addAttribute('content', 'text/xml; charset=utf-8');
         $xml->addAttribute('rid', $this->rid);
         $this->rid += 1;
-        if ($this->sid)
+        if ($this->sid) {
             $xml->addAttribute('sid', $this->sid);
+        }
         #if($this->sid) $xml->addAttribute('xmlns', 'http://jabber.org/protocol/httpbind');
         $xml->addAttribute('xml:lang', 'en');
         if ($sub) { // ok, so simplexml is lame
