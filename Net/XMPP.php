@@ -433,7 +433,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
     protected function tls_proceed_handler($xml) 
     {
         $this->log->log("Starting TLS encryption");
-        stream_socket_enable_crypto($this->socket, true, STREAM_CRYPTO_METHOD_SSLv23_CLIENT);
+        stream_socket_enable_crypto($this->socket, false, STREAM_CRYPTO_METHOD_SSLv23_CLIENT);
         $this->reset();
     }
 
