@@ -216,10 +216,15 @@ class Net_XMPP extends Net_XMPP_XMLStream
         }
         
         $out = "<presence";
-        if ($to)
+        
+        if ($to) {
             $out .= " to=\"$to\"";
-        if ($type)
+        }
+            
+        if ($type) {
             $out .= " type='$type'";
+        }
+            
         if ($show == 'available' and ! $status) {
             $out .= "/>";
         } else {
