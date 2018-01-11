@@ -366,7 +366,7 @@ class Net_XMPP_XMLStream {
             if ($sendinit)
                 $this->send($this->stream_start);
         } else {
-            throw new XMPPHP_Exception("Could not connect before timeout.");
+            throw new Net_XMPP_Exception("Could not connect before timeout.");
         }
     }
 
