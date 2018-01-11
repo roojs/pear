@@ -254,7 +254,8 @@ class Net_XMPP_XMLStream {
      *
      * @return integer
      */
-    public function useSSL($use = true) {
+    public function useSSL($use = true) 
+    {
         $this->use_ssl = $use;
     }
 
@@ -265,7 +266,8 @@ class Net_XMPP_XMLStream {
      * @param string  $pointer
      * @param string  $obj
      */
-    public function addIdHandler($id, $pointer, $obj = null) {
+    public function addIdHandler($id, $pointer, $obj = null) 
+    {
         $this->idhandlers[$id] = array($pointer, $obj);
     }
 
@@ -278,7 +280,8 @@ class Net_XMPP_XMLStream {
      * @param string  $obj
      * @param integer $depth
      */
-    public function addHandler($name, $ns, $pointer, $obj = null, $depth = 1) {
+    public function addHandler($name, $ns, $pointer, $obj = null, $depth = 1) 
+    {
         #TODO deprication warning
         $this->nshandlers[] = array($name, $ns, $pointer, $obj, $depth);
     }
@@ -290,7 +293,8 @@ class Net_XMPP_XMLStream {
      * @param string $pointer
      * @param
      */
-    public function addXPathHandler($xpath, $pointer, $obj = null) {
+    public function addXPathHandler($xpath, $pointer, $obj = null) 
+    {
         if (preg_match_all("/\(?{[^\}]+}\)?(\/?)[^\/]+/", $xpath, $regs)) {
             $ns_tags = $regs[0];
         } else {
@@ -315,7 +319,8 @@ class Net_XMPP_XMLStream {
      * @param string  $pointer
      * @param string  $obj
      */
-    public function addEventHandler($name, $pointer, $obj) {
+    public function addEventHandler($name, $pointer, $obj) 
+    {
         $this->eventhandlers[] = array($name, $pointer, $obj);
     }
 
@@ -326,7 +331,8 @@ class Net_XMPP_XMLStream {
      * @param boolean $persistent
      * @param boolean $sendinit
      */
-    public function connect($timeout = 30, $persistent = false, $sendinit = true) {
+    public function connect($timeout = 30, $persistent = false, $sendinit = true) 
+    {
         $this->sent_disconnect = false;
         $starttime = time();
 
