@@ -648,7 +648,7 @@ class Net_XMPP_XMLStream {
             }
             if (is_array($this->xmlobj)) {
                 $this->xmlobj = array_slice($this->xmlobj, 0, 1);
-                if (isset($this->xmlobj[0]) && $this->xmlobj[0] instanceof XMPPHP_XMLObj) {
+                if (isset($this->xmlobj[0]) && $this->xmlobj[0] instanceof Net_XMPP_XMLObj) {
                     $this->xmlobj[0]->subs = null;
                 }
             }
