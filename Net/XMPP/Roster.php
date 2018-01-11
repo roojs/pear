@@ -146,7 +146,8 @@ class Net_XMPP_Roster
      * @param string $jid
      */
 
-    public function getPresence($jid) {
+    public function getPresence($jid) 
+    {
         $split = split("/", $jid);
         $jid = $split[0];
         if ($this->isContact($jid)) {
@@ -167,7 +168,8 @@ class Net_XMPP_Roster
      * Get roster
      *
      */
-    public function getRoster() {
+    public function getRoster() 
+    {
         return $this->roster_array;
     }
 
