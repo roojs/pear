@@ -49,7 +49,8 @@ class Net_XMPP_BOSH extends Net_XMPP
     protected $http_buffer = Array();
     protected $session = false;
 
-    public function connect($server, $wait = '1', $session = false) {
+    public function connect($server, $wait = '1', $session = false) 
+    {
         $this->http_server = $server;
         $this->use_encryption = false;
         $this->session = $session;
@@ -80,7 +81,8 @@ class Net_XMPP_BOSH extends Net_XMPP
         }
     }
 
-    public function __sendBody($body = null, $recv = true) {
+    public function __sendBody($body = null, $recv = true) 
+    {
         if (!$body) {
             $body = $this->__buildBody();
         }
