@@ -287,7 +287,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
         if ($this->track_presence) {
             $this->roster->setPresence($payload['from'], $payload['priority'], $payload['show'], $payload['status']);
         }
-        $this->log->log("Presence: {$payload['from']} [{$payload['show']}] {$payload['status']}", XMPPHP_Log::LEVEL_DEBUG);
+        $this->log->log("Presence: {$payload['from']} [{$payload['show']}] {$payload['status']}", Net_XMPP_Log::LEVEL_DEBUG);
         if (array_key_exists('type', $xml->attrs) and $xml->attrs['type'] == 'subscribe') {
             if ($this->auto_subscribe) {
                 $this->send("<presence type='subscribed' to='{$xml->attrs['from']}' from='{$this->fulljid}' />");
