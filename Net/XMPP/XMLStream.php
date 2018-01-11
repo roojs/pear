@@ -33,7 +33,7 @@ require_once 'Net/XMPP/Exception.php';
 require_once 'Net/XMPP/XMLObj.php';
 
 /** XMPPHP_Log */
-require_once dirname(__FILE__) . '/Log.php';
+require_once 'Net/XMPP/Log.php';
 
 /**
  * XMPPHP XML Stream
@@ -46,7 +46,7 @@ require_once dirname(__FILE__) . '/Log.php';
  * @copyright  2008 Nathanael C. Fritz
  * @version	$Id$
  */
-class XMPPHP_XMLStream {
+class Net_XMPP_XMLStream {
 
     /**
      * @var resource
