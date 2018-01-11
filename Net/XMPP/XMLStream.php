@@ -505,10 +505,13 @@ class Net_XMPP_XMLStream {
      * @param integer $timeout
      * @return string
      */
-    public function processUntil($event, $timeout = -1) {
+    public function processUntil($event, $timeout = -1) 
+    {
         $start = time();
-        if (!is_array($event))
+        if (!is_array($event)) {
             $event = array($event);
+        }
+            
         $this->until[] = $event;
         end($this->until);
         $event_key = key($this->until);
@@ -532,7 +535,8 @@ class Net_XMPP_XMLStream {
     /**
      * Obsolete?
      */
-    public function Xapply_socket($socket) {
+    public function Xapply_socket($socket) 
+    {
         $this->socket = $socket;
     }
 
@@ -544,7 +548,8 @@ class Net_XMPP_XMLStream {
      * @param resource $parser
      * @param string   $name
      */
-    public function startXML($parser, $name, $attr) {
+    public function startXML($parser, $name, $attr) 
+    {
         if ($this->been_reset) {
             $this->been_reset = false;
             $this->xml_depth = 0;
