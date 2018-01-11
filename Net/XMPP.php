@@ -346,7 +346,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
         $this->log->log("Auth failed!", Net_XMPP_Log::LEVEL_ERROR);
         $this->disconnect();
 
-        throw new XMPPHP_Exception('Auth failed!');
+        throw new Net_XMPP_Exception('Auth failed!');
     }
 
     /**
