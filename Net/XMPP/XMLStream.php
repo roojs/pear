@@ -592,7 +592,7 @@ class Net_XMPP_XMLStream {
      */
     public function endXML($parser, $name) 
     {
-        #$this->log->log("Ending $name",  XMPPHP_Log::LEVEL_DEBUG);
+        #$this->log->log("Ending $name",  Net_XMPP_Log::LEVEL_DEBUG);
         #print "$name\n";
         if ($this->been_reset) {
             $this->been_reset = false;
@@ -691,8 +691,9 @@ class Net_XMPP_XMLStream {
      * @param string $name
      * @param string $payload
      */
-    public function event($name, $payload = null) {
-        $this->log->log("EVENT: $name", XMPPHP_Log::LEVEL_DEBUG);
+    public function event($name, $payload = null) 
+    {
+        $this->log->log("EVENT: $name", Net_XMPP_Log::LEVEL_DEBUG);
         foreach ($this->eventhandlers as $handler) {
             if ($name == $handler[0]) {
                 if ($handler[2] === null) {
