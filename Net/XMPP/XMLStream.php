@@ -719,7 +719,8 @@ class Net_XMPP_XMLStream {
     /**
      * Read from socket
      */
-    public function read() {
+    public function read() 
+    {
         $buff = @fread($this->socket, 1024);
         if (!$buff) {
             if ($this->reconnect) {
@@ -729,7 +730,7 @@ class Net_XMPP_XMLStream {
                 return false;
             }
         }
-        $this->log->log("RECV: $buff", XMPPHP_Log::LEVEL_VERBOSE);
+        $this->log->log("RECV: $buff", Net_XMPP_Log::LEVEL_VERBOSE);
         xml_parse($this->parser, $buff, false);
     }
 
@@ -764,9 +765,9 @@ class Net_XMPP_XMLStream {
             # TODO: retry send here
             return false;
         } elseif ($select > 0) {
-            $this->log->log("Socket is ready; send it.", XMPPHP_Log::LEVEL_VERBOSE);
+            $this->log->log("Socket is ready; send it.", Net_XMPP_Log::LEVEL_VERBOSE);
         } else {
-            $this->log->log("Socket is not ready; break.", XMPPHP_Log::LEVEL_ERROR);
+            $this->log->log("Socket is not ready; break.", Net_XMPP_Log::LEVEL_ERROR);
             return false;
         }
 
