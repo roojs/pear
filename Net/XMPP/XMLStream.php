@@ -351,10 +351,10 @@ class Net_XMPP_XMLStream {
             try {
                 $this->socket = @stream_socket_client("$conntype://{$this->host}:{$this->port}", $errno, $errstr, $timeout, $conflag);
             } catch (Exception $e) {
-                throw new XMPPHP_Exception($e->getMessage());
+                throw new Net_XMPP_Exception($e->getMessage());
             }
             if (!$this->socket) {
-                $this->log->log("Could not connect.", XMPPHP_Log::LEVEL_ERROR);
+                $this->log->log("Could not connect.", Net_XMPP_Log::LEVEL_ERROR);
                 $this->disconnected = true;
                 # Take it easy for a few seconds
                 sleep(min($timeout, 5));
