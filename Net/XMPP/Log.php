@@ -71,7 +71,8 @@ class Net_XMPP_Log
      * @param boolean $printout
      * @param string  $runlevel
      */
-    public function __construct($printout = false, $runlevel = self::LEVEL_INFO) {
+    public function __construct($printout = false, $runlevel = self::LEVEL_INFO) 
+    {
         $this->printout = (boolean) $printout;
         $this->runlevel = (int) $runlevel;
     }
@@ -83,7 +84,8 @@ class Net_XMPP_Log
      * @param string  $msg
      * @param integer $runlevel
      */
-    public function log($msg, $runlevel = self::LEVEL_INFO) {
+    public function log($msg, $runlevel = self::LEVEL_INFO) 
+    {
         $time = time();
         #$this->data[] = array($this->runlevel, $msg, $time);
         if ($this->printout and $runlevel <= $this->runlevel) {
@@ -98,7 +100,8 @@ class Net_XMPP_Log
      * @param boolean $clear
      * @param integer $runlevel
      */
-    public function printout($clear = true, $runlevel = null) {
+    public function printout($clear = true, $runlevel = null) 
+    {
         if ($runlevel === null) {
             $runlevel = $this->runlevel;
         }
