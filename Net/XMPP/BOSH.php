@@ -125,7 +125,8 @@ class Net_XMPP_BOSH extends Net_XMPP
         return $xml;
     }
 
-    public function __process() {
+    public function __process() 
+    {
         if ($this->http_buffer) {
             $this->__parseBuffer();
         } else {
@@ -134,7 +135,8 @@ class Net_XMPP_BOSH extends Net_XMPP
         }
     }
 
-    public function __parseBuffer() {
+    public function __parseBuffer() 
+    {
         while ($this->http_buffer) {
             $idx = key($this->http_buffer);
             $buffer = $this->http_buffer[$idx];
@@ -144,7 +146,7 @@ class Net_XMPP_BOSH extends Net_XMPP
                 $children = $xml->xpath('child::node()');
                 foreach ($children as $child) {
                     $buff = $child->asXML();
-                    $this->log->log("RECV: $buff", XMPPHP_Log::LEVEL_VERBOSE);
+                    $this->log->log("RECV: $buff", Net_XMPP_Log::LEVEL_VERBOSE);
                     xml_parse($this->parser, $buff, false);
                 }
             }
