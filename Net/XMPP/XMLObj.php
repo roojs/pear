@@ -141,8 +141,10 @@ class XMPPHP_XMLObj
     public function hasSub($name, $ns = null) 
     {
         foreach ($this->subs as $sub) {
-            if (($name == "*" or $sub->name == $name) and ( $ns == null or $sub->ns == $ns))
+            if (($name == "*" or $sub->name == $name) and ( $ns == null or $sub->ns == $ns)) {
                 return true;
+            }
+                
         }
         return false;
     }
