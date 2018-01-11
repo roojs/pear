@@ -125,7 +125,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
             
         $this->basejid = $this->user . '@' . $this->host;
 
-        $this->roster = new Roster();
+        $this->roster = new Net_XMPP_Roster();
         $this->track_presence = true;
 
         $this->stream_start = '<stream:stream to="' . $server . '" xmlns:stream="http://etherx.jabber.org/streams" xmlns="jabber:client" version="1.0">';
