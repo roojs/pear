@@ -297,7 +297,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function features_handler($xml) {
+    protected function features_handler($xml) 
+    {
         if ($xml->hasSub('starttls') and $this->use_encryption) {
             $this->send("<starttls xmlns='urn:ietf:params:xml:ns:xmpp-tls'><required /></starttls>");
         } elseif ($xml->hasSub('bind') and $this->authed) {
@@ -324,7 +325,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function sasl_success_handler($xml) {
+    protected function sasl_success_handler($xml) 
+    {
         $this->log->log("Auth success!");
         $this->authed = true;
         $this->reset();
@@ -335,7 +337,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function sasl_failure_handler($xml) {
+    protected function sasl_failure_handler($xml) 
+    {
         $this->log->log("Auth failed!", XMPPHP_Log::LEVEL_ERROR);
         $this->disconnect();
 
@@ -347,7 +350,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function resource_bind_handler($xml) {
+    protected function resource_bind_handler($xml) 
+    {
         if ($xml->attrs['type'] == 'result') {
             $this->log->log("Bound to " . $xml->sub('bind')->sub('jid')->data);
             $this->fulljid = $xml->sub('bind')->sub('jid')->data;
@@ -363,7 +367,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * Retrieves the roster
      *
      */
-    public function getRoster() {
+    public function getRoster() 
+    {
         $id = $this->getID();
         $this->send("<iq xmlns='jabber:client' type='get' id='$id'><query xmlns='jabber:iq:roster' /></iq>");
     }
@@ -374,7 +379,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function roster_iq_handler($xml) {
+    protected function roster_iq_handler($xml) 
+    {
         $status = "result";
         $xmlroster = $xml->sub('query');
         foreach ($xmlroster->subs as $item) {
@@ -408,7 +414,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function session_start_handler($xml) {
+    protected function session_start_handler($xml) 
+    {
         $this->log->log("Session started");
         $this->session_started = true;
         $this->event('session_start');
@@ -419,7 +426,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function tls_proceed_handler($xml) {
+    protected function tls_proceed_handler($xml) 
+    {
         $this->log->log("Starting TLS encryption");
         stream_socket_enable_crypto($this->socket, true, STREAM_CRYPTO_METHOD_SSLv23_CLIENT);
         $this->reset();
@@ -429,7 +437,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * Retrieves the vcard
      *
      */
-    public function getVCard($jid = Null) {
+    public function getVCard($jid = Null) 
+    {
         $id = $this->getID();
         $this->addIdHandler($id, 'vcard_get_handler');
         if ($jid) {
@@ -444,7 +453,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param XML Object $xml
      */
-    protected function vcard_get_handler($xml) {
+    protected function vcard_get_handler($xml) 
+    {
         $vcard_array = array();
         $vcard = $xml->sub('vcard');
         // go through all of the sub elements and add them to the vcard array
