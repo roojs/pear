@@ -146,7 +146,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param boolean $useEncryption
      */
-    public function useEncryption($useEncryption = true) {
+    public function useEncryption($useEncryption = true) 
+    {
         $this->use_encryption = $useEncryption;
     }
 
@@ -155,7 +156,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param boolean $autoSubscribe
      */
-    public function autoSubscribe($autoSubscribe = true) {
+    public function autoSubscribe($autoSubscribe = true) 
+    {
         $this->auto_subscribe = $autoSubscribe;
     }
 
@@ -167,7 +169,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * @param string $type
      * @param string $subject
      */
-    public function message($to, $body, $type = 'chat', $subject = null, $payload = null) {
+    public function message($to, $body, $type = 'chat', $subject = null, $payload = null) 
+    {
         if (is_null($type)) {
             $type = 'chat';
         }
@@ -194,7 +197,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * @param string $show
      * @param string $to
      */
-    public function presence($status = null, $show = 'available', $to = null, $type = 'available', $priority = 0) {
+    public function presence($status = null, $show = 'available', $to = null, $type = 'available', $priority = 0) 
+    {
         if ($type == 'available')
             $type = '';
         $to = htmlspecialchars($to);
@@ -228,7 +232,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $jid
      */
-    public function subscribe($jid) {
+    public function subscribe($jid) 
+    {
         $this->send("<presence type='subscribe' to='{$jid}' from='{$this->fulljid}' />");
         #$this->send("<presence type='subscribed' to='{$jid}' from='{$this->fulljid}' />");
     }
@@ -238,7 +243,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    public function message_handler($xml) {
+    public function message_handler($xml) 
+    {
         if (isset($xml->attrs['type'])) {
             $payload['type'] = $xml->attrs['type'];
         } else {
@@ -261,7 +267,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    public function presence_handler($xml) {
+    public function presence_handler($xml) 
+    {
         $payload['type'] = (isset($xml->attrs['type'])) ? $xml->attrs['type'] : 'available';
         $payload['show'] = (isset($xml->sub('show')->data)) ? $xml->sub('show')->data : $payload['type'];
         $payload['from'] = $xml->attrs['from'];
