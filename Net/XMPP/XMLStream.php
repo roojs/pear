@@ -358,7 +358,7 @@ class Net_XMPP_XMLStream
                 throw new XMPPHP_Exception($e->getMessage());
             }
             if (!$this->socket) {
-                $this->log->log("Could not connect.", XMPPHP_Log::LEVEL_ERROR);
+                $this->log->log("Could not connect.", Net_XMPP_Log::LEVEL_ERROR);
                 $this->disconnected = true;
                 # Take it easy for a few seconds
                 sleep(min($timeout, 5));
@@ -785,7 +785,8 @@ class Net_XMPP_XMLStream
         return $sentbytes;
     }
 
-    public function time() {
+    public function time() 
+    {
         list($usec, $sec) = explode(" ", microtime());
         return (float) $sec + (float) $usec;
     }
@@ -793,7 +794,8 @@ class Net_XMPP_XMLStream
     /**
      * Reset connection
      */
-    public function reset() {
+    public function reset() 
+    {
         $this->xml_depth = 0;
         unset($this->xmlobj);
         $this->xmlobj = array();
@@ -807,7 +809,8 @@ class Net_XMPP_XMLStream
     /**
      * Setup the XML parser
      */
-    public function setupParser() {
+    public function setupParser() 
+    {
         $this->parser = xml_parser_create('UTF-8');
         xml_parser_set_option($this->parser, XML_OPTION_SKIP_WHITE, 1);
         xml_parser_set_option($this->parser, XML_OPTION_TARGET_ENCODING, 'UTF-8');
@@ -816,7 +819,8 @@ class Net_XMPP_XMLStream
         xml_set_character_data_handler($this->parser, 'charXML');
     }
 
-    public function readyToProcess() {
+    public function readyToProcess() 
+    {
         $read = array($this->socket);
         $write = array();
         $except = array();
