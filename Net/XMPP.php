@@ -125,7 +125,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
 
         $this->xoauth = $xoauth;
 
-        $this->roster = new Roster();
+        $this->roster = new Net_XMPP_Roster();
         $this->track_presence = true;
 
         $this->stream_start = '<stream:stream to="' . $server . '" xmlns:stream="http://etherx.jabber.org/streams" xmlns="jabber:client" version="1.0">';
@@ -342,7 +342,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
         $this->log->log("Auth failed!", Net_XMPP_Log::LEVEL_ERROR);
         $this->disconnect();
 
-        throw new XMPPHP_Exception('Auth failed!');
+        throw new Net_XMPP_Exception('Auth failed!');
     }
 
     /**
