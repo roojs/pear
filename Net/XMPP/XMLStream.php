@@ -221,7 +221,8 @@ class Net_XMPP_XMLStream
      * Destructor
      * Cleanup connection
      */
-    public function __destruct() {
+    public function __destruct() 
+    {
         if (!$this->disconnected && $this->socket) {
             $this->disconnect();
         }
@@ -232,7 +233,8 @@ class Net_XMPP_XMLStream
      *
      * @return XMPPHP_Log
      */
-    public function getLog() {
+    public function getLog() 
+    {
         return $this->log;
     }
 
@@ -241,7 +243,8 @@ class Net_XMPP_XMLStream
      *
      * @return integer
      */
-    public function getId() {
+    public function getId() 
+    {
         $this->lastid++;
         return $this->lastid;
     }
@@ -251,7 +254,8 @@ class Net_XMPP_XMLStream
      *
      * @return integer
      */
-    public function useSSL($use = true) {
+    public function useSSL($use = true) 
+    {
         $this->use_ssl = $use;
     }
 
@@ -262,7 +266,8 @@ class Net_XMPP_XMLStream
      * @param string  $pointer
      * @param string  $obj
      */
-    public function addIdHandler($id, $pointer, $obj = null) {
+    public function addIdHandler($id, $pointer, $obj = null) 
+    {
         $this->idhandlers[$id] = array($pointer, $obj);
     }
 
@@ -275,7 +280,8 @@ class Net_XMPP_XMLStream
      * @param string  $obj
      * @param integer $depth
      */
-    public function addHandler($name, $ns, $pointer, $obj = null, $depth = 1) {
+    public function addHandler($name, $ns, $pointer, $obj = null, $depth = 1) 
+    {
         #TODO deprication warning
         $this->nshandlers[] = array($name, $ns, $pointer, $obj, $depth);
     }
@@ -287,7 +293,8 @@ class Net_XMPP_XMLStream
      * @param string $pointer
      * @param
      */
-    public function addXPathHandler($xpath, $pointer, $obj = null) {
+    public function addXPathHandler($xpath, $pointer, $obj = null) 
+    {
         if (preg_match_all("/\(?{[^\}]+}\)?(\/?)[^\/]+/", $xpath, $regs)) {
             $ns_tags = $regs[0];
         } else {
@@ -312,7 +319,8 @@ class Net_XMPP_XMLStream
      * @param string  $pointer
      * @param string  $obj
      */
-    public function addEventHandler($name, $pointer, $obj) {
+    public function addEventHandler($name, $pointer, $obj) 
+    {
         $this->eventhandlers[] = array($name, $pointer, $obj);
     }
 
@@ -323,7 +331,8 @@ class Net_XMPP_XMLStream
      * @param boolean $persistent
      * @param boolean $sendinit
      */
-    public function connect($timeout = 30, $persistent = false, $sendinit = true) {
+    public function connect($timeout = 30, $persistent = false, $sendinit = true) 
+    {
         $this->sent_disconnect = false;
         $starttime = time();
 
@@ -368,7 +377,8 @@ class Net_XMPP_XMLStream
     /**
      * Reconnect XMPP Host
      */
-    public function doReconnect() {
+    public function doReconnect() 
+    {
         if (!$this->is_server) {
             $this->log->log("Reconnecting ($this->reconnectTimeout)...", XMPPHP_Log::LEVEL_WARNING);
             $this->connect($this->reconnectTimeout, false, false);
@@ -377,14 +387,16 @@ class Net_XMPP_XMLStream
         }
     }
 
-    public function setReconnectTimeout($timeout) {
+    public function setReconnectTimeout($timeout) 
+    {
         $this->reconnectTimeout = $timeout;
     }
 
     /**
      * Disconnect from XMPP Host
      */
-    public function disconnect() {
+    public function disconnect() 
+    {
         $this->log->log("Disconnecting...", XMPPHP_Log::LEVEL_VERBOSE);
         if (false == (bool) $this->socket) {
             return;
@@ -401,7 +413,8 @@ class Net_XMPP_XMLStream
      *
      * @return boolean
      */
-    public function isDisconnected() {
+    public function isDisconnected() 
+    {
         return $this->disconnected;
     }
 
@@ -411,8 +424,8 @@ class Net_XMPP_XMLStream
      * NULL -> wait forever and ever
      * integer -> process for this amount of time 
      */
-    private function __process($maximum = 5) {
-
+    private function __process($maximum = 5) 
+    {
         $remaining = $maximum;
 
         do {
@@ -470,7 +483,8 @@ class Net_XMPP_XMLStream
      *
      * @return string
      */
-    public function process() {
+    public function process() 
+    {
         $this->__process(NULL);
     }
 
@@ -480,7 +494,8 @@ class Net_XMPP_XMLStream
      * @param integer $timeout
      * @return string
      */
-    public function processTime($timeout = NULL) {
+    public function processTime($timeout = NULL) 
+    {
         if (is_null($timeout)) {
             return $this->__process(NULL);
         } else {
@@ -495,7 +510,8 @@ class Net_XMPP_XMLStream
      * @param integer $timeout
      * @return string
      */
-    public function processUntil($event, $timeout = -1) {
+    public function processUntil($event, $timeout = -1) 
+    {
         $start = time();
         if (!is_array($event))
             $event = array($event);
@@ -522,7 +538,8 @@ class Net_XMPP_XMLStream
     /**
      * Obsolete?
      */
-    public function Xapply_socket($socket) {
+    public function Xapply_socket($socket) 
+    {
         $this->socket = $socket;
     }
 
@@ -534,7 +551,8 @@ class Net_XMPP_XMLStream
      * @param resource $parser
      * @param string   $name
      */
-    public function startXML($parser, $name, $attr) {
+    public function startXML($parser, $name, $attr) 
+    {
         if ($this->been_reset) {
             $this->been_reset = false;
             $this->xml_depth = 0;
@@ -575,7 +593,8 @@ class Net_XMPP_XMLStream
      * @param resource $parser
      * @param string   $name
      */
-    public function endXML($parser, $name) {
+    public function endXML($parser, $name) 
+    {
         #$this->log->log("Ending $name",  XMPPHP_Log::LEVEL_DEBUG);
         #print "$name\n";
         if ($this->been_reset) {
@@ -662,7 +681,8 @@ class Net_XMPP_XMLStream
      * @param resource $parser
      * @param string   $data
      */
-    public function charXML($parser, $data) {
+    public function charXML($parser, $data) 
+    {
         if (array_key_exists($this->xml_depth, $this->xmlobj)) {
             $this->xmlobj[$this->xml_depth]->data .= $data;
         }
@@ -674,7 +694,8 @@ class Net_XMPP_XMLStream
      * @param string $name
      * @param string $payload
      */
-    public function event($name, $payload = null) {
+    public function event($name, $payload = null) 
+    {
         $this->log->log("EVENT: $name", XMPPHP_Log::LEVEL_DEBUG);
         foreach ($this->eventhandlers as $handler) {
             if ($name == $handler[0]) {
@@ -701,7 +722,8 @@ class Net_XMPP_XMLStream
     /**
      * Read from socket
      */
-    public function read() {
+    public function read() 
+    {
         $buff = @fread($this->socket, 1024);
         if (!$buff) {
             if ($this->reconnect) {
@@ -720,8 +742,8 @@ class Net_XMPP_XMLStream
      *
      * @param string $msg
      */
-    public function send($msg, $timeout = NULL) {
-
+    public function send($msg, $timeout = NULL) 
+    {
         if (is_null($timeout)) {
             $secs = NULL;
             $usecs = NULL;
