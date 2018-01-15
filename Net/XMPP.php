@@ -26,7 +26,6 @@
  * @author	 Michael Garvin <JID: gar@netflint.net>
  * @copyright  2008 Nathanael C. Fritz
  */
-
 /** XMPPHP_XMLStream */
 require_once 'Net/XMPP/XMLStream.php';
 require_once 'Net/XMPP/Roster.php';
@@ -42,8 +41,8 @@ require_once 'Net/XMPP/Roster.php';
  * @copyright  2008 Nathanael C. Fritz
  * @version	$Id$
  */
-class Net_XMPP extends Net_XMPP_XMLStream 
-{
+class XMPPHP_XMPP extends XMPPHP_XMLStream {
+
     /**
      * @var string
      */
@@ -99,6 +98,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * @var object
      */
     public $roster;
+    public $xoauth = false;
 
     /**
      * Constructor
@@ -112,20 +112,19 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * @param boolean $printlog
      * @param string  $loglevel
      */
-    public function __construct($host, $port, $user, $password, $resource, $server = null, $printlog = false, $loglevel = null) {
+    public function __construct($host, $port, $user, $password, $resource, $server = null, $printlog = false, $loglevel = null, $xoauth = false) {
         parent::__construct($host, $port, $printlog, $loglevel);
 
         $this->user = $user;
         $this->password = $password;
         $this->resource = $resource;
-        
-        if (!$server) {
+        if (!$server)
             $server = $host;
-        }
-            
         $this->basejid = $this->user . '@' . $this->host;
 
-        $this->roster = new Net_XMPP_Roster();
+        $this->xoauth = $xoauth;
+
+        $this->roster = new Roster();
         $this->track_presence = true;
 
         $this->stream_start = '<stream:stream to="' . $server . '" xmlns:stream="http://etherx.jabber.org/streams" xmlns="jabber:client" version="1.0">';
@@ -146,8 +145,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param boolean $useEncryption
      */
-    public function useEncryption($useEncryption = true) 
-    {
+    public function useEncryption($useEncryption = true) {
         $this->use_encryption = $useEncryption;
     }
 
@@ -156,8 +154,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param boolean $autoSubscribe
      */
-    public function autoSubscribe($autoSubscribe = true) 
-    {
+    public function autoSubscribe($autoSubscribe = true) {
         $this->auto_subscribe = $autoSubscribe;
     }
 
@@ -169,8 +166,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * @param string $type
      * @param string $subject
      */
-    public function message($to, $body, $type = 'chat', $subject = null, $payload = null) 
-    {
+    public function message($to, $body, $type = 'chat', $subject = null, $payload = null) {
         if (is_null($type)) {
             $type = 'chat';
         }
@@ -180,17 +176,11 @@ class Net_XMPP extends Net_XMPP_XMLStream
         $subject = htmlspecialchars($subject);
 
         $out = "<message from=\"{$this->fulljid}\" to=\"$to\" type='$type'>";
-        
-        if ($subject) {
+        if ($subject)
             $out .= "<subject>$subject</subject>";
-        }
-            
         $out .= "<body>$body</body>";
-        
-        if ($payload) {
+        if ($payload)
             $out .= $payload;
-        }
-            
         $out .= "</message>";
 
         $this->send($out);
@@ -203,28 +193,19 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * @param string $show
      * @param string $to
      */
-    public function presence($status = null, $show = 'available', $to = null, $type = 'available', $priority = 0) 
-    {
-        if ($type == 'available') {
+    public function presence($status = null, $show = 'available', $to = null, $type = 'available', $priority = 0) {
+        if ($type == 'available')
             $type = '';
-        }
-            
         $to = htmlspecialchars($to);
         $status = htmlspecialchars($status);
-        if ($show == 'unavailable') {
+        if ($show == 'unavailable')
             $type = 'unavailable';
-        }
-        
+
         $out = "<presence";
-        
-        if ($to) {
+        if ($to)
             $out .= " to=\"$to\"";
-        }
-            
-        if ($type) {
+        if ($type)
             $out .= " type='$type'";
-        }
-            
         if ($show == 'available' and ! $status) {
             $out .= "/>";
         } else {
@@ -246,8 +227,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $jid
      */
-    public function subscribe($jid) 
-    {
+    public function subscribe($jid) {
         $this->send("<presence type='subscribe' to='{$jid}' from='{$this->fulljid}' />");
         #$this->send("<presence type='subscribed' to='{$jid}' from='{$this->fulljid}' />");
     }
@@ -257,17 +237,21 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    public function message_handler($xml) 
-    {
+    public function message_handler($xml) {
         if (isset($xml->attrs['type'])) {
             $payload['type'] = $xml->attrs['type'];
         } else {
             $payload['type'] = 'chat';
         }
         $payload['from'] = $xml->attrs['from'];
-        $payload['body'] = $xml->sub('body')->data;
+
+        if (is_object($xml->sub('body')))
+            $payload['body'] = $xml->sub('body')->data;
+
         $payload['xml'] = $xml;
-        $this->log->log("Message: {$xml->sub('body')->data}", Net_XMPP_Log::LEVEL_DEBUG);
+
+        if (is_object($xml->sub('body')))
+            $this->log->log("Message: {$xml->sub('body')->data}", XMPPHP_Log::LEVEL_DEBUG);
         $this->event('message', $payload);
     }
 
@@ -276,8 +260,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    public function presence_handler($xml) 
-    {
+    public function presence_handler($xml) {
         $payload['type'] = (isset($xml->attrs['type'])) ? $xml->attrs['type'] : 'available';
         $payload['show'] = (isset($xml->sub('show')->data)) ? $xml->sub('show')->data : $payload['type'];
         $payload['from'] = $xml->attrs['from'];
@@ -287,7 +270,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
         if ($this->track_presence) {
             $this->roster->setPresence($payload['from'], $payload['priority'], $payload['show'], $payload['status']);
         }
-        $this->log->log("Presence: {$payload['from']} [{$payload['show']}] {$payload['status']}", Net_XMPP_Log::LEVEL_DEBUG);
+        $this->log->log("Presence: {$payload['from']} [{$payload['show']}] {$payload['status']}", XMPPHP_Log::LEVEL_DEBUG);
         if (array_key_exists('type', $xml->attrs) and $xml->attrs['type'] == 'subscribe') {
             if ($this->auto_subscribe) {
                 $this->send("<presence type='subscribed' to='{$xml->attrs['from']}' from='{$this->fulljid}' />");
@@ -306,8 +289,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function features_handler($xml) 
-    {
+    protected function features_handler($xml) {
         if ($xml->hasSub('starttls') and $this->use_encryption) {
             $this->send("<starttls xmlns='urn:ietf:params:xml:ns:xmpp-tls'><required /></starttls>");
         } elseif ($xml->hasSub('bind') and $this->authed) {
@@ -316,10 +298,15 @@ class Net_XMPP extends Net_XMPP_XMLStream
             $this->send("<iq xmlns=\"jabber:client\" type=\"set\" id=\"$id\"><bind xmlns=\"urn:ietf:params:xml:ns:xmpp-bind\"><resource>{$this->resource}</resource></bind></iq>");
         } else {
             $this->log->log("Attempting Auth...");
-            if ($this->password) {
-                $this->send("<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='PLAIN'>" . base64_encode("\x00" . $this->user . "\x00" . $this->password) . "</auth>");
+
+            if ($this->xoauth == true) {
+                $this->send("<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='X-OAUTH2'>" . base64_encode("\x00" . $this->user . "\x00" . $this->password) . "</auth>");
             } else {
-                $this->send("<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='ANONYMOUS'/>");
+                if ($this->password) {
+                    $this->send("<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='PLAIN'>" . base64_encode("\x00" . $this->user . "\x00" . $this->password) . "</auth>");
+                } else {
+                    $this->send("<auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' mechanism='ANONYMOUS'/>");
+                }
             }
         }
     }
@@ -329,8 +316,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function sasl_success_handler($xml) 
-    {
+    protected function sasl_success_handler($xml) {
         $this->log->log("Auth success!");
         $this->authed = true;
         $this->reset();
@@ -341,12 +327,11 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function sasl_failure_handler($xml) 
-    {
-        $this->log->log("Auth failed!", Net_XMPP_Log::LEVEL_ERROR);
+    protected function sasl_failure_handler($xml) {
+        $this->log->log("Auth failed!", XMPPHP_Log::LEVEL_ERROR);
         $this->disconnect();
 
-        throw new Net_XMPP_Exception('Auth failed!');
+        throw new XMPPHP_Exception('Auth failed!');
     }
 
     /**
@@ -354,8 +339,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function resource_bind_handler($xml) 
-    {
+    protected function resource_bind_handler($xml) {
         if ($xml->attrs['type'] == 'result') {
             $this->log->log("Bound to " . $xml->sub('bind')->sub('jid')->data);
             $this->fulljid = $xml->sub('bind')->sub('jid')->data;
@@ -371,8 +355,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * Retrieves the roster
      *
      */
-    public function getRoster() 
-    {
+    public function getRoster() {
         $id = $this->getID();
         $this->send("<iq xmlns='jabber:client' type='get' id='$id'><query xmlns='jabber:iq:roster' /></iq>");
     }
@@ -383,8 +366,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function roster_iq_handler($xml) 
-    {
+    protected function roster_iq_handler($xml) {
         $status = "result";
         $xmlroster = $xml->sub('query');
         foreach ($xmlroster->subs as $item) {
@@ -418,8 +400,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function session_start_handler($xml) 
-    {
+    protected function session_start_handler($xml) {
         $this->log->log("Session started");
         $this->session_started = true;
         $this->event('session_start');
@@ -430,10 +411,9 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param string $xml
      */
-    protected function tls_proceed_handler($xml) 
-    {
+    protected function tls_proceed_handler($xml) {
         $this->log->log("Starting TLS encryption");
-        stream_socket_enable_crypto($this->socket, false, STREAM_CRYPTO_METHOD_SSLv23_CLIENT);
+        stream_socket_enable_crypto($this->socket, true, STREAM_CRYPTO_METHOD_SSLv23_CLIENT);
         $this->reset();
     }
 
@@ -441,8 +421,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * Retrieves the vcard
      *
      */
-    public function getVCard($jid = Null) 
-    {
+    public function getVCard($jid = Null) {
         $id = $this->getID();
         $this->addIdHandler($id, 'vcard_get_handler');
         if ($jid) {
@@ -457,8 +436,7 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param XML Object $xml
      */
-    protected function vcard_get_handler($xml) 
-    {
+    protected function vcard_get_handler($xml) {
         $vcard_array = array();
         $vcard = $xml->sub('vcard');
         // go through all of the sub elements and add them to the vcard array
