@@ -41,8 +41,8 @@ require_once 'Net/XMPP/Roster.php';
  * @copyright  2008 Nathanael C. Fritz
  * @version	$Id$
  */
-class XMPPHP_XMPP extends XMPPHP_XMLStream {
-
+class Net_XMPP extends Net_XMPP_XMLStream 
+{
     /**
      * @var string
      */
