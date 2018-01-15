@@ -380,7 +380,7 @@ class Net_XMPP_XMLStream
     public function doReconnect() 
     {
         if (!$this->is_server) {
-            $this->log->log("Reconnecting ($this->reconnectTimeout)...", XMPPHP_Log::LEVEL_WARNING);
+            $this->log->log("Reconnecting ($this->reconnectTimeout)...", Net_XMPP_Log::LEVEL_WARNING);
             $this->connect($this->reconnectTimeout, false, false);
             $this->reset();
             $this->event('reconnect');
@@ -397,7 +397,7 @@ class Net_XMPP_XMLStream
      */
     public function disconnect() 
     {
-        $this->log->log("Disconnecting...", XMPPHP_Log::LEVEL_VERBOSE);
+        $this->log->log("Disconnecting...", Net_XMPP_Log::LEVEL_VERBOSE);
         if (false == (bool) $this->socket) {
             return;
         }
@@ -445,7 +445,7 @@ class Net_XMPP_XMLStream
             }
             $updated = @stream_select($read, $write, $except, $secs, $usecs);
             if ($updated === false) {
-                $this->log->log("Error on stream_select()", XMPPHP_Log::LEVEL_VERBOSE);
+                $this->log->log("Error on stream_select()", Net_XMPP_Log::LEVEL_VERBOSE);
                 if ($this->reconnect) {
                     $this->doReconnect();
                 } else {
@@ -466,7 +466,7 @@ class Net_XMPP_XMLStream
                         return false;
                     }
                 }
-                $this->log->log("RECV: $buff", XMPPHP_Log::LEVEL_VERBOSE);
+                $this->log->log("RECV: $buff", Net_XMPP_Log::LEVEL_VERBOSE);
                 xml_parse($this->parser, $buff, false);
             } else {
                 # $updated == 0 means no changes during timeout.
@@ -595,7 +595,7 @@ class Net_XMPP_XMLStream
      */
     public function endXML($parser, $name) 
     {
-        #$this->log->log("Ending $name",  XMPPHP_Log::LEVEL_DEBUG);
+        #$this->log->log("Ending $name",  Net_XMPP_Log::LEVEL_DEBUG);
         #print "$name\n";
         if ($this->been_reset) {
             $this->been_reset = false;
@@ -621,7 +621,7 @@ class Net_XMPP_XMLStream
                         if ($searchxml !== null) {
                             if ($handler[2] === null)
                                 $handler[2] = $this;
-                            $this->log->log("Calling {$handler[1]}", XMPPHP_Log::LEVEL_DEBUG);
+                            $this->log->log("Calling {$handler[1]}", Net_XMPP_Log::LEVEL_DEBUG);
                             $handler[2]->{$handler[1]}($this->xmlobj[2]);
                         }
                     }
@@ -636,7 +636,7 @@ class Net_XMPP_XMLStream
                 if ($searchxml !== null and $searchxml->name == $handler[0] and ( $searchxml->ns == $handler[1] or ( !$handler[1] and $searchxml->ns == $this->default_ns))) {
                     if ($handler[3] === null)
                         $handler[3] = $this;
-                    $this->log->log("Calling {$handler[2]}", XMPPHP_Log::LEVEL_DEBUG);
+                    $this->log->log("Calling {$handler[2]}", Net_XMPP_Log::LEVEL_DEBUG);
                     $handler[3]->$handler[2]($this->xmlobj[2]);
                 }
             }
@@ -696,7 +696,7 @@ class Net_XMPP_XMLStream
      */
     public function event($name, $payload = null) 
     {
-        $this->log->log("EVENT: $name", XMPPHP_Log::LEVEL_DEBUG);
+        $this->log->log("EVENT: $name", Net_XMPP_Log::LEVEL_DEBUG);
         foreach ($this->eventhandlers as $handler) {
             if ($name == $handler[0]) {
                 if ($handler[2] === null) {
@@ -733,7 +733,7 @@ class Net_XMPP_XMLStream
                 return false;
             }
         }
-        $this->log->log("RECV: $buff", XMPPHP_Log::LEVEL_VERBOSE);
+        $this->log->log("RECV: $buff", Net_XMPP_Log::LEVEL_VERBOSE);
         xml_parse($this->parser, $buff, false);
     }
 
@@ -768,20 +768,20 @@ class Net_XMPP_XMLStream
             # TODO: retry send here
             return false;
         } elseif ($select > 0) {
-            $this->log->log("Socket is ready; send it.", XMPPHP_Log::LEVEL_VERBOSE);
+            $this->log->log("Socket is ready; send it.", Net_XMPP_Log::LEVEL_VERBOSE);
         } else {
-            $this->log->log("Socket is not ready; break.", XMPPHP_Log::LEVEL_ERROR);
+            $this->log->log("Socket is not ready; break.", Net_XMPP_Log::LEVEL_ERROR);
             return false;
         }
 
         $sentbytes = @fwrite($this->socket, $msg);
-        $this->log->log("SENT: " . mb_substr($msg, 0, $sentbytes, '8bit'), XMPPHP_Log::LEVEL_VERBOSE);
+        $this->log->log("SENT: " . mb_substr($msg, 0, $sentbytes, '8bit'), Net_XMPP_Log::LEVEL_VERBOSE);
         if ($sentbytes === FALSE) {
-            $this->log->log("ERROR sending message; reconnecting.", XMPPHP_Log::LEVEL_ERROR);
+            $this->log->log("ERROR sending message; reconnecting.", Net_XMPP_Log::LEVEL_ERROR);
             $this->doReconnect();
             return false;
         }
-        $this->log->log("Successfully sent $sentbytes bytes.", XMPPHP_Log::LEVEL_VERBOSE);
+        $this->log->log("Successfully sent $sentbytes bytes.", Net_XMPP_Log::LEVEL_VERBOSE);
         return $sentbytes;
     }
 
