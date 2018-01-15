@@ -148,7 +148,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param boolean $useEncryption
      */
-    public function useEncryption($useEncryption = true) {
+    public function useEncryption($useEncryption = true) 
+    {
         $this->use_encryption = $useEncryption;
     }
 
@@ -157,7 +158,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      *
      * @param boolean $autoSubscribe
      */
-    public function autoSubscribe($autoSubscribe = true) {
+    public function autoSubscribe($autoSubscribe = true) 
+    {
         $this->auto_subscribe = $autoSubscribe;
     }
 
@@ -169,7 +171,8 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * @param string $type
      * @param string $subject
      */
-    public function message($to, $body, $type = 'chat', $subject = null, $payload = null) {
+    public function message($to, $body, $type = 'chat', $subject = null, $payload = null) 
+    {
         if (is_null($type)) {
             $type = 'chat';
         }
@@ -179,11 +182,16 @@ class Net_XMPP extends Net_XMPP_XMLStream
         $subject = htmlspecialchars($subject);
 
         $out = "<message from=\"{$this->fulljid}\" to=\"$to\" type='$type'>";
-        if ($subject)
+        if ($subject) {
             $out .= "<subject>$subject</subject>";
+        }
+            
         $out .= "<body>$body</body>";
-        if ($payload)
+        
+        if ($payload) {
             $out .= $payload;
+        }
+            
         $out .= "</message>";
 
         $this->send($out);
