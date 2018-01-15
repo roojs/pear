@@ -355,7 +355,7 @@ class Net_XMPP_XMLStream
                                 'verify_peer_name' => false,
                 ))));
             } catch (Exception $e) {
-                throw new XMPPHP_Exception($e->getMessage());
+                throw new Net_XMPP_Exception($e->getMessage());
             }
             if (!$this->socket) {
                 $this->log->log("Could not connect.", Net_XMPP_Log::LEVEL_ERROR);
@@ -578,7 +578,7 @@ class Net_XMPP_XMLStream
             $ns = $this->ns_map[$name[0]];
             $name = $name[1];
         }
-        $obj = new XMPPHP_XMLObj($name, $ns, $attr);
+        $obj = new Net_XMPP_XMLObj($name, $ns, $attr);
         if ($this->xml_depth > 1) {
             $this->xmlobj[$this->xml_depth - 1]->subs[] = $obj;
         }
