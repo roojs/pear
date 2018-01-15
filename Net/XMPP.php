@@ -204,19 +204,27 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * @param string $show
      * @param string $to
      */
-    public function presence($status = null, $show = 'available', $to = null, $type = 'available', $priority = 0) {
-        if ($type == 'available')
+    public function presence($status = null, $show = 'available', $to = null, $type = 'available', $priority = 0) 
+    {
+        if ($type == 'available') {
             $type = '';
+        }
+            
         $to = htmlspecialchars($to);
         $status = htmlspecialchars($status);
-        if ($show == 'unavailable')
+        if ($show == 'unavailable') {
             $type = 'unavailable';
-
+        }
+        
         $out = "<presence";
-        if ($to)
+        if ($to) {
             $out .= " to=\"$to\"";
-        if ($type)
+        }
+            
+        if ($type) {
             $out .= " type='$type'";
+        }
+            
         if ($show == 'available' and ! $status) {
             $out .= "/>";
         } else {
