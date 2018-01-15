@@ -112,14 +112,17 @@ class Net_XMPP extends Net_XMPP_XMLStream
      * @param boolean $printlog
      * @param string  $loglevel
      */
-    public function __construct($host, $port, $user, $password, $resource, $server = null, $printlog = false, $loglevel = null, $xoauth = false) {
+    public function __construct($host, $port, $user, $password, $resource, $server = null, $printlog = false, $loglevel = null, $xoauth = false) 
+    {
         parent::__construct($host, $port, $printlog, $loglevel);
 
         $this->user = $user;
         $this->password = $password;
         $this->resource = $resource;
-        if (!$server)
+        if (!$server) {
             $server = $host;
+        }
+            
         $this->basejid = $this->user . '@' . $this->host;
 
         $this->xoauth = $xoauth;
