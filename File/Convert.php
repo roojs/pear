@@ -205,7 +205,6 @@ class File_Convert
         $ifModifiedSince = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? 
             stripslashes($_SERVER['HTTP_IF_MODIFIED_SINCE']) : false;
         
-        
         $ts_string = gmdate("D, d M Y H:i:s",  $ts) . " GMT";
         
         if ((($if_none_match && $if_none_match == $etag) || (!$if_none_match)) &&
@@ -238,7 +237,8 @@ class File_Convert
         header("Cache-Control: must-revalidate");
         header("Pragma: public");     
         header("Last-Modified: " . $ts_string . " GMT");
-
+        header("ETag: \"{$etag}\"");
+        
         //var_dump($mt);
         require_once 'File/MimeType.php';
         $fmt = new File_MimeType();
