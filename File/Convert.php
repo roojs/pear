@@ -202,13 +202,13 @@ class File_Convert
         $if_none_match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ?
                 trim($_SERVER['HTTP_IF_NONE_MATCH'],"'\"") : false;
 
-        $ifModifiedSince = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? 
+        $if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? 
             stripslashes($_SERVER['HTTP_IF_MODIFIED_SINCE']) : false;
         
         $ts_string = gmdate("D, d M Y H:i:s",  $ts) . " GMT";
         
         if ((($if_none_match && $if_none_match == $etag) || (!$if_none_match)) &&
-            ($ifModifiedSince && $ifModifiedSince == $ts_string))
+            ($if_modified_since && $if_modified_since == $ts_string))
         {
             header('HTTP/1.1 304 Not Modified');
             exit();
