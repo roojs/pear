@@ -199,9 +199,9 @@ class File_Convert
         
         $etag = md5($ts. '!' . $fn);
         
-        $if_none_match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ? $_SERVER['HTTP_IF_NONE_MATCH'] : false;
+        $if_none_match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ?
+                trim($_SERVER['HTTP_IF_NONE_MATCH'],"'\"") : false;
 
-        
         $ifModifiedSince = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? 
             stripslashes($_SERVER['HTTP_IF_MODIFIED_SINCE']) : false;
         
