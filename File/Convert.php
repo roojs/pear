@@ -206,7 +206,8 @@ class File_Convert
             stripslashes($_SERVER['HTTP_IF_MODIFIED_SINCE']) : false;
         
         
-        $ts_string = gmdate("D, d M Y H:i:s",  $ts) . " GMT"
+        $ts_string = gmdate("D, d M Y H:i:s",  $ts) . " GMT";
+        
         if ((($if_none_match && $if_none_match == $etag) || (!$if_none_match)) &&
             ($ifModifiedSince && $ifModifiedSince == $ts_string))
         {
