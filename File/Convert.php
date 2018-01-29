@@ -199,8 +199,20 @@ class File_Convert
         
         $etag = md5($ts. '!' . $fn);
         
+        $if_none_match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ? $_SERVER['HTTP_IF_NONE_MATCH'] : false;
+
+        
         $ifModifiedSince = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? 
             stripslashes($_SERVER['HTTP_IF_MODIFIED_SINCE']) : false;
+        
+        
+        $ts_string = gmdate("D, d M Y H:i:s",  $ts) . " GMT"
+        if ((($if_none_match && $if_none_match == $etag) || (!$if_none_match)) &&
+            ($ifModifiedSince && $ifModifiedSince == $ts_string))
+        {
+            header('HTTP/1.1 304 Not Modified');
+            exit();
+        }
         
         
         //if (empty($_REQUEST['ts']) && !$isIE && $ifModifiedSince && strtotime($ifModifiedSince) >= $ts) {
@@ -221,10 +233,10 @@ class File_Convert
         //if (!preg_match('#^image\/#i', $this->to)) {
     
         // a reasonable expiry time - 5 minutes..
-        header("Expires: ". gmdate("D, d M Y H:i:s",  strtotime("NOW + 1 DAY")) . " GMT");
+        header("Expires: ". gmdate("D, d M Y H:i:s",  strtotime("NOW + 5 MINUTES")) . " GMT");
         header("Cache-Control: must-revalidate");
         header("Pragma: public");     
-        header("Last-Modified: " . gmdate("D, d M Y H:i:s",  $ts) . " GMT");
+        header("Last-Modified: " . $ts_string . " GMT");
 
         //var_dump($mt);
         require_once 'File/MimeType.php';
