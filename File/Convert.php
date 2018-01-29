@@ -193,7 +193,11 @@ class File_Convert
         $fn = $this->target;
         $isIE = preg_match('#msie [0-9.]+#i', isset($_SERVER['HTTP_USER_AGENT']) ? isset($_SERVER['HTTP_USER_AGENT'])  : '');
         
+        
+        
         $ts = filemtime($fn);
+        
+        $etag = md5($ts. '!' . $fn);
         
         $ifModifiedSince = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? 
             stripslashes($_SERVER['HTTP_IF_MODIFIED_SINCE']) : false;
@@ -215,8 +219,10 @@ class File_Convert
         $type = $type === false ?  'inline' : $type;
         header('Content-type: '. $mt);
         //if (!preg_match('#^image\/#i', $this->to)) {
-        header("Expires: ");
-        header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+    
+        // a reasonable expiry time - 5 minutes..
+        header("Expires: ". gmdate("D, d M Y H:i:s",  strtotime("NOW + 1 DAY")) . " GMT");
+        header("Cache-Control: must-revalidate");
         header("Pragma: public");     
         header("Last-Modified: " . gmdate("D, d M Y H:i:s",  $ts) . " GMT");
 
