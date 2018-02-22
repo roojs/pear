@@ -2002,24 +2002,26 @@ class File_Convert_Solution
             
         $ext = $this->ext;
         
+        $flat = '';
+        
         if (!empty($x)) {
             $target = $fn . '.' . $x. '.' . $ext;
+            $flat = "--resize-width {$x}";
         }
         
         if (!empty($y)) {
             $target = $fn . '.' . $y. '.' . $ext;
+            $flat = "--resize-height {$y}";
         }
         
         if (!empty($x) && !empty($y)) {
             $target = $fn . '.' . $x . 'x' . $y . '.' . $ext;
+            $flat = "--resize-fit {$x}x{$y}";
         }
         
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
-        
-        $flat = '';
-        
         
         
         
