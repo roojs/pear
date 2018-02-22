@@ -2000,11 +2000,14 @@ class File_Convert_Solution
         $x = strlen($x) ? (int) $x : '';
         $y = strlen($y) ? (int) $y : '';
             
-        print_R($y);exit;
         $ext = $this->ext;
         
-        if (!empty($x) && empty($y)) {
-            return false;
+        if (!empty($x)) {
+            $target = $fn . '.' . $x. '.' . $ext;
+        }
+        
+        if (!empty($y)) {
+            $target = $fn . '.' . $y. '.' . $ext;
         }
         
 //        print_r(array('scaleimage', func_get_args()));exit;
