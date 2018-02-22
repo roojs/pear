@@ -103,7 +103,13 @@ class File_Convert
         }
         
          //echo '<PRE>'; print_r(array('convert', func_get_args()));
-        if ($toMimetype != $this->mimetype) {
+        if (
+                $toMimetype != $this->mimetype ||
+                (
+                        $toMimetype == $this->mimetype &&
+                        $toMimetype == 'image/gif'
+                )
+        ) {
 
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
             
