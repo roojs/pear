@@ -2013,7 +2013,7 @@ class File_Convert_Solution
         if (!empty($x) && !empty($y)) {
             $target = $fn . '.' . $x . 'x' . $y . '.' . $ext;
         }
-        
+        print_R($fn);exit;
 //        print_r(array('scaleimage', func_get_args()));exit;
         
         $ext = $this->ext;
