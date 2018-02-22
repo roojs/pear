@@ -2023,6 +2023,9 @@ class File_Convert_Solution
             return $target;
         }
         
+        require_once 'System.php';
+        $gifsicle = System::which("gifsicle");
+        
         
         
         
