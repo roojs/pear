@@ -501,6 +501,15 @@ class File_Convert
                 )
             ),
             
+            array( 'gifsicle',
+                array( // source
+                    'image/gif',
+                ),    // targets
+                array( 
+                    'image/gif',
+                )
+            )
+            
         ); 
     /**
      * This recursively calls to find the best match.
