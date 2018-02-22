@@ -499,17 +499,7 @@ class File_Convert
                     'application/x-abiword',
                     'application/mswordapplication'
                 )
-            ),
-            
-            array( 'gifsicle',
-                array( // source
-                    'image/gif',
-                ),    // targets
-                array( 
-                    'image/gif',
-                )
             )
-            
         ); 
     /**
      * This recursively calls to find the best match.
@@ -522,7 +512,6 @@ class File_Convert
      
     function getConvMethods($from, $to, $stack = array())
     {
-        print_R($from);exit;
             // these source types have to use unoconv....
         //print_r(array('getConvMethods', func_get_args()));
         // $pos[converter] => array( list of targets);
