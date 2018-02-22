@@ -2026,7 +2026,7 @@ class File_Convert_Solution
         require_once 'System.php';
         $gifsicle = System::which("gifsicle");
         
-        
+        $cmd = "{$gifsicle} {$flat} {$fn} > {$target}";
         
         
         $extent = '';
