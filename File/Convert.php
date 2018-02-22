@@ -1990,8 +1990,6 @@ class File_Convert_Solution
     
     function gifsicle($fn, $x, $y) 
     {
-        print_R($fn);
-        return;
         $x  = str_replace('c', 'x', $x);
         
         if (strpos($x, 'x') !== false ) {
