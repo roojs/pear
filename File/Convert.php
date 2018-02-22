@@ -1990,7 +1990,17 @@ class File_Convert_Solution
     
     function gifsicle($fn, $x, $y) 
     {
-        print_R($y);exit;
+        $x  = str_replace('c', 'x', $x);
+        print_R($x);exit;
+        if (strpos($x, 'x') !== false ) {
+            $bits = explode('x', $x);
+            $x = $bits[0];
+            $y = !is_numeric($bits[1]) ?  '' : (int)$bits[1];
+        }
+        $x = strlen($x) ? (int) $x : '';
+        $y = strlen($y) ? (int) $y : '';
+            
+        print_R($x);exit;
         $ext = $this->ext;
         
         if (!empty($x) && empty($y)) {
