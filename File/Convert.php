@@ -1991,7 +1991,6 @@ class File_Convert_Solution
     function gifsicle($fn, $x, $y) 
     {
         $x  = str_replace('c', 'x', $x);
-        print_R($x);exit;
         
         if (strpos($x, 'x') !== false ) {
             $bits = explode('x', $x);
