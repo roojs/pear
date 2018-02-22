@@ -2027,7 +2027,7 @@ class File_Convert_Solution
         $gifsicle = System::which("gifsicle");
         
         $cmd = "{$gifsicle} {$flat} {$fn} > {$target}";
-        print_r($cmd);exit;
+        
         if ($this->debug) {
            echo "$cmd <br/>";
         }
