@@ -1992,6 +1992,7 @@ class File_Convert_Solution
     {
         $x  = str_replace('c', 'x', $x);
         print_R($x);exit;
+        
         if (strpos($x, 'x') !== false ) {
             $bits = explode('x', $x);
             $x = $bits[0];
