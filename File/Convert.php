@@ -432,6 +432,16 @@ class File_Convert
                     
                 ),
             ),
+            
+            array( 'gifsicle',
+                array( // source
+                    'image/gif',
+                ),    // targets
+                array( 
+                    'image/gif',
+                )
+            ),
+        
             array( 'convert',
                 array(
                     'image/jpeg',
