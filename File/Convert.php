@@ -1990,7 +1990,6 @@ class File_Convert_Solution
     
     function gifsicle($fn, $x, $y) 
     {
-        print_r($fn);exit;
         $x  = str_replace('c', 'x', $x);
         
         if (strpos($x, 'x') !== false ) {
@@ -2019,7 +2018,7 @@ class File_Convert_Solution
             $target = $fn . '.' . $x . 'x' . $y . '.' . $ext;
             $flat = "--resize-fit {$x}x{$y}";
         }
-        
+        print_R($fn);exit;
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
