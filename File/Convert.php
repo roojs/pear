@@ -1990,7 +1990,7 @@ class File_Convert_Solution
     
     function gifsicle($fn, $x, $y) 
     {
-        print_R($this);exit;
+        print_R('run?');exit;
         $ext = $this->ext;
         
         if (!empty($x) && empty($y)) {
