@@ -2018,8 +2018,7 @@ class File_Convert_Solution
             $target = $fn . '.' . $x . 'x' . $y . '.' . $ext;
             $flat = "--resize-fit {$x}x{$y}";
         }
-        print_R($x);exit;
-        print_R($fn);exit;
+        
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
