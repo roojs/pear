@@ -2025,6 +2025,7 @@ class File_Convert_Solution
         
         
         
+        
         $extent = '';
         switch (true) { // what about fit/pad etc...
             
