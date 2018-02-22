@@ -112,7 +112,7 @@ class File_Convert
         ) {
 
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
-            
+            print_R($action);exit;
             //echo '<PRE>';print_r($action);
             if (!$action) {
                 return false;
