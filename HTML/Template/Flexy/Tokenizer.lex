@@ -159,7 +159,7 @@ define('YY_EOF' , 258);
     */
   
     
-    function &construct($data,$options= array()) 
+    function construct($data,$options= array()) 
     {
         $t = new HTML_Template_Flexy_Tokenizer($data);
         foreach($options as $k=>$v) {
