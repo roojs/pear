@@ -185,7 +185,7 @@ class HTML_Template_Flexy_Tokenizer
         }
         return call_user_func_array($this->options['token_factory'],array($token,$value,$line,$charPos));
     }
-
+ 
 
     var $yy_reader;
     var $yy_buffer_index;
@@ -200,7 +200,7 @@ class HTML_Template_Flexy_Tokenizer
     var $yy_at_bol;
     var $yy_lexical_state;
 
-    function HTML_Template_Flexy_Tokenizer($data) 
+    function __construct($data) 
     {
         $this->yy_buffer = $data;
         $this->yy_buffer_read = strlen($data);
