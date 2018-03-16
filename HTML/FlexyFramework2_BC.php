@@ -1,5 +1,8 @@
 <?php
-/* compatibility with old framework.. */
+/* compatibility with old framework..
+eventually we will have to do a HTML_FlexyFramework_FC to do it the other way round..
+
+*/
      
 class HTML_FlexyFramework {
     static function get() {
