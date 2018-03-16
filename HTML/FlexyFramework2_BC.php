@@ -11,3 +11,4 @@ class HTML_FlexyFramework {
 }
 
 class HTML_FlexyFramework_Page extends HTML_FlexyFramework2_Page {}
+require_once 'PDO/DB_DataObject.php';
