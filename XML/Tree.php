@@ -433,7 +433,7 @@ class XML_Tree extends XML_Parser
         if ($this->root->name != $rootName) {
             return $this->raiseError("Path does not match the document root");
         }
-        $x =& $this->root->getNodeAt($path1);
+        $x =  $this->root->getNodeAt($path1);
         if (!PEAR::isError($x)) {
             return $x;
         }
