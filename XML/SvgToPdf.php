@@ -78,7 +78,7 @@ class XML_SvgToPDF {
       
         $t = new XML_SvgToPDF;
         
-        $t->language = @$data['language'];
+        $t->language =  $data['language'];
        /*
         $x = new XML_Tree_Morph( 
                     $svg,
