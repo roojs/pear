@@ -115,7 +115,7 @@ class XML_SvgToPDF {
 //var_dump($orientation);exit;
         $GLOBALS['_XML_SVGTOPDF']['options']['file'] = $svg;
 
-        if (@$data['language'] == 'big5') {
+        if ($data['language'] == 'big5') {
           //die("trying chinese");
             require_once  'Fpdf/tFPDF.php' ;
 
