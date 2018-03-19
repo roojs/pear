@@ -210,7 +210,7 @@ class XML_Tree extends XML_Parser
     * @return mixed The XML tree root (an XML_Tree_Node), or PEAR_Error upon error.
     * @access public
     */
-    function &getTreeFromFile ()
+    function getTreeFromFile ()
     {
         $this->folding = false;
         $this->XML_Parser(null, 'event');
