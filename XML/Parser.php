@@ -349,9 +349,9 @@ class XML_Parser extends PEAR
     function _create()
     {
         if ($this->srcenc === null) {
-            $xp = @xml_parser_create();
+            $xp = xml_parser_create();
         } else {
-            $xp = @xml_parser_create($this->srcenc);
+            $xp = xml_parser_create($this->srcenc);
         }
         if (is_resource($xp)) {
             if ($this->tgtenc !== null) {
