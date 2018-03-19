@@ -145,12 +145,12 @@ class XML_Tree extends XML_Parser
     */
     function insertChild($path, $pos, $child, $content = '', $attributes = array())
     {
-        $parent =& $this->getNodeAt($path);
+        $parent = $this->getNodeAt($path);
         if (PEAR::isError($parent)) {
             return $parent;
         }
 
-        $x =& $parent->insertChild(null, $pos, $child, $content, $attributes);
+        $x = $parent->insertChild(null, $pos, $child, $content, $attributes);
 
         if (!PEAR::isError($x)) {
         // update namespace to maintain namespace integrity
@@ -179,12 +179,12 @@ class XML_Tree extends XML_Parser
     */
     function removeChild($path, $pos)
     {
-        $parent =& $this->getNodeAt($path);
+        $parent = $this->getNodeAt($path);
         if (PEAR::isError($parent)) {
             return $parent;
         }
 
-        $x =& $parent->removeChild($pos);
+        $x = $parent->removeChild($pos);
 
         if (!PEAR::isError($x)) {
             // Update namespace to maintain namespace integrity
@@ -259,13 +259,13 @@ class XML_Tree extends XML_Parser
         $lineno = xml_get_current_line_number($xp);
         // root elem
         if (!isset($this->i)) {
-            $this->obj1 =& $this->addRoot($elem, null, $attribs, $lineno);
+            $this->obj1 = $this->addRoot($elem, null, $attribs, $lineno);
             $this->i = 2;
         } else {
             // mixed contents
             if (!empty($this->cdata)) {
                 $parent_id = 'obj' . ($this->i - 1);
-                $parent    =& $this->$parent_id;
+                $parent    = $this->$parent_id;
                 $parent->children[] = new XML_Tree_Node(null, $this->cdata, null, $lineno);
             }
             $obj_id = 'obj' . $this->i++;
@@ -290,7 +290,7 @@ class XML_Tree extends XML_Parser
         if ($this->i > 1) {
             $obj_id = 'obj' . $this->i;
             // recover the node created in StartHandler
-            $node   =& $this->$obj_id;
+            $node   = $this->$obj_id;
             // mixed contents
             if (count($node->children) > 0) {
                 if (trim($this->cdata)) {
@@ -300,7 +300,7 @@ class XML_Tree extends XML_Parser
                 $node->setContent($this->cdata);
             }
             $parent_id = 'obj' . ($this->i - 1);
-            $parent    =& $this->$parent_id;
+            $parent    = $this->$parent_id;
             // attach the node to its parent node children array
             $parent->children[] = $node;
         }
