@@ -464,4 +464,3 @@ class XML_Tree_Node {
         echo $this->get();
     }
 }
-?>
