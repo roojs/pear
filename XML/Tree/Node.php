@@ -413,8 +413,8 @@ class XML_Tree_Node {
                                 ),
                            $xml
                           );
-
-        $xml = preg_replace(array("/\&([a-z\d\#]+)\;/i",
+        // fixme - remove the /e!!!
+        $xml = @preg_replace(array("/\&([a-z\d\#]+)\;/i",
                                   "/\&/",
                                   "/\#\|\|([a-z\d\#]+)\|\|\#/i",
                                   "/([^a-zA-Z\d\s\<\>\&\;\.\:\=\"\-\/\%\?\!\'\(\)\[\]\{\}\$\#\+\,\@_])/e"
