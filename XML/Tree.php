@@ -102,7 +102,7 @@ class XML_Tree extends XML_Parser
     *
     * @access public
     */
-    function &getRoot()
+    function getRoot()
     {
         if (!is_null($this->root)) {
             return $this->root;
@@ -118,7 +118,7 @@ class XML_Tree extends XML_Parser
     * @return object XML_Tree_Node   Reference to the newly created root node
     * @access public
     */
-    function &addRoot($name, $content = '', $attributes = array(), $lineno = null)
+    function addRoot($name, $content = '', $attributes = array(), $lineno = null)
     {
         $this->root = new XML_Tree_Node($name, $content, $attributes, $lineno);
         return $this->root;
@@ -143,7 +143,7 @@ class XML_Tree extends XML_Parser
     * @access public
     * @see getNodeAt()
     */
-    function &insertChild($path, $pos, $child, $content = '', $attributes = array())
+    function insertChild($path, $pos, $child, $content = '', $attributes = array())
     {
         $parent =& $this->getNodeAt($path);
         if (PEAR::isError($parent)) {
@@ -177,7 +177,7 @@ class XML_Tree extends XML_Parser
     * @access public
     * @see getNodeAt()
     */
-    function &removeChild($path, $pos)
+    function removeChild($path, $pos)
     {
         $parent =& $this->getNodeAt($path);
         if (PEAR::isError($parent)) {
@@ -232,7 +232,7 @@ class XML_Tree extends XML_Parser
     * @return mixed The XML tree root (an XML_Tree_Node), or PEAR_Error upon error.
     * @access public
     */
-    function &getTreeFromString($str)
+    function getTreeFromString($str)
     {
         $this->folding = false;
         $this->XML_Parser(null, 'event');
@@ -370,7 +370,7 @@ class XML_Tree extends XML_Parser
     * @return string  Text (XML) representation of the tree
     * @access public
     */
-    function &get()
+    function get()
     {
         $out = '<?xml version="' . $this->version . "\"?>\n";
         if (!is_null($this->root))
@@ -390,7 +390,7 @@ class XML_Tree extends XML_Parser
     *
     * @access public
     */
-    function &getName($name) {
+    function getName($name) {
         return $this->root->getElement($this->namespace[$name]);
     }
 
@@ -418,7 +418,7 @@ class XML_Tree extends XML_Parser
     *                   then only the first match is returned.
     * @access public
     */
-    function &getNodeAt($path)
+    function getNodeAt($path)
     {
         if (is_null($this->root)){
             return $this->raiseError("XML_Tree hasn't a root node");
@@ -451,7 +451,7 @@ class XML_Tree extends XML_Parser
     * @access public
     * @author Pierre-Alain Joye <paj@pearfr.org>
     */
-    function &getElementsByTagName($tagName)
+    function getElementsByTagName($tagName)
     {
         if (empty($tagName)) {
             return $this->raiseError('Empty tag name');
