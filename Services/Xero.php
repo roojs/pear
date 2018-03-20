@@ -283,7 +283,7 @@ class Services_Xero
        
     }
     
-    function getBrandingThemes($match == array())
+    function getBrandingThemes($match = array())
     {
         $response = $this->XeroOAuth->request('GET',
                 $this->XeroOAuth->url('BrandingThemes', 'core'), array(), '','json');
@@ -291,9 +291,11 @@ class Services_Xero
         if (empty($response['code']) ||  $response['code'] != 200) {
             throw new Exception('Xero Error: ' . $response['response']);     
         }
+        if (empty($match)) {
+            return  $response['result']['BrandingThemes'];
+        }
+        forearch
         
-        
-        return  $response['result'];
         
     }
 }
