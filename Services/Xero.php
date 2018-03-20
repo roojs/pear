@@ -292,6 +292,8 @@ class Services_Xero
             throw new Exception('Xero Error: ' . $response['response']);     
         }
         
+        return  $response['result'];
+        
     }
 }
 
