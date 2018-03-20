@@ -17,6 +17,7 @@ class Services_Xero_Invoice {
    
    var $lineAmountTypes = 'Exclusive';   
    
+   var $BrandingThemeID = '';
     
    function __construct($config)
    {   	
@@ -59,6 +60,10 @@ class Services_Xero_Invoice {
         $contact->appendChild($doc->createElement('ContactID',$this->contactID));
         
         $inv->appendChild( $doc->createElement('LineAmountTypes',$this->lineAmountTypes) );
+        
+        $inv->appendChild( $doc->createElement('BrandingThemeID',$this->brandingThemeID) );
+
+        
         
         $line_items =  $inv->appendChild($doc->createElement('LineItems'));
    	          
