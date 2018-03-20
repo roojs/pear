@@ -294,7 +294,15 @@ class Services_Xero
         if (empty($match)) {
             return  $response['result']['BrandingThemes'];
         }
-        forearch
+        // not sure if this is an array when only one theme
+        foreach ($response['result']['BrandingThemes'] as $th) {
+            foreach($match as $k=>$v) {
+                if ($th[$k] == $v) {
+                    return $th;
+                }
+            }
+            
+        }
         
         
     }
