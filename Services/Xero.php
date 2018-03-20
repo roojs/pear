@@ -108,8 +108,8 @@ class Services_Xero
    function refreshToken()
    {
        $response = $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['oauth_session_handle']);
-       if ($this->XeroOAuth->response['code'] != 200) {
-            if ($this->XeroOAuth->response['helper'] == "TokenExpired") {
+       if ($response['code'] != 200) {
+            if ($response['helper'] == "TokenExpired") {
                 $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['session_handle']);
             }
             
@@ -168,13 +168,13 @@ class Services_Xero
    public function getInvoiceList()
    {
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices', 'core'), array('order' => 'Total DESC'));
-        if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
-            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+        if (empty($response['code']) ||  $response['code'] != 200) {
+            throw new Exception('Xero Error: ' . $response['response']);
            
            return;                
        }	
        
-       $invoiceList = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+       $invoiceList = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
        return $invoiceList;           
    }
     
@@ -186,16 +186,16 @@ class Services_Xero
         
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices' , 'core'), $param ,'','json');
         
-        if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
+        if (empty($response['code']) ||  $response['code'] != 200) {
           
-            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+            throw new Exception('Xero Error: ' . $response['response']);
                      
            //outputError($XeroOAuth);
         }
         
-        $result = $this->XeroOAuth->response['result'];
+        $result = $response['result'];
         
-        if ( !$result || !$this->XeroOAuth->response['result'] || empty($this->XeroOAuth->response['result']->Invoices)) {
+        if ( !$result || !$response['result'] || empty($response['result']->Invoices)) {
             return false;
         }
         
@@ -210,15 +210,15 @@ class Services_Xero
         $param = array();
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices/' . $invoiceID , 'core'), $param ,'','json');
         
-        if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
+        if (empty($response['code']) ||  $response['code'] != 200) {
           
-            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+            throw new Exception('Xero Error: ' . $response['response']);
                   
             return;      
            //outputError($XeroOAuth);
         }
         
-        $result = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+        $result = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
         
         if(    !$result->Invoices 
             || !count($result->Invoices[0]) 
@@ -240,17 +240,14 @@ class Services_Xero
         
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts' , 'core'), $param ,'','json');
          
-        if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
-             
-            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
-            
-            return;      
+        if (empty($response['code']) ||  $response['code'] != 200) {     
+            throw new Exception('Xero Error: ' . $response['response']);
         }
         
-        $contact = $this->XeroOAuth->response['result'];
+        $contact = $response['result'];
         
         if (!$contact || empty($contact->Contacts[0])) {
-            throw new Exception('Could not find contact: ' . $this->XeroOAuth->response['response']);
+            throw new Exception('Could not find contact: ' . $response['response']);
         }
         
         
@@ -260,24 +257,19 @@ class Services_Xero
    
    
    
-   public function createInvoice($inv)
-   {
+    public function createInvoice($inv)
+    {
         if($inv == '') {
              return;
         }
         
         $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $inv->toXMLString(),'json');
       
-         if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
-             // Error
-                 
-             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
-             
-             return;
-                   
+        if (empty($response['code']) ||  $response['code'] != 200) {
+             throw new Exception('Xero Error: ' . $response['response']);     
         }
               
-        $result = $this->XeroOAuth->response['result'];
+        $result = $response['result'];
         
         if(  !$result ||
              !$result->Invoices  || 
@@ -289,6 +281,17 @@ class Services_Xero
           
         return $result->Invoices[0];           
        
-     }
+    }
+    
+    function getBrandingThemes()
+    {
+        $response = $this->XeroOAuth->request('GET',
+                $this->XeroOAuth->url('BrandingThemes', 'core'), array(), '','json');
+        
+        if (empty($response['code']) ||  $response['code'] != 200) {
+            throw new Exception('Xero Error: ' . $response['response']);     
+        }
+        
+    }
 }
 
