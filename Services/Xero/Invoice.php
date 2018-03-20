@@ -61,7 +61,9 @@ class Services_Xero_Invoice {
         
         $inv->appendChild( $doc->createElement('LineAmountTypes',$this->lineAmountTypes) );
         
-        $inv->appendChild( $doc->createElement('BrandingThemeID',$this->brandingThemeID) );
+        if (!empty($this->brandingThemeID)) {
+            $inv->appendChild( $doc->createElement('BrandingThemeID',$this->brandingThemeID) );
+        }
 
         
         
