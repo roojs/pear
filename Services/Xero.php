@@ -282,7 +282,14 @@ class Services_Xero
         return $result->Invoices[0];           
        
     }
-    
+    /**
+     * get the branding themes (normally templates of invoices etc..)
+     *
+     * without an arguemnt it will get all the branding themes,
+     * otherwise it will try and match
+     * eg. getBrandingThemes( [ "Name" => "Currency Conversion"] )
+     *
+     */
     function getBrandingThemes($match = array())
     {
         $response = $this->XeroOAuth->request('GET',
