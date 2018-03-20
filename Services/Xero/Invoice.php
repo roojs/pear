@@ -32,6 +32,9 @@ class Services_Xero_Invoice {
         $doc = new DOMDocument('1.0', 'utf-8');   	  
         
         
+        // truely the dumbist piece of code I've ever seen....
+        // most of this is Key/value setting...
+        
         
         $element = $doc->appendChild($doc->createElement('Invoices') );  
         $inv = $element->appendChild($doc->createElement('Invoice'));
