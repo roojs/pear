@@ -283,7 +283,7 @@ class Services_Xero
        
     }
     
-    function getBrandingThemes()
+    function getBrandingThemes($match)
     {
         $response = $this->XeroOAuth->request('GET',
                 $this->XeroOAuth->url('BrandingThemes', 'core'), array(), '','json');
