@@ -73,34 +73,34 @@ class Services_Xero
        
        $this->connectXero();
        
-   }
+    }
    
-   function connectXero()
-   {
-       $this->initialCheck = $this->XeroOAuth->diagnostics ();
-       $this->checkErrors = count ( $this->initialCheck );
+    function connectXero()
+    {
+        $this->initialCheck = $this->XeroOAuth->diagnostics ();
+        $this->checkErrors = count ( $this->initialCheck );
+        
+        if ($this->checkErrors > 0) {
+            return false;	        
+        }
+        
+        $this->session = $this->persistSession ( array (
+            'oauth_token' => $this->XeroOAuth->config ['consumer_key'],
+            'oauth_token_secret' => $this->XeroOAuth->config ['shared_secret'],
+            'oauth_session_handle' => '' 
+        ) );
+             
+        $this->oauthSession = $this->retrieveSession ();
+        
+        if (isset ( $this->oauthSession ['oauth_token'] )) {
+            $this->XeroOAuth->config ['access_token'] = $this->oauthSession ['oauth_token'];
+              
+            $this->XeroOAuth->config ['access_token_secret'] = $this->oauthSession ['oauth_token_secret'];
+         
+        }
+       
+    }
 
-       if ($this->checkErrors > 0) {
-           return false;	        
-       }
-       
-       $this->session = $this->persistSession ( array (
-         'oauth_token' => $this->XeroOAuth->config ['consumer_key'],
-         'oauth_token_secret' => $this->XeroOAuth->config ['shared_secret'],
-         'oauth_session_handle' => '' 
-       ) );
-       	    
-       $this->oauthSession = $this->retrieveSession ();
-	
-       if (isset ( $this->oauthSession ['oauth_token'] )) {
-           $this->XeroOAuth->config ['access_token'] = $this->oauthSession ['oauth_token'];
-		     
-           $this->XeroOAuth->config ['access_token_secret'] = $this->oauthSession ['oauth_token_secret'];
-		
-       }
-       
-   }
-   
    
    
    
