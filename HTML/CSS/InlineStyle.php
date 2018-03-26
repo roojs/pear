@@ -239,7 +239,7 @@ class HTML_CSS_InlineStyle
     {
         $parsed = array();
         $stylesheet = $this->_stripStylesheet($stylesheet);
-        print_R($stylesheet);exit;
+        
         $stylesheet = trim(trim($stylesheet), "}");
         //var_dump('after strip');
         //var_dump($stylesheet);
