@@ -299,12 +299,12 @@ class Services_Xero
             throw new Exception('Xero Error: ' . $response['response']);     
         }
         if (empty($match)) {
-            return  $response['result']['BrandingThemes'];
+            return  $response->result->BrandingThemes;
         }
         // not sure if this is an array when only one theme
-        foreach ($response['result']['BrandingThemes'] as $th) {
+        foreach ($response->result->BrandingThemes as $th) {
             foreach($match as $k=>$v) {
-                if ($th[$k] == $v) {
+                if ($th->{$k} == $v) {
                     return $th;
                 }
             }
