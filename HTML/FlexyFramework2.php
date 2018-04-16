@@ -1136,7 +1136,7 @@ class HTML_FlexyFramework2 {
                         $sp .= ':'.((int) $_SERVER['SERVER_PORT']);
                     }
                 }
-                var_dump($startRequest);      echo '<PRE>'; print_R($this);         phpinfo();exit;
+                //var_dump($startRequest);      echo '<PRE>'; print_R($this);         phpinfo();exit;
                 $host = !empty($_SERVER["HTTP_X_FORWARDED_HOST"]) ? $_SERVER["HTTP_X_FORWARDED_HOST"] : $_SERVER["HTTP_HOST"];
                 header('Location: '.$http.'://'.$host .$sp . $this->baseURL);
  
