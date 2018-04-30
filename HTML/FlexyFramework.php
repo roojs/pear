@@ -166,7 +166,17 @@ class HTML_FlexyFramework {
         // handle apache mod_rewrite..
         // it looks like this might not work anymore..
         
-        
+        /*
+         *
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^/web.hpasite/index\.local.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
+</IfModule>
+*/ 
         
         if (empty($_SERVER['REDIRECT_STATUS'])  && !empty($_SERVER['REDIRECT_URL'])) {
             
