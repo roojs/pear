@@ -180,12 +180,16 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         
         if (!empty($_SERVER['REDIRECT_STATUS'])  && !empty($_SERVER['REDIRECT_URL'])) {
           // phpinfo();exit;
-            $this->_run($_SERVER['SCRIPT_NAME'] . $_SERVER['REDIRECT_URL'],false);
+            $sn = $_SERVER['SCRIPT_NAME'];
+            $sublen = strlen(substr($sn , 0,  strlen($sn) - strlen(basename($sn)) -1));
+            //var_dump(array($sn,$subdir,basename($sn)));exit;
+          
+            //var_dump($_SERVER['SCRIPT_NAME'] . substr($_SERVER['REDIRECT_URL'],$sublen));
+            $this->_run($_SERVER['SCRIPT_NAME'] .  substr($_SERVER['REDIRECT_URL'], $sublen),false);
             return ;
         }
-        
-        
-        $this->_run($_SERVER['REQUEST_URI'],false);
+        // eg... /web.hpasite/index.local.php/Projects
+         $this->_run($_SERVER['REQUEST_URI'],false);
             
         
     }
@@ -263,21 +267,29 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         if (!$this->cli) {
             $bits[0] = str_replace('%2F','/',urlencode($bits[0]));
             $this->baseURL = $bits[0] . basename($_SERVER["SCRIPT_FILENAME"]);
-            //phpinfo();exit;
-            if (empty($_SERVER['SCRIPT_NAME'])) {
-                
-                $this->baseURL = ''; // ??? this is if we replace top level...
+            // however this is not correct if we are using rewrite..
+            if (!empty($_SERVER['REDIRECT_STATUS'])  && !empty($_SERVER['REDIRECT_URL'])) {
+                $this->baseURL = substr($bits[0],0,-1); // without the trailing '/' ??
+                $this->rootURL = $bits[0];
+                //var_dump($this->baseURL);
             }
+            //phpinfo();exit;
+            // is this bit used??
+            //if (empty($_SERVER['SCRIPT_NAME'])) {
+                
+            //    $this->baseURL = ''; // ??? this is if we replace top level...
+            //}
         }
         // if cli - you have to have set baseURL...
         
         
         $this->rootDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
         $this->baseDir = $this->rootDir .'/'. $this->project;
-        $this->rootURL = dirname($this->baseURL);
-        $this->rootURL = ($this->rootURL == '/') ? '' : $this->rootURL;
-        
-        
+        if (empty($this->rootURL)) {
+            $this->rootURL = dirname($this->baseURL); 
+            $this->rootURL = ($this->rootURL == '/') ? '' : $this->rootURL;
+        }
+         
       
         //var_dump($this->baseURL);
         
@@ -962,6 +974,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         
         $newRequest = $this->_getRequest($request,$isRedirect);
         
+         
         // find the class/file to load
         list($classname,$subRequest) = $this->requestToClassName($newRequest,FALSE);
         
@@ -1088,8 +1101,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
     function _getRequest($request, $isRedirect) 
     {
         
-        
-        
+         
         if ($this->cli) {
             return $request;
         }
@@ -1099,16 +1111,32 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         $this->debug("INPUT REQUEST $request<BR>");
         if (!$isRedirect) {
             // check that request forms contains baseurl????
+            if (!empty($_SERVER['REDIRECT_STATUS'])  && !empty($_SERVER['REDIRECT_URL'])) {
+               // phpinfo();exit;
+                $sn = $_SERVER['SCRIPT_NAME'];
+                $sublen = strlen(substr($sn , 0,  strlen($sn) - strlen(basename($sn)) -1 ));
+                 //var_dump(array($sn,$subdir,basename($sn)));exit;
+                $subreq =  $_SERVER['SCRIPT_NAME'];
+                $request = substr($_SERVER['REDIRECT_URL'],$sublen);
+                
+                 
+            } else {
+                  
              
-            $subreq = substr($request,0,strlen($this->baseURL));
-            if ($subreq != substr($this->baseURL,0,strlen($subreq))) {
-                $this->fatalError(
-                    "Configuration error: Got base of $subreq which does not 
-                        match configuration of: $this->baseURL} ");
+                $subreq = substr($request,0, strlen($this->baseURL));
+                if ($subreq != substr($this->baseURL,0,strlen($subreq))) {
+                    $this->fatalError(
+                        "Configuration error: Got base of $subreq which does not 
+                            match configuration of: $this->baseURL} ");
+                }
+                $request = substr($request,strlen($this->baseURL));
+                
             }
-            $request = substr($request,strlen($this->baseURL));
+            
              
         }
+       // var_Dump(array('req'=>$request,'subreq'=>$subreq));
+        
         // strip front
         // echo "REQUEST WAS: $request<BR>";
         // $request = preg_replace('/^'.preg_quote($base_url,'/').'/','',trim($request));
@@ -1147,6 +1175,8 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
             }
             $request = "";
         }
+       // var_dump(array($startRequest,$request, $this->baseRequest));
+        
         $this->debug("OUTPUT REQUEST $request<BR>");
         return $request;
     }
