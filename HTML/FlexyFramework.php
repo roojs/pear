@@ -399,6 +399,15 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
            
         $lang = isset($_COOKIE[$cfg['cookie']]) ?  $_COOKIE[$cfg['cookie']] : $default;
 
+        // handle languages in request..
+        $bits = explode('/', $request);
+        if (count($bits) && in_array($bits[0],$this->languages)) {
+            // redirect..
+            
+            
+            
+        }
+        
         
         
         
