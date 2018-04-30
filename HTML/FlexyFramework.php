@@ -368,10 +368,10 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
     function _handleLanguages()
     {
         if (
-                empty($this->languages) ||
-                (
-                        !isset($this->languages['cookie']) && !isset($this->languages['default'])
-                )
+            empty($this->languages) ||
+            (
+                    !isset($this->languages['cookie']) && !isset($this->languages['default'])
+            )
         ) {
             return;
         }
