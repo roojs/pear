@@ -364,7 +364,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         ),
     */
     
-    function _handleLanguages()
+    function _handleLanguages($request)
     {
         if (
             empty($this->languages) ||
@@ -1184,7 +1184,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         
         $this->debug("OUTPUT REQUEST $request<BR>");
         
-        $reqeust = $this->_handleLanguages($request);
+        $this->_handleLanguages($request);
 
         
         return $request;
