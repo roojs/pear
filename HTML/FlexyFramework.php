@@ -168,7 +168,7 @@ class HTML_FlexyFramework {
         
         
         
-        if (!empty($_SERVER['REDIRECT_URL'])) {
+        if (empty($_SERVER['REDIRECT_STATUS'])  && !empty($_SERVER['REDIRECT_URL'])) {
             
             $this->_run($_SERVER['SCRIPT_NAME'] . $_SERVER['REQUEST_URI'],false);
             return ;
