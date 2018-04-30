@@ -406,14 +406,11 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
             // redirect..
             $lang = array_shift($bits);
             
-            $redirect_to = implode('/', $request);
+            $redirect_to = implode('/', $bits);
             
         }
         
-        
-        
-        
-        
+         
         
         if (isset($_REQUEST[$cfg['param']])) {
             $lang = $_REQUEST[$cfg['param']];
