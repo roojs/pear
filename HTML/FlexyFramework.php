@@ -270,7 +270,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
             // however this is not correct if we are using rewrite..
             if (!empty($_SERVER['REDIRECT_STATUS'])  && !empty($_SERVER['REDIRECT_URL'])) {
                 $this->baseURL = substr($bits[0],0,-1); // without the trailing '/' ??
-                $this->rootURL = $bits[0];
+                $this->rootURL = $bits[0] == '/' ? '' : $bits[0];
                 //var_dump($this->baseURL);
             }
             //phpinfo();exit;
