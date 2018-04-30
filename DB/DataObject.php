@@ -4035,7 +4035,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 
                 foreach($keys as $k) {
                     if (in_array($ocl.'_'.$k, $cfg['exclude'])) {
-                        $keys = array_diff($keys, $k); // removes the k..
+                        $keys = array_diff($keys, array($k)); // removes the k..
                     }
                 }
                 
