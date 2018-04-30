@@ -432,7 +432,11 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         if (!empty($this->HTML_Template_Flexy)) {
             $this->HTML_Template_Flexy['locale'] = $lang;   //set a language for template engine
         }
+        if ($redirect_to !== false) {
+            header('Location: /'.$redirect_to );
+            exit;
          
+        }
     }
     
     function parseDefaultLanguage($http_accept, $deflang = "en") 
