@@ -402,7 +402,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         // handle languages in request..
         $bits = explode('/', $request);
         $redirect_to = false;
-        if (count($bits) && in_array($bits[0],$this->languages)) {
+        if (count($bits) && in_array($bits[0],$cfg['avail'])) {
             // redirect..
             $lang = array_shift($bits);
             
