@@ -246,7 +246,6 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
             }
         }
         
-        $this->_handleLanguages();
         
         // enable modules.
         if (!empty($this->enable)) {
@@ -400,6 +399,11 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
            
         $lang = isset($_COOKIE[$cfg['cookie']]) ?  $_COOKIE[$cfg['cookie']] : $default;
 
+        
+        
+        
+        
+        
         if (isset($_REQUEST[$cfg['param']])) {
             $lang = $_REQUEST[$cfg['param']];
         }
@@ -1179,6 +1183,10 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
        // var_dump(array($startRequest,$request, $this->baseRequest));
         
         $this->debug("OUTPUT REQUEST $request<BR>");
+        
+        $reqeust = $this->_handleLanguages($request);
+
+        
         return $request;
     }
     
