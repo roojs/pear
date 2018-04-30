@@ -405,9 +405,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         if (count($bits) && in_array($bits[0],$cfg['avail'])) {
             // redirect..
             $lang = array_shift($bits);
-            
             $redirect_to = implode('/', $bits);
-            
         }
         
          
