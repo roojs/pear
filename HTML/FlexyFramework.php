@@ -272,7 +272,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
                 $this->baseURL = substr($bits[0],0,-1); // without the trailing '/' ??
                 $this->rootURL = $bits[0] == '/' ? '' : $bits[0];
                 $this->baseURL == '' ? '/' : $this->baseURL;
-                //var_dump($this->baseURL);
+                var_dump($this->baseURL);
             }
             //phpinfo();exit;
             // is this bit used??
