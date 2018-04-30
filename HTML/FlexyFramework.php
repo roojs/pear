@@ -178,7 +178,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
 </IfModule>
 */ 
         
-        if (empty($_SERVER['REDIRECT_STATUS'])  && !empty($_SERVER['REDIRECT_URL'])) {
+        if (!empty($_SERVER['REDIRECT_STATUS'])  && !empty($_SERVER['REDIRECT_URL'])) {
             phpinfo();exit;
             $this->_run($_SERVER['SCRIPT_NAME'] . $_SERVER['REQUEST_URI'],false);
             return ;
