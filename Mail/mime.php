@@ -460,17 +460,18 @@ class Mail_mime
      */
     function &_file2str($file_name)
     {
+        $p = new PEAR();
         // Check state of file and raise an error properly
         if (!file_exists($file_name)) {
-            $err = PEAR::raiseError('File not found: ' . $file_name);
+            $err = $p->raiseError('File not found: ' . $file_name);
             return $err;
         }
         if (!is_file($file_name)) {
-            $err = PEAR::raiseError('Not a regular file: ' . $file_name);
+            $err = $p->raiseError('Not a regular file: ' . $file_name);
             return $err;
         }
         if (!is_readable($file_name)) {
-            $err = PEAR::raiseError('File is not readable: ' . $file_name);
+            $err = $p->raiseError('File is not readable: ' . $file_name);
             return $err;
         }
 
