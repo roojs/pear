@@ -31,7 +31,7 @@ class Services_Amazon_AlexaUrlInfo
     /**
      * Get site info from AWIS.
      */
-    function getUrlInfo() 
+    function getUrlInfo()
     {
         $canonicalQuery = $this->buildQueryParams();
         $canonicalHeaders =  $this->buildHeaders(true);
