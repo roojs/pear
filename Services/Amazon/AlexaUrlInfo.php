@@ -78,13 +78,17 @@ class Services_Amazon_AlexaUrlInfo
             'Count'             => $this->config['NumReturn'],
             'ResponseGroup'     => $this->config['ResponseGroupName'],
             'Start'             => $this->StartNum,
-            'Url'               => $this->site
+            'Url'               => $this->config['site']
         );
+        
         ksort($params);
+        
         $keyvalue = array();
+        
         foreach($params as $k => $v) {
             $keyvalue[] = $k . '=' . rawurlencode($v);
         }
+        
         return implode('&',$keyvalue);
     }
    
