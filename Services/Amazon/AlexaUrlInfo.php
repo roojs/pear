@@ -59,7 +59,8 @@ class Services_Amazon_AlexaUrlInfo
      * parameter values will be urlencoded per RFC 3986.
      * @return String query parameters for the request
      */
-    protected function buildQueryParams() {
+    protected function buildQueryParams() 
+    {
         $params = array(
             'Action'            => self::$ActionName,
             'Count'             => self::$NumReturn,
