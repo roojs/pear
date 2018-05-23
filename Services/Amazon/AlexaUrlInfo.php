@@ -77,7 +77,7 @@ class Services_Amazon_AlexaUrlInfo
             'Action'            => $this->action,
             'Count'             => $this->config['NumReturn'],
             'ResponseGroup'     => $this->config['ResponseGroupName'],
-            'Start'             => self::$StartNum,
+            'Start'             => $this->StartNum,
             'Url'               => $this->site
         );
         ksort($params);
