@@ -98,15 +98,19 @@ class Services_Amazon_AlexaUrlInfo
             'host'            => $this->ServiceEndpoint,
             'x-amz-date'      => $this->amzDate
         );
+        
         ksort($params);
+        
         $keyvalue = array();
+        
         foreach($params as $k => $v) {
-            if ($list)
-              $keyvalue[] = $k . ':' . $v;
-            else {
+            if ($list){
+                $keyvalue[] = $k . ':' . $v;
+            } else {
               $keyvalue[] = $k;
             }
         }
+        
         return ($list) ? implode("\n",$keyvalue) . "\n" : implode(';',$keyvalue) ;
     }
    
