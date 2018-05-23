@@ -69,7 +69,8 @@ class Services_Amazon_AlexaUrlInfo
         $signingKey = $this->getSignatureKey();
         
         $signature = hash_hmac('sha256', $stringToSign, $signingKey);
-        $authorizationHeader = $algorithm . ' ' . 'Credential=' . $this->accessKeyId . '/' . $credentialScope . ', ' .  'SignedHeaders=' . $signedHeaders . ', ' . 'Signature=' . $signature;
+        
+        $authorizationHeader = $algorithm . ' ' . 'Credential=' . $this->config['accessKeyId'] . '/' . $credentialScope . ', ' .  'SignedHeaders=' . $signedHeaders . ', ' . 'Signature=' . $signature;
 
         $url = 'https://' . self::$ServiceHost . self::$ServiceURI . '?' . $canonicalQuery;
         $ret = self::makeRequest($url, $authorizationHeader);
