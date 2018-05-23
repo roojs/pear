@@ -75,8 +75,8 @@ class Services_Amazon_AlexaUrlInfo
     {
         $params = array(
             'Action'            => $this->action,
-            'Count'             => $this->numberReturn,
-            'ResponseGroup'     => self::$ResponseGroupName,
+            'Count'             => $this->config['NumReturn'],
+            'ResponseGroup'     => $this->config['ResponseGroupName'],
             'Start'             => self::$StartNum,
             'Url'               => $this->site
         );
