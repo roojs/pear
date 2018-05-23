@@ -91,6 +91,24 @@ class Services_Amazon_AlexaUrlInfo
         
         return implode('&',$keyvalue);
     }
+    
+    function buildHeaders($list) 
+    {
+        $params = array(
+            'host'            => $this->ServiceEndpoint,
+            'x-amz-date'      => $this->amzDate
+        );
+        ksort($params);
+        $keyvalue = array();
+        foreach($params as $k => $v) {
+            if ($list)
+              $keyvalue[] = $k . ':' . $v;
+            else {
+              $keyvalue[] = $k;
+            }
+        }
+        return ($list) ? implode("\n",$keyvalue) . "\n" : implode(';',$keyvalue) ;
+    }
    
 }
 
