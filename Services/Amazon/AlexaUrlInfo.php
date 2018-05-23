@@ -3,7 +3,6 @@
 class Services_Amazon_AlexaUrlInfo
 {
     var $config = array(
-        'action'            => '',
         'accessKeyId'       => '',
         'secretAccessKey'   => '',
         'site'              => ''
@@ -12,6 +11,8 @@ class Services_Amazon_AlexaUrlInfo
     var $amzDate = false;
     
     var $dateStamp = false;
+    
+    var $action = false;
     
     function __construct($config)
     {
@@ -29,6 +30,16 @@ class Services_Amazon_AlexaUrlInfo
     
     function getUrlInfo() 
     {
+        $this->action = 'UrlInfo';
+        
+        if(
+                empty($this->config['accessKeyId']) ||
+                empty($this->config['secretAccessKey']) ||
+                empty($this->config['site'])
+        ) {
+            throw new exception("Missing Access Information");
+        }
+        
         $canonicalQuery = $this->buildQueryParams();
         $canonicalHeaders =  $this->buildHeaders(true);
         $signedHeaders = $this->buildHeaders(false);
