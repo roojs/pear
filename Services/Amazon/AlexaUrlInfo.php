@@ -2,28 +2,20 @@
 
 class Services_Amazon_AlexaUrlInfo
 {
-    var $config = array(
-        'accessKeyId'       => '',
-        'secretAccessKey'   => '',
-        'site'              => '',
-        'ResponseGroupName' => 'UsageStats', // refer to https://docs.aws.amazon.com/AlexaWebInfoService/latest/ApiReference_UrlInfoAction.html
-        'NumReturn'         => 10
-    );
-    
-    var $ServiceHost = 'awis.amazonaws.com';
-    var $ServiceEndpoint = 'awis.us-west-1.amazonaws.com';
-    var $StartNum = 1;
-    var $SigVersion = 2;
-    var $HashAlgorithm = 'HmacSHA256';
-    var $ServiceURI = "/api";
-    var $ServiceRegion = "us-west-1";
-    var $ServiceName = "awis";
+    protected static $ActionName        = 'UrlInfo';
+    protected static $ResponseGroupName = 'Rank,LinksInCount';
+    protected static $ServiceHost      = 'awis.amazonaws.com';
+    protected static $ServiceEndpoint  = 'awis.us-west-1.amazonaws.com';
+    protected static $NumReturn         = 10;
+    protected static $StartNum          = 1;
+    protected static $SigVersion        = '2';
+    protected static $HashAlgorithm     = 'HmacSHA256';
+    protected static $ServiceURI = "/api";
+    protected static $ServiceRegion = "us-west-1";
+    protected static $ServiceName = "awis";
     
     var $amzDate = false;
-    
     var $dateStamp = false;
-    
-    var $action = false;
     
     function __construct($config)
     {
