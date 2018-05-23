@@ -96,5 +96,15 @@ class Services_Amazon_AlexaUrlInfo
         }
         return ($list) ? implode("\n",$keyvalue) . "\n" : implode(';',$keyvalue) ;
     }
+    
+    protected function getSignatureKey() 
+    {
+        $kSecret = 'AWS4' . $this->secretAccessKey;
+        $kDate = $this->sign($kSecret, $this->dateStamp);
+        $kRegion = $this->sign($kDate, self::$ServiceRegion);
+        $kService = $this->sign($kRegion, self::$ServiceName);
+        $kSigning = $this->sign($kService, 'aws4_request');
+        return $kSigning;
+    }
 }
 
