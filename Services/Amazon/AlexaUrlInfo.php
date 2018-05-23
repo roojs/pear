@@ -28,6 +28,9 @@ class Services_Amazon_AlexaUrlInfo
         $this->dateStamp = gmdate("Ymd", $now);
     }
     
+    /**
+     * Get site info from AWIS.
+     */
     function getUrlInfo() 
     {
         $canonicalQuery = $this->buildQueryParams();
@@ -50,57 +53,26 @@ class Services_Amazon_AlexaUrlInfo
         
     }
     
-    function buildQueryParams() 
-    {
+    /**
+     * Builds query parameters for the request to AWIS.
+     * Parameter names will be in alphabetical order and
+     * parameter values will be urlencoded per RFC 3986.
+     * @return String query parameters for the request
+     */
+    protected function buildQueryParams() {
         $params = array(
-            'Action'            => $this->action,
-            'Count'             => $this->config['NumReturn'],
-            'ResponseGroup'     => $this->config['ResponseGroupName'],
-            'Start'             => $this->StartNum,
-            'Url'               => $this->config['site']
+            'Action'            => self::$ActionName,
+            'Count'             => self::$NumReturn,
+            'ResponseGroup'     => self::$ResponseGroupName,
+            'Start'             => self::$StartNum,
+            'Url'               => $this->site
         );
-        
         ksort($params);
-        
         $keyvalue = array();
-        
         foreach($params as $k => $v) {
             $keyvalue[] = $k . '=' . rawurlencode($v);
         }
-        
         return implode('&',$keyvalue);
-    }
-    
-    function buildHeaders($list) 
-    {
-        $params = array(
-            'host'            => $this->ServiceEndpoint,
-            'x-amz-date'      => $this->amzDate
-        );
-        
-        ksort($params);
-        
-        $keyvalue = array();
-        
-        foreach($params as $k => $v) {
-            if ($list){
-                $keyvalue[] = $k . ':' . $v;
-            } else {
-              $keyvalue[] = $k;
-            }
-        }
-        
-        return ($list) ? implode("\n",$keyvalue) . "\n" : implode(';',$keyvalue) ;
-    }
-    
-    function getSignatureKey() 
-    {
-        $kSecret = 'AWS4' . $this->config['secretAccessKey'];
-        $kDate = $this->sign($kSecret, $this->dateStamp);
-        $kRegion = $this->sign($kDate, $this->ServiceRegion);
-        $kService = $this->sign($kRegion, $this->ServiceName);
-        $kSigning = $this->sign($kService, 'aws4_request');
-        return $kSigning;
     }
    
 }
