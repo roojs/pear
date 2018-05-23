@@ -65,7 +65,9 @@ class Services_Amazon_AlexaUrlInfo
         $credentialScope = $this->dateStamp . "/" . $this->ServiceRegion . "/" . $this->ServiceName . "/" . "aws4_request";
         
         $stringToSign = $algorithm . "\n" .  $this->amzDate . "\n" .  $credentialScope . "\n" .  hash('sha256', $canonicalRequest);
+        
         $signingKey = $this->getSignatureKey();
+        
         $signature = hash_hmac('sha256', $stringToSign, $signingKey);
         $authorizationHeader = $algorithm . ' ' . 'Credential=' . $this->accessKeyId . '/' . $credentialScope . ', ' .  'SignedHeaders=' . $signedHeaders . ', ' . 'Signature=' . $signature;
 
@@ -117,6 +119,16 @@ class Services_Amazon_AlexaUrlInfo
         }
         
         return ($list) ? implode("\n",$keyvalue) . "\n" : implode(';',$keyvalue) ;
+    }
+    
+    function getSignatureKey() 
+    {
+        $kSecret = 'AWS4' . $this->config['secretAccessKey'];
+        $kDate = $this->sign($kSecret, $this->dateStamp);
+        $kRegion = $this->sign($kDate, $this->ServiceRegion);
+        $kService = $this->sign($kRegion, $this->ServiceName);
+        $kSigning = $this->sign($kService, 'aws4_request');
+        return $kSigning;
     }
    
 }
