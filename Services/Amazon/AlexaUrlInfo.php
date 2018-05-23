@@ -5,14 +5,23 @@ class Services_Amazon_AlexaUrlInfo
     var $config = array(
         'accessKeyId'       => '',
         'secretAccessKey'   => '',
-        'site'              => ''
+        'site'              => '',
+        'ResponseGroupName' => 'UsageStats', // refer to https://docs.aws.amazon.com/AlexaWebInfoService/latest/ApiReference_UrlInfoAction.html
+        'NumReturn'         => 10
     );
+    
+    var $ServiceHost = 'awis.amazonaws.com';
+    var $ServiceEndpoint = 'awis.us-west-1.amazonaws.com';
+    var $StartNum = 1;
+    var $SigVersion = 2;
+    var $HashAlgorithm = 'HmacSHA256';
+    var $ServiceURI = "/api";
+    var $ServiceRegion = "us-west-1";
+    var $ServiceName = "awis";
     
     var $amzDate = false;
     
     var $dateStamp = false;
-    
-    var $numberReturn = 10;
     
     var $action = false;
     
@@ -66,7 +75,7 @@ class Services_Amazon_AlexaUrlInfo
     {
         $params = array(
             'Action'            => $this->action,
-            'Count'             => self::$NumReturn,
+            'Count'             => $this->numberReturn,
             'ResponseGroup'     => self::$ResponseGroupName,
             'Start'             => self::$StartNum,
             'Url'               => $this->site
