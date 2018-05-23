@@ -55,8 +55,11 @@ class Services_Amazon_AlexaUrlInfo
         
         $canonicalHeaders =  $this->buildHeaders(true);
         $signedHeaders = $this->buildHeaders(false);
+        
         $payloadHash = hash('sha256', "");
-        $canonicalRequest = "GET" . "\n" . self::$ServiceURI . "\n" . $canonicalQuery . "\n" . $canonicalHeaders . "\n" . $signedHeaders . "\n" . $payloadHash;
+        
+        $canonicalRequest = "GET" . "\n" . $this->ServiceURI . "\n" . $canonicalQuery . "\n" . $canonicalHeaders . "\n" . $signedHeaders . "\n" . $payloadHash;
+        
         $algorithm = "AWS4-HMAC-SHA256";
         $credentialScope = $this->dateStamp . "/" . self::$ServiceRegion . "/" . self::$ServiceName . "/" . "aws4_request";
         $stringToSign = $algorithm . "\n" .  $this->amzDate . "\n" .  $credentialScope . "\n" .  hash('sha256', $canonicalRequest);
