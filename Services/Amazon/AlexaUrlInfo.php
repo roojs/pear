@@ -17,18 +17,15 @@ class Services_Amazon_AlexaUrlInfo
     var $amzDate = false;
     var $dateStamp = false;
     
-    function __construct($config)
+    function __construct($accessKeyId, $secretAccessKey, $site)
     {
-        foreach($this->config as $k => $v) {
-            if (isset($config[$k])) {
-               $this->config[$k] = $config[$k];
-            }
-        }
+        $this->accessKeyId = $accessKeyId;
+        $this->secretAccessKey = $secretAccessKey;
+        $this->site = $site;
         
         $now = time();
         $this->amzDate = gmdate("Ymd\THis\Z", $now);
         $this->dateStamp = gmdate("Ymd", $now);
-        
     }
     
     function getUrlInfo() 
