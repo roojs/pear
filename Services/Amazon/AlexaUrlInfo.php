@@ -106,5 +106,21 @@ class Services_Amazon_AlexaUrlInfo
         $kSigning = $this->sign($kService, 'aws4_request');
         return $kSigning;
     }
+    
+    protected function makeRequest($url, $authorizationHeader) 
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 4);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+          'Accept: application/xml',
+          'Content-Type: application/xml',
+          'X-Amz-Date: ' . $this->amzDate,
+          'Authorization: ' . $authorizationHeader
+        ));
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
 }
 
