@@ -12,6 +12,8 @@ class Services_Amazon_AlexaUrlInfo
     
     var $dateStamp = false;
     
+    var $numberReturn = 10;
+    
     var $action = false;
     
     function __construct($config)
@@ -41,6 +43,7 @@ class Services_Amazon_AlexaUrlInfo
         }
         
         $canonicalQuery = $this->buildQueryParams();
+        
         $canonicalHeaders =  $this->buildHeaders(true);
         $signedHeaders = $this->buildHeaders(false);
         $payloadHash = hash('sha256', "");
@@ -62,7 +65,7 @@ class Services_Amazon_AlexaUrlInfo
     function buildQueryParams() 
     {
         $params = array(
-            'Action'            => self::$ActionName,
+            'Action'            => $this->action,
             'Count'             => self::$NumReturn,
             'ResponseGroup'     => self::$ResponseGroupName,
             'Start'             => self::$StartNum,
