@@ -76,5 +76,25 @@ class Services_Amazon_AlexaUrlInfo
         return implode('&',$keyvalue);
     }
    
+    /**
+     * Builds headers for the request to AWIS.
+     * @return String headers for the request
+     */
+    protected function buildHeaders($list) {
+        $params = array(
+            'host'            => self::$ServiceEndpoint,
+            'x-amz-date'      => $this->amzDate
+        );
+        ksort($params);
+        $keyvalue = array();
+        foreach($params as $k => $v) {
+            if ($list){
+                $keyvalue[] = $k . ':' . $v;
+            } else {
+              $keyvalue[] = $k;
+            }
+        }
+        return ($list) ? implode("\n",$keyvalue) . "\n" : implode(';',$keyvalue) ;
+    }
 }
 
