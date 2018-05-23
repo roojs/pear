@@ -46,9 +46,10 @@ class Services_Amazon_AlexaUrlInfo
         $authorizationHeader = $algorithm . ' ' . 'Credential=' . $this->accessKeyId . '/' . $credentialScope . ', ' .  'SignedHeaders=' . $signedHeaders . ', ' . 'Signature=' . $signature;
 
         $url = 'https://' . self::$ServiceHost . self::$ServiceURI . '?' . $canonicalQuery;
+        
         $ret = self::makeRequest($url, $authorizationHeader);
         
-        self::parseResponse($ret);
+        return $ret;
     }
     
     /**
@@ -120,5 +121,6 @@ class Services_Amazon_AlexaUrlInfo
         curl_close($ch);
         return $result;
     }
+    
 }
 
