@@ -122,5 +122,10 @@ class Services_Amazon_AlexaUrlInfo
         return $result;
     }
     
+    protected function sign($key, $msg) 
+    {
+        return hash_hmac('sha256', $msg, $key, true);
+    }
+    
 }
 
