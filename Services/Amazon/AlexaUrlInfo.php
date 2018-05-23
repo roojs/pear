@@ -47,10 +47,8 @@ class Services_Amazon_AlexaUrlInfo
 
         $url = 'https://' . self::$ServiceHost . self::$ServiceURI . '?' . $canonicalQuery;
         $ret = self::makeRequest($url, $authorizationHeader);
-        echo "\nResults for " . $this->site .":\n\n";
-        echo $ret;
-        self::parseResponse($ret);
         
+        self::parseResponse($ret);
     }
     
     /**
