@@ -8,6 +8,10 @@ class Services_Amazon_AlexaUrlInfo
         'site' => ''
     );
     
+    var $amzDate = false;
+    
+    var $dateStamp = false;
+    
     function __construct($config)
     {
         foreach($this->config as $k => $v) {
@@ -16,7 +20,9 @@ class Services_Amazon_AlexaUrlInfo
             }
         }
         
-        
+        $now = time();
+        $this->amzDate = gmdate("Ymd\THis\Z", $now);
+        $this->dateStamp = gmdate("Ymd", $now);
         
     }
    
