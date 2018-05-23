@@ -28,7 +28,7 @@ class Services_Amazon_AlexaUrlInfo
         $this->dateStamp = gmdate("Ymd", $now);
     }
     
-    public function getUrlInfo() 
+    function getUrlInfo() 
     {
         $canonicalQuery = $this->buildQueryParams();
         $canonicalHeaders =  $this->buildHeaders(true);
