@@ -3,7 +3,7 @@
 class Services_Amazon_AlexaUrlInfo
 {
     protected static $ActionName        = 'UrlInfo';
-    protected static $ResponseGroupName = 'UsageStats';
+    protected static $ResponseGroupName = 'Rank,LinksInCount';
     protected static $ServiceHost      = 'awis.amazonaws.com';
     protected static $ServiceEndpoint  = 'awis.us-west-1.amazonaws.com';
     protected static $NumReturn         = 10;
