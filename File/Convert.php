@@ -1486,7 +1486,7 @@ class File_Convert_Solution
         // for some reason this makes 01 or 1?
         $out = $fn . sprintf('-conv-%d.'.str_replace('e', '', $ext) , $pg);
         
-        $fe = file_exists($out)  && filesize($out) ? $out : false;
+        $fe = file_exists($out)  && filesize($out) ? true : false;
         if ($fe) {
             rename($out, $target);
             
