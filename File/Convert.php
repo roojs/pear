@@ -1505,7 +1505,7 @@ class File_Convert_Solution
         $out = $fn . sprintf('-conv-%02d.'.str_replace('e', '', $ext), $pg);
         //$out = $fn . '-conv-01.jpg';
         
-        $fe = file_exists($out)  && filesize($out) ? $out : false;
+        $fe = file_exists($out)  && filesize($out) ? true : false;
         if ($fe) {
              rename($out, $target);
             @chmod($target,fileperms($fn));
