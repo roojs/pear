@@ -2004,6 +2004,9 @@ class File_Convert_Solution
         
         $flat = '';
         
+        
+        $target = $fn . '.' . $ext;
+        
         if (!empty($x)) {
             $target = $fn . '.' . $x. '.' . $ext;
             $flat = "--resize-width {$x}";
