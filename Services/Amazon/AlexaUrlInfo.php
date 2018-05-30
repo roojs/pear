@@ -33,17 +33,28 @@ class Services_Amazon_AlexaUrlInfo
      */
     function getUrlInfo()
     {
-        $canonicalQuery = $this->buildQueryParams();
-        $canonicalHeaders =  $this->buildHeaders(true);
-        $signedHeaders = $this->buildHeaders(false);
-        $payloadHash = hash('sha256', "");
-        $canonicalRequest = "GET" . "\n" . self::$ServiceURI . "\n" . $canonicalQuery . "\n" . $canonicalHeaders . "\n" . $signedHeaders . "\n" . $payloadHash;
+        $canonicalQuery     = $this->buildQueryParams();
+        $canonicalHeaders   =  $this->buildHeaders(true);
+        $signedHeaders      = $this->buildHeaders(false);
+        $payloadHash        = hash('sha256', "");
+        $canonicalRequest   = "GET" . "\n" .
+                    self::$ServiceURI . "\n" .
+                        $canonicalQuery . "\n" .
+                        $canonicalHeaders . "\n" .
+                        $signedHeaders . "\n" .
+                        $payloadHash;
         $algorithm = "AWS4-HMAC-SHA256";
         $credentialScope = $this->dateStamp . "/" . self::$ServiceRegion . "/" . self::$ServiceName . "/" . "aws4_request";
-        $stringToSign = $algorithm . "\n" .  $this->amzDate . "\n" .  $credentialScope . "\n" .  hash('sha256', $canonicalRequest);
+        $stringToSign = $algorithm . "\n" .
+                    $this->amzDate . "\n" .
+                    $credentialScope . "\n" .
+                    hash('sha256', $canonicalRequest);
         $signingKey = $this->getSignatureKey();
         $signature = hash_hmac('sha256', $stringToSign, $signingKey);
-        $authorizationHeader = $algorithm . ' ' . 'Credential=' . $this->accessKeyId . '/' . $credentialScope . ', ' .  'SignedHeaders=' . $signedHeaders . ', ' . 'Signature=' . $signature;
+        $authorizationHeader = $algorithm . ' ' .
+                    'Credential=' . $this->accessKeyId . '/' . $credentialScope . ', ' .
+                    'SignedHeaders=' . $signedHeaders . ', ' .
+                    'Signature=' . $signature;
 
         $url = 'https://' . self::$ServiceHost . self::$ServiceURI . '?' . $canonicalQuery;
         
