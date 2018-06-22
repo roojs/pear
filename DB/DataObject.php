@@ -4778,9 +4778,8 @@ class DB_DataObject extends DB_DataObject_Overload
             DB_DataObject::_loadConfig();
         }
         if ($v !== null) {
-            if (empty($v)) {
-                throw new Exception("debug level reset?");
-            }
+                 throw new Exception("debug level set?");
+             
             
             $r = isset($_DB_DATAOBJECT['CONFIG']['debug']) ? $_DB_DATAOBJECT['CONFIG']['debug'] : 0;
             $_DB_DATAOBJECT['CONFIG']['debug']  = $v;
