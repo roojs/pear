@@ -199,7 +199,7 @@ Available commands:
                 $val = $classname::cli_opts();
             } else {
                 $ar = $cls->getStaticProperties();
-                if (isset($ar['cli_opts'])) {
+                 if (isset($ar['cli_opts'])) {
                     $val = $cls->getStaticPropertyValue('cli_opts');
                 }
             }
@@ -209,11 +209,14 @@ Available commands:
                 //var_dump($cls);
                  
                 try {
-                    
+                    $vadd  = array();
                     if (method_exists($cls->name, 'cli_opts')) {
                         $cn = $cls->name;
                         $vadd = $cn::cli_opts();
                     } else {
+                        if (isset($ar['cli_opts'])) {
+                            $val = $cls->getStaticPropertyValue('cli_opts');
+                        }
                         $vadd = $cls->getStaticPropertyValue('cli_opts') ;
                         
                     }
