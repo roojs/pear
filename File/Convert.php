@@ -40,7 +40,7 @@ class File_Convert
     var $to;
     var $target;
     var $lastaction = false;
-    function File_Convert($fn, $mimetype, $options=array())
+    function __construct($fn, $mimetype, $options=array())
     {
         $this->fn = $fn;
         $this->mimetype = $mimetype;
@@ -655,7 +655,7 @@ class File_Convert_Solution
     var $debug = false;
     var $convert; // reference to caller..
     
-    function File_Convert_Solution($method, $from ,$to)
+    function __construct($method, $from ,$to)
     {
         $this->method = $method;
         $this->from = $from;
