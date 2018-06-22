@@ -232,6 +232,7 @@ Available commands:
         } catch (ReflectionException $e) {
             print_r($e);
             echo "cliParse:Warning:  {$e->getMessage()}\n";
+            exit;
         }
         if (empty($val)) {
             return false;
