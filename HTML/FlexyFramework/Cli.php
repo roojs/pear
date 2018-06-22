@@ -214,11 +214,11 @@ Available commands:
                         $cn = $cls->name;
                         $vadd = $cn::cli_opts();
                     } else {
+                        $ar = $cls->getStaticProperties();
                         if (isset($ar['cli_opts'])) {
-                            $val = $cls->getStaticPropertyValue('cli_opts');
+                            $vadd = $cls->getStaticPropertyValue('cli_opts');
                         }
-                        $vadd = $cls->getStaticPropertyValue('cli_opts') ;
-                        
+                         
                     }
                     $val = array_merge($val, is_array($vadd) ? $vadd : array()  );
                 } catch (ReflectionException $e) {
