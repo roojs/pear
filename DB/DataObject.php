@@ -4820,7 +4820,7 @@ class DB_DataObject extends DB_DataObject_Overload
         
         // no checks for production here?....... - we log  errors before we throw them.
         DB_DataObject::debug($message,'ERROR',1);
-        DB_DataObject::debug(print_r($error->getBackTrace(),true),'ERROR',5);
+        DB_DataObject::debug(print_r(debug_backtrace(),true),'ERROR',5);
         
         if (PEAR::isError($message)) {
             $error = $message;
