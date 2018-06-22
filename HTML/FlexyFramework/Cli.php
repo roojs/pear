@@ -221,6 +221,7 @@ Available commands:
             
             
         } catch (Exception $e) {
+            print_r($e);
             echo "cliParse:Warning:  {$e->getMessage()}\n";
         }
         if (empty($val)) {
