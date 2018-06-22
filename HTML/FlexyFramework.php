@@ -605,8 +605,10 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         }
         
         $this->DB_DataObject[$dbini] = $iniCacheTmp;
-        $this->_exposeToPear();
         
+        $dl = DB_DataObject::DebugLevel();
+        $this->_exposeToPear();
+        DB_DataObject::DebugLevel($dl);
         
         // DB_DataObject::debugLevel(1);      
         require_once 'HTML/FlexyFramework/Generator.php';
