@@ -44,7 +44,7 @@ class File_Convert
     {
         $this->fn = $fn;
         $this->mimetype = $mimetype;
-        $this->options = $options;
+        self::$options = $options;
     }
     
     
