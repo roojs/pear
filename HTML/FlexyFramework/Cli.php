@@ -206,7 +206,7 @@ Available commands:
              
             $val = is_array($val) ? $val : array();
             while ($cls = $cls->getParentClass()) {
-                var_dump($cls);
+                var_dump($cls->name);
                  
                 try {
                     $vadd  = array();
