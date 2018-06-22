@@ -2068,7 +2068,8 @@ class DB_DataObject extends DB_DataObject_Overload
                     "in links file data: " . print_r($_DB_DATAOBJECT['INI'],true) . "\n BACKTRACE:" .
                     print_r(debug_backtrace(), true),"databaseStructure",5);
         // we have to die here!! - it causes chaos if we dont (including looping forever!)
-        $this->raiseError( "Unable to load schema for database and table (turn debugging up to 5 for full error message)", DB_DATAOBJECT_ERROR_INVALIDARGS, PEAR_ERROR_DIE);
+        $this->raiseError( "Unable to load schema for database and table (turn debugging up to 5 for full error message)",\
+                          DB_DATAOBJECT_ERROR_INVALIDARGS, PEAR_ERROR_DIE);
         return false;
         
          
@@ -4816,10 +4817,10 @@ class DB_DataObject extends DB_DataObject_Overload
         
         $error = &PEAR::getStaticProperty('DB_DataObject','lastError');
         
-      
+        
         // no checks for production here?....... - we log  errors before we throw them.
         DB_DataObject::debug($message,'ERROR',1);
-        
+        DB_DataObject::debug(print_r($error->getBackTrace(),true),'ERROR',5);
         
         if (PEAR::isError($message)) {
             $error = $message;
