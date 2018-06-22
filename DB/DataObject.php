@@ -2064,9 +2064,10 @@ class DB_DataObject extends DB_DataObject_Overload
             // should this fail!!!???
             return true;
         }
+        $e = new Exception();
         $this->debug("Cant find database schema: {$this->_database}/{$this->tableName()} \n".
                     "in links file data: " . print_r($_DB_DATAOBJECT['INI'],true) . "\n BACKTRACE:" .
-                    print_r(debug_backtrace(), true),"databaseStructure",5);
+                    $e->getTraceAsString(),"databaseStructure",5);
         // we have to die here!! - it causes chaos if we dont (including looping forever!)
         $this->raiseError( "Unable to load schema for database and table (turn debugging up to 5 for full error message)",\
                           DB_DATAOBJECT_ERROR_INVALIDARGS, PEAR_ERROR_DIE);
