@@ -618,8 +618,12 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         HTML_FlexyFramework_Generator::writeCache($iniCacheTmp, $iniCache); 
         // reset the cache to the correct lcoation.
         $this->DB_DataObject[$dbini] = $iniCache;
-        $this->_exposeToPear();
         
+         
+
+        $this->_exposeToPear();
+        DB_DataObject::DebugLevel($dl);
+
         //$GLOBALS['_DB_DATAOBJECT']['INI'][$this->database] =   parse_ini_file($iniCache, true);
         //$GLOBALS['_DB_DATAOBJECT']['SEQUENCE']
         // clear any dataobject cache..
