@@ -317,8 +317,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
             if ($res === true) {
                 $ishelp = true;
             }
-            print_r($res);exit;
-             
+              
         }
         
         
