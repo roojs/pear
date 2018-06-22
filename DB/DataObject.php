@@ -4820,7 +4820,8 @@ class DB_DataObject extends DB_DataObject_Overload
         
         // no checks for production here?....... - we log  errors before we throw them.
         DB_DataObject::debug($message,'ERROR',1);
-        DB_DataObject::debug(print_r(debug_backtrace(),true),'ERROR',5);
+        $e = new Exception();
+        DB_DataObject::debug($e->getTraceAsString(),'ERROR',5);
         
         if (PEAR::isError($message)) {
             $error = $message;
@@ -4842,6 +4843,8 @@ class DB_DataObject extends DB_DataObject_Overload
    
         return $error;
     }
+    
+    
 
     /**
      * Define the global $_DB_DATAOBJECT['CONFIG'] as an alias to  PEAR::getStaticProperty('DB_DataObject','options');
