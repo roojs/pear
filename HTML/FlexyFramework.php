@@ -577,9 +577,9 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
          if ($force && file_exists($iniCache)) {
             
             $files = glob(dirname($iniCache).'/*.ini');
-            print_r($files);exit;
-            
-            unlink($iniCache);
+            foreach(file as $f) {
+                unlink($f);
+            }
             clearstatcache();
         }
         
