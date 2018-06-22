@@ -921,8 +921,8 @@ class File_Convert_Solution
         
         $ssconvert_extra = '';
         $sheet = false;
-        if (isset($this->convert->options['sheet'])) {
-            $sheet = $this->convert->options['sheet'];
+        if (isset(File_Convert::$options['sheet'])) {
+            $sheet = File_Convert::$options['sheet'];
             $ssconvert_extra = ' -S ';
         }
         
