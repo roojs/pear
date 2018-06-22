@@ -207,7 +207,7 @@ Available commands:
              
             $val = is_array($val) ? $val : array();
             while ($cls = $cls->getParentClass()) {
-                var_dump($cls->name);
+                //var_dump($cls->name);
                  
                 try {
                     $vadd  = array();
@@ -230,7 +230,7 @@ Available commands:
             
             
         } catch (ReflectionException $e) {
-            print_r($e);
+            //print_r($e);
             echo "cliParse:Warning:  {$e->getMessage()}\n";
             exit;
         }
