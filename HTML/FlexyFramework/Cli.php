@@ -196,7 +196,7 @@ Available commands:
             if (method_exists($classname, 'cli_opts')) {
                 $val = $classname::cli_opts();
             } else {
-                var_dump($cls->getStaticProperties());
+                if ($cls->getStaticProperties());
                 $val = $cls->getStaticPropertyValue('cli_opts');
             }
              
@@ -214,14 +214,14 @@ Available commands:
                         
                     }
                     $val = array_merge($val, is_array($vadd) ? $vadd : array()  );
-                } catch (Exception $e) {
+                } catch (ReflectionException $e) {
                     continue;
                 }
             }
             
             
             
-        } catch (Exception $e) {
+        } catch (ReflectionException $e) {
             print_r($e);
             echo "cliParse:Warning:  {$e->getMessage()}\n";
         }
