@@ -607,7 +607,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         $this->DB_DataObject[$dbini] = $iniCacheTmp;
         
         $dl = DB_DataObject::DebugLevel();
-        $this->_exposeToPear();
+        $this->_exposeToPear(); // this will reset the debug level...
         DB_DataObject::DebugLevel($dl);
         
         // DB_DataObject::debugLevel(1);      
