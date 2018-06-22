@@ -515,7 +515,10 @@ class HTML_FlexyFramework2 {
         $iniCache = $this->PDO_DataObject['schema_location'];
         
         if ($force && file_exists($iniCache)) {
-            unlink($iniCache);
+            $files = glob(dirname($iniCache).'/*.ini');
+            foreach(file as $f) {
+                unlink($f);
+            } 
             clearstatcache();
         }
         
