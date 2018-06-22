@@ -318,19 +318,19 @@ Available commands:
         
         
         $ret =  $newargs->getValues();
-            foreach($ret as $k=>$v) {
-                switch($k) {
-                    case 'pman-nodatabase':
-                        //echo "Turning off database";
-                        $this->ff->nodatabase= true;
-                        
-                        break;
+        foreach($ret as $k=>$v) {
+            switch($k) {
+                case 'pman-nodatabase':
+                    //echo "Turning off database";
+                    $this->ff->nodatabase= true;
                     
-                    default:
-                        die("need to fix option $k");
-                }
+                    break;
                 
+                default:
+                    die("need to fix option $k");
             }
+            
+        }
         return false;
         
     }
