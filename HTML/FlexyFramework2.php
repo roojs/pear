@@ -516,7 +516,7 @@ class HTML_FlexyFramework2 {
         
         if ($force && file_exists($iniCache)) {
             $files = glob(dirname($iniCache).'/*.ini');
-            foreach(file as $f) {
+            foreach($file as $f) {
                 unlink($f);
             } 
             clearstatcache();
