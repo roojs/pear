@@ -45,7 +45,7 @@ class File_Convert
         $this->fn = $fn;
         $this->mimetype = $mimetype;
         $this->options = $options;
-     }
+    }
     
     
     function convertExists($toMimetype, $x= 0, $y =0) 
