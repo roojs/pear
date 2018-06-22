@@ -192,12 +192,15 @@ Available commands:
     
         try {
             // look up the parent tree for core opts.
+            $val = array();
             $cls = new ReflectionClass($classname);
             if (method_exists($classname, 'cli_opts')) {
                 $val = $classname::cli_opts();
             } else {
-                if ($cls->getStaticProperties());
-                $val = $cls->getStaticPropertyValue('cli_opts');
+                $ar = $cls->getStaticProperties();
+                if (isset($ar['cli_opts'])) {
+                    $val = $cls->getStaticPropertyValue('cli_opts');
+                }
             }
              
             $val = is_array($val) ? $val : array();
