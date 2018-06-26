@@ -4,6 +4,7 @@
  *  Put standard header here...
  *
  */
+require_once 'Services/Xero/OAuth.php';
 
 class Services_Xero
 {
@@ -58,8 +59,6 @@ class Services_Xero
             $this->oauth_config ['rsa_public_key'] = $config['ca_cert_path'] . '/publickey.cer'; 
         }
         
-        require_once 'Services/Xero/OAuth.php';
-       
         $this->XeroOAuth = new Services_Xero_OAuth($this->oauth_config);
        
         $this->connectXero();
@@ -290,8 +289,6 @@ class Services_Xero
             }
             
         }
-        
-        
     }
 }
 
