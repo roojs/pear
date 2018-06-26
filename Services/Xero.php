@@ -7,8 +7,6 @@
 
 class Services_Xero
 {
-     
-     
     
     var $oauth_config = array (
         'consumer_key' => '', //$config['consumer_key'],
@@ -94,21 +92,21 @@ class Services_Xero
     
     function refreshToken()
     {
-       $response = $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['oauth_session_handle']);
-       
-       if ($response['code'] != 200) {
+        $response = $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['oauth_session_handle']);
+
+        if ($response['code'] != 200) {
             if ($response['helper'] == "TokenExpired") {
                 $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['session_handle']);
             }
-            
+
             return false;
-       }
-       
-       $this->session = $this->persistSession($response);
-       $this->oauthSession = $this->retrieveSession();
-       
-       return true;
-   }
+        }
+
+        $this->session = $this->persistSession($response);
+        $this->oauthSession = $this->retrieveSession();
+
+        return true;
+    }
     /**
      * Persist the OAuth access token and session handle somewhere
      * In my example I am just using the session, but in real world, this is should be a storage engine
