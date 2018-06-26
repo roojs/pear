@@ -10,6 +10,7 @@ if (! class_exists ( 'Services_Xero_OAuthSign' )) {
  */
 class XeroOAuthException extends Exception {
 }
+
 class Services_Xero_OAuth
 {
     var $_xero_defaults =array (
