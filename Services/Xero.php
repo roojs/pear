@@ -70,8 +70,8 @@ class Services_Xero
    
     function connectXero()
     {
-        $this->initialCheck = $this->XeroOAuth->diagnostics ();
-        $this->checkErrors = count ( $this->initialCheck );
+        $this->initialCheck = $this->XeroOAuth->diagnostics();
+        $this->checkErrors = count($this->initialCheck);
         
         if ($this->checkErrors > 0) {
             return false;	        
