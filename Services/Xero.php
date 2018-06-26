@@ -62,12 +62,12 @@ class Services_Xero
         
        
         
-       //require 'Xero/Auth/XeroOAuth.php';
-       require 'Services/Xero/OAuth.php';
+        //require 'Xero/Auth/XeroOAuth.php';
+        require 'Services/Xero/OAuth.php';
        
-       $this->XeroOAuth = new Services_Xero_OAuth (   $this->oauth_config   );
+        $this->XeroOAuth = new Services_Xero_OAuth($this->oauth_config);
        
-       $this->connectXero();
+        $this->connectXero();
        
     }
    
