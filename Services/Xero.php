@@ -77,37 +77,31 @@ class Services_Xero
             return false;	        
         }
         
-        $this->session = $this->persistSession ( array (
+        $this->session = $this->persistSession(array(
             'oauth_token' => $this->XeroOAuth->config ['consumer_key'],
             'oauth_token_secret' => $this->XeroOAuth->config ['shared_secret'],
             'oauth_session_handle' => '' 
         ) );
              
-        $this->oauthSession = $this->retrieveSession ();
+        $this->oauthSession = $this->retrieveSession();
         
-        if (isset ( $this->oauthSession ['oauth_token'] )) {
+        if (isset($this->oauthSession ['oauth_token'])){
             $this->XeroOAuth->config ['access_token'] = $this->oauthSession ['oauth_token'];
-              
             $this->XeroOAuth->config ['access_token_secret'] = $this->oauthSession ['oauth_token_secret'];
-         
         }
        
     }
-
-   
-   
-   
-
-   function refreshToken()
-   {
+    
+    function refreshToken()
+    {
        $response = $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['oauth_session_handle']);
+       
        if ($response['code'] != 200) {
             if ($response['helper'] == "TokenExpired") {
                 $this->XeroOAuth->refreshToken($this->oauthSession['oauth_token'], $this->oauthSession['session_handle']);
             }
             
             return false;
-            
        }
        
        $this->session = $this->persistSession($response);
