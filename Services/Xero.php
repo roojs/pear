@@ -60,8 +60,6 @@ class Services_Xero
             $this->oauth_config ['rsa_public_key'] = $config['ca_cert_path'] . '/publickey.cer'; 
         }
         
-       
-        
         //require 'Xero/Auth/XeroOAuth.php';
         require 'Services/Xero/OAuth.php';
        
