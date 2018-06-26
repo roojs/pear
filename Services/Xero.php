@@ -8,7 +8,6 @@ require_once 'Services/Xero/OAuth.php';
 
 class Services_Xero
 {
-    
     var $oauth_config = array (
         'consumer_key' => '', //$config['consumer_key'],
         'shared_secret' => '', //$config['shared_secret'],
