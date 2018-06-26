@@ -163,25 +163,25 @@ class Services_Xero
     
     public function getInvoicesByFilter($param)
     {
-        if(empty($param)) {
-            throw new Exception("Xero Error: invalid arguments to getInvoicesByFilter" );
+        if (empty($param)) {
+            throw new Exception("Xero Error: invalid arguments to getInvoicesByFilter");
         }
-        
-        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices' , 'core'), $param ,'','json');
-        
-        if (empty($response['code']) ||  $response['code'] != 200) {
-          
+
+        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices', 'core'), $param, '', 'json');
+
+        if (empty($response['code']) || $response['code'] != 200) {
+
             throw new Exception('Xero Error: ' . $response['response']);
-                     
-           //outputError($XeroOAuth);
+
+            //outputError($XeroOAuth);
         }
-        
+
         $result = $response['result'];
-        
-        if ( !$result || !$response['result'] || empty($response['result']->Invoices)) {
+
+        if (!$result || !$response['result'] || empty($response['result']->Invoices)) {
             return false;
         }
-        
+
         return $result->Invoices;
     }   
    
@@ -236,10 +236,7 @@ class Services_Xero
         
         return $contact->Contacts[0];
     }
-   
-   
-   
-   
+    
     public function createInvoice($inv)
     {
         if($inv == '') {
