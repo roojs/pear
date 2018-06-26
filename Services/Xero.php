@@ -136,24 +136,24 @@ class Services_Xero
     * In my example I am just using the session, but in real world, this is should be a storage engine
     *
     */
-   function retrieveSession()
-   {
-       if (isset($_SESSION[__CLASS__]['access_token'])) {
-           $response['oauth_token']            =    $_SESSION[__CLASS__]['access_token'];
+    function retrieveSession()
+    {
+        if (isset($_SESSION[__CLASS__]['access_token'])) {
+            $response['oauth_token']            =    $_SESSION[__CLASS__]['access_token'];
            
-           $response['oauth_token_secret']     =    $_SESSION[__CLASS__]['oauth_token_secret'];
+            $response['oauth_token_secret']     =    $_SESSION[__CLASS__]['oauth_token_secret'];
            
-           $response['oauth_session_handle']   =    $_SESSION[__CLASS__]['session_handle'];
+            $response['oauth_session_handle']   =    $_SESSION[__CLASS__]['session_handle'];
            
-           return $response;
+            return $response;
        }       
        
        return false;
 
-   }   
+    }   
    
-   public function getInvoiceList()
-   {
+    public function getInvoiceList()
+    {
        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices', 'core'), array('order' => 'Total DESC'));
         if (empty($response['code']) ||  $response['code'] != 200) {
             throw new Exception('Xero Error: ' . $response['response']);
@@ -163,7 +163,7 @@ class Services_Xero
        
        $invoiceList = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
        return $invoiceList;           
-   }
+    }
     
     public function getInvoicesByFilter($param)
     {
