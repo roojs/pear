@@ -133,23 +133,23 @@ class Services_Xero_OAuth
     private function curlWrite($ch, $data) 
     {
         $l = strlen($data);
-        if (strpos($data, $this->config ['streaming_eol']) === false) {
+        if (strpos($data, $this->config['streaming_eol']) === false) {
             $this->buffer .= $data;
             return $l;
         }
 
-        $buffered = explode($this->config ['streaming_eol'], $data);
+        $buffered = explode($this->config['streaming_eol'], $data);
         $content = $this->buffer . $buffered [0];
 
         $this->metrics ['tweets'] ++;
         $this->metrics ['bytes'] += strlen($content);
 
-        if (!function_exists($this->config ['streaming_callback'])) {
+        if (!function_exists($this->config['streaming_callback'])) {
             return 0;
         }
         
         $metrics = $this->update_metrics();
-        $stop = call_user_func($this->config ['streaming_callback'], $content, strlen($content), $metrics);
+        $stop = call_user_func($this->config['streaming_callback'], $content, strlen($content), $metrics);
         $this->buffer = $buffered [1];
         if ($stop) {
             return 0;
