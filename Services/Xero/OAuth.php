@@ -223,10 +223,10 @@ class Services_Xero_OAuth
     * @return void value is stored to a class variable
     * @author themattharris
     */
-   private function prepare_method($method) 
-   {
-      $this->method = strtoupper ( $method );
-   }
+    private function prepare_method($method) 
+    {
+        $this->method = strtoupper ( $method );
+    }
 	
    /**
     * Makes a curl request.
