@@ -308,16 +308,26 @@ class Services_Xero_OAuthSign {
     */
     function sign($args=array()) 
     {
-        if (!empty($args['action']))
+        if (!empty($args['action'])) {
             $this->setAction($args['action']);
-        if (!empty($args['path']))
+        }
+            
+        if (!empty($args['path'])) {
             $this->setPath($args['path']);
-        if (!empty($args['method']))
+        }
+            
+        if (!empty($args['method'])) {
             $this->setSignatureMethod($args['method']);
-        if (!empty($args['signatures']))
+        }
+            
+        if (!empty($args['signatures'])) {
             $this->signatures($args['signatures']);
-        if (empty($args['parameters']))
+        }
+            
+        if (empty($args['parameters'])) {
             $args['parameters']=array();        // squelch the warning.
+        }
+            
         $this->setParameters($args['parameters']);
         $normParams = $this->_normalizedParameters();
         $this->_parameters['oauth_signature'] = $this->_generateSignature($normParams);
