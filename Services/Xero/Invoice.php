@@ -1,94 +1,82 @@
 <?php
 
-class Services_Xero_Invoice {
-   var $date;
-	
-   var $dueDate;	
+class Services_Xero_Invoice 
+{
+    var $date;
+    var $dueDate;
+    var $contactID;
+    var $invoiceID;
+    var $currencyCode;
+    var $invoiceType = 'ACCREC';
+    var $status = 'DRAFT';
+    var $lineAmountTypes = 'Exclusive';
+    var $BrandingThemeID = '';
 
-   var $contactID;
+    function __construct($config) 
+    {
+        foreach ($config as $key => $val) {
+            $this->$key = $val;
+        }
+    }
 
-   var $invoiceID ;   
-   
-   var $currencyCode;
-   
-   var $invoiceType = 'ACCREC';   
-   
-   var $status = 'DRAFT';
-   
-   var $lineAmountTypes = 'Exclusive';   
-   
-   var $BrandingThemeID = '';
-    
-   function __construct($config)
-   {   	
-       foreach ($config as $key => $val) {
-           $this->$key = $val;           
-       } 
-       
-   }
-   
-   
     function toXML() 
     {
-        $doc = new DOMDocument('1.0', 'utf-8');   	  
-        
-        
+        $doc = new DOMDocument('1.0', 'utf-8');
+
+
         // truely the dumbist piece of code I've ever seen....
         // most of this is Key/value setting...
-        
-        
-        $element = $doc->appendChild($doc->createElement('Invoices') );  
+
+
+        $element = $doc->appendChild($doc->createElement('Invoices'));
         $inv = $element->appendChild($doc->createElement('Invoice'));
-        $inv->appendChild($doc->createElement('Type',$this->invoiceType));
-        
+        $inv->appendChild($doc->createElement('Type', $this->invoiceType));
+
         // old invoice
-        if(!empty($this->invoiceID))
-        {
-           $inv_id = $doc->createElement('InvoiceID',$this->invoiceID);
-           $inv->appendChild($inv_id);
+        if (!empty($this->invoiceID)) {
+            $inv_id = $doc->createElement('InvoiceID', $this->invoiceID);
+            $inv->appendChild($inv_id);
         } else {
             // new invoice
-            $inv_date = $doc->createElement('Date',$this->date);
-            $inv->appendChild($inv_date);        
-        }        
-    
-    
-        $inv->appendChild($doc->createElement('CurrencyCode',$this->currencyCode));
-        $inv->appendChild($doc->createElement('Status',$this->status));
-        
-        $contact = $inv->appendChild($doc->createElement('Contact'));
-        $contact->appendChild($doc->createElement('ContactID',$this->contactID));
-        
-        $inv->appendChild( $doc->createElement('LineAmountTypes',$this->lineAmountTypes) );
-        
-        if (!empty($this->brandingThemeID)) {
-            $inv->appendChild( $doc->createElement('BrandingThemeID',$this->brandingThemeID) );
+            $inv_date = $doc->createElement('Date', $this->date);
+            $inv->appendChild($inv_date);
         }
 
-        
-        
-        $line_items =  $inv->appendChild($doc->createElement('LineItems'));
-   	          
-        foreach ($this->LineItems as $u) {        
+
+        $inv->appendChild($doc->createElement('CurrencyCode', $this->currencyCode));
+        $inv->appendChild($doc->createElement('Status', $this->status));
+
+        $contact = $inv->appendChild($doc->createElement('Contact'));
+        $contact->appendChild($doc->createElement('ContactID', $this->contactID));
+
+        $inv->appendChild($doc->createElement('LineAmountTypes', $this->lineAmountTypes));
+
+        if (!empty($this->brandingThemeID)) {
+            $inv->appendChild($doc->createElement('BrandingThemeID', $this->brandingThemeID));
+        }
+
+
+
+        $line_items = $inv->appendChild($doc->createElement('LineItems'));
+
+        foreach ($this->LineItems as $u) {
             $item = $doc->createElement('LineItem');
 
-            foreach ($u as $key => $val) {                
-                if($val) {
+            foreach ($u as $key => $val) {
+                if ($val) {
                     $item->appendChild($doc->createElement($key))->appendChild($doc->createTextNode($val));
-                }                
-            } 
+                }
+            }
             $line_items->appendChild($item);
-        }   	  
-   	  
-        return $doc;   
-   	  
-    } 
-  
-  
-    
+        }
+
+        return $doc;
+    }
+
     function toXMLString() 
     {
-                 
-         return $this->toXML()->saveXML();
-    } 
+
+        return $this->toXML()->saveXML();
+    }
+
 }
