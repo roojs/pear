@@ -351,24 +351,25 @@ class Services_Xero_OAuthSign {
     */
     function getHeaderString ($args=array()) 
     {
-        if (empty($this->_parameters['oauth_signature']))
+        if (empty($this->_parameters['oauth_signature'])) {
             $this->sign($args);
+        }
+            
 
         $result = 'OAuth ';
 
         foreach ($this->_parameters as $pName=>$pValue)
         {
-            if (strpos($pName,'oauth_') !== 0)
+            if (strpos($pName,'oauth_') !== 0) {
                 continue;
-            if (is_array($pValue))
-            {
+            }
+                
+            if (is_array($pValue)) {
                 foreach ($pValue as $val)
                 {
                     $result .= $pName .'="' . $this->_oauthEscape($val) . '", ';
                 }
-            }
-            else
-            {
+            } else {
                 $result .= $pName . '="' . $this->_oauthEscape($pValue) . '", ';
             }
         }
