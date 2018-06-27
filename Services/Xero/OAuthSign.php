@@ -354,8 +354,7 @@ class Services_Xero_OAuthSign {
         if (empty($this->_parameters['oauth_signature'])) {
             $this->sign($args);
         }
-            
-
+        
         $result = 'OAuth ';
 
         foreach ($this->_parameters as $pName=>$pValue)
@@ -365,8 +364,7 @@ class Services_Xero_OAuthSign {
             }
                 
             if (is_array($pValue)) {
-                foreach ($pValue as $val)
-                {
+                foreach ($pValue as $val) {
                     $result .= $pName .'="' . $this->_oauthEscape($val) . '", ';
                 }
             } else {
