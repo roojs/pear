@@ -44,7 +44,7 @@ class Services_Xero
         return $brandingThemes;
     }
     
-    function createInvoice($inv)
+    function createInvoice($xml)
     {
         if($inv == '') {
              return;
