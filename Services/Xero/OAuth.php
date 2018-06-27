@@ -297,7 +297,7 @@ class Services_Xero_OAuth
                     $put_body = $this->xml;
                 } else {
                     $put_body = $this->safe_encode($this->xml);
-                    $this->headers ['Content-Type'] = 'application/x-www-form-urlencoded';
+                    $this->headers['Content-Type'] = 'application/x-www-form-urlencoded';
                 }
                 fwrite($fh, $put_body);
                 rewind($fh);
