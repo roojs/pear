@@ -14,7 +14,7 @@ class Services_Xero_OAuth
         'xero_url' => 'https://api.xero.com/',
         'site' => 'https://api.xero.com',
         'authorize_url' => 'https://api.xero.com/oauth/Authorize',
-        'signature_method' => 'RSA-SHA1' 
+        'signature_method' => 'RSA-SHA1'
     );
     
     
