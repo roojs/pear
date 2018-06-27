@@ -94,6 +94,8 @@ class Services_Xero_OAuth
         foreach ($config as $k => $v){
             $this->config[$k] = $v;
         }
+        
+        $this->config = array_merge ($this->_xero_defaults, $this->_xero_consumer_options, $this->_xero_curl_options, $config);
     }
 	
    /**
