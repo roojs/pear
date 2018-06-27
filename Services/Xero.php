@@ -18,7 +18,7 @@ class Services_Xero
         $this->XeroOAuth = new Services_Xero_OAuth($config);
     }
     
-    function getContacts($params)
+    function getContacts($params = array())
     {
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts', 'core'), $params);
         
