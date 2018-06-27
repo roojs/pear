@@ -552,22 +552,22 @@ class Services_Xero_OAuth
     *        	the current session handle for the session
     * @return array response array from request
     */
-   function refreshToken($accessToken, $sessionHandle) 
-   {
-      $code = $this->request ( 'GET', $this->url ( 'AccessToken', '' ), array (
+    function refreshToken($accessToken, $sessionHandle) 
+    {
+        $code = $this->request('GET', $this->url('AccessToken', ''), array(
             'oauth_token' => $accessToken,
-            'oauth_session_handle' => $sessionHandle 
-      ) );
-      if ($this->response ['code'] == 200) {
-			
-         $response = $this->extract_params ( $this->response ['response'] );
-			
-         return $response;
-      } else {
-         $this->response ['helper'] = "TokenFatal";
-         return $this->response;
-      }
-   }
+            'oauth_session_handle' => $sessionHandle
+        ));
+        if ($this->response['code'] == 200) {
+
+            $response = $this->extract_params($this->response ['response']);
+
+            return $response;
+        } else {
+            $this->response['helper'] = "TokenFatal";
+            return $this->response;
+        }
+    }
 	
    /*
     * Run some basic checks on our config options etc to make sure all is ok
