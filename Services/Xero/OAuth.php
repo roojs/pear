@@ -46,7 +46,6 @@ class Services_Xero_OAuth
         CURLOPT_VERBOSE             => true,
         CURLOPT_HEADER              => false,
         CURLINFO_HEADER_OUT         => true
-        
     );
                 
       
@@ -77,11 +76,18 @@ class Services_Xero_OAuth
             $this->_xero_defaults['signature_method'] =  'HMAC-SHA1';
         }
         
+        $this->_xero_curl_options[CURLOPT_HEADERFUNCTION] = array (
+            $this,
+            'curlHeader' 
+        );
+                
         foreach($this->_xero_curl_options as $k => $v) {
             if (isset($config[$k])) {
                 $this->_xero_curl_options[$k] = $config[$k];
             }
         }
+        
+        
          
         $this->config =  $config ;
     }
