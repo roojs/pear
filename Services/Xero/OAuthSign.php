@@ -515,50 +515,52 @@ class Services_Xero_OAuthSign {
             
         $secretKey .= '&';
              
-        if(isset($this->_secrets['oauth_secret']))
-            
+        if(isset($this->_secrets['oauth_secret'])){
             $secretKey .= $this->_oauthEscape($this->_secrets['oauth_secret']);
-            switch($this->_parameters['oauth_signature_method'])
-            {
-                case 'RSA-SHA1':
+        }
+            
+            
+        switch($this->_parameters['oauth_signature_method'])
+        {
+            case 'RSA-SHA1':
 
-                    $publickey = "";
-                    // Fetch the public key
-                    if($publickey = openssl_get_publickey($this->_readFile($this->_secrets['public_key']))){
+                $publickey = "";
+                // Fetch the public key
+                if($publickey = openssl_get_publickey($this->_readFile($this->_secrets['public_key']))){
 
-                    }else{
-                        throw new Exception('Cannot access public key for signing');
-                    }
-                
-                    $privatekeyid = "";
-                    // Fetch the private key
-                    if($privatekeyid = openssl_pkey_get_private($this->_readFile($this->_secrets['private_key'])))
-                    {
-                        // Sign using the key
-                        $this->sbs = $this->_oauthEscape($this->_action).'&'.$this->_oauthEscape($this->_path).'&'.$this->_oauthEscape($this->_normalizedParameters());
+                }else{
+                    throw new Exception('Cannot access public key for signing');
+                }
 
-                        $ok = openssl_sign($this->sbs, $signature, $privatekeyid);
-
-                        // Release the key resource
-                        openssl_free_key($privatekeyid);
-
-                        return base64_encode($signature);
-
-                    }else{
-                        throw new Exception('Cannot access private key for signing');
-                    }
-
-
-                case 'PLAINTEXT':
-                    return urlencode($secretKey);
-
-                case 'HMAC-SHA1':
+                $privatekeyid = "";
+                // Fetch the private key
+                if($privatekeyid = openssl_pkey_get_private($this->_readFile($this->_secrets['private_key'])))
+                {
+                    // Sign using the key
                     $this->sbs = $this->_oauthEscape($this->_action).'&'.$this->_oauthEscape($this->_path).'&'.$this->_oauthEscape($this->_normalizedParameters());
-                    //error_log('SBS: '.$sigString);
-                    return base64_encode(hash_hmac('sha1',$this->sbs,$secretKey,true));
 
-                default:
-                    throw new Exception('Unknown signature method for Xero_OAuthSign');
+                    $ok = openssl_sign($this->sbs, $signature, $privatekeyid);
+
+                    // Release the key resource
+                    openssl_free_key($privatekeyid);
+
+                    return base64_encode($signature);
+
+                }else{
+                    throw new Exception('Cannot access private key for signing');
+                }
+
+
+            case 'PLAINTEXT':
+                return urlencode($secretKey);
+
+            case 'HMAC-SHA1':
+                $this->sbs = $this->_oauthEscape($this->_action).'&'.$this->_oauthEscape($this->_path).'&'.$this->_oauthEscape($this->_normalizedParameters());
+                //error_log('SBS: '.$sigString);
+                return base64_encode(hash_hmac('sha1',$this->sbs,$secretKey,true));
+
+            default:
+                throw new Exception('Unknown signature method for Xero_OAuthSign');
         }
     }
 }
