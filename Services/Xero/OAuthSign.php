@@ -381,17 +381,20 @@ class Services_Xero_OAuthSign {
     {
         $elements = explode('&',$paramString);
         $result = array();
-        foreach ($elements as $element)
-        {
+        foreach ($elements as $element) {
             list ($key,$token) = explode('=',$element);
-            if ($token)
+            if ($token) {
                 $token = urldecode($token);
+            }
+                
             if (!empty($result[$key]))
             {
-                if (!is_array($result[$key]))
+                if (!is_array($result[$key])) {
                     $result[$key] = array($result[$key],$token);
-                else
+                } else {
                     array_push($result[$key],$token);
+                }
+                    
             }
             else
                 $result[$key]=$token;
