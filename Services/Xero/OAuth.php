@@ -253,8 +253,7 @@ class Services_Xero_OAuth
         curl_setopt_array($c, $this->_xero_curl_options);
         
         curl_setopt_array($c, array(
-            CURLOPT_URL => $this->sign['signed_url'],
-            CURLOPT_HEADERFUNCTION => array($this, 'curlHeader')
+            CURLOPT_URL => $this->sign['signed_url']
         ));
 
         /* ENTRUST CERTIFICATE DEPRECATED
