@@ -23,7 +23,7 @@ class Services_Xero
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Items', 'core'), $params);
         
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
-            throw new Exception('Xero Error: ' . $response['response']);
+            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
             return;
         }
         
