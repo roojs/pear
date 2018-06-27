@@ -41,8 +41,8 @@
 
 class Services_Xero_OAuthSign {
     var $_secrets = array();
-    var $_default_signature_method;
-    var $_action;
+    var $_default_signature_method = 'HMAC-SHA1';
+    var $_action = 'GET';
     var $_nonce_chars;
 
     /* Simple OAuth
