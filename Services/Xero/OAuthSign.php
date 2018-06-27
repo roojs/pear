@@ -92,10 +92,14 @@ class Services_Xero_OAuthSign {
      */
     public function __construct ($APIKey = "",$sharedSecret="")
     {
-        if (!empty($APIKey))
+        if (!empty($APIKey)){
             $this->_secrets{'consumer_key'}=$APIKey;
-        if (!empty($sharedSecret))
+        }
+            
+        if (!empty($sharedSecret)) {
             $this->_secrets{'shared_secret'}=$sharedSecret;
+        }
+            
         $this->_default_signature_method="HMAC-SHA1";
         $this->_action="GET";
         $this->_nonce_chars="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
