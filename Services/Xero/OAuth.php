@@ -391,14 +391,14 @@ class Services_Xero_OAuth
         if (isset ( $format )) {
            switch ($format) {
               case "pdf" :
-                 $this->headers ['Accept'] = 'application/pdf';
+                 $this->headers['Accept'] = 'application/pdf';
                  break;
               case "json" :
-                 $this->headers ['Accept'] = 'application/json';
+                 $this->headers['Accept'] = 'application/json';
                  break;
               case "xml" :
               default :
-                 $this->headers ['Accept'] = 'application/xml';
+                 $this->headers['Accept'] = 'application/xml';
                  break;
            }
         }
