@@ -515,7 +515,7 @@ class Services_Xero_OAuth
             if (isset($api)) {
                 if ($api == "core") {
                     $api_stem = "api.xro";
-                    $api_version = $this->config ['core_version'];
+                    $api_version = $this->config['core_version'];
                 }
                 if ($api == "payroll") {
                     $api_stem = "payroll.xro";
@@ -526,13 +526,13 @@ class Services_Xero_OAuth
                     $api_version = $this->config ['file_version'];
                 }
             }
-            $this->config ['host'] = $this->_xero_defaults ['xero_url'] . $api_stem . '/' . $api_version . '/';
+            $this->config ['host'] = $this->_xero_defaults['xero_url'] . $api_stem . '/' . $api_version . '/';
         }
 
         return implode(array(
             $this->config ['host'],
             $request
-                ));
+        ));
     }
 
     /**
