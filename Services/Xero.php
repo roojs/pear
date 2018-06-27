@@ -50,7 +50,7 @@ class Services_Xero
         
         $this->XeroOAuth = new Services_Xero_OAuth($config);
        
-        $this->connectXero();
+//        $this->connectXero();
        
     }
    
