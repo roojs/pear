@@ -170,27 +170,27 @@ class Services_Xero_OAuth
     *        	the scalar or array to encode
     * @return $data encoded in a way compatible with OAuth
     */
-   private function safe_encode($data) 
-   {
-      if (is_array ( $data )) {
-         return array_map ( array (
-               $this,
-               'safe_encode' 
-         ), $data );
-      } else if (is_scalar ( $data )) {
-         return str_ireplace ( array (
-               '+',
-               '%7E' 
-         ), array (
-               ' ',
-               '~' 
-         ), rawurlencode ( $data ) );
-      } else {
-         return '';
-      }
-   }
-	
-   /**
+    private function safe_encode($data) 
+    {
+        if (is_array($data)) {
+            return array_map(array(
+                $this,
+                'safe_encode'
+            ), $data);
+        } else if (is_scalar($data)) {
+            return str_ireplace(array(
+                '+',
+                '%7E'
+            ), array(
+                ' ',
+                '~'
+            ), rawurlencode($data));
+        } else {
+            return '';
+        }
+    }
+
+    /**
     * Decodes the string or array from it's URL encoded form
     * If an array is passed each array value will will be decoded.
     *
