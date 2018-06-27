@@ -198,11 +198,15 @@ class Services_Xero_OAuthSign {
     */
     function setAction ($action) 
     {
-        if (empty($action))
+        if (empty($action)) {
             $action = 'GET';
+        }
+            
         $action = strtoupper($action);
-        if (preg_match('/[^A-Z]/',$action))
+        if (preg_match('/[^A-Z]/',$action)) {
             throw new Exception('Invalid action specified for Xero_OAuthSign.setAction');
+        }
+            
         $this->_action = $action;
         return $this;
     }
