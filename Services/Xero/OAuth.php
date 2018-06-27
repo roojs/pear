@@ -25,24 +25,25 @@ class Services_Xero_OAuth
     );
     
     var $_xero_curl_options = array ( // you probably don't want to change any of these curl values
-        CURLOPT_CONNECTTIMEOUT      => 30,
-        CURLOPT_TIMEOUT             => 20,
+        CURLOPT_CONNECTTIMEOUT => 30,
+        CURLOPT_TIMEOUT => 20,
         // for security you may want to set this to TRUE. If you do you need
         // to install the servers certificate in your local certificate store.
-        CURLOPT_SSL_VERIFYPEER       => 2,
+        CURLOPT_SSL_VERIFYPEER => 2,
         // include ca-bundle.crt from http://curl.haxx.se/ca/cacert.pem
         //'curl_cainfo' => $ca_cert_path . '/ca-bundle.crt',
-        CURLOPT_SSL_VERIFYPEER       => '/etc/ssl/certs/ca-certificates.crt',
-        CURLOPT_FOLLOWLOCATION      => false, // whether to follow redirects or not
+//        CURLOPT_SSL_VERIFYPEER => '/etc/ssl/certs/ca-certificates.crt', // ??? wrong name??
+        CURLOPT_CAINFO => '/etc/ssl/certs/ca-certificates.crt',
+        CURLOPT_FOLLOWLOCATION => false, // whether to follow redirects or not
                                         // TRUE/1 is not a valid ssl verifyhost value with curl >= 7.28.1 and 2 is more secure as well.
                                         // More details here: http://php.net/manual/en/function.curl-setopt.php
-        CURLOPT_SSL_VERIFYHOST      => 2,
+        CURLOPT_SSL_VERIFYHOST => 2,
                             // support for proxy servers
         CURLOPT_PROXY => false, // really you don't want to use this if you are using streaming
-        CURLOPT_PROXYUSERPWD    => false, // format username:password for proxy, if required
-        CURLOPT_ENCODING        => '', // leave blank for all supported formats, else use gzip, deflate, identity
-        CURLOPT_VERBOSE         => true ,
-        CURLOPT_USERAGENT       => 'XeroOAuth-PHP',
+        CURLOPT_PROXYUSERPWD => false, // format username:password for proxy, if required
+        CURLOPT_ENCODING => '', // leave blank for all supported formats, else use gzip, deflate, identity
+        CURLOPT_VERBOSE => true ,
+        CURLOPT_USERAGENT => 'XeroOAuth-PHP',
 
       );
                 
