@@ -317,17 +317,17 @@ class Services_Xero_OAuth
             // if not doing multipart we need to implode the parameters
             if (!$this->config ['multipart']) {
                 foreach ($this->request_params as $k => $v) {
-                    $ps [] = "{$k}={$v}";
+                    $ps[] = "{$k}={$v}";
                 }
                 $this->request_payload = implode('&', $ps);
             }
             curl_setopt($c, CURLOPT_POSTFIELDS, $this->request_payload);
         } else {
             // CURL will set length to -1 when there is no data
-            $this->headers ['Content-Length'] = $contentLength;
+            $this->headers['Content-Length'] = $contentLength;
         }
 
-        $this->headers ['Expect'] = '';
+        $this->headers['Expect'] = '';
 
         if (!empty($this->headers)) {
             foreach ($this->headers as $k => $v) {
