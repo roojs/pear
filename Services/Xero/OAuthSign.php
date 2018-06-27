@@ -451,10 +451,14 @@ class Services_Xero_OAuthSign {
 
     function _getAccessToken() 
     {
-        if (!isset($this->_secrets['oauth_secret']))
+        if (!isset($this->_secrets['oauth_secret'])) {
             return '';
-        if (!isset($this->_secrets['oauth_token']))
+        }
+            
+        if (!isset($this->_secrets['oauth_token'])) {
             throw new Exception('No access token (oauth_token) set for Xero_OAuthSign.');
+        }
+            
         $this->_parameters['oauth_token'] = $this->_secrets['oauth_token'];
         return $this->_parameters['oauth_token'];
     }
