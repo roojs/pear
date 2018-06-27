@@ -125,25 +125,40 @@ class Services_Xero_OAuthSign {
     
     function setParameters ($parameters=Array()) 
     {
-
-        if (is_string($parameters))
+        if (is_string($parameters)) {
             $parameters = $this->_parseParameterString($parameters);
-        if (empty($this->_parameters))
+        }
+            
+        if (empty($this->_parameters)) {
             $this->_parameters = $parameters;
-        elseif (!empty($parameters))
+        } elseif (!empty($parameters)) {
             $this->_parameters = array_merge($this->_parameters,$parameters);
-        if (empty($this->_parameters['oauth_nonce']))
+        }
+            
+        if (empty($this->_parameters['oauth_nonce'])) {
             $this->_getNonce();
-        if (empty($this->_parameters['oauth_timestamp']))
+        }
+            
+        if (empty($this->_parameters['oauth_timestamp'])) {
             $this->_getTimeStamp();
-        if (empty($this->_parameters['oauth_consumer_key']))
+        }
+            
+        if (empty($this->_parameters['oauth_consumer_key'])) {
             $this->_getApiKey();
-        if (empty($this->_parameters['oauth_token']))
+        }
+            
+        if (empty($this->_parameters['oauth_token'])) {
             $this->_getAccessToken();
-        if (empty($this->_parameters['oauth_signature_method']))
+        }
+            
+        if (empty($this->_parameters['oauth_signature_method'])) {
             $this->setSignatureMethod();
-        if (empty($this->_parameters['oauth_version']))
+        }
+            
+        if (empty($this->_parameters['oauth_version'])) {
             $this->_parameters['oauth_version']="1.0";
+        }
+            
         return $this;
     }
     
