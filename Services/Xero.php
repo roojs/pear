@@ -31,6 +31,27 @@ class Services_Xero
         return $items;
     }
     
+    function getBrandingThemes($params = array())
+    {
+        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('BrandingThemes', 'core'), $params);
+        
+        if (empty($response['code']) ||  $response['code'] != 200) {
+            throw new Exception('Xero Error: ' . $response['response']);     
+        }
+        if (empty($match)) {
+            return  $response['result']->BrandingThemes;
+        }
+        // not sure if this is an array when only one theme
+        foreach ($response['result']->BrandingThemes as $th) {
+            foreach($match as $k=>$v) {
+                if ($th->{$k} == $v) {
+                    return $th;
+                }
+            }
+            
+        }
+    }
+    
     function createInvoice($inv)
     {
         if($inv == '') {
