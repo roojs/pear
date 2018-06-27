@@ -441,11 +441,11 @@ class Services_Xero_OAuth
           
         $curlRequest = $this->curlit();
          
-        if ($this->response ['code'] == 401 && isset ( $this->config['session_handle'] )) {
-            if ((strpos ( $this->response ['response'], "oauth_problem=token_expired" ) !== false)) {
-               $this->response ['helper'] = "TokenExpired";
+        if ($this->response['code'] == 401 && isset( $this->config['session_handle'] )) {
+            if ((strpos ( $this->response['response'], "oauth_problem=token_expired" ) !== false)) {
+               $this->response['helper'] = "TokenExpired";
             } else {
-               $this->response ['helper'] = "TokenFatal";
+               $this->response['helper'] = "TokenFatal";
             }
         }
         if ($this->response ['code'] == 403) {
