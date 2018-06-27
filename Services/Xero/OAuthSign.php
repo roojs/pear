@@ -484,8 +484,9 @@ class Services_Xero_OAuthSign {
                 
             if (is_array($paramValue)) {
                 sort($paramValue);
-                foreach($paramValue as $element)
+                foreach($paramValue as $element) {
                     array_push($elements,$this->_oauthEscape($paramName).'='.$this->_oauthEscape($element));
+                }
                 continue;
             }
             array_push($elements,$this->_oauthEscape($paramName).'='.$this->_oauthEscape($paramValue));
