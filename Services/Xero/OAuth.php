@@ -51,6 +51,12 @@ class Services_Xero_OAuth
       
     var $_action;
     var $_nonce_chars;
+    
+    var $config = array (
+        'core_version' => '2.0',
+        'payroll_version' => '1.0',
+        'file_version' => '1.0'
+    );
 	
    /**
     * Creates a new XeroOAuth object
