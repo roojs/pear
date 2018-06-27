@@ -387,17 +387,17 @@ class Services_Xero_OAuthSign {
                 $token = urldecode($token);
             }
                 
-            if (!empty($result[$key]))
-            {
+            if (!empty($result[$key])) {
                 if (!is_array($result[$key])) {
                     $result[$key] = array($result[$key],$token);
                 } else {
                     array_push($result[$key],$token);
                 }
                     
-            }
-            else
+            } else {
                 $result[$key]=$token;
+            }
+                
         }
         //error_log('Parse parameters : '.print_r($result,1));
         return $result;
@@ -405,12 +405,18 @@ class Services_Xero_OAuthSign {
 
     function _oauthEscape($string) 
     {
-        if ($string === 0)
+        if ($string === 0) {
             return 0;
-        if (empty($string))
+        }
+            
+        if (empty($string)) {
             return '';
-        if (is_array($string))
+        }
+            
+        if (is_array($string)) {
             throw new Exception('Array passed to _oauthEscape');
+        }
+            
         $string = rawurlencode($string);
         $string = str_replace('+','%20',$string);
         $string = str_replace('!','%21',$string);
