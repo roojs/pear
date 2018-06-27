@@ -357,10 +357,10 @@ class Services_Xero_OAuth
         }
 
         // store the response
-        $this->response ['code'] = $code;
-        $this->response ['response'] = $response;
-        $this->response ['info'] = $info;
-        $this->response ['format'] = $this->format;
+        $this->response['code'] = $code;
+        $this->response['response'] = $response;
+        $this->response['info'] = $info;
+        $this->response['format'] = $this->format;
 
         return $code;
     }
