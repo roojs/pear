@@ -5,11 +5,10 @@
  *
  */
 
+require 'Services/Xero/OAuth.php';
+
 class Services_Xero
 {
-     
-     
-    
     var $oauth_config = array (
         'consumer_key' => '', //$config['consumer_key'],
         'shared_secret' => '', //$config['shared_secret'],
@@ -63,11 +62,6 @@ class Services_Xero
             
              
         }
-        
-       
-        
-       //require 'Xero/Auth/XeroOAuth.php';
-       require 'Services/Xero/OAuth.php';
        
        $this->XeroOAuth = new Services_Xero_OAuth (   $this->oauth_config   );
        
