@@ -46,11 +46,11 @@ class Services_Xero
     
     function createInvoice($xml)
     {
-        if($inv == '') {
-             return;
+        if(empty($xml)) {
+            return false;
         }
         
-        $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $inv->toXMLString(),'json');
+        $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml);
       
         if (empty($response['code']) ||  $response['code'] != 200) {
              throw new Exception('Xero Error: ' . $response['response']);     
