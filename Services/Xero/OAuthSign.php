@@ -276,9 +276,12 @@ class Services_Xero_OAuthSign {
     */
     function setSignatureMethod ($method="") 
     {
-        if (empty($method))
+        if (empty($method)) {
             $method = $this->_default_signature_method;
+        }
+            
         $method = strtoupper($method);
+        
         switch($method)
         {
             case 'RSA-SHA1':
