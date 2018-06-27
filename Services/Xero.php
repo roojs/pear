@@ -35,21 +35,13 @@ class Services_Xero
     {
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('BrandingThemes', 'core'), $params);
         
-        if (empty($response['code']) ||  $response['code'] != 200) {
-            throw new Exception('Xero Error: ' . $response['response']);     
+        if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
+            return false;
         }
-        if (empty($match)) {
-            return  $response['result']->BrandingThemes;
-        }
-        // not sure if this is an array when only one theme
-        foreach ($response['result']->BrandingThemes as $th) {
-            foreach($match as $k=>$v) {
-                if ($th->{$k} == $v) {
-                    return $th;
-                }
-            }
-            
-        }
+        
+        $brandingThemes = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+        
+        return $brandingThemes;
     }
     
     function createInvoice($inv)
