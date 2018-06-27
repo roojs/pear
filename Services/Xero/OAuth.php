@@ -275,8 +275,7 @@ class Services_Xero_OAuth
                 'curlWrite'
             ));
         }
-
-
+        
         switch ($this->method) {
             case 'GET' :
                 $contentLength = 0;
@@ -286,9 +285,9 @@ class Services_Xero_OAuth
                 curl_setopt($c, CURLOPT_POST, TRUE);
                 $post_body = $this->safe_encode($this->xml);
                 curl_setopt($c, CURLOPT_POSTFIELDS, $post_body);
-                $this->request_params ['xml'] = $post_body;
+                $this->request_params['xml'] = $post_body;
                 $contentLength = strlen($post_body);
-                $this->headers ['Content-Type'] = 'application/x-www-form-urlencoded';
+                $this->headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
                 break;
 
