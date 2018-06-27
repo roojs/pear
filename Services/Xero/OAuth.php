@@ -74,7 +74,7 @@ class Services_Xero_OAuth
             $this->_xero_defaults['signature_method'] =  'HMAC-SHA1';
         }
         
-        foreach($this->_xero_curl_options as $k=>$v) {
+        foreach($this->_xero_curl_options as $k => $v) {
             if (isset($config[$k])) {
                 $this->_xero_curl_options[$k] = $config[$k];
             }
