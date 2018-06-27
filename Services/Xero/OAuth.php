@@ -448,22 +448,22 @@ class Services_Xero_OAuth
                $this->response['helper'] = "TokenFatal";
             }
         }
-        if ($this->response ['code'] == 403) {
+        if ($this->response['code'] == 403) {
            $errorMessage = "It looks like your Xero Entrust cert issued by Xero is either invalid or has expired. See http://developer.xero.com/api-overview/http-response-codes/#403 for more";
            // default IIS page isn't informative, a little swap
-           $this->response ['response'] = $errorMessage;
-           $this->response ['helper'] = "SetupIssue";
+           $this->response['response'] = $errorMessage;
+           $this->response['helper'] = "SetupIssue";
         }
-        if ($this->response ['code'] == 0) {
+        if ($this->response['code'] == 0) {
            $errorMessage = "It looks like your Xero Entrust cert issued by Xero is either invalid or has expired. See http://developer.xero.com/api-overview/http-response-codes/#403 for more";
-           $this->response ['response'] = $errorMessage;
-           $this->response ['helper'] = "SetupIssue";
+           $this->response['response'] = $errorMessage;
+           $this->response['helper'] = "SetupIssue";
         }
         
-         $this->response['result']  = false;
-        if ($this->response['code'] == 200 && !empty($this->response['format'])) {
-            $this->response['result'] = $this->parseResponse($this->response['response'], $this->response['format']);
-        }
+//        $this->response['result']  = false;
+//        if ($this->response['code'] == 200 && !empty($this->response['format'])) {
+//            $this->response['result'] = $this->parseResponse($this->response['response'], $this->response['format']);
+//        }
         
         return $this->response;
     }
