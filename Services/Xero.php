@@ -29,7 +29,32 @@ class Services_Xero
         $items = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
         
         return $items;
+    }
+    
+    function createInvoice($inv)
+    {
+        if($inv == '') {
+             return;
+        }
         
+        $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $inv->toXMLString(),'json');
+      
+        if (empty($response['code']) ||  $response['code'] != 200) {
+             throw new Exception('Xero Error: ' . $response['response']);     
+        }
+              
+        $result = $response['result'];
+        
+        if(  !$result ||
+             !$result->Invoices  || 
+             !count($result->Invoices[0]) || 
+             !$result->Invoices[0]->InvoiceNumber
+            ) {          	
+            return;                        
+        }
+          
+        return $result->Invoices[0];           
+       
     }
    
 //    function connectXero()
