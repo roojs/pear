@@ -235,139 +235,135 @@ class Services_Xero_OAuth
     *
     * @return void response data is stored in the class variable 'response'
     */
-   private function curlit() 
-   {
-      $this->request_params = array();
-	
-		
-      // configure curl
-        $c = curl_init ();
-         
-        curl_setopt_array ( $c, $this->_xero_curl_options);
-        curl_setopt_array ( $c, array (
-                         
-            CURLOPT_RETURNTRANSFER      => TRUE,
-            CURLOPT_URL                 => $this->sign ['signed_url'],
-            
-            // process the headers
-            CURLOPT_HEADERFUNCTION => array (   $this, 'curlHeader'   ),
-            CURLOPT_HEADER => FALSE,
-            CURLINFO_HEADER_OUT => TRUE 
-        ) );
-          
-        /* ENTRUST CERTIFICATE DEPRECATED
-        if ($this->config ['application_type'] == "Partner") {
-           curl_setopt_array ( $c, array (
-                 // ssl client cert options for partner apps
-                 CURLOPT_SSLCERT => $this->config ['curl_ssl_cert'],
-                 CURLOPT_SSLKEYPASSWD => $this->config ['curl_ssl_password'],
-                 CURLOPT_SSLKEY => $this->config ['curl_ssl_key'] 
-           ) );
-        }
-        */
-          
-        if (isset ( $this->config ['is_streaming'] )) {
-           // process the body
-           $this->response ['content-length'] = 0;
-           curl_setopt ( $c, CURLOPT_TIMEOUT, 0 );
-           curl_setopt ( $c, CURLOPT_WRITEFUNCTION, array (
-                 $this,
-                 'curlWrite' 
-           ) );
-        }
+    private function curlit() 
+    {
+        $this->request_params = array();
         
-          
+        // configure curl
+        $c = curl_init();
+
+        curl_setopt_array($c, $this->_xero_curl_options);
+        curl_setopt_array($c, array(
+            CURLOPT_RETURNTRANSFER => TRUE,
+            CURLOPT_URL => $this->sign ['signed_url'],
+            // process the headers
+            CURLOPT_HEADERFUNCTION => array($this, 'curlHeader'),
+            CURLOPT_HEADER => FALSE,
+            CURLINFO_HEADER_OUT => TRUE
+        ));
+
+        /* ENTRUST CERTIFICATE DEPRECATED
+          if ($this->config ['application_type'] == "Partner") {
+          curl_setopt_array ( $c, array (
+          // ssl client cert options for partner apps
+          CURLOPT_SSLCERT => $this->config ['curl_ssl_cert'],
+          CURLOPT_SSLKEYPASSWD => $this->config ['curl_ssl_password'],
+          CURLOPT_SSLKEY => $this->config ['curl_ssl_key']
+          ) );
+          }
+         */
+
+        if (isset($this->config ['is_streaming'])) {
+            // process the body
+            $this->response ['content-length'] = 0;
+            curl_setopt($c, CURLOPT_TIMEOUT, 0);
+            curl_setopt($c, CURLOPT_WRITEFUNCTION, array(
+                $this,
+                'curlWrite'
+            ));
+        }
+
+
         switch ($this->method) {
             case 'GET' :
                 $contentLength = 0;
                 break;
-            
+
             case 'POST' :
-                curl_setopt ( $c, CURLOPT_POST, TRUE );
-                $post_body = $this->safe_encode ( $this->xml );
-                curl_setopt ( $c, CURLOPT_POSTFIELDS, $post_body );
+                curl_setopt($c, CURLOPT_POST, TRUE);
+                $post_body = $this->safe_encode($this->xml);
+                curl_setopt($c, CURLOPT_POSTFIELDS, $post_body);
                 $this->request_params ['xml'] = $post_body;
-                $contentLength = strlen ( $post_body );
+                $contentLength = strlen($post_body);
                 $this->headers ['Content-Type'] = 'application/x-www-form-urlencoded';
-                    
-               break;
-            
+
+                break;
+
             case 'PUT' :
-               $fh = tmpfile();
-               if ($this->format == "file") {
-                  $put_body = $this->xml;
-               } else {
-                  $put_body = $this->safe_encode ( $this->xml );
-                  $this->headers ['Content-Type'] = 'application/x-www-form-urlencoded';
-               }
-               fwrite ( $fh, $put_body );
-               rewind ( $fh );
-               curl_setopt ( $c, CURLOPT_PUT, true );
-               curl_setopt ( $c, CURLOPT_INFILE, $fh );
-               curl_setopt ( $c, CURLOPT_INFILESIZE, strlen ( $put_body ) );
-               $contentLength = strlen ( $put_body );
-                   
-               break;
-            
-            
+                $fh = tmpfile();
+                if ($this->format == "file") {
+                    $put_body = $this->xml;
+                } else {
+                    $put_body = $this->safe_encode($this->xml);
+                    $this->headers ['Content-Type'] = 'application/x-www-form-urlencoded';
+                }
+                fwrite($fh, $put_body);
+                rewind($fh);
+                curl_setopt($c, CURLOPT_PUT, true);
+                curl_setopt($c, CURLOPT_INFILE, $fh);
+                curl_setopt($c, CURLOPT_INFILESIZE, strlen($put_body));
+                $contentLength = strlen($put_body);
+
+                break;
+
+
             default :
-               curl_setopt ( $c, CURLOPT_CUSTOMREQUEST, $this->method );
-        } 
-		
-        if (! empty ( $this->request_params )) {
-           // if not doing multipart we need to implode the parameters
-           if (! $this->config ['multipart']) {
-              foreach ( $this->request_params as $k => $v ) {
-                 $ps [] = "{$k}={$v}";
-              }
-              $this->request_payload = implode ( '&', $ps );
-           }
-           curl_setopt ( $c, CURLOPT_POSTFIELDS, $this->request_payload);
-            
-        } else {
-           // CURL will set length to -1 when there is no data
-           $this->headers ['Content-Length'] = $contentLength;
+                curl_setopt($c, CURLOPT_CUSTOMREQUEST, $this->method);
         }
-		
-        $this->headers ['Expect'] = '';
-		
-        if (! empty ( $this->headers )) {
-            foreach ( $this->headers as $k => $v ) {
-               $headers [] = trim ( $k . ': ' . $v );
+
+        if (!empty($this->request_params)) {
+            // if not doing multipart we need to implode the parameters
+            if (!$this->config ['multipart']) {
+                foreach ($this->request_params as $k => $v) {
+                    $ps [] = "{$k}={$v}";
+                }
+                $this->request_payload = implode('&', $ps);
             }
-            curl_setopt ( $c, CURLOPT_HTTPHEADER, $headers );
+            curl_setopt($c, CURLOPT_POSTFIELDS, $this->request_payload);
+        } else {
+            // CURL will set length to -1 when there is no data
+            $this->headers ['Content-Length'] = $contentLength;
         }
-           
-        if (isset ( $this->config ['prevent_request'] ) && false == $this->config ['prevent_request']) {
+
+        $this->headers ['Expect'] = '';
+
+        if (!empty($this->headers)) {
+            foreach ($this->headers as $k => $v) {
+                $headers [] = trim($k . ': ' . $v);
+            }
+            curl_setopt($c, CURLOPT_HTTPHEADER, $headers);
+        }
+
+        if (isset($this->config ['prevent_request']) && false == $this->config ['prevent_request']) {
             return;
         }
-			
-         // do it!
-      $response = curl_exec ( $c );
-      if ($response === false) {
-         $response = 'Curl error: ' . curl_error ( $c );
-         $code = 1;
-      } else {
-         $code = curl_getinfo ( $c, CURLINFO_HTTP_CODE );
-      }
-		
-      $info = curl_getinfo ( $c );
-		
-      curl_close ( $c );
-      if (isset ( $fh )) {
-         fclose( $fh );
-      }
-		
-      // store the response
-      $this->response ['code'] = $code;
-      $this->response ['response'] = $response;
-      $this->response ['info'] = $info;
-      $this->response ['format'] = $this->format;
-      
-      return $code;
-   }
-	
-   /**
+
+        // do it!
+        $response = curl_exec($c);
+        if ($response === false) {
+            $response = 'Curl error: ' . curl_error($c);
+            $code = 1;
+        } else {
+            $code = curl_getinfo($c, CURLINFO_HTTP_CODE);
+        }
+
+        $info = curl_getinfo($c);
+
+        curl_close($c);
+        if (isset($fh)) {
+            fclose($fh);
+        }
+
+        // store the response
+        $this->response ['code'] = $code;
+        $this->response ['response'] = $response;
+        $this->response ['info'] = $info;
+        $this->response ['format'] = $this->format;
+
+        return $code;
+    }
+
+    /**
     * Make an HTTP request using this library.
     * This method doesn't return anything.
     * Instead the response should be inspected directly.
