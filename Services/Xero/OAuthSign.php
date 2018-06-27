@@ -332,13 +332,13 @@ class Services_Xero_OAuthSign {
         $normParams = $this->_normalizedParameters();
         $this->_parameters['oauth_signature'] = $this->_generateSignature($normParams);
         
-        return Array(
+        return array(
             'parameters' => $this->_parameters,
             'signature' => $this->_oauthEscape($this->_parameters['oauth_signature']),
             'signed_url' => $this->_path . '?' . $this->_normalizedParameters('true'),
             'header' => $this->getHeaderString(),
             'sbs'=> $this->sbs
-            );
+        );
     }
 
     /** Return a formatted "header" string
