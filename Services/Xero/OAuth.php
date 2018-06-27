@@ -100,7 +100,7 @@ class Services_Xero_OAuth
         $this->config = array_merge ($this->_xero_defaults, $this->_xero_consumer_options, $this->_xero_curl_options, $this->config);
         
         $this->config['access_token'] = $this->config['consumer_key'];
-        $this->config['oauth_token_secret'] = $this->config['shared_secret'];
+        $this->config['oauth_secret'] = $this->config['shared_secret'];
     }
 	
    /**
