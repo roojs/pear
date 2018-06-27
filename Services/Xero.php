@@ -55,7 +55,7 @@ class Services_Xero
 //            $this->oauth_config ['rsa_public_key'] = $config['ca_cert_path'] . '/publickey.cer'; 
 //        }
         
-        $this->XeroOAuth = new Services_Xero_OAuth($this->oauth_config);
+        $this->XeroOAuth = new Services_Xero_OAuth($config);
        
         $this->connectXero();
        
