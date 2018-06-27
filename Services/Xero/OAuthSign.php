@@ -40,7 +40,7 @@
 
 
 class Services_Xero_OAuthSign {
-    var $_secrets;
+    var $_secrets = array();
     var $_default_signature_method;
     var $_action;
     var $_nonce_chars;
