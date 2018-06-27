@@ -198,21 +198,21 @@ class Services_Xero_OAuth
     *        	the scalar or array to decode
     * @return $data decoded from the URL encoded form
     */
-   private function safe_decode($data) 
-   {
-      if (is_array ( $data )) {
-         return array_map ( array (
-               $this,
-               'safe_decode' 
-         ), $data );
-      } else if (is_scalar ( $data )) {
-         return rawurldecode ( $data );
-      } else {
-         return '';
-      }
-   }
-	
-   /**
+    private function safe_decode($data) 
+    {
+        if (is_array($data)) {
+            return array_map(array(
+                $this,
+                'safe_decode'
+            ), $data);
+        } else if (is_scalar($data)) {
+            return rawurldecode($data);
+        } else {
+            return '';
+        }
+    }
+
+    /**
     * Prepares the HTTP method for use in the base string by converting it to
     * uppercase.
     *
