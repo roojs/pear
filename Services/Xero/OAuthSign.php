@@ -175,8 +175,10 @@ class Services_Xero_OAuthSign {
     */
     function setURL ($path) 
     {
-        if (empty($path))
+        if (empty($path)) {
             throw new Exception('No path specified for Xero_OAuthSign.setURL');
+        }
+            
         $this->_path=$path;
         return $this;
     }
