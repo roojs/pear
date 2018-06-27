@@ -8,7 +8,7 @@
  */
 require_once 'Services/Xero/OAuthSign.php';
 
-class Services_Xero_OAuth
+class Services_Xero
 {
     var $_xero_defaults =array (
         'xero_url' => 'https://api.xero.com/',
@@ -16,7 +16,6 @@ class Services_Xero_OAuth
         'authorize_url' => 'https://api.xero.com/oauth/Authorize',
         'signature_method' => 'RSA-SHA1'
     );
-    
     
     var $_xero_consumer_options = array (
         'request_token_path' => 'oauth/RequestToken',
