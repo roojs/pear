@@ -32,8 +32,7 @@ class Services_Xero_OAuth
         CURLOPT_SSL_VERIFYPEER => 2,
         // include ca-bundle.crt from http://curl.haxx.se/ca/cacert.pem
         //'curl_cainfo' => $ca_cert_path . '/ca-bundle.crt',
-//        CURLOPT_SSL_VERIFYPEER => '/etc/ssl/certs/ca-certificates.crt',
-        CURLOPT_CAINFO => '/etc/ssl/certs/ca-certificates.crt',
+        CURLOPT_SSL_VERIFYPEER => '/etc/ssl/certs/ca-certificates.crt',
         CURLOPT_FOLLOWLOCATION => false, // whether to follow redirects or not
         // TRUE/1 is not a valid ssl verifyhost value with curl >= 7.28.1 and 2 is more secure as well.
         // More details here: http://php.net/manual/en/function.curl-setopt.php
