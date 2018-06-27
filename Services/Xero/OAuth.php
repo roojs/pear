@@ -616,7 +616,7 @@ class Services_Xero_OAuth
     {
         $testOutput = array ();
           
-        if (empty($this->config['application_type']) || $this->config ['application_type'] == 'Partner' || $this->config ['application_type'] == 'Private') {
+        if ($this->config ['application_type'] == 'Partner' || $this->config ['application_type'] == 'Private') {
               
             if (!file_exists($this->config['rsa_public_key'] )) {
                 $testOutput ['rsa_cert_error'] = 
