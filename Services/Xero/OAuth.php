@@ -502,40 +502,40 @@ class Services_Xero_OAuth
     *        	the API method without extension
     * @return string the concatenation of the host, API version and API method
     */
-   function url($request, $api = "core") 
-   {
-      if ($request == "RequestToken") {
-         $this->config ['host'] = $this->_xero_defaults  ['site'] . '/oauth/';
-      } elseif ($request == "Authorize") {
-         $this->config ['host'] = $this->_xero_defaults  ['authorize_url'];
-         $request = "";
-      } elseif ($request == "AccessToken") {
-         $this->config ['host'] = $this->_xero_defaults  ['site'] . '/oauth/';
-      } else {
-         if (isset ( $api )) {
-            if ($api == "core") {
-               $api_stem = "api.xro";
-               $api_version = $this->config ['core_version'];
+    function url($request, $api = "core") 
+    {
+        if ($request == "RequestToken") {
+            $this->config['host'] = $this->_xero_defaults ['site'] . '/oauth/';
+        } elseif ($request == "Authorize") {
+            $this->config['host'] = $this->_xero_defaults ['authorize_url'];
+            $request = "";
+        } elseif ($request == "AccessToken") {
+            $this->config['host'] = $this->_xero_defaults ['site'] . '/oauth/';
+        } else {
+            if (isset($api)) {
+                if ($api == "core") {
+                    $api_stem = "api.xro";
+                    $api_version = $this->config ['core_version'];
+                }
+                if ($api == "payroll") {
+                    $api_stem = "payroll.xro";
+                    $api_version = $this->config ['payroll_version'];
+                }
+                if ($api == "file") {
+                    $api_stem = "files.xro";
+                    $api_version = $this->config ['file_version'];
+                }
             }
-            if ($api == "payroll") {
-               $api_stem = "payroll.xro";
-               $api_version = $this->config ['payroll_version'];
-            }
-            if ($api == "file") {
-               $api_stem = "files.xro";
-               $api_version = $this->config ['file_version'];
-            }
-         }
-         $this->config ['host'] = $this->_xero_defaults  ['xero_url'] . $api_stem . '/' . $api_version . '/';
-      }
-		
-      return implode ( array (
+            $this->config ['host'] = $this->_xero_defaults ['xero_url'] . $api_stem . '/' . $api_version . '/';
+        }
+
+        return implode(array(
             $this->config ['host'],
-            $request 
-      ) );
-   }
-	
-   /**
+            $request
+                ));
+    }
+
+    /**
     * Refreshes the access token for partner API type applications
     *
     * @param string $accessToken
