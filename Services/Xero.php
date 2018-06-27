@@ -1,8 +1,8 @@
 <?php
 
 /**
- *  Put standard header here...
- *
+ * Put standard header here...
+ * https://developer.xero.com/documentation/libraries/php
  */
 require_once 'Services/Xero/OAuth.php';
 
