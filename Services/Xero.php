@@ -11,13 +11,7 @@ class Services_Xero
 //    var $oauth_config = array (
 //        'consumer_key' => '',
 //        'shared_secret' => '',
-//        'core_version' => '2.0',
-//        'payroll_version' => '1.0',
-//        'file_version' => '1.0',
-//        'rsa_private_key' => '',
-//        'rsa_public_key' => '',
 //        
-//        'application_type' => 'Private',
 //        'oauth_callback' => 'oob',
 //        CURLOPT_USERAGENT => "XeroOAuth-PHP Private App Test",
 //        'ca_cert_path' => '',
