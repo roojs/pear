@@ -430,19 +430,18 @@ class Services_Xero_OAuth
                 )),
                 'signatures' => $this->config 
             ));
-        } 
-  
-        catch ( Exception $e ) {
+        } catch ( Exception $e ) {
            $errorMessage = 'XeroOAuth::request() ' . $e->getMessage ();
            $this->response['response'] = $errorMessage;
            $this->response['helper'] = $url;
            return $this->response;
         }
+        
         $this->format = $format;
           
-        $curlRequest = $this->curlit ();
+        $curlRequest = $this->curlit();
          
-        if ($this->response ['code'] == 401 && isset ( $this->config ['session_handle'] )) {
+        if ($this->response ['code'] == 401 && isset ( $this->config['session_handle'] )) {
             if ((strpos ( $this->response ['response'], "oauth_problem=token_expired" ) !== false)) {
                $this->response ['helper'] = "TokenExpired";
             } else {
