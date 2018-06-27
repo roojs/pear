@@ -64,11 +64,16 @@ class Services_Xero_OAuth
         $this->buffer = null;
         $this->request_params = array();
         
-        foreach($this->_xero_defaults as $k=>$v) {
+        foreach($this->_xero_defaults as $k => $v) {
             if (isset($config[$k])) {
                 $this->_xero_defaults[$k] = $config[$k];
             }
         }
+        
+        if (!empty($config['application_type']) && ($config['application_type'] == "Public")) {
+            $this->_xero_defaults['signature_method'] =  'HMAC-SHA1';
+        }
+        
         foreach($this->_xero_curl_options as $k=>$v) {
             if (isset($config[$k])) {
                 $this->_xero_curl_options[$k] = $config[$k];
