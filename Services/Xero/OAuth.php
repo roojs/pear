@@ -80,8 +80,6 @@ class Services_Xero_OAuth
             }
         }
          
-         
-         
         $this->config =  $config ;
     }
 	
