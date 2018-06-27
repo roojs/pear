@@ -58,7 +58,9 @@ class Services_Xero_OAuth
         'payroll_version' => '1.0',
         'file_version' => '1.0',
         'rsa_private_key' => '',
-        'rsa_public_key' => ''
+        'rsa_public_key' => '',
+        'consumer_key' => '',
+        'shared_secret' => ''
     );
 	
    /**
