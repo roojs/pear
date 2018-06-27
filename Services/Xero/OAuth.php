@@ -420,9 +420,9 @@ class Services_Xero_OAuth
         $this->prepare_method( $method );
         $this->config['multipart'] = $multipart;
         $this->url = $url;
-        $oauthObject = new Services_Xero_OAuthSign ();
+        $oauthObject = new Services_Xero_OAuthSign();
         try {
-           $this->sign = $oauthObject->sign ( array (
+           $this->sign = $oauthObject->sign( array (
                  'path' => $url,
                  'action' => $method,
                  'parameters' => array_merge ( $params, array (
