@@ -18,9 +18,30 @@ class Services_Xero
         $this->XeroOAuth = new Services_Xero_OAuth($config);
     }
     
-    function getItems($params)
+    function getItems($params = array())
     {
+        $response = $XeroOAuth->request('GET', $XeroOAuth->url('Items', 'core'), array());
+        if ($XeroOAuth->response['code'] == 200) {
+            $items = $XeroOAuth->parseResponse($XeroOAuth->response['response'], $XeroOAuth->response['format']);
+            echo "There are " . count($items->Items[0]). " items in this Xero organisation, the first one is: </br>";
+            pr($items->Items[0]->Item);
+        } else {
+            outputError($XeroOAuth);
+        }
         
+        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Items', 'core'), $params);
+        
+        if (empty($this->XeroOAuth['code']) || $this->XeroOAuth['code'] != 200) {
+            throw new Exception('Xero Error: ' . $response['response']);
+            return;
+        }
+        
+        $items = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+        
+        
+
+        $invoiceList = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
+        return $invoiceList;
     }
    
 //    function connectXero()
