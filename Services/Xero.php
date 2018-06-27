@@ -1,15 +1,12 @@
 <?php
 
 /**
- *  Put standard header here...
- *
+ * Put standard header here...
+ * https://developer.xero.com/documentation/libraries/php
  */
 
 class Services_Xero
 {
-     
-     
-    
     var $oauth_config = array (
         'consumer_key' => '', //$config['consumer_key'],
         'shared_secret' => '', //$config['shared_secret'],
