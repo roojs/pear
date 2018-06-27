@@ -405,7 +405,7 @@ class Services_Xero_OAuth
           
         if (isset ( $params ['If-Modified-Since'] )) {
            $modDate = "If-Modified-Since: " . $params ['If-Modified-Since'];
-           $this->headers ['If-Modified-Since'] = $params ['If-Modified-Since'];
+           $this->headers['If-Modified-Since'] = $params ['If-Modified-Since'];
         }
           
         if ($xml !== "") {
@@ -416,8 +416,9 @@ class Services_Xero_OAuth
         if ($method == "POST") {
             $params ['xml'] = $xml;
         }
-        $this->prepare_method ( $method );
-        $this->config ['multipart'] = $multipart;
+        
+        $this->prepare_method( $method );
+        $this->config['multipart'] = $multipart;
         $this->url = $url;
         $oauthObject = new Services_Xero_OAuthSign ();
         try {
