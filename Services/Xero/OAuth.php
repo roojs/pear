@@ -76,11 +76,6 @@ class Services_Xero_OAuth
             $this->_xero_defaults['signature_method'] =  'HMAC-SHA1';
         }
         
-        $this->_xero_curl_options[CURLOPT_HEADERFUNCTION] = array (
-            $this,
-            'curlHeader' 
-        );
-                
         foreach($this->_xero_curl_options as $k => $v) {
             if (isset($config[$k])) {
                 $this->_xero_curl_options[$k] = $config[$k];
@@ -253,7 +248,11 @@ class Services_Xero_OAuth
         curl_setopt_array($c, $this->_xero_curl_options);
         
         curl_setopt_array($c, array(
-            CURLOPT_URL => $this->sign['signed_url']
+            CURLOPT_URL => $this->sign['signed_url'],
+            CURLOPT_HEADERFUNCTION => array (
+                $this,
+                'curlHeader' 
+            ),
         ));
 
         /* ENTRUST CERTIFICATE DEPRECATED
@@ -269,7 +268,7 @@ class Services_Xero_OAuth
 
         if (isset($this->config ['is_streaming'])) {
             // process the body
-            $this->response ['content-length'] = 0;
+            $this->response['content-length'] = 0;
             curl_setopt($c, CURLOPT_TIMEOUT, 0);
             curl_setopt($c, CURLOPT_WRITEFUNCTION, array(
                 $this,
