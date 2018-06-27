@@ -23,7 +23,7 @@ class Services_Xero
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts', 'core'), $params);
         
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
-            return false;
+            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
         }
         
         $contacts = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
@@ -36,7 +36,7 @@ class Services_Xero
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Items', 'core'), $params);
         
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
-            return false;
+            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
         }
         
         $items = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
@@ -49,7 +49,7 @@ class Services_Xero
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('BrandingThemes', 'core'), $params);
         
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
-            return false;
+            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
         }
         
         $brandingThemes = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
@@ -66,7 +66,7 @@ class Services_Xero
         $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml);
       
         if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
-            return; 
+            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
         }
         
         $invoice = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
