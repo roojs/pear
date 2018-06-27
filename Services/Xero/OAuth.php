@@ -27,6 +27,7 @@ class Services_Xero_OAuth
         CURLOPT_USERAGENT           => 'XeroOAuth-PHP',
         CURLOPT_CONNECTTIMEOUT      => 30,
         CURLOPT_TIMEOUT             => 20,
+        CURLOPT_RETURNTRANSFER      => true,
         // for security you may want to set this to TRUE. If you do you need
         // to install the servers certificate in your local certificate store.
         CURLOPT_SSL_VERIFYPEER      => 2,
