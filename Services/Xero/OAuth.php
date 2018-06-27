@@ -386,7 +386,7 @@ class Services_Xero_OAuth
        
         $useauth = true;
         $multipart = false;
-        $this->headers = array ();
+        $this->headers = array();
           
         if (isset ( $format )) {
            switch ($format) {
