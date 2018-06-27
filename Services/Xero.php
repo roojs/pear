@@ -18,6 +18,24 @@ class Services_Xero
         $this->XeroOAuth = new Services_Xero_OAuth($config);
     }
     
+    function getContacts($params)
+    {
+        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts' , 'core'), $param ,'','json');
+         
+        if (empty($response['code']) ||  $response['code'] != 200) {     
+            throw new Exception('Xero Error: ' . $response['response']);
+        }
+        
+        $contact = $response['result'];
+        
+        if (!$contact || empty($contact->Contacts[0])) {
+            throw new Exception('Could not find contact: ' . $response['response']);
+        }
+        
+        
+        return $contact->Contacts[0];
+    }
+            
     function getItems($params = array())
     {
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Items', 'core'), $params);
