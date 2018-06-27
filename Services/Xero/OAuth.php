@@ -422,15 +422,14 @@ class Services_Xero_OAuth
         $this->url = $url;
         $oauthObject = new Services_Xero_OAuthSign();
         try {
-           $this->sign = $oauthObject->sign(array (
-                 'path' => $url,
-                 'action' => $method,
-                 'parameters' => array_merge ( $params, array (
-                       'oauth_signature_method' => $this->_xero_defaults['signature_method'] 
-                 ) ),
-                 'signatures' => $this->config 
-           ) );
-            
+            $this->sign = $oauthObject->sign(array (
+                'path' => $url,
+                'action' => $method,
+                'parameters' => array_merge ( $params, array (
+                      'oauth_signature_method' => $this->_xero_defaults['signature_method'] 
+                )),
+                'signatures' => $this->config 
+            ));
         } 
   
         catch ( Exception $e ) {
