@@ -116,31 +116,31 @@ class Services_Xero_OAuth
     * @param string $data
     *        	the current curl buffer
     */
-   private function curlWrite($ch, $data) 
-   {
-      $l = strlen ( $data );
-      if (strpos ( $data, $this->config ['streaming_eol'] ) === false) {
-         $this->buffer .= $data;
-         return $l;
-      }
-		
-      $buffered = explode ( $this->config ['streaming_eol'], $data );
-      $content = $this->buffer . $buffered [0];
-		
-      $this->metrics ['tweets'] ++;
-      $this->metrics ['bytes'] += strlen ( $content );
-		
-      if (! function_exists ( $this->config ['streaming_callback'] ))
-         return 0;
-		
-      $metrics = $this->update_metrics ();
-      $stop = call_user_func ( $this->config ['streaming_callback'], $content, strlen ( $content ), $metrics );
-      $this->buffer = $buffered [1];
-      if ($stop)
-         return 0;
-		
-      return $l;
-   }
+    private function curlWrite($ch, $data) 
+    {
+        $l = strlen($data);
+        if (strpos($data, $this->config ['streaming_eol']) === false) {
+            $this->buffer .= $data;
+            return $l;
+        }
+
+        $buffered = explode($this->config ['streaming_eol'], $data);
+        $content = $this->buffer . $buffered [0];
+
+        $this->metrics ['tweets'] ++;
+        $this->metrics ['bytes'] += strlen($content);
+
+        if (!function_exists($this->config ['streaming_callback']))
+            return 0;
+
+        $metrics = $this->update_metrics();
+        $stop = call_user_func($this->config ['streaming_callback'], $content, strlen($content), $metrics);
+        $this->buffer = $buffered [1];
+        if ($stop)
+            return 0;
+
+        return $l;
+    }
 	
    /**
     * Extracts and decodes OAuth parameters from the passed string
@@ -149,20 +149,20 @@ class Services_Xero_OAuth
     *        	the response body from an OAuth flow method
     * @return array the response body safely decoded to an array of key => values
     */
-   function extract_params($body) 
-   {
-      $kvs = explode ( '&', $body );
-      $decoded = array ();
-      foreach ( $kvs as $kv ) {
-         $kv = explode ( '=', $kv, 2 );
-         $kv [0] = $this->safe_decode ( $kv [0] );
-         $kv [1] = $this->safe_decode ( $kv [1] );
-         $decoded [$kv [0]] = $kv [1];
-      }
-      return $decoded;
-   }
-	
-   /**
+    function extract_params($body) 
+    {
+        $kvs = explode('&', $body);
+        $decoded = array();
+        foreach ($kvs as $kv) {
+            $kv = explode('=', $kv, 2);
+            $kv [0] = $this->safe_decode($kv [0]);
+            $kv [1] = $this->safe_decode($kv [1]);
+            $decoded [$kv [0]] = $kv [1];
+        }
+        return $decoded;
+    }
+
+    /**
     * Encodes the string or array passed in a way compatible with OAuth.
     * If an array is passed each array value will will be encoded.
     *
