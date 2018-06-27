@@ -93,7 +93,8 @@ class Services_Xero_OAuthSign
      * @param api_key {string}       The API Key (sometimes referred to as the consumer key) This value is usually supplied by the site you wish to use.
      * @param shared_secret (string) The shared secret. This value is also usually provided by the site you wish to use.
      */
-    public function __construct($APIKey = "", $sharedSecret = "") {
+    public function __construct($APIKey = "", $sharedSecret = "") 
+    {
         if (!empty($APIKey))
             $this->_secrets{'consumer_key'} = $APIKey;
         if (!empty($sharedSecret))
@@ -107,7 +108,8 @@ class Services_Xero_OAuthSign
     /** reset the parameters and url
      *
      */
-    function reset() {
+    function reset() 
+    {
         $this->_parameters = null;
         $this->path = null;
         $this->sbs = null;
@@ -118,7 +120,8 @@ class Services_Xero_OAuthSign
      *
      * @param {string,object} List of parameters for the call, this can either be a URI string (e.g. "foo=bar&gorp=banana" or an object/hash)
      */
-    function setParameters($parameters = Array()) {
+    function setParameters($parameters = Array()) 
+    {
 
         if (is_string($parameters))
             $parameters = $this->_parseParameterString($parameters);
@@ -142,7 +145,8 @@ class Services_Xero_OAuthSign
     }
 
     // convienence method for setParameters
-    function setQueryString($parameters) {
+    function setQueryString($parameters) 
+    {
         return $this->setParameters($parameters);
     }
 
@@ -150,7 +154,8 @@ class Services_Xero_OAuthSign
      *
      * @param path {string} the fully qualified URI (excluding query arguments) (e.g "http://example.org/foo")
      */
-    function setURL($path) {
+    function setURL($path) 
+    {
         if (empty($path))
             throw new Exception('No path specified for Xero_OAuthSign.setURL');
         $this->_path = $path;
@@ -161,7 +166,8 @@ class Services_Xero_OAuthSign
      *
      * @param path {string} see .setURL
      */
-    function setPath($path) {
+    function setPath($path) 
+    {
         return $this->_path = $path;
     }
 
@@ -169,7 +175,8 @@ class Services_Xero_OAuthSign
      *
      * @param action {string} HTTP Action word.
      */
-    function setAction($action) {
+    function setAction($action) 
+    {
         if (empty($action))
             $action = 'GET';
         $action = strtoupper($action);
@@ -183,7 +190,8 @@ class Services_Xero_OAuthSign
      *
      * @param signatures {object} object/hash of the token/signature pairs {api_key:, shared_secret:, oauth_token: oauth_secret:}
      */
-    function signatures($signatures) {
+    function signatures($signatures) 
+    {
         if (!empty($signatures) && !is_array($signatures))
             throw new Exception('Must pass dictionary array to Xero_OAuthSign.signatures');
         if (!empty($signatures)) {
@@ -215,7 +223,8 @@ class Services_Xero_OAuthSign
         return $this;
     }
 
-    function setTokensAndSecrets($signatures) {
+    function setTokensAndSecrets($signatures) 
+    {
         return $this->signatures($signatures);
     }
 
@@ -223,7 +232,8 @@ class Services_Xero_OAuthSign
      *
      * @param method {string} Method of signing the transaction (only PLAINTEXT and SHA-MAC1 allowed for now)
      */
-    function setSignatureMethod($method = "") {
+    function setSignatureMethod($method = "") 
+    {
         if (empty($method))
             $method = $this->_default_signature_method;
         $method = strtoupper($method);
@@ -250,7 +260,8 @@ class Services_Xero_OAuthSign
      *                   {action, path, parameters (array), method, signatures (array)}
      *                   all arguments are optional.
      */
-    function sign($args = array()) {
+    function sign($args = array()) 
+    {
         if (!empty($args['action']))
             $this->setAction($args['action']);
         if (!empty($args['path']))
@@ -282,7 +293,8 @@ class Services_Xero_OAuthSign
      *
      * @param args {object} see .sign
      */
-    function getHeaderString($args = array()) {
+    function getHeaderString($args = array()) 
+    {
         if (empty($this->_parameters['oauth_signature']))
             $this->sign($args);
 
@@ -305,7 +317,8 @@ class Services_Xero_OAuthSign
     // Start private methods. Here be Dragons.
     // No promises are kept that any of these functions will continue to exist
     // in future versions.
-    function _parseParameterString($paramString) {
+    function _parseParameterString($paramString) 
+    {
         $elements = explode('&', $paramString);
         $result = array();
         foreach ($elements as $element) {
@@ -324,7 +337,8 @@ class Services_Xero_OAuthSign
         return $result;
     }
 
-    function _oauthEscape($string) {
+    function _oauthEscape($string) 
+    {
         if ($string === 0)
             return 0;
         if (empty($string))
@@ -341,7 +355,8 @@ class Services_Xero_OAuthSign
         return $string;
     }
 
-    function _getNonce($length = 5) {
+    function _getNonce($length = 5) 
+    {
         $result = '';
         $cLength = strlen($this->_nonce_chars);
         for ($i = 0; $i < $length; $i++) {
@@ -352,7 +367,8 @@ class Services_Xero_OAuthSign
         return $result;
     }
 
-    function _getApiKey() {
+    function _getApiKey() 
+    {
         if (empty($this->_secrets['consumer_key'])) {
             throw new Exception('No consumer_key set for Xero_OAuthSign');
         }
@@ -360,7 +376,8 @@ class Services_Xero_OAuthSign
         return $this->_parameters['oauth_consumer_key'];
     }
 
-    function _getAccessToken() {
+    function _getAccessToken() 
+    {
         if (!isset($this->_secrets['oauth_secret']))
             return '';
         if (!isset($this->_secrets['oauth_token']))
@@ -369,11 +386,13 @@ class Services_Xero_OAuthSign
         return $this->_parameters['oauth_token'];
     }
 
-    function _getTimeStamp() {
+    function _getTimeStamp() 
+    {
         return $this->_parameters['oauth_timestamp'] = time();
     }
 
-    function _normalizedParameters($filter = 'false') {
+    function _normalizedParameters($filter = 'false') 
+    {
         $elements = array();
         $ra = 0;
         ksort($this->_parameters);
@@ -395,7 +414,8 @@ class Services_Xero_OAuthSign
         return join('&', $elements);
     }
 
-    function _readFile($filePath) {
+    function _readFile($filePath) 
+    {
 
         $fp = fopen($filePath, "r");
 
@@ -406,7 +426,8 @@ class Services_Xero_OAuthSign
         return $file_contents;
     }
 
-    function _generateSignature() {
+    function _generateSignature() 
+    {
         $secretKey = '';
         if (isset($this->_secrets['shared_secret']))
             $secretKey = $this->_oauthEscape($this->_secrets['shared_secret']);
