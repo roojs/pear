@@ -5,8 +5,7 @@ require_once 'Services/Xero/OAuthSign.php';
 /**
  * Define a custom Exception for easy trap and detection
  */
-class XeroOAuthException extends Exception {
-}
+class XeroOAuthException extends Exception {}
 
 class Services_Xero_OAuth
 {
