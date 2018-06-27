@@ -1,6 +1,7 @@
 <?php
 
 /*
+ * Xero Library
  * https://developer.xero.com/documentation/libraries/php
  * https://github.com/XeroAPI/XeroOAuth-PHP
  * 
