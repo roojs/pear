@@ -473,10 +473,10 @@ class Services_Xero_OAuth
            $this->response['helper'] = "SetupIssue";
         }
         
-        $this->response['result']  = false;
-        if ($this->response['code'] == 200 && !empty($this->response['format'])) {
-            $this->response['result'] = $this->parseResponse($this->response['response'], $this->response['format']);
-        }
+//        $this->response['result']  = false;
+//        if ($this->response['code'] == 200 && !empty($this->response['format'])) {
+//            $this->response['result'] = $this->parseResponse($this->response['response'], $this->response['format']);
+//        }
         
         return $this->response;
     }
