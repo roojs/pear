@@ -609,15 +609,13 @@ class Services_Xero_OAuth
     * Oddly - this is run from the caller???
     * 
     */
-    
     function diagnostics() 
     {
         $testOutput = array ();
-  
           
-        if (empty($this->config ['application_type']) || $this->config ['application_type'] == 'Partner' || $this->config ['application_type'] == 'Private') {
+        if (empty($this->config['application_type']) || $this->config ['application_type'] == 'Partner' || $this->config ['application_type'] == 'Private') {
               
-            if (! file_exists ( $this->config ['rsa_public_key'] )) {
+            if (! file_exists ( $this->config['rsa_public_key'] )) {
                 $testOutput ['rsa_cert_error'] =
                     "Can't read the self-signed SSL cert. Private and Partner API applications require a self-signed X509 cert ".
                     "http://developer.xero.com/documentation/advanced-docs/public-private-keypair/ \n";
