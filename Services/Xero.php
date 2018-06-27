@@ -40,9 +40,7 @@ class Services_Xero
         'authorize_url' => 'https://api.xero.com/oauth/Authorize',
         'signature_method' => 'RSA-SHA1'
     );       
-   
-  
-   
+    
     function __construct($config)
     {
         foreach($this->oauth_config as $k=>$v) {
