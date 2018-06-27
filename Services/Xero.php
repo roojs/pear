@@ -18,7 +18,7 @@ class Services_Xero
         $this->XeroOAuth = new Services_Xero_OAuth($config);
     }
     
-    function getItems($params = array(), $format = 'xml')
+    function getItems($params = array())
     {
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Items', 'core'), $params);
         
