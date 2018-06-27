@@ -99,10 +99,7 @@ class Services_Xero_OAuthSign {
         if (!empty($sharedSecret)) {
             $this->_secrets['shared_secret']=$sharedSecret;
         }
-            
-        $this->_default_signature_method="HMAC-SHA1";
-        $this->_action="GET";
-        $this->_nonce_chars="";
+        
         return $this;
     }
 
@@ -228,25 +225,43 @@ class Services_Xero_OAuthSign {
             $this->_secrets=array_merge($this->_secrets,$signatures);
         }
         // Aliases
-        if (isset($this->_secrets['api_key']))
+        if (isset($this->_secrets['api_key'])) {
             $this->_secrets['consumer_key'] = $this->_secrets['api_key'];
-        if (isset($this->_secrets['access_token']))
+        }
+            
+        if (isset($this->_secrets['access_token'])) {
             $this->_secrets['oauth_token'] = $this->_secrets['access_token'];
-        if (isset($this->_secrets['access_secret']))
+        }
+            
+        if (isset($this->_secrets['access_secret'])) {
             $this->_secrets['oauth_secret'] = $this->_secrets['access_secret'];
-        if (isset($this->_secrets['access_token_secret']))
+        }
+        
+        if (isset($this->_secrets['access_token_secret'])) {
             $this->_secrets['oauth_secret'] = $this->_secrets['access_token_secret'];
-        if (isset($this->_secrets['rsa_private_key']))
+        }
+            
+        if (isset($this->_secrets['rsa_private_key'])) {
             $this->_secrets['private_key'] = $this->_secrets['rsa_private_key'];
-         if (isset($this->_secrets['rsa_public_key']))
-            $this->_secrets['public_key'] = $this->_secrets['rsa_public_key'];
+        }
+            
+         if (isset($this->_secrets['rsa_public_key'])) {
+            $this->_secrets['public_key'] = $this->_secrets['rsa_public_key']; 
+         }
+            
         // Gauntlet
-        if (empty($this->_secrets['consumer_key']))
+        if (empty($this->_secrets['consumer_key'])) {
             throw new Exception('Missing required consumer_key in Xero_OAuthSign.signatures');
-        if (empty($this->_secrets['shared_secret']))
+        }
+            
+        if (empty($this->_secrets['shared_secret'])) {
             throw new Exception('Missing requires shared_secret in Xero_OAuthSign.signatures');
-        if (!empty($this->_secrets['oauth_token']) && empty($this->_secrets['oauth_secret']))
+        }
+            
+        if (!empty($this->_secrets['oauth_token']) && empty($this->_secrets['oauth_secret'])) {
             throw new Exception('Missing oauth_secret for supplied oauth_token in Xero_OAuthSign.signatures');
+        }
+            
         return $this;
     }
 
