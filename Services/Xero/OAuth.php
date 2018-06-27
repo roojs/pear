@@ -92,18 +92,18 @@ class Services_Xero_OAuth
     *        	the response headers
     * @return the string length of the header
     */
-   private function curlHeader($ch, $header) 
-   {
-      $i = strpos ( $header, ':' );
-      if (! empty ( $i )) {
-         $key = str_replace ( '-', '_', strtolower ( substr ( $header, 0, $i ) ) );
-         $value = trim ( substr ( $header, $i + 2 ) );
-         $this->response ['headers'] [$key] = $value;
-      }
-      return strlen ( $header );
-   }
-	
-   /**
+    private function curlHeader($ch, $header) 
+    {
+        $i = strpos($header, ':');
+        if (!empty($i)) {
+            $key = str_replace('-', '_', strtolower(substr($header, 0, $i)));
+            $value = trim(substr($header, $i + 2));
+            $this->response ['headers'] [$key] = $value;
+        }
+        return strlen($header);
+    }
+
+    /**
     * Utility function to parse the returned curl buffer and store them until
     * an EOL is found.
     * The buffer for curl is an undefined size so we need
