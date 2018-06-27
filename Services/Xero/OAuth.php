@@ -24,6 +24,7 @@ class Services_Xero_OAuth
     );
     
     var $_xero_curl_options = array ( // you probably don't want to change any of these curl values
+        CURLOPT_USERAGENT           => 'XeroOAuth-PHP',
         CURLOPT_CONNECTTIMEOUT      => 30,
         CURLOPT_TIMEOUT             => 20,
         // for security you may want to set this to TRUE. If you do you need
@@ -41,8 +42,8 @@ class Services_Xero_OAuth
         CURLOPT_PROXY               => false, // really you don't want to use this if you are using streaming
         CURLOPT_PROXYUSERPWD        => false, // format username:password for proxy, if required
         CURLOPT_ENCODING            => '', // leave blank for all supported formats, else use gzip, deflate, identity
-        CURLOPT_VERBOSE             => true ,
-        CURLOPT_USERAGENT           => 'XeroOAuth-PHP'
+        CURLOPT_VERBOSE             => true 
+        
     );
                 
       
@@ -243,6 +244,7 @@ class Services_Xero_OAuth
         $c = curl_init();
 
         curl_setopt_array($c, $this->_xero_curl_options);
+        
         curl_setopt_array($c, array(
             CURLOPT_RETURNTRANSFER => TRUE,
             CURLOPT_URL => $this->sign ['signed_url'],
