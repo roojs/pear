@@ -55,19 +55,10 @@ class Services_Xero
         if (empty($response['code']) ||  $response['code'] != 200) {
              return; 
         }
-              
-        $result = $response['result'];
         
-        if(  !$result ||
-             !$result->Invoices  || 
-             !count($result->Invoices[0]) || 
-             !$result->Invoices[0]->InvoiceNumber
-            ) {          	
-            return;                        
-        }
-          
-        return $result->Invoices[0];           
-       
+        $invoice = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+        
+        return $invoice;
     }
    
 //    function connectXero()
