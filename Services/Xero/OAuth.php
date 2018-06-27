@@ -130,15 +130,17 @@ class Services_Xero_OAuth
         $this->metrics ['tweets'] ++;
         $this->metrics ['bytes'] += strlen($content);
 
-        if (!function_exists($this->config ['streaming_callback']))
+        if (!function_exists($this->config ['streaming_callback'])) {
             return 0;
-
+        }
+        
         $metrics = $this->update_metrics();
         $stop = call_user_func($this->config ['streaming_callback'], $content, strlen($content), $metrics);
         $this->buffer = $buffered [1];
-        if ($stop)
+        if ($stop) {
             return 0;
-
+        }
+        
         return $l;
     }
 	
