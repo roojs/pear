@@ -88,12 +88,9 @@ class Services_Xero_OAuth
             }
         }
         
-        foreach($this->config as $k => $v) {
-            if (isset($config[$k])) {
-                $this->config[$k] = $config[$k];
-            }
+        foreach ($config as $k => $v){
+            $this->config[$k] = $v;
         }
-        $this->config =  $config ;
     }
 	
    /**
