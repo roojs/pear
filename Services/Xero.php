@@ -33,7 +33,7 @@ class Services_Xero
     
     function getBrandingThemes($params = array())
     {
-        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('BrandingThemes', 'core'), $params);
+        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('BrandingThemes/aefae6d5-7bbe-4e2e-aadc-302cd07a0fc1', 'core'), $params);
         
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
             return false;
