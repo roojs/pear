@@ -18,9 +18,11 @@ class Services_Xero
         $this->XeroOAuth = new Services_Xero_OAuth($config);
     }
     
-    function getItems($params = array())
+    function getItems($single = false, $params = array())
     {
-        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Items/11396255-d5f5-4d1d-a9f9-873481c9211e', 'core'), $params);
+        $target = 'Items' . (empty($single)) ? '' : "/{$single}";
+        
+        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url($target, 'core'), $params);
         
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
