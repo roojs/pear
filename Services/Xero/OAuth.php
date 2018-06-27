@@ -57,9 +57,7 @@ class Services_Xero_OAuth
     *        	the configuration settings
     */
     function __construct($config) 
-    {
-        
-         
+    {    
         $this->params = array ();
         $this->headers = array ();
         $this->auto_fixed_time = false;
