@@ -443,7 +443,7 @@ class Services_Xero_OAuth
             $this->sign = $oauthObject->sign(array (
                 'path' => $url,
                 'action' => $method,
-                'parameters' => array_merge ( $params, array (
+                'parameters' => array_merge($params, array (
                     'oauth_signature_method' => $this->_xero_defaults['signature_method'] 
                 )),
                 'signatures' => $this->config 
