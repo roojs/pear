@@ -20,7 +20,7 @@ class Services_Xero
     
     function getItems($params = array())
     {
-        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Items', 'core'), $params);
+        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Items/11396255-d5f5-4d1d-a9f9-873481c9211e', 'core'), $params);
         
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
