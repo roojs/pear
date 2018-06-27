@@ -217,11 +217,13 @@ class Services_Xero_OAuthSign {
     */
     function signatures ($signatures) 
     {
-        if (!empty($signatures) && !is_array($signatures))
+        if (!empty($signatures) && !is_array($signatures)) {
             throw new Exception('Must pass dictionary array to Xero_OAuthSign.signatures');
+        }
+            
         if (!empty($signatures)){
             if (empty($this->_secrets)) {
-                $this->_secrets=Array();
+                $this->_secrets=array();
             }
             $this->_secrets=array_merge($this->_secrets,$signatures);
         }
