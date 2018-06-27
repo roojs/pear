@@ -8,8 +8,8 @@ if (! class_exists ( 'Services_Xero_OAuthSign' )) {
 /**
  * Define a custom Exception for easy trap and detection
  */
-class XeroOAuthException extends Exception {
-}
+//class XeroOAuthException extends Exception {}
+
 class Services_Xero_OAuth
 {
     var $_xero_defaults =array (
