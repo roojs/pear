@@ -43,7 +43,9 @@ class Services_Xero_OAuth
         CURLOPT_PROXY               => false, // really you don't want to use this if you are using streaming
         CURLOPT_PROXYUSERPWD        => false, // format username:password for proxy, if required
         CURLOPT_ENCODING            => '', // leave blank for all supported formats, else use gzip, deflate, identity
-        CURLOPT_VERBOSE             => true 
+        CURLOPT_VERBOSE             => true,
+        CURLOPT_HEADER              => false,
+        CURLINFO_HEADER_OUT         => true
         
     );
                 
