@@ -478,10 +478,11 @@ class Services_Xero_OAuthSign {
                if($filter=="true")
                    continue;
                }
-            if (preg_match('/\w+_secret/',$paramName))
+            if (preg_match('/\w+_secret/',$paramName)) {
                 continue;
-            if (is_array($paramValue))
-            {
+            }
+                
+            if (is_array($paramValue)) {
                 sort($paramValue);
                 foreach($paramValue as $element)
                     array_push($elements,$this->_oauthEscape($paramName).'='.$this->_oauthEscape($element));
