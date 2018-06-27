@@ -477,25 +477,25 @@ class Services_Xero_OAuth
     *        	the format of the response
     * @return string the concatenation of the host, API version and API method
     */
-   function parseResponse($response, $format) 
-   {
-      if (isset ( $format )) {
-         switch ($format) {
-            case "pdf" :
-               $theResponse = $response;
-               break;
-            case "json" :
-               $theResponse = json_decode ( $response );
-               break;
-            default :
-               $theResponse = simplexml_load_string ( $response );
-               break;
-         }
-      }
-      return $theResponse;
-   }
-	
-   /**
+    function parseResponse($response, $format) 
+    {
+        if (isset($format)) {
+            switch ($format) {
+                case "pdf" :
+                    $theResponse = $response;
+                    break;
+                case "json" :
+                    $theResponse = json_decode($response);
+                    break;
+                default :
+                    $theResponse = simplexml_load_string($response);
+                    break;
+            }
+        }
+        return $theResponse;
+    }
+
+    /**
     * Utility function to create the request URL in the requested format
     *
     * @param string $request
