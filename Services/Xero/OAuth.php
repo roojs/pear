@@ -43,9 +43,8 @@ class Services_Xero_OAuth
         CURLOPT_PROXYUSERPWD        => false, // format username:password for proxy, if required
         CURLOPT_ENCODING            => '', // leave blank for all supported formats, else use gzip, deflate, identity
         CURLOPT_VERBOSE             => true ,
-        CURLOPT_USERAGENT           => 'XeroOAuth-PHP',
-
-      );
+        CURLOPT_USERAGENT           => 'XeroOAuth-PHP'
+    );
                 
       
     var $_action;
