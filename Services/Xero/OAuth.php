@@ -55,7 +55,10 @@ class Services_Xero_OAuth
     var $config = array (
         'core_version' => '2.0',
         'payroll_version' => '1.0',
-        'file_version' => '1.0'
+        'file_version' => '1.0',
+        'rsa_private_key' => '',
+        'rsa_public_key' => '',
+        'application_type' => 'Private',
     );
 	
    /**
