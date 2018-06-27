@@ -442,8 +442,7 @@ class Services_Xero_OAuthSign {
 
     function _getApiKey() 
     {
-        if (empty($this->_secrets['consumer_key']))
-        {
+        if (empty($this->_secrets['consumer_key'])) {
             throw new Exception('No consumer_key set for Xero_OAuthSign');
         }
         $this->_parameters['oauth_consumer_key']=$this->_secrets['consumer_key'];
