@@ -95,7 +95,7 @@ class Services_Xero_OAuth
             $this->config[$k] = $v;
         }
         
-        $this->config = array_merge ($this->_xero_defaults, $this->_xero_consumer_options, $this->_xero_curl_options, $config);
+        $this->config = array_merge ($this->_xero_defaults, $this->_xero_consumer_options, $this->_xero_curl_options, $this->config);
     }
 	
    /**
@@ -439,7 +439,7 @@ class Services_Xero_OAuth
                 'path' => $url,
                 'action' => $method,
                 'parameters' => array_merge ( $params, array (
-                      'oauth_signature_method' => $this->_xero_defaults['signature_method'] 
+                    'oauth_signature_method' => $this->_xero_defaults['signature_method'] 
                 )),
                 'signatures' => $this->config 
             ));
