@@ -497,7 +497,6 @@ class Services_Xero_OAuthSign {
 
     function _readFile($filePath) 
     {
-
         $fp = fopen($filePath,"r");
 
         $file_contents = fread($fp,8192);
@@ -510,9 +509,11 @@ class Services_Xero_OAuthSign {
     function _generateSignature () 
     {
         $secretKey = '';
-        if(isset($this->_secrets['shared_secret']))
+        if(isset($this->_secrets['shared_secret'])) {
             $secretKey = $this->_oauthEscape($this->_secrets['shared_secret']);
-            $secretKey .= '&';
+        }
+            
+        $secretKey .= '&';
              
         if(isset($this->_secrets['oauth_secret']))
             
