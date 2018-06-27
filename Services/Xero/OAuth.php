@@ -657,5 +657,4 @@ class Services_Xero_OAuth
           
         return $testOutput;
     }
-    
 }
