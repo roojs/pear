@@ -1137,7 +1137,7 @@ class Validate
      *
      * @return bool true if file exists
      */
-    function _includePathFileExists($filename)
+    static function _includePathFileExists($filename)
     {
         $paths = explode(":", ini_get("include_path"));
         $result = false;
