@@ -58,7 +58,7 @@ class Services_Xero
         return $data;
     }
     
-    function createInvoice($xml)
+    function createInvoice($params = array(), $xml = '')
     {
         if(empty($xml)) {
             return false;
@@ -73,6 +73,16 @@ class Services_Xero
         $invoice = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
         
         return $invoice;
+        
+        $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), $params, $xml, $this->format);
+        
+        $data = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
+        
+        if (empty($response['code']) || $response['code'] != 200) {
+            return $this->toFailedResult($response['code'], $data);
+        }
+        
+        return $data;
     }
     
     function toFailedResult($code, $error)
