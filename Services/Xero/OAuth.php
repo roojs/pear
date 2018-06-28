@@ -503,7 +503,7 @@ class Services_Xero_OAuth
                     $theResponse = $response;
                     break;
                 case "json" :
-                    $theResponse = json_decode($response);
+                    $theResponse = json_decode($response, true);
                     break;
                 default :
                     $theResponse = simplexml_load_string($response);
