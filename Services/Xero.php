@@ -12,6 +12,7 @@ require_once 'Services/Xero/OAuth.php';
 class Services_Xero
 {
     var $XeroOAuth;
+    var $format = 'json';
     
     function __construct($config)
     {
