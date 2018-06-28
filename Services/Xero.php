@@ -60,12 +60,14 @@ class Services_Xero
     
     function createInvoice($xml = '', $params = array())
     {
+        print_R('test');exit;
+        
         if(empty($xml)) {
             return false;
         }
         
         $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), $params, $xml, $this->format);
-        print_R($response);exit;
+        
         $data = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
         
         if (empty($response['code']) || $response['code'] != 200) {
