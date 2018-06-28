@@ -46,16 +46,16 @@ class Services_Xero
     }
     
     function getBrandingThemes($params = array())
-    {
+    {   
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('BrandingThemes', 'core'), $params, '', $this->format);
         
-        if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
-            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+        $data = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
+        
+        if (empty($response['code']) || $response['code'] != 200) {
+            return $this->toFailedResult($response['code'], $data);
         }
         
-        $brandingThemes = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
-        
-        return $brandingThemes;
+        return $data;
     }
     
     function createInvoice($xml)
