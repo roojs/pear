@@ -74,7 +74,11 @@ class Services_Xero
         
         return $invoice;
     }
-   
+    
+    function toFailedXeroResult($response)
+    {
+        
+    }
 //    function connectXero()
 //    {
 //        $this->initialCheck = $this->XeroOAuth->diagnostics();
