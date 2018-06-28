@@ -25,9 +25,9 @@ class Services_Xero
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
         }
-        print_R($this->XeroOAuth->response['format']);exit;
-        $contacts = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
         
+        $contacts = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
+        print_R($contacts);exit;
         return $contacts;
     }
             
