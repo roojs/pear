@@ -27,7 +27,7 @@ class Services_Xero
         }
         
         $contacts = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
-        print_R($contacts);exit;
+        
         return $contacts;
     }
             
