@@ -77,7 +77,11 @@ class Services_Xero
     
     function toFailedResult($response)
     {
-        
+        return array(
+            'Status' => 'FAIL',
+            'code' => $response['code'],
+            'Message' => $response['response']['Message']
+        );
     }
 //    function connectXero()
 //    {
