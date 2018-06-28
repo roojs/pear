@@ -58,7 +58,7 @@ class Services_Xero
         return $data;
     }
     
-    function createInvoice($params = array(), $xml = '')
+    function createInvoice($xml = '', $params = array())
     {
         if(empty($xml)) {
             return false;
