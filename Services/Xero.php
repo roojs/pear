@@ -77,6 +77,7 @@ class Services_Xero
     
     function toFailedResult($response)
     {
+        print_R($response);exit;
         return array(
             'Status' => 'FAIL',
             'code' => $response['code'],
