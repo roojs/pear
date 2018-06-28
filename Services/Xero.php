@@ -63,7 +63,7 @@ class Services_Xero
         if(empty($xml)) {
             return false;
         }
-        
+        print_R('test??');exit;
         $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), $params, $xml, $this->format);
         print_R($response);exit;
         $data = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
