@@ -75,7 +75,7 @@ class Services_Xero
         return $invoice;
     }
     
-    function toFailedXeroResult($response)
+    function XeroFail($response)
     {
         
     }
