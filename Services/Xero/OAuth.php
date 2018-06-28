@@ -60,8 +60,7 @@ class Services_Xero_OAuth
         'rsa_private_key' => '',
         'rsa_public_key' => '',
         'consumer_key' => '',
-        'shared_secret' => '',
-        'format' => 'json'
+        'shared_secret' => ''
     );
 	
    /**

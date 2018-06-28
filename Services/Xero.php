@@ -23,6 +23,7 @@ class Services_Xero
     {
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts', 'core'), $params, '', $this->format);
         
+        print_R($response);exit;
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
         }
@@ -64,7 +65,7 @@ class Services_Xero
             return false;
         }
         
-        $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml);
+        $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), array(), $xml, $this->format);
       
         if (empty($this->XeroOAuth->response['code']) ||  $this->XeroOAuth->response['code'] != 200) {
             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
