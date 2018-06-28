@@ -77,13 +77,12 @@ class Services_Xero
         return $invoice;
     }
     
-    function toFailedResult($response)
+    function toFailedResult($code, $error)
     {
-        print_R($response);exit;
         return array(
             'Status' => 'FAIL',
-            'code' => $response['code'],
-            'Message' => $response['response']['Message']
+            'code' => $code,
+            'Message' => $error['Message']
         );
     }
 //    function connectXero()
