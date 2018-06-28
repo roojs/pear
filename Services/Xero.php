@@ -82,7 +82,7 @@ class Services_Xero
         return array(
             'Status' => 'FAIL',
             'code' => $code,
-            'Message' => $error['Message']
+            'Message' => (empty($error['Message'])) ? '' : $error['Message']
         );
     }
 //    function connectXero()
