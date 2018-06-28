@@ -20,12 +20,12 @@ class Services_Xero
     
     function getContacts($params = array())
     {
-        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts', 'core'), $params, '', 'xml');
-        print_R($response);exit;
+        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts', 'core'), $params, '', 'json');
+        
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
         }
-        
+        print_R($this->XeroOAuth->response['format']);exit;
         $contacts = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
         
         return $contacts;
