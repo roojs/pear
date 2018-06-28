@@ -21,7 +21,7 @@ class Services_Xero
     
     function getContacts($params = array())
     {
-        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts', 'core'), $params, '', 'json');
+        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts', 'core'), $params, '', $this->format);
         
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
@@ -34,7 +34,7 @@ class Services_Xero
             
     function getItems($params = array())
     {
-        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Items', 'core'), $params);
+        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Items', 'core'), $params, '', $this->format);
         
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
@@ -47,7 +47,7 @@ class Services_Xero
     
     function getBrandingThemes($params = array())
     {
-        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('BrandingThemes', 'core'), $params);
+        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('BrandingThemes', 'core'), $params, '', $this->format);
         
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
             throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
