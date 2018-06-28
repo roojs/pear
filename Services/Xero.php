@@ -29,9 +29,7 @@ class Services_Xero
             return $this->toFailedResult($response['code'], $data);
         }
         
-        $contacts = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
-        
-        return $contacts;
+        return $data;
     }
             
     function getItems($params = array())
