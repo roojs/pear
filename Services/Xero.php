@@ -23,10 +23,10 @@ class Services_Xero
     {
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts', 'core'), $params, '', $this->format);
         
-        $contacts = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
+        $data = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
         
-        if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
-            return $this->toFailedResult($this->XeroOAuth->response);
+        if (empty($response['code']) || $response['code'] != 200) {
+            return $this->toFailedResult($response['code'], $data);
         }
         
         $contacts = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
