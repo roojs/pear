@@ -65,7 +65,7 @@ class Services_Xero
         }
         
         $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), $params, $xml, $this->format);
-        
+        print_R($response);exit;
         $data = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
         
         if (empty($response['code']) || $response['code'] != 200) {
