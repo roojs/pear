@@ -36,13 +36,13 @@ class Services_Xero
     {
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Items', 'core'), $params, '', $this->format);
         
-        if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
-            throw new Exception('Xero Error: ' . $this->XeroOAuth->response['response']);
+        $data = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
+        
+        if (empty($response['code']) || $response['code'] != 200) {
+            return $this->toFailedResult($response['code'], $data);
         }
         
-        $items = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
-        
-        return $items;
+        return $data;
     }
     
     function getBrandingThemes($params = array())
