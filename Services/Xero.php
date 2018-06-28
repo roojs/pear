@@ -24,7 +24,7 @@ class Services_Xero
         $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Contacts', 'core'), $params, '', $this->format);
         
         if (empty($this->XeroOAuth->response['code']) || $this->XeroOAuth->response['code'] != 200) {
-            return $this->XeroFail($this->XeroOAuth->response);
+            return $this->toFailedResult($this->XeroOAuth->response);
         }
         
         $contacts = $this->XeroOAuth->parseResponse($this->XeroOAuth->response['response'], $this->XeroOAuth->response['format']);
@@ -75,7 +75,7 @@ class Services_Xero
         return $invoice;
     }
     
-    function XeroFail($response)
+    function toFailedResult($response)
     {
         
     }
