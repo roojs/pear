@@ -1141,11 +1141,13 @@ class Validate
     {
         $paths = explode(":", ini_get("include_path"));
         $result = false;
-
-        while ((!($result)) && (list($key,$val) = each($paths))) {
+        foreach($paths as $key => $val) {
             $result = file_exists($val . "/" . $filename);
+            if ($result) {
+                return $return;
+            }
         }
-        return $result;
+        return false;
     }
 }
 
