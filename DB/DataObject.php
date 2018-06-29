@@ -4858,7 +4858,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * @access   public
      * @return   object an error object
      */
-    function _loadConfig()
+    static function _loadConfig()
     {
         global $_DB_DATAOBJECT;
 
