@@ -60,7 +60,7 @@ class Services_Xero
     
     function getInvoices($params = array())
     {
-        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices/fea5880c-b6f5-40f2-8e2e-b6080f6a37a7', 'core'), $params, '', $this->format);
+        $response = $this->XeroOAuth->request('GET', $this->XeroOAuth->url('Invoices', 'core'), $params, '', $this->format);
         
         $data = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
         
