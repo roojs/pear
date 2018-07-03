@@ -580,7 +580,8 @@ class Validate
         if ($use_rfc822? Validate::__emailRFC822($email, $options) :
                 preg_match($regex, $email)) {
             if ($check_domain && function_exists('checkdnsrr')) {
-                $domain = preg_replace('/[^-a-z.0-9]/i', '', array_pop(explode('@', $email)));
+                $em = explode('@', $email);
+                $domain = preg_replace('/[^-a-z.0-9]/i', '', array_pop($em));
                 
                 if (isset($dom_cache[$domain])) {
                     return $dom_cache[$domain];
@@ -1137,15 +1138,17 @@ class Validate
      *
      * @return bool true if file exists
      */
-    function _includePathFileExists($filename)
+    static function _includePathFileExists($filename)
     {
         $paths = explode(":", ini_get("include_path"));
         $result = false;
-
-        while ((!($result)) && (list($key,$val) = each($paths))) {
+        foreach($paths as $key => $val) {
             $result = file_exists($val . "/" . $filename);
+            if ($result) {
+                return $return;
+            }
         }
-        return $result;
+        return false;
     }
 }
 

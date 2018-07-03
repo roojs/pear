@@ -355,7 +355,7 @@ class XML_Parser extends PEAR
         }
         if (is_resource($xp)) {
             if ($this->tgtenc !== null) {
-                if (!@xml_parser_set_option($xp, XML_OPTION_TARGET_ENCODING, 
+                if (!xml_parser_set_option($xp, XML_OPTION_TARGET_ENCODING, 
                     $this->tgtenc)
                 ) {
                     return $this->raiseError('invalid target encoding', 

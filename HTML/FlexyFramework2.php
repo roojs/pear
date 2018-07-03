@@ -515,7 +515,10 @@ class HTML_FlexyFramework2 {
         $iniCache = $this->PDO_DataObject['schema_location'];
         
         if ($force && file_exists($iniCache)) {
-            unlink($iniCache);
+            $files = glob(dirname($iniCache).'/*.ini');
+            foreach($files as $f) {
+                unlink($f);
+            } 
             clearstatcache();
         }
         
@@ -855,7 +858,6 @@ class HTML_FlexyFramework2 {
         }
         
         if ( !file_exists($this->HTML_Template_Flexy['compileDir']))  {
-            mkdir($this->HTML_Template_Flexy['compileDir'], 0700);
             @mkdir($this->HTML_Template_Flexy['compileDir'], 0700, true);
             clearstatcache();
              

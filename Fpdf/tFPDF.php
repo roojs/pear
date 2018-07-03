@@ -1940,7 +1940,7 @@ function _putinfo()
 		$this->_out('/Keywords '.$this->_textstring($this->keywords));
 	if(!empty($this->creator))
 		$this->_out('/Creator '.$this->_textstring($this->creator));
-	$this->_out('/CreationDate '.$this->_textstring('D:'.@date('YmdHis')));
+	$this->_out('/CreationDate '.$this->_textstring('D:'.date('YmdHis')));
 }
 
 function _putcatalog()

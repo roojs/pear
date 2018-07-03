@@ -192,36 +192,47 @@ Available commands:
     
         try {
             // look up the parent tree for core opts.
+            $val = array();
+            //var_dump($classname);
             $cls = new ReflectionClass($classname);
             if (method_exists($classname, 'cli_opts')) {
                 $val = $classname::cli_opts();
             } else {
-                $val = $cls->getStaticPropertyValue('cli_opts');
+                $ar = $cls->getStaticProperties();
+                 if (isset($ar['cli_opts'])) {
+                    echo "getting cli opts?\n";
+                    $val = $cls->getStaticPropertyValue('cli_opts');
+                }
             }
              
             $val = is_array($val) ? $val : array();
             while ($cls = $cls->getParentClass()) {
-                //var_dump($cls);
+                //var_dump($cls->name);
                  
                 try {
-                    
+                    $vadd  = array();
                     if (method_exists($cls->name, 'cli_opts')) {
                         $cn = $cls->name;
                         $vadd = $cn::cli_opts();
                     } else {
-                        $vadd = $cls->getStaticPropertyValue('cli_opts') ;
-                        
+                        $ar = $cls->getStaticProperties();
+                        if (isset($ar['cli_opts'])) {
+                            $vadd = $cls->getStaticPropertyValue('cli_opts');
+                        }
+                         
                     }
                     $val = array_merge($val, is_array($vadd) ? $vadd : array()  );
-                } catch (Exception $e) {
+                } catch (ReflectionException $e) {
                     continue;
                 }
             }
             
             
             
-        } catch (Exception $e) {
-            echo "Warning:  {$e->getMessage()}\n";
+        } catch (ReflectionException $e) {
+            //print_r($e);
+            echo "cliParse:Warning:  {$e->getMessage()}\n";
+            exit;
         }
         if (empty($val)) {
             return false;
@@ -318,19 +329,19 @@ Available commands:
         
         
         $ret =  $newargs->getValues();
-            foreach($ret as $k=>$v) {
-                switch($k) {
-                    case 'pman-nodatabase':
-                        //echo "Turning off database";
-                        $this->ff->nodatabase= true;
-                        
-                        break;
+        foreach($ret as $k=>$v) {
+            switch($k) {
+                case 'pman-nodatabase':
+                    //echo "Turning off database";
+                    $this->ff->nodatabase= true;
                     
-                    default:
-                        die("need to fix option $k");
-                }
+                    break;
                 
+                default:
+                    die("need to fix option $k");
             }
+            
+        }
         return false;
         
     }

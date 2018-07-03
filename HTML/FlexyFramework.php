@@ -166,16 +166,30 @@ class HTML_FlexyFramework {
         // handle apache mod_rewrite..
         // it looks like this might not work anymore..
         
+        /*
+         *
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^/web.hpasite/index\.local.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
+</IfModule>
+*/ 
         
-        
-        if (!empty($_SERVER['REDIRECT_URL'])) {
-            
-            $this->_run($_SERVER['SCRIPT_NAME'] . $_SERVER['REQUEST_URI'],false);
+        if (!empty($_SERVER['REDIRECT_STATUS'])  && !empty($_SERVER['REDIRECT_URL'])) {
+          // phpinfo();exit;
+            $sn = $_SERVER['SCRIPT_NAME'];
+            $sublen = strlen(substr($sn , 0,  strlen($sn) - strlen(basename($sn)) -1));
+            //var_dump(array($sn,$subdir,basename($sn)));exit;
+          
+            //var_dump($_SERVER['SCRIPT_NAME'] . substr($_SERVER['REDIRECT_URL'],$sublen));
+            $this->_run($_SERVER['SCRIPT_NAME'] .  substr($_SERVER['REDIRECT_URL'], $sublen),false);
             return ;
         }
-        
-        
-        $this->_run($_SERVER['REQUEST_URI'],false);
+        // eg... /web.hpasite/index.local.php/Projects
+         $this->_run($_SERVER['REQUEST_URI'],false);
             
         
     }
@@ -232,7 +246,6 @@ class HTML_FlexyFramework {
             }
         }
         
-        $this->_handleLanguages();
         
         // enable modules.
         if (!empty($this->enable)) {
@@ -253,21 +266,30 @@ class HTML_FlexyFramework {
         if (!$this->cli) {
             $bits[0] = str_replace('%2F','/',urlencode($bits[0]));
             $this->baseURL = $bits[0] . basename($_SERVER["SCRIPT_FILENAME"]);
-            //phpinfo();exit;
-            if (empty($_SERVER['SCRIPT_NAME'])) {
+            // however this is not correct if we are using rewrite..
+            if (!empty($_SERVER['REDIRECT_STATUS'])  && !empty($_SERVER['REDIRECT_URL'])) {
+                $this->baseURL = substr($bits[0],0,-1); // without the trailing '/' ??
+                $this->rootURL = $bits[0] == '/' ? '' : $bits[0];
+                //$this->baseURL = $this->baseURL == '' ? '/' : $this->baseURL;
                 
-                $this->baseURL = ''; // ??? this is if we replace top level...
             }
+            //phpinfo();exit;
+            // is this bit used??
+            //if (empty($_SERVER['SCRIPT_NAME'])) {
+                
+            //    $this->baseURL = ''; // ??? this is if we replace top level...
+            //}
         }
         // if cli - you have to have set baseURL...
         
         
         $this->rootDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
         $this->baseDir = $this->rootDir .'/'. $this->project;
-        $this->rootURL = dirname($this->baseURL);
-        $this->rootURL = ($this->rootURL == '/') ? '' : $this->rootURL;
-        
-        
+        if (empty($this->rootURL)) {
+            $this->rootURL = dirname($this->baseURL); 
+            $this->rootURL = ($this->rootURL == '/') ? '' : $this->rootURL;
+        }
+         
       
         //var_dump($this->baseURL);
         
@@ -294,7 +316,7 @@ class HTML_FlexyFramework {
             $res = $fcli->parseDefaultOpts();
             if ($res === true) {
                 $ishelp = true;
-            } 
+            }
              
         }
         
@@ -342,13 +364,13 @@ class HTML_FlexyFramework {
         ),
     */
     
-    function _handleLanguages()
+    function _handleLanguages($request)
     {
         if (
-                empty($this->languages) ||
-                (
-                        !isset($this->languages['cookie']) && !isset($this->languages['default'])
-                )
+            empty($this->languages) ||
+            (
+                    !isset($this->languages['cookie']) && !isset($this->languages['default'])
+            )
         ) {
             return;
         }
@@ -377,6 +399,17 @@ class HTML_FlexyFramework {
            
         $lang = isset($_COOKIE[$cfg['cookie']]) ?  $_COOKIE[$cfg['cookie']] : $default;
 
+        // handle languages in request..
+        $bits = explode('/', $request);
+        $redirect_to = false;
+        if (count($bits) && in_array($bits[0],$cfg['avail'])) {
+            // redirect..
+            $lang = array_shift($bits);
+            $redirect_to = implode('/', $bits);
+        }
+        
+         
+        
         if (isset($_REQUEST[$cfg['param']])) {
             $lang = $_REQUEST[$cfg['param']];
         }
@@ -394,7 +427,11 @@ class HTML_FlexyFramework {
         if (!empty($this->HTML_Template_Flexy)) {
             $this->HTML_Template_Flexy['locale'] = $lang;   //set a language for template engine
         }
+        if ($redirect_to !== false) {
+            header('Location: ' . $this->rootURL . '/'.$redirect_to );
+            exit;
          
+        }
     }
     
     function parseDefaultLanguage($http_accept, $deflang = "en") 
@@ -536,8 +573,13 @@ class HTML_FlexyFramework {
         
         
         $iniCache = $this->DB_DataObject[$dbini];
-        if ($force && file_exists($iniCache)) {
-            unlink($iniCache);
+        
+         if ($force && file_exists($iniCache)) {
+            
+            $files = glob(dirname($iniCache).'/*.ini');
+            foreach($files as $f) {
+                unlink($f);
+            }
             clearstatcache();
         }
         
@@ -568,8 +610,10 @@ class HTML_FlexyFramework {
         }
         
         $this->DB_DataObject[$dbini] = $iniCacheTmp;
-        $this->_exposeToPear();
         
+        $dl = DB_DataObject::DebugLevel();
+        $this->_exposeToPear(); // this will reset the debug level...
+        DB_DataObject::DebugLevel($dl);
         
         // DB_DataObject::debugLevel(1);      
         require_once 'HTML/FlexyFramework/Generator.php';
@@ -579,8 +623,12 @@ class HTML_FlexyFramework {
         HTML_FlexyFramework_Generator::writeCache($iniCacheTmp, $iniCache); 
         // reset the cache to the correct lcoation.
         $this->DB_DataObject[$dbini] = $iniCache;
-        $this->_exposeToPear();
         
+         
+
+        $this->_exposeToPear();
+        DB_DataObject::DebugLevel($dl);
+
         //$GLOBALS['_DB_DATAOBJECT']['INI'][$this->database] =   parse_ini_file($iniCache, true);
         //$GLOBALS['_DB_DATAOBJECT']['SEQUENCE']
         // clear any dataobject cache..
@@ -952,6 +1000,7 @@ class HTML_FlexyFramework {
         
         $newRequest = $this->_getRequest($request,$isRedirect);
         
+         
         // find the class/file to load
         list($classname,$subRequest) = $this->requestToClassName($newRequest,FALSE);
         
@@ -1078,8 +1127,7 @@ class HTML_FlexyFramework {
     function _getRequest($request, $isRedirect) 
     {
         
-        
-        
+         
         if ($this->cli) {
             return $request;
         }
@@ -1089,16 +1137,32 @@ class HTML_FlexyFramework {
         $this->debug("INPUT REQUEST $request<BR>");
         if (!$isRedirect) {
             // check that request forms contains baseurl????
+            if (!empty($_SERVER['REDIRECT_STATUS'])  && !empty($_SERVER['REDIRECT_URL'])) {
+               // phpinfo();exit;
+                $sn = $_SERVER['SCRIPT_NAME'];
+                $sublen = strlen(substr($sn , 0,  strlen($sn) - strlen(basename($sn)) -1 ));
+                 //var_dump(array($sn,$subdir,basename($sn)));exit;
+                $subreq =  $_SERVER['SCRIPT_NAME'];
+                $request = substr($_SERVER['REDIRECT_URL'],$sublen);
+                
+                 
+            } else {
+                  
              
-            $subreq = substr($request,0,strlen($this->baseURL));
-            if ($subreq != substr($this->baseURL,0,strlen($subreq))) {
-                $this->fatalError(
-                    "Configuration error: Got base of $subreq which does not 
-                        match configuration of: $this->baseURL} ");
+                $subreq = substr($request,0, strlen($this->baseURL));
+                if ($subreq != substr($this->baseURL,0,strlen($subreq))) {
+                    $this->fatalError(
+                        "Configuration error: Got base of $subreq which does not 
+                            match configuration of: $this->baseURL} ");
+                }
+                $request = substr($request,strlen($this->baseURL));
+                
             }
-            $request = substr($request,strlen($this->baseURL));
+            
              
         }
+       // var_Dump(array('req'=>$request,'subreq'=>$subreq));
+        
         // strip front
         // echo "REQUEST WAS: $request<BR>";
         // $request = preg_replace('/^'.preg_quote($base_url,'/').'/','',trim($request));
@@ -1137,7 +1201,13 @@ class HTML_FlexyFramework {
             }
             $request = "";
         }
+       // var_dump(array($startRequest,$request, $this->baseRequest));
+        
         $this->debug("OUTPUT REQUEST $request<BR>");
+        
+        $this->_handleLanguages($request);
+
+        
         return $request;
     }
     

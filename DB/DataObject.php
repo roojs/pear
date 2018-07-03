@@ -2064,11 +2064,13 @@ class DB_DataObject extends DB_DataObject_Overload
             // should this fail!!!???
             return true;
         }
+        $e = new Exception();
         $this->debug("Cant find database schema: {$this->_database}/{$this->tableName()} \n".
                     "in links file data: " . print_r($_DB_DATAOBJECT['INI'],true) . "\n BACKTRACE:" .
-                    print_r(debug_backtrace(), true),"databaseStructure",5);
+                    $e->getTraceAsString(),"databaseStructure",5);
         // we have to die here!! - it causes chaos if we dont (including looping forever!)
-        $this->raiseError( "Unable to load schema for database and table (turn debugging up to 5 for full error message)", DB_DATAOBJECT_ERROR_INVALIDARGS, PEAR_ERROR_DIE);
+        $this->raiseError( "Unable to load schema for database and table (turn debugging up to 5 for full error message)",\
+                          DB_DATAOBJECT_ERROR_INVALIDARGS, PEAR_ERROR_DIE);
         return false;
         
          
@@ -4035,7 +4037,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 
                 foreach($keys as $k) {
                     if (in_array($ocl.'_'.$k, $cfg['exclude'])) {
-                        $keys = array_diff($keys, $k); // removes the k..
+                        $keys = array_diff($keys, array($k)); // removes the k..
                     }
                 }
                 
@@ -4816,10 +4818,11 @@ class DB_DataObject extends DB_DataObject_Overload
         
         $error = &PEAR::getStaticProperty('DB_DataObject','lastError');
         
-      
+        
         // no checks for production here?....... - we log  errors before we throw them.
         DB_DataObject::debug($message,'ERROR',1);
-        
+        $e = new Exception();
+        DB_DataObject::debug($e->getTraceAsString(),'ERROR',5);
         
         if (PEAR::isError($message)) {
             $error = $message;
@@ -4841,6 +4844,8 @@ class DB_DataObject extends DB_DataObject_Overload
    
         return $error;
     }
+    
+    
 
     /**
      * Define the global $_DB_DATAOBJECT['CONFIG'] as an alias to  PEAR::getStaticProperty('DB_DataObject','options');
@@ -4853,7 +4858,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * @access   public
      * @return   object an error object
      */
-    function _loadConfig()
+    static function _loadConfig()
     {
         global $_DB_DATAOBJECT;
 

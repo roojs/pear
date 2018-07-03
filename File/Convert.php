@@ -40,12 +40,12 @@ class File_Convert
     var $to;
     var $target;
     var $lastaction = false;
-    function File_Convert($fn, $mimetype, $options=array())
+    function __construct($fn, $mimetype, $options=array())
     {
         $this->fn = $fn;
         $this->mimetype = $mimetype;
-        $this->options = $options;
-     }
+        self::$options = $options;
+    }
     
     
     function convertExists($toMimetype, $x= 0, $y =0) 
@@ -655,7 +655,7 @@ class File_Convert_Solution
     var $debug = false;
     var $convert; // reference to caller..
     
-    function File_Convert_Solution($method, $from ,$to)
+    function __construct($method, $from ,$to)
     {
         $this->method = $method;
         $this->from = $from;
@@ -921,8 +921,8 @@ class File_Convert_Solution
         
         $ssconvert_extra = '';
         $sheet = false;
-        if (isset($this->convert->options['sheet'])) {
-            $sheet = $this->convert->options['sheet'];
+        if (isset(File_Convert::$options['sheet'])) {
+            $sheet = File_Convert::$options['sheet'];
             $ssconvert_extra = ' -S ';
         }
         
@@ -1486,7 +1486,7 @@ class File_Convert_Solution
         // for some reason this makes 01 or 1?
         $out = $fn . sprintf('-conv-%d.'.str_replace('e', '', $ext) , $pg);
         
-        $fe = file_exists($out)  && filesize($out) ? $out : false;
+        $fe = file_exists($out)  && filesize($out) ? true : false;
         if ($fe) {
             rename($out, $target);
             
@@ -1505,7 +1505,7 @@ class File_Convert_Solution
         $out = $fn . sprintf('-conv-%02d.'.str_replace('e', '', $ext), $pg);
         //$out = $fn . '-conv-01.jpg';
         
-        $fe = file_exists($out)  && filesize($out) ? $out : false;
+        $fe = file_exists($out)  && filesize($out) ? true : false;
         if ($fe) {
              rename($out, $target);
             @chmod($target,fileperms($fn));
@@ -2003,6 +2003,9 @@ class File_Convert_Solution
         $ext = $this->ext;
         
         $flat = '';
+        
+        
+        $target = $fn . '.' . $ext;
         
         if (!empty($x)) {
             $target = $fn . '.' . $x. '.' . $ext;

@@ -27,7 +27,7 @@ $GLOBALS['File_MimeType'] = array();
 
 class File_MimeType
 {
-    function File_MimeType()
+    function __construct()
     {
         
         $this->load();

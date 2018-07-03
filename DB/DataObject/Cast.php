@@ -135,7 +135,7 @@ class DB_DataObject_Cast {
     * @access   public 
     */
   
-    function sql($value) 
+    static function sql($value) 
     {
         $r = new DB_DataObject_Cast;
         $r->type = 'sql';
