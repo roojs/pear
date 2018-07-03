@@ -18,7 +18,7 @@
 //
 // $Id: Page.php,v 1.5 2003/02/22 01:52:50 alan Exp $
 //
-// A Base Page Class for use with HTML_Template_Flexy 
+// A Base Page Class for use with HTML_Template_Flexy
 // You could write one of these which used another template engine.
 //
 
@@ -31,17 +31,23 @@ require_once 'HTML/Template/Flexy/Factory.php' ;
 *
 *
 */
+if (PHP_MAJOR_VERSION >= 7) {
+    set_error_handler(function ($errno, $errstr) {
+       return strpos($errstr, 'Declaration of') === 0;
+    }, E_WARNING);
+}
+
 
 class HTML_FlexyFramework_Page  {
-    
-    
+
+
     /**
     * the main Template name (which can include a body template)
     *
     * @var string template name
     * @access public
     */
-    var $masterTemplate = "master.html"; 
+    var $masterTemplate = "master.html";
     /**
     * the body Template name
     *
@@ -49,12 +55,12 @@ class HTML_FlexyFramework_Page  {
     * @access public
     */
     var $template = "error.html";
-        
-   
-     
-    
+
+
+
+
     /**
-    * cache method - 
+    * cache method -
     *   can be 'output', or 'data'
     * used to set a default caching method
     *
@@ -63,10 +69,10 @@ class HTML_FlexyFramework_Page  {
     * @see getCache()
     */
     var $cacheMethod = '';
-    
-     
-    
-    
+
+
+
+
    /**
     * cache store (PEAR's Cache Object Instance
     *   initialized at start
@@ -76,34 +82,34 @@ class HTML_FlexyFramework_Page  {
     * @access private
     * @see getCache()
     */
-   
-    var $_cache = NULL; 
-    
+
+    var $_cache = NULL;
+
     /* ---- Variables set by Page loader -------- */
-    
-   
-        
+
+
+
     /**
     * baseURL, that can be prefixed to URL's to ensure that they correctly relate to application
     * (set by page loader)
     * @var string
     * @access public
     */
-    var $baseURL; 
+    var $baseURL;
     /**
     * rootURL, the base installation directory - can be used to get images directories.
     * (set by page loader)
     * @var string
     * @access public
     */
-    var $rootURL; 
+    var $rootURL;
     /**
     * rootDir, the base installation directory - can be used to find relative files.
     * (set by page loader)
     * @var string
     * @access public
     */
-    var $rootDir; 
+    var $rootDir;
     /**
     * the full request string used by the getCacheID().
     * (set by page loader)
@@ -113,55 +119,55 @@ class HTML_FlexyFramework_Page  {
     var $request; // clean page request for page
     /**
     * overrides for elements.
-    *  
+    *
     * @var array
     * @access public
     */
     var $elements = array(); // key=>HTML_Template_Flexy_Element
-   
+
      /**
     * errors for elements
-    *  
+    *
     * @var array
     * @access public
     */
     var $errors = array(); // key(element name)=>error message
-   
-   
-   
+
+
+
     /**
     * Arguments from cli if static $cli_opts is used.
-    *  
+    *
     * @var array
     * @access public
     */
     var $cli_args = array(); // key(element name)=>error message
-   
+
     /**
      * Reference to the page loader
-     * @var type HTML_FlexyFramework - 
-     * 
+     * @var type HTML_FlexyFramework -
+     *
      */
-     
+
     var $bootLoader = false;
-   
-   
-   
+
+
+
     /**
     * The default page handler
     * by default relays to get(), or post() methods depending on the request.
     *
     * Override this if you do not handle get or post differently.
-    * 
-    * 
+    *
+    *
     * @param   string  request, the remainder of the request not handled by the object.
     *
     * @return   none|string none = handled, string = redirect to another page = eg. data/list
     * @access   public
     */
-  
-    function start($request,$isRedirect=false,$args=array()) 
-    { 
+
+    function start($request,$isRedirect=false,$args=array())
+    {
         $cli= HTML_Flexyframework::get()->cli;
         if (!$cli && !$isRedirect && !empty($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             return $this->post($request,$args);
@@ -172,114 +178,114 @@ class HTML_FlexyFramework_Page  {
     /**
     * The get page handler
     *
-    * Override this if you want to handle get requests 
-    * 
-    * 
+    * Override this if you want to handle get requests
+    *
+    *
     * @param   string  request, the remainder of the request not handled by the object.
     *
     * @return   none|string none = handled, string = redirect to another page = eg. data/list
     * @access   public
     */
-    function get($request) 
+    function get($request)
     {
     }
      /**
     * The post page handler
     *
-    * Override this if you want to handle get requests 
-    * 
-    * 
+    * Override this if you want to handle get requests
+    *
+    *
     * @param   string  request, the remainder of the request not handled by the object.
     *
     * @return   none|string none = handled, string = redirect to another page = eg. data/list
     * @access   public
     */
-   function post($request) 
+   function post($request)
    {
    }
     /**
     * Authentication Check method
     * Override this with a straight return for pages that do not require authentication
     *
-    * By default 
+    * By default
     *   a) redirects to login if authenticaiton fails
     *   b) checks to see if a isAdmin method exists on the auth object
     *       if it does see if the user is admin and let them in.
     *       otherwise access denied error is raised
     *   c) lets them in.
-    * 
-    * 
+    *
+    *
     *
     * @return   none or string redirection to another page.
     * @access   public
     */
- 
+
     function getAuth() {
-         
-        
+
+
         return false;
-        
+
     }
-    
-  
-    
-     
+
+
+
+
     /**
     * The master Output layer.
-    * 
+    *
     * compiles the template
     * if no caching - just runs the template.
     * otherwise stores it in the cache.
-    * 
+    *
     * you dont normally need to override this.
-    * 
+    *
     * called by the page loader.
     * @access   public
     */
-    
-    
-    
-    function output() 
+
+
+
+    function output()
     {
-        
+
         if (!empty($this->cli)) {
             return;
         }
-        
+
         /* output the body if no masterTemplate is set */
         $options = HTML_FlexyFramework::get();
-        
-        $type = isset($this->contentType) ? $this->contentType : 'text/html'; 
+
+        $type = isset($this->contentType) ? $this->contentType : 'text/html';
         header('Content-Type: '.$type.';charset='.( empty($options->charset) ? 'UTF-8' : $options->charset ));
-        
-         
+
+
         if (!$this->masterTemplate) {
             return $this->outputBody();
         }
         /* master template */
-        
-       
+
+
         $template_engine = new HTML_Template_Flexy();
         $template_engine->compile($this->masterTemplate);
         if (!$this->_cache || !$this->cacheMethod) {
             $template_engine->outputObject($this,$this->elements);
             return;
         }
-        
+
         $id = $this->_cache->generateID($this->getID());
         $this->_cache->save($id, $template_engine->bufferedOutputObject($this,$this->elements));
         echo $this->_cache->get($id);
-        
+
     }
     /**
     * The body Output layer.
-    * 
+    *
     * compiles the template
     * At present there is no caching in here..  - this may change latter..
-    * 
+    *
     * used by putting {outputBody} in the main template.
     * @access   public
-    */    
+    */
     function outputBody() {
 
         $template_engine = new HTML_Template_Flexy();
@@ -289,10 +295,10 @@ class HTML_FlexyFramework_Page  {
         }
         $template_engine->elements = $this->elements;
         $template_engine->outputObject($this,$this->elements);
-        
+
     }
-    
-   
+
+
      /**
     * Do any Page Caching if $this->cacheMethod is set.
     * You should also look at output caching by overriding the outputBody Method.
@@ -302,23 +308,23 @@ class HTML_FlexyFramework_Page  {
     *   b) POST requests
     *   c) if sess is set (Eg. if you are using sessions)
     *   d) useCache is not set in the [Cache] section of the config.
-    * 
-    * utilizes $this->getCacheID() to  
+    *
+    * utilizes $this->getCacheID() to
     *
     * @return   none|boolean|string|int|object    Description
     * @access   public|private
     * @see      see also methods.....
     */
-  
-    
+
+
     function getCache() {
         if (!$this->cacheMethod) {
             return;
         }
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             return;
-        } 
-         
+        }
+
         /* lets assume we can cache ourselves.. */
         $coptions = PEAR::getStaticProperty('Cache','options');
         if (!$coptions) {
@@ -328,7 +334,7 @@ class HTML_FlexyFramework_Page  {
             return;
         }
         require_once 'Cache.php';
-        
+
         $this->_cache = new Cache($coptions['container'], $coptions);
         $id = $this->_cache->generateID($this->getCacheID());
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -339,33 +345,33 @@ class HTML_FlexyFramework_Page  {
             echo $data;
             return TRUE;
         }
-    
+
     }
-    
+
     /**
-    * Get a distinct Page Cache ID. 
+    * Get a distinct Page Cache ID.
     *
     * By default this is the full request string
-    * override this to define a more precise string 
+    * override this to define a more precise string
     *
     * @return   string   distinct page id (eg. the request url)
     * @access   private
     */
-  
+
     function getCacheID() {
         return  $this->request;
-        
+
     }
-    
-    
+
+
     /**
     * Utility method : get the Class name (used on templates)
     *
     * @return   string   class name
     * @access   public
     */
-    
-    
+
+
     function getClass() {
         return get_class($this);
     }
@@ -375,25 +381,25 @@ class HTML_FlexyFramework_Page  {
     * @return   string   time in seconds..
     * @access   public
     */
-    
+
     function getTime() {
-         
+
         $m = explode(' ',microtime());
         $ff =  HTML_FlexyFramework::get();
         return sprintf('%0.2fs',($m[0] + $m[1]) -  $ff->start)
                 . '/ Files ' . count(get_included_files());
-    
-    
+
+
     }
     /**
      * turn on off session - wrap long database queries or
      * data processing with this to prevent locking
      * @see
      * @param int $state new session state - 0 = off, 1 = on
-     */ 
-    
+     */
+
     function sessionState($state)
-    { 
+    {
         static $ses_status = false;
         static $ini = false;
         // session status is only php5.4 and up..
@@ -403,18 +409,18 @@ class HTML_FlexyFramework_Page  {
         if(!function_exists('session_status')){
              $ses_status = 1;
         } else {
-            $ses_status = ($ses_status === false) ? session_status() : $ses_status;        
+            $ses_status = ($ses_status === false) ? session_status() : $ses_status;
         }
         if (PHP_SESSION_ACTIVE != $ses_status) {
             return;
         }
-        
+
         switch ($state) {
             case 0:
                 session_write_close();
                 return;
             case 1:
-                if ($ini) {  
+                if ($ini) {
                     ini_set('session.use_only_cookies', false);
                     ini_set('session.use_cookies', false);
                     ini_set('session.use_trans_sid', false);
@@ -426,7 +432,5 @@ class HTML_FlexyFramework_Page  {
                 return;
         }
     }
-    
-}
 
- 
+}

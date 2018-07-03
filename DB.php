@@ -596,7 +596,7 @@ class DB
      */
     static function isError($value)
     {
-        return is_object($value) && is_a($value, 'DB_Error');		
+        return is_object($value) && is_a($value, 'DB_Error');
     }
 
     // }}}
@@ -654,6 +654,7 @@ class DB
      * @return string  the error message or false if the error code was
      *                  not recognized
      */
+
     static function errorMessage($value)
     {
         static $errorMessages;
@@ -776,9 +777,16 @@ class DB
             $parsed['dbsyntax'] = $str;
         }
 
-        if (!count($dsn)) {
+        /*
+            if (!count($dsn)) {
+                return $parsed;
+            }
+        }*/
+
+        if (is_null($dsn)){
             return $parsed;
         }
+
 
         // Get (if found): username and password
         // $dsn => username:password@protocol+hostspec/database
@@ -834,7 +842,7 @@ class DB
                 $parsed['database'] = rawurldecode($dsn);
             } else {
                 // /database?param1=value1&param2=value2
-                $parsed['database'] = rawurldecode(substr($dsn, 0, $pos));
+                $parsed['database'] = rawurldecode(substr($dsn,  0, $pos));
                 $dsn = substr($dsn, $pos + 1);
                 if (strpos($dsn, '&') !== false) {
                     $opts = explode('&', $dsn);
@@ -869,7 +877,7 @@ class DB
          * defined, and means that we deal with strings and array in the same
          * manner. */
         $dsnArray = DB::parseDSN($dsn);
-        
+
         if ($hidePassword) {
             $dsnArray['password'] = 'PASSWORD';
         }
@@ -879,7 +887,7 @@ class DB
         if (is_string($dsn) && strpos($dsn, 'tcp') === false && $dsnArray['protocol'] == 'tcp') {
             $dsnArray['protocol'] = false;
         }
-        
+
         // Now we just have to construct the actual string. This is ugly.
         $dsnString = $dsnArray['phptype'];
         if ($dsnArray['dbsyntax']) {
@@ -902,7 +910,7 @@ class DB
             $dsnString .= ':'.$dsnArray['port'];
         }
         $dsnString .= '/'.$dsnArray['database'];
-        
+
         /* Option handling. Unfortunately, parseDSN simply places options into
          * the top-level array, so we'll first get rid of the fields defined by
          * DB and see what's left. */
@@ -929,7 +937,7 @@ class DB
 
         return $dsnString;
     }
-    
+
     // }}}
 }
 
