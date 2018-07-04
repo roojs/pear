@@ -779,7 +779,7 @@ class DB
 
 
         if (is_null($dsn)){
-          return $parsed;
+            return $parsed;
         }
 
 
