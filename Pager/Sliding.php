@@ -356,7 +356,7 @@ class Pager_Sliding
      *                          their values.
      * @access public
      */
-    function Pager_Sliding($options = array())
+    function __construct($options = array())
     {
         $this->_setOptions($options);
         $this->_generatePageData();
