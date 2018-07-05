@@ -858,7 +858,7 @@ class HTML_FlexyFramework2 {
         }
         
         if ( !file_exists($this->HTML_Template_Flexy['compileDir']))  {
-            @mkdir($this->HTML_Template_Flexy['compileDir'], 0700, true);
+            mkdir($this->HTML_Template_Flexy['compileDir'], 0700, true);
             clearstatcache();
              
             if ( !file_exists($this->HTML_Template_Flexy['compileDir']))  {
