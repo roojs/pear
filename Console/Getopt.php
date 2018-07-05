@@ -70,7 +70,7 @@ class Console_Getopt
      * the non-option arguments
      * @access public
      */
-    function getopt2($args, $short_options, $long_options = null, $skip_unknown = false)
+    static function getopt2($args, $short_options, $long_options = null, $skip_unknown = false)
     {
         return Console_Getopt::doGetopt(2, $args, $short_options, $long_options, $skip_unknown);
     }

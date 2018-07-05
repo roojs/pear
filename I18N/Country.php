@@ -30,7 +30,7 @@ class I18N_Country extends I18N_Common {
      * @return: void
      * @access: public
      */
-    function I18N_Country()
+    function __construct()
     {
     // call constructor of parent class
         parent::_constructor();
