@@ -257,7 +257,7 @@ class Validate
      *
      * @access public
      */
-    function number($number, $options = array())
+    static function number($number, $options = array())
     {
         $decimal = $dec_prec = $min = $max = null;
         if (is_array($options)) {
@@ -751,7 +751,7 @@ class Validate
      *
      * @access public
      */
-    function date($date, $options)
+    static function date($date, $options)
     {
         $max    = false;
         $min    = false;
@@ -934,7 +934,7 @@ class Validate
      * @access private
      * @return string
      */
-    function _substr(&$date, $num, $opt = false)
+    static function _substr(&$date, $num, $opt = false)
     {
         if ($opt && strlen($date) >= $opt && preg_match('/^[0-9]{'.$opt.'}/', $date, $m)) {
             $ret = $m[0];
