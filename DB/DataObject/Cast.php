@@ -164,7 +164,7 @@ class DB_DataObject_Cast {
     * @access   public 
     */
   
-    function date() 
+    static function date() 
     {  
         $args = func_get_args();
         switch(count($args)) {
