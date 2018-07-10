@@ -1163,7 +1163,7 @@ class Image_Transform
      *
      * @return void
      */
-    function addText()
+    function addText($params)
     {
         return PEAR::staticRaiseError('addText() method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
