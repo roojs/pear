@@ -970,7 +970,7 @@ class Image_Transform
      * @return PEAR_error
      * @access protected
      */
-    function _resize()
+    function _resize($new_x, $new_y, $options = null)
     {
         return PEAR::staticRaiseError('Resize method not supported by driver',
             IMAGE_TRANSFORM_ERROR_UNSUPPORTED);
