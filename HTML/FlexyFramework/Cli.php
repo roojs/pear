@@ -297,7 +297,7 @@ Available commands:
         $call[] = array_shift($ar); 
         //var_dump($ar);
         $val = self::$cli_opts;
-        print_r($val);exit;
+        
         $newargs = Console_Getargs::factory($val, $ar);
         
         if (is_a($newargs, 'PEAR_Error')) {
