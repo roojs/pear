@@ -43,7 +43,7 @@ class I18N_Common extends PEAR {
      * @return: void
      * @access: public
      */
-    function I18N_Common()
+    function __construct()
     {
         parent::__construct();
         $this->_codes = array();
