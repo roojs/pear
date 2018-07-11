@@ -60,7 +60,7 @@ class I18N_Common extends PEAR {
      */
     function _constructor()
     {
-        $this->__construct();
+        $this::__construct();
     }
 
     // }}}
