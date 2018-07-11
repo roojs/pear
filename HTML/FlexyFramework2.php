@@ -155,6 +155,7 @@ class HTML_FlexyFramework2 {
         // echo '<PRE>'; print_r($this);exit;
         if ($this->cli) {
             $args = $_SERVER['argv'];
+            print_r($args);exit;
             array_shift($args );
             array_shift($args );
             $this->_run($this->run,false,$args);
