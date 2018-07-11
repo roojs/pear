@@ -318,7 +318,6 @@ Available commands:
         
         
         $ret =  $newargs->getValues();
-        print_r($ret);exit;
             foreach($ret as $k=>$v) {
                 switch($k) {
                     case 'pman-nodatabase':
