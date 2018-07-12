@@ -850,6 +850,14 @@ class Mail_mime
             while (list($key, $value) = each($params)) {
                 $this->_build_params[$key] = $value;
             }
+            
+            // while (list($key, $value) = each($params)) {
+            //     $this->_build_params[$key] = $value;
+            // }
+            
+            foreach($params  as $key => $value){
+                $this->_build_params[$key] = $value;
+            }
         }
 
         if (isset($this->_headers['From'])) {
