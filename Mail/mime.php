@@ -183,7 +183,11 @@ class Mail_mime
 
         // Update build parameters
         if (!empty($params) && is_array($params)) {
-            while (list($key, $value) = each($params)) {
+            // while (list($key, $value) = each($params)) {
+            //     $this->_build_params[$key] = $value;
+            // }
+            
+            foreach($params  as $key => $value){
                 $this->_build_params[$key] = $value;
             }
         }
