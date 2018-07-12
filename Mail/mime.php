@@ -847,10 +847,6 @@ class Mail_mime
     function &get($params = null, $filename = null, $skip_head = false)
     {
         if (isset($params)) {
-            while (list($key, $value) = each($params)) {
-                $this->_build_params[$key] = $value;
-            }
-            
             // while (list($key, $value) = each($params)) {
             //     $this->_build_params[$key] = $value;
             // }
