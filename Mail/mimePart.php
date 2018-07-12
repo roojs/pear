@@ -574,11 +574,7 @@ class Mail_mimePart
         $escape = '=';
         $output = '';
 
-        foreach ($variable as $key => $value) {
-            // code...
-        }
-
-        while (list($idx, $line) = each($lines)) {
+        foreach ($lines as $idx => $line) {
             $newline = '';
             $i = 0;
 
@@ -617,6 +613,10 @@ class Mail_mimePart
             $output .= $newline . $eol;
             unset($lines[$idx]);
         }
+        // 
+        // while (list($idx, $line) = each($lines)) {
+        // 
+        // }
         // Don't want last crlf
         $output = substr($output, 0, -1 * strlen($eol));
         return $output;
