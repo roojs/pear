@@ -778,14 +778,9 @@ class DB
         }
 
 
-        if (is_array($dsn) && !count($dsn)) {
+        if (is_null($dsn)){
             return $parsed;
         }
-        // 
-        // 
-        // if (is_null($dsn)){
-        //     return $parsed;
-        // }
 
 
         // Get (if found): username and password
