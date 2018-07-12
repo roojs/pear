@@ -953,7 +953,7 @@ class Mail_mimePart
      * @access public
      * @since 1.6.1
      */
-    function encodeHeaderValue($value, $charset, $encoding, $prefix_len=0, $eol="\r\n")
+    static function encodeHeaderValue($value, $charset, $encoding, $prefix_len=0, $eol="\r\n")
     {
         // #17311: Use multibyte aware method (requires mbstring extension)
         if ($result = Mail_mimePart::encodeMB($value, $charset, $encoding, $prefix_len, $eol)) {
