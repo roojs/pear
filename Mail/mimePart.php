@@ -574,6 +574,10 @@ class Mail_mimePart
         $escape = '=';
         $output = '';
 
+        foreach ($variable as $key => $value) {
+            // code...
+        }
+
         while (list($idx, $line) = each($lines)) {
             $newline = '';
             $i = 0;
