@@ -1296,8 +1296,12 @@ class Mail_mime
     function _encodeHeaders($input, $params = array())
     {
         $build_params = $this->_build_params;
-        while (list($key, $value) = each($params)) {
-            $build_params[$key] = $value;
+        // while (list($key, $value) = each($params)) {
+        //     $build_params[$key] = $value;
+        // }
+        
+        foreach($params  as $key => $value){
+            $this->_build_params[$key] = $value;
         }
 
         foreach ($input as $hdr_name => $hdr_value) {
