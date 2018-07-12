@@ -275,6 +275,10 @@ class Mail_mimePart
     {
         $encoded =& $this->_encoded;
 
+        if(!is_array($this->_subparts)) {
+            print_r($this->_subparts);exit;
+        }
+
         if (count($this->_subparts)) {
             $boundary = $boundary ? $boundary : '=_' . md5(rand() . microtime());
             $eol = $this->_eol;
