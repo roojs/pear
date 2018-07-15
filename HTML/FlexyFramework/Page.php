@@ -253,11 +253,13 @@ class HTML_FlexyFramework_Page  {
         $type = isset($this->contentType) ? $this->contentType : 'text/html';
         header('Content-Type: '.$type.';charset='.( empty($options->charset) ? 'UTF-8' : $options->charset ));
 
+
         if (!$this->masterTemplate) {
             return $this->outputBody();
         }
-        
         /* master template */
+
+
         $template_engine = new HTML_Template_Flexy();
         $template_engine->compile($this->masterTemplate);
         if (!$this->_cache || !$this->cacheMethod) {
