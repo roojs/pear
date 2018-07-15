@@ -283,6 +283,8 @@ class HTML_FlexyFramework_Page  {
     */
     function outputBody() {
 
+        print_r('break here...');exit;
+
         $template_engine = new HTML_Template_Flexy();
         $template_engine->compile($this->template);
         if ($this->elements) { /* BC crap! */
