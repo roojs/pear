@@ -242,7 +242,7 @@ class HTML_FlexyFramework_Page  {
 
     function output()
     {
-
+        print_r('break template');exit;
         if (!empty($this->cli)) {
             return;
         }
