@@ -242,6 +242,8 @@ class HTML_FlexyFramework_Page  {
 
     function output()
     {
+        print_r('bresk');exit;
+
 
         if (!empty($this->cli)) {
             return;
