@@ -103,7 +103,7 @@ class Console_Getopt
      *
      * @return array
      */
-    function doGetopt($version, $args, $short_options, $long_options = null, $skip_unknown = false)
+    static function doGetopt($version, $args, $short_options, $long_options = null, $skip_unknown = false)
     {
         // in case you pass directly readPHPArgv() as the first arg
         if (PEAR::isError($args)) {
