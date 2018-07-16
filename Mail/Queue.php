@@ -266,6 +266,7 @@ class Mail_Queue extends PEAR
      */
     function _Mail_Queue()
     {
+        var_dump(this);die;
         unset($this);
     }
 
@@ -671,7 +672,7 @@ class Mail_Queue extends PEAR
         } else {
             $err = PEAR::raiseError(sprintf("%s", $msg), $code, $mode);
         }
-        return $err;
+ï¿½ ï¿½ ï¿½ ï¿½ return $err;
     }
 */
 }
