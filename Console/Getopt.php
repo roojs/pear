@@ -186,7 +186,7 @@ class Console_Getopt
      * @access private
      * @return void
      */
-    function _parseShortOption($arg, $short_options, &$opts, &$args, $skip_unknown)
+    static function _parseShortOption($arg, $short_options, &$opts, &$args, $skip_unknown)
     {
         for ($i = 0; $i < strlen($arg); $i++) {
             $opt     = $arg{$i};
