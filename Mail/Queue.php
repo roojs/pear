@@ -264,17 +264,18 @@ class Mail_Queue extends PEAR
      * @return void
      * @access public
      */
-    function _Mail_Queue()
+    /*function _Mail_Queue()
     {
         unset($this);
-    }
+    }*/
 
     // }}}
     // {{{ __destruct
 
     function __destruct()
     {
-        $this->_Mail_Queue();
+        //$this->_Mail_Queue();
+        unset($this);
     }
 
     // }}}
