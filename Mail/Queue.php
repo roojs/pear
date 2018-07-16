@@ -171,7 +171,6 @@ class Mail_Queue extends PEAR
 
     function __construct($container_options, $mail_options)
     {
-        var_dump(self::hasErrors()); die;
         return $this->Mail_Queue($container_options, $mail_options);
     }
 
