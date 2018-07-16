@@ -266,7 +266,6 @@ class Mail_Queue extends PEAR
      */
     function _Mail_Queue()
     {
-        var_dump(this);die;
         unset($this);
     }
 
