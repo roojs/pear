@@ -133,7 +133,8 @@ class Console_Getopt
         }
 
         reset($args);
-        while (list($i, $arg) = each($args)) {
+
+        foreach($args as $i=>$arg){
             /* The special element '--' means explicit end of
                options. Treat the rest of the arguments as non-options
                and end the loop. */
