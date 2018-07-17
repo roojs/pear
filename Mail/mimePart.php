@@ -613,10 +613,7 @@ class Mail_mimePart
             $output .= $newline . $eol;
             unset($lines[$idx]);
         }
-        // 
-        // while (list($idx, $line) = each($lines)) {
-        // 
-        // }
+       
         // Don't want last crlf
         $output = substr($output, 0, -1 * strlen($eol));
         return $output;
