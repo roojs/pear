@@ -51,7 +51,7 @@ class OLE_PPS_Root extends OLE_PPS
     * @param integer $time_1st A timestamp
     * @param integer $time_2nd A timestamp
     */
-    function OLE_PPS_Root($time_1st, $time_2nd, $raChild)
+    function __construct($time_1st, $time_2nd, $raChild)
     {
         $this->_tmp_dir = System::tmpdir();
         $this->OLE_PPS(
