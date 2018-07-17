@@ -71,7 +71,7 @@ class Mail_Queue_Error extends PEAR_Error
      *                           $mode & PEAR_ERROR_TRIGGER
      * @param string  $debuginfo additional debug info
      */
-    function Mail_Queue_Error($code = MAILQUEUE_ERROR, $mode = PEAR_ERROR_RETURN,
+    function __construct($code = MAILQUEUE_ERROR, $mode = PEAR_ERROR_RETURN,
               $level = E_USER_NOTICE,  $file=__FILE__, $line=__LINE__, $debuginfo='')
     {
 
