@@ -297,7 +297,7 @@ class Console_Getopt
                 $next_option_rest = substr($long_options[$i + 1], $opt_len);
             } else {
                 $next_option_rest = '';
-            }q
+            }
 
             if ($opt_rest != '' && $opt{0} != '=' &&
                 $i + 1 < count($long_options) &&
