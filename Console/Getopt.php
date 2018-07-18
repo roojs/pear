@@ -184,7 +184,7 @@ class Console_Getopt
      * @access private
      * @return void
      */
-    static function _parseShortOption($arg, $short_options, &$opts, &$args, $skip_unknown, $argpos)
+    static function _parseShortOption($arg, $short_options, &$opts, &$args, $skip_unknown, &$arg_pos)
     {
         for ($i = 0; $i < strlen($arg); $i++) {
             $opt     = $arg{$i};
@@ -214,14 +214,15 @@ class Console_Getopt
                     if ($i + 1 < strlen($arg)) {
                         $opts[] = array($opt,  substr($arg, $i + 1));
                         break;
-                    } else if (list(, $opt_arg) = each($args)) {
+                    } else if (isset($args[$arg_pos+1])) {
                         /* Else use the next argument. */;
-                        var_dump($args);
-                        if (Console_Getopt::_isShortOpt($opt_arg)
-                            || Console_Getopt::_isLongOpt($opt_arg)) {
+                        $opt_arg = $args[$arg_pos+1];
+                        if (Console_Getopt::_isShortOpt($args[$arg_pos+1])
+                            || Console_Getopt::_isLongOpt($args[$arg_pos+1])) {
                             $msg = "option requires an argument --$opt";
                             return PEAR::raiseError("Console_Getopt:" . $msg);
                         }
+                        $arg_pos++;
                     } else {
                         $msg = "option requires an argument --$opt";
                         return PEAR::raiseError("Console_Getopt:" . $msg);
@@ -229,7 +230,7 @@ class Console_Getopt
                 }
             }
 
-            $opts[] = array($opt, $opt_arg);
+            $opts[] = array($opt, $opt_arg );
         }
     }
 
@@ -313,7 +314,7 @@ class Console_Getopt
                 if (substr($long_opt, -2) != '==') {
                     /* Long option requires an argument.
                        Take the next argument if one wasn't specified. */;
-                    if (!strlen($opt_arg) && !(list(, $opt_arg) = each($args))) {
+                    if (!strlen($opt_arg) && !isset($args[$arg_pos + 1])) {
                         $msg = "Console_Getopt: option requires an argument --$opt";
                         return PEAR::raiseError($msg);
                     }
