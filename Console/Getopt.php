@@ -131,8 +131,9 @@ class Console_Getopt
                 array_shift($args);
             }
         }
-
-        foreach($args as $i=>$arg){
+        
+        for ($i = 0; $i < count($args); $i++) {
+            $arg = $args[$i];
             /* The special element '--' means explicit end of
                options. Treat the rest of the arguments as non-options
                and end the loop. */
