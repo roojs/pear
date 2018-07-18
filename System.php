@@ -97,7 +97,7 @@ class System
     {
         if (PEAR::isError($error)) {
             $error = $error->getMessage();
-        }
+        }var_dump($error);die;
         trigger_error($error, E_USER_WARNING);
         return false;
     }
