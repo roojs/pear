@@ -186,7 +186,6 @@ class Console_Getopt
      */
     static function _parseShortOption($arg, $short_options, &$opts, &$args, $skip_unknown)
     {
-        var_dump($args);
         for ($i = 0; $i < strlen($arg); $i++) {
             $opt     = $arg{$i};
             $opt_arg = null;
@@ -209,7 +208,7 @@ class Console_Getopt
                         $opts[] = array($opt, substr($arg, $i + 1));
                         break;
                     }
-                } else {
+                } else {echo "argument :".$opt_arg;
                     /* Option requires an argument. Use the remainder of the arg
                        string if there is anything left. */
                     if ($i + 1 < strlen($arg)) {
