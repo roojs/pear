@@ -240,7 +240,7 @@ class Console_Getopt
      * @access private
      * @return bool
      */
-    function _isShortOpt($arg)
+    static function _isShortOpt($arg)
     {
         return strlen($arg) == 2 && $arg[0] == '-'
                && preg_match('/[a-zA-Z]/', $arg[1]);
