@@ -751,7 +751,7 @@ class Validate
      *
      * @access public
      */
-    static function date($date, $options)
+    public static function date($date, $options)
     {
         $max    = false;
         $min    = false;

@@ -266,7 +266,7 @@ class Mail_Queue extends PEAR
      */
     function _Mail_Queue()
     {
-        unset($this);
+        //unset($this);
     }
 
     // }}}
@@ -274,7 +274,8 @@ class Mail_Queue extends PEAR
 
     function __destruct()
     {
-        $this->_Mail_Queue();
+        //$this->_Mail_Queue();
+        //unset($this);
     }
 
     // }}}
@@ -589,7 +590,7 @@ class Mail_Queue extends PEAR
      * @return  boolean   whether $value is an MAILQUEUE_ERROR
      * @access public
      */
-    static function isError($value)
+    static function isError($value,$code = NULL)
     {
         return (is_object($value) && is_a($value, 'pear_error'));
     }
