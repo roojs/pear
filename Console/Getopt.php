@@ -162,7 +162,7 @@ class Console_Getopt
                                                            $short_options,
                                                            $opts,
                                                            $args,
-                                                           $skip_unknown);
+                                                           $skip_unknown,$i);
                 if (PEAR::isError($error)) {
                     return $error;
                 }
