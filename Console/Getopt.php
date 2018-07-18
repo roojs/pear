@@ -216,7 +216,7 @@ class Console_Getopt
                         break;
                     } else if (list(, $opt_arg) = each($args)) {
                         /* Else use the next argument. */;
-                        echo "here is: ".$opt_arg;
+                        var_dump($args);
                         if (Console_Getopt::_isShortOpt($opt_arg)
                             || Console_Getopt::_isLongOpt($opt_arg)) {
                             $msg = "option requires an argument --$opt";
