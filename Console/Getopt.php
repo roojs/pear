@@ -214,7 +214,8 @@ class Console_Getopt
                     if ($i + 1 < strlen($arg)) {
                         $opts[] = array($opt,  substr($arg, $i + 1));
                         break;
-                    } else if (list(, $opt_arg) = each($args)) {
+                    //} else if (list(, $opt_arg) = each($args)) { 
+                        else if (foreach($args as $opt_arg)) { 
                         /* Else use the next argument. */;
                         if (Console_Getopt::_isShortOpt($opt_arg)
                             || Console_Getopt::_isLongOpt($opt_arg)) {
@@ -296,7 +297,7 @@ class Console_Getopt
                 $next_option_rest = substr($long_options[$i + 1], $opt_len);
             } else {
                 $next_option_rest = '';
-            }
+            }q
 
             if ($opt_rest != '' && $opt{0} != '=' &&
                 $i + 1 < count($long_options) &&
