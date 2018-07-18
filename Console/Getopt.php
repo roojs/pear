@@ -273,7 +273,7 @@ class Console_Getopt
      * @access private
      * @return void|PEAR_Error
      */
-    function _parseLongOption($arg, $long_options, &$opts, &$args, $skip_unknown)
+    function _parseLongOption($arg, $long_options, &$opts, &$args, $skip_unknown, &$arg_pos)
     {
         @list($opt, $opt_arg) = explode('=', $arg, 2);
 
