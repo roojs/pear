@@ -214,8 +214,7 @@ class Console_Getopt
                     if ($i + 1 < strlen($arg)) {
                         $opts[] = array($opt,  substr($arg, $i + 1));
                         break;
-                    //}else if (list(, $opt_arg) = each($args)) { 
-                    } else if (!empty($opt_arg)) { 
+                    } else if (list(, $opt_arg) = each($args)) {
                         /* Else use the next argument. */;
                         if (Console_Getopt::_isShortOpt($opt_arg)
                             || Console_Getopt::_isLongOpt($opt_arg)) {
@@ -241,7 +240,7 @@ class Console_Getopt
      * @access private
      * @return bool
      */
-    static function _isShortOpt($arg)
+    function _isShortOpt($arg)
     {
         return strlen($arg) == 2 && $arg[0] == '-'
                && preg_match('/[a-zA-Z]/', $arg[1]);
