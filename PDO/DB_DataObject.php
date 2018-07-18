@@ -2,7 +2,7 @@
 
 // wrapper to assist in migration...
 
-require_once 'DataObject.php';
+require_once 'PDO/DataObject.php';
 
 class DB_DataObject extends PDO_DataObject {
     static function factory($v='')
