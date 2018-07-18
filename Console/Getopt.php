@@ -149,7 +149,7 @@ class Console_Getopt
                                                           $long_options,
                                                           $opts,
                                                           $args,
-                                                          $skip_unknown);
+                                                          $skip_unknown,$i);
                 if (PEAR::isError($error)) {
                     return $error;
                 }
@@ -184,7 +184,7 @@ class Console_Getopt
      * @access private
      * @return void
      */
-    static function _parseShortOption($arg, $short_options, &$opts, &$args, $skip_unknown)
+    static function _parseShortOption($arg, $short_options, &$opts, &$args, $skip_unknown, $argpos)
     {
         for ($i = 0; $i < strlen($arg); $i++) {
             $opt     = $arg{$i};
