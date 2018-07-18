@@ -215,7 +215,7 @@ class Console_Getopt
                         $opts[] = array($opt,  substr($arg, $i + 1));
                         break;
                     //} else if (list(, $opt_arg) = each($args)) { 
-                        else if (foreach($args as $opt_arg)) { 
+                    } else if (foreach($args as $opt_arg)) { 
                         /* Else use the next argument. */;
                         if (Console_Getopt::_isShortOpt($opt_arg)
                             || Console_Getopt::_isLongOpt($opt_arg)) {
