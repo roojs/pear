@@ -318,12 +318,13 @@ class Console_Getopt
                         $msg = "Console_Getopt: option requires an argument --$opt";
                         return PEAR::raiseError($msg);
                     }
-
+                    $opt_arg = $args[$arg_pos + 1];
                     if (Console_Getopt::_isShortOpt($opt_arg)
                         || Console_Getopt::_isLongOpt($opt_arg)) {
                         $msg = "Console_Getopt: option requires an argument --$opt";
                         return PEAR::raiseError($msg);
                     }
+                    $arg_pos++;
                 }
             } else if ($opt_arg) {
                 $msg = "Console_Getopt: option --$opt doesn't allow an argument";
