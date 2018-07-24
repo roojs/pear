@@ -322,7 +322,7 @@ class HTTP_Request
     * 
     * @access public
     */
-    function HTTP_Request($url = '', $params = array())
+    public function __construct($url = '', $params = array()) 
     {
         $this->_method         =  HTTP_REQUEST_METHOD_GET;
         $this->_http           =  HTTP_REQUEST_HTTP_VER_1_1;
