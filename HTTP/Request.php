@@ -1259,7 +1259,7 @@ class HTTP_Response
     * @param  Net_Socket    socket to read the response from
     * @param  array         listeners attached to request
     */
-    function HTTP_Response(&$sock, &$listeners)
+    public function __construct(&$sock, &$listeners) 
     {
         $this->_sock      =& $sock;
         $this->_listeners =& $listeners;
