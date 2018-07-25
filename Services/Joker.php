@@ -103,6 +103,9 @@ class Services_Joker {
             }
             
             foreach($r as $i=>$v) {
+                if (!isset($keys[$i])) {
+                    continue;
+                }
                 $rr[$keys[$i]] = $v;
             }
             $ret[] = $rr;
