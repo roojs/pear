@@ -111,7 +111,7 @@ class DB_DataObject_Generator extends DB_DataObject
                 $databases[substr($k,9)] = $v;
             }
         }
-
+        print_R('test??');exit;
         if (isset($options['database'])) {
             if ($db_driver == 'DB') {
                 require_once 'DB.php';
