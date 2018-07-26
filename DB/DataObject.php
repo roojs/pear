@@ -2422,7 +2422,7 @@ class DB_DataObject extends DB_DataObject_Overload
         // Set database driver for reference 
         $db_driver = empty($_DB_DATAOBJECT['CONFIG']['db_driver']) ? 
                 'DB' : $_DB_DATAOBJECT['CONFIG']['db_driver'];
-        print_r('test??');exit;
+        
         // is it already connected ?    
         if ($this->_database_dsn_md5 && !empty($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5])) {
             
