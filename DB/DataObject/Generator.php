@@ -144,7 +144,7 @@ class DB_DataObject_Generator extends DB_DataObject
                 require_once 'MDB2.php';
                 $dsn = MDB2::parseDSN($database);
             }
-            print_R($dsn);exit;
+
             if (($dsn['phptype'] == 'sqlite') && is_file($databasename)) {
                 $t->_database = basename($t->_database);
             }
