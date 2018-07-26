@@ -2562,7 +2562,6 @@ class DB_DataObject extends DB_DataObject_Overload
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug(print_r($_DB_DATAOBJECT['CONNECTIONS'],true), "CONNECT",5);
         }
-        print_R($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]);exit;
         if (PEAR::isError($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5])) {
             $this->debug($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->toString(), "CONNECT FAILED",5);
             return $this->raiseError(
