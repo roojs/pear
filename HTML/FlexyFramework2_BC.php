@@ -8,6 +8,11 @@ class HTML_FlexyFramework {
     static function get() {
         return HTML_FlexyFramework2::get();
     }
+    static function ensureSingle($sig, $class) {
+        return HTML_FlexyFramework2::ensureSingle($sig,$class);
+    }
+    
+    
 }
 
 class HTML_FlexyFramework_Page extends HTML_FlexyFramework2_Page {}
