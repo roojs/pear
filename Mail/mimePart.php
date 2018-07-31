@@ -1178,7 +1178,7 @@ class Mail_mimePart
      * @return string        Encoded character string
      * @access private
      */
-    function _qpReplaceCallback($matches)
+    static function _qpReplaceCallback($matches)
     {
         return sprintf('=%02X', ord($matches[1]));
     }
