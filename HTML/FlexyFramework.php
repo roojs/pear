@@ -574,7 +574,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         
         
         $iniCache = $this->DB_DataObject[$dbini];
-        $this->debug('clearing ini files', 'running generator');
+        $this->debug('generateDataobjectsCache', dirname($iniCache).'/*.ini');
         if ($force && file_exists($iniCache)) {
             
             $files = glob(dirname($iniCache).'/*.ini');
@@ -583,6 +583,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
             }
             clearstatcache();
         }
+        $this->debug('generateDataobjectsCache', 'DONE');
         
         $iniCacheTmp = $iniCache . '.tmp' .md5(rand());  // random to stop two processes using the same file.
         // has it expired..
