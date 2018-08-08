@@ -841,7 +841,7 @@ class HTML_Template_Flexy
         }
         
         // db dataobject easy handling of translations.
-        
+        var_dump($this->options['DB_DataObject_translator']);
         if (!empty($this->options['DB_DataObject_translator'])) {
             static $tr = false;
             if (!$tr) {
