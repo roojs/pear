@@ -544,6 +544,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         
         
         if (!file_exists($iniCache) || empty( $this->dataObjectsCacheExpires)) {
+            $this->debug(__METHOD__ . ':calling generate do cache');
             $this->generateDataobjectsCache(true);
             return;
         }
