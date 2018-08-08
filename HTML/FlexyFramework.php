@@ -565,7 +565,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
     {
         //$this->debug('generateDataobjectsCache: force=' . ($force ? 'yes' : 'no'));
         if (!$this->dataObjectsCache) { // does not use dataObjects Caching..
-            $this->debug('generateDataobjectsCache', 'dataObjectsCache - empty');
+            $this->debug('generateDataobjectsCache: dataObjectsCache - empty');
             return;
         }
         
@@ -574,7 +574,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         
         
         $iniCache = $this->DB_DataObject[$dbini];
-        $this->debug('generateDataobjectsCache', dirname($iniCache).'/*.ini');
+        $this->debug('generateDataobjectsCache:' .dirname($iniCache).'/*.ini');
         if ($force && file_exists($iniCache)) {
             
             $files = glob(dirname($iniCache).'/*.ini');
@@ -583,7 +583,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
             }
             clearstatcache();
         }
-        $this->debug('generateDataobjectsCache', 'DONE');
+        $this->debug('generateDataobjectsCache: DONE ini delete');
         
         $iniCacheTmp = $iniCache . '.tmp' .md5(rand());  // random to stop two processes using the same file.
         // has it expired..
