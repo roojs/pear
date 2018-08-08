@@ -616,6 +616,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         $this->_exposeToPear(); // this will reset the debug level...
         DB_DataObject::DebugLevel($dl);
         
+        $this->debug('generateDataobjectsCache', 'running generator');
         // DB_DataObject::debugLevel(1);      
         require_once 'HTML/FlexyFramework/Generator.php';
         $generator = new HTML_FlexyFramework_Generator();
