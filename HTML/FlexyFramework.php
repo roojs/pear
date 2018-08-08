@@ -574,8 +574,8 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         
         
         $iniCache = $this->DB_DataObject[$dbini];
-        
-         if ($force && file_exists($iniCache)) {
+        $this->debug('clearing ini files', 'running generator');
+        if ($force && file_exists($iniCache)) {
             
             $files = glob(dirname($iniCache).'/*.ini');
             foreach($files as $f) {
