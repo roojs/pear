@@ -617,12 +617,13 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         $this->_exposeToPear(); // this will reset the debug level...
         DB_DataObject::DebugLevel($dl);
         
-        $this->debug('generateDataobjectsCache', 'running generator');
+        $this->debug('generateDataobjectsCache: running generator');
         // DB_DataObject::debugLevel(1);      
         require_once 'HTML/FlexyFramework/Generator.php';
         $generator = new HTML_FlexyFramework_Generator();
         $generator->start();
-        
+        $this->debug('generateDataobjectsCache: done generator');
+
         HTML_FlexyFramework_Generator::writeCache($iniCacheTmp, $iniCache); 
         // reset the cache to the correct lcoation.
         $this->DB_DataObject[$dbini] = $iniCache;
