@@ -90,7 +90,8 @@ class Services_Xero
             return false;
         }
         
-        $response = $this->XeroOAuth->request('POST', $this->XeroOAuth->url('Invoices', 'core'), $params, $xml, $this->format);
+        $response = $this->XeroOAuth->request('POST',
+                $this->XeroOAuth->url('Invoices', 'core'), $params, $xml, $this->format);
         
         $data = $this->XeroOAuth->parseResponse($response['response'], $response['format']);
         
