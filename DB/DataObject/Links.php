@@ -121,7 +121,7 @@ class DB_DataObject_Links
             
             
             $info = $this->linkInfo($field);
-
+            
             if ($info) {
                 return $this->getLink($field, $info[0],  $link === false ? $info[1] : $link );
             }
@@ -140,7 +140,7 @@ class DB_DataObject_Links
          
         $tn = is_string($table) ? $table : $table->tableName();
          
-
+            
  
         if (!isset($this->do->$field)) {
             $this->do->raiseError("getLink: row not set $field", DB_DATAOBJECT_ERROR_NODATA);
@@ -168,7 +168,7 @@ class DB_DataObject_Links
         }
         // -1 or 0 -- no referenced record..
        
-        $ret = false;echo $link; exit;
+        $ret = false;
         if ($link) {
             
             if ($obj->get($link, $this->do->$field)) {
