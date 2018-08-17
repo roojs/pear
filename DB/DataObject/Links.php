@@ -131,7 +131,7 @@ class DB_DataObject_Links
             if (!($p = strpos($field, '_'))) {
                 return false;
             }
-            $table = substr($field, 0, $p);
+            $table = substr($field, 0, $p);echo $table; exit;
             return $this->getLink($field, $table);
             
             
