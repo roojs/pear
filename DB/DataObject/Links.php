@@ -121,7 +121,7 @@ class DB_DataObject_Links
             
             
             $info = $this->linkInfo($field);
-            var_dump($info); exit;
+
             if ($info) {
                 return $this->getLink($field, $info[0],  $link === false ? $info[1] : $link );
             }
