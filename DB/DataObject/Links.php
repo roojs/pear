@@ -140,7 +140,7 @@ class DB_DataObject_Links
          
         $tn = is_string($table) ? $table : $table->tableName();
          
-            
+        echo $tn; exit;   
  
         if (!isset($this->do->$field)) {
             $this->do->raiseError("getLink: row not set $field", DB_DATAOBJECT_ERROR_NODATA);
