@@ -116,7 +116,7 @@ class DB_DataObject_Links
         static $cache = array();
         
         // GUESS THE LINKED TABLE.. (if found - recursevly call self)
-        
+        echo $table; exit;
         if ($table == false) {
             
             
