@@ -132,7 +132,7 @@ class Net_Whois extends PEAR
      *
      * @access public
      */
-    function Net_Whois()
+    function __construct($error_class = null)
     {
         parent::__construct();
 
@@ -140,6 +140,7 @@ class Net_Whois extends PEAR
         $this->setAuthoritative();
         $this->setTimeout();
     }
+    
     // }}}
 
     // {{{ setTimeout()
