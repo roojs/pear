@@ -879,7 +879,7 @@ class PEAR_Error
 
             printf($format, $this->getMessage());
         }
-
+        echo $this->mode; exit;
         if ($this->mode & PEAR_ERROR_TRIGGER) {
             trigger_error($this->getMessage(), $this->level);
         }
