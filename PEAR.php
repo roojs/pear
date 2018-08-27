@@ -857,11 +857,11 @@ class PEAR_Error
                 unset($this->backtrace[0]['object']);
             }
         }
-var_dump($options); exit;
+
         if ($mode & PEAR_ERROR_CALLBACK) {
             $this->level = E_USER_NOTICE;
             $this->callback = $options;
-        } else {        
+        } else {  
             if ($options === null) {
                 $options = E_USER_NOTICE;
             }
