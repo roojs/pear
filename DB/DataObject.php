@@ -463,7 +463,7 @@ class DB_DataObject extends DB_DataObject_Overload
 	        }
         }
         
-        
+
         $err = $this->_query($sql);
         if (is_a($err,'PEAR_Error')) {
             return false;
@@ -1356,7 +1356,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $original_query =  $this->_query;
         
         $items = $this->table();
-        
+
         // only apply update against sequence key if it is set?????
         
         $seq    = $this->sequenceKey();
@@ -1392,7 +1392,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     || !is_string($options['disable_null_strings'])
                     || strtolower($options['disable_null_strings']) !== 'full' ;
                     
-      
+        //print_r($items);exit;
         foreach($items as $k => $v) {
             
             // I think this is ignoring empty vlalues
@@ -1470,7 +1470,7 @@ class DB_DataObject extends DB_DataObject_Overload
             // - V2 may store additional data about float/int
             $settings .= "$kSql = " . intval($this->$k) . ' ';
         }
-         
+        
         
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $this->debug("got keys as ".serialize($keys),3);
@@ -1488,14 +1488,14 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         
-        
-        //  echo " $settings, $this->condition ";
+
+        //  echo " $settings, $this->condition "; 
         if ($settings && isset($this->_query) && $this->_query['condition']) {
             
             $table = ($quoteIdentifiers ? $DB->quoteIdentifier($this->tableName()) : $this->tableName());
-        
-            $r = $this->_query("UPDATE  {$table}  SET {$settings} {$this->_query['condition']} ");
             
+            $r = $this->_query("UPDATE  {$table}  SET {$settings} {$this->_query['condition']} ");
+           
             // restore original query conditions.
             $this->_query = $original_query;
             
@@ -2775,7 +2775,7 @@ class DB_DataObject extends DB_DataObject_Overload
             $this->_query= $x->_query;
         }
        
-                    
+        
         foreach($keys as $k => $v) {
             // index keys is an indexed array
             /* these filter checks are a bit suspicious..
@@ -2799,7 +2799,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 ? ( $DB->quoteIdentifier($this->tableName()) . '.' . $DB->quoteIdentifier($k) )  
                 : "{$this->tableName()}.{$k}";
              
-             
+            
             
             if (is_object($this->$k) && is_a($this->$k,'DB_DataObject_Cast')) {
                 $dbtype = $DB->dsn["phptype"];
