@@ -839,7 +839,7 @@ class PEAR_Error
     {
         if ($mode === null) {
             $mode = PEAR_ERROR_RETURN;
-        }
+        }echo $mode;
         $this->message   = $message;
         $this->code      = $code;
         $this->mode      = $mode;
