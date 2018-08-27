@@ -861,7 +861,7 @@ class PEAR_Error
         if ($mode & PEAR_ERROR_CALLBACK) {
             $this->level = E_USER_NOTICE;
             $this->callback = $options;
-        } else {  
+        } else {
             if ($options === null) {
                 $options = E_USER_NOTICE;
             }
@@ -879,7 +879,7 @@ class PEAR_Error
 
             printf($format, $this->getMessage());
         }
-        echo $this->mode; exit;
+
         if ($this->mode & PEAR_ERROR_TRIGGER) {
             trigger_error($this->getMessage(), $this->level);
         }
