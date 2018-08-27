@@ -850,7 +850,7 @@ class PEAR_Error
         } else {
             $skiptrace = PEAR::getStaticProperty('PEAR_Error', 'skiptrace');
         }
-        echo "skip trace: ".$skiptrace; exit;
+
         if (!$skiptrace) {
             $this->backtrace = debug_backtrace();
             if (isset($this->backtrace[0]) && isset($this->backtrace[0]['object'])) {
