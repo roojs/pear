@@ -1030,6 +1030,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         $classobj->bootLoader  = $this;
         $classobj->request = $newRequest;
         $classobj->timer = &$this->timer;
+        $classobj->cli = $this->cli;
         
         $this->page = $classobj;
         if ($this->cli && !$isRedirect ) { // redirect always just takes redirect args..
