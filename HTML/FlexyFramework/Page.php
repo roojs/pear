@@ -129,7 +129,13 @@ class HTML_FlexyFramework_Page  {
     var $errors = array(); // key(element name)=>error message
 
 
-
+    /**
+    * is the page being run from the command line?
+    *  
+    * @var bool
+    * @access public
+    */
+    var $cli = false;
     /**
     * Arguments from cli if static $cli_opts is used.
     *
