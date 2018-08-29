@@ -986,7 +986,7 @@ class HTML_FlexyFramework2 {
         }
         
         $classobj  = $this->initPage($request,$isRedirect,$args);
-        
+        $classobj->cli = $this->cli;
         
         if ($this->cli && !$isRedirect ) { // redirect always just takes redirect args..
             require_once 'HTML/FlexyFramework2/Cli.php';
