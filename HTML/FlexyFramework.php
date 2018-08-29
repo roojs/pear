@@ -464,7 +464,8 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
      * overlay array properties..
      */
     
-    function applyIf($prop, $ar) {
+    function applyIf($prop, $ar)
+    {
         if (!isset($this->$prop)) {
             $this->$prop = $ar;
             return;
