@@ -393,7 +393,7 @@ class I18Nv2
      * @access  private
      * @return  void
      */
-    function _main()
+    static function _main()
     {
         // initialize the locale stack
         $last = &I18Nv2::getStaticProperty('last');
