@@ -80,7 +80,7 @@ class Translation2_Container
      *
      * @access public
      */
-    function Translation2_Container()
+    function __construct()
     {
     }
 
