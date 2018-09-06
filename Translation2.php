@@ -122,7 +122,7 @@ class Translation2
     /**
      * Constructor
      */
-    function Translation2()
+    function __construct()
     {
         if (func_num_args()) {
             $msg = '<b>Translation2 error:</b>'
