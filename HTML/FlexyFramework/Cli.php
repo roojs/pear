@@ -200,7 +200,7 @@ Available commands:
             } else {
                 $ar = $cls->getStaticProperties();
                  if (isset($ar['cli_opts'])) {
-                    echo "getting cli opts?\n";
+                    //echo "getting cli opts?\n";
                     $val = $cls->getStaticPropertyValue('cli_opts');
                 }
             }
