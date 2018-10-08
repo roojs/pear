@@ -1125,7 +1125,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
                 'echo "<label for=\"' . $for . '\">";' . 
                 'if (!empty($this->elements[\'' . $for . '\']->label)) ' .
                 ' { echo htmlspecialchars($this->elements[\'' . $for . '\']->label); } else { ?>' .
-                htmlspecialchars($ret) . '<? } ' .
+                htmlspecialchars($ret) . '<?php } ' .
                 'echo "</label>";'
             );
     }    
