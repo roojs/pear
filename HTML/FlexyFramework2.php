@@ -195,9 +195,9 @@ class HTML_FlexyFramework2 {
      */
     function loadModuleConfig($cfg)
     {
-        if (empty($cfg['enable'])) {
-            return $cfg;
-        }
+        
+        $mods = empty($cfg['enable'] ? array() : explode(',',$cfg['enable'];
+        array_unshift('');
         $proj = $cfg['project'];
         $rootDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
 
