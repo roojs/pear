@@ -202,7 +202,7 @@ class HTML_FlexyFramework2 {
         $rootDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
 
         foreach(explode(',',$cfg['enable']) as $m) {
-            $cls = $proj.'_'. $m . '_Config';
+            $cls = $proj. (strlen($m) ? '_'. $m ) : '' ) . '_Config';
 
             if (!file_exists($rootDir . '/'.str_replace('_','/', $cls). '.php')) {
                 continue;
