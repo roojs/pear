@@ -196,6 +196,9 @@ Available commands:
             if (method_exists($classname, 'cli_opts')) {
                 $val = $classname::cli_opts();
             } else {
+                $ar = $cls->getStaticProperties();
+                var_dump($ar);
+                
                 $val = $cls->getStaticPropertyValue('cli_opts');
             }
              
