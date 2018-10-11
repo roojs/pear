@@ -197,9 +197,11 @@ Available commands:
                 $val = $classname::cli_opts();
             } else {
                 $ar = $cls->getStaticProperties();
-                var_dump($ar);
+                if (isset($ar['cli_opts'])) {
+                    $val = $cls->getStaticPropertyValue('cli_opts');
+                }
                 
-                $val = $cls->getStaticPropertyValue('cli_opts');
+                
             }
              
             $val = is_array($val) ? $val : array();
