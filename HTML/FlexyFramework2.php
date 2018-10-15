@@ -534,7 +534,7 @@ class HTML_FlexyFramework2 {
         }
         
         
-        
+        $this->debug('generateDataobjectsCache', 'dataObjectsCache  generating');
          //echo "GENERATE?";
         
         // force quoting of column names..
