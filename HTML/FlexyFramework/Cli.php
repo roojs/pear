@@ -321,6 +321,11 @@ Available commands:
             }
             if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
                 if (!$has_class) {
+                    list($optional, $required, $params) = Console_Getargs::getOptionalRequired($val);
+        
+                    $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
+                    $optional . ' ' . $required . ' ' . $params . "\n\n";           
+       
                     echo Console_Getargs::getHelp($val,
                             $helpHeader, NULL, 78, 4)."\n\n";
                     exit;
