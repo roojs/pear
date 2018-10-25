@@ -247,7 +247,7 @@ Available commands:
         if (!is_a($newargs, 'PEAR_Error')) {
             return $newargs->getValues();
         }
-        
+        die("here?");
         list($optional, $required, $params) = Console_Getargs::getOptionalRequired($val);
         
         $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
