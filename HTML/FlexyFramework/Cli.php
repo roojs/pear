@@ -249,9 +249,7 @@ Available commands:
         
         $newargs = Console_Getargs::factory($val, $ar);
         
-        print_r($newargs);exit;
-        
-        
+  
         if (!is_a($newargs, 'PEAR_Error')) {
             return $newargs->getValues();
         }
