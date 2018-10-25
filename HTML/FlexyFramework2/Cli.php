@@ -187,9 +187,8 @@ Available commands:
     */
     function cliParse($classname)
     {
-    
-    // cli static $classname::$cli_opts
         die("here");
+    // cli static $classname::$cli_opts
         try {
             // look up the parent tree for core opts.
             $val = array();
