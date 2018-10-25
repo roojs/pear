@@ -303,7 +303,11 @@ Available commands:
         
         if (is_a($newargs, 'PEAR_Error')) {
             
-            
+            list($optional, $required, $params) = Console_Getargs::getOptionalRequired($val);
+        
+            $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
+                   $optional . ' ' . $required . ' ' . $params . "\n\n";           
+       
             
             if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
                 // since we do not handle all the arguemnts here...
