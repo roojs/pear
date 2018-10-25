@@ -311,44 +311,39 @@ Available commands:
         
         $newargs = Console_Getargs::factory($val, $ar);
         
-        if (is_a($newargs, 'PEAR_Error')) {
-            
-            list($optional, $required, $params) = Console_Getargs::getOptionalRequired($val);
-        
-            $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
-                   $optional . ' ' . $required . ' ' . $params . "\n\n";           
-       
-            
-            if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
-                // since we do not handle all the arguemnts here...
-                // skip errors if we find unknown arguments.
-                if (preg_match('/^Unknown argument/', $newargs->getMessage())) {
-                    return false;
-                }
-                
-                // User put illegal values on the command line.
-                echo Console_Getargs::getHelp($val,
-                        $helpHeader, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
-                exit;
-            }
-            if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
-                if (!$has_class) {
-                    echo Console_Getargs::getHelp($val,
-                            $helpHeader, NULL, 78, 4)."\n\n";
-                    exit;
-                }
-                return true;// hel
-            }
-            
+        if (!is_a($newargs, 'PEAR_Error')) {
             return false;
         }
-       
+            
+        list($optional, $required, $params) = Console_Getargs::getOptionalRequired($val);
+    
+        $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
+               $optional . ' ' . $required . ' ' . $params . "\n\n";           
+   
         
-        // now handle real arguments..
+        if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
+            // since we do not handle all the arguemnts here...
+            // skip errors if we find unknown arguments.
+            if (preg_match('/^Unknown argument/', $newargs->getMessage())) {
+                return false;
+            }
+            
+            // User put illegal values on the command line.
+            echo Console_Getargs::getHelp($val,
+                    $helpHeader, "\n\n".$newargs->getMessage(), 78, 4)."\n\n";
+            exit;
+        }
+        if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
+            if (!$has_class) {
+                echo Console_Getargs::getHelp($val,
+                        $helpHeader, NULL, 78, 4)."\n\n";
+                exit;
+            }
+            return true;// hel
+        }
         
-        
-         
         return false;
+        
         
     }
     
