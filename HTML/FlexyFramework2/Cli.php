@@ -229,9 +229,9 @@ Available commands:
         } catch (Exception $e) {
             echo "Warning:  {$e->getMessage()}\n";
         }
-        if (empty($val)) {
-            return false;
-        }
+        //if (empty($val)) {
+        //    return false;
+        //}
         
         $val = array_merge(self::$cli_opts, $val);
         
