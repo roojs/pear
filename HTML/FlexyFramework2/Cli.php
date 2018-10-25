@@ -10,7 +10,8 @@
  *   $x = new HTML_FlexyFramework_Cli($ff);
  *   $x->cliHelp(); // summary of all classes which can be run with cli.
  *             (contain static $cli_desc)
- *   $x->cliParse($classname);
+ *   $x->cliParse($classname); // parses once we know the class name..
+ *   $x->parseDefaultOpts(); // handles pman-nodatabase
  *
  *
  */
@@ -187,7 +188,7 @@ Available commands:
     */
     function cliParse($classname)
     {
-        die("here");
+        
     // cli static $classname::$cli_opts
         try {
             // look up the parent tree for core opts.
@@ -290,7 +291,11 @@ Available commands:
         require_once 'Console/Getargs.php';
         $ar = $_SERVER['argv'];
         $call = array(array_shift($ar)); // remove index.php
-        $call[] = array_shift($ar); 
+        $has_class = false;
+        if (isset($ar[0]) && $ar[0][0] != '-') {
+            $call[] = array_shift($ar); // remove our class...
+            $has_class = true;
+        } 
         //var_dump($ar);
         $val = self::$cli_opts;
         
@@ -313,7 +318,11 @@ Available commands:
                 exit;
             }
             if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
-                
+                if (!$has_class) {
+                    echo Console_Getargs::getHelp($val,
+                            $helpHeader, NULL, 78, 4)."\n\n";
+                    exit;
+                }
                 return true;// hel
             }
             
@@ -325,19 +334,19 @@ Available commands:
         
         
         $ret =  $newargs->getValues();
-            foreach($ret as $k=>$v) {
-                switch($k) {
-                    case 'pman-nodatabase':
-                        //echo "Turning off database";
-                        $this->ff->nodatabase= true;
-                        
-                        break;
+        foreach($ret as $k=>$v) {
+            switch($k) {
+                case 'pman-nodatabase':
+                      echo "Turning off database\n";
+                    $this->ff->nodatabase= true;
                     
-                    default:
-                        die("need to fix option $k");
-                }
+                    break;
                 
+                default:
+                    die("need to fix option $k");
             }
+            
+        }
         return false;
         
     }

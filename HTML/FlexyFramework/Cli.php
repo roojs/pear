@@ -294,8 +294,11 @@ Available commands:
         require_once 'Console/Getargs.php';
         $ar = $_SERVER['argv'];
         $call = array(array_shift($ar)); // remove index.php
-        $call[] = array_shift($ar); 
-        //var_dump($ar);
+        $has_class = false;
+        if (isset($ar[0]) && $ar[0][0] != '-') {
+            $call[] = array_shift($ar); // remove our class...
+            $has_class = true;
+        }  
         $val = self::$cli_opts;
         
         $newargs = Console_Getargs::factory($val, $ar);
@@ -317,8 +320,12 @@ Available commands:
                 exit;
             }
             if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
-                
-                return true;// hel
+                if (!$has_class) {
+                    echo Console_Getargs::getHelp($val,
+                            $helpHeader, NULL, 78, 4)."\n\n";
+                    exit;
+                }
+                return true;// help is handled later in the flow?
             }
             
             return false;
@@ -332,8 +339,8 @@ Available commands:
         foreach($ret as $k=>$v) {
             switch($k) {
                 case 'pman-nodatabase':
-                    //echo "Turning off database";
-                    $this->ff->nodatabase= true;
+                    echo "Turning off database\n";
+                    $this->ff->nodatabase = true;
                     
                     break;
                 

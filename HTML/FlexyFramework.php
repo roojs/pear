@@ -153,7 +153,7 @@ class HTML_FlexyFramework {
             $this->$k = $v;
         }
         $this->_parseConfig();
-        
+
         // echo '<PRE>'; print_r($this);exit;
         if ($this->cli) {
             $args = $_SERVER['argv'];
@@ -162,7 +162,7 @@ class HTML_FlexyFramework {
             $this->_run($this->run,false,$args);
             return;
         }
-    
+
         // handle apache mod_rewrite..
         // it looks like this might not work anymore..
         
@@ -298,8 +298,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         }
         
          $this->classPrefix   = str_replace('/', '_', $this->project) . '_';
-        
-        // list the available options..
+         // list the available options..
         if ($this->cli && empty($_SERVER['argv'][1])) {
             require_once 'HTML/FlexyFramework/Cli.php';
             $fcli = new HTML_FlexyFramework_Cli($this);
@@ -344,7 +343,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         }
 
         $this->_validateDatabase();
- 
+
         $this->_validateTemplate();
         
     }
@@ -1043,6 +1042,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         
         // echo '<PRE>'; print_r($this);exit;
         // echo "CHECK GET AUTH?";
+
         if (!method_exists($classobj, 'getAuth')) {
         //    echo "NO GET AUTH?";
             $this->fatalError("class $classname does not have a getAuth Method");
@@ -1070,6 +1070,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
                 return $result;
             }
         }
+                    
         /* allow redirect from start */
         if (method_exists($classobj,"start")) {
             if (is_string($redirect = $classobj->start($subRequest,$isRedirect,$args)))  {

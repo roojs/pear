@@ -561,6 +561,7 @@ class HTML_FlexyFramework2 {
         $generator = new HTML_FlexyFramework2_Generator();
         $generator->start();
         
+        $this->debug('generateDataobjectsCache', 'dataObjectsCache  writing');
         HTML_FlexyFramework2_Generator::writeCache($iniCacheTmp, $iniCache); 
         // reset the cache to the correct lcoation.
         PDO_DataObject::config('schema_location',  $iniCache);
