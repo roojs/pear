@@ -240,7 +240,9 @@ Available commands:
         require_once 'Console/Getargs.php';
         $ar = $_SERVER['argv'];
         $call = array(array_shift($ar)); // remove index.php
-        $call[] = array_shift($ar); // remove our class...
+        if (isset($ar[0]) && $ar[0][0] != '-') {
+            $call[] = array_shift($ar); // remove our class...
+        }
         //var_dump($ar);
         
         $newargs = Console_Getargs::factory($val, $ar);
