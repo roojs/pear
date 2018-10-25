@@ -192,7 +192,7 @@ Available commands:
     
         try {
             // look up the parent tree for core opts.
-            $val = '';
+            $val = array();
              $cls = new ReflectionClass($classname);
             if (method_exists($classname, 'cli_opts')) {
                 $val = $classname::cli_opts();
