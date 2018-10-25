@@ -189,7 +189,7 @@ Available commands:
     {
     
     // cli static $classname::$cli_opts
- 
+        die("here");
         try {
             // look up the parent tree for core opts.
             $val = array();
