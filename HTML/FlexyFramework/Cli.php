@@ -304,6 +304,16 @@ Available commands:
         
         $newargs = Console_Getargs::factory($val, $ar);
         
+        // we need to read our 'special arguments' here - otherwise other arguments, cause getargs to fail
+        switch (true) {
+            case in_array('--pman-nodatabase', $ar):
+                echo "Turning off database\n";
+                $this->ff->nodatabase= true;
+                    
+                break;
+        }
+        
+        
         
         if (is_a($newargs, 'PEAR_Error')) {
             list($optional, $required, $params) = Console_Getargs::getOptionalRequired($val);
