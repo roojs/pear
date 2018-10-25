@@ -337,11 +337,9 @@ Available commands:
         
         // now handle real arguments..
         
-        
         $ret =  $newargs->getValues();
         
-        print_r($ret);
-        
+         
         foreach($ret as $k=>$v) {
             switch($k) {
                 case 'pman-nodatabase':
