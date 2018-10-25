@@ -302,7 +302,8 @@ Available commands:
         $val = self::$cli_opts;
         
         $newargs = Console_Getargs::factory($val, $ar);
-        print_r($newargs);
+        
+        
         if (is_a($newargs, 'PEAR_Error')) {
             list($optional, $required, $params) = Console_Getargs::getOptionalRequired($val);
         
