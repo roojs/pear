@@ -299,6 +299,16 @@ Available commands:
         //var_dump($ar);
         $val = self::$cli_opts;
         
+        // we need to read our 'special arguments' here - otherwise other arguments, cause getargs to fail
+        switch (true) {
+            case in_array('--pman-nodatabase', $ar):
+                echo "Turning off database\n";
+                $this->ff->nodatabase= true;
+                    
+                break;
+        }
+        
+        
         $newargs = Console_Getargs::factory($val, $ar);
         
         if (is_a($newargs, 'PEAR_Error')) {
@@ -337,20 +347,7 @@ Available commands:
         // now handle real arguments..
         
         
-        $ret =  $newargs->getValues();
-        foreach($ret as $k=>$v) {
-            switch($k) {
-                case 'pman-nodatabase':
-                      echo "Turning off database\n";
-                    $this->ff->nodatabase= true;
-                    
-                    break;
-                
-                default:
-                    die("need to fix option $k");
-            }
-            
-        }
+         
         return false;
         
     }
