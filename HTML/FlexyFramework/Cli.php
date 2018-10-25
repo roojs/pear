@@ -304,9 +304,11 @@ Available commands:
         $newargs = Console_Getargs::factory($val, $ar);
         
         if (is_a($newargs, 'PEAR_Error')) {
-            
-            
-            
+            list($optional, $required, $params) = Console_Getargs::getOptionalRequired($val);
+        
+            $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
+                $optional . ' ' . $required . ' ' . $params . "\n\n";           
+       
             if ($newargs->getCode() === CONSOLE_GETARGS_ERROR_USER) {
                 // since we do not handle all the arguemnts here...
                 // skip errors if we find unknown arguments.
@@ -321,11 +323,7 @@ Available commands:
             }
             if ($newargs->getCode() === CONSOLE_GETARGS_HELP) {
                 if (!$has_class) {
-                    list($optional, $required, $params) = Console_Getargs::getOptionalRequired($val);
-        
-                    $helpHeader = 'Usage: php ' . implode (' ', $call) . ' '. 
-                    $optional . ' ' . $required . ' ' . $params . "\n\n";           
-       
+                    
                     echo Console_Getargs::getHelp($val,
                             $helpHeader, NULL, 78, 4)."\n\n";
                     exit;
