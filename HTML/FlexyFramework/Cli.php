@@ -311,9 +311,7 @@ Available commands:
                 $this->ff->nodatabase= true;
                     
                 break;
-            case (!$has_class && in_array('--help', $ar)):
-            
-            
+             
         }
         
         
