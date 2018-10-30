@@ -631,7 +631,7 @@ class HTML_Template_Flexy_Compiler_Flexy_Tag
             } else {
             
                  return $this->_raiseErrorWithPositionAndTag(
-                    "An flexy:if attribute was found in &lt;{$this->element->name} tag without a corresponding &lt;/{$this->element->name} tag",
+                    "An flexy:if attribute was found in &lt;{$this->element->tag} tag without a corresponding &lt;/{$this->element->tag} tag",
                     null, HTML_TEMPLATE_FLEXY_ERROR_DIE);
 
                 }
