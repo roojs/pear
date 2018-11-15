@@ -268,7 +268,6 @@ class HTML_FlexyFramework_Page  {
 
         $template_engine = new HTML_Template_Flexy();
         $template_engine->compile($this->masterTemplate);
-        print_r($template_engine);exit;
         if (!$this->_cache || !$this->cacheMethod) {
             $template_engine->outputObject($this,$this->elements);
             return;
