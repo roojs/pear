@@ -529,7 +529,8 @@ class File_Convert
             // these source types have to use unoconv....
         //print_r(array('getConvMethods', func_get_args()));
         // $pos[converter] => array( list of targets);
-        
+        require_once 'File/Convert/Solution.php';
+
         if (count($stack) > 4) { // too deepp.. pos. recursion.
             return false;
         }
@@ -540,8 +541,7 @@ class File_Convert
                 continue;
             }
             if (in_array($to,$t[2])) {
-                require_once 'File/Convert/Solution.php';
-                $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
+                 $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
                 $ret->convert = $this;
                 return $ret;
             }
@@ -574,7 +574,6 @@ class File_Convert
                     continue; // mo way to convert
                 }
 //                print_r($conv);exit;
-                require_once 'File/Convert/Solution.php';
 
                 $first = new File_Convert_Solution($conv, $from, $targ);
                 $first->convert = $this;
@@ -586,6 +585,8 @@ class File_Convert
             
         }
         if (empty($res)) {
+             $this->debug("No methods found to convert {$from} to {$to}");
+
             return false;
         }
         // find the shortest..
