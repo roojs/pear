@@ -145,8 +145,9 @@ class File_Convert
 //        print_r($this->fn);exit;
         if (preg_match('#^image/#', $toMimetype) && $toMimetype != 'image/gif' && ( !empty($x) || !empty($y))) {
             //var_dump(array($toMimetype));
-            
-            $sc = new File_Convert_Solution(strpos($x, 'c')  !== false ? 'scaleImageC' : 'scaleImage' , $toMimetype, $toMimetype);
+            require_once 'File/Convert/Solutions.php';
+
+            $sc = new File_Convert_Solution($this,strpos($x, 'c')  !== false ? 'scaleImageC' : 'scaleImage' , $toMimetype, $toMimetype);
             $sc->debug= $this->debug;
             
             $x  = str_replace('c', 'x', $x);
@@ -536,7 +537,8 @@ class File_Convert
                 continue;
             }
             if (in_array($to,$t[2])) {
-                $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
+                require_once 'File/Convert/Solutions.php';
+                $ret =  new File_Convert_Solution($this,$t[0], $from, $to);  // found a solid match - returns the method.
                 $ret->convert = $this;
                 return $ret;
             }
@@ -569,7 +571,9 @@ class File_Convert
                     continue; // mo way to convert
                 }
 //                print_r($conv);exit;
-                $first = new File_Convert_Solution($conv, $from, $targ);
+                require_once 'File/Convert/Solutions.php';
+
+                $first = new File_Convert_Solution($this, $conv, $from, $targ);
                 $first->convert = $this;
                 $sol_list= $first->add($try);
                 
