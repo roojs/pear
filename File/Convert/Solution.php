@@ -19,6 +19,11 @@ class File_Convert_Solution
         $this->last = $this;
         
     }
+    function debug($str)
+    {
+        $this->convert->debug($str);
+    }
+    
     
     function exec($cmd)
     {
