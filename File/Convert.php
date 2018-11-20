@@ -154,7 +154,7 @@ class File_Convert
 
             $sc = new File_Convert_Solution(strpos($x, 'c')  !== false ? 'scaleImageC' : 'scaleImage' , $toMimetype, $toMimetype);
             $sc->debug= $this->debug;
-            
+            $this->solutions[] = $sc;
             $x  = str_replace('c', 'x', $x);
             
             if (strpos($x, 'x') !== false ) {
@@ -545,7 +545,7 @@ class File_Convert
             if (in_array($to,$t[2])) {
                 $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
                 //$ret->convert = $this; // recursion?
-                
+                $this->solutions[] = $sc;
 
                 
                 return $ret;
