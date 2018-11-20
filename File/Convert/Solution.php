@@ -363,7 +363,7 @@ class File_Convert_Solution
         $cmd = "$html2text " . implode(' ', $opts)
             . "-utf8 -o " . escapeshellarg($target) . "  " . escapeshellarg($fn);
             
-        $this->debug( $cmd ."\n");
+        $this->debug( $cmd );
         
         
         $this->exec($cmd);
@@ -692,7 +692,7 @@ class File_Convert_Solution
         
         // expect this file..
 //        echo "$cmd <br/>";exit;
-        $this->debug(  "$cmd \n"); 
+        $this->debug(  $cmd); 
         
         $res = $this->exec($cmd);
         $this->result = $res;
@@ -830,7 +830,7 @@ class File_Convert_Solution
         
         // expect this file..
 //        echo "$cmd <br/>";exit;
-        $this->debug(  "$cmd "); 
+        $this->debug( $cmd ); 
         
         $res = $this->exec($cmd);
         $this->result = $res;
