@@ -849,6 +849,7 @@ class File_Convert_Solution
         
         $fe = file_exists($out)  && filesize($out) ? true : false;
         if ($fe) {
+            $this->debug("GOT conv file: renaming $out to $target");
             rename($out, $target);
             
             @chmod($target,fileperms($fn));
@@ -868,6 +869,7 @@ class File_Convert_Solution
         
         $fe = file_exists($out)  && filesize($out) ? true : false;
         if ($fe) {
+            $this->debug("GOT conv file: renaming $out to $target");
              rename($out, $target);
             @chmod($target,fileperms($fn));
             return $target;
@@ -883,6 +885,7 @@ class File_Convert_Solution
         
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
+            $this->debug("GOT conv file: renaming $out to $target");
              rename($out, $target);
             @chmod($target,fileperms($fn));
             return $target;
