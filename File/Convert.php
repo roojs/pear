@@ -579,7 +579,7 @@ class File_Convert
 //                print_r($conv);exit;
 
                 $first = new File_Convert_Solution($conv, $from, $targ);
-                $first->convert = $this;
+                //$first->convert = $this;
                 $sol_list= $first->add($try);
                 
                 $res[] = $sol_list;
