@@ -542,7 +542,10 @@ class File_Convert
             }
             if (in_array($to,$t[2])) {
                 $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
-                $ret->convert = $this;
+                //$ret->convert = $this; // recursion?
+                
+
+                
                 return $ret;
             }
             // from matches..
