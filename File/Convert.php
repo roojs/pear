@@ -603,7 +603,7 @@ class File_Convert
     function debug($str)
     {
         if ($this->debug) {
-            echo $string;
+            echo $string . "<br/>\n";
         }
         $this->log[] = $str;
     }
