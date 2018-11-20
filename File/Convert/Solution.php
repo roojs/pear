@@ -897,7 +897,7 @@ class File_Convert_Solution
             return $ret;
         }
         
-        
+        $this->debug("Could not find OUTPUT FROM pdftocairo");
         
         
         return  false;
