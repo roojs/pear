@@ -839,8 +839,7 @@ class File_Convert_Solution
         
         // expect this file..
 //        echo "$cmd <br/>";exit;
-        $this->debug( $cmd ); 
-        
+         
         $res = $this->exec($cmd);
         $this->result = $res;
         
