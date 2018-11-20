@@ -20,7 +20,7 @@ class File_Convert_Solution
         $this->last = $this;
         
     }
-   function debug($str)
+    function debug($str)
     {
         if ($this->debug) {
             echo $string . "<br/>\n";
