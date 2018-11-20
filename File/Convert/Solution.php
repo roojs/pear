@@ -27,13 +27,12 @@ class File_Convert_Solution
     
     function exec($cmd)
     {
-        if ($this->debug) {
-            echo "$cmd\n";
-        }
+        $this->debug($cmd);
+        
         $ret = `$cmd`;
-        if ($this->debug) {
-            echo "$cmd\n";
-        }
+        
+        $this->debug( $ret);
+    
         $this->cmd = $cmd ."\n" . $ret;
         
         return $ret;
@@ -67,11 +66,10 @@ class File_Convert_Solution
         require_once 'File/MimeType.php';
         $mt = new File_MimeType();
         $this->ext = $mt->toExt($this->to);
-        if ($this->debug) {
-            print_r(array('runconvert', func_get_args()));
-            print_r($this);
-        }
         
+        $this->debug(print_r(array('runconvert', func_get_args()), true));
+        $this->debug(print_r($this,true));
+                
         if (!$this->ext) {
             return false;
         }
@@ -365,9 +363,8 @@ class File_Convert_Solution
         $cmd = "$html2text " . implode(' ', $opts)
             . "-utf8 -o " . escapeshellarg($target) . "  " . escapeshellarg($fn);
             
-        if ($this->debug) {
-            echo $cmd ."\n";
-        }
+        $this->debug( $cmd ."\n");
+        
         
         $this->exec($cmd);
         
@@ -695,10 +692,7 @@ class File_Convert_Solution
         
         // expect this file..
 //        echo "$cmd <br/>";exit;
-        if ($this->debug) {
-           echo "$cmd <br/>";
-           
-        }
+        $this->debug(  "$cmd \n"); 
         
         $res = $this->exec($cmd);
         $this->result = $res;
@@ -836,10 +830,7 @@ class File_Convert_Solution
         
         // expect this file..
 //        echo "$cmd <br/>";exit;
-        if ($this->debug) {
-           echo "$cmd <br/>";
-           
-        }
+        $this->debug(  "$cmd "); 
         
         $res = $this->exec($cmd);
         $this->result = $res;
@@ -937,10 +928,10 @@ class File_Convert_Solution
                         escapeshellarg($targetName);
         
 
-        if ($this->debug) {
-           echo "$cmd <br/>";
+        
+        $this->debug( $cmd);
            
-        }
+        
         
         $this->exec($cmd);
         
@@ -983,10 +974,7 @@ class File_Convert_Solution
         $CONVERT = System::which("convert");
         $cmd = "$CONVERT " . $strip .  "  -colorspace sRGB -interlace none -density 800 $flat ". 
                         "-quality 90   ". escapeshellarg($fn . $frame) . " " . escapeshellarg($targetName );
-         if ($this->debug) {
-           echo "$cmd <br/>";
-           
-        }
+         $this->debug($cmd);
         $this->exec($cmd);
         clearstatcache();
         $fe = file_exists($target)  && filesize($target) ? $target : false;
@@ -1393,9 +1381,7 @@ class File_Convert_Solution
         
         $cmd = "{$gifsicle} {$flat} {$fn} -o {$target}";
         
-        if ($this->debug) {
-           echo "$cmd <br/>";
-        }
+        $this->debug($cmd);
         
         $this->exec($cmd);
         
