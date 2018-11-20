@@ -601,7 +601,13 @@ class File_Convert
     }
     var $log  = array();
     
-    
+    function debug($str)
+    {
+        if ($this->debug) {
+            echo $string . "<br/>\n";
+        }
+        $this->log[] = $str;
+    }
     
     
         
