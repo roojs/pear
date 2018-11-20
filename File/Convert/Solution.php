@@ -780,7 +780,7 @@ class File_Convert_Solution
         
         
         if (!$this->debug && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
-            $this->debug("final target exists - skipping");
+            $this->debug("final target exists - $finaltarget - skipping");
             return $finaltarget;
         }
         require_once 'System.php';
