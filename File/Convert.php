@@ -598,6 +598,15 @@ class File_Convert
         }
         return $a->count() < $b->count() ?  -1 : 1;
     }
+    var $log  = array();
+    
+    function debug($str)
+    {
+        if ($this->debug) {
+            echo $string;
+        }
+        $this->log[] = $str;
+    }
     
     
         
