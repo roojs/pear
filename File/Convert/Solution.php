@@ -11,8 +11,9 @@ class File_Convert_Solution
     var $debug = false;
     var $convert; // reference to caller..
     
-    function __construct($method, $from ,$to)
+    function __construct($caller,$method, $from ,$to)
     {
+        $this->convert = $caller;
         $this->method = $method;
         $this->from = $from;
         $this->to = $to;
