@@ -301,7 +301,7 @@ class File_Convert
     
     
     
-    var $methods =  array(
+    static $methods =  array(
             array( 'unoconv', //FIXME run this 3 times??
                     array( // source
                   //      'text/html', /// testing..
