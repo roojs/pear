@@ -72,7 +72,7 @@ class File_Convert_Solution
         $this->ext = $mt->toExt($this->to);
         
         $this->debug(print_r(array('runconvert', func_get_args()), true));
-        $this->debug(print_r($this,true));
+       // $this->debug(print_r($this,true));
                 
         if (!$this->ext) {
             return false;
