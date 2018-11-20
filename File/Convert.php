@@ -41,6 +41,7 @@ class File_Convert
     var $target;
     var $lastaction = false;
     var $log  = array();
+    var $solutions = array();
     
     function __construct($fn, $mimetype, $options=array())
     {
