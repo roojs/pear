@@ -1,6 +1,5 @@
 <?php
 
-
 class File_Convert_Solution
 {
     var $type = 0;
