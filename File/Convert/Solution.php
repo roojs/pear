@@ -41,6 +41,7 @@ class File_Convert_Solution
     }
     function add($in) 
     {
+        require_once 'File/Convert/Solution/Stack.php';
         $ret = new File_Convert_Solution_Stack();
         $ret->list[] = $this;
         if ($in->type == 0) {
