@@ -73,7 +73,7 @@ class File_Convert
         //echo "testing scale image";
         require_once 'File/Convert/Solution.php';
         $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
-        $sc->convert = $this;
+        //$sc->convert = $this;
         $sc->debug= $this->debug;
             
         if (strpos($x, 'x')) {
