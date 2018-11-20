@@ -780,6 +780,7 @@ class File_Convert_Solution
         
         
         if (!$this->debug && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
+            $this->debug("final target exists - skipping");
             return $finaltarget;
         }
         require_once 'System.php';
@@ -789,8 +790,11 @@ class File_Convert_Solution
         // revised version using pdfinfo and pdftoppm
         
         $PDFINFO = System::which("pdfinfo");
+        $this->debug("PDFINFO: $PDFINFO");
         $GREP = System::which("grep");
+        $this->debug("GREP: $GREP");
         $STRINGS= System::which("strings");
+        $this->debug("PDFINFO: $STRINGS");
         // needs strings if starngs chars are in there..
         $cmd = $PDFINFO . ' '. escapeshellarg($fn) . " | $STRINGS | $GREP 'Page size'";
          
