@@ -70,7 +70,7 @@ class File_Convert
         }
         //echo "testing scale image";
         require_once 'File/Convert/Solution.php';
-        $sc = new File_Convert_Solution($this,'scaleImage', $toMimetype, $toMimetype);
+        $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
         $sc->convert = $this;
         $sc->debug= $this->debug;
             
@@ -147,7 +147,7 @@ class File_Convert
             //var_dump(array($toMimetype));
             require_once 'File/Convert/Solution.php';
 
-            $sc = new File_Convert_Solution($this,strpos($x, 'c')  !== false ? 'scaleImageC' : 'scaleImage' , $toMimetype, $toMimetype);
+            $sc = new File_Convert_Solution(strpos($x, 'c')  !== false ? 'scaleImageC' : 'scaleImage' , $toMimetype, $toMimetype);
             $sc->debug= $this->debug;
             
             $x  = str_replace('c', 'x', $x);
@@ -538,7 +538,7 @@ class File_Convert
             }
             if (in_array($to,$t[2])) {
                 require_once 'File/Convert/Solution.php';
-                $ret =  new File_Convert_Solution($this,$t[0], $from, $to);  // found a solid match - returns the method.
+                $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
                 $ret->convert = $this;
                 return $ret;
             }
@@ -573,7 +573,7 @@ class File_Convert
 //                print_r($conv);exit;
                 require_once 'File/Convert/Solution.php';
 
-                $first = new File_Convert_Solution($this, $conv, $from, $targ);
+                $first = new File_Convert_Solution($conv, $from, $targ);
                 $first->convert = $this;
                 $sol_list= $first->add($try);
                 
