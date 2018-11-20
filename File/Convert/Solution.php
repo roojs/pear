@@ -821,6 +821,7 @@ class File_Convert_Solution
         
         $PDFTOPPM = System::which("pdftocairo");
         if (!$PDFTOPPM) {
+            $this->debug("NO PDFTOCAIRO trying pdftoppm");
             return $this->pdftoppm($fn,$x,$y, $pg);
             
         }
