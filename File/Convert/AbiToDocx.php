@@ -240,7 +240,8 @@ class File_Convert_AbiToDocx
             if ($this->pass != 2) {
                 return;
             }
-            if (method_exists($this->section, 'addTextBreak') {
+            if (method_exists($this->section, 'addTextBreak')) {
+                // might be called on Table?
                 $this->section->addTextBreak();
             }
             //echo '<PRE>';print_r($this->section);exit;
