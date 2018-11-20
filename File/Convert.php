@@ -597,6 +597,7 @@ class File_Convert
         // find the shortest..
         usort  ( $res  , array($this, 'solutionSort'));
         $best = $res[0];
+        $this->solutions[] = $best;
         return $best;
         
         
