@@ -40,6 +40,8 @@ class File_Convert
     var $to;
     var $target;
     var $lastaction = false;
+    var $log  = array();
+    
     function __construct($fn, $mimetype, $options=array())
     {
         $this->fn = $fn;
@@ -599,7 +601,6 @@ class File_Convert
         }
         return $a->count() < $b->count() ?  -1 : 1;
     }
-    var $log  = array();
     
     function debug($str)
     {
