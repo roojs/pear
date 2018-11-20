@@ -9,6 +9,7 @@ class File_Convert_Solution
     var $ext;
     var $debug = false;
     var $convert; // reference to caller..
+    var $log = array();
     
     function __construct($caller,$method, $from ,$to)
     {
@@ -19,9 +20,12 @@ class File_Convert_Solution
         $this->last = $this;
         
     }
-    function debug($str)
+   function debug($str)
     {
-        $this->convert->debug($str);
+        if ($this->debug) {
+            echo $string . "<br/>\n";
+        }
+        $this->log[] = $str;
     }
     
     
