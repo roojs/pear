@@ -17,7 +17,7 @@ class File_Convert_Solution
         $this->method = $method;
         $this->from = $from;
         $this->to = $to;
-        $this->last = $this;
+        //$this->last = $this; //?? used where?
         
     }
     function debug($str)
