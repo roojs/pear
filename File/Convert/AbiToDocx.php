@@ -315,7 +315,7 @@ class File_Convert_AbiToDocx
             
             if($type == 'image'){
                 if($changeType == 'in'){
-                    print_R($num);
+                    print_R($wh);
                     return floor($num * 75);
                 }
                 return floor($num);
