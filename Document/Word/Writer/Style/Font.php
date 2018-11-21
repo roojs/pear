@@ -133,6 +133,7 @@ class Document_Word_Writer_Style_Font
 	public function setStyleValue($key, $value) 
         {
 		if($key == '_size') {
+                    print_r($value);exit;
                     $value = $value * 2;
 		}
 		$this->$key = $value;
