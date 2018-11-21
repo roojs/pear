@@ -312,15 +312,14 @@ class File_Convert_AbiToDocx
         {
             $changeType = preg_replace('/[^a-z]/', '', $wh);
             $num = preg_replace('/[^0-9.]/', '', $wh);
+            $num = (float) $num;
             if($type == 'image'){
-                $num = (float) $num;
                 if($changeType == 'in'){
                     return floor($num * 75);
                 }
                 return floor($num);
                 
             }
-            
             
             if($changeType == 'in'){
                 return $num * 1435;

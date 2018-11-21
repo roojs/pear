@@ -134,7 +134,6 @@ class Document_Word_Writer_Style_Font
         {
 		if($key == '_size') {
                     $value = (int) $value;
-                    print_R($value);exit;
                     $value *= 2;
 		}
 		$this->$key = $value;
