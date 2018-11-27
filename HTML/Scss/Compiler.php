@@ -9,19 +9,8 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp;
-
-use Leafo\ScssPhp\Base\Range;
-use Leafo\ScssPhp\Block;
-use Leafo\ScssPhp\Colors;
-use Leafo\ScssPhp\Compiler\Environment;
-use Leafo\ScssPhp\Exception\CompilerException;
-use Leafo\ScssPhp\Formatter\OutputBlock;
-use Leafo\ScssPhp\Node;
-use Leafo\ScssPhp\SourceMap\SourceMapGenerator;
-use Leafo\ScssPhp\Type;
-use Leafo\ScssPhp\Parser;
-use Leafo\ScssPhp\Util;
+ 
+ 
 
 /**
  * The scss compiler and parser.
@@ -49,13 +38,18 @@ use Leafo\ScssPhp\Util;
  * The `Formatter` takes a CSS tree, and dumps it to a formatted string,
  * handling things like indentation.
  */
-
+require_once 'Type.php';
+require_once 'Util.php';
+require_once 'Block.php';
+require_once 'Parser.php';
+require_once 'Complier/Environment.php';
+require_once 'Node/Number.php';
 /**
  * SCSS compiler
  *
  * @author Leaf Corcoran <leafot@gmail.com>
  */
-class Compiler
+class HTML_Scss_Compiler
 {
     const LINE_COMMENTS = 1;
     const DEBUG_INFO    = 2;
@@ -98,17 +92,17 @@ class Compiler
         'function' => '^',
     ];
 
-    static public $true = [Type::T_KEYWORD, 'true'];
-    static public $false = [Type::T_KEYWORD, 'false'];
-    static public $null = [Type::T_NULL];
-    static public $nullString = [Type::T_STRING, '', []];
-    static public $defaultValue = [Type::T_KEYWORD, ''];
-    static public $selfSelector = [Type::T_SELF];
-    static public $emptyList = [Type::T_LIST, '', []];
-    static public $emptyMap = [Type::T_MAP, [], []];
-    static public $emptyString = [Type::T_STRING, '"', []];
-    static public $with = [Type::T_KEYWORD, 'with'];
-    static public $without = [Type::T_KEYWORD, 'without'];
+    static public $true = [HTML_Scss_Type::T_KEYWORD, 'true'];
+    static public $false = [HTML_Scss_Type::T_KEYWORD, 'false'];
+    static public $null = [HTML_Scss_Type::T_NULL];
+    static public $nullString = [HTML_Scss_Type::T_STRING, '', []];
+    static public $defaultValue = [HTML_Scss_Type::T_KEYWORD, ''];
+    static public $selfSelector = [HTML_Scss_Type::T_SELF];
+    static public $emptyList = [HTML_Scss_Type::T_LIST, '', []];
+    static public $emptyMap = [HTML_Scss_Type::T_MAP, [], []];
+    static public $emptyString = [HTML_Scss_Type::T_STRING, '"', []];
+    static public $with = [HTML_Scss_Type::T_KEYWORD, 'with'];
+    static public $without = [HTML_Scss_Type::T_KEYWORD, 'without'];
 
     protected $importPaths = [''];
     protected $importCache = [];
@@ -131,7 +125,7 @@ class Compiler
     /**
      * @var string|\Leafo\ScssPhp\Formatter
      */
-    protected $formatter = 'Leafo\ScssPhp\Formatter\Nested';
+    protected $formatter = 'HTML_Scss_Formatter_Nested';
 
     protected $rootEnv;
     protected $rootBlock;
@@ -208,11 +202,12 @@ class Compiler
         $sourceMapGenerator = null;
 
         if ($this->sourceMap) {
-            if (is_object($this->sourceMap) && $this->sourceMap instanceof SourceMapGenerator) {
+            if (is_object($this->sourceMap) && $this->sourceMap instanceof HTML_Scss_SourceMap_SourceMapGenerator) {
                 $sourceMapGenerator = $this->sourceMap;
                 $this->sourceMap = self::SOURCE_MAP_FILE;
             } elseif ($this->sourceMap !== self::SOURCE_MAP_NONE) {
-                $sourceMapGenerator = new SourceMapGenerator($this->sourceMapOptions);
+            	 require_once 'SourceMap/SourceMapGenerator.php';
+                $sourceMapGenerator = new HTML_Scss_SourceMap_SourceMapGenerator($this->sourceMapOptions);
             }
         }
 
@@ -224,7 +219,7 @@ class Compiler
 
             switch ($this->sourceMap) {
                 case self::SOURCE_MAP_INLINE:
-                    $sourceMapUrl = sprintf('data:application/json,%s', Util::encodeURIComponent($sourceMap));
+                    $sourceMapUrl = sprintf('data:application/json,%s', HTML_Scss_Util::encodeURIComponent($sourceMap));
                     break;
 
                 case self::SOURCE_MAP_FILE:
@@ -247,7 +242,7 @@ class Compiler
      */
     protected function parserFactory($path)
     {
-        $parser = new Parser($path, count($this->sourceNames), $this->encoding);
+        $parser = new HTML_Scss_Parser($path, count($this->sourceNames), $this->encoding);
 
         $this->sourceNames[] = $path;
         $this->addParsedFile($path);
@@ -309,7 +304,8 @@ class Compiler
      */
     protected function makeOutputBlock($type, $selectors = null)
     {
-        $out = new OutputBlock;
+        require_once 'Formatter/OutputBlock.php';
+        $out = new HTML_Scss_Formatter_OutputBlock;
         $out->type         = $type;
         $out->lines        = [];
         $out->children     = [];
@@ -317,7 +313,7 @@ class Compiler
         $out->selectors    = $selectors;
         $out->depth        = $this->env->depth;
 
-        if ($this->env->block instanceof Block) {
+        if ($this->env->block instanceof HTML_Scss_Block) {
             $out->sourceName   = $this->env->block->sourceName;
             $out->sourceLine   = $this->env->block->sourceLine;
             $out->sourceColumn = $this->env->block->sourceColumn;
@@ -335,9 +331,9 @@ class Compiler
      *
      * @param \Leafo\ScssPhp\Block $rootBlock
      */
-    protected function compileRoot(Block $rootBlock)
+    protected function compileRoot(HTML_Scss_Block $rootBlock)
     {
-        $this->rootBlock = $this->scope = $this->makeOutputBlock(Type::T_ROOT);
+        $this->rootBlock = $this->scope = $this->makeOutputBlock(HTML_Scss_Type::T_ROOT);
 
         $this->compileChildrenNoReturn($rootBlock->children, $this->scope);
         $this->flattenSelectors($this->scope);
@@ -364,7 +360,7 @@ class Compiler
             $target = implode(' ', $target);
             $origin = $this->collapseSelectors($origin);
 
-            $this->sourceLine = $block[Parser::SOURCE_LINE];
+            $this->sourceLine = $block[HTML_Scss_Parser::SOURCE_LINE];
             $this->throwError("\"$origin\" failed to @extend \"$target\". The selector \"$target\" was not found.");
         }
     }
@@ -375,7 +371,7 @@ class Compiler
      * @param \Leafo\ScssPhp\Formatter\OutputBlock $block
      * @param string                               $parentKey
      */
-    protected function flattenSelectors(OutputBlock $block, $parentKey = null)
+    protected function flattenSelectors(HTML_Scss_Formatter_OutputBlock $block, $parentKey = null)
     {
         if ($block->selectors) {
             $selectors = [];
@@ -685,7 +681,7 @@ class Compiler
         $mediaQuery = $this->compileMediaQuery($this->multiplyMedia($this->env));
 
         if (! empty($mediaQuery)) {
-            $this->scope = $this->makeOutputBlock(Type::T_MEDIA, [$mediaQuery]);
+            $this->scope = $this->makeOutputBlock(HTML_Scss_Type::T_MEDIA, [$mediaQuery]);
 
             $parentScope = $this->mediaParent($this->scope);
             $parentScope->children[] = $this->scope;
@@ -696,10 +692,10 @@ class Compiler
             foreach ($media->children as $child) {
                 $type = $child[0];
 
-                if ($type !== Type::T_BLOCK &&
-                    $type !== Type::T_MEDIA &&
-                    $type !== Type::T_DIRECTIVE &&
-                    $type !== Type::T_IMPORT
+                if ($type !== HTML_Scss_Type::T_BLOCK &&
+                    $type !== HTML_Scss_Type::T_MEDIA &&
+                    $type !== HTML_Scss_Type::T_DIRECTIVE &&
+                    $type !== HTML_Scss_Type::T_IMPORT
                 ) {
                     $needsWrap = true;
                     break;
@@ -717,7 +713,7 @@ class Compiler
                 $wrapped->parent       = $media;
                 $wrapped->children     = $media->children;
 
-                $media->children = [[Type::T_BLOCK, $wrapped]];
+                $media->children = [[HTML_Scss_Type::T_BLOCK, $wrapped]];
             }
 
             $this->compileChildrenNoReturn($media->children, $this->scope);
@@ -738,7 +734,7 @@ class Compiler
     protected function mediaParent(OutputBlock $scope)
     {
         while (! empty($scope->parent)) {
-            if (! empty($scope->type) && $scope->type !== Type::T_MEDIA) {
+            if (! empty($scope->type) && $scope->type !== HTML_Scss_Type::T_MEDIA) {
                 break;
             }
 
@@ -791,7 +787,7 @@ class Compiler
             $wrapped->parent       = $block;
             $wrapped->children     = $block->children;
 
-            $block->children = [[Type::T_BLOCK, $wrapped]];
+            $block->children = [[HTML_Scss_Type::T_BLOCK, $wrapped]];
         }
 
         $this->env = $this->filterWithout($envs, $without);
@@ -817,7 +813,7 @@ class Compiler
      *
      * @return array
      */
-    private function spliceTree($envs, Block $block, $without)
+    private function spliceTree($envs, HTML_Scss_Block $block, $without)
     {
         $newBlock = null;
 
@@ -830,7 +826,7 @@ class Compiler
                 continue;
             }
 
-            if (isset($e->block->type) && $e->block->type === Type::T_AT_ROOT) {
+            if (isset($e->block->type) && $e->block->type === HTML_Scss_Type::T_AT_ROOT) {
                 continue;
             }
 
@@ -838,7 +834,7 @@ class Compiler
                 continue;
             }
 
-            $b = new Block;
+            $b = new HTML_Scss_Block;
             $b->sourceName   = $e->block->sourceName;
             $b->sourceIndex  = $e->block->sourceIndex;
             $b->sourceLine   = $e->block->sourceLine;
@@ -848,14 +844,14 @@ class Compiler
             $b->parent       = null;
 
             if ($newBlock) {
-                $type = isset($newBlock->type) ? $newBlock->type : Type::T_BLOCK;
+                $type = isset($newBlock->type) ? $newBlock->type : HTML_Scss_Type::T_BLOCK;
 
                 $b->children = [[$type, $newBlock]];
 
                 $newBlock->parent = $b;
             } elseif (count($block->children)) {
                 foreach ($block->children as $child) {
-                    if ($child[0] === Type::T_BLOCK) {
+                    if ($child[0] === HTML_Scss_Type::T_BLOCK) {
                         $child[1]->parent = $b;
                     }
                 }
@@ -882,7 +878,7 @@ class Compiler
             $newBlock = $b;
         }
 
-        $type = isset($newBlock->type) ? $newBlock->type : Type::T_BLOCK;
+        $type = isset($newBlock->type) ? $newBlock->type : HTML_Scss_Type::T_BLOCK;
 
         return [$type, $newBlock];
     }
@@ -972,9 +968,9 @@ class Compiler
     {
         if ((($without & static::WITH_RULE) && isset($block->selectors)) ||
             (($without & static::WITH_MEDIA) &&
-                isset($block->type) && $block->type === Type::T_MEDIA) ||
+                isset($block->type) && $block->type === HTML_Scss_Type::T_MEDIA) ||
             (($without & static::WITH_SUPPORTS) &&
-                isset($block->type) && $block->type === Type::T_DIRECTIVE &&
+                isset($block->type) && $block->type === HTML_Scss_Type::T_DIRECTIVE &&
                 isset($block->name) && $block->name === 'supports')
         ) {
             return true;
@@ -995,7 +991,7 @@ class Compiler
 
         $envs = $this->compactEnv($env);
 
-        $this->env = $this->extractEnv(array_filter($envs, function (Environment $e) {
+        $this->env = $this->extractEnv(array_filter($envs, function (HTML_Scss_Complier_Environment $e) {
             return ! isset($e->block->selectors);
         }));
 
@@ -1057,7 +1053,7 @@ class Compiler
         $out = $this->makeOutputBlock(null);
 
         if (isset($this->lineNumberStyle) && count($env->selectors) && count($block->children)) {
-            $annotation = $this->makeOutputBlock(Type::T_COMMENT);
+            $annotation = $this->makeOutputBlock(HTML_Scss_Type::T_COMMENT);
             $annotation->depth = 0;
 
             $file = $this->sourceNames[$block->sourceIndex];
@@ -1100,7 +1096,7 @@ class Compiler
      */
     protected function compileComment($block)
     {
-        $out = $this->makeOutputBlock(Type::T_COMMENT);
+        $out = $this->makeOutputBlock(HTML_Scss_Type::T_COMMENT);
         $out->lines[] = $block[1];
         $this->scope->children[] = $out;
     }
@@ -1153,7 +1149,7 @@ class Compiler
     protected function evalSelectorPart($part)
     {
         foreach ($part as &$p) {
-            if (is_array($p) && ($p[0] === Type::T_INTERPOLATE || $p[0] === Type::T_STRING)) {
+            if (is_array($p) && ($p[0] === HTML_Scss_Type::T_INTERPOLATE || $p[0] === HTML_Scss_Type::T_STRING)) {
                 $p = $this->compileValue($p);
 
                 // force re-evaluation
@@ -1265,7 +1261,7 @@ class Compiler
             }
 
             switch ($p[0]) {
-                case Type::T_SELF:
+                case HTML_Scss_Type::T_SELF:
                     $p = '&';
                     break;
 
@@ -1310,7 +1306,7 @@ class Compiler
      *
      * @return array
      */
-    protected function compileChildren($stms, OutputBlock $out)
+    protected function compileChildren($stms, HTML_Scss_Formatter_OutputBlock $out)
     {
         foreach ($stms as $stm) {
             $ret = $this->compileChild($stm, $out);
@@ -1329,7 +1325,7 @@ class Compiler
      *
      * @throws \Exception
      */
-    protected function compileChildrenNoReturn($stms, OutputBlock $out)
+    protected function compileChildrenNoReturn($stms, HTML_Scss_Formatter_OutputBlock $out)
     {
         foreach ($stms as $stm) {
             $ret = $this->compileChild($stm, $out);
@@ -1360,7 +1356,7 @@ class Compiler
 
             foreach ($query as $q) {
                 switch ($q[0]) {
-                    case Type::T_MEDIA_TYPE:
+                    case HTML_Scss_Type::T_MEDIA_TYPE:
                         if ($type) {
                             $type = $this->mergeMediaTypes(
                                 $type,
@@ -1375,7 +1371,7 @@ class Compiler
                         }
                         break;
 
-                    case Type::T_MEDIA_EXPRESSION:
+                    case HTML_Scss_Type::T_MEDIA_EXPRESSION:
                         if (isset($q[2])) {
                             $parts[] = '('
                                 . $this->compileValue($q[1])
@@ -1389,7 +1385,7 @@ class Compiler
                         }
                         break;
 
-                    case Type::T_MEDIA_VALUE:
+                    case HTML_Scss_Type::T_MEDIA_VALUE:
                         $parts[] = $this->compileValue($q[1]);
                         break;
                 }
@@ -1483,24 +1479,24 @@ class Compiler
             $t2 = strtolower($type2[0]);
         }
 
-        if (($m1 === Type::T_NOT) ^ ($m2 === Type::T_NOT)) {
+        if (($m1 === HTML_Scss_Type::T_NOT) ^ ($m2 === HTML_Scss_Type::T_NOT)) {
             if ($t1 === $t2) {
                 return null;
             }
 
             return [
-                $m1 === Type::T_NOT ? $m2 : $m1,
-                $m1 === Type::T_NOT ? $t2 : $t1,
+                $m1 === HTML_Scss_Type::T_NOT ? $m2 : $m1,
+                $m1 === HTML_Scss_Type::T_NOT ? $t2 : $t1,
             ];
         }
 
-        if ($m1 === Type::T_NOT && $m2 === Type::T_NOT) {
+        if ($m1 === HTML_Scss_Type::T_NOT && $m2 === HTML_Scss_Type::T_NOT) {
             // CSS has no way of representing "neither screen nor print"
             if ($t1 !== $t2) {
                 return null;
             }
 
-            return [Type::T_NOT, $t1];
+            return [HTML_Scss_Type::T_NOT, $t1];
         }
 
         if ($t1 !== $t2) {
@@ -1522,7 +1518,7 @@ class Compiler
      */
     protected function compileImport($rawPath, $out, $once = false)
     {
-        if ($rawPath[0] === Type::T_STRING) {
+        if ($rawPath[0] === HTML_Scss_Type::T_STRING) {
             $path = $this->compileStringContent($rawPath);
 
             if ($path = $this->findImport($path)) {
@@ -1537,14 +1533,14 @@ class Compiler
             return false;
         }
 
-        if ($rawPath[0] === Type::T_LIST) {
+        if ($rawPath[0] === HTML_Scss_Type::T_LIST) {
             // handle a list of strings
             if (count($rawPath[2]) === 0) {
                 return false;
             }
 
             foreach ($rawPath[2] as $path) {
-                if ($path[0] !== Type::T_STRING) {
+                if ($path[0] !== HTML_Scss_Type::T_STRING) {
                     return false;
                 }
             }
@@ -1569,12 +1565,12 @@ class Compiler
      */
     protected function compileChild($child, OutputBlock $out)
     {
-        $this->sourceIndex  = isset($child[Parser::SOURCE_INDEX]) ? $child[Parser::SOURCE_INDEX] : null;
-        $this->sourceLine   = isset($child[Parser::SOURCE_LINE]) ? $child[Parser::SOURCE_LINE] : -1;
-        $this->sourceColumn = isset($child[Parser::SOURCE_COLUMN]) ? $child[Parser::SOURCE_COLUMN] : -1;
+        $this->sourceIndex  = isset($child[HTML_Scss_Parser::SOURCE_INDEX]) ? $child[HTML_Scss_Parser::SOURCE_INDEX] : null;
+        $this->sourceLine   = isset($child[HTML_Scss_Parser::SOURCE_LINE]) ? $child[HTML_Scss_Parser::SOURCE_LINE] : -1;
+        $this->sourceColumn = isset($child[HTML_Scss_Parser::SOURCE_COLUMN]) ? $child[HTML_Scss_Parser::SOURCE_COLUMN] : -1;
 
         switch ($child[0]) {
-            case Type::T_SCSSPHP_IMPORT_ONCE:
+            case HTML_Scss_Type::T_SCSSPHP_IMPORT_ONCE:
                 list(, $rawPath) = $child;
 
                 $rawPath = $this->reduce($rawPath);
@@ -1584,7 +1580,7 @@ class Compiler
                 }
                 break;
 
-            case Type::T_IMPORT:
+            case HTML_Scss_Type::T_IMPORT:
                 list(, $rawPath) = $child;
 
                 $rawPath = $this->reduce($rawPath);
@@ -1594,23 +1590,23 @@ class Compiler
                 }
                 break;
 
-            case Type::T_DIRECTIVE:
+            case HTML_Scss_Type::T_DIRECTIVE:
                 $this->compileDirective($child[1]);
                 break;
 
-            case Type::T_AT_ROOT:
+            case HTML_Scss_Type::T_AT_ROOT:
                 $this->compileAtRoot($child[1]);
                 break;
 
-            case Type::T_MEDIA:
+            case HTML_Scss_Type::T_MEDIA:
                 $this->compileMedia($child[1]);
                 break;
 
-            case Type::T_BLOCK:
+            case HTML_Scss_Type::T_BLOCK:
                 $this->compileBlock($child[1]);
                 break;
 
-            case Type::T_CHARSET:
+            case HTML_Scss_Type::T_CHARSET:
                 if (! $this->charsetSeen) {
                     $this->charsetSeen = true;
 
@@ -1618,10 +1614,10 @@ class Compiler
                 }
                 break;
 
-            case Type::T_ASSIGN:
+            case HTML_Scss_Type::T_ASSIGN:
                 list(, $name, $value) = $child;
 
-                if ($name[0] === Type::T_VARIABLE) {
+                if ($name[0] === HTML_Scss_Type::T_VARIABLE) {
                     $flags = isset($child[3]) ? $child[3] : [];
                     $isDefault = in_array('!default', $flags);
                     $isGlobal = in_array('!global', $flags);
@@ -1645,11 +1641,11 @@ class Compiler
 
                 // handle shorthand syntax: size / line-height
                 if ($compiledName === 'font') {
-                    if ($value[0] === Type::T_EXPRESSION && $value[1] === '/') {
+                    if ($value[0] === HTML_Scss_Type::T_EXPRESSION && $value[1] === '/') {
                         $value = $this->expToString($value);
-                    } elseif ($value[0] === Type::T_LIST) {
+                    } elseif ($value[0] === HTML_Scss_Type::T_LIST) {
                         foreach ($value[2] as &$item) {
-                            if ($item[0] === Type::T_EXPRESSION && $item[1] === '/') {
+                            if ($item[0] === HTML_Scss_Type::T_EXPRESSION && $item[1] === '/') {
                                 $item = $this->expToString($item);
                             }
                         }
@@ -1658,10 +1654,10 @@ class Compiler
 
                 // if the value reduces to null from something else then
                 // the property should be discarded
-                if ($value[0] !== Type::T_NULL) {
+                if ($value[0] !== HTML_Scss_Type::T_NULL) {
                     $value = $this->reduce($value);
 
-                    if ($value[0] === Type::T_NULL || $value === static::$nullString) {
+                    if ($value[0] === HTML_Scss_Type::T_NULL || $value === static::$nullString) {
                         break;
                     }
                 }
@@ -1674,8 +1670,8 @@ class Compiler
                 );
                 break;
 
-            case Type::T_COMMENT:
-                if ($out->type === Type::T_ROOT) {
+            case HTML_Scss_Type::T_COMMENT:
+                if ($out->type === HTML_Scss_Type::T_ROOT) {
                     $this->compileComment($child);
                     break;
                 }
@@ -1683,14 +1679,14 @@ class Compiler
                 $out->lines[] = $child[1];
                 break;
 
-            case Type::T_MIXIN:
-            case Type::T_FUNCTION:
+            case HTML_Scss_Type::T_MIXIN:
+            case HTML_Scss_Type::T_FUNCTION:
                 list(, $block) = $child;
 
                 $this->set(static::$namespaces[$block->type] . $block->name, $block);
                 break;
 
-            case Type::T_EXTEND:
+            case HTML_Scss_Type::T_EXTEND:
                 list(, $selectors) = $child;
 
                 foreach ($selectors as $sel) {
@@ -1705,7 +1701,7 @@ class Compiler
                 }
                 break;
 
-            case Type::T_IF:
+            case HTML_Scss_Type::T_IF:
                 list(, $if) = $child;
 
                 if ($this->isTruthy($this->reduce($if->cond, true))) {
@@ -1713,15 +1709,15 @@ class Compiler
                 }
 
                 foreach ($if->cases as $case) {
-                    if ($case->type === Type::T_ELSE ||
-                        $case->type === Type::T_ELSEIF && $this->isTruthy($this->reduce($case->cond))
+                    if ($case->type === HTML_Scss_Type::T_ELSE ||
+                        $case->type === HTML_Scss_Type::T_ELSEIF && $this->isTruthy($this->reduce($case->cond))
                     ) {
                         return $this->compileChildren($case->children, $out);
                     }
                 }
                 break;
 
-            case Type::T_EACH:
+            case HTML_Scss_Type::T_EACH:
                 list(, $each) = $child;
 
                 $list = $this->coerceList($this->reduce($each->list));
@@ -1742,7 +1738,7 @@ class Compiler
                     $ret = $this->compileChildren($each->children, $out);
 
                     if ($ret) {
-                        if ($ret[0] !== Type::T_CONTROL) {
+                        if ($ret[0] !== HTML_Scss_Type::T_CONTROL) {
                             $this->popEnv();
 
                             return $ret;
@@ -1757,14 +1753,14 @@ class Compiler
                 $this->popEnv();
                 break;
 
-            case Type::T_WHILE:
+            case HTML_Scss_Type::T_WHILE:
                 list(, $while) = $child;
 
                 while ($this->isTruthy($this->reduce($while->cond, true))) {
                     $ret = $this->compileChildren($while->children, $out);
 
                     if ($ret) {
-                        if ($ret[0] !== Type::T_CONTROL) {
+                        if ($ret[0] !== HTML_Scss_Type::T_CONTROL) {
                             return $ret;
                         }
 
@@ -1775,7 +1771,7 @@ class Compiler
                 }
                 break;
 
-            case Type::T_FOR:
+            case HTML_Scss_Type::T_FOR:
                 list(, $for) = $child;
 
                 $start = $this->reduce($for->start, true);
@@ -1792,6 +1788,7 @@ class Compiler
                 $end   = $end[1];
 
                 $d = $start < $end ? 1 : -1;
+ 
 
                 for (;;) {
                     if ((! $for->until && $start - $d == $end) ||
@@ -1799,14 +1796,14 @@ class Compiler
                     ) {
                         break;
                     }
-
-                    $this->set($for->var, new Node\Number($start, $unit));
+						
+                    $this->set($for->var, new HTML_Scss_Node_Number($start, $unit));
                     $start += $d;
 
                     $ret = $this->compileChildren($for->children, $out);
 
                     if ($ret) {
-                        if ($ret[0] !== Type::T_CONTROL) {
+                        if ($ret[0] !== HTML_Scss_Type::T_CONTROL) {
                             return $ret;
                         }
 
@@ -1817,16 +1814,16 @@ class Compiler
                 }
                 break;
 
-            case Type::T_BREAK:
-                return [Type::T_CONTROL, true];
+            case HTML_Scss_Type::T_BREAK:
+                return [HTML_Scss_Type::T_CONTROL, true];
 
-            case Type::T_CONTINUE:
-                return [Type::T_CONTROL, false];
+            case HTML_Scss_Type::T_CONTINUE:
+                return [HTML_Scss_Type::T_CONTROL, false];
 
-            case Type::T_RETURN:
+            case HTML_Scss_Type::T_RETURN:
                 return $this->reduce($child[1], true);
 
-            case Type::T_NESTED_PROPERTY:
+            case HTML_Scss_Type::T_NESTED_PROPERTY:
                 list(, $prop) = $child;
 
                 $prefixed = [];
@@ -1834,11 +1831,11 @@ class Compiler
 
                 foreach ($prop->children as $child) {
                     switch ($child[0]) {
-                        case Type::T_ASSIGN:
+                        case HTML_Scss_Type::T_ASSIGN:
                             array_unshift($child[1][2], $prefix);
                             break;
 
-                        case Type::T_NESTED_PROPERTY:
+                        case HTML_Scss_Type::T_NESTED_PROPERTY:
                             array_unshift($child[1]->prefix[2], $prefix);
                             break;
                     }
@@ -1849,7 +1846,7 @@ class Compiler
                 $this->compileChildrenNoReturn($prefixed, $out);
                 break;
 
-            case Type::T_INCLUDE:
+            case HTML_Scss_Type::T_INCLUDE:
                 // including a mixin
                 list(, $name, $argValues, $content) = $child;
 
@@ -1888,13 +1885,13 @@ class Compiler
                 $this->popEnv();
                 break;
 
-            case Type::T_MIXIN_CONTENT:
+            case HTML_Scss_Type::T_MIXIN_CONTENT:
                 $content = $this->get(static::$namespaces['special'] . 'content', false, $this->getStoreEnv())
                          ?: $this->get(static::$namespaces['special'] . 'content', false, $this->env);
 
                 if (! $content) {
-                    $content = new \stdClass();
-                    $content->scope = new \stdClass();
+                    $content = new StdClass();
+                    $content->scope = new StdClass();
                     $content->children = $this->storeEnv->parent->block->children;
                     break;
                 }
@@ -1907,7 +1904,7 @@ class Compiler
                 $this->storeEnv = $storeEnv;
                 break;
 
-            case Type::T_DEBUG:
+            case HTML_Scss_Type::T_DEBUG:
                 list(, $value) = $child;
 
                 $line = $this->sourceLine;
@@ -1915,7 +1912,7 @@ class Compiler
                 fwrite($this->stderr, "Line $line DEBUG: $value\n");
                 break;
 
-            case Type::T_WARN:
+            case HTML_Scss_Type::T_WARN:
                 list(, $value) = $child;
 
                 $line = $this->sourceLine;
@@ -1923,7 +1920,7 @@ class Compiler
                 fwrite($this->stderr, "Line $line WARN: $value\n");
                 break;
 
-            case Type::T_ERROR:
+            case HTML_Scss_Type::T_ERROR:
                 list(, $value) = $child;
 
                 $line = $this->sourceLine;
@@ -1931,7 +1928,7 @@ class Compiler
                 $this->throwError("Line $line ERROR: $value\n");
                 break;
 
-            case Type::T_CONTROL:
+            case HTML_Scss_Type::T_CONTROL:
                 $this->throwError('@break/@continue not permitted in this scope');
                 break;
 
@@ -1965,7 +1962,7 @@ class Compiler
 
         $content[] = $this->reduce($right);
 
-        return [Type::T_STRING, '', $content];
+        return [HTML_Scss_Type::T_STRING, '', $content];
     }
 
     /**
@@ -2002,14 +1999,14 @@ class Compiler
     protected function shouldEval($value)
     {
         switch ($value[0]) {
-            case Type::T_EXPRESSION:
+            case HTML_Scss_Type::T_EXPRESSION:
                 if ($value[1] === '/') {
                     return $this->shouldEval($value[2], $value[3]);
                 }
 
                 // fall-thru
-            case Type::T_VARIABLE:
-            case Type::T_FUNCTION_CALL:
+            case HTML_Scss_Type::T_VARIABLE:
+            case HTML_Scss_Type::T_FUNCTION_CALL:
                 return true;
         }
 
@@ -2029,7 +2026,7 @@ class Compiler
         list($type) = $value;
 
         switch ($type) {
-            case Type::T_EXPRESSION:
+            case HTML_Scss_Type::T_EXPRESSION:
                 list(, $op, $left, $right, $inParens) = $value;
 
                 $opName = isset(static::$operatorNames[$op]) ? static::$operatorNames[$op] : $op;
@@ -2043,8 +2040,8 @@ class Compiler
 
                 // special case: looks like css shorthand
                 if ($opName == 'div' && ! $inParens && ! $inExp && isset($right[2])
-                    && (($right[0] !== Type::T_NUMBER && $right[2] != '')
-                    || ($right[0] === Type::T_NUMBER && ! $right->unitless()))
+                    && (($right[0] !== HTML_Scss_Type::T_NUMBER && $right[2] != '')
+                    || ($right[0] === HTML_Scss_Type::T_NUMBER && ! $right->unitless()))
                 ) {
                     return $this->expToString($value);
                 }
@@ -2076,7 +2073,7 @@ class Compiler
                     $coerceUnit = false;
 
                     if (! isset($genOp) &&
-                        $left[0] === Type::T_NUMBER && $right[0] === Type::T_NUMBER
+                        $left[0] === HTML_Scss_Type::T_NUMBER && $right[0] === HTML_Scss_Type::T_NUMBER
                     ) {
                         $coerceUnit = true;
 
@@ -2120,7 +2117,7 @@ class Compiler
                     }
 
                     if (isset($out)) {
-                        if ($coerceUnit && $out[0] === Type::T_NUMBER) {
+                        if ($coerceUnit && $out[0] === HTML_Scss_Type::T_NUMBER) {
                             $out = $out->coerce($targetUnit);
                         }
 
@@ -2130,19 +2127,21 @@ class Compiler
 
                 return $this->expToString($value);
 
-            case Type::T_UNARY:
+            case HTML_Scss_Type::T_UNARY:
                 list(, $op, $exp, $inParens) = $value;
 
                 $inExp = $inExp || $this->shouldEval($exp);
                 $exp = $this->reduce($exp);
 
-                if ($exp[0] === Type::T_NUMBER) {
+                if ($exp[0] === HTML_Scss_Type::T_NUMBER) {
+ 
+
                     switch ($op) {
                         case '+':
-                            return new Node\Number($exp[1], $exp[2]);
+                            return new HTML_Scss_Node_Number($exp[1], $exp[2]);
 
                         case '-':
-                            return new Node\Number(-$exp[1], $exp[2]);
+                            return new HTML_Scss_Node_Number(-$exp[1], $exp[2]);
                     }
                 }
 
@@ -2158,21 +2157,21 @@ class Compiler
                     $op = $op . ' ';
                 }
 
-                return [Type::T_STRING, '', [$op, $exp]];
+                return [HTML_Scss_Type::T_STRING, '', [$op, $exp]];
 
-            case Type::T_VARIABLE:
+            case HTML_Scss_Type::T_VARIABLE:
                 list(, $name) = $value;
 
                 return $this->reduce($this->get($name));
 
-            case Type::T_LIST:
+            case HTML_Scss_Type::T_LIST:
                 foreach ($value[2] as &$item) {
                     $item = $this->reduce($item);
                 }
 
                 return $value;
 
-            case Type::T_MAP:
+            case HTML_Scss_Type::T_MAP:
                 foreach ($value[1] as &$item) {
                     $item = $this->reduce($item);
                 }
@@ -2183,7 +2182,7 @@ class Compiler
 
                 return $value;
 
-            case Type::T_STRING:
+            case HTML_Scss_Type::T_STRING:
                 foreach ($value[2] as &$item) {
                     if (is_array($item) || $item instanceof \ArrayAccess) {
                         $item = $this->reduce($item);
@@ -2192,12 +2191,12 @@ class Compiler
 
                 return $value;
 
-            case Type::T_INTERPOLATE:
+            case HTML_Scss_Type::T_INTERPOLATE:
                 $value[1] = $this->reduce($value[1]);
 
                 return $value;
 
-            case Type::T_FUNCTION_CALL:
+            case HTML_Scss_Type::T_FUNCTION_CALL:
                 list(, $name, $argValues) = $value;
 
                 return $this->fncall($name, $argValues);
@@ -2236,7 +2235,7 @@ class Compiler
             }
         }
 
-        return [Type::T_FUNCTION, $name, [Type::T_LIST, ',', $listArgs]];
+        return [HTML_Scss_Type::T_FUNCTION, $name, [HTML_Scss_Type::T_LIST, ',', $listArgs]];
     }
 
     /**
@@ -2264,11 +2263,11 @@ class Compiler
         list($type) = $value;
 
         switch ($type) {
-            case Type::T_LIST:
+            case HTML_Scss_Type::T_LIST:
                 $value = $this->extractInterpolation($value);
 
-                if ($value[0] !== Type::T_LIST) {
-                    return [Type::T_KEYWORD, $this->compileValue($value)];
+                if ($value[0] !== HTML_Scss_Type::T_LIST) {
+                    return [HTML_Scss_Type::T_KEYWORD, $this->compileValue($value)];
                 }
 
                 foreach ($value[2] as $key => $item) {
@@ -2277,14 +2276,14 @@ class Compiler
 
                 return $value;
 
-            case Type::T_STRING:
+            case HTML_Scss_Type::T_STRING:
                 return [$type, '"', [$this->compileStringContent($value)]];
 
-            case Type::T_NUMBER:
+            case HTML_Scss_Type::T_NUMBER:
                 return $value->normalize();
 
-            case Type::T_INTERPOLATE:
-                return [Type::T_KEYWORD, $this->compileValue($value)];
+            case HTML_Scss_Type::T_INTERPOLATE:
+                return [HTML_Scss_Type::T_KEYWORD, $this->compileValue($value)];
 
             default:
                 return $value;
@@ -2301,7 +2300,8 @@ class Compiler
      */
     protected function opAddNumberNumber($left, $right)
     {
-        return new Node\Number($left[1] + $right[1], $left[2]);
+        
+        return new HTML_Scss_Node_Number($left[1] + $right[1], $left[2]);
     }
 
     /**
@@ -2314,7 +2314,7 @@ class Compiler
      */
     protected function opMulNumberNumber($left, $right)
     {
-        return new Node\Number($left[1] * $right[1], $left[2]);
+        return new HTML_Scss_Node_Number($left[1] * $right[1], $left[2]);
     }
 
     /**
@@ -2327,7 +2327,7 @@ class Compiler
      */
     protected function opSubNumberNumber($left, $right)
     {
-        return new Node\Number($left[1] - $right[1], $left[2]);
+        return new HTML_Scss_Node_Number($left[1] - $right[1], $left[2]);
     }
 
     /**
@@ -2341,10 +2341,10 @@ class Compiler
     protected function opDivNumberNumber($left, $right)
     {
         if ($right[1] == 0) {
-            return [Type::T_STRING, '', [$left[1] . $left[2] . '/' . $right[1] . $right[2]]];
+            return [HTML_Scss_Type::T_STRING, '', [$left[1] . $left[2] . '/' . $right[1] . $right[2]]];
         }
 
-        return new Node\Number($left[1] / $right[1], $left[2]);
+        return new HTML_Scss_Node_Number($left[1] / $right[1], $left[2]);
     }
 
     /**
@@ -2357,7 +2357,7 @@ class Compiler
      */
     protected function opModNumberNumber($left, $right)
     {
-        return new Node\Number($left[1] % $right[1], $left[2]);
+        return new HTML_Scss_Node_Number($left[1] % $right[1], $left[2]);
     }
 
     /**
@@ -2371,7 +2371,7 @@ class Compiler
     protected function opAdd($left, $right)
     {
         if ($strLeft = $this->coerceString($left)) {
-            if ($right[0] === Type::T_STRING) {
+            if ($right[0] === HTML_Scss_Type::T_STRING) {
                 $right[1] = '';
             }
 
@@ -2381,7 +2381,7 @@ class Compiler
         }
 
         if ($strRight = $this->coerceString($right)) {
-            if ($left[0] === Type::T_STRING) {
+            if ($left[0] === HTML_Scss_Type::T_STRING) {
                 $left[1] = '';
             }
 
@@ -2446,7 +2446,7 @@ class Compiler
      */
     protected function opColorColor($op, $left, $right)
     {
-        $out = [Type::T_COLOR];
+        $out = [HTML_Scss_Type::T_COLOR];
 
         foreach ([1, 2, 3] as $i) {
             $lval = isset($left[$i]) ? $left[$i] : 0;
@@ -2515,7 +2515,7 @@ class Compiler
         return $this->opColorColor(
             $op,
             $left,
-            [Type::T_COLOR, $value, $value, $value]
+            [HTML_Scss_Type::T_COLOR, $value, $value, $value]
         );
     }
 
@@ -2534,7 +2534,7 @@ class Compiler
 
         return $this->opColorColor(
             $op,
-            [Type::T_COLOR, $value, $value, $value],
+            [HTML_Scss_Type::T_COLOR, $value, $value, $value],
             $right
         );
     }
@@ -2645,7 +2645,7 @@ class Compiler
     {
         $n = $left[1] - $right[1];
 
-        return new Node\Number($n ? $n / abs($n) : 0, '');
+        return new HTML_Scss_Node_Number($n ? $n / abs($n) : 0, '');
     }
 
     /**
@@ -2686,10 +2686,10 @@ class Compiler
         list($type) = $value;
 
         switch ($type) {
-            case Type::T_KEYWORD:
+            case HTML_Scss_Type::T_KEYWORD:
                 return $value[1];
 
-            case Type::T_COLOR:
+            case HTML_Scss_Type::T_COLOR:
                 // [1] - red component (either number for a %)
                 // [2] - green component
                 // [3] - blue component
@@ -2715,21 +2715,21 @@ class Compiler
 
                 return $h;
 
-            case Type::T_NUMBER:
+            case HTML_Scss_Type::T_NUMBER:
                 return $value->output($this);
 
-            case Type::T_STRING:
+            case HTML_Scss_Type::T_STRING:
                 return $value[1] . $this->compileStringContent($value) . $value[1];
 
-            case Type::T_FUNCTION:
+            case HTML_Scss_Type::T_FUNCTION:
                 $args = ! empty($value[2]) ? $this->compileValue($value[2]) : '';
 
                 return "$value[1]($args)";
 
-            case Type::T_LIST:
+            case HTML_Scss_Type::T_LIST:
                 $value = $this->extractInterpolation($value);
 
-                if ($value[0] !== Type::T_LIST) {
+                if ($value[0] !== HTML_Scss_Type::T_LIST) {
                     return $this->compileValue($value);
                 }
 
@@ -2742,7 +2742,7 @@ class Compiler
                 $filtered = [];
 
                 foreach ($items as $item) {
-                    if ($item[0] === Type::T_NULL) {
+                    if ($item[0] === HTML_Scss_Type::T_NULL) {
                         continue;
                     }
 
@@ -2751,7 +2751,7 @@ class Compiler
 
                 return implode("$delim", $filtered);
 
-            case Type::T_MAP:
+            case HTML_Scss_Type::T_MAP:
                 $keys = $value[1];
                 $values = $value[2];
                 $filtered = [];
@@ -2766,7 +2766,7 @@ class Compiler
 
                 return '(' . implode(', ', $filtered) . ')';
 
-            case Type::T_INTERPOLATED:
+            case HTML_Scss_Type::T_INTERPOLATED:
                 // node created by extractInterpolation
                 list(, $interpolate, $left, $right) = $value;
                 list(,, $whiteLeft, $whiteRight) = $interpolate;
@@ -2779,7 +2779,7 @@ class Compiler
 
                 return $left . $this->compileValue($interpolate) . $right;
 
-            case Type::T_INTERPOLATE:
+            case HTML_Scss_Type::T_INTERPOLATE:
                 // raw parse node
                 list(, $exp) = $value;
 
@@ -2787,10 +2787,10 @@ class Compiler
                 $reduced = $this->reduce($exp);
 
                 switch ($reduced[0]) {
-                    case Type::T_LIST:
+                    case HTML_Scss_Type::T_LIST:
                         $reduced = $this->extractInterpolation($reduced);
 
-                        if ($reduced[0] !== Type::T_LIST) {
+                        if ($reduced[0] !== HTML_Scss_Type::T_LIST) {
                             break;
                         }
 
@@ -2803,34 +2803,34 @@ class Compiler
                         $filtered = [];
 
                         foreach ($items as $item) {
-                            if ($item[0] === Type::T_NULL) {
+                            if ($item[0] === HTML_Scss_Type::T_NULL) {
                                 continue;
                             }
 
-                            $temp = $this->compileValue([Type::T_KEYWORD, $item]);
-                            if ($temp[0] === Type::T_STRING) {
+                            $temp = $this->compileValue([HTML_Scss_Type::T_KEYWORD, $item]);
+                            if ($temp[0] === HTML_Scss_Type::T_STRING) {
                                 $filtered[] = $this->compileStringContent($temp);
-                            } elseif ($temp[0] === Type::T_KEYWORD) {
+                            } elseif ($temp[0] === HTML_Scss_Type::T_KEYWORD) {
                                 $filtered[] = $temp[1];
                             } else {
                                 $filtered[] = $this->compileValue($temp);
                             }
                         }
 
-                        $reduced = [Type::T_KEYWORD, implode("$delim", $filtered)];
+                        $reduced = [HTML_Scss_Type::T_KEYWORD, implode("$delim", $filtered)];
                         break;
 
-                    case Type::T_STRING:
-                        $reduced = [Type::T_KEYWORD, $this->compileStringContent($reduced)];
+                    case HTML_Scss_Type::T_STRING:
+                        $reduced = [HTML_Scss_Type::T_KEYWORD, $this->compileStringContent($reduced)];
                         break;
 
-                    case Type::T_NULL:
-                        $reduced = [Type::T_KEYWORD, ''];
+                    case HTML_Scss_Type::T_NULL:
+                        $reduced = [HTML_Scss_Type::T_KEYWORD, ''];
                 }
 
                 return $this->compileValue($reduced);
 
-            case Type::T_NULL:
+            case HTML_Scss_Type::T_NULL:
                 return 'null';
 
             default:
@@ -2884,11 +2884,11 @@ class Compiler
         $items = $list[2];
 
         foreach ($items as $i => $item) {
-            if ($item[0] === Type::T_INTERPOLATE) {
-                $before = [Type::T_LIST, $list[1], array_slice($items, 0, $i)];
-                $after  = [Type::T_LIST, $list[1], array_slice($items, $i + 1)];
+            if ($item[0] === HTML_Scss_Type::T_INTERPOLATE) {
+                $before = [HTML_Scss_Type::T_LIST, $list[1], array_slice($items, 0, $i)];
+                $after  = [HTML_Scss_Type::T_LIST, $list[1], array_slice($items, $i + 1)];
 
-                return [Type::T_INTERPOLATED, $item, $before, $after];
+                return [HTML_Scss_Type::T_INTERPOLATED, $item, $before, $after];
             }
         }
 
@@ -2902,7 +2902,7 @@ class Compiler
      *
      * @return array
      */
-    protected function multiplySelectors(Environment $env)
+    protected function multiplySelectors(HTML_Scss_Compiler_Environment $env)
     {
         $envs            = $this->compactEnv($env);
         $selectors       = [];
@@ -2976,10 +2976,10 @@ class Compiler
      *
      * @return array
      */
-    protected function multiplyMedia(Environment $env = null, $childQueries = null)
+    protected function multiplyMedia(HTML_Scss_Compiler_Environment $env = null, $childQueries = null)
     {
         if (! isset($env) ||
-            ! empty($env->block->type) && $env->block->type !== Type::T_MEDIA
+            ! empty($env->block->type) && $env->block->type !== HTML_Scss_Type::T_MEDIA
         ) {
             return $childQueries;
         }
@@ -2991,7 +2991,7 @@ class Compiler
 
         $parentQueries = isset($env->block->queryList)
             ? $env->block->queryList
-            : [[[Type::T_MEDIA_VALUE, $env->block->value]]];
+            : [[[HTML_Scss_Type::T_MEDIA_VALUE, $env->block->value]]];
 
         if ($childQueries === null) {
             $childQueries = $parentQueries;
@@ -3016,7 +3016,7 @@ class Compiler
      *
      * @return array
      */
-    private function compactEnv(Environment $env)
+    private function compactEnv(HTML_Scss_Compiler_Environment $env)
     {
         for ($envs = []; $env; $env = $env->parent) {
             $envs[] = $env;
@@ -3049,9 +3049,9 @@ class Compiler
      *
      * @return \Leafo\ScssPhp\Compiler\Environment
      */
-    protected function pushEnv(Block $block = null)
+    protected function pushEnv(HTML_Scss_Block $block = null)
     {
-        $env = new Environment;
+        $env = new HTML_Scss_Compiler_Environment;
         $env->parent = $this->env;
         $env->store  = [];
         $env->block  = $block;
@@ -3088,7 +3088,7 @@ class Compiler
      * @param boolean                             $shadow
      * @param \Leafo\ScssPhp\Compiler\Environment $env
      */
-    protected function set($name, $value, $shadow = false, Environment $env = null)
+    protected function set($name, $value, $shadow = false, HTML_Scss_Compiler_Environment  $env = null)
     {
         $name = $this->normalizeName($name);
 
@@ -3110,7 +3110,7 @@ class Compiler
      * @param mixed                               $value
      * @param \Leafo\ScssPhp\Compiler\Environment $env
      */
-    protected function setExisting($name, $value, Environment $env)
+    protected function setExisting($name, $value, HTML_Scss_Compiler_Environment $env)
     {
         $storeEnv = $env;
 
@@ -3144,7 +3144,7 @@ class Compiler
      * @param mixed                               $value
      * @param \Leafo\ScssPhp\Compiler\Environment $env
      */
-    protected function setRaw($name, $value, Environment $env)
+    protected function setRaw($name, $value, HTML_Scss_Compiler_Environment $env)
     {
         $env->store[$name] = $value;
     }
@@ -3160,7 +3160,7 @@ class Compiler
      *
      * @return mixed
      */
-    public function get($name, $shouldThrow = true, Environment $env = null)
+    public function get($name, $shouldThrow = true, HTML_Scss_Compiler_Environment $env = null)
     {
         $normalizedName = $this->normalizeName($name);
         $specialContentKey = static::$namespaces['special'] . 'content';
@@ -3210,7 +3210,7 @@ class Compiler
      *
      * @return boolean
      */
-    protected function has($name, Environment $env = null)
+    protected function has($name, HTML_Scss_Compiler_Environment $env = null)
     {
         return $this->get($name, false, $env) !== null;
     }
@@ -3338,7 +3338,7 @@ class Compiler
      */
     public function setNumberPrecision($numberPrecision)
     {
-        Node\Number::$precision = $numberPrecision;
+        HTML_Scss_Node_Number::$precision = $numberPrecision;
     }
 
     /**
@@ -3551,8 +3551,8 @@ class Compiler
 
         $line = $this->sourceLine;
         $msg = "$msg: line: $line";
-
-        throw new CompilerException($msg);
+		  require_once 'Exception/CompilerException.php';
+        throw new HTML_Scss_Exception_CompilerException($msg);
     }
 
     /**
@@ -3614,7 +3614,7 @@ class Compiler
         }
 
         // throw away lines and children
-        $tmp = new OutputBlock;
+        $tmp = new HTML_Scss_Formatter_OutputBlock;
         $tmp->lines    = [];
         $tmp->children = [];
 
@@ -3790,7 +3790,7 @@ class Compiler
             } elseif ($arg[2] === true) {
                 $val = $this->reduce($arg[1], true);
 
-                if ($val[0] === Type::T_LIST) {
+                if ($val[0] === HTML_Scss_Type::T_LIST) {
                     foreach ($val[2] as $name => $item) {
                         if (! is_numeric($name)) {
                             $keywordArgs[$name] = $item;
@@ -3798,7 +3798,7 @@ class Compiler
                             $remaining[] = $item;
                         }
                     }
-                } elseif ($val[0] === Type::T_MAP) {
+                } elseif ($val[0] === HTML_Scss_Type::T_MAP) {
                     foreach ($val[1] as $i => $name) {
                         $name = $this->compileStringContent($this->coerceString($name));
                         $item = $val[2][$i];
@@ -3821,7 +3821,7 @@ class Compiler
             list($i, $name, $default, $isVariable) = $arg;
 
             if ($isVariable) {
-                $val = [Type::T_LIST, ',', [], $isVariable];
+                $val = [HTML_Scss_Type::T_LIST, ',', [], $isVariable];
 
                 for ($count = count($remaining); $i < $count; $i++) {
                     $val[2][] = $remaining[$i];
@@ -3866,7 +3866,7 @@ class Compiler
      */
     private function coerceValue($value)
     {
-        if (is_array($value) || $value instanceof \ArrayAccess) {
+        if (is_array($value) || $value instanceof  ArrayAccess) {
             return $value;
         }
 
@@ -3879,7 +3879,7 @@ class Compiler
         }
 
         if (is_numeric($value)) {
-            return new Node\Number($value, '');
+            return new HTML_Scss_Node_Number($value, '');
         }
 
         if ($value === '') {
@@ -3887,7 +3887,7 @@ class Compiler
         }
 
         if (preg_match('/^(#([0-9a-f]{6})|#([0-9a-f]{3}))$/i', $value, $m)) {
-            $color = [Type::T_COLOR];
+            $color = [HTML_Scss_Type::T_COLOR];
 
             if (isset($m[3])) {
                 $num = hexdec($m[3]);
@@ -3909,7 +3909,7 @@ class Compiler
             return $color;
         }
 
-        return [Type::T_KEYWORD, $value];
+        return [HTML_Scss_Type::T_KEYWORD, $value];
     }
 
     /**
@@ -3921,7 +3921,7 @@ class Compiler
      */
     protected function coerceMap($item)
     {
-        if ($item[0] === Type::T_MAP) {
+        if ($item[0] === HTML_Scss_Type::T_MAP) {
             return $item;
         }
 
@@ -3929,7 +3929,7 @@ class Compiler
             return static::$emptyMap;
         }
 
-        return [Type::T_MAP, [$item], [static::$null]];
+        return [HTML_Scss_Type::T_MAP, [$item], [static::$null]];
     }
 
     /**
@@ -3942,11 +3942,11 @@ class Compiler
      */
     protected function coerceList($item, $delim = ',')
     {
-        if (isset($item) && $item[0] === Type::T_LIST) {
+        if (isset($item) && $item[0] === HTML_Scss_Type::T_LIST) {
             return $item;
         }
 
-        if (isset($item) && $item[0] === Type::T_MAP) {
+        if (isset($item) && $item[0] === HTML_Scss_Type::T_MAP) {
             $keys = $item[1];
             $values = $item[2];
             $list = [];
@@ -3956,16 +3956,16 @@ class Compiler
                 $value = $values[$i];
 
                 $list[] = [
-                    Type::T_LIST,
+                    HTML_Scss_Type::T_LIST,
                     '',
-                    [[Type::T_KEYWORD, $this->compileStringContent($this->coerceString($key))], $value]
+                    [[HTML_Scss_Type::T_KEYWORD, $this->compileStringContent($this->coerceString($key))], $value]
                 ];
             }
 
-            return [Type::T_LIST, ',', $list];
+            return [HTML_Scss_Type::T_LIST, ',', $list];
         }
 
-        return [Type::T_LIST, $delim, ! isset($item) ? []: [$item]];
+        return [HTML_Scss_Type::T_LIST, $delim, ! isset($item) ? []: [$item]];
     }
 
     /**
@@ -3994,18 +3994,18 @@ class Compiler
     protected function coerceColor($value)
     {
         switch ($value[0]) {
-            case Type::T_COLOR:
+            case HTML_Scss_Type::T_COLOR:
                 return $value;
 
-            case Type::T_KEYWORD:
+            case HTML_Scss_Type::T_KEYWORD:
                 $name = strtolower($value[1]);
 
                 if (isset(Colors::$cssColors[$name])) {
                     $rgba = explode(',', Colors::$cssColors[$name]);
 
                     return isset($rgba[3])
-                        ? [Type::T_COLOR, (int) $rgba[0], (int) $rgba[1], (int) $rgba[2], (int) $rgba[3]]
-                        : [Type::T_COLOR, (int) $rgba[0], (int) $rgba[1], (int) $rgba[2]];
+                        ? [HTML_Scss_Type::T_COLOR, (int) $rgba[0], (int) $rgba[1], (int) $rgba[2], (int) $rgba[3]]
+                        : [HTML_Scss_Type::T_COLOR, (int) $rgba[0], (int) $rgba[1], (int) $rgba[2]];
                 }
 
                 return null;
@@ -4023,11 +4023,11 @@ class Compiler
      */
     protected function coerceString($value)
     {
-        if ($value[0] === Type::T_STRING) {
+        if ($value[0] === HTML_Scss_Type::T_STRING) {
             return $value;
         }
 
-        return [Type::T_STRING, '', [$this->compileValue($value)]];
+        return [HTML_Scss_Type::T_STRING, '', [$this->compileValue($value)]];
     }
 
     /**
@@ -4039,7 +4039,7 @@ class Compiler
      */
     protected function coercePercent($value)
     {
-        if ($value[0] === Type::T_NUMBER) {
+        if ($value[0] === HTML_Scss_Type::T_NUMBER) {
             if (! empty($value[2]['%'])) {
                 return $value[1] / 100;
             }
@@ -4065,7 +4065,7 @@ class Compiler
     {
         $value = $this->coerceMap($value);
 
-        if ($value[0] !== Type::T_MAP) {
+        if ($value[0] !== HTML_Scss_Type::T_MAP) {
             $this->throwError('expecting map');
         }
 
@@ -4085,7 +4085,7 @@ class Compiler
      */
     public function assertList($value)
     {
-        if ($value[0] !== Type::T_LIST) {
+        if ($value[0] !== HTML_Scss_Type::T_LIST) {
             $this->throwError('expecting list');
         }
 
@@ -4125,7 +4125,7 @@ class Compiler
      */
     public function assertNumber($value)
     {
-        if ($value[0] !== Type::T_NUMBER) {
+        if ($value[0] !== HTML_Scss_Type::T_NUMBER) {
             $this->throwError('expecting number');
         }
 
@@ -4191,7 +4191,7 @@ class Compiler
             }
         }
 
-        return [Type::T_HSL, fmod($h, 360), $s * 100, $l / 5.1];
+        return [HTML_Scss_Type::T_HSL, fmod($h, 360), $s * 100, $l / 5.1];
     }
 
     /**
@@ -4254,7 +4254,7 @@ class Compiler
         $g = $this->hueToRGB($m1, $m2, $h) * 255;
         $b = $this->hueToRGB($m1, $m2, $h - 1/3) * 255;
 
-        $out = [Type::T_COLOR, $r, $g, $b];
+        $out = [HTML_Scss_Type::T_COLOR, $r, $g, $b];
 
         return $out;
     }
@@ -4273,7 +4273,7 @@ class Compiler
                 if ($arg[2] === true) {
                     $tmp = $this->reduce($arg[1]);
 
-                    if ($tmp[0] === Type::T_LIST) {
+                    if ($tmp[0] === HTML_Scss_Type::T_LIST) {
                         foreach ($tmp[2] as $item) {
                             $posArgs[] = [null, $item, false];
                         }
@@ -4293,11 +4293,11 @@ class Compiler
 
         if (count($kwargs)) {
             foreach ($kwargs as $key => $value) {
-                $posArgs[] = [[Type::T_VARIABLE, $key], $value, false];
+                $posArgs[] = [[HTML_Scss_Type::T_VARIABLE, $key], $value, false];
             }
         }
 
-        return $this->reduce([Type::T_FUNCTION_CALL, $name, $posArgs]);
+        return $this->reduce([HTML_Scss_Type::T_FUNCTION_CALL, $name, $posArgs]);
     }
 
     protected static $libIf = ['condition', 'if-true', 'if-false'];
@@ -4317,19 +4317,19 @@ class Compiler
     {
         list($list, $value) = $args;
 
-        if ($value[0] === Type::T_MAP) {
+        if ($value[0] === HTML_Scss_Type::T_MAP) {
             return static::$null;
         }
 
-        if ($list[0] === Type::T_MAP ||
-            $list[0] === Type::T_STRING ||
-            $list[0] === Type::T_KEYWORD ||
-            $list[0] === Type::T_INTERPOLATE
+        if ($list[0] === HTML_Scss_Type::T_MAP ||
+            $list[0] === HTML_Scss_Type::T_STRING ||
+            $list[0] === HTML_Scss_Type::T_KEYWORD ||
+            $list[0] === HTML_Scss_Type::T_INTERPOLATE
         ) {
             $list = $this->coerceList($list, ' ');
         }
 
-        if ($list[0] !== Type::T_LIST) {
+        if ($list[0] !== HTML_Scss_Type::T_LIST) {
             return static::$null;
         }
 
@@ -4349,7 +4349,7 @@ class Compiler
     {
         list($r, $g, $b) = $args;
 
-        return [Type::T_COLOR, $r[1], $g[1], $b[1]];
+        return [HTML_Scss_Type::T_COLOR, $r[1], $g[1], $b[1]];
     }
 
     protected static $libRgba = [
@@ -4367,7 +4367,7 @@ class Compiler
 
         list($r, $g, $b, $a) = $args;
 
-        return [Type::T_COLOR, $r[1], $g[1], $b[1], $a[1]];
+        return [HTML_Scss_Type::T_COLOR, $r[1], $g[1], $b[1], $a[1]];
     }
 
     // helper function for adjust_color, change_color, and scale_color
@@ -4515,7 +4515,7 @@ class Compiler
     {
         $value = $args[0];
 
-        if ($value[0] === Type::T_NUMBER) {
+        if ($value[0] === HTML_Scss_Type::T_NUMBER) {
             return null;
         }
 
@@ -4546,7 +4546,7 @@ class Compiler
         $w1 = (($w * $a === -1 ? $w : ($w + $a) / (1 + $w * $a)) + 1) / 2.0;
         $w2 = 1.0 - $w1;
 
-        $new = [Type::T_COLOR,
+        $new = [HTML_Scss_Type::T_COLOR,
             $w1 * $first[1] + $w2 * $second[1],
             $w1 * $first[2] + $w2 * $second[2],
             $w1 * $first[3] + $w2 * $second[3],
@@ -4584,7 +4584,7 @@ class Compiler
         $color = $this->assertColor($args[0]);
         $hsl = $this->toHSL($color[1], $color[2], $color[3]);
 
-        return new Node\Number($hsl[1], 'deg');
+        return new HTML_Scss_Node_Number($hsl[1], 'deg');
     }
 
     protected static $libSaturation = ['color'];
@@ -4593,7 +4593,7 @@ class Compiler
         $color = $this->assertColor($args[0]);
         $hsl = $this->toHSL($color[1], $color[2], $color[3]);
 
-        return new Node\Number($hsl[2], '%');
+        return new HTML_Scss_Node_Number($hsl[2], '%');
     }
 
     protected static $libLightness = ['color'];
@@ -4602,7 +4602,7 @@ class Compiler
         $color = $this->assertColor($args[0]);
         $hsl = $this->toHSL($color[1], $color[2], $color[3]);
 
-        return new Node\Number($hsl[3], '%');
+        return new HTML_Scss_Node_Number($hsl[3], '%');
     }
 
     protected function adjustHsl($color, $idx, $amount)
@@ -4631,7 +4631,7 @@ class Compiler
     protected function libLighten($args)
     {
         $color = $this->assertColor($args[0]);
-        $amount = Util::checkRange('amount', new Range(0, 100), $args[1], '%');
+        $amount = HTML_Scss_Util::checkRange('amount', new Range(0, 100), $args[1], '%');
 
         return $this->adjustHsl($color, 3, $amount);
     }
@@ -4640,7 +4640,7 @@ class Compiler
     protected function libDarken($args)
     {
         $color = $this->assertColor($args[0]);
-        $amount = Util::checkRange('amount', new Range(0, 100), $args[1], '%');
+        $amount = HTML_Scss_Util::checkRange('amount', new Range(0, 100), $args[1], '%');
 
         return $this->adjustHsl($color, 3, -$amount);
     }
@@ -4650,7 +4650,7 @@ class Compiler
     {
         $value = $args[0];
 
-        if ($value[0] === Type::T_NUMBER) {
+        if ($value[0] === HTML_Scss_Type::T_NUMBER) {
             return null;
         }
 
@@ -4674,7 +4674,7 @@ class Compiler
     {
         $value = $args[0];
 
-        if ($value[0] === Type::T_NUMBER) {
+        if ($value[0] === HTML_Scss_Type::T_NUMBER) {
             return null;
         }
 
@@ -4692,7 +4692,7 @@ class Compiler
     {
         $value = $args[0];
 
-        if ($value[0] === Type::T_NUMBER) {
+        if ($value[0] === HTML_Scss_Type::T_NUMBER) {
             return null;
         }
 
@@ -4747,7 +4747,7 @@ class Compiler
     {
         $str = $args[0];
 
-        if ($str[0] === Type::T_STRING) {
+        if ($str[0] === HTML_Scss_Type::T_STRING) {
             $str[1] = '';
         }
 
@@ -4759,17 +4759,17 @@ class Compiler
     {
         $value = $args[0];
 
-        if ($value[0] === Type::T_STRING && ! empty($value[1])) {
+        if ($value[0] === HTML_Scss_Type::T_STRING && ! empty($value[1])) {
             return $value;
         }
 
-        return [Type::T_STRING, '"', [$value]];
+        return [HTML_Scss_Type::T_STRING, '"', [$value]];
     }
 
     protected static $libPercentage = ['value'];
     protected function libPercentage($args)
     {
-        return new Node\Number($this->coercePercent($args[0]) * 100, '%');
+        return new HTML_Scss_Node_Number($this->coercePercent($args[0]) * 100, '%');
     }
 
     protected static $libRound = ['value'];
@@ -4777,7 +4777,7 @@ class Compiler
     {
         $num = $args[0];
 
-        return new Node\Number(round($num[1]), $num[2]);
+        return new HTML_Scss_Node_Number(round($num[1]), $num[2]);
     }
 
     protected static $libFloor = ['value'];
@@ -4785,7 +4785,7 @@ class Compiler
     {
         $num = $args[0];
 
-        return new Node\Number(floor($num[1]), $num[2]);
+        return new HTML_Scss_Node_Number(floor($num[1]), $num[2]);
     }
 
     protected static $libCeil = ['value'];
@@ -4793,7 +4793,7 @@ class Compiler
     {
         $num = $args[0];
 
-        return new Node\Number(ceil($num[1]), $num[2]);
+        return new HTML_Scss_Node_Number(ceil($num[1]), $num[2]);
     }
 
     protected static $libAbs = ['value'];
@@ -4801,7 +4801,7 @@ class Compiler
     {
         $num = $args[0];
 
-        return new Node\Number(abs($num[1]), $num[2]);
+        return new HTML_Scss_Node_Number(abs($num[1]), $num[2]);
     }
 
     protected function libMin($args)
@@ -4846,7 +4846,7 @@ class Compiler
         $numbers = [];
 
         foreach ($args as $key => $item) {
-            if ($item[0] !== Type::T_NUMBER) {
+            if ($item[0] !== HTML_Scss_Type::T_NUMBER) {
                 $this->throwError('%s is not a number', $item[0]);
                 break;
             }
@@ -4954,7 +4954,7 @@ class Compiler
         $map = $this->assertMap($args[0]);
         $keys = $map[1];
 
-        return [Type::T_LIST, ',', $keys];
+        return [HTML_Scss_Type::T_LIST, ',', $keys];
     }
 
     protected static $libMapValues = ['map'];
@@ -4963,7 +4963,7 @@ class Compiler
         $map = $this->assertMap($args[0]);
         $values = $map[2];
 
-        return [Type::T_LIST, ',', $values];
+        return [HTML_Scss_Type::T_LIST, ',', $values];
     }
 
     protected static $libMapRemove = ['map', 'key'];
@@ -5029,11 +5029,11 @@ class Compiler
         $values = [];
 
         foreach ($args[0][2] as $name => $arg) {
-            $keys[] = [Type::T_KEYWORD, $name];
+            $keys[] = [HTML_Scss_Type::T_KEYWORD, $name];
             $values[] = $arg;
         }
 
-        return [Type::T_MAP, $keys, $values];
+        return [HTML_Scss_Type::T_MAP, $keys, $values];
     }
 
     protected function listSeparatorForJoin($list1, $sep)
@@ -5063,7 +5063,7 @@ class Compiler
         $list2 = $this->coerceList($list2, ' ');
         $sep = $this->listSeparatorForJoin($list1, $sep);
 
-        return [Type::T_LIST, $sep, array_merge($list1[2], $list2[2])];
+        return [HTML_Scss_Type::T_LIST, $sep, array_merge($list1[2], $list2[2])];
     }
 
     protected static $libAppend = ['list', 'val', 'separator'];
@@ -5074,7 +5074,7 @@ class Compiler
         $list1 = $this->coerceList($list1, ' ');
         $sep = $this->listSeparatorForJoin($list1, $sep);
 
-        return [Type::T_LIST, $sep, array_merge($list1[2], [$value])];
+        return [HTML_Scss_Type::T_LIST, $sep, array_merge($list1[2], [$value])];
     }
 
     protected function libZip($args)
@@ -5087,7 +5087,7 @@ class Compiler
         $firstList = array_shift($args);
 
         foreach ($firstList[2] as $key => $item) {
-            $list = [Type::T_LIST, '', [$item]];
+            $list = [HTML_Scss_Type::T_LIST, '', [$item]];
 
             foreach ($args as $arg) {
                 if (isset($arg[2][$key])) {
@@ -5100,7 +5100,7 @@ class Compiler
             $lists[] = $list;
         }
 
-        return [Type::T_LIST, ',', $lists];
+        return [HTML_Scss_Type::T_LIST, ',', $lists];
     }
 
     protected static $libTypeOf = ['value'];
@@ -5109,7 +5109,7 @@ class Compiler
         $value = $args[0];
 
         switch ($value[0]) {
-            case Type::T_KEYWORD:
+            case HTML_Scss_Type::T_KEYWORD:
                 if ($value === static::$true || $value === static::$false) {
                     return 'bool';
                 }
@@ -5119,10 +5119,10 @@ class Compiler
                 }
 
                 // fall-thru
-            case Type::T_FUNCTION:
+            case HTML_Scss_Type::T_FUNCTION:
                 return 'string';
 
-            case Type::T_LIST:
+            case HTML_Scss_Type::T_LIST:
                 if (isset($value[3]) && $value[3]) {
                     return 'arglist';
                 }
@@ -5138,8 +5138,8 @@ class Compiler
     {
         $num = $args[0];
 
-        if ($num[0] === Type::T_NUMBER) {
-            return [Type::T_STRING, '"', [$num->unitStr()]];
+        if ($num[0] === HTML_Scss_Type::T_NUMBER) {
+            return [HTML_Scss_Type::T_STRING, '"', [$num->unitStr()]];
         }
 
         return '';
@@ -5150,7 +5150,7 @@ class Compiler
     {
         $value = $args[0];
 
-        return $value[0] === Type::T_NUMBER && $value->unitless();
+        return $value[0] === HTML_Scss_Type::T_NUMBER && $value->unitless();
     }
 
     protected static $libComparable = ['number-1', 'number-2'];
@@ -5158,8 +5158,8 @@ class Compiler
     {
         list($number1, $number2) = $args;
 
-        if (! isset($number1[0]) || $number1[0] !== Type::T_NUMBER ||
-            ! isset($number2[0]) || $number2[0] !== Type::T_NUMBER
+        if (! isset($number1[0]) || $number1[0] !== HTML_Scss_Type::T_NUMBER ||
+            ! isset($number2[0]) || $number2[0] !== HTML_Scss_Type::T_NUMBER
         ) {
             $this->throwError('Invalid argument(s) for "comparable"');
 
@@ -5208,7 +5208,7 @@ class Compiler
         $string = $this->coerceString($args[0]);
         $stringContent = $this->compileStringContent($string);
 
-        return new Node\Number(strlen($stringContent), '');
+        return new HTML_Scss_Node_Number(strlen($stringContent), '');
     }
 
     protected static $libStrSlice = ['string', 'start-at', 'end-at'];
@@ -5331,7 +5331,7 @@ class Compiler
     {
         $list = array_map([$this, 'compileValue'], $args);
 
-        return [Type::T_STRING, '', ['counter(' . implode(',', $list) . ')']];
+        return [HTML_Scss_Type::T_STRING, '', ['counter(' . implode(',', $list) . ')']];
     }
 
     protected static $libRandom = ['limit'];
@@ -5346,10 +5346,10 @@ class Compiler
                 return;
             }
 
-            return new Node\Number(mt_rand(1, $n), '');
+            return new HTML_Scss_Node_Number(mt_rand(1, $n), '');
         }
 
-        return new Node\Number(mt_rand(1, mt_getrandmax()), '');
+        return new HTML_Scss_Node_Number(mt_rand(1, mt_getrandmax()), '');
     }
 
     protected function libUniqueId()
@@ -5362,14 +5362,14 @@ class Compiler
 
         $id += mt_rand(0, 10) + 1;
 
-        return [Type::T_STRING, '', ['u' . str_pad(base_convert($id, 10, 36), 8, '0', STR_PAD_LEFT)]];
+        return [HTML_Scss_Type::T_STRING, '', ['u' . str_pad(base_convert($id, 10, 36), 8, '0', STR_PAD_LEFT)]];
     }
 
     protected static $libInspect = ['value'];
     protected function libInspect($args)
     {
         if ($args[0] === static::$null) {
-            return [Type::T_KEYWORD, 'null'];
+            return [HTML_Scss_Type::T_KEYWORD, 'null'];
         }
 
         return $args[0];

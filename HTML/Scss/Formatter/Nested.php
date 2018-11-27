@@ -9,17 +9,15 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp\Formatter;
-
-use Leafo\ScssPhp\Formatter;
-use Leafo\ScssPhp\Formatter\OutputBlock;
+require_once 'HTML/Scss/Formatter.php';
+require_once 'HTML/Scss/Formatter/OutputBlock.php';
 
 /**
  * Nested formatter
  *
  * @author Leaf Corcoran <leafot@gmail.com>
  */
-class Nested extends Formatter
+class HTML_Scss_Formatter_Nested extends HTML_Scss_Formatter
 {
     /**
      * @var integer
@@ -54,7 +52,7 @@ class Nested extends Formatter
     /**
      * {@inheritdoc}
      */
-    protected function blockLines(OutputBlock $block)
+    protected function blockLines(HTML_Scss_Formatter_OutputBlock $block)
     {
         $inner = $this->indentStr();
 
@@ -76,7 +74,7 @@ class Nested extends Formatter
     /**
      * {@inheritdoc}
      */
-    protected function blockSelectors(OutputBlock $block)
+    protected function blockSelectors(HTML_Scss_Formatter_OutputBlock $block)
     {
         $inner = $this->indentStr();
 
@@ -88,7 +86,7 @@ class Nested extends Formatter
     /**
      * {@inheritdoc}
      */
-    protected function blockChildren(OutputBlock $block)
+    protected function blockChildren(HTML_Scss_Formatter_OutputBlock $block)
     {
         foreach ($block->children as $i => $child) {
             $this->block($child);
@@ -110,7 +108,7 @@ class Nested extends Formatter
     /**
      * {@inheritdoc}
      */
-    protected function block(OutputBlock $block)
+    protected function block(HTML_Scss_Formatter_OutputBlock $block)
     {
         if ($block->type === 'root') {
             $this->adjustAllChildren($block);
@@ -155,7 +153,7 @@ class Nested extends Formatter
      *
      * @param \Leafo\ScssPhp\Formatter\OutputBlock $block
      */
-    private function adjustAllChildren(OutputBlock $block)
+    private function adjustAllChildren(HTML_Scss_Formatter_OutputBlock $block)
     {
         // flatten empty nested blocks
         $children = [];

@@ -8,15 +8,13 @@
  *
  * @link http://leafo.github.io/scssphp
  */
-
-namespace Leafo\ScssPhp;
-
+ 
 /**
  * Block/node types
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class Type
+class Html_Scss_Type
 {
     const T_ASSIGN = 'assign';
     const T_AT_ROOT = 'at-root';

@@ -9,14 +9,13 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp\SourceMap;
-
+ 
 /**
  * Base 64 Encode/Decode
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class Base64
+class HTML_Scss_SourceMap_Base64
 {
     /**
      * @var array

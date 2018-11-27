@@ -9,17 +9,14 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp\Formatter;
-
-use Leafo\ScssPhp\Formatter;
-use Leafo\ScssPhp\Formatter\OutputBlock;
-
+require_once 'HTML/Scss/Formatter.php';
+require_once 'HTML/Scss/Formatter/OutputBlock.php';
 /**
  * Debug formatter
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class Debug extends Formatter
+class HTML_Scss_Formatter_Debug extends HTML_Scss_Formatter
 {
     /**
      * {@inheritdoc}
@@ -47,7 +44,7 @@ class Debug extends Formatter
     /**
      * {@inheritdoc}
      */
-    protected function blockLines(OutputBlock $block)
+    protected function blockLines(HTML_Scss_Formatter_OutputBlock $block)
     {
         $indent = $this->indentStr();
 
@@ -65,7 +62,7 @@ class Debug extends Formatter
     /**
      * {@inheritdoc}
      */
-    protected function blockSelectors(OutputBlock $block)
+    protected function blockSelectors(HTML_Scss_Formatter_OutputBlock $block)
     {
         $indent = $this->indentStr();
 
@@ -83,7 +80,7 @@ class Debug extends Formatter
     /**
      * {@inheritdoc}
      */
-    protected function blockChildren(OutputBlock $block)
+    protected function blockChildren(HTML_Scss_Formatter_OutputBlock $block)
     {
         $indent = $this->indentStr();
 
@@ -105,7 +102,7 @@ class Debug extends Formatter
     /**
      * {@inheritdoc}
      */
-    protected function block(OutputBlock $block)
+    protected function block(HTML_Scss_Formatter_OutputBlock $block)
     {
         $indent = $this->indentStr();
 

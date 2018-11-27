@@ -8,15 +8,13 @@
  *
  * @link http://leafo.github.io/scssphp
  */
-
-namespace Leafo\ScssPhp\Formatter;
-
+ 
 /**
  * Output block
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class OutputBlock
+class HTML_Scss_Formatter_OutputBlock
 {
     /**
      * @var string

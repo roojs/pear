@@ -9,10 +9,7 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp\SourceMap;
-
-use Leafo\ScssPhp\Exception\CompilerException;
-
+ 
 /**
  * Source Map Generator
  *
@@ -21,7 +18,7 @@ use Leafo\ScssPhp\Exception\CompilerException;
  * @author Josh Schmidt <oyejorge@gmail.com>
  * @author Nicolas FRANÇOIS <nicolas.francois@frog-labs.com>
  */
-class SourceMapGenerator
+class HTML_Scss_SourceMap_SourceMapGenerator
 {
     /**
      * What version of source map does the generator generate?
@@ -136,12 +133,16 @@ class SourceMapGenerator
         // directory does not exist
         if (! is_dir($dir)) {
             // FIXME: create the dir automatically?
-            throw new CompilerException(sprintf('The directory "%s" does not exist. Cannot save the source map.', $dir));
+            require_once 'HTML/Scss/Exception/ComplierException.php';
+
+
+            throw new HTML_Scss_Exception_CompilerException(sprintf('The directory "%s" does not exist. Cannot save the source map.', $dir));
         }
 
         // FIXME: proper saving, with dir write check!
         if (file_put_contents($file, $content) === false) {
-            throw new CompilerException(sprintf('Cannot save the source map to "%s"', $file));
+			   require_once 'HTML/Scss/Exception/ComplierException.php';
+            throw new HTML_Scss_Exception_CompilerException(sprintf('Cannot save the source map to "%s"', $file));
         }
 
         return $this->options['sourceMapURL'];

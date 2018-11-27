@@ -8,15 +8,13 @@
  *
  * @link http://leafo.github.io/scssphp
  */
-
-namespace Leafo\ScssPhp;
-
+ 
 /**
  * Base node
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-abstract class Node
+abstract class HTML_Scss_Node
 {
     /**
      * @var string

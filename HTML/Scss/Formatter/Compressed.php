@@ -9,17 +9,14 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp\Formatter;
-
-use Leafo\ScssPhp\Formatter;
-use Leafo\ScssPhp\Formatter\OutputBlock;
-
+require_once 'HTML/Scss/Formatter.php';
+require_once 'HTML/Scss/Formatter/OutputBlock.php';
 /**
  * Compressed formatter
  *
  * @author Leaf Corcoran <leafot@gmail.com>
  */
-class Compressed extends Formatter
+class HTML_Scss_Formatter_Compressed extends HTML_Scss_Formatter
 {
     /**
      * {@inheritdoc}
@@ -39,7 +36,7 @@ class Compressed extends Formatter
     /**
      * {@inheritdoc}
      */
-    public function blockLines(OutputBlock $block)
+    public function blockLines(HTML_Scss_Formatter_OutputBlock $block)
     {
         $inner = $this->indentStr();
 

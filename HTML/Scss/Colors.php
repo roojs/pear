@@ -9,14 +9,14 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp;
+ 
 
 /**
  * CSS Colors
  *
  * @author Leaf Corcoran <leafot@gmail.com>
  */
-class Colors
+class HTML_Scss_Colors
 {
     /**
      * CSS Colors

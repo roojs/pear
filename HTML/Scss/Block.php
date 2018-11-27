@@ -9,14 +9,14 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp;
+ 
 
 /**
  * Block
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class Block
+class HTML_Scss_Block
 {
     /**
      * @var string

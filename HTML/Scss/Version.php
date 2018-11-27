@@ -9,14 +9,14 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp;
+ 
 
 /**
  * SCSSPHP version
  *
  * @author Leaf Corcoran <leafot@gmail.com>
  */
-class Version
+class HTML_Scss_Version
 {
     const VERSION = 'v0.7.8';
 }

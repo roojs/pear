@@ -9,16 +9,15 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp\Formatter;
 
-use Leafo\ScssPhp\Formatter;
 
+require_once 'HTML/Scss/Formatter.php';
 /**
  * Compact formatter
  *
  * @author Leaf Corcoran <leafot@gmail.com>
  */
-class Compact extends Formatter
+class HTML_Scss_Formatter_Compact extends HTML_Scss_Formatter
 {
     /**
      * {@inheritdoc}

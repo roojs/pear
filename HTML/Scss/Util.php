@@ -9,17 +9,16 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp;
 
-use Leafo\ScssPhp\Base\Range;
-use Leafo\ScssPhp\Exception\RangeException;
+require_once 'Base/Range.php';
+//use Leafo\ScssPhp\Exception\RangeException;
 
 /**
  * Utilty functions
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class Util
+class HTML_Scss_Util
 {
     /**
      * Asserts that `value` falls within `range` (inclusive), leaving
@@ -37,7 +36,7 @@ class Util
     public static function checkRange($name, Range $range, $value, $unit = '')
     {
         $val = $value[1];
-        $grace = new Range(-0.00001, 0.00001);
+        $grace = new HTML_Scss_Base_Range(-0.00001, 0.00001);
 
         if ($range->includes($val)) {
             return $val;
@@ -50,8 +49,8 @@ class Util
         if ($grace->includes($val - $range->last)) {
             return $range->last;
         }
-
-        throw new RangeException("$name {$val} must be between {$range->first} and {$range->last}$unit");
+		  require_once 'Exception/RangeException.php';
+        throw new HTML_Scss_Exception_RangeException("$name {$val} must be between {$range->first} and {$range->last}$unit");
     }
 
     /**

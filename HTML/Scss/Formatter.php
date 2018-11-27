@@ -8,18 +8,14 @@
  *
  * @link http://leafo.github.io/scssphp
  */
-
-namespace Leafo\ScssPhp;
-
-use Leafo\ScssPhp\Formatter\OutputBlock;
-use Leafo\ScssPhp\SourceMap\SourceMapGenerator;
-
+require_once 'Formatter/OutputBlock.php';
+require_once 'SourceMap/SourceMapGenerator.php';
 /**
  * Base formatter
  *
  * @author Leaf Corcoran <leafot@gmail.com>
  */
-abstract class Formatter
+abstract class HTML_Scss_Formatter
 {
     /**
      * @var integer
@@ -138,7 +134,7 @@ abstract class Formatter
      *
      * @param \Leafo\ScssPhp\Formatter\OutputBlock $block
      */
-    protected function blockLines(OutputBlock $block)
+    protected function blockLines(HTML_Scss_Formatter_OutputBlock $block)
     {
         $inner = $this->indentStr();
 
@@ -156,7 +152,7 @@ abstract class Formatter
      *
      * @param \Leafo\ScssPhp\Formatter\OutputBlock $block
      */
-    protected function blockSelectors(OutputBlock $block)
+    protected function blockSelectors(HTML_Scss_Formatter_OutputBlock $block)
     {
         $inner = $this->indentStr();
 
@@ -170,7 +166,7 @@ abstract class Formatter
      *
      * @param \Leafo\ScssPhp\Formatter\OutputBlock $block
      */
-    protected function blockChildren(OutputBlock $block)
+    protected function blockChildren(HTML_Scss_Formatter_OutputBlock $block)
     {
         foreach ($block->children as $child) {
             $this->block($child);
@@ -182,7 +178,7 @@ abstract class Formatter
      *
      * @param \Leafo\ScssPhp\Formatter\OutputBlock $block
      */
-    protected function block(OutputBlock $block)
+    protected function block(HTML_Scss_Formatter_OutputBlock $block)
     {
         if (empty($block->lines) && empty($block->children)) {
             return;
@@ -227,7 +223,7 @@ abstract class Formatter
      *
      * @return string
      */
-    public function format(OutputBlock $block, SourceMapGenerator $sourceMapGenerator = null)
+    public function format(HTML_Scss_Formatter_OutputBlock $block, HTML_Scss_SourceMap_SourceMapGenerator $sourceMapGenerator = null)
     {
         $this->sourceMapGenerator = null;
 

@@ -9,14 +9,12 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp\Compiler;
-
 /**
  * Compiler environment
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class Environment
+class HTML_Scss_Compiler_Environment
 {
     /**
      * @var \Leafo\ScssPhp\Block

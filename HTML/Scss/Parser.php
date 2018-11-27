@@ -8,21 +8,18 @@
  *
  * @link http://leafo.github.io/scssphp
  */
+ 
 
-namespace Leafo\ScssPhp;
-
-use Leafo\ScssPhp\Block;
-use Leafo\ScssPhp\Compiler;
-use Leafo\ScssPhp\Exception\ParserException;
-use Leafo\ScssPhp\Node;
-use Leafo\ScssPhp\Type;
+require_once 'Block.php';
+require_once 'Compiler.php';
+require_once 'Type.php';
 
 /**
  * Parser
  *
  * @author Leaf Corcoran <leafot@gmail.com>
  */
-class Parser
+class HTML_Scss_Parser
 {
     const SOURCE_INDEX  = -1;
     const SOURCE_LINE   = -2;
@@ -123,12 +120,12 @@ class Parser
         list($line, /* $column */) = $this->getSourcePosition($this->count);
 
         $loc = empty($this->sourceName) ? "line: $line" : "$this->sourceName on line $line";
-
+		  require_once 'Exception/ParserException.php';
         if ($this->peek("(.*?)(\n|$)", $m, $this->count)) {
-            throw new ParserException("$msg: failed at `$m[1]` $loc");
+            throw new HTML_Scss_Exception_ParserException("$msg: failed at `$m[1]` $loc");
         }
 
-        throw new ParserException("$msg: $loc");
+        throw new HTML_Scss_Exception_ParserException("$msg: $loc");
     }
 
     /**
@@ -288,7 +285,7 @@ class Parser
                 ($this->map($with) || true) &&
                 $this->literal('{')
             ) {
-                $atRoot = $this->pushSpecialBlock(Type::T_AT_ROOT, $s);
+                $atRoot = $this->pushSpecialBlock(HTML_Scss_Type::T_AT_ROOT, $s);
                 $atRoot->selector = $selector;
                 $atRoot->with = $with;
 
@@ -298,7 +295,7 @@ class Parser
             $this->seek($s);
 
             if ($this->literal('@media') && $this->mediaQueryList($mediaQueryList) && $this->literal('{')) {
-                $media = $this->pushSpecialBlock(Type::T_MEDIA, $s);
+                $media = $this->pushSpecialBlock(HTML_Scss_Type::T_MEDIA, $s);
                 $media->queryList = $mediaQueryList[2];
 
                 return true;
@@ -311,7 +308,7 @@ class Parser
                 ($this->argumentDef($args) || true) &&
                 $this->literal('{')
             ) {
-                $mixin = $this->pushSpecialBlock(Type::T_MIXIN, $s);
+                $mixin = $this->pushSpecialBlock(HTML_Scss_Type::T_MIXIN, $s);
                 $mixin->name = $mixinName;
                 $mixin->args = $args;
 
@@ -328,10 +325,10 @@ class Parser
                 ($this->end() ||
                     $this->literal('{') && $hasBlock = true)
             ) {
-                $child = [Type::T_INCLUDE, $mixinName, isset($argValues) ? $argValues : null, null];
+                $child = [HTML_Scss_Type::T_INCLUDE, $mixinName, isset($argValues) ? $argValues : null, null];
 
                 if (! empty($hasBlock)) {
-                    $include = $this->pushSpecialBlock(Type::T_INCLUDE, $s);
+                    $include = $this->pushSpecialBlock(HTML_Scss_Type::T_INCLUDE, $s);
                     $include->child = $child;
                 } else {
                     $this->append($child, $s);
@@ -346,7 +343,7 @@ class Parser
                 $this->valueList($importPath) &&
                 $this->end()
             ) {
-                $this->append([Type::T_SCSSPHP_IMPORT_ONCE, $importPath], $s);
+                $this->append([HTML_Scss_Type::T_SCSSPHP_IMPORT_ONCE, $importPath], $s);
 
                 return true;
             }
@@ -357,7 +354,7 @@ class Parser
                 $this->valueList($importPath) &&
                 $this->end()
             ) {
-                $this->append([Type::T_IMPORT, $importPath], $s);
+                $this->append([HTML_Scss_Type::T_IMPORT, $importPath], $s);
 
                 return true;
             }
@@ -368,7 +365,7 @@ class Parser
                 $this->url($importPath) &&
                 $this->end()
             ) {
-                $this->append([Type::T_IMPORT, $importPath], $s);
+                $this->append([HTML_Scss_Type::T_IMPORT, $importPath], $s);
 
                 return true;
             }
@@ -381,7 +378,7 @@ class Parser
             ) {
                 // check for '!flag'
                 $optional = $this->stripOptionalFlag($selectors);
-                $this->append([Type::T_EXTEND, $selectors, $optional], $s);
+                $this->append([HTML_Scss_Type::T_EXTEND, $selectors, $optional], $s);
 
                 return true;
             }
@@ -393,7 +390,7 @@ class Parser
                 $this->argumentDef($args) &&
                 $this->literal('{')
             ) {
-                $func = $this->pushSpecialBlock(Type::T_FUNCTION, $s);
+                $func = $this->pushSpecialBlock(HTML_Scss_Type::T_FUNCTION, $s);
                 $func->name = $fnName;
                 $func->args = $args;
 
@@ -403,7 +400,7 @@ class Parser
             $this->seek($s);
 
             if ($this->literal('@break') && $this->end()) {
-                $this->append([Type::T_BREAK], $s);
+                $this->append([HTML_Scss_Type::T_BREAK], $s);
 
                 return true;
             }
@@ -411,7 +408,7 @@ class Parser
             $this->seek($s);
 
             if ($this->literal('@continue') && $this->end()) {
-                $this->append([Type::T_CONTINUE], $s);
+                $this->append([HTML_Scss_Type::T_CONTINUE], $s);
 
                 return true;
             }
@@ -420,7 +417,7 @@ class Parser
 
 
             if ($this->literal('@return') && ($this->valueList($retVal) || true) && $this->end()) {
-                $this->append([Type::T_RETURN, isset($retVal) ? $retVal : [Type::T_NULL]], $s);
+                $this->append([HTML_Scss_Type::T_RETURN, isset($retVal) ? $retVal : [HTML_Scss_Type::T_NULL]], $s);
 
                 return true;
             }
@@ -433,7 +430,7 @@ class Parser
                 $this->valueList($list) &&
                 $this->literal('{')
             ) {
-                $each = $this->pushSpecialBlock(Type::T_EACH, $s);
+                $each = $this->pushSpecialBlock(HTML_Scss_Type::T_EACH, $s);
 
                 foreach ($varNames[2] as $varName) {
                     $each->vars[] = $varName[1];
@@ -450,7 +447,7 @@ class Parser
                 $this->expression($cond) &&
                 $this->literal('{')
             ) {
-                $while = $this->pushSpecialBlock(Type::T_WHILE, $s);
+                $while = $this->pushSpecialBlock(HTML_Scss_Type::T_WHILE, $s);
                 $while->cond = $cond;
 
                 return true;
@@ -467,7 +464,7 @@ class Parser
                 $this->expression($end) &&
                 $this->literal('{')
             ) {
-                $for = $this->pushSpecialBlock(Type::T_FOR, $s);
+                $for = $this->pushSpecialBlock(HTML_Scss_Type::T_FOR, $s);
                 $for->var = $varName[1];
                 $for->start = $start;
                 $for->end = $end;
@@ -479,7 +476,7 @@ class Parser
             $this->seek($s);
 
             if ($this->literal('@if') && $this->valueList($cond) && $this->literal('{')) {
-                $if = $this->pushSpecialBlock(Type::T_IF, $s);
+                $if = $this->pushSpecialBlock(HTML_Scss_Type::T_IF, $s);
                 $if->cond = $cond;
                 $if->cases = [];
 
@@ -492,7 +489,7 @@ class Parser
                 $this->valueList($value) &&
                 $this->end()
             ) {
-                $this->append([Type::T_DEBUG, $value], $s);
+                $this->append([HTML_Scss_Type::T_DEBUG, $value], $s);
 
                 return true;
             }
@@ -503,7 +500,7 @@ class Parser
                 $this->valueList($value) &&
                 $this->end()
             ) {
-                $this->append([Type::T_WARN, $value], $s);
+                $this->append([HTML_Scss_Type::T_WARN, $value], $s);
 
                 return true;
             }
@@ -514,7 +511,7 @@ class Parser
                 $this->valueList($value) &&
                 $this->end()
             ) {
-                $this->append([Type::T_ERROR, $value], $s);
+                $this->append([HTML_Scss_Type::T_ERROR, $value], $s);
 
                 return true;
             }
@@ -522,7 +519,7 @@ class Parser
             $this->seek($s);
 
             if ($this->literal('@content') && $this->end()) {
-                $this->append([Type::T_MIXIN_CONTENT], $s);
+                $this->append([HTML_Scss_Type::T_MIXIN_CONTENT], $s);
 
                 return true;
             }
@@ -531,14 +528,14 @@ class Parser
 
             $last = $this->last();
 
-            if (isset($last) && $last[0] === Type::T_IF) {
+            if (isset($last) && $last[0] === HTML_Scss_Type::T_IF) {
                 list(, $if) = $last;
 
                 if ($this->literal('@else')) {
                     if ($this->literal('{')) {
-                        $else = $this->pushSpecialBlock(Type::T_ELSE, $s);
+                        $else = $this->pushSpecialBlock(HTML_Scss_Type::T_ELSE, $s);
                     } elseif ($this->literal('if') && $this->valueList($cond) && $this->literal('{')) {
-                        $else = $this->pushSpecialBlock(Type::T_ELSEIF, $s);
+                        $else = $this->pushSpecialBlock(HTML_Scss_Type::T_ELSEIF, $s);
                         $else->cond = $cond;
                     }
 
@@ -559,7 +556,7 @@ class Parser
                 $this->end()
             ) {
                 if (! isset($this->charset)) {
-                    $statement = [Type::T_CHARSET, $charset];
+                    $statement = [HTML_Scss_Type::T_CHARSET, $charset];
 
                     list($line, $column) = $this->getSourcePosition($s);
 
@@ -582,9 +579,9 @@ class Parser
                 $this->literal('{')
             ) {
                 if ($dirName === 'media') {
-                    $directive = $this->pushSpecialBlock(Type::T_MEDIA, $s);
+                    $directive = $this->pushSpecialBlock(HTML_Scss_Type::T_MEDIA, $s);
                 } else {
-                    $directive = $this->pushSpecialBlock(Type::T_DIRECTIVE, $s);
+                    $directive = $this->pushSpecialBlock(HTML_Scss_Type::T_DIRECTIVE, $s);
                     $directive->name = $dirName;
                 }
 
@@ -607,8 +604,8 @@ class Parser
             $this->valueList($value) &&
             $this->end()
         ) {
-            $name = [Type::T_STRING, '', [$name]];
-            $this->append([Type::T_ASSIGN, $name, $value], $s);
+            $name = [HTML_Scss_Type::T_STRING, '', [$name]];
+            $this->append([HTML_Scss_Type::T_ASSIGN, $name, $value], $s);
 
             return true;
         }
@@ -623,7 +620,7 @@ class Parser
         ) {
             // check for '!flag'
             $assignmentFlags = $this->stripAssignmentFlags($value);
-            $this->append([Type::T_ASSIGN, $name, $value, $assignmentFlags], $s);
+            $this->append([HTML_Scss_Type::T_ASSIGN, $name, $value, $assignmentFlags], $s);
 
             return true;
         }
@@ -649,12 +646,12 @@ class Parser
             $foundSomething = false;
 
             if ($this->valueList($value)) {
-                $this->append([Type::T_ASSIGN, $name, $value], $s);
+                $this->append([HTML_Scss_Type::T_ASSIGN, $name, $value], $s);
                 $foundSomething = true;
             }
 
             if ($this->literal('{')) {
-                $propBlock = $this->pushSpecialBlock(Type::T_NESTED_PROPERTY, $s);
+                $propBlock = $this->pushSpecialBlock(HTML_Scss_Type::T_NESTED_PROPERTY, $s);
                 $propBlock->prefix = $name;
                 $foundSomething = true;
             } elseif ($foundSomething) {
@@ -672,13 +669,13 @@ class Parser
         if ($this->literal('}')) {
             $block = $this->popBlock();
 
-            if (isset($block->type) && $block->type === Type::T_INCLUDE) {
+            if (isset($block->type) && $block->type === HTML_Scss_Type::T_INCLUDE) {
                 $include = $block->child;
                 unset($block->child);
                 $include[3] = $block;
                 $this->append($include, $s);
             } elseif (empty($block->dontAppend)) {
-                $type = isset($block->type) ? $block->type : Type::T_BLOCK;
+                $type = isset($block->type) ? $block->type : HTML_Scss_Type::T_BLOCK;
                 $this->append([$type, $block], $s);
             }
 
@@ -707,7 +704,7 @@ class Parser
     {
         list($line, $column) = $this->getSourcePosition($pos);
 
-        $b = new Block;
+        $b = new HTML_Scss_Block;
         $b->sourceName   = $this->sourceName;
         $b->sourceLine   = $line;
         $b->sourceColumn = $column;
@@ -925,7 +922,7 @@ class Parser
 
         while (preg_match(static::$whitePattern, $this->buffer, $m, null, $this->count)) {
             if (isset($m[1]) && empty($this->commentsSeen[$this->count])) {
-                $this->appendComment([Type::T_COMMENT, $m[1]]);
+                $this->appendComment([HTML_Scss_Type::T_COMMENT, $m[1]]);
 
                 $this->commentsSeen[$this->count] = true;
             }
@@ -1016,23 +1013,23 @@ class Parser
         if (($this->literal('only') && ($only = true) || $this->literal('not') && ($not = true) || true) &&
             $this->mixedKeyword($mediaType)
         ) {
-            $prop = [Type::T_MEDIA_TYPE];
+            $prop = [HTML_Scss_Type::T_MEDIA_TYPE];
 
             if (isset($only)) {
-                $prop[] = [Type::T_KEYWORD, 'only'];
+                $prop[] = [HTML_Scss_Type::T_KEYWORD, 'only'];
             }
 
             if (isset($not)) {
-                $prop[] = [Type::T_KEYWORD, 'not'];
+                $prop[] = [HTML_Scss_Type::T_KEYWORD, 'not'];
             }
 
-            $media = [Type::T_LIST, '', []];
+            $media = [HTML_Scss_Type::T_LIST, '', []];
 
             foreach ((array) $mediaType as $type) {
                 if (is_array($type)) {
                     $media[2][] = $type;
                 } else {
-                    $media[2][] = [Type::T_KEYWORD, $type];
+                    $media[2][] = [HTML_Scss_Type::T_KEYWORD, $type];
                 }
             }
 
@@ -1070,7 +1067,7 @@ class Parser
             ($this->literal(':') && $this->expression($value) || true) &&
             $this->literal(')')
         ) {
-            $out = [Type::T_MEDIA_EXPRESSION, $feature];
+            $out = [HTML_Scss_Type::T_MEDIA_EXPRESSION, $feature];
 
             if ($value) {
                 $out[] = $value;
@@ -1194,7 +1191,7 @@ class Parser
         if ($flatten && count($items) === 1) {
             $out = $items[0];
         } else {
-            $out = [Type::T_LIST, $delim, $items];
+            $out = [HTML_Scss_Type::T_LIST, $delim, $items];
         }
 
         return true;
@@ -1213,12 +1210,12 @@ class Parser
 
         if ($this->literal('(')) {
             if ($this->literal(')')) {
-                $out = [Type::T_LIST, '', []];
+                $out = [HTML_Scss_Type::T_LIST, '', []];
 
                 return true;
             }
 
-            if ($this->valueList($out) && $this->literal(')') && $out[0] === Type::T_LIST) {
+            if ($this->valueList($out) && $this->literal(')') && $out[0] === HTML_Scss_Type::T_LIST) {
                 return true;
             }
 
@@ -1280,7 +1277,7 @@ class Parser
                 $rhs = $this->expHelper($rhs, static::$precedence[$next[1]]);
             }
 
-            $lhs = [Type::T_EXPRESSION, $op, $lhs, $rhs, $this->inParens, $whiteBefore, $whiteAfter];
+            $lhs = [HTML_Scss_Type::T_EXPRESSION, $op, $lhs, $rhs, $this->inParens, $whiteBefore, $whiteAfter];
             $ss = $this->seek();
             $whiteBefore = isset($this->buffer[$this->count - 1]) &&
                 ctype_space($this->buffer[$this->count - 1]);
@@ -1309,7 +1306,7 @@ class Parser
 
             if ($this->literal(')')) {
                 $content = substr($this->buffer, $s, $this->count - $s);
-                $out = [Type::T_KEYWORD, $content];
+                $out = [HTML_Scss_Type::T_KEYWORD, $content];
 
                 return true;
             }
@@ -1318,7 +1315,7 @@ class Parser
         $this->seek($s);
 
         if ($this->literal('not', false) && $this->whitespace() && $this->value($inner)) {
-            $out = [Type::T_UNARY, 'not', $inner, $this->inParens];
+            $out = [HTML_Scss_Type::T_UNARY, 'not', $inner, $this->inParens];
 
             return true;
         }
@@ -1326,7 +1323,7 @@ class Parser
         $this->seek($s);
 
         if ($this->literal('not', false) && $this->parenValue($inner)) {
-            $out = [Type::T_UNARY, 'not', $inner, $this->inParens];
+            $out = [HTML_Scss_Type::T_UNARY, 'not', $inner, $this->inParens];
 
             return true;
         }
@@ -1334,7 +1331,7 @@ class Parser
         $this->seek($s);
 
         if ($this->literal('+') && $this->value($inner)) {
-            $out = [Type::T_UNARY, '+', $inner, $this->inParens];
+            $out = [HTML_Scss_Type::T_UNARY, '+', $inner, $this->inParens];
 
             return true;
         }
@@ -1347,7 +1344,7 @@ class Parser
             $this->unit($inner) ||
             $this->parenValue($inner))
         ) {
-            $out = [Type::T_UNARY, '-', $inner, $this->inParens];
+            $out = [HTML_Scss_Type::T_UNARY, '-', $inner, $this->inParens];
 
             return true;
         }
@@ -1368,9 +1365,9 @@ class Parser
 
         if ($this->keyword($keyword)) {
             if ($keyword === 'null') {
-                $out = [Type::T_NULL];
+                $out = [HTML_Scss_Type::T_NULL];
             } else {
-                $out = [Type::T_KEYWORD, $keyword];
+                $out = [HTML_Scss_Type::T_KEYWORD, $keyword];
             }
 
             return true;
@@ -1394,7 +1391,7 @@ class Parser
 
         if ($this->literal('(')) {
             if ($this->literal(')')) {
-                $out = [Type::T_LIST, '', []];
+                $out = [HTML_Scss_Type::T_LIST, '', []];
 
                 return true;
             }
@@ -1433,7 +1430,7 @@ class Parser
             $this->openString(')', $args, '(');
 
             if ($this->literal(')')) {
-                $out = [Type::T_STRING, '', [
+                $out = [HTML_Scss_Type::T_STRING, '', [
                     'progid:', $fn, '(', $args, ')'
                 ]];
 
@@ -1461,7 +1458,7 @@ class Parser
             $this->literal('(')
         ) {
             if ($name === 'alpha' && $this->argumentList($args)) {
-                $func = [Type::T_FUNCTION, $name, [Type::T_STRING, '', $args]];
+                $func = [HTML_Scss_Type::T_FUNCTION, $name, [HTML_Scss_Type::T_STRING, '', $args]];
 
                 return true;
             }
@@ -1470,7 +1467,7 @@ class Parser
                 $ss = $this->seek();
 
                 if ($this->argValues($args) && $this->literal(')')) {
-                    $func = [Type::T_FUNCTION_CALL, $name, $args];
+                    $func = [HTML_Scss_Type::T_FUNCTION_CALL, $name, $args];
 
                     return true;
                 }
@@ -1484,10 +1481,10 @@ class Parser
                 $args = [];
 
                 if (! empty($str)) {
-                    $args[] = [null, [Type::T_STRING, '', [$str]]];
+                    $args[] = [null, [HTML_Scss_Type::T_STRING, '', [$str]]];
                 }
 
-                $func = [Type::T_FUNCTION_CALL, $name, $args];
+                $func = [HTML_Scss_Type::T_FUNCTION_CALL, $name, $args];
 
                 return true;
             }
@@ -1514,7 +1511,7 @@ class Parser
 
         while ($this->keyword($var)) {
             if ($this->literal('=') && $this->expression($exp)) {
-                $args[] = [Type::T_STRING, '', [$var . '=']];
+                $args[] = [HTML_Scss_Type::T_STRING, '', [$var . '=']];
                 $arg = $exp;
             } else {
                 break;
@@ -1526,7 +1523,7 @@ class Parser
                 break;
             }
 
-            $args[] = [Type::T_STRING, '', [', ']];
+            $args[] = [HTML_Scss_Type::T_STRING, '', [', ']];
         }
 
         if (! $this->literal(')') || ! count($args)) {
@@ -1633,7 +1630,7 @@ class Parser
             return false;
         }
 
-        $out = [Type::T_MAP, $keys, $values];
+        $out = [HTML_Scss_Type::T_MAP, $keys, $values];
 
         return true;
     }
@@ -1647,7 +1644,7 @@ class Parser
      */
     protected function color(&$out)
     {
-        $color = [Type::T_COLOR];
+        $color = [HTML_Scss_Type::T_COLOR];
 
         if ($this->match('(#([0-9a-f]{6})|#([0-9a-f]{3}))', $m)) {
             if (isset($m[3])) {
@@ -1685,7 +1682,8 @@ class Parser
     protected function unit(&$unit)
     {
         if ($this->match('([0-9]*(\.)?[0-9]+)([%a-zA-Z]+)?', $m)) {
-            $unit = new Node\Number($m[1], empty($m[3]) ? '' : $m[3]);
+        		require_once 'Node/Number.php';
+            $unit = new HTML_Scss_Node_Number($m[1], empty($m[3]) ? '' : $m[3]);
 
             return true;
         }
@@ -1765,7 +1763,7 @@ class Parser
                 }
             }
 
-            $out = [Type::T_STRING, $delim, $content];
+            $out = [HTML_Scss_Type::T_STRING, $delim, $content];
 
             return true;
         }
@@ -1880,7 +1878,7 @@ class Parser
             $content[count($content) - 1] = rtrim(end($content));
         }
 
-        $out = [Type::T_STRING, '', $content];
+        $out = [HTML_Scss_Type::T_STRING, '', $content];
 
         return true;
     }
@@ -1908,7 +1906,7 @@ class Parser
                 $left = $right = false;
             }
 
-            $out = [Type::T_INTERPOLATE, $value, $left, $right];
+            $out = [HTML_Scss_Type::T_INTERPOLATE, $value, $left, $right];
             $this->eatWhiteDefault = $oldWhite;
 
             if ($this->eatWhiteDefault) {
@@ -1980,7 +1978,7 @@ class Parser
 
         $this->whitespace(); // get any extra whitespace
 
-        $out = [Type::T_STRING, '', $parts];
+        $out = [HTML_Scss_Type::T_STRING, '', $parts];
 
         return true;
     }
@@ -2092,7 +2090,7 @@ class Parser
 
             // self
             if ($this->literal('&', false)) {
-                $parts[] = Compiler::$selfSelector;
+                $parts[] = HTML_Scss_Compiler::$selfSelector;
                 continue;
             }
 
@@ -2212,7 +2210,7 @@ class Parser
         $s = $this->seek();
 
         if ($this->literal('$', false) && $this->keyword($name)) {
-            $out = [Type::T_VARIABLE, $name];
+            $out = [HTML_Scss_Type::T_VARIABLE, $name];
 
             return true;
         }
@@ -2280,7 +2278,7 @@ class Parser
     protected function url(&$out)
     {
         if ($this->match('(url\(\s*(["\']?)([^)]+)\2\s*\))', $m)) {
-            $out = [Type::T_STRING, '', ['url(' . $m[2] . $m[3] . $m[2] . ')']];
+            $out = [HTML_Scss_Type::T_STRING, '', ['url(' . $m[2] . $m[3] . $m[2] . ')']];
 
             return true;
         }
@@ -2318,10 +2316,10 @@ class Parser
     {
         $flags = [];
 
-        for ($token = &$value; $token[0] === Type::T_LIST && ($s = count($token[2])); $token = &$lastNode) {
+        for ($token = &$value; $token[0] === HTML_Scss_Type::T_LIST && ($s = count($token[2])); $token = &$lastNode) {
             $lastNode = &$token[2][$s - 1];
 
-            while ($lastNode[0] === Type::T_KEYWORD && in_array($lastNode[1], ['!default', '!global'])) {
+            while ($lastNode[0] === HTML_Scss_Type::T_KEYWORD && in_array($lastNode[1], ['!default', '!global'])) {
                 array_pop($token[2]);
 
                 $node = end($token[2]);
@@ -2369,7 +2367,7 @@ class Parser
      */
     protected function flattenList($value)
     {
-        if ($value[0] === Type::T_LIST && count($value[2]) === 1) {
+        if ($value[0] === HTML_Scss_Type::T_LIST && count($value[2]) === 1) {
             return $this->flattenList($value[2][0]);
         }
 

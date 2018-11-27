@@ -26,7 +26,7 @@ use Leafo\ScssPhp\Type;
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class Number extends Node implements \ArrayAccess
+class HTML_Scss_Node_Number extends Node implements  ArrayAccess
 {
     /**
      * @var integer
@@ -87,7 +87,7 @@ class Number extends Node implements \ArrayAccess
      */
     public function __construct($dimension, $initialUnit)
     {
-        $this->type      = Type::T_NUMBER;
+        $this->type      = HTML_Scss_Type::T_NUMBER;
         $this->dimension = $dimension;
         $this->units     = is_array($initialUnit)
             ? $initialUnit
@@ -105,7 +105,7 @@ class Number extends Node implements \ArrayAccess
     public function coerce($units)
     {
         if ($this->unitless()) {
-            return new Number($this->dimension, $units);
+            return new HTML_Scss_Node_Number($this->dimension, $units);
         }
 
         $dimension = $this->dimension;
@@ -117,7 +117,7 @@ class Number extends Node implements \ArrayAccess
             $dimension /= $factor;
         }
 
-        return new Number($dimension, $units);
+        return new HTML_Scss_Node_Number($dimension, $units);
     }
 
     /**
@@ -132,7 +132,7 @@ class Number extends Node implements \ArrayAccess
 
         $this->normalizeUnits($dimension, $units, 'in');
 
-        return new Number($dimension, $units);
+        return new HTML_Scss_Node_Number($dimension, $units);
     }
 
     /**

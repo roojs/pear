@@ -8,14 +8,12 @@
  *
  * @link http://leafo.github.io/scssphp
  */
-
-namespace Leafo\ScssPhp\Exception;
-
+ 
 /**
  * Compiler exception
  *
  * @author Oleksandr Savchenko <traveltino@gmail.com>
  */
-class CompilerException extends \Exception
+class HTML_Scss_Exception_CompilerException extends Exception
 {
 }

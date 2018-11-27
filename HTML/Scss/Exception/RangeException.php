@@ -8,14 +8,12 @@
  *
  * @link http://leafo.github.io/scssphp
  */
-
-namespace Leafo\ScssPhp\Exception;
-
+ 
 /**
  * Range exception
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class RangeException extends \Exception
+class HTML_Scss_Exception_RangeException extends  Exception
 {
 }

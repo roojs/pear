@@ -8,9 +8,7 @@
  *
  * @link http://leafo.github.io/scssphp
  */
-
-namespace Leafo\ScssPhp\SourceMap;
-
+ 
 /**
  * Base64 VLQ Encoder
  *
@@ -19,7 +17,7 @@ namespace Leafo\ScssPhp\SourceMap;
  * @author Josh Schmidt <oyejorge@gmail.com>
  * @author Nicolas FRANÇOIS <nicolas.francois@frog-labs.com>
  */
-class Base64VLQEncoder
+class HTML_Scss_SourceMap_Base64VLQEncoder
 {
     /**
      * Shift
@@ -191,7 +189,7 @@ class Base64VLQEncoder
     public function base64Encode($number)
     {
         if ($number < 0 || $number > 63) {
-            throw new \Exception(sprintf('Invalid number "%s" given. Must be between 0 and 63.', $number));
+            throw new  Exception(sprintf('Invalid number "%s" given. Must be between 0 and 63.', $number));
         }
 
         return $this->intToCharMap[$number];
@@ -209,7 +207,7 @@ class Base64VLQEncoder
     public function base64Decode($char)
     {
         if (! array_key_exists($char, $this->charToIntMap)) {
-            throw new \Exception(sprintf('Invalid base 64 digit "%s" given.', $char));
+            throw new  Exception(sprintf('Invalid base 64 digit "%s" given.', $char));
         }
 
         return $this->charToIntMap[$char];

@@ -8,14 +8,12 @@
  *
  * @link http://leafo.github.io/scssphp
  */
-
-namespace Leafo\ScssPhp\Exception;
-
+ 
 /**
  * Server Exception
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class ServerException extends \Exception
+class HTML_Scss_Exception_ServerException extends  Exception
 {
 }

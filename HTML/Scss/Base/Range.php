@@ -9,14 +9,14 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp\Base;
+ 
 
 /**
  * Range
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class Range
+class HTML_Scss_Base_Range
 {
     public $first;
     public $last;

@@ -8,14 +8,12 @@
  *
  * @link http://leafo.github.io/scssphp
  */
-
-namespace Leafo\ScssPhp\Exception;
-
+ 
 /**
  * Parser Exception
  *
  * @author Oleksandr Savchenko <traveltino@gmail.com>
  */
-class ParserException extends \Exception
+class HTML_Scss_Exception_ParserException extends  Exception
 {
 }

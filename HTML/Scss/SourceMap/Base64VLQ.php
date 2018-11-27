@@ -8,10 +8,7 @@
  *
  * @link http://leafo.github.io/scssphp
  */
-
-namespace Leafo\ScssPhp\SourceMap;
-
-use Leafo\ScssPhp\SourceMap\Base64;
+ 
 
 /**
  * Base 64 VLQ
@@ -36,7 +33,7 @@ use Leafo\ScssPhp\SourceMap\Base64;
  * @author John Lenz <johnlenz@google.com>
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class Base64VLQ
+class HTML_Scss_SourceMap_Base64VLQ
 {
     // A Base64 VLQ digit can represent 5 bits, so it is base-32.
     const VLQ_BASE_SHIFT = 5;
@@ -58,7 +55,7 @@ class Base64VLQ
     {
         $encoded = '';
         $vlq = self::toVLQSigned($value);
-
+		  require_once 'Base64.php';
         do {
             $digit = $vlq & self::VLQ_BASE_MASK;
             $vlq >>= self::VLQ_BASE_SHIFT;
@@ -67,7 +64,7 @@ class Base64VLQ
                 $digit |= self::VLQ_CONTINUATION_BIT;
             }
 
-            $encoded .= Base64::encode($digit);
+            $encoded .= HTML_Scss_SourceMap_Base64::encode($digit);
         } while ($vlq > 0);
 
         return $encoded;
