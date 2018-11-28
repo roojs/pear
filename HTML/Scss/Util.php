@@ -33,7 +33,7 @@ class HTML_Scss_Util
      *
      * @throws \Leafo\ScssPhp\Exception\RangeException
      */
-    public static function checkRange($name, Range $range, $value, $unit = '')
+    public static function checkRange($name, HTML_Scss_Base_Range $range, $value, $unit = '')
     {
         $val = $value[1];
         $grace = new HTML_Scss_Base_Range(-0.00001, 0.00001);

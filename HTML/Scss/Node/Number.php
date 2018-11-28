@@ -9,12 +9,7 @@
  * @link http://leafo.github.io/scssphp
  */
 
-namespace Leafo\ScssPhp\Node;
-
-use Leafo\ScssPhp\Compiler;
-use Leafo\ScssPhp\Node;
-use Leafo\ScssPhp\Type;
-
+require_once 'HTML/Scss/Node.php';
 /**
  * Dimension + optional units
  *
@@ -26,7 +21,7 @@ use Leafo\ScssPhp\Type;
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
  */
-class HTML_Scss_Node_Number extends Node implements  ArrayAccess
+class HTML_Scss_Node_Number extends HTML_Scss_Node implements  ArrayAccess
 {
     /**
      * @var integer
@@ -263,7 +258,7 @@ class HTML_Scss_Node_Number extends Node implements  ArrayAccess
      *
      * @return string
      */
-    public function output(Compiler $compiler = null)
+    public function output(HTML_Scss $compiler = null)
     {
         $dimension = round($this->dimension, static::$precision);
 

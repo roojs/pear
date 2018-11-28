@@ -11,7 +11,7 @@
  
 
 require_once 'Block.php';
-require_once 'Compiler.php';
+require_once 'HTML/Scss.php';
 require_once 'Type.php';
 
 /**
@@ -277,7 +277,7 @@ class HTML_Scss_Parser
     protected function parseChunk()
     {
         $s = $this->seek();
-
+        
         // the directives
         if (isset($this->buffer[$this->count]) && $this->buffer[$this->count] === '@') {
             if ($this->literal('@at-root') &&
@@ -354,7 +354,8 @@ class HTML_Scss_Parser
                 $this->valueList($importPath) &&
                 $this->end()
             ) {
-                $this->append([HTML_Scss_Type::T_IMPORT, $importPath], $s);
+                                
+                 $this->append([HTML_Scss_Type::T_IMPORT, $importPath], $s);
 
                 return true;
             }
@@ -2090,7 +2091,7 @@ class HTML_Scss_Parser
 
             // self
             if ($this->literal('&', false)) {
-                $parts[] = HTML_Scss_Compiler::$selfSelector;
+                $parts[] = HTML_Scss::$selfSelector;
                 continue;
             }
 

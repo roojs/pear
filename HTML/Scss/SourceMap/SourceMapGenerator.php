@@ -8,7 +8,7 @@
  *
  * @link http://leafo.github.io/scssphp
  */
-
+require_once 'HTML/Scss/SourceMap/Base64VLQ.php';
  
 /**
  * Source Map Generator
@@ -92,7 +92,8 @@ class HTML_Scss_SourceMap_SourceMapGenerator
     public function __construct(array $options = [])
     {
         $this->options = array_merge($this->defaultOptions, $options);
-        $this->encoder = new Base64VLQ();
+        
+        $this->encoder = new HTML_Scss_SourceMap_Base64VLQ();
     }
 
     /**
