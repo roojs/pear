@@ -128,7 +128,7 @@ class HTML_Scss
     /**
      * @var string|\Leafo\ScssPhp\Formatter
      */
-    protected $formatter = 'HTML_Scss_Formatter_Nested';
+    protected $formatter = 'Nested';
 
     protected $rootEnv;
     protected $rootBlock;
