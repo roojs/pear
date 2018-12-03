@@ -466,8 +466,7 @@ class Text_SearchParser_Token_Eq extends Text_SearchParser_Token
  
 // test..
 $x = new Text_SearchParser ("id:234234234");
-$ar = $x->parse();
-print_R($ar);
+  
 echo $x->toSQL(array(
     'map' => array(
         'language' => 'Clipping.language',
