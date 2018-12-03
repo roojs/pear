@@ -463,10 +463,9 @@ class Text_SearchParser_Token_Eq extends Text_SearchParser_Token
         
     }
 }
-/*
+ 
 // test..
-header('Content-type: text/plain;charset=UTF-8');
-$x = new Text_SearchParser_Tokenizer ("金蟲指數");
+$x = new Text_SearchParser_Tokenizer ("id:234234234");
 $ar = $x->parse();
 print_R($ar);
-*/
+ 
