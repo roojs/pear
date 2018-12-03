@@ -463,7 +463,7 @@ class Text_SearchParser_Token_Eq extends Text_SearchParser_Token
         
     }
 }
- 
+/*
 // test..
 $x = new Text_SearchParser ("id:234234234");
   
@@ -479,4 +479,4 @@ echo $x->toSQL(array(
      
 
 ));
- 
+ */
