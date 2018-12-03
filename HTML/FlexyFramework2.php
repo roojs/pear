@@ -203,6 +203,8 @@ class HTML_FlexyFramework2 {
 
         foreach($mods as $m) {
             $cls = $proj. (strlen($m) ? '_'. $m  : '' ) . '_Config';
+            
+            print_r($cls);exit;
 
             if (!file_exists($rootDir . '/'.str_replace('_','/', $cls). '.php')) {
                 continue;
