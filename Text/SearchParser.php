@@ -468,8 +468,7 @@ class Text_SearchParser_Token_Eq extends Text_SearchParser_Token
 $x = new Text_SearchParser_Tokenizer ("id:234234234");
 $ar = $x->parse();
 print_R($ar);
-array(
-    'default' => $props,
+echo $x->toSQL(array(
     'map' => array(
         'language' => 'Clipping.language',
         'country' => 'Clipping.country',
@@ -479,5 +478,5 @@ array(
     ),
    // 'escape' => array($this->getDatabaseConnection(), 'escapeSimple'), /// pear db or mdb object..
 
-);
+));
  
