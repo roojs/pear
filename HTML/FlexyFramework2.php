@@ -201,8 +201,6 @@ class HTML_FlexyFramework2 {
         $proj = $cfg['project'];
         $rootDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
 
-        print_r($mods);exit;
-
         foreach($mods as $m) {
             $cls = $proj. (strlen($m) ? '_'. $m  : '' ) . '_Config';
 
