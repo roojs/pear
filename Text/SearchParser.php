@@ -475,7 +475,8 @@ echo $x->toSQL(array(
         'id' => 'Clipping.id',
 
     ),
-   // 'escape' => array($this->getDatabaseConnection(), 'escapeSimple'), /// pear db or mdb object..
+     'escape' => function($str)  { return $str; }
+     
 
 ));
  
