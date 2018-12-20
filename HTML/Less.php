@@ -99,7 +99,7 @@ class HTML_Less {
         if (count($this->registeredVars)) {
             $parser->ModifyVars($this->registeredVars);
         }
-
+        print_R($parser->getVariables());
         return $parser->getCss();
     }
 
