@@ -15,7 +15,7 @@ class HTML_Less {
     public $importDir = '';
     protected $allParsedFiles = array();
     protected $libFunctions = array();
-    protected $registeredVars = array();
+    var $registeredVars = array();
     private $formatterName;
     private $options = array();
 
