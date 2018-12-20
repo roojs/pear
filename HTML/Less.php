@@ -184,7 +184,7 @@ class HTML_Less {
         }
         $parser->parseFile($fname);
         
-        print_R($parser->getVariables());
+        //print_R($parser->getVariables());
         
         $out = $parser->getCss();
 
