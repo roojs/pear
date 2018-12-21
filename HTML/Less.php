@@ -15,7 +15,7 @@ class HTML_Less {
     public $importDir = '';
     protected $allParsedFiles = array();
     protected $libFunctions = array();
-    protected $registeredVars = array();
+    var $registeredVars = array();
     private $formatterName;
     private $options = array();
 
@@ -99,7 +99,6 @@ class HTML_Less {
         if (count($this->registeredVars)) {
             $parser->ModifyVars($this->registeredVars);
         }
-
         return $parser->getCss();
     }
 
@@ -184,6 +183,9 @@ class HTML_Less {
             $parser->registerFunction($name, $func);
         }
         $parser->parseFile($fname);
+        
+        //print_R($parser->getVariables());
+        
         $out = $parser->getCss();
 
         $parsed = HTML_Less_Parser::AllParsedFiles();
