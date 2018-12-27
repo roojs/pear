@@ -986,7 +986,7 @@ class File_Convert_Solution
         $CONVERT = System::which("convert");
         $cmd = "$CONVERT " . $strip .  "  -colorspace sRGB -interlace none -density 800 $flat ". 
                         "-quality 90   ". escapeshellarg($fn . $frame) . " " . escapeshellarg($targetName );
-         $this->debug($cmd);
+        $this->debug($cmd);
         $this->exec($cmd);
         clearstatcache();
         $fe = file_exists($target)  && filesize($target) ? $target : false;
