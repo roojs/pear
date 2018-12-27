@@ -36,7 +36,7 @@ class File_Convert_Solution
         
         $ret = `$cmd`;
         
-        $this->debug( $ret);
+        $this->debug( "RET=". $ret);
     
         $this->cmd = $cmd ."\n" . $ret;
         
