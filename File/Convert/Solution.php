@@ -961,7 +961,7 @@ class File_Convert_Solution
     
     function convert($fn) // image only..
     {
-        
+        var_dump(file_exists($fn));
         $frame = '';
         $ext = $this->ext;
         $target = $fn . '.' . $ext;
