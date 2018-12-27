@@ -8,7 +8,6 @@ class File_Convert_Solution
     var $to;
     var $ext;
     var $debug = false;
-    var $last = '';
     
     var $log = array();
     
@@ -24,7 +23,7 @@ class File_Convert_Solution
     function debug($str)
     {
         if ($this->debug) {
-            echo $str . "<br/>\n";
+            echo $string . "<br/>\n";
         }
         $this->log[] = $str;
     }
@@ -36,7 +35,7 @@ class File_Convert_Solution
         
         $ret = `$cmd`;
         
-        $this->debug( "RET=". $ret);
+        $this->debug( $ret);
     
         $this->cmd = $cmd ."\n" . $ret;
         
@@ -961,7 +960,7 @@ class File_Convert_Solution
     
     function convert($fn) // image only..
     {
-        var_dump(file_exists($fn));
+        
         $frame = '';
         $ext = $this->ext;
         $target = $fn . '.' . $ext;
@@ -986,7 +985,7 @@ class File_Convert_Solution
         $CONVERT = System::which("convert");
         $cmd = "$CONVERT " . $strip .  "  -colorspace sRGB -interlace none -density 800 $flat ". 
                         "-quality 90   ". escapeshellarg($fn . $frame) . " " . escapeshellarg($targetName );
-        $this->debug($cmd);
+         $this->debug($cmd);
         $this->exec($cmd);
         clearstatcache();
         $fe = file_exists($target)  && filesize($target) ? $target : false;
