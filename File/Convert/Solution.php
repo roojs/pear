@@ -8,6 +8,7 @@ class File_Convert_Solution
     var $to;
     var $ext;
     var $debug = false;
+    var $last = '';
     
     var $log = array();
     
