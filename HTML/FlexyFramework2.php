@@ -1132,8 +1132,14 @@ class HTML_FlexyFramework2 {
         
         /*
          normal (non-mod_rewrite)
-         $_SERVER['REQUEST_URI'] =
+         $_SERVER['REQUEST_URI'] start with baseURL..
          */
+        if (isset($_SERVER['REQUEST_URI']) && substr($_SERVER['REQUEST_URI'], 0, strlen($this->baseURL)) != $this->baseURL) {
+            // then we are rewriting?
+            $this->baseURL = $this->rootURL;
+            return $request;
+        }
+        
         var_dump(array($this->baseURL, $this->rootURL, $request ,$isRedirect, $_SERVER['REQUEST_URI']));
             phpinfo();exit;
         if (!$request && !$isRedirect) {
