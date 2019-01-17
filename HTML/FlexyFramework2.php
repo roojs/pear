@@ -1128,6 +1128,8 @@ class HTML_FlexyFramework2 {
         
         // REDIRECT ROO to index.php! for example..
         
+        // this has a slight issue when we are using 'hidden index.php' mod_rewrite..
+        
         if (!$request && !$isRedirect) {
             if ($this->baseURL && (strlen($startRequest) < strlen($this->baseURL))) {
                 
