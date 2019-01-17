@@ -254,9 +254,8 @@ class HTML_FlexyFramework2 {
         if (!$this->cli) {
             $bits[0] = str_replace('%2F','/',urlencode($bits[0]));
             $this->baseURL = $bits[0] . basename($_SERVER["SCRIPT_FILENAME"]);
-            //phpinfo();exit;
+            
             if (empty($_SERVER['SCRIPT_NAME'])) {
-                
                 $this->baseURL = ''; // ??? this is if we replace top level...
             }
         }
@@ -1129,7 +1128,22 @@ class HTML_FlexyFramework2 {
         
         // REDIRECT ROO to index.php! for example..
         
+        // this has a slight issue when we are using 'hidden index.php' mod_rewrite..
+        
+        /*
+         normal (non-mod_rewrite)
+         $_SERVER['REQUEST_URI'] start with baseURL..
+         */
+        if (isset($_SERVER['REQUEST_URI']) && substr($_SERVER['REQUEST_URI'], 0, strlen($this->baseURL)) != $this->baseURL) {
+            // then we are rewriting?
+            $this->baseURL = $this->rootURL;
+            return $request;
+        }
+        
+        //var_dump(array($this->baseURL, $this->rootURL, $request ,$isRedirect, $_SERVER['REQUEST_URI'])); phpinfo();exit;
         if (!$request && !$isRedirect) {
+            
+            
             if ($this->baseURL && (strlen($startRequest) < strlen($this->baseURL))) {
                 
                 // needs to handle https + port
