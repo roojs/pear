@@ -254,7 +254,7 @@ class HTML_FlexyFramework2 {
         if (!$this->cli) {
             $bits[0] = str_replace('%2F','/',urlencode($bits[0]));
             $this->baseURL = $bits[0] . basename($_SERVER["SCRIPT_FILENAME"]);
-            phpinfo();exit;
+            var_dump($this->baseURL);
             if (empty($_SERVER['SCRIPT_NAME'])) {
                 
                 $this->baseURL = ''; // ??? this is if we replace top level...
