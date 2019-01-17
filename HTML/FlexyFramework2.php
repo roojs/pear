@@ -1130,7 +1130,11 @@ class HTML_FlexyFramework2 {
         
         // this has a slight issue when we are using 'hidden index.php' mod_rewrite..
         
-        var_dump(array($this->baseURL, $this->rootURL, $request ,$isRedirect));
+        /*
+         normal (non-mod_rewrite)
+         $_SERVER['REQUEST_URI'] =
+         */
+        var_dump(array($this->baseURL, $this->rootURL, $request ,$isRedirect, $_SERVER['REQUEST_URI']));
             phpinfo();exit;
         if (!$request && !$isRedirect) {
             
