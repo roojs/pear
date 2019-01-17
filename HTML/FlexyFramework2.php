@@ -1140,8 +1140,7 @@ class HTML_FlexyFramework2 {
             return $request;
         }
         
-        var_dump(array($this->baseURL, $this->rootURL, $request ,$isRedirect, $_SERVER['REQUEST_URI']));
-            phpinfo();exit;
+        //var_dump(array($this->baseURL, $this->rootURL, $request ,$isRedirect, $_SERVER['REQUEST_URI'])); phpinfo();exit;
         if (!$request && !$isRedirect) {
             
             
