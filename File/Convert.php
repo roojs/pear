@@ -434,7 +434,7 @@ class File_Convert
                 ),
                 array(
                     'application/pdf',
-                   // 'image/png', //<< this is a mess - do not enable it... - let the sytem do it to pdf.. then onto whatever..
+                    'image/png', //add it back for MediaOutreach
                     
                 ),
             ),
