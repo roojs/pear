@@ -1122,6 +1122,11 @@ class DB_mysqli extends DB_common
      * @access protected
      * @see DB_common::getListOf()
      */
+
+    // }}}
+    // {{{ getSpecialQuery()
+
+     
     function getSpecialQuery($type)
     {
         switch ($type) {
@@ -1131,10 +1136,22 @@ class DB_mysqli extends DB_common
                 return 'SELECT DISTINCT User FROM mysql.user';
             case 'databases':
                 return 'SHOW DATABASES';
+            case 'views':
+                return "SELECT
+                        distinct(TABLE_NAME)
+                    FROM
+                        information_schema.TABLES
+                    WHERE
+                        table_type = 'VIEW'
+                        AND
+                        TABLE_SCHEMA=DATABASE()
+                    ";
+            
             default:
                 return null;
         }
     }
+    
 
     // }}}
 
