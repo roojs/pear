@@ -242,6 +242,7 @@ class File_Convert
         }
         $type = $type === false ?  'inline' : $type;
         header('Content-type: '. $mt);
+        print_R($mt);exit;
         //if (!preg_match('#^image\/#i', $this->to)) {
     
         // a reasonable expiry time - 5 minutes..
