@@ -270,7 +270,8 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         
         flock($fp, LOCK_UN);
         fclose($fp);
-        unlink($iniCache.".lock");
+        // this sometimes seems to fail..
+        @unlink($iniCache.".lock");
         
     }
     /* bit like merge recursive, but it avoids doing stuff with arrays.. */
