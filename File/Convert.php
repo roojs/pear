@@ -537,7 +537,7 @@ class File_Convert
             return false;
         }
         $pos = array();
-         print_r($this->methods);
+         print_r(self::$methods);
         foreach(self::$methods as $t) {
             if (!in_array($from, $t[1])) {
                 continue;
