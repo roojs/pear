@@ -7,7 +7,7 @@ class File_Convert_Solution
     var $from;
     var $to;
     var $ext;
-    var $debug = false;
+    var $debug = true;
     var $last = '';
     var $log = array();
     
