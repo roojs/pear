@@ -116,9 +116,10 @@ class File_Convert
         ) {
 
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
-            
+             
             //echo '<PRE>';print_r($action);
             if (!$action) {
+                
                 $this->debug("No methods found to convert {$this->mimetype} to {$toMimetype}");
                 return false;
             }
@@ -126,7 +127,7 @@ class File_Convert
             $fn = $action->runconvert($this->fn, $x, $y, $pg);
             if (!$fn) {
                 $this->to = $toMimetype;
-                $this->lastaction = $action->last; // what failed.
+                $this->lastaction = $action->last ? $action->last : $action; // what failed.
                 return false;
             }
             
@@ -191,7 +192,7 @@ class File_Convert
             // broken image? for images...
             $cmd = isset($this->lastaction->cmd) ? $this->lastaction->cmd : "No Method";
             die("not available in this format was: {$this->mimetype}, request: {$this->to}<BR>
-                Running - $cmd");
+                Running - $cmd\n" . print_r($this->lastaction->log,true));
         }
         clearstatcache();
         if (!file_exists($this->target))
@@ -537,7 +538,7 @@ class File_Convert
             return false;
         }
         $pos = array();
-//        print_r($this->methods);
+        // print_r(self::$methods);
         foreach(self::$methods as $t) {
             if (!in_array($from, $t[1])) {
                 continue;
@@ -547,13 +548,15 @@ class File_Convert
                 //$ret->convert = $this; // recursion?
                 $this->solutions[] = $ret;
 
-                
+                echo "got match?";
                 return $ret;
             }
             // from matches..
             $pos[$t[0]] = $t[2]; // list of targets
             
         }
+        echo "got here?";
+        
         $stack[] = $from;
         $res = array();
         foreach($pos as $conv => $ar) {

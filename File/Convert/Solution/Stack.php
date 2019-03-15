@@ -5,6 +5,7 @@ class File_Convert_Solution_Stack
     var $type = 1;
     var $list;
     var $debug = false;
+    var $last = '';
     
     function count()
     {
