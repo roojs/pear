@@ -116,7 +116,7 @@ class File_Convert
         ) {
 
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
-            
+            var_dump($action);
             //echo '<PRE>';print_r($action);
             if (!$action) {
                 $this->debug("No methods found to convert {$this->mimetype} to {$toMimetype}");
