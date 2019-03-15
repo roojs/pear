@@ -537,7 +537,7 @@ class File_Convert
             return false;
         }
         $pos = array();
-         print_r(self::$methods);
+        // print_r(self::$methods);
         foreach(self::$methods as $t) {
             if (!in_array($from, $t[1])) {
                 continue;
@@ -555,7 +555,7 @@ class File_Convert
             
         }
         
-        print_r($pos);
+        
         $stack[] = $from;
         $res = array();
         foreach($pos as $conv => $ar) {
