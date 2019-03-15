@@ -192,7 +192,7 @@ class File_Convert
             // broken image? for images...
             $cmd = isset($this->lastaction->cmd) ? $this->lastaction->cmd : "No Method";
             die("not available in this format was: {$this->mimetype}, request: {$this->to}<BR>
-                Running - $cmd");
+                Running - $cmd\n" . print_r($this->lastaction->log,true));
         }
         clearstatcache();
         if (!file_exists($this->target))
