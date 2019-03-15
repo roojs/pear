@@ -554,6 +554,8 @@ class File_Convert
             $pos[$t[0]] = $t[2]; // list of targets
             
         }
+        
+        print_r($pos);
         $stack[] = $from;
         $res = array();
         foreach($pos as $conv => $ar) {
