@@ -127,7 +127,7 @@ class File_Convert
             $fn = $action->runconvert($this->fn, $x, $y, $pg);
             if (!$fn) {
                 $this->to = $toMimetype;
-                $this->lastaction = $action->last; // what failed.
+                $this->lastaction = $action->last ? $action->last : $action; // what failed.
                 return false;
             }
             
