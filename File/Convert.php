@@ -548,7 +548,7 @@ class File_Convert
                 //$ret->convert = $this; // recursion?
                 $this->solutions[] = $ret;
 
-                echo "got match?";
+                //echo "got match?";
                 return $ret;
             }
             // from matches..
