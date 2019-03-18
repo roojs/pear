@@ -555,7 +555,7 @@ class File_Convert
             $pos[$t[0]] = $t[2]; // list of targets
             
         }
-        echo "got here?";
+        //echo "got here?";
         
         $stack[] = $from;
         $res = array();
