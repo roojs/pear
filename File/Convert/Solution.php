@@ -23,7 +23,7 @@ class File_Convert_Solution
     function debug($str)
     {
         if ($this->debug) {
-            echo $string . "<br/>\n";
+            echo $str . "<br/>\n";
         }
         $this->log[] = $str;
     }
