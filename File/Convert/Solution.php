@@ -296,7 +296,7 @@ class File_Convert_Solution
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         } else {
-             $cmd = "$xvfb $ssconvert $ssconvert_extra  -I $from -T $format " .
+             $cmd = "$xvfb -a $ssconvert $ssconvert_extra  -I $from -T $format " .
                 escapeshellarg($fn) . " " .
                 escapeshellarg($target);
         }
