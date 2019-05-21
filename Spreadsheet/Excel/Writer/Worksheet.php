@@ -3194,7 +3194,7 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
     function insertBitmap($row, $col, $bitmap, $x = 0, $y = 0, $scale_x = 1, $scale_y = 1)
     {
         $bitmap_array = $this->_processBitmap($bitmap);
-        var_dump($bitmap_array);exit;
+        //var_dump($bitmap_array);exit;
         if ($this->isError($bitmap_array)) {
             $this->writeString($row, $col, $bitmap_array->getMessage());
             return;
