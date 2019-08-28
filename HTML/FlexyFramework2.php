@@ -1439,7 +1439,9 @@ class HTML_FlexyFramework2 {
             HTML_FlexyFramework2::run($this->fatalAction,$msg);
             exit;
         }
-        
+        header('HTTP/1.1 503 Service Temporarily Unavailable');
+        header('Status: 503 Service Temporarily Unavailable');
+        header('Retry-After: 300');
         echo $this->cli ? $msg ."\n" : "<H1>$msg</H1>configuration information<PRE>";
         if ($showConfig) {
             
