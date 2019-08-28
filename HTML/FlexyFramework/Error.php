@@ -99,5 +99,4 @@ class HTML_FlexyFramework_Error extends HTML_FlexyFramework_Page {
     }
     
 }
-
-?>
+ 
