@@ -903,8 +903,8 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
                  <BR> ".$err->toString());
         }
         $res = $err->query("SELECT @@global.read_only as ro");
-        $row = $res->fetchRow();
-        var_dump($row);
+        $row = $res->fetchRow(DB_FETCHMODE_ASSOC);
+        var_dump($row); exit;
         // reset dont die!
         $options['dont_die'] = $dd ;
         
