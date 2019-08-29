@@ -898,9 +898,14 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         if (PEAR::isError($err = $x->getDatabaseConnection())) {
                                 
 
-                $this->fatalError("Configuration or Database Error: could not connect to Database, <BR>
-                    Please check the value given to HTML_FlexyFramework, or run with debug on!<BR>
-                     <BR> ".$err->toString());
+            $this->fatalError("Configuration or Database Error: could not connect to Database, <BR>
+                Please check the value given to HTML_FlexyFramework, or run with debug on!<BR>
+                 <BR> ".$err->toString());
+        }
+        $res = $err->query("SELECT @@global.read_only as ro");
+        $row = $res->fetchRow(DB_FETCHMODE_ASSOC);
+        if (!empty($row['ro'])) {
+            $this->fatalError("Database is configured to be read-only - please check database<BR> ".$err->toString());
         }
         // reset dont die!
         $options['dont_die'] = $dd ;
