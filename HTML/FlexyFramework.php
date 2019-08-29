@@ -902,9 +902,9 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
                 Please check the value given to HTML_FlexyFramework, or run with debug on!<BR>
                  <BR> ".$err->toString());
         }
-        $err->query("SELECT @@global.read_only as ro");
-        $err->fetch();
-        var_dump($err->ro);
+        $res = $err->query("SELECT @@global.read_only as ro");
+        $row = $res->fetchRow();
+        var_dump($row);
         // reset dont die!
         $options['dont_die'] = $dd ;
         
