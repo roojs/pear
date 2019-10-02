@@ -1067,11 +1067,15 @@ class File_Convert_Solution
          //var_dump($CONVERT);
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
-            // changed to using 'sample' rather than resize -- it's alot faster? - not sure about quality though?
+            // changed to using 'sample' rather than resize
+            //-- it's alot faster? - not sure about quality though?
+            // 
+            $resize_method = filesize($fn) > 300000 ? '-sample' : '-scale';
+            
             $cmd = "{$CONVERT} " . $strip . " -colorspace sRGB -interlace none -density 800 -quality 90 ". 
-                 " -sample '{$scale}' ". $extent  . " '{$fn}' '{$targetName}'";
+                 " {$resize_method} '{$scale}' ". $extent  . " '{$fn}' '{$targetName}'";
              
-             $cmdres  = $this->exec($cmd);
+            $cmdres  = $this->exec($cmd);
             $this->exec($cmd);
             
             
