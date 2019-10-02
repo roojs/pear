@@ -999,6 +999,8 @@ class File_Convert_Solution
     }
     function scaleImage($fn, $x, $y) 
     {
+       
+        
         //  print_r(array('scaleimage', func_get_args()));
         if (empty($x) && empty($y)) {
             return false;
@@ -1007,7 +1009,7 @@ class File_Convert_Solution
         $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
         
         
-        if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
+        if (empty($this->debug) && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             
             return $target;
         }
@@ -1065,11 +1067,15 @@ class File_Convert_Solution
          //var_dump($CONVERT);
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
-            // changed to using 'sample' rather than resize -- it's alot faster? - not sure about quality though?
+            // changed to using 'sample' rather than resize
+            //-- it's alot faster? - not sure about quality though?
+            // 
+            $resize_method = filesize($fn) > 300000 ? '-sample' : '-scale';
+            
             $cmd = "{$CONVERT} " . $strip . " -colorspace sRGB -interlace none -density 800 -quality 90 ". 
-                 " -sample '{$scale}' ". $extent  . " '{$fn}' '{$targetName}'";
+                 " {$resize_method} '{$scale}' ". $extent  . " '{$fn}' '{$targetName}'";
              
-             $cmdres  = $this->exec($cmd);
+            $cmdres  = $this->exec($cmd);
             $this->exec($cmd);
             
             

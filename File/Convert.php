@@ -54,6 +54,7 @@ class File_Convert
     function convertExists($toMimetype, $x= 0, $y =0) 
     {
         
+        $fn = $this->fn;
         if ($toMimetype != $this->mimetype) {
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
             
@@ -62,15 +63,16 @@ class File_Convert
                 return false;
             }
             $fn = $action->convertExists($this->fn, $x, $y);
-        } else {
-            $fn = $this->fn;
         }
+        
         if (!$fn) {
             return false;
         }
+        
         if (!preg_match('#^image/#', $toMimetype) || ( empty($x) && empty($y))) {
             return $fn;
         }
+        
         //echo "testing scale image";
         require_once 'File/Convert/Solution.php';
         $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
@@ -105,7 +107,7 @@ class File_Convert
         if(empty($pg) || is_nan($pg * 1)){
             $pg = false;
         }
-        
+        $fn = $this->fn;
          //echo '<PRE>'; print_r(array('convert', func_get_args()));
         if (
                 $toMimetype != $this->mimetype ||
@@ -134,21 +136,8 @@ class File_Convert
             // let's assume that conversions can handle scaling??
             
             
-        } else {
-            $fn = $this->fn;
-        }
-//        if(!strpos($x, 'c')){
-//            print_r('inin?');
-//            print_r($x);
-//            print_r(' > ');
-//            print_r($y);exit;
-//            
-////            $size = explode('c', $x);
-//        }
-//        print_r(strpos($x, 'c'));
-//            print_r(' > ');
-//            print_r($y);exit;
-//        print_r($this->fn);exit;
+        }  
+ 
         if (preg_match('#^image/#', $toMimetype) && $toMimetype != 'image/gif' && ( !empty($x) || !empty($y))) {
             //var_dump(array($toMimetype));
             require_once 'File/Convert/Solution.php';
