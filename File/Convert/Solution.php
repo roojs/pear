@@ -1069,8 +1069,8 @@ class File_Convert_Solution
             // note extend has to go after the resize.. so it does that first...
             // changed to using 'sample' rather than resize
             //-- it's alot faster? - not sure about quality though?
-            // 1.5Mb is the cut off to use the faster version.
-            $resize_method = filesize($fn) > 15000000 ? '-sample' : '-scale';
+            // 5Mb is the cut off to use the faster version.
+            $resize_method = filesize($fn) > 50000000 ? '-sample' : '-scale';
             
             $cmd = "{$CONVERT} " . $strip . " -colorspace sRGB -interlace none -density 800 -quality 90 ". 
                  " {$resize_method} '{$scale}' ". $extent  . " '{$fn}' '{$targetName}'";
