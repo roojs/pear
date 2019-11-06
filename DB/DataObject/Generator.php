@@ -1751,7 +1751,7 @@ class DB_DataObject_Generator extends DB_DataObject
                  
                 default:    // hopefully eveything else...  - numbers etc.
                     if (!strlen($ar['Default'])) {
-                        continue;
+                        continue 2;
                     }
                     if (is_numeric($ar['Default'])) {
                         $defaults[$ar['Field']] =   $ar['Default'];
