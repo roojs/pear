@@ -66,7 +66,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
                 case 'YEAR':
                 
                     $ret[$table.'.'.$t->name] = array('type' => 'int');
-                    continue;
+                    continue 2;
                
                 case 'REAL':
                 case 'DOUBLE':
