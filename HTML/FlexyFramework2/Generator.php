@@ -75,7 +75,7 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
                 case 'YEAR':
                 
                     $ret[$table->table.'.'.$t->name] = array('type' => 'int');
-                    continue;
+                    continue 2;
                
                 case 'REAL':
                 case 'DOUBLE':
