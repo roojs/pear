@@ -44,7 +44,7 @@
 /**
  * Invalid variable error
  */
-define('HTML_JAVASCRIPT_CONVERT_ERROR_INVVAR', 502, true);
+define('HTML_JAVASCRIPT_CONVERT_ERROR_INVVAR', 502);
 
 if(!defined('HTML_JAVASCRIPT_NL')){
     /** Linefeed to use, default set to Unix linefeed.
