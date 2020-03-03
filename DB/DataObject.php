@@ -358,7 +358,7 @@ class DB_DataObject extends DB_DataObject_Overload
             // this is a derived select..
             // not much support in the api yet..
             
-             $sql = 'SELECT ' .
+            $sql = 'SELECT ' .
                $this->_query['derive_select']
                .' FROM ( SELECT'.
                     $this->_query['data_select'] . " \n" .
@@ -367,8 +367,11 @@ class DB_DataObject extends DB_DataObject_Overload
                     $this->_query['condition'] . " \n" .
                     $this->_query['group_by'] . " \n" .
                     $this->_query['having'] . " \n" .
-                ') ' . $this->_query['derive_table'];
-                     
+                ') ' . $this->_query['derive_table'] . " \n" .
+                (strlen($this->_query['derive_condition']) ? ' WHERE '  : '') .
+                    $this->_query['derive_condition'] . " \n" .
+                (strlen($this->_query['derive_having']) ? ' HAVING '  : '') .
+                    $this->_query['derive_having'] . " \n";
             return $sql;
             
             
@@ -1869,6 +1872,8 @@ class DB_DataObject extends DB_DataObject_Overload
         'unions'      => array(), // the added unions,
         'derive_table' => '', // derived table name (BETA)
         'derive_select' => '', // derived table select (BETA)
+        'derive_condition' => '', // derived table where(BETA)
+        'derive_having' => '', // derived table having  (BETA)
     );
         
     
