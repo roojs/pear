@@ -370,7 +370,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 ') ' . $this->_query['derive_table'] . " \n" .
                 (strlen($this->_query['derive_condition']) ? ' WHERE '  : '') .
                     $this->_query['derive_condition'] . " \n" .
-                (strlen($this->_query['derive_having']) ? ' HAVING'  : '') .
+                (strlen($this->_query['derive_having']) ? ' HAVING '  : '') .
                     $this->_query['derive_having'] . " \n";
             return $sql;
             
