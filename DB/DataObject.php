@@ -1872,7 +1872,8 @@ class DB_DataObject extends DB_DataObject_Overload
         'unions'      => array(), // the added unions,
         'derive_table' => '', // derived table name (BETA)
         'derive_select' => '', // derived table select (BETA)
-        'derive_condition' => '', // derived table select (BETA)
+        'derive_condition' => '', // derived table where(BETA)
+        'derive_having' => '', // derived table having  (BETA)
     );
         
     
