@@ -358,7 +358,7 @@ class DB_DataObject extends DB_DataObject_Overload
             // this is a derived select..
             // not much support in the api yet..
             
-             $sql = 'SELECT ' .
+            $sql = 'SELECT ' .
                $this->_query['derive_select']
                .' FROM ( SELECT'.
                     $this->_query['data_select'] . " \n" .
@@ -367,8 +367,8 @@ class DB_DataObject extends DB_DataObject_Overload
                     $this->_query['condition'] . " \n" .
                     $this->_query['group_by'] . " \n" .
                     $this->_query['having'] . " \n" .
-                ') ' . $this->_query['derive_table'];
-                     
+                ') ' . $this->_query['derive_table'] . " \n" .
+                     $this->_query['derive_condition'] . " \n" .
             return $sql;
             
             
