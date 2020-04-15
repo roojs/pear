@@ -130,7 +130,7 @@ class Text_SearchParser_Tokenizer {
             }
             
             switch($c) {
-                case ' ': continue;
+                case ' ': continue 2;
                 case ':': $this->tokens[] = new Text_SearchParser_Token_Eq(); break;
                 case '(': $this->tokens[] = new Text_SearchParser_Token_GrpS(); break;
                 case ')': $this->tokens[] = new Text_SearchParser_Token_GrpE(); break;
