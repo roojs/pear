@@ -240,7 +240,7 @@ class Text_SearchParser_Tokenizer {
                     
                 default : 
                     $str .= $c;
-                    continue;
+                    continue 2;
             }
             
         }
