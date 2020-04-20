@@ -5,7 +5,7 @@
  */
 class Services_GapiOAuth2
 {
-    const scope_url = 'https://www.googleapis.com/auth/analytics.readonly';
+    const scope_url = 'https://www.googleapis.com/auth/analytics.readonly'; // fixme...
     const request_url = 'https://www.googleapis.com/oauth2/v3/token';
     const grant_type = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
     const header_alg = 'RS256';
