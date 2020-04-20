@@ -3,7 +3,7 @@
  * OAuth2 Google API authentication
  *
  */
-class Services_GapiOAuth2
+class Services_Gapi_OAuth2
 {
     const scope_url = 'https://www.googleapis.com/auth/analytics.readonly'; // fixme...
     const request_url = 'https://www.googleapis.com/oauth2/v3/token';
