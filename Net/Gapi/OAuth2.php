@@ -95,7 +95,8 @@ class Services_GapiOAuth2
      *
      * @return String
      */
-    public function getToken() {
+    public function getToken()
+    {
         return $this->auth_token;
     }
     
@@ -105,9 +106,11 @@ class Services_GapiOAuth2
      * @param String $token
      * @return Array
      */
-    public function generateAuthHeader($token=null) {
-        if ($token == null)
+    public function generateAuthHeader($token=null)
+    {
+        if ($token == null) {
             $token = $this->auth_token;
+        }
         return array('Authorization' => 'Bearer ' . $token);
     }
 }
