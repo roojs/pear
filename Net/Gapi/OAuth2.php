@@ -3,18 +3,21 @@
  * OAuth2 Google API authentication
  *
  */
-class gapiOAuth2 {
+class Services_GapiOAuth2
+{
     const scope_url = 'https://www.googleapis.com/auth/analytics.readonly';
     const request_url = 'https://www.googleapis.com/oauth2/v3/token';
     const grant_type = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
     const header_alg = 'RS256';
     const header_typ = 'JWT';
 
-    private function base64URLEncode($data) {
+    private function base64URLEncode($data)
+    {
         return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
     }
 
-    private function base64URLDecode($data) {
+    private function base64URLDecode($data)
+    {
         return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
     } 
 
@@ -26,7 +29,8 @@ class gapiOAuth2 {
      * @param String $delegate_email
      * @return String Authentication token
      */
-    public function fetchToken($client_email, $key_file, $delegate_email = null) {
+    public function fetchToken($client_email, $key_file, $delegate_email = null)
+    {
         $header = array(
             "alg" => self::header_alg,
             "typ" => self::header_typ,
@@ -73,7 +77,7 @@ class gapiOAuth2 {
             'assertion' => $data . '.' . $this->base64URLEncode($signature),
         );
 
-        $url = new gapiRequest(self::request_url);
+        $url = new Services_Gapi_Request(self::request_url);
         $response = $url->post(null, $post_variables);
         $auth_token = json_decode($response['body'], true);
 
