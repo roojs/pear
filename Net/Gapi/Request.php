@@ -10,7 +10,8 @@ class Services_Gapi_Request
 
     private $url = null;
 
-    public function __construct($url) {
+    public function __construct($url)
+    {
         $this->url = $url;
     }
 
@@ -20,7 +21,8 @@ class Services_Gapi_Request
      * @param Array $get_variables
      * @return String
      */
-    public function getUrl($get_variables=null) {
+    public function getUrl($get_variables=null)
+    {
         if (is_array($get_variables)) {
             $get_variables = '?' . str_replace('&amp;', '&', urldecode(http_build_query($get_variables, '', '&')));
         } else {
@@ -38,7 +40,8 @@ class Services_Gapi_Request
      * @param Array $post_variables
      * @param Array $headers
      */
-    public function post($get_variables=null, $post_variables=null, $headers=null) {
+    public function post($get_variables=null, $post_variables=null, $headers=null)
+    {
         return $this->request($get_variables, $post_variables, $headers);
     }
 
@@ -49,7 +52,8 @@ class Services_Gapi_Request
      * @param Array $get_variables
      * @param Array $headers
      */
-    public function get($get_variables=null, $headers=null) {
+    public function get($get_variables=null, $headers=null)
+    {
         return $this->request($get_variables, null, $headers);
     }
 
@@ -61,7 +65,8 @@ class Services_Gapi_Request
      * @param Array $post_variables
      * @param Array $headers
      */
-    public function request($get_variables=null, $post_variables=null, $headers=null) {
+    public function request($get_variables=null, $post_variables=null, $headers=null)
+    {
         $interface = self::http_interface;
 
         if (self::http_interface == 'auto')
@@ -85,7 +90,8 @@ class Services_Gapi_Request
      * @param Array $post_variables
      * @param Array $headers
      */
-    private function curlRequest($get_variables=null, $post_variables=null, $headers=null) {
+    private function curlRequest($get_variables=null, $post_variables=null, $headers=null)
+    {
         $ch = curl_init();
 
         if (is_array($get_variables)) {
@@ -127,7 +133,8 @@ class Services_Gapi_Request
      * @param Array $post_variables
      * @param Array $headers
      */
-    private function fopenRequest($get_variables=null, $post_variables=null, $headers=null) {
+    private function fopenRequest($get_variables=null, $post_variables=null, $headers=null)
+    {
         $http_options = array('method'=>'GET', 'timeout'=>3);
 
         $string_headers = '';
@@ -150,8 +157,7 @@ class Services_Gapi_Request
             $string_headers = "Content-type: application/x-www-form-urlencoded\r\n" . "Content-Length: " . strlen($post_variables) . "\r\n" . $string_headers;
             $http_options['header'] = $string_headers;
             $http_options['content'] = $post_variables;
-        }
-        else {
+        } else {
             $post_variables = '';
             $http_options['header'] = $string_headers;
         }
