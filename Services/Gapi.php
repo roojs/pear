@@ -4,7 +4,7 @@
  *
  * endpoints : https://sheets.googleapis.com/$discovery/rest?version=v4
  *
- *
+ */
 class Services_Gapi
 {
   
