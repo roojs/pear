@@ -21,8 +21,9 @@ class Services_Gapi
         require_once 'Services/Gapi/OAuth2.php';
         $this->auth = new Services_Gapi_OAuth2();
         $this->auth->fetchToken($client_email, $key_file, null);
+        // this must be discoverable?
         switch ($api) {
-            case 'sheets':  $this->url = 'http://sheets.google.com/v4/spreadsheets/'; break;
+            case 'docs':  $this->url = 'http://docs.google.com/v1/documents/'; break;
             case 'sheets':  $this->url = 'http://sheets.google.com/v4/spreadsheets/'; break;
             default:
                 throw new Exception("Invalid API");
