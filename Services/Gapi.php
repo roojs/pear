@@ -16,8 +16,7 @@ class Services_Gapi
     /**
      * Constructor function for new gapi instances
      *
-     * @param string $client_email Email of OAuth2 service account (XXXXX@developer.gserviceaccount.com)
-     * @param string $key_file Location/filename of .p12 key file
+      * @param string $json_file Downloaded from google..
      * @param string $delegate_email Optional email of account to impersonate
      * @return gapi
      */
