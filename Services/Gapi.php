@@ -27,8 +27,8 @@ class Services_Gapi
         $this->auth->fetchToken($json_file, null);
         // this must be discoverable?
         switch ($api) {
-            case 'docs':  $this->url = 'http://docs.google.com/v1/documents/'; break;
-            case 'sheets':  $this->url = 'http://sheets.google.com/v4/spreadsheets/'; break;
+            case 'docs':  $this->url = 'https://docs.google.com/v1/documents/'; break;
+            case 'sheets':  $this->url = 'https://sheets.google.com/v4/spreadsheets/'; break;
             default:
                 throw new Exception("Invalid API");
         }
