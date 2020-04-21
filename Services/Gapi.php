@@ -3,10 +3,9 @@
 class Services_Gapi
 {
   
-    const DEV_MODE = false;
-  
-    var $url = false
-    var $auth = null;
+    
+    var $url = false;
+    var $auth = false;
   
   
     /**
