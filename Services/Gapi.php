@@ -5,12 +5,9 @@ class Services_Gapi
   
     const DEV_MODE = false;
   
-    var $api = 'sheets.googleapis.com';
+    var $url = false
     var $auth = null;
-    var $account_entries = array();
-    var $report_aggregate_metrics = array();
-    var $report_root_parameters = array();
-    var $results = array();
+  
   
     /**
      * Constructor function for new gapi instances
