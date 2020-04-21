@@ -5,7 +5,7 @@ class Services_Gapi
   
     const DEV_MODE = false;
   
-    var  $auth_method = null;
+    var $auth = null;
     var $account_entries = array();
     var $report_aggregate_metrics = array();
     var $report_root_parameters = array();
@@ -22,7 +22,7 @@ class Services_Gapi
     public function __construct($client_email, $key_file, $delegate_email = null)
     {
         require_once 'Services/Gapi/OAuth2.php';
-        $this->auth_method = new Services_Gapi_OAuth2();
-        $this->auth_method->fetchToken($client_email, $key_file, $delegate_email);
+        $this->auth = new Services_Gapi_OAuth2();
+        $this->auth->fetchToken($client_email, $key_file, $delegate_email);
     }
 }
