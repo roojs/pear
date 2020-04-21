@@ -32,14 +32,24 @@ class Services_Gapi
                 throw new Exception("Invalid API");
         }
     }
-    
-    function request($endpoint, $args = array())
+    /**
+     * @param string endpoint  = eg. {spreadsheetId}/values:batchGet
+     * 
+     */
+    function get($endpoint, $args = array())
     {
         require_once 'Services/Gapi/Request.php';
-        $req = new Services_Gapi_Request($endpoint);
+        $req = new Services_Gapi_Request($this->url . $endpoint);
         $res = $url->get($args, $this->auth->generateAuthHeader());
-
-        
     }
-    
+    /**
+     * @param string endpoint  = eg. {spreadsheetId}/values:batchGet
+     * 
+     */
+    function post($endpoint, $args = array())
+    {
+        require_once 'Services/Gapi/Request.php';
+        $req = new Services_Gapi_Request($this->url . $endpoint);
+        $res = $url->post($args, $this->auth->generateAuthHeader());
+    }
 }
