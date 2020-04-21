@@ -1,5 +1,10 @@
 <?php
-
+/*
+ * notes :
+ *
+ * endpoints : https://sheets.googleapis.com/$discovery/rest?version=v4
+ *
+ *
 class Services_Gapi
 {
   
@@ -16,11 +21,11 @@ class Services_Gapi
      * @param string $delegate_email Optional email of account to impersonate
      * @return gapi
      */
-    function __construct($client_email, $key_file, $api)
+    function __construct($json_file, $api)
     {
         require_once 'Services/Gapi/OAuth2.php';
         $this->auth = new Services_Gapi_OAuth2();
-        $this->auth->fetchToken($client_email, $key_file, null);
+        $this->auth->fetchToken($json_file, null);
         // this must be discoverable?
         switch ($api) {
             case 'docs':  $this->url = 'http://docs.google.com/v1/documents/'; break;
