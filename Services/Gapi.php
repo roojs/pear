@@ -41,7 +41,7 @@ class Services_Gapi
     {
         require_once 'Services/Gapi/Request.php';
         $req = new Services_Gapi_Request($this->url . $endpoint);
-        $res = $req->get($args, $this->auth->generateAuthHeader());
+        return  $req->get($args, $this->auth->generateAuthHeader());
     }
     /**
      * @param string endpoint  = eg. {spreadsheetId}/values:batchGet
@@ -51,6 +51,6 @@ class Services_Gapi
     {
         require_once 'Services/Gapi/Request.php';
         $req = new Services_Gapi_Request($this->url . $endpoint);
-        $res = $url->post($get, $post, $this->auth->generateAuthHeader());
+        return $req->post($get, $post, $this->auth->generateAuthHeader());
     }
 }
