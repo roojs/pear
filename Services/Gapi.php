@@ -21,7 +21,8 @@ class Services_Gapi
      */
     public function __construct($client_email, $key_file, $delegate_email = null)
     {
-        require_once 'Gapi/OAuth2.php';
+        require_once 'Services/Gapi/OAuth2.php';
         $this->auth_method = new Services_Gapi_OAuth2();
         $this->auth_method->fetchToken($client_email, $key_file, $delegate_email);
     }
+}
