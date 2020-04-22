@@ -5,12 +5,7 @@
  */
 class Services_Gapi_OAuth2
 {
-    const scope_url = 'https://www.googleapis.com/auth/analytics.readonly'; // fixme...
-    const request_url = 'https://www.googleapis.com/oauth2/v3/token';
-    const grant_type = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
-    const header_alg = 'RS256';
-    const header_typ = 'JWT';
-
+      
     private function base64URLEncode($data)
     {
         return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
@@ -29,55 +24,41 @@ class Services_Gapi_OAuth2
      * @param String $delegate_email
      * @return String Authentication token
      */
-    public function fetchToken($client_email, $key_file, $delegate_email = null)
+    public function fetchToken($json_file)
     {
+        $cfg = json_decode(file_get_contents($json_file));
+        
         $header = array(
-            "alg" => self::header_alg,
-            "typ" => self::header_typ,
+            "alg" => "RS256",
+            "typ" => "JWT",
         );
 
         $claimset = array(
-            "iss" => $client_email,
-            "scope" => self::scope_url,
-            "aud" => self::request_url,
+            "iss" => $cfg->client_email,
+            "scope" => 'https://www.googleapis.com/auth/spreadsheets', // this should be derived somewhere..
+            "aud" => $cfg->token_uri,
             "exp" => time() + (60 * 60),
             "iat" => time(),
         );
 
-        if(!empty($delegate_email)) {
-            $claimset["sub"] = $delegate_email;
-        }
-
+       
         $data = $this->base64URLEncode(json_encode($header)) . '.' . $this->base64URLEncode(json_encode($claimset));
 
-        if (!file_exists($key_file)) {
-            if ( !file_exists(__DIR__ . DIRECTORY_SEPARATOR . $key_file) ) {
-                throw new Exception('GAPI: Failed load key file "' . $key_file . '". File could not be found.');
-            } else {
-                $key_file = __DIR__ . DIRECTORY_SEPARATOR . $key_file;
-            }
-        }
-
-        $key_data = file_get_contents($key_file);
-        
-        if (empty($key_data)) {
-            throw new Exception('GAPI: Failed load key file "' . $key_file . '". File could not be opened or is empty.');
-        }
-
-        openssl_pkcs12_read($key_data, $certs, 'notasecret');
-
-        if (!isset($certs['pkey'])) {
-            throw new Exception('GAPI: Failed load key file "' . $key_file . '". Unable to load pkcs12 check if correct p12 format.');
-        }
-
-        openssl_sign($data, $signature, openssl_pkey_get_private($certs['pkey']), "sha256");
-
+    
+         openssl_sign(
+            $data,
+            $signature, // returned
+            $cfg->private_key,
+            "sha256" // algo
+        );
+       
+      
         $post_variables = array(
-            'grant_type' => self::grant_type,
+            'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
             'assertion' => $data . '.' . $this->base64URLEncode($signature),
         );
-
-        $url = new Services_Gapi_Request(self::request_url);
+        require_once 'Services/Gapi/Request.php';
+        $url = new Services_Gapi_Request($cfg->token_uri);
         $response = $url->post(null, $post_variables);
         $auth_token = json_decode($response['body'], true);
 
