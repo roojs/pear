@@ -26,7 +26,8 @@ class Services_Gapi_OAuth2
      */
     public function fetchToken($json_file)
     {
-        $cfg = json_decode(file_get_contents($json_file));
+        
+        $cfg = is_array($json_file) ? (object)$json_file  : json_decode(file_get_contents($json_file));
         
         $header = array(
             "alg" => "RS256",
