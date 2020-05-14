@@ -853,7 +853,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         /* have I been initialized */
         
         
-        if (get_magic_quotes_gpc() && !$this->cli) {
+        if (version_compare(PHP_VERSION, '7.0.0') < 0  && get_magic_quotes_gpc() && !$this->cli) {
             $this->fatalError(
                 "magic quotes is enabled add the line<BR>
                    php_value magic_quotes_gpc 0<BR>
