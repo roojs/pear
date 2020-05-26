@@ -4458,7 +4458,7 @@ case 120:
 case 121:
 {
     $t = $this->yytext();
-    if ($t{strlen($t)-1} == ",") {
+    if ($t[strlen($t)-1] == ",") {
         // add argument
         $this->flexyArgs[] = substr($t,0,-1);
         return HTML_TEMPLATE_FLEXY_TOKEN_NONE;
