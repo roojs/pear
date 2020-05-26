@@ -1073,7 +1073,7 @@ END_SCRIPT          = {ETAGO}(S|s)(C|c)(r|R)(I|i)(P|p)(T|t){TAGC}
 <IN_FLEXYMETHOD>(")}"|"):"{FLEXY_MODIFIER}"}") {
     
     $t = $this->yytext();
-    if ($t{1} == ':') {
+    if ($t[1] == ':') {
         $this->flexyMethod .= substr($t,1,-1);
     }
         
@@ -1087,7 +1087,7 @@ END_SCRIPT          = {ETAGO}(S|s)(C|c)(r|R)(I|i)(P|p)(T|t){TAGC}
 <IN_FLEXYMETHOD>{FLEXY_VAR}(","|")}"|"):"{FLEXY_MODIFIER}"}") {
     
     $t = $this->yytext();
-    if ($t{strlen($t)-1} == ",") {
+    if ($t[strlen($t)-1] == ",") {
         // add argument
         $this->flexyArgs[] = substr($t,0,-1);
         return HTML_TEMPLATE_FLEXY_TOKEN_NONE;
@@ -1110,7 +1110,7 @@ END_SCRIPT          = {ETAGO}(S|s)(C|c)(r|R)(I|i)(P|p)(T|t){TAGC}
 <IN_FLEXYMETHOD>"#"{FLEXY_LITERAL}("#,"|"#") {
      
     $t = $this->yytext();
-    if ($t{strlen($t)-1} == ",") {
+    if ($t[strlen($t)-1] == ",") {
         // add argument
         $this->flexyArgs[] = substr($t,0,-1);
         return HTML_TEMPLATE_FLEXY_TOKEN_NONE;
@@ -1124,7 +1124,7 @@ END_SCRIPT          = {ETAGO}(S|s)(C|c)(r|R)(I|i)(P|p)(T|t){TAGC}
 <IN_FLEXYMETHOD>{DIGIT}+(","|")}"|"):"{FLEXY_MODIFIER}"}") {
     
     $t = $this->yytext();
-    if ($t{strlen($t)-1} == ",") {
+    if ($t[strlen($t)-1] == ",") {
         // add argument
         $this->flexyArgs[] = '#' . substr($t,0,-1) . '#';
         return HTML_TEMPLATE_FLEXY_TOKEN_NONE;
@@ -1149,7 +1149,7 @@ END_SCRIPT          = {ETAGO}(S|s)(C|c)(r|R)(I|i)(P|p)(T|t){TAGC}
 <IN_DOUBLEQUOTE,IN_SINGLEQUOTE>{FLEXY_START}{FLEXY_METHOD}"(" {
     $this->value =  '';
     $n = $this->yytext();
-    if ($n{0} != "{") {
+    if ($n[0] != "{") {
         $n = substr($n,2);
     }
     
