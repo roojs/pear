@@ -330,7 +330,7 @@ class HTML_Template_Flexy_Token {
                 continue;
             }
             //echo "Checking TAG $i {$res[$i]->tag}\n";
-            if ($res[$i]->tag{0} == '/') { // it's a close tag..
+            if ($res[$i]->tag[0] == '/') { // it's a close tag..
                 //echo "GOT END TAG: {$res[$i]->tag}\n";
                 $tag = strtoupper(substr($res[$i]->tag,1));
                 if (!count($stack)) {
@@ -557,7 +557,7 @@ class HTML_Template_Flexy_Token {
             return '$'.$string;
         } 
         if (!@$GLOBALS['_HTML_TEMPLATE_FLEXY']['currentOptions']['privates'] &&
-                ($string{0} == '_')) {
+                ($string[0] == '_')) {
                 return HTML_Template_Flexy::staticRaiseError('HTML_Template_Flexy::Attempt to access private variable:'.
                     " on line {$this->line} of {$GLOBALS['_HTML_TEMPLATE_FLEXY']['filename']}".
                     ", Use options[privates] to allow this."

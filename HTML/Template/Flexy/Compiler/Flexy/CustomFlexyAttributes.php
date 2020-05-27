@@ -220,12 +220,12 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
             $args_clean = array();
             // clean all method arguments...
             for ($i=0; $i<count($args); $i++) {
-                if ($args[$i]{0} != '#') {
+                if ($args[$i][0] != '#') {
                     $args_clean[] = $args[$i];
                     continue;
                 }
                 // single # - so , must be inside..
-                if ((strlen($args[$i]) > 1) && ($args[$i]{strlen($args[$i])-1}=='#')) {
+                if ((strlen($args[$i]) > 1) && ($args[$i][strlen($args[$i])-1]=='#')) {
                     $args_clean[] = $args[$i];
                     continue;
                 }
@@ -253,8 +253,6 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
             $element->children = array_merge($element->children, $element->postfix);
             $element->postfix = '';
         }
-
-
     }
 }
 
