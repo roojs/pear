@@ -129,7 +129,8 @@ class File_Convert_Solution
         require_once 'System.php';
         
         $timeout = System::which('timeout');
-        
+        // fix the home directory - as we can't normally write to www-data's home directory.
+        putenv('HOME='. ini_get('session.save_path'));
         $xvfb = System::which('xvfb-run');
         if (empty($xvfb)) {
             $this->cmd = "Missing xvfb";

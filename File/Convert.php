@@ -358,6 +358,7 @@ class File_Convert
                 array( //target
                     'application/vnd.ms-excel',
                     'application/vnd.oasis.opendocument.spreadsheet' ,
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                     'application/pdf',
                     'text/html',
                 )
