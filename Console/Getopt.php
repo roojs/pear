@@ -188,7 +188,7 @@ class Console_Getopt
     static function _parseShortOption($arg, $short_options, &$opts, &$args, $skip_unknown, &$arg_pos)
     {
         for ($i = 0; $i < strlen($arg); $i++) {
-            $opt     = $arg{$i};
+            $opt     = $arg[$i];
             $opt_arg = null;
 
             /* Try to find the short option in the specifier string. */
