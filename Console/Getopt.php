@@ -259,6 +259,7 @@ class Console_Getopt
      */
     static function _isLongOpt($arg)
     {
+        $arg = (string) $arg;
         return strlen($arg) > 2 && $arg[0] == '-' && $arg[1] == '-' &&
                preg_match('/[a-zA-Z]+$/', substr($arg, 2));
     }
