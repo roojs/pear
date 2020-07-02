@@ -130,6 +130,7 @@ class File_Convert_Solution
         
         $timeout = System::which('timeout');
         // fix the home directory - as we can't normally write to www-data's home directory.
+        $home = 
         putenv('HOME='. ini_get('session.save_path'));
         $xvfb = System::which('xvfb-run');
         if (empty($xvfb)) {
@@ -146,7 +147,8 @@ class File_Convert_Solution
         $cmd = "$timeout 30s $xvfb -a  $uno -f $ext -o " . escapeshellarg($target) . " " . escapeshellarg($fn);
         ////  echo $cmd;
         
-        // do some locking
+        /*
+        // do some locking WHY? 
         $lock = fopen(ini_get('session.save_path') . '/file-convert-unoconv.lock', 'wr+');
         $tries = 3;
         while ($tries >0) {
@@ -162,10 +164,10 @@ class File_Convert_Solution
         if ($tries != -10) {
             die("could not get a lock to run unoconv - " . ini_get('session.save_path') . '/file-convert-unoconv.lock');
         }
-        
+        */
         $res = $this->exec($cmd);
         
-        fclose($lock);
+        //fclose($lock);
         
         /// this is to prevent soffice staying alive if we timeout...
         `/usr/bin/killall -9 soffice.bin`;
