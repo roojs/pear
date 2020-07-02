@@ -1025,7 +1025,7 @@ class File_Convert_Solution
         
         //echo "GOT TARGET"  . $target;
         
-        list($width, $height) = getimagesize($fn);
+        list($width, $height) = @getimagesize($fn);
         
         $extent = '';
         switch (true) { // what about fit/pad etc...
@@ -1090,7 +1090,7 @@ class File_Convert_Solution
             
              
             
-            list($width, $height) = getimagesize($fn);
+            list($width, $height) = @getimagesize($fn);
             
             
             $pad = is_numeric($x) && is_numeric($y);
