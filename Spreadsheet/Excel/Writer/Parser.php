@@ -1,4 +1,4 @@
-1<?php
+<?php
 /**
 *  Class for parsing Excel formulas
 *
