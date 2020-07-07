@@ -1,4 +1,4 @@
-<?php
+1<?php
 /**
 *  Class for parsing Excel formulas
 *
@@ -1093,7 +1093,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         $col    = 0;
         $col_ref_length = strlen($col_ref);
         for ($i = 0; $i < $col_ref_length; $i++) {
-            $col += (ord($col_ref{$i}) - ord('A') + 1) * pow(26, $expn);
+            $col += (ord($col_ref[$i]) - ord('A') + 1) * pow(26, $expn);
             $expn--;
         }
 
@@ -1115,12 +1115,12 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         $formula_length = strlen($this->_formula);
         // eat up white spaces
         if ($i < $formula_length) {
-            while ($this->_formula{$i} == " ") {
+            while ($this->_formula[$i] == " ") {
                 $i++;
             }
 
             if ($i < ($formula_length - 1)) {
-                $this->_lookahead = $this->_formula{$i+1};
+                $this->_lookahead = $this->_formula[$i+1];
             }
             $token = '';
         }
@@ -1128,7 +1128,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
         while ($i < $formula_length) {
             $token .= $this->_formula{$i};
             if ($i < ($formula_length - 1)) {
-                $this->_lookahead = $this->_formula{$i+1};
+                $this->_lookahead = $this->_formula[$i+1];
             } else {
                 $this->_lookahead = '';
             }
@@ -1143,7 +1143,7 @@ class Spreadsheet_Excel_Writer_Parser extends PEAR
             }
 
             if ($i < ($formula_length - 2)) {
-                $this->_lookahead = $this->_formula{$i+2};
+                $this->_lookahead = $this->_formula[$i+2];
             } else { // if we run out of characters _lookahead becomes empty
                 $this->_lookahead = '';
             }
