@@ -1013,7 +1013,6 @@ class File_Convert_Solution
         
         
         if (empty($this->debug) && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
-            
             return $target;
         }
         $targetName = $target;
@@ -1059,9 +1058,18 @@ class File_Convert_Solution
                 
                 
                 break;
-            default: 
-                $scale = "{$x}x{$y}>"; 
-                $extent ="-extent '{$x}x{$y}>' -gravity center -background white -define jpeg:size={$x}x{$y}";
+            default:
+                
+                list($width, $height) = @getimagesize($fn);
+                 
+                $scale = "{$x}x{$y}>";
+                $define = "-define jpeg:size={$x}x{$y}";
+                // if image required is bigger than the original - then we will just pad it..
+                if ($width < $x && $height < $y) {
+                    $scale = '';
+                    $define  = '';
+                }
+                $extent ="-extent '{$x}x{$y}>' -gravity center -background white {$define}";
                 break;
         }
         require_once 'System.php';
@@ -1076,8 +1084,9 @@ class File_Convert_Solution
             $resize_method = filesize($fn) > 50000000 ? '-sample' : '-scale';
             
             $cmd = "{$CONVERT} " . $strip . " -colorspace sRGB -interlace none -density 800 -quality 90 ". 
-                 " {$resize_method} '{$scale}' ". $extent  . " '{$fn}' '{$targetName}'";
-             
+                 (strlen($scale) ?  " {$resize_method} '{$scale}' " : '' ).
+                 $extent  . " '{$fn}' '{$targetName}'";
+            //var_dump($cmd);exit;
             $cmdres  = $this->exec($cmd);
             $this->exec($cmd);
             
@@ -1185,7 +1194,7 @@ class File_Convert_Solution
     
     function scaleImageC($fn, $x, $y) 
     {
-//        print_r(array('scaleimage', func_get_args()));exit;
+        // print_r(array('scaleimageC', func_get_args()));exit;
         if (empty($x) && empty($y)) {
             return false;
         }
@@ -1219,9 +1228,7 @@ class File_Convert_Solution
             
             // both x & y..
             default:
-                list($width, $height) = @getimagesize($fn);
-            
-                $resize = '-extent';
+                
                 $scale = "{$x}x{$y}^"; 
                 $extent =" -gravity center -crop {$x}x{$y}+0+0";
                 break;

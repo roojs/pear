@@ -102,6 +102,7 @@ class File_Convert
     
     function convert($toMimetype, $x= 0, $y =0, $pg=false) 
     {
+        //print_R(func_get_args());
         $pg = (int) $pg;
         
         if(empty($pg) || is_nan($pg * 1)){
@@ -154,9 +155,7 @@ class File_Convert
             }
             $x = strlen($x) ? (int) $x : '';
             $y = strlen($y) ? (int) $y : '';
-//            print_r($x);
-//            print_r(' > ');
-//            print_r($y);exit;
+            //print_r($x); print_r(' > '); print_r($y);exit;
             $fn = $sc->runconvert($fn,  $x, $y, $pg);
              
         }
@@ -181,7 +180,7 @@ class File_Convert
             // broken image? for images...
             $cmd = isset($this->lastaction->cmd) ? $this->lastaction->cmd : "No Method";
             die("not available in this format was: {$this->mimetype}, request: {$this->to}<BR>
-                Running - $cmd\n" . print_r($this->lastaction->log,true));
+                Running - $cmd\n" . print_r(is_object($this->lastaction) ? $this->lastaction->log : '',true));
         }
         clearstatcache();
         if (!file_exists($this->target))
