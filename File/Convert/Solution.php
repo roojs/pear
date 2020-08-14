@@ -1199,6 +1199,7 @@ class File_Convert_Solution
         
         
         $extent = '';
+        $resize = '-resize';
         switch (true) { // what about fit/pad etc...
             
             // added to allow fix to 'x' without padding.. (empty string in x or y)
@@ -1217,7 +1218,10 @@ class File_Convert_Solution
                 break;
             
             // both x & y..
-            default: 
+            default:
+                list($width, $height) = @getimagesize($fn);
+            
+                $resize = '-extent';
                 $scale = "{$x}x{$y}^"; 
                 $extent =" -gravity center -crop {$x}x{$y}+0+0";
                 break;
@@ -1234,7 +1238,7 @@ class File_Convert_Solution
          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
             $cmd = "{$CONVERT} $strip -colorspace sRGB -interlace none -density 300 -quality 90 ". 
-                 " -resize '{$scale}' ". $extent  . " '{$fn}' '{$targetName}'";
+                 " {$resize} '{$scale}' ". $extent  . " '{$fn}' '{$targetName}'";
              
              $cmdres  = $this->exec($cmd);
             $this->exec($cmd);
