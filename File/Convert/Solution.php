@@ -974,6 +974,10 @@ class File_Convert_Solution
         $frame = '';
         $ext = $this->ext;
         $target = $fn . '.' . $ext;
+        
+        $this->debug("COVERT: FE:" . (file_exists($target) ? 1: 0) );
+        $this->debug("COVERT: FS:" . (file_exists($target) ?  (filemtime($target) . '>' .  filemtime($fn)) : 'n/a'));
+        
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
