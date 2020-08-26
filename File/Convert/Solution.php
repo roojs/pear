@@ -789,7 +789,7 @@ class File_Convert_Solution
         $this->debug("FS0: " . (file_exists($finaltarget) && filesize($finaltarget) ? 1  : 0));
         $this->debug("FS: " . (file_exists($finaltarget) ? (filemtime($finaltarget) . ">" . filemtime($fn)) : 'n/a'));
                      
-        if (!$this->debug && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
+        if ($this->debug < 2 && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
             $this->debug("final target exists - $finaltarget - skipping");
             return $finaltarget;
         }
