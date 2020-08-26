@@ -646,7 +646,7 @@ class File_Convert_Solution
         
         if ($this->debug < 2 && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
             
-            $this->debug("using existing image - $finaltarget")
+            $this->debug("using existing image - $finaltarget");
         
             return $finaltarget;
         }
