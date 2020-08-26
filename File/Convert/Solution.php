@@ -7,7 +7,7 @@ class File_Convert_Solution
     var $from;
     var $to;
     var $ext;
-    var $debug = false;
+    var $debug = 0;
     var $last = '';
     var $log = array();
     
@@ -644,7 +644,10 @@ class File_Convert_Solution
         $finaltarget = $target ; //. ($this->ext == 'png' ?  '' : '.jpeg');
         
         
-        if (!$this->debug && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
+        if ($this->debug < 2 && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
+            
+            $this->debug("using existing image - $finaltarget");
+        
             return $finaltarget;
         }
         require_once 'System.php';
@@ -781,8 +784,12 @@ class File_Convert_Solution
         }
         $finaltarget = $target ; //. ($this->ext == 'png' ?  '' : '.jpeg');
         
-        
-        if (!$this->debug && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
+        $this->debug("final target check - $finaltarget ");
+        $this->debug("FE: " . (file_exists($finaltarget)  ? 1 : 0));
+        $this->debug("FS0: " . (file_exists($finaltarget) && filesize($finaltarget) ? 1  : 0));
+        $this->debug("FS: " . (file_exists($finaltarget) ? (filemtime($finaltarget) . ">" . filemtime($fn)) : 'n/a'));
+                     
+        if ($this->debug < 2 && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
             $this->debug("final target exists - $finaltarget - skipping");
             return $finaltarget;
         }
@@ -967,6 +974,10 @@ class File_Convert_Solution
         $frame = '';
         $ext = $this->ext;
         $target = $fn . '.' . $ext;
+        
+        $this->debug("COVERT: FE:" . (file_exists($target) ? 1: 0) );
+        $this->debug("COVERT: FS:" . (file_exists($target) ?  (filemtime($target) . '>' .  filemtime($fn)) : 'n/a'));
+        
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
@@ -1011,8 +1022,11 @@ class File_Convert_Solution
         $ext = $this->ext;
         $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
         
-        
-        if (empty($this->debug) && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
+        $this->debug("COVERT: FE:" . (file_exists($target) ? 1: 0) );
+        $this->debug("COVERT: FS:" . (file_exists($target) ?  (filemtime($target) . '>' .  filemtime($fn)) : 'n/a'));
+       
+        if ($this->debug < 2 && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
+            $this->debug("SCALEIMAGE - image exists $target");
             return $target;
         }
         $targetName = $target;

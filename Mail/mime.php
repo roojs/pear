@@ -477,13 +477,13 @@ class Mail_mime
         }
 
         // Temporarily reset magic_quotes_runtime and read file contents
-        if ($magic_quote_setting = get_magic_quotes_runtime()) {
-            @ini_set('magic_quotes_runtime', 0);
-        }
+        //if ($magic_quote_setting = get_magic_quotes_runtime()) {
+        //    @ini_set('magic_quotes_runtime', 0);
+        //}
         $cont = file_get_contents($file_name);
-        if ($magic_quote_setting) {
-            @ini_set('magic_quotes_runtime', $magic_quote_setting);
-        }
+        //if ($magic_quote_setting) {
+        //    @ini_set('magic_quotes_runtime', $magic_quote_setting);
+        //}
 
         return $cont;
     }
