@@ -784,7 +784,7 @@ class File_Convert_Solution
         }
         $finaltarget = $target ; //. ($this->ext == 'png' ?  '' : '.jpeg');
         
-        
+        $this->debug("final target check - $finaltarget ");
         if (!$this->debug && file_exists($finaltarget)  && filesize($finaltarget) && filemtime($finaltarget) > filemtime($fn)) {
             $this->debug("final target exists - $finaltarget - skipping");
             return $finaltarget;
