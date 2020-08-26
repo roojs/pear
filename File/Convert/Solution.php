@@ -1022,8 +1022,10 @@ class File_Convert_Solution
         $ext = $this->ext;
         $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
         
-        
-        if (empty($this->debug) && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
+        $this->debug("COVERT: FE:" . (file_exists($target) ? 1: 0) );
+        $this->debug("COVERT: FS:" . (file_exists($target) ?  (filemtime($target) . '>' .  filemtime($fn)) : 'n/a'));
+       
+        if ($this->debug < 2 && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
         $targetName = $target;
