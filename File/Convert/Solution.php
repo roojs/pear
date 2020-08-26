@@ -1026,6 +1026,7 @@ class File_Convert_Solution
         $this->debug("COVERT: FS:" . (file_exists($target) ?  (filemtime($target) . '>' .  filemtime($fn)) : 'n/a'));
        
         if ($this->debug < 2 && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
+            $this->debug("SCALEIMAGE - image exists $fn));
             return $target;
         }
         $targetName = $target;
