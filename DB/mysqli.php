@@ -432,7 +432,7 @@ class DB_mysqli extends DB_common
         
         $_SESSION['MYSQLI_THREAD_ID'][] = $thread_id;
         
-        @session_write_close();
+        //@session_write_close();
         
         do  {
             
@@ -441,7 +441,7 @@ class DB_mysqli extends DB_common
             
         } while (!$poll);
         
-        @session_start();
+       // @session_start();
         
         if(!in_array($thread_id, $_SESSION['MYSQLI_THREAD_ID'])){
             return $this->mysqliRaiseError(DB_ERROR_CONNECT_FAILED);
