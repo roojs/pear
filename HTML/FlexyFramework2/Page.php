@@ -367,10 +367,30 @@ class HTML_FlexyFramework2_Page  {
                 $ini = true;
                 // sometimes raises a notice - ps_files_cleanup_dir.
                 @session_start();
+                $this->dedupeSessionCookies();
                 return;
         }
     }
-    
+     function dedupeSessionCookies()
+    {
+         if (headers_sent()) {
+            return;
+        }
+        $cookies = array();
+        
+        foreach (headers_list() as $header) {
+            // Identify cookie headers
+            if (strpos($header, 'Set-Cookie:') === 0) {
+                $cookies[] = $header;
+            }
+        }
+        header_remove('Set-Cookie');
+
+        // Restore one copy of each cookie
+        foreach(array_unique($cookies) as $cookie) {
+            header($cookie, false);
+        }
+    }
 }
 
  
