@@ -799,7 +799,7 @@ class HTML_FlexyFramework2 {
     {
         /* have I been initialized */
         
-        
+        /* 
         if (get_magic_quotes_gpc() && !$this->cli) {
             $this->fatalError(
                 "magic quotes is enabled add the line<BR>
@@ -809,6 +809,7 @@ class HTML_FlexyFramework2 {
                    ");
                 
         }
+        */
         // set up error handling - 
         //$this->error = new HTML_FlexyFramework2_Error();
         
