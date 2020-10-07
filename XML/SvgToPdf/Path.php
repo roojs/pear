@@ -140,6 +140,7 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
         if (!$color || ($color == 'none')) {
             return false;
         }
+        var_dump($color);
         return array(
             hexdec(substr($color,1,2)),
             hexdec(substr($color,3,2)),

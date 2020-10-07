@@ -351,7 +351,9 @@ class DB_mysqli extends DB_common
         if ($dsn['database']) {
             $this->_db = $dsn['database'];
         }
-
+        // appears that these are not needed 
+        //@mysqli_set_charset($this->connection, "utf8");
+        //@mysqli_query($this->connection, 'SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci');
         return DB_OK;
     }
 
