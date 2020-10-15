@@ -3446,6 +3446,7 @@ class HTML_Scss
      */
     protected function importFile($path, $out)
     {
+        //echo "Import file: $path\n";
         // see if tree is cached
         $realPath = realpath($path);
 
@@ -5240,7 +5241,7 @@ class HTML_Scss
             $start--;
         }
 
-        $end    = (int) $args[2][1];
+        $end    = (int) isset($args[2][1]) ? $args[2][1] : 0;
         $length = $end < 0 ? $end + 1 : ($end > 0 ? $end - $start : $end);
 
         $string[2] = $length
