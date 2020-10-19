@@ -92,6 +92,8 @@ class HTML_Scss_SourceMap_SourceMapGenerator
     public function __construct(array $options = [])
     {
         $this->options = array_merge($this->defaultOptions, $options);
+         
+        
         
         $this->encoder = new HTML_Scss_SourceMap_Base64VLQ();
     }
@@ -114,8 +116,7 @@ class HTML_Scss_SourceMap_SourceMapGenerator
             'original_column' => $originalColumn,
             'source_file' => $sourceFile
         );
-
-        $this->sources[$sourceFile] = $sourceFile;
+         $this->sources[$sourceFile] = $sourceFile;
     }
 
     /**
@@ -161,12 +162,12 @@ class HTML_Scss_SourceMap_SourceMapGenerator
         $sourceMap = array();
         $mappings  = $this->generateMappings();
 
+         
         // File version (always the first entry in the object) and must be a positive integer.
         $sourceMap['version'] = self::VERSION;
 
         // An optional name of the generated code that this source map is associated with.
         $file = $this->options['sourceMapFilename'];
-
         if ($file) {
             $sourceMap['file'] = $file;
         }
@@ -203,8 +204,7 @@ class HTML_Scss_SourceMap_SourceMapGenerator
         if (count($sourceMap['sources']) && empty($sourceMap['sourceRoot'])) {
             unset($sourceMap['sourceRoot']);
         }
-
-        return json_encode($sourceMap);
+         return json_encode($sourceMap);
     }
 
     /**
@@ -303,17 +303,17 @@ class HTML_Scss_SourceMap_SourceMapGenerator
         $filename = $this->fixWindowsPath($filename);
         $rootpath = $this->options['sourceMapRootpath'];
         $basePath = $this->options['sourceMapBasepath'];
-
+        //print_r(array($filename, $rootpath, $basePath));  
         // "Trim" the 'sourceMapBasepath' from the output filename.
         if (strlen($basePath) && strpos($filename, $basePath) === 0) {
             $filename = substr($filename, strlen($basePath));
         }
-
+        //print_r("\nstrip:".$filename);
         // Remove extra leading path separators.
         if (strpos($filename, '\\') === 0 || strpos($filename, '/') === 0) {
             $filename = substr($filename, 1);
         }
-
+        //print_R("\nret:".$rootpath . $filename);
         return $rootpath . $filename;
     }
 

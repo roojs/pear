@@ -602,7 +602,7 @@ class XML_Parser extends PEAR
 
     /**
      * XML_Parser::raiseError()
-     *
+     * 
      * Throws a XML_Parser_Error
      *
      * @param string  $msg   the error message
@@ -610,9 +610,10 @@ class XML_Parser extends PEAR
      *
      * @return XML_Parser_Error reference to the error object
      **/
-    function raiseError($msg = null, $ecode = 0)
+    function &raiseError($message= NULL, $code = NULL, $mode = NULL, $options = NULL, $userinfo = NULL, $error_class = NULL, $skipmsg = false)
     {
-        $msg = !is_null($msg) ? $msg : $this->parser;
+        $code = is_null($code) ? 0 : $code;
+        $msg = !is_null($message) ? $message : $this->parser;
         $err = new XML_Parser_Error($msg, $ecode);
         return parent::raiseError($err);
     }
@@ -752,8 +753,9 @@ class XML_Parser_Error extends PEAR_Error
     * @access   public
     * @todo PEAR CS - can't meet 85char line limit without arg refactoring
     */
-    function XML_Parser_Error($msgorparser = 'unknown error', $code = 0, $mode = PEAR_ERROR_RETURN, $level = E_USER_NOTICE)
+    function __construct($msgorparser = 'unknown error', $code = NULL, $mode = PEAR_ERROR_RETURN, $level = E_USER_NOTICE)
     {
+        $code = is_null($code) ? 0 : $code;
         if (is_resource($msgorparser)) {
             $code        = xml_get_error_code($msgorparser);
             $msgorparser = sprintf('%s at XML input line %d:%d',
