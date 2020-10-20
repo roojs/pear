@@ -2468,7 +2468,7 @@ class DB_DataObject extends DB_DataObject_Overload
         // it's not currently connected!
         // try and work out what to use for the dsn !
 
-        $options= $_DB_DATAOBJECT['CONFIG'];
+        $options = $_DB_DATAOBJECT['CONFIG'];
         // if the databse dsn dis defined in the object..
         $dsn = isset($this->_database_dsn) ? $this->_database_dsn : null;
         
@@ -2596,6 +2596,8 @@ class DB_DataObject extends DB_DataObject_Overload
         return true;
     }
 
+     
+    
     /**
      * sends query to database - this is the private one that must work 
      *   - internal functions use this rather than $this->query()
@@ -2873,6 +2875,10 @@ class DB_DataObject extends DB_DataObject_Overload
     {
         global $_DB_DATAOBJECT;
         static $cache = array();
+        // if you try and reset the connections - it should clear the table cache.
+        if (empty($_DB_DATAOBJECT['CONNECTIONS'])) {
+            $cache  = array();
+        }
         
         // multi-database support.. - experimental.
         $database = '';
