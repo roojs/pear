@@ -904,7 +904,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         }
         $res = $err->query("SELECT @@global.read_only as ro");
         $row = $res->fetchRow(DB_FETCHMODE_ASSOC);
-        if (!empty($row['ro']) && !isset($options['write-db'])) {
+        if (!empty($row['ro']) && !isset($options['skip-read-only-check'])) {
             $this->fatalError("Database is configured to be read-only - please check database<BR> ".$err->toString());
         }
         // reset dont die!
