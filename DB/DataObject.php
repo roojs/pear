@@ -2875,11 +2875,7 @@ class DB_DataObject extends DB_DataObject_Overload
     {
         global $_DB_DATAOBJECT;
         static $cache = array();
-        // if you try and reset the connections - it should clear the table cache.
-        if (empty($_DB_DATAOBJECT['CONNECTIONS'])) {
-            $cache  = array();
-        }
-        
+         
         // multi-database support.. - experimental.
         $database = '';
         $table = $in_table;
