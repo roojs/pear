@@ -424,7 +424,8 @@ class DB_mysqli extends DB_common
         
         $isRunning = session_status() == PHP_SESSION_ACTIVE;
         
-        if(!$isRunning){
+        if(!$isRunning && empty($_SERVER['PHP_AUTH_USER'])) {
+            // only start session if we are not using httpauth
             @session_start();
         }
         
