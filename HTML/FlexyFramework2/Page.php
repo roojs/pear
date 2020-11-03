@@ -340,6 +340,12 @@ class HTML_FlexyFramework2_Page  {
     { 
         static $ses_status = false;
         static $ini = false;
+        
+        if (!empty($_SERVER['PHP_AUTH_USER'])) {
+            // do not do sessions if we are using http auth.
+            return;
+        }
+        
         // session status is only php5.4 and up..
         if (!defined('PHP_SESSION_ACTIVE')) {
             define('PHP_SESSION_ACTIVE' , 1);

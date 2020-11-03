@@ -452,7 +452,7 @@ class DB_mysqli extends DB_common
         
         unset($_SESSION['MYSQLI_THREAD_ID'][array_search($thread_id, $_SESSION['MYSQLI_THREAD_ID'])]);
         
-        if(!$isRunning){
+        if(!$isRunning && empty($_SERVER['PHP_AUTH_USER'])) {
             @session_write_close();
         }
         
