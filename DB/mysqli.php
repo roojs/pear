@@ -424,7 +424,7 @@ class DB_mysqli extends DB_common
         
         $isRunning = session_status() == PHP_SESSION_ACTIVE;
         
-        if(!$isRunning && empty($_SERVER['PHP_AUTH_USER'])) {
+        if(!$isRunning && empty($_SERVER['PHP_AUTH_USER']) &&  php_sapi_name() != "cli") {
             // only start session if we are not using httpauth
             @session_start();
         }
@@ -452,7 +452,7 @@ class DB_mysqli extends DB_common
         
         unset($_SESSION['MYSQLI_THREAD_ID'][array_search($thread_id, $_SESSION['MYSQLI_THREAD_ID'])]);
         
-        if(!$isRunning && empty($_SERVER['PHP_AUTH_USER'])) {
+        if(!$isRunning && empty($_SERVER['PHP_AUTH_USER']) &&  php_sapi_name() != "cli") {
             @session_write_close();
         }
         

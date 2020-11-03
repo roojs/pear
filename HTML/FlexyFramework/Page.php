@@ -404,7 +404,7 @@ class HTML_FlexyFramework_Page  {
         static $ses_status = false;
         static $ini = false;
         
-        if (!empty($_SERVER['PHP_AUTH_USER'])) {
+        if (!empty($_SERVER['PHP_AUTH_USER']) ||  php_sapi_name() == "cli") {
             // do not do sessions if we are using http auth.
             return;
         }
