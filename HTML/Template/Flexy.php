@@ -530,7 +530,7 @@ class HTML_Template_Flexy
     */
     
     
-    function outputObject(&$t,$elements=array()) 
+    function outputObject($t,$elements=array()) 
     {
         if (!is_array($elements)) {
             return $this->raiseError(
@@ -653,7 +653,7 @@ class HTML_Template_Flexy
     *   @author     Alan Knowles
     *   @param      object object to output as $t
     */
-    function outputObjectToFile(&$t,$elements=array(),$filename) 
+    function outputObjectToFile($t,$elements=array(),$filename) 
     {
         $this->_bufferHandle = fopen($filename, 'w');
         
@@ -695,7 +695,7 @@ class HTML_Template_Flexy
     *   @param      filename of template
     *   @return     string - result
     */
-    function &staticQuickTemplate($file,&$t) 
+    function staticQuickTemplate($file,$t) 
     {
         $template = new HTML_Template_Flexy;
         $template->compile($file);
@@ -1078,7 +1078,7 @@ class HTML_Template_Flexy
         // load pluginManager.
         if (!isset($this->plugin)) {
             $this->plugin = new HTML_Template_Flexy_Plugin;
-            $this->plugin->flexy = &$this;
+            $this->plugin->flexy = $this;
         }
         return $this->plugin->call(func_get_args());
     } 

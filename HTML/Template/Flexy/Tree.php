@@ -238,7 +238,7 @@ class HTML_Template_Flexy_Tree {
                 continue;
             }
             // alias closer to opener..
-            $this->tokens[$stack[$tag][$npos]]->close = &$this->tokens[$i];
+            $this->tokens[$stack[$tag][$npos]]->close =  $this->tokens[$i];
             $stack[$tag]['pos']--;
             // take it off the stack so no one else uses it!!!
             unset($stack[$tag][$npos]);
@@ -258,7 +258,7 @@ class HTML_Template_Flexy_Tree {
         $i = $total;
         $this->tokens[$i] = new HTML_Template_Flexy_Token;
         $this->tokens[$i]->id = $total;
-        $this->tokens[0]->close = &$this->tokens[$i];
+        $this->tokens[0]->close = $this->tokens[$i];
         
         // now is it possible to connect children...
         // now we need to GLOBALIZE!! - 
@@ -279,7 +279,7 @@ class HTML_Template_Flexy_Tree {
     {
       
         
-        $base = &$this->tokens[$id];
+        $base =  $this->tokens[$id];
         $base->children = array();
         $start = $base->id +1;
         $end = $base->close->id;
@@ -289,7 +289,7 @@ class HTML_Template_Flexy_Tree {
             //if ($base->id == 1176) {
             //    echo "<PRE>";print_r($_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$i]);
             // }
-            $base->children[] = &$this->tokens[$i];
+            $base->children[] =  $this->tokens[$i];
             if (isset($this->tokens[$i]->close)) {
             
                 // if the close id is greater than my id - ignore it! - 

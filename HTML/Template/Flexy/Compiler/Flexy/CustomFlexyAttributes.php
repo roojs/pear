@@ -41,7 +41,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
     * @return   none 
     * @access   public 
     */
-    function doCustomAttributes(&$element) 
+    function doCustomAttributes($element) 
     {
         //print_R($element->ucAttributes);
         foreach ($element->ucAttributes as $key=>$value) {
@@ -84,7 +84,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
     * @return   none 
     * @access   private 
     */
-    function contentAttribute(&$element,$val) 
+    function contentAttribute($element,$val) 
     {
         // assign method or variable $val as the child token of this element, potentially replacing any existing children
         // default: special case if $val is empty - simply set children to null
@@ -150,7 +150,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
     * @return   none 
     * @access   private 
     */
-    function replaceAttribute(&$element,$val) 
+    function replaceAttribute($element,$val) 
     {
         // Setting tag to empty will prevent the opening and closing tags from beinging displayed
         $element->tag = null;
@@ -179,7 +179,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
     * @return   none 
     * @access   private 
     */
-    function omittagAttribute(&$element,$val) 
+    function omittagAttribute($element,$val) 
     {
         // Setting tag to empty will prevent the opening and closing tags from beinging displayed
         $element->tag = null;
@@ -195,7 +195,7 @@ class HTML_Template_Flexy_Compiler_Flexy_CustomFlexyAttributes
     * @return   none 
     * @access   private 
     */
-    function replaceChildren(&$element,&$val)
+    function replaceChildren($element,&$val)
     {
         // Most of the this method is borrowed from parseAttributeIf() in HTML_Template_Flexy_Compiler_Flexy_Tag
         if (is_array($val)) {

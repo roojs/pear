@@ -134,9 +134,9 @@ class HTML_Template_Flexy_Compiler {
     * @access   public
     */
     
-    function compileAll(&$flexy, $dir = '',$regex='/.html$/')
+    function compileAll($flexy, $dir = '',$regex='/.html$/')
     {
-        $this->flexy = &$flexy;
+        $this->flexy = $flexy;
         $this->compileDir($dir,$regex);
     }
     

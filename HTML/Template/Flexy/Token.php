@@ -138,7 +138,7 @@ class HTML_Template_Flexy_Token {
     * @access   public
     */
     
-    function compile(&$compiler) {
+    function compile($compiler) {
         return $compiler->toString($this);
     }
     
@@ -149,9 +149,10 @@ class HTML_Template_Flexy_Token {
     * @return   string   HTML
     * @access   public
     */
-    function compileChildren( &$compiler) {
+    function compileChildren( $compiler) {
          
-        if (empty($this->children)) {
+        if (!$this->children) {
+            //var_dump($this);exit;
             return '';
         }
         if ($this->ignoreChildren) {
@@ -345,11 +346,11 @@ class HTML_Template_Flexy_Token {
                     if (!isset($_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$stack[$s]])) {
                         echo "STACKED BAD OFFSET : {$stack[$s]}<BR><PRE>";print_r($stack);exit;
                     }
-                    $tok =  &$_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$stack[$s]];
+                    $tok =   $_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$stack[$s]];
                     if (strtoupper($tok->tag) == $tag) {
                         // got the matching closer..
                         // echo "MATCH: {$i}:{$tok->tag}({$tok->line}) to  {$stack[$s]}:$tag<BR>";
-                        $tok->close = &$_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$i];
+                        $tok->close = $_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$i];
                         
                         array_splice($stack,$s);
                         //print_R($stack);
@@ -368,7 +369,7 @@ class HTML_Template_Flexy_Token {
         $i = $total;
         $_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$i] = new HTML_Template_Flexy_Token;
         $_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$i]->id = $total;
-        $_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][0]->close = &$_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$total];
+        $_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][0]->close = $_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$total];
         
         // now is it possible to connect children...
         // now we need to GLOBALIZE!! - 
@@ -413,7 +414,7 @@ class HTML_Template_Flexy_Token {
     {
         global $_HTML_TEMPLATE_FLEXY_TOKEN;
         
-        $base = &$_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$id];
+        $base =  $_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$id];
         $base->children = array();
         $start = $base->id +1;
         $end = $base->close->id;
@@ -423,11 +424,13 @@ class HTML_Template_Flexy_Token {
             //if ($base->id == 1176) {
             //    echo "<PRE>";print_r($_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$i]);
             // }
+            if (!isset($_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$i])) {
+                continue;
+            }
          
-            $base->children[] = &$_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$i];
+            $base->children[] =  $_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$i];
             
-            if (isset($_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$i]) && 
-                is_object($_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$i]->close)) {
+            if (is_object($_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$i]->close)) {
             
                 // if the close id is greater than my id - ignore it! - 
                 if ($_HTML_TEMPLATE_FLEXY_TOKEN['tokens'][$i]->close->id > $end) {
