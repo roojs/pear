@@ -70,7 +70,7 @@ class HTML_Template_Flexy_Token {
     */
     var $charPos;
     
-
+ 
     /**
     * factory a Token
     *
@@ -151,7 +151,7 @@ class HTML_Template_Flexy_Token {
     */
     function compileChildren( &$compiler) {
          
-        if (!$this->children) {
+        if (empty($this->children)) {
             return '';
         }
         if ($this->ignoreChildren) {
