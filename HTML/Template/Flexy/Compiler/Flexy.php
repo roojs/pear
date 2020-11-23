@@ -527,7 +527,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             case ' ':
                 $prefix = 'echo htmlspecialchars(';
                 // add language ?
-                $suffix = ')';
+                $suffix = ',ENT_IGNORE)';
                 break;
             default:
                $prefix = 'echo $this->plugin("'.trim($element->modifier) .'",';
