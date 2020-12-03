@@ -67,8 +67,7 @@ class DB_mysqlfb extends DB_mysqli
     function connect($dsn, $persistent = false)
     {
         
-        print_r($dsn);exit;
-        if (!PEAR::loadExtension('mysqli')) {
+         if (!PEAR::loadExtension('mysqli')) {
             return $this->raiseError(DB_ERROR_EXTENSION_NOT_FOUND);
         }
 
