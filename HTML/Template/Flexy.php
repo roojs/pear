@@ -459,6 +459,7 @@ class HTML_Template_Flexy
             
             
         }
+        
         if (!$recompile) {
             $this->debug("File looks like it is uptodate.");
             return true;
@@ -710,7 +711,7 @@ class HTML_Template_Flexy
     *   @param      string  $string       output to display
     *   @return     none
     */
-    static function debug($string) 
+    function debug($string) 
     {  
         
         
@@ -836,6 +837,7 @@ class HTML_Template_Flexy
     function translateString($string)
     {
         
+         
         if (!empty($this->options['disableTranslate'])) {
             return $string;
         }
