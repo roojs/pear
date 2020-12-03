@@ -522,7 +522,7 @@ class DB
      */
     static function connect($dsn, $options = array())
     {
-         $dsninfo = DB::parseDSN($dsn);
+        $dsninfo = DB::parseDSN($dsn);
         $type = $dsninfo['phptype'];
 
         if (!is_array($options)) {
