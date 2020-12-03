@@ -92,11 +92,30 @@ class DB_mysqlfb extends DB_mysqli
             $dsn['database'],
             $dsn['port'],
             $dsn['socket']
-         );
+        );
         
         @ini_set('track_errors', $ini);
 
-        if (!$this->connection) {
+        if (!$this->connection && !empty($dsn['fallback'])) {
+            foreach(explode(",",$dsn['fallback']) as $host_port) {
+                list($host, $port) = explode(':', $host_port);
+                $this->connection = @mysqli_connect(
+                    $host,
+                    $dsn['username'],
+                    $dsn['password'],
+                    $dsn['database'],
+                    $port,
+                    $dsn['socket']
+                );
+                
+                if ($this->connection) {
+                    break;
+                }
+            }
+             
+            
+        }
+        if (!$this->connection) {    
             if (($err = @mysqli_connect_error()) != '') {
                 return $this->raiseError(DB_ERROR_CONNECT_FAILED,
                                          null, null, null,
