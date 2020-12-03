@@ -710,7 +710,7 @@ class HTML_Template_Flexy
     *   @param      string  $string       output to display
     *   @return     none
     */
-    function debug($string) 
+    static function debug($string) 
     {  
         
         
