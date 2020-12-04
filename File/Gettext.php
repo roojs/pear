@@ -248,10 +248,10 @@ class File_Gettext
      * @access  protected
      * @return  object      File_Gettext_PO
      */
-    function &toPO()
+    function toPO()
     {
-        include_once 'File/Gettext/PO.php';
-        $PO = &new File_Gettext_PO;
+        require_once  'File/Gettext/PO.php';
+        $PO = new File_Gettext_PO;
         $PO->fromArray($this->toArray());
         return $PO;
     }
@@ -267,8 +267,8 @@ class File_Gettext
      */
     function raiseError($error = null, $code = null)
     {
-        include_once 'PEAR.php';
+        require_once 'PEAR.php';
         return PEAR::raiseError($error, $code);
     }
 }
-?>
+ 
