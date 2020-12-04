@@ -74,7 +74,7 @@ class File_Gettext
      * @param   string  $format MO or PO
      * @param   string  $file   path to GNU gettext file
      */
-    function  factory($format, $file = '')
+    static function  factory($format, $file = '')
     {
         $format = strToUpper($format);
         require_once 'File/Gettext/' . $format . '.php';
