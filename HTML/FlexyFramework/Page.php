@@ -296,7 +296,7 @@ class HTML_FlexyFramework_Page  {
         }
         $template_engine->elements = $this->elements;
         $template_engine->outputObject($this,$this->elements);
-
+    
     }
 
 

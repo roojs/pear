@@ -81,7 +81,7 @@ class File_Gettext
             return File_Gettext::raiseError($php_errormsg);
         }
         $class = 'File_Gettext_' . $format;
-        $obref = &new $class($file);
+        $obref = new $class($file);
         return $obref;
     }
 
