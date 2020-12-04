@@ -74,12 +74,10 @@ class File_Gettext
      * @param   string  $format MO or PO
      * @param   string  $file   path to GNU gettext file
      */
-    function &factory($format, $file = '')
+    function  factory($format, $file = '')
     {
         $format = strToUpper($format);
-        if (!@include_once 'File/Gettext/' . $format . '.php') {
-            return File_Gettext::raiseError($php_errormsg);
-        }
+        require_once 'File/Gettext/' . $format . '.php';
         $class = 'File_Gettext_' . $format;
         $obref = new $class($file);
         return $obref;
@@ -103,9 +101,9 @@ class File_Gettext
             return File_Gettext::raiseError("File $pofile doesn't exist.");
         }
         
-        include_once 'File/Gettext/PO.php';
+        require_once 'File/Gettext/PO.php';
         
-        $PO = &new File_Gettext_PO($pofile);
+        $PO = new File_Gettext_PO($pofile);
         if (true !== ($e = $PO->load())) {
             return $e;
         }
@@ -236,10 +234,10 @@ class File_Gettext
      * @access  protected
      * @return  object  File_Gettext_MO
      */
-    function &toMO()
+    function toMO()
     {
-        include_once 'File/Gettext/MO.php';
-        $MO = &new File_Gettext_MO;
+        require_once 'File/Gettext/MO.php';
+        $MO = new File_Gettext_MO;
         $MO->fromArray($this->toArray());
         return $MO;
     }
