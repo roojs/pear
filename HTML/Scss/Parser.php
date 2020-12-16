@@ -276,7 +276,7 @@ class HTML_Scss_Parser
      *
      * @return boolean
      */
-    protected function parseChunk()
+    protected function NEWparseChunk()
     {
         $s = $this->count;
 
@@ -1060,7 +1060,7 @@ class HTML_Scss_Parser
      *
      * @return boolean
      */
-    protected function parseChunkOld()
+    protected function parseChunk()
     {
         $s = $this->seek();
         
