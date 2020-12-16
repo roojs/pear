@@ -4121,7 +4121,7 @@ class HTML_Scss
             return $color;
         }
 
-        $this->throwError('expecting color');
+        $this->throwError('expecting color got $value');
     }
 
     /**
