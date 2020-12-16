@@ -713,7 +713,7 @@ class HTML_Scss_Parser
                 ! $this->isKnownGenericDirective($dirName) &&
                 ($this->end(false) || ($this->directiveValue($dirValue, '') && $this->end(false)))
             ) {
-                if (\count($dirName) === 1 && \is_string(\reset($dirName))) {
+                if (count($dirName) === 1 && is_string(\reset($dirName))) {
                     $dirName = \reset($dirName);
                 } else {
                     $dirName = [Html_Scss_Type::T_STRING, '', $dirName];
@@ -721,9 +721,9 @@ class HTML_Scss_Parser
                 if (
                     ! empty($this->env->parent) &&
                     $this->env->type &&
-                    ! \in_array($this->env->type, [Html_Scss_Type::T_DIRECTIVE, Html_Scss_Type::T_MEDIA])
+                    ! in_array($this->env->type, [Html_Scss_Type::T_DIRECTIVE, Html_Scss_Type::T_MEDIA])
                 ) {
-                    $plain = \trim(\substr($this->buffer, $s, $this->count - $s));
+                    $plain = trim(substr($this->buffer, $s, $this->count - $s));
                     throw $this->parseError(
                         "Unknown directive `{$plain}` not allowed in `" . $this->env->type . "` block"
                     );
