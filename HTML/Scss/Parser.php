@@ -545,7 +545,7 @@ class HTML_Scss_Parser
                     $cond[0] === Html_Scss_Type::T_LIST &&
                     ! empty($cond['enclosing']) &&
                     $cond['enclosing'] === 'parent' &&
-                    \count($cond[2]) == 1
+                    count($cond[2]) == 1
                 ) {
                     $cond = reset($cond[2]);
                 }
