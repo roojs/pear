@@ -961,6 +961,66 @@ class HTML_Scss_Parser
         return true;
     }
     
+    /*
+     * Parse custom property name (as an array of parts or a string)
+     *
+     * @param array $out
+     *
+     * @return boolean
+     */
+    protected function customProperty(&$out)
+    {
+        $s = $this->count;
+
+        if (! $this->literal('--', 2, false)) {
+            return false;
+        }
+
+        $parts = ['--'];
+
+        $oldWhite = $this->eatWhiteDefault;
+        $this->eatWhiteDefault = false;
+
+        for (;;) {
+            if ($this->interpolation($inter)) {
+                $parts[] = $inter;
+                continue;
+            }
+
+            if ($this->matchChar('&', false)) {
+                $parts[] = [Html_Scss_Type::T_SELF];
+                continue;
+            }
+
+            if ($this->variable($var)) {
+                $parts[] = $var;
+                continue;
+            }
+
+            if ($this->keyword($text)) {
+                $parts[] = $text;
+                continue;
+            }
+
+            break;
+        }
+
+        $this->eatWhiteDefault = $oldWhite;
+
+        if (count($parts) == 1) {
+            $this->seek($s);
+
+            return false;
+        }
+
+        $this->whitespace(); // get any extra whitespace
+
+        $out = [Html_Scss_Type::T_STRING, '', $parts];
+
+        return true;
+    }
+    
+    
     /**
      * Parse a single chunk off the head of the buffer and append it to the
      * current parse environment.
