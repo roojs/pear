@@ -235,6 +235,707 @@ class HTML_Scss_Parser
         return $selector;
     }
 
+    
+    
+    /**
+     * Parse a single chunk off the head of the buffer and append it to the
+     * current parse environment.
+     *
+     * Returns false when the buffer is empty, or when there is an error.
+     *
+     * This function is called repeatedly until the entire document is
+     * parsed.
+     *
+     * This parser is most similar to a recursive descent parser. Single
+     * functions represent discrete grammatical rules for the language, and
+     * they are able to capture the text that represents those rules.
+     *
+     * Consider the function Compiler::keyword(). (All parse functions are
+     * structured the same.)
+     *
+     * The function takes a single reference argument. When calling the
+     * function it will attempt to match a keyword on the head of the buffer.
+     * If it is successful, it will place the keyword in the referenced
+     * argument, advance the position in the buffer, and return true. If it
+     * fails then it won't advance the buffer and it will return false.
+     *
+     * All of these parse functions are powered by Compiler::match(), which behaves
+     * the same way, but takes a literal regular expression. Sometimes it is
+     * more convenient to use match instead of creating a new function.
+     *
+     * Because of the format of the functions, to parse an entire string of
+     * grammatical rules, you can chain them together using &&.
+     *
+     * But, if some of the rules in the chain succeed before one fails, then
+     * the buffer position will be left at an invalid state. In order to
+     * avoid this, Compiler::seek() is used to remember and set buffer positions.
+     *
+     * Before parsing a chain, use $s = $this->count to remember the current
+     * position into $s. Then if a chain fails, use $this->seek($s) to
+     * go back where we started.
+     *
+     * @return boolean
+     */
+    protected function parseChunk()
+    {
+        $s = $this->count;
+
+        // the directives
+        if (isset($this->buffer[$this->count]) && $this->buffer[$this->count] === '@') {
+            if (
+                $this->literal('@at-root', 8) &&
+                ($this->selectors($selector) || true) &&
+                ($this->map($with) || true) &&
+                (($this->matchChar('(') &&
+                    $this->interpolation($with) &&
+                    $this->matchChar(')')) || true) &&
+                $this->matchChar('{', false)
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                $atRoot = $this->pushSpecialBlock(Html_Scss_Type::T_AT_ROOT, $s);
+                $atRoot->selector = $selector;
+                $atRoot->with     = $with;
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@media', 6) &&
+                $this->mediaQueryList($mediaQueryList) &&
+                $this->matchChar('{', false)
+            ) {
+                $media = $this->pushSpecialBlock(Html_Scss_Type::T_MEDIA, $s);
+                $media->queryList = $mediaQueryList[2];
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@mixin', 6) &&
+                $this->keyword($mixinName) &&
+                ($this->argumentDef($args) || true) &&
+                $this->matchChar('{', false)
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                $mixin = $this->pushSpecialBlock(Html_Scss_Type::T_MIXIN, $s);
+                $mixin->name = $mixinName;
+                $mixin->args = $args;
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                ($this->literal('@include', 8) &&
+                    $this->keyword($mixinName) &&
+                    ($this->matchChar('(') &&
+                    ($this->argValues($argValues) || true) &&
+                    $this->matchChar(')') || true) &&
+                    ($this->end()) ||
+                ($this->literal('using', 5) &&
+                    $this->argumentDef($argUsing) &&
+                    ($this->end() || $this->matchChar('{') && $hasBlock = true)) ||
+                $this->matchChar('{') && $hasBlock = true)
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                $child = [
+                    Html_Scss_Type::T_INCLUDE,
+                    $mixinName,
+                    isset($argValues) ? $argValues : null,
+                    null,
+                    isset($argUsing) ? $argUsing : null
+                ];
+
+                if (! empty($hasBlock)) {
+                    $include = $this->pushSpecialBlock(Html_Scss_Type::T_INCLUDE, $s);
+                    $include->child = $child;
+                } else {
+                    $this->append($child, $s);
+                }
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@scssphp-import-once', 20) &&
+                $this->valueList($importPath) &&
+                $this->end()
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                $this->append([Html_Scss_Type::T_SCSSPHP_IMPORT_ONCE, $importPath], $s);
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@import', 7) &&
+                $this->valueList($importPath) &&
+                $importPath[0] !== Html_Scss_Type::T_FUNCTION_CALL &&
+                $this->end()
+            ) {
+                if ($this->cssOnly) {
+                    $this->assertPlainCssValid([Html_Scss_Type::T_IMPORT, $importPath], $s);
+                    $this->append([Html_Scss_Type::T_COMMENT, rtrim(substr($this->buffer, $s, $this->count - $s))]);
+                    return true;
+                }
+
+                $this->append([Html_Scss_Type::T_IMPORT, $importPath], $s);
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@import', 7) &&
+                $this->url($importPath) &&
+                $this->end()
+            ) {
+                if ($this->cssOnly) {
+                    $this->assertPlainCssValid([Html_Scss_Type::T_IMPORT, $importPath], $s);
+                    $this->append([Html_Scss_Type::T_COMMENT, rtrim(substr($this->buffer, $s, $this->count - $s))]);
+                    return true;
+                }
+
+                $this->append([Html_Scss_Type::T_IMPORT, $importPath], $s);
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@extend', 7) &&
+                $this->selectors($selectors) &&
+                $this->end()
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                // check for '!flag'
+                $optional = $this->stripOptionalFlag($selectors);
+                $this->append([Html_Scss_Type::T_EXTEND, $selectors, $optional], $s);
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@function', 9) &&
+                $this->keyword($fnName) &&
+                $this->argumentDef($args) &&
+                $this->matchChar('{', false)
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                $func = $this->pushSpecialBlock(Html_Scss_Type::T_FUNCTION, $s);
+                $func->name = $fnName;
+                $func->args = $args;
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@return', 7) &&
+                ($this->valueList($retVal) || true) &&
+                $this->end()
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                $this->append([Html_Scss_Type::T_RETURN, isset($retVal) ? $retVal : [Html_Scss_Type::T_NULL]], $s);
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@each', 5) &&
+                $this->genericList($varNames, 'variable', ',', false) &&
+                $this->literal('in', 2) &&
+                $this->valueList($list) &&
+                $this->matchChar('{', false)
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                $each = $this->pushSpecialBlock(Html_Scss_Type::T_EACH, $s);
+
+                foreach ($varNames[2] as $varName) {
+                    $each->vars[] = $varName[1];
+                }
+
+                $each->list = $list;
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@while', 6) &&
+                $this->expression($cond) &&
+                $this->matchChar('{', false)
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                while (
+                    $cond[0] === Html_Scss_Type::T_LIST &&
+                    ! empty($cond['enclosing']) &&
+                    $cond['enclosing'] === 'parent' &&
+                    \count($cond[2]) == 1
+                ) {
+                    $cond = reset($cond[2]);
+                }
+
+                $while = $this->pushSpecialBlock(Html_Scss_Type::T_WHILE, $s);
+                $while->cond = $cond;
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@for', 4) &&
+                $this->variable($varName) &&
+                $this->literal('from', 4) &&
+                $this->expression($start) &&
+                ($this->literal('through', 7) ||
+                    ($forUntil = true && $this->literal('to', 2))) &&
+                $this->expression($end) &&
+                $this->matchChar('{', false)
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                $for = $this->pushSpecialBlock(Html_Scss_Type::T_FOR, $s);
+                $for->var   = $varName[1];
+                $for->start = $start;
+                $for->end   = $end;
+                $for->until = isset($forUntil);
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@if', 3) &&
+                $this->functionCallArgumentsList($cond, false, '{', false)
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                $if = $this->pushSpecialBlock(Html_Scss_Type::T_IF, $s);
+
+                while (
+                    $cond[0] === Html_Scss_Type::T_LIST &&
+                    ! empty($cond['enclosing']) &&
+                    $cond['enclosing'] === 'parent' &&
+                    \count($cond[2]) == 1
+                ) {
+                    $cond = reset($cond[2]);
+                }
+
+                $if->cond  = $cond;
+                $if->cases = [];
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@debug', 6) &&
+                $this->functionCallArgumentsList($value, false)
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                $this->append([Html_Scss_Type::T_DEBUG, $value], $s);
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@warn', 5) &&
+                $this->functionCallArgumentsList($value, false)
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                $this->append([Html_Scss_Type::T_WARN, $value], $s);
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@error', 6) &&
+                $this->functionCallArgumentsList($value, false)
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                $this->append([Html_Scss_Type::T_ERROR, $value], $s);
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@content', 8) &&
+                ($this->end() ||
+                    $this->matchChar('(') &&
+                    $this->argValues($argContent) &&
+                    $this->matchChar(')') &&
+                    $this->end())
+            ) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                $this->append([Html_Scss_Type::T_MIXIN_CONTENT, isset($argContent) ? $argContent : null], $s);
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            $last = $this->last();
+
+            if (isset($last) && $last[0] === Html_Scss_Type::T_IF) {
+                list(, $if) = $last;
+
+                if ($this->literal('@else', 5)) {
+                    if ($this->matchChar('{', false)) {
+                        $else = $this->pushSpecialBlock(Html_Scss_Type::T_ELSE, $s);
+                    } elseif (
+                        $this->literal('if', 2) &&
+                        $this->functionCallArgumentsList($cond, false, '{', false)
+                    ) {
+                        $else = $this->pushSpecialBlock(Html_Scss_Type::T_ELSEIF, $s);
+                        $else->cond = $cond;
+                    }
+
+                    if (isset($else)) {
+                        $else->dontAppend = true;
+                        $if->cases[] = $else;
+
+                        return true;
+                    }
+                }
+
+                $this->seek($s);
+            }
+
+            // only retain the first @charset directive encountered
+            if (
+                $this->literal('@charset', 8) &&
+                $this->valueList($charset) &&
+                $this->end()
+            ) {
+                if (! isset($this->charset)) {
+                    $statement = [Html_Scss_Type::T_CHARSET, $charset];
+
+                    list($line, $column) = $this->getSourcePosition($s);
+
+                    $statement[static::SOURCE_LINE]   = $line;
+                    $statement[static::SOURCE_COLUMN] = $column;
+                    $statement[static::SOURCE_INDEX]  = $this->sourceIndex;
+
+                    $this->charset = $statement;
+                }
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            if (
+                $this->literal('@supports', 9) &&
+                ($t1 = $this->supportsQuery($supportQuery)) &&
+                ($t2 = $this->matchChar('{', false))
+            ) {
+                $directive = $this->pushSpecialBlock(Html_Scss_Type::T_DIRECTIVE, $s);
+                $directive->name  = 'supports';
+                $directive->value = $supportQuery;
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            // doesn't match built in directive, do generic one
+            if (
+                $this->matchChar('@', false) &&
+                $this->mixedKeyword($dirName) &&
+                $this->directiveValue($dirValue, '{')
+            ) {
+                if (count($dirName) === 1 && is_string(reset($dirName))) {
+                    $dirName = reset($dirName);
+                } else {
+                    $dirName = [Html_Scss_Type::T_STRING, '', $dirName];
+                }
+                if ($dirName === 'media') {
+                    $directive = $this->pushSpecialBlock(Html_Scss_Type::T_MEDIA, $s);
+                } else {
+                    $directive = $this->pushSpecialBlock(Html_Scss_Type::T_DIRECTIVE, $s);
+                    $directive->name = $dirName;
+                }
+
+                if (isset($dirValue)) {
+                    ! $this->cssOnly || ($dirValue = $this->assertPlainCssValid($dirValue));
+                    $directive->value = $dirValue;
+                }
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            // maybe it's a generic blockless directive
+            if (
+                $this->matchChar('@', false) &&
+                $this->mixedKeyword($dirName) &&
+                ! $this->isKnownGenericDirective($dirName) &&
+                ($this->end(false) || ($this->directiveValue($dirValue, '') && $this->end(false)))
+            ) {
+                if (\count($dirName) === 1 && \is_string(\reset($dirName))) {
+                    $dirName = \reset($dirName);
+                } else {
+                    $dirName = [Html_Scss_Type::T_STRING, '', $dirName];
+                }
+                if (
+                    ! empty($this->env->parent) &&
+                    $this->env->type &&
+                    ! \in_array($this->env->type, [Html_Scss_Type::T_DIRECTIVE, Html_Scss_Type::T_MEDIA])
+                ) {
+                    $plain = \trim(\substr($this->buffer, $s, $this->count - $s));
+                    throw $this->parseError(
+                        "Unknown directive `{$plain}` not allowed in `" . $this->env->type . "` block"
+                    );
+                }
+                // blockless directives with a blank line after keeps their blank lines after
+                // sass-spec compliance purpose
+                $s = $this->count;
+                $hasBlankLine = false;
+                if ($this->match('\s*?\n\s*\n', $out, false)) {
+                    $hasBlankLine = true;
+                    $this->seek($s);
+                }
+                $isNotRoot = ! empty($this->env->parent);
+                $this->append([Html_Scss_Type::T_DIRECTIVE, [$dirName, $dirValue, $hasBlankLine, $isNotRoot]], $s);
+                $this->whitespace();
+
+                return true;
+            }
+
+            $this->seek($s);
+
+            return false;
+        }
+
+        $inCssSelector = null;
+        if ($this->cssOnly) {
+            $inCssSelector = (! empty($this->env->parent) &&
+                ! in_array($this->env->type, [Html_Scss_Type::T_DIRECTIVE, Html_Scss_Type::T_MEDIA]));
+        }
+        // custom properties : right part is static
+        if (($this->customProperty($name) ) && $this->matchChar(':', false)) {
+            $start = $this->count;
+
+            // but can be complex and finish with ; or }
+            foreach ([';','}'] as $ending) {
+                if (
+                    $this->openString($ending, $stringValue, '(', ')', false) &&
+                    $this->end()
+                ) {
+                    $end = $this->count;
+                    $value = $stringValue;
+
+                    // check if we have only a partial value due to nested [] or { } to take in account
+                    $nestingPairs = [['[', ']'], ['{', '}']];
+
+                    foreach ($nestingPairs as $nestingPair) {
+                        $p = strpos($this->buffer, $nestingPair[0], $start);
+
+                        if ($p && $p < $end) {
+                            $this->seek($start);
+
+                            if (
+                                $this->openString($ending, $stringValue, $nestingPair[0], $nestingPair[1], false) &&
+                                $this->end() &&
+                                $this->count > $end
+                            ) {
+                                $end = $this->count;
+                                $value = $stringValue;
+                            }
+                        }
+                    }
+
+                    $this->seek($end);
+                    $this->append([Html_Scss_Type::T_CUSTOM_PROPERTY, $name, $value], $s);
+
+                    return true;
+                }
+            }
+
+            // TODO: output an error here if nothing found according to sass spec
+        }
+
+        $this->seek($s);
+
+        // property shortcut
+        // captures most properties before having to parse a selector
+        if (
+            $this->keyword($name, false) &&
+            $this->literal(': ', 2) &&
+            $this->valueList($value) &&
+            $this->end()
+        ) {
+            $name = [Html_Scss_Type::T_STRING, '', [$name]];
+            $this->append([Html_Scss_Type::T_ASSIGN, $name, $value], $s);
+
+            return true;
+        }
+
+        $this->seek($s);
+
+        // variable assigns
+        if (
+            $this->variable($name) &&
+            $this->matchChar(':') &&
+            $this->valueList($value) &&
+            $this->end()
+        ) {
+            ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+            // check for '!flag'
+            $assignmentFlags = $this->stripAssignmentFlags($value);
+            $this->append([Html_Scss_Type::T_ASSIGN, $name, $value, $assignmentFlags], $s);
+
+            return true;
+        }
+
+        $this->seek($s);
+
+        // misc
+        if ($this->literal('-->', 3)) {
+            return true;
+        }
+
+        // opening css block
+        if (
+            $this->selectors($selectors) &&
+            $this->matchChar('{', false)
+        ) {
+            ! $this->cssOnly || ! $inCssSelector || $this->assertPlainCssValid(false);
+
+            $this->pushBlock($selectors, $s);
+
+            if ($this->eatWhiteDefault) {
+                $this->whitespace();
+                $this->append(null); // collect comments at the beginning if needed
+            }
+
+            return true;
+        }
+
+        $this->seek($s);
+
+        // property assign, or nested assign
+        if (
+            $this->propertyName($name) &&
+            $this->matchChar(':')
+        ) {
+            $foundSomething = false;
+
+            if ($this->valueList($value)) {
+                if (empty($this->env->parent)) {
+                    throw $this->parseError('expected "{"');
+                }
+
+                $this->append([Html_Scss_Type::T_ASSIGN, $name, $value], $s);
+                $foundSomething = true;
+            }
+
+            if ($this->matchChar('{', false)) {
+                ! $this->cssOnly || $this->assertPlainCssValid(false);
+
+                $propBlock = $this->pushSpecialBlock(Html_Scss_Type::T_NESTED_PROPERTY, $s);
+                $propBlock->prefix = $name;
+                $propBlock->hasValue = $foundSomething;
+
+                $foundSomething = true;
+            } elseif ($foundSomething) {
+                $foundSomething = $this->end();
+            }
+
+            if ($foundSomething) {
+                return true;
+            }
+        }
+
+        $this->seek($s);
+
+        // closing a block
+        if ($this->matchChar('}', false)) {
+            $block = $this->popBlock();
+
+            if (! isset($block->type) || $block->type !== Html_Scss_Type::T_IF) {
+                if ($this->env->parent) {
+                    $this->append(null); // collect comments before next statement if needed
+                }
+            }
+
+            if (isset($block->type) && $block->type === Html_Scss_Type::T_INCLUDE) {
+                $include = $block->child;
+                unset($block->child);
+                $include[3] = $block;
+                $this->append($include, $s);
+            } elseif (empty($block->dontAppend)) {
+                $type = isset($block->type) ? $block->type : Html_Scss_Type::T_BLOCK;
+                $this->append([$type, $block], $s);
+            }
+
+            // collect comments just after the block closing if needed
+            if ($this->eatWhiteDefault) {
+                $this->whitespace();
+
+                if ($this->env->comments) {
+                    $this->append(null);
+                }
+            }
+
+            return true;
+        }
+
+        // extra stuff
+        if (
+            $this->matchChar(';') ||
+            $this->literal('<!--', 4)
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    
+    
     /**
      * Parse a single chunk off the head of the buffer and append it to the
      * current parse environment.
@@ -274,7 +975,7 @@ class HTML_Scss_Parser
      *
      * @return boolean
      */
-    protected function parseChunk()
+    protected function parseChunkOld()
     {
         $s = $this->seek();
         
