@@ -934,7 +934,32 @@ class HTML_Scss_Parser
         return false;
     }
 
-    
+     /**
+     * Match a single string
+     *
+     * @param string  $char
+     * @param boolean $eatWhitespace
+     *
+     * @return boolean
+     */
+    protected function matchChar($char, $eatWhitespace = null)
+    {
+        if (! isset($this->buffer[$this->count]) || $this->buffer[$this->count] !== $char) {
+            return false;
+        }
+
+        $this->count++;
+
+        if (! isset($eatWhitespace)) {
+            $eatWhitespace = $this->eatWhiteDefault;
+        }
+
+        if ($eatWhitespace) {
+            $this->whitespace();
+        }
+
+        return true;
+    }
     
     /**
      * Parse a single chunk off the head of the buffer and append it to the
