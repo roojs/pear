@@ -1115,11 +1115,11 @@ class DB_DataObject extends DB_DataObject_Overload
         
          
         // nativeSequences or Sequences..     
-
+        
         // big check for using sequences
         
         if (($key !== false) && !$useNative) { 
-        
+ 
             if (!$seq) {
                 $keyvalue =  $DB->nextId($this->tableName());
             } else {
@@ -2314,7 +2314,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 return $_DB_DATAOBJECT['SEQUENCE'][$this->_database][$this->tableName()] = array(false,false,$seqname);
             }
         }
-        
+         
         
         $realkeys = $_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"];
         
@@ -2339,7 +2339,7 @@ class DB_DataObject extends DB_DataObject_Overload
             return $_DB_DATAOBJECT['SEQUENCE'][$this->_database][$this->tableName()] = array($usekey,true, $realkeys[$usekey]);
         }
         
-        if (    in_array($dbtype , array('pgsql', 'mysql', 'mysqli', 'mssql', 'ifx')) && 
+        if (    in_array($dbtype , array('pgsql', 'mysql', 'mysqli', 'mysqlfb', 'mssql', 'ifx')) && 
                 ($table[$usekey] & DB_DATAOBJECT_INT) && 
                 isset($realkeys[$usekey]) && ($realkeys[$usekey] == 'N')
                 ) {
