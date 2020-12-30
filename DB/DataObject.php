@@ -1252,7 +1252,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     case 'mysql':
                     case 'mysqli':
                     case 'mysqlfb':
-                        $method = "{$dbtype}_insert_id";
+                        $method = ($dbtype == 'mysqlfb' ?  'mysqli' : $dbtype) . "_insert_id";
                         $this->$key = $method(
                             $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->connection
                         );
