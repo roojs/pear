@@ -1251,6 +1251,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 switch ($dbtype) {
                     case 'mysql':
                     case 'mysqli':
+                    case 'mysqlfb':
                         $method = "{$dbtype}_insert_id";
                         $this->$key = $method(
                             $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->connection
@@ -3695,7 +3696,7 @@ class DB_DataObject extends DB_DataObject_Overload
                  $obj->tableName() ;
                 
         $dbPrefix  = '';
-        if (strlen($obj->_database) && in_array($DB->dsn['phptype'],array('mysql','mysqli'))) {
+        if (strlen($obj->_database) && in_array($DB->dsn['phptype'],array('mysql','mysqli', 'mysqlfb'))) {
             $dbPrefix = ($quoteIdentifiers
                          ? $DB->quoteIdentifier($obj->_database)
                          : $obj->_database) . '.';    
@@ -3842,7 +3843,7 @@ class DB_DataObject extends DB_DataObject_Overload
             // join table a AS b - is only supported by a few databases and is probably not needed
             // , however since it makes the whole Statement alot clearer we are leaving it in
             // for those databases.
-            $fullJoinAs = in_array($DB->dsn["phptype"],array('mysql','mysqli','pgsql')) ? "AS {$joinAs}" :  $joinAs;
+            $fullJoinAs = in_array($DB->dsn["phptype"],array('mysql','mysqli', 'mysqlfb', 'pgsql')) ? "AS {$joinAs}" :  $joinAs;
         } else {
             // if 
             $joinAs = $dbPrefix . $joinAs;
