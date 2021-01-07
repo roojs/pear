@@ -8,6 +8,13 @@ class Net_Telegram_Message {
     var $chat;
     var $date;
     var $text;
+    
+    var $_types = array(
+        'from' => 'User',
+        'chat' => 'Chat'
+    );
+    
+    
      
     
     
