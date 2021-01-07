@@ -4,7 +4,7 @@ require_once 'Entity.php';
 class Net_Telegram_Call extends Net_Telegram_Entity {
    
     
-    function send($tok)
+    function send()
     {
         $params = array();
         foreach((array) $this as $k=>$v) {
@@ -16,7 +16,7 @@ class Net_Telegram_Call extends Net_Telegram_Entity {
         
         $cls = explode('_',get_class($this));
         $method = lcfirst(array_pop($cls));
-        $ch = curl_init("https://api.telegram.org/bot{$tok}/".lcfirst($method));
+        $ch = curl_init("https://api.telegram.org/bot{$this->token()}/".lcfirst($method));
         curl_setopt($ch, CURLOPT_HEADER, 'Content-Type: application/json');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_VERBOSE, false);

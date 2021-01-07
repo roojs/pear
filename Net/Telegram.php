@@ -15,11 +15,12 @@ class Net_Telegram {
         self::$tokens[$id++]  = $tok; // hiddne from print_R
     }
     
-    function factory($e, $o=false) {
+    function factory($e, $o=false)
+    {
         require_once 'Net/Telegram/'.ucfirst($e).'.php';
         $cls = 'Net_Telegram_'. $e;
-        $ret = new $cls($o);
-        $ret->_telegram = $this;
+        $ret = new $cls($this, $o);
+        
     }
     function token()
     {

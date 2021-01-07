@@ -2,10 +2,12 @@
 
 class Net_Telegram_Entity {
     
+    var $_telegram;
     
     var $_types = array();
-    function __construct($o=false)
+    function __construct($tg, $o=false)
     {
+        $this->_telegram = $tg;
         if ($o === false) {
             return;
         }
@@ -14,15 +16,18 @@ class Net_Telegram_Entity {
                 continue;
             }
             if (isset($this->_types[$k])) {
-                require_once 'Net/Telegram/'. $this->_types[$k] .'.php';
-                $cls = 'Net_Telegram_'. $this->_types[$k];
-                $this->$k = new $cls($v);
+                $this->$k = $tg->factory($this->_types[$k], $v);
                 continue;
             }
             
             $this->$k = $v;
         }
     }
+    function token()
+    {
+        return $this->_telegram->token();
+    }
+    
     
     
 }

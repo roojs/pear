@@ -9,7 +9,6 @@ class Net_Telegram_User extends Net_Telegram_Entity{
     var $last_name;
     var $username;
     var $language_code;
-    
     var $_types = array(
         
     );
