@@ -19,7 +19,7 @@ class Net_Telegram {
     {
         require_once 'Net/Telegram/'.ucfirst($e).'.php';
         $cls = 'Net_Telegram_'. $e;
-        $ret = new $cls($this, $o);
+        return new $cls($this, $o);
         
     }
     function token()
