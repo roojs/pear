@@ -8,7 +8,7 @@ class Net_Telegram_Call extends Net_Telegram_Entity {
     {
         $params = array();
         foreach((array) $this as $k=>$v) {
-            if (substr($k,0,1) =='_') {
+            if (substr($k,0,1) =='_' || is_null($v)) {
                 continue;
             }
             $params[$k] = $v;
