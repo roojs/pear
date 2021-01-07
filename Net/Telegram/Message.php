@@ -16,7 +16,10 @@ class Net_Telegram_Message extends Net_Telegram_Entity {
     );
     
     
-     
+    function send ($tok)
+    {
+        
+    }
     
     
 }
