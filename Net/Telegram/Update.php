@@ -9,7 +9,7 @@ class Net_Telegram_Update extends Net_Telegram_Entity {
     {
         parent::__construct($o);
         if (isset($this->message)) {
-            $this->message = new Net_Telegram_Update($this->message);
+            $this->message = new Net_Telegram_Message($this->message);
         }
     }
     
