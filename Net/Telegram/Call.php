@@ -14,7 +14,7 @@ class Net_Telegram_Call extends Net_Telegram_Entity {
             $params[$k] = $v;
         }
         print_R($params);
-        
+        // doesnt send json... -> might need fixing if we send ocmplex messages.
         $cls = explode('_',get_class($this));
         $method = lcfirst(array_pop($cls));
         $ch = curl_init("https://api.telegram.org/bot{$this->token()}/".lcfirst($method));
