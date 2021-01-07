@@ -12,7 +12,7 @@ class Net_Telegram {
     {
         static $id=0;
         $this->id = $id;
-        self::$tokens[$id++]  = $tok;
+        self::$tokens[$id++]  = $tok; // hiddne from print_R
     }
     
     function factory($e, $o=false) {
@@ -20,6 +20,10 @@ class Net_Telegram {
         $cls = 'Net_Telegram_'. $e;
         $ret = new $cls($o);
         $ret->_telegram = $this;
+    }
+    function token()
+    {
+        return self::$tokens[$this->id];
     }
     
 }
