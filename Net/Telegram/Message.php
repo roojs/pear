@@ -1,7 +1,7 @@
 <?php
 
 require_once 'Entity.php';
-class Net_Telegram_Message {
+class Net_Telegram_Message extends Net_Telegram_Entity {
     
     var $message_id;
     var $from;
