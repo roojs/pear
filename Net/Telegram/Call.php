@@ -13,6 +13,7 @@ class Net_Telegram_Call extends Net_Telegram_Entity {
             }
             $params[$k] = $v;
         }
+        print_R($params);
         
         $cls = explode('_',get_class($this));
         $method = lcfirst(array_pop($cls));
