@@ -11,7 +11,8 @@ class Net_Telegram_Message extends Net_Telegram_Entity {
     
     var $_types = array(
         'from' => 'User',
-        'chat' => 'Chat'
+        'chat' => 'Chat',
+        'contact' => 'Contact'
     );
     
     
