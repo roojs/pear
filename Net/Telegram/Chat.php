@@ -11,8 +11,5 @@ class Net_Telegram_Chat extends Net_Telegram_Entity{
         
     );
     
-    
      
-    
-    
 }
