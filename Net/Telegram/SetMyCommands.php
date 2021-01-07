@@ -6,7 +6,7 @@ class Net_Telegram_SetMyCommands extends Net_Telegram_Call {
     var $commands; // array of commands
     
     var $_types = array(
-        
+        'commands[]' => 'BotCommand'
     );
     
     function send()
