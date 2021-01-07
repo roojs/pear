@@ -27,7 +27,7 @@ class Net_Telegram_Message extends Net_Telegram_Entity {
                 'allow_sending_without_reply' => true
             )
         ));
-        $mg->send();
+        return $mg->send();
         
     }
     
