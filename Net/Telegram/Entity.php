@@ -15,6 +15,15 @@ class Net_Telegram_Entity {
             if (substr($k,0,1) == '_') {
                 continue;
             }
+            if (isset($this->_types[$k.'[]'])) {
+                // expecting an array of types..
+                $vv = array();
+                foreach($v as $vi) {
+                    $vv[] = $tg->factory($this->_types[$k.'[]'], $vi);
+                }
+                $this->$k = $vv;
+            }
+            
             if (isset($this->_types[$k])) {
                 $this->$k = $tg->factory($this->_types[$k], $v);
                 continue;
