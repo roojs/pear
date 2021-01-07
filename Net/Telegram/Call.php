@@ -19,6 +19,7 @@ class Net_Telegram_Call extends Net_Telegram_Entity {
         $ch = curl_init("https://api.telegram.org/bot{$tok}/".lcfirst($method));
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_VERBOSE, false);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
