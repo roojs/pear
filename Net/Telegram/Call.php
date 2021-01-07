@@ -18,7 +18,7 @@ class Net_Telegram_Call extends Net_Telegram_Entity {
         $cls = explode('_',get_class($this));
         $method = lcfirst(array_pop($cls));
         $ch = curl_init("https://api.telegram.org/bot{$this->token()}/".lcfirst($method));
-        curl_setopt($ch, CURLOPT_HEADER,array('Content-Type:application/json'));
+        curl_setopt($ch, CURLOPT_HEADER,false);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_VERBOSE, false);
         curl_setopt($ch, CURLOPT_POST, 1);
