@@ -16,9 +16,9 @@ class Net_Telegram_SendMessage extends Net_Telegram_Call {
         
     );
     
-    function send($tok)
+    function send()
     {
-        return $this->_telegram->factory('Message',parent::send($tok));
+        return $this->_telegram->factory('Message',parent::send());
     }
     
     
