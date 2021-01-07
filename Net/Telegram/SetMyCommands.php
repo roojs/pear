@@ -11,9 +11,9 @@ class Net_Telegram_SetMyCommands extends Net_Telegram_Call {
     
     function send()
     {
-          $res = parent::send();
-       // print_R($res);
-        return $this->_telegram->factory('Message',$res);
+        $res = parent::send();
+        print_R($res);
+        return $res;
     }
     
     
