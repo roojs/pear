@@ -26,6 +26,7 @@ class Net_Telegram_Call extends Net_Telegram_Entity {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $result = curl_exec($ch);
         curl_close($ch);
+        echo $result;
         return json_decode($result);
     }
     
