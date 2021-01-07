@@ -18,13 +18,19 @@ class Net_Telegram_Message extends Net_Telegram_Entity {
     // quick reply..
     function reply($str)
     {
-        $mg = $this->_telegram->factory('SendMessage', array(
-            'chat_id' => $this->from->id,
-            'text' => $str,
-            'reply_to_message_id' => $this->message_id,
-            'allow_sending_without_reply' => true
-            
-        ));
+        $args = array_merge(
+            is_array($str)  ? $str : array('text' => $str),
+            array(
+                'chat_id' => $this->from->id,
+                'reply_to_message_id' => $this->message_id,
+                'allow_sending_without_reply' => true
+                
+            )
+        );
+        
+        
+        
+        $mg = $this->_telegram->factory('SendMessage', $args);
         $mg->send();
         
     }
