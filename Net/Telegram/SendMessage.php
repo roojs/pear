@@ -19,7 +19,7 @@ class Net_Telegram_SendMessage extends Net_Telegram_Call {
     function send()
     {
           $res = parent::send();
-        print_R($res);
+       // print_R($res);
         return $this->_telegram->factory('Message',$res);
     }
     
