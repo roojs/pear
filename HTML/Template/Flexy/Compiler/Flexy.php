@@ -204,7 +204,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             if (function_exists('opcache_invalidate')) {
                 opcache_invalidate($file);
             }
-            
+            // why?? whould this happen???
             if ($file != $flexy->compiledTemplate) {
                 chmod($flexy->compiledTemplate, 0775);
                 // make the timestamp of the two items match.
