@@ -210,6 +210,9 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
                 // make the timestamp of the two items match.
                 clearstatcache();
                 touch($flexy->compiledTemplate, filemtime($flexy->currentTemplate));
+                if (function_exists('opcache_invalidate')) {
+                    opcache_invalidate($flexy->compiledTemplate);
+                }
             }
              
             
