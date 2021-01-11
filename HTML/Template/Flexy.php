@@ -863,7 +863,6 @@ class HTML_Template_Flexy
             return $string;
         }
         
-        
         if (is_a($this->options['Translation2'], 'Translation2')) {
             $result = $this->options['Translation2']->get($string);
             if (!empty($result)) {
