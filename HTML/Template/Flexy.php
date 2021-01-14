@@ -703,6 +703,7 @@ class HTML_Template_Flexy
         $template->outputObject($t);
     }
     
+    
     /**
     *   if debugging is on, print the debug info to the screen
     *
@@ -728,6 +729,11 @@ class HTML_Template_Flexy
     }
  
    
+    static function staticDebug($string)
+    {
+        $template = new HTML_Template_Flexy();
+        $template->debug($string);
+    }
  
     
     /**
@@ -857,7 +863,6 @@ class HTML_Template_Flexy
             return $string;
         }
         
-        
         if (is_a($this->options['Translation2'], 'Translation2')) {
             $result = $this->options['Translation2']->get($string);
             if (!empty($result)) {
@@ -975,11 +980,10 @@ class HTML_Template_Flexy
     * @return   object      pear error.
     * @access   public
     */
-  
-    
+   
     function raiseError($message, $type = null, $fatal = HTML_TEMPLATE_FLEXY_ERROR_RETURN ) 
     {
-        HTML_Template_Flexy::debug("<B>HTML_Template_Flexy::raiseError</B>$message");
+        HTML_Template_Flexy::staticDebug("<B>HTML_Template_Flexy::raiseError</B>$message");
         require_once 'PEAR.php';
         $p = new PEAR();
         if (HTML_Template_Flexy_is_a($this,'HTML_Template_Flexy') &&  ($fatal == HTML_TEMPLATE_FLEXY_ERROR_DIE)) {
@@ -991,6 +995,7 @@ class HTML_Template_Flexy
         }
         return $p->raiseError($message, $type, $fatal);
     }
+    
     /**
     * static version of raiseError 
     * @see HTML_Template_Flexy::raiseError
@@ -1005,7 +1010,7 @@ class HTML_Template_Flexy
     */
     static function staticRaiseError($message, $type = null, $fatal = HTML_TEMPLATE_FLEXY_ERROR_RETURN ) 
     {
-        HTML_Template_Flexy::debug("<B>HTML_Template_Flexy::raiseError</B>$message");
+        HTML_Template_Flexy::staticDebug("<B>HTML_Template_Flexy::raiseError</B>$message");
         require_once 'PEAR.php';
         if (isset($GLOBALS['_HTML_TEMPLATE_FLEXY']['fatalError']) &&  ($fatal == HTML_TEMPLATE_FLEXY_ERROR_DIE)) {
             
