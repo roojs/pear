@@ -96,7 +96,7 @@ class Benchmark_Timer extends PEAR
      *
      * @access public
      */
-    function Benchmark_Timer($auto = false) 
+    function __construct($auto = false) 
     {
         $this->auto = $auto;
 
