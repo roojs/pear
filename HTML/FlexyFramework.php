@@ -213,7 +213,15 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         }
         $proj = $cfg['project'];
         $rootDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
-
+        $cls = $proj.'_Config';
+        if (file_exists($rootDir . '/'.str_replace('_','/', $cls). '.php')) {
+            require_once str_replace('_','/', $cls). '.php';
+            $c = new $cls();
+            if (method_exists($c,'init')) {
+                $cfg = $c->init($this,$cfg);
+            }
+        }
+        
         foreach(explode(',',$cfg['enable']) as $m) {
             $cls = $proj.'_'. $m . '_Config';
 
