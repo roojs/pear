@@ -196,8 +196,7 @@ class HTML_FlexyFramework2 {
     function loadModuleConfig($cfg)
     {
         
-        $mods = empty($cfg['enable']) ? array() : explode(',',$cfg['enable']);
-        array_unshift($mods,'');
+        
         $proj = $cfg['project'];
         $rootDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
 
@@ -209,6 +208,9 @@ class HTML_FlexyFramework2 {
                 $cfg = $c->init($this,$cfg);
             }
         }
+        
+        $mods = empty($cfg['enable']) ? array() : explode(',',$cfg['enable']);
+        array_unshift($mods,'');
         
         foreach($mods as $m) {
             $cls = $proj. (strlen($m) ? '_'. $m  : '' ) . '_Config';
