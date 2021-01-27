@@ -581,7 +581,7 @@ class HTML_FlexyFramework2 {
         //$GLOBALS['_DB_DATAOBJECT']['INI'][$this->database] =   parse_ini_file($iniCache, true);
         //$GLOBALS['_DB_DATAOBJECT']['SEQUENCE']
         // clear any dataobject cache..
-         
+          
         
         //die("done");
         
@@ -1107,7 +1107,8 @@ class HTML_FlexyFramework2 {
         }
         
         $startRequest = $request;
-        $request =@ array_shift(explode('?', $request));
+        $rq = explode('?', $request);
+        $request =  array_shift($rq);
         $this->debug("INPUT REQUEST $request<BR>");
         if (!$isRedirect) {
             // check that request forms contains baseurl????
@@ -1377,7 +1378,8 @@ class HTML_FlexyFramework2 {
             return true;
         }
         // file exists, but process might not be the same..
-        $name = array_pop(explode('_', get_class($class)));
+        $ca = explode('_', get_class($class));
+        $name = array_pop($ca);
         $cmd = file_get_contents('/proc/' . $oldpid.'/cmdline');
         if (!preg_match('/php/i',$cmd) || !preg_match('/'.$name.'/i',$cmd)) {
             file_put_contents($lock, getmypid());

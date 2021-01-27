@@ -1154,7 +1154,8 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         }
         
         $startRequest = $request;
-        $request =@ array_shift(explode('?', $request));
+        $ra = explode('?', $request);
+        $request =  array_shift($ra);
         $this->debug("INPUT REQUEST $request<BR>");
         if (!$isRedirect) {
             // check that request forms contains baseurl????
@@ -1265,7 +1266,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         }
         
         
-        $request_array=explode("/",$request);
+        $request_array = explode("/",$request);
         $original_request_array = $request_array;
         $sub_request_array = array();
         $l = count($request_array)-1;
@@ -1429,7 +1430,8 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
             return true;
         }
         // file exists, but process might not be the same..
-        $name = array_pop(explode('_', get_class($class)));
+        $ea = explode('_', get_class($class));
+        $name = array_pop($ea);
         $cmd = file_get_contents('/proc/' . $oldpid.'/cmdline');
         if (!preg_match('/php/i',$cmd) || !preg_match('/'.$name.'/i',$cmd)) {
             file_put_contents($lock, getmypid());
