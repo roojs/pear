@@ -1001,7 +1001,7 @@ class Net_SMTP
         if (PEAR::isError($error = $this->_put('RCPT', $args))) {
             return $error;
         }
-        if (PEAR::isError($error = $this->_parseResponse(array(250, 251), $this->pipelining))) {
+        if (PEAR::isError($error = $this->_parseResponse(array(250, 251, 354), $this->pipelining))) {
             return $error;
         }
 
