@@ -188,8 +188,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         if (isset($flexy->options['output.block'])) {
             list($file, $part) = explode('#', $file);
         }
-        
-        if( ($cfp = fopen($file, 'w')) ) {
+         if( ($cfp = fopen($file, 'w')) ) {
             if ($flexy->options['debug']) {
                 echo "<B>Writing: </B>$file<BR>\n";
             }
@@ -199,17 +198,34 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             chmod($file, 0775);
             // make the timestamp of the two items match.
             clearstatcache();
-            touch($file, filemtime($flexy->currentTemplate));
+            
+            
+            $mtime = filemtime($flexy->currentTemplate);
+            if (!empty($flexy->options['DB_DataObject_translator'])) {
+                require_once 'DB/DataObject.php';
+                $tr = DB_DataObject::factory( $flexy->options['DB_DataObject_translator']);
+                if (method_exists($tr,'lastUpdated') ) {
+                    $last_updated = $tr->lastUpdated($flexy);
+                    $mtime = $last_updated !== false ? max(strtotime($last_updated), $mtime) : $mtime;   
+                }
+                
+            }
+            
+            touch($file, $mtime);
             
             if (function_exists('opcache_invalidate')) {
                 opcache_invalidate($file);
             }
             // why?? -- see output.block
+            
             if ($file != $flexy->compiledTemplate) {
+                 
                 chmod($flexy->compiledTemplate, 0775);
                 // make the timestamp of the two items match.
                 clearstatcache();
-                touch($flexy->compiledTemplate, filemtime($flexy->currentTemplate));
+                
+                touch($flexy->compiledTemplate, $mtime);
+                 
                 if (function_exists('opcache_invalidate')) {
                     opcache_invalidate($flexy->compiledTemplate);
                 }

@@ -440,8 +440,8 @@ class HTML_Template_Flexy
         $recompile = false;
         
         $isuptodate = file_exists($this->compiledTemplate)   ?
-            (filemtime($this->currentTemplate) == filemtime( $this->compiledTemplate)) : 0;
-            
+            (filemtime($this->currentTemplate) >= filemtime( $this->compiledTemplate)) : 0;
+     
         if( !empty($this->options['forceCompile']) || !$isuptodate ) {
             $recompile = true;
         } 
@@ -453,12 +453,16 @@ class HTML_Template_Flexy
                 require_once 'DB/DataObject.php';
                 $tr = DB_DataObject::factory( $this->options['DB_DataObject_translator']);
             }
-            if (method_exists($tr,'translateChanged') ) {
+            if (method_exists($tr,'lastUpdated') ) { // new way..
+                $last_update = $tr->lastUpdated($this);
+                $recompile = strtotime($last_update) > filemtime( $this->compiledTemplate );
+            } else if (method_exists($tr,'translateChanged')) { // old code...
                 $recompile = $tr->translateChanged($this);
+                
             }
-            
-            
+             
         }
+        
         
         if (!$recompile) {
             $this->debug("File looks like it is uptodate.");
