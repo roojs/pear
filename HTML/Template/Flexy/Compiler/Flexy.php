@@ -205,7 +205,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             }
             // why?? -- see output.block
             var_dump(array($file, $flexy->compiledTemplate));
-            if ($file != $flexy->compiledTemplate) {
+            if ($file == $flexy->compiledTemplate) {
                  
                 chmod($flexy->compiledTemplate, 0775);
                 // make the timestamp of the two items match.
