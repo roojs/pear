@@ -214,7 +214,8 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
                     require_once 'DB/DataObject.php';
                     $tr = DB_DataObject::factory( $flexy->options['DB_DataObject_translator']);
                     if (method_exists($tr,'lastUpdated') ) {
-                        $mtime = max(strtotime($tr->lastUpdated($this)), $mtime);   
+                        $last_updated = $tr->lastUpdated($this);
+                        $mtime = $last_updated !== false ? max(strtotime($last_updated), $mtime) : $mtime;   
                     }
                 }
                 touch($flexy->compiledTemplate, $mtime);
