@@ -204,9 +204,9 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
                 opcache_invalidate($file);
             }
             // why?? -- see output.block
-            
+            var_dump(array($file, $flexy->compiledTemplate));
             if ($file != $flexy->compiledTemplate) {
-                die("HERE");
+                 
                 chmod($flexy->compiledTemplate, 0775);
                 // make the timestamp of the two items match.
                 clearstatcache();
