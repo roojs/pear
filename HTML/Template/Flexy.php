@@ -441,7 +441,7 @@ class HTML_Template_Flexy
         
         $isuptodate = file_exists($this->compiledTemplate)   ?
             (filemtime($this->currentTemplate) >= filemtime( $this->compiledTemplate)) : 0;
-                        var_dump(filemtime( $this->compiledTemplate));
+        var_dump(filemtime( $this->compiledTemplate));
     
         if( !empty($this->options['forceCompile']) || !$isuptodate ) {
             $recompile = true;
