@@ -198,30 +198,33 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             chmod($file, 0775);
             // make the timestamp of the two items match.
             clearstatcache();
-            touch($file, filemtime($flexy->currentTemplate));
+            
+            
+            $mtime = filemtime($flexy->currentTemplate);
+            if (!empty($flexy->options['DB_DataObject_translator'])) {
+                require_once 'DB/DataObject.php';
+                $tr = DB_DataObject::factory( $flexy->options['DB_DataObject_translator']);
+                if (method_exists($tr,'lastUpdated') ) {
+                    $last_updated = $tr->lastUpdated($flexy);
+                    $mtime = $last_updated !== false ? max(strtotime($last_updated), $mtime) : $mtime;   
+                }
+                
+            }
+            
+            touch($file, $mtime);
             
             if (function_exists('opcache_invalidate')) {
                 opcache_invalidate($file);
             }
             // why?? -- see output.block
-            var_dump(array($file, $flexy->compiledTemplate));
-            if ($file == $flexy->compiledTemplate) {
+            
+            if ($file != $flexy->compiledTemplate) {
                  
                 chmod($flexy->compiledTemplate, 0775);
                 // make the timestamp of the two items match.
                 clearstatcache();
-                $mtime = filemtime($flexy->currentTemplate);
-                if (!empty($flexy->options['DB_DataObject_translator'])) {
-                    require_once 'DB/DataObject.php';
-                    $tr = DB_DataObject::factory( $flexy->options['DB_DataObject_translator']);
-                    if (method_exists($tr,'lastUpdated') ) {
-                        $last_updated = $tr->lastUpdated($flexy);
-                        $mtime = $last_updated !== false ? max(strtotime($last_updated), $mtime) : $mtime;   
-                    }
-                    
-                }
-                var_dump($mtime);
-                touch($flexy->compiledTemplate, $mtime);
+                
+                 touch($flexy->compiledTemplate, $mtime);
                  
                 if (function_exists('opcache_invalidate')) {
                     opcache_invalidate($flexy->compiledTemplate);
