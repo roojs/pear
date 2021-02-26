@@ -441,7 +441,8 @@ class HTML_Template_Flexy
         
         $isuptodate = file_exists($this->compiledTemplate)   ?
             (filemtime($this->currentTemplate) >= filemtime( $this->compiledTemplate)) : 0;
-            
+                        var_dump(filemtime( $this->compiledTemplate));
+    
         if( !empty($this->options['forceCompile']) || !$isuptodate ) {
             $recompile = true;
         } 
@@ -456,7 +457,6 @@ class HTML_Template_Flexy
             if (method_exists($tr,'lastUpdated') ) { // new way..
                 $last_update = $tr->lastUpdated($this);
                 $recompile = strtotime($last_update) > filemtime( $this->compiledTemplate );
-                var_dump($recompile);
             } else if (method_exists($tr,'translateChanged')) { // old code...
                 $recompile = $tr->translateChanged($this);
                 
