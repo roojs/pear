@@ -463,7 +463,7 @@ class HTML_Template_Flexy
             }
              
         }
-        
+        var_dump($recompile); 
         
         
         if (!$recompile) {
