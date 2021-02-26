@@ -218,8 +218,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
                     }
                 }
                 touch($flexy->compiledTemplate, $mtime);
-                
-                
+                 
                 if (function_exists('opcache_invalidate')) {
                     opcache_invalidate($flexy->compiledTemplate);
                 }
