@@ -463,7 +463,7 @@ class HTML_Template_Flexy
              
         }
         
-        
+        var_dump(array($this->currentTemplate, $recompile , date("r",filemtime( $this->compiledTemplate ))));
         if (!$recompile) {
             $this->debug("File looks like it is uptodate.");
             return true;
