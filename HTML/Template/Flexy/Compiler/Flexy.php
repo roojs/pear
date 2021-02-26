@@ -188,8 +188,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         if (isset($flexy->options['output.block'])) {
             list($file, $part) = explode('#', $file);
         }
-        
-        if( ($cfp = fopen($file, 'w')) ) {
+         if( ($cfp = fopen($file, 'w')) ) {
             if ($flexy->options['debug']) {
                 echo "<B>Writing: </B>$file<BR>\n";
             }
