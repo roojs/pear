@@ -217,8 +217,9 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
                         $last_updated = $tr->lastUpdated($this);
                         $mtime = $last_updated !== false ? max(strtotime($last_updated), $mtime) : $mtime;   
                     }
-                    var_dump($mtime);
+                    
                 }
+                var_dump($mtime);
                 touch($flexy->compiledTemplate, $mtime);
                  
                 if (function_exists('opcache_invalidate')) {
