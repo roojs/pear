@@ -209,7 +209,17 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
                 chmod($flexy->compiledTemplate, 0775);
                 // make the timestamp of the two items match.
                 clearstatcache();
-                touch($flexy->compiledTemplate, filemtime($flexy->currentTemplate));
+                $mtime = filemtime($flexy->currentTemplate);
+                if (!empty($flexy->options['DB_DataObject_translator'])) {
+                    require_once 'DB/DataObject.php';
+                    $tr = DB_DataObject::factory( $flexy->options['DB_DataObject_translator']);
+                    if (method_exists($tr,'lastUpdated') ) {
+                        $mtime = max(strtotime($tr->lastUpdated($this)), $mtime);   
+                    }
+                }
+                touch($flexy->compiledTemplate, $mtime);
+                
+                
                 if (function_exists('opcache_invalidate')) {
                     opcache_invalidate($flexy->compiledTemplate);
                 }
