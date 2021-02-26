@@ -454,7 +454,8 @@ class HTML_Template_Flexy
                 $tr = DB_DataObject::factory( $this->options['DB_DataObject_translator']);
             }
             if (method_exists($tr,'translateChanged') ) {
-                $recompile = $tr->translateChanged($this);
+                $last_update = $tr->translateChanged($this);
+                $recompile = strtotime($last_update) > filemtime( $this->compiledTemplate);
             }
             
             
