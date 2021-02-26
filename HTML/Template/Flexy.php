@@ -455,7 +455,7 @@ class HTML_Template_Flexy
             }
             if (method_exists($tr,'lastUpdated') ) { // new way..
                 $last_update = $tr->lastUpdated($this);
-                $recompile = strtotime($last_update) > filemtime( $this->compiledTemplate );
+                $recompile = $last_update !== false ? strtotime($last_update) > filemtime( $this->compiledTemplate ) : false;
             } else if (method_exists($tr,'translateChanged')) { // old code...
                 $recompile = $tr->translateChanged($this);
                 
