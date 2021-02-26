@@ -206,6 +206,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             // why?? -- see output.block
             
             if ($file != $flexy->compiledTemplate) {
+                die("HERE");
                 chmod($flexy->compiledTemplate, 0775);
                 // make the timestamp of the two items match.
                 clearstatcache();
