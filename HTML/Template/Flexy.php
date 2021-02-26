@@ -440,7 +440,7 @@ class HTML_Template_Flexy
         $recompile = false;
         
         $isuptodate = file_exists($this->compiledTemplate)   ?
-            (filemtime($this->currentTemplate) >= filemtime( $this->compiledTemplate)) : 0;
+            (filemtime( $this->compiledTemplate) >= filemtime($this->currentTemplate) ) : 0;
      
         if( !empty($this->options['forceCompile']) || !$isuptodate ) {
             $recompile = true;
@@ -463,8 +463,7 @@ class HTML_Template_Flexy
              
         }
         
-        
-        if (!$recompile) {
+         if (!$recompile) {
             $this->debug("File looks like it is uptodate.");
             return true;
         }
