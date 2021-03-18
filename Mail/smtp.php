@@ -379,7 +379,7 @@ class Mail_smtp extends Mail {
      * @since  1.2.0
      * @access public
      */
-    function &getSMTPObject()
+    function getSMTPObject()
     {
         if (is_object($this->_smtp) !== false) {
             return $this->_smtp;
