@@ -69,7 +69,7 @@ class File_Smb_Dir {
         $ret = array();
         
         while (($e['type'] = smbclient_readdir($this->resource,$dh)) !== false) {
-            print_R($e);
+          // print_R($e);
             switch($e['type']) {
                 case 'file':
                     $ret[] = new File_Smb_File($this, $e['name']);
@@ -90,6 +90,8 @@ class File_Smb_Dir {
                     break;
             }
         }
+        print_R($ret);
+        
         return $ret;
             
         
