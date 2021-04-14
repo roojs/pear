@@ -23,7 +23,6 @@ class File_Smb_File extends File_Smb {
     function __construct($dir, $sub)
     {
         
-        require_once 'File/Smb/Dir.php';
         require_once 'File/Smb/File.php'; 
 
         $this->server  = $dir->server;

@@ -7,6 +7,7 @@
  *
  */
 
+require_once 'File/Smb/Dir.php';
 
 class File_Smb  extends File_Smb_Dir  {
     
