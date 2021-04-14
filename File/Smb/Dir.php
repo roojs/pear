@@ -47,8 +47,13 @@ class File_Smb_Dir {
     function stat()
     {
         //if (!is_readable('smb://' . $this->server . '/'. $this->path
-                         
+        set_error_handler(function($errno, $errstr, $errfile, $errline)  {  
+            var_dump(func_get_args());
+        });
+                 
         $ar = smbclient_stat($this->resource, 'smb://' . $this->server . '/'. $this->path);
+        restore_error_handler();
+
         foreach($ar as $k=>$v) {
             if (!is_numeric($k)) {
                 $this->$k = $v;
