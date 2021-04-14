@@ -46,15 +46,15 @@ class File_Smb  extends File_Smb_Dir  {
         $this->type = self::DIR  + self::SHARE;
         
         
-            $bb = explode('%', $lr[0]);
-            $auth = File_Smb::$auth[$this->server] = $bb;
-            
-            if (!isset(File_Smb::$connection[$this->server])) {
-                $con = File_Smb::$connection[$this->server] = smbclient_state_new();
-                smbclient_state_init($con , "WORKGROUP", $auth[0], $auth[1]);
-            }
-            
+        $bb = explode('%', $lr[0]);
+        $auth = File_Smb::$auth[$this->server] = $bb;
+        
+        if (!isset(File_Smb::$connection[$this->server])) {
+            $con = File_Smb::$connection[$this->server] = smbclient_state_new();
+            smbclient_state_init($con , "WORKGROUP", $auth[0], $auth[1]);
         }
+        
+   
         $this->resource = File_Smb::$connection[$this->server];
         
         
