@@ -46,7 +46,7 @@ class File_Smb_Dir {
     
     function stat()
     {
-        $ar = smb_client_stat($this->resource, 'smb://' . $this->server . '/'. $this->path);
+        $ar = smbclient_stat($this->resource, 'smb://' . $this->server . '/'. $this->path);
         foreach($ar as $k=>$v) {
             if (!is_numeric($k)) {
                 $this->$k = $v;
