@@ -10,6 +10,8 @@ class File_Smb_Dir {
     var $path; // full path excluding server, including share.
     var $type;
     
+    
+    var $perm_denied  = false;
     var $ino;	//inode number ****
     var $mode;	//inode protection mode
     var $nlink;	//number of links
@@ -47,12 +49,19 @@ class File_Smb_Dir {
     function stat()
     {
         //if (!is_readable('smb://' . $this->server . '/'. $this->path
-        set_error_handler(function($errno, $errstr, $errfile, $errline)  {  
-            var_dump(func_get_args());
+        set_error_handler(function($errno, $errstr, $errfile, $errline)  {
+            if (preg_match('/Permission denied', $errstr)) {
+                $this->perm_denied = true;
+                return;
+            }
+
         });
                  
         $ar = smbclient_stat($this->resource, 'smb://' . $this->server . '/'. $this->path);
         restore_error_handler();
+        if ($ar == false) {
+            
+        }
 
         foreach($ar as $k=>$v) {
             if (!is_numeric($k)) {
