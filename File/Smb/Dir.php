@@ -46,7 +46,9 @@ class File_Smb_Dir {
     
     function stat()
     {
-        $ar = smbclient_stat($this->resource, 'smb://' . $this->server . '/'. $this->path);
+        if (!is_readable('smb://' . $this->server . '/'. $this->path
+                         
+                         $ar = smbclient_stat($this->resource, 'smb://' . $this->server . '/'. $this->path);
         foreach($ar as $k=>$v) {
             if (!is_numeric($k)) {
                 $this->$k = $v;
@@ -78,7 +80,7 @@ class File_Smb_Dir {
                 
                 case 'directory':
                     if ($e['name'] == '.' || $e['name'] == '..') {
-                        continue;
+                        break;
                     }
                     $ret[] = new File_Smb_Dir($this, $e['name']);
                     break;
