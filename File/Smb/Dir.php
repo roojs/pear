@@ -58,9 +58,10 @@ class File_Smb_Dir {
         });
                  
         $ar = smbclient_stat($this->resource, 'smb://' . $this->server . '/'. $this->path);
+        
         restore_error_handler();
         if ($ar == false) {
-            
+            return;
         }
 
         foreach($ar as $k=>$v) {
