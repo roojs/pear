@@ -27,7 +27,8 @@ class File_Smb_Dir {
     /**
      * constructor
      * 
-     * @param:  $con (string)  - connection string:   USER\WORKGROUP@PASS/SERVER/SHARE - we use unix paths here (converted to smb by lib.)
+     * @param:  $dir File_Smb_Dir
+     * @param: string $sub - directory;
      *  
      * 
      */
