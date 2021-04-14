@@ -29,7 +29,7 @@ class File_Smb  extends File_Smb_Dir  {
     /**
      * constructor
      * 
-     * @param:  $con (string)  - connection string:   USER\WORKGROUP@PASS/SERVER/SHARE - we use unix paths here (converted to smb by lib.)
+     * @param:  $con (string)  - connection string:   USER\WORKGROUP%PASS@/SERVER/SHARE - we use unix paths here (converted to smb by lib.)
      *  
      * 
      */
@@ -37,6 +37,7 @@ class File_Smb  extends File_Smb_Dir  {
     
     function __construct($con)
     {
+        
         $bits = explode("/", $con);
         
         $this->server  = $bits[1];
