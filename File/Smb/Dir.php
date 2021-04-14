@@ -9,7 +9,7 @@ class File_Smb_Dir {
     var $resource; // smblicent resource
     var $path; // full path excluding server, including share.
     var $type;
-    
+    var $name;
     
     var $perm_denied  = false;
     var $ino;	//inode number ****
