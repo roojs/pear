@@ -47,13 +47,20 @@ class File_Smb  extends File_Smb_Dir  {
         
         
         $bb = explode('%', $lr[0]);
-        $auth = File_Smb::$auth[$this->server] = $bb;
+        $u = $bb[0];
+        $ws = null;
+        $pass = $bb[1];
+        if (strpos('\\', $bb[0]) > -1) {
+            list($u,$ws) = explode("\\", $bb[0]);
+        }
+        
+        $auth = File_Smb::$auth[$this->server] = array($ws, $u, $pass);
         
         if (!isset(File_Smb::$connection[$this->server])) {
             $con = File_Smb::$connection[$this->server] = smbclient_state_new();
-            print_R(array('connect', "WORKGROUP", $auth[0], $auth[1]));
+            //print_R(array('connect', $auth[0], $auth[1], $auth[2]));
             
-            smbclient_state_init($con , "WORKGROUP", $auth[0], $auth[1]);
+            smbclient_state_init($con , $auth[0], $auth[1], $auth[2]);
         }
         
    
