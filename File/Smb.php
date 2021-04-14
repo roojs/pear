@@ -39,7 +39,7 @@ class File_Smb  extends File_Smb_Dir  {
     {
         
         $lr = explode("@", $con);
-        $bits = explode("/", $lr[1])
+        $bits = explode("/", $lr[1]);
         $this->server  = $bits[0];
         $this->path = $bits[1];
         $this->name = $bits[1];
