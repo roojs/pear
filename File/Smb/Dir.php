@@ -87,7 +87,7 @@ class File_Smb_Dir {
         $ret = array();
         
         while (($e = smbclient_readdir($this->resource,$dh)) !== false) {
-             print_R($e);
+           //  print_R($e);
             switch($e['type']) {
                 
                 case 'file':
