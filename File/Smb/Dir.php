@@ -50,7 +50,7 @@ class File_Smb_Dir {
     {
         //if (!is_readable('smb://' . $this->server . '/'. $this->path
         set_error_handler(function($errno, $errstr, $errfile, $errline)  {
-            if (preg_match('/Permission denied', $errstr)) {
+            if (preg_match('/Permission denied/', $errstr)) {
                 $this->perm_denied = true;
                 return;
             }
