@@ -39,6 +39,7 @@ class File_Smb_Dir {
         
         $this->server  = $dir->server;
         $this->path = $dir->path . '/' . $sub;
+        $this->name = $sub;
         $this->type = File_Smb::DIR;
         $this->resource = File_Smb::$connection[$this->server];
         $this->stat();
