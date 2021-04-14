@@ -50,7 +50,7 @@ class File_Smb  extends File_Smb_Dir  {
             
             if (!isset(File_Smb::$connection[$this->server])) {
                 $con = File_Smb::$connection[$this->server] = smbclient_state_new();
-                smbclient_state_init($con , "TEST1", $auth[0], $auth[1]);
+                smbclient_state_init($con , null, $auth[0], $auth[1]);
             }
             
         }
