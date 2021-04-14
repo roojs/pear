@@ -41,6 +41,7 @@ class File_Smb  extends File_Smb_Dir  {
         
         $this->server  = $bits[1];
         $this->path = $bits[2];
+        $this->name = $bits[2];
         $this->type = self::DIR  + self::SHARE;
         
         if (strlen($bits[0])) {
