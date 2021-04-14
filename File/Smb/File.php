@@ -26,6 +26,7 @@ class File_Smb_File extends File_Smb {
 
         $this->server  = $dir->server;
         $this->path = $dir->path . '/' . $sub;
+        $this->name = $sub;
         $this->type = File_Smb::FILE;
         $this->resource = File_Smb::$connection[$this->server];
         $this->stat();
