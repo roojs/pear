@@ -75,6 +75,9 @@ class File_Smb_Dir {
                     $ret[] = new File_Smb_File($this, $e['name']);
                     break;
                 case 'directory':
+                    if ($e['name'] == '.' || $e['name'] == '..') {
+                        continue;
+                    }
                     $ret[] = new File_Smb_Dir($this, $e['name']);
                     break;
                 
