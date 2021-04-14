@@ -38,16 +38,16 @@ class File_Smb  extends File_Smb_Dir  {
     function __construct($con)
     {
         
-        $bits = explode("/", $con);
-        
-        $this->server  = $bits[1];
-        $this->path = $bits[2];
-        $this->name = $bits[2];
+        $lr = explode("@", $con);
+        $bits = explode("/", $lr[1])
+        $this->server  = $bits[0];
+        $this->path = $bits[1];
+        $this->name = $bits[1];
         $this->type = self::DIR  + self::SHARE;
         
-        if (strlen($bits[0])) {
-            $bb = explode('@', $bits[0]);
-            $auth = File_Smb::$auth[$this->server] = $bits[0];
+        
+            $bb = explode('%', $lr[0]);
+            $auth = File_Smb::$auth[$this->server] = $bb;
             
             if (!isset(File_Smb::$connection[$this->server])) {
                 $con = File_Smb::$connection[$this->server] = smbclient_state_new();
