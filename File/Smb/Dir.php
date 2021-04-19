@@ -42,13 +42,13 @@ class File_Smb_Dir {
      */
     
     
-    function __construct($dir, $sub)
+    function __construct($dir, $sub, $base = false)
     {
         
         
         $this->server  = $dir->server;
         $this->path = $dir->path . '/' . $sub;
-        $this->name = $sub;
+        $this->name = $base === false ? $sub : $base;
         $this->namehash = sha1($this->name);
         $this->type = File_Smb::DIR;
         $this->resource = File_Smb::$connection[$this->server];
