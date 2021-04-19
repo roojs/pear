@@ -10,6 +10,7 @@ class File_Smb_Dir {
     var $path; // full path excluding server, including share.
     var $type;
     var $name;
+    var $namehash; // hash of name
     
     var $perm_denied  = false;
     var $ino;	//inode number ****
