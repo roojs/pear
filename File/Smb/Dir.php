@@ -48,7 +48,7 @@ class File_Smb_Dir {
         
         $this->server  = $dir->server;
         $this->path = $dir->path . '/' . $sub;
-        $this->name = $base === false ? $sub : $base;
+        $this->name = $base === false ? $sub : $base; // for overriding ...
         $this->namehash = sha1($this->name);
         $this->type = File_Smb::DIR;
         $this->resource = File_Smb::$connection[$this->server];
