@@ -25,6 +25,13 @@ class File_Smb_Dir {
     var $ctime;	//time of last inode change (Unix timestamp)
     var $blksize;	//blocksize of filesystem IO **
     var $blocks;
+    
+    
+    var $created_dt;
+    var $modified_dt;
+    var $accessed_dt;
+    
+    
     /**
      * constructor
      * 
