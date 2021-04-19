@@ -86,7 +86,8 @@ class File_Smb_Dir {
         $dh = smbclient_opendir($this->resource, 'smb://' . $this->server . '/'. $this->path);
         
         if (!$dh) {
-            return array();
+            throw new Exception("Directory failed to open");
+            //return array();
         }
         
         $ret = array();
