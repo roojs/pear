@@ -69,6 +69,13 @@ class File_Smb  extends File_Smb_Dir  {
         
     }
     
+    function ctorDir($path)
+    {
+        $p = substr($path,0, strlen($this->path));
+        $ret = new File_Smb_Dir($this, $p);
+        return $ret;
+    }
+    
     
     
 }
