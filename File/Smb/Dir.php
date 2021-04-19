@@ -84,7 +84,8 @@ class File_Smb_Dir {
 
         // fixme - path compoenent should be uuencoded..
         $dh = smbclient_opendir($this->resource, 'smb://' . $this->server . '/'. $this->path);
-
+        
+        
         $ret = array();
         
         while (($e = smbclient_readdir($this->resource,$dh)) !== false) {
@@ -114,7 +115,7 @@ class File_Smb_Dir {
                     break;
             }
         }
-        print_R($ret);exit;
+        //print_R($ret);exit;
         
         return $ret;
             
