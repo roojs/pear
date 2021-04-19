@@ -28,7 +28,7 @@ class File_Smb_Dir {
     
     
     var $created_dt;
-    var $modified_dt;
+    var $updated_dt;
     var $accessed_dt;
     
     
@@ -84,7 +84,7 @@ class File_Smb_Dir {
             $this->created_dt = date("Y-m-d H:i:s", $this->ctime);
         }
         if (isset($this->mtime)) {
-            $this->modified_dt = date("Y-m-d H:i:s", $this->mtime);
+            $this->updated_dt = date("Y-m-d H:i:s", $this->mtime);
         }
         if (isset($this->atime)) {
             $this->accessed_dt = date("Y-m-d H:i:s", $this->atime);
