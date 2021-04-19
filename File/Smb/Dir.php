@@ -80,6 +80,7 @@ class File_Smb_Dir {
         if (isset($this->atime)) {
             $this->accessed_dt = date("Y-m-d H:i:s", $this->atime);
         }
+        $this->namehash = sha1($this->name);
 
     }
     
