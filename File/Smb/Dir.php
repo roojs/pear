@@ -71,6 +71,15 @@ class File_Smb_Dir {
                 $this->$k = $v;
             }
         }
+        if (isset($this->ctime)) {
+            $this->created_dt = date("Y-m-d H:i:s", $this->ctime);
+        }
+        if (isset($this->mtime)) {
+            $this->modified_dt = date("Y-m-d H:i:s", $this->mtime);
+        }
+        if (isset($this->atime)) {
+            $this->accessed_dt = date("Y-m-d H:i:s", $this->atime);
+        }
 
     }
     
