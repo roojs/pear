@@ -42,6 +42,7 @@ class File_Smb_Dir {
         $this->server  = $dir->server;
         $this->path = $dir->path . '/' . $sub;
         $this->name = $sub;
+        $this->namehash = sha1($this->name);
         $this->type = File_Smb::DIR;
         $this->resource = File_Smb::$connection[$this->server];
         $this->stat();
@@ -81,7 +82,7 @@ class File_Smb_Dir {
         if (isset($this->atime)) {
             $this->accessed_dt = date("Y-m-d H:i:s", $this->atime);
         }
-        $this->namehash = sha1($this->name);
+        
 
     }
     
