@@ -100,10 +100,14 @@ class File_Smb_Dir {
     function dir()
     {
         require_once 'File/Smb/File.php'; 
+        set_error_handler(function($errno, $errstr, $errfile, $errline)  {
+            return;
 
+        });
         // fixme - path compoenent should be uuencoded..
         $dh = smbclient_opendir($this->resource, 'smb://' . $this->server . '/'. $this->path);
-        
+        restore_error_handler();
+
         if (!$dh) {
             throw new Exception("Directory failed to open");
             //return array();
