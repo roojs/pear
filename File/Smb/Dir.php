@@ -154,4 +154,20 @@ class File_Smb_Dir {
         
         
     }
+    
+    function error_handler($errno, $errstr, $errfile, $errline) {
+        require_once 'File/Smb/Exception.php';
+        restore_error_handler();
+        switch($errno) {
+            case 2:
+                throw new File_Smb_ExceptionNotExist($errstr, $errno);
+            case 13:
+                throw new File_Smb_ExceptionPermDenied($errstr, $errno);
+            
+        }
+        
+        
+    }
+    
+    
 }
