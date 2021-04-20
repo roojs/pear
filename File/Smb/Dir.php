@@ -101,6 +101,8 @@ class File_Smb_Dir {
     {
         require_once 'File/Smb/File.php'; 
         set_error_handler(function($errno, $errstr, $errfile, $errline)  {
+            restore_error_handler();
+            throw new Exception($errstr, $errno);
             return;
 
         });
