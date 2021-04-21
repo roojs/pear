@@ -89,7 +89,7 @@ class File_Smb_Dir {
         if (isset($this->atime)) {
             $this->accessed_dt = date("Y-m-d H:i:s", $this->atime);
         }
-        
+        $this->acls = smbclient_getxattr($this->resource, 'smb://' . $this->server . '/'. $this->path, 'system.nt_sec_desc.*+');
 
     }
     
