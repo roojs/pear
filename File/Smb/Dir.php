@@ -89,7 +89,18 @@ class File_Smb_Dir {
         if (isset($this->atime)) {
             $this->accessed_dt = date("Y-m-d H:i:s", $this->atime);
         }
-        $this->acls = explode(',',smbclient_getxattr($this->resource, 'smb://' . $this->server . '/'. $this->path, 'system.nt_sec_desc.*+'));
+        $acls = explode(',',smbclient_getxattr($this->resource, 'smb://' . $this->server . '/'. $this->path, 'system.nt_sec_desc.*+'));
+        $this->acls = array();
+        foreach($acls as $a) {
+            $aa = explode(":", $a);
+            if ($aa[0] == 'ACL') {
+                $this->acls[] = $aa[1];
+            } else {
+                $this->{strtolower($aa[0])} = $aa[1];
+            }
+            
+            
+        }
 
     }
     
