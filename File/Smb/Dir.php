@@ -94,7 +94,10 @@ class File_Smb_Dir {
         foreach($acls as $a) {
             $aa = explode(":", $a);
             if ($aa[0] == 'ACL') {
-                $this->acls[] = $aa[1];
+                if (!in_array($aa[1], $this->acls)) {
+                    $this->acls[] = $aa[1];
+                }
+                
             } else {
                 $this->{strtolower($aa[0])} = $aa[1];
             }
