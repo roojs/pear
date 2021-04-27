@@ -4301,6 +4301,14 @@ class DB_DataObject extends DB_DataObject_Overload
     }
 
     /**
+     * simple version of toArray that can be used in fetchAll
+     */
+    function toArrayResult($format = '%s')
+    {
+        return $this->toArray($format, 0);
+    }
+    
+    /**
      * validate the values of the object (usually prior to inserting/updating..)
      *
      * Note: This was always intended as a simple validation routine.
