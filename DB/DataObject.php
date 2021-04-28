@@ -670,7 +670,7 @@ class DB_DataObject extends DB_DataObject_Overload
      */
     function fetchAll($k= false, $v = false, $method = false)  
     {
-        // should it even do this!!!?!?
+         
         $args = func_get_args();
         $args = count($args) > 3 ? array_slice($args, 3) : array();
         
