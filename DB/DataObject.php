@@ -694,9 +694,7 @@ class DB_DataObject extends DB_DataObject_Overload
         }
 
         
-        $this->find();
-       
-        if ($this->_result === 0) {
+        if (!$this->find()) {
             // no results retured.
             return array();
         }
