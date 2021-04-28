@@ -658,23 +658,29 @@ class DB_DataObject extends DB_DataObject_Overload
      * G) associative array of object
      * $x = DB_DataObject::factory('mytable');
      * $x->whereAdd('something = 1');
-     * $ar = $x->fetchAll('id',false,true);
+     * $ar = $x->fetchAll('id',false, 0);
      *
      *
      * @param    string|false  $k key
      * @param    string|false  $v value
-     * @param    string|false|true  $method method to call on each result to get array value (eg. 'toArray') ** use true to return the object in associative arrays
+     * @param    string|false|0 $method method to call on each result to get array value (eg. 'toArray') ** use 0 to return the object in associative arrays
      * @param    ...   - other parameters are passed to 'method'
      * @access  public
      * @return  array  format dependant on arguments, may be empty
      */
-    function fetchAll($k= false, $v = false, $method = false)  
+     
+    
+    function fetchAll($k= false, $v = false, $method = false)
     {
-         
+        
         $args = func_get_args();
         $args = count($args) > 3 ? array_slice($args, 3) : array();
+      
+        $kcl =  is_a($k, "Closure");
+        $vcl =  is_a($v, "Closure");
         
-        if ($k !== false && 
+        
+         if ($k !== false && 
                 (   // only do this is we have not been explicit..
                     empty($this->_query['data_select']) || 
                     ($this->_query['data_select'] == '*')
@@ -686,32 +692,129 @@ class DB_DataObject extends DB_DataObject_Overload
                 $this->selectAdd($v);
             }
         }
+
         
         $this->find();
-        $ret = array();
-        while ($this->fetch()) {
-            // key and value set.
-            if ($v !== false) {
-                $ret[$this->$k] = $this->$v;
-                continue;
-            }
-            // key + method
-            if ($k !== false && $method !== false) {
-                $ret[$this->$k] =  $method === true ? clone($this) : call_user_func_array(array($this,$method), $args);
-                continue;
-            }
-            // key is not set
-            if ($k === false) {
-                $ret[] = ($method == false ? clone($this)  : call_user_func_array(array($this,$method), $args));
-                continue;
-            }
-            // key only is set.. 
-            $ret[] =  $this->$k;
+       
+        if ($this->_result === 0) {
+            // no results retured.
+            return array();
         }
- 
-        return $ret;
+        $ret = array();
+        $row = 0;
+        switch(true) {
+            // empty  - array of objects
+            case $k === false && $v === false && $method === false:
+                while ($this->fetch()) {
+                    $ret[] = clone($this);
+                }
+                return $ret;
+            
+            
+            // array of assoc arrays.. = FAST...
+            
+            //case $k === PDO_DataObject::FETCH_FAST && $v === false && $method === false:    
+            case $k === false && $v === false  && $method === true: // BC - not documented.
+                while ($this->fetch()) {
+                    $ret[] = $this->toArray();
+                }
+                return $ret;
+            
+            /// key only.
+            case is_string($k) && $v === false && $method === false:
+                while ($this->fetch()) {
+                    $ret[] =  $this->$k;
+                }
+                return $ret;
+            
+            // key value
+            case is_string($k) && is_string($v) && $method === false:
+            //case $k === PDO_DataObject::FETCH_PID  && is_string($v) && $method === false:
+                while ($this->fetch()) {
+                    $ret[$this->$k] =  $this->$v;
+                }
+                return $ret;
+                
+            // key object
+            //case is_string($k) && $v == PDO_DataObject::FETCH_OBJECT  && $method === false:
+            case is_string($k) && $v == true && $method === false:
+            //case $k === PDO_DataObject::FETCH_PID  && $v === PDO_DataObject::FETCH_OBJECT  && $method === false:
+                while ($this->fetch()) {
+                    $ret[$this->$k] = clone($this);
+                }
+                return $ret;
+                
+             // key object (BC - not documented)
+             // false, string   or false, true
+            case $k === false && (is_string($v) || $v === true) && $method === false:
+                while ($this->fetch()) {
+                    $ret[$v === true ? $this->pid() : $this->$v] = clone($this);
+                }
+                return $ret;
+              
+            
+            // closure only.
+            case $kcl && $v === false && $method === false:    
+                while ($this->fetch()) {          
+                    $ret[] = $k->call(clone($this), $row);
+                    $row++;
+                }
+                return $ret;
+            
+            // closure with key
+            // closure with pid            
+            case is_string($k) && $vcl && $method === false:
+            //case $k === PDO_DataObject::FETCH_PID && $vcl && $method === false:
+                while ($this->fetch()) {
+                    $ret[ $this->$k  ] = $v->call(clone($this), $row);
+                    $row++;
+                }
+                return $ret;
+            
+            
+            // method as array
+            case $k === false && $v === false && is_string($method):
+                while ($this->fetch()) {
+                    $ret[] =  call_user_func_array(array($this,$method), $args);
+                    $row++;
+                }
+                return $ret;
+            
+            // method as a string. with a key.
+            case is_string($k) && $v === false && is_string($method):
+            //case $k === PDO_DataObject::FETCH_PID && $v === false && is_string($method):
+                while ($this->fetch()) {
+                    $ret[$this->$k ] =  call_user_func_array(array($this,$method), $args);
+                    $row++;
+                }
+                return $ret;
+            
+            // support for quick fetches.
+            //case $k == PDO_DataObject::FETCH_COL && $v === false:
+            //    return $this->_result->fetchAll(PDO::FETCH_COLUMN,0);
+            
+            //case $k == PDO_DataObject::FETCH_COL &&  $v === PDO_DataObject::FETCH_COL;
+            //    $cols = array();
+            //    while($row = $this->_result->fetch(PDO::FETCH_BOTH)) {
+            //       if (self::$debug) {
+            //            $this->debug("fetch FETCH_COLUMN:   " .  json_encode($row),__FUNCTION__);
+            //        }
+            //        $ret[$row[0]] =  $row[1];
+            //    }
+            
+            default:
+                return $this->raiseError(
+                    "Invalid arguments passed to FetchAll", 
+                    DB_DATAOBJECT_ERROR_INVALIDARGS);
+              
+               
+        }
+        
          
+        return $ret;
+
     }
+    
     
     
     /**
