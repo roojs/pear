@@ -650,16 +650,30 @@ class DB_DataObject extends DB_DataObject_Overload
      * $x->whereAdd('something = 1');
      * $ar = $x->fetchAll(false,false,'toArray');
      *
+     * F) associative array of arrays calling to array with false,0
+     * $x = DB_DataObject::factory('mytable');
+     * $x->whereAdd('something = 1');
+     * $ar = $x->fetchAll('id',false,'toArray',false, 0);
+     *
+     * G) associative array of object
+     * $x = DB_DataObject::factory('mytable');
+     * $x->whereAdd('something = 1');
+     * $ar = $x->fetchAll('id',false,true);
+     *
      *
      * @param    string|false  $k key
      * @param    string|false  $v value
-     * @param    string|false  $method method to call on each result to get array value (eg. 'toArray')
+     * @param    string|false|true  $method method to call on each result to get array value (eg. 'toArray') ** use true to return the object in associative arrays
+     * @param    ...   - other parameters are passed to 'method'
      * @access  public
      * @return  array  format dependant on arguments, may be empty
      */
     function fetchAll($k= false, $v = false, $method = false)  
     {
         // should it even do this!!!?!?
+        $args = func_get_args();
+        $args = count($args) > 3 ? array_slice($args, 3) : array();
+        
         if ($k !== false && 
                 (   // only do this is we have not been explicit..
                     empty($this->_query['data_select']) || 
@@ -676,13 +690,23 @@ class DB_DataObject extends DB_DataObject_Overload
         $this->find();
         $ret = array();
         while ($this->fetch()) {
+            // key and value set.
             if ($v !== false) {
                 $ret[$this->$k] = $this->$v;
                 continue;
             }
-            $ret[] = $k === false ? 
-                ($method == false ? clone($this)  : $this->$method())
-                : $this->$k;
+            // key + method
+            if ($k !== false && $method !== false) {
+                $ret[$this->$k] =  $method === true ? clone($this) : call_user_func_array(array($this,$method), $args);
+                continue;
+            }
+            // key is not set
+            if ($k === false) {
+                $ret[] = ($method == false ? clone($this)  : call_user_func_array(array($this,$method), $args));
+                continue;
+            }
+            // key only is set.. 
+            $ret[] =  $this->$k;
         }
  
         return $ret;
@@ -4300,13 +4324,7 @@ class DB_DataObject extends DB_DataObject_Overload
         return $ret;
     }
 
-    /**
-     * simple version of toArray that can be used in fetchAll
-     */
-    function toArrayResult($format = '%s')
-    {
-        return $this->toArray($format, 0);
-    }
+     
     
     /**
      * validate the values of the object (usually prior to inserting/updating..)
