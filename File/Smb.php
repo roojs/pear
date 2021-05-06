@@ -78,7 +78,7 @@ class File_Smb  extends File_Smb_Dir  {
             return $this;
         }
         
-        $bits = explode($path);
+        $bits = explode('/',$path);
         
         $name = array_pop($bits);
         if (count($bits)) {
