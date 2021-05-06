@@ -73,7 +73,7 @@ class File_Smb  extends File_Smb_Dir  {
     {
         
         $p = substr($path, strlen($this->path)+1);
-        print_r($this);
+        print_r(array($this, $path, $p, basename($p)));
         var_dump(array($p, basename($p)));
         
         $ret = new File_Smb_Dir($this, $p,  basename($p));
