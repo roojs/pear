@@ -44,8 +44,7 @@ class File_Smb_Dir {
     
     function __construct($dir, $sub, $base = false)
     {
-        
-        
+         
         $this->server  = $dir->server;
         $this->path = $dir->path . '/' . $sub;
         $this->name = $base === false ? $sub : $base; // for overriding ...
