@@ -71,10 +71,24 @@ class File_Smb  extends File_Smb_Dir  {
     
     function ctorDir($path)
     {
-        $p = substr($path, strlen($this->path)+1);
-        $ret = new File_Smb_Dir($this, $p,  basename($p));
+        // so path is a full path
+        // DIR constructor
         
-        return $ret;
+        if ($path == $this->path) {
+            return $this;
+        }
+        
+        $bits = explode('/',$path);
+        
+        $name = array_pop($bits);
+        if (count($bits)) {
+            $fake = clone($this);
+            $fake->path = implode('/', $bits);
+            return new File_Smb_Dir($fake, $name);
+        }
+        $fake = clone($this);
+        $fake->path = $name;
+        return $fake;
     }
     
     
