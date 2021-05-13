@@ -95,11 +95,11 @@ class File_Convert
             $x = (int)$bits[0];
             $y = empty($bits[1]) ?  0 : (int)$bits[1];;
         }
-          
+        $fn = $sc->convertExists($fn, (int)$x, (int)$y);  
         if (!file_Exists($fn)) {
             return false;
         }
-        $fn = $sc->convertExists($fn, (int)$x, (int)$y);
+        
              
         
         //$this->target = $fn;
