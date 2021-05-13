@@ -315,45 +315,10 @@ class File_Convert
             ),
             
            
-            array( 'text2html',
-                array(
-                    'message/rfc822',
-                    'text/plain', 
-                ),
-                array(
-                    'text/html',
-                )
-            ),
             
                   
             
-            
-            array( 'acad2svg',
-                array ('application/vnd.dwg',
-                     'application/acad',
-                     'application/x-acad',
-                     'application/autocad_dwg',
-                     'image/x-dwg',
-                     'application/dwg',
-                     'application/x-dwg',
-                     'application/x-autocad',
-                     'image/vnd.dwg',
-                     'drawing/dwg',
-                ),
-                array(
-                    'image/svg'
-                )
-            ),
-            array( 'svgconvert',
-                array(
-                    'image/svg',
-                ),
-                array(
-                    'application/pdf',
-                    'image/png', //add it back for MediaOutreach
-                    
-                ),
-            ),
+              
             
             array( 'gifsicle',
                 array( // source
@@ -393,17 +358,6 @@ class File_Convert
                 )
             ),
             
-            array('convert800mp', // mulipage convert...
-                array(
-                  //  'application/pdf',
-                    'image/tiff',
-                ),
-                array(
-                    'image/jpeg',
-                    'image/gif',
-                    'image/png',
-                )
-            ),
              
          
         ); 
