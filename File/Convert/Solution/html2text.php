@@ -10,13 +10,20 @@
      */
 class File_Convert_Solution_html2text extends File_Convert_Solution {
      
-    var $sources =  array( // source
-        'text/html' 
-    );
-               
-    var $targets = array(
-        'text/plain'
-        
+     
+      static $rules = array(
+        array(
+         
+            'from' =>    array( //source
+               'text/html' 
+            ),
+            'to' =>    array( //target
+                'text/plain'
+            )
+        ),
+         
+            
+    ); 
     );
     
     function convert($fn, $opt_ar=array())
