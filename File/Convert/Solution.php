@@ -32,17 +32,13 @@ class File_Convert_Solution
     function exec($cmd)
     {
         $this->debug($cmd);
-        
         $ret = `$cmd`;
-        
         $this->debug( $ret);
-    
         $this->cmd = $cmd ."\n" . $ret;
-        
         return $ret;
     }
     
-    function count()
+    function count() // ??? why!?
     {
         return 1;
     }
