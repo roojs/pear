@@ -9,15 +9,10 @@ class File_Convert_Solution_pdftoppm extends File_Convert_Solution
         array(
          
             'from' =>    array( //source
-                'video/avi',
-                'video/x-ms-wmv',
-                'video/mp4',
-                'video/x-msvideo',
-                'video/mpeg',
-                'video/quicktime',
+            
             ),
             'to' =>    array( //target
-                'image/jpeg',
+                
             )
         ),
         
