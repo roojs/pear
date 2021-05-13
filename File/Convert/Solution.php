@@ -3,7 +3,6 @@
 class File_Convert_Solution
 {
     var $type = 0;
-    var $method;
     var $from;
     var $to;
     var $ext;
@@ -13,8 +12,7 @@ class File_Convert_Solution
     
     function __construct($method, $from ,$to)
     {
-        
-        $this->method = $method;
+         
         $this->from = $from;
         $this->to = $to;
         //$this->last = $this; //?? used where?
