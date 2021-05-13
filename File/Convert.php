@@ -327,15 +327,7 @@ class File_Convert
                
             ),
               
-            array( 'unoconv',//FIXME run this 3 times??
-                array( //source
-                    'application/vnd.ms-powerpoint',
-                    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-                ),
-                array( //target
-                    'application/pdf',
-                )
-            ),
+            
             array( 'm4a2mp3',
                 array( //source
                     'audio/mp4',
