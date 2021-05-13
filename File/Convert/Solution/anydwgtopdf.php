@@ -47,9 +47,14 @@ class File_Convert_Solution_anydwgtopdf {
         $to = $this->tempName("pdf");
         $tob = basename($to);
         
+        
         $dir = '/var/www/.wine/drive_c/';
-        $this->
-        link($dir . basename($from), $fn);
+        $wfrom = $dir . $fromb;
+        $wto = $dir . $tob;
+        $this->deleteOnExit($wfrom);
+        $this->deleteOnExit($wto);
+        
+        link($wfrom, $fn);
         
         
         
@@ -57,8 +62,11 @@ class File_Convert_Solution_anydwgtopdf {
         $cmd = "{$xvfb} --auto {$wine} /InFile C:\\{$fromb} /OutFile C:\\{$tob}" .
             "/OutMode AlltoOne /Overwrite /OutLayout Paper /OutArea ZoomExtends";
         $this->exec($cmd);
-        unlink($dir . basename($from));
-        link($this->target, $dir . $tob);
+        if (!file_Exists($wto)) {
+            // failed.
+            return false;
+        }
+        link($this->target, $wto);
         
         
     }
