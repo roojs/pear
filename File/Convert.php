@@ -48,7 +48,7 @@ class File_Convert
         $this->fn = $fn;
         
         if (!file_exists($fn)) {
-            trigger_error("Source file does not exist:". $fn,E_ERROR);
+            trigger_error("Source file does not exist:". $fn,E_USER_ERROR);
         }
         
         $this->mimetype = $mimetype;
