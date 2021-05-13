@@ -1,5 +1,29 @@
-
-    function m4a2mp3($fn){
+<?php
+ 
+class File_Convert_Solution_m4a2mp3 extends File_Convert_Solution
+{
+    
+   
+    var $rules = array(
+        array(
+         
+            'from' =>    array( //source
+                 'image/jpeg',
+                'image/gif',
+                'image/png'
+            ),
+            'to' =>    array( //target
+                'image/jpeg',
+                'image/gif',
+                'image/png',
+                'image/x-ms-bmp',
+                'image/tiff',
+            )
+        ),
+        
+   
+    );
+    function convert($fn){
         //print_r($fn);
         
         $ext = 'mp3';
@@ -21,4 +45,4 @@
         return  file_exists($target)  && filesize($target) ? $target : false;
         
     }
-    
+}
