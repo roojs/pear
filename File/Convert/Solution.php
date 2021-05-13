@@ -90,7 +90,7 @@ class File_Convert_Solution
             return false;
         }
 //        print_r('in?'); exit;
-        switch(getClass($this)) {
+        switch(get_class($this)) {
             case 'File_Convert_Solution_scaleimage':
                 $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
             case 'File_Convert_Solution_scaleimagec':
@@ -102,7 +102,9 @@ class File_Convert_Solution
          
     }
     
-    abstract function convert($fn,$x,$y,$pg); 
+    function convert($fn,$x,$y,$pg) {
+        die("Convert not implemented for " . get_class($this))
+    }
    
      
     
