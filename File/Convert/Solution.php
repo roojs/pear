@@ -71,9 +71,9 @@ class File_Convert_Solution
         if (!$this->ext) {
             return false;
         }
-        $method = $this->method;
         
-        return $this->$method($fn, $x, $y, $pg);
+        
+        return $this->convert($fn, $x, $y, $pg);
     }
     
     
