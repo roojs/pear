@@ -1,4 +1,15 @@
+<?php
 
+class File_Convert_Solution_scaleimagec extends File_Convert_Solution
+{
+    
+   
+    static $rules = array(
+         
+        
+         
+    );
+      
     
     function scaleImageC($fn, $x, $y) 
     {
@@ -154,3 +165,4 @@
         clearstatcache();
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
+}
