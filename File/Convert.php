@@ -63,7 +63,7 @@ class File_Convert
         $fn = $this->fn;
         if ($toMimetype != $this->mimetype) {
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
-            
+            var_dump($action);
             // echo '<PRE>';print_r($action);
             if (!$action) {
                 return false;
