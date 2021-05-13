@@ -62,6 +62,10 @@ class File_Convert
             if (!$action) {
                 return false;
             }
+            if (!file_exists($this->fn)) {
+                return false;
+            }
+            
             $fn = $action->convertExists($this->fn, $x, $y);
         }
         
@@ -86,7 +90,9 @@ class File_Convert
             $y = empty($bits[1]) ?  0 : (int)$bits[1];;
         }
           
-            
+        if (!file_Exists($fn)) {
+            return false;
+        }
         $fn = $sc->convertExists($fn, (int)$x, (int)$y);
              
         
