@@ -243,7 +243,10 @@ class File_Convert
             $type = $type === false ?  'attachment' : $type;
         }
         $type = $type === false ?  'inline' : $type;
-        header('Content-type: '. $mt);
+        
+        
+        
+       
         //if (!preg_match('#^image\/#i', $this->to)) {
     
         // a reasonable expiry time - 5 minutes..
@@ -276,7 +279,8 @@ class File_Convert
             //fclose($fh);
             exit;
         }
-        
+        var_dump($fh, $mt); exit;
+         header('Content-type: '. $mt);
         
         $fh = fopen($fn, 'rb');
         //fpassthru($fh);
