@@ -9,19 +9,16 @@ class File_Convert_Solution_convert800 extends File_Convert_Solution
         array(
          
             'from' =>    array( //source
-                'video/avi',
-                'video/x-ms-wmv',
-                'video/mp4',
-                'video/x-msvideo',
-                'video/mpeg',
-                'video/quicktime',
+                  'image/tiff',
             ),
             'to' =>    array( //target
-                'image/jpeg',
+               'image/jpeg',
+                'image/gif',
+                'image/png',
             )
         ),
         
-         
+ 
     );
     function convert($fn) // might not be needed...
     {
