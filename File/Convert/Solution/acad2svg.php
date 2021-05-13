@@ -10,16 +10,22 @@ class File_Convert_Solution_acad2svg extends File_Convert_Solution
         array(
          
             'from' =>    array( //source
-                   'text/html',
-                    'application/x-abiword'
+                'application/vnd.dwg',
+                'application/acad',
+                'application/x-acad',
+                'application/autocad_dwg',
+                'image/x-dwg',
+                'application/dwg',
+                'application/x-dwg',
+                'application/x-autocad',
+                'image/vnd.dwg',
+                'drawing/dwg'
             ),
             'to' =>    array( //target
-                'application/rtf',
-                'application/vnd.oasis.opendocument.text',
-                'application/x-abiword',
-                'application/mswordapplication'
+               'image/svg'
             )
         ),
+      
     );   
     function acad2svg($fn)
     {
@@ -41,3 +47,4 @@ class File_Convert_Solution_acad2svg extends File_Convert_Solution
         clearstatcache();
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
+}
