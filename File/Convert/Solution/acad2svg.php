@@ -6,7 +6,7 @@ class File_Convert_Solution_acad2svg extends File_Convert_Solution
      
  
     
-    var $rules = array(
+    static $rules = array(
         array(
          
             'from' =>    array( //source

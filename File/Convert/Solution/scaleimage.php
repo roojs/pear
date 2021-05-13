@@ -1,4 +1,15 @@
+<?php
 
+class File_Convert_Solution_scaleimage extends File_Convert_Solution
+{
+    
+   
+    static $rules = array(
+         
+        
+         
+    );
+      
      
     function scaleImage($fn, $x, $y) 
     {
