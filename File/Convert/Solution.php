@@ -20,7 +20,7 @@ class File_Convert_Solution
         
         require_once 'File/MimeType.php';
         $mt = new File_MimeType();
-        $this->to_ext = $mt->toExt($this->to);
+        $this->ext = $mt->toExt($this->to);
          
         //$this->last = $this; //?? used where?
         
