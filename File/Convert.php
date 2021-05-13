@@ -189,6 +189,8 @@ class File_Convert
      */
     function serve($type=false, $filename =false, $delete_after = false) // may die **/
     {
+        die("HERE");
+        
         if (empty($this->target)) {
             // broken image? for images...
             $cmd = isset($this->lastaction->cmd) ? $this->lastaction->cmd : "No Method";
@@ -320,17 +322,17 @@ class File_Convert
         $base = __DIR__.'/Convert/Solution';
         $dh = opendir($base);
         while (false !== ($fn = readdir($dh))) {
-            if (substring($base,0,1) == '.') {
+            if (substr($fn,0,1) == '.' ) {
                 continue;
             }
-            require_once 'File/Convert/Solution/' . $fh;
-            $cls = 'File_Convert_Solution_'. str_replace('.php', '',$fh);
+            require_once 'File/Convert/Solution/' . $fn;
+            $cls = 'File_Convert_Solution_'. str_replace('.php', '',$fn);
             
             $ref = new ReflectionClass($cls);        
             $val = $ref->getStaticPropertyValue('rules');
             
-            foreach($c->rules as $r) {
-                $r->cls = $cls;
+            foreach($val as $r) {
+                $r['cls'] = $cls;
                 $methods[] = $r;
             }
             
@@ -370,7 +372,7 @@ class File_Convert
             if (!in_array($from, $t['from'])) {
                 continue;
             }
-            if (in_array($to,$t['top'])) {
+            if (in_array($to,$t['to'])) {
                 $cls = $t['cls'];
                 $ret =  new $cls($from, $to);  // found a solid match - returns the method.
                 //$ret->convert = $this; // recursion?
