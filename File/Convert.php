@@ -285,8 +285,46 @@ class File_Convert
         
         
     }
+    /**
+     * 
+     * returned format:
+     *
+     * (
+          from =>
+          to =>
+          cls => instance of class
+     )
+     * 
+     *
+     */
     
-    
+    function methods()
+    {
+        static $methods = false;
+        if ($methods !== false ) {
+            return $methods;
+        }
+        $base = __DIR__.'/Convert/Solution';
+        $dh = opendir($base);
+        while (false !== ($fn = readdir($dh))) {
+            if (substring($base,0,1) == '.') {
+                continue;
+            }
+            require_once 'File/Convert/Solution/' . $fh;
+            $c = str_replace('.php', '',$fh);
+            $cls = new $c;
+            foreach($c->rules as $r) {
+                $r->cls = $c;
+                $methods[] = $r;
+            }
+            
+            
+        }
+        return $methods;
+        
+        
+        
+    }
     
     
     
