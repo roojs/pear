@@ -350,11 +350,11 @@ class File_Convert
         }
         $pos = array();
         // print_r(self::$methods);
-        foreach(self::$methods as $t) {
-            if (!in_array($from, $t[1])) {
+        foreach($this->methods() as $t) {
+            if (!in_array($from, $t['from'])) {
                 continue;
             }
-            if (in_array($to,$t[2])) {
+            if (in_array($to,$t['top'])) {
                 $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
                 //$ret->convert = $this; // recursion?
                 $this->solutions[] = $ret;
