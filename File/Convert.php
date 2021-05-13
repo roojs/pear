@@ -311,13 +311,13 @@ class File_Convert
                 continue;
             }
             require_once 'File/Convert/Solution/' . $fh;
-            $c = str_replace('.php', '',$fh);
+            $cls = 'File_Convert_Solution_'. str_replace('.php', '',$fh);
             
-            $cls = new ReflectionClass('File_Convert_Solution_'. str_replace('.php', '',$fh));        
-            $val = $cls->getStaticPropertyValue('rules');
-            $cls = new $c;
+            $ref = new ReflectionClass($cls);        
+            $val = $ref->getStaticPropertyValue('rules');
+            
             foreach($c->rules as $r) {
-                $r->cls = $c;
+                $r->cls = $cls;
                 $methods[] = $r;
             }
             
