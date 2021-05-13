@@ -3,17 +3,16 @@
 class File_Convert_Solution_wkhtmltopdf extends File_Convert_Solution
 {
    
-var $rules = array(
+  
+   
+    var $rules = array(
         array(
          
             'from' =>    array( //source
-                 'application/vnd.ms-excel',
-                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                'text/html',
             ),
             'to' =>    array( //target
-                 'application/vnd.ms-excel',
-                'text/csv',
-                'text/xml'
+                 'application/pdf',
             )
         ),
     );
