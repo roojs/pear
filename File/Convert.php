@@ -358,7 +358,8 @@ class File_Convert
                 continue;
             }
             if (in_array($to,$t['top'])) {
-                $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
+                $cls = $t['cls'];
+                $ret =  new $cls($from, $to);  // found a solid match - returns the method.
                 //$ret->convert = $this; // recursion?
                 $this->solutions[] = $ret;
 
