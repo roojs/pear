@@ -84,7 +84,7 @@ class File_Convert_Solution
     }
     
     
-    function convertExists($fn, $x,$y)
+    function convertExists($fn, $x, $y)
     {
         
         if (!file_exists($fn)) {
