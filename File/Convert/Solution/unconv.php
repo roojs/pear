@@ -52,9 +52,9 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
     
     
     //FIXME this method run 3 times??
-    function convert($fn, $try=0) 
+    function convert($fn,$x,$y,$pg) 
     {
-        
+        $try = $x;
         $ext = $this->ext;
         
         

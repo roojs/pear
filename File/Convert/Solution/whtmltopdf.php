@@ -20,7 +20,7 @@ class File_Convert_Solution_wkhtmltopdf extends File_Convert_Solution
 
 
 
-    function convert($fn) 
+    function convert($fn,$x,$y,$pg) 
     {
         
         // need a remove version for this..
