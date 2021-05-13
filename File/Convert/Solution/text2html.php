@@ -9,17 +9,16 @@ class File_Convert_Solution_text2html extends File_Convert_Solution
         array(
          
             'from' =>    array( //source
-                 'application/vnd.ms-excel',
-                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                 'message/rfc822',
+                    'text/plain', 
             ),
             'to' =>    array( //target
-                 'application/vnd.ms-excel',
-                'text/csv',
-                'text/xml'
+                'text/html',
             )
         ),
     );
     
+            
    
     function convert($fn)
     {
