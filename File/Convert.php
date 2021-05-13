@@ -367,7 +367,7 @@ class File_Convert
                 return $ret;
             }
             // from matches..
-            $pos[$t[0]] = $t[2]; // list of targets
+            $pos[$t['from']] = $t['cls']; // list of targets
             
         }
         //echo "got here?";
