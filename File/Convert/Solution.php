@@ -90,10 +90,10 @@ class File_Convert_Solution
             return false;
         }
 //        print_r('in?'); exit;
-        switch($this->method) {
-            case 'scaleImage':
+        switch(getClass($this)) {
+            case 'File_Convert_Solution_scaleimage':
                 $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
-            case 'scaleImageC':
+            case 'File_Convert_Solution_scaleimagec':
                 $target = $fn . '.'.$x.'c'.$y.'.' . $ext;
             default:
                 $target = $fn .'.'. $ext;
