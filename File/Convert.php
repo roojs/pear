@@ -291,21 +291,7 @@ class File_Convert
     
     
     static $methods =  array(
-            array( 'unoconv', //FIXME run this 3 times??
-                    array( // source
-                  //      'text/html', /// testing..
-                        'application/msword',
-                        'application/mswordapplication',
-                        'application/vnd.oasis.opendocument.text',
-                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                    ),    // targets
-                    array( 
-                        'application/msword',
-                        'application/vnd.oasis.opendocument.text',
-                        'application/pdf',
-                        'text/html',
-                    )
-            ),
+           
             
             array ( 'abitodocx',
                     array( // source
@@ -330,37 +316,15 @@ class File_Convert
 //                    )
 //            ),
             array( 'ssconvertxls',
-                array (
-                       'application/vnd.ms-excel',
-                       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                       ),
-                array(
-                      'application/vnd.ms-excel',
-                      'text/csv',
-                      'text/xml'
-                      )
+              
             ),
             
             array( 'html2text',
-                array ('text/html' ),
-                array('text/plain')
-                
+                 
             ),
             
             array( 'unoconv',//FIXME run this 3 times??
-                array( //source
-                    
-                    'application/vnd.ms-excel',
-                    'application/vnd.oasis.opendocument.spreadsheet' ,
-                    
-                ),
-                array( //target
-                    'application/vnd.ms-excel',
-                    'application/vnd.oasis.opendocument.spreadsheet' ,
-                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                    'application/pdf',
-                    'text/html',
-                )
+               
             ),
               
             array( 'unoconv',//FIXME run this 3 times??
