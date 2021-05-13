@@ -15,8 +15,7 @@ class File_Convert_Solution_gifsicle extends File_Convert_Solution
                 'image/gif',
             )
         ),
-        
-           
+         
             
     );
     function convert($fn, $x, $y) 
@@ -79,3 +78,4 @@ class File_Convert_Solution_gifsicle extends File_Convert_Solution
         return $target;
         
     }
+}
