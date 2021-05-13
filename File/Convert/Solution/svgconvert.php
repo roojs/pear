@@ -24,7 +24,7 @@ class File_Convert_Solution_svgconvert extends File_Convert_Solution
          
     );
     
-    function svgconvert($fn, $x, $y) 
+    function convert($fn, $x, $y) 
     {
         
         switch($this->to) {
@@ -68,3 +68,4 @@ class File_Convert_Solution_svgconvert extends File_Convert_Solution
         
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
+}
