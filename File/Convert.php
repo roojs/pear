@@ -153,7 +153,9 @@ class File_Convert
         if (preg_match('#^image/#', $toMimetype) && $toMimetype != 'image/gif' && ( !empty($x) || !empty($y))) {
             //var_dump(array($toMimetype));
             require_once 'File/Convert/Solution.php';
-            $scls = 'File_Convert_Solution_' . (strpos($x, 'c')  !== false ? 'scaleimagec' : 'scaleimage' );
+            $scf = (strpos($x, 'c')  !== false ? 'scaleimagec' : 'scaleimage' );
+            require_once 'File/Convert/Solution/'. $scf . '.php';
+            $scls = 'File_Convert_Solution_' . $scf;
                 
                 
             $sc = new $scls($toMimetype, $toMimetype);
