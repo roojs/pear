@@ -8,14 +8,20 @@ class File_Convert_Solution_convert800 extends File_Convert_Solution
         array(
          
             'from' =>    array( //source
-               
+                 'image/jpeg',
+                'image/gif',
+                'image/png'
             ),
             'to' =>    array( //target
-              
+                'image/jpeg',
+                'image/gif',
+                'image/png',
+                'image/x-ms-bmp',
+                'image/tiff',
             )
         ),
         
- 
+   
     );
     function convert($fn) // image only..
     {
