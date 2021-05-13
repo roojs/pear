@@ -3,7 +3,7 @@ class File_Convert_Solution_convert800mp extends File_Convert_Solution
 {
     
    
-    var $rules = array(
+    static $rules = array(
         array(
          
           

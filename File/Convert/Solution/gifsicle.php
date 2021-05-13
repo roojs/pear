@@ -5,7 +5,7 @@ class File_Convert_Solution_gifsicle extends File_Convert_Solution
 {
     
    
-    var $rules = array(
+    static $rules = array(
         array(
          
             'from' =>    array( //source

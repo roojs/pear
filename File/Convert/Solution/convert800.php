@@ -5,16 +5,8 @@ class File_Convert_Solution_convert800 extends File_Convert_Solution
 {
     
    
-    var $rules = array(
-        array(
-         
-            'from' =>    array( //source
-               
-            ),
-            'to' =>    array( //target
-              
-            )
-        ),
+    static $rules = array(
+        
         
  
     );
