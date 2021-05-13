@@ -2,7 +2,7 @@
 
 class File_Convert_Solution_unoconv extends File_Convert_Solution
 {
-    var $rules = array(
+    static $rules = array(
         array (
             'from' =>  array( // source
                 //      'text/html', /// testing..
