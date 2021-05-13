@@ -2,20 +2,59 @@
 
 class File_Convert_Solution_UnoConv extends File_Convert_Solution
 {
-    var $sources =  array( // source
-        //      'text/html', /// testing..
-          'application/msword',
-          'application/mswordapplication',
-          'application/vnd.oasis.opendocument.text',
-          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      );
-                    // targets
-    var $targets = array( 
-        'application/msword',
-        'application/vnd.oasis.opendocument.text',
-        'application/pdf',
-        'text/html',
+    var $rules = array(
+        array (
+            'from' =>  array( // source
+                //      'text/html', /// testing..
+                'application/msword',
+                'application/mswordapplication',
+                'application/vnd.oasis.opendocument.text',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            ),
+            'to' =>  array( 
+                'application/msword',
+                'application/vnd.oasis.opendocument.text',
+                'application/pdf',
+                'text/html',
+            )
+        ),
+        array(
+            'from' => array( //source
+                    
+                    'application/vnd.ms-excel',
+                    'application/vnd.oasis.opendocument.spreadsheet' ,
+                    
+                ),
+            'to' =>     array( //target
+                    'application/vnd.ms-excel',
+                    'application/vnd.oasis.opendocument.spreadsheet' ,
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'application/pdf',
+                    'text/html',
+                )
+        )
+        
+        
     );
+    
+    
+    
+    
+    
+     array( //source
+                    
+                    'application/vnd.ms-excel',
+                    'application/vnd.oasis.opendocument.spreadsheet' ,
+                    
+                ),
+                array( //target
+                    'application/vnd.ms-excel',
+                    'application/vnd.oasis.opendocument.spreadsheet' ,
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'application/pdf',
+                    'text/html',
+                )
+    
             
     
     
