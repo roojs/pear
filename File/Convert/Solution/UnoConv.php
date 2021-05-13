@@ -1,6 +1,6 @@
 <?php
 
-class File_Convert_Solution_UnoConv extends File_Convert_Solution
+class File_Convert_Solution_unoconv extends File_Convert_Solution
 {
     var $rules = array(
         array (
