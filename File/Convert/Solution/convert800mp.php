@@ -19,7 +19,7 @@ class File_Convert_Solution_convert800mp extends File_Convert_Solution
         
  
     );
-    function convert800mp($fn, $x, $y, $pg=false)
+    function convert($fn, $x, $y, $pg=false)
     {
         
         $xscale = 400;
