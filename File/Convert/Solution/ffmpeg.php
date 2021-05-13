@@ -1,6 +1,23 @@
 <?php
 
 
+class File_Convert_Solution_ffmpeg extends File_Convert_Solution
+{
+   
+  
+   
+    var $rules = array(
+        array(
+         
+            'from' =>    array( //source
+                'text/html',
+            ),
+            'to' =>    array( //target
+                 'application/pdf',
+            )
+        ),
+    );
+    
     function ffmpeg($fn)
     {
         
