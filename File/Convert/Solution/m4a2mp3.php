@@ -24,7 +24,7 @@ class File_Convert_Solution_m4a2mp3 extends File_Convert_Solution
             ),
    
     );
-    function convert($fn){
+    function convert($fn,$x,$y,$pg){
         //print_r($fn);
         
         $ext = 'mp3';

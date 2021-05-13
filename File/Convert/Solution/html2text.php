@@ -26,9 +26,9 @@ class File_Convert_Solution_html2text extends File_Convert_Solution {
     ); 
      
     
-    function convert($fn, $opt_ar=array())
+    function convert($fn,$x,$y,$pg) 
     {
-     
+        $opt_ar = $x; // ???
         
         $ext = $this->ext;
         $target = $fn . '.' . $ext;
