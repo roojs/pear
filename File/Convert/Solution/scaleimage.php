@@ -1,4 +1,5 @@
 <?php
+require_once 'File/Convert/Solution.php';
 
 class File_Convert_Solution_scaleimage extends File_Convert_Solution
 {
