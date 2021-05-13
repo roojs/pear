@@ -66,8 +66,11 @@ class File_Convert_Solution_anydwgtopdf {
             // failed.
             return false;
         }
-        link($this->targetName(), $wto);
+        $tn = $this->targetName();
+        link($tn, $wto);
         
+        clearstatcache();
+        return file_exists($tn) ? $tn : false;
         
         
     }
