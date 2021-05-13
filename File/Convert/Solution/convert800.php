@@ -10,7 +10,7 @@ class File_Convert_Solution_convert800 extends File_Convert_Solution
         
  
     );
-    function convert($fn) // might not be needed...
+    function convert($fn,$x,$y,$pg) // might not be needed...
     {
         
         

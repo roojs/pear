@@ -23,7 +23,7 @@ class File_Convert_Solution_convert800 extends File_Convert_Solution
         
    
     );
-    function convert($fn) // image only..
+    function convert($fn,$x,$y,$pg) // image only..
     {
         
         $frame = '';
