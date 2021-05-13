@@ -291,20 +291,7 @@ class File_Convert
     
     
     static $methods =  array(
-           
-            
-            array ( 'abitodocx',
-                    array( // source
-                  //      'text/html', /// testing..
-                        'application/x-abiword',
-                        
-                    ),    // targets
-                    array( 
-                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-//                        'application/msword',
-//                        'application/mswordapplication',
-                    )
-            ),
+      
 //            
 //            array ( 'word2pdf',
 //                    array( // source
@@ -315,17 +302,7 @@ class File_Convert
 //                        'application/pdf',
 //                    )
 //            ),
-            array( 'ssconvertxls',
-              
-            ),
-            
-            array( 'html2text',
-                 
-            ),
-            
-            array( 'unoconv',//FIXME run this 3 times??
-               
-            ),
+        
               
             
             array( 'm4a2mp3',
