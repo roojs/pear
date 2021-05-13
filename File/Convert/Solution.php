@@ -87,7 +87,7 @@ class File_Convert_Solution
     function convertExists($fn, $x, $y)
     {
          
-        if (!$this->to_ext) {
+        if (!$this->ext) {
             return false;
         }
         $fn = $this->targetName($fn, $x, $y);
