@@ -91,22 +91,13 @@ class File_Convert_Solution
     
     function convertExists($fn, $x, $y)
     {
-        
-          
+         
         if (!$this->to_ext) {
             return false;
         }
-        $fn = $this->targetName($fn, $x, $y)
+        $fn = $this->targetName($fn, $x, $y);
         
-//        print_r('in?'); exit;
-        switch(get_class($this)) {
-            case 'File_Convert_Solution_scaleimage':
-                $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
-            case 'File_Convert_Solution_scaleimagec':
-                $target = $fn . '.'.$x.'c'.$y.'.' . $ext;
-            default:
-                $target = $fn .'.'. $ext;
-        }
+//        
         return file_exists($fn) ? $fn : false;
          
     }
