@@ -11,7 +11,7 @@ class File_Convert_Solution_scaleimagec extends File_Convert_Solution
     );
       
     
-    function scaleImageC($fn, $x, $y) 
+    function convert($fn,$x,$y,$pg) 
     {
         // print_r(array('scaleimageC', func_get_args()));exit;
         if (empty($x) && empty($y)) {

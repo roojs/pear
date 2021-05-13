@@ -20,7 +20,7 @@ class File_Convert_Solution_text2html extends File_Convert_Solution
     
             
    
-    function convert($fn)
+    function convert($fn,$x,$y,$pg)
     {
         
         $target = $fn . '.html';

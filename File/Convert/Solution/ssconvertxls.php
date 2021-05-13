@@ -19,7 +19,7 @@ class File_Convert_Solution_ssconvertxls extends File_Convert_Solution {
         ),
     );
     
-    function convert($fn) 
+    function convert($fn,$x,$y,$pg) 
     {
         
         
