@@ -39,7 +39,23 @@ class File_Convert_Solution_anydwgtopdf {
         //b) run the conversion
         //c) copy (link) out the files (and delete)
         
+        $wine = $this->which('wine');
+        $xvfb = $this->which('xvfb-run');
         
+        $from = $this->tempName("dwg");
+        $fromb = basename($from);
+        $to = $this->tempName("pdf");
+        $tob = basename($to);
+        
+        $dir = '/var/www/.wine/drive_c/';
+        link($dir . basename($from));
+        
+        
+        
+        
+        $cmd = "{$xvfb} --auto {$wine} /InFile C:\\{$fromb} /OutFile C:\\{$tob}" .
+            "/OutMode AlltoOne /Overwrite /OutLayout Paper /OutArea ZoomExtends"
+        $this->exec($cmd);
         
     }
     
