@@ -1,6 +1,6 @@
 <?php
 
-class File_Convert_Solution_SsconvertXls extends File_Convert_Solution {
+class File_Convert_Solution_ssconvertxls extends File_Convert_Solution {
      
  
     
