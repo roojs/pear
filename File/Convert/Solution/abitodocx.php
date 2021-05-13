@@ -1,4 +1,28 @@
+<?php
 
+
+class File_Convert_Solution_abitodocx extends File_Convert_Solution
+{
+    
+   
+    var $rules = array(
+        array(
+         
+            'from' =>    array( //source
+                'video/avi',
+                'video/x-ms-wmv',
+                'video/mp4',
+                'video/x-msvideo',
+                'video/mpeg',
+                'video/quicktime',
+            ),
+            'to' =>    array( //target
+                'image/jpeg',
+            )
+        ),
+        
+         
+    );
     function abitodocx($fn)
     {
         require_once 'File/MimeType.php';
