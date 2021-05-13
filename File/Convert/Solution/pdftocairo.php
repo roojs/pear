@@ -8,16 +8,19 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
         array(
          
             'from' =>    array( //source
-            
+                 'application/pdf',
+               //     'application/tiff',
             ),
             'to' =>    array( //target
-                
+                    'image/jpeg',
+                //    'image/gif',
+                    'image/png',
             )
         ),
         
          
     );
-     
+      
     
       // new version - but does not appear to work that well..
     
