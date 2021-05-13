@@ -48,6 +48,7 @@ class File_Convert_Solution_anydwgtopdf {
         $tob = basename($to);
         
         $dir = '/var/www/.wine/drive_c/';
+        $this->
         link($dir . basename($from), $fn);
         
         
