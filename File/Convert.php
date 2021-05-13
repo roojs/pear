@@ -367,7 +367,7 @@ class File_Convert
                 return $ret;
             }
             // from matches..
-            $pos[$t['from']] = $t['cls']; // list of targets
+            $pos[$t['cls']] = $t['to']; // list of targets
             
         }
         //echo "got here?";
@@ -398,7 +398,7 @@ class File_Convert
                 }
 //                print_r($conv);exit;
 
-                $first = new File_Convert_Solution($conv, $from, $targ);
+                $first = new $conv($from, $targ);
                 //$first->convert = $this;
                 $sol_list= $first->add($try);
                 
