@@ -32,8 +32,17 @@ class File_Convert_Solution_UnoConv extends File_Convert_Solution
                     'application/pdf',
                     'text/html',
                 )
-        )
-        
+        ),
+        array(
+         
+            'from' =>    array( //source
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            ),
+            'to' =>    array( //target
+                    'application/pdf',
+            )
+        ),
         
     );
     
