@@ -9,19 +9,15 @@ class File_Convert_Solution_svgconvert extends File_Convert_Solution
         array(
          
             'from' =>    array( //source
-                'video/avi',
-                'video/x-ms-wmv',
-                'video/mp4',
-                'video/x-msvideo',
-                'video/mpeg',
-                'video/quicktime',
+                'image/svg',
             ),
             'to' =>    array( //target
-                'image/jpeg',
+                'application/pdf',
+                 'image/png',,
             )
         ),
         
-         
+          
     );
     
     function convert($fn, $x, $y) 
