@@ -1,4 +1,4 @@
- <?php
+<?php
 
 class File_Convert_Solution_text2html extends File_Convert_Solution
 {
