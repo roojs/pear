@@ -1,6 +1,6 @@
 <?php
  
-class File_Convert_Solution_convert800 extends File_Convert_Solution
+class File_Convert_Solution_convert  extends File_Convert_Solution
 {
     
    

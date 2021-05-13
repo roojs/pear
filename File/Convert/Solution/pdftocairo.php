@@ -24,7 +24,7 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
     
       // new version - but does not appear to work that well..
     
-    function pdftocairo($fn, $x, $y, $pg)
+    function convert($fn, $x, $y, $pg)
     {
         
         $xscale = 600; // min size?

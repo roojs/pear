@@ -12,7 +12,7 @@ class File_Convert_Solution
     var $log = array();
     var $target = false;
     
-    function __construct($method, $from ,$to)
+    function __construct(  $from ,$to)
     {
          
         $this->from = $from;

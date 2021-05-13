@@ -19,7 +19,7 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
          
     }
      
-    function scaleImage($fn,$x,$y,$pg) 
+    function convert($fn,$x,$y,$pg) 
     {
        
         
@@ -213,3 +213,4 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
         return $fe;
         
     }
+}

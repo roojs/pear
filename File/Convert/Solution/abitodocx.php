@@ -36,3 +36,4 @@ class File_Convert_Solution_abitodocx extends File_Convert_Solution
         
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
+}
