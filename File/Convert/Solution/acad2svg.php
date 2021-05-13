@@ -27,7 +27,7 @@ class File_Convert_Solution_acad2svg extends File_Convert_Solution
         ),
       
     );   
-    function acad2svg($fn)
+    function acad2svg($fn,$x,$y,$pg)
     {
             
        
