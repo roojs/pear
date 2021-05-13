@@ -74,8 +74,8 @@ class File_Convert
             $fn = $action->convertExists($this->fn, $x, $y);
             var_dump($fn);
         }
-        
-        if (!$fn) {
+        // 
+        if (!$fn && empty(strpos($x, 'x'))) {
             return false;
         }
         
