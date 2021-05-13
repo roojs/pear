@@ -9,19 +9,15 @@ class File_Convert_Solution_gifsicle extends File_Convert_Solution
         array(
          
             'from' =>    array( //source
-                'video/avi',
-                'video/x-ms-wmv',
-                'video/mp4',
-                'video/x-msvideo',
-                'video/mpeg',
-                'video/quicktime',
+                'image/gif',
             ),
             'to' =>    array( //target
-                'image/jpeg',
+                'image/gif',
             )
         ),
         
-         
+           
+            
     );
     function convert($fn, $x, $y) 
     {
