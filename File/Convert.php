@@ -427,34 +427,8 @@ class File_Convert
                     'image/png',
                 )
             ),
-            array('ffmpeg', // mulipage convert...
-                array(
-                    
-                          
-                    'video/avi',
-                    'video/x-ms-wmv',
-                    'video/mp4',
-                    'video/x-msvideo',
-                    'video/mpeg',
-                    'video/quicktime',
-                ),
-                array(
-                    'image/jpeg',
-                    
-                )
-            ),
-            array( 'abiword',
-                array( // source
-                    'text/html',
-                    'application/x-abiword'
-                ),    // targets
-                array( 
-                    'application/rtf',
-                    'application/vnd.oasis.opendocument.text',
-                    'application/x-abiword',
-                    'application/mswordapplication'
-                )
-            )
+             
+         
         ); 
     /**
      * This recursively calls to find the best match.
