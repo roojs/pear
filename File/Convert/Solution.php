@@ -138,8 +138,11 @@ class File_Convert_Solution
             }
         }
     }
-    
-   
+    function which($n)
+    {
+        require_once 'System.php';
+        return System::which($n);
+    }
      
     
 }
