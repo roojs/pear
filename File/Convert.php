@@ -75,7 +75,7 @@ class File_Convert
             var_dump($fn);
         }
         // 
-        if (!$fn && empty(strpos($x, 'x'))) {
+        if (!$fn && !strpos($x, 'x')) {
             return false;
         }
         
