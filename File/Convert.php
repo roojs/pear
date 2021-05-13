@@ -189,8 +189,7 @@ class File_Convert
      */
     function serve($type=false, $filename =false, $delete_after = false) // may die **/
     {
-        var_dump($this->target);exit;
-        if (empty($this->target)) {
+         if (empty($this->target)) {
             // broken image? for images...
             $cmd = isset($this->lastaction->cmd) ? $this->lastaction->cmd : "No Method";
             die("not available in this format was: {$this->mimetype}, request: {$this->to}<BR>
