@@ -18,7 +18,7 @@ class File_Convert_Solution_gifsicle extends File_Convert_Solution
          
             
     );
-    function convert($fn, $x, $y) 
+    function convert($fn,$x,$y,$pg) 
     {
         $x  = str_replace('c', 'x', $x);
         

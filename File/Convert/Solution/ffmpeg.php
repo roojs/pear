@@ -24,7 +24,7 @@ class File_Convert_Solution_ffmpeg extends File_Convert_Solution
          
     );
     
-    function convert($fn)
+    function convert($fn,$x,$y,$pg)
     {
         
          
