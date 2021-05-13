@@ -66,7 +66,7 @@ class File_Convert_Solution_anydwgtopdf {
             // failed.
             return false;
         }
-        link($this->target, $wto);
+        link($this->targetName(), $wto);
         
         
         
