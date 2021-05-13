@@ -96,6 +96,8 @@ class File_Convert_Solution
         if (!$this->to_ext) {
             return false;
         }
+        $fn = $this->targetName($fn, $x, $y)
+        
 //        print_r('in?'); exit;
         switch(get_class($this)) {
             case 'File_Convert_Solution_scaleimage':
