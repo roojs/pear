@@ -35,7 +35,7 @@ class File_Convert_Solution_acad2svg extends File_Convert_Solution
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
-         $cad2svg = escapeshellcmd(realpath(dirname(__FILE__).'/../install/cad2svg'));
+        $cad2svg = escapeshellcmd(realpath(dirname(__FILE__).'/../install/cad2svg'));
         if (!is_executable($cad2svg)) {
             echo "CAD2SVG not executable - fix it";
             return false;
