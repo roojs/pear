@@ -3,8 +3,7 @@
 
 class File_Convert_Solution_ffmpeg extends File_Convert_Solution
 {
-   
-  
+    
    
     var $rules = array(
         array(
@@ -18,7 +17,7 @@ class File_Convert_Solution_ffmpeg extends File_Convert_Solution
         ),
     );
     
-    function ffmpeg($fn)
+    function convert($fn)
     {
         
          
@@ -45,3 +44,5 @@ class File_Convert_Solution_ffmpeg extends File_Convert_Solution
         
         
     }
+    
+}
