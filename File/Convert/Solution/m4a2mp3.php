@@ -4,7 +4,7 @@ class File_Convert_Solution_m4a2mp3 extends File_Convert_Solution
 {
     
    
-    var $rules = array(
+    static $rules = array(
         array(
          
             'from' =>    array( //source

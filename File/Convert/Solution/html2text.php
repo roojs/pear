@@ -11,7 +11,7 @@
 class File_Convert_Solution_html2text extends File_Convert_Solution {
      
      
-      static $rules = array(
+    static $rules = array(
         array(
          
             'from' =>    array( //source
@@ -24,7 +24,7 @@ class File_Convert_Solution_html2text extends File_Convert_Solution {
          
             
     ); 
-    );
+     
     
     function convert($fn, $opt_ar=array())
     {
