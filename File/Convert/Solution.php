@@ -6,6 +6,7 @@ class File_Convert_Solution
     var $from;
     var $to;
     var $ext;
+    var $to_ext;
     var $debug = 0;
     var $last = '';
     var $log = array();
@@ -15,6 +16,12 @@ class File_Convert_Solution
          
         $this->from = $from;
         $this->to = $to;
+        
+        require_once 'File/MimeType.php';
+        $mt = new File_MimeType();
+        $this->to_ext = $mt->toExt($this->to);
+        
+        
         //$this->last = $this; //?? used where?
         
     }
