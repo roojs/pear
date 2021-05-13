@@ -48,14 +48,17 @@ class File_Convert_Solution_anydwgtopdf {
         $tob = basename($to);
         
         $dir = '/var/www/.wine/drive_c/';
-        link($dir . basename($from));
+        link($dir . basename($from), $fn);
         
         
         
         
         $cmd = "{$xvfb} --auto {$wine} /InFile C:\\{$fromb} /OutFile C:\\{$tob}" .
-            "/OutMode AlltoOne /Overwrite /OutLayout Paper /OutArea ZoomExtends"
+            "/OutMode AlltoOne /Overwrite /OutLayout Paper /OutArea ZoomExtends";
         $this->exec($cmd);
+        unlink($dir . basename($from));
+        link($this->target, $dir . $tob);
+        
         
     }
     
