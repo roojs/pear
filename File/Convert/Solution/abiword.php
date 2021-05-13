@@ -9,16 +9,17 @@ class File_Convert_Solution_abiword extends File_Convert_Solution
         array(
          
             'from' =>    array( //source
-                 'application/vnd.ms-excel',
-                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                   'text/html',
+                    'application/x-abiword'
             ),
             'to' =>    array( //target
-                 'application/vnd.ms-excel',
-                'text/csv',
-                'text/xml'
+                'application/rtf',
+                'application/vnd.oasis.opendocument.text',
+                'application/x-abiword',
+                'application/mswordapplication'
             )
         ),
-    );
+    );   
     
     function convert($fn)
     {
