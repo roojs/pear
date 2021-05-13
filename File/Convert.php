@@ -279,7 +279,7 @@ class File_Convert
             //fclose($fh);
             exit;
         }
-        var_dump($fn, $mt); exit;
+        //var_dump($fn, $mt); exit;
          header('Content-type: '. $mt);
         
         $fh = fopen($fn, 'rb');
