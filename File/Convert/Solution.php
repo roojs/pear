@@ -5,8 +5,8 @@ class File_Convert_Solution
     var $type = 0;
     var $from;  // mimetype
     var $to; // mimetype
-    var $ext;
-    var $to_ext;
+    var $ext;  // target extension
+    
     var $debug = 0;
     var $last = '';
     var $log = array();
@@ -68,9 +68,7 @@ class File_Convert_Solution
             $this->cmd = "ERROR:". $fn . " does not exist";
             return false;
         }
-        require_once 'File/MimeType.php';
-        $mt = new File_MimeType();
-        $this->ext = $mt->toExt($this->to);
+        
         
         $this->debug(print_r(array('runconvert', func_get_args()), true));
        // $this->debug(print_r($this,true));
@@ -85,7 +83,7 @@ class File_Convert_Solution
     
     function targetName($fn,$x,$y)
     {
-         return $fn .'.'. $this->to_ext;
+         return $fn .'.'. $this->ext;
     }
     
     
