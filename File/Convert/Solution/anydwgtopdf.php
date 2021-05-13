@@ -33,7 +33,7 @@ class File_Convert_Solution_anydwgtopdf {
         ),
       
     );   
-    function convert($from, $to)
+    function convert($fn,$x,$y,$pg)
     {
         //a) copy the files to winedir
         //b) run the conversion
