@@ -103,7 +103,7 @@ class File_Convert_Solution
     }
     
     function convert($fn,$x,$y,$pg) {
-        die("Convert not implemented for " . get_class($this))
+        die("Convert not implemented for " . get_class($this));
     }
    
      
