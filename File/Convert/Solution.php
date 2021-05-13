@@ -83,7 +83,10 @@ class File_Convert_Solution
         return $this->convert($fn, $x, $y, $pg);
     }
     
-    
+    function targetName($fn,$x,$y)
+    {
+         return $fn .'.'. $this->to_ext;
+    }
     
     
     function convertExists($fn, $x, $y)
