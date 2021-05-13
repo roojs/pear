@@ -20,7 +20,7 @@ class File_Convert_Solution_Html2text extends File_Convert_Solution {
         'text/xml'
     );
     
-    function convert($fn, $opt_ar=array() 
+    function convert($fn, $opt_ar=array())
     {
      
         
@@ -57,4 +57,5 @@ class File_Convert_Solution_Html2text extends File_Convert_Solution {
         
         return  file_exists($target)  && filesize($target) ? $target : false;
      
-    }    
+    }
+}
