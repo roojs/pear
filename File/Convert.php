@@ -89,7 +89,9 @@ class File_Convert
         //$sc->convert = $this;
         $sc->debug= $this->debug;
         $this->solutions[] = $sc;
-            
+        // use the original file if we are just doing a image resize
+        $fn = preg_match('#^image/#', $this->mimetype) ? $this->fn ? $fn;
+         
         if (strpos($x, 'x')) {
             $bits = explode('x', $x);
             $x = (int)$bits[0];
