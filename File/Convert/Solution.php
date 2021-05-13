@@ -3,8 +3,8 @@
 class File_Convert_Solution
 {
     var $type = 0;
-    var $from;
-    var $to;
+    var $from;  // mimetype
+    var $to; // mimetype
     var $ext;
     var $to_ext;
     var $debug = 0;
