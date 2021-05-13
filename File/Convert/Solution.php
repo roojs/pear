@@ -99,10 +99,10 @@ class File_Convert_Solution
                 $target = $fn .'.'. $ext;
         }
         return file_exists($fn) ? $fn : false;
-        
-        
+         
     }
     
+    abstract function convert($fn,$x,$y,$pg); 
    
      
     
