@@ -1,4 +1,23 @@
+<?php
 
+class File_Convert_Solution_pdftocairo extends File_Convert_Solution
+{
+    
+   
+    var $rules = array(
+        array(
+         
+            'from' =>    array( //source
+            
+            ),
+            'to' =>    array( //target
+                
+            )
+        ),
+        
+         
+    );
+     
     
       // new version - but does not appear to work that well..
     
