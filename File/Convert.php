@@ -290,43 +290,7 @@ class File_Convert
     
     
     
-    static $methods =  array(
-      
-//            
-//            array ( 'word2pdf',
-//                    array( // source
-//                        'application/msword',
-//                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-//                    ),    
-//                    array( // targets
-//                        'application/pdf',
-//                    )
-//            ),
-        
-              
-            
-           
-            
-           
-            
-                  
-            
-              
-            
-            array( 'gifsicle',
-                array( // source
-                    'image/gif',
-                ),    // targets
-                array( 
-                    'image/gif',
-                )
-            ),
-        
-             
-            
-             
-         
-        ); 
+ 
     /**
      * This recursively calls to find the best match.
      * First by matching the 'from'
