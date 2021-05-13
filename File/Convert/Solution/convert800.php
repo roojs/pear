@@ -23,7 +23,7 @@ class File_Convert_Solution_convert800 extends File_Convert_Solution
         
          
     );
-    function convert800($fn) // might not be needed...
+    function convert($fn) // might not be needed...
     {
         
         
@@ -50,3 +50,4 @@ class File_Convert_Solution_convert800 extends File_Convert_Solution
         return  file_exists($target)  && filesize($target) ? $target : false;
         
     }
+}
