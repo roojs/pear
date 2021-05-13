@@ -13,7 +13,7 @@ class File_Convert_Solution_scaleimagec extends File_Convert_Solution
     function targetName($fn, $x, $y)
     {
           
-        return  $fn . '.'.$x.'x'.$y.'.' . $this->to_ext;
+        return  $fn . '.'.$x.'c'.$y.'.' . $this->to_ext;
         
          
     }
