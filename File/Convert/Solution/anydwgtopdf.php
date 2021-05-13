@@ -12,6 +12,27 @@
 */
 class File_Convert_Solution_anydwgtopdf {
     
+    static $rules = array(
+        array(
+         
+            'from' =>    array( //source
+                'application/vnd.dwg',
+                'application/acad',
+                'application/x-acad',
+                'application/autocad_dwg',
+                'image/x-dwg',
+                'application/dwg',
+                'application/x-dwg',
+                'application/x-autocad',
+                'image/vnd.dwg',
+                'drawing/dwg'
+            ),
+            'to' =>    array( //target
+               'application/pdf'
+            )
+        ),
+      
+    );   
     function convert($from, $to)
     {
         //a) copy the files to winedir
