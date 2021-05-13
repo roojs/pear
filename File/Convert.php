@@ -59,11 +59,11 @@ class File_Convert
     function convertExists($toMimetype, $x= 0, $y =0) 
     {
         
-        var_dump(array($toMimetype , $this->mimetype));
-        $fn = $this->fn;
+         $fn = $this->fn;
         if ($toMimetype != $this->mimetype) {
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
-             // echo '<PRE>';print_r($action);
+           
+            // echo '<PRE>';print_r($action);
             if (!$action) {
                 return false;
             }
@@ -72,10 +72,10 @@ class File_Convert
             }
             
             $fn = $action->convertExists($this->fn, $x, $y);
-           ;
+            
         }
-        // 
-        if (!$fn  ) {
+        
+        if (!$fn) {
             return false;
         }
         
@@ -95,12 +95,11 @@ class File_Convert
             $x = (int)$bits[0];
             $y = empty($bits[1]) ?  0 : (int)$bits[1];;
         }
-        $fn = $sc->convertExists($fn, (int)$x, (int)$y);
-        var_dump($fn);
+          
         if (!file_Exists($fn)) {
             return false;
         }
-        
+        $fn = $sc->convertExists($fn, (int)$x, (int)$y);
              
         
         //$this->target = $fn;
