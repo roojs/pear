@@ -100,6 +100,46 @@ class File_Convert_Solution
         die("Convert not implemented for " . get_class($this));
     }
    
+   
+   
+    static $deleteOnExit = false;
+    /**
+     * generate a tempory file with an extension (dont forget to delete it)
+     */
+    
+    function deleteOnExitAdd($name)
+    {
+        if (self::$deleteOnExit === false) {
+            register_shutdown_function(array('Pman','deleteOnExit'));
+            self::$deleteOnExit  = array();
+        }
+        self::$deleteOnExit[] = $name;
+    }
+    
+    function tempName($ext, $deleteOnExit=false)
+    {
+        
+        $x = tempnam(ini_get('session.save_path'), HTML_FlexyFramework::get()->appNameShort.'TMP');
+        unlink($x);
+        $ret = $x .'.'. $ext;
+        if ($deleteOnExit) {
+            $this->deleteOnExitAdd($ret);
+        }
+        return $ret;
+    
+    }
+   
+     static function deleteOnExit()
+    {
+        
+        foreach(self::$deleteOnExit as $fn) {
+            if (file_exists($fn)) {
+                unlink($fn);
+            }
+        }
+    }
+    
+   
      
     
 }
