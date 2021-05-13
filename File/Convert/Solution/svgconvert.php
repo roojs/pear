@@ -13,7 +13,7 @@ class File_Convert_Solution_svgconvert extends File_Convert_Solution
             ),
             'to' =>    array( //target
                 'application/pdf',
-                 'image/png',,
+                 'image/png' ,
             )
         ),
         
