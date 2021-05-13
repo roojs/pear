@@ -1,7 +1,7 @@
  <?php
 
 
-class File_Convert_Solution_pdftoppm extends File_Convert_Solution
+class File_Convert_Solution_pdf2ppm extends File_Convert_Solution
 {
     
    
