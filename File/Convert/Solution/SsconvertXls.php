@@ -3,19 +3,15 @@
 class File_Convert_Solution_SsconvertXls extends File_Convert_Solution {
      
     var $sources =  array( // source
-      //      'text/html', /// testing..
-        'application/msword',
-        'application/mswordapplication',
-        'application/vnd.oasis.opendocument.text',
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     );
-                    // targets
-    var $targets = array( 
-        'application/msword',
-        'application/vnd.oasis.opendocument.text',
-        'application/pdf',
-        'text/html',
+     var $targets = array(
+        'application/vnd.ms-excel',
+        'text/csv',
+        'text/xml'
     );
+    
     function convert($fn) 
     {
         
@@ -118,3 +114,4 @@ class File_Convert_Solution_SsconvertXls extends File_Convert_Solution {
         return  file_exists($target)  && filesize($target) ? $target : false;
      
     }
+}
