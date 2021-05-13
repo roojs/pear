@@ -91,7 +91,7 @@ class File_Convert_Solution
             return false;
         }
         $fn = $this->targetName($fn, $x, $y);
-         var_dump($fn);
+     
         return file_exists($fn) ? $fn : false;
          
     }
