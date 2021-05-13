@@ -62,21 +62,18 @@ class File_Convert_Solution
     }
     
     // convertion methods
-    function runconvert($fn, $x=0,$y=0, $pg=false)
+    function runconvert($fn, $x=0, $y=0, $pg=false)
     {
         if (!file_exists($fn)) {
             $this->cmd = "ERROR:". $fn . " does not exist";
             return false;
         }
-        
-        
-        $this->debug(print_r(array('runconvert', func_get_args()), true));
-       // $this->debug(print_r($this,true));
-                
         if (!$this->ext) {
             return false;
         }
         
+        $this->debug(print_r(array('runconvert', func_get_args()), true));
+  
         
         return $this->convert($fn, $x, $y, $pg);
     }
