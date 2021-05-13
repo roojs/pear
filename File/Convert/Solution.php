@@ -10,6 +10,7 @@ class File_Convert_Solution
     var $debug = 0;
     var $last = '';
     var $log = array();
+    var $target = false;
     
     function __construct($method, $from ,$to)
     {
@@ -82,6 +83,8 @@ class File_Convert_Solution
         
         return $this->convert($fn, $x, $y, $pg);
     }
+    
+    
     
     
     function convertExists($fn, $x, $y)
