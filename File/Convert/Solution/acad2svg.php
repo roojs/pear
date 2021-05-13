@@ -1,7 +1,7 @@
 <?php
 // not sure if this even works..
 
-class File_Convert_Solution_abiword extends File_Convert_Solution
+class File_Convert_Solution_acad2svg extends File_Convert_Solution
 {
      
  
