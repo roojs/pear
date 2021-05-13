@@ -329,34 +329,7 @@ class File_Convert
                 )
             ),
         
-            array( 'convert',
-                array(
-                    'image/jpeg',
-                    'image/gif',
-                    'image/png'
-                    
-                ),
-                array(
-                    'image/jpeg',
-                    'image/gif',
-                    'image/png',
-                    'image/x-ms-bmp',
-                    'image/tiff',
-                    'application/pdf'
-                )
-            ),
-            
-            array('pdftocairo', // mulipage convert... was pdftoppn
-                array(
-                    'application/pdf',
-               //     'application/tiff',
-                ),
-                array(
-                    'image/jpeg',
-                //    'image/gif',
-                    'image/png',
-                )
-            ),
+             
             
              
          
