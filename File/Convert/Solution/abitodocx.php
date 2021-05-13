@@ -9,19 +9,15 @@ class File_Convert_Solution_abitodocx extends File_Convert_Solution
         array(
          
             'from' =>    array( //source
-                'video/avi',
-                'video/x-ms-wmv',
-                'video/mp4',
-                'video/x-msvideo',
-                'video/mpeg',
-                'video/quicktime',
+                 'application/x-abiword',
             ),
             'to' =>    array( //target
-                'image/jpeg',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             )
         ),
         
-         
+              
+             
     );
     function abitodocx($fn)
     {
