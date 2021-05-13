@@ -30,10 +30,11 @@ class File_Convert_SolutionStack
     
     function convertExists($fn, $x, $y)
     {
-        
+        if (!file_exists($fn)) {
+            return false;
+        }
         foreach($this->list as $s) {
-           
-              
+            
             $fn = $s->convertExists($fn, $x, $y);
             if (!$fn) {
                 return false;
