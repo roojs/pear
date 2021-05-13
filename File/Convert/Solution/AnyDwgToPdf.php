@@ -10,7 +10,7 @@
  * /usr/bin/xvfb-run --auto /usr/bin/wine dp.exe /InFile C:\\KNT1431-BO-TP-001.dwg /OutFile C:\\KNT1431-BO-TP-001.pdf /OutMode AlltoOne /Overwrite /OutLayout Paper /OutArea ZoomExtends
  
 */
-class File_Convert_Solution_AnyDwgToPdf {
+class File_Convert_Solution_anydwgtopdf {
     
     function convert($from, $to)
     {
