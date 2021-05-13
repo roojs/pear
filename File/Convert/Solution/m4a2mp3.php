@@ -8,19 +8,20 @@ class File_Convert_Solution_m4a2mp3 extends File_Convert_Solution
         array(
          
             'from' =>    array( //source
-                 'image/jpeg',
-                'image/gif',
-                'image/png'
+                'audio/mp4',
             ),
             'to' =>    array( //target
-                'image/jpeg',
-                'image/gif',
-                'image/png',
-                'image/x-ms-bmp',
-                'image/tiff',
+              'audio/mpeg',
             )
         ),
-        
+         array( 'm4a2mp3',
+                array( //source
+                    'audio/mp4',
+                ),
+                array( //target
+                    'audio/mpeg',
+                )
+            ),
    
     );
     function convert($fn){
