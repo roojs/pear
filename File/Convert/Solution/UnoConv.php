@@ -2,7 +2,21 @@
 
 class File_Convert_Solution_UnoConv extends File_Convert_Solution
 {
-    
+    var $sources =  array( // source
+        //      'text/html', /// testing..
+          'application/msword',
+          'application/mswordapplication',
+          'application/vnd.oasis.opendocument.text',
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      );
+                    // targets
+    var $targets = array( 
+        'application/msword',
+        'application/vnd.oasis.opendocument.text',
+        'application/pdf',
+        'text/html',
+    );
+            
     
     
     //FIXME this method run 3 times??
