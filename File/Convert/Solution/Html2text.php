@@ -11,13 +11,12 @@
 class File_Convert_Solution_Html2text extends File_Convert_Solution {
      
     var $sources =  array( // source
-        'application/vnd.ms-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        'text/html' 
     );
-     var $targets = array(
-        'application/vnd.ms-excel',
-        'text/csv',
-        'text/xml'
+               
+    var $targets = array(
+        'text/plain'
+        
     );
     
     function convert($fn, $opt_ar=array())
