@@ -20,7 +20,7 @@ class File_Convert_Solution_abiword extends File_Convert_Solution
         ),
     );
     
-    function abiword($fn)
+    function convert($fn)
     {
         require_once 'File/MimeType.php';
         $fmt = new File_MimeType();
@@ -45,4 +45,4 @@ class File_Convert_Solution_abiword extends File_Convert_Solution
         
         return  file_exists($target)  && filesize($target) ? $target : false;
     }
-    
+}
