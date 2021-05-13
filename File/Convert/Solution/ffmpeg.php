@@ -9,12 +9,19 @@ class File_Convert_Solution_ffmpeg extends File_Convert_Solution
         array(
          
             'from' =>    array( //source
-                'text/html',
+                  'video/avi',
+                    'video/x-ms-wmv',
+                    'video/mp4',
+                    'video/x-msvideo',
+                    'video/mpeg',
+                    'video/quicktime',
             ),
             'to' =>    array( //target
-                 'application/pdf',
+                'image/jpeg',
             )
         ),
+        
+         
     );
     
     function convert($fn)
