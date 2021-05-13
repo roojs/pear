@@ -2,14 +2,21 @@
 
 class File_Convert_Solution_SsconvertXls extends File_Convert_Solution {
      
-    var $sources =  array( // source
-        'application/vnd.ms-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    );
-     var $targets = array(
-        'application/vnd.ms-excel',
-        'text/csv',
-        'text/xml'
+ 
+    
+    var $rules = array(
+        array(
+         
+            'from' =>    array( //source
+                 'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            ),
+            'to' =>    array( //target
+                 'application/vnd.ms-excel',
+                'text/csv',
+                'text/xml'
+            )
+        ),
     );
     
     function convert($fn) 
