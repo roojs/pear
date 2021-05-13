@@ -1,4 +1,25 @@
+ <?php
 
+class File_Convert_Solution_abiword extends File_Convert_Solution
+{
+     
+ 
+    
+    var $rules = array(
+        array(
+         
+            'from' =>    array( //source
+                 'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            ),
+            'to' =>    array( //target
+                 'application/vnd.ms-excel',
+                'text/csv',
+                'text/xml'
+            )
+        ),
+    );
+    
     function abiword($fn)
     {
         require_once 'File/MimeType.php';
