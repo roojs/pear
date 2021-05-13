@@ -46,6 +46,11 @@ class File_Convert
     function __construct($fn, $mimetype, $options=array())
     {
         $this->fn = $fn;
+        
+        if (!file_exists($fn)) {
+            trigger_error("Source file does not exist", $fn);
+        }
+        
         $this->mimetype = $mimetype;
         self::$options = $options;
     }
