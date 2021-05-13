@@ -72,10 +72,10 @@ class File_Convert
             }
             
             $fn = $action->convertExists($this->fn, $x, $y);
-            var_dump($fn);
+           ;
         }
         // 
-        if (!$fn &&  empty($x) && empty($y)) {
+        if (!$fn  ) {
             return false;
         }
         
