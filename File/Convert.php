@@ -337,14 +337,7 @@ class File_Convert
                 )
             ),
             
-            array( 'whtml2pdf',
-                array(
-                    'text/html',
-                ),
-                array(
-                    'application/pdf',
-                )
-            ),
+           
             array( 'text2html',
                 array(
                     'message/rfc822',
