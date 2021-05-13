@@ -87,13 +87,9 @@ class File_Convert_Solution
     function convertExists($fn, $x, $y)
     {
         
-        if (!file_exists($fn)) {
-            return false;
-        }
-        require_once 'File/MimeType.php';
-        $mt = new File_MimeType();
-        $ext = $mt->toExt($this->to);
-        if (!$ext) {
+         
+        
+        if (!$this->to_ext) {
             return false;
         }
 //        print_r('in?'); exit;
