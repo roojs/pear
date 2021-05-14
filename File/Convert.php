@@ -46,6 +46,11 @@ class File_Convert
     function __construct($fn, $mimetype, $options=array())
     {
         $this->fn = $fn;
+        
+        if (!file_exists($fn)) {
+            trigger_error("Source file does not exist:". $fn,E_USER_ERROR);
+        }
+        
         $this->mimetype = $mimetype;
         self::$options = $options;
     }
@@ -54,15 +59,20 @@ class File_Convert
     function convertExists($toMimetype, $x= 0, $y =0) 
     {
         
-        $fn = $this->fn;
+         $fn = $this->fn;
         if ($toMimetype != $this->mimetype) {
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
-            
+           
             // echo '<PRE>';print_r($action);
             if (!$action) {
                 return false;
             }
+            if (!file_exists($this->fn)) {
+                return false;
+            }
+            
             $fn = $action->convertExists($this->fn, $x, $y);
+            
         }
         
         if (!$fn) {
@@ -74,8 +84,8 @@ class File_Convert
         }
         
         //echo "testing scale image";
-        require_once 'File/Convert/Solution.php';
-        $sc = new File_Convert_Solution('scaleImage', $toMimetype, $toMimetype);
+        require_once 'File/Convert/Solution/scaleimage.php';
+        $sc = new File_Convert_Solution_scaleimage($toMimetype, $toMimetype);
         //$sc->convert = $this;
         $sc->debug= $this->debug;
         $this->solutions[] = $sc;
@@ -86,7 +96,9 @@ class File_Convert
             $y = empty($bits[1]) ?  0 : (int)$bits[1];;
         }
           
-            
+        if (!file_Exists($fn)) {
+            return false;
+        }
         $fn = $sc->convertExists($fn, (int)$x, (int)$y);
              
         
@@ -142,8 +154,12 @@ class File_Convert
         if (preg_match('#^image/#', $toMimetype) && $toMimetype != 'image/gif' && ( !empty($x) || !empty($y))) {
             //var_dump(array($toMimetype));
             require_once 'File/Convert/Solution.php';
-
-            $sc = new File_Convert_Solution(strpos($x, 'c')  !== false ? 'scaleImageC' : 'scaleImage' , $toMimetype, $toMimetype);
+            $scf = (strpos($x, 'c')  !== false ? 'scaleimagec' : 'scaleimage' );
+            require_once 'File/Convert/Solution/'. $scf . '.php';
+            $scls = 'File_Convert_Solution_' . $scf;
+                
+                
+            $sc = new $scls($toMimetype, $toMimetype);
             $sc->debug= $this->debug;
             $this->solutions[] = $sc;
             $x  = str_replace('c', 'x', $x);
@@ -176,7 +192,7 @@ class File_Convert
      */
     function serve($type=false, $filename =false, $delete_after = false) // may die **/
     {
-        if (empty($this->target)) {
+         if (empty($this->target)) {
             // broken image? for images...
             $cmd = isset($this->lastaction->cmd) ? $this->lastaction->cmd : "No Method";
             die("not available in this format was: {$this->mimetype}, request: {$this->to}<BR>
@@ -230,7 +246,10 @@ class File_Convert
             $type = $type === false ?  'attachment' : $type;
         }
         $type = $type === false ?  'inline' : $type;
-        header('Content-type: '. $mt);
+        
+        
+        
+       
         //if (!preg_match('#^image\/#i', $this->to)) {
     
         // a reasonable expiry time - 5 minutes..
@@ -263,7 +282,8 @@ class File_Convert
             //fclose($fh);
             exit;
         }
-        
+        //var_dump($fn, $mt); exit;
+         header('Content-type: '. $mt);
         
         $fh = fopen($fn, 'rb');
         //fpassthru($fh);
@@ -285,228 +305,53 @@ class File_Convert
         
         
     }
+    /**
+     * 
+     * returned format:
+     *
+     * (
+          from =>
+          to =>
+          cls => instance of class
+     )
+     * 
+     *
+     */
     
-    
-    
-    
-    
-    static $methods =  array(
-            array( 'unoconv', //FIXME run this 3 times??
-                    array( // source
-                  //      'text/html', /// testing..
-                        'application/msword',
-                        'application/mswordapplication',
-                        'application/vnd.oasis.opendocument.text',
-                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                    ),    // targets
-                    array( 
-                        'application/msword',
-                        'application/vnd.oasis.opendocument.text',
-                        'application/pdf',
-                        'text/html',
-                    )
-            ),
+    function methods()
+    {
+        static $methods = false;
+        if ($methods !== false ) {
+            return $methods;
+        }
+        $base = __DIR__.'/Convert/Solution';
+        $dh = opendir($base);
+        while (false !== ($fn = readdir($dh))) {
+            if (substr($fn,0,1) == '.' ) {
+                continue;
+            }
+            require_once 'File/Convert/Solution/' . $fn;
+            $cls = 'File_Convert_Solution_'. str_replace('.php', '',$fn);
             
-            array ( 'abitodocx',
-                    array( // source
-                  //      'text/html', /// testing..
-                        'application/x-abiword',
-                        
-                    ),    // targets
-                    array( 
-                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-//                        'application/msword',
-//                        'application/mswordapplication',
-                    )
-            ),
-//            
-//            array ( 'word2pdf',
-//                    array( // source
-//                        'application/msword',
-//                        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-//                    ),    
-//                    array( // targets
-//                        'application/pdf',
-//                    )
-//            ),
-            array( 'ssconvertxls',
-                array (
-                       'application/vnd.ms-excel',
-                       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                       ),
-                array(
-                      'application/vnd.ms-excel',
-                      'text/csv',
-                      'text/xml'
-                      )
-            ),
+            $ref = new ReflectionClass($cls);        
+            $val = $ref->getStaticPropertyValue('rules');
             
-            array( 'html2text',
-                array ('text/html' ),
-                array('text/plain')
-                
-            ),
-            
-            array( 'unoconv',//FIXME run this 3 times??
-                array( //source
-                    
-                    'application/vnd.ms-excel',
-                    'application/vnd.oasis.opendocument.spreadsheet' ,
-                    
-                ),
-                array( //target
-                    'application/vnd.ms-excel',
-                    'application/vnd.oasis.opendocument.spreadsheet' ,
-                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                    'application/pdf',
-                    'text/html',
-                )
-            ),
-              
-            array( 'unoconv',//FIXME run this 3 times??
-                array( //source
-                    'application/vnd.ms-powerpoint',
-                    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-                ),
-                array( //target
-                    'application/pdf',
-                )
-            ),
-            array( 'm4a2mp3',
-                array( //source
-                    'audio/mp4',
-                ),
-                array( //target
-                    'audio/mpeg',
-                )
-            ),
-            
-            array( 'whtml2pdf',
-                array(
-                    'text/html',
-                ),
-                array(
-                    'application/pdf',
-                )
-            ),
-            array( 'text2html',
-                array(
-                    'message/rfc822',
-                    'text/plain', 
-                ),
-                array(
-                    'text/html',
-                )
-            ),
-            
-                  
+            foreach($val as $r) {
+                $r['cls'] = $cls;
+                $methods[] = $r;
+            }
             
             
-            array( 'acad2svg',
-                array ('application/vnd.dwg',
-                     'application/acad',
-                     'application/x-acad',
-                     'application/autocad_dwg',
-                     'image/x-dwg',
-                     'application/dwg',
-                     'application/x-dwg',
-                     'application/x-autocad',
-                     'image/vnd.dwg',
-                     'drawing/dwg',
-                ),
-                array(
-                    'image/svg'
-                )
-            ),
-            array( 'svgconvert',
-                array(
-                    'image/svg',
-                ),
-                array(
-                    'application/pdf',
-                    'image/png', //add it back for MediaOutreach
-                    
-                ),
-            ),
-            
-            array( 'gifsicle',
-                array( // source
-                    'image/gif',
-                ),    // targets
-                array( 
-                    'image/gif',
-                )
-            ),
+        }
+        return $methods;
         
-            array( 'convert',
-                array(
-                    'image/jpeg',
-                    'image/gif',
-                    'image/png'
-                    
-                ),
-                array(
-                    'image/jpeg',
-                    'image/gif',
-                    'image/png',
-                    'image/x-ms-bmp',
-                    'image/tiff',
-                    'application/pdf'
-                )
-            ),
-            
-            array('pdftocairo', // mulipage convert... was pdftoppn
-                array(
-                    'application/pdf',
-               //     'application/tiff',
-                ),
-                array(
-                    'image/jpeg',
-                //    'image/gif',
-                    'image/png',
-                )
-            ),
-            
-            array('convert800mp', // mulipage convert...
-                array(
-                  //  'application/pdf',
-                    'image/tiff',
-                ),
-                array(
-                    'image/jpeg',
-                    'image/gif',
-                    'image/png',
-                )
-            ),
-            array('ffmpeg', // mulipage convert...
-                array(
-                    
-                          
-                    'video/avi',
-                    'video/x-ms-wmv',
-                    'video/mp4',
-                    'video/x-msvideo',
-                    'video/mpeg',
-                    'video/quicktime',
-                ),
-                array(
-                    'image/jpeg',
-                    
-                )
-            ),
-            array( 'abiword',
-                array( // source
-                    'text/html',
-                    'application/x-abiword'
-                ),    // targets
-                array( 
-                    'application/rtf',
-                    'application/vnd.oasis.opendocument.text',
-                    'application/x-abiword',
-                    'application/mswordapplication'
-                )
-            )
-        ); 
+        
+        
+    }
+    
+    
+    
+ 
     /**
      * This recursively calls to find the best match.
      * First by matching the 'from'
@@ -528,12 +373,13 @@ class File_Convert
         }
         $pos = array();
         // print_r(self::$methods);
-        foreach(self::$methods as $t) {
-            if (!in_array($from, $t[1])) {
+        foreach($this->methods() as $t) {
+            if (!in_array($from, $t['from'])) {
                 continue;
             }
-            if (in_array($to,$t[2])) {
-                $ret =  new File_Convert_Solution($t[0], $from, $to);  // found a solid match - returns the method.
+            if (in_array($to,$t['to'])) {
+                $cls = $t['cls'];
+                $ret =  new $cls($from, $to);  // found a solid match - returns the method.
                 //$ret->convert = $this; // recursion?
                 $this->solutions[] = $ret;
 
@@ -541,7 +387,7 @@ class File_Convert
                 return $ret;
             }
             // from matches..
-            $pos[$t[0]] = $t[2]; // list of targets
+            $pos[$t['cls']] = $t['to']; // list of targets
             
         }
         //echo "got here?";
@@ -572,7 +418,7 @@ class File_Convert
                 }
 //                print_r($conv);exit;
 
-                $first = new File_Convert_Solution($conv, $from, $targ);
+                $first = new $conv($from, $targ);
                 //$first->convert = $this;
                 $sol_list= $first->add($try);
                 
