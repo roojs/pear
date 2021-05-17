@@ -52,8 +52,8 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
         $dir = '/var/www/.wine/drive_c/';
         $wfrom = $dir . $fromb;
         $wto = $dir . $tob;
-        $this->deleteOnExit($wfrom);
-        $this->deleteOnExit($wto);
+        $this->deleteOnExitAdd($wfrom);
+        $this->deleteOnExitAdd($wto);
         
         link($wfrom, $fn);
         
