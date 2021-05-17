@@ -110,8 +110,9 @@ class File_Convert_Solution
     function deleteOnExitAdd($name)
     {
         if (self::$deleteOnExit === false) {
-            register_shutdown_function(array('Pman','deleteOnExit'));
             self::$deleteOnExit  = array();
+            register_shutdown_function(array('Pman','deleteOnExit'));
+            
         }
         self::$deleteOnExit[] = $name;
     }
