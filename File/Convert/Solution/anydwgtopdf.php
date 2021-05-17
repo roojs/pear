@@ -59,7 +59,7 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
         $wto = $dir . $tob;
         $this->deleteOnExitAdd($wfrom);
         $this->deleteOnExitAdd($wto);
-        link($fn,$wfrom);
+        copy($fn,$wfrom);
         
         
         
@@ -72,7 +72,7 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
             return false;
         }
         
-        link( $wto,$tn);
+        copy( $wto,$tn);
         
         clearstatcache();
         return file_exists($tn) ? $tn : false;
