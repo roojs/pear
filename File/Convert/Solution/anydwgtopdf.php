@@ -59,7 +59,7 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
         
         
         
-        $cmd = "{$xvfb} --auto {$wine} /InFile C:\\{$fromb} /OutFile C:\\{$tob}" .
+        $cmd = "{$xvfb} --auto {$wine} /InFile C:\\\\{$fromb} /OutFile C:\\\\{$tob}" .
             "/OutMode AlltoOne /Overwrite /OutLayout Paper /OutArea ZoomExtends";
         $this->exec($cmd);
         if (!file_Exists($wto)) {
