@@ -40,6 +40,11 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
         //b) run the conversion
         //c) copy (link) out the files (and delete)
         
+        $tn = $this->targetName($fn, $x,$y);
+        if (file_exists($tn)) {
+            return $tn;
+        }
+        
         $wine = $this->which('wine');
         $xvfb = $this->which('xvfb-run');
         
@@ -66,7 +71,7 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
             // failed.
             return false;
         }
-        $tn = $this->targetName($fn, $x,$y);
+        
         link( $wto,$tn);
         
         clearstatcache();
