@@ -54,7 +54,7 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
         $wto = $dir . $tob;
         $this->deleteOnExitAdd($wfrom);
         $this->deleteOnExitAdd($wto);
-        
+        print_r(array($wfrom, $fn));
         link($wfrom, $fn);
         
         
