@@ -80,7 +80,7 @@ class File_Convert_Solution
     
     function targetName($fn,$x,$y)
     {
-         return $fn .'.'. $this->ext;
+        return $fn .'.'. $this->ext;
     }
     
     
