@@ -132,7 +132,9 @@ class File_Convert_Solution
    
     static function deleteOnExit()
     {
-        
+        if (count(func_get_args())) {
+            trigger_error("Call deleteOnExitAdd ?!?");
+        }
         foreach(self::$deleteOnExit as $fn) {
             if (file_exists($fn)) {
                 unlink($fn);
