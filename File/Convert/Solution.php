@@ -111,7 +111,7 @@ class File_Convert_Solution
     {
         if (self::$deleteOnExit === false) {
             self::$deleteOnExit  = array();
-            register_shutdown_function(array('Pman','deleteOnExit'));
+            register_shutdown_function(array('File_Convert_Solution','deleteOnExit'));
             
         }
         self::$deleteOnExit[] = $name;
