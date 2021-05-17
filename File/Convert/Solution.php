@@ -130,7 +130,7 @@ class File_Convert_Solution
     
     }
    
-     static function deleteOnExit()
+    static function deleteOnExit()
     {
         
         foreach(self::$deleteOnExit as $fn) {
