@@ -29,7 +29,7 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
                 'drawing/dwg'
             ),
             'to' =>    array( //target
-               'application/pdf'
+                'application/pdf'
             )
         ),
       
