@@ -66,7 +66,7 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
             // failed.
             return false;
         }
-        $tn = $this->targetName($fn);
+        $tn = $this->targetName($fn, $x,$y);
         link( $wto,$tn);
         
         clearstatcache();
