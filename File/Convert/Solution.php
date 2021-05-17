@@ -132,9 +132,7 @@ class File_Convert_Solution
    
     static function deleteOnExit()
     {
-        if (empty(self::$deleteOnExit)) {
-            return; // should not happend but appears to?
-        }
+        
         foreach(self::$deleteOnExit as $fn) {
             if (file_exists($fn)) {
                 unlink($fn);
