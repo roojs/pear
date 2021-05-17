@@ -182,6 +182,15 @@ class File_Convert
         
         
     }
+    
+    function serveOnly($type=false, $filename =false, $delete_after = false)
+    {
+        $this->target = $this->fn;
+        $this->to = $this->mimetype;
+        $this->serve($type, $filename , $delete_after );
+    }
+    
+    
     /**
      * Serve the file to a browser so it can be downloaded, or viewed.
      *
@@ -192,7 +201,7 @@ class File_Convert
      */
     function serve($type=false, $filename =false, $delete_after = false) // may die **/
     {
-         if (empty($this->target)) {
+        if (empty($this->target)) {
             // broken image? for images...
             $cmd = isset($this->lastaction->cmd) ? $this->lastaction->cmd : "No Method";
             die("not available in this format was: {$this->mimetype}, request: {$this->to}<BR>

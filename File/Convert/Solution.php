@@ -80,7 +80,7 @@ class File_Convert_Solution
     
     function targetName($fn,$x,$y)
     {
-         return $fn .'.'. $this->ext;
+        return $fn .'.'. $this->ext;
     }
     
     
@@ -110,8 +110,9 @@ class File_Convert_Solution
     function deleteOnExitAdd($name)
     {
         if (self::$deleteOnExit === false) {
-            register_shutdown_function(array('Pman','deleteOnExit'));
             self::$deleteOnExit  = array();
+            register_shutdown_function(array('File_Convert_Solution','deleteOnExit'));
+            
         }
         self::$deleteOnExit[] = $name;
     }
@@ -129,9 +130,11 @@ class File_Convert_Solution
     
     }
    
-     static function deleteOnExit()
+    static function deleteOnExit()
     {
-        
+        if (count(func_get_args())) {
+            trigger_error("Call deleteOnExitAdd ?!?");
+        }
         foreach(self::$deleteOnExit as $fn) {
             if (file_exists($fn)) {
                 unlink($fn);

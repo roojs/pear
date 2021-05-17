@@ -10,7 +10,8 @@
  * /usr/bin/xvfb-run --auto /usr/bin/wine dp.exe /InFile C:\\KNT1431-BO-TP-001.dwg /OutFile C:\\KNT1431-BO-TP-001.pdf /OutMode AlltoOne /Overwrite /OutLayout Paper /OutArea ZoomExtends
  
 */
-class File_Convert_Solution_anydwgtopdf {
+class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
+{
     
     static $rules = array(
         array(
@@ -28,7 +29,7 @@ class File_Convert_Solution_anydwgtopdf {
                 'drawing/dwg'
             ),
             'to' =>    array( //target
-               'application/pdf'
+                'application/pdf'
             )
         ),
       
@@ -38,6 +39,11 @@ class File_Convert_Solution_anydwgtopdf {
         //a) copy the files to winedir
         //b) run the conversion
         //c) copy (link) out the files (and delete)
+        
+        $tn = $this->targetName($fn, $x,$y);
+        if (file_exists($tn)) {
+            return $tn;
+        }
         
         $wine = $this->which('wine');
         $xvfb = $this->which('xvfb-run');
@@ -51,23 +57,22 @@ class File_Convert_Solution_anydwgtopdf {
         $dir = '/var/www/.wine/drive_c/';
         $wfrom = $dir . $fromb;
         $wto = $dir . $tob;
-        $this->deleteOnExit($wfrom);
-        $this->deleteOnExit($wto);
-        
-        link($wfrom, $fn);
-        
+        $this->deleteOnExitAdd($wfrom);
+        $this->deleteOnExitAdd($wto);
+        link($fn,$wfrom);
         
         
         
-        $cmd = "{$xvfb} --auto {$wine} /InFile C:\\{$fromb} /OutFile C:\\{$tob}" .
+        
+        $cmd = "{$xvfb} --auto {$wine} \"/var/www/.wine/drive_c/Program Files (x86)/Any DWG to PDF Converter Pro/dp.exe\" /InFile C:\\\\{$fromb} /OutFile C:\\\\{$tob}" .
             "/OutMode AlltoOne /Overwrite /OutLayout Paper /OutArea ZoomExtends";
         $this->exec($cmd);
         if (!file_Exists($wto)) {
             // failed.
             return false;
         }
-        $tn = $this->targetName();
-        link($tn, $wto);
+        
+        link( $wto,$tn);
         
         clearstatcache();
         return file_exists($tn) ? $tn : false;
