@@ -93,7 +93,7 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
             
         $this->exec($cmd);
         
-        @unlock($lock);
+        @unlink($lock);
         
         if (!file_Exists($wto)) {
             // failed.
