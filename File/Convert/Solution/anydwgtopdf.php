@@ -47,6 +47,7 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
         
         $wine = $this->which('wine');
         $xvfb = $this->which('xvfb-run');
+        $timeout = $this->which('timeout');
         
         $from = $this->tempName("dwg");
         $fromb = basename($from);
@@ -60,6 +61,7 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
         $this->deleteOnExitAdd($wfrom);
         $this->deleteOnExitAdd($wto);
         copy($fn,$wfrom);
+        
         
         
         
