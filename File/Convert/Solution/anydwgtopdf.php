@@ -63,12 +63,38 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
         copy($fn,$wfrom);
         
         
+        // this is quite slow - so we probably only want to run it once
+        $uinfo = posix_getpwuid(posix_getuid());
+        $lock = session_save_path() . '/_wine_lock_' . $uinfo['name'] ;
+        for ($i =0 ;$i< 10; $i++) {
+            
+            if (!file_exists($lock) ) {
+                break;
+                
+            }
+            if (fileatime($lock) < time() - 240 ) {
+                @unlink($lock);
+            }
+            
+            sleep(30);
+            clearstatcache();
+        }
+        
+        
+        $this->deleteOnExitAdd($lock);
+
+        touch($lock);
         
         
         
-        $cmd = "{$xvfb} --auto {$wine} \"/var/www/.wine/drive_c/Program Files (x86)/Any DWG to PDF Converter Pro/dp.exe\" /InFile C:\\\\{$fromb} /OutFile C:\\\\{$tob}" .
+        $cmd = "{$timeout} 60s {$xvfb} --auto {$wine} \"/var/www/.wine/drive_c/Program Files (x86)/Any DWG to PDF Converter Pro/dp.exe\" /InFile C:\\\\{$fromb} /OutFile C:\\\\{$tob}" .
             "/OutMode AlltoOne /Overwrite /OutLayout Paper /OutArea ZoomExtends";
+            
+            
         $this->exec($cmd);
+        
+        @unlock($lock);
+        
         if (!file_Exists($wto)) {
             // failed.
             return false;
