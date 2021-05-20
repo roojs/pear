@@ -14,14 +14,7 @@ class File_Convert_Solution_m4a2mp3 extends File_Convert_Solution
               'audio/mpeg',
             )
         ),
-         array( 'm4a2mp3',
-                array( //source
-                    'audio/mp4',
-                ),
-                array( //target
-                    'audio/mpeg',
-                )
-            ),
+         
    
     );
     function convert($fn,$x,$y,$pg){
