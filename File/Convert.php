@@ -333,6 +333,7 @@ class File_Convert
         if ($methods !== false ) {
             return $methods;
         }
+        $methods = array();
         $base = __DIR__.'/Convert/Solution';
         $dh = opendir($base);
         while (false !== ($fn = readdir($dh))) {
