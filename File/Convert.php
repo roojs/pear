@@ -460,7 +460,12 @@ class File_Convert
     function debug($str)
     {
         if ($this->debug) {
-            echo $string . "<br/>\n";
+            
+            if (is_callable($this->debug)) {
+                $this->debug($str);
+            } else {
+                echo $string . "<br/>\n";
+            }
         }
         $this->log[] = $str;
     }

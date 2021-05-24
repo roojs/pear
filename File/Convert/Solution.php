@@ -27,8 +27,11 @@ class File_Convert_Solution
     }
     function debug($str)
     {
-        if ($this->debug || php_sapi_name() == "cli") {
-            echo $str . (php_sapi_name() == "cli" ? "\n" : "<BR>\n");
+        if ($this->debug) {
+            if (is_callable($this->debug)) {
+                $this->debug($str);
+            } else {
+            echo $str."<BR>\n";
         }
         $this->log[] = $str;
     }
