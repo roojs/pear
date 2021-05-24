@@ -31,7 +31,8 @@ class File_Convert_Solution
             if (is_callable($this->debug)) {
                 $this->debug($str);
             } else {
-            echo $str."<BR>\n";
+                echo $str."<BR>\n";
+            }
         }
         $this->log[] = $str;
     }
