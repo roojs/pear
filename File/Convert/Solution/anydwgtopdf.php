@@ -76,6 +76,8 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
                 @unlink($lock);
                 break;
             }
+            
+            
             $this->debug("wine is locked - wating for it to clear");
             sleep(30);
             clearstatcache();
@@ -86,9 +88,11 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
 
         touch($lock);
         
+        // should really check if exe exists.
+        chdir($uni['dir'] . '/.wine/drive_c');
         
         // /Recover = seems to handle hang situations
-        $cmd = "{$timeout} 60s {$xvfb} --auto {$wine} \"/var/www/.wine/drive_c/Program Files (x86)/Any DWG to PDF Converter Pro/dp.exe\" /InFile C:\\\\{$fromb} /OutFile C:\\\\{$tob}" .
+        $cmd = "{$timeout} 60s {$xvfb} --auto {$wine} \"" . $uni['dir'] . "/.wine/drive_c/Program Files (x86)/Any DWG to PDF Converter Pro/dp.exe\" /InFile C:\\\\{$fromb} /OutFile C:\\\\{$tob}" .
             " /OutMode AlltoOne /Overwrite /OutLayout Paper /Recover /OutArea ZoomExtends";
             
             
