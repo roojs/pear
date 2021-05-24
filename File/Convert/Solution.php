@@ -29,9 +29,9 @@ class File_Convert_Solution
     {
         if ($this->debug) {
             if (is_callable($this->debug)) {
-                $this->debug($str);
+                call_user_func($this->debug,$str);
             } else {
-                echo $str."<BR>\n";
+                echo $str . "<br/>\n";
             }
         }
         $this->log[] = $str;

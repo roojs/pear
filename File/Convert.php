@@ -458,13 +458,13 @@ class File_Convert
     }
     
     function debug($str)
-    {
+    { 
         if ($this->debug) {
             
             if (is_callable($this->debug)) {
                 call_user_func($this->debug,$str);
             } else {
-                echo $string . "<br/>\n";
+                echo $str . "<br/>\n";
             }
         }
         $this->log[] = $str;
