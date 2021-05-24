@@ -27,8 +27,8 @@ class File_Convert_Solution
     }
     function debug($str)
     {
-        if ($this->debug) {
-            echo $str . "<br/>\n";
+        if ($this->debug || php_sapi_name() == "cli") {
+            echo $str . (php_sapi_name() == "cli" ? "\n" : "<BR>\n");
         }
         $this->log[] = $str;
     }
@@ -36,9 +36,9 @@ class File_Convert_Solution
     
     function exec($cmd)
     {
-        $this->debug($cmd);
+        $this->debug("EXEC: $cmd");
         $ret = `$cmd`;
-        $this->debug( $ret);
+        $this->debug("RETURNED:  $ret");
         $this->cmd = $cmd ."\n" . $ret;
         return $ret;
     }
