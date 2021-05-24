@@ -99,6 +99,8 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
         $this->exec($cmd);
         
         @unlink($lock);
+        @ulink($wfrom);
+        
         
         if (!file_Exists($wto)) {
             // failed.
@@ -106,6 +108,7 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
         }
         
         copy( $wto,$tn);
+        @ulink($wto);
         
         clearstatcache();
         return file_exists($tn) ? $tn : false;
