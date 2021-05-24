@@ -462,7 +462,7 @@ class File_Convert
         if ($this->debug) {
             
             if (is_callable($this->debug)) {
-                $this->debug($str);
+                call_user_func($this->debug,$str);
             } else {
                 echo $string . "<br/>\n";
             }
