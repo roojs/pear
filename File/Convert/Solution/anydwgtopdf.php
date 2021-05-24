@@ -74,8 +74,9 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
             }
             if (fileatime($lock) < time() - 240 ) {
                 @unlink($lock);
+                break;
             }
-            
+            $this->debug("wine is locked - wating for it to clear");
             sleep(30);
             clearstatcache();
         }
