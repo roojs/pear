@@ -67,8 +67,10 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             return $target;
         }
         
+        $from = $this->tempName($ext,true);
+        $to = $this->tempName("pdf",true);
         
-        
+        copy($fn, $from);
         
         require_once 'System.php';
         
@@ -88,7 +90,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         }
         // before we used stdout -- not sure why.
         //$cmd = "$xvfb -a  $uno -f $ext --stdout " . escapeshellarg($fn) . " 1> " . escapeshellarg($target);
-        $cmd = "$timeout 30s $xvfb -a  $uno -f $ext -o " . escapeshellarg($target) . " " . escapeshellarg($fn);
+        $cmd = "$timeout 30s $xvfb -a  $uno -f $ext -o " . escapeshellarg($to) . " " . escapeshellarg($from);
         ////  echo $cmd;
         
         /*
@@ -118,13 +120,15 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         clearstatcache();
         
+        
+        
 //        print_R($target);
 //        print_r("--------\n");
 //        var_dump(file_exists($target));
 //        var_dump(is_dir($target));
        
         
-        if (is_dir($target)) {
+        if (is_dir($to)) {
             // it's an old version of unoconv.
             $tmp = '/tmp/temp_pdf';
             if(!is_dir($tmp)){
@@ -132,20 +136,20 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             }
             
             
-            $dir = scandir($target, 1);
+            $dir = scandir($to, 1);
             
 //            print_r($dir);
             
             $filename = $dir[0];
-            $file = $target.'/'.$filename;
+            $file = $to.'/'.$filename;
             
-            copy($file, $tmp.'/'.$filename);
+            copy($file, $target);
             
             
-            unlink($target.'/'.$filename);
-            rmdir($target);
+            unlink($to.'/'.$filename);
+            rmdir($to);
             
-            copy($tmp.'/'.$filename, $target);
+            @unlink($from);
             
 //            exit;
 //            create temporary directory 
@@ -155,14 +159,15 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
 //            move the new file to the target
             
             clearstatcache();
+            return $target;
         }
         
 //         exit;
-        if (!file_exists($target) || (file_exists($target)  && filesize($target) < 400)) {
+        if (!file_exists($to) || (file_exists($to)  && filesize($to) < 400)) {
             //$this->cmd .= "\n" . filesize($target) . "\n" . file_get_contents($target);
             
             // try again!!!!
-            @unlink($target);
+            @unlink($to);
             clearstatcache();
             sleep(3);
             
@@ -171,9 +176,12 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
             
         }
-        
-//        print_r($target);
-        return  file_exists($target) ? $target : false;
+        @unlink($from);
+        if (!file_exists($to)) {    
+            return false;
+        }
+        copy($to, $target);
+        return $target;
      
     }
 }

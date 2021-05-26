@@ -49,9 +49,9 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
         $xvfb = $this->which('xvfb-run');
         $timeout = $this->which('timeout');
         
-        $from = $this->tempName("dwg");
+        $from = $this->tempName("dwg",true);
         $fromb = basename($from);
-        $to = $this->tempName("pdf");
+        $to = $this->tempName("pdf",true);
         $tob = basename($to);
         
         
