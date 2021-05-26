@@ -66,8 +66,9 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
+        $bits = explode('.', $fn);
         
-        $from = $this->tempName($ext,true);
+        $from = $this->tempName(array_pop($bits),true);
         $to = $this->tempName("pdf",true);
         
         copy($fn, $from);
