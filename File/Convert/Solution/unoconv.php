@@ -67,8 +67,10 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             return $target;
         }
         
+        $from = $this->tempName($ext,true);
+        $to = $this->tempName("pdf",true);
         
-        
+        copy($fn, $from);
         
         require_once 'System.php';
         
@@ -88,7 +90,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         }
         // before we used stdout -- not sure why.
         //$cmd = "$xvfb -a  $uno -f $ext --stdout " . escapeshellarg($fn) . " 1> " . escapeshellarg($target);
-        $cmd = "$timeout 30s $xvfb -a  $uno -f $ext -o " . escapeshellarg($target) . " " . escapeshellarg($fn);
+        $cmd = "$timeout 30s $xvfb -a  $uno -f $ext -o " . escapeshellarg($to) . " " . escapeshellarg($from);
         ////  echo $cmd;
         
         /*
@@ -118,13 +120,15 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         clearstatcache();
         
+        
+        
 //        print_R($target);
 //        print_r("--------\n");
 //        var_dump(file_exists($target));
 //        var_dump(is_dir($target));
        
         
-        if (is_dir($target)) {
+        if (is_dir($to)) {
             // it's an old version of unoconv.
             $tmp = '/tmp/temp_pdf';
             if(!is_dir($tmp)){
@@ -132,20 +136,20 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             }
             
             
-            $dir = scandir($target, 1);
+            $dir = scandir($to, 1);
             
 //            print_r($dir);
             
             $filename = $dir[0];
-            $file = $target.'/'.$filename;
+            $file = $to.'/'.$filename;
             
-            copy($file, $tmp.'/'.$filename);
+            copy($file, $target);
             
             
-            unlink($target.'/'.$filename);
-            rmdir($target);
+            unlink($to.'/'.$filename);
+            rmdir($to);
             
-            copy($tmp.'/'.$filename, $target);
+            
             
 //            exit;
 //            create temporary directory 
