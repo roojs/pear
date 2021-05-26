@@ -60,7 +60,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         $ext = $this->ext;
         
         
-        $target = str_replace('.', '_', $fn) . '.' . $ext;
+        $target =   $fn  . '.' . $ext;
         
         
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
