@@ -23,6 +23,8 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
                     
                     'application/vnd.ms-excel',
                     'application/vnd.oasis.opendocument.spreadsheet' ,
+                    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    
                     
                 ),
             'to' =>     array( //target
