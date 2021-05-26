@@ -149,7 +149,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             unlink($to.'/'.$filename);
             rmdir($to);
             
-            
+            @unlink($from);
             
 //            exit;
 //            create temporary directory 
@@ -159,14 +159,15 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
 //            move the new file to the target
             
             clearstatcache();
+            return $target;
         }
         
 //         exit;
-        if (!file_exists($target) || (file_exists($target)  && filesize($target) < 400)) {
+        if (!file_exists($to) || (file_exists($to)  && filesize($to) < 400)) {
             //$this->cmd .= "\n" . filesize($target) . "\n" . file_get_contents($target);
             
             // try again!!!!
-            @unlink($target);
+            @unlink($to);
             clearstatcache();
             sleep(3);
             
@@ -175,9 +176,12 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
             
         }
-        
-//        print_r($target);
-        return  file_exists($target) ? $target : false;
+        @unlink($from);
+        if (!file_exists($to)) {    
+            return false;
+        }
+        copy($to, $target);
+        return $target;
      
     }
 }
