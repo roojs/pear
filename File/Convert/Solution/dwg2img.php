@@ -97,7 +97,7 @@ class File_Convert_Solution_dwg2img extends File_Convert_Solution
         $cmd = "{$timeout} 60s {$xvfb} --auto {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/verydoc_dwg2image_cmd/dwg2img.exe\" " .
                 " -dpi 300 " . // could do --width --height
                 //-fontdir <string>  : a folder contain .ctb, .shx, etc. files
-                " -fontdir C:\\\\verydoc_dwg2image_cmd\fonts " .
+                " -fontdir C:\\\\verydoc_dwg2image_cmd\\fonts " .
         
                 //-width <int>       : set width, unit is point
                 //-height <int>      : set height, unit is point
