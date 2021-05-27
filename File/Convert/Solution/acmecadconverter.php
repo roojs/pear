@@ -104,6 +104,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
                 " /e " . //auto zoom extent
                 " /ls " . //paper space if pos
                 " /f 2" . //2 == jpeg
+                " /b 0" . // /b integer Indicate background color index, [0-black, 1....
                 
                 " C:\\\\{$fromb} " ;
              
