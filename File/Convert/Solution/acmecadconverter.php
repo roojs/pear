@@ -59,7 +59,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         
         $from = $this->tempName("dwg",true);
         $fromb = basename($from);
-        $to = $this->tempName("jpg",true);
+        $to = $this->tempName($this->ext,true);
         $tob = basename($to);
         
         
