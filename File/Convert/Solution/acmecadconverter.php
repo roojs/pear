@@ -34,7 +34,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
             ),
             'to' =>    array( //target
                 'image/jpeg', // can do quite a few more..
-                'image/svg'
+                'image/svg+xml'
             )
         ),
       
@@ -98,13 +98,20 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         // should really check if exe exists.
         chdir($uinfo['dir'] . '/.wine/drive_c');
         
+        $format = 2;
+        if ($this->mimetype == 'images/svg+xml') {
+            $format = 101;
+        }
+       
+
+        
         // /Recover = seems to handle hang situations
         $cmd = "{$timeout} 60s {$xvfb} --auto {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/Program Files (x86)/Acme CAD Converter/AcmeCADConverter.exe\" " .
                 " /r " . //command line
                 " /o C:\\\\{$tob} " . // output
                 " /e " . //auto zoom extent
                 " /ls " . //paper space if pos
-                " /f 2" . //2 == jpeg
+                " /f {$format}" . //2 == jpeg
                 " /b 0" . // /b integer Indicate background color index, [0-black, 1....
                 
                 " C:\\\\{$fromb} " ;
