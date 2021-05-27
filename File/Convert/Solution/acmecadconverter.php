@@ -33,7 +33,8 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
                 'drawing/dwg'
             ),
             'to' =>    array( //target
-                'image/jpeg' // can do quite a few more..
+                'image/jpeg', // can do quite a few more..
+                'image/svg'
             )
         ),
       
