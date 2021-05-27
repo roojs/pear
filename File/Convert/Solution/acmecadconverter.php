@@ -105,7 +105,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
                 " /ls " . //paper space if pos
                 " /f 2" . //2 == jpeg
                 
-                "C:\\\\{$fromb} " ;
+                " C:\\\\{$fromb} " ;
              
             
         $this->exec($cmd);
