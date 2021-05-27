@@ -107,7 +107,7 @@ class File_Convert_Solution_dwg2img extends File_Convert_Solution
                 //-zoomtype <int>    : set zoom type, 1 is 'Zoom All' and 2 is 'Zoom Extend'
                 " -zoomtype 2 " .
                 //-$ <string>        : input registration key
-                "C:\\\\{$fromb} C:\\\\{$tob}" .
+                "C:\\\\{$fromb} C:\\\\{$tob}" ;
              
             
         $this->exec($cmd);
