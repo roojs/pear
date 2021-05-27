@@ -1,10 +1,9 @@
 <?php
 /**
- * http://www.dwgtool.com/buyconvert.htm
- * demo puts big watermark over image..
+ * https://www.autodwg.com/download/documents/DWG-to-DWF-Command-line-User-Guide.pdf
+ * demo does not work on command line - but can be sued to test.
  
- http://www.dwgtool.com/cmd.htm
- 
+ ** DWF viewers in chrome don't work any more..!
  
  * xhost + (as me)
  * sudo su www-data
@@ -13,7 +12,7 @@
 
  
 */
-class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
+class File_Convert_Solution_dwg2dwf extends File_Convert_Solution
 {
     
     static $rules = array(
@@ -33,8 +32,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
                 'drawing/dwg'
             ),
             'to' =>    array( //target
-                'image/jpeg', // can do quite a few more..
-                'image/svg+xml'
+                'drawing/dwf'// can do quite a few more..
             )
         ),
       
@@ -59,7 +57,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         
         $from = $this->tempName("dwg",true);
         $fromb = basename($from);
-        $to = $this->tempName($this->ext,true);
+        $to = $this->tempName("dwf",true);
         $tob = basename($to);
         
         
@@ -73,7 +71,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         
         // this is quite slow - so we probably only want to run it once
         $uinfo = posix_getpwuid(posix_getuid());
-        $lock = session_save_path() . '/_wine_acmecadconverter_lock_' . $uinfo['name'] ;
+        $lock = session_save_path() . '/_wine_dwg2dwf_lock_' . $uinfo['name'] ;
         for ($i =0 ;$i< 5; $i++) {
             
             if (!file_exists($lock) ) {
@@ -98,23 +96,12 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         // should really check if exe exists.
         chdir($uinfo['dir'] . '/.wine/drive_c');
         
-        $format = 2;
-        if ($this->mimetype == 'images/svg+xml') {
-            $format = 101;
-        }
-       
-
-        
         // /Recover = seems to handle hang situations
-        $cmd = "{$timeout} 60s {$xvfb} --auto {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/Program Files (x86)/Acme CAD Converter/AcmeCADConverter.exe\" " .
-                " /r " . //command line
-                " /o C:\\\\{$tob} " . // output
-                " /e " . //auto zoom extent
-                " /ls " . //paper space if pos
-                " /f {$format}" . //2 == jpeg
-                " /b 0" . // /b integer Indicate background color index, [0-black, 1....
+        $cmd = "{$timeout} 60s {$xvfb} --auto {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/Program Files (x86)//AutoDWG/DWG to DWF 2019/G2F.exe\" " .
                 
-                " C:\\\\{$fromb} " ;
+                " /O C:\\\\{$tob} " . // output
+                
+                " /F C:\\\\{$fromb} " ;
              
             
         $this->exec($cmd);
