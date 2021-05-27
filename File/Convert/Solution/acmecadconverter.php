@@ -99,7 +99,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         chdir($uinfo['dir'] . '/.wine/drive_c');
         
         $format = 2;
-        if ($this->to == 'images/svg+xml') {
+        if ($this->ext == 'svg') {
             $format = 101;
         }
        
