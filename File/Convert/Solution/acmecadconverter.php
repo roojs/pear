@@ -120,7 +120,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         }
         
         copy( $wto,$tn);
-        @ulink($wto);
+        @unlink($wto);
         
         clearstatcache();
         return file_exists($tn) ? $tn : false;
