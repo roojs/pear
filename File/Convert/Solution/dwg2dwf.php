@@ -3,7 +3,7 @@
  * https://www.autodwg.com/download/documents/DWG-to-DWF-Command-line-User-Guide.pdf
  * demo does not work on command line - but can be sued to test.
  
-  
+ ** DWF viewers in chrome don't work any more..!
  
  * xhost + (as me)
  * sudo su www-data
