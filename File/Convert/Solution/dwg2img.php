@@ -2,6 +2,7 @@
 /**
  *  https://www.verydoc.com/dwg-to-image.html
  
+ * DOES NOT WORK
  
  * xhost + (as me)
  * sudo su www-data
@@ -13,7 +14,8 @@
 class File_Convert_Solution_dwg2img extends File_Convert_Solution
 {
     
-    static $rules = array(
+    static $rules = array();
+    /*
         array(
          
             'from' =>    array( //source
@@ -33,7 +35,8 @@ class File_Convert_Solution_dwg2img extends File_Convert_Solution
             )
         ),
       
-    );   
+    );
+    */
     function convert($fn,$x,$y,$pg)
     {
         //a) copy the files to winedir
@@ -113,7 +116,7 @@ class File_Convert_Solution_dwg2img extends File_Convert_Solution
         $this->exec($cmd);
         
         @unlink($lock);
-        @ulink($wfrom);
+        @unlink($wfrom);
         
         
         if (!file_Exists($wto)) {
