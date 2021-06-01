@@ -76,7 +76,7 @@ class File_Convert_Solution
             return false;
         }
         
-        $this->debug(print_r(array('runconvert', func_get_args()), true));
+        $this->debug("runconvert : {$fn}, {$x}, {$y}, {$pg}");
   
         
         return $this->convert($fn, $x, $y, $pg);
