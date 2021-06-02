@@ -170,9 +170,33 @@ class File_Smb_Dir {
                 throw new File_Smb_ExceptionPermDenied($errstr, $errno);
             
         }
-        
-        
+         
     }
     
+    function upload($local, $name)
+    {
+        
+        $fh =  smbclient_open( $this->resource, 'smb://' . $this->server . '/'. $this->path .'/' . $name, 'w');
+        if ($fh === false) { 
+            throw new Exception("SMB upload : {$this->path} open Failed");
+        }
+        $fw = fopen($local, 'r');
+        if (!$fw) {
+            throw new Exception("SMB upload: {$local} open write target Failed");
+        }
+        while (true) {
+            $str = fgets($fw, 4096);
+            if (strlen($str) == 0 ) {
+                break;
+            }
+            smbclient_write($this->resource, $fh, $str);
+            
+        }
+        fclose($fw);
+        smbclient_close($this->resource, $fh);
+        
+        return new File_Smb_File($this, $name);
+        
+    }
     
 }
