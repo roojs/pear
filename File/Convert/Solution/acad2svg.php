@@ -4,10 +4,10 @@
 class File_Convert_Solution_acad2svg extends File_Convert_Solution
 {
      
- 
+  // disabled - use acmecad
     
     static $rules = array(
-        array(
+     /*   array(
          
             'from' =>    array( //source
                 'application/vnd.dwg',
@@ -25,6 +25,7 @@ class File_Convert_Solution_acad2svg extends File_Convert_Solution
                'image/svg'
             )
         ),
+        */
       
     );   
     function acad2svg($fn,$x,$y,$pg)

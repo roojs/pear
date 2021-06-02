@@ -13,8 +13,10 @@
 class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
 {
     
+    // DISABLED - use acmecad
     static $rules = array(
-        array(
+       /*
+        * array(
          
             'from' =>    array( //source
                 'application/vnd.dwg',
@@ -32,7 +34,7 @@ class File_Convert_Solution_anydwgtopdf extends File_Convert_Solution
                 'application/pdf'
             )
         ),
-      
+      */
     );   
     function convert($fn,$x,$y,$pg)
     {
