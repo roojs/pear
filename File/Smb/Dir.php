@@ -194,7 +194,7 @@ class File_Smb_Dir {
         }
         fclose($fw);
         smbclient_close($this->resource, $fh);
-        
+        require_once 'File/Smb/File.php';
         return new File_Smb_File($this, $name);
         
     }
