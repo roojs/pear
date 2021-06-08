@@ -29,7 +29,7 @@ class File_Smb_Dir {
     
     var $created_datetime;
     var $updated_datetime;
-    var $accessed_datetime;
+    var $access_datetime;
     
     
     /**
@@ -86,7 +86,7 @@ class File_Smb_Dir {
             $this->updated_datetime = date("Y-m-d H:i:s", $this->mtime);
         }
         if (isset($this->atime)) {
-            $this->accessed_datetime = date("Y-m-d H:i:s", $this->atime);
+            $this->access_datetime = date("Y-m-d H:i:s", $this->atime);
         }
         $acls = explode(',',smbclient_getxattr($this->resource, 'smb://' . $this->server . '/'. $this->path, 'system.nt_sec_desc.*+'));
         $this->acls = array();
