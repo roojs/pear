@@ -122,6 +122,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
                 " /o C:\\\\{$tob} " . // output
                 " /e " . //auto zoom extent
                 " /ls " . //paper space if pos
+                // does not actually appear to do anything.
                 ($this->ext == 104 ? " /a -3"  : ''). // in thoery layout = all paper space << produces multiple *.jpg files.
                 
                 " /f {$format}" . //2 == jpeg
