@@ -118,7 +118,9 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         }
  
         // /Recover = seems to handle hang situations
-        $cmd = "cd {$uinfo['dir']}/.wine/drive_c && {$timeout} 60s {$xvfb} --auto {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/Program Files (x86)/Acme CAD Converter/AcmeCADConverter.exe\" " .
+        $cmd = "cd {$uinfo['dir']}/.wine/drive_c && " .
+            " {$timeout} 60s {$xvfb} --auto " .
+            " {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/Program Files (x86)/Acme CAD Converter/AcmeCADConverter.exe\" " .
                 " /r " . //command line
                 " /o C:\\\\{$tob} " . // output
                 " /e " . //auto zoom extent
