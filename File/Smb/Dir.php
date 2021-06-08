@@ -27,9 +27,9 @@ class File_Smb_Dir {
     var $blocks;
     
     
-    var $created_dt;
-    var $updated_dt;
-    var $accessed_dt;
+    var $created_datetime;
+    var $updated_datetime;
+    var $accessed_datetime;
     
     
     /**
@@ -80,13 +80,13 @@ class File_Smb_Dir {
             }
         }
         if (isset($this->ctime)) {
-            $this->created_dt = date("Y-m-d H:i:s", $this->ctime);
+            $this->created_datetime = date("Y-m-d H:i:s", $this->ctime);
         }
         if (isset($this->mtime)) {
-            $this->updated_dt = date("Y-m-d H:i:s", $this->mtime);
+            $this->updated_datetime = date("Y-m-d H:i:s", $this->mtime);
         }
         if (isset($this->atime)) {
-            $this->accessed_dt = date("Y-m-d H:i:s", $this->atime);
+            $this->accessed_datetime = date("Y-m-d H:i:s", $this->atime);
         }
         $acls = explode(',',smbclient_getxattr($this->resource, 'smb://' . $this->server . '/'. $this->path, 'system.nt_sec_desc.*+'));
         $this->acls = array();
