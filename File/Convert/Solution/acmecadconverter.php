@@ -54,6 +54,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
             return $tn;
         }
         $uinfo = posix_getpwuid(posix_getuid());
+        
         $wine = $this->which('wine');
         $xvfb = $this->which('xvfb-run');
         $timeout = $this->which('timeout');
@@ -76,21 +77,27 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         // this is quite slow - so we probably only want to run it once
         
         $lock = session_save_path() . '/_wine_acmecadconverter_lock_' . $uinfo['name'] ;
-        for ($i =0 ;$i< 5; $i++) {
+        
+        for ($i =0 ;$i< 6; $i++) {
             
             if (!file_exists($lock) ) {
-                break;
                 
+                break;
             }
-            if (fileatime($lock) < time() - 240 ) {
+            $pgrep = $this->which('pgrep');
+            $cmd = "{$pgrep} AcmeCADConverter.exe";
+            $out = `$cmd`;
+            if (!strlen(trim($out))) {
                 @unlink($lock);
                 break;
             }
             
-            
             $this->debug("wine is locked - wating for it to clear");
-            sleep(20);
+            sleep(10);
             clearstatcache();
+            if ($i == 5) {
+                throw new Exception("Could not run DWG converter");
+            }
         }
          
         $this->deleteOnExitAdd($lock);
