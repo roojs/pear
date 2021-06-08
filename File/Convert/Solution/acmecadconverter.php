@@ -13,6 +13,8 @@
 
  
 */
+
+
 class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
 {
     
@@ -105,7 +107,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         touch($lock);
         
         // should really check if exe exists.
-        chdir($uinfo['dir'] . '/.wine/drive_c');
+        //chdir($uinfo['dir'] . '/.wine/drive_c');
         
         $format = 2;
         if ($this->ext == 'svg') {
@@ -114,10 +116,9 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         if ($this->ext == 'pdf') {
             $format = 104;
         }
-
-        
+ 
         // /Recover = seems to handle hang situations
-        $cmd = "{$timeout} 60s {$xvfb} --auto {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/Program Files (x86)/Acme CAD Converter/AcmeCADConverter.exe\" " .
+        $cmd = "cd {$uinfo['dir']}/.wine/drive_c && {$timeout} 60s {$xvfb} --auto {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/Program Files (x86)/Acme CAD Converter/AcmeCADConverter.exe\" " .
                 " /r " . //command line
                 " /o C:\\\\{$tob} " . // output
                 " /e " . //auto zoom extent
@@ -139,6 +140,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         
         if (!file_Exists($wto)) {
             // failed.
+            $this->debug("DWG file creation failed");
             return false;
         }
         
