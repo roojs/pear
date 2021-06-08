@@ -122,7 +122,8 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
                 " /o C:\\\\{$tob} " . // output
                 " /e " . //auto zoom extent
                 " /ls " . //paper space if pos
-                " /a -3" . // in thoery layout = all paper space
+                ($this->ext == 104 ? " /a -3"  : ''). // in thoery layout = all paper space << produces multiple *.jpg files.
+                
                 " /f {$format}" . //2 == jpeg
                 " /b 0" . // /b integer Indicate background color index, [0-black, 1....
                 ' /resource "C:\\XREF\\xref.ini" ' .
