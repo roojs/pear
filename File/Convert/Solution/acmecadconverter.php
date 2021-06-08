@@ -53,7 +53,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         if (file_exists($tn)) {
             return $tn;
         }
-        
+        $uinfo = posix_getpwuid(posix_getuid());
         $wine = $this->which('wine');
         $xvfb = $this->which('xvfb-run');
         $timeout = $this->which('timeout');
@@ -65,7 +65,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         $tob = basename($to);
         
         
-        $dir = '/var/www/.wine/drive_c/';
+        $dir = $uinfo['dir'] .'/.wine/drive_c/';
         $wfrom = $dir . $fromb;
         $wto = $dir . $tob;
         $this->deleteOnExitAdd($wfrom);
@@ -74,7 +74,7 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         
         
         // this is quite slow - so we probably only want to run it once
-        $uinfo = posix_getpwuid(posix_getuid());
+        
         $lock = session_save_path() . '/_wine_acmecadconverter_lock_' . $uinfo['name'] ;
         for ($i =0 ;$i< 5; $i++) {
             
