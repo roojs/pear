@@ -64,6 +64,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
+            $this->debug("SKIP target exists");
             return $target;
         }
         $bits = explode('.', $fn);
@@ -81,11 +82,13 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         putenv('HOME='. ini_get('session.save_path'));
         $xvfb = System::which('xvfb-run');
         if (empty($xvfb)) {
+            $this->debug("missing xvfb-run");
             $this->cmd = "Missing xvfb";
             return false;
         }
         $uno = System::which('unoconv');
         if (empty($uno)) {
+            $this->debug("missing unoconv");
             $this->cmd = "Missing unoconv";
             return false;
         }
