@@ -56,5 +56,10 @@ class File_Smb_File extends File_Smb {
         smbclient_close($this->resource, $fh);
         
     }
-    
+    function unlink()
+    {
+        if (!smbclient_unlink($this->resource, 'smb://' . $this->server . '/'. $this->path )) {
+            throw new File_Smb_Exception_UnlinkFailed("File unlink failed", 0);
+        }
+    }
 }

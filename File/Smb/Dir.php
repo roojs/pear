@@ -168,7 +168,7 @@ class File_Smb_Dir {
                 throw new File_Smb_ExceptionNotExist($errstr, $errno);
             case 13:
                 throw new File_Smb_ExceptionPermDenied($errstr, $errno);
-            
+              
         }
          
     }
@@ -197,6 +197,13 @@ class File_Smb_Dir {
         require_once 'File/Smb/File.php';
         return new File_Smb_File($this, $name);
         
+    }
+    
+    function unlink()
+    {
+        if (!smbclient_rmdir($this->resource, 'smb://' . $this->server . '/'. $this->path )) {
+            throw new File_Smb_Exception_RemoveDirFailed("Rmdir failed", 0);
+        }
     }
     
 }

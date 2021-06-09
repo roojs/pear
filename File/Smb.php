@@ -91,6 +91,11 @@ class File_Smb  extends File_Smb_Dir  {
         return $fake;
     }
     
-    
+    function unlink()
+    {
+     
+        throw new File_Smb_Exception_RmdirFailed("You can not call unlink at the top level...", 0);
+     
+    }
     
 }
