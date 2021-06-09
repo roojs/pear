@@ -201,7 +201,9 @@ class File_Smb_Dir {
     
     function unlink()
     {
-        if (!smbclient_rmdir($this->resource, 'smb://' . $this->server . '/'. $this->path )) {
+        if (!@smbclient_rmdir($this->resource, 'smb://' . $this->server . '/'. $this->path )) {
+            require_once 'File/Smb/Exception.php';
+
             throw new File_Smb_Exception_RemoveDirFailed("Rmdir failed", 0);
         }
     }
@@ -209,7 +211,8 @@ class File_Smb_Dir {
     
     function mkdir($name)
     {
-        if (!smbclient_mkdir($this->resource, 'smb://' . $this->server . '/'. $this->path . '/' . $name)) {
+        if (!@smbclient_mkdir($this->resource, 'smb://' . $this->server . '/'. $this->path . '/' . $name)) {
+            require_once 'File/Smb/Exception.php';
             throw new File_Smb_Exception_MakeDirFailed("mkdir failed", 0);
         }
         return new File_Smb_Dir($this, $name);
