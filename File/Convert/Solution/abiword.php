@@ -16,7 +16,8 @@ class File_Convert_Solution_abiword extends File_Convert_Solution
                 'application/rtf',
                 'application/vnd.oasis.opendocument.text',
                 'application/x-abiword',
-                'application/mswordapplication'
+                'application/mswordapplication',
+                'application/msword'
             )
         ),
     );   
