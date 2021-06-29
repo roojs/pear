@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: jpietler
@@ -14,64 +15,74 @@
  * Class Circle
  * @package DXFighter\lib
  */
-class File_DXF_Circle extends File_DXF_Entity {
-  protected $thickness;
-  protected $point;
-  protected $radius;
-  protected $extrusion;
+require_once 'File/DXF/Entity.php';
 
-  /**
-   * Circle constructor.
-   * @param $point
-   * @param $radius
-   * @param int $thickness
-   * @param array $extrusion
-   */
-  function __construct($point, $radius, $thickness = 0, $extrusion = array(0, 0, 1)) {
-    $this->entityType = 'circle';
-    $this->point = $point;
-    $this->radius = $radius;
-    $this->thickness = $thickness;
-    $this->extrusion = $extrusion;
-    parent::__construct();
-  }
+class File_DXF_Circle extends File_DXF_Entity
+{
+    public $thickness;
+    public $point;
+    public $radius;
+    public $extrusion;
 
-  /**
-   * Public function to move a Circle entity
-   * @param array $move vector to move the entity with
-   */
-  public function move($move) {
-    $this->movePoint($this->point, $move);
-  }
+    /**
+     * Circle constructor.
+     * @param $point
+     * @param $radius
+     * @param int $thickness
+     * @param array $extrusion
+     */
+    function __construct($point, $radius, $thickness = 0, $extrusion = array(0, 0, 1))
+    {
+        $this->entityType = 'circle';
+        $this->point = $point;
+        $this->radius = $radius;
+        $this->thickness = $thickness;
+        $this->extrusion = $extrusion;
+        parent::__construct();
+    }
 
-  /**
-   * Public function to render an entity, returns a string representation of
-   * the entity.
-   * @return string
-   */
-  public function render() {
-    $output = parent::render();
-    array_push($output, 100, 'AcDbCircle');
-    array_push($output, 39, $this->thickness);
-    array_push($output, $this->point($this->point));
-    array_push($output, 40, $this->radius);
-    array_push($output, $this->point($this->extrusion, 200));
-    return implode(PHP_EOL, $output);
-  }
+    /**
+     * Public function to move a Circle entity
+     * @param array $move vector to move the entity with
+     */
+    public function move($move)
+    {
+        $this->movePoint($this->point, $move);
+    }
 
-  public function getThickness() {
-    return $this->thickness;
-  }
+    /**
+     * Public function to render an entity, returns a string representation of
+     * the entity.
+     * @return string
+     */
+    public function render()
+    {
+        $output = parent::render();
+        array_push($output, 100, 'AcDbCircle');
+        array_push($output, 39, $this->thickness);
+        array_push($output, $this->point($this->point));
+        array_push($output, 40, $this->radius);
+        array_push($output, $this->point($this->extrusion, 200));
+        return implode(PHP_EOL, $output);
+    }
 
-  public function getPoint() {
-    return $this->point;
-  }
+    public function getThickness()
+    {
+        return $this->thickness;
+    }
 
-  public function getRadius() {
-    return $this->radius;
-  }
+    public function getPoint()
+    {
+        return $this->point;
+    }
 
-  public function getExtrusion() {
-    return $this->extrusion;
-  }
+    public function getRadius()
+    {
+        return $this->radius;
+    }
+
+    public function getExtrusion()
+    {
+        return $this->extrusion;
+    }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: jpietler
@@ -14,9 +15,12 @@
  * Class Arc
  * @package DXFighter\lib
  */
-class File_DXF_Arc extends File_DXF_Circle {
-  protected $start;
-  protected $end;
+require_once 'File/DXF/Circle.php';
+
+class File_DXF_Arc extends File_DXF_Circle
+{
+  public $start;
+  public $end;
 
   /**
    * Arc constructor.
@@ -27,7 +31,8 @@ class File_DXF_Arc extends File_DXF_Circle {
    * @param int $thickness
    * @param array $extrusion
    */
-  function __construct($point, $radius, $start, $end, $thickness = 0, $extrusion = array(0, 0, 1)) {
+  function __construct($point, $radius, $start, $end, $thickness = 0, $extrusion = array(0, 0, 1))
+  {
     parent::__construct($point, $radius, $thickness, $extrusion);
     $this->entityType = 'arc';
     $this->start = $start;
@@ -39,7 +44,8 @@ class File_DXF_Arc extends File_DXF_Circle {
    * the entity.
    * @return string
    */
-  public function render() {
+  public function render()
+  {
     $output = array();
     array_push($output, parent::render());
     array_push($output, 100, 'AcDbArc');
@@ -48,11 +54,13 @@ class File_DXF_Arc extends File_DXF_Circle {
     return implode(PHP_EOL, $output);
   }
 
-  public function getStart() {
+  public function getStart()
+  {
     return $this->start;
   }
 
-  public function getEnd() {
+  public function getEnd()
+  {
     return $this->end;
   }
 }

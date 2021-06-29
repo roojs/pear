@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: jpietler
@@ -14,27 +15,32 @@
  * Class Seqend
  * @package DXFighter\lib
  */
-class File_DXF_Seqend extends File_DXF_Entity {
+require_once 'File/DXF/Entity.php';
 
-  /**
-   * Seqend constructor.
-   * @param $pointer
-   * @param $layer
-   */
-  function __construct($pointer, $layer) {
-    $this->entityType = 'seqend';
-    $this->pointer = $pointer;
-    $this->layer = $layer;
-    parent::__construct();
-  }
+class File_DXF_Seqend extends File_DXF_Entity
+{
 
-  /**
-   * Public function to render an entity, returns a string representation of
-   * the entity.
-   * @return string
-   */
-  public function render() {
-    $output = parent::render();
-    return implode(PHP_EOL, $output);
-  }
+    /**
+     * Seqend constructor.
+     * @param $pointer
+     * @param $layer
+     */
+    function __construct($pointer, $layer)
+    {
+        $this->entityType = 'seqend';
+        $this->pointer = $pointer;
+        $this->layer = $layer;
+        parent::__construct();
+    }
+
+    /**
+     * Public function to render an entity, returns a string representation of
+     * the entity.
+     * @return string
+     */
+    public function render()
+    {
+        $output = parent::render();
+        return implode(PHP_EOL, $output);
+    }
 }
