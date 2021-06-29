@@ -141,7 +141,7 @@ class File_DXF
   public function addTable($tableItem) {
     require_once 'File/DXF/Table.php';
 
-    $table = new File_DXF_Table( ( (new \ReflectionClass($tableItem))->getShortName() ) );
+    $table = new File_DXF_Table( ( (new ReflectionClass($tableItem))->getShortName() ) );
     $table->addEntry($tableItem);
     $this->tables->addItem($table);
   }
@@ -261,7 +261,7 @@ class File_DXF
 
   private function read($path, $move = [0,0,0], $rotate = 0) {
     if (!file_exists($path) || !filesize($path)) {
-      throw new \Exception('The path to the file is either invalid or the file is empty');
+      throw new Exception('The path to the file is either invalid or the file is empty');
     }
     $content = file_get_contents($path);
     $lines = preg_split ('/$\R?^/m', $content);
