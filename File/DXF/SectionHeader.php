@@ -1,6 +1,10 @@
 <?php 
 class File_DXF_SectionHeader extends File_DXF_Section
 {
+    public function __construct()
+    {
+        parent::__construct('header');
+    }
     public function parse($values){
         $variable_pattern = [
             'name' => '',
@@ -29,7 +33,7 @@ class File_DXF_SectionHeader extends File_DXF_Section
             if (strtoupper($name) == 'ACADVER') {
               $variable['values'] = [1 => 'AC1012'];
             }
-            $dxf->addItem(new File_DXF_SystemVariable($name, $variable['values']));
+            $this->addItem(new File_DXF_SystemVariable($name, $variable['values']));
           }
     }
 }
