@@ -263,6 +263,10 @@ class File_DXF
     if (!file_exists($path) || !filesize($path)) {
       throw new Exception('The path to the file is either invalid or the file is empty');
     }
+
+    $handle = fopen($path, 'r');
+
+
     $content = file_get_contents($path);
     $lines = preg_split ('/$\R?^/m', $content);
     $values = [];
