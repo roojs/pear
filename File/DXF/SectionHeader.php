@@ -1,7 +1,7 @@
 <?php 
 class File_DXF_SectionHeader
 {
-    function parse($values){
+    function parse($dxf, $values){
         $variable_pattern = [
             'name' => '',
             'values' => [],
@@ -29,7 +29,7 @@ class File_DXF_SectionHeader
             if (strtoupper($name) == 'ACADVER') {
               $variable['values'] = [1 => 'AC1012'];
             }
-            $this->header->addItem(new File_DXF_SystemVariable($name, $variable['values']));
+            $dxf->addItem(new File_DXF_SystemVariable($name, $variable['values']));
           }
     }
 }
