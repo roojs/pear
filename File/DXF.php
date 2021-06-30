@@ -5,17 +5,17 @@ class File_DXF
 	protected $sections;
 
 	/**
-	 * @var Section
+	 * @var File_DXF_SectionHeader
 	 */
 	protected $header;
 
 	/**
-	 * @var Section
+	 * @var File_DXF_SectionClasses
 	 */
 	protected $classes;
 
 	/**
-	 * @var Section
+	 * @var File_DXF_SectionTables
 	 */
 	protected $tables;
 
@@ -56,6 +56,9 @@ class File_DXF
 		);
 
 		require_once 'File/DXF/Section.php';
+		require_once 'File/DXF/SectionHeader.php';
+
+		$this->header = new File_DXF_SectionHeader()
 		foreach ($this->sections as $section) {
 			$this->{$section} = new File_DXF_Section($section);
 		}
@@ -287,7 +290,7 @@ class File_DXF
 
 		while ($pair = $this->readPair($handle)) {
 
-			
+
 		}
 		fclose($handle);
 
