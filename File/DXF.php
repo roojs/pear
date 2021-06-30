@@ -286,7 +286,10 @@ class File_DXF
 		$handle = fopen($path, 'r');
 
 		while ($line = fgets($handle)) {
+
+
 		}
+		flcose($handle);
 
 
 		$content = file_get_contents($path);
