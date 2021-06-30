@@ -286,10 +286,9 @@ class File_DXF
 		$handle = fopen($path, 'r');
 
 		while ($line = fgets($handle)) {
-
-
+			$key 
 		}
-		flcose($handle);
+		fclose($handle);
 
 
 		$content = file_get_contents($path);
@@ -302,6 +301,16 @@ class File_DXF
 			];
 		}
 		$this->readDocument($values, $move, $rotate);
+	}
+
+	private function readPair($handle){
+		$key = fgets($handle);
+		$value = fgets($handle);
+
+		return array(
+			'key' => trim($key),
+			'value' => trim($value)
+		)
 	}
 
 	private function readDocument($values, $move = [0, 0, 0], $rotate = 0)
