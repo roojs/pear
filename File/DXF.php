@@ -286,7 +286,8 @@ class File_DXF
 		$handle = fopen($path, 'r');
 
 		while ($pair = $this->readPair($handle)) {
-			$key 
+
+			
 		}
 		fclose($handle);
 
