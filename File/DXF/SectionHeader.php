@@ -1,7 +1,7 @@
 <?php 
 class File_DXF_SectionHeader
 {
-    function parse(){
+    function parse($values){
         $variable_pattern = [
             'name' => '',
             'values' => [],
