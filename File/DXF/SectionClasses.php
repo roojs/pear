@@ -1,9 +1,9 @@
 <?php 
-class File_DXF_SectionHeader extends File_DXF_Section
+class File_DXF_SectionClasses extends File_DXF_Section
 {
     public function __construct()
     {
-        parent::__construct('header');
+        parent::__construct('classes');
     }
     public function parse($values){
         $variable_pattern = [
