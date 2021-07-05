@@ -103,4 +103,15 @@ class File_DXF_Section
     {
         return [];
     }
+
+    public function readPair($handle){
+		$key = fgets($handle);
+		$value = fgets($handle);
+
+		return array(
+			'key' => trim($key),
+			'value' => trim($value)
+		);
+	}
+
 }

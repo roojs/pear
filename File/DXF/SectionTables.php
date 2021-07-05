@@ -5,7 +5,7 @@ class File_DXF_SectionTables extends File_DXF_Section
     {
         parent::__construct('tables');
     }
-    public function parse($values)
+    public function parse($handle)
     {
         $table = null;
         $tableName = '';
@@ -16,36 +16,39 @@ class File_DXF_SectionTables extends File_DXF_Section
         require_once 'File/DXF/AppID.php';
         require_once 'File/DXF/BlockRecord.php';
 
-        foreach ($values as $value) {
-            if ($value['key'] == 0) {
-                if ($value['value'] == 'TABLE') {
-                    $table = null;
-                    continue;
-                } elseif ($value['value'] == 'ENDTAB') {
-                    $this->tables->addItem($table);
-                    continue;
-                }
+        while ($pair = $this->readPair($handle)) {
+            if ($pair['value'] == 'ENDSEC') {
+                break;
             }
-            if ($value['key'] == 2) {
+
+            if ($pair['value'] == 'TABLE'){
+                $table = null;
+                continue;
+            }elseif ($pair['value'] == 'ENDTAB') {
+                $this->addItem($table);
+                continue;
+            }
+
+            if ($pair['key'] == 2) {
                 if (!isset($table)) {
-                    $tableName = $value['value'];
+                    $tableName = $pair['value'];
                     $table = new File_DXF_Table($tableName);
                 } else {
                     switch ($tableName) {
                         case 'LTYPE':
-                            $table->addEntry(new File_DXF_LType($value['value']));
+                            $table->addEntry(new File_DXF_LType($pair['value']));
                             break;
                         case 'STYLE':
-                            $table->addEntry(new File_DXF_Style($value['value']));
+                            $table->addEntry(new File_DXF_Style($pair['value']));
                             break;
                         case 'LAYER':
-                            $table->addEntry(new File_DXF_Layer($value['value']));
+                            $table->addEntry(new File_DXF_Layer($pair['value']));
                             break;
                         case 'APPID':
-                            $table->addEntry(new File_DXF_AppID($value['value']));
+                            $table->addEntry(new File_DXF_AppID($pair['value']));
                             break;
                         case 'BLOCK_RECORD':
-                            $table->addEntry(new File_DXF_BlockRecord($value['value']));
+                            $table->addEntry(new File_DXF_BlockRecord($pair['value']));
                             break;
                     }
                 }
