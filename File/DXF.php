@@ -20,19 +20,21 @@ class File_DXF
 	protected $tables;
 
 	/**
-	 * @var Section
+	 * @var File_DXF_SectionBlocks
 	 */
 	protected $blocks;
 
 	/**
-	 * @var Section
+	 * @var File_DXF_SectionEntites
 	 */
 	protected $entities;
 
 	/**
-	 * @var Section
+	 * @var File_DXF_SectionObjects
 	 */
-	protected $objects;
+	protected $objects;	
+ 
+
 	protected $thumbnailImage;
 
 
@@ -56,7 +58,19 @@ class File_DXF
 		);
 
 		require_once 'File/DXF/Section.php';
-
+		require_once 'File/DXF/SectionHeader.php';
+		require_once 'File/DXF/SectionTables.php';
+		require_once 'File/DXF/SectionBlocks.php';
+		require_once 'File/DXF/SectionEntities.php';
+		require_once 'File/DXF/SectionObjects.php';
+		
+		$this->header = new File_DXF_SectionHeader();
+		$this->classes = new Section();
+		$this->tables = new File_DXF_SectionTables();
+		$this->blocks = new File_DXF_SectionBlocks();
+		$this->entites = new File_DXF_SectionEntities();
+		$this->objects = new File_DXF_SectionObjects();
+		$this->thumbnailImage = new Section();	
 
 		$this->addBasicObjects();
 		if ($readPath) {
@@ -248,7 +262,7 @@ class File_DXF
 	{
 		$output = array();
 		array_push($output, 999, "DXFighter");
-		foreach ($this->sections as $section) {
+		foreach ($this->sections as $sectaddEntityion) {
 			$output[] = $this->{$section}->render();
 		}
 		array_push($output, 0, "EOF");
@@ -275,50 +289,51 @@ class File_DXF
 		fclose($fh);
 		return realpath($fileName);
 	}
+	
+	/**
+	 * @var File reading handle
+	 */
+	var $handle; 
 
 	function read($path, $opts= array())
 	{
 		if (!file_exists($path) || !filesize($path)) {
 			throw new Exception('The path to the file is either invalid or the file is empty');
-		}
-
+		}addEntity
+		
 		$this->handle = fopen($path, 'r');
+		
 		while ($pair = $this->readPair($handle)) {
+		
 			if ($pair['key'] != 0 || $pair['value'] != 'SECTION') {
+				// Got invalid starting tag for a new section
 				print_R($pair)
-
-				die("ERROR got ???"  );
-				//Start a new Section
+				die("ERROR got invalid starting tag for a new section"  );
 			}
+			// Beginning of a new section
+			
 			$sectionTypePair = $this->readPair($handle);
-
+			
 			if($sectionTypePair['key'] != 2){
+				// Got invalid group code for a section name
 				print_R($pair)
-
-				die("ERROR got ???"  );
+				die("ERROR got invalid group code for a section name"  );
 			}
-
+			
 			switch ($sectionTypePair['value']) {
 				case 'HEADER':
-					require_once 'File/DXF/SectionHeader.php';
-					$this->header = new File_DXF_SectionHeader();
 					$this->header->parse($this);
 					if (!empty($opts['ignore_header'])) {
 						$this->header = false;
 					}
-					break;
+					break;addEntity
 				case 'TABLES':
-					require_once 'File/DXF/SectionTables.php';
-					$this->tables = new File_DXF_SectionTables();
 					$this->tables->parse($this);
 /// probably useless.
 					break;
 				case 'BLOCKS':
-					require_once 'File/DXF/SectionBlocks.php';
-					$this->blocks = new File_DXF_SectionBlocks();
 					$this->blocks->parse($this);
-					// this may contain filenames (xref)
-
+// this may contain filenames (xref)
 //if block_only  - 
 //		reutnr here..
 //		.. close file..
@@ -326,13 +341,9 @@ class File_DXF
 
 					break;
 				case 'ENTITIES':
-					require_once 'File/DXF/SectionEntities.php';
-					$this->entities = new File_DXF_SectionEntities();
 					$this->entities->parse($this, $opts);
 					break;
 				case 'OBJECTS':
-					require_once 'File/DXF/SectionObjects.php';
-					$this->objects = new File_DXF_SectionObjects();
 					$this->objects->parse();
 					break;
 			}
@@ -341,15 +352,13 @@ class File_DXF
 
 
 	}
-	var $handle; // reading handle
 
 	function readPair(){
 		$key = fgets($this->handle);
 		$value = fgets($this->handle);
-
 		return array(
 			'key' => trim($key),
-			'value' => trim($value)
+			'value' => trim($value),
 		);
 	}
 }
