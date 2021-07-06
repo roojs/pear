@@ -213,7 +213,7 @@ class File_DXF
 	 * @param int $rotate degree value used for the rotation
 	 * @param array $rotationCenter center point of the rotation
 	 */
-	public function rotate($rotate, $rotationCenter = array(0, 0, 0))
+	function rotate($rotate, $rotationCenter = array(0, 0, 0))
 	{
 		foreach ($this->entities->getItems() as $entity) {
 			if (method_exists($entity, 'rotate')) {
@@ -229,7 +229,7 @@ class File_DXF
 	 *
 	 * @return array
 	 */
-	public function toArray()
+	function toArray()
 	{
 		$output = array();
 		foreach ($this->sections as $section) {
@@ -244,7 +244,7 @@ class File_DXF
 	 * @param bool|TRUE $return
 	 * @return string
 	 */
-	public function toString($return = TRUE)
+	function toString($return = TRUE)
 	{
 		$output = array();
 		array_push($output, 999, "DXFighter");
@@ -268,7 +268,7 @@ class File_DXF
 	 * @param $fileName
 	 * @return $absolutePath
 	 */
-	public function saveAs($fileName)
+	function saveAs($fileName)
 	{
 		$fh = fopen($fileName, 'w');
 		fwrite($fh, iconv("UTF-8", "WINDOWS-1252", $this->toString(FALSE)));
@@ -276,58 +276,76 @@ class File_DXF
 		return realpath($fileName);
 	}
 
-	private function read($path, $move = [0, 0, 0], $rotate = 0)
+	function read($path, $opts= array())
 	{
 		if (!file_exists($path) || !filesize($path)) {
 			throw new Exception('The path to the file is either invalid or the file is empty');
 		}
 
-		$handle = fopen($path, 'r');
+		$this->handle = fopen($path, 'r');
 		while ($pair = $this->readPair($handle)) {
-			if ($pair['key'] == 0 && $pair['value'] == 'SECTION') {
+			if ($pair['key'] != 0 || $pair['value'] != 'SECTION') {
+				print_R($pair)
+
+				die("ERROR got ???"  );
 				//Start a new Section
+			}
+			$sectionTypePair = $this->readPair($handle);
 
-				$sectionTypePair = $this->readPair($handle);
+			if($sectionTypePair['key'] != 2){
+				print_R($pair)
 
-				if($sectionTypePair['key'] == 2){
-					switch ($sectionTypePair['value']) {
-						case 'HEADER':
-							require_once 'File/DXF/SectionHeader.php';
-							$this->header = new File_DXF_SectionHeader();
-							$this->header->parse($handle);
-							break;
-						case 'TABLES':
-							require_once 'File/DXF/SectionTables.php';
-							$this->tables = new File_DXF_SectionTables();
-							$this->tables->parse($handle);
-							break;
-						case 'BLOCKS':
-							require_once 'File/DXF/SectionBlocks.php';
-							$this->blocks = new File_DXF_SectionBlocks();
-							$this->blocks->parse($handle);
-							break;
-						case 'ENTITIES':
-							require_once 'File/DXF/SectionEntities.php';
-							$this->entities = new File_DXF_SectionEntities();
-							$this->entities->parse($handle, true, $move, $rotate);
-							break;
-						case 'OBJECTS':
-							require_once 'File/DXF/SectionObjects.php';
-							$this->objects = new File_DXF_SectionObjects();
-							$this->objects->parse();
-							break;
+				die("ERROR got ???"  );
+			}
+
+			switch ($sectionTypePair['value']) {
+				case 'HEADER':
+					require_once 'File/DXF/SectionHeader.php';
+					$this->header = new File_DXF_SectionHeader();
+					$this->header->parse($this);
+					if (!empty($opts['ignore_header'])) {
+						$this->header = false;
 					}
-				}
+					break;
+				case 'TABLES':
+					require_once 'File/DXF/SectionTables.php';
+					$this->tables = new File_DXF_SectionTables();
+					$this->tables->parse($this);
+/// probably useless.
+					break;
+				case 'BLOCKS':
+					require_once 'File/DXF/SectionBlocks.php';
+					$this->blocks = new File_DXF_SectionBlocks();
+					$this->blocks->parse($this);
+					// this may contain filenames (xref)
+
+//if block_only  - 
+//		reutnr here..
+//		.. close file..
+//
+
+					break;
+				case 'ENTITIES':
+					require_once 'File/DXF/SectionEntities.php';
+					$this->entities = new File_DXF_SectionEntities();
+					$this->entities->parse($this, $opts);
+					break;
+				case 'OBJECTS':
+					require_once 'File/DXF/SectionObjects.php';
+					$this->objects = new File_DXF_SectionObjects();
+					$this->objects->parse();
+					break;
 			}
 		}
 		fclose($handle);
 
 
 	}
+	var $handle; // reading handle
 
-	private function readPair($handle){
-		$key = fgets($handle);
-		$value = fgets($handle);
+	function readPair(){
+		$key = fgets($this->handle);
+		$value = fgets($this->handle);
 
 		return array(
 			'key' => trim($key),
