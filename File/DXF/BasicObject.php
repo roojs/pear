@@ -25,9 +25,14 @@ class File_DXF_BasicObject
     /**
      * BasicObject constructor.
      */
-    function __construct()
+    function __construct($cfg=array())
     {
         $this->handle = self::$id++;
+        foreach($cfg as $k=>$v) {
+          	$this->$k = $v;
+	    }
+        
+        
     }
 
     /**

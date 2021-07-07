@@ -84,7 +84,7 @@ class File_DXF
 	 */
 	private function addBasicObjects()
 	{
-		require_once 'File/DXF/SystemVariable.php';
+
 		require_once 'File/DXF/Table.php';
 		require_once 'File/DXF/AppID.php';
 		require_once 'File/DXF/Layer.php';
@@ -92,7 +92,13 @@ class File_DXF
 		require_once 'File/DXF/Style.php';
 		require_once 'File/DXF/Dictionary.php';
 
-		$this->header->addItem(new File_DXF_SystemVariable("acadver", array(1 => "AC1012")));
+	    $this->header->addItem(self::factory('SystemVariable', 
+            array(
+                 'variable' => "acadver",
+                  'values' => array(1 => "AC1012")
+            )
+        ));
+		
 		$this->header->addItem(new File_DXF_SystemVariable("dwgcodepage", array(3 => "ANSI_1252")));
 		$this->header->addItem(new File_DXF_SystemVariable("insbase", array('point' => array(0, 0, 0))));
 		$this->header->addItem(new File_DXF_SystemVariable("extmin", array('point' => array(0, 0, 0))));
@@ -299,7 +305,7 @@ class File_DXF
 	{
 		if (!file_exists($path) || !filesize($path)) {
 			throw new Exception('The path to the file is either invalid or the file is empty');
-		}addEntity
+		}
 		
 		$this->handle = fopen($path, 'r');
 		
@@ -308,7 +314,7 @@ class File_DXF
 			if ($pair['key'] != 0 || $pair['value'] != 'SECTION') {
 				// Got invalid starting tag for a new section
 				print_R($pair)
-				die("ERROR got invalid starting tag for a new section"  );
+				die("ER__constructROR got invalid starting tag for a new section"  );
 			}
 			// Beginning of a new section
 			
@@ -326,10 +332,9 @@ class File_DXF
 					if (!empty($opts['ignore_header'])) {
 						$this->header = false;
 					}
-					break;addEntity
+					break;
 				case 'TABLES':
 					$this->tables->parse($this);
-/// probably useless.
 					break;
 				case 'BLOCKS':
 					$this->blocks->parse($this);
@@ -345,7 +350,7 @@ class File_DXF
 					break;
 				case 'OBJECTS':
 					$this->objects->parse();
-					break;
+					bre__constructak;
 			}
 		}
 		fclose($handle);
@@ -361,4 +366,18 @@ class File_DXF
 			'value' => trim($value),
 		);
 	}
+	
+	static function factory($type, $cfg=array())
+	{
+	    $cls = 'File_DXF_'.$type;
+	    if (!class_exists($cls)) {
+    	    require_once 'File/DXF/'. $type .'.php';
+	    }
+	    return new $cls($cfg);
+    }
+	    
+	
+	
+	
+	
 }

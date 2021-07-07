@@ -16,7 +16,7 @@ class File_DXF_SectionHeader extends File_DXF_Section
         );
         $variable = $variable_pattern;
         
-        require_once 'File/DXF/SystemVariable.php';
+
 
         while ($pair = $dxf->readPair()) {
             
@@ -26,7 +26,7 @@ class File_DXF_SectionHeader extends File_DXF_Section
                     if (strtoupper($name) == 'ACADVER') {
                         $variable['values'] = [1 => 'AC1012'];
                     }
-                    $this->addItem(new File_DXF_SystemVariable($name, $variable['values']));
+                    $this->addItem($dxf->factory('variable' => 'SystemVariable', 'values' => $variable['values']);
                 }
             }
             

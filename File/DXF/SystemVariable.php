@@ -29,11 +29,10 @@ class File_DXF_SystemVariable extends File_DXF_BasicObject
      * @param $variable
      * @param $values
      */
-    function __construct($variable, $values)
+    function __construct($cfg=array())
     {
-        $this->variable = $variable;
-        $this->values = $values;
-        parent::__construct();
+
+        parent::__construct($cfg);
     }
 
     public function getName()
