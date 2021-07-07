@@ -67,31 +67,31 @@ class File_DXF
 	
 	    $this->header->addItem(self::factory('SystemVariable', 
 	        array(
-	            'variable' => "acadver",
+	            'name' => "acadver",
 	            'values' => array(1 => "AC1012"),
             )
         ));
 		$this->header->addItem(self::factory('SystemVariable',
 		    array(
-		        'variable' => "dwgcodepage",
+		        'name' => "dwgcodepage",
 		        'values' => array(3 => "ANSI_1252"),
 	        )
         ));
 		$this->header->addItem(self::factory('SystemVariable',
 		    array(
-		        'variable' => "insbase", 
+		        'name' => "insbase", 
 		        'values' => array('point' => array(0, 0, 0)),
 	        )
         ));
 		$this->header->addItem(self::factory('SystemVariable',
 		    array(
-		        'variable' => "extmin", 
+		        'name' => "extmin", 
 		        'values' => array('point' => array(0, 0, 0)),
 	        )
         ));
 		$this->header->addItem(self::factory('SystemVariable',
 		    array(
-		        'variable' => "extmax", 
+		        'name' => "extmax", 
 		        'values' => array('point' => array(0, 0, 0)),
 	        )
         ));
@@ -99,24 +99,19 @@ class File_DXF
 		$tables = array();
 		$tableOrder = array('vport', 'ltype', 'layer', 'style', 'view', 'ucs', 'appid', 'dimstyle', 'block_record');
 		
-		foreach ($tableOrder as $table) {
-			$tables[$table] = self::factory('Table', array('name' => $table));
-		}
-		
-		$tables['appid']->addEntry(self::factory('AppID', array('name' => 'ACAD'));
-		$this->addBlock($tables, '*model_space');
+		foreach ($tableOrderpublic les, '*model_space');
 		$this->addBlock($tables, '*paper_space');
+
 		$tables['layer']->addEntry(self::factory('Layer', array('name' => '0'));
+
 		$tables['ltype']->addEntry(self::factory('LType', array('name' => 'byblock'));
 		$tables['ltype']->addEntry(self::factory('LType', array('name' => 'bylayer'));
+
 		$tables['style']->addEntry(self::factory('Style', array('name' =>'standard'));
+
 		$this->tables->addMultipleItems($tables);
+
 		$this->objects->addItem(self::factory('Dictionary', array('entries' => array('ACAD_GROUP'))));
-	}
-	
-	function addEntity($entity)
-	{
-		$this->entities->addItem($entity);
 	}
 
 	function addBlock(&$tables, $name)
@@ -131,7 +126,8 @@ class File_DXF
 	function read($path, $opts= array())
 	{
 	    if (!file_exists($path) || !filesize($path)) {
-	        throw new Exception('The path to the file is either invalid or the file is empty');
+			print_r($path);
+	        die('ERROR The path to the file is either invalid or the file is empty');
         }
         
         $this->handle = fopen($path, 'r');
@@ -140,7 +136,7 @@ class File_DXF
             
             if ($pair['key'] != 0 || $pair['value'] != 'SECTION') {
 			    // Got invalid starting tag for a new section
-			    print_R($pair)
+			    print_r($pair);
 			    die("ERROR got invalid starting tag for a new section");
 		    }
 		    // Beginning of a new section
@@ -149,7 +145,7 @@ class File_DXF
 		    
 		    if($sectionTypePair['key'] != 2){
 			    // Got invalid group code for a section name
-			    print_R($pair)
+			    print_R($sectionTypePair['key']);
 			    die("ERROR got invalid group code for a section name");
 		    }
 		    
@@ -189,6 +185,7 @@ class File_DXF
 				default:
 				    print_R($sectionTypePair['value']);
 				    die("ERROR got unknown section name");
+					break;
 			}
 			
 		}
@@ -210,6 +207,11 @@ class File_DXF
 	 * TODO ENHANCE / CHECK THE CODE BLOEW
 	 *
 	 */
+
+	function addEntity($entity)
+	{
+		$this->entities->addItem($entity);
+	}
 	 
 	function addMultipleEntities($entities)
 	{
@@ -240,36 +242,6 @@ class File_DXF
 	public function addEntitiesFromFile($path, $move = [0, 0, 0], $rotate = 0)
 	{
 		$this->read($path, $move, $rotate);
-	}
-
-	public function getHeader()
-	{
-		return $this->header;
-	}
-
-	public function getClasses()
-	{
-		return $this->classes;
-	}
-
-	public function getTables()
-	{
-		return $this->tables;
-	}
-
-	public function getBlocks()
-	{
-		return $this->blocks;
-	}
-
-	public function getObject()
-	{
-		return $this->objects;
-	}
-
-	public function getEntities()
-	{
-		return $this->entities->getItems();
 	}
 
 	/**

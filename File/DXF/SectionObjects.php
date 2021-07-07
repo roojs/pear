@@ -2,11 +2,7 @@
 class File_DXF_SectionObjects extends File_DXF_Section
 {
 
-    public function __construct($cfg=array())
-    {
-        $cfg['name'] = 'objects'
-        parent::__construct($cfg);
-    }
+    public $name = 'objects';
     
     /**
 	 *

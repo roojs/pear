@@ -4,29 +4,16 @@ require_once 'File/DXF/Section.php';
 
 class File_DXF_SectionHeader extends File_DXF_Section
 {
-
-    public function __construct($cfg=array())
-    {
-        $cfg['name'] = 'header'
-        parent::__construct($cfg);
-    }
-    
-    /**
-	 *
-	 * TODO ENHANCE / CHECK THE CODE BLOEW
-	 *
-	 */
+    public $name = 'header';
 	
-    public function parse($dxf)
+    function parse($dxf)
     {
         $variable_pattern = array(
             'name' => '',
-            'values' => [],
+            'values' => array(),
         );
         $variable = $variable_pattern;
         
-
-
         while ($pair = $dxf->readPair()) {
             
             if ($pair['value'] == 'ENDSEC' || $pair['key'] == 9) {
@@ -35,7 +22,12 @@ class File_DXF_SectionHeader extends File_DXF_Section
                     if (strtoupper($name) == 'ACADVER') {
                         $variable['values'] = [1 => 'AC1012'];
                     }
-                    $this->addItem($dxf->factory('variable' => 'SystemVariable', 'values' => $variable['values']);
+                    $this->addItem(DXF::factory('SystemVariable',
+                        array(
+                            'name' => $name,
+                            'values' => $variable['values'],
+                        )
+                    ));
                 }
             }
             

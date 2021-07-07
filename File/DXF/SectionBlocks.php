@@ -6,11 +6,7 @@ require_once 'File/DXF/SectionEntities.php';
 class File_DXF_SectionBlocks extends File_DXF_Section
 {
 
-    public function __construct($cfg=array())
-    {
-        $cfg['name'] = 'blocks'
-        parent::__construct($cfg);
-    }
+    public $name = 'blocks';
     
     /**
 	 *

@@ -2,9 +2,8 @@
 
 class File_DXF_SectionTables extends File_DXF_Section
 {
-    $name = 'tables'
+    public $name = 'tables';
 
-    
     /**
 	 *
 	 * TODO ENHANCE / CHECK THE CODE BLOEW
