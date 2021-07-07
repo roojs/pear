@@ -4,10 +4,19 @@ require_once 'File/DXF/Section.php';
 
 class File_DXF_SectionEntities extends File_DXF_Section
 {
-    public function __construct()
+
+    public function __construct($cfg=array())
     {
-        parent::__construct('entities');
+        $cfg['name'] = 'entities'
+        parent::__construct($cfg);
     }
+    
+    /**
+	 *
+	 * TODO ENHANCE / CHECK THE CODE BLOEW
+	 *
+	 */
+	 
     public function parse($dxf, $opts= array())
     {
         $entities = [];
@@ -20,7 +29,6 @@ class File_DXF_SectionEntities extends File_DXF_Section
 	    'REGION', 'SECTION', 'SEQEND', 'SHAPE', 'SOLID', 'SPLINE', 'SUN', 'SURFACE', 'TABLE', 'TEXT', 
 	    'TOLERANCE', 'TRACE', 'UNDERLAY', 'VERTEX', 'VIEWPOINT', 'WIPEOUT', 'XLINE',
 	);
-	// TODO most entity types are still missing
 	
 	while ($pair = $dxf->readPair()) {
 	
@@ -45,14 +53,14 @@ class File_DXF_SectionEntities extends File_DXF_Section
                     $data = [];
 		}
 		$entityType = $pair['value'];
-		if ($pair['value'] == 'VERTEX') {
+		if ($entityType == 'VERTEX') {
 		    $data['points'][] = [];
 		}
-		if ($pair['value'] == 'SPLINE') {
+		elseif ($entityType == 'SPLINE') {
 		    $data['knots'] = [];
 		    $data['points'] = [];
 		}
-		if ($pair['value'] == 'LWPOLYLINE') {
+		elseif ($entityType == 'LWPOLYLINE') {
 		    $data['points'] = [];
 		}
             } else {
@@ -81,7 +89,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
 		    }
 		} elseif ($entityType == 'VERTEX') {
 		    $data['points'][count($data['points']) - 1][$pair['key']] = $pair['value'];
-		} elseif (in_array($entityType, $types) || $entityType == 'POLYLINE') {
+		} elseif (in_array($entityType, $types)) {
 		    $data[$pair['key']] = $pair['value'];
 		}
 	    }

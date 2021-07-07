@@ -1,10 +1,16 @@
-	<?php
+<?php
+
 class File_DXF_SectionTables extends File_DXF_Section
 {
-    public function __construct()
-    {
-        parent::__construct('tables');
-    }
+    $name = 'tables'
+
+    
+    /**
+	 *
+	 * TODO ENHANCE / CHECK THE CODE BLOEW
+	 *
+	 */
+	 
     public function parse($dxf)
     {
         $table = null;

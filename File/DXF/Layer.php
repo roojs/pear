@@ -1,23 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: jpietler
- * Date: 04.02.16
- * Time: 19:26
- *
- * Documentation http://www.autodesk.com/techpubs/autocad/acad2000/dxf/layer_dxf_04.htm
- * This is baed on DXF Fighter by - https://github.com/enjoping/DXFighter"
- */
-
-
-/**
- * Class Layer
- * @package DXFighter\lib
- *
- * Different to previous versions of DXF files layers can't just
- * be used but need to be defined before.
- */
 require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_Layer extends File_DXF_BasicObject
@@ -26,30 +8,13 @@ class File_DXF_Layer extends File_DXF_BasicObject
     public $flag;
     public $color;
     public $lineType;
-
+    
     /**
-     * Layer constructor.
-     * @param $name
-     * @param int $flag
-     * @param int $color
-     * @param string $lineType
-     */
-    function __construct($name, $flag = 0, $color = 0, $lineType = 'CONTINUOUS')
-    {
-        $this->name = $name;
-        $this->flag = $flag;
-        $this->color = $color;
-        $this->lineType = $lineType;
-        parent::__construct();
-    }
-
-    /**
-     * Public function to render an entity, returns a string representation of
-     * the entity.
-     * @return string
-     */
-    public function render()
-    {
+    * Public function to render an entity, returns a string representation of
+    * the entity.
+    * @return string
+    */
+    function render() {
         $output = array();
         array_push($output, 0, "LAYER");
         array_push($output, 5, $this->getHandle());

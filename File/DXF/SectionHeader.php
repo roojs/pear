@@ -4,10 +4,19 @@ require_once 'File/DXF/Section.php';
 
 class File_DXF_SectionHeader extends File_DXF_Section
 {
-    public function __construct()
+
+    public function __construct($cfg=array())
     {
-        parent::__construct('header');
+        $cfg['name'] = 'header'
+        parent::__construct($cfg);
     }
+    
+    /**
+	 *
+	 * TODO ENHANCE / CHECK THE CODE BLOEW
+	 *
+	 */
+	
     public function parse($dxf)
     {
         $variable_pattern = array(
