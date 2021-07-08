@@ -8,9 +8,6 @@ class File_DXF_SectionTables extends File_DXF_Section
 	 
     public function parse($dxf)
     {
-        $table = null;
-        $tableName = '';
-
         while ($pair = $dxf->readPair()) {
 
             if($pair['key'] == 0) {
@@ -25,8 +22,8 @@ class File_DXF_SectionTables extends File_DXF_Section
 
             if ($pair['key'] == 2) {
                 $tableName = $pair['value'];
-                $table = $dxf->factory('Table',$tableName);
-                
+                $table = $dxf->factory('Table', array('name' => $tableName));
+
                 switch ($tableName) {
                     case 'LTYPE':
                     case 'STYLE':
