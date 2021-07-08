@@ -10,14 +10,12 @@ class File_DXF_Attrib extends File_DXF_Entity
     function parse($dxf)
     {
          while($pair = $dxf->readPair()) {
-             switch($pair['key']) {
-                case 0:
-                    return $pair;
-                    break;
-                default:
-                    $this->data[$pair['key']] = $this->data[$pair['value']];
-                    break;
-            }
+             if ($pair['key'] == 0) {
+                 // End of this entity
+                 // Beginning of a new entity
+                 return $pair;
+             }
+             $this->data[$pair['key']] = $this->data[$pair['value']];
          }
      }
 }
