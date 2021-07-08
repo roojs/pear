@@ -13,6 +13,7 @@ class File_DXF_Attrib extends File_DXF_Entity
             if ($pair['key'] == 0) {
                 // End of this entity
                 // Beginning of a new entity
+                $dxf->pushPair();
                 return $pair;
             }
             $this->data[$pair['key']] = $pair['value'];
