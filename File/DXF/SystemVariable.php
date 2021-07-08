@@ -12,6 +12,7 @@ class File_DXF_SystemVariable extends File_DXF_BasicObject
     function parse($dxf) {
 
         while($pair = $dxf->readPair()) {
+            // End of this variable
             if ($pair['key'] == 0 || $pair['key'] == 9) {
                 $dxf->pushPair($pair);
                 return;
