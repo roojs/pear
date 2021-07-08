@@ -2,8 +2,7 @@
 
 class File_DXF
 {
-
-    public $sections;
+	public $section;
     
     // File_DXF_SectionHeader
 	public $header;
@@ -28,23 +27,14 @@ class File_DXF
 	
 	function __construct($readPath = false)
 	{
-	    $this->sections = array(
-	        'header',
-			'classes',
-			'tables',
-			'blocks',
-			'entities',
-			'objects',
-			'thumbnailImage',
-		);
-		
+
 		$this->header = self::factory('SectionHeader');
-		$this->header = self::factory('SectionClasses');
-		$this->header = self::factory('SectionTables');
-		$this->header = self::factory('SectionBlocks');
-		$this->header = self::factory('SectionEntities');
-		$this->header = self::factory('SectionObjects');
-		$this->header = self::factory('SectionThumbnailImage');
+		$this->classes = self::factory('SectionClasses');
+		$this->tables = self::factory('SectionTables');
+		$this->blocks = self::factory('SectionBlocks');
+		$this->entities = self::factory('SectionEntities');
+		$this->objects = self::factory('SectionObjects');
+		$this->thumbnailImage = self::factory('SectionThumbnailImage');
 		
 		$this->addBasicObjects();
 		
