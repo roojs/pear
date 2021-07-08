@@ -4,6 +4,7 @@ require_once 'File/DXF/BaiscObject.php';
 
 class File_DXF_LType extends File_DXF_BasicObject
 {
+    
     public $name;
     public $flag;
     public $description;
