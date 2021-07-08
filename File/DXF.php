@@ -161,14 +161,9 @@ class File_DXF
 		            if (!empty($opts['ignore_header'])) {
 		                $this->header = false;
 	                }
-	                break;		$data = [];
-					$types = array(
-						'3DFACE', '3DSOLID', 'ACAD_PROXY_ENTITY', 'ARC', 'ATTDEF', 'ATTRIB', 'BODY', 'CIRCLE', 'DIMENSION',
-						'ELLIPSE', 'HATCH', 'HELIX', 'IMAGE', 'INSERT', 'LEADER', 'LIGHT', 'LINE', 'LWPOLYLINE', 'MESH', 
-						'MLINE', 'MLEADERSTYLE', 'MLEADER', 'MTEXT', 'OLEFRAME', 'OLE2FRAME', 'POINT', 'POLYLINE', 'RAY', 
-						'REGION', 'SECTION', 'SEQEND', 'SHAPE', 'SOLID', 'SPLINE', 'SUN', 'SURFACE', 'TABLE', 'TEXT', 
-						'TOLERANCE', 'TRACE', 'UNDERLAY', 'VERTEX', 'VIEWPOINT', 'WIPEOUT', 'XLINE',
-					);
+	                break;
+				case 'CLASSES':
+					$this->classes->parse($this);
                     break;
                 case 'BLOCKS':
                     $this->blocks->parse($this);
