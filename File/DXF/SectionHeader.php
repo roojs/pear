@@ -14,9 +14,10 @@ class File_DXF_SectionHeader extends File_DXF_Section
             }
             if ($pair['key'] == 9) {
                 // Beginning of a new header variable
+                $name = str_replace('$', '', $pair['value']);
                 $variable = $dxf->factory('SystemVariable',
                     array(
-                        'name' => $pair['value'],
+                        'name' => $name,
                         'data' => array(),
                     ),
                 );
