@@ -20,6 +20,7 @@ require_once 'File/DXF/Entity.php';
 class File_DXF_Insert extends File_DXF_Entity
 {
     public $entityType = "INSERT";
+    public $data;
     public $blockName;
     public $point;
     public $scale;
@@ -27,11 +28,21 @@ class File_DXF_Insert extends File_DXF_Entity
 
    function parse($dxf)
    {
+       $hasAttrib = false;
         while($pair = $dxf->readPair()) {
-            switch($pair['key']) {
-                case 1:  
-                    $this->xxx = $pair['value'];
-                    break;
+            if ($pair['key'] == 0) {
+                if (!$hasAttrib) {
+                    // End of this entity
+                    // Beginning of a new entity
+                    return $pair;
+                }
+                if ($pair['value'] == 'SEQEND') {
+                    
+                }
+                $entity = $dxf->factory('Attrib');
+                $entity->parse($dxf);
+            } elif ($pair['key'] == 66 && $pair['value'] == 1) {
+                $hasAttrib = true;
             }
         }
     }
