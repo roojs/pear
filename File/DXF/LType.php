@@ -13,7 +13,7 @@ class File_DXF_LType extends File_DXF_BasicObject
     /**
      * @param $lineElement
      */
-    public function addLineElement($lineElement)
+    function addLineElement($lineElement)
     {
         $this->lineElements[] = $lineElement;
     }
