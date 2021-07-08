@@ -10,7 +10,7 @@ class File_DXF_SectionClasses extends File_DXF_Section
     function parse ($dxf) {
         while ($pair = $dxf->readPair()){
             if ($pair['key'] == 0 && $pair['value'] == 'ENDSEC') {
-                // End of the header section
+                // End of the classes section
                 return;
             }
         }
