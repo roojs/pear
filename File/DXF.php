@@ -232,7 +232,7 @@ class File_DXF
 	{
 		require_once 'File/DXF/Table.php';
 
-		$table = new File_DXF_Table(((new ReflectionClass($tableItem))->getShortName()));
+		$table = self::factory('Table', array('name' => (((new ReflectionClass($tableItem))->getShortName()))));
 		$table->addEntry($tableItem);
 		$this->tables->addItem($table);
 	}
