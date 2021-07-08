@@ -32,7 +32,7 @@ class File_DXF_SectionHeader extends File_DXF_Section
             }
             
             if ($pair['value'] == 'ENDSEC') {
-                // End of a section
+                // End of the header section
                 break;
             }
             
