@@ -52,7 +52,7 @@ class File_DXF_Insert extends File_DXF_Entity
      * the entity.
      * @return string
      */
-    public function render()
+    function render()
     {
         $output = parent::render();
         array_push($output, 100, 'AcDbBlockReference');
@@ -63,25 +63,5 @@ class File_DXF_Insert extends File_DXF_Entity
         array_push($output, 43, $this->scale[2]);
         array_push($output, 50, $this->rotation);
         return implode(PHP_EOL, $output);
-    }
-
-    public function getBlockName()
-    {
-        return $this->blockName;
-    }
-
-    public function getPoint()
-    {
-        return $this->point;
-    }
-
-    public function getScale()
-    {
-        return $this->scale;
-    }
-
-    public function getRotation()
-    {
-        return $this->rotation;
     }
 }
