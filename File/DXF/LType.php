@@ -1,6 +1,6 @@
 <?php
 
-require_once 'File/DXF/BasicObject.php';
+require_once 'File/DXF/Basicobject.php';
 
 class File_DXF_LType extends File_DXF_BasicObject
 {
