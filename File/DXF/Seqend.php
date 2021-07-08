@@ -5,7 +5,6 @@ require_once 'File/DXF/Entity.php';
 class File_DXF_Seqend extends File_DXF_Entity
 {
     public $entityType = 'SEQEND';
-    public $data = array();
 
     function parse($dxf)
     {
@@ -15,7 +14,6 @@ class File_DXF_Seqend extends File_DXF_Entity
                 // Beginning of a new entity
                 return $pair;
             }
-            $this->data[$pair['key']] = $pair['value'];
         }
     }
 

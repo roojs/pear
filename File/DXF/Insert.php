@@ -21,6 +21,8 @@ class File_DXF_Insert extends File_DXF_Entity
 {
     public $entityType = "INSERT";
     public $data;
+    public $attributes = array();
+
     public $blockName;
     public $point;
     public $scale;
@@ -31,24 +33,26 @@ class File_DXF_Insert extends File_DXF_Entity
        
         while($pair = $dxf->readPair()) {
             if ($pair['key'] == 0) {
-                if (!array_key_exists(66, $this->data) || $this->data[66] == 1) {
+                if (!isset($this->data[66]) || $this->data[66] == 0) {
                     // No attribute
                     // End of this entity
                     // Beginning of a new entity
-                    return $pair;
+                    break;
                 }
-                
+
                 if ($pair['value'] == 'ATTRIB') {
                     // An attribute for this insert
                     $entity = $dxf->factory('Attrib');
                     $entity->parse($dxf);
-                } elseif ($pair['value'] == 'SEQEND') {
+                    $this->attributes[] = $entity;
+                } 
+                if ($pair['value'] == 'SEQEND') {
                     // No more attribute for this insert
                     $entity = $dxf->factory('Seqend');
                     $entity->parse($dxf);
+                    return;
                 }
             }
-
             $this->data[$pair['key']] = $pair['value'];
         }
     }
