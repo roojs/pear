@@ -9,28 +9,21 @@ class File_DXF_SectionEntities extends File_DXF_Section
 	 
     public function parse($dxf, $opts= array())
     {
-        $entityType = '';
-		$data = [];
-		$types = array(
-			'3DFACE', '3DSOLID', 'ACAD_PROXY_ENTITY', 'ARC', 'ATTDEF', 'ATTRIB', 'BODY',
-			'CIRCLE', 'DIMENSION', 'ELLIPSE', 'HATCH', 'HELIX', 'IMAGE', 'INSERT', 'LEADER',
-			'LIGHT', 'LINE', 'LWPOLYLINE', 'MESH', 'MLINE', 'MLEADERSTYLE', 'MLEADER',
-			'MTEXT', 'OLEFRAME', 'OLE2FRAME', 'POINT', 'POLYLINE', 'RAY', 'REGION', 'SECTION', 
-			'SEQEND', 'SHAPE', 'SOLID', 'SPLINE', 'SUN', 'SURFACE', 'TABLE', 'TEXT', 
-			'TOLERANCE', 'TRACE', 'UNDERLAY', 'VERTEX', 'VIEWPOINT', 'WIPEOUT', 'XLINE',
-		);
-	
 		while ($pair = $dxf->readPair()) {
 
 			if($pair['key'] == 0) {
-				if (!empty($data)) {
+				if ($pair['key'] == 'ENDSEC') {
+					// End of the entities section
+					break;
+				} else {
+					// Beginning of a new entity
+					$entityType = $pair['value'];
 					switch($entityType) {
 						case 'INSERT':
 							$entity = $dxf->factory('Insert');
 							$entity->phase($dxf);
 							break;			
 						case 'ATTRIB':
-
 						case 'SEQEND': 
 						case '3DFACE': 
 						case '3DSOLID': 
@@ -78,18 +71,6 @@ class File_DXF_SectionEntities extends File_DXF_Section
 							break;
 					}
 				}
-				if ($pair['key'] == 'ENDSEC') {
-					// End of the entities section
-					break;
-				} else {
-					// Beginning of a new entity
-					$entitiyType = $pair['value'];
-					$data = [];
-				}
-			}
-
-			if (in_array($entityType, $types)) {
-				$data[$pair['key']] =$pair['value'];
 			}
 		}
     }
