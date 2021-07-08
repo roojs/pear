@@ -138,7 +138,7 @@ class File_DXF
         
         $this->handle = fopen($path, 'r');
         
-        while ($pair = $this->readPair($handle)) {
+        while ($pair = $this->readPair($this->handle)) {
             
             if ($pair['key'] != 0 || $pair['value'] != 'SECTION') {
 			    // Got invalid starting tag for a new section
@@ -147,7 +147,7 @@ class File_DXF
 		    }
 		    // Beginning of a new section
 		    
-		    $sectionTypePair = $this->readPair($handle);
+		    $sectionTypePair = $this->readPair($this->handle);
 		    
 		    if($sectionTypePair['key'] != 2){
 			    // Got invalid group code for a section name
