@@ -18,7 +18,6 @@ class File_DXF_SectionHeader extends File_DXF_Section
                 $variable = $dxf->factory('SystemVariable',
                     array(
                         'name' => $name,
-                        'data' => array(),
                     ),
                 );
                 $variable->parse();
