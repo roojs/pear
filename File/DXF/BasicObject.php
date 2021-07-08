@@ -34,14 +34,14 @@ class File_DXF_BasicObject
     /**
      * @return int
      */
-    public function getUniqueID() {
+    function getUniqueID() {
         return self::$id++;
     }
 
     /**
      *
      */
-    public function render() {
+    function render() {
 
     }
 
@@ -53,7 +53,7 @@ class File_DXF_BasicObject
      * @param int $offset
      * @return string
      */
-    protected function point($point, $offset = 0) {
+    function point($point, $offset = 0) {
         $output = array();
         $groupCode = 10 + $offset;
         foreach ($point as $value) {
