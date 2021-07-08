@@ -96,12 +96,12 @@ class File_DXF
 	        )
         ));
 
-		
+
 		$tables = array();
 		$tableOrder = array('vport', 'ltype', 'layer', 'style', 'view', 'ucs', 'appid', 'dimstyle', 'block_record');
 		
 		foreach ($tableOrder as $table) {
-			$tables[$table] = self::factory('Table', array(''))
+			$tables[$table] = self::factory('Table', array('name' => $table));
 		}
 		$tables['appid']->addEntry(self::factory('AppID', array('name' => 'ACAD')));
 		
