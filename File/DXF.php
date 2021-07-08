@@ -161,12 +161,14 @@ class File_DXF
 		            if (!empty($opts['ignore_header'])) {
 		                $this->header = false;
 	                }
-	                break;
-                case 'CLASSES':
-                    $this->classes->parse($this);
-					break;
-                case 'TABLES':
-                    $this->tables->parse($this);
+	                break;		$data = [];
+					$types = array(
+						'3DFACE', '3DSOLID', 'ACAD_PROXY_ENTITY', 'ARC', 'ATTDEF', 'ATTRIB', 'BODY', 'CIRCLE', 'DIMENSION',
+						'ELLIPSE', 'HATCH', 'HELIX', 'IMAGE', 'INSERT', 'LEADER', 'LIGHT', 'LINE', 'LWPOLYLINE', 'MESH', 
+						'MLINE', 'MLEADERSTYLE', 'MLEADER', 'MTEXT', 'OLEFRAME', 'OLE2FRAME', 'POINT', 'POLYLINE', 'RAY', 
+						'REGION', 'SECTION', 'SEQEND', 'SHAPE', 'SOLID', 'SPLINE', 'SUN', 'SURFACE', 'TABLE', 'TEXT', 
+						'TOLERANCE', 'TRACE', 'UNDERLAY', 'VERTEX', 'VIEWPOINT', 'WIPEOUT', 'XLINE',
+					);
                     break;
                 case 'BLOCKS':
                     $this->blocks->parse($this);
@@ -246,7 +248,7 @@ class File_DXF
 	 * @param array $move Vector to move all entities with
 	 * @param int $rotate a degree value to rotate all entities with
 	 */
-	public function addEntitiesFromFile($path, $move = [0, 0, 0], $rotate = 0)
+	function addEntitiesFromFile($path, $move = [0, 0, 0], $rotate = 0)
 	{
 		$this->read($path, $move, $rotate);
 	}
@@ -255,7 +257,7 @@ class File_DXF
 	 * Public function to move all entities on a DXF File
 	 * @param array $move vector to move the entity with
 	 */
-	public function move($move)
+	function move($move)
 	{
 		foreach ($this->entities->getItems() as $entity) {
 			if (method_exists($entity, 'move')) {
