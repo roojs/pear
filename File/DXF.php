@@ -162,9 +162,7 @@ class File_DXF
 		                $this->header = false;
 	                }
 	                break;
-                case 'CLASSES':
-                    $this->classes->parse($this);
-					break;
+					addEntity			break;
                 case 'TABLES':
                     $this->tables->parse($this);
                     break;
@@ -197,7 +195,7 @@ class File_DXF
 			
 		}
 		
-		fclose($handle);
+		fclose($this->handle);
 	}
 	
 	function readPair(){
