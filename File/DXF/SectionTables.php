@@ -13,15 +13,12 @@ class File_DXF_SectionTables extends File_DXF_Section
             if($pair['key'] == 0) {
                 if ($pair['value'] == 'ENDSEC') {
                     // End of the tables section
-                    break;
-                } elseif ($pair['value'] == 'TABLE'){
+                    return;
+                } 
+                if ($pair['value'] == 'TABLE'){
                     // Beginning of a new table
                     continue;
-                } else {
-                    // Got invalid tag with the tables section
-                    print_r($pair);
-                    die('ERROR got invalid tag with the tables section');
-                }
+                } 
             }
 
             if ($pair['key'] == 2) {
