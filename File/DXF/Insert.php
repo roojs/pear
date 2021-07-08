@@ -33,13 +33,8 @@ class File_DXF_Insert extends File_DXF_Entity
      * @param float[] $scale The X, Y and Z scale factors.
      * @param float $rotation
      */
-    function __construct($blockName, $point = [0, 0, 0], $scale = [1, 1, 1], $rotation = 0)
+    function __construct($cfg=array())
     {
-        //$this->entityType = 'insert';
-        $this->blockName       = $blockName;
-        $this->point      = $point;
-        $this->scale      = $scale;
-        $this->rotation   = $rotation;
         parent::__construct();
     }
 
