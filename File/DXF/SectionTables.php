@@ -13,18 +13,15 @@ class File_DXF_SectionTables extends File_DXF_Section
 
         while ($pair = $dxf->readPair()) {
 
-            if ($pair['key'] == 0){
+            if($pair['key'] == 0) {
                 if ($pair['value'] == 'ENDSEC') {
-                    // End of a section
+                    // End of the table section
                     break;
-                } elseif ($pair['value'] == 'TABLE'){
-                    // Beginning of a table
-                    $table = null;
-                    continue;
-                } elseif ($pair['value'] == 'ENDTAB') {
-                    // End of a table
-                    $this->addItem($table);
-                    continue;
+                } 
+    
+                if ($pair['value'] == 'TABLE'){
+                    // Beginning of a new table
+    
                 }
             }
 
@@ -43,7 +40,7 @@ class File_DXF_SectionTables extends File_DXF_Section
                         case 'UCS':
                         case 'VIEW':
                         case 'VPORT':
-                            $table->parse();
+                            $table->parse($dxf);
                             break;
                         default:
                             print_R($tableName);
