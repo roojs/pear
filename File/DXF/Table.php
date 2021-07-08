@@ -5,6 +5,7 @@ require_once 'File/DXF/BasicObject.php';
 class File_DXF_Table extends File_DXF_BasicObject
 {
     public $name;
+    public $data;
     public $entries = array();
     public $entryNames = array();
     
@@ -20,6 +21,10 @@ class File_DXF_Table extends File_DXF_BasicObject
     function parse($dxf)
     {
         while ($pair = $dxf->readPair()) {
+            if ($pair['key'] == 0 && $pair['value'] == "ENDTAB") {
+                // End of a table
+                return;
+            }
             if ($pair['key'] == 2) {
                 switch ($this->name) {
                     case 'LTYPE':
