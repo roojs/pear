@@ -7,7 +7,7 @@ const POINTITEMLABEL = 'point';
 class File_DXF_SystemVariable extends File_DXF_BasicObject
 {
     public $name;
-    public $data;
+    public $data = array();
 
     function parse($dxf) {
 
