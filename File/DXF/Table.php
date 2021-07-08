@@ -31,31 +31,31 @@ class File_DXF_Table extends File_DXF_BasicObject
                     // Beginning of a new table entry
                     switch ($this->name) {
                         case 'LTYPE':
-                            $entry = $dxf->factory('LType', array('name' => $pair['value']));
+                            $entry = $dxf->factory('LType');
                             break;
                         case 'STYLE':
-                            $entry = $dxf->factory('Style', array('name' => $pair['value']));
+                            $entry = $dxf->factory('Style');
                             break;
                         case 'LAYER':
-                            $entry = $dxf->factory('Layer', array('name' => $pair['value']));
+                            $entry = $dxf->factory('Layer');
                             break;
                         case 'APPID':
-                            $entry = $dxf->factory('AppID', array('name' => $pair['value']));
+                            $entry = $dxf->factory('AppID');
                             break;
                         case 'BLOCK_RECORD':
-                            $entry = $dxf->factory('BlockRecord', array('name' => $pair['value']));
+                            $entry = $dxf->factory('BlockRecord');
                             break;
                         case 'DIMSTYLE':
-                            $entry = $dxf->factory('DimStyle', array('name' => $pair['value']));
+                            $entry = $dxf->factory('DimStyle');
                             break;
                         case 'UCS':
-                            $entry = $dxf->factory('UCS', array('name' => $pair['value']));
+                            $entry = $dxf->factory('UCS');
                             break;
                         case 'VIEW':
-                            $entry = $dxf->factory('View', array('name' => $pair['value']));
+                            $entry = $dxf->factory('View');
                             break;
                         case 'VPORT':
-                            $entry = $dxf->factory('VPort', array('name' => $pair['value']));
+                            $entry = $dxf->factory('VPort');
                             break;
                         default:
                             print_R($this->name);
