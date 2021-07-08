@@ -12,7 +12,7 @@ class File_DXF_SectionTables extends File_DXF_Section
 
             if($pair['key'] == 0) {
                 if ($pair['value'] == 'ENDSEC') {
-                    // End of the table section
+                    // End of the tables section
                     break;
                 } elseif ($pair['value'] == 'TABLE'){
                     // Beginning of a new table
@@ -22,7 +22,6 @@ class File_DXF_SectionTables extends File_DXF_Section
 
             if ($pair['key'] == 2) {
                 $tableName = $pair['value'];
-                $table = $dxf->factory('Table', array('name' => $tableName));
 
                 switch ($tableName) {
                     case 'LTYPE':
@@ -34,6 +33,7 @@ class File_DXF_SectionTables extends File_DXF_Section
                     case 'UCS':
                     case 'VIEW':
                     case 'VPORT':
+                        $table = $dxf->factory('Table', array('name' => $tableName));
                         $table->parse($dxf);
                         break;
                     default:
