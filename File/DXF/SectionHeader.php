@@ -22,6 +22,7 @@ class File_DXF_SectionHeader extends File_DXF_Section
                     ),
                 );
                 $variable->parse();
+                $this->addItem($variable);
             }
 
         }
