@@ -9,6 +9,19 @@ class File_DXF_Layer extends File_DXF_BasicObject
     public $flag;
     public $color;
     public $lineType;
+    public $data = array();
+
+    function parse($dxf) {
+
+        while($pair = $dxf->readPair()) {
+            if ($pair['key'] == 0) {
+                // End of this table entry
+                $dxf->pushPair($pair);
+                return;
+            }
+            $this->data[$pair['key']] = $pair['value'];
+        }
+    }
     
     /**
     * Public function to render an entity, returns a string representation of
