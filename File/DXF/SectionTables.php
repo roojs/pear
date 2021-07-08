@@ -17,36 +17,33 @@ class File_DXF_SectionTables extends File_DXF_Section
                 if ($pair['value'] == 'ENDSEC') {
                     // End of the table section
                     break;
-                } 
-    
-                if ($pair['value'] == 'TABLE'){
+                } elseif ($pair['value'] == 'TABLE'){
                     // Beginning of a new table
-    
+                    continue;
                 }
             }
 
             if ($pair['key'] == 2) {
-                if (!isset($table)) {
-                    $tableName = $pair['value'];
-                    $table = $dxf->factory('Table',$tableName);
-                } else {
-                    switch ($tableName) {
-                        case 'LTYPE':
-                        case 'STYLE':
-                        case 'LAYER':
-                        case 'APPID':
-                        case 'BLOCK_RECORD':
-                        case 'DIMSTYLE':
-                        case 'UCS':
-                        case 'VIEW':
-                        case 'VPORT':
-                            $table->parse($dxf);
-                            break;
-                        default:
-                            print_R($tableName);
-                            die("ERROR got unknown table name");
-                            break;
-                    }
+                $tableName = $pair['value'];
+                $table = $dxf->factory('Table',$tableName);
+                
+                switch ($tableName) {
+                    case 'LTYPE':
+                    case 'STYLE':
+                    case 'LAYER':
+                    case 'APPID':
+                    case 'BLOCK_RECORD':
+                    case 'DIMSTYLE':
+                    case 'UCS':
+                    case 'VIEW':
+                    case 'VPORT':
+                        $table->parse($dxf);
+                        break;
+                    default:
+                        print_R($tableName);
+                        die("ERROR got unknown table name");
+                        break;
+                    
                 }
             }
         }
