@@ -25,8 +25,12 @@ class File_DXF_SectionEntities extends File_DXF_Section
 			if($pair['key'] == 0) {
 				if (!empty($data)) {
 					switch($entityType) {
-						case 'INSERT':				
+						case 'INSERT':
+							$entity = $dxf->factory('Insert');
+							$entity->phase($dxf);
+							break;			
 						case 'ATTRIB':
+
 						case 'SEQEND': 
 						case '3DFACE': 
 						case '3DSOLID': 
