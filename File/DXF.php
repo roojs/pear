@@ -307,7 +307,7 @@ class File_DXF
 	{
 		$output = array();
 		array_push($output, 999, "DXFighter");
-		foreach ($this->sections as $sectaddEntityion) {
+		foreach ($this->sections as $section) {
 			$output[] = $this->{$section}->render();
 		}
 		array_push($output, 0, "EOF");
