@@ -15,7 +15,7 @@ class File_DXF_Seqend extends File_DXF_Entity
                 // Beginning of a new entity
                 return $pair;
             }
-            $this->data[$pair['key']] = $this->data[$pair['value']];
+            $this->data[$pair['key']] = $pair['value'];
         }
     }
 
