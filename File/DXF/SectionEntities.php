@@ -25,20 +25,21 @@ class File_DXF_SectionEntities extends File_DXF_Section
 			if($pair['key'] == 0) {
 				if (!empty($data)) {
 					switch($entityType) {
+						case 'INSERT':				
+						case 'ATTRIB':
+						case 'SEQEND': 
 						case '3DFACE': 
 						case '3DSOLID': 
 						case 'ACAD_PROXY_ENTITY': 
 						case 'ARC': 
-						case 'ATTDEF': 
-						case 'ATTRIB': 
+						case 'ATTDEF':  
 						case 'BODY':
 						case 'CIRCLE': 
 						case 'DIMENSION': 
 						case 'ELLIPSE': 
 						case 'HATCH': 
 						case 'HELIX': 
-						case 'IMAGE': 
-						case 'INSERT': 
+						case 'IMAGE':
 						case 'LEADER':
 						case 'LIGHT': 
 						case 'LINE': 
@@ -55,7 +56,6 @@ class File_DXF_SectionEntities extends File_DXF_Section
 						case 'RAY': 
 						case 'REGION': 
 						case 'SECTION': 
-						case 'SEQEND': 
 						case 'SHAPE': 
 						case 'SOLID': 
 						case 'SPLINE':
@@ -70,6 +70,8 @@ class File_DXF_SectionEntities extends File_DXF_Section
 						case 'VIEWPOINT': 
 						case 'WIPEOUT': 
 						case'XLINE':
+							// These entity are skipped in the current phase
+							break;
 					}
 				}
 				if ($pair['key'] == 'ENDSEC') {
