@@ -31,16 +31,22 @@ class File_DXF_Insert extends File_DXF_Entity
        
         while($pair = $dxf->readPair()) {
             if ($pair['key'] == 0) {
-                if (!$hasAttrib) {
+                if (!array_key_exists(66, $this->data) || $this->data[66] == 1) {
+                    // No attribute
                     // End of this entity
                     // Beginning of a new entity
                     return $pair;
                 }
-                if ($pair['value'] == 'SEQEND') {
-                    return;
+                
+                if ($pair['value'] == 'ATTRIB') {
+                    // An attribute for this insert
+                    $entity = $dxf->factory('Attrib');
+                    $entity->parse($dxf);
+                } elseif ($pair['value'] == 'SEQEND') {
+                    // No more attribute for this insert
+                    $entity = $dxf->factory('Seqend');
+                    $entity->parse($dxf);
                 }
-                $entity = $dxf->factory('Attrib');
-                $entity->parse($dxf);
             }
 
             $this->data[$pair['key']] = $pair['value'];
