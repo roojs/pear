@@ -233,7 +233,7 @@ class File_DXF
 	 * Handler to add a table item to the DXFighter instance
 	 * @param $item
 	 */
-	public function addTable($tableItem)
+	function addTable($tableItem)
 	{
 		require_once 'File/DXF/Table.php';
 
