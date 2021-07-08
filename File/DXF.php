@@ -58,31 +58,31 @@ class File_DXF
 	    $this->header->addItem(self::factory('SystemVariable', 
 	        array(
 	            'name' => "acadver",
-	            'values' => array(1 => "AC1012"),
+	            'data' => array(1 => "AC1012"),
             )
         ));
 		$this->header->addItem(self::factory('SystemVariable',
 		    array(
 		        'name' => "dwgcodepage",
-		        'values' => array(3 => "ANSI_1252"),
+		        'data' => array(3 => "ANSI_1252"),
 	        )
         ));
 		$this->header->addItem(self::factory('SystemVariable',
 		    array(
 		        'name' => "insbase", 
-		        'values' => array('point' => array(0, 0, 0)),
+		        'data' => array('point' => array(0, 0, 0)),
 	        )
         ));
 		$this->header->addItem(self::factory('SystemVariable',
 		    array(
 		        'name' => "extmin", 
-		        'values' => array('point' => array(0, 0, 0)),
+		        'data' => array('point' => array(0, 0, 0)),
 	        )
         ));
 		$this->header->addItem(self::factory('SystemVariable',
 		    array(
 		        'name' => "extmax", 
-		        'values' => array('point' => array(0, 0, 0)),
+		        'data' => array('point' => array(0, 0, 0)),
 	        )
         ));
 
