@@ -19,38 +19,21 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_Insert extends File_DXF_Entity
 {
-    public $entity = "INSERT";
+    public $entityType = "INSERT";
     public $blockName;
     public $point;
     public $scale;
     public $rotation;
 
-    /**
-     * Insert constructor.
-     *
-     * @param $blockName
-     * @param float[] $point
-     * @param float[] $scale The X, Y and Z scale factors.
-     * @param float $rotation
-     */
-    function __construct($cfg=array())
-    {
-        parent::__construct();
-    }
-
    function parse($dxf)
    {
-	$ar = $dxf->readUntil( 0, "EndInsert");
-	while($kv = $dxf->readPair()) {
-		swich($kv['key']) {
-			case 5: //?? 
-				$this->xxx = $kv['value'];
-			case 6 , 2345, 345: 
-				//dont care about - useless;
-				break;
-			default:
-				die("I dont dknow what to do with " $kv) ;
-	}
+        while($pair = $dxf->readPair()) {
+            switch($pair['key']) {
+                case 1:  
+                    $this->xxx = $pair['value'];
+                    break;
+            }
+        }
     }
 
 	
@@ -59,7 +42,7 @@ class File_DXF_Insert extends File_DXF_Entity
      * Public function to move an Insert entity
      * @param array $move vector to move the entity with
      */
-    public function move($move)
+    function move($move)
     {
         $this->movePoint($this->point, $move);
     }
