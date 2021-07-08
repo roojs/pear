@@ -20,6 +20,10 @@ class File_DXF_LType extends File_DXF_BasicObject
                 $dxf->pushPair($pair);
                 return;
             }
+            if ($pair['key'] == 2) {
+                $this->name = $pair['value'];
+                continue;
+            }
             $this->data[$pair['key']] = $pair['value'];
         }
     }
