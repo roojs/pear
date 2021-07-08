@@ -1,20 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: jpietler
- * Date: 30.12.16
- * Time: 16:18
- *
- * Dokumentation http://www.autodesk.com/techpubs/autocad/acad2000/dxf/block_dxf_05.htm
- * This is baed on DXF Fighter by - https://github.com/enjoping/DXFighter"
- */
-
-
-/**
- * Class Entity
- * @package DXFighter\lib
- */
 require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_Entity extends File_DXF_BasicObject
@@ -36,7 +21,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	 * @param $point array
 	 * @param $move array
 	 */
-	public function movePoint(&$point, $move)
+	function movePoint(&$point, $move)
 	{
 		for ($i = 0; $i < count($move); $i++) {
 			if (!isset($point[$i])) {
@@ -54,7 +39,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	 * @param $center array
 	 * @param $angle float
 	 */
-	public function rotatePoint(&$point, $center, $angle)
+	function rotatePoint(&$point, $center, $angle)
 	{
 		$xPos = $point[0];
 		$yPos = $point[1];
@@ -67,7 +52,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	 *
 	 * @return int|number
 	 */
-	public function flagsToString()
+	function flagsToString()
 	{
 		$output = 0;
 		foreach ($this->flags as $i => $flag) {
@@ -82,7 +67,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	 * @param $id int
 	 * @param $value 0|1
 	 */
-	public function setFlag($id, $value)
+	function setFlag($id, $value)
 	{
 		$this->flags[$id] = $value;
 		return $this;
@@ -91,42 +76,9 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	/**
 	 * Retrieves a flag value for an entity.
 	 */
-	public function getFlag($id)
+	function getFlag($id)
 	{
 		return $this->flags[$id];
-	}
-
-	/**
-	 * Public function to set the layer of an entity
-	 *
-	 * @param $layer string
-	 */
-	public function setLayer($layer)
-	{
-		$this->layer = $layer;
-		return $this;
-	}
-
-	/**
-	 * Public function to set the color of an entity
-	 *
-	 * @param $color int autodesc color code 0 = BYBLOCK, 256 = BYLAYER
-	 */
-	public function setColor($color)
-	{
-		$this->color = $color;
-		return $this;
-	}
-
-	/**
-	 * Public function to define if a object should belong to paper space
-	 *
-	 * @param $ps 0|1
-	 */
-	public function setPaperSpace($ps)
-	{
-		$this->paperSpace = $ps;
-		return $this;
 	}
 
 	/**
@@ -135,7 +87,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	 * @param $lineType
 	 * @param int $scale float
 	 */
-	public function setLineType($lineType, $scale = 1)
+	function setLineType($lineType, $scale = 1)
 	{
 		$this->lineType = $lineType;
 		$this->lineTypeScale = $scale;
