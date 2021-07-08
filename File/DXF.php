@@ -155,6 +155,9 @@ class File_DXF
 				case 'CLASSES':
 					$this->classes->parse($this);
                     break;
+				case 'TABLES':
+					$this->tables->parse($this);
+					break;
                 case 'BLOCKS':
                     $this->blocks->parse($this);
                     break;
