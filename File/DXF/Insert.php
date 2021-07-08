@@ -28,7 +28,7 @@ class File_DXF_Insert extends File_DXF_Entity
 
    function parse($dxf)
    {
-       $hasAttrib = false;
+       
         while($pair = $dxf->readPair()) {
             if ($pair['key'] == 0) {
                 if (!$hasAttrib) {
@@ -37,13 +37,13 @@ class File_DXF_Insert extends File_DXF_Entity
                     return $pair;
                 }
                 if ($pair['value'] == 'SEQEND') {
-                    
+                    return;
                 }
                 $entity = $dxf->factory('Attrib');
                 $entity->parse($dxf);
-            } elif ($pair['key'] == 66 && $pair['value'] == 1) {
-                $hasAttrib = true;
             }
+
+            $this->data[$pair['key']] = $pair['value'];
         }
     }
 
