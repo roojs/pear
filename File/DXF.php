@@ -103,17 +103,17 @@ class File_DXF
 		foreach ($tableOrder as $table) {
 			$tables[$table] = self::factory('Table', array('name' => $table));
 		}
-		$tables['appid']->addEntry(self::factory('AppID', array('name' => 'ACAD')));
+		$tables['APPID']->addEntry(self::factory('AppID', array('name' => 'ACAD')));
 		
 		$this->addBlock($tables, '*model_space');
 		$this->addBlock($tables, '*paper_space');
 
-		$tables['layer']->addEntry(self::factory('Layer', array('name' => '0')));
+		$tables['LAYER']->addEntry(self::factory('Layer', array('name' => '0')));
 
-		$tables['ltype']->addEntry(self::factory('LType', array('name' => 'byblock')));
-		$tables['ltype']->addEntry(self::factory('LType', array('name' => 'bylayer')));
+		$tables['LTYPE']->addEntry(self::factory('LType', array('name' => 'byblock')));
+		$tables['LTYPE']->addEntry(self::factory('LType', array('name' => 'bylayer')));
 
-		$tables['style']->addEntry(self::factory('Style', array('name' =>'standard')));
+		$tables['STYLE']->addEntry(self::factory('Style', array('name' =>'standard')));
 
 		$this->tables->addMultipleItems($tables);
 
@@ -122,7 +122,7 @@ class File_DXF
 
 	function addBlock(&$tables, $name)
 	{
-		$tables['block_record']->addEntry(self::factory('BlockRecord', array('name' => $name)));
+		$tables['BLOCK_RECORD']->addEntry(self::factory('BlockRecord', array('name' => $name)));
 		$this->blocks->addItem(self::factory('Block', array('name', $name)));
 	}
 	
