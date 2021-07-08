@@ -98,7 +98,7 @@ class File_DXF
 
 
 		$tables = array();
-		$tableOrder = array('vport', 'ltype', 'layer', 'style', 'view', 'ucs', 'appid', 'dimstyle', 'block_record');
+		$tableOrder = array('VPORT', 'LTYPE', 'LAYER', 'STYLE', 'VIEW', 'UCS', 'APPID', 'DIMSTYLE', 'BLOCK_RECORD');
 		
 		foreach ($tableOrder as $table) {
 			$tables[$table] = self::factory('Table', array('name' => $table));
