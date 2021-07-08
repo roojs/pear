@@ -186,10 +186,12 @@ class File_DXF
 		
 		fclose($this->handle);
 	}
-	var $buffer = array();
-	function pushPair($ar)
+
+	public $buffer = array();
+	
+	function pushPair($pair)
 	{
-		$this->buffer[] = $ar;
+		$this->buffer[] = $pair;
 	}
 
 	function readPair()
@@ -197,6 +199,7 @@ class File_DXF
 		if (!empty($this->buffer)) {
 			return array_pop($this->buffer);
 		}
+		
 		$key = fgets($this->handle);
 		$value = fgets($this->handle);
 		return array(
