@@ -29,43 +29,40 @@ class File_DXF_Table extends File_DXF_BasicObject
                 }
                 if ($pair['value'] == $this->name) {
                     // Beginning of a new table entry
-                    continue;
-                }
-            }
-
-            if ($pair['key'] == 2) {
-                switch ($this->name) {
-                    case 'LTYPE':
-                        $this->addEntry($dxf->factory('LType', array('name' => $pair['value'])));
-                        break;
-                    case 'STYLE':
-                        $this->addEntry($dxf->factory('Style', array('name' => $pair['value'])));
-                        break;
-                    case 'LAYER':
-                        $this->addEntry($dxf->factory('Layer', array('name' => $pair['value'])));
-                        break;
-                    case 'APPID':
-                        $this->addEntry($dxf->factory('AppID', array('name' => $pair['value'])));
-                        break;
-                    case 'BLOCK_RECORD':
-                        $this->addEntry($dxf->factory('BlockRecord', array('name' => $pair['value'])));
-                        break;
-                    case 'DIMSTYLE':
-                        $this->addEntry($dxf->factory('DimStyle', array('name' => $pair['value'])));
-                        break;
-                    case 'UCS':
-                        $this->addEntry($dxf->factory('UCS', array('name' => $pair['value'])));
-                        break;
-                    case 'VIEW':
-                        $this->addEntry($dxf->factory('View', array('name' => $pair['value'])));
-                        break;
-                    case 'VPORT':
-                        $this->addEntry($dxf->factory('VPort', array('name' => $pair['value'])));
-                        break;
-                    default:
-                        print_R($this->name);
-                        die("ERROR got unknown table name");
-                        break;
+                    switch ($this->name) {
+                        case 'LTYPE':
+                            $dxf->factory('LType', array('name' => $pair['value']));
+                            break;
+                        case 'STYLE':
+                            $dxf->factory('Style', array('name' => $pair['value']));
+                            break;
+                        case 'LAYER':
+                            $dxf->factory('Layer', array('name' => $pair['value']));
+                            break;
+                        case 'APPID':
+                            $dxf->factory('AppID', array('name' => $pair['value']));
+                            break;
+                        case 'BLOCK_RECORD':
+                            $dxf->factory('BlockRecord', array('name' => $pair['value']));
+                            break;
+                        case 'DIMSTYLE':
+                            $dxf->factory('DimStyle', array('name' => $pair['value']));
+                            break;
+                        case 'UCS':
+                            $dxf->factory('UCS', array('name' => $pair['value']));
+                            break;
+                        case 'VIEW':
+                            $dxf->factory('View', array('name' => $pair['value']));
+                            break;
+                        case 'VPORT':
+                            $dxf->factory('VPort', array('name' => $pair['value']));
+                            break;
+                        default:
+                            print_R($this->name);
+                            die("ERROR got unknown table name");
+                            break;
+                    }
+                    
                 }
             }
             
