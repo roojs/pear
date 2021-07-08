@@ -144,7 +144,7 @@ class File_DXF
 			    // Got invalid starting tag for a new section
 			    print_r($pair);
 			    die("ERROR got invalid starting tag for a new section");
-		    }
+		    } 
 		    // Beginning of a new section
 		    
 		    $sectionTypePair = $this->readPair($this->handle);
