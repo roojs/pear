@@ -17,6 +17,10 @@ class File_DXF_SectionTables extends File_DXF_Section
                 } elseif ($pair['value'] == 'TABLE'){
                     // Beginning of a new table
                     continue;
+                } else {
+                    // Got invalid tag with the tables section
+                    print_r($pair);
+                    die('ERROR got invalid tag with the tables section');
                 }
             }
 
