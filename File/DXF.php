@@ -162,7 +162,9 @@ class File_DXF
 		                $this->header = false;
 	                }
 	                break;
-					addEntity			break;
+                case 'CLASSES':
+                    $this->classes->parse($this);
+					break;
                 case 'TABLES':
                     $this->tables->parse($this);
                     break;
