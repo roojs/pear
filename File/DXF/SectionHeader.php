@@ -17,12 +17,12 @@ class File_DXF_SectionHeader extends File_DXF_Section
         while ($pair = $dxf->readPair()) {
             
             if ($pair['value'] == 'ENDSEC' || $pair['key'] == 9) {
-                if (!empty($variable['values']) {
+                if (!empty($variable['values'])) {
                     $name = str_replace('$', '', $variable['name']);
                     if (strtoupper($name) == 'ACADVER') {
                         $variable['values'] = [1 => 'AC1012'];
                     }
-                    $this->addItem(DXF::factory('SystemVariable',
+                    $this->addItem($dxf->factory('SystemVariable',
                         array(
                             'name' => $name,
                             'values' => $variable['values'],

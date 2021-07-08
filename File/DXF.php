@@ -96,18 +96,24 @@ class File_DXF
 	        )
         ));
 
+		
 		$tables = array();
 		$tableOrder = array('vport', 'ltype', 'layer', 'style', 'view', 'ucs', 'appid', 'dimstyle', 'block_record');
 		
-		foreach ($tableOrderpublic les, '*model_space');
+		foreach ($tableOrder as $table) {
+			$tables[$table] = self::factory('Table', array(''))
+		}
+		$tables['appid']->addEntry(self::factory('AppID', array('name' => 'ACAD')));
+		
+		$this->addBlock($tables, '*model_space');
 		$this->addBlock($tables, '*paper_space');
 
-		$tables['layer']->addEntry(self::factory('Layer', array('name' => '0'));
+		$tables['layer']->addEntry(self::factory('Layer', array('name' => '0')));
 
-		$tables['ltype']->addEntry(self::factory('LType', array('name' => 'byblock'));
-		$tables['ltype']->addEntry(self::factory('LType', array('name' => 'bylayer'));
+		$tables['ltype']->addEntry(self::factory('LType', array('name' => 'byblock')));
+		$tables['ltype']->addEntry(self::factory('LType', array('name' => 'bylayer')));
 
-		$tables['style']->addEntry(self::factory('Style', array('name' =>'standard'));
+		$tables['style']->addEntry(self::factory('Style', array('name' =>'standard')));
 
 		$this->tables->addMultipleItems($tables);
 
@@ -117,7 +123,7 @@ class File_DXF
 	function addBlock(&$tables, $name)
 	{
 		$tables['block_record']->addEntry(self::factory('BlockRecord', array('name' => $name)));
-		$this->blocks->addItem(self::factory('Block', array('name', $name));
+		$this->blocks->addItem(self::factory('Block', array('name', $name)));
 	}
 	
 	// File handle
@@ -157,7 +163,8 @@ class File_DXF
 	                }
 	                break;
                 case 'CLASSES':
-                    $this->classes->parse($this)
+                    $this->classes->parse($this);
+					break;
                 case 'TABLES':
                     $this->tables->parse($this);
                     break;

@@ -6,7 +6,7 @@ class File_DXF_Table extends File_DXF_BasicObject
 {
     public $name;
     public $entries = array();
-    public $entryNames == array();
+    public $entryNames = array();
     
     function addEntry($entry)
     {
