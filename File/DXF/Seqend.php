@@ -5,6 +5,8 @@ require_once 'File/DXF/Entity.php';
 class File_DXF_Seqend extends File_DXF_Entity
 {
 
+    public $beginEntityName
+
     function parse($dxf)
     {
         // parse common pair for entities
@@ -17,6 +19,9 @@ class File_DXF_Seqend extends File_DXF_Entity
                     // End of this entity
                     $dxf->pushPair();
                     return;
+                case -2:
+                    $this->beginEntityName = $pair['value'];
+                    break;
                 default:
                     $groupCode = $pair['key'];
                     throw new Exception ("Got unknown group code ($groupCode)");
