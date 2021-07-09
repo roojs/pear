@@ -7,7 +7,9 @@ const POINTITEMLABEL = 'point';
 class File_DXF_SystemVariable extends File_DXF_BasicObject
 {
     public $name;
-    public $data = array();
+    public $acadVersion;
+    public $drawingCodePage;
+    public $insertionBase;
 
     function parse($dxf) {
 
@@ -17,7 +19,6 @@ class File_DXF_SystemVariable extends File_DXF_BasicObject
                 $dxf->pushPair($pair);
                 return;
             }
-            $this->data[$pair['key']] = $pair['value'];
         }
     }
 

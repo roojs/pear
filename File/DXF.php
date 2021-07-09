@@ -64,13 +64,13 @@ class File_DXF
 		$this->header->addItem(self::factory('SystemVariable',
 		    array(
 		        'name' => "DWGCODEPAGE",
-		        'data' => array(3 => "ANSI_1252"),
+		        'drawingCodePage' => "ANSI_1252",
 	        )
         ));
 		$this->header->addItem(self::factory('SystemVariable',
 		    array(
 		        'name' => "INSBASE", 
-		        'data' => array('point' => array(0, 0, 0)),
+		        'insertionBase' => array(0, 0, 0),
 	        )
         ));
 		$this->header->addItem(self::factory('SystemVariable',
