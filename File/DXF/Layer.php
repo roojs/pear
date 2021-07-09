@@ -4,35 +4,44 @@ require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_Layer extends File_DXF_BasicObject
 {
-    
-    public $name;
-    public $flag;
-    public $color;
-    public $lineType;
-    public $data = array();
 
     function parse($dxf) {
-
-        while($pair = $dxf->readPair()) {
-            if ($pair['key'] == 0) {
-                // End of this table entry
-                $dxf->pushPair($pair);
-                return;
-            }
-            if ($pair['key'] == 2) {
-                $this->name = $pair['value'];
-                continue;
-            }
-            $this->data[$pair['key']] = $pair['value'];
-        }
+        $this->skipParseTableEntry($dxf);
     }
-    
+
+    /*
+     * OLD CODE BELOW
+     */
+
+    // protected $name;
+    // protected $flag;
+    // protected $color;
+    // protected $lineType;
+
     /**
-    * Public function to render an entity, returns a string representation of
-    * the entity.
-    * @return string
+     * Layer constructor.
+     * @param $name
+     * @param int $flag
+     * @param int $color
+     * @param string $lineType
+     */
+    /*
+    function __construct($name, $flag = 0, $color = 0, $lineType = 'CONTINUOUS') {
+        $this->name = $name;
+        $this->flag = $flag;
+        $this->color = $color;
+        $this->lineType = $lineType;
+        parent::__construct();
+    }
     */
-    function render() {
+
+    /**
+     * Public function to render an entity, returns a string representation of
+     * the entity.
+     * @return string
+     */
+    /*
+    public function render() {
         $output = array();
         array_push($output, 0, "LAYER");
         array_push($output, 5, $this->getHandle());
@@ -44,4 +53,5 @@ class File_DXF_Layer extends File_DXF_BasicObject
         array_push($output, 6, $this->lineType);
         return implode(PHP_EOL, $output);
     }
+    */
 }
