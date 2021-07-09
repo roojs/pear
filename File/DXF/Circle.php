@@ -19,6 +19,7 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_Circle extends File_DXF_Entity
 {
+	var $entityType = 'circle';
     public $thickness;
     public $point;
     public $radius;
@@ -31,14 +32,9 @@ class File_DXF_Circle extends File_DXF_Entity
      * @param int $thickness
      * @param array $extrusion
      */
-    function __construct($point, $radius, $thickness = 0, $extrusion = array(0, 0, 1))
+    function __construct($cfg)
     {
-        $this->entityType = 'circle';
-        $this->point = $point;
-        $this->radius = $radius;
-        $this->thickness = $thickness;
-        $this->extrusion = $extrusion;
-        parent::__construct();
+        parent::__construct($cfg);
     }
 
     /**

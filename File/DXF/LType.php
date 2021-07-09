@@ -1,23 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: jpietler
- * Date: 04.02.16
- * Time: 19:26
- *
- * Documentation http://www.autodesk.com/techpubs/autocad/acad2000/dxf/ltype_dxf_04.htm
- * This is baed on DXF Fighter by - https://github.com/enjoping/DXFighter"
- */
-
-
-/**
- * Class LType
- * @package DXFighter\lib
- *
- * LTypes define different line types which can be used for drawing
- * all kind of objects.
- */
 require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_LType extends File_DXF_BasicObject
@@ -27,23 +9,6 @@ class File_DXF_LType extends File_DXF_BasicObject
     public $description;
     public $lineType;
     public $lineElements;
-
-    /**
-     * LType constructor.
-     * @param $name
-     * @param int $flag
-     * @param string $description
-     * @param string $lineType
-     */
-    function __construct($name, $flag = 0, $description = '', $lineType = 'CONTINUOUS')
-    {
-        $this->name = $name;
-        $this->flag = $flag;
-        $this->description = $description;
-        $this->lineType = $lineType;
-        $this->lineElements = array();
-        parent::__construct();
-    }
 
     /**
      * @param $lineElement
@@ -58,7 +23,7 @@ class File_DXF_LType extends File_DXF_BasicObject
      * the entity.
      * @return string
      */
-    public function render()
+    function render()
     {
         $absolutLenght = array_map('abs', $this->lineElements);
 

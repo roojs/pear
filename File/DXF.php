@@ -2,140 +2,218 @@
 
 class File_DXF
 {
-	protected $sections;
 
-	/**
-	 * @var File_DXF_SectionHeader
-	 */
-	protected $header;
+    public $sections;
+    
+    // File_DXF_SectionHeader
+	public $header;
 
-	/**
-	 * @var File_DXF_SectionClasses
-	 */
-	protected $classes;
+    // File_DXF_SectionClasses
+	public $classes;
 
-	/**
-	 * @var File_DXF_SectionTables
-	 */
-	protected $tables;
+    // File_DXF_SectionTables
+	public $tables;
 
-	/**
-	 * @var Section
-	 */
-	protected $blocks;
+    // File_DXF_SectionBlocks
+	public $blocks;
 
-	/**
-	 * @var Section
-	 */
-	protected $entities;
+    // File_DXF_SectionEntites
+	public $entities;
 
-	/**
-	 * @var Section
-	 */
-	protected $objects;
-	protected $thumbnailImage;
-
-
-	/**
-	 * DXFighter constructor.
-	 * sets basic values needed for further usage if the init flag is set
-	 *
-	 * @param string|bool $readPath
-	 */
+    // File_DXF_SectionObjects
+	public $objects;	
+	
+	// File_DXF_SectionThumbnailImage
+	public $thumbnailImage;
+	
 	function __construct($readPath = false)
 	{
-
-		$this->sections = array(
-			'header',
+	    $this->sections = array(
+	        'header',
 			'classes',
 			'tables',
 			'blocks',
 			'entities',
 			'objects',
-			'thumbnailImage'
+			'thumbnailImage',
 		);
-
-		require_once 'File/DXF/Section.php';
-		require_once 'File/DXF/SectionHeader.php';
-
-		$this->header = new File_DXF_SectionHeader()
-		foreach ($this->sections as $section) {
-			$this->{$section} = new File_DXF_Section($section);
-		}
+		
+		$this->header = self::factory('SectionHeader');
+		$this->header = self::factory('SectionClasses');
+		$this->header = self::factory('SectionTables');
+		$this->header = self::factory('SectionBlocks');
+		$this->header = self::factory('SectionEntities');
+		$this->header = self::factory('SectionObjects');
+		$this->header = self::factory('SectionThumbnailImage');
+		
 		$this->addBasicObjects();
+		
 		if ($readPath) {
 			$this->read($readPath);
 		}
 	}
-
-	/**
-	 * Private function, called while constructing a new object of this class.
-	 * As DXF files have to fit certain requirements we need all these basic items.
-	 */
-	private function addBasicObjects()
+	
+	static function factory($type, $cfg=array())
 	{
-		require_once 'File/DXF/SystemVariable.php';
-		require_once 'File/DXF/Table.php';
-		require_once 'File/DXF/AppID.php';
-		require_once 'File/DXF/Layer.php';
-		require_once 'File/DXF/LType.php';
-		require_once 'File/DXF/Style.php';
-		require_once 'File/DXF/Dictionary.php';
-
-		$this->header->addItem(new File_DXF_SystemVariable("acadver", array(1 => "AC1012")));
-		$this->header->addItem(new File_DXF_SystemVariable("dwgcodepage", array(3 => "ANSI_1252")));
-		$this->header->addItem(new File_DXF_SystemVariable("insbase", array('point' => array(0, 0, 0))));
-		$this->header->addItem(new File_DXF_SystemVariable("extmin", array('point' => array(0, 0, 0))));
-		$this->header->addItem(new File_DXF_SystemVariable("extmax", array('point' => array(0, 0, 0))));
+	    $cls = 'File_DXF_'.$type;
+	    if (!class_exists($cls)) {
+    	    require_once 'File/DXF/'. $type .'.php';
+	    }
+	    return new $cls($cfg);
+    }
+	
+	function addBasicObjects()
+	{
+	
+	    $this->header->addItem(self::factory('SystemVariable', 
+	        array(
+	            'name' => "acadver",
+	            'values' => array(1 => "AC1012"),
+            )
+        ));
+		$this->header->addItem(self::factory('SystemVariable',
+		    array(
+		        'name' => "dwgcodepage",
+		        'values' => array(3 => "ANSI_1252"),
+	        )
+        ));
+		$this->header->addItem(self::factory('SystemVariable',
+		    array(
+		        'name' => "insbase", 
+		        'values' => array('point' => array(0, 0, 0)),
+	        )
+        ));
+		$this->header->addItem(self::factory('SystemVariable',
+		    array(
+		        'name' => "extmin", 
+		        'values' => array('point' => array(0, 0, 0)),
+	        )
+        ));
+		$this->header->addItem(self::factory('SystemVariable',
+		    array(
+		        'name' => "extmax", 
+		        'values' => array('point' => array(0, 0, 0)),
+	        )
+        ));
 
 		$tables = array();
 		$tableOrder = array('vport', 'ltype', 'layer', 'style', 'view', 'ucs', 'appid', 'dimstyle', 'block_record');
-		foreach ($tableOrder as $table) {
-			$tables[$table] = new File_DXF_Table($table);
-		}
-		$tables['appid']->addEntry(new File_DXF_AppID('ACAD'));
-
-		$this->addBlock($tables, '*model_space');
+		
+		foreach ($tableOrderpublic les, '*model_space');
 		$this->addBlock($tables, '*paper_space');
 
-		$tables['layer']->addEntry(new File_DXF_Layer('0'));
+		$tables['layer']->addEntry(self::factory('Layer', array('name' => '0'));
 
-		$tables['ltype']->addEntry(new File_DXF_LType('byblock'));
-		$tables['ltype']->addEntry(new File_DXF_LType('bylayer'));
+		$tables['ltype']->addEntry(self::factory('LType', array('name' => 'byblock'));
+		$tables['ltype']->addEntry(self::factory('LType', array('name' => 'bylayer'));
 
-		$tables['style']->addEntry(new File_DXF_Style('standard'));
+		$tables['style']->addEntry(self::factory('Style', array('name' =>'standard'));
+
 		$this->tables->addMultipleItems($tables);
 
-		$this->objects->addItem(new File_DXF_Dictionary(array('ACAD_GROUP')));
+		$this->objects->addItem(self::factory('Dictionary', array('entries' => array('ACAD_GROUP'))));
 	}
 
-	/**
-	 * Handler for adding block entities to the DXF file
-	 * @param $tables
-	 * @param $name
-	 */
-	public function addBlock(&$tables, $name)
+	function addBlock(&$tables, $name)
 	{
-		require_once 'File/DXF/BlockRecord.php';
-		require_once 'File/DXF/Block.php';
-		$tables['block_record']->addEntry(new File_DXF_BlockRecord($name));
-		$this->blocks->addItem(new File_DXF_Block($name));
+		$tables['block_record']->addEntry(self::factory('BlockRecord', array('name' => $name)));
+		$this->blocks->addItem(self::factory('Block', array('name', $name));
 	}
+	
+	// File handle
+	public $handle; 
 
+	function read($path, $opts= array())
+	{
+	    if (!file_exists($path) || !filesize($path)) {
+			print_r($path);
+	        die('ERROR The path to the file is either invalid or the file is empty');
+        }
+        
+        $this->handle = fopen($path, 'r');
+        
+        while ($pair = $this->readPair($handle)) {
+            
+            if ($pair['key'] != 0 || $pair['value'] != 'SECTION') {
+			    // Got invalid starting tag for a new section
+			    print_r($pair);
+			    die("ERROR got invalid starting tag for a new section");
+		    }
+		    // Beginning of a new section
+		    
+		    $sectionTypePair = $this->readPair($handle);
+		    
+		    if($sectionTypePair['key'] != 2){
+			    // Got invalid group code for a section name
+			    print_R($sectionTypePair['key']);
+			    die("ERROR got invalid group code for a section name");
+		    }
+		    
+		    switch ($sectionTypePair['value']) {
+		        case 'HEADER':
+		            $this->header->parse($this);
+		            if (!empty($opts['ignore_header'])) {
+		                $this->header = false;
+	                }
+	                break;
+                case 'CLASSES':
+                    $this->classes->parse($this)
+                case 'TABLES':
+                    $this->tables->parse($this);
+                    break;
+                case 'BLOCKS':
+                    $this->blocks->parse($this);
+                    break;
+/**
+ *
+ * Alan's comment
+ * this may contain filenames (xref)
+ * if block_only  - 
+ * 		reutnr here..
+ *		.. close file..
+ *
+ */                    
+                case 'ENTITIES':
+                    $this->entities->parse($this, $opts);
+				    break;
+			    case 'OBJECTS':
+				    $this->objects->parse();
+				    break;
+		        case 'THUMBNAILIMAGE':
+		            $this->thumbnailImage->parse($this);
+		            break;
+				default:
+				    print_R($sectionTypePair['value']);
+				    die("ERROR got unknown section name");
+					break;
+			}
+			
+		}
+		
+		fclose($handle);
+	}
+	
+	function readPair(){
+		$key = fgets($this->handle);
+		$value = fgets($this->handle);
+		return array(
+			'key' => trim($key),
+			'value' => trim($value),
+		);
+	}
+	
 	/**
-	 * Handler to add an entity to the DXFighter instance
-	 * @param $entity
+	 *
+	 * TODO ENHANCE / CHECK THE CODE BLOEW
+	 *
 	 */
-	public function addEntity($entity)
+
+	function addEntity($entity)
 	{
 		$this->entities->addItem($entity);
 	}
-
-	/**
-	 * Handler to add multiple entities to the DXFighter instance
-	 * @param $entities array
-	 */
-	public function addMultipleEntities($entities)
+	 
+	function addMultipleEntities($entities)
 	{
 		foreach ($entities as $entity) {
 			$this->entities->addItem($entity);
@@ -166,36 +244,6 @@ class File_DXF
 		$this->read($path, $move, $rotate);
 	}
 
-	public function getHeader()
-	{
-		return $this->header;
-	}
-
-	public function getClasses()
-	{
-		return $this->classes;
-	}
-
-	public function getTables()
-	{
-		return $this->tables;
-	}
-
-	public function getBlocks()
-	{
-		return $this->blocks;
-	}
-
-	public function getObject()
-	{
-		return $this->objects;
-	}
-
-	public function getEntities()
-	{
-		return $this->entities->getItems();
-	}
-
 	/**
 	 * Public function to move all entities on a DXF File
 	 * @param array $move vector to move the entity with
@@ -217,7 +265,7 @@ class File_DXF
 	 * @param int $rotate degree value used for the rotation
 	 * @param array $rotationCenter center point of the rotation
 	 */
-	public function rotate($rotate, $rotationCenter = array(0, 0, 0))
+	function rotate($rotate, $rotationCenter = array(0, 0, 0))
 	{
 		foreach ($this->entities->getItems() as $entity) {
 			if (method_exists($entity, 'rotate')) {
@@ -233,7 +281,7 @@ class File_DXF
 	 *
 	 * @return array
 	 */
-	public function toArray()
+	function toArray()
 	{
 		$output = array();
 		foreach ($this->sections as $section) {
@@ -248,11 +296,11 @@ class File_DXF
 	 * @param bool|TRUE $return
 	 * @return string
 	 */
-	public function toString($return = TRUE)
+	function toString($return = TRUE)
 	{
 		$output = array();
 		array_push($output, 999, "DXFighter");
-		foreach ($this->sections as $section) {
+		foreach ($this->sections as $sectaddEntityion) {
 			$output[] = $this->{$section}->render();
 		}
 		array_push($output, 0, "EOF");
@@ -272,474 +320,11 @@ class File_DXF
 	 * @param $fileName
 	 * @return $absolutePath
 	 */
-	public function saveAs($fileName)
+	function saveAs($fileName)
 	{
 		$fh = fopen($fileName, 'w');
 		fwrite($fh, iconv("UTF-8", "WINDOWS-1252", $this->toString(FALSE)));
 		fclose($fh);
 		return realpath($fileName);
-	}
-
-	private function read($path, $move = [0, 0, 0], $rotate = 0)
-	{
-		if (!file_exists($path) || !filesize($path)) {
-			throw new Exception('The path to the file is either invalid or the file is empty');
-		}
-
-		$handle = fopen($path, 'r');
-
-		while ($pair = $this->readPair($handle)) {
-
-
-		}
-		fclose($handle);
-
-
-		$content = file_get_contents($path);
-		$lines = preg_split('/$\R?^/m', $content);
-		$values = [];
-		for ($i = 0; $i + 1 < count($lines); $i++) {
-			$values[] = [
-				'key' => trim($lines[$i++]),
-				'value' => trim($lines[$i])
-			];
-		}
-		$this->readDocument($values, $move, $rotate);
-	}
-
-	private function readPair($handle){
-		$key = fgets($handle);
-		$value = fgets($handle);
-
-		return array(
-			'key' => trim($key),
-			'value' => trim($value)
-		);
-	}
-
-	private function readDocument($values, $move = [0, 0, 0], $rotate = 0)
-	{
-		$section_pattern = [
-			'name' => '',
-			'values' => [],
-		];
-		$section = $section_pattern;
-		foreach ($values as $value) {
-			if ($value['key'] == 0) {
-				if ($value['value'] == 'SECTION') {
-					$section = $section_pattern;
-					continue;
-				} elseif ($value['value'] == 'ENDSEC') {
-					switch ($section['name']) {
-						case 'HEADER':
-							$this->readHeaderSection($section['values']);
-							break;
-						case 'TABLES':
-							$this->readTablesSection($section['values']);
-							break;
-						case 'BLOCKS':
-							$this->readBlocksSection($section['values']);
-							break;
-						case 'ENTITIES':
-							$this->readEntitiesSection($section['values'], true, $move, $rotate);
-							break;
-						case 'OBJECTS':
-							$this->readObjectsSection($section['values']);
-							break;
-					}
-					continue;
-				}
-			}
-			if ($value['key'] == 2 && empty($section['name'])) {
-				$section['name'] = $value['value'];
-				continue;
-			}
-			$section['values'][] = $value;
-		}
-	}
-
-	private function readHeaderSection($values)
-	{
-		$variable_pattern = [
-			'name' => '',
-			'values' => [],
-		];
-		$variables = [];
-		$variable = $variable_pattern;
-		foreach ($values as $value) {
-			if ($value['key'] == 9) {
-				if (!empty($variable['values'])) {
-					$variables[] = $variable;
-				}
-				$variable = $variable_pattern;
-				$variable['name'] = $value['value'];
-				continue;
-			}
-			$variable['values'][$value['key']] = $value['value'];
-		}
-		if (!empty($variable['values'])) {
-			$variables[] = $variable;
-		}
-
-		require_once 'File/DXF/SystemVariable.php';
-		foreach ($variables as $variable) {
-			$name = str_replace('$', '', $variable['name']);
-			if (strtoupper($name) == 'ACADVER') {
-				$variable['values'] = [1 => 'AC1012'];
-			}
-			$this->header->addItem(new File_DXF_SystemVariable($name, $variable['values']));
-		}
-	}
-
-	private function readTablesSection($values)
-	{
-		$table = null;
-		$tableName = '';
-		require_once 'File/DXF/Table.php';
-		require_once 'File/DXF/LType.php';
-		require_once 'File/DXF/Style.php';
-		require_once 'File/DXF/Layer.php';
-		require_once 'File/DXF/AppID.php';
-		require_once 'File/DXF/BlockRecord.php';
-
-		foreach ($values as $value) {
-			if ($value['key'] == 0) {
-				if ($value['value'] == 'TABLE') {
-					$table = null;
-					continue;
-				} elseif ($value['value'] == 'ENDTAB') {
-					$this->tables->addItem($table);
-					continue;
-				}
-			}
-			if ($value['key'] == 2) {
-				if (!isset($table)) {
-					$tableName = $value['value'];
-					$table = new File_DXF_Table($tableName);
-				} else {
-					switch ($tableName) {
-						case 'LTYPE':
-							$table->addEntry(new File_DXF_LType($value['value']));
-							break;
-						case 'STYLE':
-							$table->addEntry(new File_DXF_Style($value['value']));
-							break;
-						case 'LAYER':
-							$table->addEntry(new File_DXF_Layer($value['value']));
-							break;
-						case 'APPID':
-							$table->addEntry(new File_DXF_AppID($value['value']));
-							break;
-						case 'BLOCK_RECORD':
-							$table->addEntry(new File_DXF_BlockRecord($value['value']));
-							break;
-					}
-				}
-			}
-		}
-	}
-
-	private function readBlocksSection($values)
-	{
-		$block = [];
-		$entitiesSection = [];
-		require_once 'File/DXF/Block.php';
-
-		foreach ($values as $value) {
-			if ($value['key'] == 0) {
-				switch ($value['value']) {
-					case 'BLOCK':
-						$block = [];
-						break;
-					case 'ENDBLK':
-						$blockEntity = new File_DXF_Block($block[2]);
-						$entities = $this->readEntitiesSection($entitiesSection);
-						foreach ($entities as $entity) {
-							$blockEntity->addEntity($entity);
-						}
-						$this->blocks->addItem($blockEntity);
-						break;
-					default:
-						$entitiesSection[] = $value;
-				}
-			} elseif (empty($entitiesSection)) {
-				$block[$value['key']] = $value['value'];
-			} else {
-				$entitiesSection[] = $value;
-			}
-		}
-	}
-
-	private function readEntitiesSection($values, $addEntities = false, $move = [0, 0, 0], $rotate = 0)
-	{
-		$entities = [];
-		$entityType = '';
-		$data = [];
-		$types = ['TEXT', 'LINE', 'ELLIPSE', 'SPLINE', 'INSERT', 'ARC', 'CIRCLE', 'LWPOLYLINE'];
-		// TODO most entity types are still missing
-		foreach ($values as $value) {
-			if ($value['key'] == 0) {
-				// This condition happens at the end of an entity
-				if (
-					(in_array($entityType, $types) && !empty($data)) ||
-					in_array($entityType, ['POLYLINE', 'VERTEX']) && $value['value'] == 'SEQEND'
-				) {
-					$entity = $this->addReadEntity($entityType, $data, $move, $rotate);
-					if ($entity) {
-						$entities[] = $entity;
-					}
-					$data = [];
-				}
-				$entityType = $value['value'];
-				if ($value['value'] == 'VERTEX') {
-					$data['points'][] = [];
-				}
-				if ($value['value'] == 'SPLINE') {
-					$data['knots'] = [];
-					$data['points'] = [];
-				}
-				if ($value['value'] == 'LWPOLYLINE') {
-					$data['points'] = [];
-				}
-			} else {
-				if ($entityType == 'SPLINE' && in_array($value['key'], [10, 20, 30, 40])) {
-					switch ($value['key']) {
-						case 10:
-							$data['points'][] = [10 => $value['value'], 20 => 0, 30 => 0];
-							break;
-						case 20:
-						case 30:
-							$data['points'][sizeof($data['points']) - 1][$value['key']] = $value['value'];
-							break;
-						case 40:
-							$data['knots'][] = $value['value'];
-							break;
-					}
-				} elseif ($entityType == 'LWPOLYLINE' && in_array($value['key'], [10, 20, 42])) {
-					switch ($value['key']) {
-						case 10:
-							$data['points'][] = [10 => $value['value'], 20 => 0, 42 => 0];
-							break;
-						case 20:
-						case 42:
-							$data['points'][sizeof($data['points']) - 1][$value['key']] = $value['value'];
-							break;
-					}
-				} elseif (in_array($entityType, $types) || $entityType == 'POLYLINE') {
-					$data[$value['key']] = $value['value'];
-				} elseif ($entityType == 'VERTEX') {
-					$data['points'][count($data['points']) - 1][$value['key']] = $value['value'];
-				}
-			}
-		}
-		if (in_array($entityType, $types) && !empty($data)) {
-			$entity = $this->addReadEntity($entityType, $data, $move, $rotate);
-			if ($entity) {
-				$entities[] = $entity;
-			}
-		}
-		if ($addEntities) {
-			$this->addMultipleEntities($entities);
-		}
-		return $entities;
-	}
-
-	private function addReadEntity($type, $data, $move = [0, 0, 0], $rotate = 0)
-	{
-
-
-		switch ($type) {
-			case 'TEXT':
-				$point = [$data[10], $data[20], $data[30]];
-				$rotation = $data[50] ? $data[50] : 0;
-				$thickness = $data[39] ? $data[39] : 0;
-				require_once 'File/DXF/Text.php';
-
-				$text = new File_DXF_Text($data[1], $point, $data[40], $rotation, $thickness);
-				if ($data[72]) {
-					$text->setHorizontalJustification($data[72]);
-				}
-				if ($data[73]) {
-					$text->setVerticalJustification($data[73]);
-				}
-				$text->move($move);
-				$text->rotate($rotate);
-				return $text;
-			case 'LINE':
-				$start = [$data[10], $data[20], $data[30]];
-				$end = [$data[11], $data[21], $data[31]];
-				$thickness = $data[39] ? $data[39] : 0;
-				$extrusion = [
-					$data[210] ? $data[210] : 0,
-					$data[220] ? $data[220] : 0,
-					$data[230] ? $data[230] : 1
-				];
-				require_once 'File/DXF/Line.php';
-
-				$line = new File_DXF_Line($start, $end, $thickness, $extrusion);
-				if (isset($data[62])) {
-					$line->setColor($data[62]);
-				}
-				$line->move($move);
-				$line->rotate($rotate);
-				return $line;
-			case 'ELLIPSE':
-				$center = [$data[10], $data[20], $data[30]];
-				$endpoint = [$data[11], $data[21], $data[31]];
-				$start = $data[41] ? $data[41] : 0;
-				$end = $data[42] ? $data[42] : M_PI * 2;
-				$extrusion = [
-					$data[210] ? $data[210] : 0,
-					$data[220] ? $data[220] : 0,
-					$data[230] ? $data[230] : 1
-				];
-				require_once 'File/DXF/Ellipse.php';
-
-				$ellipse = new File_DXF_Ellipse($center, $endpoint, $data[40], $start, $end, $extrusion);
-				if (isset($data[62])) {
-					$ellipse->setColor($data[62]);
-				}
-				$ellipse->move($move);
-				$ellipse->rotate($rotate);
-				return $ellipse;
-			case 'SPLINE':
-				$base = [0, 0, 0];
-				if (isset($data[210])) {
-					$base = [$data[210], $data[220], $data[230]];
-				}
-				$start = [0, 0, 0];
-				if (isset($data[12])) {
-					$start = [$data[12], $data[22], $data[32]];
-				}
-				$end = [0, 0, 0];
-				if (isset($data[13])) {
-					$end = [$data[13], $data[23], $data[33]];
-				}
-				require_once 'File/DXF/Spline.php';
-
-				$spline = new File_DXF_Spline(isset($data[71]) ? $data[71] : 1, $base, $start, $end);
-				if (isset($data[62])) {
-					$spline->setColor($data[62]);
-				}
-				if (isset($data[70])) {
-					$bin = decbin($data[70]);
-					$length = strlen((string)$bin);
-					for ($i = $length - 1; $i >= 0; $i--) {
-						if (boolval($bin[$i])) {
-							$spline->setFlag($length - 1 - $i, $bin[$i]);
-						}
-					}
-				}
-				foreach ($data['knots'] as $knot) {
-					$spline->addKnot($knot);
-				}
-				foreach ($data['points'] as $point) {
-					$spline->addPoint([$point[10], $point[20], $point[30]]);
-				}
-				return $spline;
-			case 'INSERT':
-				$point = [$data[10], $data[20], $data[30]];
-				$scale = [
-					isset($data[41]) ? $data[41] : 1,
-					isset($data[42]) ? $data[42] : 1,
-					isset($data[43]) ? $data[43] : 1,
-				];
-				$rotation = isset($data[50]) ? $data[50] : 0;
-				require_once 'File/DXF/Insert.php';
-
-				$insert = new File_DXF_Insert($data[2], $point, $scale, $rotation);
-				$insert->move($move);
-				return $insert;
-			case 'LWPOLYLINE':
-			case 'POLYLINE':
-			case 'VERTEX':
-				require_once 'File/DXF/LWPolyline.php';
-				require_once 'File/DXF/Polyline.php';
-
-				if (isset($data[100])) {
-					switch ($data[100]) {
-						case 'AcDbPolyline':
-							$polyline = new File_DXF_LWPolyline();
-							break;
-						case 'AcDb2dPolyline':
-
-							$polyline = new File_DXF_Polyline(2);
-							break;
-						case 'AcDb3dPolyline':
-							$polyline = new File_DXF_Polyline(3);
-							break;
-						default:
-							echo 'The polyline type ' . $data[100] . ' has not been found' . PHP_EOL;
-							return false;
-					}
-				} else {
-					$polyline = new File_DXF_Polyline(2);
-				}
-				if (isset($data[62])) {
-					$polyline->setColor($data[62]);
-				}
-				if (isset($data[70])) {
-					$bin = decbin($data[70]);
-					$length = strlen((string)$bin);
-					for ($i = $length - 1; $i >= 0; $i--) {
-						if (boolval($bin[$i])) {
-							$polyline->setFlag($length - 1 - $i, $bin[$i]);
-						}
-					}
-				}
-				foreach ($data['points'] as $point) {
-					$bulge = isset($point[42]) ? $point[42] : 0;
-					$polyline->addPoint([$point[10], $point[20], $point[30]], $bulge);
-				}
-				$polyline->move($move);
-				$polyline->rotate($rotate);
-				return $polyline;
-			case 'CIRCLE':
-				$center = [$data[10], $data[20], $data[30]];
-				$thickness = $data[39] ? $data[39] : 0;
-				$extrusion = [
-					$data[210] ? $data[210] : 0,
-					$data[220] ? $data[220] : 0,
-					$data[230] ? $data[230] : 1
-				];
-				require_once 'File/DXF/Circle.php';
-
-				$circle = new File_DXF_Circle($center, $data[40], $thickness, $extrusion);
-
-				$circle->move($move);
-
-				return $circle;
-			case 'ARC':
-				$center = [$data[10], $data[20], $data[30]];
-				$thickness = $data[39] ? $data[39] : 0;
-				$extrusion = [
-					$data[210] ? $data[210] : 0,
-					$data[220] ? $data[220] : 0,
-					$data[230] ? $data[230] : 1
-				];
-				require_once 'File/DXF/Arc.php';
-
-				$arc = new File_DXF_Arc(
-					$center,
-					$data[40],
-					$data[50],
-					$data[51],
-					$thickness,
-					$extrusion
-				);
-
-				$arc->move($move);
-
-				return $arc;
-		}
-		return false;
-	}
-
-	private function readObjectsSection($values)
-	{
-		// TODO add the actually read objects
-		require_once 'File/DXF/Dictionary.php';
-
-		$this->objects->addItem(new File_DXF_Dictionary(array('ACAD_GROUP')));
-	}
+	}	
 }

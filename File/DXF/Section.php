@@ -1,56 +1,23 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: jpietler
- * Date: 04.02.16
- * Time: 19:23
- *
- * Documentation http://www.autodesk.com/techpubs/autocad/acad2000/dxf/general_dxf_file_structure_dxf_aa.htm
- * This is baed on DXF Fighter by - https://github.com/enjoping/DXFighter
- */
-
-/**
- * Class Section
- * @package DXFighter\lib
- *
- * Every DXF file is build up of multiple sections which contain
- * differnt parts of the DXF definition. Some of them are mandatory, these are:
- * header, classes, tables, blocks, entities, objects and thumbnailimage.
- */
-class File_DXF_Section
+class File_DXF_Section extends File_DXF_BasicObject
 {
+
     public $name;
-    public $items = [];
-    public $itemNames = [];
+    public $items = array();
+    public $itemNames = array();
 
-    /**
-     * Section constructor.
-     * @param $name
-     * @param array $items
-     */
-    function __construct($name, $items = [])
+    
+    function addItem(File_DXF_BasicObject $item)
     {
-        $this->name = $name;
-        $this->items = $items;
-    }
-
-    /**
-     * Adds an Item to the items list
-     *
-     * @param BasicObject $item
-     */
-    public function addItem(File_DXF_BasicObject $item)
-    {
-
-        $name = strtoupper($item->getName());
+        $name = strtoupper($item->name);
         if (!in_array($name, $this->itemNames, true)) {
             $this->itemNames[] = $name;
             $this->items[] = $item;
         } elseif ($this->name == 'tables') {
             foreach ($this->items as $existing) {
-                if (strtoupper($existing->getName()) == $name) {
-                    $entries = $item->getEntries();
+                if (strtoupper($existing->name) == $name) {
+                    $entries = $item->entries;
                     foreach ($entries as $entry) {
                         $existing->addEntry($entry);
                     }
@@ -64,16 +31,11 @@ class File_DXF_Section
      *
      * @param array $items
      */
-    public function addMultipleItems($items)
+    function addMultipleItems($items)
     {
         foreach ($items as $item) {
             $this->addItem($item);
         }
-    }
-
-    public function getItems()
-    {
-        return $this->items;
     }
 
     /**
@@ -81,8 +43,7 @@ class File_DXF_Section
      * the entity.
      * @return string
      */
-    public function render()
-    {
+    function render() {
         $output = array();
         array_push($output, 0, "SECTION");
         array_push($output, 2, strtoupper($this->name));
@@ -99,8 +60,8 @@ class File_DXF_Section
      *
      * @return array
      */
-    public function toArray()
-    {
+    function toArray() {
         return [];
     }
+    
 }
