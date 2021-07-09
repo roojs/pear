@@ -52,6 +52,11 @@ class File_DXF_BasicObject
         }
     }
 
+    function skipParseEntity ($dxf) {
+        // same behavior as skipParseTableEntry($dxf)
+        $this->skipParseTableEntry($dxf);
+    }
+
     /*
      * OLD CODE BELOW
      */
