@@ -175,7 +175,9 @@ class File_Smb_Dir {
     
     function upload($local, $name)
     {
-        
+        if (empty($name)) {
+            throw new Exception("UPloaded file needs a name");
+        }
         $fh =  smbclient_open( $this->resource, 'smb://' . $this->server . '/'. $this->path .'/' . $name, 'w');
         if ($fh === false) { 
             throw new Exception("SMB upload : {$this->path} open Failed");
