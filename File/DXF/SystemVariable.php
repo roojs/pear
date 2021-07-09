@@ -10,6 +10,8 @@ class File_DXF_SystemVariable extends File_DXF_BasicObject
     public $acadVersion;
     public $drawingCodePage;
     public $insertionBase;
+    public $drawingExtentUpperRight;
+    public $drawingExtentLowerLeft;
 
     function parse($dxf) {
 
