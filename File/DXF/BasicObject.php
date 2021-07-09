@@ -10,6 +10,16 @@ class File_DXF_BasicObject
 	    }
     }
     
+    // Skip parsing a section
+    function skipParseSection($dxf) {
+        while ($pair = $dxf->readPair()){
+            if ($pair['key'] == 0 && $pair['value'] == 'ENDSEC') {
+                // End of the header section
+                return;
+            }
+        }
+    }
+    
     /*
      * OLD CODE BELOW
      */
