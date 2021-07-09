@@ -42,6 +42,7 @@ class File_DXF_Insert extends File_DXF_Entity
 
     function parse($dxf)
     {
+        // parse common pair for entities
         $this->parseCommon($dxf);
         
         while($pair = $dxf->readPair()) {
@@ -55,8 +56,16 @@ class File_DXF_Insert extends File_DXF_Entity
                         return;
                     }
                     if ($this->$pair['value'] == "ATTRIB") {
-                        
+                        // An attribute
+                        $dxf->factory("Attrib")->parse($dxf);
+
+                    } elif ($this->$pair['value'] == "SEQEND") {
+                        // No more attributes
+                        $dxf->factory("Seqend")->parse($dxf);
+                    } else {
+                        throw new Exception ("Got invalid pair within an insert entity ($pair)")
                     }
+                    
                 case 100:
                     $this->subclassMarker = $pair['value'];
                     break;
