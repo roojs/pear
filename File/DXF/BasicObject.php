@@ -63,7 +63,6 @@ class File_DXF_BasicObject
 				// End of an application defined group
 				return;
 			}
-
 		}
     }
 
