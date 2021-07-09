@@ -124,6 +124,7 @@ class File_DXF_Insert extends File_DXF_Entity
                 default:
                     $groupCode = $pair['key'];
                     throw new Exception ("Got unknown group code ($groupCode)");
+                    break;
             }
         }
     }

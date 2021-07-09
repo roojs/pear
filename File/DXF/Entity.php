@@ -116,6 +116,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
                 default:
                     $groupCode = $pair['key'];
                     throw new Exception ("Got unknown group code ($groupCode)");
+					break;
             }
 		}
 	}
