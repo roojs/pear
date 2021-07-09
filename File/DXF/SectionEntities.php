@@ -72,7 +72,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
 						break;
 					default:
 						$entityType = $pair['value'];
-						throw new Exception ("Got unknown entity ($entityType)");
+						throw new Exception ("Got unknown entity type ($entityType)");
 						break;
 				}
 			}
