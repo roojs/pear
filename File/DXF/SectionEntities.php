@@ -12,13 +12,14 @@ class File_DXF_SectionEntities extends File_DXF_Section
 		while ($pair = $dxf->readPair()) {
 
 			if($pair['key'] == 0) {
+
 				if ($pair['key'] == 'ENDSEC') {
 					// End of the entities section
 					break;
 				}
+
 				// Beginning of a new entity
-				$entityType = $pair['value'];
-				switch($entityType) {
+				switch($pair['value']) {
 					case 'INSERT':
 						$entity = $dxf->factory('Insert');
 						$entity->phase($dxf);
