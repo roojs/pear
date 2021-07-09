@@ -42,6 +42,8 @@ class File_DXF_Entity extends File_DXF_BasicObject
 		while($pair = $dxf->readPair()) {
 
             switch($pair['key']) {
+				case 0:
+					
                 case -1:
                     $this->entityName = $pair['value'];
                     break;
@@ -114,6 +116,10 @@ class File_DXF_Entity extends File_DXF_BasicObject
 					$this->shadowMode = $pair['value'];
 					break;
                 default:
+					if(!$withSubclassMarker) {
+						$dxf->pushPair($pair);
+						return;
+					}
                     $groupCode = $pair['key'];
                     throw new Exception ("Got unknown group code ($groupCode)");
 					break;
