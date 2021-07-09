@@ -4,6 +4,8 @@ require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_Table extends File_DXF_BasicObject
 {
+    
+    public $name;
 
     function parse($dxf) {
         $this->skipParseTable($dxf);
