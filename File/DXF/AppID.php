@@ -4,33 +4,43 @@ require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_AppID extends File_DXF_BasicObject
 {
-    
-    public $name;
-    public $data = array();
 
     function parse($dxf) {
 
-        while($pair = $dxf->readPair()) {
-            if ($pair['key'] == 0) {
-                // End of this table entry
-                $dxf->pushPair($pair);
-                return;
-            }
-            if ($pair['key'] == 2) {
-                $this->name = $pair['value'];
-                continue;
-            }
-            $this->data[$pair['key']] = $pair['value'];
-        }
+        $this->skipParseTableEntry($dxf);
     }
     
+    /*
+     * OLD CODE BELOW
+     */
+
+    // protected $name;
+    // protected $flag;
+
     /**
-    * Public function to render an entity, returns a string representation of
-    * the entity.
-    * @return string
+     * AppID constructor.
+     * @param $name
+     * @param int $flag
+     */
+    /*
+    function __construct($name, $flag = 0) {
+        $this->name = $name;
+        $this->flag = $flag;
+        parent::__construct();
+    }
+
+    public function getName() {
+        return $this->name;
+    }
     */
-    function render() 
-    {
+
+    /**
+     * Public function to render an entity, returns a string representation of
+     * the entity.
+     * @return string
+     */
+    /*
+    public function render() {
         $output = array();
         array_push($output, 0, "APPID");
         array_push($output, 5, $this->getHandle());
@@ -40,4 +50,5 @@ class File_DXF_AppID extends File_DXF_BasicObject
         array_push($output, 70, $this->flag);
         return implode(PHP_EOL, $output);
     }
+    */
 }
