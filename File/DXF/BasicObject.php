@@ -34,8 +34,19 @@ class File_DXF_BasicObject
     // Skip parsing a table
     function skipParseTable($dxf) {
         while($pair = $dxf->readPair()) {
-            if ($pair['key'] == 0 || $pair['value'] == 'ENDTAB') {
+            if ($pair['key'] == 0 && $pair['value'] == 'ENDTAB') {
                 // End of a table
+                return;
+            }
+        }
+    }
+
+    // Skip parsing a table entry
+    function skipParseTableEntry ($dxf) {
+        while($pair = $dxf->readPair()) {
+            if ($pair['key'] == 0) {
+                // End of this table entry
+                $dxf->pushPair($pair);
                 return;
             }
         }
