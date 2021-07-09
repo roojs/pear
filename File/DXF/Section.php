@@ -4,6 +4,9 @@ require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_Section extends File_DXF_BasicObject
 {
+    /*
+     * OLD CODE BELOW
+     */
 
     // protected $name;
     // protected $items = [];
