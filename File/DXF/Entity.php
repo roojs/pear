@@ -50,7 +50,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
                     break;
 				case 102:
 					$this->parseApplicationDefinedGroup($dxf);
-					$this->applicationDefinedGroup = 
+					$this->applicationDefinedGroupName =  str_replace("{", "", $pair['value']);
 					break;
                 case 330:
                     $this->softPointerToOwner= $pair['value'];
