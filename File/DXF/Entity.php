@@ -37,7 +37,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	}
 
 	// parse common pair for entities
-	function parseCommon($dxf)
+	function parseCommon($dxf, $withSubclassMarker)
 	{
 		while($pair = $dxf->readPair()) {
 
