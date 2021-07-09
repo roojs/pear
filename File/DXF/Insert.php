@@ -60,6 +60,7 @@ class File_DXF_Insert extends File_DXF_Entity
                     if ($pair['value'] == "ATTRIB") {
                         // An attribute
                         $attributes[] = $dxf->factory("Attrib")->parse($dxf);
+                        continue;
                     }
 
                     if ($pair['value'] == "SEQEND") {
@@ -69,7 +70,6 @@ class File_DXF_Insert extends File_DXF_Entity
                     } 
                     throw new Exception ("Got invalid pair within an insert entity ($pair)");
                     break;
-                    
                 case 100:
                     $this->subclassMarker = $pair['value'];
                     break;
