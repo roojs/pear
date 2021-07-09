@@ -63,7 +63,13 @@ class File_DXF_SectionEntities extends File_DXF_Section
 					case 'TEXT': 
 					case 'TOLERANCE': 
 					case 'TRACE': 
-					case 'UNDERLAY':>parse($dxf);
+					case 'UNDERLAY':
+					case 'VERTEX': 
+					case 'VIEWPOINT': 
+					case 'WIPEOUT': 
+					case'XLINE':
+						$dxf->factory('Entity')->skipParseEntity($dxf);
+						break;
 					default:
 						$entityType = $pair['value'];
 						throw new Exception ("Got unknown entity ($entityType)");
