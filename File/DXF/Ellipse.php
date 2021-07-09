@@ -1,20 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: jpietler
- * Date: 30.12.16
- * Time: 16:18
- *
- * Dokumentation http://www.autodesk.com/techpubs/autocad/acad2000/dxf/ellipse_dxf_06.htm
- * This is baed on DXF Fighter by - https://github.com/enjoping/DXFighter"
- */
-
-
-/**
- * Class Ellipse
- * @package DXFighter\lib
- */
 require_once 'File/DXF/Entity.php';
 
 class File_DXF_Ellipse extends File_DXF_Entity
