@@ -5,56 +5,80 @@ require_once 'File/DXF/BasicObject.php';
 class File_DXF_Section extends File_DXF_BasicObject
 {
 
-    public $name;
-    public $items = array();
-    public $itemNames = array();
+    // protected $name;
+    // protected $items = [];
+    // protected $itemNames = [];
 
-    
-    function addItem(File_DXF_BasicObject $item)
-    {
-        $name = strtoupper($item->name);
+    /**
+     * Section constructor.
+     * @param $name
+     * @param array $items
+     */
+    /*
+    function __construct($name, $items = []) {
+        $this->name = $name;
+        $this->items = $items;
+    }
+    */
+
+    /**
+     * Adds an Item to the items list
+     *
+     * @param BasicObject $item
+     */
+    /*
+    public function addItem(BasicObject $item) {
+        $name = strtoupper($item->getName());
         if (!in_array($name, $this->itemNames, true)) {
-            $this->itemNames[] = $name;
-            $this->items[] = $item;
+        $this->itemNames[] = $name;
+        $this->items[] = $item;
         } elseif ($this->name == 'tables') {
-            foreach ($this->items as $existing) {
-                if (strtoupper($existing->name) == $name) {
-                    $entries = $item->entries;
-                    foreach ($entries as $entry) {
-                        $existing->addEntry($entry);
-                    }
-                }
+        foreach($this->items as $existing) {
+            if (strtoupper($existing->getName()) == $name) {
+            $entries = $item->getEntries();
+            foreach($entries as $entry) {
+                $existing->addEntry($entry);
+            }
             }
         }
+        }
     }
+    */
 
     /**
      * Adds an array of Items to the items list
      *
      * @param array $items
      */
-    function addMultipleItems($items)
-    {
+    /*
+    public function addMultipleItems($items) {
         foreach ($items as $item) {
-            $this->addItem($item);
+        $this->addItem($item);
         }
     }
+
+    public function getItems() {
+        return $this->items;
+    }
+    */
 
     /**
      * Public function to render an entity, returns a string representation of
      * the entity.
      * @return string
      */
-    function render() {
+    /*
+    public function render() {
         $output = array();
         array_push($output, 0, "SECTION");
         array_push($output, 2, strtoupper($this->name));
         foreach ($this->items as $item) {
-            array_push($output, $item->render());
+        array_push($output, $item->render());
         }
         array_push($output, 0, "ENDSEC");
         return implode(PHP_EOL, $output);
     }
+    */
 
     /**
      * Outputs an array representation of the Section
@@ -62,8 +86,10 @@ class File_DXF_Section extends File_DXF_BasicObject
      *
      * @return array
      */
-    function toArray() {
+    /*
+    public function toArray() {
         return [];
     }
+    */
     
 }
