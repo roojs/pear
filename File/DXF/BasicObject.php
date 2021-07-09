@@ -2,6 +2,7 @@
 
 class File_DXF_BasicObject
 {
+    public $name;
 
     function __construct($cfg=array())
     {
