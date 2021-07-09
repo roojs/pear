@@ -5,12 +5,6 @@ require_once 'File/DXF/BasicObject.php';
 class File_DXF_Entity extends File_DXF_BasicObject
 {
 
-	function __construct($cfg=array()) 
-	{
-		$this->entityType = strtoupper(str_replace("File_DXF_", "", get_class($this)));
-		parent::__construct($cfg=array());
-	}
-
     /*
      * OLD CODE BELOW
      */
