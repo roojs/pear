@@ -3,6 +3,8 @@
 class File_DXF_BasicObject
 {
 
+    public $name;
+
     function __construct($cfg=array())
     {
         foreach($cfg as $k=>$v) {
