@@ -68,7 +68,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
 					case 'VIEWPOINT': 
 					case 'WIPEOUT': 
 					case'XLINE':
-						$dxf->factory('Entity')->skipParseEntity($dxf);
+						// skip parsing other entities
 						break;
 					default:
 						$entityType = $pair['value'];
