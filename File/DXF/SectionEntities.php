@@ -21,7 +21,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
 				// Beginning of a new entity
 				switch($pair['value']) {
 					case 'INSERT':
-						$entity = $dxf->factory('Insert');
+						$dxf->factory('Insert')->parse($dxf);
 						$entity->phase($dxf);
 						break;			
 					case 'ATTRIB':
