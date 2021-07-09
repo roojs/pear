@@ -19,7 +19,7 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_Insert extends File_DXF_Entity
 {
-    public $entityType = "INSERT";
+    public $entityType;
     public $attributes = array();
 
    function parse($dxf)
