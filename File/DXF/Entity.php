@@ -8,9 +8,8 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	public $entityName; // -1
 	public $entityType; // 0
 	public $handle; // 5
-	public $softPointerToOwnerDictionary; // 330
+	public $softPointerToOwner; // 330
 	public $hardPointerToOwnerDictionary; // 360
-	public $softPointerToOwnerBlockRecord; // 330
 	public $subclassMarker; // 100
 	public $isPaperSpace = 0; // 67
 	public $layoutTabName; // 410
@@ -25,7 +24,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	public $proxyEntityGraphicsData; // 310
 	public $colorValue; // 420
 	public $colorName; // 430
-	public $TransparencyValue; // 440
+	public $transparencyValue; // 440
 	public $hardPointerToPlotStyle; // 309
 	public $shadowMode; // 284
 
@@ -41,61 +40,73 @@ class File_DXF_Entity extends File_DXF_BasicObject
 		while($pair = $dxf->readPair()) {
 
             switch($pair['key']) {
-                case 100:
+                case -1:
+                    $this->entityName = $pair['value'];
+                    break;
+                case 5:
+                    $this->handle = $pair['value'];
+                    break;
+                case 330:
+                    $this->softPointerToOwner= $pair['value'];
+                    break;
+                case 360:
+                    $this->hardPointerToOwnerDictionary = $pair['value'];
+                    break;
+				case 100:
 					if (isset($this->subclassMarker)) {
 						$dxf->pushPair($pair);
 						return;
 					}
-                    $this->subclassMarker = $pair['value'];
+					$this->subclassMarker = $pair['value'];
+					break;
+				case 67:
+					$this->isPaperSpace = $pair['value'];
+					break;
+                case 410:
+                    $this->layoutTabName = $pair['value'];
                     break;
-                case 66:
-                    $this->hasAttribute = $pair['value'];
+                case 8:
+                    $this->layerName = $pair['value'];
                     break;
-                case 2:
-                    $this->blockName = $pair['value'];
+                case 6:
+                    $this->linetypeName = $pair['value'];
                     break;
-                case 10:
-                    $this->insertionPointX = $pair['value'];
+                case 347:
+                    $this->hardPointerToMaterial = $pair['value'];
                     break;
-                case 20:
-                    $this->insertionPointY = $pair['value'];
+                case 62:
+                    $this->colorNumber = $pair['value'];
                     break;
-                case 30:
-                    $this->insertionPointZ = $pair['value'];
+                case 370:
+                    $this->lineweightEnum = $pair['value'];
                     break;
-                case 41:
-                    $this->scaleX = $pair['value'];
+                case 48:
+                    $this->linetypeScale = $pair['value'];
                     break;
-                case 42:
-                    $this->scaleY = $pair['value'];
+                case 60:
+                    $this->objectVisibility = $pair['value'];
                     break;
-                case 43:
-                    $this->scaleZ = $pair['value'];
+                case 92:
+                    $this->proxyEntityGraphicsBytes = $pair['value'];
                     break;
-                case 50:
-                    $this->rotation = $pair['value'];
+                case 310:
+                    $this->proxyEntityGraphicsData = $pair['value'];
                     break;
-                case 70:
-                    $this->columnCount = $pair['value'];
+                case 420:
+                    $this->colorValue = $pair['value'];
                     break;
-                case 71:
-                    $this->rowCount = $pair['value'];
-                    break;
-                case 44:
-                    $this->columnSpacing = $pair['value'];
-                    break;
-                case 45:
-                    $this->rowSpacing = $pair['value'];
-                    break;
-                case 210:
-                    $this->extrusionDirectionX = $pair['value'];
-                    break;
-                case 220:
-                    $this->extrusionDirectionY = $pair['value'];
-                    break;
-                case 230:
-                    $this->extrusionDirectionZ = $pair['value'];
-                    break;
+				case 430:
+					$this->colorName = $pair['value'];
+					break;
+				case 440:
+					$this->transparencyValue = $pair['value'];
+					break;
+				case 390:
+					$this->hardPointerToPlotStyle = $pair['value'];
+					break;
+				case 284:
+					$this->shadowMode = $pair['value'];
+					break;
                 default:
                     $groupCode = $pair['key'];
                     throw new Exception ("Got unknown group code ($groupCode)");
