@@ -51,25 +51,25 @@ class File_DXF
 		    
 		    switch ($pair['value']) {
 		        case 'HEADER':
-		            self::factory("SectionHeader")->parse($this);
+		            $this->header = self::factory("SectionHeader")->parse($this);
 	                break;
 				case 'CLASSES':
-					self::factory("SectionClasses")->parse($this);
+					$this->classes = self::factory("SectionClasses")->parse($this);
                     break;
 				case 'TABLES':
-					self::factory("SectionTables")->parse($this);
+					$this->tables = self::factory("SectionTables")->parse($this);
 					break;
                 case 'BLOCKS':
-                    self::factory("SectionBlocks")->parse($this);
+                    $this->blocks = self::factory("SectionBlocks")->parse($this);
                     break;                  
                 case 'ENTITIES':
-                    self::factory("SectionEntities")->parse($this);
+                    $this->entities = self::factory("SectionEntities")->parse($this);
 				    break;
 			    case 'OBJECTS':
-				    self::factory("SectionObjects")->parse($this);
+				    $this->objects = self::factory("SectionObjects")->parse($this);
 				    break;
 		        case 'THUMBNAILIMAGE':
-		            self::factory("SectionThumbnailImage")->parse($this);
+		            $this->thumbnailImage = self::factory("SectionThumbnailImage")->parse($this);
 		            break;
 				default:
 					$sectionName = $pair['value'];
