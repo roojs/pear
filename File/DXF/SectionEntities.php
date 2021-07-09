@@ -22,7 +22,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
 				// Beginning of a new entity
 				switch($pair['value']) {
 					case 'INSERT':
-						$dxf->factory('Insert')->parse($dxf);
+						$entity = $dxf->factory('Insert')->parse($dxf);
 						break;			
 					case 'ATTRIB':
 					case 'SEQEND': 
@@ -75,6 +75,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
 						throw new Exception ("Got unknown entity type ($entityType)");
 						break;
 				}
+				$this->items[] = $entity;
 			}
 		}
     }
