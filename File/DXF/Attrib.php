@@ -8,7 +8,7 @@ class File_DXF_Attrib extends File_DXF_Entity
     function parse($dxf)
     {
         // parse common pair for entities
-        $this->parseCommon($dxf, false);
+        $this->parseCommon($dxf);
 
         while($pair = $dxf->readPair()) {
 
