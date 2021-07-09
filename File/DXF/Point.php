@@ -1,28 +1,18 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: jpietler
- * Date: 30.12.16
- * Time: 16:18
- *
- * Dokumentation http://www.autodesk.com/techpubs/autocad/acad2000/dxf/point_dxf_06.htm
- * This is baed on DXF Fighter by - https://github.com/enjoping/DXFighter
- */
-
-
-/**
- * Class Point
- * @package DXFighter\lib
- */
 require_once 'File/DXF/Entity.php';
 
 class File_DXF_Point extends File_DXF_Entity
 {
-    public $thickness;
-    public $point;
-    public $extrusion;
-    public $angle;
+
+    /*
+     * OLD CODE BELOW
+     */
+
+    // public $thickness;
+    // public $point;
+    // public $extrusion;
+    // public $angle;
 
     /**
      * Point constructor.
@@ -31,6 +21,7 @@ class File_DXF_Point extends File_DXF_Entity
      * @param array $extrusion
      * @param int $angle
      */
+    /*
     function __construct($point, $thickness = 0, $extrusion = array(0, 0, 1), $angle = 0)
     {
         $this->entityType = 'point';
@@ -40,21 +31,25 @@ class File_DXF_Point extends File_DXF_Entity
         $this->angle = $angle;
         parent::__construct();
     }
+    */
 
     /**
      * Public function to move a Point entity
      * @param array $move vector to move the entity with
      */
+    /*
     public function move($move)
     {
         $this->movePoint($this->point, $move);
     }
+    */
 
     /**
      * Public function to render an entity, returns a string representation of
      * the entity.
      * @return string
      */
+    /*
     public function render()
     {
         $output = parent::render();
@@ -85,4 +80,5 @@ class File_DXF_Point extends File_DXF_Entity
     {
         return $this->angle;
     }
+    */
 }
