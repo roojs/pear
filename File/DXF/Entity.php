@@ -5,6 +5,8 @@ require_once 'File/DXF/BasicObject.php';
 class File_DXF_Entity extends File_DXF_BasicObject
 {
 
+	public $name;
+
 	public $entityName; // -1
 	public $entityType; // 0
 	public $handle; // 5
@@ -27,7 +29,6 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	public $transparencyValue; // 440
 	public $hardPointerToPlotStyle; // 309
 	public $shadowMode; // 284
-
 
 	function __construct($cfg=array()) 
 	{
