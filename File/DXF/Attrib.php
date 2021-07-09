@@ -4,7 +4,6 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_Attrib extends File_DXF_Entity
 {
-    public $entityType = 'ATTRIB';
     public $data = array();
 
     function parse($dxf)
