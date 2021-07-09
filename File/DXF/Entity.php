@@ -8,6 +8,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	public $entityName; // -1
 	public $entityType; // 0
 	public $handle; // 5
+	public $applicationDefinedGroupName; // 102
 	public $softPointerToOwner; // 330
 	public $hardPointerToOwnerDictionary; // 360
 	public $subclassMarker; // 100
@@ -47,6 +48,10 @@ class File_DXF_Entity extends File_DXF_BasicObject
                 case 5:
                     $this->handle = $pair['value'];
                     break;
+				case 102:
+					$this->parseApplicationDefinedGroup($dxf);
+					$this->applicationDefinedGroup = 
+					break;
                 case 330:
                     $this->softPointerToOwner= $pair['value'];
                     break;
@@ -113,6 +118,11 @@ class File_DXF_Entity extends File_DXF_BasicObject
                     throw new Exception ("Got unknown group code ($groupCode)");
             }
 		}
+	}
+
+	function parseApplicationDefinedGroup ($dxf)
+	{
+		$this->skipParseApplicationDefinedGroup($dxf);
 	}
 
     /*
