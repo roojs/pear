@@ -9,7 +9,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
 	 
     public function parse($dxf, $opts= array())
     {
-		
+
 		while ($pair = $dxf->readPair()) {
 
 			if($pair['key'] == 0) {
@@ -68,7 +68,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
 					case 'VIEWPOINT': 
 					case 'WIPEOUT': 
 					case'XLINE':
-						// These entity are skipped in the current phase
+						$dxf->factory('Entity')->parse($dxf);
 						break;
 				}
 			}
