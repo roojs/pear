@@ -38,17 +38,79 @@ class File_DXF_Insert extends File_DXF_Entity
     public $extrusionDirectionY = 0; // 220
     public $extrusionDirectionZ = 1; // 230
 
-
     public $attributes = array();
 
     function parse($dxf)
     {
+        $this->parseCommon($dxf);
         
         while($pair = $dxf->readPair()) {
 
             switch($pair['key']) {
-                case 0: 
-                    
+                case 0:
+                    if ($this->hasAttribute == 0) {
+                        // No attributes follow
+                        // End of this entity
+                        $dxf->pushPair($pair);
+                        return;
+                    }
+                    if ($this->$pair['value'] == "ATTRIB") {
+                        
+                    }
+                case 100:
+                    $this->subclassMarker = $pair['value'];
+                    break;
+                case 66:
+                    $this->hasAttribute = $pair['value'];
+                    break;
+                case 2:
+                    $this->blockName = $pair['value'];
+                    break;
+                case 10:
+                    $this->insertionPointX = $pair['value'];
+                    break;
+                case 20:
+                    $this->insertionPointY = $pair['value'];
+                    break;
+                case 30:
+                    $this->insertionPointZ = $pair['value'];
+                    break;
+                case 41:
+                    $this->scaleX = $pair['value'];
+                    break;
+                case 42:
+                    $this->scaleY = $pair['value'];
+                    break;
+                case 43:
+                    $this->scaleZ = $pair['value'];
+                    break;
+                case 50:
+                    $this->rotation = $pair['value'];
+                    break;
+                case 70:
+                    $this->columnCount = $pair['value'];
+                    break;
+                case 71:
+                    $this->rowCount = $pair['value'];
+                    break;
+                case 44:
+                    $this->columnSpacing = $pair['value'];
+                    break;
+                case 45:
+                    $this->rowSpacing = $pair['value'];
+                    break;
+                case 210:
+                    $this->extrusionDirectionX = $pair['value'];
+                    break;
+                case 220:
+                    $this->extrusionDirectionY = $pair['value'];
+                    break;
+                case 230:
+                    $this->extrusionDirectionZ = $pair['value'];
+                    break;
+                default:
+                    $groupCode = $pair['key'];
+                    throw new Exception ("Got unknown group code ($groupCode)");
             }
         }
     }
