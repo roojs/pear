@@ -93,14 +93,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
                     break;
                 case 60:
                     $this->objectVisibility = $pair['value'];
-                    break;
-                case 92:
-                    $this->proxyEntityGraphicsBytes = $pair['value'];
-                    break;
-                case 310:
-                    $this->proxyEntityGraphicsData = $pair['value'];
-                    break;
-                case 420:
+                    break;00
                     $this->colorValue = $pair['value'];
                     break;
 				case 430:
