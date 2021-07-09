@@ -58,7 +58,7 @@ class File_DXF
 	    $this->header->addItem(self::factory('SystemVariable', 
 	        array(
 	            'name' => "ACADVER",
-	            'data' => array(1 => "AC1012"),
+	            'acadVersion' => "AC1012",
             )
         ));
 		$this->header->addItem(self::factory('SystemVariable',
@@ -94,14 +94,6 @@ class File_DXF
 			$tables[$table] = self::factory('Table', array('name' => $table));
 		}
 		$tables['APPID']->addEntry(self::factory('AppID', array('name' => 'ACAD')));
-		
-		$this->addBlock($tables, '*model_space');
-		$this->addBlock($tables, '*paper_space');
-
-		$tables['LAYER']->addEntry(self::factory('Layer', array('name' => '0')));
-
-		$tables['LTYPE']->addEntry(self::factory('LType', array('name' => 'byblock')));
-		$tables['LTYPE']->addEntry(self::factory('LType', array('name' => 'bylayer')));
 
 		$tables['STYLE']->addEntry(self::factory('Style', array('name' =>'standard')));
 
@@ -123,7 +115,7 @@ class File_DXF
 	{
 	    if (!file_exists($path) || !filesize($path)) {
 			print_r($path);
-	        die('ERROR The path to the file is either invalid or the file is empty');
+	        throw new Exception ('The path to the file is either invalid or the file is empty');
         }
         
         $this->handle = fopen($path, 'r');
