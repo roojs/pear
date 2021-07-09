@@ -57,24 +57,51 @@ class File_DXF_Insert extends File_DXF_Entity
         }
     }
 
-	
+    /*
+     * OLD CODE BELOW
+     */
+
+    // protected $blockName;
+    // protected $point;
+    // protected $scale;
+    // protected $rotation;
+
+    /**
+     * Insert constructor.
+     *
+     * @param $blockName
+     * @param float[] $point
+     * @param float[] $scale The X, Y and Z scale factors.
+     * @param float $rotation
+     */
+    /*
+    function __construct( $blockName, $point = [0, 0, 0], $scale = [1, 1, 1], $rotation = 0) {
+        $this->entityType = 'insert';
+        $this->blockName       = $blockName;
+        $this->point      = $point;
+        $this->scale      = $scale;
+        $this->rotation   = $rotation;
+        parent::__construct();
+    }
+    */
 
     /**
      * Public function to move an Insert entity
      * @param array $move vector to move the entity with
      */
-    function move($move)
-    {
+    /*
+    public function move($move) {
         $this->movePoint($this->point, $move);
     }
+    */
 
     /**
      * Public function to render an entity, returns a string representation of
      * the entity.
      * @return string
      */
-    function render()
-    {
+    /*
+    public function render() {
         $output = parent::render();
         array_push($output, 100, 'AcDbBlockReference');
         array_push($output, 2, strtoupper($this->blockName));
@@ -85,4 +112,21 @@ class File_DXF_Insert extends File_DXF_Entity
         array_push($output, 50, $this->rotation);
         return implode(PHP_EOL, $output);
     }
+
+    public function getBlockName() {
+        return $this->blockName;
+    }
+
+    public function getPoint() {
+        return $this->point;
+    }
+
+    public function getScale() {
+        return $this->scale;
+    }
+
+    public function getRotation() {
+        return $this->rotation;
+    }
+    */
 }
