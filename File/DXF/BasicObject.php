@@ -9,8 +9,6 @@ class File_DXF_BasicObject
           	$this->$k = $v;
 	    }
     }
-
-    function 
     
     /*
      * OLD CODE BELOW
