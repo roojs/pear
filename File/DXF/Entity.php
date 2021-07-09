@@ -5,6 +5,12 @@ require_once 'File/DXF/BasicObject.php';
 class File_DXF_Entity extends File_DXF_BasicObject
 {
 
+	function __construct($cfg=array()) 
+	{
+		
+		parent::__construct($cfg=array());
+	}
+
     /*
      * OLD CODE BELOW
      */
