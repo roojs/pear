@@ -6,7 +6,6 @@ class File_DXF_AppID extends File_DXF_BasicObject
 {
 
     function parse($dxf) {
-
         $this->skipParseTableEntry($dxf);
     }
     
