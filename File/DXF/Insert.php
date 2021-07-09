@@ -49,22 +49,26 @@ class File_DXF_Insert extends File_DXF_Entity
 
             switch($pair['key']) {
                 case 0:
+
                     if ($this->hasAttribute == 0) {
                         // No attributes follow
                         // End of this entity
                         $dxf->pushPair($pair);
                         return;
                     }
-                    if ($this->$pair['value'] == "ATTRIB") {
-                        // An attribute
-                        $dxf->factory("Attrib")->parse($dxf);
 
-                    } elif ($this->$pair['value'] == "SEQEND") {
-                        // No more attributes
-                        $dxf->factory("Seqend")->parse($dxf);
-                    } else {
-                        throw new Exception ("Got invalid pair within an insert entity ($pair)")
+                    if ($pair['value'] == "ATTRIB") {
+                        // An attribute
+                        $attributes[] = $dxf->factory("Attrib")->parse($dxf);
                     }
+
+                    if ($pair['value'] == "SEQEND") {
+                        // No more attributes
+                        $dxf->factorys("Seqend")->parse($dxf);
+                        return;
+                    } 
+                    throw new Exception ("Got invalid pair within an insert entity ($pair)");
+                    break;
                     
                 case 100:
                     $this->subclassMarker = $pair['value'];
@@ -123,28 +127,6 @@ class File_DXF_Insert extends File_DXF_Entity
             }
         }
     }
-
-    // if ($pair['key'] == 0) {
-    //     if (!isset($this->data[66]) || $this->data[66] == 0) {
-    //         // No attribute
-    //         // End of this entity
-    //         // Beginning of a new entity
-    //         break;
-    //     }
-
-    //     if ($pair['value'] == 'ATTRIB') {
-    //         // An attribute for this insert
-    //         $entity = $dxf->factory('Attrib');
-    //         $entity->parse($dxf);
-    //         $this->attributes[] = $entity;
-    //     } 
-    //     if ($pair['value'] == 'SEQEND') {
-    //         // No more attribute for this insert
-    //         $entity = $dxf->factory('Seqend');
-    //         $entity->parse($dxf);
-    //         return;
-    //     }
-    // }
 
     /*
      * OLD CODE BELOW
