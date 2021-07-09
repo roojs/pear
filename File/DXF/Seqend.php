@@ -5,7 +5,7 @@ require_once 'File/DXF/Entity.php';
 class File_DXF_Seqend extends File_DXF_Entity
 {
 
-    public $beginEntityName
+    public $beginEntityName;
 
     function parse($dxf)
     {
