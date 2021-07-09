@@ -5,7 +5,12 @@ require_once 'File/DXF/Section.php';
 class File_DXF_SectionTables extends File_DXF_Section
 {
     public $name = 'tables';
-	 
+
+    function parse($dxf) {
+        $this->skipParseSection($dxf);
+    }
+	
+    /*
     public function parse($dxf)
     {
         while ($pair = $dxf->readPair()) {
@@ -36,14 +41,11 @@ class File_DXF_SectionTables extends File_DXF_Section
                     case 'VPORT':
                         $table = $dxf->factory('Table', array('name' => $tableName));
                         $table->parse($dxf);
-                        break;
-                    default:
-                        print_R($tableName);
-                        die("ERROR got unknown table name");
-                        break;
+         ENDSEC')             break;
                     
                 }
             }
         }
     }
+    */
 }
