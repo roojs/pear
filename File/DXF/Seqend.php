@@ -7,11 +7,17 @@ class File_DXF_Seqend extends File_DXF_Entity
 
     function parse($dxf)
     {
-         while($pair = $dxf->readPair()) {
-            if ($pair['key'] == 0) {
-                // End of this entity
-                // Beginning of a new entity
-                return $pair;
+        while($pair = $dxf->readPair()) {
+
+            switch($pair['key']) {
+                case 0:
+                    // End of this entity
+                    $dxf->pushPair();
+                    return;
+                default:
+                    $groupCode = $pair['key'];
+                    throw new Exception ("Got unknown group code ($groupCode)");
+                    break;
             }
         }
     }
