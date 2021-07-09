@@ -27,6 +27,7 @@ class File_DXF_Seqend extends File_DXF_Entity
                     throw new Exception ("Got unknown group code ($groupCode)");
                     break;
             }
+    
         }
     }
 
