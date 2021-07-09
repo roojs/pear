@@ -35,6 +35,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 		parent::__construct($cfg=array());
 	}
 
+	// parse common pair for entities
 	function parseCommon($dxf)
 	{
 		while($pair = $dxf->readPair()) {
