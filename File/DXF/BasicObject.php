@@ -57,6 +57,16 @@ class File_DXF_BasicObject
         $this->skipParseTableEntry($dxf);
     }
 
+    function skipParseApplicationDefinedGroup ($dxf) {
+        while($pair = $dxf->readPair()) {
+			if ($pair['key'] == 102 && $pair['value'] == "}") {
+				// End of an application defined group
+				return;
+			}
+
+		}
+    }
+
     /*
      * OLD CODE BELOW
      */
