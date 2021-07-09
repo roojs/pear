@@ -128,7 +128,7 @@ class File_DXF
         
         $this->handle = fopen($path, 'r');
         
-        while ($pair = $this->readPair($this->handle)) {
+        while ($pair = $this->readPair()) {
             
             if ($pair['key'] != 0 || $pair['value'] != 'SECTION') {
 			    // Got invalid starting tag for a new section
