@@ -14,12 +14,23 @@ class File_DXF_BasicObject
     function skipParseSection($dxf) {
         while ($pair = $dxf->readPair()){
             if ($pair['key'] == 0 && $pair['value'] == 'ENDSEC') {
-                // End of the header section
+                // End of a section
                 return;
             }
         }
     }
-    
+
+    // Skip parsing a variable
+    function skipParseVariable($dxf) {
+        while($pair = $dxf->readPair()) {
+            if ($pair['key'] == 0 || $pair['key'] == 9) {
+                // End of a variable
+                $dxf->pushPair($pair);
+                return;
+            }
+        }
+    }
+
     /*
      * OLD CODE BELOW
      */
