@@ -4,6 +4,33 @@ require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_Entity extends File_DXF_BasicObject
 {
+	/*
+	 * public $XXX // (Group code)
+	 */
+
+	public $entityName; // -1
+	public $entityType; // 0
+	public $handle; // 5
+	public $softPointerToOwnerDictionary; // 330
+	public $hardPointerToOwnerDictionary; // 360
+	public $softPointerToOwnerBlockRecord; // 330
+	public $subclassMaker; // 100
+	public $layoutTabName; // 410
+	public $layerName; // 8
+	public $linetypeName; // 6
+	public $hardPointerToMaterial; // 347
+	public $colorNumber; //62
+	public $lineweightEnum; // 370
+	public $linetypeScale; // 48
+	public $objectVisibility; // 60
+	public $proxyEntityGraphicsBytes; // 92
+	public $proxyEntityGraphicsData; // 310
+	public $colorValue; // 420
+	public $colorName; // 430
+	public $TransparencyValue; // 440
+	public $hardPointerToPlotStyle; // 309
+	public $shadowMode; // 284
+
 
 	function __construct($cfg=array()) 
 	{
