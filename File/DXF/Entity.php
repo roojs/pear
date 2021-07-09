@@ -36,6 +36,73 @@ class File_DXF_Entity extends File_DXF_BasicObject
 		parent::__construct($cfg=array());
 	}
 
+	function parseCommon($dxf)
+	{
+		while($pair = $dxf->readPair()) {
+
+            switch($pair['key']) {
+                case 100:
+					if (isset($this->subclassMarker)) {
+						$dxf->pushPair($pair);
+						return;
+					}
+                    $this->subclassMarker = $pair['value'];
+                    break;
+                case 66:
+                    $this->hasAttribute = $pair['value'];
+                    break;
+                case 2:
+                    $this->blockName = $pair['value'];
+                    break;
+                case 10:
+                    $this->insertionPointX = $pair['value'];
+                    break;
+                case 20:
+                    $this->insertionPointY = $pair['value'];
+                    break;
+                case 30:
+                    $this->insertionPointZ = $pair['value'];
+                    break;
+                case 41:
+                    $this->scaleX = $pair['value'];
+                    break;
+                case 42:
+                    $this->scaleY = $pair['value'];
+                    break;
+                case 43:
+                    $this->scaleZ = $pair['value'];
+                    break;
+                case 50:
+                    $this->rotation = $pair['value'];
+                    break;
+                case 70:
+                    $this->columnCount = $pair['value'];
+                    break;
+                case 71:
+                    $this->rowCount = $pair['value'];
+                    break;
+                case 44:
+                    $this->columnSpacing = $pair['value'];
+                    break;
+                case 45:
+                    $this->rowSpacing = $pair['value'];
+                    break;
+                case 210:
+                    $this->extrusionDirectionX = $pair['value'];
+                    break;
+                case 220:
+                    $this->extrusionDirectionY = $pair['value'];
+                    break;
+                case 230:
+                    $this->extrusionDirectionZ = $pair['value'];
+                    break;
+                default:
+                    $groupCode = $pair['key'];
+                    throw new Exception ("Got unknown group code ($groupCode)");
+            }
+		}
+	}
+
     /*
      * OLD CODE BELOW
      */
