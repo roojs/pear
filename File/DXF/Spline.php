@@ -1,30 +1,20 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: jpietler
- * Date: 13.02.20
- * Time: 16:15
- *
- * Documentation https://www.autodesk.com/techpubs/autocad/acad2000/dxf/spline_dxf_06.htm
- * This is baed on DXF Fighter by - https://github.com/enjoping/DXFighter
- */
-
-
-/**
- * Class Spline
- * @package DXFighter\lib
- */
 require_once 'File/DXF/Entity.php';
 
 class File_DXF_Spline extends File_DXF_Entity
 {
-    public $base = [0, 0, 0];
-    public $start = [0, 0, 0];
-    public $end = [0, 0, 0];
-    public $points = [];
-    public $knots = [];
-    public $degree = 1;
+
+    /*
+     * OLD CODE BELOW
+     */
+
+    // public $base = [0, 0, 0];
+    // public $start = [0, 0, 0];
+    // public $end = [0, 0, 0];
+    // public $points = [];
+    // public $knots = [];
+    // public $degree = 1;
 
     /**
      * Spline constructor.
@@ -33,6 +23,7 @@ class File_DXF_Spline extends File_DXF_Entity
      * @param array $start
      * @param array $end
      */
+    /*
     function __construct($degree = 1, $base = [0, 0, 0], $start = [0, 0, 0], $end = [0, 0, 0])
     {
         $this->entityType = 'spline';
@@ -43,32 +34,38 @@ class File_DXF_Spline extends File_DXF_Entity
         $this->end = $end;
         parent::__construct();
     }
+    */
 
     /**
      * Public function to add a new point to the polyline
      * @param array $point
      */
+    /*
     public function addPoint($point)
     {
         $this->points[] = [$point[0], $point[1], $point[2]];
         return $this;
     }
+    */
 
     /**
      * Public function to add a new point to the polyline
      * @param int $value
      */
+    /*
     public function addKnot($value)
     {
         $this->knots[] = $value;
         return $this;
     }
+    */
 
     /**
      * Public function to render an entity, returns a string representation of
      * the entity.
      * @return string
      */
+    /*
     public function render()
     {
         $output = parent::render();
@@ -124,4 +121,5 @@ class File_DXF_Spline extends File_DXF_Entity
     {
         return $this->degree;
     }
+    */
 }
