@@ -19,106 +19,71 @@ class File_DXF
 	
 	function __construct($path = false)
 	{
-		if ($oath) {
-			$this->read($readPath);
+		if ($path) {
+			$this->read($path);
 		}
 	}
+
+	// File handle
+	public $handle;
 
 	function read($path, $opts= array())
 	{
 	    if (!file_exists($path) || !filesize($path)) {
-	        throw new Exception ("The file does not exists or the file is empty");
+	        throw new Exception ("The file does not exists or the file is empty ($path)");
         }
         
         $this->handle = fopen($path, 'r');
         
         while ($pair = $this->readPair()) {
             
-            if ($pair['key'] != 0 || $pair['value'] != 'SECTION') {
-			    // Got invalid starting tag for a new section
-			    print_r($pair);
-			    die("ERROR got invalid starting tag for a new section");
-		    }
-		    // Beginning of a new section
-		    
-		    $sectionTypePair = $this->readPair($this->handle);
-		    
-		    if($sectionTypePair['key'] != 2){
-			    // Got invalid group code for a section name
-			    print_R($sectionTypePair['key']);
-			    die("ERROR got invalid group code for a section name");
+			// Beginning of a new section
+            if ($pair['key'] != 0 || $pair['value'] != "SECTION") {
+			    throw new Exception ("Got invalid starting pair for a new section ($pair)");
 		    }
 		    
-		    switch ($sectionTypePair['value']) {
+		    $pair = $this->readPair($this->handle);
+		    
+		    if($pair['key'] != 2){
+				$groupCode = $pair['key'];
+				throw new Exception ("Got invalid group code for a section name ($groupCode)");
+		    }
+		    
+		    switch ($pair['value']) {
 		        case 'HEADER':
-		            $this->header->parse($this);
-		            if (!empty($opts['ignore_header'])) {
-		                $this->header = false;
-	                }
+		            self::factory("SectionHeader")->parse($this);
 	                break;
 				case 'CLASSES':
-					$this->classes->parse($this);
+					self::factory("SectionClasses")->parse($this);
                     break;
 				case 'TABLES':
-					$this->tables->parse($this);
+					self::factory("SectionTables")->parse($this);
 					break;
                 case 'BLOCKS':
-                    $this->blocks->parse($this);
-                    break;
-/**
- *
- * Alan's comment
- * this may contain filenames (xref)
- * if block_only  - 
- * 		reutnr here..
- *		.. close file..
- *
- */                    
+                    self::factory("SectionBlocks")->parse($this);
+                    break;                  
                 case 'ENTITIES':
-                    $this->entities->parse($this, $opts);
+                    self::factory("SectionEntities")->parse($this);
 				    break;
 			    case 'OBJECTS':
-				    $this->objects->parse();
+				    self::factory("SectionObjects")->parse($this);
 				    break;
 		        case 'THUMBNAILIMAGE':
-		            $this->thumbnailImage->parse($this);
+		            self::factory("SectionThumbnailImage")->parse($this);
 		            break;
 				default:
-				    print_R($sectionTypePair['value']);
-				    die("ERROR got unknown section name");
+					$sectionName = $pair['value'];
+				    throw new Exception ("Got unknown section name ($sectionName)");
 					break;
 			}
-			
 		}
-		
 		fclose($this->handle);
 	}
-	
-	static function factory($type, $cfg=array())
-	{
-	    $cls = 'File_DXF_'.$type;
-	    if (!class_exists($cls)) {
-    	    require_once 'File/DXF/'. $type .'.php';
-	    }
-	    return new $cls($cfg);
-    }
 
-	function addBlock(&$tables, $name)
-	{
-		$tables['BLOCK_RECORD']->addEntry(self::factory('BlockRecord', array('name' => $name)));
-		$this->blocks->addItem(self::factory('Block', array('name', $name)));
-	}
-	
-	// File handle
-	public $handle; 
-
+	// A buffer for a pair of group code and value
 	public $buffer = array();
-	
-	function pushPair($pair)
-	{
-		$this->buffer[] = $pair;
-	}
 
+	// read a pair of group code and value as (key, value)
 	function readPair()
 	{
 		if (!empty($this->buffer)) {
@@ -132,7 +97,22 @@ class File_DXF
 			'value' => trim($value),
 		);
 	}
+
+	// push a pair of group code and key to the buffer
+	function pushPair($pair)
+	{
+		$this->buffer[] = $pair;
+	}
 	
+	static function factory($type, $cfg=array())
+	{
+	    $cls = 'File_DXF_'.$type;
+	    if (!class_exists($cls)) {
+    	    require_once 'File/DXF/'. $type .'.php';
+	    }
+	    return new $cls($cfg);
+    }
+
 	/**
 	 * OLD CODE BELOW
 	 */
