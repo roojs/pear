@@ -14,7 +14,8 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	public $softPointerToOwnerDictionary; // 330
 	public $hardPointerToOwnerDictionary; // 360
 	public $softPointerToOwnerBlockRecord; // 330
-	public $subclassMaker; // 100
+	public $subclassMarker; // 100
+	public $isPaperSpace; // 67
 	public $layoutTabName; // 410
 	public $layerName; // 8
 	public $linetypeName; // 6
