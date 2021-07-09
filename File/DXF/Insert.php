@@ -20,13 +20,7 @@ require_once 'File/DXF/Entity.php';
 class File_DXF_Insert extends File_DXF_Entity
 {
     public $entityType = "INSERT";
-    public $data;
     public $attributes = array();
-
-    public $blockName;
-    public $point;
-    public $scale;
-    public $rotation;
 
    function parse($dxf)
    {
