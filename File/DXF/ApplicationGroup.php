@@ -19,6 +19,7 @@ class File_DXF_ApplicationGroup extends File_DXF_BasicObject
                 case 1001:
                     // End of a registered application group
                     $dxf->pushPair($pair);
+                    return;
                     break;
                 case 1000:
                     $this->items[] = array("String" => $pair['value']);
