@@ -2,7 +2,7 @@
 
 require_once 'File/DXF/Subclass.php';
 
-class File_DXF_AcDbEntity extends File_DXF_Subclass 
+class File_DXF_AcDbEntity extends File_DXF_Subclass
 {
 	public $isPaperSpace = 0; // 67
 	public $layoutTabName; // 410
@@ -19,11 +19,10 @@ class File_DXF_AcDbEntity extends File_DXF_Subclass
 	public $colorName; // 430
 	public $transparencyValue; // 440
 	public $hardPointerToPlotStyle; // 309
-	public $shadowMode; // 284$this->softPointerToOwnerDictionary = $pair["value"];
+	public $shadowMode; // 284
 
     function parse($dxf)
 	{
-        
 		while($pair = $dxf->readPair()) {
 
             switch($pair['key']) {
