@@ -10,7 +10,7 @@ class File_DXF_Seqend extends File_DXF_Entity
     function parse($dxf)
     {
         // parse common pair for entities
-        $this->parseCommon($dxf);
+        $this->parseCommon($dxf, false);
 
         while($pair = $dxf->readPair()) {
 
