@@ -4,7 +4,7 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_Insert extends File_DXF_Entity
 {
-    
+
     public $subclasses = array();
 
     public $attributes = array();
@@ -41,7 +41,7 @@ class File_DXF_Insert extends File_DXF_Entity
                     break;
                 case 100:
                     // Beginning of a subclass
-					$dxf->factory($pair['value'])->parse($dxf);
+					$this->subclasses[] = $dxf->factory($pair['value'])->parse($dxf);
 					break;
                 default:
                     $groupCode = $pair['key'];
