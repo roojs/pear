@@ -56,8 +56,44 @@ class File_DXF_AcDbText extends File_DXF_Subclass
                 case 1:
                     $this->defaultValue = $pair['value'];
                     break;
+                case 50:
+                    $this->textRotation = $pair['value'];
+                    break;
+                case 41:
+                    $this->scaleX = $pair['value'];
+                    break;
+                case 51:
+                    $this->obliqueAngle = $pair['value'];
+                    break;
                 case 7:
                     $this->textStyleName = $pair['value'];
+                    break;
+                case 71:
+                    $this->textGenerationFlags = $pair['value'];
+                    break;
+                case 72:
+                    $this->horizontalTextJustificationType = $pair['value'];
+                    break;
+                case 74:
+                    $this->verticalTextJustificationType = $pair['value'];
+                    break;
+                case 11:
+                    $this->alignmentPointX = $pair['value'];
+                    break;
+                case 21:
+                    $this->alignmentPointY = $pair['value'];
+                    break;
+                case 31:
+                    $this->alignmentPointZ = $pair['value'];
+                    break;
+                case 210:
+                    $this->extrusionDirectionX = $pair['value'];
+                    break;
+                case 220:
+                    $this->extrusionDirectionY = $pair['value'];
+                    break;
+                case 230:
+                    $this->extrusionDirectionZ = $pair['value'];
                     break;
                 default:
                     $pairString = implode(", ", $pair); 
