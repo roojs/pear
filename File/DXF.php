@@ -80,7 +80,8 @@ class File_DXF
 					$this->objects->parse($this);
 				    break;
 		        case 'THUMBNAILIMAGE':
-		            $this->thumbnailImage = self::factory("SectionThumbnailImage")->parse($this);
+		            $this->thumbnailImage = self::factory("SectionThumbnailImage");
+					$this->thumbnailImage->parse($this);
 		            break;
 				default:
 					$sectionName = $pair['value'];
