@@ -36,7 +36,6 @@ class File_DXF_Attrib extends File_DXF_Entity
                     $this->extendedData[] = $applicationGroup;
                     break;
                 default:
-                    print_r($this->extendedData);
                     $pairString = implode(", ", $pair); 
                     throw new Exception ("Got unknown pair for entity ATTRIB ($pairString)");
                     break;
