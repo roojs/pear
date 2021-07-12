@@ -78,8 +78,8 @@ class File_DXF_AcDbEntity extends File_DXF_Subclass
 					$this->shadowMode = $pair['value'];
 					break;
                 default:
-                    $groupCode = $pair['key'];
-                    throw new Exception ("Got unknown group code for subclass AcDbEntity ($groupCode)");
+				$pairString = implode(", ", $pair); 
+				throw new Exception ("Got unknown pair for subclass AcDbEntity ($pairString)");
 					break;
             }
 		}
