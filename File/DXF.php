@@ -76,7 +76,8 @@ class File_DXF
 					$this->entities->parse($this);
 				    break;
 			    case 'OBJECTS':
-				    $this->objects = self::factory("SectionObjects")->parse($this);
+				    $this->objects = self::factory("SectionObjects");
+					$this->objects->parse($this);
 				    break;
 		        case 'THUMBNAILIMAGE':
 		            $this->thumbnailImage = self::factory("SectionThumbnailImage")->parse($this);
