@@ -82,9 +82,8 @@ class File_DXF_AcDbBlockReference extends File_DXF_Subclass
                     $this->extrusionDirectionZ = $pair['value'];
                     break;
                 default:
-                    $groupCode = $pair['key'];
-                    $value = $pair['value'];
-                    throw new Exception ("Got unknown pair for subclass AcDbBlockReference ($groupCode, $value)");
+                    $pairString = implode(", ", $pair); 
+                    throw new Exception ("Got unknown pair for subclass AcDbBlockReference ($pairString)");
                     break;
             }
         }
