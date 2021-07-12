@@ -20,9 +20,9 @@ class File_DXF_SectionBlocks extends File_DXF_Section
 
 				if ($pair['value'] == 'BLOCK') {
 					// Beginning of a new block
-					$entity = $dxf->factory('Block');
-					$entity->parse($dxf);
-					$this->items[] = $entity;
+					$block = $dxf->factory('Block');
+					$block->parse($dxf);
+					$this->items[] = $block;
 					continue;
 				}
 
