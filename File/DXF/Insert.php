@@ -44,6 +44,7 @@ class File_DXF_Insert extends File_DXF_Entity
                     // Beginning of a subclass
 					$this->subclasses[$pair['value']] = $dxf->factory($pair['value'])->parse($dxf);
                     echo $pair['value'] . "\n";
+                    print_r($this->subclasses);
 					break;
                 default:
                     $groupCode = $pair['key'];
