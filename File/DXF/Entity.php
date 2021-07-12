@@ -74,7 +74,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
                         return;
 					}
                     $groupCode = $pair['key'];
-                    throw new Exception ("Got unknown common group code for entity ($groupCode)");
+                    throw new Exception ("Got unknown group code for common entity ($groupCode)");
 					break;
             }
 		}
