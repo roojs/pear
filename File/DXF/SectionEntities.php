@@ -7,8 +7,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
 
     public $name = "entities";
 	 
-    function parse($dxf, $opts= array())
-    {
+    function parse($dxf, $opts= array()) {
 
 		while ($pair = $dxf->readPair()) {
 
