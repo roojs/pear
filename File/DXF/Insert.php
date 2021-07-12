@@ -41,7 +41,7 @@ class File_DXF_Insert extends File_DXF_Entity
                         return;
                     } 
                     $pairString = implode(", ", $pair);
-                    throw new Exception ("Got invalid pair within an insert entity ($pairString)");
+                    throw new Exception ("Got invalid pair within an entity INSERT ($pairString)");
                     break;
                 case 100:
                     // Beginning of a subclass
@@ -50,8 +50,8 @@ class File_DXF_Insert extends File_DXF_Entity
 					$this->subclasses[$pair['value']] = $subclass;
 					break;
                 default:
-                    $groupCode = $pair['key'];
-                    throw new Exception ("Got unknown group code for entity INSERT ($groupCode)");
+                    $pairString = implode(", ", $pair); 
+                    throw new Exception ("Got unknown pair for entity INSERT ($pairString)");
                     break;
             }
         }
