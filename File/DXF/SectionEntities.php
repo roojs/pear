@@ -68,7 +68,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
 					case 'VERTEX': 
 					case 'VIEWPORT': 
 					case 'WIPEOUT': 
-					case'XLINE':
+					case 'XLINE':
 						// skip parsing other entities
 						break;
 					default:
