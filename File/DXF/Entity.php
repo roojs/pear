@@ -12,23 +12,6 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	public $softPointerToOwnerDictionary; // 330 within 102 group
 	public $hardPointerToOwnerDictionary; // 360 within 102 group
 	public $softPointerToOwnerBlockRecord; // 330
-	public $subclassMarker; // 100
-	public $isPaperSpace = 0; // 67
-	public $layoutTabName; // 410
-	public $layerName; // 8
-	public $linetypeName = "BYLAYER"; // 6
-	public $hardPointerToMaterial = "BYLATER"; // 347
-	public $colorNumber = "BYLAYER"; // 62
-	public $lineweightEnum; // 370
-	public $linetypeScale = 1; // 48
-	public $objectVisibility = 0; // 60
-	public $proxyEntityGraphicsBytes; // 92
-	public $proxyEntityGraphicsData; // 310
-	public $colorValue; // 420
-	public $colorName; // 430
-	public $transparencyValue; // 440
-	public $hardPointerToPlotStyle; // 309
-	public $shadowMode; // 284
 
 	function __construct($cfg=array()) 
 	{
@@ -37,7 +20,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	}
 
 	// parse common pair for entities
-	function parseCommon($dxf, $withSubclassMarker = true)
+	function parseCommon($dxf)
 	{
 		while($pair = $dxf->readPair()) {
 
@@ -81,63 +64,11 @@ class File_DXF_Entity extends File_DXF_BasicObject
                 case 330:
                     $this->softPointerToOwnerBlockRecord= $pair['value'];
                     break;
-                case 360:
-                    $this->hardPointerToOwnerDictionary = $pair['value'];
-                    break;
 				case 100:
-					if (isset($this->subclassMarker)) {
-						$dxf->pushPair($pair);
-						return;
-					}
-					$this->subclassMarker = $pair['value'];
-					break;
-				case 67:
-					$this->isPaperSpace = $pair['value'];
-					break;
-				case 410:
-					$this->layoutTabName = $pair['value'];
-					break;
-				case 8:
-					$this->layerName = $pair['value'];
-					break;
-				case 347:
-					$this->hardPointerToMarterial = $pair['value'];
-					break;
-                case 62:$this->softPointerToOwnerDictionary = $pair["value"];
-                    $this->lineweightEnum = $pair['value'];
-                    break;
-                case 48:
-                    $this->linetypeScale = $pair['value'];
-                    break;
-                case 60:
-                    $this->objectVisibility = $pair['value'];
-                    break;
-                case 92:
-                    $this->proxyEntityGraphicsBytes = $pair['value'];
-                    break;
-                case 310:
-                    $this->proxyEntityGraphicsData = $pair['value'];
-                    break;
-                case 420:
-                    $this->colorValue = $pair['value'];
-                    break;
-				case 430:
-					$this->colorName = $pair['value'];
-					break;
-				case 440:
-					$this->transparencyValue = $pair['value'];
-					break;
-				case 390:
-					$this->hardPointerToPlotStyle = $pair['value'];
-					break;
-				case 284:
-					$this->shadowMode = $pair['value'];
+					// Beginning of a subclass
+					$dxf->factory($pair['value'])->parse($dxf);
 					break;
                 default:
-					if(!$withSubclassMarker) {
-						$dxf->pushPair($pair);
-						return;
-					}
                     $groupCode = $pair['key'];
                     throw new Exception ("Got unknown group code ($groupCode)");
 					break;
