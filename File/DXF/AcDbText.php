@@ -43,8 +43,8 @@ class File_DXF_AcDbText extends File_DXF_Subclass
                     $this->defaultValue = $pair['value'];
                     break;
                 default:
-                    $groupCode = $pair['key'];
-                    throw new Exception ("Got unknown group code for subclass AcDbText ($groupCode)");
+                    $pairString = implode(", ", $pair); 
+                    throw new Exception ("Got unknown pair for subclass AcDbText ($pairString)");
                     break;
             }
         }
