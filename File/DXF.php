@@ -29,6 +29,7 @@ class File_DXF
 
 	function test () {
 		echo "HI";
+		echo "BYE";
 	}
 
 	function read($path, $opts= array())
