@@ -36,7 +36,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
                         return;
 					}
 					$pairString = implode(", ", $pair); 
-					throw new Exception ("Got unknown pair for entity SEQEND ($pairString)");
+					throw new Exception ("Got unknown group code for common entity ($pairString)");
 					break;
                 case -1:
                     $this->entityName = $pair['value'];
@@ -55,6 +55,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 								throw new Exception ("Got unknown group code for application group ACAD_REACTORS ($groupCode)");
 							}
 							$this->softPointerToOwnerDictionary = $pair['value'];
+							break;
 						case "ACAD_XDICTIONARY":
 							$pair = $dxf->readPair();
 							$groupCode = $pair['key'];
@@ -62,6 +63,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 								throw new Exception ("Got unknown group code for application group ACAD_XDICTIONARY ($groupCode)");
 							}
 							$this->hardPointerToOwnerDictionary = $pair['value'];
+							break;
 						default:
 							$this->parseApplicationDefinedGroup($dxf);
 							break;
