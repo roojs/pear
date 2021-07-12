@@ -5,8 +5,6 @@ require_once 'File/DXF/Entity.php';
 class File_DXF_Insert extends File_DXF_Entity
 {
 
-    public $subclasses = array();
-
     public $attributes = array();
 
     function parse($dxf)
