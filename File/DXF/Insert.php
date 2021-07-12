@@ -33,7 +33,7 @@ class File_DXF_Insert extends File_DXF_Entity
 
                     if ($pair['value'] == "SEQEND") {
                         // No more attributes
-                        $dxf->factorys("Seqend")->parse($dxf);
+                        $dxf->factory("Seqend")->parse($dxf);
                         return;
                     } 
                     throw new Exception ("Got invalid pair within an insert entity ($pair)");
