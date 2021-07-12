@@ -65,7 +65,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
 					case 'TRACE': 
 					case 'UNDERLAY':
 					case 'VERTEX': 
-					case 'VIEWPOINT': 
+					case 'VIEWPORT': 
 					case 'WIPEOUT': 
 					case'XLINE':
 						// skip parsing other entities
