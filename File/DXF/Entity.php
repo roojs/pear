@@ -9,8 +9,8 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	public $entityType; // 0
 	public $handle; // 5
 	public $applicationDefinedGroupName; // 102
-	public $softPointerToOwnerDictionary; // 330 within 102
-	public $hardPointerToOwnerDictionary; // 360 within 102
+	public $softPointerToOwnerDictionary; // 330 within 102 group
+	public $hardPointerToOwnerDictionary; // 360 within 102 group
 	public $softPointerToOwnerBlockRecord; // 330
 	public $subclassMarker; // 100
 	public $isPaperSpace = 0; // 67
@@ -74,7 +74,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 					$groupCode = $pair['key'];
 
 					if ($pair['key'] != 102 || $pair['value'] != "}") {
-						throw new Exception ("Got invalid ending pair for an application-defined group ($pair)");
+						throw new Exception ("Got invalid ending pair for a 102 group with an entity ($pair)");
 					}
 
 					break;
