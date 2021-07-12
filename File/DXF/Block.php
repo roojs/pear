@@ -30,7 +30,7 @@ class File_DXF_Block extends File_DXF_Entity
                     break;
                 default:
                     $pairString = implode(", ", $pair); 
-                    throw new Exception ("Got unknown pair for entity ATTRIB ($pairString)");
+                    throw new Exception ("Got unknown pair for entity BLOCK ($pairString)");
                     break;
             }
         }
