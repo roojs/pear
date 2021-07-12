@@ -2,7 +2,7 @@
 
 require_once 'File/DXF/BasicObject.php';
 
-class File_DXF_ExtendedData extends File_DXF_BasicObject
+class File_DXF_ApplicationGroup extends File_DXF_BasicObject
 {
     
     public $applicationName; // 1001
