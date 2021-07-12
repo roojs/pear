@@ -29,15 +29,6 @@ class File_DXF_Entity extends File_DXF_BasicObject
 		while($pair = $dxf->readPair()) {
 
             switch($pair['key']) {
-				case 0:
-				case 1001:
-					if (!$withSubclassMarker) {
-						$dxf->pushPair($pair); 
-                        return;
-					}
-					$pairString = implode(", ", $pair); 
-					throw new Exception ("Got unknown group code for common entity ($pairString)");
-					break;
                 case -1:
                     $this->entityName = $pair['value'];
                     break;
@@ -90,8 +81,12 @@ class File_DXF_Entity extends File_DXF_BasicObject
 					$this->subclasses[$pair['value']] = $subclass;
 					break;
                 default:
-                    $groupCode = $pair['key'];
-                    throw new Exception ("Got unknown group code for common entity ($groupCode)");
+					if (!$withSubclassMarker) {
+						$dxf->pushPair($pair); 
+						return;
+					}
+					$pairString = implode(", ", $pair); 
+					throw new Exception ("Got invalid ending pair for application group ($pairString)");
 					break;
             }
 		}
