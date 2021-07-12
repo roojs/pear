@@ -14,14 +14,9 @@ class File_DXF_Block extends File_DXF_Entity
 
             switch($pair['key']) {
                 case 0:
-                    if ($pair['value'] != "MTEXT") {
-                        // End of this entity
-                        $dxf->pushPair($pair);
-                        return;
-                    }
-                    $this->mText = $dxf->factory("MText");
-                    $this->mText->parse($dxf);
-                    break;
+                    // End of this entity
+                    $dxf->pushPair($pair);
+                    return;
                 case 100:
 					// Beginning of a subclass
 					$subclass = $dxf->factory($pair['value']);
