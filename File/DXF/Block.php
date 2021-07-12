@@ -75,7 +75,7 @@ class File_DXF_Block extends File_DXF_Entity
                         case 'VIEWPORT': 
                         case 'WIPEOUT': 
                         case'XLINE':
-                            // skip parsing other entities
+                            $this->skipParseEntity($dxf);
                             break;
                         default:
                             $pairString = implode(", ", $pair);
