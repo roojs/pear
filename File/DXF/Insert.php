@@ -25,6 +25,13 @@ class File_DXF_Insert extends File_DXF_Entity
                         return;
                     }
 
+                    if ($pair['value'] == "SEQEND") {
+                        // No more attributes
+                        $this->seqend = $dxf->factory("Seqend");
+                        $this->seqend->parse($dxf);
+                        return;
+                    } 
+
                     if ($pair['value'] == "ATTRIB") {
                         // An attribute
                         $attribute = $dxf->factory("Attrib");
@@ -33,12 +40,6 @@ class File_DXF_Insert extends File_DXF_Entity
                         break;
                     }
 
-                    if ($pair['value'] == "SEQEND") {
-                        // No more attributes
-                        $this->seqend = $dxf->factory("Seqend");
-                        $this->seqend->parse($dxf);
-                        return;
-                    } 
                     $pairString = implode(", ", $pair);
                     throw new Exception ("Got invalid pair within an entity INSERT ($pairString)");
                     break;
