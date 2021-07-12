@@ -25,6 +25,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
 						$entity = $dxf->factory('Insert');
 						$entity->parse($dxf);
 						$this->items[] = $entity;
+						echo "ZZZ\n";
 						break;			
 					case 'ATTRIB':
 					case 'SEQEND': 
