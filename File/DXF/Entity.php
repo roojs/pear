@@ -68,6 +68,10 @@ class File_DXF_Entity extends File_DXF_BasicObject
                     break;
 				case 100:
 					// Beginning of a subclass
+					if ($pair['value'] != "AcDbEntity") {
+						$dxf->pushPair($pair);
+						return;
+					}
 					$this->subclasses[$pair['value']] = $dxf->factory($pair['value'])->parse($dxf);
 					break;
                 default:
