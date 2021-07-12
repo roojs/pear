@@ -4,14 +4,8 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_Attrib extends File_DXF_Entity
 {
-    // For subclass AcDbText
-    public $textSubclassMarker; // 100
-    public $thickness = 0; // 39
-    public $textStartPointX; // 10
-    public $textStartPointY; // 20
-    public $textStartPointZ; // 30
-    public $textHeight; // 40
-    public $defaultValue; // 1
+
+    public $subclasses = array();
 
     // For subclass Attribute
     public $attributeSubclassMarker; // 100
@@ -57,6 +51,10 @@ class File_DXF_Attrib extends File_DXF_Entity
                     // End of this entity
                     $dxf->pushPair();
                     return;
+                case 100:
+					// Beginning of a subclass
+					$this->subclasses[$pair['value']] = $dxf->factory($pair['value'])->parse($dxf);
+					break;
                 default:
                     $groupCode = $pair['key'];
                     throw new Exception ("Got unknown group code ($groupCode)");
