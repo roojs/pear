@@ -5,7 +5,7 @@ require_once 'File/DXF/Entity.php';
 class File_DXF_Seqend extends File_DXF_Entity
 {
 
-    public $beginEntityName;
+    public $beginSequenceEntityName;
 
     function parse($dxf)
     {
@@ -20,7 +20,7 @@ class File_DXF_Seqend extends File_DXF_Entity
                     $dxf->pushPair();
                     return;
                 case -2:
-                    $this->beginEntityName = $pair['value'];
+                    $this->beginSequenceEntityName = $pair['value'];
                     break;
                 default:
                     $groupCode = $pair['key'];
