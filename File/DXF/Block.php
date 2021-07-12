@@ -16,7 +16,7 @@ class File_DXF_Block extends File_DXF_Entity
                 case 0:
 
                     if ($pair['value'] == 'ENDBLK') {
-                        // No entities follow
+                        // No more entities
                         // End of this entity
                         $dxf->pushPair($pair);
                         return;
