@@ -82,7 +82,7 @@ class File_DXF_Block extends File_DXF_Entity
                             throw new Exception ("Got invalid pair within an entity BLOCK ($pairString)");
                             break;
                     }
-
+                    break;
 
                 case 100:
 					// Beginning of a subclass
