@@ -28,7 +28,7 @@ class File_DXF_AcDbBlockReference extends File_DXF_Subclass
 
             switch($pair['key']) {
                 case 0:
-                    case 100:
+                case 100:
                     // End of a subclass
                     $dxf->pushPair($pair);
                     return;
