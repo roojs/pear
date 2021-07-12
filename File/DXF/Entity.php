@@ -74,7 +74,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 					}
 					$subclass = $dxf->factory($pair['value']);
 					$subclass->parse($dxf);
-					$this->subclasses[$pair['value']] = $dxf->factory($pair['value'])->parse($dxf);
+					$this->subclasses[$pair['value']] = $subclass;
 					break;
                 default:
 					if (!$withSubclassMarker) {
