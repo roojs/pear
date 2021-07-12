@@ -79,7 +79,7 @@ class File_DXF_AcDbEntity extends File_DXF_Subclass
 					break;
                 default:
                     $groupCode = $pair['key'];
-                    throw new Exception ("Got unknown group code for subclass AcDbEntity($groupCode)");
+                    throw new Exception ("Got unknown group code for subclass AcDbEntity ($groupCode)");
 					break;
             }
 		}
