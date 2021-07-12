@@ -22,7 +22,7 @@ class File_DXF_Block extends File_DXF_Entity
                     switch($pair['value']) {
                         case 'ENDBLK':
                             // No more entities
-                            // End of this entity
+                            // End of this block
                             $this->endBlk = $dxf->factory('EndBlk');
                             $this->endBlk->parse($dxf);
                             return;
@@ -78,8 +78,8 @@ class File_DXF_Block extends File_DXF_Entity
                             // skip parsing other entities
                             break;
                         default:
-                            $entityType = $pair['value'];
-                            throw new Exception ("Got unknown entity type ($entityType)");
+                            $pairString = implode(", ", $pair);
+                            throw new Exception ("Got invalid pair within an entity BLOCK ($pairString)");
                             break;
                     }
 
