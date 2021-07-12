@@ -23,8 +23,8 @@ class File_DXF_Seqend extends File_DXF_Entity
                     $this->beginSequenceEntityName = $pair['value'];
                     break;
                 default:
-                    $groupCode = $pair['key'];
-                    throw new Exception ("Got unknown group code for entity SEQEND ($groupCode)");
+                    $pairString = implode(", ", $pair); 
+                    throw new Exception ("Got unknown pair for entity INSERT ($pairString)");
                     break;
             }
     
