@@ -24,6 +24,7 @@ class File_DXF_Block extends File_DXF_Entity
                             // No more entities
                             // End of this entity
                             $this->endBlk = $dxf->factory('EndBlk');
+                            $this->endBlk->parse($dxf);
                             return;
                         case 'INSERT':
                             $entity = $dxf->factory('Insert');
