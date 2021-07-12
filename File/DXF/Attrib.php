@@ -5,8 +5,6 @@ require_once 'File/DXF/Entity.php';
 class File_DXF_Attrib extends File_DXF_Entity
 {
 
-    public $subclasses = array();
-
     public $mText;
 
     function parse($dxf)
@@ -27,7 +25,9 @@ class File_DXF_Attrib extends File_DXF_Entity
                     break;
                 case 100:
 					// Beginning of a subclass
-					$this->subclasses[$pair['value']] = $dxf->factory($pair['value'])->parse($dxf);
+					$subclass = $dxf->factory($pair['value']);
+					$subclass->parse($dxf);
+					$this->subclasses[$pair['value']] = $subclass;
 					break;
                 default:
                     $groupCode = $pair['key'];
