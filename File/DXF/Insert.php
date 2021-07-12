@@ -41,7 +41,6 @@ class File_DXF_Insert extends File_DXF_Entity
                     // Beginning of a subclass
 					$dxf->factory($pair['value'])->parse($dxf);
 					break;
-
                 default:
                     $groupCode = $pair['key'];
                     throw new Exception ("Got unknown group code for entity INSERT ($groupCode)");
