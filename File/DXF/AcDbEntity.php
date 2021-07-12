@@ -2,7 +2,7 @@
 
 require_once 'File_DXF_Subclass';
 
-class File_DXF_AcDbEntity extends File_DXF_Subclass
+class File_DXF_AcDbEntity extends File_DXF_SubClass
 {
 	public $isPaperSpace = 0; // 67
 	public $layoutTabName; // 410
