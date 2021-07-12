@@ -27,7 +27,12 @@ class File_DXF_AcDbBlockReference extends File_DXF_Subclass
         while($pair = $dxf->readPair()) {
 
             switch($pair['key']) {
- 
+                case 0:
+                    case 100:
+                    // End of a subclass
+                    $dxf->pushPair($pair);
+                    return;
+                    break;
                 case 66:
                     $this->hasAttribute = $pair['value'];
                     break;
