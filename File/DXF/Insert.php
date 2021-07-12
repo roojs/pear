@@ -30,7 +30,7 @@ class File_DXF_Insert extends File_DXF_Entity
                         // An attribute
                         $attribute = $dxf->factory("Attrib");
                         $attribute->parse($dxf);
-                        $attributes[] = $attribute;
+                        $this->attributes[] = $attribute;
                         break;
                     }
 
