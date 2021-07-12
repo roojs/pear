@@ -6,6 +6,7 @@ class File_DXF_Insert extends File_DXF_Entity
 {
 
     public $attributes = array();
+    public $seqend;
 
     function parse($dxf)
     {
@@ -27,13 +28,16 @@ class File_DXF_Insert extends File_DXF_Entity
 
                     if ($pair['value'] == "ATTRIB") {
                         // An attribute
-                        $attributes[] = $dxf->factory("Attrib")->parse($dxf);
+                        $attribute = $dxf->factory("Attrib");
+                        $attribute->parse($dxf);
+                        $attributes[] = $attribute;
                         break;
                     }
 
                     if ($pair['value'] == "SEQEND") {
                         // No more attributes
-                        $dxf->factory("Seqend")->parse($dxf);
+                        $this->seqend = $dxf->factory("Seqend");
+                        $this->seqend->parse($dxf);
                         return;
                     } 
                     throw new Exception ("Got invalid pair within an insert entity ($pair)");
