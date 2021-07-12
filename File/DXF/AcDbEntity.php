@@ -19,7 +19,7 @@ class File_DXF_AcDbEntity extends File_DXF_Subclass
 	public $colorName; // 430
 	public $transparencyValue; // 440
 	public $hardPointerToPlotStyle; // 309
-	public $shadowMode; // 284
+	public $shadowMode; // 284$this->softPointerToOwnerDictionary = $pair["value"];
 
     function parse($dxf)
 	{
@@ -41,10 +41,13 @@ class File_DXF_AcDbEntity extends File_DXF_Subclass
 				case 8:
 					$this->layerName = $pair['value'];
 					break;
+                case 6:
+                    $this->linetypeName = $pair['value'];
+                    break;
 				case 347:
 					$this->hardPointerToMarterial = $pair['value'];
 					break;
-                case 62:$this->softPointerToOwnerDictionary = $pair["value"];
+                case 62:
                     $this->lineweightEnum = $pair['value'];
                     break;
                 case 48:
