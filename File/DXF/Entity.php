@@ -20,7 +20,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	}
 
 	// parse common pair for entities
-	function parseCommon($dxf)
+	function parseCommon($dxf, $withSubclassMarker = true)
 	{
 		while($pair = $dxf->readPair()) {
 
@@ -69,6 +69,10 @@ class File_DXF_Entity extends File_DXF_BasicObject
 					$dxf->factory($pair['value'])->parse($dxf);
 					break;
                 default:
+					if (!$withSubclassMarker) {
+						$dxf->pushPair($pair); 
+                        return;
+					}
                     $groupCode = $pair['key'];
                     throw new Exception ("Got unknown common group code for entity ($groupCode)");
 					break;
