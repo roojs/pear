@@ -23,7 +23,7 @@ class File_DXF_SectionBlocks extends File_DXF_Section
 					$entity = $dxf->factory('Block');
 					$entity->parse($dxf);
 					$this->items[] = $entity;
-					continue;798
+					continue;
 				}
 
 				$pairString = implode(", ", $pair);
