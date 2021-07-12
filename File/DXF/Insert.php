@@ -38,6 +38,9 @@ class File_DXF_Insert extends File_DXF_Entity
                     throw new Exception ("Got invalid pair within an insert entity ($pair)");
                     break;
                 case 100:
+                    // Beginning of a subclass
+					$dxf->factory($pair['value'])->parse($dxf);
+					break;
 
                 default:
                     $groupCode = $pair['key'];
