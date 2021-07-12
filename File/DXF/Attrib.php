@@ -31,8 +31,8 @@ class File_DXF_Attrib extends File_DXF_Entity
 					$this->subclasses[$pair['value']] = $subclass;
 					break;
                 default:
-                    $groupCode = $pair['key'];
-                    throw new Exception ("Got unknown group code ($groupCode)");
+                    $pairString = implode(", ", $pair); 
+                    throw new Exception ("Got unknown pair for entity ATTRIB ($pairString)");
                     break;
             }
         }
