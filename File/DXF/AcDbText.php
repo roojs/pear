@@ -11,6 +11,7 @@ class File_DXF_AcDbText extends File_DXF_Subclass
     public $textStartPointZ; // 30
     public $textHeight; // 40
     public $defaultValue; // 1
+    public $textStyleName; // 7
 
     function parse($dxf)
     {
@@ -42,6 +43,9 @@ class File_DXF_AcDbText extends File_DXF_Subclass
                     break;
                 case 1:
                     $this->defaultValue = $pair['value'];
+                    break;
+                case 7:
+                    $this->textStyleName = $pair['value'];
                     break;
                 default:
                     $pairString = implode(", ", $pair); 
