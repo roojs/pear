@@ -43,9 +43,6 @@ class File_DXF_AcDbAttribute extends File_DXF_Subclass
                     $this->attributeFlags = $pair['value'];
                     break;
                 case 73:
-                    $this->fieldLength = $pair['value'];
-                    break;
-                case 50:
                     $this->textRotation = $pair['value'];
                     break;
                 case 41:
@@ -88,8 +85,8 @@ class File_DXF_AcDbAttribute extends File_DXF_Subclass
                     $this->lockPositionFlag = $pair['value'];
                     break;
                 default:
-                    $groupCode = $pair['key'];
-                    throw new Exception ("Got unknown group code for subclass AcDbAttribute ($groupCode)");
+                    $pairString = implode(", ", $pair); 
+                    throw new Exception ("Got unknown pair for subclass AcDbAttribute ($pairString)");
                     break;
             }
         }
