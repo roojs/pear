@@ -72,7 +72,8 @@ class File_DXF
 					$this->blocks->parse($this);
                     break;                  
                 case 'ENTITIES':
-                    $this->entities = self::factory("SectionEntities")->parse($this);
+                    $this->entities = self::factory("SectionEntities");
+					$this->entities->parse($this);
 				    break;
 			    case 'OBJECTS':
 				    $this->objects = self::factory("SectionObjects")->parse($this);
