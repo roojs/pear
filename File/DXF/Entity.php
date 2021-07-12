@@ -13,6 +13,8 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	public $hardPointerToOwnerDictionary; // 360 within 102 group
 	public $softPointerToOwnerBlockRecord; // 330
 
+	public $subclasses = array();
+
 	function __construct($cfg=array()) 
 	{
 		$this->entityType = strtoupper(str_replace("File_DXF_", "", get_class($this)));
@@ -66,7 +68,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
                     break;
 				case 100:
 					// Beginning of a subclass
-					$dxf->factory($pair['value'])->parse($dxf);
+					$this->subclasses[] = $dxf->factory($pair['value'])->parse($dxf);
 					break;
                 default:
 					if (!$withSubclassMarker) {
