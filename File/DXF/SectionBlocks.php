@@ -23,77 +23,11 @@ class File_DXF_SectionBlocks extends File_DXF_Section
 					$entity = $dxf->factory('Block');
 					$entity->parse($dxf);
 					$this->items[] = $entity;
-					continue;
+					continue;798
 				}
-				// Beginning of a new block
 
-				switch($pair['value']) {
-					case 'BLOCK':
-						$entity = $dxf->factory('Block');
-						$entity->parse($dxf);
-						$this->items[] = $entity;
-						break;
-					case 'ENDBLK':
-						$entity = $dxf->factory('EndBlk');
-						$entity->parse($dxf);
-						$this->items[] = $entity;
-						break;
-					case 'INSERT':
-						$entity = $dxf->factory('Insert');
-						$entity->parse($dxf);
-						$this->items[] = $entity;
-						break;			
-					case 'ATTRIB':
-					case 'SEQEND': 
-					case '3DFACE': 
-					case '3DSOLID': 
-					case 'ACAD_PROXY_ENTITY': 
-					case 'ARC': 
-					case 'ATTDEF':  
-					case 'BODY':
-					case 'CIRCLE': 
-					case 'DIMENSION': 
-					case 'ELLIPSE': 
-					case 'HATCH': 
-					case 'HELIX': 
-					case 'IMAGE':
-					case 'LEADER':
-					case 'LIGHT': 
-					case 'LINE': 
-					case 'LWPOLYLINE':
-					case 'MESH': 
-					case 'MLINE': 
-					case 'MLEADERSTYLE'; 
-					case 'MLEADER':
-					case 'MTEXT': 
-					case 'OLEFRAME': 
-					case 'OLE2FRAME': 
-					case 'POINT': 
-					case 'POLYLINE': 
-					case 'RAY': 
-					case 'REGION': 
-					case 'SECTION': 
-					case 'SHAPE': 
-					case 'SOLID': 
-					case 'SPLINE':
-					case 'SUN':
-					case 'SURFACE':
-					case 'TABLE':
-					case 'TEXT': 
-					case 'TOLERANCE': 
-					case 'TRACE': 
-					case 'UNDERLAY':
-					case 'VERTEX': 
-					case 'VIEWPORT': 
-					case 'WIPEOUT': 
-					case'XLINE':
-						// skip parsing other entities
-						break;
-					default:
-						$entityType = $pair['value'];
-						throw new Exception ("Got unknown entity type ($entityType)");
-						break;
-				}
+				$pairString = implode(", ", $pair);
+				throw new Exception ("Got invalid pair for a block definition ($pairString)");
 			}
 		}
 	}
