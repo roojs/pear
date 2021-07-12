@@ -69,7 +69,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 
 					if ($pair['key'] != 102 || $pair['value'] != "}") {
 						$pairString = implode(", ", $pair); 
-						throw new Exception ("Got unknown pair for entity SEQEND ($pairString)");
+						throw new Exception ("Got invalid ending pair for application group ($pairString)");
 					}
 
 					break;
