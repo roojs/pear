@@ -15,11 +15,29 @@ class File_DXF_SectionBlocks extends File_DXF_Section
 
 				if ($pair['value'] == 'ENDSEC') {
 					// End of the blocks section
-					break;
+					return;
 				}
 
-				// Beginning of a new entity
+				if ($pair['value'] == 'BLOCK') {
+					// Beginning of a new block
+					$entity = $dxf->factory('Block');
+					$entity->parse($dxf);
+					$this->items[] = $entity;
+					continue;
+				}
+				// Beginning of a new block
+
 				switch($pair['value']) {
+					case 'BLOCK':
+						$entity = $dxf->factory('Block');
+						$entity->parse($dxf);
+						$this->items[] = $entity;
+						break;
+					case 'ENDBLK':
+						$entity = $dxf->factory('EndBlk');
+						$entity->parse($dxf);
+						$this->items[] = $entity;
+						break;
 					case 'INSERT':
 						$entity = $dxf->factory('Insert');
 						$entity->parse($dxf);

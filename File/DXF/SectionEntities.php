@@ -15,7 +15,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
 
 				if ($pair['value'] == 'ENDSEC') {
 					// End of the entities section
-					break;
+					return;
 				}
 
 				// Beginning of a new entity
