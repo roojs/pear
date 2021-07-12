@@ -1,6 +1,6 @@
 <?php
 
-require_once 'File_DXF_Subclass';
+require_once 'File/DXF/Subclass';
 
 class File_DXF_AcDbEntity extends File_DXF_SubClass
 {
