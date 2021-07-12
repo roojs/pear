@@ -9,6 +9,8 @@ class File_DXF_SectionEntities extends File_DXF_Section
 	 
     public function parse($dxf, $opts= array())
     {
+		$this->skipParseSection($dxf);
+		return;
 
 		while ($pair = $dxf->readPair()) {
 
