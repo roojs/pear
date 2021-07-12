@@ -74,7 +74,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 					$groupCode = $pair['key'];
 
 					if ($pair['key'] != 102 || $pair['value'] != "}") {
-						throw new Exception ("Got invalid ending pair for a 102 group with an entity ($pair)");
+						throw new Exception ("Got invalid ending pair for a 102 group within an entity ($pair)");
 					}
 
 					break;
