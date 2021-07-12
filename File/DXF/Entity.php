@@ -35,8 +35,8 @@ class File_DXF_Entity extends File_DXF_BasicObject
 						$dxf->pushPair($pair); 
                         return;
 					}
-					$groupCode = $pair['key'];
-                    throw new Exception ("Got unknown group code for common entity ($groupCode)");
+					$pairString = implode(", ", $pair); 
+					throw new Exception ("Got unknown pair for entity SEQEND ($pairString)");
 					break;
                 case -1:
                     $this->entityName = $pair['value'];
