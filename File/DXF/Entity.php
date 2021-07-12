@@ -86,7 +86,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 						return;
 					}
 					$pairString = implode(", ", $pair); 
-					throw new Exception ("Got invalid ending pair for application group ($pairString)");
+					throw new Exception ("Got unknown pair for common entity ($pairString)");
 					break;
             }
 		}
