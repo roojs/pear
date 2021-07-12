@@ -22,10 +22,10 @@ class File_DXF_SectionEntities extends File_DXF_Section
 				// Beginning of a new entity
 				switch($pair['value']) {
 					case 'INSERT':
+						echo "ZZZ\n";
 						$entity = $dxf->factory('Insert');
 						$entity->parse($dxf);
 						$this->items[] = $entity;
-						echo "ZZZ\n";
 						break;			
 					case 'ATTRIB':
 					case 'SEQEND': 
