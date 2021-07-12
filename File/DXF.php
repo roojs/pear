@@ -29,6 +29,7 @@ class File_DXF
 
 	function test () {
 		echo "HI\n";
+		throw new Exception ("GGWP");
 		echo "BYE\n";
 	}
 
