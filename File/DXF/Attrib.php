@@ -7,6 +7,8 @@ class File_DXF_Attrib extends File_DXF_Entity
 
     public $subclasses = array();
 
+    public $mText;
+
     function parse($dxf)
     {
         // parse common pair for entities
@@ -16,9 +18,13 @@ class File_DXF_Attrib extends File_DXF_Entity
 
             switch($pair['key']) {
                 case 0:
-                    // End of this entity
-                    $dxf->pushPair();
-                    return;
+                    if ($pair['value'] != "MTEXT") {
+                        // End of this entity
+                        $dxf->pushPair();
+                        return;
+                    }
+                    $mText = $dxf->factory("MText")->parse($dxf);
+                    break;
                 case 100:
 					// Beginning of a subclass
 					$this->subclasses[$pair['value']] = $dxf->factory($pair['value'])->parse($dxf);
