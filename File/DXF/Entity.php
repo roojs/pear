@@ -9,8 +9,9 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	public $entityType; // 0
 	public $handle; // 5
 	public $applicationDefinedGroupName; // 102
-	public $softPointerToOwner; // 330
-	public $hardPointerToOwnerDictionary; // 360
+	public $softPointerToOwnerDictionary; // 330 within 102
+	public $hardPointerToOwnerDictionary; // 360 within 102
+	public $softPointerToOwnerBlockRecord; // 330
 	public $subclassMarker; // 100
 	public $isPaperSpace = 0; // 67
 	public $layoutTabName; // 410
@@ -32,7 +33,6 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	function __construct($cfg=array()) 
 	{
 		$this->entityType = strtoupper(str_replace("File_DXF_", "", get_class($this)));
-		$this->name = $this->entityType;
 		parent::__construct($cfg=array());
 	}
 
@@ -42,8 +42,6 @@ class File_DXF_Entity extends File_DXF_BasicObject
 		while($pair = $dxf->readPair()) {
 
             switch($pair['key']) {
-				case 0:
-					
                 case -1:
                     $this->entityName = $pair['value'];
                     break;
@@ -51,11 +49,37 @@ class File_DXF_Entity extends File_DXF_BasicObject
                     $this->handle = $pair['value'];
                     break;
 				case 102:
-					$this->parseApplicationDefinedGroup($dxf);
 					$this->applicationDefinedGroupName =  str_replace("{", "", $pair['value']);
+					
+					switch ($this->applicationDefinedGroupName) {
+						case "ACAD_REACTORS":
+							$pair = $dxf->readPair();
+							$groupCode = $pair['key'];
+							if ($groupCode != "330") {
+								throw new Exception ("Got unknown group code ($groupCode)");
+							}
+							$this->softPointerToOwnerDictionary = $pair['value'];
+						case "ACAD_XDICTIONARY":
+							$pair = $dxf->readPair();
+							$groupCode = $pair['key'];
+							if ($groupCode != "360") {
+								throw new Exception ("Got unknown group code ($groupCode)");
+							}
+							$this->hardPointerToOwnerDictionary = $pair['value'];
+						default:
+							$this->parseApplicationDefinedGroup($dxf);
+							break;
+					}
+
+					$groupCode = $pair['key'];
+
+					if ($pair['key'] != 102 || $pair['value'] != "}") {
+						throw new Exception ("Got invalid ending pair for an application-defined group ($pair)");
+					}
+
 					break;
                 case 330:
-                    $this->softPointerToOwner= $pair['value'];
+                    $this->softPointerToOwnerBlockRecord= $pair['value'];
                     break;
                 case 360:
                     $this->hardPointerToOwnerDictionary = $pair['value'];
@@ -70,22 +94,16 @@ class File_DXF_Entity extends File_DXF_BasicObject
 				case 67:
 					$this->isPaperSpace = $pair['value'];
 					break;
-                case 410:
-                    $this->layoutTabName = $pair['value'];
-                    break;
-                case 8:
-                    $this->layerName = $pair['value'];
-                    break;
-                case 6:
-                    $this->linetypeName = $pair['value'];
-                    break;
-                case 347:
-                    $this->hardPointerToMaterial = $pair['value'];
-                    break;
-                case 62:
-                    $this->colorNumber = $pair['value'];
-                    break;
-                case 370:
+				case 410:
+					$this->layoutTabName = $pair['value'];
+					break;
+				case 8:
+					$this->layerName = $pair['value'];
+					break;
+				case 347:
+					$this->hardPointerToMarterial = $pair['value'];
+					break;
+                case 62:$this->softPointerToOwnerDictionary = $pair["value"];
                     $this->lineweightEnum = $pair['value'];
                     break;
                 case 48:
