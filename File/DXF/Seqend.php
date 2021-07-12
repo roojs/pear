@@ -24,7 +24,7 @@ class File_DXF_Seqend extends File_DXF_Entity
                     break;
                 default:
                     $pairString = implode(", ", $pair); 
-                    throw new Exception ("Got unknown pair for entity INSERT ($pairString)");
+                    throw new Exception ("Got unknown pair for entity SEQEND ($pairString)");
                     break;
             }
     
