@@ -27,12 +27,6 @@ class File_DXF
 	// File handle
 	public $handle;
 
-	function test () {
-		echo "HI\n";
-		throw new Exception ("GGWP");
-		echo "BYE\n";
-	}
-
 	function read($path, $opts= array())
 	{
 	    if (!file_exists($path) || !filesize($path)) {
