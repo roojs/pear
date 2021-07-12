@@ -23,6 +23,7 @@ class File_DXF_AcDbEntity extends File_DXF_Subclass
 
     function parse($dxf)
 	{
+        
 		while($pair = $dxf->readPair()) {
 
             switch($pair['key']) {
