@@ -23,7 +23,7 @@ class File_DXF_ApplicationGroup extends File_DXF_BasicObject
                     break;
                 case 1000:
                     $this->items[] = array("String" => $pair['value']);
-                    return;
+                    break;
                 case 1002:
                     $this->items[] = array("Control string" => $pair['value']);
                     break;
