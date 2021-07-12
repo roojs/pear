@@ -6,11 +6,9 @@ class File_DXF_SectionThumbnailImage extends File_DXF_Section
 {
 
     public $name = 'thumbnailImage';
-    
-    /**
-	 *
-	 * TODO ENHANCE / CHECK THE CODE BLOEW
-	 *
-	 */
+
+    function parse ($dxf) {
+        $this->skipParseSection($dxf);
+    }
 	 
 }
