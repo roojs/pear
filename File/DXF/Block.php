@@ -1,8 +1,8 @@
 <?php
 
-require_once 'File/DXF/Entity.php';
+require_once 'File/DXF/BasicObject.php';
 
-class File_DXF_Block extends File_DXF_Entity
+class File_DXF_Block extends File_DXF_BasicObject
 {
 
     /*
