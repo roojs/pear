@@ -50,7 +50,8 @@ class File_DXF_Insert extends File_DXF_Entity
 					break;
                 case 1001:
                     $applicationGroup = $dxf->factory("ApplicationGroup", array("applicationName" => $pair['value']));
-                    echo "$applicationGroup";
+                    $a = $pair['value'];
+                    echo "$a";
                     $applicationGroup->parse($dxf);
                     $this->extendedData[] = $applicationGroup;
                     break;
