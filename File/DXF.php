@@ -58,37 +58,30 @@ class File_DXF
 		        case 'HEADER':
 		            $this->header = self::factory("SectionHeader");
 					$this->header->parse($this);
-					echo 'A\n';
 	                break;
 				case 'CLASSES':
 					$this->classes = self::factory("SectionClasses");
 					$this->classes->parse($this);
-					echo 'B\n';
                     break;
 				case 'TABLES':
 					$this->tables = self::factory("SectionTables");
 					$this->tables->parse($this);
-					echo 'C\n';
 					break;
                 case 'BLOCKS':
                     $this->blocks = self::factory("SectionBlocks");
 					$this->blocks->parse($this);
-					echo 'D\n';
                     break;                  
                 case 'ENTITIES':
                     $this->entities = self::factory("SectionEntities");
 					$this->entities->parse($this);
-					echo 'E\n';
 				    break;
 			    case 'OBJECTS':
 				    $this->objects = self::factory("SectionObjects");
 					$this->objects->parse($this);
-					echo 'F\n';
 				    break;
 		        case 'THUMBNAILIMAGE':
 		            $this->thumbnailImage = self::factory("SectionThumbnailImage");
 					$this->thumbnailImage->parse($this);
-					echo 'G\n';
 		            break;
 				default:
 					$sectionName = $pair['value'];
