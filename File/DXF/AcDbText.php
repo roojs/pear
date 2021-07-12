@@ -20,6 +20,7 @@ class File_DXF_AcDbText extends File_DXF_Subclass
             switch($pair['key']) {
                 case 0:
                 case 100:
+                case 1001:
                     // End of a subclass
                     $dxf->pushPair($pair);
                     return;
