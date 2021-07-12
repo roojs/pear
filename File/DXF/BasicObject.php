@@ -45,7 +45,7 @@ class File_DXF_BasicObject
     function skipParseTableEntry ($dxf) {
         while($pair = $dxf->readPair()) {
             if ($pair['key'] == 0) {
-                // End of this table entry
+                // End of a table entry
                 $dxf->pushPair($pair);
                 return;
             }
