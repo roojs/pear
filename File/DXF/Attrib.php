@@ -20,7 +20,7 @@ class File_DXF_Attrib extends File_DXF_Entity
                 case 0:
                     if ($pair['value'] != "MTEXT") {
                         // End of this entity
-                        $dxf->pushPair();
+                        $dxf->pushPair($pair);
                         return;
                     }
                     $mText = $dxf->factory("MText")->parse($dxf);
