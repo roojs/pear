@@ -28,8 +28,8 @@ class File_DXF
 	public $handle;
 
 	function test () {
-		echo "HI";
-		echo "BYE";
+		echo "HI\n";
+		echo "BYE\n";
 	}
 
 	function read($path, $opts= array())
