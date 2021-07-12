@@ -19,7 +19,8 @@ class File_DXF_Insert extends File_DXF_Entity
             switch($pair['key']) { 
                 case 0:
 
-                    if (array_key_exists("AcDbBlockReference", $this->subclass) && $this->subclasses["AcDbBlockReference"]->hasAttribute == 0) {
+                    // array_key_exists("AcDbBlockReference", $this->subclass) && 
+                    if ($this->subclasses["AcDbBlockReference"]->hasAttribute == 0) {
                         // No attributes follow
                         // End of this entity
                         $dxf->pushPair($pair); 
@@ -42,6 +43,7 @@ class File_DXF_Insert extends File_DXF_Entity
                 case 100:
                     // Beginning of a subclass
 					$this->subclasses[$pair['value']] = $dxf->factory($pair['value'])->parse($dxf);
+                    echo $pair['value'] . "\n";
 					break;
                 default:
                     $groupCode = $pair['key'];
