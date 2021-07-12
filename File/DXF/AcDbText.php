@@ -74,9 +74,6 @@ class File_DXF_AcDbText extends File_DXF_Subclass
                 case 72:
                     $this->horizontalTextJustificationType = $pair['value'];
                     break;
-                case 74:
-                    $this->verticalTextJustificationType = $pair['value'];
-                    break;
                 case 11:
                     $this->alignmentPointX = $pair['value'];
                     break;
@@ -94,6 +91,9 @@ class File_DXF_AcDbText extends File_DXF_Subclass
                     break;
                 case 230:
                     $this->extrusionDirectionZ = $pair['value'];
+                    break;
+                case 73:
+                    $this->verticalTextJustificationType = $pair['value'];
                     break;
                 default:
                     $pairString = implode(", ", $pair); 
