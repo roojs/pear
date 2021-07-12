@@ -36,6 +36,11 @@ class File_DXF
         $this->handle = fopen($path, 'r');
         
         while ($pair = $this->readPair()) {
+
+			if ($pair['key'] == 0 && $pair['value'] == "EOF") {
+				// End of file
+				break;
+			}
             
 			// Beginning of a new section
             if ($pair['key'] != 0 || $pair['value'] != "SECTION") {
