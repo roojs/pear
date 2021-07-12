@@ -29,7 +29,7 @@ class File_DXF_Block extends File_DXF_Entity
                         case 'INSERT':
                             $entity = $dxf->factory('Insert');
                             $entity->parse($dxf);
-                            $this->items[] = $entity;
+                            $this->entities[] = $entity;
                             break;			
                         case 'ATTRIB':
                         case 'SEQEND': 
