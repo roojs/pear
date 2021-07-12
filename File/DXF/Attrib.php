@@ -30,6 +30,10 @@ class File_DXF_Attrib extends File_DXF_Entity
 					$subclass->parse($dxf);
 					$this->subclasses[$pair['value']] = $subclass;
 					break;
+                case 1001:
+                    $applicationGroup = $dxf->factory("ApplicationGroup", array("applicationName" => $pair['value']));
+                    $applicationGroup->parse($dxf);
+                    $this->extendedData[] = $applicationGroup;
                 default:
                     $pairString = implode(", ", $pair); 
                     throw new Exception ("Got unknown pair for entity ATTRIB ($pairString)");
