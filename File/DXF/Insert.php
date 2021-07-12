@@ -40,7 +40,8 @@ class File_DXF_Insert extends File_DXF_Entity
                         $this->seqend->parse($dxf);
                         return;
                     } 
-                    throw new Exception ("Got invalid pair within an insert entity ($pair)");
+                    $pairString = implode(", ", $pair);
+                    throw new Exception ("Got invalid pair within an insert entity ($pairString)");
                     break;
                 case 100:
                     // Beginning of a subclass
