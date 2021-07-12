@@ -27,6 +27,10 @@ class File_DXF
 	// File handle
 	public $handle;
 
+	function test () {
+		echo "HI";
+	}
+
 	function read($path, $opts= array())
 	{
 	    if (!file_exists($path) || !filesize($path)) {
