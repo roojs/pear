@@ -40,7 +40,8 @@ class File_DXF_Insert extends File_DXF_Entity
                     break;
                 case 100:
                     // Beginning of a subclass
-					$this->subclasses[$pair['value']] = $dxf->factory($pair['value'])->parse($dxf);
+					$this->subclasses[$pair['value']] = $dxf->factory($pair['value']);
+                    $this->subclasses[$pair['value']]->parse($dxf);
                     echo $pair['value'] . "\n";
                     print_r($this->subclasses);
 					break;
