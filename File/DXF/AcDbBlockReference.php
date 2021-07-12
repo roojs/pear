@@ -84,7 +84,7 @@ class File_DXF_AcDbBlockReference extends File_DXF_Subclass
                 default:
                     $groupCode = $pair['key'];
                     $value = $pair['value'];
-                    throw new Exception ("Got unknown group code for subclass AcDbBlockReference ($groupCode, $value)");
+                    throw new Exception ("Got unknown pair for subclass AcDbBlockReference ($groupCode, $value)");
                     break;
             }
         }
