@@ -1,20 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: jpietler
- * Date: 13.02.20
- * Time: 20:57
- *
- * Documentation https://www.autodesk.com/techpubs/autocad/acad2000/dxf/insert_dxf_06.htm
- * This is baed on DXF Fighter by - https://github.com/enjoping/DXFighter"
- */
-
-
-/**
- * Class Circle
- * @package DXFighter\lib
- */
 require_once 'File/DXF/Entity.php';
 
 class File_DXF_Insert extends File_DXF_Entity
@@ -53,7 +38,7 @@ class File_DXF_Insert extends File_DXF_Entity
                     if ($this->hasAttribute == 0) {
                         // No attributes follow
                         // End of this entity
-                        $dxf->pushPair($pair);
+                        $dxf->pushPair($pair); 
                         return;
                     }
 
