@@ -144,8 +144,8 @@ class File_DXF_AcDbMText extends File_DXF_Subclass
                     $this->transparency = $pair['value'];
                     break;
                 default:
-                    $groupCode = $pair['key'];
-                    throw new Exception ("Got unknown group code for subclass AcDbMText ($groupCode)");
+                    $pairString = implode(", ", $pair); 
+                    throw new Exception ("Got unknown pair for subclass AcDbMText ($pairString)");
                     break;
             }
         }
