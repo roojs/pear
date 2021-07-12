@@ -17,8 +17,7 @@ class File_DXF_Insert extends File_DXF_Entity
 
             switch($pair['key']) { 
                 case 0:
-
-                    // array_key_exists("AcDbBlockReference", $this->subclass) && 
+                    
                     if ($this->subclasses["AcDbBlockReference"]->hasAttribute == 0) {
                         // No attributes follow
                         // End of this entity
