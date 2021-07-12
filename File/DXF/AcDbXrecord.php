@@ -52,8 +52,8 @@ class File_DXF_AcDbXrecord extends File_DXF_Subclass
                     $this->attributeDefinitionTagString = $pair['value'];
                     break;
                 default:
-                    $groupCode = $pair['key'];
-                    throw new Exception ("Got unknown group code for subclass AcDbXRecord ($groupCode)");
+                    $pairString = implode(", ", $pair); 
+                    throw new Exception ("Got unknown pair for subclass AcDbXrecord ($pairString)");
                     break;
             }
         }
