@@ -15,7 +15,7 @@ class File_DXF_Block extends File_DXF_Entity
 
         while($pair = $dxf->readPair()) {
 
-            switch($pair['key']) {
+            switch($pair['key']) { 
                 case 0:
                     // Beginning of a new entity
 
