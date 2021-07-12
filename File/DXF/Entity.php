@@ -52,14 +52,14 @@ class File_DXF_Entity extends File_DXF_BasicObject
 							$pair = $dxf->readPair();
 							$groupCode = $pair['key'];
 							if ($groupCode != "330") {
-								throw new Exception ("Got unknown group code ($groupCode)");
+								throw new Exception ("Got unknown group code for application group ACAD_REACTORS ($groupCode)");
 							}
 							$this->softPointerToOwnerDictionary = $pair['value'];
 						case "ACAD_XDICTIONARY":
 							$pair = $dxf->readPair();
 							$groupCode = $pair['key'];
 							if ($groupCode != "360") {
-								throw new Exception ("Got unknown group code ($groupCode)");
+								throw new Exception ("Got unknown group code for application group ACAD_XDICTIONARY ($groupCode)");
 							}
 							$this->hardPointerToOwnerDictionary = $pair['value'];
 						default:
