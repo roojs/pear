@@ -5,6 +5,9 @@ require_once 'File/DXF/Entity.php';
 class File_DXF_Block extends File_DXF_Entity
 {
 
+    public $entities = array();
+    public $endBlk;
+
     function parse($dxf)
     {
         // parse common pair for entities
@@ -20,6 +23,7 @@ class File_DXF_Block extends File_DXF_Entity
                         case 'ENDBLK':
                             // No more entities
                             // End of this entity
+                            $this->endBlk = $dxf->factory('EndBlk');
                             return;
                         case 'INSERT':
                             $entity = $dxf->factory('Insert');
