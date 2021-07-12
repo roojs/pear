@@ -26,6 +26,7 @@ class File_DXF_Seqend extends File_DXF_Entity
                     $applicationGroup = $dxf->factory("ApplicationGroup", array("applicationName" => $pair['value']));
                     $applicationGroup->parse($dxf);
                     $this->extendedData[] = $applicationGroup;
+                    break;
                 default:
                     $pairString = implode(", ", $pair); 
                     throw new Exception ("Got unknown pair for entity SEQEND ($pairString)");
