@@ -44,6 +44,9 @@ class File_DXF_AcDbAttribute extends File_DXF_Subclass
                     $this->attributeFlags = $pair['value'];
                     break;
                 case 73:
+                    $this->fieldLength = $pair['value'];
+                    break;
+                case 50:
                     $this->textRotation = $pair['value'];
                     break;
                 case 41:
