@@ -4,6 +4,7 @@ require_once 'File/DXF/Subclass.php';
 
 class File_DXF_AcDbAttribute extends File_DXF_Subclass
 {
+    
     public $VersionNumber = 2010; // 280
     public $attributeTag; // 2
     public $attributeFlags; // 70
