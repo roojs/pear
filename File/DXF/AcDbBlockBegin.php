@@ -4,6 +4,7 @@ require_once 'File/DXF/Subclass.php';
 
 class File_DXF_AcDbBlockBegin extends File_DXF_Subclass
 {
+    
     public $blockName; // 2, 3
     public $blockTypeFlags; // 70
     public $basePointX; // 10
