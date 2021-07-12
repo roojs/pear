@@ -4,6 +4,7 @@ require_once 'File/DXF/Subclass.php';
 
 class File_DXF_AcDbText extends File_DXF_Subclass
 {
+    
     public $thickness = 0; // 39
     public $textStartPointX; // 10
     public $textStartPointY; // 20
