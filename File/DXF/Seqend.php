@@ -17,7 +17,7 @@ class File_DXF_Seqend extends File_DXF_Entity
             switch($pair['key']) {
                 case 0:
                     // End of this entity
-                    $dxf->pushPair();
+                    $dxf->pushPair($pair);
                     return;
                 case -2:
                     $this->beginSequenceEntityName = $pair['value'];
