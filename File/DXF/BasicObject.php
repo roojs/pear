@@ -61,6 +61,7 @@ class File_DXF_BasicObject
         while($pair = $dxf->readPair()) {
 			if ($pair['key'] == 102 && $pair['value'] == "}") {
 				// End of an application defined group
+                $dxf->pushPair($pair);
 				return;
 			}
 		}
