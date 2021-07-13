@@ -24,7 +24,7 @@ class File_DXF
     public $objects;
     // thumbnailImage section	
     public $thumbnailImage;
-    
+
     function __construct($path = false)
     {
         if ($path) {
@@ -37,24 +37,32 @@ class File_DXF
 
     function read($path, $opts= array())
     {
+
         if (!file_exists($path) || !filesize($path)) {
             throw new Exception ("The file does not exists or the file is empty ($path)");
         }
+
         $this->handle = fopen($path, 'r');
+
         while ($pair = $this->readPair()) {
+
             if ($pair['key'] == 0 && $pair['value'] == "EOF") {
                 // End of file
                 break;
             }
+
             // Beginning of a new section
             if ($pair['key'] != 0 || $pair['value'] != "SECTION") {
                 throw new Exception ("Got invalid starting pair for a new section ($pair)");
             }
+
             $pair = $this->readPair($this->handle);
+
             if($pair['key'] != 2){
                 $groupCode = $pair['key'];
                 throw new Exception ("Got invalid group code for a section name ($groupCode)");
             }
+            
             switch ($pair['value']) {
                 case 'HEADER':
                     $this->header = self::factory("SectionHeader");
