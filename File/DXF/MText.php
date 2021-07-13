@@ -4,6 +4,10 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_MText extends File_DXF_Entity 
 {
+    // For subclass AcDbMText
+    public $extrusionDirectionX = 0; // 210
+    public $extrusionDirectionY = 0; // 220
+    public $extrusionDirectionZ = 1; // 230
 
     function parse($dxf)
     {
