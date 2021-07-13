@@ -133,6 +133,26 @@ class File_DXF
         return new $cls($cfg);
     }
 
+    function lookup ($sectionName, $cfg=array()) {
+        $entities = array();
+        switch ($sectionName) {
+            case "entities":
+                for ($this->entities->items as $entity) {
+                    if ($entity->entityType == $cfg["entityType"] && $entity->hasAttribute == $cfg["hasAttribute"]) {
+                        $entities = $entity;
+                    }
+                }
+                break;
+            default:
+                throw new Exception ("Got unknown section name ($sectionName)");
+                break;
+        }
+        if (!empty($entities)) {
+            return $entities;
+        }
+        return false;
+    }
+
     /**
      * OLD CODE BELOW
      */
