@@ -27,7 +27,8 @@ class File_DXF_Insert extends File_DXF_Entity
                         // No more attributes
                         $this->skipParseEntity($dxf);
                         return;
-                    } 
+                    }
+
                     if ($pair['value'] == "ATTRIB") {
                         // An attribute
                         $attribute = $dxf->factory("Attrib");
@@ -35,14 +36,13 @@ class File_DXF_Insert extends File_DXF_Entity
                         $this->attributes[] = $attribute;
                         break;
                     }
+
                     $pairString = implode(", ", $pair);
-                    throw new Exception ("Got invalid pair within an entity INSERT ($pairString)");
+                    throw new Exception ("Got unknown pair for entity INSERT ($pairString)");
                     break;
                 case 100:
                     // Beginning of a subclass
-					$subclass = $dxf->factory($pair['value']);
-					$subclass->parse($dxf);
-					$this->subclasses[$pair['value']] = $subclass;
+					$dxf->factory($pair['value'])->parseToEntity($dxf, $this);
 					break;
                 case 1001:
                     $applicationGroup = $dxf->factory("ApplicationGroup", array("applicationName" => $pair['value']));
