@@ -5,6 +5,7 @@ require_once 'File/DXF/Entity.php';
 class File_DXF_Block extends File_DXF_Entity
 {
     public $entities = array();
+    
     function parse($dxf)
     {
         // parse common pair for entities
