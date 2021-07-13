@@ -56,8 +56,8 @@ class File_DXF_Insert extends File_DXF_Entity
                     break;
                 case 100:
                     // Beginning of a subclass
-					$dxf->factory($pair['value'])->parseToEntity($dxf, $this);
-					break;
+                    $dxf->factory($pair['value'])->parseToEntity($dxf, $this);
+                    break;
                 case 1001:
                     $this->skipParseExtendedData($dxf);
                     break;
