@@ -67,6 +67,7 @@ class File_DXF_AcDbAttribute extends File_DXF_Subclass
                     $entity->extrusionDirectionZ = $pair['value'];
                     break;
                 case 280:
+                    // NOTE: 280 may also refers to version number
                     $entity->lockPositionFlag = $pair['value'];
                     break;
                 default:
