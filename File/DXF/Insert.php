@@ -69,6 +69,19 @@ class File_DXF_Insert extends File_DXF_Entity
         }
     }
 
+    function getAttribute ($attributeTag) {
+        $attributes = array();
+        foreach ($this->attributes as $attribute) {
+            if ($attribute->attributeTag == $attributetag) {
+                $attributes[] = $attribute;
+            }
+        }
+        if (!empty($attributes)) {
+            return $attributes;
+        }
+        return false;
+    }
+
     /*
      * OLD CODE BELOW
      */
