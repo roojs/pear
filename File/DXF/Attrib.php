@@ -4,16 +4,12 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_Attrib extends File_DXF_Entity
 {
-
     public $mText;
-
     function parse($dxf)
     {
         // parse common pair for entities
         $this->parseCommon($dxf);
-
         while($pair = $dxf->readPair()) {
-
             switch($pair['key']) {
                 case 0:
                     if ($pair['value'] != "MTEXT") {
