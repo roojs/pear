@@ -45,9 +45,7 @@ class File_DXF_Insert extends File_DXF_Entity
 					$dxf->factory($pair['value'])->parseToEntity($dxf, $this);
 					break;
                 case 1001:
-                    $applicationGroup = $dxf->factory("ApplicationGroup", array("applicationName" => $pair['value']));
-                    $applicationGroup->parse($dxf);
-                    $this->extendedData[] = $applicationGroup;
+                    $this->skipParseExtendedData($dxf);
                     break;
                 default:
                     $pairString = implode(", ", $pair); 
