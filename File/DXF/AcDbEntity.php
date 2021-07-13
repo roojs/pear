@@ -21,7 +21,7 @@ class File_DXF_AcDbEntity extends File_DXF_Subclass
 	public $hardPointerToPlotStyle; // 309
 	public $shadowMode; // 284
 
-    function parse($dxf)
+    function parseToEntity($dxf, $entity)
 	{
 
 		while($pair = $dxf->readPair()) {
