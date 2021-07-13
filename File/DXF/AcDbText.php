@@ -6,20 +6,12 @@ class File_DXF_AcDbText extends File_DXF_Subclass
 {
 
     public $thickness = 0; // 39
-    public $textStartPointX; // 10
-    public $textStartPointY; // 20
-    public $textStartPointZ; // 30
-    public $textHeight; // 40
-    public $defaultValue; // 1
     public $textRotation = 0; // 50
     public $scaleX = 1; // 41
     public $obliqueAngle = 0; // 51
     public $textStyleName = "STANDARD"; // 7
     public $textGenerationFlags = 0; // 71
     public $horizontalTextJustificationType = 0; // 72
-    public $alignmentPointX; // 11
-    public $alignmentPointY; // 21
-    public $alignmentPointZ; // 31
     public $extrusionDirectionX = 0; // 210
     public $extrusionDirectionY = 0; // 220
     public $extrusionDirectionZ = 1; // 230
@@ -53,7 +45,7 @@ class File_DXF_AcDbText extends File_DXF_Subclass
                     $this->textHeight = $pair['value'];
                     break;
                 case 1:
-                    $this->defaultValue = $pair['value'];
+                    $this->value = $pair['value'];
                     break;
                 case 50:
                     $this->textRotation = $pair['value'];
