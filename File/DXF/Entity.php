@@ -4,6 +4,7 @@ require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_Entity extends File_DXF_BasicObject
 {
+    // For subclass AcDbEntity
     public $isPaperSpace = 0; // 67
     public $linetypeName = "BYLAYER"; // 6
     public $hardPointerToMaterial = "BYLATER"; // 347
