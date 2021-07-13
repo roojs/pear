@@ -5,7 +5,6 @@ require_once 'File/DXF/BasicObject.php';
 class File_DXF_Entity extends File_DXF_BasicObject
 {
     public $subclasses = array();
-    public $extendedData = array();
 
     function __construct($cfg=array()) 
     {
