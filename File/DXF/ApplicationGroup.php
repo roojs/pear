@@ -4,16 +4,12 @@ require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_ApplicationGroup extends File_DXF_BasicObject
 {
-    
     public $applicationName; // 1001
-
     public $items = array();
 
     function parse($dxf)
     {
-
         while($pair = $dxf->readPair()) {
-
             switch($pair['key']) {
                 case 0:
                 case 1001:
