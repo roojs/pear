@@ -1,5 +1,18 @@
 <?php
 
+/* test-dxf.php (For Testing)
+
+ini_set('include_path', '/home/leon/gitlive/pear');
+
+require_once 'File/DXF.php';
+
+$f = new File_DXF();
+$f->read("/home/leon/Dropbox/alan-leon/CA001.dxf");
+//$f->read("/home/leon/Dropbox/alan-leon/KNT1431-SK-ST-001.dxf");
+print_r($f);
+
+*/
+
 class File_DXF
 {
 	// header section
