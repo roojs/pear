@@ -138,8 +138,10 @@ class File_DXF
         switch ($sectionName) {
             case "entities":
                 foreach ($this->entities->items as $entity) {
-                    echo $entity->entityType . "\n";
-                    echo $entity->hasAttribute . "\n";
+                    echo $entity->entityType . " ";
+                    echo $entity->hasAttribute . " ";
+                    echo $cfg["entityType"] . " ";
+                    echo $cfg["hasAttribute"] . "\n";
                     if ($entity->entityType == $cfg["entityType"] && $entity->hasAttribute == $cfg["hasAttribute"]) {
                         $entities[] = $entity;
                         echo "YOOOOO\n";
