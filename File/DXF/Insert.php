@@ -4,6 +4,20 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_Insert extends File_DXF_Entity
 {
+    // For subclass AcDbBlockReference
+    public $hasAttribute = 0; // 66
+    public $scaleX = 1; // 41
+    public $scaleY = 1; // 42
+    public $scaleZ = 1; // 43
+    public $rotation = 0; // 50
+    public $columnCount = 1; // 70
+    public $rowCount = 1; // 71
+    public $columnSpacing = 0; // 44
+    public $rowSpacing = 0; // 45
+    public $extrusionDirectionX = 0; // 210
+    public $extrusionDirectionY = 0; // 220
+    public $extrusionDirectionZ = 1; // 230
+
     public $attributes = array();
 
     function parse($dxf)
