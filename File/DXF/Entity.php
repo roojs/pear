@@ -4,7 +4,6 @@ require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_Entity extends File_DXF_BasicObject
 {
-
 	public $entityName; // -1
 	public $entityType; // 0
 	public $handle; // 5
@@ -12,9 +11,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	public $softPointerToOwnerDictionary; // 330 within 102 group
 	public $hardPointerToOwnerDictionary; // 360 within 102 group
 	public $softPointerToOwnerBlockRecord; // 330
-
 	public $subclasses = array();
-
 	public $extendedData = array();
 
 	function __construct($cfg=array()) 
@@ -27,7 +24,6 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	function parseCommon($dxf, $withSubclassMarker = true)
 	{
 		while($pair = $dxf->readPair()) {
-
             switch($pair['key']) {
                 case -1:
                     $this->entityName = $pair['value'];
@@ -59,13 +55,11 @@ class File_DXF_Entity extends File_DXF_BasicObject
 							$this->parseApplicationDefinedGroup($dxf);
 							break;
 					}
-
 					$pair = $dxf->readPair();
 					if ($pair['key'] != 102 || $pair['value'] != "}") {
 						$pairString = implode(", ", $pair); 
 						throw new Exception ("Got invalid ending pair for application group ($pairString)");
 					}
-
 					break;
                 case 330:
                     $this->softPointerToOwnerBlockRecord= $pair['value'];
