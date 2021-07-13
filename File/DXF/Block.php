@@ -86,11 +86,11 @@ class File_DXF_Block extends File_DXF_Entity
                     break;
 
                 case 100:
-					// Beginning of a subclass
-					$subclass = $dxf->factory($pair['value']);
-					$subclass->parse($dxf);
-					$this->subclasses[$pair['value']] = $subclass;
-					break;
+                  // Beginning of a subclass
+                  $subclass = $dxf->factory($pair['value']);
+                  $subclass->parse($dxf);
+                  $this->subclasses[$pair['value']] = $subclass;
+                  break;
                 case 1001:
                     $applicationGroup = $dxf->factory("ApplicationGroup", array("applicationName" => $pair['value']));
                     $applicationGroup->parse($dxf);
