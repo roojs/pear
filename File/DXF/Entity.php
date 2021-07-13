@@ -16,6 +16,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
         while($pair = $dxf->readPair()) {
             switch($pair['key']) {
                 case 0:
+                case 1001:
                     // End of this entity
                     $dxf->pushPair($pair); 
                     return;
