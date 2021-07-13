@@ -4,7 +4,6 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_EndBlk extends File_DXF_Entity
 {
-
     /*
      * OLD CODE BELOW
      */
