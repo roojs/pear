@@ -25,7 +25,7 @@ class File_DXF_AcDbText extends File_DXF_Subclass
     public $extrusionDirectionZ = 1; // 230
     public $verticalTextJustificationType = 0; // 73
 
-    function parse($dxf)
+    function parseToEntity($dxf)
     {
         
         while($pair = $dxf->readPair()) {
