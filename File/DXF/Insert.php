@@ -5,25 +5,27 @@ require_once 'File/DXF/Entity.php';
 class File_DXF_Insert extends File_DXF_Entity
 {
     public $attributes = array();
-    public $seqend;
 
     function parse($dxf)
     {
         // parse common pair for entities
         $this->parseCommon($dxf);
+
         while($pair = $dxf->readPair()) {
+
             switch($pair['key']) { 
                 case 0:
-                    if ($this->subclasses["AcDbBlockReference"]->hasAttribute == 0) {
+
+                    if ($this->hasAttribute == 0) {
                         // No attributes follow
                         // End of this entity
                         $dxf->pushPair($pair); 
                         return;
                     }
+
                     if ($pair['value'] == "SEQEND") {
                         // No more attributes
-                        $this->seqend = $dxf->factory("Seqend");
-                        $this->seqend->parse($dxf);
+                        $this->skipParseEntity($dxf);
                         return;
                     } 
                     if ($pair['value'] == "ATTRIB") {
