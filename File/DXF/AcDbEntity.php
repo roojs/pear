@@ -4,12 +4,6 @@ require_once 'File/DXF/Subclass.php';
 
 class File_DXF_AcDbEntity extends File_DXF_Subclass
 {
-    public $isPaperSpace = 0; // 67
-    public $linetypeName = "BYLAYER"; // 6
-    public $hardPointerToMaterial = "BYLATER"; // 347
-    public $colorNumber = "BYLAYER"; // 62
-    public $linetypeScale = 1; // 48
-    public $objectVisibility = 0; // 60
 
     function parseToEntity($dxf, $entity)
     {

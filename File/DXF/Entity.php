@@ -4,6 +4,13 @@ require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_Entity extends File_DXF_BasicObject
 {
+    public $isPaperSpace = 0; // 67
+    public $linetypeName = "BYLAYER"; // 6
+    public $hardPointerToMaterial = "BYLATER"; // 347
+    public $colorNumber = "BYLAYER"; // 62
+    public $linetypeScale = 1; // 48
+    public $objectVisibility = 0; // 60
+    
     function __construct($cfg=array()) 
     {
         $this->entityType = strtoupper(str_replace("File_DXF_", "", get_class($this)));
