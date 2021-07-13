@@ -4,17 +4,7 @@ require_once 'File/DXF/Subclass.php';
 
 class File_DXF_AcDbXrecord extends File_DXF_Subclass
 {
-
-    // For entity ATTRIB
-    public $duplicateRecordCloingFlag; // 280
-    public $numberOfAttributeDefinitions; // 70
-    public $hardPointerOfAttributeDefinition; // 340
-    public $alignmentPointX; // 10
-    public $insertionPointY; // 20
-    public $insertionPointZ; // 30
-    public $annotationScale; // 40
-    public $attributeDefinitionTagString; // 2
-
+    
     function parse($dxf)
     {
         
