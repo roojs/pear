@@ -4,10 +4,6 @@ require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_Entity extends File_DXF_BasicObject
 {
-	public $entityName; // -1
-	public $entityType; // 0
-	public $handle; // 5
-	public $GroupName; // 102
 	public $softPointerToOwnerDictionary; // 330 within 102 group
 	public $hardPointerToOwnerDictionary; // 360 within 102 group
 	public $softPointerToOwnerBlockRecord; // 330
@@ -25,14 +21,10 @@ class File_DXF_Entity extends File_DXF_BasicObject
 	{
 		while($pair = $dxf->readPair()) {
             switch($pair['key']) {
-                case -1:
-                    $this->entityName = $pair['value'];
-                    break;
                 case 5:
-                    $this->handle = $pair['value'];
                     break;
 				case 102:
-					$this->GroupName =  str_replace("{", "", $pair['value']);
+					$groupName =  str_replace("{", "", $pair['value']);
 					
 					switch ($this->GroupName) {
 						case "ACAD_REACTORS":
