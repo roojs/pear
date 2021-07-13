@@ -1,5 +1,18 @@
 <?php
 
+/* test-dxf.php (For testing)
+
+ini_set('include_path', '/home/leon/gitlive/pear');
+
+require_once 'File/DXF.php';
+
+$f = new File_DXF();
+$f->read("/home/leon/Dropbox/alan-leon/CA001.dxf");
+//$f->read("/home/leon/Dropbox/alan-leon/KNT1431-SK-ST-001.dxf");
+print_r($f);
+
+*/
+
 require_once 'File/DXF/BasicObject.php';
 
 class File_DXF_Section extends File_DXF_BasicObject
