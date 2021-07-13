@@ -11,6 +11,7 @@ class File_DXF_Block extends File_DXF_Entity
         // parse common pair for entities
         $this->parseCommon($dxf);
         while($pair = $dxf->readPair()) {
+
             switch($pair['key']) { 
                 case 0:
                     // Beginning of a new entity
@@ -19,8 +20,7 @@ class File_DXF_Block extends File_DXF_Entity
                         case 'ENDBLK':
                             // No more entities
                             // End of this block
-                            $this->endBlk = $dxf->factory('EndBlk');
-                            $this->endBlk->parse($dxf);
+                            $this->skipParseEntity($dxf);
                             return;
                         case 'INSERT':
                             $entity = $dxf->factory('Insert');
