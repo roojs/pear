@@ -5,7 +5,7 @@ require_once 'File/DXF/Subclass.php';
 class File_DXF_AcDbXrecord extends File_DXF_Subclass
 {
     
-    function parse($dxf)
+    function parseToEntity($dxf, $entity)
     {
         
         while($pair = $dxf->readPair()) {
