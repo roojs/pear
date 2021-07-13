@@ -4,22 +4,6 @@ require_once 'File/DXF/Subclass.php';
 
 class File_DXF_AcDbBlockReference extends File_DXF_Subclass
 {
-    public $hasAttribute = 0; // 66
-    public $blockName; // 2
-    public $insertionPointX; // 10
-    public $insertionPointY; // 20
-    public $insertionPointZ; // 30
-    public $scaleX = 1; // 41
-    public $scaleY = 1; // 42
-    public $scaleZ = 1; // 43
-    public $rotation = 0; // 50
-    public $columnCount = 1; // 70
-    public $rowCount = 1; // 71
-    public $columnSpacing = 0; // 44
-    public $rowSpacing = 0; // 45
-    public $extrusionDirectionX = 0; // 210
-    public $extrusionDirectionY = 0; // 220
-    public $extrusionDirectionZ = 1; // 230
 
     function parse($dxf)
     {
@@ -30,10 +14,9 @@ class File_DXF_AcDbBlockReference extends File_DXF_Subclass
                 case 0:
                 case 100:
                 case 1001:
-                    // End of a subclass
+                    // End of this subclass
                     $dxf->pushPair($pair);
                     return;
-                    break;
                 case 66:
                     $this->hasAttribute = $pair['value'];
                     break;
