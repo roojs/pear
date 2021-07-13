@@ -19,7 +19,10 @@ class File_DXF_MText extends File_DXF_Entity
                     return;
                 case 100:
                     // Beginning of a subclass
-                    $this->subclasses[$pair['value']] = $dxf->factory($pair['value'])->parse($dxf);
+                    $dxf->factory($pair['value'])->parseToEntity($dxf, $this);
+                    break;
+                case 1001:
+                    $this->skipParseExtendedData($dxf);
                     break;
                 default:
                     $groupCode = $pair['key'];
