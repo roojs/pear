@@ -4,17 +4,13 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_Block extends File_DXF_Entity
 {
-
     public $entities = array();
     public $endBlk;
-
     function parse($dxf)
     {
         // parse common pair for entities
         $this->parseCommon($dxf);
-
         while($pair = $dxf->readPair()) {
-
             switch($pair['key']) { 
                 case 0:
                     // Beginning of a new entity
@@ -84,7 +80,6 @@ class File_DXF_Block extends File_DXF_Entity
                             break;
                     }
                     break;
-
                 case 100:
                   // Beginning of a subclass
                   $subclass = $dxf->factory($pair['value']);
