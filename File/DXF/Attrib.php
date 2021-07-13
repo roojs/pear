@@ -20,8 +20,6 @@ class File_DXF_Attrib extends File_DXF_Entity
     public $extrusionDirectionY = 0; // 220
     public $extrusionDirectionZ = 1; // 230
 
-    public $mText;
-
     function parse($dxf)
     {
         // parse common pair for entities
