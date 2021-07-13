@@ -139,7 +139,7 @@ class File_DXF
             case "entities":
                 foreach ($this->entities->items as $entity) {
                     if ($entity->entityType == $cfg["entityType"] && $entity->hasAttribute == $cfg["hasAttribute"]) {
-                        $entities = $entity;
+                        $entities[] = $entity;
                     }
                 }
                 break;
