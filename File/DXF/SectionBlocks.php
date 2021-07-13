@@ -29,5 +29,4 @@ class File_DXF_SectionBlocks extends File_DXF_Section
             }
         }
     }
-
 }
