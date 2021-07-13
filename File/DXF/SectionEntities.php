@@ -4,20 +4,16 @@ require_once 'File/DXF/Section.php';
 
 class File_DXF_SectionEntities extends File_DXF_Section
 {
-
     public $name = "entities";
 	 
-    function parse($dxf, $opts= array()) {
-
+    function parse($dxf, $opts= array()) 
+	{
 		while ($pair = $dxf->readPair()) {
-
 			if($pair['key'] == 0) {
-
 				if ($pair['value'] == 'ENDSEC') {
 					// End of the entities section
 					return;
 				}
-
 				// Beginning of a new entity
 				switch($pair['value']) {
 					case 'INSERT':
@@ -80,5 +76,4 @@ class File_DXF_SectionEntities extends File_DXF_Section
 			}
 		}
     }
-
 }
