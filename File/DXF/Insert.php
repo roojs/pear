@@ -22,7 +22,7 @@ class File_DXF_Insert extends File_DXF_Entity
                         $dxf->pushPair($pair); 
                         return;
                     }
-
+                    
                     if ($pair['value'] == "SEQEND") {
                         // No more attributes
                         $this->skipParseEntity($dxf);
