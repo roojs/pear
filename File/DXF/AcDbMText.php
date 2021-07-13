@@ -71,6 +71,9 @@ class File_DXF_AcDbMText extends File_DXF_Subclass
                     break;
                 case 1:
                 case 3:
+                    if (!isset($this->textString)) {
+                        $this->textString = "";
+                    }
                     $this->textString .= $pair['value'];
                     break;
                 case 7:
