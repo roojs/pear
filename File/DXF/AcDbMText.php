@@ -4,33 +4,9 @@ require_once 'File/DXF/Subclass.php';
 
 class File_DXF_AcDbMText extends File_DXF_Subclass
 {
-
-    public $insertionPointX; // 10
-    public $insertionPointY; // 20
-    public $insertionPointZ; // 30
-    public $nominalTextHeight; // 40
-    public $referenceRectangleWidth; // 41
-    public $annotationHeight; // 46
-    public $attachmentPoint; // 71
-    public $drawingDirection; // 72
-    public $textString = ""; // 1: (< 250 characters) / 3: (= 250 characters)
-    public $x; // 7
-    public $extrusionDirectionX; // 210
-    public $extrusionDirectionY; // 220
-    public $extrusionDirectionZ; // 230
-    public $xAxisDirecitonVectorX; // 11
-    public $xAxisDirecitonVectorY; // 21
-    public $xAxisDirecitonVectorZ; // 31
-    public $width; // 42
-    public $height; // 43
-    public $rotationAngle; // 50
-    public $lineSpacingStyle; // 73
-    public $lineSpacingFactor; // 44
-    public $backgroundFill; // 90
-    public $backgroundColor; // 63 / 420 - 429 / 430 -439
-    public $fillBoxScale; // 45
-    public $backgroundFillColor; // 63
-    public $transparency; // 441
+    public $extrusionDirectionX = 0; // 210
+    public $extrusionDirectionY = 0; // 220
+    public $extrusionDirectionZ = 1; // 230
 
     function parse($dxf)
     {
