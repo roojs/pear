@@ -4,38 +4,6 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_Seqend extends File_DXF_Entity 
 {
-
-    public $beginSequenceEntityName;
-
-    function parse($dxf)
-    {
-        // parse common pair for entities
-        $this->parseCommon($dxf, false);
-
-        while($pair = $dxf->readPair()) {
-
-            switch($pair['key']) {
-                case 0:
-                    // End of this entity
-                    $dxf->pushPair($pair);
-                    return;
-                case -2:
-                    $this->beginSequenceEntityName = $pair['value'];
-                    break;
-                case 1001:
-                    $applicationGroup = $dxf->factory("ApplicationGroup", array("applicationName" => $pair['value']));
-                    $applicationGroup->parse($dxf);
-                    $this->extendedData[] = $applicationGroup;
-                    break;
-                default:
-                    $pairString = implode(", ", $pair); 
-                    throw new Exception ("Got unknown pair for entity SEQEND ($pairString)");
-                    break;
-            }
-    
-        }
-    }
-
     /*
      * OLD CODE BELOW
      */
