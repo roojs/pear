@@ -16,7 +16,6 @@ class File_DXF_AcDbBlockEnd extends File_DXF_Subclass
                     // End of a subclass
                     $dxf->pushPair($pair);
                     return;
-                    break;
                 default:
                     $pairString = implode(", ", $pair); 
                     throw new Exception ("Got unknown pair for subclass AcDbBlockEnd ($pairString)");
