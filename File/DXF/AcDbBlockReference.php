@@ -4,8 +4,8 @@ require_once 'File/DXF/Subclass.php';
 
 class File_DXF_AcDbBlockReference extends File_DXF_Subclass
 {
-
-    function parse($dxf)
+    
+    function parseToEntity($dxf, $entity)
     {
         
         while($pair = $dxf->readPair()) {
@@ -18,52 +18,52 @@ class File_DXF_AcDbBlockReference extends File_DXF_Subclass
                     $dxf->pushPair($pair);
                     return;
                 case 66:
-                    $this->hasAttribute = $pair['value'];
+                    $entity->hasAttribute = $pair['value'];
                     break;
                 case 2:
-                    $this->blockName = $pair['value'];
+                    $entity->blockName = $pair['value'];
                     break;
                 case 10:
-                    $this->insertionPointX = $pair['value'];
+                    $entity->insertionPointX = $pair['value'];
                     break;
                 case 20:
-                    $this->insertionPointY = $pair['value'];
+                    $entity->insertionPointY = $pair['value'];
                     break;
                 case 30:
-                    $this->insertionPointZ = $pair['value'];
+                    $entity->insertionPointZ = $pair['value'];
                     break;
                 case 41:
-                    $this->scaleX = $pair['value'];
+                    $entity->scaleX = $pair['value'];
                     break;
                 case 42:
-                    $this->scaleY = $pair['value'];
+                    $entity->scaleY = $pair['value'];
                     break;
                 case 43:
-                    $this->scaleZ = $pair['value'];
+                    $entity->scaleZ = $pair['value'];
                     break;
                 case 50:
-                    $this->rotation = $pair['value'];
+                    $entity->rotation = $pair['value'];
                     break;
                 case 70:
-                    $this->columnCount = $pair['value'];
+                    $entity->columnCount = $pair['value'];
                     break;
                 case 71:
-                    $this->rowCount = $pair['value'];
+                    $entity->rowCount = $pair['value'];
                     break;
                 case 44:
-                    $this->columnSpacing = $pair['value'];
+                    $entity->columnSpacing = $pair['value'];
                     break;
                 case 45:
-                    $this->rowSpacing = $pair['value'];
+                    $entity->rowSpacing = $pair['value'];
                     break;
                 case 210:
-                    $this->extrusionDirectionX = $pair['value'];
+                    $entity->extrusionDirectionX = $pair['value'];
                     break;
                 case 220:
-                    $this->extrusionDirectionY = $pair['value'];
+                    $entity->extrusionDirectionY = $pair['value'];
                     break;
                 case 230:
-                    $this->extrusionDirectionZ = $pair['value'];
+                    $entity->extrusionDirectionZ = $pair['value'];
                     break;
                 default:
                     $pairString = implode(", ", $pair); 
