@@ -4,18 +4,6 @@ require_once 'File/DXF/Subclass.php';
 
 class File_DXF_AcDbAttribute extends File_DXF_Subclass
 {
-    
-    public $fieldLength = 0; // 73
-    public $textRotation = 0; // 50
-    public $scaleX = 1; // 41
-    public $obliqueAngle = 0; // 51
-    public $textStyleName = "STANDARD"; // 7
-    public $textGenerationFlags = 0; // 71
-    public $horizontalTextJustificationType = 0; // 72
-    public $verticalTextJustificationType = 0; // 74
-    public $extrusionDirectionX = 0; // 210
-    public $extrusionDirectionY = 0; // 220
-    public $extrusionDirectionZ = 1; // 230
 
     function parseToEntity($dxf, $entity)
     {
