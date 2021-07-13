@@ -4,7 +4,6 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_Insert extends File_DXF_Entity
 {
-
     public $attributes = array();
     public $seqend;
 
@@ -12,26 +11,21 @@ class File_DXF_Insert extends File_DXF_Entity
     {
         // parse common pair for entities
         $this->parseCommon($dxf);
-        
         while($pair = $dxf->readPair()) {
-
             switch($pair['key']) { 
                 case 0:
-                    
                     if ($this->subclasses["AcDbBlockReference"]->hasAttribute == 0) {
                         // No attributes follow
                         // End of this entity
                         $dxf->pushPair($pair); 
                         return;
                     }
-
                     if ($pair['value'] == "SEQEND") {
                         // No more attributes
                         $this->seqend = $dxf->factory("Seqend");
                         $this->seqend->parse($dxf);
                         return;
                     } 
-
                     if ($pair['value'] == "ATTRIB") {
                         // An attribute
                         $attribute = $dxf->factory("Attrib");
@@ -39,7 +33,6 @@ class File_DXF_Insert extends File_DXF_Entity
                         $this->attributes[] = $attribute;
                         break;
                     }
-
                     $pairString = implode(", ", $pair);
                     throw new Exception ("Got invalid pair within an entity INSERT ($pairString)");
                     break;
