@@ -142,7 +142,7 @@ class File_DXF
                     echo $entity->hasAttribute . "\n";
                     if ($entity->entityType == $cfg["entityType"] && $entity->hasAttribute == $cfg["hasAttribute"]) {
                         $entities[] = $entity;
-                        
+                        echo "YOOOOO\n";
                     }
                 }
                 break;
