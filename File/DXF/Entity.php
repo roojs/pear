@@ -10,7 +10,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
     public $colorNumber = "BYLAYER"; // 62
     public $linetypeScale = 1; // 48
     public $objectVisibility = 0; // 60
-    
+
     function __construct($cfg=array()) 
     {
         $this->entityType = strtoupper(str_replace("File_DXF_", "", get_class($this)));
@@ -69,8 +69,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
                         $dxf->pushPair($pair);
                         return;
                     }
-                    $subclass = $dxf->factory($pair['value']);
-                    $subclass->parseToEntity($dxf, $this);
+                    $dxf->factory($pair['value'])->parseToEntity($dxf, $this);
                     break;
                 default:
                     $pairString = implode(", ", $pair); 
