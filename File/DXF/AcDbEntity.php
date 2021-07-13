@@ -33,7 +33,6 @@ class File_DXF_AcDbEntity extends File_DXF_Subclass
                     // End of this subclass
                     $dxf->pushPair($pair);
                     return;
-					break;
 				case 67:
 					$this->isPaperSpace = $pair['value'];
 					break;
