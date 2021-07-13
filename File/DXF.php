@@ -137,7 +137,7 @@ class File_DXF
         $entities = array();
         switch ($sectionName) {
             case "entities":
-                for ($this->entities->items as $entity) {
+                foreach ($this->entities->items as $entity) {
                     if ($entity->entityType == $cfg["entityType"] && $entity->hasAttribute == $cfg["hasAttribute"]) {
                         $entities = $entity;
                     }
