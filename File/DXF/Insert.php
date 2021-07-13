@@ -82,6 +82,13 @@ class File_DXF_Insert extends File_DXF_Entity
         return false;
     }
 
+    function attributeToArray () {
+        $result = array();
+        foreach ($this->attributes as $attribute) {
+            return get_object_vars($this->attributes);
+        }
+    }
+
     /*
      * OLD CODE BELOW
      */
