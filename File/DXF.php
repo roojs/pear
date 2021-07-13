@@ -1,16 +1,11 @@
 <?php
-
 /* test-dxf.php (For Testing)
-
 ini_set('include_path', '/home/leon/gitlive/pear');
-
 require_once 'File/DXF.php';
-
 $f = new File_DXF();
 $f->read("/home/leon/Dropbox/alan-leon/CA001.dxf");
 //$f->read("/home/leon/Dropbox/alan-leon/KNT1431-SK-ST-001.dxf");
 print_r($f);
-
 */
 
 class File_DXF
@@ -45,28 +40,21 @@ class File_DXF
 	    if (!file_exists($path) || !filesize($path)) {
 	        throw new Exception ("The file does not exists or the file is empty ($path)");
         }
-        
         $this->handle = fopen($path, 'r');
-        
         while ($pair = $this->readPair()) {
-
 			if ($pair['key'] == 0 && $pair['value'] == "EOF") {
 				// End of file
 				break;
 			}
-            
 			// Beginning of a new section
             if ($pair['key'] != 0 || $pair['value'] != "SECTION") {
 			    throw new Exception ("Got invalid starting pair for a new section ($pair)");
 		    }
-		    
 		    $pair = $this->readPair($this->handle);
-		    
 		    if($pair['key'] != 2){
 				$groupCode = $pair['key'];
 				throw new Exception ("Got invalid group code for a section name ($groupCode)");
 		    }
-		    
 		    switch ($pair['value']) {
 		        case 'HEADER':
 		            $this->header = self::factory("SectionHeader");
@@ -114,7 +102,6 @@ class File_DXF
 		if (!empty($this->buffer)) {
 			return array_pop($this->buffer);
 		}
-		
 		$key = fgets($this->handle);
 		$value = fgets($this->handle);
 		return array(
@@ -195,15 +182,7 @@ class File_DXF
 
 		$tables['layer']->addEntry(new Layer('0'));
 
-		$tables['ltype']->addEntry(new LType('byblock'));
-		$tables['ltype']->addEntry(new LType('bylayer'));
-
-		$tables['style']->addEntry(new Style('standard'));
-		$this->tables->addMultipleItems($tables);
-
-		$this->objects->addItem(new Dictionary(array('ACAD_GROUP')));
-	}
-	*/
+		$tables['ltype']->addEnt1001
 
 	/**
 	 * Handler for adding block entities to the DXF file
