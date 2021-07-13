@@ -37,7 +37,6 @@ class File_DXF_AcDbText extends File_DXF_Subclass
                     // End of a subclass
                     $dxf->pushPair($pair);
                     return;
-                    break;
                 case 39:
                     $this->thickness = $pair['value'];
                     break;
