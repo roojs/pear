@@ -4,9 +4,6 @@ require_once 'File/DXF/Subclass.php';
 
 class File_DXF_AcDbMText extends File_DXF_Subclass
 {
-    public $extrusionDirectionX = 0; // 210
-    public $extrusionDirectionY = 0; // 220
-    public $extrusionDirectionZ = 1; // 230
 
     function parse($dxf)
     {
