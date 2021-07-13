@@ -26,9 +26,9 @@ class File_DXF_Attrib extends File_DXF_Entity
                     $this->mText->parse($dxf);
                     break;
                 case 100:
-					// Beginning of a subclass
-					$dxf->factory($pair['value'])->parseToEntity($dxf, $this);
-					break;
+                    // Beginning of a subclass
+                    $dxf->factory($pair['value'])->parseToEntity($dxf, $this);
+                    break;
                 case 1001:
                     $this->skipParseExtendedData($dxf);
                     break;
