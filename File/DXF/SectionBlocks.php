@@ -6,8 +6,8 @@ class File_DXF_SectionBlocks extends File_DXF_Section
 {
 	public $name = 'blocks';
 	 
-    function parse($dxf) {
-		
+    function parse($dxf) 
+	{
 		while ($pair = $dxf->readPair()) {
 			if($pair['key'] == 0) {
 				if ($pair['value'] == 'ENDSEC') {
