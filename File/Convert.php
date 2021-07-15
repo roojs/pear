@@ -64,10 +64,16 @@ class File_Convert
     
     function convertExists($toMimetype, $x= 0, $y =0) 
     {
-        
-         $fn = $this->fn;
+        static $actions = array();
+        $fn = $this->fn;
         if ($toMimetype != $this->mimetype) {
-            $action = $this->getConvMethods($this->mimetype, $toMimetype);
+            
+            if (!isset($actions["{$this->mimetype} => $toMimetype"])) {
+                $actions["{$this->mimetype} => $toMimetype"] = $this->getConvMethods($this->mimetype, $toMimetype);;
+            }
+                
+            $action = $actions["{$this->mimetype} => $toMimetype"];
+            
            
             // echo '<PRE>';print_r($action);
             if (!$action) {
