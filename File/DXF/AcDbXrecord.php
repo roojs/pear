@@ -4,18 +4,8 @@ require_once 'File/DXF/Subclass.php';
 
 class File_DXF_AcDbXrecord extends File_DXF_Subclass
 {
-
-    // For entity ATTRIB
-    public $duplicateRecordCloingFlag; // 280
-    public $numberOfAttributeDefinitions; // 70
-    public $hardPointerOfAttributeDefinition; // 340
-    public $alignmentPointX; // 10
-    public $insertionPointY; // 20
-    public $insertionPointZ; // 30
-    public $annotationScale; // 40
-    public $attributeDefinitionTagString; // 2
-
-    function parse($dxf)
+    
+    function parseToEntity($dxf, $entity)
     {
         
         while($pair = $dxf->readPair()) {
@@ -29,28 +19,28 @@ class File_DXF_AcDbXrecord extends File_DXF_Subclass
                     return;
                     break;
                 case 280:
-                    $this->duplicateRecordCloingFlag = $pair['value'];
+                    $entity->duplicateRecordCloingFlag = $pair['value'];
                     break;
                 case 70:
-                    $this->numberOfAttributeDefinitions = $pair['value'];
+                    $entity->numberOfAttributeDefinitions = $pair['value'];
                     break;
                 case 340:
-                    $this->hardPointerOfAttributeDefinition = $pair['value'];
+                    $entity->hardPointerOfAttributeDefinition = $pair['value'];
                     break;
                 case 10:
-                    $this->alignmentPointX = $pair['value'];
+                    $entity->alignmentPointX = $pair['value'];
                     break;
                 case 20:
-                    $this->insertionPointY = $pair['value'];
+                    $entity->insertionPointY = $pair['value'];
                     break;
                 case 30:
-                    $this->insertionPointZ = $pair['value'];
+                    $entity->insertionPointZ = $pair['value'];
                     break;
                 case 40:
-                    $this->annotationScale = $pair['value'];
+                    $entity->annotationScale = $pair['value'];
                     break;
                 case 2:
-                    $this->attributeDefinitionTagString = $pair['value'];
+                    $entity->attributeDefinitionTagString = $pair['value'];
                     break;
                 default:
                     $pairString = implode(", ", $pair); 

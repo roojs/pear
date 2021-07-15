@@ -4,15 +4,12 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_Block extends File_DXF_Entity
 {
-
     public $entities = array();
-    public $endBlk;
 
     function parse($dxf)
     {
         // parse common pair for entities
         $this->parseCommon($dxf);
-
         while($pair = $dxf->readPair()) {
 
             switch($pair['key']) { 
@@ -23,8 +20,7 @@ class File_DXF_Block extends File_DXF_Entity
                         case 'ENDBLK':
                             // No more entities
                             // End of this block
-                            $this->endBlk = $dxf->factory('EndBlk');
-                            $this->endBlk->parse($dxf);
+                            $this->skipParseEntity($dxf);
                             return;
                         case 'INSERT':
                             $entity = $dxf->factory('Insert');
@@ -80,21 +76,16 @@ class File_DXF_Block extends File_DXF_Entity
                             break;
                         default:
                             $pairString = implode(", ", $pair);
-                            throw new Exception ("Got invalid pair within an entity BLOCK ($pairString)");
+                            throw new Exception ("Got unknown pair within an entity BLOCK ($pairString)");
                             break;
                     }
                     break;
-
                 case 100:
-                  // Beginning of a subclass
-                  $subclass = $dxf->factory($pair['value']);
-                  $subclass->parse($dxf);
-                  $this->subclasses[$pair['value']] = $subclass;
-                  break;
+                    // Beginning of a subclass
+                    $dxf->factory($pair['value'])->parseToEntity($dxf, $this);
+                    break;
                 case 1001:
-                    $applicationGroup = $dxf->factory("ApplicationGroup", array("applicationName" => $pair['value']));
-                    $applicationGroup->parse($dxf);
-                    $this->extendedData[] = $applicationGroup;
+                    $this->skipParseExtendedData($dxf);
                     break;
                 default:
                     $pairString = implode(", ", $pair); 

@@ -5,27 +5,7 @@ require_once 'File/DXF/Subclass.php';
 class File_DXF_AcDbText extends File_DXF_Subclass
 {
 
-    public $thickness = 0; // 39
-    public $textStartPointX; // 10
-    public $textStartPointY; // 20
-    public $textStartPointZ; // 30
-    public $textHeight; // 40
-    public $defaultValue; // 1
-    public $textRotation = 0; // 50
-    public $scaleX = 1; // 41
-    public $obliqueAngle = 0; // 51
-    public $textStyleName = "STANDARD"; // 7
-    public $textGenerationFlags = 0; // 71
-    public $horizontalTextJustificationType = 0; // 72
-    public $alignmentPointX; // 11
-    public $alignmentPointY; // 21
-    public $alignmentPointZ; // 31
-    public $extrusionDirectionX = 0; // 210
-    public $extrusionDirectionY = 0; // 220
-    public $extrusionDirectionZ = 1; // 230
-    public $verticalTextJustificationType = 0; // 73
-
-    function parse($dxf)
+    function parseToEntity($dxf, $entity)
     {
         
         while($pair = $dxf->readPair()) {
@@ -37,63 +17,62 @@ class File_DXF_AcDbText extends File_DXF_Subclass
                     // End of a subclass
                     $dxf->pushPair($pair);
                     return;
-                    break;
                 case 39:
-                    $this->thickness = $pair['value'];
+                    $entity->thickness = $pair['value'];
                     break;
                 case 10:
-                    $this->textStartPointX = $pair['value'];
+                    $entity->textStartPointX = $pair['value'];
                     break;
                 case 20:
-                    $this->textStartPointY = $pair['value'];
+                    $entity->textStartPointY = $pair['value'];
                     break;
                 case 30:
-                    $this->textStartPointZ = $pair['value'];
+                    $entity->textStartPointZ = $pair['value'];
                     break;
                 case 40:
-                    $this->textHeight = $pair['value'];
+                    $entity->textHeight = $pair['value'];
                     break;
                 case 1:
-                    $this->defaultValue = $pair['value'];
+                    $entity->value = $pair['value'];
                     break;
                 case 50:
-                    $this->textRotation = $pair['value'];
+                    $entity->textRotation = $pair['value'];
                     break;
                 case 41:
-                    $this->scaleX = $pair['value'];
+                    $entity->scaleX = $pair['value'];
                     break;
                 case 51:
-                    $this->obliqueAngle = $pair['value'];
+                    $entity->obliqueAngle = $pair['value'];
                     break;
                 case 7:
-                    $this->textStyleName = $pair['value'];
+                    $entity->textStyleName = $pair['value'];
                     break;
                 case 71:
-                    $this->textGenerationFlags = $pair['value'];
+                    $entity->textGenerationFlags = $pair['value'];
                     break;
                 case 72:
-                    $this->horizontalTextJustificationType = $pair['value'];
+                    $entity->horizontalTextJustificationType = $pair['value'];
                     break;
                 case 11:
-                    $this->alignmentPointX = $pair['value'];
+                    $entity->alignmentPointX = $pair['value'];
                     break;
                 case 21:
-                    $this->alignmentPointY = $pair['value'];
+                    $entity->alignmentPointY = $pair['value'];
                     break;
                 case 31:
-                    $this->alignmentPointZ = $pair['value'];
+                    $entity->alignmentPointZ = $pair['value'];
                     break;
                 case 210:
-                    $this->extrusionDirectionX = $pair['value'];
+                    $entity->extrusionDirectionX = $pair['value'];
                     break;
                 case 220:
-                    $this->extrusionDirectionY = $pair['value'];
+                    $entity->extrusionDirectionY = $pair['value'];
                     break;
                 case 230:
-                    $this->extrusionDirectionZ = $pair['value'];
+                    $entity->extrusionDirectionZ = $pair['value'];
                     break;
                 case 73:
-                    $this->verticalTextJustificationType = $pair['value'];
+                    $entity->verticalTextJustificationType = $pair['value'];
                     break;
                 default:
                     $pairString = implode(", ", $pair); 

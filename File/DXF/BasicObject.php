@@ -6,8 +6,8 @@ class File_DXF_BasicObject
     function __construct($cfg=array())
     {
         foreach($cfg as $k=>$v) {
-          	$this->$k = $v;
-	    }
+              $this->$k = $v;
+        }
     }
     
     // Skip parsing a section
@@ -52,6 +52,7 @@ class File_DXF_BasicObject
         }
     }
 
+    // skip parsing a entity
     function skipParseEntity ($dxf) {
         // same behavior as skipParseTableEntry($dxf)
         $this->skipParseTableEntry($dxf);
@@ -59,12 +60,18 @@ class File_DXF_BasicObject
 
     function skipParseApplicationDefinedGroup ($dxf) {
         while($pair = $dxf->readPair()) {
-			if ($pair['key'] == 102 && $pair['value'] == "}") {
-				// End of an application defined group
+            if ($pair['key'] == 102 && $pair['value'] == "}") {
+                // End of an application defined group
                 $dxf->pushPair($pair);
-				return;
-			}
-		}
+                return;
+            }
+        }
+    }
+
+    // skip parsing extended data
+    function skipParseExtendedData ($dxf) {
+        // same behavior as skipParseTableEntry($dxf)
+        $this->skipParseTableEntry($dxf);
     }
 
     /*

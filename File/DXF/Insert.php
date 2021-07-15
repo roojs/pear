@@ -4,33 +4,44 @@ require_once 'File/DXF/Entity.php';
 
 class File_DXF_Insert extends File_DXF_Entity
 {
+    // For subclass AcDbBlockReference
+    public $hasAttribute = 0; // 66
+    public $scaleX = 1; // 41
+    public $scaleY = 1; // 42
+    public $scaleZ = 1; // 43
+    public $rotation = 0; // 50
+    public $columnCount = 1; // 70
+    public $rowCount = 1; // 71
+    public $columnSpacing = 0; // 44
+    public $rowSpacing = 0; // 45
+    public $extrusionDirectionX = 0; // 210
+    public $extrusionDirectionY = 0; // 220
+    public $extrusionDirectionZ = 1; // 230
 
     public $attributes = array();
-    public $seqend;
 
     function parse($dxf)
     {
         // parse common pair for entities
         $this->parseCommon($dxf);
-        
+
         while($pair = $dxf->readPair()) {
 
             switch($pair['key']) { 
                 case 0:
-                    
-                    if ($this->subclasses["AcDbBlockReference"]->hasAttribute == 0) {
+
+                    if ($this->hasAttribute == 0) {
                         // No attributes follow
                         // End of this entity
                         $dxf->pushPair($pair); 
                         return;
                     }
-
+                    
                     if ($pair['value'] == "SEQEND") {
                         // No more attributes
-                        $this->seqend = $dxf->factory("Seqend");
-                        $this->seqend->parse($dxf);
+                        $this->skipParseEntity($dxf);
                         return;
-                    } 
+                    }
 
                     if ($pair['value'] == "ATTRIB") {
                         // An attribute
@@ -41,18 +52,14 @@ class File_DXF_Insert extends File_DXF_Entity
                     }
 
                     $pairString = implode(", ", $pair);
-                    throw new Exception ("Got invalid pair within an entity INSERT ($pairString)");
+                    throw new Exception ("Got unknown pair for entity INSERT ($pairString)");
                     break;
                 case 100:
                     // Beginning of a subclass
-					$subclass = $dxf->factory($pair['value']);
-					$subclass->parse($dxf);
-					$this->subclasses[$pair['value']] = $subclass;
-					break;
+                    $dxf->factory($pair['value'])->parseToEntity($dxf, $this);
+                    break;
                 case 1001:
-                    $applicationGroup = $dxf->factory("ApplicationGroup", array("applicationName" => $pair['value']));
-                    $applicationGroup->parse($dxf);
-                    $this->extendedData[] = $applicationGroup;
+                    $this->skipParseExtendedData($dxf);
                     break;
                 default:
                     $pairString = implode(", ", $pair); 
@@ -60,6 +67,30 @@ class File_DXF_Insert extends File_DXF_Entity
                     break;
             }
         }
+    }
+
+    function getAttribute ($attributeTag) {
+        $attributes = array();
+        foreach ($this->attributes as $attribute) {
+            if ($attribute->attributeTag == $attributeTag) {
+                $attributes[] = $attribute;
+            }
+        }
+        if (!empty($attributes)) {
+            return $attributes;
+        }
+        return false;
+    }
+
+    function attributeToArray () {
+        $result = array();
+        foreach ($this->attributes as $attribute) {
+            $result[$attribute->attributeTag] = $attribute->value;
+        }
+        if (!empty($result)) {
+            return $result;
+        }
+        return false;
     }
 
     /*
