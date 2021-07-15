@@ -56,6 +56,12 @@ class File_Convert
     }
     
     
+    
+    /**
+     * check if conversion exists, and return the filename if it does.
+     *
+     */
+    
     function convertExists($toMimetype, $x= 0, $y =0) 
     {
         
