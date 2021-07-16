@@ -63,7 +63,9 @@ class File_MimeType
             array(
                 // override!!!!
                 array( 'application/octet-stream', array('dat')),
-                array( 'application/vnd.dwg', array('dwg')),
+                array( 'application/dwg', array('dwg')),
+                array( 'application/dxf', array('dxf')),
+                
                 array( 'application/mswordapplication', array('doc')),
                 array( 'application/vnd.openxmlformats-officedocument.presentationml.template', array('potx')),
                 array( 'application/vnd.openxmlformats-officedocument.presentationml.slideshow', array('ppsx')),
@@ -78,6 +80,9 @@ class File_MimeType
                 array( 'application/x-tex', array('tex')),
                 array( 'application/xslt+xml', array('xslt')),
                 array( 'application/xml-dtd', array('dtd')),
+                
+                
+                
                 array( 'audio/x-mpegurl', array('m3u')),
                 array( 'audio/mpeg', array('mp3')),
                 array( 'application/vnd.rn-realmedia', array('rm')),
