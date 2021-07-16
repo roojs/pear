@@ -63,8 +63,8 @@ class File_MimeType
             array(
                 // override!!!!
                 array( 'application/octet-stream', array('dat')),
-                array( 'application/dwg', array('dwg')),
-                array( 'application/vnd.dwg', array('dwg')), // not prefered?
+                // array( 'application/dwg', array('dwg')), << this is wrong
+                array( 'application/vnd.dwg', array('dwg')), // this is prefered?
                 array( 'application/dxf', array('dxf')),
                 
                 array( 'application/mswordapplication', array('doc')),
