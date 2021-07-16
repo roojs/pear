@@ -37,7 +37,8 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
             'to' =>    array( //target
                 'image/jpeg', // can do quite a few more..
                 'image/svg+xml',
-                'application/pdf'
+                'application/pdf',
+                'application/dxf'
             )
         ),
       
@@ -116,12 +117,14 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         if ($this->ext == 'pdf') {
             $format = 104;
         }
- 
-        // /Recover = seems to handle hang situations
-        $cmd = "cd {$uinfo['dir']}/.wine/drive_c && " .
+        
+        $startcmd = "cd {$uinfo['dir']}/.wine/drive_c && " .
             " {$timeout} 60s {$xvfb} --auto " .
-            " {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/Program Files (x86)/Acme CAD Converter/AcmeCADConverter.exe\" " .
-                " /r " . //command line
+            " {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/Program Files (x86)/Acme CAD Converter/AcmeCADConverter.exe\" ";
+            " /r " . //command line
+        // /Recover = seems to handle hang situations
+        $cmd =  $startcmd . 
+              
                 " /o C:\\\\{$tob} " . // output
                 " /e " . //auto zoom extent
                 " /ls " . //paper space if pos
@@ -132,7 +135,10 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
                 " /b 0" . // /b integer Indicate background color index, [0-black, 1....
                 ' /resource "C:\\XREF\\xref.ini" ' .
                 " C:\\\\{$fromb} " ;
-             
+                
+        if ($this->ext == 'dxf') {
+            $cmd = $startcmd . " /x  C:\\\\{$fromb} C:\\\\{$tob} ";
+        } 
             
         $this->exec($cmd);
         
