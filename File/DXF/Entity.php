@@ -33,7 +33,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
                     break;
                 case 102:
                     $applicationName =  str_replace("{", "", $pair['value']);
-                    var_dump($applicationName);
+                    //var_dump($applicationName);
                     switch ($applicationName) {
                         case "ACAD_REACTORS":
                             $pair = $dxf->readPair();
