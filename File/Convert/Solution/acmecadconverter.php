@@ -120,8 +120,8 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
         
         $startcmd = "cd {$uinfo['dir']}/.wine/drive_c && " .
             " {$timeout} 60s {$xvfb} --auto " .
-            " {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/Program Files (x86)/Acme CAD Converter/AcmeCADConverter.exe\" ";
-            " /r " . //command line
+            " {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/Program Files (x86)/Acme CAD Converter/AcmeCADConverter.exe\" " .
+            " /r " ; //command line
         // /Recover = seems to handle hang situations
         $cmd =  $startcmd . 
               
