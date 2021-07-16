@@ -42,7 +42,7 @@ class File_DXF_Entity extends File_DXF_BasicObject
                                 throw new Exception ("Got invalid group code for application group ACAD_REACTORS ($groupCode)");
                             }
                             $this->softPointerToOwnerDictionary = $pair['value'];
-                            continue 2; // ?? should it be this?
+                            continue 3; // ?? should it be this?
                             break;
                         case "ACAD_XDICTIONARY":
                             $pair = $dxf->readPair();
