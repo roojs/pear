@@ -164,7 +164,7 @@ class File_DXF
             case "entities":
                 foreach ($this->entities->items as $entity) {
 		    foreach($cfg as $k=>$v) {
-			if ($entity->$k != $v) {
+			if (isset($entity->$k) &&  $entity->$k != $v) {
 			    continue 2;
 			}
 		    }
