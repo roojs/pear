@@ -57,7 +57,8 @@ class File_DXF_Block extends File_DXF_Entity
                         case 'POINT': 
                         case 'POLYLINE': 
                         case 'RAY': 
-                        case 'REGION': 
+                        case 'REGION':
+                        case 'RTEXT':
                         case 'SECTION': 
                         case 'SHAPE': 
                         case 'SOLID': 
