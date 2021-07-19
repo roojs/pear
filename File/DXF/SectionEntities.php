@@ -45,7 +45,8 @@ class File_DXF_SectionEntities extends File_DXF_Section
                     case 'MLINE': 
                     case 'MLEADERSTYLE'; 
                     case 'MLEADER':
-                    case 'MTEXT': 
+                    case 'MTEXT':
+                    case 'MULTILEADER':    
                     case 'OLEFRAME': 
                     case 'OLE2FRAME': 
                     case 'POINT': 
