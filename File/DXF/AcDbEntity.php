@@ -65,6 +65,11 @@ class File_DXF_AcDbEntity extends File_DXF_Subclass
                 case 284:
                     $this->shadowMode = $pair['value'];
                     break;
+                
+                case 380:
+                    // ploytStyle possibly..
+                    break;
+                
                 default:
                     $pairString = implode(", ", $pair); 
                     throw new Exception ("Got unknown pair for subclass AcDbEntity ($pairString)");
