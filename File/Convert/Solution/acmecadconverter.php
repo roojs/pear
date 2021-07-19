@@ -134,7 +134,8 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
                 " /f {$format}" . //2 == jpeg
                 " /b 0" . // /b integer Indicate background color index, [0-black, 1....
                 ' /resource "C:\\XREF\\xref.ini" ' .
-                " C:\\\\{$fromb} " ;
+                " C:\\\\{$fromb} " .
+                " 2>&1 " ;
                 
         if ($this->ext == 'dxf') {
             $cmd = $startcmd . " /x  C:\\\\{$fromb} C:\\\\{$tob} ";
