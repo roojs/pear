@@ -180,7 +180,7 @@ class File_DXF
         if (!empty($entities)) {
             return $entities;
         }
-        return false;
+        return array();
     }
 
     /**
