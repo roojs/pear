@@ -157,7 +157,11 @@ class File_DXF
         }
         return new $cls($cfg);
     }
-
+    /**
+     *  Search section for matching array.
+     *	@returns array
+     *	@throws File_DXF_Exception_InvalidArg
+     */
     function lookup ($sectionName, $cfg=array()) {
         $entities = array();
         switch ($sectionName) {
