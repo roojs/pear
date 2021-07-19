@@ -26,7 +26,8 @@ class File_DXF_Block extends File_DXF_Entity
                             $entity = $dxf->factory('Insert');
                             $entity->parse($dxf);
                             $this->entities[] = $entity;
-                            break;			
+                            break;
+                        case 'ARC_DIMENSION':                        
                         case 'ATTRIB':
                         case 'SEQEND': 
                         case '3DFACE': 
