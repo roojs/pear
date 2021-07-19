@@ -22,7 +22,8 @@ class File_DXF_SectionEntities extends File_DXF_Section
                         $entity = $dxf->factory('Insert');
                         $entity->parse($dxf);
                         $this->items[] = $entity;
-                        break;			
+                        break;
+                    case 'ARC_DIMENSION':
                     case 'ATTRIB':
                     case 'SEQEND': 
                     case '3DFACE': 
