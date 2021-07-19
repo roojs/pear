@@ -49,7 +49,8 @@ class File_DXF_Block extends File_DXF_Entity
                         case 'MLINE': 
                         case 'MLEADERSTYLE'; 
                         case 'MLEADER':
-                        case 'MTEXT': 
+                        case 'MTEXT':
+                        case 'MULTILEADER':
                         case 'OLEFRAME': 
                         case 'OLE2FRAME': 
                         case 'POINT': 
@@ -70,7 +71,8 @@ class File_DXF_Block extends File_DXF_Entity
                         case 'VERTEX': 
                         case 'VIEWPORT': 
                         case 'WIPEOUT': 
-                        case'XLINE':
+                        case 'XLINE':
+                        
                             // skip parsing other entities
                             $this->skipParseEntity($dxf);
                             break;
