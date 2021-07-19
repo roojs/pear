@@ -53,7 +53,8 @@ class File_DXF_SectionEntities extends File_DXF_Section
                     case 'POINT': 
                     case 'POLYLINE': 
                     case 'RAY': 
-                    case 'REGION': 
+                    case 'REGION':
+                    case 'RTEXT':
                     case 'SECTION': 
                     case 'SHAPE': 
                     case 'SOLID': 
