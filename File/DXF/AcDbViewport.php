@@ -23,4 +23,4 @@ class File_DXF_AcDbViewport extends File_DXF_Subclass
             }
         }
     }
-}
+} 
