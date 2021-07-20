@@ -39,6 +39,10 @@ class File_DXF_AcDbBlockBegin extends File_DXF_Subclass
                 case 4:
                     $entity->blockDescription = $pair['value'];
                     break;
+                case 71:
+                    // skip
+                    break;
+                
                 default:
                     $pairString = implode(", ", $pair); 
                     throw new Exception ("Got unknown pair for subclass AcDbBlockBegin ($pairString)");
