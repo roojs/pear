@@ -1,32 +1,22 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: jpietler
- * Date: 30.12.16
- * Time: 16:18
- *
- * Dokumentation http://www.autodesk.com/techpubs/autocad/acad2000/dxf/lwpolyline_dxf_06.htm
- * This is baed on DXF Fighter by - https://github.com/enjoping/DXFighter"
- */
-
-
-/**
- * Class LWPolyline
- * @package DXFighter\lib
- */
 require_once 'File/DXF/Entity.php';
 
 class File_DXF_LWPolyline extends File_DXF_Entity
 {
-    public $points = array();
-    public $bulges = array();
-    public $dimension;
+    /*
+     * OLD CODE BELOW
+     */
+
+    // public $points = array();
+    // public $bulges = array();
+    // public $dimension;
 
     /**
      * LWPolyline constructor.
      * @param int $dimension
      */
+    /*
     function __construct($dimension = 2)
     {
         $this->entityType = 'lwpolyline';
@@ -34,11 +24,13 @@ class File_DXF_LWPolyline extends File_DXF_Entity
         $this->dimension = $dimension;
         parent::__construct();
     }
+    */
 
     /**
      * Add a point to the LWPolyline
      * @param array $point
      */
+    /*
     public function addPoint($point, $bulge = 0)
     {
         $this->points[] = $point;
@@ -55,35 +47,41 @@ class File_DXF_LWPolyline extends File_DXF_Entity
     {
         return $this->bulges;
     }
+    */
 
     /**
      * Public function to move a Polyline entity
      * @param array $move vector to move the entity with
      */
+    /*
     public function move($move)
     {
         foreach ($this->points as &$point) {
             $this->movePoint($point, $move);
         }
     }
+    */
 
     /**
      * Public function to rotate all points of a polyline
      * @param int $rotate degree value used for the rotation
      * @param array $rotationCenter center point of the rotation
      */
+    /*
     public function rotate($rotate, $rotationCenter = array(0, 0, 0))
     {
         foreach ($this->points as &$point) {
             $this->rotatePoint($point, $rotationCenter, deg2rad($rotate));
         }
     }
+    */
 
     /**
      * Public function to render an entity, returns a string representation of
      * the entity.
      * @return string
      */
+    /*
     public function render()
     {
         $output = parent::render();
@@ -98,4 +96,5 @@ class File_DXF_LWPolyline extends File_DXF_Entity
 
         return implode(PHP_EOL, $output);
     }
+    */
 }

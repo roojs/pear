@@ -9,6 +9,23 @@ class File_DXF_Style extends File_DXF_BasicObject
     public $height;
     public $width;
     public $lineType;
+    public $data = array();
+
+    function parse($dxf) {
+
+        while($pair = $dxf->readPair()) {
+            if ($pair['key'] == 0) {
+                // End of this table entry
+                $dxf->pushPair($pair);
+                return;
+            }
+            if ($pair['key'] == 2) {
+                $this->name = $pair['value'];
+                continue;
+            }
+            $this->data[$pair['key']] = $pair['value'];
+        }
+    }
 
     /**
      * Public function to render an entity, returns a string representation of

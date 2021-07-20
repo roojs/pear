@@ -1,29 +1,106 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: jpietler
- * Date: 13.02.20
- * Time: 20:57
- *
- * Documentation https://www.autodesk.com/techpubs/autocad/acad2000/dxf/insert_dxf_06.htm
- * This is baed on DXF Fighter by - https://github.com/enjoping/DXFighter"
- */
-
-
-/**
- * Class Circle
- * @package DXFighter\lib
- */
 require_once 'File/DXF/Entity.php';
 
 class File_DXF_Insert extends File_DXF_Entity
 {
-    public $entity = "INSERT";
-    public $blockName;
-    public $point;
-    public $scale;
-    public $rotation;
+    // For subclass AcDbBlockReference
+    public $hasAttribute = 0; // 66
+    public $scaleX = 1; // 41
+    public $scaleY = 1; // 42
+    public $scaleZ = 1; // 43
+    public $rotation = 0; // 50
+    public $columnCount = 1; // 70
+    public $rowCount = 1; // 71
+    public $columnSpacing = 0; // 44
+    public $rowSpacing = 0; // 45
+    public $extrusionDirectionX = 0; // 210
+    public $extrusionDirectionY = 0; // 220
+    public $extrusionDirectionZ = 1; // 230
+
+    public $attributes = array();
+
+    function parse($dxf)
+    {
+        // parse common pair for entities
+        $this->parseCommon($dxf);
+
+        while($pair = $dxf->readPair()) {
+
+            switch($pair['key']) { 
+                case 0:
+
+                    if ($this->hasAttribute == 0) {
+                        // No attributes follow
+                        // End of this entity
+                        $dxf->pushPair($pair); 
+                        return;
+                    }
+                    
+                    if ($pair['value'] == "SEQEND") {
+                        // No more attributes
+                        $this->skipParseEntity($dxf);
+                        return;
+                    }
+
+                    if ($pair['value'] == "ATTRIB") {
+                        // An attribute
+                        $attribute = $dxf->factory("Attrib");
+                        $attribute->parse($dxf);
+                        $this->attributes[] = $attribute;
+                        break;
+                    }
+
+                    $pairString = implode(", ", $pair);
+                    throw new Exception ("Got unknown pair for entity INSERT ($pairString)");
+                    break;
+                case 100:
+                    // Beginning of a subclass
+                    $dxf->factory($pair['value'])->parseToEntity($dxf, $this);
+                    break;
+                case 1001:
+                    $this->skipParseExtendedData($dxf);
+                    break;
+                default:
+                    $pairString = implode(", ", $pair); 
+                    throw new Exception ("Got unknown pair for entity INSERT ($pairString)");
+                    break;
+            }
+        }
+    }
+
+    function getAttribute ($attributeTag) {
+        $attributes = array();
+        foreach ($this->attributes as $attribute) {
+            if ($attribute->attributeTag == $attributeTag) {
+                $attributes[] = $attribute;
+            }
+        }
+        if (!empty($attributes)) {
+            return $attributes;
+        }
+        return false;
+    }
+
+    function attributeToArray () {
+        $result = array();
+        foreach ($this->attributes as $attribute) {
+            $result[$attribute->attributeTag] = $attribute->value;
+        }
+        if (!empty($result)) {
+            return $result;
+        }
+        return false;
+    }
+
+    /*
+     * OLD CODE BELOW
+     */
+
+    // protected $blockName;
+    // protected $point;
+    // protected $scale;
+    // protected $rotation;
 
     /**
      * Insert constructor.
@@ -33,49 +110,34 @@ class File_DXF_Insert extends File_DXF_Entity
      * @param float[] $scale The X, Y and Z scale factors.
      * @param float $rotation
      */
-    function __construct($blockName, $point = [0, 0, 0], $scale = [1, 1, 1], $rotation = 0)
-    {
-        //$this->entityType = 'insert';
+    /*
+    function __construct( $blockName, $point = [0, 0, 0], $scale = [1, 1, 1], $rotation = 0) {
+        $this->entityType = 'insert';
         $this->blockName       = $blockName;
         $this->point      = $point;
         $this->scale      = $scale;
         $this->rotation   = $rotation;
         parent::__construct();
     }
-
-   function parse($dxf)
-   {
-	$ar = $dxf->readUntil( 0, "EndInsert");
-	while($kv = $dxf->readPair()) {
-		swich($kv['key']) {
-			case 5: //?? 
-				$this->xxx = $kv['value'];
-			case 6 , 2345, 345: 
-				//dont care about - useless;
-				break;
-			default:
-				die("I dont dknow what to do with " $kv) ;
-	}
-    }
-
-	
+    */
 
     /**
      * Public function to move an Insert entity
      * @param array $move vector to move the entity with
      */
-    public function move($move)
-    {
+    /*
+    public function move($move) {
         $this->movePoint($this->point, $move);
     }
+    */
 
     /**
      * Public function to render an entity, returns a string representation of
      * the entity.
      * @return string
      */
-    public function render()
-    {
+    /*
+    public function render() {
         $output = parent::render();
         array_push($output, 100, 'AcDbBlockReference');
         array_push($output, 2, strtoupper($this->blockName));
@@ -87,23 +149,20 @@ class File_DXF_Insert extends File_DXF_Entity
         return implode(PHP_EOL, $output);
     }
 
-    public function getBlockName()
-    {
+    public function getBlockName() {
         return $this->blockName;
     }
 
-    public function getPoint()
-    {
+    public function getPoint() {
         return $this->point;
     }
 
-    public function getScale()
-    {
+    public function getScale() {
         return $this->scale;
     }
 
-    public function getRotation()
-    {
+    public function getRotation() {
         return $this->rotation;
     }
+    */
 }

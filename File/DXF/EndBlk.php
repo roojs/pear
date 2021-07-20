@@ -2,22 +2,23 @@
 
 require_once 'File/DXF/Entity.php';
 
-class File_DXF_Seqend extends File_DXF_Entity 
+class File_DXF_EndBlk extends File_DXF_Entity
 {
     /*
      * OLD CODE BELOW
      */
 
     /**
-     * Seqend constructor.
-     * @param $pointer
+     * Endblk constructor.
      * @param $layer
+     * @param $pointer
      */
     /*
-    function __construct($pointer, $layer) {
-        $this->entityType = 'seqend';
-        $this->pointer = $pointer;
+    function __construct($layer, $pointer)
+    {
+        $this->entityType = 'endblk';
         $this->layer = $layer;
+        $this->pointer = $pointer;
         parent::__construct();
     }
     */
@@ -28,8 +29,10 @@ class File_DXF_Seqend extends File_DXF_Entity
      * @return string
      */
     /*
-    public function render() {
+    public function render()
+    {
         $output = parent::render();
+        array_push($output, 100, 'AcDbBlockEnd');
         return implode(PHP_EOL, $output);
     }
     */

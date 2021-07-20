@@ -1,29 +1,19 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: jpietler
- * Date: 30.12.16
- * Time: 16:18
- *
- * Dokumentation http://www.autodesk.com/techpubs/autocad/acad2000/dxf/circle_dxf_06.htm
- * This is baed on DXF Fighter by - https://github.com/enjoping/DXFighter"
- */
-
-
-/**
- * Class Circle
- * @package DXFighter\lib
- */
 require_once 'File/DXF/Entity.php';
 
 class File_DXF_Circle extends File_DXF_Entity
 {
-	var $entityType = 'circle';
-    public $thickness;
-    public $point;
-    public $radius;
-    public $extrusion;
+
+    /*
+     * OLD CODE BELOW
+     */
+
+	// var $entityType = 'circle';
+    // public $thickness;
+    // public $point;
+    // public $radius;
+    // public $extrusion;
 
     /**
      * Circle constructor.
@@ -32,25 +22,30 @@ class File_DXF_Circle extends File_DXF_Entity
      * @param int $thickness
      * @param array $extrusion
      */
+    /*
     function __construct($cfg)
     {
         parent::__construct($cfg);
     }
+    */
 
     /**
      * Public function to move a Circle entity
      * @param array $move vector to move the entity with
      */
+    /*
     public function move($move)
     {
         $this->movePoint($this->point, $move);
     }
+    */
 
     /**
      * Public function to render an entity, returns a string representation of
      * the entity.
      * @return string
      */
+    /*
     public function render()
     {
         $output = parent::render();
@@ -81,4 +76,5 @@ class File_DXF_Circle extends File_DXF_Entity
     {
         return $this->extrusion;
     }
+    */
 }

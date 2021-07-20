@@ -1,30 +1,58 @@
 <?php
 
-require_once 'File/DXF/BasicObject.php';
+require_once 'File/DXF/BaiscObject.php';
 
 class File_DXF_LType extends File_DXF_BasicObject
 {
-    public $name;
-    public $flag;
-    public $description;
-    public $lineType;
-    public $lineElements;
+
+    function parse($dxf) {
+        $this->skipParseTableEntry($dxf);
+    }
+    
+    /*
+     * OLD CODE BELOW
+     */
+
+    // protected $name;
+    // protected $flag;
+    // protected $description;
+    // protected $lineType;
+    // protected $lineElements;
+
+    /**
+     * LType constructor.
+     * @param $name
+     * @param int $flag
+     * @param string $description
+     * @param string $lineType
+     */
+    /*
+    function __construct($name, $flag = 0, $description = '', $lineType = 'CONTINUOUS') {
+        $this->name = $name;
+        $this->flag = $flag;
+        $this->description = $description;
+        $this->lineType = $lineType;
+        $this->lineElements = array();
+        parent::__construct();
+    }
+    */
 
     /**
      * @param $lineElement
      */
-    public function addLineElement($lineElement)
-    {
+    /*
+    public function addLineElement($lineElement) {
         $this->lineElements[] = $lineElement;
     }
+    */
 
     /**
      * Public function to render an entity, returns a string representation of
      * the entity.
      * @return string
      */
-    function render()
-    {
+    /*
+    public function render() {
         $absolutLenght = array_map('abs', $this->lineElements);
 
         $output = array();
@@ -41,4 +69,5 @@ class File_DXF_LType extends File_DXF_BasicObject
         //TODO add working lineElements
         return implode(PHP_EOL, $output);
     }
+    */
 }

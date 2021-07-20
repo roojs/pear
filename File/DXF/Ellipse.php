@@ -1,30 +1,19 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: jpietler
- * Date: 30.12.16
- * Time: 16:18
- *
- * Dokumentation http://www.autodesk.com/techpubs/autocad/acad2000/dxf/ellipse_dxf_06.htm
- * This is baed on DXF Fighter by - https://github.com/enjoping/DXFighter"
- */
-
-
-/**
- * Class Ellipse
- * @package DXFighter\lib
- */
 require_once 'File/DXF/Entity.php';
 
 class File_DXF_Ellipse extends File_DXF_Entity
 {
-    public $center;
-    public $endpoint;
-    public $extrusion;
-    public $ratio;
-    public $start;
-    public $end;
+    /*
+     * OLD CODE BELOW
+     */
+
+    // public $center;
+    // public $endpoint;
+    // public $extrusion;
+    // public $ratio;
+    // public $start;
+    // public $end;
 
     /**
      * Ellipse constructor.
@@ -35,6 +24,7 @@ class File_DXF_Ellipse extends File_DXF_Entity
      * @param float $end
      * @param array $extrusion
      */
+    /*
     function __construct($center, $endpoint, $ratio, $start = 0, $end = M_PI * 2, $extrusion = array(0, 0, 1))
     {
         $this->entityType = 'ellipse';
@@ -46,32 +36,38 @@ class File_DXF_Ellipse extends File_DXF_Entity
         $this->extrusion = $extrusion;
         parent::__construct();
     }
+    */
 
     /**
      * Public function to move an Ellipse entity
      * @param array $move vector to move the entity with
      */
+    /*
     public function move($move)
     {
         $this->movePoint($this->center, $move);
     }
+    */
 
     /**
      * Rotate the center and endpoint of the ellipsis around the given rotation center
      * @param $rotate
      * @param array $rotationCenter
      */
+    /*
     public function rotate($rotate, $rotationCenter = array(0, 0, 0))
     {
         $this->rotatePoint($this->center, $rotationCenter, deg2rad($rotate));
         $this->rotatePoint($this->endpoint, $rotationCenter, deg2rad($rotate));
     }
+    */
 
     /**
      * Public function to render an entity, returns a string representation of
      * the entity.
      * @return string
      */
+    /*
     public function render()
     {
         $output = parent::render();
@@ -114,4 +110,5 @@ class File_DXF_Ellipse extends File_DXF_Entity
     {
         return $this->end;
     }
+    */
 }
