@@ -55,6 +55,7 @@ class File_DXF_SectionEntities extends File_DXF_Section
                     case 'RAY': 
                     case 'REGION':
                     case 'RTEXT':
+                    case 'PDFREFERENCE';
                     case 'SECTION': 
                     case 'SHAPE': 
                     case 'SOLID': 
