@@ -40,7 +40,7 @@ class File_DXF_AcDbBlockBegin extends File_DXF_Subclass
                     $entity->blockDescription = $pair['value'];
                     break;
                 case 71:
-                    // skip
+                    // skip ?? dont know what this is?
                     break;
                 
                 default:
