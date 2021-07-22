@@ -459,7 +459,7 @@ class Mail_RFC822 {
 
             // And validate the group part of the name.
             if (!$this->_validatePhrase($groupname)){
-                $this->error = 'Group name did not validate.';
+                $this->error = "Group name did not validate: '{$groupname}'";
                 return false;
             } else {
                 // Don't include groups if we are not nesting
