@@ -899,7 +899,7 @@ class Mail_mimePart
                 // ASCII: check if header line isn't too long and use folding
                 $value = preg_replace('/\r?\n[\s\t]*/', $eol . ' ', $value);
                 $tmp = wordwrap($name.': '.$value, 78, $eol . ' ');
-                $value = preg_replace('/^'.$name.':\s*/', '', $tmp);
+                $value = preg_replace('/^'.preg_quote($name).':\s*/', '', $tmp);
                 // hard limit 998 (RFC2822)
                 $value = wordwrap($value, 998, $eol . ' ', true);
             }

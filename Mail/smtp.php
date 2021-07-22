@@ -225,7 +225,7 @@ class Mail_smtp extends Mail {
             $this->addServiceExtensionParameter('XVERP', is_bool($params['verp']) ? null : $params['verp']);
         }
 
-        register_shutdown_function(array(&$this, '_Mail_smtp'));
+        register_shutdown_function(array(&$this, '__destruct'));
     }
 
     /**
