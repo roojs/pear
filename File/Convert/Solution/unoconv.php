@@ -48,10 +48,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
     );
     
-     
-    
-            
-    
+      
     
     //FIXME this method run 3 times??
     function convert($fn,$x,$y,$pg) 
@@ -70,7 +67,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         $bits = explode('.', $fn);
         
         $from = $this->tempName(array_pop($bits),true);
-        $to = $this->tempName("pdf",true);
+        $to = $this->tempName($ext,true);
         
         copy($fn, $from);
         
