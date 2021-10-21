@@ -350,7 +350,7 @@ class DB_DataObject_Cast {
     * @access   public
     */
   
-    function toString($to=false,$db) 
+    function toString($to=false,$db=false) 
     {
         // if $this->type is not set, we are in serious trouble!!!!
         // values for to:

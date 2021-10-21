@@ -2200,7 +2200,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     "in links file data: " . print_r($_DB_DATAOBJECT['INI'],true) . "\n BACKTRACE:" .
                     $e->getTraceAsString(),"databaseStructure",5);
         // we have to die here!! - it causes chaos if we dont (including looping forever!)
-        $this->raiseError( "Unable to load schema for database and table - (try deleting cache then  turn debugging up to 5 for full error message)",\
+        $this->raiseError( "Unable to load schema for database and table - (try deleting cache then  turn debugging up to 5 for full error message)",
                           DB_DATAOBJECT_ERROR_INVALIDARGS, PEAR_ERROR_DIE);
         return false;
         
