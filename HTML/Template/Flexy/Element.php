@@ -191,8 +191,12 @@ class HTML_Template_Flexy_Element {
             // translation..
             
             
-            if (($this->tag == 'input') &&
-                    $this->attributes['type'] == 'submit' &&
+            if (($this->tag == 'input')
+                    &&
+                    isset($this->attributes['type'])
+                    &&
+                    $this->attributes['type'] == 'submit'
+                    &&
                     $key == 'value') {
                  
                 $value =  htmlspecialchars($activeEngine->translateString($value));
