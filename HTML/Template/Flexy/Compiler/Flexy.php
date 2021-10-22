@@ -495,8 +495,8 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         if ($this->is_a($var, 'PEAR_Error')) {
             return $var;
         }
-        
-        $ret = "if (".$element->isNegative . $var .")  {";
+        $neg = $element->isNegative  ? '' : '!';
+        $ret = "if ({$neg}empty({$var}))  {";
         $element->pushState();
         return $this->appendPhp($ret);
     }
