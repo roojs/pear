@@ -310,7 +310,7 @@ class File_Convert
         //fpassthru($fh);
         
         // passthrough seems to have problems -- trying fread
-        while(!feof($fh))
+        while($fh && !feof($fh))
         {
             echo @fread($fh, 1024*8);
             @ob_flush();
