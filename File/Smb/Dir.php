@@ -88,6 +88,7 @@ class File_Smb_Dir {
         if (isset($this->atime)) {
             $this->access_datetime = date("Y-m-d H:i:s", $this->atime);
         }
+        return; // ignore xattr?
         $acl_str = @smbclient_getxattr($this->resource, 'smb://' . $this->server . '/'. $this->path, 'system.nt_sec_desc.*+');
         
         $acls = explode(',',$acl_str);
