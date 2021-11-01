@@ -90,7 +90,7 @@ class File_Smb_Dir {
         }
         $acl_str = @smbclient_getxattr($this->resource, 'smb://' . $this->server . '/'. $this->path, 'system.nt_sec_desc.*+');
         
-        $acls = explode(',',$act_str);
+        $acls = explode(',',$acl_str);
         $this->acls = array();
         foreach($acls as $a) {
             $aa = explode(":", $a);
