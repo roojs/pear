@@ -21,6 +21,6 @@ class File_DXF_AcDbDimension extends File_DXF_Subclass
                 default:
                     break; //.. ignore...
             }
-        }
+        } 
     }
 }
