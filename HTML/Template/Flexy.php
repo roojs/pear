@@ -657,7 +657,7 @@ class HTML_Template_Flexy
     *   @author     Alan Knowles
     *   @param      object object to output as $t
     */
-    function outputObjectToFile($t,$elements=array(),$filename) 
+    function outputObjectToFile($t,$elements,$filename) 
     {
         $this->_bufferHandle = fopen($filename, 'w');
         
