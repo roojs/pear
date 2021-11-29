@@ -28,7 +28,8 @@ class File_DXF_SectionEntities extends File_DXF_Section
                     case 'SEQEND': 
                     case '3DFACE': 
                     case '3DSOLID': 
-                    case 'ACAD_PROXY_ENTITY': 
+                    case 'ACAD_PROXY_ENTITY':
+                    case 'ACAD_TABLE': 
                     case 'ARC': 
                     case 'ATTDEF':  
                     case 'BODY':
