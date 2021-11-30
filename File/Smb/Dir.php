@@ -230,7 +230,7 @@ class File_Smb_Dir {
     
     function renameChild($from, $to)
     {
-        smbclient_rename(
+        return smbclient_rename(
             $this->resource,
             'smb://' . $this->server . '/'. $this->path . '/'. $from ,
             $this->resource,
