@@ -228,4 +228,16 @@ class File_Smb_Dir {
         
     }
     
+    function renameChild($from, $to)
+    {
+        smbclient_rename(
+            $this->resource,
+            'smb://' . $this->server . '/'. $this->path . '/'. $from ,
+            'smb://' . $this->server . '/'. $this->path . '/'. $to
+        );
+        
+        
+    }
+    
+    
 }
