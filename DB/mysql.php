@@ -784,7 +784,7 @@ class DB_mysql extends DB_common
     /**
      * @deprecated  Deprecated in release 1.6.0
      */
-    function quote($str)
+    function quote($str = null)
     {
         return $this->quoteSmart($str);
     }
