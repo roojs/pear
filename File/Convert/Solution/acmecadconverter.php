@@ -118,9 +118,9 @@ class File_Convert_Solution_acmecadconverter extends File_Convert_Solution
             $format = 104;
         }
         
-        $startcmd = "cd {$uinfo['dir']}/.wine/drive_c && " .
+        $startcmd = "export WINEPREFIX={$uinfo['dir']}/.wine; cd {$uinfo['dir']}/.wine/drive_c && " .
             " {$timeout} 60s {$xvfb} --auto " .
-            " WINEPREFIX={$uinfo['dir']}/.wine {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/Program Files (x86)/Acme CAD Converter/AcmeCADConverter.exe\" " .
+            " {$wine} \"" . $uinfo['dir'] . "/.wine/drive_c/Program Files (x86)/Acme CAD Converter/AcmeCADConverter.exe\" " .
             " /r " ; //command line
             
         // /Recover = seems to handle hang situations
