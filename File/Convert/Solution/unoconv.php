@@ -91,7 +91,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         }
         // before we used stdout -- not sure why.
         //$cmd = "$xvfb -a  $uno -f $ext --stdout " . escapeshellarg($fn) . " 1> " . escapeshellarg($target);
-        $cmd = "$timeout 1m $xvfb -a  $uno -f $ext -o " . escapeshellarg($to) . " " . escapeshellarg($from);
+        $cmd = "$timeout 5m $xvfb -a  $uno -f $ext -o " . escapeshellarg($to) . " " . escapeshellarg($from);
         ////  echo $cmd;
         
         /*
