@@ -4,10 +4,8 @@ require_once 'File/DXF/Subclass.php';
 
 class File_DXF_AcDbHatch extends File_DXF_Subclass
 {
-    
     function parseToEntity($dxf, $entity)
     {
-        
         while($pair = $dxf->readPair()) {
 
             switch($pair['key']) {
