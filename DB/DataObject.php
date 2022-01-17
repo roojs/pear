@@ -2195,12 +2195,23 @@ class DB_DataObject extends DB_DataObject_Overload
             // should this fail!!!???
             return true;
         }
+        
+        if (isset($_GET['db-dataobject-clear-cache'])) {
+            foreach ($schemas as $ini) {
+                if (file_exists($ini) && is_file($ini)) {
+                    unlink($ini);
+                }
+            }
+            die('DataObject Cache has been deleted, <a href="javascript:history.back()">Go Back to previous page and try again</a>');
+        }
+        
         $e = new Exception();
         $this->debug("Cant find database schema: {$this->_database}/{$this->tableName()} \n".
                     "in links file data: " . print_r($_DB_DATAOBJECT['INI'],true) . "\n BACKTRACE:" .
                     $e->getTraceAsString(),"databaseStructure",5);
         // we have to die here!! - it causes chaos if we dont (including looping forever!)
-        $this->raiseError( "Unable to load schema for database and table - (try deleting cache then  turn debugging up to 5 for full error message)",
+        $this->raiseError( "Unable to load schema for database and table - (try deleting cache then  turn debugging up to 5 for full error message)" .
+                          ' - try <a href="?db-dataobject-clear-cache">this link</a> to see if it fixes it.',
                           DB_DATAOBJECT_ERROR_INVALIDARGS, PEAR_ERROR_DIE);
         return false;
         
