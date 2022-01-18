@@ -524,13 +524,18 @@ class HTML_FlexyFramework2 {
        
         $iniCache = $this->PDO_DataObject['schema_location'];
         
-        if ($force && file_exists($iniCache)) {
+        
+        $replace = array();
+        
+        if (file_exists($iniCache)) {
             $files = glob(dirname($iniCache).'/*.ini');
             foreach($files as $f) {
-                unlink($f);
-            } 
-            clearstatcache();
+                $replace[$f] = md5(file_get_contents($f)); // hash it..
+               
+            }
         }
+        
+      
         
         $iniCacheTmp = $iniCache . '.tmp' .md5(rand());  // random to stop two processes using the same file.
         // has it expired..
@@ -572,7 +577,7 @@ class HTML_FlexyFramework2 {
         $generator->start();
         
         $this->debug('generateDataobjectsCache', 'dataObjectsCache  writing');
-        HTML_FlexyFramework2_Generator::writeCache($iniCacheTmp, $iniCache); 
+        HTML_FlexyFramework2_Generator::writeCache($iniCacheTmp, $iniCache, $replace); 
         // reset the cache to the correct lcoation.
         PDO_DataObject::config('schema_location',  $iniCache);
         $this->PDO_DataObject['schema_location'] = $iniCache;

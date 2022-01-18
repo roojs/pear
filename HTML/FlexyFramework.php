@@ -504,7 +504,13 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
     function _configDataObjectsCache()
     {
         // cli works under different users... it may cause problems..
+        
         $this->debug(__METHOD__);
+        
+        if ($this->database === false) {
+            return;
+        }
+        
         if (function_exists('posix_getpwuid')) {
             $uinfo = posix_getpwuid( posix_getuid () ); 
             $user = $uinfo['name'];
@@ -515,7 +521,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         
 
         $iniCache = ini_get('session.save_path') .'/' . 
-               'dbcfg-' . $user . '/'. str_replace('/', '_', $this->project) ;
+               'dbcfg-' . $user . '/'. str_replace('/', '_', $this->project);
         
         
         if ($this->appNameShort) {
@@ -524,9 +530,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         if ($this->version) {
             $iniCache .= '.' . $this->version;
         }
-        if ($this->database === false) {
-            return;
-        }
+       
         
         $dburl = parse_url($this->database);
         if (!empty($dburl['path'])) {
@@ -544,10 +548,8 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
             $this->dataObjectsOriginalIni = $this->DB_DataObject[$dbini];
             ///print_r($this->DB_DataObject);exit;
         }
-        // 
-        
-        
-        
+          
+         
         $this->DB_DataObject[$dbini] =   $iniCache;
         // we now have the configuration file name..
         
@@ -584,13 +586,15 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         
         $iniCache = $this->DB_DataObject[$dbini];
         $this->debug('generateDataobjectsCache:' .dirname($iniCache).'/*.ini');
-        if ($force && file_exists($iniCache)) {
-            
+        
+        $replace = array();
+        
+        if (file_exists($iniCache)) {
             $files = glob(dirname($iniCache).'/*.ini');
             foreach($files as $f) {
-                unlink($f);
+                $replace[$f] = md5(file_get_contents($f)); // hash it..
+               
             }
-            clearstatcache();
         }
         $this->debug('generateDataobjectsCache: DONE ini delete');
         
@@ -633,7 +637,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         $generator->start();
         $this->debug('generateDataobjectsCache: done generator');
 
-        HTML_FlexyFramework_Generator::writeCache($iniCacheTmp, $iniCache); 
+        HTML_FlexyFramework_Generator::writeCache($iniCacheTmp, $iniCache, $replace); 
         // reset the cache to the correct lcoation.
         $this->DB_DataObject[$dbini] = $iniCache;
         

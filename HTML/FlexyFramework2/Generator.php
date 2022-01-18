@@ -179,7 +179,7 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
      * Generate the cached *.ini and links.ini files (merged for all components)
      * 
      */
-    static function writeCache($iniCacheTmp, $iniCache)
+    static function writeCache($iniCacheTmp, $iniCache, $replace = array())
     {
         
         $fp = fopen($iniCache.".lock", "a+");
@@ -192,13 +192,20 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
        // echo '<PRE>';echo file_get_contents($iniCacheTmp);exit;
         // only unpdate if nothing went wrong.
         if (file_exists($iniCacheTmp) && filesize($iniCacheTmp)) {
-            if (file_exists($iniCache)) {
-                unlink($iniCache);
+            // is the replace file exist?
+            if (!isset($replace[$iniCache]) || $replace[$iniCache] != md5_file($iniCacheTmp)) {
+            
+            
+                if (file_exists($iniCache)) {
+                    unlink($iniCache);
+                }
+                $ff->debug("Writing merged ini file : $iniCache\n");
+                rename($iniCacheTmp, $iniCache);
+            } else {
+                touch($iniCache);
             }
-            $ff->debug("Writing merged ini file : $iniCache\n");
-            rename($iniCacheTmp, $iniCache);
         }
-        
+        /* 
         // readers..??? not needed??? (historical)
         if (file_exists($iniCacheTmp.'.reader') &&  filesize($iniCacheTmp.'.reader')) {
             if (file_exists($iniCache.'.reader')) {
@@ -207,7 +214,7 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
             $ff->debug("Writing merged reader file : $iniCache.reader\n");
             rename($iniCacheTmp.'.reader', $iniCache.'.reader');
         }
-        
+        */
         
         // merge and set links.. test for generated links file..
         
@@ -268,14 +275,20 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
         }
         if (count($out)) {
             $ff->debug("Writing merged Links file : $iniLinksCache \n");
-
-           
-            file_put_contents($iniCacheTmp. '.links.ini', implode("\n", $out));
-            if (file_exists($iniLinksCache)) {                
-                unlink($iniLinksCache);
+            $out_str = implode("\n", $out);
+            // is target file different?
+            if (!isset($replace[$iniLinksCache]) || $replace[$iniLinksCache] != md5($out)) {
+          
+                 file_put_contents($iniCacheTmp. '.links.ini', $out_str);
+                 if (file_exists($iniLinksCache)) {                
+                     unlink($iniLinksCache);
+                 }
+                 rename($iniCacheTmp. '.links.ini', $iniLinksCache);
+            } else {
+                touch($iniLinksCache);
+                
             }
-            rename($iniCacheTmp. '.links.ini', $iniLinksCache);
-        }
+        } // we ignore that we might need to delete old links.ini
         
         flock($fp, LOCK_UN);
         fclose($fp);
