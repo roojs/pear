@@ -183,7 +183,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         //var_dump($iniCacheTmp);
        // echo '<PRE>';echo file_get_contents($iniCacheTmp);exit;
         // only unpdate if nothing went wrong.
-        clearstatcace();
+        clearstatcache();
         if (file_exists($iniCacheTmp) && filesize($iniCacheTmp)) {
             // is the replace file exist?
             if (!isset($replace[$iniCache]) || $replace[$iniCache] != md5_file($iniCacheTmp)) {
@@ -270,7 +270,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             $ff->debug("Writing merged Links file : $iniLinksCache \n");
             $out_str = implode("\n", $out);
             // is target file different?
-            if (!isset($replace[$iniLinksCache]) || $replace[$iniLinksCache] != md5($out)) {
+            if (!isset($replace[$iniLinksCache]) || $replace[$iniLinksCache] != md5($out_str)) {
           
                  file_put_contents($iniCacheTmp. '.links.ini', $out_str);
                  if (file_exists($iniLinksCache)) {                
