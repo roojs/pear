@@ -205,16 +205,24 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
                 touch($iniCache);
             }
         }
-        /* 
-        // readers..??? not needed??? (historical)
+         // readers..??? not needed??? (historical)
         if (file_exists($iniCacheTmp.'.reader') &&  filesize($iniCacheTmp.'.reader')) {
-            if (file_exists($iniCache.'.reader')) {
-                unlink($iniCache.'.reader');
+            
+            
+            if (file_exists($iniCache.'.reader') ) {
+                if ($replace[$iniCache] != md5_file($iniCacheTmp.'.reader')) {
+                    unlink($iniCache.'.reader');
+                    rename($iniCacheTmp.'.reader', $iniCache.'.reader');
+                } else {
+                    // do not need to touch..
+                    unlink($iniCacheTmp.'.reader');
+                }
+            } else {
+                rename($iniCacheTmp.'.reader', $iniCache.'.reader');
             }
-            $ff->debug("Writing merged reader file : $iniCache.reader\n");
-            rename($iniCacheTmp.'.reader', $iniCache.'.reader');
+        
+             
         }
-        */
         
         // merge and set links.. test for generated links file..
         
