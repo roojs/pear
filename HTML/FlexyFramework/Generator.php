@@ -205,7 +205,7 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
             
             
             if (file_exists($iniCache.'.reader') ) {
-                if ($replace[$iniCache] != md5_file($iniCacheTmp.'.reader')) {
+                if (!isset($replace[$iniCache] ) || $replace[$iniCache] != md5_file($iniCacheTmp.'.reader')) {
                     unlink($iniCache.'.reader');
                     rename($iniCacheTmp.'.reader', $iniCache.'.reader');
                 } else {

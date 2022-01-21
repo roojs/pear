@@ -208,9 +208,8 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
          // readers..??? not needed??? (historical)
         if (file_exists($iniCacheTmp.'.reader') &&  filesize($iniCacheTmp.'.reader')) {
             
-            
             if (file_exists($iniCache.'.reader') ) {
-                if ($replace[$iniCache] != md5_file($iniCacheTmp.'.reader')) {
+                if (!isset($replace[$iniCache] ) || $replace[$iniCache] != md5_file($iniCacheTmp.'.reader')) {
                     unlink($iniCache.'.reader');
                     rename($iniCacheTmp.'.reader', $iniCache.'.reader');
                 } else {
@@ -220,7 +219,6 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
             } else {
                 rename($iniCacheTmp.'.reader', $iniCache.'.reader');
             }
-        
              
         }
         
