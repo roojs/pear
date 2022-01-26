@@ -186,8 +186,20 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
         clearstatcache();
         if (file_exists($iniCacheTmp) && filesize($iniCacheTmp)) {
             // is the replace file exist?
-            if (!isset($replace[$iniCache]) || $replace[$iniCache] != md5_file($iniCacheTmp)) {
             
+            if (isset($replace[$iniCache]) && $replace[$iniCache] != md5_file($iniCacheTmp)) {
+                // file has changed.
+                // it seems to happen that in this case if there are less elements in the file than before, then we might have an error
+                // it's better to just die here, than continue.
+                $old = parse_ini_file($iniCache,true);
+                $new = parse_ini_file($iniCacheTmp,true);
+                if (count(array_keys($new)) < count(array_keys($old))) {
+                    die("Generated INI file failed, try reloading");
+                }
+            }
+            
+            if (!isset($replace[$iniCache]) || $replace[$iniCache] != md5_file($iniCacheTmp)) {
+                
             
                 if (file_exists($iniCache)) {
                     unlink($iniCache);
