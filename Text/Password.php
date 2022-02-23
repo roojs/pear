@@ -187,7 +187,7 @@ class Text_Password {
         $tmp = '';
 
         for ($i = 0; $i < strlen($login); $i++) {
-            $next = ord($login{$i}) ^ $key;
+            $next = ord($login[$i]) ^ $key;
             if ($next > 255) {
                 $next -= 255;
             } elseif ($next < 0) {
