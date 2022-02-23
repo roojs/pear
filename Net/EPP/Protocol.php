@@ -32,7 +32,7 @@ class Net_EPP_Protocol {
 
 	static function _fread_nb($socket,$length) {
 		$result = '';
-
+		//	var_dump("READING");
 		// Loop reading and checking info to see if we hit timeout
 		$info = stream_get_meta_data($socket);
 		$time_start = microtime(true);
@@ -40,6 +40,7 @@ class Net_EPP_Protocol {
 		while (!$info['timed_out'] && !feof($socket)) {
 			// Try read remaining data from socket
 			$buffer = @fread($socket,$length - strlen($result));
+			//var_dump($buffer);
 			// If the buffer actually contains something then add it to the result
 			if ($buffer !== false) {
 				$result .= $buffer;
@@ -69,6 +70,7 @@ class Net_EPP_Protocol {
 
 
 	static function _fwrite_nb($socket,$buffer,$length) {
+		
 		// Loop writing and checking info to see if we hit timeout
 		$info = stream_get_meta_data($socket);
 		$time_start = microtime(true);
@@ -121,11 +123,13 @@ class Net_EPP_Protocol {
 		if ($length < 5) {
 			throw new Exception(sprintf('Got a bad frame header length of %d bytes from peer', $length));
 
-		} else {
-			$length -= 4; // discard the length of the header itself
-			// Read frame
-			return Net_EPP_Protocol::_fread_nb($socket,$length);
 		}
+		$length -= 4; // discard the length of the header itself
+		// Read frame
+		$ret = Net_EPP_Protocol::_fread_nb($socket,$length);
+		 
+		return $ret;
+		
 	}
 
 	/**
@@ -136,6 +140,7 @@ class Net_EPP_Protocol {
 	* @return the amount of bytes written to the frame
 	*/
 	static function sendFrame($socket, $xml) {
+		//echo "SEND: $xml";
 		// Grab XML length & add on 4 bytes for the counter
 		$length = strlen($xml) + 4;
 		$res = Net_EPP_Protocol::_fwrite_nb($socket, pack('N',$length) . $xml,$length);
