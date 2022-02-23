@@ -915,11 +915,15 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
                 Please check the value given to HTML_FlexyFramework, or run with debug on!<BR>
                  <BR> ".$err->toString());
         }
-        $res = $err->query("SELECT @@global.read_only as ro");
+        // only applies to mysql...
         
-        $row = is_a($res, 'DB_Error') ? false : $res->fetchRow(DB_FETCHMODE_ASSOC);
-        if (!$row || (!empty($row['ro']) && empty($options['skip-read-only-check']))) {
-            $this->fatalError("Database is configured to be read-only - please check database<BR> ".$err->toString());
+        if (preg_match('/^mysql/', $this->database)) {
+            $res = $err->query("SELECT @@global.read_only as ro");
+            
+            $row = is_a($res, 'DB_Error') ? false : $res->fetchRow(DB_FETCHMODE_ASSOC);
+            if (!$row || (!empty($row['ro']) && empty($options['skip-read-only-check']))) {
+                $this->fatalError("Database is configured to be read-only - please check database<BR> ".$err->toString());
+            }
         }
         // reset dont die!
         $options['dont_die'] = $dd ;

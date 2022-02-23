@@ -1019,9 +1019,11 @@ class DB_pgsql extends DB_common
                                     WHERE tab.relname = typ.typname AND typ.typrelid = f.attrelid
                                     AND f.attrelid = a.adrelid AND f.attname = '$field_name'
                                     AND $tableWhere AND f.attnum = a.adnum");
-                $row = @pg_fetch_row($result, 0);
-                $num = preg_replace("/'(.*)'::\w+/", "\\1", $row[0]);
-                $flags .= 'default_' . rawurlencode($num) . ' ';
+                if ($result && @pg_numrows($result) > 0 ) {
+                    $row = @pg_fetch_row($result, 0);
+                    $num = preg_replace("/'(.*)'::\w+/", "\\1", $row[0]);
+                    $flags .= 'default_' . rawurlencode($num) . ' ';
+                }
             }
         } else {
             $flags = '';
