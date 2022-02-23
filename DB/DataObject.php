@@ -2335,6 +2335,9 @@ class DB_DataObject extends DB_DataObject_Overload
      *
      * This is defined in the table definition if it gets it wrong,
      * or you do not want to use ini tables, you can override this.
+     * NOTE - this will remove 'unique keys???'
+     *
+     * 
      * @param  string optional set the key
      * @param  *   optional  set more keys
      * @access public
@@ -2357,12 +2360,17 @@ class DB_DataObject extends DB_DataObject_Overload
             $this->_connect();
         }
         if (isset($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"])) {
-            return array_keys($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"]);
+            return array_keys(array_filter($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"], function($v,$k) {
+                return $v != 'U';
+            },ARRAY_FILTER_USE_BOTH));
+            
         }
         $this->databaseStructure();
         
         if (isset($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"])) {
-            return array_keys($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"]);
+            return array_keys(array_filter($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"], function($v,$k) {
+                return $v != 'U';
+            },ARRAY_FILTER_USE_BOTH));
         }
         return array();
     }
@@ -4295,10 +4303,10 @@ class DB_DataObject extends DB_DataObject_Overload
      */
     function setFrom($from, $format = '%s', $skipEmpty=false)
     {
+         
         $keys  = $this->keys();
         $items = $this->table();
-            
-     
+      
         if (!$items) {
             $this->raiseError(
                 "setFrom:Could not find table definition for {$this->tableName()}", 
@@ -4313,7 +4321,7 @@ class DB_DataObject extends DB_DataObject_Overload
             if (!$k) {
                 continue; // ignore empty keys!!! what
             }
-            
+          
             $chk = is_object($from) &&  
                 (version_compare(phpversion(), "5.1.0" , ">=") ? 
                     property_exists($from, sprintf($format,$k)) :  // php5.1
