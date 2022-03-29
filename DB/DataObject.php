@@ -2360,17 +2360,29 @@ class DB_DataObject extends DB_DataObject_Overload
             $this->_connect();
         }
         if (isset($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"])) {
-            return array_keys(array_filter($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"], function($v,$k) {
-                return $v != 'U';
-            },ARRAY_FILTER_USE_BOTH));
+           
+            $ret = array();
+            foreach($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"] as $k=>$v) {
+                if ($v != 'U') {
+                    $ret[] = $k;
+                }
+            }
+            
+            
+            return $ret;
+            
             
         }
         $this->databaseStructure();
         
         if (isset($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"])) {
-            return array_keys(array_filter($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"], function($v,$k) {
-                return $v != 'U';
-            },ARRAY_FILTER_USE_BOTH));
+            $ret = array();
+            foreach($_DB_DATAOBJECT['INI'][$this->_database][$this->tableName()."__keys"] as $k=>$v) {
+                if ($v != 'U') {
+                    $ret[] = $k;
+                }
+            }
+            return $ret;
         }
         return array();
     }

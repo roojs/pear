@@ -133,11 +133,12 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
         }
         $out = $fn . sprintf('-conv-%02d.'.str_replace('e', '', $ext), $pg);
         //$out = $fn . '-conv-01.jpg';
-        
+        clearstatcache();
+   
         $fe = file_exists($out)  && filesize($out) ? true : false;
         if ($fe) {
             $this->debug("GOT conv file: renaming $out to $target");
-             rename($out, $target);
+            rename($out, $target);
             @chmod($target,fileperms($fn));
             return $target;
             
@@ -149,7 +150,8 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
         
         $out = $fn . sprintf('-conv-%03d.'.str_replace('e', '', $ext), $pg);
         //$out = $fn . '-conv-001.jpg'; .. if more than 100 pages...
-        
+        clearstatcache();
+
         $fe = file_exists($out)  && filesize($out) ? $out : false;
         if ($fe) {
             $this->debug("GOT conv file: renaming $out to $target");
