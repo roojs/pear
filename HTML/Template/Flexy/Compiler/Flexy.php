@@ -194,7 +194,6 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             }
             fwrite($cfp, $data);
             fclose($cfp);
-            
             chmod($file, 0775);
             // make the timestamp of the two items match.
             clearstatcache();
@@ -214,7 +213,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             touch($file, $mtime);
             
             if (function_exists('opcache_invalidate')) {
-                opcache_invalidate($file);
+                opcache_invalidate($file, true);
             }
             // why?? -- see output.block
             
