@@ -117,7 +117,7 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
         $fe = file_exists($out)  && filesize($out) ? true : false;
         if ($fe) {
             $this->debug("GOT conv file: renaming $out to $target");
-            rename($out, $target);
+            @rename($out, $target);   // we do a clearstatcache, and file exists - but this still triggers errror
             
             @chmod($target,fileperms($fn));
             
