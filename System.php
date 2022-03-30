@@ -636,7 +636,7 @@ class System
     static function rename($src, $dest)
     {
         if (file_exists($src)) {
-            trigger_error("Rename source location does not exist",E_FATAL);
+            trigger_error("Rename source location does not exist",E_USER_ERROR);
         }
         $cmd = System::which('mv') . ' ' . escapeshellarg($src) . ' ' . escapeshellarg($dest);
     }
