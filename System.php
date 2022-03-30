@@ -626,4 +626,19 @@ class System
         }
         return $files;
     }
+    /**
+     * rename - which uses unix mv 
+     *
+     * @param    string  $src source file
+     * @param    string  $dest  destination location
+     * @static
+      */
+    static function rename($src, $dest)
+    {
+        if (file_exists($src)) {
+            trigger_error("Rename source location does not exist",E_FATAL);
+        }
+        $cmd = System::which('mv') . ' ' . escapeshellarg($src) . ' ' . escapeshellarg($dest);
+    }
+    
 }
