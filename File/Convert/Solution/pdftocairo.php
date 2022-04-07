@@ -114,7 +114,7 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
         // for some reason this makes 01 or 1?
         $out = $fn . sprintf('-conv-%d.'.str_replace('e', '', $ext) , $pg);
         
-        $fe = file_exists($out)  && filesize($out) ? true : false;
+        $fe = file_exists($out)  && @filesize($out) ? true : false;  // no idea - we do a clearstatcache - and it still says cant stat filesize
         if ($fe) {
             $this->debug("GOT conv file: renaming $out to $target");
             @rename($out, $target);   // we do a clearstatcache, and file exists - but this still triggers errror
