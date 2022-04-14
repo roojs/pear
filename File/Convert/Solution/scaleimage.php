@@ -192,7 +192,18 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
             $white = imagecolorallocate ( $thumb , 255, 255, 255);
 
             imagefill($thumb, 0,0,  $white);
-            $source = imagecreatefromjpeg($fn);
+            
+            switch(exif_imagetype($fn)) {
+                case IMAGETYPE_PNG:
+                    $source = imagecreatefrompng($fn);
+                    break;
+                case IMAGETYPE_JPEG:
+                    $source = imagecreatefromjpeg($fn);
+                    break;
+                default:
+                    die("invalid image type");
+                    
+            }
             // Resize
             //resource $dst_image , resource $src_image , 
                 // int $dst_x , int $dst_y , int $src_x , int $src_y , int $dst_w , int $dst_h , int $src_w , int $src_h 
