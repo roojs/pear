@@ -317,7 +317,9 @@ class File_Convert
             flush();
         }
         
-        fclose($fh);
+        if ($fh) {
+            fclose($fh);
+        }
         
         if ($delete_after) {
             unlink($fn);
