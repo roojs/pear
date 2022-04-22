@@ -304,9 +304,11 @@ class File_Convert
             exit;
         }
         //var_dump($fn, $mt); exit;
-         header('Content-type: '. $mt);
+        header('Content-type: '. $mt);
         
-        $fh = fopen($fn, 'rb');
+        
+        // even though we have done a file_exists above - it still errors out here occausionally.
+        $fh = @fopen($fn, 'rb');
         //fpassthru($fh);
         
         // passthrough seems to have problems -- trying fread
@@ -322,7 +324,7 @@ class File_Convert
         }
         
         if ($delete_after) {
-            unlink($fn);
+            @unlink($fn);
         }
         exit;
         
