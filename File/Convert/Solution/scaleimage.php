@@ -22,10 +22,10 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
      
     function convert($fn,$x,$y,$pg) 
     {
-       
         
         //  print_r(array('scaleimage', func_get_args()));
-        if (empty($x) && empty($y)) {
+        clearstatcache();
+        if (!file_exists($fn) || (empty($x) && empty($y))) {
             return false;
         }
         $ext = $this->ext;
