@@ -1123,5 +1123,15 @@ class HTML_Template_Flexy
     {
         return $this->bufferedOutputObject($object);
     }
+    /**
+     * htmlspecialchars
+     */
+    static function htmlspecialchars($str)
+    {
+        if (is_null($str)) {
+            return '';
+        }
+        return htmlspecialchars($str, ENT_IGNORE);
+    }
     
 }
