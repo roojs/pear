@@ -472,6 +472,7 @@ class Date_Calc
      */
     static function dateNow($format = DATE_CALC_FORMAT)
     {
+        require_once 'Date.php';
         $d = new Date(time());
         return $d->format($format);
     }
