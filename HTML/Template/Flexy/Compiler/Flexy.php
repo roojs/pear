@@ -536,19 +536,19 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
                 $suffix = $GLOBALS['_HTML_TEMPLATE_FLEXY']['currentOptions']['numberFormat'] . ')';
                 break;
             case 'b': // nl2br + htmlspecialchars
-                $prefix = 'echo nl2br(htmlspecialchars(';
+                $prefix = 'echo nl2br(self::htmlspecialchars(';
                 
                 // add language ?
                 $suffix = '))';
                 break;
             case 'e':
-                $prefix = 'echo htmlentities(';
+                $prefix = 'echo self::htmlentities(';
                 // add language ?
                 $suffix = ')';
                 break;
              
             case ' ':
-                $prefix = 'echo htmlspecialchars(';
+                $prefix = 'echo self::htmlspecialchars(';
                 // add language ?
                 $suffix = ',ENT_IGNORE)';
                 break;
