@@ -4829,21 +4829,20 @@ class DB_DataObject extends DB_DataObject_Overload
                 if (!$this->$col) {
                     return '';
                 }
-                $guess = strtotime($this->$col);
-                if ($guess != -1) {
-                    return strftime($format, $guess);
+                if (empty($format)) {
+                    return $this->col;
                 }
-                // eak... - no way to validate date time otherwise...
-                return $this->$col;
+                require_once 'Date.php';
+                $x = new Date($this->$col);
+                return $x->format($format);
+            
             case ($cols[$col] & DB_DATAOBJECT_DATE):
                 if (!$this->$col) {
                     return '';
                 } 
-                $guess = strtotime($this->$col);
-                if ($guess != -1) {
-                    return strftime($format,$guess);
+                if (empty($format)) {
+                    return $this->col;
                 }
-                // try date!!!!
                 require_once 'Date.php';
                 $x = new Date($this->$col);
                 return $x->format($format);
@@ -4852,12 +4851,13 @@ class DB_DataObject extends DB_DataObject_Overload
                 if (!$this->$col) {
                     return '';
                 }
-                $guess = strtotime($this->$col);
-                if ($guess > -1) {
-                    return strftime($format, $guess);
+                if (empty($format)) {
+                    return $this->col;
                 }
-                // otherwise an error in type...
-                return $this->$col;
+                require_once 'Date.php';
+                $x = new Date('1000-01-01 '. $this->$col);
+                return $x->format($format);
+            
                 
             case ($cols[$col] &  DB_DATAOBJECT_MYSQLTIMESTAMP):
                 if (!$this->$col) {
