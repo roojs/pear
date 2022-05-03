@@ -612,7 +612,7 @@ class HTML_Template_Flexy
         
         
         // initialize the translator..
-        include($this->compiledTemplate);
+        include $this->compiledTemplate;
         
         self::$activeEngine = $__old_engine;
         
