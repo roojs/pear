@@ -514,7 +514,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         $prefix = 'echo ';
         
         $suffix = '';
-        $modifier = strlen(trim($element->modifier)) ? $element->modifier : ' ';
+        $modifier = $element->modifier && strlen(trim($element->modifier)) ? $element->modifier : ' ';
         
         switch ($modifier) {
             case 'h':
