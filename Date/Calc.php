@@ -472,7 +472,8 @@ class Date_Calc
      */
     static function dateNow($format = DATE_CALC_FORMAT)
     {
-        return strftime($format, time());
+        $d = new Date(time());
+        return $d->format($format);
     }
 
     // }}}
@@ -716,7 +717,7 @@ class Date_Calc
     {
         $months = array();
         for ($i = 1; $i < 13; $i++) {
-            $months[$i] = strftime('%B', mktime(0, 0, 0, $i, 1, 2001));
+            $months[$i] = date('M', mktime(0, 0, 0, $i, 1, 2001));
         }
         return $months;
     }
@@ -742,7 +743,7 @@ class Date_Calc
     {
         $weekdays = array();
         for ($i = 0; $i < 7; $i++) {
-            $weekdays[$i] = strftime('%A', mktime(0, 0, 0, 1, $i, 2001));
+            $weekdays[$i] = date('l', mktime(0, 0, 0, 1, $i, 2001));
         }
         return $weekdays;
     }
