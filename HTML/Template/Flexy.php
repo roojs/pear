@@ -1126,12 +1126,12 @@ class HTML_Template_Flexy
     /**
      * htmlspecialchars
      */
-    static function htmlspecialchars($str)
+    static function htmlspecialchars($str, $flags = 0)
     {
         if (is_null($str)) {
             return '';
         }
-        return htmlspecialchars($str, ENT_IGNORE);
+        return htmlspecialchars($str, $flags, 'UTF-8');
     }
     
 }
