@@ -612,7 +612,7 @@ class HTML_Template_Flexy
         
         
         // initialize the translator..
-        include($this->compiledTemplate);
+        include $this->compiledTemplate;
         
         self::$activeEngine = $__old_engine;
         
@@ -1122,6 +1122,16 @@ class HTML_Template_Flexy
     function toString($object = false) 
     {
         return $this->bufferedOutputObject($object);
+    }
+    /**
+     * htmlspecialchars
+     */
+    static function htmlspecialchars($str, $flags = 0)
+    {
+        if (is_null($str)) {
+            return '';
+        }
+        return htmlspecialchars($str, $flags, 'UTF-8');
     }
     
 }
