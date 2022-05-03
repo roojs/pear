@@ -179,9 +179,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             $flexy->elements =  $GLOBALS['_HTML_TEMPLATE_FLEXY']['elements'];
             return $data;
         }
-        
-        
-        
+         
         
         // error checking?
         $file  = $flexy->compiledTemplate;
