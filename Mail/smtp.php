@@ -295,7 +295,7 @@ class Mail_smtp extends Mail {
                                     PEAR_MAIL_SMTP_ERROR_FROM);
         }
 
-        $params = null;
+        $params = '';
         if (!empty($this->_extparams)) {
             foreach ($this->_extparams as $key => $val) {
                 $params .= ' ' . $key . (is_null($val) ? '' : '=' . $val);
