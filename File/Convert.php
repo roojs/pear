@@ -86,7 +86,7 @@ class File_Convert
             $fn = $action->convertExists($this->fn, $x, $y);
             
         }
-        
+       
         if (!$fn) {
             return false;
         }
@@ -127,9 +127,12 @@ class File_Convert
     function convert($toMimetype, $x= 0, $y =0, $pg=false) 
     {
         //print_R(func_get_args());
-        $pg = (int) $pg;
+        if ($toMimetype == 'image/jpg') {
+            $toMimetype = 'image/jpeg';
+        }
         
-        if(empty($pg) || is_nan($pg * 1)){
+        $pg = (int) $pg;
+         if(empty($pg) || is_nan($pg * 1)){
             $pg = false;
         }
         $fn = $this->fn;
@@ -162,17 +165,18 @@ class File_Convert
             
             
         }  
- 
+             
+
         if (preg_match('#^image/#', $toMimetype) && $toMimetype != 'image/gif' && ( !empty($x) || !empty($y))) {
             //var_dump(array($toMimetype));
+               
             require_once 'File/Convert/Solution.php';
             $scf = (strpos($x, 'c')  !== false ? 'scaleimagec' : 'scaleimage' );
             require_once 'File/Convert/Solution/'. $scf . '.php';
             $scls = 'File_Convert_Solution_' . $scf;
                 
-                
             $sc = new $scls($toMimetype, $toMimetype);
-            $sc->debug= $this->debug;
+            $sc->debug=  $this->debug;
             $this->solutions[] = $sc;
             $x  = str_replace('c', 'x', $x);
             
@@ -184,8 +188,9 @@ class File_Convert
             $x = strlen($x) ? (int) $x : '';
             $y = strlen($y) ? (int) $y : '';
             //print_r($x); print_r(' > '); print_r($y);exit;
+            
             $fn = $sc->runconvert($fn,  $x, $y, $pg);
-             
+          
         }
 //        print_r($this->target);
         $this->target = $fn;

@@ -23,9 +23,9 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
     function convert($fn,$x,$y,$pg) 
     {
         
-        //  print_r(array('scaleimage', func_get_args()));
-        clearstatcache();
+          clearstatcache();
         if (!file_exists($fn) || (empty($x) && empty($y))) {
+            
             return false;
         }
         $ext = $this->ext;
@@ -33,7 +33,7 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
         
         $this->debug("COVERT: FE:" . (file_exists($target) ? 1: 0) );
         $this->debug("COVERT: FS:" . (file_exists($target) ?  (filemtime($target) . '>' .  filemtime($fn)) : 'n/a'));
-       
+ 
         if ($this->debug < 2 && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             $this->debug("SCALEIMAGE - image exists $target");
             return $target;
@@ -48,7 +48,7 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
         //echo "GOT TARGET"  . $target;
         
         list($width, $height) = @getimagesize($fn);
-        
+       
         $extent = '';
         switch (true) { // what about fit/pad etc...
             
@@ -95,11 +95,11 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
                 $extent ="-extent '{$x}x{$y}>' -gravity center -background white {$define}";
                 break;
         }
+        
         require_once 'System.php';
         $CONVERT = System::which("convert");
         
-         //var_dump($CONVERT);
-         if ($CONVERT) {
+          if ($CONVERT) {
             // note extend has to go after the resize.. so it does that first...
             // changed to using 'sample' rather than resize
             //-- it's alot faster? - not sure about quality though?
@@ -109,8 +109,7 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
             $cmd = "{$CONVERT} " . $strip . " -colorspace sRGB -interlace none -density 800 -quality 90 ". 
                  (strlen($scale) ?  " {$resize_method} '{$scale}' " : '' ).
                  $extent  . " '{$fn}' '{$targetName}'";
-            //var_dump($cmd);exit;
-            $cmdres  = $this->exec($cmd);
+             $cmdres  = $this->exec($cmd);
             $this->exec($cmd);
             
             

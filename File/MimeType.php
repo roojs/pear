@@ -106,6 +106,9 @@ class File_MimeType
                 array( 'video/vnd.mpegurl', array('m4u')),
                 array( 'video/x-flv', array('flv')),
                 array( 'video/ogg', array('ogv')),
+                
+                
+            
             
             
             ), 
@@ -140,7 +143,15 @@ class File_MimeType
     function toExt($mtype) 
     {
         $mtype = strtolower($mtype);
+        switch($mtype) {
+            case 'image/jpg':
+                $mtype = 'image/jpeg';
+                break;
+            // any others.?
+        }
+        
         $mtl = $GLOBALS['File_MimeType'];
+         
         foreach($mtl as $mtd) {
             if ($mtd[0] == $mtype) {
                 return $mtd[1][0];

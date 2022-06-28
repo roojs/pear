@@ -73,7 +73,8 @@ class File_Convert_Solution
             return false;
         }
         if (!$this->ext) {
-            return false;
+            die("missing mimetype");
+             
         }
         
         $this->debug("runconvert : {$fn}, {$x}, {$y}, {$pg}");
