@@ -105,7 +105,7 @@ class Net_URL
     *
     * @see __construct()
     */
-    function Net_URL($url = null, $useBrackets = true)
+    function Net_URL($url = "", $useBrackets = true)
     {
         $this->__construct($url, $useBrackets);
     }
@@ -121,7 +121,7 @@ class Net_URL
     *                            multiple querystrings with the same name
     *                            exist
     */
-    function __construct($url = null, $useBrackets = true)
+    function __construct($url = "", $useBrackets = true)
     {
         $this->url = $url;
         $this->useBrackets = $useBrackets;
