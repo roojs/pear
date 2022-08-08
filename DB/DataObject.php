@@ -4841,7 +4841,7 @@ class DB_DataObject extends DB_DataObject_Overload
                     return '';
                 } 
                 if (empty($format)) {
-                    return $this->col;
+                    return $this->$col;
                 }
                 require_once 'Date.php';
                 $x = new Date($this->$col);
