@@ -570,7 +570,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
             $var = $method;
         } else {
             $prefix = 'if ($this->options[\'strict\'] || (isset('.$var.
-                ') && method_exists('.$var .",'{$method}'))) " . $prefix;
+                ') && is_object('.$var .') && method_exists('.$var .",'{$method}'))) " . $prefix;
             $var = $element->toVar($element->method);
         }
         
