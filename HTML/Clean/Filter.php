@@ -49,7 +49,7 @@ class  HTML_Clean_Filter
             if (strpos($s, ':') === false) {
                 return;
             }
-            $kv = explode(':', $s);
+            $kv = explode(':', $s, 2);
              
             // what ever is left... we allow.
             $ret[trim($kv[0])] = trim($kv[1]);
