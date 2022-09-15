@@ -11,11 +11,11 @@
  
 require_once 'Filter.php';
 
-class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
+class HTML_Clean_FilterBlack extends HTML_Clean_Filter
 {
    
  
-function __construct($cfg)
+    function __construct($cfg)
     {
         parent::__construct($cfg);
         if (is_array($this->tag) && !in_array(':', $this->tag)) {
