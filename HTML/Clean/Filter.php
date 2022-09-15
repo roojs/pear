@@ -38,9 +38,9 @@ class  HTML_Clean_Filter
                 
                 
                 case $this->tag === true: // everything
-                case strpos(':', $e->tagName) !== false && is_array($this->tag) && array_search(":", $this->tag) !== false:
+                case strpos(':', $e->tagName) !== false && is_array($this->tag) && in_array(":", $this->tag):
                 case strpos(':', $e->tagName) !== false && is_string($this->tag)  && $this->tag == ":":
-                case is_array($this->tag) && array_search($e->tagName, $this->tag) !== false:
+                case is_array($this->tag) && in_array($e->tagName, $this->tag):
                 case is_string($this->tag) && $e->tagName ==  $this->tag:
                 
                     if (false === $this->replaceTag(e)) {
