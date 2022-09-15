@@ -5,19 +5,14 @@
  *
  * In our case it's used to render images and tables correctly.
  */
-class  HTML_Clean_Block
+class  HTML_Clean_Block extends HTML_Clean_Filter
 {
     var $node;
    
     // used by context menu
     var $context = false; // ??
    
-    function __construct($cfg)
-    {
-        foreach($cfg as $k=>$v) {
-            $this->$k = $v;
-        }
-    }
+    
 
          
     
