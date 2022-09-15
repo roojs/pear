@@ -40,4 +40,20 @@ class  HTML_Clean_Filter
             $to->appendChild($n);
         }
     }
+    
+    function styleToObject($node)
+    {
+        $styles = explode(';',$node->hasAttribute("style") ? $node->getAttribute("style")  : '');
+        $ret = array();
+        foreach($styles as $s) {
+            if (strpos($s, ':') === false) {
+                return;
+            }
+            $kv = explode(':', $s);
+             
+            // what ever is left... we allow.
+            $ret[trim($kv[0])] = trim($kv[1]);
+        }
+        return $ret;
+    }
 }
