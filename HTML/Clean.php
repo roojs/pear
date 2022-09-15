@@ -55,8 +55,9 @@ class HTML_Clean {
         $this->filter('Word',array( 'node' =>  $d ));
             
         $this->filter('StyleToTag', array(
-                'node' =>  $d ));  // this could add nodes to tree, so not very good to nest the walk.
-        
+            'node' =>  $d   // this could add nodes to tree, so not very good to nest the walk.
+            'replaceComment' => true
+        ));
         
         $this->filter('Attributes',array(
             'node' : $d,
@@ -73,7 +74,7 @@ class HTML_Clean {
         $this->filter('Paragraph',array( 'node' =>  $d ));
         $this->filter('Span',array( 'node' =>  $d ));
         $this->filter('LongBr',array( 'node' =>  $d ));
-        $this->filter('Comment',array( 'node' =>  $d ));
+        //$this->filter('Comment',array( 'node' =>  $d ));
         
         
            
