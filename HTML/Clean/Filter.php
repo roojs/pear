@@ -105,7 +105,7 @@ class  HTML_Clean_Filter
         }
     }
     
-    function styleToObject($node)
+    function styleToObject($node, $lower = false)
     {
         $styles = explode(';',$node->hasAttribute("style") ? $node->getAttribute("style")  : '');
         $ret = array();
@@ -116,7 +116,7 @@ class  HTML_Clean_Filter
             $kv = explode(':', $s, 2);
              
             // what ever is left... we allow.
-            $ret[trim($kv[0])] = trim($kv[1]);
+            $ret[$lower ? strtotrim($kv[0]) : $kv[0]] = trim($kv[1]);
         }
         return $ret;
     }
