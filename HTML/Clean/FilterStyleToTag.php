@@ -21,12 +21,12 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
     var $tags = array(
         
         
-        'B'  => array( 'fontWeight' => 'bold' ),
-        'I' =>   array(  'fontStyle'  => 'italic' ),
+        'B'  => array( 'font-weight' => 'bold' ),
+        'I' =>   array(  'font-style'  => 'italic' ),
         
         // h1.. h6 ?? font-size?
-        'SUP'  => array(   'verticalAlign'  => 'super'),
-        'SUB' => array(   'verticalAlign' => 'sub' )
+        'SUP'  => array(   'vertical-align'  => 'super'),
+        'SUB' => array(   'vertical-align' => 'sub' )
         
     );
     
