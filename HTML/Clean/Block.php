@@ -29,10 +29,10 @@ class  HTML_Clean_Block
         require_once 'HTML/Clean/Block'.$db . '.php';
         $cls = 'HTML_Clean_Block'. $db;
         
-        return = new $cls(array('node' => $node ));
+        return new $cls(array('node' => $node ));
         
-    };
-    */
+    }
+    
 
     /**
      * initalize all Elements from content that are 'blockable'
