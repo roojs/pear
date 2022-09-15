@@ -52,11 +52,11 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
             }
             
             
-            if (array_search( strtolower($a->name),$this->attrib_black) !== false) 
+            if (array_search( strtolower($a->name),$this->attrib_black) !== false) {
                 $node->removeAttribute($a->name);
                 continue;
             }
-            if (array_search( strtolower($a->name),$this->attrib_clean) !== false) 
+            if (array_search( strtolower($a->name),$this->attrib_clean) !== false)  {
                 $this->cleanAttr($node,$a->name,$a->value); // fixme..
                 continue;
             }
@@ -69,15 +69,15 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
             // tecnically this should be a list of valid class'es..
             
             
-            if (a.name == 'class') {
-                if (a.value.match(/^Mso/)) {
-                    node.removeAttribute('class');
+            if ($a->name == 'class') {
+                if (preg_match('/^Mso/', $a->value)) {
+                    $node->removeAttribute('class');
+                    continue;
                 }
-                
-                if (a.value.match(/^body$/)) {
-                    node.removeAttribute('class');
+                if (preg_match('/^body$/', $a->value)) {
+                    $node->removeAttribute('class');
+                    continue;
                 }
-                continue;
             }
             
             
@@ -86,7 +86,7 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
             
         }
         return true; // clean children
-    },
+    }
         
     cleanAttr: function(node, n,v)
     {
