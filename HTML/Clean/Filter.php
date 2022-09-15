@@ -9,7 +9,7 @@
 
 class  HTML_Clean_Filter
 {
-    var $replaceComment = true; // default to trash these.!
+    var $replaceComment = false; // default to trash these.!
     
     var $node = false;
     var $tag = false;
