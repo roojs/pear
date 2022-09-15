@@ -48,7 +48,7 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
             return true;
         }
         $inject = array();
-        $style = $this->styleToObject($node);
+        $style = $this->styleToObject($node, true);
         foreach ($this->tags as $tn => $kv) {
             list($k,$v) = $kv;
             if (!isset($style[$k]) || $style[$k] != $v) {
