@@ -54,11 +54,7 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
         }
         
         
-        
-        
-        
-        
-        var ps = node.previousSibling;
+        $ps = $node->previousSibling;
         
         while (ps && ps.nodeType == 3 && ps.nodeValue.trim().length < 1) {
             ps = ps.previousSibling;
