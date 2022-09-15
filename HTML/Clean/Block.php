@@ -106,7 +106,7 @@ class  HTML_Clean_Block extends HTML_Clean_Filter
             return isset($style[strtolower($style)]) ? $style[strtolower($style)] : '';
         }
         
-        return n.hasAttribute(attr) ? n.getAttribute(attr) : '';
+        return n->hasAttribute($attr) ? n->getAttribute($attr) : '';
             
     }
     /**
