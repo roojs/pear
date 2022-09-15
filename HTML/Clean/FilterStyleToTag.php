@@ -49,9 +49,10 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
             return true;
         }
         $inject = array();
+        $style = $this->objectToStyle($node)
         foreach ($this->tags as $tn => $kv) {
             list($k,$v) = $kv;
-            $this->
+            
             if (node.style[this.tags[k][0]] == this.tags[k][1]) {
                 inject.push(k);
                 node.style.removeProperty(this.tags[k][0]);
