@@ -13,21 +13,21 @@ class  HTML_Clean_Filter
     
     
     
-    removeNodeKeepChildren : function( node)
+    function removeNodeKeepChildren  ( $node)
     {
     
-        ar = Array.from(node.childNodes);
-        for (var i = 0; i < ar.length; i++) {
+        $ar = $this->arrayFrom($node->childNodes);
+        for ($i = 0; $i < count($ar); $i++) {
          
-            node.removeChild(ar[i]);
+            $node->removeChild($ar[$i]);
             // what if we need to walk these???
-            node.parentNode.insertBefore(ar[i], node);
+            $node->parentNode->insertBefore($ar[$i], $node);
            
         }
-        node.parentNode.removeChild(node);
+        $node->parentNode->removeChild($node);
     }
     
-    listToArray($list)
+    function arrayFrom($list)
     {
         $ret = array();
         foreach($list as $l) {
