@@ -70,7 +70,7 @@ class HTML_Clean {
         
         
         // should be fonts..
-        $this->filter('KeepChildren',array( 'node' =>  $d, 'tag'  =>   array(   'FONT', ':' )) );
+        $this->filter('KeepChildren',array( 'node' =>  $d, 'tag'  =>   array(   'FONT', ':' )) );  // does walk as well.
         $this->filter('Paragraph',array( 'node' =>  $d ));
         $this->filter('Span',array( 'node' =>  $d ));
         $this->filter('LongBr',array( 'node' =>  $d ));
