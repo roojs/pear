@@ -37,34 +37,21 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
         
         //remove first.. - otherwise due to our walking method - the parent will not look at them.
         foreach($ar as $t) {
-            
-        for (var i = 0; i < ar.length; i++) {
-            var e = ar[i];
-            if (e.nodeType == 1) {
-                if (
-                    (typeof(this.tag) == 'object' && this.tag.indexOf(e.tagName) > -1)
-                    || // array and it matches
-                    (typeof(this.tag) == 'string' && this.tag == e.tagName)
-                    ||
-                    (e.tagName.indexOf(":") > -1 && typeof(this.tag) == 'object' && this.tag.indexOf(":") > -1)
-                    ||
-                    (e.tagName.indexOf(":") > -1 && typeof(this.tag) == 'string' && this.tag == ":")
-                ) {
-                    this.replaceTag(ar[i]); // child is blacklisted as well...
-                    continue;
-                }
+            if (!$this->isTagMatch($t)) {
+                continue;
             }
-        }  
-        ar = Array.from(node.childNodes);
-        for (var i = 0; i < ar.length; i++) {
+            $this->replaceTag($t); // this effetively walks all the children.
+        }
+        $ar = $this->arrayFrom($node->childNodes);
+        foreach($ar as $t) {
          
-            node.removeChild(ar[i]);
+            $node->removeChild($t);
             // what if we need to walk these???
-            node.parentNode.insertBefore(ar[i], node);
-            if (this.tag !== false) {
-                this.walk(ar[i]);
-                
-            }
+            $node->parentNode->insertBefore($t, $node);
+            //if (this.tag !== false) { << cant see why wee need to walk again.
+            //    this.walk(ar[i]);
+            //    
+            //}
         }
         //Roo.log("REMOVE:" + node.tagName);
         node.parentNode.removeChild(node);
