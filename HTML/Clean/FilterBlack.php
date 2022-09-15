@@ -34,4 +34,17 @@ function __construct($cfg)
         $n->parentNode->removeChild($n);
         return false; // don't both with children..
     }
-});
+    
+    function simpleReplace()
+    {
+        foreach(is_array($this->tag) ? $this->tag : array($this->tag) as $t) {
+            $ar = $this->fromArray($this->node->getElementsByTagName($t));
+            foreach($ar as $k) {
+                if ($k->parentNode) {
+                    $k->parentNode->removeChild($k);
+                }
+            }
+        }
+    }
+    
+}
