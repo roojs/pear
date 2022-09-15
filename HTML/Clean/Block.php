@@ -16,30 +16,21 @@ class  HTML_Clean_Block
         }
     }
 
-        
-    /*    
-        
+         
     
-    Roo.htmleditor.Block.factory = function(node)
+    static function factory ($node)
     {
-        var cc = Roo.htmleditor.Block.cache;
-        var id = Roo.get(node).id;
-        if (typeof(cc[id]) != 'undefined' && (!cc[id].node || cc[id].node.closest('body'))) {
-            Roo.htmleditor.Block.cache[id].readElement(node);
-            return Roo.htmleditor.Block.cache[id];
+         
+        
+        $db  = $node->hasAttribute('data-block') ? $node->getAttribute('data-block') : false;
+        if ($db) {
+            $db = ucfirst($node->nodeName);
         }
-        var db  = node.getAttribute('data-block');
-        if (!db) {
-            db = node.nodeName.toLowerCase().toUpperCaseFirst();
-        }
-        var cls = Roo.htmleditor['Block' + db];
-        if (typeof(cls) == 'undefined') {
-            //Roo.log(node.getAttribute('data-block'));
-            Roo.log("OOps missing block : " + 'Block' + db);
-            return false;
-        }
-        Roo.htmleditor.Block.cache[id] = new cls({ node: node });
-        return Roo.htmleditor.Block.cache[id];  /// should trigger update element
+        require_once 'HTML/Clean/Block'.$db . '.php';
+        $cls = 'HTML_Clean_Block'. $db;
+        
+        return = new $cls(array('node' => $node ));
+        
     };
     */
 
@@ -48,19 +39,21 @@ class  HTML_Clean_Block
      * @static
      * @param the body element
      */
-    static function initAll ($body, $type)
+    static function initAll ($body, $type=false)
     {
-        if (typeof($type) == 'undefined') {
-            var ia = Roo.htmleditor.Block.initAll;
-            ia(body,'table');
-            ia(body,'td');
-            ia(body,'figure');
+        if ($type === false) {
+            
+            self::initAll($body,'table');
+            self::initAll($body,'td');
+            self::initAll($body,'figure');
             return;
         }
-        Roo.each(Roo.get(body).query(type), function(e) {
-            Roo.htmleditor.Block.factory(e);    
-        },this);
-    };
+        $ar = $body->getElementsByName($type);
+        foreach($ar as $a) {
+            self::factory($a);
+        }
+        
+    }
 // question goes here... do we need to clear out this cache sometimes?
 // or show we make it relivant to the htmleditor.
 Roo.htmleditor.Block.cache = {};
