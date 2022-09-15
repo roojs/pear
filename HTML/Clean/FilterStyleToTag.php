@@ -26,7 +26,11 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
     
     function __construct($cfg)
     {
-            $this->tags = 
+        foreach($cfg as $k=>$v) {
+            $this->$k = $v;
+        }
+        $this->walk($cfg['node']);
     }
+    
     
 }
