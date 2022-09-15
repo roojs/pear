@@ -35,4 +35,13 @@ class  HTML_Clean_Filter
         }
         return $ret;
     }
+    function copyInnerHTML($from, $to)
+    {
+         while($from->childNodes->length) {
+            $n = $from->childeNodes->item(i);
+            $from->removeChild($n);
+            $to->appendChild($n);
+        }
+        
+    }
 }
