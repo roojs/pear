@@ -39,15 +39,17 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
     
     
     
-    function replaceTag(node)
+    function replaceTag($node)
     {
         
         
-        if (node.getAttribute("style") === null) {
+        if (!$node->hasAttribute("style")) {
             return true;
         }
-        var inject = [];
-        for (var k in this.tags) {
+        $inject = array();
+        foreach ($this->tags as $tn => $kv) {
+            list($k,$v) = $kv;
+            $this->
             if (node.style[this.tags[k][0]] == this.tags[k][1]) {
                 inject.push(k);
                 node.style.removeProperty(this.tags[k][0]);
