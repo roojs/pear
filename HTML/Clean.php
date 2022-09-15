@@ -7,12 +7,13 @@
 
 class HTML_Clean {
     
-    static function fromHTML($str)
+    static function fromHTML($str, $opts = array())
     {
         $str= self::cleanWordChars($str);
         $dom = new DOMDocument('1.0', 'utf8');
         $dom->loadHTML($str);
-        return new HTML_Clean($dom);    
+        $opts['dom'] = $dom
+        return new HTML_Clean($opts);    
     }
     static function cleanWordChars($str)
     {
@@ -35,12 +36,52 @@ class HTML_Clean {
     
     
     var $dom; // Dom Document.
+    var $black = array(); // blacklist of elements.
     
-    function __construct($dom)
+    function __construct($opts)
     {
-        $this->dom = $dom;
+        foreach($opts as $k=>$v) {
+            $this->{$k} = $v;
+        }
+        $d = $this->dom->documentElement;
+        $this->filter('Word',array( 'node' =>  $d ));
+            
+        $this->filter('StyleToTag',array( 'node' =>  $d ));
+        $this->filter('Attributes',array(
+            'node' : $d,
+            'attrib_white' : array('href', 'src', 'name', 'align', 'colspan', 'rowspan', 'data-display', 'data-width', 'start'),
+            'attrib_clean' : array('href', 'src' ) 
+        });
+        $this->filter('Black',array( 'node' =>  $d, 'tag'  =>  $this->black ));
+        // should be fonts..
+        $this->filter('KeepChildren',array( 'node' =>  $d, 'tag'  =>   array(   'FONT', ':' )) );
+        $this->filter('Paragraph',array( 'node' =>  $d ));
+        $this->filter('Span',array( 'node' =>  $d ));
+        $this->filter('LongBr',array( 'node' =>  $d ));
+        $this->filter('Comment',array( 'node' =>  $d ));
+        
+        
+           
+        Array.from(d.getElementsByTagName('img')).forEach(function(img) {
+            if (img.closest('figure')) { // assume!! that it's aready
+                return;
+            }
+            var fig  = new Roo.htmleditor.BlockFigure({
+                image_src  : img.src
+            });
+            fig.updateElement(img); // replace it..
+            
+        });
+         Roo.htmleditor.Block.initAll(this.doc.body);
+
     }
     
+    function filter($type, $args)
+    {
+        require_once 'HTML/Clean/Filter'. $type .'.php');
+        $cls = 'HTML_Clean_Filter'. $type;
+        new $cls($args);
+    }
     
     
     
