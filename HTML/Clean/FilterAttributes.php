@@ -46,22 +46,23 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
             }
             
             // always remove 'on'
-            if (substr(strtolower($a->name),0,2)=='on')  {
+            if (substr(strtolower($a->name),0,2) == 'on')  {
                 $node->removeAttribute($a->name);
                 continue;
             }
             
             
             if (array_search( strtolower($a->name),$this->attrib_black) !== false) 
-                node.removeAttribute(a.name);
+                $node->removeAttribute($a->name);
                 continue;
             }
-            if (this.attrib_clean.indexOf(a.name.toLowerCase()) > -1) {
-                this.cleanAttr(node,a.name,a.value); // fixme..
+            if (array_search( strtolower($a->name),$this->attrib_clean) !== false) 
+                $this->cleanAttr($node,$a->name,$a->value); // fixme..
                 continue;
             }
-            if (a.name == 'style') {
-                this.cleanStyle(node,a.name,a.value);
+                
+            if ($a->name == 'style') {
+                $this->cleanStyle($node,$a->name,$a->value);
                 continue;
             }
             /// clean up MS crap..
