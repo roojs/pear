@@ -90,37 +90,39 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
     
      
     
-    replaceDocBullet : function(p)
+    function replaceDocBullet  ($p)
     {
         // gather all the siblings.
-        var ns = p,
-            parent = p.parentNode,
-            doc = parent.ownerDocument,
-            items = [];
+        $ns = $p;
+        $parent = $p->parentNode;
+        $doc = $parent->ownerDocument;
+        $items = array();;
             
-        var listtype = 'ul';   
-        while (ns) {
-            if (ns.nodeType != 1) {
-                ns = ns.nextSibling;
+        $listtype = 'ul';   
+        while ($ns) {
+            if ($ns->nodeType != 1) {
+                $ns = $ns->nextSibling;
                 continue;
             }
-            if (!ns.className.match(/(MsoListParagraph|ql-indent-1)/i)) {
+            $cln = $ns->hasAttribute('class') ? $ns->getAttribute('class') : '';
+            if (preg_match('/(MsoListParagraph|ql-indent-1)/i', $cln)) {
                 break;
             }
-            var spans = ns.getElementsByTagName('span');
-            if (ns.hasAttribute('style') && ns.getAttribute('style').match(/mso-list/)) {
-                items.push(ns);
-                ns = ns.nextSibling;
-                has_list = true;
-                if (spans.length && spans[0].hasAttribute('style')) {
-                    var  style = this.styleToObject(spans[0]);
-                    if (typeof(style['font-family']) != 'undefined' && !style['font-family'].match(/Symbol/)) {
-                        listtype = 'ol';
+            $spans = $ns->getElementsByTagName('span');
+            if ($ns->hasAttribute('style') && preg_match('/mso-list/', $ns->getAttribute('style'))) {
+                $items[] = $ns;
+                $ns = $ns->nextSibling;
+                $has_list = true;
+                if ($spans->length && spans->item(0).hasAttribute('style')) {
+                    $style = $this->styleToObject($spans->item(0));
+                    if (!empty($style['font-family']) && !preg_match('/Symbol/', $style['font-family'])) {
+                        $listtype = 'ol';
                     }
                 }
                 
                 continue;
             }
+            
             var spans = ns.getElementsByTagName('span');
             if (!spans.length) {
                 break;
