@@ -53,7 +53,7 @@ class HTML_Clean {
             'attrib_clean' : array('href', 'src' ) 
         });
         // is this used?!?!
-        // $this->filter('Black',array( 'node' =>  $d, 'tag'  =>  $this->black ));
+         $this->filter('Black',array( 'node' =>  $d, 'tag'  =>  $this->black ));
         
         // should be fonts..
         $this->filter('KeepChildren',array( 'node' =>  $d, 'tag'  =>   array(   'FONT', ':' )) );
