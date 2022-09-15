@@ -56,7 +56,7 @@ class HTML_Clean {
             
         $this->filter('StyleToTag', array(
             'node' =>  $d   // this could add nodes to tree, so not very good to nest the walk.
-            'replaceComment' => true
+            'replaceComment' => true   // this is sneaked in here - as walk will get rid of comments at the same time.
         ));
         
         $this->filter('Attributes',array(
