@@ -36,7 +36,15 @@ class HTML_Clean {
     
     
     var $dom; // Dom Document.
-    var $black = array(); // blacklist of elements.
+    var $black = array(
+        'APPLET', // 
+        'BASE',   'BASEFONT', 'BGSOUND', 'BLINK',  'BODY', 
+        'FRAME',  'FRAMESET', 'HEAD',    'HTML',   'ILAYER', 
+        'IFRAME', 'LAYER',  'LINK',     'META',    'OBJECT',   
+        'SCRIPT', 'STYLE' ,'TITLE',  'XML',
+        //'FONT' // CLEAN LATER..
+        'COLGROUP', 'COL'   // messy tables.
+    ); // blacklist of elements.
     
     function __construct($opts)
     {
@@ -53,7 +61,9 @@ class HTML_Clean {
             'attrib_clean' : array('href', 'src' ) 
         });
         // is this used?!?!
-         $this->filter('Black',array( 'node' =>  $d, 'tag'  =>  $this->black ));
+        $this->filter('Black',array( 'node' =>  $d, 'tag'  =>  $this->black ));
+        // we don't use the whitelist?
+        
         
         // should be fonts..
         $this->filter('KeepChildren',array( 'node' =>  $d, 'tag'  =>   array(   'FONT', ':' )) );
