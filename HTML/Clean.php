@@ -54,14 +54,17 @@ class HTML_Clean {
         $d = $this->dom->documentElement;
         $this->filter('Word',array( 'node' =>  $d ));
             
-        $this->filter('StyleToTag',array( 'node' =>  $d ));  // this could add nodes to tree, so not very good to nest the walk.
+        $this->filter('StyleToTag', array(
+                'node' =>  $d ));  // this could add nodes to tree, so not very good to nest the walk.
+        
+        
         $this->filter('Attributes',array(
             'node' : $d,
             'attrib_white' : array('href', 'src', 'name', 'align', 'colspan', 'rowspan', 'data-display', 'data-width', 'start'),
             'attrib_clean' : array('href', 'src' ) 
         });
         // is this used?!?!
-        $this->filter('Black',array( 'node' =>  $d, 'tag'  =>  $this->black ));
+        $this->filter('Black', array( 'node' =>  $d, 'tag'  =>  $this->black ));
         // we don't use the whitelist?
         
         
