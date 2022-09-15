@@ -40,7 +40,7 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
         foreach($ats as $a) {
             
             // remove all if we have a white list..
-            if (count($this->attrib_white) && array_search(strtolower($a->name), $this->attrib_white) !== false) {
+            if (count($this->attrib_white) && in_array(strtolower($a->name), $this->attrib_white)) {
                 $node->removeAttribute($a->name);
                 continue;
             }
@@ -52,11 +52,11 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
             }
             
             
-            if (array_search( strtolower($a->name),$this->attrib_black) !== false) {
+            if (in_array( strtolower($a->name),$this->attrib_black)) {
                 $node->removeAttribute($a->name);
                 continue;
             }
-            if (array_search( strtolower($a->name),$this->attrib_clean) !== false)  {
+            if (in_array( strtolower($a->name),$this->attrib_clean))  {
                 $this->cleanAttr($node,$a->name,$a->value); // fixme..
                 continue;
             }
@@ -114,7 +114,7 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
         $update = false;
         foreach($style as $k=>$v) {
             
-            if ( array_search(strtolower($k), $this->style_black) !== false) {
+            if ( in_array(strtolower($k), $this->style_black)) {
                 unset($style[$k]);
                 $update = true;
                 continue;
@@ -122,7 +122,7 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
             
             //Roo.log()
             // only allow 'c whitelisted system attributes'
-            if ( count($this->style_white) &&  array_search(strtolower($k), $this->style_white) !== false) {
+            if ( count($this->style_white) &&  in_array(strtolower($k), $this->style_white)) {
                 continue;
             }
             unset($style[$k]);
