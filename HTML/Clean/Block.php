@@ -7,7 +7,10 @@
  */
 class  HTML_Clean_Block
 {
+    var $node;
    
+    // used by context menu
+    var $context = false; // ??
    
     function __construct($cfg)
     {
@@ -54,10 +57,6 @@ class  HTML_Clean_Block
         }
         
     }
-// question goes here... do we need to clear out this cache sometimes?
-// or show we make it relivant to the htmleditor.
-Roo.htmleditor.Block.cache = {};
-
 Roo.htmleditor.Block.prototype = {
     
     node : false,
