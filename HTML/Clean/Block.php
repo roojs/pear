@@ -102,7 +102,7 @@ class  HTML_Clean_Block extends HTML_Clean_Filter
             
         }
         if ($attr == 'style') {
-            $style = $this->styleToObject();
+            $style = $this->styleToObject($node, true);
             return isset($style[strtolower($style)]) ? $style[strtolower($style)] : '';
         }
         
