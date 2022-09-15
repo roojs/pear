@@ -18,6 +18,8 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
     
     // what we are going to change..
     var $tags = array(
+        
+        
         'B'  => array( 'fontWeight' => 'bold' ),
         'I' =>   array(  'fontStyle'  => 'italic' ),
         
