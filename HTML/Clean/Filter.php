@@ -14,7 +14,12 @@ class  HTML_Clean_Filter
     var $node = false;
     var $tag = false;
    
-    
+    function __construct($cfg)
+    {
+        foreach($cfg as $k=>$v) {
+            $this->$k = $v;
+        }
+    }
     
     function walk ($dom)
     {
