@@ -36,24 +36,23 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
         if (!$node->hasAttributes()) {
             return true; // do children.
         }
-        
-        for (var i = node.attributes.length-1; i > -1 ; i--) {
-            var a = node.attributes[i];
-            //console.log(a);
-            if (this.attrib_white.length && this.attrib_white.indexOf(a.name.toLowerCase()) < 0) {
-                node.removeAttribute(a.name);
+        $ats = $this->arrayFrom($node->attributes);
+        foreach($ats as $a) {
+            
+            // remove all if we have a white list..
+            if (count($this->attrib_white) && array_search(strtolower($a->name), $this->attrib_white) !== false) {
+                $node->removeAttribute($a->name);
+                continue;
+            }
+            
+            // always remove 'on'
+            if (substr(strtolower($a->name),0,2)=='on')  {
+                $node->removeAttribute($a->name);
                 continue;
             }
             
             
-            
-            if (a.name.toLowerCase().substr(0,2)=='on')  {
-                node.removeAttribute(a.name);
-                continue;
-            }
-            
-            
-            if (this.attrib_black.indexOf(a.name.toLowerCase()) > -1) {
+            if (array_search( strtolower($a->name),$this->attrib_black) !== false) 
                 node.removeAttribute(a.name);
                 continue;
             }
