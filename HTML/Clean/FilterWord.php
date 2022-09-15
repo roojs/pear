@@ -190,56 +190,56 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
                 
             $num = 1;
             $style = array();
-            for($i = 0; $i < $spans->length; i++) {
+            foreach($spans as $i => $span) {
             
-                style = this.styleToObject(spans[i]);
-                if (typeof(style['mso-list']) == 'undefined') {
+                $style = $this->styleToObject($span);
+                if (empty($style['mso-list']) ) {
                     continue;
                 }
-                if (listtype == 'ol') {
-                   num = spans[i].innerText.replace(/[^0-9]+]/g,'')  * 1;
+                if ($listtype == 'ol') {
+                   $num = preg_replace('/[^0-9]+]/g', '', $span->textContent)  * 1;
                 }
-                spans[i].parentNode.removeChild(spans[i]); // remove the fake bullet.
+                $span->parentNode->removeChild($span); // remove the fake bullet.
                 break;
             }
             //Roo.log("NOW GOT innertHMLT=" + n.innerHTML);
-            style = this.styleToObject(n); // mo-list is from the parent node.
-            if (typeof(style['mso-list']) == 'undefined') {
-                //Roo.log("parent is missing level");
+            $style = $this->styleToObject($n); // mo-list is from the parent node.
+            if (empty($style['mso-list'])) {
                   
-                parent.removeChild(n);
+                $parent->removeChild($n);
                  
                 continue;
             }
             
-            var margin = style['margin-left'];
-            if (typeof(margin_to_depth[margin]) == 'undefined') {
-                max_margins++;
-                margin_to_depth[margin] = max_margins;
+            $margin = $style['margin-left'];
+            if (empty($margin_to_depth[$margin]) ) {
+                $max_margins++;
+                $margin_to_depth[$margin] = $max_margins;
             }
-            nlvl = margin_to_depth[margin] ;
+            $nlvl = $margin_to_depth[$margin] ;
              
-            if (nlvl > lvl) {
+            if ($nlvl > $lvl) {
                 //new indent
-                var nul = doc.createElement(listtype); // what about number lists...
-                if (!last_li) {
-                    last_li = doc.createElement('li');
-                    stack[lvl].appendChild(last_li);
+                $nul = $doc->createElement($listtype); // what about number lists...
+                if (!$last_li) {
+                    $last_li = $doc->createElement('li');
+                    $stack[$lvl]->appendChild($last_li);
                 }
-                last_li.appendChild(nul);
-                stack[nlvl] = nul;
+                $last_li->appendChild($nul);
+                $stack[$nlvl] = $nul;
                 
             }
-            lvl = nlvl;
+            $lvl = $nlvl;
             
             // not starting at 1..
-            if (!stack[nlvl].hasAttribute("start") && listtype == "ol") {
-                stack[nlvl].setAttribute("start", num);
+            if (!$stack[$nlvl]->hasAttribute("start") && $listtype == "ol") {
+                $stack[$nlvl]->setAttribute("start", $num);
             }
             
-            var nli = stack[nlvl].appendChild(doc.createElement('li'));
-            last_li = nli;
-            nli.innerHTML = n.innerHTML;
+            $nli = $stack[$nlvl]->appendChild($doc->createElement('li'));
+            $last_li = $nli;
+            $this->copyInnerHtml($n, $nli);
+            //$nli->innerHTML = $n->innerHTML;
             //Roo.log("innerHTML = " + n.innerHTML);
             parent.removeChild(n);
             
