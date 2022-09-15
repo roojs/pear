@@ -177,7 +177,7 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
             $style = array();
             foreach($spans as $i => $span) {
             
-                $style = $this->styleToObject($span);
+                $style = $this->styleToObject($span, true);
                 if (empty($style['mso-list']) ) {
                     continue;
                 }
