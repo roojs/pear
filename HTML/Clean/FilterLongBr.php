@@ -68,9 +68,8 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
             return;
         }
         
-        node.parentNode.removeChild(node); // remove me...
+        $node->parentNode->removeChild($node); // remove me...
         
-        return false; // no need to do children
         
     }
 }
