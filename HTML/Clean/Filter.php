@@ -37,11 +37,7 @@ class  HTML_Clean_Filter
                     return;
                 
                 
-                case $this->tag === true: // everything
-                case strpos(':', $e->tagName) !== false && is_array($this->tag) && in_array(":", $this->tag):
-                case strpos(':', $e->tagName) !== false && is_string($this->tag)  && $this->tag == ":":
-                case is_array($this->tag) && in_array($e->tagName, $this->tag):
-                case is_string($this->tag) && $e->tagName ==  $this->tag:
+                case $this->isTagMatch(e):
                 
                     if (false === $this->replaceTag(e)) {
                         return;
@@ -60,6 +56,18 @@ class  HTML_Clean_Filter
         }
         
     }
+    function isTagMatch($e) {
+        switch(true) {
+            case $this->tag === true: // everything
+            case strpos(':', $e->tagName) !== false && is_array($this->tag) && in_array(":", $this->tag):
+            case strpos(':', $e->tagName) !== false && is_string($this->tag)  && $this->tag == ":":
+            case is_array($this->tag) && in_array($e->tagName, $this->tag):
+            case is_string($this->tag) && $e->tagName ==  $this->tag:
+                return true;
+        }
+         
+    }
+    
     
     // dummy version - implementations should return false to not walk children.
     function replaceTag($e) {
