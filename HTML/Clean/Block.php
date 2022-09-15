@@ -6,7 +6,7 @@
  * In our case it's used to render images and tables correctly.
  */
 require_once 'Filter.php';
-class  HTML_Clean_Block extends HTML_Clean_Filter
+abstract class  HTML_Clean_Block extends HTML_Clean_Filter
 {
     var $node;
    
