@@ -48,18 +48,12 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
             $node->removeChild($t);
             // what if we need to walk these???
             $node->parentNode->insertBefore($t, $node);
-            //if (this.tag !== false) { << cant see why wee need to walk again.
-            //    this.walk(ar[i]);
-            //    
-            //}
+            // js code walks again.
         }
         //Roo.log("REMOVE:" + node.tagName);
-        node.parentNode.removeChild(node);
+        $node->parentNode->removeChild(node);
         return false; // don't walk children
         
-        
-        $n->parentNode->removeChild($n);
-        return false; // don't both with children..
     }
     
      
