@@ -37,11 +37,10 @@ class  HTML_Clean_Filter
     }
     function copyInnerHTML($from, $to)
     {
-         while($from->childNodes->length) {
-            $n = $from->childeNodes->item(i);
+        $ar = $this->arrayFrom($from->childNodes);
+        foreach($ar as $n) {
             $from->removeChild($n);
             $to->appendChild($n);
         }
-        
     }
 }
