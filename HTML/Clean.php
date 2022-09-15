@@ -56,13 +56,15 @@ class HTML_Clean {
             
         $this->filter('StyleToTag', array(
             'node' =>  $d   // this could add nodes to tree, so not very good to nest the walk.
-            'replaceComment' => true   // this is sneaked in here - as walk will get rid of comments at the same time.
+            
         ));
         
-        $this->filter('Attributes',array(
+        $this->filter('Attributes',array(    // does walk as well.
             'node' : $d,
             'attrib_white' : array('href', 'src', 'name', 'align', 'colspan', 'rowspan', 'data-display', 'data-width', 'start'),
-            'attrib_clean' : array('href', 'src' ) 
+            'attrib_clean' : array('href', 'src' ),
+            
+            'replaceComment' => true   // this is sneaked in here - as walk will get rid of comments at the same time.
         });
         // is this used?!?!
         $this->filter('Black', array( 'node' =>  $d, 'tag'  =>  $this->black ));
@@ -70,7 +72,7 @@ class HTML_Clean {
         
         
         // should be fonts..
-        $this->filter('KeepChildren',array( 'node' =>  $d, 'tag'  =>   array(   'FONT', ':' )) );  // does walk as well.
+        $this->filter('KeepChildren',array( 'node' =>  $d, 'tag'  =>   array(   'FONT', ':' )) );  
         $this->filter('Paragraph',array( 'node' =>  $d ));
         $this->filter('Span',array( 'node' =>  $d ));
         $this->filter('LongBr',array( 'node' =>  $d ));
