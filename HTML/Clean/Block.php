@@ -5,56 +5,62 @@
  *
  * In our case it's used to render images and tables correctly.
  */
+class  HTML_Clean_Block
+{
+   
+   
+    function __construct($cfg)
+    {
+        foreach($cfg as $k=>$v) {
+            $this->$k = $v;
+        }
+    }
 
-Roo.htmleditor.Block  = function(cfg)
-{
-    // do nothing .. should not be called really.
-}
-/**
- * factory method to get the block from an element (using cache if necessary)
- * @static
- * @param {HtmlElement} the dom element
- */
-Roo.htmleditor.Block.factory = function(node)
-{
-    var cc = Roo.htmleditor.Block.cache;
-    var id = Roo.get(node).id;
-    if (typeof(cc[id]) != 'undefined' && (!cc[id].node || cc[id].node.closest('body'))) {
-        Roo.htmleditor.Block.cache[id].readElement(node);
-        return Roo.htmleditor.Block.cache[id];
-    }
-    var db  = node.getAttribute('data-block');
-    if (!db) {
-        db = node.nodeName.toLowerCase().toUpperCaseFirst();
-    }
-    var cls = Roo.htmleditor['Block' + db];
-    if (typeof(cls) == 'undefined') {
-        //Roo.log(node.getAttribute('data-block'));
-        Roo.log("OOps missing block : " + 'Block' + db);
-        return false;
-    }
-    Roo.htmleditor.Block.cache[id] = new cls({ node: node });
-    return Roo.htmleditor.Block.cache[id];  /// should trigger update element
-};
+        
+    /*    
+        
+    
+    Roo.htmleditor.Block.factory = function(node)
+    {
+        var cc = Roo.htmleditor.Block.cache;
+        var id = Roo.get(node).id;
+        if (typeof(cc[id]) != 'undefined' && (!cc[id].node || cc[id].node.closest('body'))) {
+            Roo.htmleditor.Block.cache[id].readElement(node);
+            return Roo.htmleditor.Block.cache[id];
+        }
+        var db  = node.getAttribute('data-block');
+        if (!db) {
+            db = node.nodeName.toLowerCase().toUpperCaseFirst();
+        }
+        var cls = Roo.htmleditor['Block' + db];
+        if (typeof(cls) == 'undefined') {
+            //Roo.log(node.getAttribute('data-block'));
+            Roo.log("OOps missing block : " + 'Block' + db);
+            return false;
+        }
+        Roo.htmleditor.Block.cache[id] = new cls({ node: node });
+        return Roo.htmleditor.Block.cache[id];  /// should trigger update element
+    };
+    */
 
-/**
- * initalize all Elements from content that are 'blockable'
- * @static
- * @param the body element
- */
-Roo.htmleditor.Block.initAll = function(body, type)
-{
-    if (typeof(type) == 'undefined') {
-        var ia = Roo.htmleditor.Block.initAll;
-        ia(body,'table');
-        ia(body,'td');
-        ia(body,'figure');
-        return;
-    }
-    Roo.each(Roo.get(body).query(type), function(e) {
-        Roo.htmleditor.Block.factory(e);    
-    },this);
-};
+    /**
+     * initalize all Elements from content that are 'blockable'
+     * @static
+     * @param the body element
+     */
+    static function initAll ($body, $type)
+    {
+        if (typeof($type) == 'undefined') {
+            var ia = Roo.htmleditor.Block.initAll;
+            ia(body,'table');
+            ia(body,'td');
+            ia(body,'figure');
+            return;
+        }
+        Roo.each(Roo.get(body).query(type), function(e) {
+            Roo.htmleditor.Block.factory(e);    
+        },this);
+    };
 // question goes here... do we need to clear out this cache sometimes?
 // or show we make it relivant to the htmleditor.
 Roo.htmleditor.Block.cache = {};
