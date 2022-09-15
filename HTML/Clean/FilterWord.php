@@ -243,8 +243,7 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
             //Roo.log("innerHTML = " + n.innerHTML);
             $parent->removeChild($n);
             
-             
-             
+              
         }
         
         
