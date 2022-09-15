@@ -106,39 +106,31 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
     
     function cleanStyle ($node,  $n, $v)
     {
-        if (preg_match('/expression/', $v)) { //XSS?? should we even bother..
+        if (preg_match('/expression/', $node->getAttribute('style'))) { //XSS?? should we even bother..
             $node->removeAttribute(n);
             return;
         }
         $style = $this->styleToObject($node);
-        var parts = v.split(/;/);
-        var clean = [];
-        
-        Roo.each(parts, function(p) {
-            p = p.replace(/^\s+/g,'').replace(/\s+$/g,'');
-            if (!p.length) {
-                return true;
-            }
-            var l = p.split(':').shift().replace(/\s+/g,'');
-            l = l.replace(/^\s+/g,'').replace(/\s+$/g,'');
+        $update = false;
+        foreach($style as $k=>$v) {
             
-            if ( this.style_black.length && (this.style_black.indexOf(l) > -1 || this.style_black.indexOf(l.toLowerCase()) > -1)) {
-                return true;
+            if ( array_search(strtolower($k), $this->style_black) !== false) {
+                unset($style[$k]);
+                $update = true;
+                continue;
             }
+            
             //Roo.log()
             // only allow 'c whitelisted system attributes'
-            if ( this.style_white.length &&  style_white.indexOf(l) < 0 && style_white.indexOf(l.toLowerCase()) < 0 ) {
-                return true;
+            if ( count($this->style_white) &&  array_search(strtolower($k), $this->style_white) !== false) {
+                continue
             }
+            unset($style[$k]);
+            $update = true;
             
-            
-            clean.push(p);
-            return true;
-        },this);
-        if (clean.length) { 
-            node.setAttribute(n, clean.join(';'));
-        } else {
-            node.removeAttribute(n);
+        }
+        if ($update) {
+            $this->nodeSetStyle($node, $style);
         }
         
     }
