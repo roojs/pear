@@ -58,24 +58,26 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
             unset($style[$k]);
             $inject[] = $tn;
         }
-        if (!count($inject) {
+        if (!count($inject)) {
             return true; 
         }
         $this->nodeSetStyle($node, $style);
-        var cn = Array.from(node.childNodes);
-        var nn = node;
-        Roo.each(inject, function(t) {
-            var nc = node.ownerDocument.createElement(t);
-            nn.appendChild(nc);
-            nn = nc;
-        });
-        for(var i = 0;i < cn.length;cn++) {
-            node.removeChild(cn[i]);
-            nn.appendChild(cn[i]);
+        $cn = $this->arrayFrom($node->childNodes);
+        $nn = $node;
+        foreach($inject as $t) { 
+        
+            $nc = $node->ownerDocument->createElement($t);
+            $nn->appendChild($nc);
+            $nn = $nc;
         }
-        return true /// iterate thru
+        foreach($cn as $n) {
+            $node->removeChild($n);
+            $nn->appendChild($n);
+        }
+        
+        return true; /// iterate thru
     }
     
-})
+ 
     
 }
