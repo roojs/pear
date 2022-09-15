@@ -115,7 +115,7 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
                 $ns = $ns->nextSibling;
                 $has_list = true;
                 if ($spans->length && spans->item(0).hasAttribute('style')) {
-                    $style = $this->styleToObject($spans->item(0));
+                    $style = $this->styleToObject($spans->item(0), true);
                     if (!empty($style['font-family']) && !preg_match('/Symbol/', $style['font-family'])) {
                         $listtype = 'ol';
                     }
