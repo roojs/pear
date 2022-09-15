@@ -24,13 +24,9 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
     function replaceAname  ($doc)
     {
         // replace all the a/name without..
-        $da= $doc->getElementsByTagName('a');
-        $aa = array();  // convert to array..
-        foreach($da as $a) {
-            $aa[] = $a;
-        }
+        $aa= $this->arrayFrom($doc->getElementsByTagName('a'));
         
-        for (var $i = 0; $i  < count($aa); $i++) {
+        for ($i = 0; $i  < count($aa); $i++) {
             $a = $aa[$i];
             if ($a->hasAttribute("name")) {
                 $a->removeAttribute("name");
@@ -39,13 +35,13 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
                 continue;
             }
             // reparent children.
-            this.removeNodeKeepChildren(a);
+            $this->removeNodeKeepChildren($a);
             
         }
         
         
         
-    },
+    }
     
     
     
