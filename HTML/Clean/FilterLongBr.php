@@ -61,11 +61,11 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
         }
         
         if (!$ps || $ps->nodeType != 1) {
-            return false;
+            return;
         }
         // if header or BR before.. then it's a candidate for removal.. - as we only want '2' of these..
-        if (!ps || [ 'BR', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6' ].indexOf(ps.tagName) < 0) {
-            return false;
+        if (!$ps || !in_array(strtoupper($node->parentNode->tagName), array( 'TD', 'TH', 'LI', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6' ))) {
+            return;
         }
         
         node.parentNode.removeChild(node); // remove me...
