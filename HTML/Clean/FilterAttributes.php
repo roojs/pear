@@ -25,5 +25,9 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
     var $style_black = array(); // array
     var $style_white = array(); // array
     
-     
+    function __construct($cfg)
+    {
+        parent::__construct($cfg);
+        $this->walk($cfg['node']);
+    } 
    
