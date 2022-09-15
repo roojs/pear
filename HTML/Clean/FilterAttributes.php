@@ -104,10 +104,10 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
         
     }
     
-    function cleanStyle ($node,  $n, $v)
+    function cleanStyle ($node)
     {
         if (preg_match('/expression/', $node->getAttribute('style'))) { //XSS?? should we even bother..
-            $node->removeAttribute($n);
+            $node->removeAttribute('style');
             return;
         }
         $style = $this->styleToObject($node);
