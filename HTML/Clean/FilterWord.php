@@ -188,7 +188,7 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
                 break;
             }
             //Roo.log("NOW GOT innertHMLT=" + n.innerHTML);
-            $style = $this->styleToObject($n); // mo-list is from the parent node.
+            $style = $this->styleToObject($n, true); // mo-list is from the parent node.
             if (empty($style['mso-list'])) {
                   
                 $parent->removeChild($n);
