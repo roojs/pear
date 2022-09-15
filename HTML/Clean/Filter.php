@@ -29,13 +29,6 @@ class  HTML_Clean_Filter
         
             switch(true) {
                 
-                case $e->nodeType == 8 &&  $this->replaceComment  !== false: // comment
-                    $this->replaceComment($e);
-                    return;
-                
-                case $e->nodeType != 1: //not a node.
-                    return;
-                
                 
                 case $this->isTagMatch(e):
                 
@@ -58,6 +51,14 @@ class  HTML_Clean_Filter
     }
     function isTagMatch($e) {
         switch(true) {
+            
+            case $e->nodeType == 8 &&  $this->replaceComment  !== false: // comment
+                    $this->replaceComment($e);
+                    return false;
+                
+                case $e->nodeType != 1: //not a node.
+                    return false;
+            
             case $this->tag === true: // everything
             case strpos(':', $e->tagName) !== false && is_array($this->tag) && in_array(":", $this->tag):
             case strpos(':', $e->tagName) !== false && is_string($this->tag)  && $this->tag == ":":
