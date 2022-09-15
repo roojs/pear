@@ -102,8 +102,8 @@ class  HTML_Clean_Block extends HTML_Clean_Filter
             
         }
         if ($attr == 'style') {
-            
-            return n.style[$style]; 
+            $style = $this->styleToObject()
+            return $style[strtolower($style)]; 
         }
         
         return n.hasAttribute(attr) ? n.getAttribute(attr) : '';
