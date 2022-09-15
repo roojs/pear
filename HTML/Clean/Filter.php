@@ -48,7 +48,7 @@ class  HTML_Clean_Filter
                 
                 default:    // tags .. that do not match.
                     if ($e->hasChildNodes()) {
-                        this.walk($e);
+                        this->walk($e);
                     }
             }
             
