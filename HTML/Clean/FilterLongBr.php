@@ -19,7 +19,7 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
         parent::__construct($cfg);
         $pp = $this->arrayFrom($this->node->getElementsByTagName('br'));
         foreach($pp as $p) {
-            if (!$p->parentNode) { // already done?
+            if (!$p->parentNode) { // should not happen as we only walk forwards.
                 continue;
             }
             $this->replaceIt($p);
@@ -35,7 +35,7 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
         
         $ps = $node->nextSibling;
         // find the nex sibling that is a node, 
-        while ($ps && $ps->nodeType == 3 && strlen(trim($ps->nodeValue))) {
+        while ($ps && $ps->nodeType == 3 && strlen(trim($ps->nodeValue)) < 1) {
             $ps = $ps->nextSibling;
         }
         // we have no next sibling, and are inside one of these tags
@@ -56,10 +56,11 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
         
         $ps = $node->previousSibling;
         
-        while (ps && ps.nodeType == 3 && ps.nodeValue.trim().length < 1) {
-            ps = ps.previousSibling;
+        while ($ps && $ps->nodeType == 3 &&  strlen(trim($ps->nodeValue)) < 1) {
+            $ps = $ps->previousSibling;
         }
-        if (!ps || ps.nodeType != 1) {
+        
+        if (!$ps || $ps->nodeType != 1) {
             return false;
         }
         // if header or BR before.. then it's a candidate for removal.. - as we only want '2' of these..
