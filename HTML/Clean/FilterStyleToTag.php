@@ -55,14 +55,13 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
             if (!isset($style[$k]) || $style[$k] != $v) {
                 continue;
             }
-            
-                inject.push(k);
-                node.style.removeProperty(this.tags[k][0]);
-            }
+            unset($style[$k]);
+            $inject[] = $tn;
         }
-        if (!inject.length) {
+        if (!count($inject) {
             return true; 
         }
+        $this->nodeSetStyle($node, $style);
         var cn = Array.from(node.childNodes);
         var nn = node;
         Roo.each(inject, function(t) {
