@@ -81,30 +81,33 @@ class  HTML_Clean_Block
      * @param {String} attribute (use html - for contents, style for using next param as style, or false to return the node)
      * @param {String} style the style property - eg. text-align
      */
-    function getVal : (node, tag, attr, style)
+    function getVal($node, $tag , $attr = false, $style = false)
     {
-        var n = node;
-        if (tag !== true && n.tagName != tag.toUpperCase()) {
+         $n = $node;
+        if ($tag !== true && $n->tagName != strtoupper($tag) {
             // in theory we could do figure[3] << 3rd figure? or some more complex search..?
             // but kiss for now.
-            n = node.getElementsByTagName(tag).item(0);
+            $n = $node->getElementsByTagName($tag)->item(0);
         }
-        if (!n) {
+        if (!$n) {
             return '';
         }
-        if (attr === false) {
-            return n;
+        if ($attr === false) {
+            return $n;
         }
-        if (attr == 'html') {
+        if ($attr == 'html') {
+            
+            
+            
             return n.innerHTML;
         }
-        if (attr == 'style') {
-            return n.style[style]; 
+        if ($attr == 'style') {
+            return n.style[$style]; 
         }
         
         return n.hasAttribute(attr) ? n.getAttribute(attr) : '';
             
-    },
+    }
     /**
      * create a DomHelper friendly object - for use with 
      * Roo.DomHelper.markup / overwrite / etc..
