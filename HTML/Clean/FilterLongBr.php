@@ -28,6 +28,11 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
     
     function replaceIt($node)
     {
+        
+        if (!$node->previousSibling) { // not hing before us...
+            return false;
+        }
+        
         $ps = $node->nextSibling;
         // find the nex sibling that is a node, 
         while ($ps && $ps->nodeType == 3 && strlen(trim($ps->nodeValue))) {
@@ -52,9 +57,7 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
         
         
         
-        if (!node.previousSibling) {
-            return false;
-        }
+        
         var ps = node.previousSibling;
         
         while (ps && ps.nodeType == 3 && ps.nodeValue.trim().length < 1) {
