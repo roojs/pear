@@ -62,7 +62,7 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
             }
                 
             if ($a->name == 'style') {
-                $this->cleanStyle($node,$a->name,$a->value);
+                $this->cleanStyle($node);
                 continue;
             }
             /// clean up MS crap..
@@ -87,37 +87,30 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
         }
         return true; // clean children
     }
-        
-    cleanAttr: function(node, n,v)
+    // cleans urls...
+    function cleanAttr($node, $n,$v)
     {
+        // starts with 'dot' or 'slash', 'hash' or '{' << template
+        if (preg_match('/^(\.|\/|#|\{)/' , $v)) {
+            return;
+        }
+        // standard stuff? - should we allow data?
+        if (preg_match('/(http|https|mailto|ftp|data):/' , $v)) {
+            return;
+        }
         
-        if (v.match(/^\./) || v.match(/^\//)) {
-            return;
-        }
-        if (v.match(/^(http|https):\/\//)
-            || v.match(/^mailto:/) 
-            || v.match(/^ftp:/)
-            || v.match(/^data:/)
-            ) {
-            return;
-        }
-        if (v.match(/^#/)) {
-            return;
-        }
-        if (v.match(/^\{/)) { // allow template editing.
-            return;
-        }
 //            Roo.log("(REMOVE TAG)"+ node.tagName +'.' + n + '=' + v);
-        node.removeAttribute(n);
+        $node->removeAttribute($n);
         
-    },
-    cleanStyle : function(node,  n,v)
+    }
+    
+    function cleanStyle ($node,  $n, $v)
     {
-        if (v.match(/expression/)) { //XSS?? should we even bother..
-            node.removeAttribute(n);
+        if (preg_match('/expression/', $v)) { //XSS?? should we even bother..
+            $node->removeAttribute(n);
             return;
         }
-        
+        $style = $this->styleToObject($node);
         var parts = v.split(/;/);
         var clean = [];
         
