@@ -76,8 +76,7 @@ class HTML_Clean {
         $this->filter('Paragraph',array( 'node' =>  $d ));
         $this->filter('Span',array( 'node' =>  $d ));
         $this->filter('LongBr',array( 'node' =>  $d ));
-        //$this->filter('Comment',array( 'node' =>  $d ));
-        
+         
         
            
         Array.from(d.getElementsByTagName('img')).forEach(function(img) {
