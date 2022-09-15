@@ -241,12 +241,11 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
             $this->copyInnerHtml($n, $nli);
             //$nli->innerHTML = $n->innerHTML;
             //Roo.log("innerHTML = " + n.innerHTML);
-            parent.removeChild(n);
+            $parent->removeChild($n);
             
              
              
-            
-        },this);
+        }
         
         
         
