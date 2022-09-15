@@ -11,6 +11,11 @@ class  HTML_Clean_Filter
 {
     var $replaceComment = true; // default to trash these.!
     
+    var $node = false;
+    var $tag = false;
+   
+    
+    
     function walk ($dom)
     {
         
@@ -20,34 +25,41 @@ class  HTML_Clean_Filter
             switch(true) {
                 
                 case $e->nodeType == 8 &&  $this->replaceComment  !== false: // comment
-                    this.replaceComment(e);
+                    $this->replaceComment($e);
                     return;
                 
-                case e.nodeType != 1: //not a node.
+                case $e->nodeType != 1: //not a node.
                     return;
                 
-                case this.tag === true: // everything
-                case e.tagName.indexOf(":") > -1 && typeof(this.tag) == 'object' && this.tag.indexOf(":") > -1:
-                case e.tagName.indexOf(":") > -1 && typeof(this.tag) == 'string' && this.tag == ":":
-                case typeof(this.tag) == 'object' && this.tag.indexOf(e.tagName) > -1: // array and it matches.
-                case typeof(this.tag) == 'string' && this.tag == e.tagName: // array and it matches.
-                    if (this.replaceTag && false === this.replaceTag(e)) {
+                
+                case $this->tag === true: // everything
+                case strpos(':', $e->tagName) !== false && is_array($this->tag) && array_search(":", $this->tag) !== false:
+                case strpos(':', $e->tagName) !== false && is_string($this->tag)  && $this->tag == ":":
+                case is_array($this->tag) && array_search($e->tagName, $this->tag) !== false:
+                case is_string($this->tag) && $e->tagName ==  $this->tag:
+                
+                    if (false === $this->replaceTag(e)) {
                         return;
                     }
-                    if (e.hasChildNodes()) {
-                        this.walk(e);
+                    if ($e->hasChildNodes()) {
+                        $this->walk($e);
                     }
                     return;
                 
                 default:    // tags .. that do not match.
-                    if (e.hasChildNodes()) {
-                        this.walk(e);
+                    if ($e->hasChildNodes()) {
+                        this.walk($e);
                     }
             }
             
-        }, this);
+        }
         
-    },
+    }
+    
+    // dummy version - implementations should return false to not walk children.
+    function replaceTag($e) {
+        return true;
+    }
     
     function removeNodeKeepChildren  ( $node)
     {
