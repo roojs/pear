@@ -46,7 +46,7 @@ class HTML_Clean {
         $d = $this->dom->documentElement;
         $this->filter('Word',array( 'node' =>  $d ));
             
-        $this->filter('StyleToTag',array( 'node' =>  $d ));
+        $this->filter('StyleToTag',array( 'node' =>  $d ));  // does walk...
         $this->filter('Attributes',array(
             'node' : $d,
             'attrib_white' : array('href', 'src', 'name', 'align', 'colspan', 'rowspan', 'data-display', 'data-width', 'start'),
