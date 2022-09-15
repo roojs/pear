@@ -57,32 +57,21 @@ class  HTML_Clean_Block
         }
         
     }
-Roo.htmleditor.Block.prototype = {
-    
-    node : false,
-    
-     // used by context menu
-    friendly_name : 'Based Block',
-    
-    // text for button to delete this element
-    deleteTitle : false,
-    
-    context : false,
-    /**
+     /**
      * Update a node with values from this object
      * @param {DomElement} node
      */
-    updateElement : function(node)
+    function updateElement ($node)
     {
         Roo.DomHelper.update(node === undefined ? this.node : node, this.toObject());
-    },
+    }
      /**
      * convert to plain HTML for calling insertAtCursor..
      */
-    toHTML : function()
+    function toHTML ()
     {
         return Roo.DomHelper.markup(this.toObject());
-    },
+    }
     /**
      * used by readEleemnt to extract data from a node
      * may need improving as it's pretty basic
@@ -92,7 +81,7 @@ Roo.htmleditor.Block.prototype = {
      * @param {String} attribute (use html - for contents, style for using next param as style, or false to return the node)
      * @param {String} style the style property - eg. text-align
      */
-    getVal : function(node, tag, attr, style)
+    function getVal : (node, tag, attr, style)
     {
         var n = node;
         if (tag !== true && n.tagName != tag.toUpperCase()) {
@@ -121,18 +110,12 @@ Roo.htmleditor.Block.prototype = {
      * Roo.DomHelper.markup / overwrite / etc..
      * (override this)
      */
-    toObject : function()
-    {
-        return {};
-    },
+    abstract function toObject();
       /**
      * Read a node that has a 'data-block' property - and extract the values from it.
      * @param {DomElement} node - the node
      */
-    readElement : function(node)
-    {
-        
-    } 
+    abstract function readElement ($node);
     
     
 };
