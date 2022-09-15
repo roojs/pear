@@ -17,11 +17,9 @@ class  HTML_Clean_Filter
     {
     
         $ar = $this->arrayFrom($node->childNodes);
-        for ($i = 0; $i < count($ar); $i++) {
-         
-            $node->removeChild($ar[$i]);
-            // what if we need to walk these???
-            $node->parentNode->insertBefore($ar[$i], $node);
+        foreach($ar as $n) {
+            $node->removeChild($n);
+            $node->parentNode->insertBefore($n, $node);
            
         }
         $node->parentNode->removeChild($node);
