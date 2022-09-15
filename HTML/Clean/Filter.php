@@ -9,9 +9,45 @@
 
 class  HTML_Clean_Filter
 {
+    var $replaceComment = true; // default to trash these.!
     
-    
-    
+    function walk ($dom)
+    {
+        
+        $ar = $this->arrayFrom($dom->childNodes);
+        foreach($ar as $e)
+        
+            switch(true) {
+                
+                case $e->nodeType == 8 &&  $this->replaceComment  !== false: // comment
+                    this.replaceComment(e);
+                    return;
+                
+                case e.nodeType != 1: //not a node.
+                    return;
+                
+                case this.tag === true: // everything
+                case e.tagName.indexOf(":") > -1 && typeof(this.tag) == 'object' && this.tag.indexOf(":") > -1:
+                case e.tagName.indexOf(":") > -1 && typeof(this.tag) == 'string' && this.tag == ":":
+                case typeof(this.tag) == 'object' && this.tag.indexOf(e.tagName) > -1: // array and it matches.
+                case typeof(this.tag) == 'string' && this.tag == e.tagName: // array and it matches.
+                    if (this.replaceTag && false === this.replaceTag(e)) {
+                        return;
+                    }
+                    if (e.hasChildNodes()) {
+                        this.walk(e);
+                    }
+                    return;
+                
+                default:    // tags .. that do not match.
+                    if (e.hasChildNodes()) {
+                        this.walk(e);
+                    }
+            }
+            
+        }, this);
+        
+    },
     
     function removeNodeKeepChildren  ( $node)
     {
