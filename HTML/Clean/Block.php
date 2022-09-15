@@ -84,7 +84,7 @@ class  HTML_Clean_Block
     function getVal($node, $tag , $attr = false, $style = false)
     {
          $n = $node;
-        if ($tag !== true && $n->tagName != strtoupper($tag) {
+        if ($tag !== true && $n->tagName != strtoupper($tag)) {
             // in theory we could do figure[3] << 3rd figure? or some more complex search..?
             // but kiss for now.
             $n = $node->getElementsByTagName($tag)->item(0);
@@ -96,12 +96,17 @@ class  HTML_Clean_Block
             return $n;
         }
         if ($attr == 'html') {
+            $ret = '';
+            foreach ($node->childNodes as $child) {
+                $ret.= $child->ownerDocument->saveXML( $child );
+            }
+        
+            return $ret;
             
             
-            
-            return n.innerHTML;
         }
         if ($attr == 'style') {
+            
             return n.style[$style]; 
         }
         
