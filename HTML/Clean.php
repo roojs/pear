@@ -77,19 +77,18 @@ class HTML_Clean {
         $this->filter('Span',array( 'node' =>  $d ));
         $this->filter('LongBr',array( 'node' =>  $d ));
          
-        
-           
-        Array.from(d.getElementsByTagName('img')).forEach(function(img) {
-            if (img.closest('figure')) { // assume!! that it's aready
-                return;
+        $ar = $this->arrayFrom($d->getElementsByTagName('img'));
+        foreach($ar as $img) {
+            if ($this->findParent($img, 'figure')) {
+                continue;
             }
-            var fig  = new Roo.htmleditor.BlockFigure({
-                image_src  : img.src
-            });
-            fig.updateElement(img); // replace it..
+            $fig = new HTML_Clean_BlockFigure(array(
+                'image_src' => $img->getAttribute('src');
+            ));
+            $fig->updateElement($img);
             
-        });
-         Roo.htmleditor.Block.initAll(this.doc.body);
+        }
+        HTML_Clean_Block::initAll($d);
 
     }
     
