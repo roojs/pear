@@ -20,7 +20,6 @@ class  HTML_Clean_Filter
         foreach($ar as $n) {
             $node->removeChild($n);
             $node->parentNode->insertBefore($n, $node);
-           
         }
         $node->parentNode->removeChild($node);
     }
