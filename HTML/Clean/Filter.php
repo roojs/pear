@@ -58,6 +58,8 @@ class  HTML_Clean_Filter
     
     // dummy version - implementations should return false to not walk children.
     function replaceTag($e) {
+        // if we avoid filtering here -> we could just call walk on all the child names.
+        
         return true;
     }
     
