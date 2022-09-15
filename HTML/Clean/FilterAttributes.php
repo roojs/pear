@@ -33,8 +33,8 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
     
      function replaceTag ($node)
     {
-        if (!$node->attributes || !$node->attributes->length) {
-            return true;
+        if (!$node->hasAttributes()) {
+            return true; // do children.
         }
         
         for (var i = node.attributes.length-1; i > -1 ; i--) {
