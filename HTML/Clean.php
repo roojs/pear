@@ -52,7 +52,9 @@ class HTML_Clean {
             'attrib_white' : array('href', 'src', 'name', 'align', 'colspan', 'rowspan', 'data-display', 'data-width', 'start'),
             'attrib_clean' : array('href', 'src' ) 
         });
-        $this->filter('Black',array( 'node' =>  $d, 'tag'  =>  $this->black ));
+        // is this used?!?!
+        // $this->filter('Black',array( 'node' =>  $d, 'tag'  =>  $this->black ));
+        
         // should be fonts..
         $this->filter('KeepChildren',array( 'node' =>  $d, 'tag'  =>   array(   'FONT', ':' )) );
         $this->filter('Paragraph',array( 'node' =>  $d ));
