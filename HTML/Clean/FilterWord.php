@@ -63,7 +63,7 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
             $ret[trim($kv[0])] = trim($kv[1]);
         }
         return $ret;
-    },
+    }
     
     function replaceDocBullets  ($doc)
     {
@@ -139,56 +139,58 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
                 continue;
             }
             
-            var spans = ns.getElementsByTagName('span');
-            if (!spans.length) {
+            $spans = $ns->getElementsByTagName('span');
+            if (!$spans->length) {
                 break;
             }
-            var has_list  = false;
-            for(var i = 0; i < spans.length; i++) {
-                if (spans[i].hasAttribute('style') && spans[i].getAttribute('style').match(/mso-list/)) {
-                    has_list = true;
+            $has_list  = false;
+            foreach($spasn as $s) {
+                if ($s->hasAttribute('style') &&  preg_match('/mso-list/', $s->getAttribute('style'))) {
+                    $has_list = true;
                     break;
                 }
             }
-            if (!has_list) {
+            if (!$has_list) {
                 break;
             }
-            items.push(ns);
-            ns = ns.nextSibling;
+            $items[] = $ns;
+            $ns = $ns->nextSibling;
             
             
         }
-        if (!items.length) {
-            ns.className = "";
+        if (!count($items)) {
+            $ns->setAttribute('class', '');
             return;
         }
         
-        var ul = parent.ownerDocument.createElement(listtype); // what about number lists...
-        parent.insertBefore(ul, p);
-        var lvl = 0;
-        var stack = [ ul ];
-        var last_li = false;
+        $ul = $parent->ownerDocument->createElement($listtype); // what about number lists...
+        $parent->insertBefore($ul, $p);
+        $lvl = 0;
+        $stack = array ( $ul );
+        $last_li = false;
         
-        var margin_to_depth = {};
-        max_margins = -1;
+        $margin_to_depth = array();
+        $max_margins = -1;
         
-        items.forEach(function(n, ipos) {
+        foreach($items as $ipos => $n)
+        {
+        
             //Roo.log("got innertHMLT=" + n.innerHTML);
             
-            var spans = n.getElementsByTagName('span');
-            if (!spans.length) {
+            $spans = $this->arrayFrom($n->getElementsByTagName('span'));
+            if (!count($spans)) {
                 //Roo.log("No spans found");
                  
-                parent.removeChild(n);
+                $parent->removeChild($n);
                 
                 
-                return; // skip it...
+                continue; // skip it...
             }
            
                 
-            var num = 1;
-            var style = {};
-            for(var i = 0; i < spans.length; i++) {
+            $num = 1;
+            $style = array();
+            for($i = 0; $i < $spans->length; i++) {
             
                 style = this.styleToObject(spans[i]);
                 if (typeof(style['mso-list']) == 'undefined') {
@@ -207,7 +209,7 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
                   
                 parent.removeChild(n);
                  
-                return;
+                continue;
             }
             
             var margin = style['margin-left'];
