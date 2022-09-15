@@ -28,13 +28,10 @@ function __construct($cfg)
         }
         $this->walk($cfg['node']);
     } 
-
-Roo.extend(Roo.htmleditor.FilterBlack, Roo.htmleditor.Filter,
-{
-    tag : true, // all elements.
-   
-    replaceTag : function(n)
+ 
+    function replaceTag ($n)
     {
-        n.parentNode.removeChild(n);
+        $n->parentNode->removeChild($n);
+        return false; // don't both with children..
     }
 });
