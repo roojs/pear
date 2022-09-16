@@ -72,15 +72,14 @@ abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 '</div>',
         */
                 
-        if (this.href.length > 0) {
-            img = {
-                tag : 'a',
-                href: this.href,
-                contenteditable : 'true',
-                cn : [
-                    img
-                ]
-            };
+        if (!empty($this->href)) {
+            $img = array(
+                'tag ' => 'a',
+                'href' => $this->href,
+                'cn' => array(
+                    $img
+                )
+            );
         }
         
         
