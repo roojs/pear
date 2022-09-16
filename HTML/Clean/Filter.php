@@ -96,6 +96,16 @@ class  HTML_Clean_Filter
         }
         return $ret;
     }
+    
+    function innerHTML($n)
+    {
+        $ret = "";
+        foreach($n->children as $c) {
+            $ret .= $c->ownerDocument->saveXML($c);
+        }
+        return $ret;
+    }
+    
     function copyInnerHTML($from, $to)
     {
         $ar = $this->arrayFrom($from->childNodes);
