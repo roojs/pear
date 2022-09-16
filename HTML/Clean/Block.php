@@ -169,7 +169,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             if($cn !== false){
                 
                 if(is_array($cn)) {
-                    foreach($cn as $v)
+                    foreach($cn as $v) {
                         $b .= self::createHtml($v);
                     }
                 }else{
