@@ -273,31 +273,30 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         
         // compare attributes
         $ar = $this->arrayFrom($from->attributes);
-        for(var i = 0; i< ar.length;i++) {
-            if (to.hasAttribute(ar[i].name)) {
+        foreach($ar as $k=>$v)
+            if ($to->hasAttribute($k)) {
                 continue;
             }
-            if (ar[i].name == 'id') { // always keep ids?
+            if ($k == 'id') { // always keep ids?
                continue;
             }
             //if (ar[i].name == 'style') {
             //   throw "style removed?";
             //}
-            Roo.log("removeAttribute" + ar[i].name);
-            from.removeAttribute(ar[i].name);
+            
+            $from->removeAttribute($k);
         }
-        ar = to.attributes;
-        for(var i = 0; i< ar.length;i++) {
-            if (from.getAttribute(ar[i].name) == to.getAttribute(ar[i].name)) {
-                Roo.log("skipAttribute " + ar[i].name  + '=' + to.getAttribute(ar[i].name));
+        
+        foreach($to->attributes as $k => $v) {}
+        
+            if ($from->getAttribute($k) == $v) {
                 continue;
             }
-            Roo.log("updateAttribute " + ar[i].name + '=>' + to.getAttribute(ar[i].name));
-            from.setAttribute(ar[i].name, to.getAttribute(ar[i].name));
+            $from->setAttribute($k, $v);
         }
         // children
-        var far = Array.from(from.childNodes);
-        var tar = Array.from(to.childNodes);
+        $far = $this->arrayFrom(from.childNodes);
+        $tar = $this->arrayFrom(to.childNodes);
         // if the lengths are different.. then it's probably a editable content change, rather than
         // a change of the block definition..
         
@@ -311,24 +310,24 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         }
         */
         
-        for(var i = 0; i < Math.max(tar.length, far.length); i++) {
-            if (i >= far.length) {
-                from.appendChild(tar[i]);
-                Roo.log(["add", tar[i]]);
+        for ($i = 0; $i < max(count(array_keys($tar)), count(array_keys($far))); $i++) {
+            if ($i >= count(array_keys($far))) {
+                $from->appendChild($tar[$i]);
+                continue;
                 
-            } else if ( i  >= tar.length) {
-                from.removeChild(far[i]);
-                Roo.log(["remove", far[i]]);
-            } else {
-                
-                updateNode(far[i], tar[i]);
-            }    
+            }
+            if ( $i  >= count(array_keys($tar))) {
+                $from->removeChild($far[$i]);
+                continue;
+            }
+            self::updateNode($far[$i], $tar[$i]);
+            
         }
         
         
         
         
-    };
+    }
     
      
 };
