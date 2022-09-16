@@ -104,6 +104,10 @@ class HTML_Clean {
         new $cls($args);
     }
     
+    function toString()
+    {
+        $this->dom->saveHTML();
+    }
     
     
 }
