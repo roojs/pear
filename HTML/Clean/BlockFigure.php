@@ -48,7 +48,7 @@ abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         $f = $doc->createDocumentFragment();
         $f->appendXML($o->caption); // caption could include html
         $d->appendChild($f);
-        $caption_plain = trim(preg_replace('/\s+/g', ' ', str_replace("\n", " ", $d->textContent)));
+        $caption_plain = $this->caption_display == "block" ? trim(preg_replace('/\s+/g', ' ', str_replace("\n", " ", $d->textContent))) : '';
         
         $m = $this->width != '100%' && $this->align == 'center' ? '0 auto' : 0; 
         
@@ -83,75 +83,75 @@ abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         }
         
         
-        if (this.video_url.length > 0) {
-            img = {
-                tag : 'div',
-                cls : this.cls,
-                frameborder : 0,
-                allowfullscreen : true,
-                width : 420,  // these are for video tricks - that we replace the outer
-                height : 315,
-                src : this.video_url,
-                cn : [
-                    img
-                ]
-            };
+        if (!empty($this->video_url.length )) {
+            $img = array(
+                'tag' => 'div',
+                'cls' => $this->cls,
+                'frameborder' => 0,
+                'allowfullscreen' => true,
+                'width' => 420,  // these are for video tricks - that we replace the outer
+                'height' => 315,
+                'src' => $this->video_url,
+                'cn' => array(
+                    $img
+                )
+            );
         }
         // we remove caption totally if its hidden... - will delete data.. but otherwise we end up with fake caption
-        var captionhtml = this.caption_display == 'none' ? '' : (this.caption.length ? this.caption : "Caption");
+        $captionhtml = $this->caption_display == 'none' || !strlen($this->caption) ? '' : $this->caption;
         
   
-        var ret =   {
-            tag: 'figure',
-            'data-block' : 'Figure',
-            'data-width' : this.width, 
-            contenteditable : 'false',
+        return  array(
+            'tag '=> 'figure',
+            'data-block' => 'Figure',
+            'data-width' => $this->width, 
             
-            style : {
-                display: 'block',
-                float :  this.align ,
-                maxWidth :  this.align == 'center' ? '100% !important' : (this.width + ' !important'),
-                width : this.align == 'center' ? '100%' : this.width,
-                margin:  '0px',
-                padding: this.align == 'center' ? '0' : '0 10px' ,
-                textAlign : this.align   // seems to work for email..
+            
+            'style' => array(
+                'display' => 'block',
+                'float' =>  $this->align ,
+                'max-width' =>  $this->align == 'center' ? '100% !important' : ($this->width + ' !important'),
+                'width' => $this->align == 'center' ? '100%' : $this->width,
+                'margin' =>  '0px',
+                'padding' => $this->align == 'center' ? '0' : '0 10px' ,
+                'text-align' => $this->align   // seems to work for email..
                 
-            },
+            ),
            
             
-            align : this.align,
-            cn : [
-                img,
+            'align' => $this->align,
+            'cn' => array(
+                $img,
               
-                {
-                    tag: 'figcaption',
-                    'data-display' : this.caption_display,
-                    style : {
-                        textAlign : 'left',
-                        fontSize : '16px',
-                        lineHeight : '24px',
-                        display : this.caption_display,
-                        maxWidth : (this.align == 'center' ?  this.width : '100%' ) + ' !important',
-                        margin: m,
-                        width: this.align == 'center' ?  this.width : '100%' 
+                array (
+                    'tag'=> 'figcaption',
+                    'data-display' => $this->caption_display,
+                    'style' => {
+                        'text-align' => 'left',
+                        'font-size' => '16px',
+                        'line-height' => '24px',
+                        'display' => $this->caption_display,
+                        'max-width' => ($this->align == 'center' ?  $this->width => '100%' ) + ' !important',
+                        margin=> m,
+                        width=> $this->align == 'center' ?  $this->width => '100%' 
                     
                          
                     },
-                    cls : this.cls.length > 0 ? (this.cls  + '-thumbnail' ) : '',
-                    cn : [
+                    cls => $this->cls.length > 0 ? ($this->cls  + '-thumbnail' ) => '',
+                    cn => [
                         {
-                            tag: 'div',
-                            style  : {
-                                marginTop : '16px',
-                                textAlign : 'left'
+                            tag=> 'div',
+                            style  => {
+                                marginTop => '16px',
+                                textAlign => 'left'
                             },
-                            align: 'left',
-                            cn : [
+                            align=> 'left',
+                            cn => [
                                 {
                                     // we can not rely on yahoo syndication to use CSS elements - so have to use  '<i>' to encase stuff.
-                                    tag : 'i',
-                                    contenteditable : true,
-                                    html : captionhtml
+                                    tag => 'i',
+                                    contenteditable => true,
+                                    html => captionhtml
                                 }
                                 
                             ]
