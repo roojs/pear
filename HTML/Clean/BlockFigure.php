@@ -5,7 +5,18 @@
  */
 
  
- 
+require_once 'Block.php';
+abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
+{
+    
+    function __construct($cfg) {
+        if ($cfg['node'] {
+            $this->readElement($cfg['node']);
+            $this->updateElement($cfg['node']);
+        )
+        parent::__construct();
+    }
+    
 Roo.htmleditor.BlockFigure = function(cfg)
 {
     if (cfg.node) {
