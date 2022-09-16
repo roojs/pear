@@ -90,12 +90,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             return $n;
         }
         if ($attr == 'html') {
-            $ret = '';
-            foreach ($node->childNodes as $child) {
-                $ret.= $child->ownerDocument->saveXML( $child );
-            }
-        
-            return $ret;
+            return $this->innerHTML($node);
             
             
         }
