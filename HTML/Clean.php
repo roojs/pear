@@ -89,8 +89,7 @@ class HTML_Clean {
             $fig->updateElement($img);
             
         }
-        // convert tables.. ?!?
-        
+         
         
         
         require_once 'HTML/Clean/Block.php';
