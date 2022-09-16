@@ -8,7 +8,7 @@
 require_once 'Block.php';
 class  HTML_Clean_BlockTd extends HTML_Clean_Block
 {
-    var $width = '';
+    var $width = ''; // should be a percent.!
     var $textAlign = 'left';
     var $valign = 'top';
     
@@ -26,52 +26,59 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
         parent::__construct();
          
     }
-     toObject => function()
+    
+    function toObject ()
     {
-        var ret = {
-            tag => 'td',
-            contenteditable => 'true', // this stops cell selection from picking the table.
+        $ret = array(
+            'tag' => 'td',
             'data-block' => 'Td',
-            valign => $this->valign,
-            style => {  
+            'valign' => $this->valign,
+            'style' => array(
                 'text-align' =>  $this->textAlign,
-                border => 'solid 1px rgb(0, 0, 0)', // ??? hard coded?
+                'border' => 'solid 1px rgb(0, 0, 0)', // ??? hard coded?
                 'border-collapse' => 'collapse',
-                padding => '6px', // 8 for desktop / 4 for mobile
+                'padding' => '6px', // 8 for desktop / 4 for mobile
                 'vertical-align'=> $this->valign
-            },
+            ),
             html => $this->html
-        };
+        );
         if ($this->width != '') {
-            ret.width = $this->width;
-            ret.style.width = $this->width;
+            $ret->width = $this->width;
+            $ret['style']['width'] = $this->width;  
         }
         
         
         if ($this->colspan > 1) {
-            ret.colspan = $this->colspan ;
+            $ret['colspan'] = $this->colspan ;
         } 
         if ($this->rowspan > 1) {
-            ret.rowspan = $this->rowspan ;
+            $ret['rowspan'] = $this->rowspan ;
         }
         
            
         
-        return ret;
+        return $ret;
          
-    },
+    }
     
     
-    readElement => function(node)
+    function readElement ($node)
     {
-        node  = node ? node => $this->node ;
-        $this->width = node.style.width;
-        $this->colspan = Math.max(1,1*node.getAttribute('colspan'));
-        $this->rowspan = Math.max(1,1*node.getAttribute('rowspan'));
-        $this->html = node.innerHTML;
-        if (node.style.textAlign != '') {
-            $this->textAlign = node.style.textAlign;
+        $node  = $node ? $node : $this->node ;
+        
+        
+        $this->width = $node->getAttribute('width');
+        $this->valign = $node->getAttribute('valign');
+        $this->colspan = max(1,1*$node->getAttribute('colspan'));
+        $this->rowspan = max(1,1*$node->getAttribute('rowspan'));
+        $this->html = $this->innerHTML($node);
+        $styles = $this->styleToObject($node,true);
+        
+        if (!empty($styles['text-align'])) {
+            $this->textAlign = $styles['text-align'];
+        }
+        if (!empty($styles['vertical-align'])) {
+            $this->valign = $styles['vertical-align'];
         }
         
-        
-    },
+    }
