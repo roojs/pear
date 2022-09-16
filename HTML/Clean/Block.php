@@ -13,10 +13,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
     // used by context menu
     var $context = false; // ??
    
-    
-
-         
-    
+     
     static function factory ($node)
     {
          
@@ -287,7 +284,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             $from->removeAttribute($k);
         }
         
-        foreach($to->attributes as $k => $v) {}
+        foreach($to->attributes as $k => $v) { 
         
             if ($from->getAttribute($k) == $v) {
                 continue;
