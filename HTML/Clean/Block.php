@@ -187,67 +187,59 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         
     }
     
-    static function createDom ($o, $parentNode=false){
+    static function createDom ($o, $parentNode = false) {
          
         // defininition craeted..
-        var ns = false;
-        if (o.ns && o.ns != 'html') {
-               
-            if (o.xmlns && typeof(xmlns[o.ns]) == 'undefined') {
-                xmlns[o.ns] = o.xmlns;
-                ns = o.xmlns;
-            }
-            if (typeof(xmlns[o.ns]) == 'undefined') {
-                console.log("Trying to create namespace element " + o.ns + ", however no xmlns was sent to builder previously");
-            }
-            ns = xmlns[o.ns];
+        $ns = false;
+        $doc = new DOMDocument('1.0', 'utf8');
+        
+        if (is_string($o)) {
+            return  $parentNode ? $parentNode->appendChild($doc->createTextNode($o)) : $doc->createTextNode($o);
+        }
+        if(empty($o->tag)){
+            $o->tag = "div";
         }
         
+        $el = $doc.createElement($o->tag);
         
-        if (typeof(o) == 'string') {
-            return parentNode.appendChild(document.createTextNode(o));
-        }
-        o.tag = o.tag || div;
-        if (o.ns && Roo.isIE) {
-            ns = false;
-            o.tag = o.ns + ':' + o.tag;
+        foreach ($o as $attr => $val) {
             
-        }
-        var el = ns ? document.createElementNS( ns, o.tag||'div') :  document.createElement(o.tag||'div');
-        var useSet = el.setAttribute ? true : false; // In IE some elements don't have setAttribute
-        for(var attr in o){
-            
-            if(attr == "tag" || attr == "ns" ||attr == "xmlns" ||attr == "children" || attr == "cn" || attr == "html" || 
-                    attr == "style" || typeof o[attr] == "function") { continue; }
+            if($attr == "tag" || $attr == "ns" ||$attr == "xmlns" || $attr == "children" || $attr == "cn" || $attr == "html" || 
+                    $attr == "style") {
+                continue;
+            }
                     
-            if(attr=="cls" && Roo.isIE){
-                el.className = o["cls"];
-            }else{
-                if(useSet) { el.setAttribute(attr=="cls" ? 'class' : attr, o[attr]);}
-                else { 
-                    el[attr] = o[attr];
-                }
+            if ($attr=="cls"){
+                $el->setAttribute('class',$val);
+            } else {
+                $el->setAttribute($attr, $val);
             }
         }
-        Roo.DomHelper.applyStyles(el, o.style);
-        var cn = o.children || o.cn;
-        if(cn){
+        if (isset($o->style)) {
+            self::applyStyles($el, $o->style);
+        }
+        $cn = isset($o->cn) ? $o->cn :
+                (isset($o->children) ? $o->children : false);
+           
+        if($cn) {
             //http://bugs.kde.org/show_bug.cgi?id=71506
-             if((cn instanceof Array) || (Roo.isSafari && typeof(cn.join) == "function")){
-                for(var i = 0, len = cn.length; i < len; i++) {
-                    createDom(cn[i], el);
+            if (is_array($cn)) {
+                foreach($cn as $c) {
+                    self::createDom($c, $el);
                 }
             }else{
-                createDom(cn, el);
+                self::createDom($cn, $el);
             }
         }
-        if(o.html){
-            el.innerHTML = o.html;
+        if(isset($o->html)) {
+            $f = $doc->createDocumentFragment();
+            $f->appendXML($o->html);
+            $el->appendChild($f);
         }
-        if(parentNode){
-           parentNode.appendChild(el);
+        if($parentNode){
+           $parentNode->appendChild(el);
         }
-        return el;
-    };
+        return $el;
+    }
     
 };
