@@ -107,7 +107,7 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
         $node  = $node ? $node : $this->node ;
         $this->width = this.getVal($node, true, 'style', 'width') || '100%';
         
-        this.rows = array();
+        $this->rows = array();
         $this->no_row = 0;
         $trs = $this->arrayFrom($node->getElementsByTagName('tr'));
         foreach($trs as $tr) {
@@ -127,18 +127,18 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
                     
                 };
                 */
-                no_column += add.colspan;
+                $no_column += $add->colspan;
                      
                 
-                row.push(add);
+                $row[] =   $add;
                 
                 
-            },this);
+            }
             $this->rows[] = $row;     
-            this.no_col = Math.max(this.no_col, no_column);
+            $this->no_col = max($this->no_col, $no_column);
             
             
-        },this);
+            }
         
         
     },
