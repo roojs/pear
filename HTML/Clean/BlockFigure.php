@@ -126,45 +126,43 @@ abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 array (
                     'tag'=> 'figcaption',
                     'data-display' => $this->caption_display,
-                    'style' => {
+                    'style' => array(
                         'text-align' => 'left',
                         'font-size' => '16px',
                         'line-height' => '24px',
                         'display' => $this->caption_display,
-                        'max-width' => ($this->align == 'center' ?  $this->width => '100%' ) + ' !important',
-                        margin=> m,
-                        width=> $this->align == 'center' ?  $this->width => '100%' 
+                        'max-width' => ($this->align == 'center' ?  $this->width : '100%' ) + ' !important',
+                        'margin'=> $m,
+                        'width'=> $this->align == 'center' ?  $this->width : '100%' 
                     
                          
-                    },
-                    cls => $this->cls.length > 0 ? ($this->cls  + '-thumbnail' ) => '',
-                    cn => [
-                        {
-                            tag=> 'div',
-                            style  => {
-                                marginTop => '16px',
-                                textAlign => 'left'
-                            },
-                            align=> 'left',
-                            cn => [
-                                {
+                    ),
+                    'cls' => $this->cls.length > 0 ? ($this->cls  + '-thumbnail' ) : '',
+                    'cn' => array(
+                        array(
+                            'tag' => 'div',
+                            'style'  => array(
+                                'margin-top' => '16px',
+                                'text-align' => 'left'
+                            ),
+                            'align'=> 'left',
+                            'cn' => array(
+                                array( 
                                     // we can not rely on yahoo syndication to use CSS elements - so have to use  '<i>' to encase stuff.
-                                    tag => 'i',
-                                    contenteditable => true,
-                                    html => captionhtml
-                                }
+                                    'tag' => 'i',
+                                    'html' => $captionhtml
+                                )
                                 
-                            ]
-                        }
+                            )
+                        )
                         
-                    ]
+                    )
                     
-                }
-            ]
-        };
-        return ret;
+                )
+            )
+        );
          
-    },
+    }
     
     readElement : function(node)
     {
