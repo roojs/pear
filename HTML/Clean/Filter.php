@@ -91,8 +91,8 @@ class  HTML_Clean_Filter
     function arrayFrom($list)
     {
         $ret = array();
-        foreach($list as $l) {
-            $ret[] = $l;
+        foreach($list as $k=> $l) {
+            $ret[$k] = $l;
         }
         return $ret;
     }
