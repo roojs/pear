@@ -6,7 +6,7 @@
 
  
 require_once 'Block.php';
-abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
+class  HTML_Clean_BlockFigure extends HTML_Clean_Block
 {
     
     function __construct($cfg) {
@@ -192,4 +192,4 @@ abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
     
     
     
-})
+}
