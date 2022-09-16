@@ -12,7 +12,7 @@ class HTML_Clean {
         $str= self::cleanWordChars($str);
         $dom = new DOMDocument('1.0', 'utf8');
         $dom->loadHTML($str);
-        $opts['dom'] = $dom
+        $opts['dom'] = $dom;
         return new HTML_Clean($opts);    
     }
     static function cleanWordChars($str)
