@@ -266,14 +266,13 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         }
         // assume 'to' doesnt have '1/3 nodetypes!
         // not sure why, by from, parent node might not exist?
-        if (from.nodeType !=1 || from.tagName != to.tagName) {
-            Roo.log(["ReplaceChild" , from, to ]);
-            
-            from.parentNode.replaceChild(to, from);
+        if ($from->nodeType != 1 || $from->tagName != $to->tagName) {
+            $from->parentNode->replaceChild($to, $from);
             return;
         }
+        
         // compare attributes
-        var ar = Array.from(from.attributes);
+        $ar = $this->arrayFrom($from->attributes);
         for(var i = 0; i< ar.length;i++) {
             if (to.hasAttribute(ar[i].name)) {
                 continue;
