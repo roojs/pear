@@ -59,7 +59,8 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
      */
     function updateElement ($node)
     {
-        Roo.DomHelper.update(node === undefined ? this.node : node, this.toObject());
+        self::updateNode(empty($node) ? $this->node : $node, self::createDom($this->toObject()));
+        
     }
      /**
      * convert to plain HTML for calling insertAtCursor..
@@ -185,4 +186,68 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
          
         
     }
+    
+    static function createDom ($o, $parentNode=false){
+         
+        // defininition craeted..
+        var ns = false;
+        if (o.ns && o.ns != 'html') {
+               
+            if (o.xmlns && typeof(xmlns[o.ns]) == 'undefined') {
+                xmlns[o.ns] = o.xmlns;
+                ns = o.xmlns;
+            }
+            if (typeof(xmlns[o.ns]) == 'undefined') {
+                console.log("Trying to create namespace element " + o.ns + ", however no xmlns was sent to builder previously");
+            }
+            ns = xmlns[o.ns];
+        }
+        
+        
+        if (typeof(o) == 'string') {
+            return parentNode.appendChild(document.createTextNode(o));
+        }
+        o.tag = o.tag || div;
+        if (o.ns && Roo.isIE) {
+            ns = false;
+            o.tag = o.ns + ':' + o.tag;
+            
+        }
+        var el = ns ? document.createElementNS( ns, o.tag||'div') :  document.createElement(o.tag||'div');
+        var useSet = el.setAttribute ? true : false; // In IE some elements don't have setAttribute
+        for(var attr in o){
+            
+            if(attr == "tag" || attr == "ns" ||attr == "xmlns" ||attr == "children" || attr == "cn" || attr == "html" || 
+                    attr == "style" || typeof o[attr] == "function") { continue; }
+                    
+            if(attr=="cls" && Roo.isIE){
+                el.className = o["cls"];
+            }else{
+                if(useSet) { el.setAttribute(attr=="cls" ? 'class' : attr, o[attr]);}
+                else { 
+                    el[attr] = o[attr];
+                }
+            }
+        }
+        Roo.DomHelper.applyStyles(el, o.style);
+        var cn = o.children || o.cn;
+        if(cn){
+            //http://bugs.kde.org/show_bug.cgi?id=71506
+             if((cn instanceof Array) || (Roo.isSafari && typeof(cn.join) == "function")){
+                for(var i = 0, len = cn.length; i < len; i++) {
+                    createDom(cn[i], el);
+                }
+            }else{
+                createDom(cn, el);
+            }
+        }
+        if(o.html){
+            el.innerHTML = o.html;
+        }
+        if(parentNode){
+           parentNode.appendChild(el);
+        }
+        return el;
+    };
+    
 };
