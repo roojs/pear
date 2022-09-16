@@ -161,7 +161,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         }
         if (preg_match('/^(?:br|frame|hr|img|input|link|meta|range|spacer|wbr|area|param|col)$/i', $o->tag)) {
             $b .= "/>"; // empty
-        } else{
+        } else { 
             $b .= ">";
             $cn = isset($o->cn) ? $o->cn :
                 (isset($o->children) ? $o->children : false);
@@ -182,9 +182,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             $b .= "</" + $o->tag + ">";
         }
         return $b;
-        
-        
-        
+         
         
     }
 };
