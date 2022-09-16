@@ -138,13 +138,12 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
             $this->no_col = max($this->no_col, $no_column);
             
             
-            }
+          }
         
         
-    },
+    }
     
-     emptyCell : function() {
-        return (new Roo.htmleditor.BlockTd({})).toObject();
-        
-     
-    },
+    function emptyCell () {
+        return new Roo.htmleditor.BlockTd(array())
+         
+    }
