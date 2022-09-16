@@ -46,18 +46,17 @@ abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         
         $d = $doc->createElement('div');
         $f = $doc->createDocumentFragment();
-        $f->appendXML($o->html);
+        $f->appendXML($o->caption); // caption could include html
         $d->appendChild($f);
-       
+        $caption_plain = $
         
-        var m = this.width != '100%' && this.align == 'center' ? '0 auto' : 0; 
+        $m = $this->width != '100%' && $this->align == 'center' ? '0 auto' : 0; 
         
-        var iw = this.align == 'center' ? this.width : '100%';
-        var img =   {
-            tag : 'img',
-            contenteditable : 'false',
-            src : this.image_src,
-            alt : d.innerText.replace(/\n/g, " ").replace(/\s+/g, ' ').trim(), // removeHTML and reduce spaces..
+        $iw = $this->align == 'center' ? $this->width : '100%';
+        $img =   array(
+            'tag' => 'img',
+            'src' => $this->image_src,
+            $alt : d.innerText.replace(/\n/g, " ").replace(/\s+/g, ' ').trim(), // removeHTML and reduce spaces..
             style: {
                 width : iw,
                 maxWidth : iw + ' !important', // this is not getting rendered?
