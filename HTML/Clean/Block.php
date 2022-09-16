@@ -66,7 +66,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
      */
     function toHTML ()
     {
-        return Roo.DomHelper.markup(this.toObject());
+        return self::createHTML($this->toObject());
     }
     /**
      * used by readEleemnt to extract data from a node
