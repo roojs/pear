@@ -89,7 +89,7 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
             
             $ret->cn[0]->cn[] = $tr;
             
-            $ncols = Math.max($nc, $ncols);
+            $ncols = max($nc, $ncols);
             
             
         }
@@ -98,32 +98,35 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
         $ncols++; // not used?
          
         
-        return ret;
+        return $ret;
          
-    },
+    }
     
-    readElement : function(node)
+    function readElement($node)
     {
-        node  = node ? node : this.node ;
-        this.width = this.getVal(node, true, 'style', 'width') || '100%';
+        $node  = $node ? $node : $this->node ;
+        $this->width = this.getVal($node, true, 'style', 'width') || '100%';
         
-        this.rows = [];
-        this.no_row = 0;
-        var trs = Array.from(node.rows);
-        trs.forEach(function(tr) {
-            var row =  [];
-            this.rows.push(row);
+        this.rows = array();
+        $this->no_row = 0;
+        $trs = $this->arrayFrom($node->getElementsByTagName('tr'));
+        foreach($trs as $tr) {
+            $row =  array();
             
-            this.no_row++;
-            var no_column = 0;
-            Array.from(tr.cells).forEach(function(td) {
+            
+            $this->no_row++;
+            $no_column = 0;
+            foreach($node->getElementsByTagName('td') as $td) {
                 
-                var add = {
-                    colspan : td.hasAttribute('colspan') ? td.getAttribute('colspan')*1 : 1,
+                
+                $add = new HTML_Clean_Block_Td( array('node' => $td ));
+                    /*'colspan : td.hasAttribute('colspan') ? td.getAttribute('colspan')*1 : 1,
                     rowspan : td.hasAttribute('rowspan') ? td.getAttribute('rowspan')*1 : 1,
                     style : td.hasAttribute('style') ? td.getAttribute('style') : '',
                     html : td.innerHTML
+                    
                 };
+                */
                 no_column += add.colspan;
                      
                 
@@ -131,6 +134,7 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
                 
                 
             },this);
+            $this->rows[] = $row;     
             this.no_col = Math.max(this.no_col, no_column);
             
             
