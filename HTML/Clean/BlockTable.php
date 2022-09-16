@@ -6,7 +6,7 @@
 
  
 require_once 'Block.php';
-require_once 'Td.php'; 
+require_once 'BlockTd.php'; 
 class  HTML_Clean_BlockTable extends HTML_Clean_Block
 {
     
@@ -149,6 +149,6 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
     }
     
     function emptyCell () {
-        return new Roo.HTML_Clean_Block_Td.BlockTd(array())
+        return new HTML_Clean_Block_Td(array())
          
     }
