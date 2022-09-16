@@ -164,37 +164,30 @@ abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
          
     }
     
-    readElement : function(node)
+    function readElement ($node)
     {
         // this should not really come from the link...
-        this.video_url = this.getVal(node, 'div', 'src');
-        this.cls = this.getVal(node, 'div', 'class');
-        this.href = this.getVal(node, 'a', 'href');
+        $this->video_url = $this->getVal($node, 'div', 'src');
+        $this->cls = $this->getVal($node, 'div', 'class');
+        $this->href = $this->getVal($node, 'a', 'href');
         
         
-        this.image_src = this.getVal(node, 'img', 'src');
+        $this->image_src = $this->getVal($node, 'img', 'src');
          
-        this.align = this.getVal(node, 'figure', 'align');
-        var figcaption = this.getVal(node, 'figcaption', false);
-        if (figcaption !== '') {
-            this.caption = this.getVal(figcaption, 'i', 'html');
+        $this->align = $this->getVal($node, 'figure', 'align');
+        
+        $figcaption = $this->getVal($node, 'figcaption', false);
+        if ($figcaption !== '') {
+            $this->caption = $this->getVal($figcaption, 'i', 'html');
         }
         
 
-        this.caption_display = this.getVal(node, 'figcaption', 'data-display');
-        //this.text_align = this.getVal(node, 'figcaption', 'style','text-align');
-        this.width = this.getVal(node, true, 'data-width');
-        //this.margin = this.getVal(node, 'figure', 'style', 'margin');
+        $this->caption_display = $this->getVal($node, 'figcaption', 'data-display');
+        //$this->text_align = $this->getVal(node, 'figcaption', 'style','text-align');
+        $this->width = $this->getVal($node, true, 'data-width');
+        //$this->margin = $this->getVal(node, 'figure', 'style', 'margin');
         
-    },
-    removeNode : function()
-    {
-        return this.node;
     }
-    
-  
-   
-     
     
     
     
