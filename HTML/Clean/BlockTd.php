@@ -68,7 +68,6 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
         
         
         $this->width = $node->getAttribute('width');
-        $this->valign = $node->getAttribute('valign');
         $this->colspan = max(1,1*$node->getAttribute('colspan'));
         $this->rowspan = max(1,1*$node->getAttribute('rowspan'));
         $this->html = $this->innerHTML($node);
@@ -77,8 +76,8 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
         if (!empty($styles['text-align'])) {
             $this->textAlign = $styles['text-align'];
         }
-        if (!empty($styles['vertical-align'])) {
-            $this->valign = $styles['vertical-align'];
+        if ($node->hasAttribute('valign')) {
+            $this->valign = $node->getAttribute('valign');
         }
         
     }
