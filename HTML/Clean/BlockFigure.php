@@ -10,7 +10,7 @@ abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
 {
     
     function __construct($cfg) {
-        if ($cfg['node'] {
+        if ($cfg['node']) {
             $this->readElement($cfg['node']);
             $this->updateElement($cfg['node']);
         )
