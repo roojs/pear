@@ -25,7 +25,7 @@ class  HTML_Clean_Filter
     {
         
         $ar = $this->arrayFrom($dom->childNodes);
-        foreach($ar as $e)
+        foreach($ar as $e) {
         
             switch(true) {
                 
