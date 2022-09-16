@@ -48,7 +48,7 @@ abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         $f = $doc->createDocumentFragment();
         $f->appendXML($o->caption); // caption could include html
         $d->appendChild($f);
-        $caption_plain = $
+        $caption_plain = trim(preg_replace('/\s+/g', ' ', str_replace("\n", " ", $d->textContent)));
         
         $m = $this->width != '100%' && $this->align == 'center' ? '0 auto' : 0; 
         
@@ -56,14 +56,14 @@ abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         $img =   array(
             'tag' => 'img',
             'src' => $this->image_src,
-            $alt : d.innerText.replace(/\n/g, " ").replace(/\s+/g, ' ').trim(), // removeHTML and reduce spaces..
-            style: {
-                width : iw,
-                maxWidth : iw + ' !important', // this is not getting rendered?
-                margin : m  
+            'alt' => $caption_plain,
+            'style'=> array(
+                'width' => $iw,
+                'max-width' =>$iw + ' !important', // this is not getting rendered?
+                'margin' => $m  
                 
-            }
-        };
+            )
+        );
         /*
         '<div class="{0}" width="420" height="315" src="{1}" frameborder="0" allowfullscreen>' +
                     '<a href="{2}">' + 
