@@ -216,7 +216,9 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             }
         }
         if (isset($o->style)) {
-            self::applyStyles($el, $o->style);
+            foreach ($styles as $k=>$v){
+                $el->setAttribute($k,$v);
+            }
         }
         $cn = isset($o->cn) ? $o->cn :
                 (isset($o->children) ? $o->children : false);
@@ -241,5 +243,5 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         }
         return $el;
     }
-    
+     
 };
