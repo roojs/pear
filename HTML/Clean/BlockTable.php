@@ -6,6 +6,7 @@
 
  
 require_once 'Block.php';
+require_once 'Td.php'; 
 class  HTML_Clean_BlockTable extends HTML_Clean_Block
 {
     
@@ -15,6 +16,9 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
     var $width = '100%';
     
     function __construct($cfg) {
+        
+        
+        
         if ($cfg['node']) {
             $this->readElement($cfg['node']);
             $this->updateElement($cfg['node']);
@@ -104,6 +108,7 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
     
     function readElement($node)
     {
+        
         $node  = $node ? $node : $this->node ;
         $this->width = this.getVal($node, true, 'style', 'width') || '100%';
         
@@ -144,6 +149,6 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
     }
     
     function emptyCell () {
-        return new Roo.htmleditor.BlockTd(array())
+        return new Roo.HTML_Clean_Block_Td.BlockTd(array())
          
     }
