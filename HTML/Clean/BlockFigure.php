@@ -45,8 +45,10 @@ abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         $doc = new DOMDocument('1.0', 'utf8');
         
         $d = $doc->createElement('div');
-        
-        d.innerHTML = this.caption;
+        $f = $doc->createDocumentFragment();
+        $f->appendXML($o->html);
+        $d->appendChild($f);
+       
         
         var m = this.width != '100%' && this.align == 'center' ? '0 auto' : 0; 
         
