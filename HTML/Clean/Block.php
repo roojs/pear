@@ -164,7 +164,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         } else{
             $b .= ">";
             $cn = isset($o->cn) ? $o->cn :
-                (isset($o->children) : $o->children : false);
+                (isset($o->children) ? $o->children : false);
             
             if($cn !== false){
                 
