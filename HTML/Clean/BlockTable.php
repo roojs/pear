@@ -26,10 +26,11 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
         parent::__construct();
         if (!$this->node) {
         
-        for($r = 0; $r < $this->no_row; $r++) {
-            $this->rows[$r] = array();
-            for($c = 0; $c < $this->no_col; $c++) {
-                $this->rows[$r][$c] = $this->emptyCell();
+            for($r = 0; $r < $this->no_row; $r++) {
+                $this->rows[$r] = array();
+                for($c = 0; $c < $this->no_col; $c++) {
+                    $this->rows[$r][$c] = $this->emptyCell();
+                }
             }
         }
     }
@@ -149,6 +150,7 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
     }
     
     function emptyCell () {
-        return new HTML_Clean_Block_Td(array())
+        return new HTML_Clean_Block_Td(array());
          
     }
+}
