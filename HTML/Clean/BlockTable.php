@@ -30,6 +30,117 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
         }
     }
     
+    function toObject ()
+    {
+        
+        $ret = array(
+            'tag' => 'table',
+            'data-block' => 'Table',
+            'style' => array(
+                'width'=>  $this->width,
+                'border' => 'solid 1px #000', // ??? hard coded?
+                'border-collapse' => 'collapse' 
+            ),
+            'cn' => array(
+                array( 'tag' => 'tbody' , 'cn' => array() ) 
+            )
+        );
+        
+        // do we have a head = not really 
+        $ncols = 0;
+        foreach($this->rows as $row) {
+            $tr = array(
+                'tag' => 'tr',
+                'style' => array(
+                    'margin' => '6px',
+                    'border' => 'solid 1px #000',
+                    'text-align' => 'left' 
+                ),
+                'cn' => array()
+            );
+            
+            
+            // does the row have any properties? ?? height?
+            $nc = 0;
+            foreach($row as $cell) {
+                
+                $td = array(
+                    'tag' => 'td',
+                    'data-block' => 'Td',
+                    'html' => $cell->html,
+                    'style' => $cell->style
+                );
+                if ($cell->colspan > 1) {
+                    $td->colspan = $cell->colspan ;
+                    $nc += $cell->colspan;
+                } else {
+                    $nc++;
+                }
+                if ($cell->rowspan > 1) {
+                    $td->rowspan = $cell->rowspan ;
+                }
+                
+                
+                // widths ?
+                $tr->cn[] = $td;
+                    
+                
+            }
+            
+            $ret->cn[0]->cn[] = $tr;
+            
+            $ncols = Math.max($nc, $ncols);
+            
+            
+        }
+        // add the header row..
+        
+        $ncols++; // not used?
+         
+        
+        return ret;
+         
+    },
     
+    readElement : function(node)
+    {
+        node  = node ? node : this.node ;
+        this.width = this.getVal(node, true, 'style', 'width') || '100%';
+        
+        this.rows = [];
+        this.no_row = 0;
+        var trs = Array.from(node.rows);
+        trs.forEach(function(tr) {
+            var row =  [];
+            this.rows.push(row);
+            
+            this.no_row++;
+            var no_column = 0;
+            Array.from(tr.cells).forEach(function(td) {
+                
+                var add = {
+                    colspan : td.hasAttribute('colspan') ? td.getAttribute('colspan')*1 : 1,
+                    rowspan : td.hasAttribute('rowspan') ? td.getAttribute('rowspan')*1 : 1,
+                    style : td.hasAttribute('style') ? td.getAttribute('style') : '',
+                    html : td.innerHTML
+                };
+                no_column += add.colspan;
+                     
+                
+                row.push(add);
+                
+                
+            },this);
+            this.no_col = Math.max(this.no_col, no_column);
+            
+            
+        },this);
+        
+        
+    },
     
+     emptyCell : function() {
+        return (new Roo.htmleditor.BlockTd({})).toObject();
+        
      
+    },
