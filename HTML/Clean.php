@@ -60,12 +60,12 @@ class HTML_Clean {
         ));
         
         $this->filter('Attributes',array(    // does walk as well.
-            'node' : $d,
-            'attrib_white' : array('href', 'src', 'name', 'align', 'colspan', 'rowspan', 'data-display', 'data-width', 'start'),
-            'attrib_clean' : array('href', 'src' ),
+            'node' => $d,
+            'attrib_white' => array('href', 'src', 'name', 'align', 'colspan', 'rowspan', 'data-display', 'data-width', 'start'),
+            'attrib_clean' => array('href', 'src' ),
             
             'replaceComment' => true   // this is sneaked in here - as walk will get rid of comments at the same time.
-        });
+        ));
         // is this used?!?!
         $this->filter('Black', array( 'node' =>  $d, 'tag'  =>  $this->black ));
         // we don't use the whitelist?
@@ -84,7 +84,7 @@ class HTML_Clean {
             }
             require_once 'HTML/Clean/BlockFigure.php';
             $fig = new HTML_Clean_BlockFigure(array(
-                'image_src' => $img->getAttribute('src');
+                'image_src' => $img->getAttribute('src')
             ));
             $fig->updateElement($img);
             
@@ -99,7 +99,7 @@ class HTML_Clean {
     
     function filter($type, $args)
     {
-        require_once 'HTML/Clean/Filter'. $type .'.php');
+        require_once 'HTML/Clean/Filter'. $type .'.php';
         $cls = 'HTML_Clean_Filter'. $type;
         new $cls($args);
     }
