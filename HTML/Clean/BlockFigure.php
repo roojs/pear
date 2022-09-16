@@ -42,8 +42,10 @@ abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
      */
     function toObject ()
     {
+        $doc = new DOMDocument('1.0', 'utf8');
         
-        var d = document.createElement('div');
+        $d = $doc->createElement('div');
+        
         d.innerHTML = this.caption;
         
         var m = this.width != '100%' && this.align == 'center' ? '0 auto' : 0; 
