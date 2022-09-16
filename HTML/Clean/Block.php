@@ -273,7 +273,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         
         // compare attributes
         $ar = $this->arrayFrom($from->attributes);
-        foreach($ar as $k=>$v)
+        foreach($ar as $k=>$v) {
             if ($to->hasAttribute($k)) {
                 continue;
             }
