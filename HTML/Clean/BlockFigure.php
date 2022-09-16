@@ -13,258 +13,36 @@ abstract class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         if ($cfg['node']) {
             $this->readElement($cfg['node']);
             $this->updateElement($cfg['node']);
-        )
+        }
         parent::__construct();
     }
-    
-Roo.htmleditor.BlockFigure = function(cfg)
-{
-    if (cfg.node) {
-        this.readElement(cfg.node);
-        this.updateElement(cfg.node);
-    }
-    Roo.apply(this, cfg);
-}
-Roo.extend(Roo.htmleditor.BlockFigure, Roo.htmleditor.Block, {
- 
+     
+  
     
     // setable values.
-    image_src: '',
-    align: 'center',
-    caption : '',
-    caption_display : 'block',
-    width : '100%',
-    cls : '',
-    href: '',
-    video_url : '',
+    var $image_src= '';
+    var $align= 'center';
+    var $caption = '';
+    var $caption_display = 'block';
+    var $width = '100%';
+    var $cls = '';
+    var $href = '';
+    var $video_url = '';
     
     // margin: '2%', not used
     
-    text_align: 'left', //   (left|right) alignment for the text caption default left. - not used at present
+    var $text_align = 'left'; //   (left|right) alignment for the text caption default left. - not used at present
 
     
     // used by context menu
-    friendly_name : 'Image with caption',
-    deleteTitle : "Delete Image and Caption",
     
-    contextMenu : function(toolbar)
-    {
-        
-        var block = function() {
-            return Roo.htmleditor.Block.factory(toolbar.tb.selectedNode);
-        };
-        
-        
-        var rooui =  typeof(Roo.bootstrap) == 'undefined' ? Roo : Roo.bootstrap;
-        
-        var syncValue = toolbar.editorcore.syncValue;
-        
-        var fields = {};
-        
-        return [
-             {
-                xtype : 'TextItem',
-                text : "Source: ",
-                xns : rooui.Toolbar  //Boostrap?
-            },
-            {
-                xtype : 'Button',
-                text: 'Change Image URL',
-                 
-                listeners : {
-                    click: function (btn, state)
-                    {
-                        var b = block();
-                        
-                        Roo.MessageBox.show({
-                            title : "Image Source URL",
-                            msg : "Enter the url for the image",
-                            buttons: Roo.MessageBox.OKCANCEL,
-                            fn: function(btn, val){
-                                if (btn != 'ok') {
-                                    return;
-                                }
-                                b.image_src = val;
-                                b.updateElement();
-                                syncValue();
-                                toolbar.editorcore.onEditorEvent();
-                            },
-                            minWidth:250,
-                            prompt:true,
-                            //multiline: multiline,
-                            modal : true,
-                            value : b.image_src
-                        });
-                    }
-                },
-                xns : rooui.Toolbar
-            },
-         
-            {
-                xtype : 'Button',
-                text: 'Change Link URL',
-                 
-                listeners : {
-                    click: function (btn, state)
-                    {
-                        var b = block();
-                        
-                        Roo.MessageBox.show({
-                            title : "Link URL",
-                            msg : "Enter the url for the link - leave blank to have no link",
-                            buttons: Roo.MessageBox.OKCANCEL,
-                            fn: function(btn, val){
-                                if (btn != 'ok') {
-                                    return;
-                                }
-                                b.href = val;
-                                b.updateElement();
-                                syncValue();
-                                toolbar.editorcore.onEditorEvent();
-                            },
-                            minWidth:250,
-                            prompt:true,
-                            //multiline: multiline,
-                            modal : true,
-                            value : b.href
-                        });
-                    }
-                },
-                xns : rooui.Toolbar
-            },
-            {
-                xtype : 'Button',
-                text: 'Show Video URL',
-                 
-                listeners : {
-                    click: function (btn, state)
-                    {
-                        Roo.MessageBox.alert("Video URL",
-                            block().video_url == '' ? 'This image is not linked ot a video' :
-                                'The image is linked to: <a target="_new" href="' + block().video_url + '">' + block().video_url + '</a>');
-                    }
-                },
-                xns : rooui.Toolbar
-            },
-            
-            
-            {
-                xtype : 'TextItem',
-                text : "Width: ",
-                xns : rooui.Toolbar  //Boostrap?
-            },
-            {
-                xtype : 'ComboBox',
-                allowBlank : false,
-                displayField : 'val',
-                editable : true,
-                listWidth : 100,
-                triggerAction : 'all',
-                typeAhead : true,
-                valueField : 'val',
-                width : 70,
-                name : 'width',
-                listeners : {
-                    select : function (combo, r, index)
-                    {
-                        toolbar.editorcore.selectNode(toolbar.tb.selectedNode);
-                        var b = block();
-                        b.width = r.get('val');
-                        b.updateElement();
-                        syncValue();
-                        toolbar.editorcore.onEditorEvent();
-                    }
-                },
-                xns : rooui.form,
-                store : {
-                    xtype : 'SimpleStore',
-                    data : [
-                        ['100%'],
-                        ['80%'],
-                        ['50%'],
-                        ['20%'],
-                        ['10%']
-                    ],
-                    fields : [ 'val'],
-                    xns : Roo.data
-                }
-            },
-            {
-                xtype : 'TextItem',
-                text : "Align: ",
-                xns : rooui.Toolbar  //Boostrap?
-            },
-            {
-                xtype : 'ComboBox',
-                allowBlank : false,
-                displayField : 'val',
-                editable : true,
-                listWidth : 100,
-                triggerAction : 'all',
-                typeAhead : true,
-                valueField : 'val',
-                width : 70,
-                name : 'align',
-                listeners : {
-                    select : function (combo, r, index)
-                    {
-                        toolbar.editorcore.selectNode(toolbar.tb.selectedNode);
-                        var b = block();
-                        b.align = r.get('val');
-                        b.updateElement();
-                        syncValue();
-                        toolbar.editorcore.onEditorEvent();
-                    }
-                },
-                xns : rooui.form,
-                store : {
-                    xtype : 'SimpleStore',
-                    data : [
-                        ['left'],
-                        ['right'],
-                        ['center']
-                    ],
-                    fields : [ 'val'],
-                    xns : Roo.data
-                }
-            },
-            
-            
-            {
-                xtype : 'Button',
-                text: 'Hide Caption',
-                name : 'caption_display',
-                pressed : false,
-                enableToggle : true,
-                setValue : function(v) {
-                    // this trigger toggle.
-                     
-                    this.setText(v ? "Hide Caption" : "Show Caption");
-                    this.setPressed(v != 'block');
-                },
-                listeners : {
-                    toggle: function (btn, state)
-                    {
-                        var b  = block();
-                        b.caption_display = b.caption_display == 'block' ? 'none' : 'block';
-                        this.setText(b.caption_display == 'block' ? "Hide Caption" : "Show Caption");
-                        b.updateElement();
-                        syncValue();
-                        toolbar.editorcore.selectNode(toolbar.tb.selectedNode);
-                        toolbar.editorcore.onEditorEvent();
-                    }
-                },
-                xns : rooui.Toolbar
-            }
-        ];
-        
-    },
     /**
      * create a DomHelper friendly object - for use with
      * Roo.DomHelper.markup / overwrite / etc..
      */
-    toObject : function()
+    function toObject ()
     {
+        
         var d = document.createElement('div');
         d.innerHTML = this.caption;
         
