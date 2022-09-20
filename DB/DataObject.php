@@ -562,7 +562,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 $t= explode(' ',microtime());
             
                 $this->debug("Last Data Fetch'ed after " . 
-                        ($t[0]+$t[1]- $_DB_DATAOBJECT['QUERYENDTIME']  ) . 
+                        number_format($t[0]+$t[1]- $_DB_DATAOBJECT['QUERYENDTIME']  , 4) . 
                         " seconds",
                     "FETCH", 1);
             }
@@ -2875,7 +2875,7 @@ class DB_DataObject extends DB_DataObject_Overload
         if (!empty($_DB_DATAOBJECT['CONFIG']['debug'])) {
             $t= explode(' ',microtime());
             $_DB_DATAOBJECT['QUERYENDTIME'] = $t[0]+$t[1];
-            $this->debug('QUERY DONE IN  '.($t[0]+$t[1]-$time)." seconds", 'query',1);
+            $this->debug('QUERY DONE IN  '.number_format($t[0]+$t[1]-$time,4)." seconds", 'query',1);
         }
         switch (strtolower(substr(trim($string),0,6))) {
             case 'insert':
