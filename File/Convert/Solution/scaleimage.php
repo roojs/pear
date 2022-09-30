@@ -32,7 +32,7 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
         $target = $fn . '.'.$x.'x'.$y.'.' . $ext;
         
         $this->debug("COVERT: FE:" . (file_exists($target) ? 1: 0) );
-        $this->debug("COVERT: FS:" . (file_exists($target) ?  (filemtime($target) . '>' .  filemtime($fn)) : 'n/a'));
+        $this->debug("COVERT: FS:" . (file_exists($target) ?  (filemtime($target) . '>' .  @filemtime($fn)) : 'n/a'));
  
         if ($this->debug < 2 && file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             $this->debug("SCALEIMAGE - image exists $target");
