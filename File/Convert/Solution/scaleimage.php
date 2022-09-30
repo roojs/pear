@@ -104,7 +104,7 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
             // changed to using 'sample' rather than resize
             //-- it's alot faster? - not sure about quality though?
             // 5Mb is the cut off to use the faster version.
-            $resize_method = filesize($fn) > 50000000 ? '-sample' : '-scale';
+            $resize_method = @filesize($fn) > 50000000 ? '-sample' : '-scale';
             
             $cmd = "{$CONVERT} " . $strip . " -colorspace sRGB -interlace none -density 800 -quality 90 ". 
                  (strlen($scale) ?  " {$resize_method} '{$scale}' " : '' ).
