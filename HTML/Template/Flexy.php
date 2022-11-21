@@ -450,7 +450,7 @@ class HTML_Template_Flexy
         
             static $tr = false;
             if (!$tr) {
-                require_once 'DB/DataObject.php';
+                class_exists('DB_DataObject') || require_once 'DB/DataObject.php';
                 $tr = DB_DataObject::factory( $this->options['DB_DataObject_translator']);
             }
             if (method_exists($tr,'lastUpdated') ) { // new way..
