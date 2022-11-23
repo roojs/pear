@@ -199,7 +199,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             
             $mtime = filemtime($flexy->currentTemplate);
             if (!empty($flexy->options['DB_DataObject_translator'])) {
-                require_once 'DB/DataObject.php';
+                class_exists('DB_DataObject') || require_once 'DB/DataObject.php';
                 $tr = DB_DataObject::factory( $flexy->options['DB_DataObject_translator']);
                 if (method_exists($tr,'lastUpdated') ) {
                     $last_updated = $tr->lastUpdated($flexy);
