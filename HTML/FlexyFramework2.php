@@ -117,6 +117,8 @@ class HTML_FlexyFramework2 {
     
     var $dataObjectsOriginalIni = ''; // 1 houre..
     
+    
+    var $locale = 'en';
     // used to be $_GLOBALS[__CLASS__]
     
     static $singleton; 
