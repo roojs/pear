@@ -388,7 +388,10 @@ class HTML_FlexyFramework2 {
         }
            
         $lang = isset($_COOKIE[$cfg['cookie']]) ?  $_COOKIE[$cfg['cookie']] : $default;
-
+ 
+         //print_r($_COOKIE); print_R($cfg['cookie']);print_R($lang);exit;
+ 
+        $lang = preg_replace('/^s:/','', $lang); // for some reason roo's library prefixes values with s:
         if (isset($_REQUEST[$cfg['param']])) {
             $lang = $_REQUEST[$cfg['param']];
         }
