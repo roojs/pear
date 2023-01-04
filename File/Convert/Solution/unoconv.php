@@ -60,8 +60,8 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         $target =   $fn  . '.' . $ext;
         
         
-        if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
-            $this->debug("SKIP target exists");
+        if ( file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
+            $this->debug("UNOCONV SKIP target exists");
             return $target;
         }
         $bits = explode('.', $fn);
@@ -181,7 +181,26 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         if (!file_exists($to)) {    
             return false;
         }
-        copy($to, $target);
+        if ($ext == 'html') {
+            $doc = new DOMDocument();
+            $doc->loadHTMLFile($to,LIBXML_NOERROR + LIBXML_NOWARNING   );
+            $imgs = $doc->getElementsByTagName('img');
+            foreach($imgs as $im) {
+                $path = $im->getAttribute('src');
+                if (file_exists(dirname($to).'/'. $path)) {
+                    $ifn = dirname($to).'/'. $path;
+                    $type = image_type_to_mime_type(exif_imagetype($ifn));
+                    $im->setAttribute('src', 'data:'.$type.';base64,' . base64_encode(file_get_contents($ifn)));
+                }
+                
+            }
+            
+            $doc->saveHTMLFile($target);
+            
+        } else {
+        
+            copy($to, $target);
+        }
         return $target;
      
     }
