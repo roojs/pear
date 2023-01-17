@@ -668,8 +668,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
             return $this->appendHtml($element->value);
         }
         
-        
-        
+         
         // ignore anything wrapped with {_( .... )_}
         if ($this->inGetTextBlock) {
             return $this->appendHtml($element->value);
