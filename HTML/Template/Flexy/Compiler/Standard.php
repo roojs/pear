@@ -668,10 +668,7 @@ class HTML_Template_Flexy_Compiler_Standard extends HTML_Template_Flexy_Compiler
             return $this->appendHtml($element->value);
         }
         
-        // in theory this should be CSS?
-        if (substr(trim($element->value),0,13) == '/*<![CDATA[*/') {
-            return $this->appendHtml($element->value);
-        }
+        
         
         // ignore anything wrapped with {_( .... )_}
         if ($this->inGetTextBlock) {
