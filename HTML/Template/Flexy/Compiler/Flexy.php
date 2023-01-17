@@ -817,6 +817,11 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         if (substr($string, 0, 4) == '<!--') {
             return;
         }
+        if (substr($string, 0, 13) == '/*<![CDATA[*/') {
+            return;
+        }
+        
+        
         
         $GLOBALS['_HTML_TEMPLATE_FLEXY_COMPILER']['gettextStrings'][] = $string;
     }
