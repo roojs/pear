@@ -469,13 +469,11 @@ class HTML_Template_Flexy
         }
         
         
-        
-        
         if( !@is_dir($compileDest) || !is_writeable($compileDest)) {
             require_once 'System.php';
-            
             System::mkdir(array('-p',$compileDest));
         }
+        
         if( !@is_dir($compileDest) || !is_writeable($compileDest)) {
             return $this->raiseError(   "can not write to 'compileDir', which is <b>'$compileDest'</b><br>".
                             "Please give write and enter-rights to it",
@@ -486,9 +484,11 @@ class HTML_Template_Flexy
             require_once 'System.php';
             System::mkdir(array('-p','-m', 0770, dirname($this->compiledTemplate)));
         }
-         
-        // Compile the template in $file. 
         
+        if (file_exists($this->compiledTemplate)) {
+            opcache_invalidate( $this->compiledTemplate, true);
+        }
+        // Compile the template in $file. 
         require_once 'HTML/Template/Flexy/Compiler.php';
         $this->compiler = HTML_Template_Flexy_Compiler::factory($this->options);
         $ret = $this->compiler->compile($this);
