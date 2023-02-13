@@ -2963,7 +2963,7 @@ class DB_DataObject extends DB_DataObject_Overload
                 ? ( $DB->quoteIdentifier($this->tableName()) . '.' . $DB->quoteIdentifier($k) )  
                 : "{$this->tableName()}.{$k}";
              
-            
+        
             
             if (is_object($this->$k) && is_a($this->$k,'DB_DataObject_Cast')) {
                 $dbtype = $DB->dsn["phptype"];
@@ -3838,12 +3838,14 @@ class DB_DataObject extends DB_DataObject_Overload
         $joinType = strtoupper($joinType);
         
         // we default to joining as the same name (this is remvoed later..)
+        $quoteIdentifiers = !empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers']);
         
+         
         if ($joinAs === false) {
             $joinAs = $obj->tableName();
         }
+        $joinAs   = $quoteIdentifiers ?  $DB->quoteIdentifier($joinAs) : $joinAs;
         
-        $quoteIdentifiers = !empty($_DB_DATAOBJECT['CONFIG']['quote_identifiers']);
         $options = $_DB_DATAOBJECT['CONFIG'];
         
         // not sure  how portable adding database prefixes is..
@@ -3985,7 +3987,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $table = $this->tableName();
         
         if ($quoteIdentifiers) {
-            $joinAs   = $DB->quoteIdentifier($joinAs);
+           
             $table    = $DB->quoteIdentifier($table);     
             $ofield   = (is_array($ofield)) ? array_map(array($DB, 'quoteIdentifier'), $ofield) : $DB->quoteIdentifier($ofield);
             $tfield   = (is_array($tfield)) ? array_map(array($DB, 'quoteIdentifier'), $tfield) : $DB->quoteIdentifier($tfield); 
