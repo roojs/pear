@@ -1300,7 +1300,7 @@ class Image_Transform
             if (is_array($color)) {
                 return $color;
             }
-            if ($color{0} == '#') {
+            if ($color[0] == '#') {
                 return $this->colorhex2colorarray($color);
             }
             static $colornames = array();
