@@ -287,6 +287,10 @@ class Pager_Sliding
      */
     var $range = array();
 
+    
+    var $_totalPages;
+    var $_pageData;
+    
     // {{{ Pager_Sliding()
 
     /**
