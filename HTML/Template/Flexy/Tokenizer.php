@@ -63,6 +63,7 @@ define('YY_NO_ANCHOR' , 4);
 define('YY_BOL' , 257);
 define('YY_EOF' , 258);
 
+#[AllowDynamicProperties]
 
 class HTML_Template_Flexy_Tokenizer
 {

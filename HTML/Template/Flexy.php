@@ -221,6 +221,7 @@ class HTML_Template_Flexy
     * @access public
     */
     var $elements = array();
+    var $_elements = array(); // why is this created in compiler?
     /**
     * The active engine
     * 
@@ -231,6 +232,14 @@ class HTML_Template_Flexy
     */
     
     static $activeEngine = false;
+    
+    
+    
+    
+    
+    var $compiler;
+    
+    
     /**
     *   Constructor 
     *

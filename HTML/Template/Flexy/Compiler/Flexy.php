@@ -57,6 +57,9 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
      */
     var $contentStrings = array();
     
+    
+    var $tagHandlers;
+    
     /**
     * The compile method.
     * 

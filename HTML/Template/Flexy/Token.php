@@ -71,6 +71,7 @@ class HTML_Template_Flexy_Token {
     var $charPos;
     
  
+    var $id;
     /**
     * factory a Token
     *
