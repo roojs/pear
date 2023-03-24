@@ -154,6 +154,8 @@ class HTML_FlexyFramework_Page  {
 
 
 
+    var $timer;
+
     /**
     * The default page handler
     * by default relays to get(), or post() methods depending on the request.
