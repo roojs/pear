@@ -71,7 +71,7 @@ error_reporting(E_ALL & ~E_STRICT );
 * it will try staging.ini
 *
 */
- 
+#[AllowDynamicProperties]
 class HTML_FlexyFramework {
     
     /**
@@ -96,6 +96,7 @@ class HTML_FlexyFramework {
     var $languages = false; // language settings -- see _handlelanguage
     var $projectExtends = false; // if this is an array, it's a fallback of 'Projects' that can be called
     
+     
 
     
     // derived.
