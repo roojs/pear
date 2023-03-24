@@ -5054,7 +5054,7 @@ class DB_DataObject extends DB_DataObject_Overload
         // clear the staticGet cache as well.
         $this->_clear_cache();
         // this is a huge bug in DB!
-        if (isset($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5])) {
+        if (isset($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]) && isset($_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->num_rows)) {
             $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5]->num_rows = array();
         }
 
