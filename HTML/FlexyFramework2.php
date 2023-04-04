@@ -68,7 +68,7 @@ error_reporting(E_ALL & ~E_STRICT );
 * it will try staging.ini
 *
 */
- 
+#[AllowDynamicProperties]
 class HTML_FlexyFramework2 {
     
     /**
@@ -96,6 +96,7 @@ class HTML_FlexyFramework2 {
                 // use $this->run($_SERVER['REQUEST_URI'],false); to manually boot it..
 
     
+    var $isDev = false; // is development mode (can debug sql?)
     // derived.
     var $cli = false; // from cli 
     var $run = false; // from cli
@@ -116,7 +117,7 @@ class HTML_FlexyFramework2 {
     var $ext; // the striped extention.
     
     var $dataObjectsOriginalIni = ''; // 1 houre..
-    
+ 
     
     var $locale = 'en';
     // used to be $_GLOBALS[__CLASS__]

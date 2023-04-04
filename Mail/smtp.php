@@ -179,6 +179,9 @@ class Mail_smtp extends Mail {
     
     
     var $socket_options = null;
+    
+    var  $greeting;
+    
     /**
      * Constructor.
      *

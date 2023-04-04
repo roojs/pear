@@ -149,6 +149,8 @@ class HTML_FlexyFramework2_Page  {
     var $bootLoader = false;
    
    
+    var $timer;
+    var $subrequest;
    
     /**
     * The default page handler
