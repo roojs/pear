@@ -155,6 +155,8 @@ class Services_JSON
     var $_tab = '';
     var $_crlf = '';
     var $_indent = 0;
+    
+    var $use; // ??
    /**
     * convert a string from one UTF-16 char to one UTF-8 char
     *
