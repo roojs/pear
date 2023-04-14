@@ -103,6 +103,8 @@ class HTML_Template_Flexy_Token_Tag extends HTML_Template_Flexy_Token {
     
     
     
+    var $hasForeach;
+    
     /**
     * Setvalue - gets name, attribute as an array
     * @see parent::setValue()

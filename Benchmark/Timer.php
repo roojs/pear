@@ -337,7 +337,7 @@ class Benchmark_Timer extends PEAR
             $out .= "<tr style='background: silver;'>";
             $out .= "<td><b>total</b></td>";
             $out .= "<td>-</td>";
-            $out .= "<td>${total}</td>";
+            $out .= "<td>{$total}</td>";
             $out .= "<td>100.00%</td>";
             $out .= ($showTotal ? "<td>-</td><td>-</td>" : "");
             $out .= "</tr>\n";
