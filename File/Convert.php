@@ -140,7 +140,7 @@ class File_Convert
             $pg = false;
         }
         $fn = $this->fn;
-        if($toMimetype == 'image/jpeg') {
+        if($toMimetype != 'image/jpeg') {
             var_dump($fn);
             die('a');
         }
