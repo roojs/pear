@@ -14,7 +14,7 @@
  * 
  * options 
  * {
- *   delete_all : delete all the generated files after script execution
+ *   delete_all : delete all the generated files after script execution when we call convert()
  * }
  * 
  */
