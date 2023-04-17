@@ -140,9 +140,6 @@ class File_Convert
             $pg = false;
         }
         $fn = $this->fn;
-        if($toMimetype != 'image/jpeg') {
-            var_dump($fn);
-        }
          //echo '<PRE>'; print_r(array('convert', func_get_args()));
         if (
                 $toMimetype != $this->mimetype ||
@@ -162,10 +159,6 @@ class File_Convert
             }
             $action->debug = $this->debug;
             $fn = $action->runconvert($this->fn, $x, $y, $pg);
-            if($toMimetype != 'image/jpeg') {
-                var_dump($fn);
-                die('a');
-            }
             // delete the generated files after script execution
             if(!empty(self::$options['delete_all'])) {
                 $this->deleteOnExitAdd($fn);
