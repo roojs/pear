@@ -140,7 +140,10 @@ class File_Convert
             $pg = false;
         }
         $fn = $this->fn;
-        var_dump($fn);
+        if($toMimetype == 'image/jpeg') {
+            var_dump($fn);
+            die('a');
+        }
          //echo '<PRE>'; print_r(array('convert', func_get_args()));
         if (
                 $toMimetype != $this->mimetype ||
