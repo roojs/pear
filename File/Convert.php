@@ -12,6 +12,10 @@
  * $fn = $x->convert("application/pdf"); // does no conversion (as it's the same.
  * $x->serve('inline'); // can fix IE Mess...
  * 
+ * options 
+ * {
+ *   delete_all : delete all the generated files after script execution
+ * }
  * 
  */
 /*
@@ -155,6 +159,11 @@ class File_Convert
             }
             $action->debug = $this->debug;
             $fn = $action->runconvert($this->fn, $x, $y, $pg);
+            // delete the generated files after script execution
+            if(!empty(self::$options['delete_all'])) {
+                $this->deleteOnExitAdd($fn);
+            }
+
             if (!$fn) {
                 $this->to = $toMimetype;
                 $this->lastaction = $action->last ? $action->last : $action; // what failed.
@@ -190,6 +199,11 @@ class File_Convert
             //print_r($x); print_r(' > '); print_r($y);exit;
             
             $fn = $sc->runconvert($fn,  $x, $y, $pg);
+
+            // delete the generated files after script execution
+            if(!empty(self::$options['delete_all'])) {
+                $this->deleteOnExitAdd($fn);
+            }
           
         }
 //        print_r($this->target);
@@ -491,8 +505,29 @@ class File_Convert
         $this->log[] = $str;
     }
     
+    static $deleteOnExit = false;
+    /**
+     * generate a tempory file with an extension (dont forget to delete it)
+     */
     
+    function deleteOnExitAdd($name)
+    {
+        if (self::$deleteOnExit === false) {
+            register_shutdown_function(array('File_Convert','deleteOnExit'));
+            self::$deleteOnExit  = array();
+        }
+        self::$deleteOnExit[] = $name;
+    }
+    
+    static function deleteOnExit()
+    {
         
+        foreach(self::$deleteOnExit as $fn) {
+            if (file_exists($fn)) {
+                unlink($fn);
+            }
+        }
+    }
                 
           
            
