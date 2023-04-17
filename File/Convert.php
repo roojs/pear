@@ -141,7 +141,6 @@ class File_Convert
         }
         $fn = $this->fn;
         var_dump($fn);
-        die('a');
          //echo '<PRE>'; print_r(array('convert', func_get_args()));
         if (
                 $toMimetype != $this->mimetype ||
