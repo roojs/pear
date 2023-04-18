@@ -89,6 +89,8 @@ class File_MimeType
                 array( 'application/vnd.rn-realmedia', array('rm')),
                 array( 'image/bmp', array('bmp')),
                 array( 'image/cgm', array('cgm')),
+                array( 'image/webp', array('webp')),
+
                 
                 array( 'image/x-icon', array('ico')),
                 array( 'image/vnd.microsoft.icon', array('ico')),
