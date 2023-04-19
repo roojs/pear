@@ -1067,7 +1067,7 @@ class HTTP_Request
             $request .= $postdata;
 
         // Explicitly set request body
-        } elseif (!is_null($this->_body) && 0 < strlen($this->_body)) {
+        } elseif (!empty($this->_body) && 0 < strlen($this->_body)) {
 
             $request .= 'Content-Length: ' .
                         (HTTP_REQUEST_MBSTRING? mb_strlen($this->_body, 'iso-8859-1'): strlen($this->_body)) .
