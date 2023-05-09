@@ -307,6 +307,8 @@ class File_Convert
         $sfn = basename($fn);
         $sfn = preg_match('#\.'.$ext.'$#', $sfn) ? $sfn : $sfn. '.' .$ext;
         //var_dump($sfn);
+        print_r($sfn);
+        exit;
         
         if (empty($filename)) {
             $filename = $sfn;
