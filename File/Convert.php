@@ -322,7 +322,8 @@ class File_Convert
             header('Content-Disposition: '.$type.'; ' .
             // 'filename="' . htmlspecialchars($filename).  '"; ' . 
             // 'filename*=UTF-8\'\'' . str_replace('+', '%20', urlencode($filename)).  ';'
-            "filename*=utf-8''\"abcdefg.docx\""
+            "filename=\"abcedf.docx\"; " .
+            "filename*=utf-8''\"abcdefg.docx\";"
         );
        // }
        
