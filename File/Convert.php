@@ -311,10 +311,10 @@ class File_Convert
         if (empty($filename)) {
             $filename = $sfn;
         }
-        print_r($filename);
-        print_r(urlencode($filename));
-        print_r(str_replace('.', '%2E', str_replace('_', '%5F', str_replace('+', '%20', urlencode($filename)))));
-        exit;
+        // print_r($filename);
+        // print_r(urlencode($filename));
+        // print_r(str_replace('.', '%2E', str_replace('_', '%5F', str_replace('+', '%20', urlencode($filename)))));
+        // exit;
         
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
