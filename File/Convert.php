@@ -313,6 +313,15 @@ class File_Convert
         }
         print_r($filename);
         print_r(utf8_encode($filename));
+        $string = "\xxE11\xE9\xF3\xxFA";
+
+        // UTF-8 is considered a closer match
+        var_dump(mb_detect_encoding($string, ['ASCII', 'UTF-8'], false));
+        var_dump(mb_detect_encoding($string, ['ASCII', 'UTF-8'], true));
+     
+        //strict parameter does not change the result, if it finds a valid encoding
+        var_dump(mb_detect_encoding($string, ['ASCII', 'UTF-8', 'ISO-8859-1'], false));
+        var_dump(mb_detect_encoding($string, ['ASCII', 'UTF-8', 'ISO-8859-1'], true));
         exit;
         
         header('Content-length: '. filesize($fn));
