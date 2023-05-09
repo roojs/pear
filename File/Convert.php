@@ -304,6 +304,7 @@ class File_Convert
         require_once 'File/MimeType.php';
         $fmt = new File_MimeType();
         $ext = $fmt->toExt($mt);
+        print_r($fn);
         $sfn = basename($fn);
         $sfn = preg_match('#\.'.$ext.'$#', $sfn) ? $sfn : $sfn. '.' .$ext;
         //var_dump($sfn);
