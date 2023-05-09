@@ -319,9 +319,9 @@ class File_Convert
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
             // header('Content-Disposition: '.$type.'; filename="' . htmlspecialchars($filename).  '"');
-            header('Content-Disposition: '.$type.'; filename="' . 
-            htmlspecialchars($filename).  '"; filename*=utf-8\'\'' . 
-            str_replace('+', '%20', urlencode($filename)).  '');
+            header('Content-Disposition: '.$type.'; ' .
+            'filename="' . htmlspecialchars($filename).  '"; ' . 
+            'filename*=utf-8\'\'' . str_replace('+', '%20', urlencode($filename)).  '');
        // }
        
         // needs to be removed after debugging - otherwise it logs to error.log
