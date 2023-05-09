@@ -311,16 +311,15 @@ class File_Convert
         if (empty($filename)) {
             $filename = $sfn;
         }
-        // print_r($filename);
-        // print_r(urlencode($filename));
-        // print_r(str_replace('+', '%20', urlencode($filename)));
-        // exit;
+        print_r($filename);
+        print_r(utf8_encode($filename));
+        exit;
         
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
             // header('Content-Disposition: '.$type.'; filename="' . htmlspecialchars($filename).  '"');
             header('Content-Disposition: '.$type.'; ' .
-            'filename="' . str_replace('+', '%20', $filename).  '"; '
+            // 'filename="' . htmlspecialchars($filename).  '"; ' . 
             // 'filename*="UTF-8\'\'' . str_replace('+', '%20', urlencode($filename)).  '";'
         );
        // }
