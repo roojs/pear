@@ -313,7 +313,7 @@ class File_Convert
         }
         print_r($filename);
         print_r(urlencode($filename));
-        print_r(str_replace('_', '%5F', str_replace('+', '%20', urlencode($filename))));
+        print_r(str_replace('.', '%2E', str_replace('_', '%5F', str_replace('+', '%20', urlencode($filename)))));
         exit;
         
         header('Content-length: '. filesize($fn));
