@@ -315,7 +315,7 @@ class File_Convert
         print_r(utf8_decode($filename));
         $string = "\xE1\xE9\xF3\xFA";
         print_r(utf8_encode($string));
-        print_r(utf8_decode(utf8_decode($stinrg)));
+        print_r(utf8_decode(utf8_decode($string)));
         exit;
         
         header('Content-length: '. filesize($fn));
