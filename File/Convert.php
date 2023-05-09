@@ -320,7 +320,7 @@ class File_Convert
        // if ($type != 'inline') {
             // header('Content-Disposition: '.$type.'; filename="' . htmlspecialchars($filename).  '"');
             header('Content-Disposition: '.$type.'; ' .
-            'filename="' . str_replace('+', '%20', urlencode($filename)).  '"; ' . 
+            'filename="' . str_replace('+', '%20', urlencode($filename)).  '"; '
             // 'filename*="UTF-8\'\'' . str_replace('+', '%20', urlencode($filename)).  '";'
         );
        // }
