@@ -313,7 +313,7 @@ class File_Convert
         }
         print_r($filename);
         print_r(utf8_encode($filename));
-        $string = "\xxE11\xE9\xF3\xxFA";
+        $string = "\xE1\xE9\xF3\xFA";
         print_r(utf8_encode($string));
         exit;
         
