@@ -331,8 +331,7 @@ class File_Convert
             exit;
         }
         //var_dump($fn, $mt); exit;
-        // header('Content-type: '. $mt);
-        header('Content-type: application/octet-stream');
+        header('Content-type: '. $mt);
         
         // even though we have done a file_exists above - it still errors out here occausionally.
         $fh = @fopen($fn, 'rb');
