@@ -312,6 +312,7 @@ class File_Convert
             $filename = $sfn;
         }
         print_r($filename);
+        exit;
         
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
