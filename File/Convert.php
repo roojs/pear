@@ -312,6 +312,7 @@ class File_Convert
             $filename = $sfn;
         }
         print_r($filename);
+        print_r(htmlspecialchars($filename));
         exit;
         
         header('Content-length: '. filesize($fn));
