@@ -312,8 +312,7 @@ class File_Convert
             $filename = $sfn;
         }
         print_r($filename);
-        print_r(htmlspecialchars($filename));
-        print_r(str_replace('+', '%20', urlencode($filename)));
+        print_r(urlencode($filename));
         print_r(str_replace('_', '%5F', str_replace('+', '%20', urlencode($filename))));
         exit;
         
