@@ -312,7 +312,7 @@ class File_Convert
             $filename = $sfn;
         }
         print_r($filename);
-        // print_r(utf8_encode($filename));
+        print_r(utf8_decode($filename));
         $string = "\xE1\xE9\xF3\xFA";
         print_r(utf8_encode($string));
         exit;
