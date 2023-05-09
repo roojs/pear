@@ -218,6 +218,7 @@ class File_Convert
     {
         $this->target = $this->fn;
         $this->to = $this->mimetype;
+        print_r($filename);
         $this->serve($type, $filename , $delete_after );
     }
     
