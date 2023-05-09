@@ -218,7 +218,6 @@ class File_Convert
     {
         $this->target = $this->fn;
         $this->to = $this->mimetype;
-        print_r($filename);
         $this->serve($type, $filename , $delete_after );
     }
     
@@ -233,7 +232,6 @@ class File_Convert
      */
     function serve($type=false, $filename =false, $delete_after = false) // may die **/
     {
-        print_r($filename);
         if (empty($this->target)) {
             // broken image? for images...
             $cmd = isset($this->lastaction->cmd) ? $this->lastaction->cmd : "No Method";
