@@ -248,9 +248,7 @@ class File_Convert
        
         
         $fn = $this->target;
-        print_r('serve');
-        print_r($fn);
-        exit;
+
         $isIE = preg_match('#msie [0-9.]+#i', isset($_SERVER['HTTP_USER_AGENT']) ? isset($_SERVER['HTTP_USER_AGENT'])  : '');
         
         
