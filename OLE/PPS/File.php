@@ -38,6 +38,9 @@ class OLE_PPS_File extends OLE_PPS
     */
     var $_tmp_dir;
 
+    var $_tmp_filename;
+    var $_PPS_FILE;
+    
     /**
     * The constructor
     *

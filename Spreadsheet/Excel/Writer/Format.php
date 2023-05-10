@@ -241,7 +241,13 @@ class Spreadsheet_Excel_Writer_Format extends PEAR
     * @var integer
     */
     var $_right_color;
-
+    
+    
+    
+    var $_BIFF_version;
+    var $_diag;
+    var $_diag_color;
+    
     /**
     * Constructor
     *
