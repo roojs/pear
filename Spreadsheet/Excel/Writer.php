@@ -44,6 +44,10 @@ require_once 'Spreadsheet/Excel/Writer/Workbook.php';
 
 class Spreadsheet_Excel_Writer extends Spreadsheet_Excel_Writer_Workbook
 {
+    var $_string_sizeinfo;
+    var $_str_total;
+    var $_str_unique;
+    var $_str_table;
     /**
     * The constructor. It just creates a Workbook
     *
