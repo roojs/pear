@@ -381,6 +381,9 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
     var $_print_headers;
     var $_hbreaks;
     var $_vbreaks;
+    var $_protect;
+    var $_password;
+    var $col_sizes;
     /**
     * Constructor
     *
