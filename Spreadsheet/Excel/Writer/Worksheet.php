@@ -373,6 +373,8 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
     */
     var $_input_encoding;
 
+    
+    var $activesheet;
     /**
     * Constructor
     *
