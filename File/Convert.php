@@ -311,11 +311,11 @@ class File_Convert
         if (empty($filename)) {
             $filename = $sfn;
         }
-        print_r($filename."\n");
-        print_r(utf8_decode($filename)."\n");
-        $string = "\xE1\xE9\xF3\xFA";
-        print_r(utf8_encode($string)."\n");
-        exit;
+        // print_r($filename."\n");
+        // print_r(utf8_decode($filename)."\n");
+        // $string = "\xE1\xE9\xF3\xFA";
+        // print_r(utf8_encode($string)."\n");
+        // exit;
         
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
