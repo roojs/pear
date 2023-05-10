@@ -48,6 +48,7 @@ class Spreadsheet_Excel_Writer extends Spreadsheet_Excel_Writer_Workbook
     var $_str_total;
     var $_str_unique;
     var $_str_table;
+    var $_block_sizes;
     /**
     * The constructor. It just creates a Workbook
     *
