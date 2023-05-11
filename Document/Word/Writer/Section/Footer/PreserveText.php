@@ -97,7 +97,7 @@ class Document_Word_Writer_Section_Footer_PreserveText
 		}
 		
 		$pattern = '/({.*?})/';
-		$this->_text = preg_split($pattern, $text, null, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+		$this->_text = preg_split($pattern, $text, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
 		return $this;
 	}
 	
