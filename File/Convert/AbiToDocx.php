@@ -147,7 +147,7 @@ class File_Convert_AbiToDocx
 //            print_r($this->style);
             print_r('handle_table');
             print_r("\n");
-            print_r($this->section);
+            print_r(get_class($this->section));
             $this->section = $this->section->addTable($this->style); // Add table
             
         }
