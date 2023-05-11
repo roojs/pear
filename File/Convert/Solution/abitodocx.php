@@ -19,7 +19,7 @@ class File_Convert_Solution_abitodocx extends File_Convert_Solution
               
              
     );
-    function abitodocx($fn,$x,$y,$pg)
+    function convert($fn,$x,$y,$pg)
     {
         require_once 'File/MimeType.php';
         $fmt = new File_MimeType();
