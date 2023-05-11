@@ -148,7 +148,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 // microsoft office default line spacing is 10pt, we need to set it to 0 if we have not set the spacing..
 		$spaceBefore = is_null($style->getSpaceBefore()) ? 0 : $style->getSpaceBefore();
 		$spaceAfter = is_null($style->getSpaceAfter()) ? 0 : $style->getSpaceAfter();
-		$spacing = is_nan($style->getSpacing()) ? 0 : $style->getSpacing();
+		$spacing = (is_null($style->getSpacing()) || is_nan($style->getSpacing())) ? 0 : $style->getSpacing();
 		$isList = is_null($style->getListStyle()) ? '' : $style->getListStyle();
         
 		if(!is_null($align) || !is_null($spacing) || !is_null($spaceBefore) || !is_null($spaceAfter) || !empty($isList)) {
