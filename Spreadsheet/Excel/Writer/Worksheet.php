@@ -372,7 +372,26 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
     * @var string
     */
     var $_input_encoding;
-
+    var $firstsheet;
+    
+    var $activesheet;
+    var $title_colmax;
+    var $_print_gridlines;
+    var $_screen_gridlines;
+    var $_print_headers;
+    var $_hbreaks;
+    var $_vbreaks;
+    var $_protect;
+    var $_password;
+    var $col_sizes;
+    var $_row_sizes;
+    var $_zoom;
+    var $_print_scale;
+    var $_dv;
+    var $_block_sizes;
+    var $offset;
+    
+    
     /**
     * Constructor
     *
