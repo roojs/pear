@@ -312,8 +312,7 @@ class File_Convert
             $filename = $sfn;
         }
 
-        var_dump($this);
-        die('a');
+        $filename = preg_replace('/[^\x00-\x7E]/', '', $str);
         
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
