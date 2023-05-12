@@ -316,7 +316,7 @@ class File_Convert
         // $string = "\xE1\xE9\xF3\xFA";
         // print_r(utf8_encode($string)."\n");
 
-        $filename="你好";
+        $filename="-._";
         // exit;
         
         header('Content-length: '. filesize($fn));
