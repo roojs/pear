@@ -312,16 +312,13 @@ class File_Convert
             $filename = $sfn;
         }
 
-        $filename = preg_replace('/[^\x00-\x7E]/', '', $str);
+        $filename = preg_replace('/[^\x00-\x7E]/', '', $filename);
         
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
             // header('Content-Disposition: '.$type.'; filename="' . htmlspecialchars($filename).  '"');
             header('Content-Disposition: '.$type.'; ' .
             'filename="' . htmlspecialchars($filename).  '"; '
-            // 'filename="abc.docx"; ' .
-            // 'filename*=UTF-8\'\'' . str_replace('+', '%20', urlencode($filename))
-            // "filename*=utf-8''%e2%82%ac%20rates"
         );
        // }
        
