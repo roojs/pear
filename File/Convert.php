@@ -324,7 +324,7 @@ class File_Convert
             // header('Content-Disposition: '.$type.'; filename="' . htmlspecialchars($filename).  '"');
             header('Content-Disposition: '.$type.'; ' .
             'filename="' . htmlspecialchars($filename).  '"; '
-            . 'filename* = UTF-8\'\'' . str_replace('+', '%20', urlencode($filename)).  ''
+            // . 'filename* = UTF-8\'\'' . str_replace('+', '%20', urlencode($filename)).  ''
         );
        // }
        
