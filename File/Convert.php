@@ -311,6 +311,9 @@ class File_Convert
         if (empty($filename)) {
             $filename = $sfn;
         }
+
+        var_dump($this);
+        die('a');
         
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
