@@ -248,6 +248,7 @@ class File_Convert
        
         
         $fn = $this->target;
+
         $isIE = preg_match('#msie [0-9.]+#i', isset($_SERVER['HTTP_USER_AGENT']) ? isset($_SERVER['HTTP_USER_AGENT'])  : '');
         
         
@@ -310,6 +311,8 @@ class File_Convert
         if (empty($filename)) {
             $filename = $sfn;
         }
+
+        $filename = preg_replace('/[^\x00-\x7E]/', '', $filename);
         
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
@@ -324,7 +327,6 @@ class File_Convert
         }
         //var_dump($fn, $mt); exit;
         header('Content-type: '. $mt);
-        
         
         // even though we have done a file_exists above - it still errors out here occausionally.
         $fh = @fopen($fn, 'rb');
