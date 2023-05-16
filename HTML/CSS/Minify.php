@@ -19,6 +19,7 @@
  
 class HTML_CSS_Minify
 {
+    var $patterns;
     /**
      * The data to be minified
      *
