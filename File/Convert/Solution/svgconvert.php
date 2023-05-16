@@ -3,7 +3,7 @@
 
 class File_Convert_Solution_svgconvert extends File_Convert_Solution
 {
-    
+    var $cmd;
    
     static $rules = array(
         array(
