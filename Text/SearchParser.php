@@ -25,6 +25,7 @@ xxx: -- if xxx is not part of the 'map', then xxx: is dropped..
 
 class Text_SearchParser
 {
+    var $ar;
     function __construct($str)
     {
         //var_dump($str);
@@ -317,6 +318,7 @@ class Text_SearchParser_Token {
    
 class Text_SearchParser_Token_String extends Text_SearchParser_Token {
     var $type = 's';
+    var $str;
     function __construct($s) {
         $this->str = $s;
     }
@@ -340,6 +342,7 @@ class Text_SearchParser_Token_Keyword extends Text_SearchParser_Token  {
 
 class Text_SearchParser_Token_Op extends Text_SearchParser_Token  { // AND || OR
     var $type = '&&';
+    var $op;
     function __construct($s) {
         $this->op = $s;
     }
