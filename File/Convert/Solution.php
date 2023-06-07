@@ -11,6 +11,8 @@ class File_Convert_Solution
     var $last = '';
     var $log = array();
     var $target = false;
+
+    var $cmd;
     
     function __construct(  $from ,$to)
     {
