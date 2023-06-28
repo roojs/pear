@@ -16,9 +16,29 @@ class Net_Telegram_SendMessage extends Net_Telegram_Call {
         
     );
     
+     function __construct($tg, $o=false)
+    {
+        
+        
+        parent::__construct($tg, $o);
+        if (!empty($this->text)) {
+            $this->text = str_replace(array(
+                 '\\', '_', '*', '[', ']', '(', ')', '~', '`',  '>',
+                '<', '&', '#', '+', '-', '=', '|', '{', '}', '.', '!'
+                ), array(
+                    '\\\\', '\\_', '\\*', '\\[', '\\]', '\\(', '\\)', '\\~', '\\`',  '\\>',
+                    '\\<', '\\&', '\\#', '\\+', '\\-', '\\=', '\\|', '\\{', '\\}', '\\.', '\\!'
+                ),
+                $this->text);
+            
+            
+        }
+        
+    }
+    
     function send()
     {
-          $res = parent::send();
+        $res = parent::send();
        // print_R($res);
         return $this->_telegram->factory('Message',$res);
     }
