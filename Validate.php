@@ -565,6 +565,8 @@ class Validate
             }
         }
 
+        die('c');
+
         // the base regexp for address
         $regex = '&^(?:                                               # recipient:
          ("\s*(?:[^"\f\n\r\t\v\b\s]+\s*)+")|                          #1 quoted name
