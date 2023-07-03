@@ -587,14 +587,15 @@ class Validate
                 if (isset($dom_cache[$domain])) {
                     return $dom_cache[$domain];
                 }
-
-                var_dump($em);
-                die('d');
                 
                 if (checkdnsrr($domain, 'MX') || checkdnsrr($domain, 'A')) {
                     $dom_cache[$domain] = true;
                     return true;
                 }
+
+
+                var_dump($em);
+                die('d');
                 $dom_cache[$domain] = false;
                 return false;
             }
