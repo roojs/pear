@@ -582,8 +582,6 @@ class Validate
 
             if ($check_domain && function_exists('checkdnsrr')) {
                 $em = explode('@', $email);
-                var_dump($em);
-                die('d');
                 $domain = preg_replace('/[^-a-z.0-9]/i', '', array_pop($em));
                 
                 if (isset($dom_cache[$domain])) {
