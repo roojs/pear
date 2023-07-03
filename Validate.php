@@ -579,7 +579,7 @@ class Validate
         //checks if exists the domain (MX or A)
         if ($use_rfc822? Validate::__emailRFC822($email, $options) :
                 preg_match($regex, $email)) {
-                    die('d');
+
             if ($check_domain && function_exists('checkdnsrr')) {
                 $em = explode('@', $email);
                 $domain = preg_replace('/[^-a-z.0-9]/i', '', array_pop($em));
@@ -595,6 +595,7 @@ class Validate
                 $dom_cache[$domain] = false;
                 return false;
             }
+            die('c');
             return true;
         }
         return false;
