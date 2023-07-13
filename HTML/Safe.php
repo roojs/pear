@@ -468,9 +468,10 @@ class HTML_Safe
 
     }
     
-    function tidyTree($node) {
+    function tidyTree($node)
+    {
 //         print_r($node);
-        
+        $onode =  $node;
         switch ($node->type) {
             case TIDY_NODETYPE_TEXT:
                 if (strlen(trim($node->value))) {
@@ -482,6 +483,8 @@ class HTML_Safe
             case TIDY_NODETYPE_STARTEND:
             case TIDY_NODETYPE_START:
                 if (!empty($this->filter)) {
+                    $node = (object) (array) $node; // we can't work with the 
+                    
                     $this->filter->apply($node);
                 }
                 break;
@@ -516,10 +519,10 @@ class HTML_Safe
         }
          
                 // include children...
-        if(!$node->hasChildren()){
+        if(!$onode->hasChildren()){
             return $begin . $end;
         }
-        foreach($node->child as $child){
+        foreach($onode->child as $child){
            // echo "child of ". $node->name . ':' . $child->type . "\n";
             $begin .= $this->tidyTree($child);
         }
