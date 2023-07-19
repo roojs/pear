@@ -95,7 +95,7 @@ class HTML_FlexyFramework {
     var $dataObjectsCacheExpires = 72000; // 20 hours..
     var $languages = false; // language settings -- see _handlelanguage
     var $projectExtends = false; // if this is an array, it's a fallback of 'Projects' that can be called
-    
+    var $database_is_readonly = false;
      
 
     
@@ -922,8 +922,11 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
             $res = $err->query("SELECT @@global.read_only as ro");
             
             $row = is_a($res, 'DB_Error') ? false : $res->fetchRow(DB_FETCHMODE_ASSOC);
-            if (!$row || (!empty($row['ro']) && empty($options['skip-read-only-check']))) {
-                $this->fatalError("Database is configured to be read-only - please check database<BR> ".$err->toString());
+            if (!$row || !empty($row['ro'])) {
+                if (empty($options['skip-read-only-check'])) {
+                    $this->fatalError("Database is configured to be read-only - please check database<BR> ".$err->toString());
+                }
+                $this->database_is_readonly = true;
             }
         }
         // reset dont die!
