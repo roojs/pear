@@ -872,6 +872,20 @@ class HTML_FlexyFramework2 {
                      <BR> ".$e->getMessage());
         }
         
+          
+         if (preg_match('/^mysql/', $this->database)) {
+            $res = $x->PDO()->query("SELECT @@global.read_only as ro");
+           
+            $row = !is_a($res, 'PDOStatement') ? false : $res->fetch(PDO::FETCH_ASSOC);
+            
+           
+            if (!$row || !empty($row['ro'])) {
+                if (empty($options['skip-read-only-check'])) {
+                    $this->fatalError("Database is configured to be read-only - please check database<BR>");
+                }
+                $this->database_is_readonly = true;
+            }
+        }
         
         
     }
