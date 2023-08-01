@@ -47,7 +47,7 @@ class File_Convert_Solution
         $ret = `$cmd`;
         $this->debug("RETURNED:  $ret");
         $this->cmd = $cmd ."\n" . $ret;
-        return $ret;
+        return !is_string($ret) ? '' : $ret;
     }
     
     function count() // ??? why!?
