@@ -1229,7 +1229,10 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
                         $sp .= ':'.((int) $_SERVER['SERVER_PORT']);
                     }
                 }
-                $host = !empty($_SERVER["HTTP_X_FORWARDED_HOST"]) ? $_SERVER["HTTP_X_FORWARDED_HOST"] : $_SERVER["HTTP_HOST"];
+                // not sure why http host would not be set?
+                $host = !empty($_SERVER["HTTP_X_FORWARDED_HOST"]) ? $_SERVER["HTTP_X_FORWARDED_HOST"] :
+                    (!isset($_SERVER["HTTP_HOST"]) ? 'localhost' : $_SERVER["HTTP_HOST"]);
+                    
                 header('Location: '.$http.'://'.$host .$sp . $this->baseURL);
  
                 exit;
