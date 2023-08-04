@@ -880,7 +880,7 @@ class HTML_FlexyFramework2 {
             
            
             if (!$row || !empty($row['ro'])) {
-                die('b');
+                // die('b');
                 if (empty($this->PDO_DataObject['skip-read-only-check'])) {
                     $this->fatalError("Database is configured to be read-only - please check database<BR>");
                 }
