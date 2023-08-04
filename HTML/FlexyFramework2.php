@@ -94,7 +94,6 @@ class HTML_FlexyFramework2 {
     var $projectExtends = false; // if this is an array, it's a fallback of 'Projects' that can be called
     var $initOnly = false; // use to prevent run() being called...
                 // use $this->run($_SERVER['REQUEST_URI'],false); to manually boot it..
-    var $database_is_readonly = false;
 
     
     var $isDev = false; // is development mode (can debug sql?)
