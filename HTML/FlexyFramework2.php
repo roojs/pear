@@ -880,9 +880,7 @@ class HTML_FlexyFramework2 {
             
            
             if (!$row || !empty($row['ro'])) {
-                var_dump($this->PDO_DataObject);
-                die('b');
-                if (empty($this->PDO_DataObject['skip-read-only-check'])) {
+                if (empty($options['skip-read-only-check'])) {
                     $this->fatalError("Database is configured to be read-only - please check database<BR>");
                 }
                 $this->database_is_readonly = true;
