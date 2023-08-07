@@ -3038,7 +3038,7 @@ class DB_DataObject extends DB_DataObject_Overload
         $table = $in_table;
          
         if (strpos( $in_table,'/') !== false ) {
-            list($database,$in_table) = explode('.',$in_table, 2);
+            list($database,$in_table) = explode('/',$in_table, 2);
         }
         
         if (empty($_DB_DATAOBJECT['CONFIG'])) {
