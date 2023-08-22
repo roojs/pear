@@ -64,20 +64,37 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
         $this->debug("PDFINFO: $STRINGS");
         // needs strings if starngs chars are in there..
         $cmd = $PDFINFO . ' '. escapeshellarg($fn) . " | $STRINGS | $GREP 'Page size'";
+        
+        
          
 //        var_dump($cmd);exit;
         $info = trim( $this->exec($cmd));
         $match = array();
         // very presumtiuos...
-       
-       
+        $cmd = $PDFINFO . ' '. escapeshellarg($fn) . " | $STRINGS | $GREP 'Page rot'";
+        $rinfo = trim( $this->exec($cmd));
+        
         if (!preg_match("/([0-9.]+)[^0-9]+([0-9.]+)/",$info, $match)) {
             $this->cmd .= " could not find 0-0 in the return string";
             return false;
         }
+        $rot = 0;
+        $rmatch = 0;
+        if (preg_match("/([0-9.]+)/",$rinfo, $rmatch)) {
+            $rot  = $rmatch[1];
+            
+        } 
+        if (in_array((int)$rot, array(90,270))) {
+             $match[0] = $match[1];
+            $match[1] = $match[2];
+            $match[2] = $match[0];
+        }
         
         $yscale =  floor( ($match[2] / $match[1]) * $xscale) * 3;
         $xscale = floor($xscale) * 3;
+        
+        
+        
         $pg = ($pg === false) ? 1 : $pg;
         
         

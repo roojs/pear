@@ -214,6 +214,9 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         $rootDir = realpath(dirname($_SERVER["SCRIPT_FILENAME"]));
         
         $cls = $proj.'_Config';
+        
+        
+        
          if (file_exists($rootDir . '/'.str_replace('_','/', $cls). '.php')) {
             require_once str_replace('_','/', $cls). '.php';
             $c = new $cls();
