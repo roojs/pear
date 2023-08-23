@@ -584,7 +584,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             return $var;
         }
         list($prefix, $suffix) = $this->getModifierWrapper($element);
-        return $this->appendPhp( $prefix . $var . $suffix .';');
+        return $this->appendPhp( $prefix . '(isset(' . $var . ') ? '. $var . ": '')" . $suffix .';');
     }
    /**
     *   HTML_Template_Flexy_Token_Method toString 
