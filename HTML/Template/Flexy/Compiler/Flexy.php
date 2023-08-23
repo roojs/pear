@@ -461,7 +461,8 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             return $loopon;
         }
         
-        $ret = 'if ($this->options[\'strict\'] || ('.
+        $ret = 'if (isset('.$loopon .') && ( ' .
+            '$this->options[\'strict\'] || ' .
             'is_array('. $loopon. ')  || ' .
             'is_object(' . $loopon  . '))) ' .
             'foreach(' . $loopon  . " ";
