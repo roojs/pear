@@ -218,6 +218,7 @@ class HTML_Safe
      */
     var $attributesNS = array('xml:lang', );
 
+    var $hasText;
     /**
      * Constructs class
      *
