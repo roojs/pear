@@ -468,9 +468,7 @@ class HTML_Safe
         
 
     }
-    
-    var $hasText;
-    
+     
     function tidyTree($node)
     {
 //         print_r($node);
