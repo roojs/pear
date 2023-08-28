@@ -460,8 +460,12 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         if ($this->is_a($loopon, 'PEAR_Error')) {
             return $loopon;
         }
-        
-        $ret = 'if (isset('.$loopon .') && ( ' .
+        $isset = '';
+        // we can check value exists only if it's not a function call..
+        if (strpos($loopon,'(' ) === false) {
+            $isset = 'isset('.$loopon .') && ';
+        }
+        $ret = 'if (' . $isset . '( ' .
             '$this->options[\'strict\'] || ' .
             'is_array('. $loopon. ')  || ' .
             'is_object(' . $loopon  . '))) ' .
