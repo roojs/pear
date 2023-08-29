@@ -32,13 +32,11 @@ class File_Convert_Solution_convert  extends File_Convert_Solution
         
         $this->debug("COVERT: FE:" . (file_exists($target) ? 1: 0) );
         $this->debug("COVERT: FS:" . (file_exists($target) ?  (filemtime($target) . '>' .  filemtime($fn)) : 'n/a'));
-
-        var_dump('FLAT');
         
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
-        var_dump('FLAT');
+        
         $flat = '';
         $targetName = $target;
         if ($this->to == 'image/jpeg' && $this->from != 'image/gif') {
