@@ -36,6 +36,7 @@ class File_Convert_Solution_convert  extends File_Convert_Solution
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
+        var_dump('FLAT');
         $flat = '';
         $targetName = $target;
         if ($this->to == 'image/jpeg' && $this->from != 'image/gif') {
