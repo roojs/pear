@@ -158,6 +158,7 @@ class File_Convert
                 return false;
             }
             $action->debug = $this->debug;
+            var_dump($action);
             $fn = $action->runconvert($this->fn, $x, $y, $pg);
             // delete the generated files after script execution
             if(!empty(self::$options['delete_all'])) {
