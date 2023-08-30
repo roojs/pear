@@ -40,7 +40,7 @@ class File_Convert_Solution_convert  extends File_Convert_Solution
         $flat = '';
         $targetName = $target;
         if ($this->to == 'image/jpeg' && $this->from != 'image/gif') {
-            $flat = " -background '#ff0000' --flatten ";
+            $flat = " -background '#ffff00' --flatten ";
         }
         $strip = '-strip';
         if ($this->to == 'image/x-ms-bmp') {
