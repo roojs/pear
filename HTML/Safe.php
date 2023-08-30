@@ -218,6 +218,7 @@ class HTML_Safe
      */
     var $attributesNS = array('xml:lang', );
 
+    var $hasText;
     /**
      * Constructs class
      *
@@ -467,9 +468,7 @@ class HTML_Safe
         
 
     }
-    
-    var $hasText;
-    
+     
     function tidyTree($node)
     {
 //         print_r($node);

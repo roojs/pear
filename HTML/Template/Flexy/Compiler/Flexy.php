@@ -460,8 +460,13 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
         if ($this->is_a($loopon, 'PEAR_Error')) {
             return $loopon;
         }
-        
-        $ret = 'if ($this->options[\'strict\'] || ('.
+        $isset = '';
+        // we can check value exists only if it's not a function call..
+        if (strpos($loopon,'(' ) === false) {
+            $isset = 'isset('.$loopon .') && ';
+        }
+        $ret = 'if (' . $isset . '( ' .
+            '$this->options[\'strict\'] || ' .
             'is_array('. $loopon. ')  || ' .
             'is_object(' . $loopon  . '))) ' .
             'foreach(' . $loopon  . " ";
@@ -584,7 +589,7 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             return $var;
         }
         list($prefix, $suffix) = $this->getModifierWrapper($element);
-        return $this->appendPhp( $prefix . $var . $suffix .';');
+        return $this->appendPhp( $prefix . '(isset(' . $var . ') ? '. $var . ": '')" . $suffix .';');
     }
    /**
     *   HTML_Template_Flexy_Token_Method toString 
