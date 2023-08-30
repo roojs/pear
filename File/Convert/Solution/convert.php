@@ -29,6 +29,8 @@ class File_Convert_Solution_convert  extends File_Convert_Solution
         $frame = '';
         $ext = $this->ext;
         $target = $fn . '.' . $ext;
+
+        var_dump($target);
         
         $this->debug("COVERT: FE:" . (file_exists($target) ? 1: 0) );
         $this->debug("COVERT: FS:" . (file_exists($target) ?  (filemtime($target) . '>' .  filemtime($fn)) : 'n/a'));
@@ -36,7 +38,7 @@ class File_Convert_Solution_convert  extends File_Convert_Solution
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
-        
+
         $flat = '';
         $targetName = $target;
         if ($this->to == 'image/jpeg' && $this->from != 'image/gif') {
