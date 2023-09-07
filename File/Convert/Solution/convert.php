@@ -36,10 +36,11 @@ class File_Convert_Solution_convert  extends File_Convert_Solution
         if (file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             return $target;
         }
+
         $flat = '';
         $targetName = $target;
         if ($this->to == 'image/jpeg' && $this->from != 'image/gif') {
-            $flat = " -background '#ffffff' --flatten ";
+            $flat = " -background '#ffffff' -flatten ";
         }
         $strip = '-strip';
         if ($this->to == 'image/x-ms-bmp') {
