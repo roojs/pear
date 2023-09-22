@@ -944,10 +944,9 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
         if (empty($this->HTML_Template_Flexy['compileDir'])) {
             return;
         }
-        
+        clearstatcache();
         if ( !file_exists($this->HTML_Template_Flexy['compileDir']))  {
-            mkdir($this->HTML_Template_Flexy['compileDir'], 0700);
-            @mkdir($this->HTML_Template_Flexy['compileDir'], 0700, true);
+            mkdir($this->HTML_Template_Flexy['compileDir'], 0700, true);
             clearstatcache();
              
             if ( !file_exists($this->HTML_Template_Flexy['compileDir']))  {
