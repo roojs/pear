@@ -2073,14 +2073,14 @@ function UTF8StringToArray($str) {
          $out[] = $h;
       elseif ( $h >= 0xC2 ) {
          if ( ($h <= 0xDF) && ($i < $len -1) )
-            $out[] = ($h & 0x1F) << 6 | (ord($str{++$i}) & 0x3F);
+            $out[] = ($h & 0x1F) << 6 | (ord($str[++$i]) & 0x3F);
          elseif ( ($h <= 0xEF) && ($i < $len -2) )
-            $out[] = ($h & 0x0F) << 12 | (ord($str{++$i}) & 0x3F) << 6
-                                       | (ord($str{++$i}) & 0x3F);
+            $out[] = ($h & 0x0F) << 12 | (ord($str[++$i]) & 0x3F) << 6
+                                       | (ord($str[++$i]) & 0x3F);
          elseif ( ($h <= 0xF4) && ($i < $len -3) )
-            $out[] = ($h & 0x0F) << 18 | (ord($str{++$i}) & 0x3F) << 12
-                                       | (ord($str{++$i}) & 0x3F) << 6
-                                       | (ord($str{++$i}) & 0x3F);
+            $out[] = ($h & 0x0F) << 18 | (ord($str[++$i]) & 0x3F) << 12
+                                       | (ord($str[++$i]) & 0x3F) << 6
+                                       | (ord($str[++$i]) & 0x3F);
       }
    }
    return $out;
@@ -2095,6 +2095,4 @@ if(isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT']=='contype')
 {
 	header('Content-Type: application/pdf');
 	exit;
-}
-
-?>
+} 
