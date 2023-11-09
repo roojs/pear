@@ -88,6 +88,7 @@ class File_MimeType
                 array( 'audio/mpeg', array('mp3')),
                 array( 'application/vnd.rn-realmedia', array('rm')),
                 array( 'image/bmp', array('bmp')),
+                array( 'image/x-ms-bmp', array('bmp')),
                 array( 'image/cgm', array('cgm')),
                 array( 'image/webp', array('webp')),
 
