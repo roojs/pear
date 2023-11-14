@@ -54,6 +54,8 @@ $GLOBALS['_XML_SVGTOPDF']['options'] = array(
         
 class XML_SvgToPDF {
 
+    var $language;
+    
     static function debug($s,$e=0) {
         if (!$GLOBALS['_XML_SVGTOPDF']['options']['debug']) {
             return;
@@ -111,8 +113,10 @@ class XML_SvgToPDF {
         
         
         //echo "<PRE>";print_r($tree);exit;
-        $orientation =  (preg_replace('/[^0-9.]+/','', $tree->width)*1) > (preg_replace('/[^0-9.]+/','', $tree->height)*1) ? 'L' : 'P';
-//var_dump($orientation);exit;
+        $w = empty($tree->width) ? 0 : $tree->width;
+        $h = empty($tree->height) ? 0 : $tree->height;
+        $orientation =  (preg_replace('/[^0-9.]+/','', $w)*1) > (preg_replace('/[^0-9.]+/','', $h)*1) ? 'L' : 'P';
+        //var_dump($orientation);exit;
         $GLOBALS['_XML_SVGTOPDF']['options']['file'] = $svg;
 
         if ($data['language'] == 'big5') {
@@ -245,6 +249,7 @@ class XML_SvgToPDF {
     
     function parseSvg($svgFileName)
     {
+        libxml_use_internal_errors(true);
         $d = new DOMDocument();
         $d->load($svgFileName);
        // print_r($d);
@@ -255,6 +260,9 @@ class XML_SvgToPDF {
     {
         // do children first..
         //print_r(array("PARSENODE:",$n));
+        if (empty($n)) {
+            return array();
+        }
         $children = array();
         if ($n->childNodes->length) {
             foreach($n->childNodes as $cn) {
