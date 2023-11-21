@@ -7,6 +7,15 @@
 
 class File_Convert_AbiToDocx 
 {
+    var $fileName;
+    var $keepSection;
+    var $link;
+    var $pass;
+    var $section;
+    var $style;
+    var $tmpdir;
+    var $writer;
+    var $xr;
     
     function __construct($fn) 
     {
