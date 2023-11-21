@@ -44,7 +44,16 @@ class Document_Word_Writer_Style_Table
 	}
 	
 	public function setStyleValue($key, $value) 
-        {
+    {
+		$cache = array();
+		if (empty($cache)) {
+			$ar = get_class_vars(get_class($this));
+			foreach($ar as $k => $v) {
+				$cache[strtolower($k)] = $k;
+			}
+		}
+		$key = strtolower(str_replace('-','', $key));
+		$key = isset($cache[$key]) ? $cache[$key] : $key;
 		$this->$key = $value;
 	}
 	
