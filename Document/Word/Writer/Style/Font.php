@@ -96,6 +96,27 @@ class Document_Word_Writer_Style_Font
 	private $_color;
 	private $_fgColor;
 
+	/// not used - but set by setstyle	
+	var $_align;
+	var $_bgcolor;
+	var $_fontStretch;
+	var $_fontVariant;
+	var $_href;
+	var $_lang;
+	var $_lineHeight;
+	var $_marginBottom;
+	var $_marginLeft;
+	var $_marginRight;
+	var $_marginTop;
+	var $_Normal;
+	var $_Reference;
+	var $_textDecoration;
+	var $_textIndent;
+	var $_textPosition;
+	var $_textTransform;
+	
+	
+	
 	public function __construct($type = 'text', $styleParagraph = null) 
         {
 		$this->_type            = $type;
