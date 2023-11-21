@@ -33,7 +33,16 @@ class Document_Word_Writer_Style_Table
 	private $_cellMarginLeft;
 	private $_cellMarginRight;
 	private $_cellMarginBottom;
-        public  $_fixed = false;
+    public  $_fixed = false;
+	
+	// not used..
+	var $_width0;
+	var $_width0_dax;
+	var $_width1;
+	var $_width1_dax;
+	var $_width2;
+	var $_width2_dax;
+	
 	
 	public function __construct() 
         {
