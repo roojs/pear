@@ -64,7 +64,7 @@ class Document_Word_Writer_Style_Paragraph
 	 */
 	private $_spacing;
         
-    private $_list_style;
+    private $_liststyle;
 	
 	
 	/**
@@ -76,7 +76,7 @@ class Document_Word_Writer_Style_Paragraph
 		$this->_spaceBefore     = null;
 		$this->_spaceAfter      = null;
 		$this->_spacing         = null;
-                $this->_list_style      = null;
+        $this->_liststyle      = null;
 	}
 	
 	/**
@@ -196,7 +196,7 @@ class Document_Word_Writer_Style_Paragraph
 	 * @return PHPWord_Style_Paragraph
 	 */
 	public function setSpacing($pValue = null) 
-        {
+	{
 	   $this->_spacing = $pValue;
 	   return $this;
 	}
@@ -208,7 +208,6 @@ class Document_Word_Writer_Style_Paragraph
 	 */
 	public function getListStyle() 
         {
-            return $this->_list_style;
+            return $this->_liststyle;
 	}
 }
-?>
