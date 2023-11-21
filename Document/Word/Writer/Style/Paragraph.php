@@ -64,8 +64,29 @@ class Document_Word_Writer_Style_Paragraph
 	 */
 	private $_spacing;
         
-        private $_list_style;
+    private $_liststyle;
 	
+	// not used? but set by setter
+	var $_bgcolor;
+	var $_bold;
+	var $_color;
+	var $_fontStretch;
+	var $_fontVariant;
+	var $_italic;
+	var $_lineHeight;
+	var $_marginBottom;
+	var $_marginLeft;
+	var $_marginRight;
+	var $_marginTop;
+	var $_name;
+	var $_Normal;
+	var $_Reference;
+	var $_size;
+	var $_textDecoration;
+	var $_textIndent;
+	var $_textPosition;
+	var $_widows;
+
 	
 	/**
 	 * New Paragraph Style
@@ -76,7 +97,7 @@ class Document_Word_Writer_Style_Paragraph
 		$this->_spaceBefore     = null;
 		$this->_spaceAfter      = null;
 		$this->_spacing         = null;
-                $this->_list_style      = null;
+        $this->_liststyle      = null;
 	}
 	
 	/**
@@ -91,11 +112,22 @@ class Document_Word_Writer_Style_Paragraph
 			$value += 240; // because line height of 1 matches 240 twips
 		}
                 
-                if($key == '_list-style'){
-                    $key = str_replace('-', '_', $key);
-                }
-                
-		$this->$key = $value;
+		if($key == '_list-style'){
+			$key = str_replace('-', '_', $key);
+		}
+        $cache = array();
+		if (empty($cache)) {
+			$ar = get_class_vars(get_class($this));
+			foreach($ar as $k => $v) {
+				$cache[strtolower($k)] = $k;
+			}
+		}
+		$key = strtolower(str_replace('-','', $key));
+		$key = isset($cache[$key]) ? $cache[$key] : $key;
+		
+		$this->$key =  $value;
+		  
+		 
 	}
 
 	/**
@@ -185,7 +217,7 @@ class Document_Word_Writer_Style_Paragraph
 	 * @return PHPWord_Style_Paragraph
 	 */
 	public function setSpacing($pValue = null) 
-        {
+	{
 	   $this->_spacing = $pValue;
 	   return $this;
 	}
@@ -197,7 +229,6 @@ class Document_Word_Writer_Style_Paragraph
 	 */
 	public function getListStyle() 
         {
-            return $this->_list_style;
+            return $this->_liststyle;
 	}
 }
-?>

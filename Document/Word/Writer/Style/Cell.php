@@ -123,7 +123,12 @@ class Document_Word_Writer_Style_Cell
 	 */
 	private $_defaultBorderColor;
 	
-	
+	var $_bgStyle;
+	var $_botAttach;
+	var $_columnNum;
+	var $_mergeto;
+	var $_rowNum;
+
 	/**
 	 * Create a new Cell Style
 	 */
@@ -153,11 +158,25 @@ class Document_Word_Writer_Style_Cell
         {
 		if($key == '_borderSize') {
 			$this->setBorderSize($value);
-		} elseif($key == '_borderColor') {
+			return;
+		} 
+		if ($key == '_borderColor') {
 			$this->setBorderColor($value);
-		} else {
-			$this->$key = $value;
+			return;
 		}
+		
+		$cache = array();
+		if (empty($cache)) {
+			$ar = get_class_vars(get_class($this));
+			foreach($ar as $k => $v) {
+				$cache[strtolower($k)] = $k;
+			}
+		}
+		$key = strtolower(str_replace('-','', $key));
+		$key = isset($cache[$key]) ? $cache[$key] : $key;
+		 
+		$this->$key = $value;
+		
 	}
 	
 	public function getVAlign() 

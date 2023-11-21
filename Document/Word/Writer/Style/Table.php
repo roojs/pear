@@ -33,7 +33,16 @@ class Document_Word_Writer_Style_Table
 	private $_cellMarginLeft;
 	private $_cellMarginRight;
 	private $_cellMarginBottom;
-        public  $_fixed = false;
+    public  $_fixed = false;
+	
+	// not used..
+	var $_width0;
+	var $_width0_dax;
+	var $_width1;
+	var $_width1_dax;
+	var $_width2;
+	var $_width2_dax;
+	
 	
 	public function __construct() 
         {
@@ -44,7 +53,16 @@ class Document_Word_Writer_Style_Table
 	}
 	
 	public function setStyleValue($key, $value) 
-        {
+    {
+		$cache = array();
+		if (empty($cache)) {
+			$ar = get_class_vars(get_class($this));
+			foreach($ar as $k => $v) {
+				$cache[strtolower($k)] = $k;
+			}
+		}
+		$key = strtolower(str_replace('-','', $key));
+		$key = isset($cache[$key]) ? $cache[$key] : $key;
 		$this->$key = $value;
 	}
 	

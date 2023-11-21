@@ -96,6 +96,27 @@ class Document_Word_Writer_Style_Font
 	private $_color;
 	private $_fgColor;
 
+	/// not used - but set by setstyle	
+	var $_align;
+	var $_bgcolor;
+	var $_fontStretch;
+	var $_fontVariant;
+	var $_href;
+	var $_lang;
+	var $_lineHeight;
+	var $_marginBottom;
+	var $_marginLeft;
+	var $_marginRight;
+	var $_marginTop;
+	var $_Normal;
+	var $_Reference;
+	var $_textDecoration;
+	var $_textIndent;
+	var $_textPosition;
+	var $_textTransform;
+	
+	
+	
 	public function __construct($type = 'text', $styleParagraph = null) 
         {
 		$this->_type            = $type;
@@ -131,12 +152,23 @@ class Document_Word_Writer_Style_Font
 	}
 	
 	public function setStyleValue($key, $value) 
-        {
+     {
 		if($key == '_size') {
-                    $value = (int) $value;
-                    $value *= 2;
+			$value = (int) $value;
+			$value *= 2;
 		}
-		$this->$key = $value;
+		
+		$cache = array();
+		if (empty($cache)) {
+			$ar = get_class_vars(get_class($this));
+			foreach($ar as $k => $v) {
+				$cache[strtolower($k)] = $k;
+			}
+		}
+		$key = strtolower(str_replace('-','', $key));
+		$key = isset($cache[$key]) ? $cache[$key] : $key;
+		
+		$this->$key =  $value;
 	}
 	
 	public function setName($pValue = 'Arial') 
