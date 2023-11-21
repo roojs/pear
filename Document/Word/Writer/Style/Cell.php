@@ -123,7 +123,12 @@ class Document_Word_Writer_Style_Cell
 	 */
 	private $_defaultBorderColor;
 	
-	
+	var $_bgStyle;
+	var $_botAttach;
+	var $_columnNum;
+	var $_mergeto;
+	var $_rowNum;
+
 	/**
 	 * Create a new Cell Style
 	 */
