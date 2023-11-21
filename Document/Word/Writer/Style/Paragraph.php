@@ -86,7 +86,8 @@ class Document_Word_Writer_Style_Paragraph
 	var $_textIndent;
 	var $_textPosition;
 	var $_widows;
-
+	var $_domdir;
+	
 	
 	/**
 	 * New Paragraph Style

@@ -40,6 +40,11 @@ class Document_Word_Writer_Style_Image
 	private $_height;
 	private $_align;
 	
+	var $_cropb;
+	var $_cropl;
+	var $_cropr;
+	var $_cropt;
+
 	/**
 	 * Margin Top
 	 * 

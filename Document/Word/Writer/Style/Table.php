@@ -44,7 +44,21 @@ class Document_Word_Writer_Style_Table
 	var $_width2_dax;
 	var $_listtag;
 	
-	
+	var $_height0;
+	var $_height1;
+	var $_height2;
+	var $_height3;
+	var $_height4;
+	var $_height5;
+	var $_height6;
+	var $_height7;
+	var $_height8;
+	var $_height9;
+	var $_height10;
+	var $_height11;
+	var $_height12;
+
+
 	public function __construct() 
         {
 		$this->_cellMarginTop = null;
