@@ -131,12 +131,23 @@ class Document_Word_Writer_Style_Font
 	}
 	
 	public function setStyleValue($key, $value) 
-        {
+     {
 		if($key == '_size') {
-                    $value = (int) $value;
-                    $value *= 2;
+			$value = (int) $value;
+			$value *= 2;
 		}
-		$this->$key = $value;
+		
+		$cache = array();
+		if (empty($cache)) {
+			$ar = get_class_vars(get_class($this));
+			foreach($ar as $k => $v) {
+				$cache[strtolower($k)] = $k;
+			}
+		}
+		$key = strtolower(str_replace('-','', $key));
+		$key = isset($cache[$key]) ? $cache[$key] : $key;
+		
+		$this->$key =  $value;
 	}
 	
 	public function setName($pValue = 'Arial') 
