@@ -66,6 +66,27 @@ class Document_Word_Writer_Style_Paragraph
         
     private $_liststyle;
 	
+	// not used? but set by setter
+	var $_bgcolor;
+	var $_bold;
+	var $_color;
+	var $_fontStretch;
+	var $_fontVariant;
+	var $_italic;
+	var $_lineHeight;
+	var $_marginBottom;
+	var $_marginLeft;
+	var $_marginRight;
+	var $_marginTop;
+	var $_name;
+	var $_Normal;
+	var $_Reference;
+	var $_size;
+	var $_textDecoration;
+	var $_textIndent;
+	var $_textPosition;
+	var $_widows;
+
 	
 	/**
 	 * New Paragraph Style
