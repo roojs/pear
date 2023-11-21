@@ -114,6 +114,7 @@ class Document_Word_Writer_Style_Font
 	var $_textIndent;
 	var $_textPosition;
 	var $_textTransform;
+	var $_widows;
 	
 	
 	

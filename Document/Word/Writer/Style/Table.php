@@ -42,6 +42,7 @@ class Document_Word_Writer_Style_Table
 	var $_width1_dax;
 	var $_width2;
 	var $_width2_dax;
+	var $_listtag;
 	
 	
 	public function __construct() 
