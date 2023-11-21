@@ -64,7 +64,7 @@ class Document_Word_Writer_Style_Paragraph
 	 */
 	private $_spacing;
         
-        private $_list_style;
+    private $_list_style;
 	
 	
 	/**
