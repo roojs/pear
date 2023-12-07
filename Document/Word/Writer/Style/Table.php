@@ -42,6 +42,13 @@ class Document_Word_Writer_Style_Table
 	var $_width1_dax;
 	var $_width2;
 	var $_width2_dax;
+	var $_width3;
+	var $_width3_dax;
+	var $_width4;
+	var $_width4_dax;
+	var $_width5;
+	var $_width5_dax;
+	
 	var $_listtag;
 	
 	var $_height0;
@@ -58,6 +65,12 @@ class Document_Word_Writer_Style_Table
 	var $_height11;
 	var $_height12;
 
+	var $_leftstyle;
+	var $_borderleftcolor;
+	var $_bgstyle;
+	var $_bgcolor;
+	
+		
 
 	public function __construct() 
         {
