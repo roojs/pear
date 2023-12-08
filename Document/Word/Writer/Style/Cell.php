@@ -128,6 +128,7 @@ class Document_Word_Writer_Style_Cell
 	var $_columnNum;
 	var $_mergeto;
 	var $_rowNum;
+	var $_leftstyle;
 
 	/**
 	 * Create a new Cell Style
