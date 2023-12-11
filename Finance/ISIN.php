@@ -1,5 +1,5 @@
 <?php
-class ISIN 
+class Finance_ISIN 
 {
     var $map = array();
 
