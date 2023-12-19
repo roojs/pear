@@ -27,9 +27,11 @@ class Finance_ISIN
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_URL, 'https://www.boerse-stuttgart.de/api/bsg-feature-navigation/Search/PostSearchInput');        curl_setopt($ch, CURLOPT_HTTPHEADER,
-        array(
-            "Content-Type: application/x-www-form-urlencoded"
+        curl_setopt($ch, CURLOPT_URL, 'https://www.boerse-stuttgart.de/api/bsg-feature-navigation/Search/PostSearchInput');        
+        curl_setopt($ch, CURLOPT_HTTPHEADER,
+            array(
+                "Content-Type: application/x-www-form-urlencoded"
+            )
         )
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $str = curl_exec($ch);
