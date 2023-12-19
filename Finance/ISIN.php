@@ -25,6 +25,8 @@ class Finance_ISIN
 
     function getSGISIN($stockCode) 
     {
+        http_build_query(array('searchSubmit' => 'sow', 'language' => 'en', 'datasource' => '5849b3c3-7bd3-4570-9fed-df92b0788426'))
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_URL, 'https://www.boerse-stuttgart.de/api/bsg-feature-navigation/Search/PostSearchInput');        
