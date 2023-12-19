@@ -11,6 +11,11 @@ class Finance_ISIN
             return false;
         }
 
+        if($ar[1] == 'SG') {
+            $this->getSGISIN();
+            die('test');
+        }
+
         $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
 
         // invalid / not supported
