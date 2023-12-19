@@ -28,7 +28,7 @@ class Finance_ISIN
         return isset($this->map[$stockCode]) ? $this->map[$stockCode] : false;
     }
 
-    function getSGISIN($stockCode) 
+    function getSGISIN() 
     {
 
         $ch = curl_init();
