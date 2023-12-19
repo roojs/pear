@@ -35,7 +35,7 @@ class Finance_ISIN
             array(
                 "Content-Type: application/x-www-form-urlencoded"
             )
-        )
+        );
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $str = curl_exec($ch);
         curl_close($ch);
