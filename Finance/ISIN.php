@@ -41,12 +41,12 @@ class Finance_ISIN
                 'datasource' => '5849b3c3-7bd3-4570-9fed-df92b0788426'
             ))
         );     
-        // curl_setopt($ch, CURLOPT_HTTPHEADER,
-        //     array(
-        //         "Content-Type: application/x-www-form-urlencoded"
-        //     )
-        // );
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,
+            array(
+                "Content-Type: application/x-www-form-urlencoded"
+            )
+        );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $str = curl_exec($ch);
         curl_close($ch);
 
