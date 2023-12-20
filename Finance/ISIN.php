@@ -30,6 +30,7 @@ class Finance_ISIN
 
     function getSGISIN() 
     {
+        return false;
 
         $ch = curl_init();
         // $f = tmpfile();
