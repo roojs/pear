@@ -50,6 +50,8 @@ class Finance_ISIN
         $str = curl_exec($ch);
         curl_close($ch);
 
+
+        var_dump(curl_getinfo($ch));
         var_dump("GET SG ISIN\n");
         var_dump($str);
         die('test');
