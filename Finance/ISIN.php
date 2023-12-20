@@ -17,10 +17,6 @@ class Finance_ISIN
             return self::$maps[$ar[1]][$stockCode];
         }
 
-        if($ar[1] == 'SG') {
-            $isin = $this->getSGISIN();
-        }
-
         $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
 
         // invalid / not supported
