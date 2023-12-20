@@ -3,6 +3,8 @@ class Finance_ISIN
 {
     static $maps = array();
 
+    var $map = array();
+
     function getISIN($stockCode) 
     {
         $ar = explode('.', $stockCode);
