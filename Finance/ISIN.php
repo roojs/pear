@@ -44,7 +44,7 @@ class Finance_ISIN
         curl_setopt($ch, CURLOPT_HTTPHEADER,
             array(
                 // "Content-Type: application/x-www-form-urlencoded"
-                "Content-Type: text/html"
+                "Content-Type: text/plain"
             )
         );
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
