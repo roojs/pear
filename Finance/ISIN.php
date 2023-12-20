@@ -22,7 +22,7 @@ class Finance_ISIN
             return false;
         }
         
-        include $file;
+        include_once $file;
 
         return isset($this->map[$stockCode]) ? $this->map[$stockCode] : false;
     }
