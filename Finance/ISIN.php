@@ -47,7 +47,6 @@ class Finance_ISIN
                 "Content-Type: text/plain"
             )
         );
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $str = curl_exec($ch);
         curl_close($ch);
 
