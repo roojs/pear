@@ -51,7 +51,7 @@ class Finance_ISIN
         curl_setopt($ch, CURLOPT_VERBOSE, true);
         $str = curl_exec($ch);
         fseek($f,0);
-        echo fread($f, 32*1024);
+        var_dump( fread($f, 32*1024) );
         fclose($f);
         curl_close($ch);
 
