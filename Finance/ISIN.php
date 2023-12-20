@@ -43,7 +43,8 @@ class Finance_ISIN
         );     
         curl_setopt($ch, CURLOPT_HTTPHEADER,
             array(
-                "Content-Type: application/x-www-form-urlencoded"
+                "Content-Type: application/x-www-form-urlencoded",
+                "Origin: https://www.boerse-stuttgart.de"
             )
         );
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
