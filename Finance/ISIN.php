@@ -47,8 +47,8 @@ class Finance_ISIN
         curl_setopt($ch, CURLOPT_HTTPHEADER,
             array(
                 "Accept-Encoding: gzip, deflate, br",
+                "Accept-Language: en",
                 "Accept: application/json, text/plain, */*",
-                "Accept-Language: English",
                 "Content-Type: application/x-www-form-urlencoded"
             )
         );
