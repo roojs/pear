@@ -47,7 +47,7 @@ class Finance_ISIN
             )
         );
         curl_setopt($ch, CURLOPT_HEADER, 1);
-        
+
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $str = curl_exec($ch);
         curl_close($ch);
@@ -55,7 +55,7 @@ class Finance_ISIN
 
         var_dump(curl_getinfo($ch));
         var_dump("GET SG ISIN\n");
-        var_dump(curl_info($FA))
+        var_dump($str);
         die('test');
     }
 }
