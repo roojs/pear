@@ -13,6 +13,10 @@ class Finance_ISIN
             return false;
         }
 
+        if(isset(self::$maps[$ar[1]][$stockCode])) {
+            return self::$maps[$ar[1]][$stockCode];
+        }
+
         if($ar[1] == 'SG') {
             return $this->getSGISIN();
         }
