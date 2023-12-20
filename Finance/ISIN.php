@@ -49,7 +49,7 @@ class Finance_ISIN
         );
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_VERBOSE, true);
-        curl_setopt($ch, CURLOPT_STDERR, $f)
+        curl_setopt($ch, CURLOPT_STDERR, $f);
         $str = curl_exec($ch);
         fseek($f,0);
         var_dump( fread($f, 32*1024) );
