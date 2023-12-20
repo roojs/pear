@@ -24,6 +24,8 @@ class Finance_ISIN
         
         include_once $file;
 
+        self::$maps[$ar[1]] = $this->map;
+
         return isset($this->map[$stockCode]) ? $this->map[$stockCode] : false;
     }
 
