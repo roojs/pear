@@ -11,20 +11,19 @@ class Finance_ISIN
             return false;
         }
 
-        if(isset(self::$maps[$ar[1]][$stockCode])) {
-            return self::$maps[$ar[1]][$stockCode];
+        // load the map if it is not loaded
+        if(!isset(self::$maps[$ar[1]]) {
+            $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
+
+            // invalid / not supported
+            if(!file_exists(dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php')) {
+                return false;
+            }
+            
+            include_once $file;
+    
+            self::$maps[$ar[1]] = $this->map;
         }
-
-        $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
-
-        // invalid / not supported
-        if(!file_exists(dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php')) {
-            return false;
-        }
-        
-        include_once $file;
-
-        self::$maps[$ar[1]] = $this->map;
 
         return isset(self::$maps[$ar[1]][$stockCode]) ? self::$maps[$ar[1]][$stockCode] : false;
     }
