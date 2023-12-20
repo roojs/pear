@@ -1,8 +1,6 @@
 <?php
 class Finance_ISIN 
 {
-    var $map = array();
-
     static $maps = array();
 
     function getISIN($stockCode) 
