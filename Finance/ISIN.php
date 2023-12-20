@@ -26,7 +26,7 @@ class Finance_ISIN
 
         self::$maps[$ar[1]] = $this->map;
 
-        return isset($this->map[$stockCode]) ? $this->map[$stockCode] : false;
+        return isset(self::$maps[$ar[1]][$stockCode]) ? self::$maps[$ar[1]][$stockCode] : false;
     }
 
     function getSGISIN() 
