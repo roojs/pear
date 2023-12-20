@@ -51,7 +51,7 @@ class Finance_ISIN
                 "Content-Type: application/x-www-form-urlencoded"
             )
         );
-        curl_setopt($ch, CURLOPT_COOKIE,  "fruit=apple; colour=red");
+        curl_setopt($ch, CURLOPT_COOKIE,  "website#lang=en;");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         // curl_setopt($ch, CURLOPT_VERBOSE, true);
         // curl_setopt($ch, CURLOPT_STDERR, $f);
