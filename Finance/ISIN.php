@@ -12,8 +12,7 @@ class Finance_ISIN
         }
 
         if($ar[1] == 'SG') {
-            $this->getSGISIN();
-            die('test');
+            return $this->getSGISIN();
         }
 
         $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
