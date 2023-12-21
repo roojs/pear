@@ -3,13 +3,15 @@ class Finance_ISIN_SG extends Finance_ISIN
 {
     static function updateMap($stockCode)
     {
+        $ar = explode('.', $stockCode);
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://www.boerse-stuttgart.de/api/bsg-feature-navigation/Search/PostSearchInput');   
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, 
             http_build_query(
                 array(
-                    'searchSubmit' => $stockCode,
+                    'searchSubmit' => $ar[0],
                     'language' => 'en', 
                     'datasource' => '5849b3c3-7bd3-4570-9fed-df92b0788426'
                 )
