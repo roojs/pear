@@ -18,6 +18,10 @@ class Finance_ISIN
             return false;
         }
 
+        if(isset(self::$maps[$ar[1]][$stockCode])) {
+            return self::$maps[$ar[1]][$stockCode];
+        }
+
         // load the map if it is not loaded
         if(!isset(self::$maps[$ar[1]])) {
 
