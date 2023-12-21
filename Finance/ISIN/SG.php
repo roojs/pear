@@ -3,7 +3,7 @@ class Finance_ISIN_SG extends Finance_ISIN
 {
     static function updateMap($stockCode)
     {
-        $isin = $this->getISIN($stockCode);
+        $isin = self::getISIN($stockCode);
 
         if($isin) {
             self::$map[$stockCode] = $isin;
