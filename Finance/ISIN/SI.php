@@ -1,10 +1,6 @@
 <?php
 class Finance_ISIN_SI
 {
-    function getMap()
-    {
-        return $this->map;
-    }
     $map = array(
         '502.SI' => 'SG0502000029',
         'NLC.SI' => 'SGXE78399073',

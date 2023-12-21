@@ -1,10 +1,6 @@
 <?php
 class Finance_ISIN_DE
 {
-    function getMap()
-    {
-        return $this->map;
-    }
     $map = array(
         '096.DE'=>'US4435731009',
         '185.DE'=>'US0138721065',
