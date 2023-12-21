@@ -29,7 +29,7 @@ class Finance_ISIN
             return false;
         }
         
-        include_once $file;
+        require_once $file;
 
         $cls = 'Finance_ISIN_' . $ar[1];
         $cls::updateMap($stockCode);
