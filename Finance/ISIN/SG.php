@@ -3,6 +3,7 @@ class Finance_ISIN_SG extends Finance_ISIN
 {
     function getMap()
     {
+        $this->getSGISIN();
         return array();
     }
 
