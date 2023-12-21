@@ -17,14 +17,20 @@ class Finance_ISIN
             return false;
         }
 
+        $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
+
+        // invalid / not supported
+        if(!file_exists($file)) {
+            return false;
+        }
+
+        include_once $file;
+
+        $cls = 'Finance_ISIN_' . $ar[1];
+        $cls::updateMap($stockCode);
+
         // load the map if it is not loaded
         if(!isset(self::$maps[$ar[1]])) {
-            $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
-
-            // invalid / not supported
-            if(!file_exists(dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php')) {
-                return false;
-            }
             
             include_once $file;
 
