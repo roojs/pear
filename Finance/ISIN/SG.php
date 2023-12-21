@@ -9,8 +9,6 @@ class Finance_ISIN_SG extends Finance_ISIN
 
     function getSGISIN() 
     {
-        return false;
-
         $ch = curl_init();
         // $f = tmpfile();
         curl_setopt($ch, CURLOPT_URL, 'https://www.boerse-stuttgart.de/api/bsg-feature-navigation/Search/PostSearchInput');   
