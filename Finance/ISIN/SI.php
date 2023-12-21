@@ -1,5 +1,5 @@
 <?php
-class Finance_ISIN_SI
+class Finance_ISIN_SI extends Finance_ISIN
 {
     var $map = array(
         '502.SI' => 'SG0502000029',

@@ -1,5 +1,5 @@
 <?php
-class Finance_ISIN_TW
+class Finance_ISIN_TW extends Finance_ISIN
 {
     var $map = array(
         '1101.TW' => 'TW0001101004',

@@ -1,5 +1,5 @@
 <?php
-class Finance_ISIN_DE
+class Finance_ISIN_DE extends Finance_ISIN
 {
     var $map = array(
         '096.DE'=>'US4435731009',
