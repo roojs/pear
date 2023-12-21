@@ -2,15 +2,14 @@
 class Finance_ISIN_SG extends Finance_ISIN
 {
     var $map = array();
-    function getMap($stockCode)
+    
+    function updateMap($stockCode)
     {
         $isin = $this->getISIN($stockCode);
 
         if($isin) {
             $this->map[$stockCode] = $isin;
         }
-        
-        return $this->map;
     }
 
     function getISIN($stockCode) 
