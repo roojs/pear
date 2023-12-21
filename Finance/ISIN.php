@@ -9,7 +9,7 @@ class Finance_ISIN
     {
     }
 
-    function getISIN($stockCode) 
+    static function getISIN($stockCode) 
     {
         $ar = explode('.', $stockCode);
         // invalid stock code
