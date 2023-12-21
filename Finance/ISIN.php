@@ -19,9 +19,10 @@ class Finance_ISIN
         }
 
         $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
+        $cls = 'Finance_ISIN_' . $ar[1];
 
         // invalid / not supported
-        if(!class_exists($file)) {
+        if(!class_exists($cls)) {
             return false;
         }
         
