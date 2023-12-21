@@ -5,6 +5,11 @@ class Finance_ISIN
 
     var $map = array();
 
+    function getMap()
+    {
+        return $this->map;
+    }
+
     function getISIN($stockCode) 
     {
         $ar = explode('.', $stockCode);
