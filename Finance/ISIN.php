@@ -2,14 +2,14 @@
 class Finance_ISIN 
 {
 
-    static $map = array();
+    var $map = array();
 
     function getCountryISIN($stockCode)
     {
 
     }
 
-    static function getISIN($stockCode) 
+    function getISIN($stockCode) 
     {
         $ar = explode('.', $stockCode);
 
