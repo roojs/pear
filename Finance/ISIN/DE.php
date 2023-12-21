@@ -1,6 +1,7 @@
 <?php
 class Finance_ISIN_DE extends Finance_ISIN
 {
+    var $code = 'DE';
     var $map = array(
         '096.DE'=>'US4435731009',
         '185.DE'=>'US0138721065',
