@@ -1,6 +1,11 @@
 <?php
 class Finance_ISIN_HK
 {
+    function getMap()
+    {
+        return $this->map;
+    }
+    
     var $map = array(
         '0001.HK'=>'KYG217651051',
         '0002.HK'=>'HK0002007356',
