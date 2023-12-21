@@ -1,7 +1,7 @@
 <?php
 class Finance_ISIN_SG extends Finance_ISIN
 {
-    static function updateMap($stockCode)
+    static function getCountryISIN($stockCode)
     {
         $ar = explode('.', $stockCode);
 
@@ -37,6 +37,7 @@ class Finance_ISIN_SG extends Finance_ISIN
         $items = $xpath->query("//strong[@class='bsg-fs-header__subitem']");
         foreach($items as $item) {
             var_dump($item);
+
         }
         die('test');
 
