@@ -5,9 +5,10 @@ class Finance_ISIN
 
     var $map = array();
 
-    function updateMap($stockCode = false)
+    function updateMap($stockCode)
     {
-
+        var_dump(basename(__FILE__, '.php'));
+        die('test');
     }
 
     function getISIN($stockCode) 
