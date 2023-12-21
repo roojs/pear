@@ -14,7 +14,7 @@ class Finance_ISIN
         }
 
         // load the map if it is not loaded
-        if(!isset(self::$maps[$ar[1]]) {
+        if(!isset(self::$maps[$ar[1]])) {
             $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
 
             // invalid / not supported
