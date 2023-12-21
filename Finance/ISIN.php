@@ -12,6 +12,7 @@ class Finance_ISIN
     static function getISIN($stockCode) 
     {
         $ar = explode('.', $stockCode);
+        
         // invalid stock code
         if(count($ar) != 2) {
             return false;
