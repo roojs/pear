@@ -6,7 +6,7 @@ class Finance_ISIN_SG extends Finance_ISIN
         $isin = $this->getISIN($stockCode);
 
         if($isin) {
-            $this->map[$stockCode] = $isin;
+            self::$map[$stockCode] = $isin;
         }
     }
 
