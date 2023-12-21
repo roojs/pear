@@ -31,9 +31,11 @@ class Finance_ISIN_SG extends Finance_ISIN
 
         var_dump($str);
 
-        $doc = new DOMDocument();
-        $doc->loadHTMLFIle($str);
-        var_dump($doc);
+        $dom = new DOMDocument();
+        $dom->loadHTMLFile($str);
+        $xpath = new DomXPath($dom);
+        $items = $xpath->query("//*strong[contains(@class, 'bsg-fs-header__subitem')]");
+        var_dump($items);
         die('test');
 
         if($isin) {
