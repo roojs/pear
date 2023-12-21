@@ -29,8 +29,6 @@ class Finance_ISIN_SG extends Finance_ISIN
         $str = curl_exec($ch);
         curl_close($ch);
 
-        var_dump($str);
-
         $dom = new DOMDocument();
         $dom->load($str);
         $xpath = new DomXPath($dom);
