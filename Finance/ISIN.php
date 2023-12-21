@@ -32,7 +32,7 @@ class Finance_ISIN
             $isinCls = new $cls();
             $isinCls->updateMap($stockCode);
     
-            self::$maps[$ar[1]] = $isinCls->map;
+            self::$maps[$ar[1]] = $cls::$map;
         }
 
         return isset(self::$maps[$ar[1]][$stockCode]) ? self::$maps[$ar[1]][$stockCode] : false;
