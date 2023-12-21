@@ -5,7 +5,7 @@ class Finance_ISIN
 
     static $map = array();
 
-    function updateMap($stockCode)
+    static function updateMap($stockCode)
     {
     }
 
