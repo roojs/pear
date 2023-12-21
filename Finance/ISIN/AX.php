@@ -1,7 +1,6 @@
 <?php
 class Finance_ISIN_AX extends Finance_ISIN
 {
-    var $code = 'AX';
     var $map = array(
         '14D.AX'=>'AU0000010696',
         '1AD.AX'=>'AU0000001AD2',
