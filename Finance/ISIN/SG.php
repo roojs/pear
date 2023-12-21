@@ -7,7 +7,7 @@ class Finance_ISIN_SG extends Finance_ISIN
         return array();
     }
 
-    function getSGISIN() 
+    function getISIN() 
     {
         $ch = curl_init();
         // $f = tmpfile();
