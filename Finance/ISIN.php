@@ -3,7 +3,7 @@ class Finance_ISIN
 {
     static $maps = array();
 
-    var $map = array();
+    static $map = array();
 
     function updateMap($stockCode)
     {

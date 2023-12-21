@@ -1,7 +1,7 @@
 <?php
 class Finance_ISIN_SI extends Finance_ISIN
 {
-    var $map = array(
+    static $map = array(
         '502.SI' => 'SG0502000029',
         'NLC.SI' => 'SGXE78399073',
         'AZG.SI' => 'BMG3087Y2074',
