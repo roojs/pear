@@ -1,12 +1,12 @@
 <?php
 class Finance_ISIN 
 {
-    static $maps = array();
 
     static $map = array();
 
-    static function updateMap($stockCode)
+    function getCountryISIN($stockCode)
     {
+
     }
 
     static function getISIN($stockCode) 
@@ -18,18 +18,17 @@ class Finance_ISIN
             return false;
         }
 
-        if(isset(self::$maps[$ar[1]][$stockCode])) {
-            return self::$maps[$ar[1]][$stockCode];
-        }
-
         $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
 
         // invalid / not supported
-        if(!file_exists($file)) {
+        if(!class_exists($file)) {
             return false;
         }
         
         require_once $file;
+
+        // new cls
+        // realGetISIN
 
         $cls = 'Finance_ISIN_' . $ar[1];
         $cls::updateMap($stockCode);
