@@ -1,8 +1,6 @@
 <?php
 class Finance_ISIN_SG extends Finance_ISIN
 {
-    var $map = array();
-    
     function updateMap($stockCode)
     {
         $isin = $this->getISIN($stockCode);
