@@ -7,7 +7,7 @@ class Finance_ISIN_SG extends Finance_ISIN
         return array();
     }
 
-    function getISIN() 
+    function getISIN($stockCode) 
     {
         $ch = curl_init();
         // $f = tmpfile();
@@ -16,7 +16,7 @@ class Finance_ISIN_SG extends Finance_ISIN
         curl_setopt($ch, CURLOPT_POSTFIELDS, 
             http_build_query(
                 array(
-                    'searchSubmit' => 'sow',
+                    'searchSubmit' => $stockCode,
                     'language' => 'en', 
                     'datasource' => '5849b3c3-7bd3-4570-9fed-df92b0788426'
                 )
