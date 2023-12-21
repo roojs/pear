@@ -12,7 +12,7 @@ class Finance_ISIN
     static function getISIN($stockCode) 
     {
         $ar = explode('.', $stockCode);
-        
+
         // invalid stock code
         if(count($ar) != 2) {
             return false;
@@ -28,6 +28,7 @@ class Finance_ISIN
         include_once $file;
 
         $cls = 'Finance_ISIN_' . $ar[1];
+        // update map if necessary
         $cls::updateMap($stockCode);
 
         // load the map if it is not loaded
