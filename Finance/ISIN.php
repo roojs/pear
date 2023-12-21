@@ -32,6 +32,7 @@ class Finance_ISIN
             $cls = 'Finance_ISIN_' . $ar[1];
 
             $isinCls = new $cls();
+            $isinCls->updateMap();
     
             self::$maps[$ar[1]] = $isinCls->getMap($stockCode);
         }
