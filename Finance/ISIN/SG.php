@@ -19,7 +19,8 @@ class Finance_ISIN_SG extends Finance_ISIN
             array(
                 "Accept-Language: en",
                 "Accept: application/json, text/plain, */*",
-                "Content-Type: application/x-www-form-urlencoded"
+                "Content-Type: application/x-www-form-urlencoded",
+                "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
             )
         );
         curl_setopt($ch, CURLOPT_COOKIE,  "website#lang=en;");
