@@ -21,7 +21,7 @@ class Finance_ISIN
         $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
 
         require_once $file;
-        
+
         $cls = 'Finance_ISIN_' . $ar[1];
 
         // invalid / not supported
@@ -29,13 +29,7 @@ class Finance_ISIN
             return false;
         }
 
-        // new cls
-        // realGetISIN
-
-        $cls = 'Finance_ISIN_' . $ar[1];
-        $cls::updateMap($stockCode);
-        self::$maps[$ar[1]] = $cls::$map;
-
-        return isset(self::$maps[$ar[1]][$stockCode]) ? self::$maps[$ar[1]][$stockCode] : false;
+        $c = new cls();
+        return $c->getCountryISIN($stockCode);
     }
 }
