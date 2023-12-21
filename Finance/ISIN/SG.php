@@ -1,7 +1,7 @@
 <?php
 class Finance_ISIN_SG extends Finance_ISIN
 {
-    static function getLocationISIN($stockCode)
+    function getLocationISIN($stockCode)
     {
         $ar = explode('.', $stockCode);
 
