@@ -7,8 +7,6 @@ class Finance_ISIN
 
     function updateMap($stockCode)
     {
-        var_dump(get_class());
-        die('test');
     }
 
     function getISIN($stockCode) 
