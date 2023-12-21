@@ -29,7 +29,7 @@ class Finance_ISIN
             return false;
         }
 
-        $c = new cls();
+        $c = new $cls();
         return $c->getLocationISIN($stockCode);
     }
 }
