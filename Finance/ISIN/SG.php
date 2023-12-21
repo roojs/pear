@@ -1,7 +1,7 @@
 <?php
 class Finance_ISIN_SG extends Finance_ISIN
 {
-    function updateMap($stockCode)
+    static function updateMap($stockCode)
     {
         $isin = $this->getISIN($stockCode);
 
@@ -10,7 +10,7 @@ class Finance_ISIN_SG extends Finance_ISIN
         }
     }
 
-    function getISIN($stockCode) 
+    static function getISIN($stockCode) 
     {
         $ch = curl_init();
         // $f = tmpfile();
