@@ -19,14 +19,15 @@ class Finance_ISIN
         }
 
         $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
+
+        require_once $file;
+        
         $cls = 'Finance_ISIN_' . $ar[1];
 
         // invalid / not supported
         if(!class_exists($cls)) {
             return false;
         }
-        
-        require_once $file;
 
         // new cls
         // realGetISIN
