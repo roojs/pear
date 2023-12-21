@@ -1,7 +1,7 @@
 <?php
 class Finance_ISIN_TW extends Finance_ISIN
 {
-    static $map = array(
+    $map = array(
         '1101.TW' => 'TW0001101004',
         '1102.TW' => 'TW0001102002',
         '1103.TW' => 'TW0001103000',
