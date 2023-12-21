@@ -31,6 +31,7 @@ class Finance_ISIN_SG extends Finance_ISIN
         curl_close($ch);
 
 
+        var_dump(curl_error($ch));
         var_dump(curl_getinfo($ch));
         var_dump($str);
         die('test');
