@@ -3,15 +3,6 @@ class Finance_ISIN_SG extends Finance_ISIN
 {
     static function updateMap($stockCode)
     {
-        $isin = self::getISIN($stockCode);
-
-        if($isin) {
-            self::$map[$stockCode] = $isin;
-        }
-    }
-
-    static function getISIN($stockCode) 
-    {
         $ch = curl_init();
         // $f = tmpfile();
         curl_setopt($ch, CURLOPT_URL, 'https://www.boerse-stuttgart.de/api/bsg-feature-navigation/Search/PostSearchInput');   
@@ -48,5 +39,9 @@ class Finance_ISIN_SG extends Finance_ISIN
         var_dump("GET SG ISIN\n");
         var_dump($str);
         die('test');
+
+        if($isin) {
+            self::$map[$stockCode] = $isin;
+        }
     }
 }
