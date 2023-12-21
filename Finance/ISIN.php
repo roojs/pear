@@ -4,14 +4,14 @@ class Finance_ISIN
 
     var $map = array();
 
-    function getLocationISIN($stockCode)
+    function getLocationISIN($stockcode)
     {
         return isset($map[$stockcode]) ? $map[$stockcode] : false;
     }
 
-    function getISIN($stockCode) 
+    function getISIN($stockcode) 
     {
-        $ar = explode('.', $stockCode);
+        $ar = explode('.', $stockcode);
 
         // invalid stock code
         if(count($ar) != 2) {
@@ -30,6 +30,6 @@ class Finance_ISIN
         }
 
         $c = new $cls();
-        return $c->getLocationISIN($stockCode);
+        return $c->getLocationISIN($stockcode);
     }
 }
