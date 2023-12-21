@@ -1,5 +1,5 @@
 <?php
-class Finance_ISIN_HK
+class Finance_ISIN_HK extends Finance_ISIN
 {
     var $map = array(
         '0001.HK'=>'KYG217651051',
