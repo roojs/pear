@@ -26,7 +26,8 @@ class Finance_ISIN_SG extends Finance_ISIN
                 "Content-Type: application/x-www-form-urlencoded"
             )
         );
-        curl_setopt($ch, CURLOPT_COOKIE,  "website#lang=en;");
+        // curl_setopt($ch, CURLOPT_COOKIE,  "website#lang=en;");
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
         $str = curl_exec($ch);
