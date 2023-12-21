@@ -23,6 +23,8 @@ class Finance_ISIN
             }
             
             include_once $file;
+
+            $cls = 'Finance_ISIN_' . $ar[1];
     
             self::$maps[$ar[1]] = $this->map;
         }
