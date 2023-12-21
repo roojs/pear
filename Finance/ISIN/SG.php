@@ -30,6 +30,10 @@ class Finance_ISIN_SG extends Finance_ISIN
         curl_close($ch);
 
         var_dump($str);
+
+        $doc = new DOMDocument();
+        $doc->loadHTMLFIle($str);
+        var_dump($doc);
         die('test');
 
         if($isin) {
