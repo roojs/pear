@@ -7,7 +7,7 @@ class Finance_ISIN
 
     function updateMap($stockCode)
     {
-        var_dump(basename(__FILE__, '.php'));
+        var_dump(get_class());
         die('test');
     }
 
