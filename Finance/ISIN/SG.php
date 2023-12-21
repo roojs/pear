@@ -20,7 +20,7 @@ class Finance_ISIN_SG extends Finance_ISIN
                 // "Cookie: website#lang=en; COOKIE_CONSENT=ALLOW_REQUIRED%2CALLOW_FUNCTIONAL%2CALLOW_MARKETING%2CALLOW_YOUTUBE; _ga=GA1.1.1221475436.1702970441; _fbp=fb.1.1702970440692.739642396; _ga_FPYLH5F3W2=GS1.1.1703148889.5.1.1703148919.0.0.0",
                 // "Accept-Language: en",
                 // "Accept: application/json, text/plain, */*",
-                // "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+                "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
                 "Content-Type: application/x-www-form-urlencoded"
             )
         );
