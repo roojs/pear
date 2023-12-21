@@ -33,7 +33,7 @@ class Finance_ISIN
 
             $isinCls = new $cls();
     
-            self::$maps[$ar[1]] = $isinCls->getMap();
+            self::$maps[$ar[1]] = $isinCls->getISIN($stockCode);
         }
 
         return isset(self::$maps[$ar[1]][$stockCode]) ? self::$maps[$ar[1]][$stockCode] : false;
