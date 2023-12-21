@@ -18,10 +18,6 @@ class Finance_ISIN
             return false;
         }
 
-        $cls = 'Finance_ISIN_' . $ar[1];
-        // update map if necessary
-        $cls::updateMap($stockCode);
-
         // load the map if it is not loaded
         if(!isset(self::$maps[$ar[1]])) {
 
