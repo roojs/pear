@@ -4,7 +4,7 @@ class Finance_ISIN
 
     var $map = array();
 
-    function getCountryISIN($stockCode)
+    function getLocationISIN($stockCode)
     {
 
     }
@@ -30,6 +30,6 @@ class Finance_ISIN
         }
 
         $c = new cls();
-        return $c->getCountryISIN($stockCode);
+        return $c->getLocationISIN($stockCode);
     }
 }
