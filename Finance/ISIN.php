@@ -30,11 +30,10 @@ class Finance_ISIN
             include_once $file;
 
             $cls = 'Finance_ISIN_' . $ar[1];
-
             $isinCls = new $cls();
-            $isinCls->updateMap();
+            $isinCls->updateMap($stockCode);
     
-            self::$maps[$ar[1]] = $isinCls->getMap($stockCode);
+            self::$maps[$ar[1]] = $isinCls->map;
         }
 
         return isset(self::$maps[$ar[1]][$stockCode]) ? self::$maps[$ar[1]][$stockCode] : false;
