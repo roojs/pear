@@ -6,7 +6,7 @@ class Finance_ISIN
 
     function getLocationISIN($stockcode)
     {
-        return isset($map[$stockcode]) ? $map[$stockcode] : false;
+        return isset($this->map[$stockcode]) ? $this->map[$stockcode] : false;
     }
 
     function getISIN($stockcode) 
