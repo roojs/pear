@@ -2,7 +2,6 @@
 
 class Finance_ISIN_T extends Finance_ISIN
 {
-
     // from https://www.japannext.co.jp/csv_download/dnd_sec_directory/
     var $map = array(
         '1301.T'=>'JP3257200000',
