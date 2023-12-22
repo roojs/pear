@@ -29,8 +29,9 @@ class Finance_ISIN_SG extends Finance_ISIN
         $str = curl_exec($ch);
         curl_close($ch);
 
-        libxml_use_internal_errors(true);
+        $isin = false;
 
+        libxml_use_internal_errors(true);
         $dom = new DOMDocument();
         $dom->loadHTML($str);
         $xpath = new DomXPath($dom);
@@ -39,15 +40,11 @@ class Finance_ISIN_SG extends Finance_ISIN
             if(substr($item->nodeValue, 0, 5) != 'ISIN ') {
                 continue;
             }
-            var_dump($item->nodeValue);
-            var_dump(substr($item->nodeValue, 5));
+            $isin = substr($item->nodeValue, 5);
 
 
         }
-        die('test');
 
-        if($isin) {
-            self::$map[$stockCode] = $isin;
-        }
+        return $isin;
     }
 }
