@@ -20,7 +20,7 @@ class Finance_ISIN
 
         $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
 
-        include_once $file;
+        require_once $file;
 
         $cls = 'Finance_ISIN_' . $ar[1];
 
