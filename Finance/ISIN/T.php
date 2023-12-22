@@ -1,7 +1,10 @@
 <?php
 
+class Finance_ISIN_T extends Finance_ISIN
+{
+
 // from https://www.japannext.co.jp/csv_download/dnd_sec_directory/
-$this->map = array(
+var $map = array(
     '1301.T'=>'JP3257200000',
     '1305.T'=>'JP3027620008',
     '1306.T'=>'JP3027630007',
