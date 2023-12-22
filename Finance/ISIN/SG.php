@@ -36,8 +36,12 @@ class Finance_ISIN_SG extends Finance_ISIN
         $xpath = new DomXPath($dom);
         $items = $xpath->query("//strong[@class='bsg-fs-header__subitem']");
         foreach($items as $item) {
-            var_dump($item);
+            if(substr($item->nodeValue, 0, 5) != 'ISIN ') {
+                continue;
+            }
             var_dump($item->nodeValue);
+            var_dump(substr($item->nodeValue, 5));
+
 
         }
         die('test');
