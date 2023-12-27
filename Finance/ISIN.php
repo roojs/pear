@@ -20,6 +20,7 @@ class Finance_ISIN
 
         $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
 
+        // invalid / not supported
         if(!file_exists($file)) {
             return false;
         }
