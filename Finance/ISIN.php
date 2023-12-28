@@ -1,11 +1,18 @@
 <?php
 class Finance_ISIN 
 {
+
     var $map = array();
 
-    function getISIN($stockCode) 
+    function getLocationISIN($stockcode)
     {
-        $ar = explode('.', $stockCode);
+        return isset($this->map[$stockcode]) ? $this->map[$stockcode] : false;
+    }
+
+    function getISIN($stockcode) 
+    {
+        $ar = explode('.', $stockcode);
+
         // invalid stock code
         if(count($ar) != 2) {
             return false;
@@ -14,12 +21,20 @@ class Finance_ISIN
         $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
 
         // invalid / not supported
-        if(!file_exists(dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php')) {
+        if(!file_exists($file)) {
             return false;
         }
-        
-        include $file;
 
-        return isset($this->map[$stockCode]) ? $this->map[$stockCode] : false;
+        require_once $file;
+
+        $cls = 'Finance_ISIN_' . $ar[1];
+
+        // invalid / not supported
+        if(!class_exists($cls)) {
+            return false;
+        }
+
+        $c = new $cls();
+        return $c->getLocationISIN($stockcode);
     }
 }
