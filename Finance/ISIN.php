@@ -13,9 +13,12 @@ class Finance_ISIN
     {
         $ar = explode('.', $stockcode);
 
-        // get isin by exchange
         if(count($ar) != 2) {
-            return $this->getExchangeISIN($stockcode, $exchange);
+            // get isin by exchange
+            if(in_array($exchange, array('NYSE')) {
+                return $this->getExchangeISIN($stockcode, $exchange);
+            }
+            return false;
         }
 
         // get isin by location
