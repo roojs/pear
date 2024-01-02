@@ -15,7 +15,7 @@ class Finance_ISIN
 
         // invalid stock code
         if(count($ar) != 2) {
-            return false;
+            return $this->getExchangeISIN($stockcode, $exchange);
         }
 
         $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
