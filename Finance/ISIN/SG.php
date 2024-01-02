@@ -1,9 +1,9 @@
 <?php
 class Finance_ISIN_SG extends Finance_ISIN
 {
-    function getLocationISIN($stockCode)
+    function getLocationISIN($stockcode)
     {
-        $ar = explode('.', $stockCode);
+        $ar = explode('.', $stockcode);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://www.boerse-stuttgart.de/api/bsg-feature-navigation/Search/PostSearchInput');   
