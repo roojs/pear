@@ -4,11 +4,6 @@ class Finance_ISIN
 
     var $map = array();
 
-    function getLocationISIN($stockcode)
-    {
-        return isset($this->map[$stockcode]) ? $this->map[$stockcode] : false;
-    }
-
     function getISIN($stockcode, $exchange) 
     {
         $ar = explode('.', $stockcode);
@@ -67,5 +62,10 @@ class Finance_ISIN
         }
 
         return false;
+    }
+
+    function getLocationISIN($stockcode)
+    {
+        return isset($this->map[$stockcode]) ? $this->map[$stockcode] : false;
     }
 }
