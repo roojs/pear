@@ -38,7 +38,7 @@ class Finance_ISIN
         return $c->getLocationISIN($stockcode);
     }
 
-    function getISINFromExchange($stockcode, $exchange)
+    function getExchangeISIN($stockcode, $exchange)
     {
         $ar = explode('.', $stockcode);
 
