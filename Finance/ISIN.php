@@ -51,6 +51,9 @@ class Finance_ISIN
         $matches = array();
         preg_match('/window.initData.symbolInfo = ({.*});/', $str, $matches);
 
+        var_dump($matches);
+        die('test');
+
         $ret = json_decode($matches[1]);
         var_dump($ret);
         var_dump($ret->isin);
