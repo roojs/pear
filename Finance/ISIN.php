@@ -39,6 +39,8 @@ class Finance_ISIN
         return $c->getLocationISIN($stockcode);
     }
 
+    // data from Trading View (A better source should be used if found)
+
     function getExchangeISIN($stockcode, $exchange)
     {
         $ar = explode('.', $stockcode);
