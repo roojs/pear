@@ -48,8 +48,6 @@ class Finance_ISIN
         $str = curl_exec($ch);
         curl_close($ch);
 
-        // var_dump($str);
-
         $matches = array();
         preg_match('/window.initData.symbolInfo = ({.*});/', $str, $matches);
 
@@ -57,22 +55,6 @@ class Finance_ISIN
         var_dump($ret);
         var_dump($ret['isin']);
         die('test');
-
-        $isin = false;
-
-        libxml_use_internal_errors(true);
-        $dom = new DOMDocument();
-        $dom->loadHTML($str);
-        $xpath = new DomXPath($dom);
-        $items = $xpath->query("//strong[@class='bsg-fs-header__subitem']");
-        foreach($items as $item) {
-            if(substr($item->nodeValue, 0, 5) != 'ISIN ') {
-                continue;
-            }
-            $isin = substr($item->nodeValue, 5);
-
-
-        }
 
         return $isin;
     }
