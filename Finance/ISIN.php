@@ -49,7 +49,7 @@ class Finance_ISIN
         curl_close($ch);
 
         $matches = array();
-        preg_match('/window.initData.symbolInfo = ({.*});/', $str . '1', $matches);
+        preg_match('/window.initData.symbolInfo = ({.*});/', $str . '#!#!}{}#!', $matches);
 
         if(empty($matches)) {
             return false;
