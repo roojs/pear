@@ -48,8 +48,10 @@ class Finance_ISIN
         $str = curl_exec($ch);
         curl_close($ch);
 
+        $str = 'ADSADCXS#@DS';
+
         $matches = array();
-        preg_match('/window.initData.symbolInfo = ({.*});/', $str . '#!#!}{}#!', $matches);
+        preg_match('/window.initData.symbolInfo = ({.*});/', $str, $matches);
 
         if(empty($matches)) {
             return false;
