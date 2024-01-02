@@ -56,10 +56,11 @@ class Finance_ISIN
         }
 
         $ret = json_decode('{dsadsavd,fds,fwemfpoawm9}');
-        var_dump($ret);
-        var_dump($ret->isin);
-        die('test');
 
-        return $isin;
+        if(!empty($ret->isin)) {
+            return $isin;
+        }
+
+        return false;
     }
 }
