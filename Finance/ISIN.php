@@ -40,7 +40,7 @@ class Finance_ISIN
 
     function getISINFromExchange($stockcode, $exchange)
     {
-        $ar = explode('.', $stockCode);
+        $ar = explode('.', $stockcode);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://www.tradingview.com/symbols/' . $exchange . '-' . $stockcode .'/');
