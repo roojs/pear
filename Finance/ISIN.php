@@ -43,7 +43,7 @@ class Finance_ISIN
         $ar = explode('.', $stockcode);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://www.tradingview.com/symbols/' . $exchange . '-' . $stockcode .'/');
+        curl_setopt($ch, CURLOPT_URL, 'https://www.tradingview.com/symbol/' . $exchange . '-' . $stockcode .'/');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $str = curl_exec($ch);
         curl_close($ch);
