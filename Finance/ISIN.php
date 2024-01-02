@@ -48,6 +48,9 @@ class Finance_ISIN
         $str = curl_exec($ch);
         curl_close($ch);
 
+        var_dump($str);
+        die('test');
+
         $isin = false;
 
         libxml_use_internal_errors(true);
