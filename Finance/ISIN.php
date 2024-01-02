@@ -58,7 +58,7 @@ class Finance_ISIN
         $ret = json_decode($matches[1]);
 
         if(!empty($ret->isin)) {
-            return $isin;
+            return $ret->isin;
         }
 
         return false;
