@@ -53,7 +53,7 @@ class Finance_ISIN
 
         $ret = json_decode($matches[1]);
         var_dump($ret);
-        var_dump($ret['isin']);
+        var_dump($ret->isin);
         die('test');
 
         return $isin;
