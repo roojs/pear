@@ -9,7 +9,7 @@ class Finance_ISIN
         return isset($this->map[$stockcode]) ? $this->map[$stockcode] : false;
     }
 
-    function getISIN($stockcode) 
+    function getISIN($stockcode, $exchange) 
     {
         $ar = explode('.', $stockcode);
 
