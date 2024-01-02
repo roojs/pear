@@ -15,7 +15,7 @@ class Finance_ISIN
 
         if(count($ar) != 2) {
             // get isin by exchange
-            if(in_array($exchange, array('NYSE')) {
+            if(in_array($exchange, array('NYSE'))) {
                 return $this->getExchangeISIN($stockcode, $exchange);
             }
             return false;
