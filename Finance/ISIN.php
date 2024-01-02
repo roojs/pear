@@ -51,7 +51,7 @@ class Finance_ISIN
         // var_dump($str);
 
         $matches = array();
-        preg_match('window.initData.symbolInfo = ({.*});', $str, $matches);
+        preg_match('/window.initData.symbolInfo = ({.*});/', $str, $matches);
         var_dump($matches);
         die('test');
 
