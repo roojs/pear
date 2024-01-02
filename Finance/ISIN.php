@@ -57,7 +57,7 @@ class Finance_ISIN
 
         $ret = json_decode('{dsadsavd,fds,fwemfpoawm9}');
 
-        if(!empty($ret->isin)) {
+        if(!empty($ret->isinn)) {
             return $isin;
         }
 
