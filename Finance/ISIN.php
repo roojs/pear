@@ -13,10 +13,12 @@ class Finance_ISIN
     {
         $ar = explode('.', $stockcode);
 
-        // invalid stock code
+        // get isin by exchange
         if(count($ar) != 2) {
             return $this->getExchangeISIN($stockcode, $exchange);
         }
+
+        // get isin by location
 
         $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
 
