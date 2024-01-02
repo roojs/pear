@@ -48,6 +48,9 @@ class Finance_ISIN
         $str = curl_exec($ch);
         curl_close($ch);
 
+        var_dump($str);
+        die('test');
+
         $matches = array();
         preg_match('/window.initData.symbolInfo = ({.*});/', $str, $matches);
 
