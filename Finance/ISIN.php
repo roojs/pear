@@ -10,6 +10,7 @@ class Finance_ISIN
 
         if(count($ar) != 2) {
             // get isin by exchange
+            // support NYSE
             if(in_array($exchange, array('NYSE'))) {
                 return $this->getExchangeISIN($stockcode, $exchange);
             }
