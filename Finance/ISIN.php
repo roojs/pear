@@ -37,4 +37,33 @@ class Finance_ISIN
         $c = new $cls();
         return $c->getLocationISIN($stockcode);
     }
+
+    function getISINFromExchange($stockcode, $exchange)
+    {
+        $ar = explode('.', $stockCode);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://www.tradingview.com/symbols/' . $exchange . '-' . $stockcode .'/');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $str = curl_exec($ch);
+        curl_close($ch);
+
+        $isin = false;
+
+        libxml_use_internal_errors(true);
+        $dom = new DOMDocument();
+        $dom->loadHTML($str);
+        $xpath = new DomXPath($dom);
+        $items = $xpath->query("//strong[@class='bsg-fs-header__subitem']");
+        foreach($items as $item) {
+            if(substr($item->nodeValue, 0, 5) != 'ISIN ') {
+                continue;
+            }
+            $isin = substr($item->nodeValue, 5);
+
+
+        }
+
+        return $isin;
+    }
 }
