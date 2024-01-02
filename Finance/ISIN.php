@@ -55,6 +55,8 @@ class Finance_ISIN
             return false;
         }
 
+        var_dump($matches[1]);
+
         $ret = json_decode('{dsadsavd,fds,fwemfpoawm9}');
 
         if(!empty($ret->isinn)) {
