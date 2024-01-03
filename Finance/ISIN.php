@@ -4,19 +4,20 @@ class Finance_ISIN
 
     var $map = array();
 
-    function getLocationISIN($stockcode)
-    {
-        return isset($this->map[$stockcode]) ? $this->map[$stockcode] : false;
-    }
-
-    function getISIN($stockcode) 
+    function getISIN($stockcode, $exchange) 
     {
         $ar = explode('.', $stockcode);
 
-        // invalid stock code
         if(count($ar) != 2) {
+            // get isin by exchange
+            // support NYSE
+            if(in_array($exchange, array('NYSE'))) {
+                return $this->getExchangeISIN($stockcode, $exchange);
+            }
             return false;
         }
+
+        // get isin by location
 
         $file = dirname(__FILE__) . '/ISIN/' . $ar[1] . '.php';
 
@@ -36,5 +37,38 @@ class Finance_ISIN
 
         $c = new $cls();
         return $c->getLocationISIN($stockcode);
+    }
+
+    // data from Trading View (A more reliable source should be used if found)
+
+    function getExchangeISIN($stockcode, $exchange)
+    {
+        $ar = explode('.', $stockcode);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://www.tradingview.com/symbols/' . $exchange . '-' . $stockcode .'/');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $str = curl_exec($ch);
+        curl_close($ch);
+
+        $matches = array();
+        preg_match('/window.initData.symbolInfo = ({.*});/', $str, $matches);
+
+        if(empty($matches)) {
+            return false;
+        }
+
+        $ret = json_decode($matches[1]);
+
+        if(!empty($ret->isin)) {
+            return $ret->isin;
+        }
+
+        return false;
+    }
+
+    function getLocationISIN($stockcode)
+    {
+        return isset($this->map[$stockcode]) ? $this->map[$stockcode] : false;
     }
 }
