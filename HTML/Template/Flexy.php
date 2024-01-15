@@ -818,7 +818,7 @@ class HTML_Template_Flexy
         if (is_a($this->options['Translation2'], 'Translation2')) {
             $this->options['Translation2']->setLang($this->options['locale']);
             
-            if(empty($this->_options['Translation2']['CommonPageID'])) {
+            if(empty($this->options['Translation2']['CommonPageID'])) {
                 // fixme - needs to be more specific to which template to use..
     	        foreach ($this->options['templateDir'] as $tt) {
                     $n = basename($this->currentTemplate);
