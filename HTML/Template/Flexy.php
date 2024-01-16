@@ -805,20 +805,21 @@ class HTML_Template_Flexy
     */
     function initializeTranslator() {
     
+        $opts = array();
         if (is_array($this->options['Translation2'])) {
             require_once 'Translation2.php';
-            $this->_options = $this->options; // store the original options..
+            $opts = $this->options; // store the original options..
             $this->options['Translation2'] =  &Translation2::factory(
-                $this->options['Translation2']['driver'],
-                isset($this->options['Translation2']['options']) ? $this->options['Translation2']['options'] : array(),
-                isset($this->options['Translation2']['params']) ? $this->options['Translation2']['params'] : array()
+                $opts['Translation2']['driver'],
+                isset($opts['Translation2']['options']) ? $opts['Translation2']['options'] : array(),
+                isset($opts['Translation2']['params']) ? $opts['Translation2']['params'] : array()
             );
         }
                 
         if (is_a($this->options['Translation2'], 'Translation2')) {
             $this->options['Translation2']->setLang($this->options['locale']);
             
-            if(empty($this->options['Translation2']['CommonPageID'])) {
+            if(empty($opts['Translation2']['CommonPageID'])) {
                 // fixme - needs to be more specific to which template to use..
     	        foreach ($this->options['templateDir'] as $tt) {
                     $n = basename($this->currentTemplate);
@@ -829,7 +830,7 @@ class HTML_Template_Flexy
             	}
             	$this->options['Translation2']->setPageID($n);
             } else {
-                $this->options['Translation2']->setPageID($this->options['Translation2']['CommonPageID']);
+                $this->options['Translation2']->setPageID($opts['Translation2']['CommonPageID']);
             }
 
         } elseif (defined('LC_ALL'))  {
