@@ -977,6 +977,7 @@ class HTML_FlexyFramework2 {
         if (!$classname) {
             return false;
         }
+       
         
         // make page data/object accessable at anypoint in time using  this
         // not sure if this is used anymore - or even works..?
@@ -1023,6 +1024,8 @@ class HTML_FlexyFramework2 {
         }
         
         $classobj  = $this->initPage($request,$isRedirect,$args);
+        
+        
         $classobj->cli = $this->cli;
         
         if ($this->cli && !$isRedirect ) { // redirect always just takes redirect args..
@@ -1271,21 +1274,28 @@ class HTML_FlexyFramework2 {
             $this->debug("baseDIR = {$this->baseDir}");
             
             $floc = "{$this->baseDir}/$location";
-            $this->debug("CHECK LOCATION = $location");
+            $this->debug("CHECK LOCATION = $floc");
             
             
             
             if (!empty($location) && $location != '.php' && @file_exists($floc )) {             // hide? error???
                 require_once $floc ;
                 $classname = $this->classPrefix . implode('_',$request_array);
-                $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
-                break;
+                 
+                if (class_exists($classname) &&
+                        (is_a($classname, 'HTML_FlexyFramework2_Page', true) ||
+                         is_a($classname, 'HTML_FlexyFramework_Page', true))
+                ) {
+                         
+                    $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
+                    break;
+                }
             } 
             
             // in here check the 'projectExtends' versions..?
             
             if(!empty($this->projectExtends)){
-                $this->debug("Trying project Extends<BR>");
+                $this->debug("Trying project Extends <BR>");
                 $has_extend_class = false;
                 
                 foreach ($this->projectExtends as $e){
@@ -1294,9 +1304,14 @@ class HTML_FlexyFramework2 {
                     if (!empty($location) && @file_exists($floc)) {             // hide? error???
                         require_once $floc ;
                         $classname = $e . '_' . implode('_',$request_array);
-                        $has_extend_class = true;
-                        $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
-                        break;
+                         
+                        if (class_exists($classname) &&
+                            (is_a($classname, 'HTML_FlexyFramework2_Page', true) ||
+                             is_a($classname, 'HTML_FlexyFramework_Page', true))  ) {
+                            $has_extend_class = true;
+                            $this->debug("FOUND FILE - SET CLASS = $classname <BR>");
+                            break;
+                        }
                     } 
                 }
                 
@@ -1319,11 +1334,14 @@ class HTML_FlexyFramework2 {
         $classname = preg_replace('/[^a-z0-9]/i','_',$classname);
         $this->debug("CLASSNAME is '$classname'");
         // got it ok.
-        if ($classname && class_exists($classname)) {
+        if ($classname && class_exists($classname) &&
+                (is_a($classname, 'HTML_FlexyFramework2_Page', true) ||
+                 is_a($classname, 'HTML_FlexyFramework_Page', true))) {
             $this->debug("using $classname");
             //print_r($sub_request_array);
             return array($classname,implode('/',array_reverse($sub_request_array)));
         }
+        $this->debug("$classname did not exist - using base");        
         // stop looping..
         if ($showError) {
             $this->fatalError("INVALID REQUEST: \n $request FILE:".$this->baseDir. "/{$location}  CLASS:{$classname}");
@@ -1349,7 +1367,7 @@ class HTML_FlexyFramework2 {
             }
         }
         // got projectname.php
-        if ($classname && class_exists($classname)) {
+        if ($classname && class_exists($classname)  ) {
             $this->debug("using $classname");
             //print_r($sub_request_array);
              
