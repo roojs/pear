@@ -15,13 +15,14 @@ class Finance_ISIN
                 case 'NYSE':
                 case 'NASDAQ':
                     return $this->getExchangeISIN($stockcode, $exchange);
-                case 'PA':
-                    return $this->getExchangeISIN($stockcode, 'EURONEXT');
                 default:
                     return false;
                 
             }
             
+        }
+        if ($ar[1] == 'PA') {
+              return $this->getExchangeISIN($stockcode, 'EURONEXT');
         }
 
         // get isin by location
