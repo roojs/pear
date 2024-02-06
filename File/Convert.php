@@ -57,6 +57,9 @@ class File_Convert
         
         $this->mimetype = $mimetype;
         self::$options = $options;
+        if (isset($options['debug'])) {
+            $this->debug = $options['debug'];
+        }
     }
     
     
