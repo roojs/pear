@@ -292,9 +292,9 @@ class File_Convert
         
        
         //if (!preg_match('#^image\/#i', $this->to)) {
-    
+        $expires = isset(self::$options['expires']) ? self::$options['expires'] : "NOW + 5 MINUTES";
         // a reasonable expiry time - 5 minutes..
-        header("Expires: ". gmdate("D, d M Y H:i:s",  strtotime("NOW + 5 MINUTES")) . " GMT");
+        header("Expires: ". gmdate("D, d M Y H:i:s",  strtotime($expires)) . " GMT");
         header("Cache-Control: must-revalidate");
         header("Pragma: public");     
         header("Last-Modified: " . $ts_string . " GMT");
