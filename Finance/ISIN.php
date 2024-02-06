@@ -22,7 +22,7 @@ class Finance_ISIN
             
         }
         if ($ar[1] == 'PA') {
-              return $this->getExchangeISIN($stockcode, 'EURONEXT');
+              return $this->getExchangeISIN($ar[0], 'EURONEXT');
         }
 
         // get isin by location
