@@ -216,7 +216,7 @@ class Validate
      *
      * @access private
      */
-    function __uriRFC4151($uri)
+    static function __uriRFC4151($uri)
     {
         $datevalid = false;
         if (preg_match(
@@ -295,7 +295,7 @@ class Validate
      *
      * @access  private
      */
-    function __stringToUtf7($string)
+    static function __stringToUtf7($string)
     {
         $return = '';
         $utf7   = array(
@@ -373,7 +373,7 @@ class Validate
      *
      * @access private
      */
-    function __emailRFC822(&$email, &$options)
+    static function __emailRFC822(&$email, &$options)
     {
         static $address   = null;
         static $uncomment = null;
@@ -442,7 +442,7 @@ class Validate
      *
      * @return bool True if validating succeeds
      */
-    function _fullTLDValidation($email, $options)
+    static function _fullTLDValidation($email, $options)
     {
         $validate = array();
         if(!empty($options["VALIDATE_ITLD_EMAILS"])) array_push($validate, 'itld');
@@ -477,7 +477,7 @@ class Validate
      *
      * @return true or false (Depending on if it validates or if it does not)
      */
-    function executeFullEmailValidation($email, $arrayOfTLDs)
+    static function executeFullEmailValidation($email, $arrayOfTLDs)
     {
         $emailEnding = explode('.', $email);
         $emailEnding = $emailEnding[count($emailEnding)-1];
@@ -945,7 +945,7 @@ class Validate
         return $ret;
     }
 
-    function _modf($val, $div)
+    static function _modf($val, $div)
     {
         if (function_exists('bcmod')) {
             return bcmod($val, $div);
@@ -967,7 +967,7 @@ class Validate
      *
      * @return int returns product of number digits with weights
      */
-    function _multWeights($number, &$weights)
+    static function _multWeights($number, &$weights)
     {
         if (!is_array($weights)) {
             return -1;
@@ -998,7 +998,7 @@ class Validate
      *
      * @return  int -1 calculated control number is returned
      */
-    function _getControlNumber($number, &$weights, $modulo = 10, $subtract = 0, $allow_high = false)
+    static function _getControlNumber($number, &$weights, $modulo = 10, $subtract = 0, $allow_high = false)
     {
         // calc sum
         $sum = Validate::_multWeights($number, $weights);
@@ -1028,7 +1028,7 @@ class Validate
      *
      * @return  bool true if valid, false if not
      */
-    function _checkControlNumber($number, &$weights, $modulo = 10, $subtract = 0)
+    static function _checkControlNumber($number, &$weights, $modulo = 10, $subtract = 0)
     {
         if (strlen($number) < count($weights)) {
             return false;
@@ -1065,7 +1065,7 @@ class Validate
      *
      * @access public
      */
-    function multiple(&$data, &$val_type, $remove = false)
+    static function multiple(&$data, &$val_type, $remove = false)
     {
         $keys  = array_keys($data);
         $valid = array();
