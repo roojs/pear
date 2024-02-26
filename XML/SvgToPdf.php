@@ -218,10 +218,10 @@ class XML_SvgToPDF {
             $t->debug("<B>PAGE $page<B>");
             
             $pdf->addPage();
-                     die("HERE");
 
             $tree->writePDF($pdf,$page_data);
-            
+                           die("HERE");
+      
             //$tree->writePDF($pdf,$data);
         }
        
