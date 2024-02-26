@@ -370,7 +370,7 @@ class XML_Parser extends PEAR
             xml_parser_set_option($xp, XML_OPTION_CASE_FOLDING, $this->folding);
             return true;
         }
-        if (!in_array(strtoupper($this->srcenc), $this->_validEncodings)) {
+        if (!empty($this->srcenc) && !in_array(strtoupper($this->srcenc), $this->_validEncodings)) {
             return $this->raiseError('invalid source encoding', 
                 XML_PARSER_ERROR_INVALID_ENCODING);
         }
