@@ -223,7 +223,7 @@ class XML_Tree extends XML_Parser
         if (PEAR::isError($err)) {
             return $err;
         }
-        return $this->root;
+        return $this->getRoot();
     }
 
     /*
@@ -241,7 +241,7 @@ class XML_Tree extends XML_Parser
         if (PEAR::isError($err)) {
             return $err;
         }
-        return $this->root;
+        return $this->getRoot();
     }
 
     /**
