@@ -228,7 +228,7 @@ class XML_SvgToPDF {
         return $pdf;
     }
     
-    function fetchRows(&$original_data, $key, $rows) {
+    static function fetchRows(&$original_data, $key, $rows) {
         $ret = array();
         while ($rows > -1 && !empty($original_data[$key])) {
             $addrow = array_shift($original_data[$key]);
