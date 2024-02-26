@@ -88,6 +88,8 @@ require_once 'XML/Tree.php';
 */
 class XML_Tree_Morph extends XML_Tree {
 
+    var $cdata;
+    var $_morphOptions;
 
     /**
     * Constructor
