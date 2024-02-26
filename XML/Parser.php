@@ -614,7 +614,7 @@ class XML_Parser extends PEAR
     {
         $code = is_null($code) ? 0 : $code;
         $msg = !is_null($message) ? $message : $this->parser;
-        $err = new XML_Parser_Error($msg, $ecode);
+        $err = new XML_Parser_Error($msg, $code);
         return parent::raiseError($err);
     }
 
