@@ -15,6 +15,7 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
     }
     function fromNode($node) {
         parent::fromNode($node);
+        var_dump($node);
         var_dump($this);
         $this->parse();
     }
