@@ -63,6 +63,8 @@ class XML_SvgToPDF_Base {
     var $linespacing;
     var $attributes;
     var $nonprintable;
+    var $about;
+    var $resource;
     
     
     var $name;
