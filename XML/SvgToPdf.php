@@ -103,7 +103,7 @@ class XML_SvgToPDF {
         $tree = $x->getTreeFromFile();
        //echo '<PRE>'; print_R($tree);      exit;
         $tree = $t->buildobject($tree);
-          echo '<PRE>'; print_R($tree);      exit;
+         // echo '<PRE>'; print_R($tree);      exit;
          //echo "<PRE>";
        // $tree = $t->parseSvg($svg);
         // echo "<PRE>";print_r($tree);exit;
