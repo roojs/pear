@@ -88,8 +88,11 @@ require_once 'XML/Tree.php';
 */
 class XML_Tree_Morph extends XML_Tree {
 
-    var $cdata;
+    var $cdata = '';
     var $_morphOptions;
+    
+    var $i;
+    
 
     /**
     * Constructor
@@ -129,26 +132,31 @@ class XML_Tree_Morph extends XML_Tree {
       
   
     
-    function endHandler($xp, $elem)  {
+    function endHandler($elem)  {
         $this->i--;
         if ($this->i > 1) {
-            $obj_id = 'obj' . $this->i;
+            $obj_id =   $this->i;
             // recover the node created in StartHandler
-            $node   =  $this->$obj_id;
+            $node   =  $this->obj[$obj_id];
             // mixed contents
-            if (count($node->children) > 0) {
-                if (trim($this->cdata)) {
+            //var_dump($this->cdata, typeof($node->children);
+            if (is_array($node->children) && count($node->children) > 0) {
+                if (!empty($this->cdata) && trim($this->cdata)) {
                     $node->children[] =  new XML_Tree_Node(null, $this->cdata);
                 }
-            } else {
+            } else if ($this->cdata !== null) {
+                
                 $node->setContent($this->cdata);
+                //var_dump(array($node, $this->cdata));
+            } else {
+                $node->setContent('');
             }
-            $parent_id = 'obj' . ($this->i - 1);
-            $parent    = $this->$parent_id;
+            $parent_id =  ($this->i - 1);
+            $parent    = $this->obj[$parent_id];
             // attach the node to its parent node children array
-            
+           // print_r($this);exit;
             if (isset($this->_morphOptions['filter'][$node->name])) {
-                $f = &$this->_morphOptions['filter'][$node->name];
+                $f = $this->_morphOptions['filter'][$node->name];
                 if (is_string($f) && method_exists($this,'morph'.$f)) {
                     $parent->children[] = $this->{'morph'.$this->_morphOptions['filter'][$node->name]}($node);
                     $this->cdata = null;
@@ -168,6 +176,7 @@ class XML_Tree_Morph extends XML_Tree {
             }
             
             $parent->children[] = $node;
+            
         }
         $this->cdata = null;
         return null;

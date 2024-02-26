@@ -194,23 +194,7 @@ class XML_Parser extends PEAR
     // }}}
     // {{{ php4 constructor
 
-    /**
-     * Creates an XML parser.
-     *
-     * This is needed for PHP4 compatibility, it will
-     * call the constructor, when a new instance is created.
-     *
-     * @param string $srcenc source charset encoding, use NULL (default) to use
-     *                       whatever the document specifies
-     * @param string $mode   how this parser object should work, "event" for
-     *                       startelement/endelement-type events, "func"
-     *                       to have it call functions named after elements
-     * @param string $tgtenc a valid target encoding
-     */
-    function XML_Parser($srcenc = null, $mode = 'event', $tgtenc = null)
-    {
-        XML_Parser::__construct($srcenc, $mode, $tgtenc);
-    }
+  
     // }}}
     // {{{ php5 constructor
 
@@ -293,7 +277,7 @@ class XML_Parser extends PEAR
      */
     function _initHandlers()
     {
-        if (!is_resource($this->parser)) {
+        if (!is_object($this->parser)) {
             return false;
         }
 
@@ -509,11 +493,12 @@ class XML_Parser extends PEAR
             return $result;
         }
         // if $this->fp was fopened previously
+         
         if (is_resource($this->fp)) {
 
             while ($data = fread($this->fp, 4096)) {
                 if (!$this->_parseString($data, feof($this->fp))) {
-                    $error = &$this->raiseError();
+                    $error =  $this->raiseError();
                     $this->free();
                     return $error;
                 }
@@ -589,8 +574,8 @@ class XML_Parser extends PEAR
      **/
     function free()
     {
-        if (isset($this->parser) && is_resource($this->parser)) {
-            xml_parser_free($this->parser);
+        if (isset($this->parser) && is_object($this->parser)) {
+            //xml_parser_free($this->parser);
             unset( $this->parser );
         }
         if (isset($this->fp) && is_resource($this->fp)) {
@@ -677,7 +662,7 @@ class XML_Parser extends PEAR
      * @return null
      * @abstract
      */
-    function startHandler($xp, $elem, &$attribs)
+    function startHandler($xp, $elem,  $attribs)
     {
         return null;
     }
@@ -694,7 +679,7 @@ class XML_Parser extends PEAR
      * @return null
      * @abstract
      */
-    function endHandler($xp, $elem)
+    function endHandler( $elem)
     {
         return null;
     }

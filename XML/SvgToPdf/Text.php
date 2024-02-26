@@ -9,7 +9,15 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
     function fromXmlNode($node) {
         
         parent::fromXmlNode($node);
+		$this->parse();
+	}
+	function fromNode($node) {
         
+        parent::fromNode($node);
+		$this->parse();
+	}
+	function parse()
+	{
         // any text ???
         if (empty($this->children) || empty($this->children[0]->content)) {
             return;
@@ -121,7 +129,10 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
         
             $xx = $c->x !== false ? $c->x + @$this->xx : $x;
             $yy = $c->y !== false ? $c->y + @$this->yy : $y + ($lineno * $size * 1.3);
-            $lineno++;              
+            $lineno++;
+			if (empty($c->content)) {
+				//print_R($c);exit;
+			}
             $val = $c->content;
             if ($ffont == 'ARIALUNI') { //) && preg_match('/[\x7f-\xff]+/',$val)) {
                 $pdf->setFont('ARIALUNI' ,
@@ -148,7 +159,7 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
                 
                 $has_template = preg_match('/%s/', $val);
                      
-                $val = trim(vsprintf($val,$args));
+                $val = empty($val) || empty($args) ? $val : trim(vsprintf($val,$args));
                 
                 if ($has_template && ($ffont == 'ARIALUNI') && preg_match('/[\x7f-\xff]+/',$val)) {
                     //require_once  'Text/ZhDetect.php';

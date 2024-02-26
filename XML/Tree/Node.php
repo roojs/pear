@@ -56,7 +56,8 @@ class XML_Tree_Node {
     * @var  string
     */
     var $name;
-
+    
+    var $lineno;
     /**
     * Constructor
     *
@@ -64,10 +65,12 @@ class XML_Tree_Node {
     * @param  string    content         Node content (text)
     * @param  array     attributes      Attribute-hash for the node
     */
-    function XML_Tree_Node($name, $content = '', $attributes = array(), $lineno = null)
+    function __construct($name, $content = '', $attributes = array(), $lineno = null)
     {
         $this->name = $name;
-        $this->setContent($content);
+        if ($content !== null) {
+            $this->setContent($content);
+        }
         $this->attributes = $attributes;
         $this->children   = array();
         $this->lineno     = $lineno;
@@ -275,6 +278,11 @@ class XML_Tree_Node {
         return null;
     }
 
+    function hasAttribute($name)
+    {
+        return isset($this->attributes[strtolower($name)]);
+    }
+    
     /**
     * Sets an attribute for this node.
     *
@@ -309,9 +317,11 @@ class XML_Tree_Node {
     *
     * @access public
     */
-    function setContent(&$content)
+    function setContent($content)
     {
+        
         $this->content = $this->encodeXmlEntities($content);
+       // var_dump(array($this->content, $content));
     }
 
     /**
@@ -401,7 +411,16 @@ class XML_Tree_Node {
     */
     function encodeXmlEntities($xml)
     {
-        $xml = str_replace(array('ü', 'Ü', 'ö',
+         $xml =  preg_replace_callback("/[\x{0080}-\x{FFFF}]/u", function($v) {
+                         //   var_dump($v);
+                            return '&#'. mb_ord($v[0]).';';
+                            
+                                  //"'&#'.ord('\\1').';'"         
+                        },
+                        $xml
+                    );
+         //var_dump($xml);
+         $xml = str_replace(array('ü', 'Ü', 'ö',
                                  'Ö', 'ä', 'Ä',
                                  'ß', '<', '>',
                                  '"', '\''
@@ -413,20 +432,31 @@ class XML_Tree_Node {
                                 ),
                            $xml
                           );
-        // fixme - remove the /e!!!
-        $xml = @preg_replace(array("/\&([a-z\d\#]+)\;/i",
+       // var_dump($xml);
+        $xml =  preg_replace(array("/\&([a-z\d\#]+)\;/i",
                                   "/\&/",
                                   "/\#\|\|([a-z\d\#]+)\|\|\#/i",
-                                  "/([^a-zA-Z\d\s\<\>\&\;\.\:\=\"\-\/\%\?\!\'\(\)\[\]\{\}\$\#\+\,\@_])/e"
                                  ),
                             array("#||\\1||#",
                                   "&amp;",
                                   "&\\1;",
-                                  "'&#'.ord('\\1').';'"
+                                  
                                  ),
                             $xml
-                           );
-
+        );
+ 
+/*
+             $xml =  preg_replace_callback("/[^a-zA-Z\d\s\<\>\&\;\.\:\=\"\-\/\%\?\!\'\(\)\[\]\{\}\$\#\+\,\@_]/u",
+                        function($v) {
+                             var_dump($v);
+                            return '&#'. mb_ord($v[0]).';';
+                            
+                                  //"'&#'.ord('\\1').';'"         
+                        },
+                        $xml
+                    );
+                    */
+//var_dump($xml);             
         return $xml;
     }
 

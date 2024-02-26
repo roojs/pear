@@ -13,11 +13,26 @@ class XML_SvgToPDF_Tspan extends XML_SvgToPDF_Base {
     var $args = array(); // arguments..
     var $role;
     
-    function fromXmlNode($node) {
+    function fromXmlNode($node)
+    {
         parent::fromXmlNode($node);
+        $this->content = $node->textContent;
+
+        $this->parse();
+    }
+    
+    function fromNode($node)
+    {
+        parent::fromNode($node);
+        
+        $this->content = $node->content;
+
+        $this->parse();
+    }    
+    function parse()
+    {
         $this->x = false;
         $this->y = false;
-        $this->content = $node->textContent;
         /*
         if (isset($this->x)) {
                unset($this->x); 
@@ -31,7 +46,7 @@ class XML_SvgToPDF_Tspan extends XML_SvgToPDF_Base {
             $trans = array_flip(get_html_translation_table(HTML_ENTITIES));
         }
         
-        if (strlen($this->content)) {
+        if (!empty($this->content) && strlen($this->content)) {
             // convert &amp; etc. 
             if (strpos($this->content,'&') !== false) {
                 $this->content = strtr($this->content, $trans);

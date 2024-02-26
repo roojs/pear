@@ -81,32 +81,32 @@ class XML_SvgToPDF {
         $t = new XML_SvgToPDF;
         
         $t->language =  $data['language'];
-       /*
+       
         $x = new XML_Tree_Morph( 
                     $svg,
                     array(
                        'debug' => 0,
                        'filter' => array(
-                           'svg'    => array(&$t, 'buildObject'),
-                           'image'    => array(&$t, 'buildObject'),
-                           'text'    => array(&$t, 'buildObject'),
-                           'tspan'   => array(&$t, 'buildObject'),
-                           'rect'   => array(&$t, 'buildObject'),
-                           'g'   =>  array(&$t, 'buildObject'),
-                           'path'   =>  array(&$t, 'buildObject'),
-                           'sodipodi:namedview' =>  array(&$t, 'buildNull'),
-                           'defs' =>  array(&$t, 'buildNull'),
+                           'svg'    => array($t, 'buildObject'),
+                           'image'    => array($t, 'buildObject'),
+                           'text'    => array($t, 'buildObject'),
+                           'tspan'   => array($t, 'buildObject'),
+                           'rect'   => array($t, 'buildObject'),
+                           'g'   =>  array($t, 'buildObject'),
+                           'path'   =>  array($t, 'buildObject'),
+                           'sodipodi:namedview' =>  array($t, 'buildNull'),
+                           'defs' =>  array($t, 'buildNull'),
                         )
                     )
                  );
         
         $tree = $x->getTreeFromFile();
-              
+       //echo '<PRE>'; print_R($tree);      exit;
         $tree = $t->buildobject($tree);
-        */
+          echo '<PRE>'; print_R($tree);      exit;
          //echo "<PRE>";
-        $tree = $t->parseSvg($svg);
-        //echo "<PRE>";print_r($tree);exit;
+       // $tree = $t->parseSvg($svg);
+        // echo "<PRE>";print_r($tree);exit;
         
         
         
@@ -256,7 +256,7 @@ class XML_SvgToPDF {
         return $this->parseNode($d->documentElement);
     }
     
-    function parseNode($n)
+    function parseXMLNode($n)
     {
         // do children first..
         //print_r(array("PARSENODE:",$n));
@@ -285,6 +285,7 @@ class XML_SvgToPDF {
             return $children;
             
         }
+        // fixme.. this is the Dom Version..
         $ret = $this->buildObject($n,$children);
         
         return $ret;
@@ -298,33 +299,9 @@ class XML_SvgToPDF {
     function buildNull($node) {
         return;
     }
-    function buildObject($node, $children) {
-        $class = 'XML_SvgToPDF_'.$node->tagName;
-        /*
-        if (strlen(trim($node->content)) && (@$this->language)) {
-            $node->language = $this->language;
-        }
-        */
- 
-
-        //echo "look for $class?";
-        if (!class_exists($class)) {
-            // try loading it..
-            $file = dirname(__FILE__) . '/SvgToPdf/'.ucfirst(strtolower($node->tagName)). '.php';
-            $this->debug("loading  $file");
-            if (file_exists($file)) {
-                require_once 'XML/SvgToPdf/'.ucfirst(strtolower($node->tagName)) . '.php';
-            }
-        }
-        // now if it doesnt exist..
-        if (!class_exists($class)) {
-            $this->debug("can not find $class");
-           $class = 'XML_SvgToPDF_Base';
-        }
-        $r = new $class;
-        $r->children = $children;
-        $r->fromXmlNode($node);
-        return $r;
+    function buildObject($node ) {
+        return XML_SvgToPDF_Base::factory($node);
+         
     }
     
     

@@ -11,6 +11,14 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
     
     function fromXmlNode($node) {
         parent::fromXmlNode($node);
+        $this->parse();
+    }
+    function fromNode($node) {
+        parent::fromNode($node);
+        $this->parse();
+    }
+    function parse()
+    {
         $d = explode(' ',trim($this->d));
         $i=0;
         $data = array();
@@ -107,7 +115,9 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
             return;
         }
         */
-        
+        if (!is_array($this->d)) {
+            print_R($this);exit;
+        }
 
         foreach($this->d as $a) {
             switch($a[0]) {
