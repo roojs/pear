@@ -11,6 +11,8 @@ class XML_SvgToPDF_Tspan extends XML_SvgToPDF_Base {
     var $x = false;
     var $y = false;
     var $args = array(); // arguments..
+    var $role;
+    
     function fromXmlNode($node) {
         parent::fromXmlNode($node);
         $this->x = false;
@@ -64,7 +66,7 @@ class XML_SvgToPDF_Tspan extends XML_SvgToPDF_Base {
     }
     
     
-    function shift() // disable shifting on text
+    function shift($x,$y) // disable shifting on text
     {
         return;
     }

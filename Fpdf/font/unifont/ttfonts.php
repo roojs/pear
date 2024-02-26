@@ -27,37 +27,39 @@ define("GF_TWOBYTWO",(1 << 7));
 
 
 class TTFontFile {
-
-var $_pos;
-var $numTables;
-var $searchRange;
-var $entrySelector;
-var $rangeShift;
-var $tables;
-var $otables;
-var $filename;
-var $fh;
-var $hmetrics;
-var $glyphPos;
-var $charToGlyph;
-var $ascent;
-var $descent;
-var $name;
-var $familyName;
-var $styleName;
-var $fullName;
-var $uniqueFontID;
-var $unitsPerEm;
-var $bbox;
-var $capHeight;
-var $stemV;
-var $italicAngle;
-var $flags;
-var $underlinePosition;
-var $underlineThickness;
-var $charWidths;
-var $defaultWidth;
-var $maxStrLenRead;
+	
+	var $_pos;
+	var $numTables;
+	var $searchRange;
+	var $entrySelector;
+	var $rangeShift;
+	var $tables;
+	var $otables;
+	var $filename;
+	var $fh;
+	var $hmetrics;
+	var $glyphPos;
+	var $charToGlyph;
+	var $ascent;
+	var $descent;
+	var $name;
+	var $familyName;
+	var $styleName;
+	var $fullName;
+	var $uniqueFontID;
+	var $unitsPerEm;
+	var $bbox;
+	var $capHeight;
+	var $stemV;
+	var $italicAngle;
+	var $flags;
+	var $underlinePosition;
+	var $underlineThickness;
+	var $charWidths;
+	var $defaultWidth;
+	var $maxStrLenRead;
+	var $version;
+	var $fontRevision;
 
 	function TTFontFile() {
 		$this->maxStrLenRead = 200000;	// Maximum size of glyf table to read in as string (otherwise reads each glyph from file)
@@ -327,7 +329,7 @@ var $maxStrLenRead;
 			if (!$psName)
 				die("Could not find PostScript font name");
 			for ($i=0;$i<strlen($psName);$i++) {
-				$c = $psName{$i};	// 1.02
+				$c = $psName[$i];	// 1.02
 				$oc = ord($c);
 				if ($oc>126 || strpos(' [](){}<>/%',$c)!==false)
 					die("psName=".$psName." contains invalid character ".$c." ie U+".ord(c));

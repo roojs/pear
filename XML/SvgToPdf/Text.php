@@ -3,6 +3,9 @@
 
 class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base { 
 
+	var $linespacing;
+	
+
     function fromXmlNode($node) {
         
         parent::fromXmlNode($node);

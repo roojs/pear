@@ -353,7 +353,7 @@ class XML_Parser extends PEAR
         } else {
             $xp = xml_parser_create($this->srcenc);
         }
-        if (is_resource($xp)) {
+        if (is_object($xp)) {
             if ($this->tgtenc !== null) {
                 if (!xml_parser_set_option($xp, XML_OPTION_TARGET_ENCODING, 
                     $this->tgtenc)
@@ -370,7 +370,7 @@ class XML_Parser extends PEAR
             xml_parser_set_option($xp, XML_OPTION_CASE_FOLDING, $this->folding);
             return true;
         }
-        if (!in_array(strtoupper($this->srcenc), $this->_validEncodings)) {
+        if (!empty($this->srcenc) && !in_array(strtoupper($this->srcenc), $this->_validEncodings)) {
             return $this->raiseError('invalid source encoding', 
                 XML_PARSER_ERROR_INVALID_ENCODING);
         }
@@ -614,7 +614,7 @@ class XML_Parser extends PEAR
     {
         $code = is_null($code) ? 0 : $code;
         $msg = !is_null($message) ? $message : $this->parser;
-        $err = new XML_Parser_Error($msg, $ecode);
+        $err = new XML_Parser_Error($msg, $code);
         return parent::raiseError($err);
     }
 

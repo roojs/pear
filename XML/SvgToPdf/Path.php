@@ -6,6 +6,7 @@
 
 class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
     var $d; // stores the details of the path..
+    var $id;
     
     
     function fromXmlNode($node) {
@@ -140,8 +141,7 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
         if (!$color || ($color == 'none')) {
             return false;
         }
-        var_dump($color);
-        return array(
+         return array(
             hexdec(substr($color,1,2)),
             hexdec(substr($color,3,2)),
             hexdec(substr($color,5,2)));

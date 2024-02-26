@@ -30,7 +30,13 @@ class XML_SvgToPDF_Base {
     var $children = array();
     
     var $transform = '';
+    var $id;
+    var $nodetypes;
+    var $version;
+    var $docname;
+    var $docbase;
     
+
     function fromXmlNode($node)
     {
         // extract attributes
@@ -232,7 +238,7 @@ class XML_SvgToPDF_Base {
 
 
     
-    function writePDF($pdf,&$data) {
+    function writePDF($pdf,$data) {
         $this->childrenWritePDF($pdf,$data);
     }
     
