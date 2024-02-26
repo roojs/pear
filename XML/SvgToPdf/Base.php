@@ -71,6 +71,10 @@ class XML_SvgToPDF_Base {
     
     static function factory($node)
     {
+        if (is_a($node, XML_SvgToPDF_Base)) {
+            return $node;
+        }
+        
         $class = 'XML_SvgToPDF_'.$node->name;
         /*
         if (strlen(trim($node->content)) && (@$this->language)) {
