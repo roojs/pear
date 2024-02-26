@@ -353,7 +353,7 @@ class XML_Parser extends PEAR
         } else {
             $xp = xml_parser_create($this->srcenc);
         }
-        if (is_resource($xp)) {
+        if (is_object($xp)) {
             if ($this->tgtenc !== null) {
                 if (!xml_parser_set_option($xp, XML_OPTION_TARGET_ENCODING, 
                     $this->tgtenc)
