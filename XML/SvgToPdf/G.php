@@ -65,7 +65,7 @@ class XML_SvgToPDF_G     extends XML_SvgToPDF_Base
     function fromNode($node) {
         parent::fromNode($node);
         
-    
+        print_R($this);
 //----------- applyDynamic...        
         
           // look for 
