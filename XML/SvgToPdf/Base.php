@@ -82,7 +82,7 @@ class XML_SvgToPDF_Base {
         //echo "look for $class?";
         if (!class_exists($class)) {
             // try loading it..
-            $file = dirname(__FILE__) . '/SvgToPdf/'.ucfirst(strtolower($node->name)). '.php';
+            $file = dirname(__FILE__) .'/'.ucfirst(strtolower($node->name)). '.php';
            
             if (file_exists($file)) {
                 require_once 'XML/SvgToPdf/'.ucfirst(strtolower($node->name)) . '.php';
