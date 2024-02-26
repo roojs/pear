@@ -118,7 +118,7 @@ class XML_SvgToPDF_G     extends XML_SvgToPDF_Base
 
 
 
-    function writePDF($pdf,&$data) {
+    function writePDF($pdf,$data) {
         // g group = does it have a 
         // look for 
         if (empty($this->children)) {

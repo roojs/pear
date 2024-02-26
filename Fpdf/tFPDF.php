@@ -77,7 +77,7 @@ var $PDFVersion;         //PDF version number
 *                               Public methods                                 *
 *                                                                              *
 *******************************************************************************/
-function tFPDF($orientation='P', $unit='mm', $format='A4')
+function __construct($orientation='P', $unit='mm', $format='a4')
 {
 	//Some checks
 	$this->_dochecks();
@@ -540,7 +540,7 @@ function AddFont($family, $style='', $file='', $uni=false)
 		if(!isset($name)) {
 			$this->Error('Problem with the font definition file');
 		}
-		$i = count($this->fonts)+$this->extraFontSubsets+1;
+		$i = count(is_array($this->fonts) ? $this->fonts : array())+$this->extraFontSubsets+1;
 		$sbarr = range(0,127);  
 		$this->fonts[$fontkey] = array('i'=>$i, 'type'=>$type, 'name'=>$name, 'desc'=>$desc, 'up'=>$up, 'ut'=>$ut, 'cw'=>$cw, 'enc'=>$enc, 'file'=>$ttfilename, 'subsets'=>array(0=>$sbarr), 'subsetfontids'=>array($i), 'used'=>false);
 		unset($cw);
@@ -1271,18 +1271,19 @@ function _beginpage($orientation, $format)
 	$this->y=$this->tMargin;
 	$this->FontFamily='';
 	//Check page size
-	if($orientation=='')
+	if($orientation=='') {
 		$orientation=$this->DefOrientation;
-	else
+	} else {
 		$orientation=strtoupper($orientation[0]);
-	if($format=='')
-		$format=$this->DefPageFormat;
-	else
-	{
-		if(is_string($format))
-			$format=$this->_getpageformat($format);
 	}
-	if($orientation!=$this->CurOrientation || $format[0]!=$this->CurPageFormat[0] || $format[1]!=$this->CurPageFormat[1])
+  	if($format=='') {
+		$format=$this->DefPageFormat;
+	} else {
+		if(is_string($format)) {
+			$format=$this->_getpageformat($format);
+		}
+	}
+ 	if($orientation!=$this->CurOrientation || empty($format) ||  $format[0] !=$this->CurPageFormat[0] || $format[1]!=$this->CurPageFormat[1])
 	{
 		//New size
 		if($orientation=='P')
@@ -1292,8 +1293,8 @@ function _beginpage($orientation, $format)
 		}
 		else
 		{
-			$this->w=$format[1];
-			$this->h=$format[0];
+			$this->w= $format[1];
+			$this->h= $format[0];
 		}
 		$this->wPt=$this->w*$this->k;
 		$this->hPt=$this->h*$this->k;
@@ -1842,8 +1843,10 @@ function _putimages()
 {
 	$filter=($this->compress) ? '/Filter /FlateDecode ' : '';
 	reset($this->images);
-	while(list($file,$info)=each($this->images))
-	{
+    foreach($this->images as $file_info) {
+        
+        list($file,$info)=$file_info;
+	
 		$this->_newobj();
 		$this->images[$file]['n']=$this->n;
 		$this->_out('<</Type /XObject');
