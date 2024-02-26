@@ -24,7 +24,7 @@ class Finance_ISIN
         if ($ar[1] == 'PA') {
             return $this->getExchangeISIN($ar[0], 'EURONEXT');
         }
-        if ($ar[1] == 'SHZ') {
+        if ($ar[1] == 'SZ') {
             return $this->getExchangeISIN($ar[0], 'SZSE');
         }
 
