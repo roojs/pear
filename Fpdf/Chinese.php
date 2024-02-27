@@ -34,7 +34,7 @@ $GLOBALS['GB_widths']=array(' '=>207,'!'=>270,'"'=>342,'#'=>467,'$'=>462,'%'=>79
 	'n'=>527,'o'=>524,'p'=>524,'q'=>504,'r'=>338,'s'=>336,'t'=>277,'u'=>517,'v'=>450,'w'=>652,
 	'x'=>466,'y'=>452,'z'=>407,'{'=>370,'|'=>258,'}'=>370,'~'=>605);
 
-class PDF_Chinese extends FPDF
+class FPDF_Chinese extends FPDF
 {
 function AddCIDFont($family,$style,$name,$cw,$CMap,$registry)
 {
