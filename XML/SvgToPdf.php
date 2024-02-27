@@ -220,7 +220,7 @@ class XML_SvgToPDF {
             $pdf->addPage();
 
             $tree->writePDF($pdf,$page_data);
-                           die("HERE");
+                
       
             //$tree->writePDF($pdf,$data);
         }
