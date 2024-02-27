@@ -129,32 +129,7 @@ class XML_SvgToPDF {
             $pdf->AddUniCNShwFont(); 
             $pdf->open();            
 
-
-            $pdf = new tFPDF($orientation ,'mm','A4');
-            
-            // we originally used ARIALUNI.ttf'
-            
-            $font = '/usr/share/fonts/truetype/msttcorefonts/Arial.ttf';
-            
-            if (!file_exists('/usr/share/fonts/truetype/msttcorefonts/Arial.ttf')) {
-                die("install msttcorefonts package");
-            }
-            
-            //$pdf->AddFont('ARIALUNI','',$font,true);
-            
-            $pdf->AddFont('ARIALUNI','','/usr/share/fonts/truetype/msttcorefonts/Arial.ttf',true);
-            $pdf->AddFont('ARIALUNI','B','/usr/share/fonts/truetype/msttcorefonts/Arial_Bold.ttf',true);
-            
-//            $pdf->SetFont('ARIALUNI','',14);
-//            require_once 'Fpdf/Chinese-unicode.php';
-//
-//            $pdf=new PDF_Unicode($orientation ,'mm','A4');
-////            $pdf->AddGBFont();
-////            $pdf->AddBig5Font();
-//            $pdf->AddUniCNSFont('Uni');
-            //$pdf->AddUniCNSFont('Uni'); 
-            //AddUniCNShwFont
-            $pdf->open();            
+         
         } else {
             require_once  'Fpdf/tFPDF.php' ;
 
