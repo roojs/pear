@@ -111,7 +111,7 @@ class FpdfAlt_Chinese extends FpdfAlt
             $c=$s[$i];
             if(ord($c)<128)
             {
-                $l+=$cw[$c];
+                $l+= isset($cw[$c]) ? $cw[$c] : 0;
                 $i++;
             }
             else
@@ -320,7 +320,8 @@ class FpdfAlt_Chinese extends FpdfAlt
     
     function _putfonts()
     {
-        $nf=$this->n;
+        print_R($this->fonts);
+		$nf=$this->n;
         foreach($this->diffs as $diff)
         {
             //Encodings
@@ -328,6 +329,8 @@ class FpdfAlt_Chinese extends FpdfAlt
             $this->_out('<</Type /Encoding /BaseEncoding /WinAnsiEncoding /Differences ['.$diff.']>>');
             $this->_out('endobj');
         }
+		
+ 		
         foreach($this->FontFiles as $file=>$info)
         {
             //Font file embedding
@@ -336,6 +339,7 @@ class FpdfAlt_Chinese extends FpdfAlt
             if(defined('FPDF_FONTPATH'))
                 $file=FPDF_FONTPATH.$file;
             $size=filesize($file);
+			
             if(!$size)
                 $this->Error('Font file not found');
             $this->_out('<</Length '.$size);
@@ -389,7 +393,7 @@ class FpdfAlt_Chinese extends FpdfAlt
                 $this->_out('endobj');
                 if($font['type']!='core')
                 {
-                    //Widths
+ 					//Widths
                     $this->_newobj();
                     $cw=&$font['cw'];
                     $s='[';
@@ -409,7 +413,7 @@ class FpdfAlt_Chinese extends FpdfAlt
                     $this->_out('endobj');
                 }
             }
-        }
+        } 
     }
     
     function _putType0($font)
@@ -452,4 +456,3 @@ class FpdfAlt_Chinese extends FpdfAlt
 	$this->_out('endobj');
 }
 }
-?>

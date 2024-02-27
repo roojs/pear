@@ -92,9 +92,9 @@ class XML_SvgToPDFAlt {
                  );
 
         $tree = $x->getTreeFromFile();
- 
         
-        //echo '<PRE>'.htmlspecialchars(print_r($tree,true));exit;
+        
+        ///echo '<PRE>'.htmlspecialchars(print_r($tree,true));exit;
         
         $tree = $t->buildobject($tree);
  //echo '<PRE>'.htmlspecialchars(print_r($tree,true));
@@ -133,6 +133,7 @@ class XML_SvgToPDFAlt {
             $pdf->addPage();
             $tree->writePDF($pdf,$data);
             $t->debug($tree);
+         
             return $pdf;
         }
         
@@ -161,7 +162,7 @@ class XML_SvgToPDFAlt {
             $tree->writePDF($pdf,$page_data);
         }
         
-        $t->debug($tree);
+        $t->debug($tree, true);
         return $pdf;
     }
     

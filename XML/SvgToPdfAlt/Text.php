@@ -110,7 +110,7 @@ class XML_SvgToPDFAlt_Text  extends XML_SvgToPDFAlt_Base {
             $xx = isset($c->x) ? $c->x + @$this->xx : $x;
             $yy = isset($c->y) ? $c->y + @$this->yy : $y + ($lineno * $size * 1.3);
             $lineno++;              
-            $val = @$c->content;
+            $val = isset($c->content) ? $c->content : '';
             
             if (isset($c->args)) {
                 
@@ -131,7 +131,7 @@ class XML_SvgToPDFAlt_Text  extends XML_SvgToPDFAlt_Base {
                      
                 $val = vsprintf($val,$args);
                 
-                if ($has_template && ($font == 'Big5')) {
+               if ($has_template && ($font == 'Big5')) {
                     require_once  'Text/ZhDetect.php';
                     $detect = new Text_zhDetect;
                     $type = $detect->guess($val);
@@ -142,12 +142,14 @@ class XML_SvgToPDFAlt_Text  extends XML_SvgToPDFAlt_Base {
                             $weight,
                             $size);
                     } else {
+						$vv = $val;
                         $val = @iconv('utf8', 'BIG5//IGNORE', $val);
+						//var_dump(array($vv, $val));
                         $pdf->setFont('Big5' ,
                             $weight,
                             $size);
                    }
-                }
+                 }
                 
                 /*
                 
@@ -165,14 +167,12 @@ class XML_SvgToPDFAlt_Text  extends XML_SvgToPDFAlt_Base {
             }
             
             $talign = $align;
-            if ((!@$this->children[$i+1] ||  !strlen(trim(@$this->children[$i+1]->content))) && ($align == 'J')) {
+            if ((empty($this->children[$i+1]) ||  !isset($this->children[$i+1]->content) || !strlen(trim($this->children[$i+1]->content))) && ($align == 'J')) {
                 $talign = 'L';
             }
             
             
-            
-            
-            
+             
             
             
             
@@ -288,7 +288,7 @@ class XML_SvgToPDFAlt_Text  extends XML_SvgToPDFAlt_Base {
     
     function multiLine(&$pdf,$lines,$x,$y,$h,$align) {
         // now dealing with mm
-        XML_SvgToPDFAlt::debug("MULTILINE " .implode("\n",$lines) . " $x, $y, $h");
+        XML_SvgToPDFAlt::debug("MULTILINE '" .implode("\n",$lines) . "' $x, $y, $h");
         $yoffset  = 0;
         $line = -1;
         foreach ($lines as $l=>$v) {

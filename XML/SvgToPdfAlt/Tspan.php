@@ -26,12 +26,15 @@ class XML_SvgToPDFAlt_Tspan extends XML_SvgToPDFAlt_Base {
 
                 $this->content =  preg_replace_callback(
                         '/&#(\d+);/m',
-                            function($m) { return chr($m[1]); }  ,$this->content);
+                            function($m) {
+                            
+                                return mb_chr($m[1]);
+                            }  ,$this->content);
             }
             if (@$node->language) {
                 // todo - other conversions....
 
-                $this->content = mb_convert_encoding($this->content,'BIG-5','UTF-8');
+                //$this->content = mb_convert_encoding($this->content,'BIG-5','UTF-8');
 
                 
             }

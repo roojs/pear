@@ -484,7 +484,7 @@ function Rect($x,$y,$w,$h,$style='')
 
 function AddFont($family,$style='',$file='')
 {
-	//Add a TrueType or Type1 font
+	//var_dump(array($family, $style, $file));//Add a TrueType or Type1 font
 	$family=strtolower($family);
 	if($family=='arial')
 		$family='helvetica';

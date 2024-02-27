@@ -21,7 +21,7 @@ class XML_SvgToPDFAlt_G     extends XML_SvgToPDFAlt_Base {
         
         $isDynamic = false;
         foreach(array_keys($this->children) as $k) {
-            if (!is_a($this->children[$k], 'XML_SvgToPDF_Text')) {
+            if (!is_a($this->children[$k], 'XML_SvgToPDFAlt_Text')) {
                 continue;
             }
             
@@ -51,7 +51,7 @@ class XML_SvgToPDFAlt_G     extends XML_SvgToPDFAlt_Base {
          //look for the bounding box..
         $boundingbox = false;
         foreach(array_keys($this->children) as $k) {
-            if (!is_a($this->children[$k], 'XML_SvgToPDF_Rect')) {
+            if (!is_a($this->children[$k], 'XML_SvgToPDFAlt_Rect')) {
                continue;
             }
             if (@$this->children[$k]->nonprintable == 'true') {
@@ -128,12 +128,12 @@ class XML_SvgToPDFAlt_G     extends XML_SvgToPDFAlt_Base {
         $kmax = count($keys);
         //XML_SvgToPDF::debug(array($x,$y,$w,$h));
         //XML_SvgToPDF::debug($keys);
-        XML_SvgToPDF::debug($this->settings);
+        XML_SvgToPDFAlt::debug($this->settings);
         for($r=0;$r<$this->settings['rows'];$r++) {
             $yy = $y + ($r*$h);
             for($c=0;$c<$this->settings['cols'];$c++) {
                 $xx = $x + ($c*$w);
-                XML_SvgToPDF::debug(array($xx,$yy));
+                XML_SvgToPDFAlt::debug(array($xx,$yy));
                 foreach(array_keys($this->children) as $k) {
                     if (!$this->children[$k]) {
                         continue;
