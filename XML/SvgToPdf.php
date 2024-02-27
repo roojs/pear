@@ -41,9 +41,6 @@
         
 */
 
-require_once 'XML/Tree/Morph.php';
-require_once 'Fpdf/tFPDF.php'; 
-require_once 'XML/SvgToPdf/Base.php';
 
 // current options for generated file..
 
@@ -81,7 +78,8 @@ class XML_SvgToPDF {
         $t = new XML_SvgToPDF;
         
         $t->language =  $data['language'];
-       
+        require_once 'XML/Tree/Morph.php';
+
         $x = new XML_Tree_Morph( 
                     $svg,
                     array(
@@ -121,7 +119,16 @@ class XML_SvgToPDF {
 
         if ($data['language'] == 'big5') {
           //die("trying chinese");
-            require_once  'Fpdf/tFPDF.php' ;
+            
+               
+            require_once 'Fpdf/Chinese.php';
+
+            $pdf=new FPDF_Chinese($orientation ,'mm','A4');
+            $pdf->AddGBFont();
+            $pdf->AddBig5Font();
+            $pdf->AddUniCNShwFont(); 
+            $pdf->open();            
+
 
             $pdf = new tFPDF($orientation ,'mm','A4');
             
@@ -149,6 +156,8 @@ class XML_SvgToPDF {
             //AddUniCNShwFont
             $pdf->open();            
         } else {
+            require_once  'Fpdf/tFPDF.php' ;
+
             $pdf=new tFPDF($orientation ,'mm','A4');
             $pdf->open();
         }
@@ -300,7 +309,10 @@ class XML_SvgToPDF {
     function buildNull($node) {
         return;
     }
-    function buildObject($node ) {
+    function buildObject($node )
+    {
+        require_once 'XML/SvgToPdf/Base.php';
+        
         return XML_SvgToPDF_Base::factory($node);
          
     }
