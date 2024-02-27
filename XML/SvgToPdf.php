@@ -121,9 +121,9 @@ class XML_SvgToPDF {
           //die("trying chinese");
             
                
-            require_once 'Fpdf/Chinese.php';
+            require_once 'Fpdf/Unicode.php';
 
-            $pdf=new FPDF_Chinese($orientation ,'mm','A4');
+            $pdf=new FPDF_Unicode($orientation ,'mm','A4');
             $pdf->AddGBFont();
             $pdf->AddBig5Font();
             $pdf->AddUniCNShwFont(); 

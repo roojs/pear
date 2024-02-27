@@ -28,6 +28,8 @@
 * @package XML_Tree
 * @version 1.0  16-Aug-2001
 */
+#[AllowDynamicProperties] 
+
 class XML_Tree_Node {
     /**
     * Attributes of this node

@@ -862,5 +862,4 @@ class TTFontFile {
 
 }
 
-
-?>
+ 

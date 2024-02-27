@@ -65,8 +65,10 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
         }
         $ffont = $font;
         if (preg_match('/big5/i',$this->style['font-family'])) {
-            $ffont = 'ARIALUNI';
-            $font = 'arial'; // default if not big4
+            $font = 'Big5';
+
+			//$ffont = 'ARIALUNI';
+           // $font = 'arial'; // default if not bigg
         }
             
         
@@ -135,11 +137,11 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
 				//print_R($c);exit;
 			}
             $val = $c->content;
-            if ($ffont == 'ARIALUNI') { //) && preg_match('/[\x7f-\xff]+/',$val)) {
-                $pdf->setFont('ARIALUNI' ,
-                            $weight,
-                            $size);
-            }
+            //if ($ffont == 'ARIALUNI') { //) && preg_match('/[\x7f-\xff]+/',$val)) {
+             //   $pdf->setFont('ARIALUNI' ,
+             //               $weight,
+             //               $size);
+            //}
             if (isset($c->args)) {
                 
                 $args = array();
@@ -162,22 +164,23 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
                      
                 $val = empty($val) || empty($args) ? $val : trim(vsprintf($val,$args));
                 
-                if ($has_template && ($ffont == 'ARIALUNI') && preg_match('/[\x7f-\xff]+/',$val)) {
-                    //require_once  'Text/ZhDetect.php';
-                    //$detect = new Text_zhDetect;
-                    //$type = $detect->guess($val);
-                    //if ($v == 'S') {
-                       
-                    //    $val = @iconv('utf8', 'GB2312//IGNORE', $val);
-                    //    $pdf->setFont('GB' ,
-                    //        $weight,
-                    //        $size);
-                    //} else {
-//                        $val = @iconv('utf8', 'BIG5//IGNORE', $val);
-                        $pdf->setFont('ARIALUNI' ,
+                //if ($has_template && ($ffont == 'ARIALUNI') && preg_match('/[\x7f-\xff]+/',$val)) {
+				if ($has_template && ($font == 'Big5') && preg_match('/[\x7f-\xff]+/',$val)) {
+                    require_once  'Text/ZhDetect.php';
+                    $detect = new Text_zhDetect;
+                    $type = $detect->guess($val);
+                    if ($v == 'S') {
+                     
+                        $val = @iconv('utf8', 'GB2312//IGNORE', $val);
+                        $pdf->setFont('GB' ,
                             $weight,
                             $size);
-                   //}
+                    } else {
+                        $val = @iconv('utf8', 'BIG5//IGNORE', $val);
+                        $pdf->setFont('Big5' ,
+                            $weight,
+                            $size);
+                   }
                 }  else {
                     $val = @iconv('utf8','ascii//ignore',$val);
                 }
