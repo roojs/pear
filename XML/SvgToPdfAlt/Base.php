@@ -19,177 +19,34 @@ The base node includes:
     calcPerPage()
 */
 
-class XML_SvgToPDF_Base { 
+#[AllowDynamicProperties] 
+class XML_SvgToPDFAlt_Base { 
 
-    var $x = 0;
-    var $y = 0;
-    var $width = 0; // used in svg..
-    var $height= 0; 
-    
-    var $style = array();
-    var $children = array();
-    
-    var $transform = '';
-    var $id;
-    var $nodetypes;
-    var $version;
-    var $docname;
-    var $docbase;
-    var $sodipodirole;
-    var $sodipodilinespacing;
-    var $sodipodinonprintable;
-    var $sodipodinodetypes;
-    var $sodipodiversion;
-    var $sodipodidocname;
-    var $sodipodidocbase;
-    var $sodipodi;
-    var $xmlnssodipodi;
-    var $xmlns;
-    var $xmlnsxlink;
-    var $xmlnsinkscape;
-    var $inkscape;     
-    var $inkscapeversion;
-    var $xmlnsrdf;
-    var $xmlnscc;
-    var $xmlnsdc;
-    
-    var $xlink;
-    var $rdf;
-    var $cc;
-    var $dc;
-    var $d;
-    var $content = '';
-    var $role;
-    var $linespacing;
-    var $attributes;
-    var $nonprintable;
-    var $about;
-    var $resource;
-    
-    
-    var $name;
-    
-    static function factory($node)
-    {
-        if (is_a($node, 'XML_SvgToPDF_Base')) {
-            return $node;
-        }
-        
-        $class = 'XML_SvgToPDF_'.$node->name;
-        /*
-        if (strlen(trim($node->content)) && (@$this->language)) {
-            $node->language = $this->language;
-        }
-        */
- 
-
-        //echo "look for $class?";
-        if (!class_exists($class)) {
-            // try loading it..
-            $file = dirname(__FILE__) .'/'.ucfirst(strtolower($node->name)). '.php';
-           
-            if (file_exists($file)) {
-                require_once 'XML/SvgToPdf/'.ucfirst(strtolower($node->name)) . '.php';
-            }
-        }
-        // now if it doesnt exist..
-        if (!class_exists($class)) {
-            
-           $class = 'XML_SvgToPDF_Base';
-        }
-        $r = new $class;
-        $r->fromNode($node);
-        return $r;
-    }
-    
-    function factoryChildren($ar) {
-        foreach($ar as $c) {
-            if (!empty($c)) {
-                $this->children[] = $this->factory($c);
-            }
-        }
-    }
-    
-    
-    function fromXmlNode(DomElement $node)
-    {
-        // extract attributes
-        foreach($node->attributes as $k=>$v) {
-            if (in_array($k, array('style'))) {
-                continue;
-            }
-            $k = preg_replace('/[^a-z]+/', '', $k);
-            
-            $v = is_object($v) ? $v->value : $v;
-            if (preg_match('/[0-9]+mm$/',$v)) {
-                $vv = str_replace('mm','',$v);
-                $vv = $vv * 3.543307;
-                
-                $this->$k = $vv;
-                continue;
-            }
-            
-            $this->$k = $v;
-        }
-        // deal with style..
-        if ($node->hasAttribute('style') && strlen($node->getAttribute('style'))) {
-            
-            $s = explode(';',$node->getAttribute('style'));
-            foreach($s as $ss) {
-                if (!strlen(trim($ss))) {
-                    continue;
-                }
-               
-                $sss = explode(':',$ss);
-                if (preg_match('/[0-9]+pt$/',$sss[1])) {
-                    $sss[1] =  str_replace('pt','',$sss[1]);
-                }
-                $style[$sss[0]] = $sss[1];
-            }
-            $this->style = $style;
-        }
-        $this->name = $node->tagName;
-        
-        //?? needed?
-        if ($node->children) {
-            $this->factoryChildren($node->children);
-        }
-        
-        $this->transform();
-        
-        
-        // if node is a tspan  
-       
-         
-         
-    }
-    
+    var $content;
     
     function fromNode($node) {
         
         if ($node->attributes) {
             foreach($node->attributes as $k=>$v) {
-                
-                //echo $node->name . ":" . $k . "=>". $v. "<BR>";
-                
                 if (strpos($k,':')) {
                     $kk = explode(':',$k);
                     $k = $kk[1];
                 }
                 $this->$k = $v;
+                $this->{'_'.$k} = $v;
                 if (preg_match('/[0-9]+mm$/',$v)) {
                     $v = str_replace('mm','',$v);
                     $v = $v * 3.543307;
-                    
+                
                     $this->$k = $v;
+                    $this->{'_'.$k} = $v;// save the original..
                     continue;
                 }
                 
             }
         }
         
-        if (isset($this->style) && is_string($this->style)) {
-            
+        if (isset($this->style)) {
             $s = explode(';',$this->style);
             foreach($s as $ss) {
                 if (!strlen(trim($ss))) {
@@ -208,52 +65,42 @@ class XML_SvgToPDF_Base {
             $this->style = $style;
         }
                 
-        $this->name = $node->name;
         
         if ($node->content) {
             $this->content = trim($node->content);
-            //echo $node->name . ":CONTENT=>". $node->content. "<BR>";
         }
-        
         if ($node->children) {
-            $this->factoryChildren($node->children);
+            $this->children = $node->children;
         }
-       // echo "<PRE>BEFORE:";print_r($this->toArray());
         $this->transform();
-        //echo "<PRE>AFTER:";print_r($this->toArray());
     }
 
 
     function transform() {
-        if (empty($this->transform)) {
+        if (!@$this->transform) {
             return;
         }
-        // do not transform tspans -- done by overwriting this...
-        //if ($this->x === false) {
-        //    return;
-       // }
-        
         // deal with transformation..
         $tr = $this->transform;
         if (preg_match('/scale\(([0-9e.-]+),([0-9e.-]+)\)/',$tr,$args)) {
-            $xscale = $args[1];
-            $yscale = $args[2];
+            $xscale = (float)$args[1];
+            $yscale = (float)$args[2];
             $method = 'scale';
             } else if (preg_match('/matrix\(([0-9e.-]+),([0-9e.-]+),([0-9e.-]+),([0-9e.-]+),([0-9e.-]+),([0-9e.-]+)\)/',$tr,$args)) {
             array_shift($args);
             require_once 'Math/Matrix.php';
             $matrix =  new Math_Matrix( array(
-                    array($args[0],$args[2],$args[4]),
-                    array($args[1],$args[3],$args[5]),
+                    array((float)$args[0],(float)$args[2],(float)$args[4]),
+                    array((float)$args[1],(float)$args[3],(float)$args[5]),
                     array(       0,       0, 	1))
             );
             $method = 'matrix';
         } else if (preg_match('/translate\(([0-9e.-]+),([0-9e.-]+)\)/',$tr,$args)) {
-            $x = $args[1];
-            $y = $args[2];
+            $x = (float)$args[1];
+            $y =(float) $args[2];
             $method = 'translate';
         } else {
-            echo "<PRE>no match?";print_r($this); exit;
+          echo "<PRE>no match?";print_r($this); exit;
             return;
         }
         //
@@ -261,11 +108,11 @@ class XML_SvgToPDF_Base {
             case 'scale':
                 $this->x *=  $xscale;
                 $this->y *=  $yscale;
-                if (empty($this->children)) {
+                if (!@$this->children) {
                     return;
                 }
                 foreach(array_keys($this->children) as $i) {
-                    if ($this->children[$i]->x === false) {
+                    if (!isset($this->children[$i]->x)) {
                         continue;
                         // echo "<PRE>";print_r($this);exit;
                     }
@@ -273,7 +120,7 @@ class XML_SvgToPDF_Base {
                     $this->children[$i]->y *=  $yscale;
                 }
                 break;
-            case 'matrix':
+                    case 'matrix':
                 $v = new Math_Vector(array($this->x,$this->y,0));
                 
                 $r = $matrix->vectorMultiply($v);
@@ -281,11 +128,11 @@ class XML_SvgToPDF_Base {
                 $this->x = $r[0];
                 $this->y = $r[1];
                 //echo "<PRE>";var_dump(	$r);exit;
-                if (empty($this->children)) {
+                if (!@$this->children) {
                     return;
                 }
                 foreach(array_keys($this->children) as $i) {
-                    if ($this->children[$i]->x === false) {
+                    if (!isset($this->children[$i]->x)) {
                         continue;
                         // echo "<PRE>";print_r($this);exit;
                     }
@@ -298,16 +145,17 @@ class XML_SvgToPDF_Base {
                 }
                 break; 
             case 'translate':
-                if ($this->x !== false &&  $this->y !== false) {
+                //echo 'translate' . $x .',' . $y . "\n";
+                if (isset($this->x) &&  isset($this->y)) {
                          
                    $this->x +=  $x;
                    $this->y +=  $y;
                 }
-                if (empty($this->children)) {
+                if (!@$this->children) {
                     return;
                 }
                 foreach(array_keys($this->children) as $i) {
-                    if ($this->children[$i]->x === false || $this->children[$i]->y === false) {
+                    if (!isset($this->children[$i]->x) || !isset($this->children[$i]->y)) {
                         continue;
                         // echo "<PRE>";print_r($this);exit;
                     }
@@ -327,26 +175,23 @@ class XML_SvgToPDF_Base {
         $this->childrenWritePDF($pdf,$data);
     }
     
-    function childrenWritePDF($pdf,&$data) {
+    function childrenWritePDF(&$pdf,&$data) {
         if (!@$this->children) {
             return;
         }
         foreach(array_keys($this->children) as $k) {
-            if (empty($this->children[$k])) {
+            if (!$this->children[$k]) {
                 continue;
             }
             if (!method_exists($this->children[$k],'writePDF')) {
-                echo '<PRE>'; print_r(array($this, $k));  
-                trigger_error( "OOPS unknown object?" ); 
+                echo "OOPS unknown object? <PRE>" ; print_r($this->children[$k]); exit;
             }
             $this->children[$k]->writePDF($pdf,$data);
         }
     }
     
-    
-    // add the values to the children..
     function shiftChildren($x,$y) {
-        if (empty($this->children)) {
+        if (!@$this->children) {
             return;
         }
         foreach(array_keys($this->children) as $k) {
@@ -361,17 +206,12 @@ class XML_SvgToPDF_Base {
         //XML_SvgToPDF::debug('shift');
         //XML_SvgToPDF::debug(array($x,$y));
         //XML_SvgToPDF::debug($this);
-        
-        if ($x === false) {
-            return;
+        if (isset($this->x)) {
+            
+            $this->x -= $x;
         }
-        
-        //var_dump(array("SHIFT", $x, $y, "TO: ", $this->x , $this->y));
-        if ($this->x !== false) {
-            $this->x += $x;
-        }
-        if ($this->y !== false) {
-            $this->y += $y;
+        if (isset($this->y)) {
+            $this->y -= $y;
         }
         //XML_SvgToPDF::debug($this);
         $this->shiftChildren($x,$y);
@@ -385,24 +225,19 @@ class XML_SvgToPDF_Base {
             if (!is_a($n, 'XML_SvgToPDF_G')) {
                 continue;
             }
-            if (!isset($n->settings) || !isset($n->settings['dynamic']))  {
+            if (!isset($n->settings)) {
                 continue;
             }
             
-            
             $rows  = isset($n->settings['rows']) ? $n->settings['rows'] : 1;
             $cols  = isset($n->settings['cols']) ? $n->settings['cols'] : 1;
-           // return array($n->settings['dynamic'], $rows * $cols);
-
-             
+            
+            
             $ret[$n->settings['dynamic']] =  $rows * $cols;
             
             
             
-            
         }
-        //return array('',0);
-
         return $ret;
          
     
@@ -426,22 +261,6 @@ class XML_SvgToPDF_Base {
             hexdec(substr($color,5,2)));
         
     }
-    function toArray()
-    {
-        $ret = array();
-        $ar = (array) $this;
-        $ret['__CLASS__'] = get_class($this);
-        foreach($ar as $k=>$v) {
-            if (is_array($v) || is_object($v)) {
-                $ret[$k] = "**ARRAY|OBJECT**";
-                continue;
-            }
-            $ret[$k] = $v;
-        }
-        return $ret;    
-    }
-    
-    
     
     
 }

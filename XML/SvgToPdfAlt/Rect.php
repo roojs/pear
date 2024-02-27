@@ -4,17 +4,8 @@
 
 */
 
-class XML_SvgToPDF_Rect  extends XML_SvgToPDF_Base {
-    
-    var $xx = 0;
-    var $yy = 0;
-    var $nonprintable = false;
-    var $maxWidth;
-    
+class XML_SvgToPDFAlt_Rect  extends XML_SvgToPDFAlt_Base {
     function writePDF($pdf,$data) {
-        
-        //print_r(array("rect:", $this->x , $this->y , ':', $this->xx, $this->yy));
-        
         $x =  $this->x   + @$this->xx;
         $y =  $this->y  + @$this->yy;
         
@@ -34,7 +25,7 @@ class XML_SvgToPDF_Rect  extends XML_SvgToPDF_Base {
         if (!$l && !$f) {
             return;
         }
-        XML_SvgToPDF::debug("RECT:" .($x/ 3.543307).',' .($y/ 3.543307). ','
+        XML_SvgToPDFAlt::debug("RECT:" .($x/ 3.543307).',' .($y/ 3.543307). ','
              .($this->width/ 3.543307).',' . ($this->height/ 3.543307));
         $pdf->rect($x/ 3.543307,$y/ 3.543307,
             $this->width/ 3.543307,$this->height/ 3.543307,($l ? 'D' : ''). ($f ? 'F' : ''));

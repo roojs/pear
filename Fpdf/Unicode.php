@@ -1,9 +1,9 @@
-<?
+<?php
 require_once 'Chinese.php';
 
 define ('FPDF_UNICODE_ENCODING', 'UCS-2BE');
 
-class PDF_Unicode extends PDF_Chinese 
+class FPDF_Unicode extends FPDF_Chinese 
 {
   var $charset;     // input charset. User must add proper fonts by add font functions like AddUniCNShwFont
   var $isUnicode;   // whether charset belongs to Unicode
@@ -418,4 +418,3 @@ class PDF_Unicode extends PDF_Chinese
   }
 
 }
-?>

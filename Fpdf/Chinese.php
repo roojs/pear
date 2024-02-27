@@ -1,5 +1,5 @@
 <?php
-require_once ('FPDF.php');
+require_once 'Fpdf/tFPDF.php';
 
 $GLOBALS['UTF8']=array(' '=>250,'!'=>300,'"'=>410,'#'=>668,'$'=>490,'%'=>875,'&'=>700,'\''=>250,
 	'('=>240,')'=>240,'*'=>417,'+'=>667,','=>250,'-'=>313,'.'=>250,'/'=>520,'0'=>550,'1'=>500,
@@ -34,7 +34,7 @@ $GLOBALS['GB_widths']=array(' '=>207,'!'=>270,'"'=>342,'#'=>467,'$'=>462,'%'=>79
 	'n'=>527,'o'=>524,'p'=>524,'q'=>504,'r'=>338,'s'=>336,'t'=>277,'u'=>517,'v'=>450,'w'=>652,
 	'x'=>466,'y'=>452,'z'=>407,'{'=>370,'|'=>258,'}'=>370,'~'=>605);
 
-class PDF_Chinese extends FPDF
+class FPDF_Chinese extends tFPDF
 {
 function AddCIDFont($family,$style,$name,$cw,$CMap,$registry)
 {
@@ -112,6 +112,10 @@ function GetMBStringWidth($s)
 		$c=$s[$i];
 		if(ord($c)<128)
 		{
+			if (!isset($cw[$c])) {
+				$cw[$c] = 240;//print_R($cw);exit;
+			}
+			
 			$l+=$cw[$c];
 			$i++;
 		}
@@ -329,8 +333,7 @@ function _putfonts()
 		$this->_out('<</Type /Encoding /BaseEncoding /WinAnsiEncoding /Differences ['.$diff.']>>');
 		$this->_out('endobj');
 	}
-	$mqr=get_magic_quotes_runtime();
-	//set_magic_quotes_runtime(0);
+	 
 	foreach($this->FontFiles as $file=>$info)
 	{
 		//Font file embedding
@@ -353,8 +356,7 @@ function _putfonts()
 		fclose($f);
 		$this->_out('endobj');
 	}
-//	set_magic_quotes_runtime($mqr);
-	foreach($this->fonts as $k=>$font)
+ 	foreach($this->fonts as $k=>$font)
 	{
 		//Font objects
 		$this->_newobj();

@@ -1,31 +1,13 @@
 <?php
 
 
-class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base { 
+class XML_SvgToPDFAlt_Text  extends XML_SvgToPDFAlt_Base { 
 
-	var $linespacing;
-	var $xx;
-	var $yy;	
-
-    function fromXmlNode($node) {
-        
-        parent::fromXmlNode($node);
-		$this->parse();
-	}
-	function fromNode($node) {
-        
+    function fromNode($node) {
         parent::fromNode($node);
-		$this->parse();
-	}
-	function parse()
-	{
-        // any text ???
-        if (empty($this->children) || empty($this->children[0]->content)) {
+        if (!isset($this->children[0]->content)) {
             return;
         }
-        
-        // modify the alignment of the if this block content of the first child is "=="
-        
         if (substr($this->children[0]->content,0,2) == '==') {
             $this->style['text-anchor'] = 'justify';
             $this->children[0]->content = substr($this->children[0]->content,2);
@@ -33,25 +15,24 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
     }
       
     function transform() {
-        
         parent::transform();
-        if (empty($this->transform)) {
+        if (!@$this->transform) {
             return; 
         }
         if (preg_match('/scale\(([0-9e.-]+),([0-9e.-]+)\)/',$this->transform,$args)) {
-            $xscale = $args[1]; // do we use this??? = what do do about 'e'?
-            $yscale = $args[2];
-            $this->style['font-size'] *= $args[1];
+		  $xscale = $args[1];
+		  $yscale = $args[2];
+          $this->style['font-size'] *= $args[1];
         }
     }
     
         
-    
+        
+
     function writePDF($pdf,$data) {
         // set up font.. 
          
         $font = strtolower($this->style['font-family']);
-        $font = trim($font, "'");
         
         static $map = array(
             'times new roman' => 'times',
@@ -63,12 +44,8 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
         } else {
     	    $font = 'times';
         }
-        $ffont = $font;
         if (preg_match('/big5/i',$this->style['font-family'])) {
             $font = 'Big5';
-
-			//$ffont = 'ARIALUNI';
-           // $font = 'arial'; // default if not bigg
         }
             
         
@@ -124,24 +101,17 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
         $yoffset = 0;
         $x =  $this->x   + @$this->xx;
         $y =  $this->y  + @$this->yy;
-        if (empty($this->children)) {
+        if (!@$this->children) {
             return;
         }
         $lineno = 0;
         foreach($this->children as $i=>$c) {
         
-            $xx = $c->x !== false ? $c->x + @$this->xx : $x;
-            $yy = $c->y !== false ? $c->y + @$this->yy : $y + ($lineno * $size * 1.3);
-            $lineno++;
-			if (empty($c->content)) {
-				//print_R($c);exit;
-			}
-            $val = $c->content;
-            //if ($ffont == 'ARIALUNI') { //) && preg_match('/[\x7f-\xff]+/',$val)) {
-             //   $pdf->setFont('ARIALUNI' ,
-             //               $weight,
-             //               $size);
-            //}
+            $xx = isset($c->x) ? $c->x + @$this->xx : $x;
+            $yy = isset($c->y) ? $c->y + @$this->yy : $y + ($lineno * $size * 1.3);
+            $lineno++;              
+            $val = @$c->content;
+            
             if (isset($c->args)) {
                 
                 $args = array();
@@ -154,23 +124,19 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
                         $args[] = '{nb}';
                         continue;
                     }
-                    
-                    // echo "GET: $v : '$val'<BR>";
-                    $args[] = trim($this->getValue($data,trim($v))); // removes trailing CRLF...
+                    $args[] = $this->getValue($data,trim($v));
                 }
-                
                 
                 $has_template = preg_match('/%s/', $val);
                      
-                $val = empty($val) || empty($args) ? $val : trim(vsprintf($val,$args));
+                $val = vsprintf($val,$args);
                 
-                //if ($has_template && ($ffont == 'ARIALUNI') && preg_match('/[\x7f-\xff]+/',$val)) {
-				if ($has_template && ($font == 'Big5') && preg_match('/[\x7f-\xff]+/',$val)) {
+                if ($has_template && ($font == 'Big5')) {
                     require_once  'Text/ZhDetect.php';
                     $detect = new Text_zhDetect;
                     $type = $detect->guess($val);
                     if ($v == 'S') {
-                     
+                       
                         $val = @iconv('utf8', 'GB2312//IGNORE', $val);
                         $pdf->setFont('GB' ,
                             $weight,
@@ -181,20 +147,36 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
                             $weight,
                             $size);
                    }
-                }  else {
-                    $val = @iconv('utf8','ascii//ignore',$val);
                 }
                 
+                /*
                 
                 
-                
+                if ($has_template  && ($font == 'Big5')) {
+                   
+                    
+                    $val =    @iconv('utf8', 'utf16be//TRANSLIT', $val);
+                    
+                    $pdf->setFont('Uni-hw' ,
+                        $weight,
+                        $size);
+                }
+                */
             }
+            
             $talign = $align;
             if ((!@$this->children[$i+1] ||  !strlen(trim(@$this->children[$i+1]->content))) && ($align == 'J')) {
                 $talign = 'L';
             }
             
-            $yoffset += $this->multiLine($pdf, str_replace("\r", "", explode("\n",$val)),
+            
+            
+            
+            
+            
+            
+            
+            $yoffset += $this->multiLine($pdf,explode("\n",$val),
                     $xx/ 3.543307,
                     ($yy / 3.543307) + $yoffset,
                     ($size / 3.543307) + 1,
@@ -226,26 +208,28 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
     * @access   public
     */
   
+    function iconvert($str) {
+        if (is_object($str) || is_array($str)) {
+            return $str;
+        }
+        return  $str ;//. ' - ' . @iconv( "UTF-8" , "Big5//IGNORE", $str  );
+    }
+  
     function getValue($data,$v) {
         
-       // print_R(array("GET VALUE: ", $v));
         // not a method:
         
         if ($v[strlen($v)-1]  != ')') {
-            
             $data = (array) $data;
-            //echo "<PRE>";print_r(array_keys($data));
             if (false === strpos($v,'.')) {
                 if (!isset($data[$v])) {
-                  //  echo "missing $v\n";
                     return '';
                 }
                 if (is_array($data[$v]) || is_object($data[$v])) {
-                  //  echo "array/object $v\n";
                     return '';
                 }
-                //echo "returning $v\n";
-                return $data[$v];
+                
+                return $this->iconvert(@$data[$v]);
             }
             $dd = (array)$data;
             foreach(explode('.', $v) as $vv) {
@@ -255,31 +239,28 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
                 if (!isset($dd[$vv])) {
                     return '';
                 }
-                $dd = is_object($dd[$vv]) ? ((array) $dd[$vv]) : $dd[$vv];
+                $dd = is_object($dd[$vv]) ? ((array) $dd[$vv]) : $this->iconvert($dd[$vv]);
             }
             //echo "ATTEMPT: $v: got $dd\n";
             //exit;
             if (is_array($dd) || is_object($dd)) {
                 return '';
             }
-            return $dd;
+            return $this->iconvert($dd);
         }
         // method !!!
         if (!is_object($data)) {
             return '';
         }
         $method = substr($v,0,-2);
-       
-        if (is_object($data) && method_exists($data,$method)) {
-           // echo "call $method<BR>";
+        if (is_callable(array($data,$method))) {
             $ret = $data->$method();
-            // echo "done $method $ret<BR>";
             if (is_array($ret) || is_object($ret)) {
                 return '';
             }
-            return '' . $ret;
+            // not in original!!!
+            return $this->iconvert($ret);
         }
-        
         //echo 
         //print_r($data);
         
@@ -290,7 +271,7 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
     }
     
     
-    function breakLines($pdf,$str,$x,$y,$h,$align) {
+    function breakLines(&$pdf,$str,$x,$y,$h,$align) {
         // do the estimation...
         $len = strlen($str);
  
@@ -304,20 +285,19 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
          
         return $this->multiLine($pdf,$lines,$x,$y,$h,$align);
     }
-    var $maxWidth = false;
     
-    function multiLine($pdf,$lines,$x,$y,$h,$align) {
+    function multiLine(&$pdf,$lines,$x,$y,$h,$align) {
         // now dealing with mm
-        ///XML_SvgToPDF::debug("MULTILINE " .implode("\n",$lines) . " $x, $y, $h");
+        XML_SvgToPDFAlt::debug("MULTILINE " .implode("\n",$lines) . " $x, $y, $h");
         $yoffset  = 0;
         $line = -1;
         foreach ($lines as $l=>$v) {
             $line++;
-            if ($this->maxWidth !== false && ($pdf->getStringWidth($v) > ($this->maxWidth / 3.543307))) {
+            if (@$this->maxWidth && ($pdf->getStringWidth($v) > ($this->maxWidth / 3.543307))) {
                 $yoffset += $this->breakLines($pdf,$v,$x,$y + ($l * $h) + $yoffset, $h,$align);
                 continue;
             }
-            XML_SvgToPDF::debug("TEXT: $x,$y, $l * $h + $yoffset,$v");
+            
             $xoffset = 0;
             if ($align == 'M') { // center
                 $xoffset = -1 * ($pdf->getStringWidth($v) / 2);
@@ -330,6 +310,10 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
                 $this->justify($pdf, $x , $y + ($l * $h) + $yoffset , $v, $this->justifyLen);
                 continue;
             }
+            XML_SvgToPDFAlt::debug("TEXT:   " . ( $xoffset + $x ) . "," .
+                ($y + ($l * $h) + $yoffset) . "," . 
+                $v);
+            
             $pdf->text(
                 $xoffset + $x ,
                 $y + ($l * $h) + $yoffset ,
@@ -341,7 +325,7 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
     }
         
         
-    function justify($pdf,$x,$y,$text,$len) {
+    function justify(&$pdf,$x,$y,$text,$len) {
         if (!strlen(trim($text))) {
             return;
         }

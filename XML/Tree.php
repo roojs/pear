@@ -82,6 +82,9 @@ class XML_Tree extends XML_Parser
     * @var  string
     */
     var $version = '1.0';
+    
+    
+    var $obj = array();
 
     /**
     * Constructor
@@ -213,7 +216,7 @@ class XML_Tree extends XML_Parser
     function getTreeFromFile ()
     {
         $this->folding = false;
-        $this->XML_Parser(null, 'event');
+        parent::__construct(null, 'event');
         $err = $this->setInputFile($this->filename);
         if (PEAR::isError($err)) {
             return $err;
@@ -235,7 +238,7 @@ class XML_Tree extends XML_Parser
     function getTreeFromString($str)
     {
         $this->folding = false;
-        $this->XML_Parser(null, 'event');
+        parent::__construct(null, 'event');
         $this->cdata = null;
         $err = $this->parseString($str);
         if (PEAR::isError($err)) {
@@ -254,22 +257,22 @@ class XML_Tree extends XML_Parser
     *
     * @access private
     */
-    function startHandler($xp, $elem, &$attribs)
+    function startHandler($xp, $elem,  $attribs)
     {
-        $lineno = xml_get_current_line_number($xp);
+         $lineno = xml_get_current_line_number($this->parser);
         // root elem
-        if (!isset($this->i)) {
-            $this->obj1 = $this->addRoot($elem, null, $attribs, $lineno);
+        if (empty($this->i)) {
+            $this->obj[1] = $this->addRoot($elem, null, $attribs, $lineno);
             $this->i = 2;
         } else {
             // mixed contents
             if (!empty($this->cdata)) {
-                $parent_id = 'obj' . ($this->i - 1);
-                $parent    = $this->$parent_id;
+                $parent_id = $this->i - 1;
+                $parent    = $this->obj[$parent_id];
                 $parent->children[] = new XML_Tree_Node(null, $this->cdata, null, $lineno);
             }
-            $obj_id = 'obj' . $this->i++;
-            $this->$obj_id = new XML_Tree_Node($elem, null, $attribs, $lineno);
+            $obj_id = $this->i++;
+            $this->obj[$obj_id] = new XML_Tree_Node($elem, null, $attribs, $lineno);
         }
         $this->cdata = null;
         return null;
@@ -284,13 +287,13 @@ class XML_Tree extends XML_Parser
     *
     * @access private
     */
-    function endHandler($xp, $elem)
+    function endHandler($elem)
     {
         $this->i--;
         if ($this->i > 1) {
-            $obj_id = 'obj' . $this->i;
+            $obj_id =   $this->i;
             // recover the node created in StartHandler
-            $node   = $this->$obj_id;
+            $node   = $this->obj[$obj_id];
             // mixed contents
             if (count($node->children) > 0) {
                 if (trim($this->cdata)) {
@@ -299,8 +302,8 @@ class XML_Tree extends XML_Parser
             } else {
                 $node->setContent($this->cdata);
             }
-            $parent_id = 'obj' . ($this->i - 1);
-            $parent    = $this->$parent_id;
+            $parent_id =  ($this->i - 1);
+            $parent    = $this->obj[$parent_id];
             // attach the node to its parent node children array
             $parent->children[] = $node;
         }
@@ -319,6 +322,7 @@ class XML_Tree extends XML_Parser
     */
     function cdataHandler($xp, $data)
     {
+        //var_dump($data);
         if (trim($data) != '') {
             $this->cdata .= $data;
         }
@@ -468,4 +472,3 @@ class XML_Tree extends XML_Parser
         return $result;
     }
 }
-?>

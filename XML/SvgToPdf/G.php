@@ -10,7 +10,9 @@ class XML_SvgToPDF_G     extends XML_SvgToPDF_Base
 { 
     var $boundingbox = false; // for repeats...
     var $settings = array();  // cols/rows..
-
+    var $dynamic;
+    var $rows;
+    var $cols;
     function fromXmlNode($node)
     {
        // print_r("G:fromXmlNode");
@@ -65,7 +67,7 @@ class XML_SvgToPDF_G     extends XML_SvgToPDF_Base
     function fromNode($node) {
         parent::fromNode($node);
         
-    
+       // print_R($this);
 //----------- applyDynamic...        
         
           // look for 

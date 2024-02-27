@@ -5,67 +5,48 @@
 does a quick bit of parsing to see if it a {template}var ..
 */ 
 
-class XML_SvgToPDF_Tspan extends XML_SvgToPDF_Base { 
+class XML_SvgToPDFAlt_Tspan extends XML_SvgToPDFAlt_Base { 
 
-    var $content = ''; // applies to tspan only..
-    var $x = false;
-    var $y = false;
-    var $args = array(); // arguments..
-    var $role;
-    
-    function fromXmlNode($node)
-    {
-        parent::fromXmlNode($node);
-        $this->content = $node->textContent;
-
-        $this->parse();
-    }
-    
-    function fromNode($node)
-    {
+    function fromNode($node) {
         parent::fromNode($node);
-        
-        $this->content = $node->content;
-
-        $this->parse();
-    }    
-    function parse()
-    {
-        $this->x = false;
-        $this->y = false;
-        /*
         if (isset($this->x)) {
                unset($this->x); 
         }
         if (isset($this->y)) {
                unset($this->y); 
         }
-        */
         static $trans = false;
         if (!$trans) {
             $trans = array_flip(get_html_translation_table(HTML_ENTITIES));
         }
-        
-        if (!empty($this->content) && strlen($this->content)) {
-            // convert &amp; etc. 
+        if (@$this->content) {
             if (strpos($this->content,'&') !== false) {
                 $this->content = strtr($this->content, $trans);
                 $this->content = str_replace('&apos;',"'",$this->content);
 
-                $this->content =  preg_replace_callback('/&#(\d+);/m', array($this, 'content_replace'),
-                                    $this->content);
+                $this->content =  preg_replace_callback(
+                        '/&#(\d+);/m',
+                            function($m) { return chr($m[1]); }  ,$this->content);
             }
-            if (!empty($node->language)) {
+            if (@$node->language) {
                 // todo - other conversions....
+
                 $this->content = mb_convert_encoding($this->content,'BIG-5','UTF-8');
 
+                
             }
-            // dynamic parts..
+
             if (false === strpos($this->content,'{')) {
                 return;
             }
             preg_match_all('/\{([a-z0-9_.]+(\(\))?)\}/i',$this->content,$matches);
- 
+//echo "<PRE>";            print_r($matches);
+            //if (false !== strpos($this->content,'(')) {
+                
+            //    echo "<PRE>";print_R($matches);
+            //    exit;
+            //}
+            
             $this->args = $matches[1];
             foreach($this->args as $v) {
                 $this->content  = str_replace('{'.$v.'}', '%s',$this->content);
@@ -73,23 +54,8 @@ class XML_SvgToPDF_Tspan extends XML_SvgToPDF_Base {
             //$this->content = preg_replace('/\{('.implode('|',$matches[1]).')\}/','%s',$this->content);
         }
         
-    
     }
-    
-    function content_replace($matches) { // php5.2 needs this to be a function... 
-            return chr($matches[1]);
-    }
-    
-    
-    function shift($x,$y) // disable shifting on text
-    {
-        return;
-    }
-    function transform() 
-    {
-        
-    }
-   
+            
 
 
 

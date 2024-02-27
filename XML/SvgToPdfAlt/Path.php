@@ -4,23 +4,10 @@
 
 */
 
-class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
-    var $d; // stores the details of the path..
-    var $id;
+class XML_SvgToPDFAlt_Path  extends XML_SvgToPDFAlt_Base {
     
-    
-    function fromXmlNode($node) {
-        parent::fromXmlNode($node);
-        $this->parse();
-    }
     function fromNode($node) {
         parent::fromNode($node);
-       // var_dump($node);
-       // var_dump($this);
-        $this->parse();
-    }
-    function parse()
-    {
         $d = explode(' ',trim($this->d));
         $i=0;
         $data = array();
@@ -100,8 +87,6 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
         $pdf->setLineWidth($this->style['stroke-width']/ 3.543307);
      
         $c = array();
-        /*
-         *Not sure why this was added..
         if (count($this->d) > 2) {
             $cc = array();
             foreach($this->d as $a) { 
@@ -115,11 +100,7 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
             }
             $pdf->line($cc,0,0,0);
             return;
-        }
-        */
-        if (!is_array($this->d)) {
-            print_R($this);exit;
-        }
+        }   
 
         foreach($this->d as $a) {
             switch($a[0]) {
@@ -153,7 +134,7 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
         if (!$color || ($color == 'none')) {
             return false;
         }
-         return array(
+        return array(
             hexdec(substr($color,1,2)),
             hexdec(substr($color,3,2)),
             hexdec(substr($color,5,2)));
