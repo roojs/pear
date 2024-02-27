@@ -1,5 +1,5 @@
 <?php
-require_once 'Fpdf/tFpdf.php';
+require_once 'Fpdf..php';
 
 $GLOBALS['UTF8']=array(' '=>250,'!'=>300,'"'=>410,'#'=>668,'$'=>490,'%'=>875,'&'=>700,'\''=>250,
 	'('=>240,')'=>240,'*'=>417,'+'=>667,','=>250,'-'=>313,'.'=>250,'/'=>520,'0'=>550,'1'=>500,
@@ -34,7 +34,7 @@ $GLOBALS['GB_widths']=array(' '=>207,'!'=>270,'"'=>342,'#'=>467,'$'=>462,'%'=>79
 	'n'=>527,'o'=>524,'p'=>524,'q'=>504,'r'=>338,'s'=>336,'t'=>277,'u'=>517,'v'=>450,'w'=>652,
 	'x'=>466,'y'=>452,'z'=>407,'{'=>370,'|'=>258,'}'=>370,'~'=>605);
 
-class FPDF_Chinese extends tFPDF
+class FPDF_Chinese extends Fpdf
 {
 function AddCIDFont($family,$style,$name,$cw,$CMap,$registry)
 {
