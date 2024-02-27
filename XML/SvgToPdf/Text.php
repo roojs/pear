@@ -5,6 +5,7 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
 
 	var $linespacing;
 	var $xx;
+	var $yy;	
 
     function fromXmlNode($node) {
         
