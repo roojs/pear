@@ -320,8 +320,7 @@ class FpdfAlt_Chinese extends FpdfAlt
     
     function _putfonts()
     {
-        print_R($this->fonts);
-		$nf=$this->n;
+ 		$nf=$this->n;
         foreach($this->diffs as $diff)
         {
             //Encodings
