@@ -57,7 +57,7 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
     	    $font = 'times';
         }
         $ffont = $font;
-        if (preg_match('/big5/i',$this->style['font-family'])) {
+        if (preg_match('/(big5)/i',$this->style['font-family'])) {
             $ffont = 'ARIALUNI';
             $font = 'arial'; // default if not big4
         }
@@ -127,8 +127,8 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
             $val = $c->content;
             if ($ffont == 'ARIALUNI') { //) && preg_match('/[\x7f-\xff]+/',$val)) {
                 $pdf->setFont('ARIALUNI' ,
-                            $weight,
-                            $size);
+                           $weight,
+				              $size);
             }
             if (isset($c->args)) {
                 
@@ -151,8 +151,8 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
                 $has_template = preg_match('/%s/', $val);
                      
                 $val = trim(vsprintf($val,$args));
-                /*
-                if ($has_template && ($ffont == 'ARIALUNI') && preg_match('/[\x7f-\xff]+/',$val)) {
+                
+                if ( preg_match('/[\x7f-\xff]+/',$val)) {
                     //require_once  'Text/ZhDetect.php';
                     //$detect = new Text_zhDetect;
                     //$type = $detect->guess($val);
@@ -169,9 +169,8 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
                             $size);
                    //}
                 }  else {
-                */
                     $val = @iconv('utf8','ascii//ignore',$val);
-                //}
+                }
                 
                 
                 
