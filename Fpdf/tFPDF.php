@@ -274,6 +274,7 @@ function AliasNbPages($alias='{nb}')
 function Error($msg)
 {
 	//Fatal error
+    trigger_error($msg);
 	die('<b>tFPDF error:</b> '.$msg);
 }
 
@@ -613,6 +614,10 @@ function SetFont($family, $style='', $size=0)
 		return;
 	//Test if used for the first time
 	$fontkey=$family.$style;
+    if(!isset($this->fonts[$fontkey]) && isset($this->fonts[$family])) {
+        $fontkey=$family;
+    }
+    
 	if(!isset($this->fonts[$fontkey]))
 	{
 		//Check if one of the standard fonts

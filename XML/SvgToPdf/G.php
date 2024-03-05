@@ -10,9 +10,11 @@ class XML_SvgToPDF_G     extends XML_SvgToPDF_Base
 { 
     var $boundingbox = false; // for repeats...
     var $settings = array();  // cols/rows..
+    var $id;
     var $dynamic;
-    var $rows;
     var $cols;
+    var $rows;
+    
     function fromXmlNode($node)
     {
        // print_r("G:fromXmlNode");
@@ -22,10 +24,15 @@ class XML_SvgToPDF_G     extends XML_SvgToPDF_Base
         if (empty($this->dynamic)) {
             return;
         }
+        
+        $setting_cols = !empty($this->cols) ? $this->cols : '';
+        $setting_rows = !empty($this->rows) ? $this->rows : '';
+        $setting_dynamic = !empty($this->dynamic) ? $this->dynamic : '';
+        
         $settings = array(
-            'rows' => $this->rows,
-            'cols' => $this->cols,
-            'dynamic' => $this->dynamic
+            'rows' => $setting_rows,
+            'cols' => $setting_cols,
+            'dynamic' => $setting_dynamic
         );
         
         
@@ -50,13 +57,17 @@ class XML_SvgToPDF_G     extends XML_SvgToPDF_Base
             return;
         }
         //echo "<PRE>";print_r($boundingbox ); exit;
-        
+
+        if(is_string($boundingbox)) {
+            $bits = explode(',', $boundingbox);
+            $boundingbox = (object) array('x'=> $boundingbox[0], 'y'=> $boundingbox[1]);
+        }
         $this->boundingbox =  $boundingbox ;
         $this->settings = $settings;
         
         // change the X/Y values of all the child elements..
          
-        
+        //var_dump($boundingbox);
         $this->shiftChildren(-1* $this->boundingbox->x,-1 * $this->boundingbox->y);
         //$this->shiftChildren($this->boundingbox->x,$this->boundingbox->y);
       
@@ -67,7 +78,7 @@ class XML_SvgToPDF_G     extends XML_SvgToPDF_Base
     function fromNode($node) {
         parent::fromNode($node);
         
-       // print_R($this);
+    
 //----------- applyDynamic...        
         
           // look for 
