@@ -27,41 +27,39 @@ define("GF_TWOBYTWO",(1 << 7));
 
 
 class TTFontFile {
-	
-	var $_pos;
-	var $numTables;
-	var $searchRange;
-	var $entrySelector;
-	var $rangeShift;
-	var $tables;
-	var $otables;
-	var $filename;
-	var $fh;
-	var $hmetrics;
-	var $glyphPos;
-	var $charToGlyph;
-	var $ascent;
-	var $descent;
-	var $name;
-	var $familyName;
-	var $styleName;
-	var $fullName;
-	var $uniqueFontID;
-	var $unitsPerEm;
-	var $bbox;
-	var $capHeight;
-	var $stemV;
-	var $italicAngle;
-	var $flags;
-	var $underlinePosition;
-	var $underlineThickness;
-	var $charWidths;
-	var $defaultWidth;
-	var $maxStrLenRead;
-	var $version;
-	var $fontRevision;
 
-	function TTFontFile() {
+var $_pos;
+var $numTables;
+var $searchRange;
+var $entrySelector;
+var $rangeShift;
+var $tables;
+var $otables;
+var $filename;
+var $fh;
+var $hmetrics;
+var $glyphPos;
+var $charToGlyph;
+var $ascent;
+var $descent;
+var $name;
+var $familyName;
+var $styleName;
+var $fullName;
+var $uniqueFontID;
+var $unitsPerEm;
+var $bbox;
+var $capHeight;
+var $stemV;
+var $italicAngle;
+var $flags;
+var $underlinePosition;
+var $underlineThickness;
+var $charWidths;
+var $defaultWidth;
+var $maxStrLenRead;
+
+	function __construct() {
 		$this->maxStrLenRead = 200000;	// Maximum size of glyf table to read in as string (otherwise reads each glyph from file)
 	}
 
@@ -862,4 +860,5 @@ class TTFontFile {
 
 }
 
- 
+
+?>
