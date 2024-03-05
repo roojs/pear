@@ -3,22 +3,15 @@
 
 class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base { 
 
+	var $id;
 	var $linespacing;
 	var $xx;
-	var $yy;	
-
+	var $yy;
+	
     function fromXmlNode($node) {
         
         parent::fromXmlNode($node);
-		$this->parse();
-	}
-	function fromNode($node) {
         
-        parent::fromNode($node);
-		$this->parse();
-	}
-	function parse()
-	{
         // any text ???
         if (empty($this->children) || empty($this->children[0]->content)) {
             return;
@@ -65,10 +58,8 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
         }
         $ffont = $font;
         if (preg_match('/big5/i',$this->style['font-family'])) {
-            $font = 'Big5';
-
-			//$ffont = 'ARIALUNI';
-           // $font = 'arial'; // default if not bigg
+            $ffont = 'ARIALUNI';
+            $font = 'arial'; // default if not big4
         }
             
         
@@ -85,9 +76,9 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
             $weight .=  'U';
         }
         // size..
-        $size = $this->style['font-size']  * 0.85;
         
-        $pdf->setFont($font,$weight,$size);
+        $size = floatval(str_replace("px","",$this->style['font-size']))  * 0.85;
+        $pdf->setFont($font,$weight,$size."px");
      
         switch(@$this->style['text-anchor']) {
             case 'end':
@@ -132,16 +123,13 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
         
             $xx = $c->x !== false ? $c->x + @$this->xx : $x;
             $yy = $c->y !== false ? $c->y + @$this->yy : $y + ($lineno * $size * 1.3);
-            $lineno++;
-			if (empty($c->content)) {
-				//print_R($c);exit;
-			}
+            $lineno++;              
             $val = $c->content;
-            //if ($ffont == 'ARIALUNI') { //) && preg_match('/[\x7f-\xff]+/',$val)) {
-             //   $pdf->setFont('ARIALUNI' ,
-             //               $weight,
-             //               $size);
-            //}
+            if ($ffont == 'ARIALUNI') { //) && preg_match('/[\x7f-\xff]+/',$val)) {
+                $pdf->setFont('ARIALUNI' ,
+                            $weight,
+                            $size);
+            }
             if (isset($c->args)) {
                 
                 $args = array();
@@ -162,28 +150,28 @@ class XML_SvgToPDF_Text  extends XML_SvgToPDF_Base {
                 
                 $has_template = preg_match('/%s/', $val);
                      
-                $val = empty($val) || empty($args) ? $val : trim(vsprintf($val,$args));
-                
-                //if ($has_template && ($ffont == 'ARIALUNI') && preg_match('/[\x7f-\xff]+/',$val)) {
-				if ($has_template && ($font == 'Big5') && preg_match('/[\x7f-\xff]+/',$val)) {
-                    require_once  'Text/ZhDetect.php';
-                    $detect = new Text_zhDetect;
-                    $type = $detect->guess($val);
-                    if ($v == 'S') {
-                     
-                        $val = @iconv('utf8', 'GB2312//IGNORE', $val);
-                        $pdf->setFont('GB' ,
+                $val = trim(vsprintf($val,$args));
+                /*
+                if ($has_template && ($ffont == 'ARIALUNI') && preg_match('/[\x7f-\xff]+/',$val)) {
+                    //require_once  'Text/ZhDetect.php';
+                    //$detect = new Text_zhDetect;
+                    //$type = $detect->guess($val);
+                    //if ($v == 'S') {
+                       
+                    //    $val = @iconv('utf8', 'GB2312//IGNORE', $val);
+                    //    $pdf->setFont('GB' ,
+                    //        $weight,
+                    //        $size);
+                    //} else {
+//                        $val = @iconv('utf8', 'BIG5//IGNORE', $val);
+                        $pdf->setFont('ARIALUNI' ,
                             $weight,
                             $size);
-                    } else {
-                        $val = @iconv('utf8', 'BIG5//IGNORE', $val);
-                        $pdf->setFont('Big5' ,
-                            $weight,
-                            $size);
-                   }
+                   //}
                 }  else {
+                */
                     $val = @iconv('utf8','ascii//ignore',$val);
-                }
+                //}
                 
                 
                 
