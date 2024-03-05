@@ -77,7 +77,7 @@ var $PDFVersion;         //PDF version number
 *                               Public methods                                 *
 *                                                                              *
 *******************************************************************************/
-function __construct($orientation='P', $unit='mm', $format='a4')
+function __construct($orientation='P', $unit='mm', $format='A4')
 {
 	//Some checks
 	$this->_dochecks();
@@ -274,7 +274,7 @@ function AliasNbPages($alias='{nb}')
 function Error($msg)
 {
 	//Fatal error
-	trigger_error('<b>tFPDF error:</b> '.$msg);
+	die('<b>tFPDF error:</b> '.$msg);
 }
 
 function Open()
@@ -493,12 +493,12 @@ function AddFont($family, $style='', $file='', $uni=false)
 	if ($uni) {
         
         
-        $ttfilename = substr($file,0,1) == '/' ? $file : dirname(__FILE__). '/font/unifont/'.$file ; 
+        $ttfilename = dirname(__FILE__). '/font/unifont/'.$file ; 
 		 
 		$filename = $file;
 		$filename =str_replace(' ','',$filename );
 		$filename =str_replace('-','',$filename );
-		$unifilename =  dirname(__FILE__).'/fontunifont/'.strtolower(substr($filename ,0,(strpos($filename ,'.'))));
+		$unifilename =  dirname(__FILE__).'/font/unifont/'.strtolower(substr($filename ,0,(strpos($filename ,'.'))));
 		$diff = '';
 		$enc = '';
 		if (file_exists($unifilename.'.mtx.php')) {
@@ -540,7 +540,7 @@ function AddFont($family, $style='', $file='', $uni=false)
 		if(!isset($name)) {
 			$this->Error('Problem with the font definition file');
 		}
-		$i = count(is_array($this->fonts) ? $this->fonts : array())+$this->extraFontSubsets+1;
+		$i = count($this->fonts)+$this->extraFontSubsets+1;
 		$sbarr = range(0,127);  
 		$this->fonts[$fontkey] = array('i'=>$i, 'type'=>$type, 'name'=>$name, 'desc'=>$desc, 'up'=>$up, 'ut'=>$ut, 'cw'=>$cw, 'enc'=>$enc, 'file'=>$ttfilename, 'subsets'=>array(0=>$sbarr), 'subsetfontids'=>array($i), 'used'=>false);
 		unset($cw);
@@ -634,14 +634,17 @@ function SetFont($family, $style='', $size=0)
 			$cw=$fpdf_charwidths[$fontkey];
 			$this->fonts[$fontkey]=array('i'=>$i, 'type'=>'core', 'name'=>$name, 'up'=>-100, 'ut'=>50, 'cw'=>$cw);
 		}
-		else
-			$this->Error('Undefined font aa: '.$family.' '.$style);
+		else {
+           
+			$this->Error('Undefined font qq: '.$family.' '.$style);
+		}
 	}
 	//Select it
 	$this->FontFamily=$family;
 	$this->FontStyle=$style;
 	$this->FontSizePt=$size;
-	$this->FontSize=$size/$this->k;
+	
+	$this->FontSize=floatval(str_replace("px","",$size))/$this->k;
 	$this->CurrentFont=&$this->fonts[$fontkey];
 	if ($this->fonts[$fontkey]['type']=='TrueTypesubset') { $this->unifontSubset = true; }
 	else { $this->unifontSubset = false; }
@@ -1243,7 +1246,7 @@ function _dochecks()
 	if(ini_get('mbstring.func_overload') & 2)
 		$this->Error('mbstring overloading must be disabled');
 	//Disable runtime magic quotes
-	
+	 
 }
 
 function _getpageformat($format)
@@ -1271,19 +1274,18 @@ function _beginpage($orientation, $format)
 	$this->y=$this->tMargin;
 	$this->FontFamily='';
 	//Check page size
-	if($orientation=='') {
+	if($orientation=='')
 		$orientation=$this->DefOrientation;
-	} else {
+	else
 		$orientation=strtoupper($orientation[0]);
-	}
-  	if($format=='') {
+	if($format=='')
 		$format=$this->DefPageFormat;
-	} else {
-		if(is_string($format)) {
+	else
+	{
+		if(is_string($format))
 			$format=$this->_getpageformat($format);
-		}
 	}
- 	if($orientation!=$this->CurOrientation || empty($format) ||  $format[0] !=$this->CurPageFormat[0] || $format[1]!=$this->CurPageFormat[1])
+	if($orientation!=$this->CurOrientation || $format[0]!=$this->CurPageFormat[0] || $format[1]!=$this->CurPageFormat[1])
 	{
 		//New size
 		if($orientation=='P')
@@ -1293,8 +1295,8 @@ function _beginpage($orientation, $format)
 		}
 		else
 		{
-			$this->w= $format[1];
-			$this->h= $format[0];
+			$this->w=$format[1];
+			$this->h=$format[0];
 		}
 		$this->wPt=$this->w*$this->k;
 		$this->hPt=$this->h*$this->k;
@@ -1843,10 +1845,8 @@ function _putimages()
 {
 	$filter=($this->compress) ? '/Filter /FlateDecode ' : '';
 	reset($this->images);
-    foreach($this->images as $file_info) {
-        
-        list($file,$info)=$file_info;
-	
+	foreach($this->images as $file => $info)
+	{
 		$this->_newobj();
 		$this->images[$file]['n']=$this->n;
 		$this->_out('<</Type /XObject');
@@ -1941,7 +1941,7 @@ function _putinfo()
 		$this->_out('/Keywords '.$this->_textstring($this->keywords));
 	if(!empty($this->creator))
 		$this->_out('/Creator '.$this->_textstring($this->creator));
-	$this->_out('/CreationDate '.$this->_textstring('D:'.date('YmdHis')));
+	$this->_out('/CreationDate '.$this->_textstring('D:'.@date('YmdHis')));
 }
 
 function _putcatalog()
@@ -2098,4 +2098,6 @@ if(isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT']=='contype')
 {
 	header('Content-Type: application/pdf');
 	exit;
-} 
+}
+
+?>
