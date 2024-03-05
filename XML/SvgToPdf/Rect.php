@@ -9,8 +9,9 @@ class XML_SvgToPDF_Rect  extends XML_SvgToPDF_Base {
     var $xx = 0;
     var $yy = 0;
     var $nonprintable = false;
+    var $id;
     var $maxWidth;
-    
+
     function writePDF($pdf,$data) {
         
         //print_r(array("rect:", $this->x , $this->y , ':', $this->xx, $this->yy));

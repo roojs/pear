@@ -2,6 +2,10 @@
 
 /* usage:
      
+     
+     CURRENTLY USED BY HOPARCH
+     
+     
        *install Fpdf as a PEAR package by:
         pear install http://www.akbkhome.com:81/svn/akpear/Fpdf/Fpdf-1.51.tgz
      

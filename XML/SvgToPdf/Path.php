@@ -6,21 +6,10 @@
 
 class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
     var $d; // stores the details of the path..
-    var $id;
     
     
     function fromXmlNode($node) {
         parent::fromXmlNode($node);
-        $this->parse();
-    }
-    function fromNode($node) {
-        parent::fromNode($node);
-       // var_dump($node);
-       // var_dump($this);
-        $this->parse();
-    }
-    function parse()
-    {
         $d = explode(' ',trim($this->d));
         $i=0;
         $data = array();
@@ -73,6 +62,7 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
         //XML_SvgToPDF::debug('shift');
         //XML_SvgToPDF::debug(array($x,$y));
         //XML_SvgToPDF::debug($this);
+        
         foreach($this->d as $i=>$a) {
             if (count($a) < 2) {
                 continue;
@@ -80,8 +70,10 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
             if ($a[0] == 'v') {
                 $this->d[$i][1] -= $y;
             } else {
-                $this->d[$i][1] -= $x;
-                if (isset($this->d[$i][2])) {
+                if(strpos($this->d[$i][1], ",") === false){
+                    $this->d[$i][1] -= $x;
+                }
+                if (isset($this->d[$i][2]) && strpos($this->d[$i][2], ",") === false) {
                     $this->d[$i][2] -= $y;
                 }
             }
@@ -100,26 +92,27 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
         $pdf->setLineWidth($this->style['stroke-width']/ 3.543307);
      
         $c = array();
-        /*
-         *Not sure why this was added..
         if (count($this->d) > 2) {
             $cc = array();
+            $lx = false;
+            $ly = false;
             foreach($this->d as $a) { 
-                 if (count($a) < 2) {
-                        continue;       
-                 }
-                 $x = $a[1] + @$this->xx;
-                 $y = $a[2] + @$this->yy;
-                 $cc[] = $x/ 3.543307;
-                 $cc[] = $y/ 3.543307;
+                if (count($a) < 2) {
+                       continue;       
+                }
+                $x = $a[1] + @$this->xx;
+                $y = $a[2] + @$this->yy;
+                $nx = $x/ 3.543307;
+                $ny = $y/ 3.543307;
+                if ($lx != false) {
+                    $pdf->line($lx,$ly, $nx, $ny);
+                }
+                $lx = $nx;
+                $ly = $ny;
             }
-            $pdf->line($cc,0,0,0);
+            
             return;
-        }
-        */
-        if (!is_array($this->d)) {
-            print_R($this);exit;
-        }
+        }   
 
         foreach($this->d as $a) {
             switch($a[0]) {
@@ -153,7 +146,13 @@ class XML_SvgToPDF_Path  extends XML_SvgToPDF_Base {
         if (!$color || ($color == 'none')) {
             return false;
         }
-         return array(
+        switch($color) {
+        	case 'black': $color = '#ffffff';break;
+        	case 'white': $color = '#000000';break;        	
+        	default: break;
+	}
+    	//var_dump($color);
+        return array(
             hexdec(substr($color,1,2)),
             hexdec(substr($color,3,2)),
             hexdec(substr($color,5,2)));
