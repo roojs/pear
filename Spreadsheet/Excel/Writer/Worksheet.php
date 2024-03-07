@@ -1243,7 +1243,9 @@ class Spreadsheet_Excel_Writer_Worksheet extends Spreadsheet_Excel_Writer_BIFFwr
         /*if ($_[0] =~ /^\D/) {
             @_ = $this->_substituteCellref(@_);
     }*/
-
+        if (is_null($token)) {
+            $token = '';
+        }
         if (preg_match("/^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/", $token)) {
             // Match number
             return $this->writeNumber($row, $col, $token, $format);
