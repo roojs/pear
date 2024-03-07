@@ -388,7 +388,7 @@ class HTML_Template_Flexy_Translator {
         while (($name = readdir($dh)) !== false) {
             $fname = $d ? $d .'/'. $name : $name;
             
-            if ($name{0} == '.') {
+            if ($name[0] == '.') {
                 continue;
             }
             
@@ -439,7 +439,7 @@ class HTML_Template_Flexy_Translator {
         while (($name = readdir($dh)) !== false) {
             $fname = $d ? $d .'/'. $name : $name;
             
-            if ($name{0} == '.') {
+            if ($name[0] == '.') {
                 continue;
             }
             
