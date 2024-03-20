@@ -92,7 +92,7 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
                     $scale = '';
                     $define  = '';
                 }
-                $extent ="-extent '{$x}x{$y}>' -gravity center -background black {$define}";
+                $extent ="-extent '{$x}x{$y}>' -gravity center -background white {$define}";
                 break;
         }
         
