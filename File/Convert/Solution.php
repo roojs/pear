@@ -2,6 +2,7 @@
 
 class File_Convert_Solution
 {
+    static $options = array();
     var $type = 0;
     var $from;  // mimetype
     var $to; // mimetype
