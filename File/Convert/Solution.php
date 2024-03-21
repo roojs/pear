@@ -17,6 +17,8 @@ class File_Convert_Solution
     
     function __construct(  $from ,$to, $options=array())
     {
+        var_dump($options);
+        die('testt');
          
         $this->from = $from;
         $this->to = $to;
