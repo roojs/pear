@@ -92,9 +92,6 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
                     $scale = '';
                     $define  = '';
                 }
-                if(!empty(self::$options['transparent_background'])) {
-
-                }
 
                 $extent ="-extent '{$x}x{$y}>' -gravity center " . 
                     (
