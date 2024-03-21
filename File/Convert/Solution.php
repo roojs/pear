@@ -24,6 +24,8 @@ class File_Convert_Solution
         require_once 'File/MimeType.php';
         $mt = new File_MimeType();
         $this->ext = $mt->toExt($this->to);
+
+        self::$options = $options;
          
         //$this->last = $this; //?? used where?
         
