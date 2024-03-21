@@ -96,8 +96,8 @@ class File_Convert_Solution_scaleimage extends File_Convert_Solution
                 $extent ="-extent '{$x}x{$y}>' -gravity center " . 
                     (
                         (!empty(self::$options['transparent_background'])) ? 
-                        "-background white" :
-                        "-transparent white"
+                        "-transparent white" :
+                        "-background white"
                     ) . 
                     " {$define}";
                 break;
