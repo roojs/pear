@@ -49,8 +49,6 @@ class File_Convert
     
     function __construct($fn, $mimetype, $options=array())
     {
-        var_dump($options);
-        die('option');
         $this->fn = $fn;
         
         if (!file_exists($fn)) {
