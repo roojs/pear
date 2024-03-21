@@ -15,7 +15,7 @@ class File_Convert_Solution
     
     var $cmd;
     
-    function __construct(  $from ,$to)
+    function __construct(  $from ,$to, $options=array())
     {
          
         $this->from = $from;
