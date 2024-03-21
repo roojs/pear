@@ -133,6 +133,7 @@ class File_Convert
     
     function convert($toMimetype, $x= 0, $y =0, $pg=false) 
     {
+        die('test');
         //print_R(func_get_args());
         if ($toMimetype == 'image/jpg') {
             $toMimetype = 'image/jpeg';
