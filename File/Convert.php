@@ -104,7 +104,7 @@ class File_Convert
         
         //echo "testing scale image";
         require_once 'File/Convert/Solution/scaleimage.php';
-        $sc = new File_Convert_Solution_scaleimage($toMimetype, $toMimetype);
+        $sc = new File_Convert_Solution_scaleimage($toMimetype, $toMimetype, self::$options);
         //$sc->convert = $this;
         $sc->debug= $this->debug;
         $this->solutions[] = $sc;
