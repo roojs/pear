@@ -2,6 +2,7 @@
 
 class File_Convert_Solution
 {
+    static $options = array();
     var $type = 0;
     var $from;  // mimetype
     var $to; // mimetype
@@ -15,7 +16,7 @@ class File_Convert_Solution
     
     var $cmd;
     
-    function __construct(  $from ,$to)
+    function __construct(  $from ,$to, $options=array())
     {
          
         $this->from = $from;
@@ -24,6 +25,8 @@ class File_Convert_Solution
         require_once 'File/MimeType.php';
         $mt = new File_MimeType();
         $this->ext = $mt->toExt($this->to);
+
+        self::$options = $options;
          
         //$this->last = $this; //?? used where?
         
