@@ -187,7 +187,7 @@ class File_Convert
             require_once 'File/Convert/Solution/'. $scf . '.php';
             $scls = 'File_Convert_Solution_' . $scf;
                 
-            $sc = new $scls($toMimetype, $toMimetype);
+            $sc = new $scls($toMimetype, $toMimetype, self::$options);
             $sc->debug=  $this->debug;
             $this->solutions[] = $sc;
             $x  = str_replace('c', 'x', $x);
