@@ -215,7 +215,7 @@ class Text_CAPTCHA_Driver_Image extends Text_CAPTCHA
                 $options
             );
             if (PEAR::isError($e = $this->_imt->init())) {
-                $this->_error = PEAR::raiseError(
+                $this->_error = PEAR::staticRaiseError(
                     sprintf('Error initializing Image_Text (%s)', $e->getMessage()));
                 return $this->_error;
             } else {
@@ -267,7 +267,7 @@ class Text_CAPTCHA_Driver_Image extends Text_CAPTCHA
     {
         $retval = $this->_createCAPTCHA();
         if (PEAR::isError($retval)) {
-            return PEAR::raiseError($retval->getMessage());
+            return PEAR::staticRaiseError($retval->getMessage());
         }
         
         if ($this->_output == 'gif' && !function_exists('imagegif')) {
@@ -303,7 +303,7 @@ class Text_CAPTCHA_Driver_Image extends Text_CAPTCHA
     {
         $retval = $this->_createCAPTCHA();
         if (PEAR::isError($retval)) {
-            return PEAR::raiseError($retval->getMessage());
+            return PEAR::staticRaiseError($retval->getMessage());
         }
 
         if (is_resource($this->_im)) {
