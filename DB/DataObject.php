@@ -4085,7 +4085,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * @access   public
      */
     function autoJoin($cfg = array())
-    {
+    { 
         global $_DB_DATAOBJECT;
         //var_Dump($cfg);exit;
         $pre_links = $this->links();
@@ -4172,8 +4172,7 @@ class DB_DataObject extends DB_DataObject_Overload
             if (!isset($dbstructure[$tab])) {
                 continue;
             }
-            
-            if (!empty($cfg['exclude']) && in_array($tab .'.*', $cfg['exclude'])) {
+             if (!empty($cfg['exclude']) && in_array($tab .'.*', $cfg['exclude'])) {
                 continue;
             }
             

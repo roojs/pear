@@ -85,42 +85,42 @@ require_once 'PEAR.php';
 /**
  * Regex to match HTML style hex triples.
  */
-define("IMAGE_TEXT_REGEX_HTMLCOLOR", "/^[#|]([a-f0-9]{2})?([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$/i", true);
+define("IMAGE_TEXT_REGEX_HTMLCOLOR", "/^[#|]([a-f0-9]{2})?([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$/i");
 
 /**
  * Defines horizontal alignment to the left of the text box. (This is standard.)
  */
-define("IMAGE_TEXT_ALIGN_LEFT", "left", true);
+define("IMAGE_TEXT_ALIGN_LEFT", "left");
 
 /**
  * Defines horizontal alignment to the center of the text box.
  */
-define("IMAGE_TEXT_ALIGN_RIGHT", "right", true);
+define("IMAGE_TEXT_ALIGN_RIGHT", "right");
 
 /**
  * Defines horizontal alignment to the center of the text box.
  */
-define("IMAGE_TEXT_ALIGN_CENTER", "center", true);
+define("IMAGE_TEXT_ALIGN_CENTER", "center");
 
 /**
  * Defines vertical alignment to the to the top of the text box. (This is standard.)
  */
-define("IMAGE_TEXT_ALIGN_TOP", "top", true);
+define("IMAGE_TEXT_ALIGN_TOP", "top");
 
 /**
  * Defines vertical alignment to the to the middle of the text box.
  */
-define("IMAGE_TEXT_ALIGN_MIDDLE", "middle", true);
+define("IMAGE_TEXT_ALIGN_MIDDLE", "middle");
 
 /**
  * Defines vertical alignment to the to the bottom of the text box.
  */
-define("IMAGE_TEXT_ALIGN_BOTTOM", "bottom", true);
+define("IMAGE_TEXT_ALIGN_BOTTOM", "bottom");
 
 /**
  * TODO: This constant is useless until now, since justified alignment does not work yet
  */
-define("IMAGE_TEXT_ALIGN_JUSTIFY", "justify", true);
+define("IMAGE_TEXT_ALIGN_JUSTIFY", "justify");
 
 /**
  * Image_Text - Advanced text maipulations in images
@@ -569,7 +569,7 @@ class Image_Text {
         $font_file.= $this->options['font_file'];
         $font_file = realpath($font_file);
         if (empty($font_file) || !is_file($font_file) || !is_readable($font_file)) {
-            return PEAR::raiseError('Fontfile not found or not readable.');
+            return PEAR::staticRaiseError('Fontfile not found or not readable.');
         } else {
             $this->_font = $font_file;
         }

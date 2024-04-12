@@ -158,7 +158,7 @@ class Text_CAPTCHA
      *
      * @see PEAR::isError()
      */
-    function &factory($driver)
+    static function factory($driver)
     {
         if ($driver == '') {
             return PEAR::raiseError('No CAPTCHA type specified ... aborting. You must call ::factory() with one parameter, the CAPTCHA type.', true);
