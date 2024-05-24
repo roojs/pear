@@ -252,7 +252,7 @@ class HTML_FlexyFramework2_Page  {
         }
         
         /* output the body if no masterTemplate is set */
-        $options = HTML_FlexyFramework2::get();
+        $options = $this->frameworkOptions();
         
         $type = isset($this->contentType) ? $this->contentType : 'text/html'; 
         header('Content-Type: '.$type.';charset='.( empty($options->charset) ? 'UTF-8' : $options->charset ));
@@ -265,7 +265,7 @@ class HTML_FlexyFramework2_Page  {
         
        require_once 'HTML/Template/Flexy.php' ;
 
-        $template_engine = new HTML_Template_Flexy(HTML_FlexyFramework2::get()->HTML_Template_Flexy);
+        $template_engine = new HTML_Template_Flexy($this->frameworkOptions()->HTML_Template_Flexy);
         $template_engine->compile($this->masterTemplate);
         if (!$this->_cache || !$this->cacheMethod) {
             $template_engine->outputObject($this,$this->elements);
@@ -291,7 +291,7 @@ class HTML_FlexyFramework2_Page  {
 
         require_once 'HTML/Template/Flexy.php' ;
 
-        $template_engine = new HTML_Template_Flexy(HTML_FlexyFramework2::get()->HTML_Template_Flexy);
+        $template_engine = new HTML_Template_Flexy($this->frameworkOptions()->HTML_Template_Flexy);
         $template_engine->compile($this->template);
         if ($this->elements) { /* BC crap! */
             require_once 'HTML/Template/Flexy/Factory.php';
@@ -398,6 +398,11 @@ class HTML_FlexyFramework2_Page  {
         foreach(array_unique($cookies) as $cookie) {
             header($cookie, false);
         }
+    }
+    
+    function frameworkOptions()
+    {
+        return HTML_FlexyFramework2::get();
     }
 }
 
