@@ -167,7 +167,7 @@ class HTML_FlexyFramework2_Page  {
   
     function start($request,$isRedirect=false,$args=array()) 
     { 
-        $cli= HTML_Flexyframework2::get()->cli;
+        $cli= $this->frameworkOptions()->cli;
         if (!$cli && $isRedirect !== true && !empty($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             return $this->post($request,$args);
         }  
@@ -286,7 +286,7 @@ class HTML_FlexyFramework2_Page  {
     * used by putting {outputBody} in the main template.
     * @access   public
     */    
-    function outputBody()
+    function outputBody($return = false)
     {
 
         require_once 'HTML/Template/Flexy.php' ;
@@ -298,6 +298,9 @@ class HTML_FlexyFramework2_Page  {
             $this->elements = HTML_Template_Flexy_Factory::setErrors($this->elements,$this->errors);
         }
         $template_engine->elements = $this->elements;
+        if ($return) {
+            return $template_engine->bufferedOutputObject($this,$this->elements);
+        }
         $template_engine->outputObject($this,$this->elements);
         
     }
