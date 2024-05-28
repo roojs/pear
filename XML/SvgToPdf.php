@@ -112,7 +112,7 @@ class XML_SvgToPDF {
         
         
         //echo "<PRE>";print_r($tree);exit;
-        $orientation =  (intval(preg_replace('/[^0-9.]+/','', $tree->width))*1) > (invtal(preg_replace('/[^0-9.]+/','', $tree->height))*1) ? 'L' : 'P';
+        $orientation =  (intval(preg_replace('/[^0-9.]+/','', $tree->width))*1) > (intval(preg_replace('/[^0-9.]+/','', $tree->height))*1) ? 'L' : 'P';
 //var_dump($orientation);exit;
         $GLOBALS['_XML_SVGTOPDF']['options']['file'] = $svg;
 
