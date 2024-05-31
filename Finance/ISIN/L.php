@@ -21,23 +21,7 @@ class Finance_ISIN_L extends Finance_ISIN
 
         $isin = false;
 
-        libxml_use_internal_errors(true);
-        $dom = new DOMDocument();
-        $dom->loadHTML($str);
         var_dump($str);
-        $xpath = new DomXPath($dom);
-        $items = $xpath->query("//app-index-item[contains(@class,'index-item')]");
-        foreach($items as $item) {
-            var_dump($item);
-            /*
-            if(substr($item->nodeValue, 0, 5) != 'ISIN ') {
-                continue;
-            }
-            $isin = substr($item->nodeValue, 5);
-            */
-
-
-        }
         die('test');
 
         return $isin;
