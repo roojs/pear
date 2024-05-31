@@ -11,13 +11,10 @@ class Finance_ISIN_L extends Finance_ISIN
         $json = json_decode($jsonString);
         $jsonError = json_last_error();
 
-        if($jsonError != JSON_ERROR_NONE) {
+        if($jsonError != JSON_ERROR_NONE || !isset($json->isin)) {
             return $isin;
         }
 
-        var_dump($json);
-        die('test');
-
-        return $isin;
+        return $json->isin;
     }
 }
