@@ -3,6 +3,7 @@ class Finance_ISIN_L extends Finance_ISIN
 {
     function getLocationISIN($stockcode)
     {
+        $ar = explode('.', $stockcode);
         $isin = false;
 
         $jsonString = file_get_contents('https://api.londonstockexchange.com/api/gw/lse/instruments/alldata/' . $ar[0]);
