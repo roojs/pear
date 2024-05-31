@@ -25,7 +25,7 @@ class Finance_ISIN_L extends Finance_ISIN
         $dom = new DOMDocument();
         $dom->loadHTML($str);
         $xpath = new DomXPath($dom);
-        $items = $xpath->query("//app-index-item[@class='index-item']");
+        $items = $xpath->query("//app-index-item[contains(@class,'index-item')]");
         foreach($items as $item) {
             var_dump($item);
             /*
