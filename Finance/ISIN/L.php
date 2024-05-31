@@ -6,7 +6,7 @@ class Finance_ISIN_L extends Finance_ISIN
         $ar = explode('.', $stockcode);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://www.londonstockexchange.com/stock/' . $ar[0] . '/search');
+        curl_setopt($ch, CURLOPT_URL, 'https://api.londonstockexchange.com/api/gw/lse/instruments/alldata/' . $ar[0]);
         curl_setopt($ch, CURLOPT_HTTPHEADER,
             array(
                 "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
