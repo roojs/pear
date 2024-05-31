@@ -14,7 +14,7 @@ class Finance_ISIN_L extends Finance_ISIN
             return $isin;
         }
 
-        var_dump($str);
+        var_dump($json);
         die('test');
 
         return $isin;
