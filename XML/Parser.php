@@ -679,7 +679,7 @@ class XML_Parser extends PEAR
      * @return null
      * @abstract
      */
-    function endHandler( $elem)
+    function endHandler( $parser, $elem)
     {
         return null;
     }
