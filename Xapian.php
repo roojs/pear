@@ -25,158 +25,159 @@ if (!extension_loaded('xapian')) {
 }
 
 
-
-abstract class Xapian {
-	static function version_string() {
-		return version_string();
-	}
-
-	static function major_version() {
-		return major_version();
-	}
-
-	static function minor_version() {
-		return minor_version();
-	}
-
-	static function revision() {
-		return revision();
-	}
-
-	const BAD_VALUENO = BAD_VALUENO;
-
-	const DB_CREATE = DB_CREATE;
-
-	const DB_CREATE_OR_OPEN = DB_CREATE_OR_OPEN;
-
-	const DB_CREATE_OR_OVERWRITE = DB_CREATE_OR_OVERWRITE;
-
-	const DB_OPEN = DB_OPEN;
-
-	const DB_NO_SYNC = DB_NO_SYNC;
-
-	const DB_FULL_SYNC = DB_FULL_SYNC;
-
-	const DB_DANGEROUS = DB_DANGEROUS;
-
-	const DB_NO_TERMLIST = DB_NO_TERMLIST;
-
-	const DB_BACKEND_CHERT = DB_BACKEND_CHERT;
-
-	const DB_BACKEND_GLASS = DB_BACKEND_GLASS;
-
-	const DB_BACKEND_INMEMORY = DB_BACKEND_INMEMORY;
-
-	const DB_BACKEND_STUB = DB_BACKEND_STUB;
-
-	const DB_RETRY_LOCK = DB_RETRY_LOCK;
-
-	const DBCHECK_SHORT_TREE = DBCHECK_SHORT_TREE;
-
-	const DBCHECK_FULL_TREE = DBCHECK_FULL_TREE;
-
-	const DBCHECK_SHOW_FREELIST = DBCHECK_SHOW_FREELIST;
-
-	const DBCHECK_SHOW_STATS = DBCHECK_SHOW_STATS;
-
-	const DBCHECK_FIX = DBCHECK_FIX;
-
-	const DBCOMPACT_MULTIPASS = DBCOMPACT_MULTIPASS;
-
-	const DBCOMPACT_NO_RENUMBER = DBCOMPACT_NO_RENUMBER;
-
-	const DBCOMPACT_SINGLE_FILE = DBCOMPACT_SINGLE_FILE;
-
-	const DOC_ASSUME_VALID = DOC_ASSUME_VALID;
-
-	const RP_SUFFIX = RP_SUFFIX;
-
-	const RP_REPEATED = RP_REPEATED;
-
-	const RP_DATE_PREFER_MDY = RP_DATE_PREFER_MDY;
-
-	static function sortable_serialise($value) {
-		return sortable_serialise($value);
-	}
-
-	static function sortable_unserialise($serialised) {
-		return sortable_unserialise($serialised);
-	}
-
-	static function miles_to_metres($miles) {
-		return miles_to_metres($miles);
-	}
-
-	static function metres_to_miles($metres) {
-		return metres_to_miles($metres);
-	}
-
-	static function auto_open_stub($file,$action=null) {
-		switch (func_num_args()) {
-		case 1: $r=auto_open_stub($file); break;
-		default: $r=auto_open_stub($file,$action);
-		}
-		if (!is_resource($r)) return $r;
-		switch (get_resource_type($r)) {
-		case '_p_Xapian__WritableDatabase': return new XapianWritableDatabase($r);
-		default: return new XapianDatabase($r);
-		}
-	}
-
-	static function inmemory_open() {
-		$r=inmemory_open();
-		if (is_resource($r)) {
-			$c='Xapian'.substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
-			if (class_exists($c)) return new $c($r);
-			return new XapianWritableDatabase($r);
-		}
-		return $r;
-	}
-
-	static function chert_open($dir,$action=null,$block_size=0) {
-		switch (func_num_args()) {
-		case 1: $r=chert_open($dir); break;
-		default: $r=chert_open($dir,$action,$block_size);
-		}
-		if (!is_resource($r)) return $r;
-		switch (get_resource_type($r)) {
-		case '_p_Xapian__WritableDatabase': return new XapianWritableDatabase($r);
-		default: return new XapianDatabase($r);
-		}
-	}
-
-	static function remote_open($host_or_program,$port_or_args,$timeout=null,$connect_timeout=null) {
-		switch (func_num_args()) {
-		case 2: $r=remote_open($host_or_program,$port_or_args); break;
-		case 3: $r=remote_open($host_or_program,$port_or_args,$timeout); break;
-		default: $r=remote_open($host_or_program,$port_or_args,$timeout,$connect_timeout);
-		}
-		if (is_resource($r)) {
-			$c='Xapian'.substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
-			if (class_exists($c)) return new $c($r);
-			return new XapianDatabase($r);
-		}
-		return $r;
-	}
-
-	static function remote_open_writable($host_or_program,$port_or_args,$timeout=null,$connect_timeout_or_flags=null,$flags=null) {
-		switch (func_num_args()) {
-		case 2: $r=remote_open_writable($host_or_program,$port_or_args); break;
-		case 3: $r=remote_open_writable($host_or_program,$port_or_args,$timeout); break;
-		case 4: $r=remote_open_writable($host_or_program,$port_or_args,$timeout,$connect_timeout_or_flags); break;
-		default: $r=remote_open_writable($host_or_program,$port_or_args,$timeout,$connect_timeout_or_flags,$flags);
-		}
-		if (is_resource($r)) {
-			$c='Xapian'.substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
-			if (class_exists($c)) return new $c($r);
-			return new XapianWritableDatabase($r);
-		}
-		return $r;
-	}
-
-	static function BAD_VALUENO_get() {
-		return BAD_VALUENO_get();
-	}
+if (!class_exists('Xapian')) {
+  abstract class Xapian {
+	  static function version_string() {
+		  return version_string();
+	  }
+  
+	  static function major_version() {
+		  return major_version();
+	  }
+  
+	  static function minor_version() {
+		  return minor_version();
+	  }
+  
+	  static function revision() {
+		  return revision();
+	  }
+  
+	  const BAD_VALUENO = BAD_VALUENO;
+  
+	  const DB_CREATE = DB_CREATE;
+  
+	  const DB_CREATE_OR_OPEN = DB_CREATE_OR_OPEN;
+  
+	  const DB_CREATE_OR_OVERWRITE = DB_CREATE_OR_OVERWRITE;
+  
+	  const DB_OPEN = DB_OPEN;
+  
+	  const DB_NO_SYNC = DB_NO_SYNC;
+  
+	  const DB_FULL_SYNC = DB_FULL_SYNC;
+  
+	  const DB_DANGEROUS = DB_DANGEROUS;
+  
+	  const DB_NO_TERMLIST = DB_NO_TERMLIST;
+  
+	  const DB_BACKEND_CHERT = DB_BACKEND_CHERT;
+  
+	  const DB_BACKEND_GLASS = DB_BACKEND_GLASS;
+  
+	  const DB_BACKEND_INMEMORY = DB_BACKEND_INMEMORY;
+  
+	  const DB_BACKEND_STUB = DB_BACKEND_STUB;
+  
+	  const DB_RETRY_LOCK = DB_RETRY_LOCK;
+  
+	  const DBCHECK_SHORT_TREE = DBCHECK_SHORT_TREE;
+  
+	  const DBCHECK_FULL_TREE = DBCHECK_FULL_TREE;
+  
+	  const DBCHECK_SHOW_FREELIST = DBCHECK_SHOW_FREELIST;
+  
+	  const DBCHECK_SHOW_STATS = DBCHECK_SHOW_STATS;
+  
+	  const DBCHECK_FIX = DBCHECK_FIX;
+  
+	  const DBCOMPACT_MULTIPASS = DBCOMPACT_MULTIPASS;
+  
+	  const DBCOMPACT_NO_RENUMBER = DBCOMPACT_NO_RENUMBER;
+  
+	  const DBCOMPACT_SINGLE_FILE = DBCOMPACT_SINGLE_FILE;
+  
+	  const DOC_ASSUME_VALID = DOC_ASSUME_VALID;
+  
+	  const RP_SUFFIX = RP_SUFFIX;
+  
+	  const RP_REPEATED = RP_REPEATED;
+  
+	  const RP_DATE_PREFER_MDY = RP_DATE_PREFER_MDY;
+  
+	  static function sortable_serialise($value) {
+		  return sortable_serialise($value);
+	  }
+  
+	  static function sortable_unserialise($serialised) {
+		  return sortable_unserialise($serialised);
+	  }
+  
+	  static function miles_to_metres($miles) {
+		  return miles_to_metres($miles);
+	  }
+  
+	  static function metres_to_miles($metres) {
+		  return metres_to_miles($metres);
+	  }
+  
+	  static function auto_open_stub($file,$action=null) {
+		  switch (func_num_args()) {
+		  case 1: $r=auto_open_stub($file); break;
+		  default: $r=auto_open_stub($file,$action);
+		  }
+		  if (!is_resource($r)) return $r;
+		  switch (get_resource_type($r)) {
+		  case '_p_Xapian__WritableDatabase': return new XapianWritableDatabase($r);
+		  default: return new XapianDatabase($r);
+		  }
+	  }
+  
+	  static function inmemory_open() {
+		  $r=inmemory_open();
+		  if (is_resource($r)) {
+			  $c='Xapian'.substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			  if (class_exists($c)) return new $c($r);
+			  return new XapianWritableDatabase($r);
+		  }
+		  return $r;
+	  }
+  
+	  static function chert_open($dir,$action=null,$block_size=0) {
+		  switch (func_num_args()) {
+		  case 1: $r=chert_open($dir); break;
+		  default: $r=chert_open($dir,$action,$block_size);
+		  }
+		  if (!is_resource($r)) return $r;
+		  switch (get_resource_type($r)) {
+		  case '_p_Xapian__WritableDatabase': return new XapianWritableDatabase($r);
+		  default: return new XapianDatabase($r);
+		  }
+	  }
+  
+	  static function remote_open($host_or_program,$port_or_args,$timeout=null,$connect_timeout=null) {
+		  switch (func_num_args()) {
+		  case 2: $r=remote_open($host_or_program,$port_or_args); break;
+		  case 3: $r=remote_open($host_or_program,$port_or_args,$timeout); break;
+		  default: $r=remote_open($host_or_program,$port_or_args,$timeout,$connect_timeout);
+		  }
+		  if (is_resource($r)) {
+			  $c='Xapian'.substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			  if (class_exists($c)) return new $c($r);
+			  return new XapianDatabase($r);
+		  }
+		  return $r;
+	  }
+  
+	  static function remote_open_writable($host_or_program,$port_or_args,$timeout=null,$connect_timeout_or_flags=null,$flags=null) {
+		  switch (func_num_args()) {
+		  case 2: $r=remote_open_writable($host_or_program,$port_or_args); break;
+		  case 3: $r=remote_open_writable($host_or_program,$port_or_args,$timeout); break;
+		  case 4: $r=remote_open_writable($host_or_program,$port_or_args,$timeout,$connect_timeout_or_flags); break;
+		  default: $r=remote_open_writable($host_or_program,$port_or_args,$timeout,$connect_timeout_or_flags,$flags);
+		  }
+		  if (is_resource($r)) {
+			  $c='Xapian'.substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));
+			  if (class_exists($c)) return new $c($r);
+			  return new XapianWritableDatabase($r);
+		  }
+		  return $r;
+	  }
+  
+	  static function BAD_VALUENO_get() {
+		  return BAD_VALUENO_get();
+	  }
+  }
 }
 
 /* PHP Proxy Classes */
