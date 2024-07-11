@@ -179,8 +179,8 @@ abstract class Xapian {
 	static function BAD_VALUENO_get() {
 		return BAD_VALUENO_get();
 	}
-  }
 }
+
 
 /* PHP Proxy Classes */
 class XapianPositionIterator implements Iterator {
