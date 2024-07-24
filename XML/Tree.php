@@ -287,7 +287,7 @@ class XML_Tree extends XML_Parser
     *
     * @access private
     */
-    function endHandler($elem)
+    function endHandler($parser, $elem)
     {
         $this->i--;
         if ($this->i > 1) {

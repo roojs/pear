@@ -369,12 +369,14 @@ class Image_Text {
      * @see Image_Text::set(), Image_Text::construct(), Image_Text::init()
      */
 
-    function Image_Text($text, $options = null)
+    function __construct($text, $options = null)
     {
-        $this->set('text', $text);
+                $this->set('text', $text);
+
         if (!empty($options)) {
-            $this->options = array_merge($this->options, $options);
-        }
+             $this->options = array_merge($this->options, $options);
+         }
+          
     }
 
     /**
@@ -564,12 +566,13 @@ class Image_Text {
         // todo: with some versions of the GD-library it's also possible to leave font_path empty, add strip ".ttf" from
         //        the fontname; the fontfile will then be automatically searched for in library-defined directories
         //        however this does not yet work if at this point we check for the existance of the fontfile
+         
         $font_file = rtrim($this->options['font_path'], '/\\');
         $font_file.= (OS_WINDOWS) ? '\\' : '/';
         $font_file.= $this->options['font_file'];
         $font_file = realpath($font_file);
         if (empty($font_file) || !is_file($font_file) || !is_readable($font_file)) {
-            return PEAR::staticRaiseError('Fontfile not found or not readable.');
+            return PEAR::staticRaiseError('Fontfile not found or not readable: ' . $font_file);
         } else {
             $this->_font = $font_file;
         }

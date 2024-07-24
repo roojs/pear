@@ -102,6 +102,7 @@ class Text_CAPTCHA_Driver_Image extends Text_CAPTCHA
      */
     function init($options = array())
     {
+            
         if (!is_array($options)) {
             // Compatibility mode ... in future versions, these two
             // lines of code will be used: 
@@ -148,8 +149,10 @@ class Text_CAPTCHA_Driver_Image extends Text_CAPTCHA
             if (isset($options['imageOptions']) && is_array($options['imageOptions']) && count($options['imageOptions']) > 0) {
                 $this->_imageOptions = array_merge($this->_imageOptions, $options['imageOptions']); 
             }
+            
             return true;
         }
+        
     }
 
     /**
@@ -209,11 +212,13 @@ class Text_CAPTCHA_Driver_Image extends Text_CAPTCHA
         $options['background_color'] = $this->_imageOptions['background_color'];
         $options['max_lines'] = 1;
         $options['mode'] = 'auto';
-        do {
+         do {
             $this->_imt = new Image_Text( 
                 $this->_phrase,
                 $options
             );
+            
+             
             if (PEAR::isError($e = $this->_imt->init())) {
                 $this->_error = PEAR::staticRaiseError(
                     sprintf('Error initializing Image_Text (%s)', $e->getMessage()));
@@ -305,15 +310,14 @@ class Text_CAPTCHA_Driver_Image extends Text_CAPTCHA
         if (PEAR::isError($retval)) {
             return PEAR::staticRaiseError($retval->getMessage());
         }
-
-        if (is_resource($this->_im)) {
+         if (is_object($this->_im)) {
             ob_start();
             imagepng($this->_im);
             $data = ob_get_contents();
             ob_end_clean();
             return $data;
         } else {
-            $this->_error = PEAR::raiseError('Error creating CAPTCHA image (font missing?!)');
+            $this->_error = PEAR::staticRaiseError('Error creating CAPTCHA image (font missing?!)');
             return $this->_error;
         }
     }
@@ -333,7 +337,7 @@ class Text_CAPTCHA_Driver_Image extends Text_CAPTCHA
             return PEAR::raiseError($retval->getMessage());
         }
 
-        if (is_resource($this->_im)) {
+        if (is_object($this->_im)) {
             ob_start();
             imagejpeg($this->_im);
             $data = ob_get_contents();
@@ -360,7 +364,7 @@ class Text_CAPTCHA_Driver_Image extends Text_CAPTCHA
             return PEAR::raiseError($retval->getMessage());
         }
 
-        if (is_resource($this->_im)) {
+        if (is_object($this->_im)) {
             ob_start();
             imagegif($this->_im);
             $data = ob_get_contents();

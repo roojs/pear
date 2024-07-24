@@ -517,7 +517,7 @@ class HTML_FlexyFramework2 {
     {
         //$this->debug('generateDataobjectsCache: force=' . ($force ? 'yes' : 'no'));
         if (!$this->dataObjectsCache) { // does not use dataObjects Caching..
-             PDO_DataObject::config('schema_location', $this->dataObjectsOriginalIni );
+            PDO_DataObject::config('schema_location', $this->dataObjectsOriginalIni );
             
             $this->debug('generateDataobjectsCache', 'dataObjectsCache - empty');
             return;
@@ -526,8 +526,6 @@ class HTML_FlexyFramework2 {
         $dburl = parse_url($this->database);
         $dbnick =  basename($dburl['path']);
         
-        
-       
         $iniCache = $this->PDO_DataObject['schema_location'];
         
         

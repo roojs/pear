@@ -167,7 +167,7 @@ class HTML_FlexyFramework2_Page  {
   
     function start($request,$isRedirect=false,$args=array()) 
     { 
-        $cli= HTML_Flexyframework2::get()->cli;
+        $cli= $this->frameworkOptions()->cli;
         if (!$cli && $isRedirect !== true && !empty($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
             return $this->post($request,$args);
         }  
@@ -252,7 +252,7 @@ class HTML_FlexyFramework2_Page  {
         }
         
         /* output the body if no masterTemplate is set */
-        $options = HTML_FlexyFramework2::get();
+        $options = $this->frameworkOptions();
         
         $type = isset($this->contentType) ? $this->contentType : 'text/html'; 
         header('Content-Type: '.$type.';charset='.( empty($options->charset) ? 'UTF-8' : $options->charset ));
@@ -265,7 +265,7 @@ class HTML_FlexyFramework2_Page  {
         
        require_once 'HTML/Template/Flexy.php' ;
 
-        $template_engine = new HTML_Template_Flexy(HTML_FlexyFramework2::get()->HTML_Template_Flexy);
+        $template_engine = new HTML_Template_Flexy($this->frameworkOptions()->HTML_Template_Flexy);
         $template_engine->compile($this->masterTemplate);
         if (!$this->_cache || !$this->cacheMethod) {
             $template_engine->outputObject($this,$this->elements);
@@ -286,18 +286,21 @@ class HTML_FlexyFramework2_Page  {
     * used by putting {outputBody} in the main template.
     * @access   public
     */    
-    function outputBody()
+    function outputBody($return = false)
     {
 
         require_once 'HTML/Template/Flexy.php' ;
 
-        $template_engine = new HTML_Template_Flexy(HTML_FlexyFramework2::get()->HTML_Template_Flexy);
+        $template_engine = new HTML_Template_Flexy($this->frameworkOptions()->HTML_Template_Flexy);
         $template_engine->compile($this->template);
         if ($this->elements) { /* BC crap! */
             require_once 'HTML/Template/Flexy/Factory.php';
             $this->elements = HTML_Template_Flexy_Factory::setErrors($this->elements,$this->errors);
         }
         $template_engine->elements = $this->elements;
+        if ($return) {
+            return $template_engine->bufferedOutputObject($this,$this->elements);
+        }
         $template_engine->outputObject($this,$this->elements);
         
     }
@@ -398,6 +401,11 @@ class HTML_FlexyFramework2_Page  {
         foreach(array_unique($cookies) as $cookie) {
             header($cookie, false);
         }
+    }
+    
+    function frameworkOptions()
+    {
+        return HTML_FlexyFramework2::get();
     }
 }
 

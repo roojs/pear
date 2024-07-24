@@ -185,8 +185,8 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
         $fp = fopen($iniCache.".lock", "a+");
         flock($fp,LOCK_EX);
 
-        $ff = HTML_FlexyFramework2::get();
-        $ff->debug('Framework Generator:writeCache ' . $iniCacheTmp .  ' ' . $iniCache);
+        $ff = class_exists('HTML_FlexyFramework2') ? HTML_FlexyFramework2::get() : false;
+        $ff && $ff->debug('Framework Generator:writeCache ' . $iniCacheTmp .  ' ' . $iniCache);
           
         //var_dump($iniCacheTmp);
        // echo '<PRE>';echo file_get_contents($iniCacheTmp);exit;
@@ -199,7 +199,7 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
                 if (file_exists($iniCache)) {
                     unlink($iniCache);
                 }
-                $ff->debug("Writing merged ini file : $iniCache\n");
+                $ff && $ff->debug("Writing merged ini file : $iniCache\n");
                 rename($iniCacheTmp, $iniCache);
             } else {
                 touch($iniCache);
@@ -232,18 +232,18 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
         }
         // we are going to use the DataObject directories..
         
-        $inis = explode(PATH_SEPARATOR,$ff->PDO_DataObject['class_location']);
+        $inis = explode(PATH_SEPARATOR,$ff ? $ff->PDO_DataObject['class_location'] : PDO_DataObject::config()['class_location']);
         //print_r($inis);exit;
-        $ff->debug("class_location = ". $ff->PDO_DataObject['class_location']);
+        $ff && $ff->debug("class_location = ". $ff->PDO_DataObject['class_location']);
         
         
-        $lproject = strtolower(explode('/', $ff->project)[0]);
+        $lproject = strtolower(explode('/', $ff ? $ff->project : '')[0]);
         
         foreach($inis as $path) {
             $ini = $path . '/'. strtolower( $lproject ) . '.links.ini';
              //var_dump($ini);
             if (!file_exists($ini)) {
-                $ff->debug("Framework Generator:writeCache PROJECT.links.ini does not exist in $path - trying glob");
+                $ff && $ff->debug("Framework Generator:writeCache PROJECT.links.ini does not exist in $path - trying glob");
        
                 // try scanning the directory for another ini file..
                 $ar = glob(dirname($ini).'/*.links.ini');
@@ -255,7 +255,7 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
                 
                 
                 sort($ar);
-                $ff->debug("Framework Generator:writeCache using {$ar[0]}");
+                $ff && $ff->debug("Framework Generator:writeCache using {$ar[0]}");
                 
                 // first file.. = with links removed..
                 $ini = preg_replace('/\.links\./' , '.', $ar[0]);
@@ -266,7 +266,7 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
             if (!file_exists($ini)) {
                 continue;
             }
-            $ff->debug("Adding in $ini");
+            $ff && $ff->debug("Adding in $ini");
             // prefer first ?
             $links = self::mergeIni( parse_ini_file($ini, true), $links);   
         }
@@ -280,7 +280,7 @@ class HTML_FlexyFramework2_Generator extends PDO_DataObject_Generator
             $out[] = '';
         }
         if (count($out)) {
-            $ff->debug("Writing merged Links file : $iniLinksCache \n");
+            $ff && $ff->debug("Writing merged Links file : $iniLinksCache \n");
             $out_str = implode("\n", $out);
             // is target file different?
             if (!isset($replace[$iniLinksCache]) || $replace[$iniLinksCache] != md5($out_str)) {

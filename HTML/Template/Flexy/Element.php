@@ -464,9 +464,10 @@ class HTML_Template_Flexy_Element {
             $this->children = array();
             return;
         }
+        require_once 'HTML/Template/Flexy.php'; // may not have been loaded?
         $activeEngine = HTML_Template_Flexy::$activeEngine;
         $charset = empty($activeEngine->options['charset']) ?
-            'ISO-8859-1' :
+            'UTF-8' :
             $activeEngine->options['charset'];
         
         $tag = strtolower($this->tag);

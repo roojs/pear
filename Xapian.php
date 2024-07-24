@@ -23,7 +23,9 @@ if (!extension_loaded('xapian')) {
     }
   }
 }
-
+if (class_exists('Xapian')) {
+  return;
+}
 
 
 abstract class Xapian {
@@ -178,6 +180,7 @@ abstract class Xapian {
 		return BAD_VALUENO_get();
 	}
 }
+
 
 /* PHP Proxy Classes */
 class XapianPositionIterator implements Iterator {
