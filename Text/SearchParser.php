@@ -400,6 +400,9 @@ class Text_SearchParser_Token_Grp extends Text_SearchParser_Token { // (
     
     function toSQL($conf)
     {
+        if (empty($this->ar)) {
+            return;
+        }
         $ret = '(';
         foreach($this->ar as $o) {
             
