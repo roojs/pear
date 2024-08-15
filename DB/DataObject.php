@@ -1084,8 +1084,8 @@ class DB_DataObject extends DB_DataObject_Overload
         //$this->_connect();
         //$DB = $_DB_DATAOBJECT['CONNECTIONS'][$this->_database_dsn_md5];
         
-        $this->_query['limit_start'] = ($b == null) ? 0 : (int)$a;
-        $this->_query['limit_count'] = ($b == null) ? (int)$a : (int)$b;
+        $this->_query['limit_start'] = ($b == null) ? 0 : max(0, (int)$a);
+        $this->_query['limit_count'] = ($b == null) ? max(0,(int)$a) : max(0, (int)$b);
         
     }
 
