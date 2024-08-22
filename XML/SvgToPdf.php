@@ -104,6 +104,9 @@ class XML_SvgToPDF {
         $tree = $t->buildobject($tree);
         */
          //echo "<PRE>";
+         if (!file_exists($svg)) {
+           trigger_error("invalid file $svg", E_ERROR);
+         }
         $tree = $t->parseSvg($svg);
        //echo "<PRE>";print_r($tree);exit;
         
