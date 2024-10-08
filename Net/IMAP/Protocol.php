@@ -540,17 +540,20 @@ class Net_IMAP_Protocol
         switch ($method) {
             case 'DIGEST-MD5':
                 $result = $this->_authDigestMD5($uid, $pwd, $cmdid);
-                
                 break;
+            
             case 'CRAM-MD5':
                 $result = $this->_authCramMD5($uid, $pwd, $cmdid);
                 break;
+            
             case 'LOGIN':
                 $result = $this->_authLOGIN($uid, $pwd, $cmdid);
                 break;
+            
             case 'OAUTH':
-                $result = $this->_authOATH($uid, $pwd, $cmdid);
+                $result = $this->_authOAUTH($uid, $pwd, $cmdid);
                 break;
+            
             default:
                 $result = new PEAR_Error($method 
                                          . ' is not a supported authentication'
