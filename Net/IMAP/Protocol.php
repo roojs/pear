@@ -751,7 +751,7 @@ class Net_IMAP_Protocol
         if ($error instanceOf PEAR_Error) {
             return $error;
         }
-
+        // caller will check response
          
     
     }
