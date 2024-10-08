@@ -158,7 +158,6 @@ class Net_IMAP extends Net_IMAP_Protocol
                     return $ret;
                 }
             }
-            var_dump($ret);
             if (strtoupper($ret['RESPONSE']['CODE']) != 'OK') {
                 return new PEAR_Error($ret['RESPONSE']['CODE']
                                       . ', '
