@@ -82,7 +82,13 @@ class Net_IMAP_Protocol
      * @var array
      * @access private
      */
-    var $_streamContextOptions = null;
+    var $_streamContextOptions = array(
+        'ssl' => array(
+            'verify_peer'  => false,
+            'verify_peer_name'  => false,
+            'allow_self_signed' => true
+        )
+    );
 
 
     /**
@@ -157,6 +163,9 @@ class Net_IMAP_Protocol
      */
     var $_encoding = 'ISO-8859-1';
 
+    
+    
+    var $lastline; // 
 
     /**
      * Constructor
@@ -550,18 +559,22 @@ class Net_IMAP_Protocol
                 $result = $this->_authLOGIN($uid, $pwd, $cmdid);
                 break;
             
-            case 'OAUTH':
-                $result = $this->_authOAUTH($uid, $pwd, $cmdid);
+            case 'XOAUTH2':
+                $result = $this->_authXOAUTH2($uid, $pwd, $cmdid);
                 break;
             
             default:
-                $result = new PEAR_Error($method 
+                return new PEAR_Error($method 
                                          . ' is not a supported authentication'
                                          . ' method');
                 break;
         }
+        if ($result instanceOf PEAR_Error) {
+            return $method;
+        }
 
         $args = $this->_getRawResponse($cmdid);
+        var_dump($args);
         return $this->_genericImapResponseParser($args, $cmdid);
 
     }
@@ -729,45 +742,20 @@ class Net_IMAP_Protocol
      * @access private
      * @since 1.0
      */
-    function _authOAUTH($uid, $pwd, $cmdid)
+    function _authXOAUTH2($uid, $pwd, $cmdid)
     {
         $error = $this->_putCMD($cmdid,
             'AUTHENTICATE',
-            'XOAUTH2',
-            base64("user=" + $uid + chr(01) + "auth=Bearer " + $pwd + chr(01) + chr(01))
+            'XOAUTH2 ' .  base64_encode("user=" . $uid . chr(01) . "auth=Bearer " . $pwd . chr(01) . chr(01))
         );
         if ($error instanceOf PEAR_Error) {
             return $error;
         }
 
         $args = $this->_recvLn();
-        if ($args instanceOf PEAR_Error) {
-            return $args;
-        }
-
-        $this->_getNextToken($args, $plus);
-        $this->_getNextToken($args, $space);
-        $this->_getNextToken($args, $challenge);
-
-        $challenge = base64_decode($challenge);
-        $auth_str  = base64_encode($uid);
-
-        $error = $this->_send($auth_str . "\r\n");
-        if ($error instanceOf PEAR_Error) {
-            return $error;
-        }
-
-        $args = $this->_recvLn();
-        if ($args instanceOf PEAR_Error) {
-            return $args;
-        }
-
-        $auth_str = base64_encode($pwd);
-
-        $error = $this->_send($auth_str . "\r\n");
-        if ($error instanceOf PEAR_Error) {
-            return $error;
-        }
+        
+        return $args;
+    
     }
 
     /**
