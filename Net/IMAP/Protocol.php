@@ -752,9 +752,7 @@ class Net_IMAP_Protocol
             return $error;
         }
 
-        $args = $this->_recvLn();
-        
-        return $args;
+         
     
     }
 
