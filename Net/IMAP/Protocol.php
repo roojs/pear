@@ -574,7 +574,6 @@ class Net_IMAP_Protocol
         }
 
         $args = $this->_getRawResponse($cmdid);
-        var_dump($args);
         return $this->_genericImapResponseParser($args, $cmdid);
 
     }
