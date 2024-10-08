@@ -138,7 +138,7 @@ class Net_IMAP extends Net_IMAP_Protocol
             }
 
             //Try the selected Auth method
-            $ret = $this->cmdAuthenticate($user, $pass, $method);
+             $ret = $this->cmdAuthenticate($user, $pass, $method);
             if ($ret instanceOf PEAR_Error) {
                 // Verify the methods that we have in common with the server
                 if (is_array($this->_serverAuthMethods)) {
@@ -158,6 +158,7 @@ class Net_IMAP extends Net_IMAP_Protocol
                     return $ret;
                 }
             }
+            var_dump($ret);
             if (strtoupper($ret['RESPONSE']['CODE']) != 'OK') {
                 return new PEAR_Error($ret['RESPONSE']['CODE']
                                       . ', '
