@@ -556,11 +556,6 @@ class Net_SMTP
             $this->pipelining = false;
         }
 
-
-        var_dump($this->localhost);
-        var_dump($this->_esmtp);
-        die('Net_SMTP end negotiate');
-
         return true;
     }
 
