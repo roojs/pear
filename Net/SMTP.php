@@ -952,7 +952,6 @@ class Net_SMTP
      */
     function mailFrom($sender, $params = null)
     {
-        die('MAIL FROM');
         $args = "FROM:<$sender>";
 
         /* Support the deprecated array form of $params. */
