@@ -341,7 +341,6 @@ class Mail_smtp extends Mail {
                 );
             }
         }
-        die('MAIL TO END');
 
         die('test');
 
