@@ -557,6 +557,7 @@ class Net_SMTP
         }
 
 
+        var_dump($this->localhost);
         var_dump($this->_esmtp);
         die('Net_SMTP end negotiate');
 
