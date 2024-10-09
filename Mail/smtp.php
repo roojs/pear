@@ -309,15 +309,19 @@ class Mail_smtp extends Mail {
         if (PEAR::isError($res = $this->_smtp->mailFrom($from, ltrim($params)))) {
             list($code, $error) = $this->_error(
                     "Failed to set sender: $from", $res, PEAR_MAIL_SMTP_ERROR_SENDER);
-            die($code);
             $txt = implode("\n" , $this->_smtp->_arguments);
-            $this->_smtp->rset();
-            return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER,
-                    null,null,    array(
-                            'smtpcode' => $code,
-                            'smtptext' => $txt
-                    )
-            );
+            if($code == 530 && strpos($txt, '#5.7.0 Must issue a STARTTLS command first')) {
+
+            }
+            else {
+                $this->_smtp->rset();
+                return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER,
+                        null,null,    array(
+                                'smtpcode' => $code,
+                                'smtptext' => $txt
+                        )
+                );
+            }
         }
         die('AFTER MAIL FROM');
 
