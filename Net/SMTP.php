@@ -522,7 +522,6 @@ class Net_SMTP
      */
     function _negotiate()
     {
-        die('NEGOTIATE');
         if (PEAR::isError($error = $this->_put('EHLO', $this->localhost))) {
             return $error;
         }
@@ -556,6 +555,9 @@ class Net_SMTP
         if (!isset($this->_esmtp['PIPELINING'])) {
             $this->pipelining = false;
         }
+
+        var_dump($this->_esmtp);
+        die('END NEGOTIATE');
 
         return true;
     }
