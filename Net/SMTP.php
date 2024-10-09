@@ -556,9 +556,6 @@ class Net_SMTP
             $this->pipelining = false;
         }
 
-        var_dump($this->_esmtp);
-        die('END NEGOTIATE');
-
         return true;
     }
 
