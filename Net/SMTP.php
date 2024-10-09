@@ -522,6 +522,7 @@ class Net_SMTP
      */
     function _negotiate()
     {
+        die('NEGOTIATE');
         if (PEAR::isError($error = $this->_put('EHLO', $this->localhost))) {
             return $error;
         }
