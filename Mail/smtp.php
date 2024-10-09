@@ -316,7 +316,6 @@ class Mail_smtp extends Mail {
                             'smtptext' => $txt
                     )
             );
-
         }
 
         $recipients = $this->parseRecipients($recipients);
