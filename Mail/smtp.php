@@ -385,7 +385,6 @@ class Mail_smtp extends Mail {
      */
     function getSMTPObject()
     {
-        die('GET SMTP OBJECT');
         if (is_object($this->_smtp) !== false) {
             return $this->_smtp;
         }
