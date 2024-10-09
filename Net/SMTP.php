@@ -453,6 +453,7 @@ class Net_SMTP
         $result = $this->_socket->connect($this->host, $this->port,
                                           $persistent, $timeout,
                                           $this->_socket_options);
+        die('END SOCKET CONNECT');
         if (PEAR::isError($result)) {
             $p = new PEAR();
             return $p->raiseError('Failed to connect socket: ' .
