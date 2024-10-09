@@ -309,6 +309,7 @@ class Mail_smtp extends Mail {
         if (PEAR::isError($res = $this->_smtp->mailFrom($from, ltrim($params)))) {
             list($code, $error) = $this->_error(
                     "Failed to set sender: $from", $res, PEAR_MAIL_SMTP_ERROR_SENDER);
+            die($code);
             $txt = implode("\n" , $this->_smtp->_arguments);
             $this->_smtp->rset();
             return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER,
@@ -318,6 +319,7 @@ class Mail_smtp extends Mail {
                     )
             );
         }
+        die('AFTER MAIL FROM');
 
         $recipients = $this->parseRecipients($recipients);
         if (is_a($recipients, 'PEAR_Error')) {
