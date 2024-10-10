@@ -312,19 +312,17 @@ class Mail_smtp extends Mail {
 
             // STARTTLS if required
             if($code == 530 && in_array('#5.7.0 Must issue a STARTTLS command first', $this->_smtp->_arguments)) {
-                /* Start the TLS connection attempt. */
-                if (PEAR::isError($result = $this->_smtp->_put('STARTTLS'))) {
-                    return $result;
-                }
-                if (PEAR::isError($result = $this->_smtp->_parseResponse(220))) {
-                    return $result;
-                }
-                if (PEAR::isError($result = $this->_smtp->_socket->enableCrypto(true, STREAM_CRYPTO_METHOD_TLS_CLIENT))) {
-                    return $result;
-                } elseif ($result !== true) {
-                    $p = new PEAR();
-                    return $p->raiseError('STARTTLS failed');
-                }
+                // if (PEAR::isError($res = $this->_smtp->starttls())) {
+                //     list($code, $error) =$this->_error("$method authentication failure", $res);
+                //         $txt = implode("\n" , $this->_smtp->_arguments);
+                //         $this->_smtp->rset();
+                //         return $p = new PEAR();raiseError($error, PEAR_MAIL_SMTP_ERROR_AUTH,
+                //         null,null,    array(
+                //         'smtpcode' => $code,
+                //         'smtptext' => $txt
+                //         )
+                //     );
+                // }
             }
             else {
                 $this->_smtp->rset();
