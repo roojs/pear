@@ -1285,7 +1285,7 @@ class Net_SMTP
     }
 
     /**
-     * Send the STARTLS command and .
+     * Send the STARTLS command and start TLS negotiation
      *
      * @return mixed Returns a PEAR_Error with an error message on any
      *               kind of failure, or true on success.
