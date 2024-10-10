@@ -308,8 +308,7 @@ class Mail_smtp extends Mail {
         if (PEAR::isError($res = $this->_smtp->mailFrom($from, ltrim($params)))) {
             list($code, $error) = $this->_error(
                     "Failed to set sender: $from", $res, PEAR_MAIL_SMTP_ERROR_SENDER);
-            $txt = implode("\n" , $this->_smtp->_arguments);
-
+            
             if($code == 530 && in_array('#5.7.0 Must issue a STARTTLS command first', $this->_smtp->_arguments)) {
                 /* Issue a STARTTLS after getting "530 Must issue a STARTTLS command first"  */
                 if (PEAR::isError($res = $this->_smtp->starttls())) {
@@ -349,6 +348,7 @@ class Mail_smtp extends Mail {
                 }
             }
             else {
+                $txt = implode("\n" , $this->_smtp->_arguments);
                 $this->_smtp->rset();
                 return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER,
                         null,null,    array(
