@@ -1284,6 +1284,13 @@ class Net_SMTP
         return samlFrom($path);
     }
 
+    /**
+     * Send the STARTLS command and .
+     *
+     * @return mixed Returns a PEAR_Error with an error message on any
+     *               kind of failure, or true on success.
+     * @access public
+     */
     function starttls()
     {
         /* Start the TLS connection attempt. */
@@ -1299,6 +1306,8 @@ class Net_SMTP
             $p = new PEAR();
             return $p->raiseError('STARTTLS failed');
         }
+
+        return true;
     }
 
     /**
