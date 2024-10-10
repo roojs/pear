@@ -267,6 +267,7 @@ class Mail_smtp extends Mail {
      */
     function send($recipients, $headers, $body)
     {
+
         /* If we don't already have an SMTP object, create one. */
         $result = $this->getSMTPObject();
         if (PEAR::isError($result)) {
@@ -434,7 +435,7 @@ class Mail_smtp extends Mail {
 
         /* Attempt to connect to the configured SMTP server. */
         if (PEAR::isError($res = $this->_smtp->connect($this->timeout))) {
-            var_dump(implode("\n" , $this->_smtp->_arguments));
+            var_dump($res);
             die('ERROR');
             list($code, $error) = $this->_error('Failed to connect to ' .
                                    $this->host . ':' . $this->port,
