@@ -326,6 +326,16 @@ class Mail_smtp extends Mail {
                     return $p->raiseError('STARTTLS failed');
                 }
 
+                if (PEAR::isError($res = $this->_smtp->starttls())) {
+                    list($code, $error) = $this->_error('Failed to negotiate after TLS handshake', $res);
+                    $txt = implode("\n" , $this->_smtp->_arguments);
+                    return $this->raiseError($error, null,
+                            null,null,    array(
+                                    'smtpcode' => $code,
+                                    'smtptext' => $txt
+                            ));
+                }
+
                 /* Upon completion of the TLS handshake, the SMTP protocol is reset to the initial state */
                 /* Send EHLO again */
                 if (PEAR::isError($res = $this->_smtp->_negotiate())) {
