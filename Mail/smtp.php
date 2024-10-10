@@ -310,7 +310,7 @@ class Mail_smtp extends Mail {
                     "Failed to set sender: $from", $res, PEAR_MAIL_SMTP_ERROR_SENDER);
             $txt = implode("\n" , $this->_smtp->_arguments);
 
-            // STARTTLS if required
+            /* STARTTLS if required */
             if($code == 530 && in_array('#5.7.0 Must issue a STARTTLS command first', $this->_smtp->_arguments)) {
                 /* Start the TLS connection attempt. */
                 if (PEAR::isError($result = $this->_smtp->_put('STARTTLS'))) {
@@ -326,7 +326,11 @@ class Mail_smtp extends Mail {
                     return $p->raiseError('STARTTLS failed');
                 }
 
-                $this->_smtp->_negotiate();
+                /* Upon completion of the TLS handshake, the SMTP protocol is reset to the initial state */
+                /* Send EHLO again */
+                if (PEAR::isError($error = $this->_smtp_negotiate())) {
+                    return $error;
+                }
             }
             else {
                 $this->_smtp->rset();
