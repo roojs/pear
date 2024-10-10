@@ -331,7 +331,7 @@ class Mail_smtp extends Mail {
                 if (PEAR::isError($res = $this->_smtp->_negotiate())) {
                     list($code, $error) = $this->_error('Failed to negotiate after TLS handshake', $res);
                     $txt = implode("\n" , $this->_smtp->_arguments);
-                    return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_CONNECT,
+                    return $this->raiseError($error, null,
                             null,null,    array(
                                     'smtpcode' => $code,
                                     'smtptext' => $txt
