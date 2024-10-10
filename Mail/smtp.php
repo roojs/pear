@@ -333,6 +333,19 @@ class Mail_smtp extends Mail {
                                     'smtptext' => $txt
                             ));
                 }
+
+                if (PEAR::isError($res = $this->_smtp->mailFrom($from, ltrim($params)))) {
+                    list($code, $error) = $this->_error(
+                            "Failed to set sender: $from", $res, PEAR_MAIL_SMTP_ERROR_SENDER);
+                    $txt = implode("\n" , $this->_smtp->_arguments);
+                    $this->_smtp->rset();
+                    return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER,
+                            null,null,    array(
+                                    'smtpcode' => $code,
+                                    'smtptext' => $txt
+                            )
+                    );
+                }
             }
             else {
                 $this->_smtp->rset();
