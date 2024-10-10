@@ -267,8 +267,6 @@ class Mail_smtp extends Mail {
      */
     function send($recipients, $headers, $body)
     {
-        var_dump(STREAM_CRYPTO_METHOD_TLS_CLIENT);
-        die('test');
         /* If we don't already have an SMTP object, create one. */
         $result = $this->getSMTPObject();
         if (PEAR::isError($result)) {
