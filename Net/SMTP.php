@@ -522,9 +522,13 @@ class Net_SMTP
      */
     function _negotiate()
     {
+        var_dump('BEFORE NEGOTIATE');
         if (PEAR::isError($error = $this->_put('EHLO', $this->localhost))) {
+            var_dump('ERROR');
+            die("ERROR");
             return $error;
         }
+        die("NO ERROR");
 
         if (PEAR::isError($this->_parseResponse(250))) {
             /* If we receive a 503 response, we're already authenticated. */
