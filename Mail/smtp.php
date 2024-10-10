@@ -422,6 +422,7 @@ class Mail_smtp extends Mail {
 
         /* Attempt to connect to the configured SMTP server. */
         if (PEAR::isError($res = $this->_smtp->connect($this->timeout))) {
+            die('ERROR');
             list($code, $error) = $this->_error('Failed to connect to ' .
                                    $this->host . ':' . $this->port,
                                    $res);
