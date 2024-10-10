@@ -327,7 +327,7 @@ class Mail_smtp extends Mail {
                 }
 
                 if (PEAR::isError($res = $this->_smtp->starttls())) {
-                    list($code, $error) = $this->_error('Failed to STARTTLS after getting 530 Must issue a STARTTLS command first', $res);
+                    list($code, $error) = $this->_error('Failed to issue a STARTTLS after getting 530 Must issue a STARTTLS command first', $res);
                     $txt = implode("\n" , $this->_smtp->_arguments);
                     return $this->raiseError($error, null,
                             null,null,    array(
