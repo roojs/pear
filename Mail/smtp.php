@@ -325,6 +325,8 @@ class Mail_smtp extends Mail {
                     $p = new PEAR();
                     return $p->raiseError('STARTTLS failed');
                 }
+
+                $this->_smtp->_negotiate();
             }
             else {
                 $this->_smtp->rset();
