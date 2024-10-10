@@ -336,7 +336,7 @@ class Mail_smtp extends Mail {
                                     'smtpcode' => $code,
                                     'smtptext' => $txt
                             ));
-                }\
+                }
             }
             else {
                 $this->_smtp->rset();
