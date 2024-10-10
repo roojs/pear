@@ -328,7 +328,7 @@ class Mail_smtp extends Mail {
 
                 /* Upon completion of the TLS handshake, the SMTP protocol is reset to the initial state */
                 /* Send EHLO again */
-                if (PEAR::isError($error = $this->_smtp_negotiate())) {
+                if (PEAR::isError($error = $this->_negotiate())) {
                     return $error;
                 }
             }
