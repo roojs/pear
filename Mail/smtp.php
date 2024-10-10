@@ -267,6 +267,8 @@ class Mail_smtp extends Mail {
      */
     function send($recipients, $headers, $body)
     {
+        $p = new PEAR();
+        return $p->raiseError('TEST ERROR');
 
         /* If we don't already have an SMTP object, create one. */
         $result = $this->getSMTPObject();
