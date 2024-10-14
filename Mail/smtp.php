@@ -335,11 +335,12 @@ class Mail_smtp extends Mail {
                 }
 
                 /* Set sender again */
+                $mailFromError = false;
                 if (PEAR::isError($res = $this->_smtp->mailFrom($from, ltrim($params)))) {
+                    $mailFromError = true;
                     list($code, $error) = $this->_error(
                             "Failed to set sender: $from", $res, PEAR_MAIL_SMTP_ERROR_SENDER);
                 }
-                $mailFromError = false;
             }
 
             if($mailFromError) {
