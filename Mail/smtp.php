@@ -317,8 +317,8 @@ class Mail_smtp extends Mail {
                     $txt = implode("\n" , $this->_smtp->_arguments);
                     return $this->raiseError($error, null,
                             null,null,    array(
-                                    'smtpcode' => $code,
-                                    'smtptext' => $txt
+                                'smtpcode' => $code,
+                                'smtptext' => $txt
                             ));
                 }
 
