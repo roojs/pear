@@ -1285,6 +1285,32 @@ class Net_SMTP
     }
 
     /**
+     * Send the STARTLS command and start TLS negotiation
+     *
+     * @return mixed Returns a PEAR_Error with an error message on any
+     *               kind of failure, or true on success.
+     * @access public
+     */
+    function starttls()
+    {
+        /* Start the TLS connection attempt. */
+        if (PEAR::isError($result = $this->_put('STARTTLS'))) {
+            return $result;
+        }
+        if (PEAR::isError($result = $this->_parseResponse(220))) {
+            return $result;
+        }
+        if (PEAR::isError($result = $this->_socket->enableCrypto(true, STREAM_CRYPTO_METHOD_TLS_CLIENT))) {
+            return $result;
+        } elseif ($result !== true) {
+            $p = new PEAR();
+            return $p->raiseError('STARTTLS failed');
+        }
+
+        return true;
+    }
+
+    /**
      * Send the RSET command.
      *
      * @return mixed Returns a PEAR_Error with an error message on any
