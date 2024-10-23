@@ -4,6 +4,7 @@ class Finance_ISIN_VN extends Finance_ISIN
 {
     function getLocationISIN($stockcode)
     {
+        die('test');
         if(isset($this->map[$stockcode])) {
             return $this->map[$stockcode];
         }
