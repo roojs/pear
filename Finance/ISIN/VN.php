@@ -21,8 +21,8 @@ class Finance_ISIN_VN extends Finance_ISIN
         $url = false;
 
         foreach($json['rows'] as $record) {
-            var_dump($record['cell'[1]);
-            var_dump($record['cell'[3]);
+            var_dump($record['cell'][1]);
+            var_dump($record['cell'][3]);
             if($record['cell'][1] == $ar[0]) {
                 $url = $record['cell'][3];
                 break;
