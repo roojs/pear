@@ -18,6 +18,12 @@ class Finance_ISIN_VN extends Finance_ISIN
 
         $json = json_decode($str, true);
 
+        $jsonError = json_last_error();
+
+        if($jsonError != JSON_ERROR_NONE) {
+            die('test');
+        }
+
         $a = false;
 
         foreach($json['rows'] as $record) {
