@@ -323,6 +323,7 @@ class Net_IMAP extends Net_IMAP_Protocol
                                   . ', ' 
                                   . $ret['RESPONSE']['STR_CODE']);
         }
+        print_R($ret);
         $ret = $ret['PARSED'][0]['EXT'][$command]['CONTENT'];
         return $ret;
     }
@@ -358,7 +359,7 @@ class Net_IMAP extends Net_IMAP_Protocol
 
         if ($ret instanceOf PEAR_Error) {
             return $ret;
-        }
+        } 
 
         $raw_headers = rtrim($ret);
         // Unfold headers
