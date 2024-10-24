@@ -21,19 +21,20 @@ class Finance_ISIN_VN extends Finance_ISIN
         $jsonError = json_last_error();
 
         if($jsonError != JSON_ERROR_NONE) {
-            die('test');
+            return false;
         }
 
         $a = false;
 
         foreach($json['rows'] as $record) {
-            if(trim($record['cell'][1]) == $ar[0]) {
+            if(trim($record['cell'][1]) == $ar[0] . 'N') {
                 $a = $record['cell'][3];
                 break;
             }
         }
 
         if($a === false) {
+            die('test2');
             return false; // not found
         }
 
