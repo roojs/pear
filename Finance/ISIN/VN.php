@@ -18,17 +18,18 @@ class Finance_ISIN_VN extends Finance_ISIN
 
         $json = json_decode($str, true);
 
-        $url = false;
+        $a = false;
 
         foreach($json['rows'] as $record) {
-            var_dump($ar[0]);
-            var_dump($record['cell'][1]);
-            var_dump($record['cell'][3]);
             if(trim($record['cell'][1]) == $ar[0]) {
-                $url = $record['cell'][3];
+                $a = $record['cell'][3];
                 break;
             }
         }
+
+        $doc = new DOMDoument();
+        $doc->loadHTML($a);
+        $url = $doc->getElementByTagName('a')[0]->getAttribute('href');
 
         var_dump($url);
         die('test');
