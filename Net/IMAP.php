@@ -323,9 +323,10 @@ class Net_IMAP extends Net_IMAP_Protocol
                                   . ', ' 
                                   . $ret['RESPONSE']['STR_CODE']);
         }
-        print_R($ret);
+        
         $ret = $ret['PARSED'][0]['EXT'][$command]['CONTENT'];
-        return $ret;
+        
+        return $ret == 'NIL' ? '' : $ret;
     }
 
 
