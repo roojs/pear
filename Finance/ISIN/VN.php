@@ -28,6 +28,7 @@ class Finance_ISIN_VN extends Finance_ISIN
         }
 
         if($a === false) {
+            die('test');
             return false; // not found
         }
 
