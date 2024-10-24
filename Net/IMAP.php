@@ -366,6 +366,7 @@ class Net_IMAP extends Net_IMAP_Protocol
         // Unfold headers
         $raw_headers = preg_replace("/\r\n[ \t]+/", ' ', $raw_headers);
         $raw_headers = explode("\r\n", $raw_headers);
+        $headers = array();
         foreach ($raw_headers as $value) {
             $name = substr($value, 0, $pos = strpos($value, ':'));
             if ($keysToUpper) {
