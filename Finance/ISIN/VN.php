@@ -16,7 +16,9 @@ class Finance_ISIN_VN extends Finance_ISIN
         $str = curl_exec($ch);
         curl_close($ch);
 
-        var_dump($str);
+        $json = json_decode($str, true);
+
+        var_dump($json);
         die('test');
 
 
