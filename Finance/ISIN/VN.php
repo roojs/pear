@@ -2,6 +2,72 @@
 
 class Finance_ISIN_VN extends Finance_ISIN
 {
+    function getLocationISIN($stockcode)
+    {
+        if(isset($this->map[$stockcode])) {
+            return $this->map[$stockcode];
+        }
+
+        $ar = explode('.', $stockcode);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://www.hsx.vn/Areas/Desktop/Web/Search?q={$ar[0]}&_search=false&rows=30&page=1&sidx=id&sord=desc");   
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $str = curl_exec($ch);
+        curl_close($ch);
+
+        $json = json_decode($str, true);
+
+        $jsonError = json_last_error();
+
+        if($jsonError != JSON_ERROR_NONE) {
+            return false;
+        }
+
+        $a = false;
+
+        foreach($json['rows'] as $record) {
+            if(trim($record['cell'][1]) == $ar[0]) {
+                $a = $record['cell'][3];
+                break;
+            }
+        }
+
+        if($a === false) {
+            return false; // not found
+        }
+
+        $doc = new DOMDocument();
+        $doc->loadHTML($a);
+        $url = $doc->getElementsByTagName('a')[0]->getAttribute('href');
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://www.hsx.vn" . $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $str = curl_exec($ch);
+        curl_close($ch);
+
+        if($str === false) {
+            return false;
+        }
+
+        $isin = false;
+
+        libxml_use_internal_errors(true);
+        $dom = new DOMDocument();
+        $dom->loadHTML($str);
+        $xpath = new DomXPath($dom);
+        $items = $xpath->query("//div[@id='symbolHistoryOverview']/table[@class='member-info']/tr");
+        foreach($items as $item) {
+            if(substr(trim($item->firstElementChild->nodeValue), -4) == 'ISIN') {
+                $isin = trim($item->lastElementChild->nodeValue);
+                break;
+            }
+        }
+
+        return $isin;
+    }
+
     // from https://static-02.vndirect.com.vn/uploads/prod/Vietnam-Stock-Snapshot_VNDIRECT_20Aug2019.xlsx
     var $map = array(
         'AAA.VN'=>'VN000000AAA4',
