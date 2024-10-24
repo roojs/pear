@@ -66,30 +66,6 @@ class Finance_ISIN_VN extends Finance_ISIN
         }
 
         return $isin;
-
-
-        /*
-
-        $isin = false;
-
-        libxml_use_internal_errors(true);
-        $dom = new DOMDocument();
-        $dom->loadHTML($str);
-        $xpath = new DomXPath($dom);
-        $items = $xpath->query("//strong[@class='bsg-fs-header__subitem']");
-        foreach($items as $item) {
-            if(substr($item->nodeValue, 0, 5) != 'ISIN ') {
-                continue;
-            }
-            $isin = substr($item->nodeValue, 5);
-
-
-        }
-
-        return $isin;
-        */
-
-        return false;
     }
 
     // from https://static-02.vndirect.com.vn/uploads/prod/Vietnam-Stock-Snapshot_VNDIRECT_20Aug2019.xlsx
