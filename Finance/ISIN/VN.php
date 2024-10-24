@@ -42,13 +42,14 @@ class Finance_ISIN_VN extends Finance_ISIN
         $url = $doc->getElementsByTagName('a')[0]->getAttribute('href');
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://www.hsxx.vn" . $url);
+        curl_setopt($ch, CURLOPT_URL, "https://www.hsx.vn" . $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $str = curl_exec($ch);
         curl_close($ch);
 
-        var_dump($str);
-
+        if($str === false) {
+            return false;
+        }
 
         $isin = false;
 
