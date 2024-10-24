@@ -29,7 +29,7 @@ class Finance_ISIN_VN extends Finance_ISIN
 
         $doc = new DOMDocument();
         $doc->loadHTML($a);
-        $url = $doc->getElementByTagName('a')[0]->getAttribute('href');
+        $url = $doc->getElementsByTagName('a')[0]->getAttribute('href');
 
         var_dump($url);
         die('test');
