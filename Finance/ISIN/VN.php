@@ -31,8 +31,33 @@ class Finance_ISIN_VN extends Finance_ISIN
         $doc->loadHTML($a);
         $url = $doc->getElementsByTagName('a')[0]->getAttribute('href');
 
-        var_dump($url);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://www.hsx.vn" . $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $str = curl_exec($ch);
+        curl_close($ch);
+
+
+        $isin = false;
+
+        libxml_use_internal_errors(true);
+        $dom = new DOMDocument();
+        $dom->loadHTML($str);
+        $xpath = new DomXPath($dom);
+        $items = $xpath->query("//strong[@class='bsg-fs-header__subitem']");
+        foreach($items as $item) {
+            if(substr($item->nodeValue, 0, 5) != 'ISIN ') {
+                continue;
+            }
+            $isin = substr($item->nodeValue, 5);
+
+
+        }
+
+        var_dump($isin);
         die('test');
+
+        return $isin;
 
 
         /*
