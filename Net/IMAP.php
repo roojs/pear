@@ -949,7 +949,7 @@ class Net_IMAP extends Net_IMAP_Protocol
                 }
             }
         }
-        $part->filename = $_structure[4];
+        $part->filename = $_structure[4] == 'NIL' ? '' :  $_structure[4];
         $part->encoding = strtoupper($_structure[5]);
         $part->bytes    = $_structure[6];
         
