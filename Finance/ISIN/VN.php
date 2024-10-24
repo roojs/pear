@@ -44,7 +44,7 @@ class Finance_ISIN_VN extends Finance_ISIN
         $dom = new DOMDocument();
         $dom->loadHTML($str);
         $xpath = new DomXPath($dom);
-        $items = $xpath->query("//div[@id='symbolHistoryOverview']/table[@class='member-info']");
+        $items = $xpath->query("//div[@id='symbolHistoryOverview']/table[@class='member-info']/tr");
         foreach($items as $item) {
             var_dump($item);
 
