@@ -11,7 +11,7 @@ class Finance_ISIN_VN extends Finance_ISIN
         $ar = explode('.', $stockcode);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, "https://www.hsx.vn/Areas/Desktop/Web/Search?q={$ar[0]}&_search=false&rows=30&page=1&sidx=id&sord=desc");   
+        curl_setopt($ch, CURLOPT_URL, "https://www.hsx.vn/Areas/Desktop/Web/Searchh?q={$ar[0]}&_search=false&rows=30&page=1&sidx=id&sord=desc");   
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $str = curl_exec($ch);
         curl_close($ch);
