@@ -27,6 +27,10 @@ class Finance_ISIN_VN extends Finance_ISIN
             }
         }
 
+        if($a === false) {
+            return false; // not found
+        }
+
         $doc = new DOMDocument();
         $doc->loadHTML($a);
         $url = $doc->getElementsByTagName('a')[0]->getAttribute('href');
