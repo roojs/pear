@@ -44,7 +44,7 @@ class Finance_ISIN_VN extends Finance_ISIN
         $dom = new DOMDocument();
         $dom->loadHTML($str);
         $xpath = new DomXPath($dom);
-        $items = $xpath->query("//strong[@class='bsg-fs-header__subitem']");
+        $items = $xpath->query("//div[@id='symbolHistoryOverview']/table[@class='member-info']");
         foreach($items as $item) {
             if(substr($item->nodeValue, 0, 5) != 'ISIN ') {
                 continue;
