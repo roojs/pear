@@ -8,7 +8,6 @@ class Finance_ISIN_VN extends Finance_ISIN
             return $this->map[$stockcode];
         }
 
-        /*
         $ar = explode('.', $stockcode);
 
         $ch = curl_init();
@@ -34,6 +33,8 @@ class Finance_ISIN_VN extends Finance_ISIN
         curl_setopt($ch, CURLINFO_HEADER_OUT, true);
         $str = curl_exec($ch);
         curl_close($ch);
+
+        /*
 
         $isin = false;
 
