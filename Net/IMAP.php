@@ -51,7 +51,7 @@ class Net_IMAP extends Net_IMAP_Protocol
                       $debug = false)
     {
         $this->_debug = $debug;
-        var_dump($this->_debug);
+        
         parent::__construct();
         $ret             = $this->connect($host, $port, $enableSTARTTLS);
         $this->_encoding = $encoding;

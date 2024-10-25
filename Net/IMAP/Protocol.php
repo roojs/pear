@@ -2265,8 +2265,7 @@ class Net_IMAP_Protocol
      */
     function _arrayfyContent(&$str)
     {
-        echo "_arrayfyContent " . $str . "\n";
-       
+        
         $params_arr = array();
         $this->_getNextToken($str, $params);
         if ($params != '(') {
@@ -2508,9 +2507,10 @@ class Net_IMAP_Protocol
             if ($str_line[$pos] == '"') {
                 $this->_advanceOverStr($str_line, 
                                        $pos, 
-                                       $len, 
-                                       $startDelim, 
-                                       $stopDelim);
+                                       $len,
+                                       '"', '"');
+                                       //$startDelim, 
+                                       //$stopDelim);
             }
             if ($str_line[$pos] == $startDelim) {
                 $str_line_aux = $this->_getSubstr($str_line, $pos);
@@ -3465,7 +3465,7 @@ class Net_IMAP_Protocol
      */
     function _genericImapResponseParser(&$str, $cmdid = null)
     {
-        echo "parse response ". $str . "\n";
+        //echo "parse response ". $str . "\n";
         $result_array = array();
         if ($this->_unParsedReturn) {
             $unparsed_str = $str;
@@ -3599,7 +3599,7 @@ class Net_IMAP_Protocol
         $cmdid = $this->_getCmdId();
         $this->_putCMD($cmdid, $command, $params);
         $args = $this->_getRawResponse($cmdid);
-        echo "server got\n ";print_R($args);
+        //echo "server got\n ";print_R($args);
         return $this->_genericImapResponseParser($args, $cmdid);
     }
 
