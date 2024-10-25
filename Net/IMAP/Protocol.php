@@ -2763,7 +2763,7 @@ class Net_IMAP_Protocol
                 }
                 if (!isset($str[$pos]) ||  $str[$pos] != '"') {
                     $this->_protError('must be a "\"" but is a '
-                                      . '"' . $str[$pos] . '"!!!!', 
+                                      . '"' .  (isset($str[$pos]) ?  $str[$pos] : "????") . '"!!!!', 
                                       __LINE__, 
                                       __FILE__);
                 }
