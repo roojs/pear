@@ -216,7 +216,7 @@ class Net_IMAP_Protocol
         if ($error instanceOf PEAR_Error) {
             return $error;
         }
-        if ($port == 993) {
+        if ($port != 143) { // presume always encrypted unless 143!
             if (!$this->_socket->enableCrypto(true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) { 
                 return new PEAR_Error('Failed to set crypto');
             }
@@ -2761,7 +2761,7 @@ class Net_IMAP_Protocol
                         $pos++;
                     }
                 }
-                if ($str[$pos] != '"') {
+                if (!isset($str[$pos]) ||  $str[$pos] != '"') {
                     $this->_protError('must be a "\"" but is a '
                                       . '"' . $str[$pos] . '"!!!!', 
                                       __LINE__, 
