@@ -3594,7 +3594,7 @@ class Net_IMAP_Protocol
         $cmdid = $this->_getCmdId();
         $this->_putCMD($cmdid, $command, $params);
         $args = $this->_getRawResponse($cmdid);
-        print_R($args);
+        echo "server got\n ";print_R($args);
         return $this->_genericImapResponseParser($args, $cmdid);
     }
 
