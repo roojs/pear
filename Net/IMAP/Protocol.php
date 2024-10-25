@@ -2265,6 +2265,8 @@ class Net_IMAP_Protocol
      */
     function _arrayfyContent(&$str)
     {
+        echo "_arrayfyContent" . $str;
+       
         $params_arr = array();
         $this->_getNextToken($str, $params);
         if ($params != '(') {
@@ -2667,7 +2669,7 @@ class Net_IMAP_Protocol
                            $parenthesisIsToken = true,
                            $colonIsToken = true)
     {
-        echo "getNextToken {$str}\n";
+         
         
         $len          = $this->_getLineLength($str);
         $pos          = 0;
