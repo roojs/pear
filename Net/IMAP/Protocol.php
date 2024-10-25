@@ -2265,7 +2265,7 @@ class Net_IMAP_Protocol
      */
     function _arrayfyContent(&$str)
     {
-        echo "_arrayfyContent" . $str;
+        echo "_arrayfyContent " . $str . "\n";
        
         $params_arr = array();
         $this->_getNextToken($str, $params);
