@@ -3461,6 +3461,7 @@ class Net_IMAP_Protocol
      */
     function _genericImapResponseParser(&$str, $cmdid = null)
     {
+        echo "parse response ". $str . "\n";
         $result_array = array();
         if ($this->_unParsedReturn) {
             $unparsed_str = $str;
