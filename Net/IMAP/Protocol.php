@@ -2667,6 +2667,8 @@ class Net_IMAP_Protocol
                            $parenthesisIsToken = true,
                            $colonIsToken = true)
     {
+        echo "getNextToken {$str}\n";
+        
         $len          = $this->_getLineLength($str);
         $pos          = 0;
         $content_size = false;
