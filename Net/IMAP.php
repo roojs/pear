@@ -42,12 +42,16 @@ class Net_IMAP extends Net_IMAP_Protocol
      * @param int    $port           The port to connect to.
      * @param bool   $enableSTARTTLS Enable STARTTLS support
      * @param string $encoding       Character encoding
+     * @param bool $debug  Debuggin
      */
     function __construct($host = 'localhost',
                       $port = 143, 
                       $enableSTARTTLS = true,
-                      $encoding = 'ISO-8859-1')
+                      $encoding = 'ISO-8859-1',
+                      $debug = false)
     {
+        $this->_debug = $debug;
+        
         parent::__construct();
         $ret             = $this->connect($host, $port, $enableSTARTTLS);
         $this->_encoding = $encoding;
@@ -319,8 +323,10 @@ class Net_IMAP extends Net_IMAP_Protocol
                                   . ', ' 
                                   . $ret['RESPONSE']['STR_CODE']);
         }
+        
         $ret = $ret['PARSED'][0]['EXT'][$command]['CONTENT'];
-        return $ret;
+        
+        return $ret == 'NIL' ? '' : $ret;
     }
 
 
@@ -354,14 +360,18 @@ class Net_IMAP extends Net_IMAP_Protocol
 
         if ($ret instanceOf PEAR_Error) {
             return $ret;
-        }
+        } 
 
         $raw_headers = rtrim($ret);
         // Unfold headers
         $raw_headers = preg_replace("/\r\n[ \t]+/", ' ', $raw_headers);
         $raw_headers = explode("\r\n", $raw_headers);
+        $headers = array();
         foreach ($raw_headers as $value) {
             $name = substr($value, 0, $pos = strpos($value, ':'));
+            if (empty($name)) {
+                continue;
+            }
             if ($keysToUpper) {
                 $name = strtoupper($name);
             }
@@ -939,7 +949,7 @@ class Net_IMAP extends Net_IMAP_Protocol
                 }
             }
         }
-        $part->filename = $_structure[4];
+        $part->filename = $_structure[4] == 'NIL' ? '' :  $_structure[4];
         $part->encoding = strtoupper($_structure[5]);
         $part->bytes    = $_structure[6];
         

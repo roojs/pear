@@ -216,7 +216,7 @@ class Net_IMAP_Protocol
         if ($error instanceOf PEAR_Error) {
             return $error;
         }
-        if ($port == 993) {
+        if ($port != 143) { // presume always encrypted unless 143!
             if (!$this->_socket->enableCrypto(true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) { 
                 return new PEAR_Error('Failed to set crypto');
             }
@@ -2265,6 +2265,7 @@ class Net_IMAP_Protocol
      */
     function _arrayfyContent(&$str)
     {
+        
         $params_arr = array();
         $this->_getNextToken($str, $params);
         if ($params != '(') {
@@ -2506,9 +2507,10 @@ class Net_IMAP_Protocol
             if ($str_line[$pos] == '"') {
                 $this->_advanceOverStr($str_line, 
                                        $pos, 
-                                       $len, 
-                                       $startDelim, 
-                                       $stopDelim);
+                                       $len,
+                                       '"', '"');
+                                       //$startDelim, 
+                                       //$stopDelim);
             }
             if ($str_line[$pos] == $startDelim) {
                 $str_line_aux = $this->_getSubstr($str_line, $pos);
@@ -2667,6 +2669,8 @@ class Net_IMAP_Protocol
                            $parenthesisIsToken = true,
                            $colonIsToken = true)
     {
+         
+        
         $len          = $this->_getLineLength($str);
         $pos          = 0;
         $content_size = false;
@@ -2761,9 +2765,9 @@ class Net_IMAP_Protocol
                         $pos++;
                     }
                 }
-                if ($str[$pos] != '"') {
+                if (!isset($str[$pos]) ||  $str[$pos] != '"') {
                     $this->_protError('must be a "\"" but is a '
-                                      . '"' . $str[$pos] . '"!!!!', 
+                                      . '"' .  (isset($str[$pos]) ?  $str[$pos] : "????") . '"!!!!', 
                                       __LINE__, 
                                       __FILE__);
                 }
@@ -3461,6 +3465,7 @@ class Net_IMAP_Protocol
      */
     function _genericImapResponseParser(&$str, $cmdid = null)
     {
+        //echo "parse response ". $str . "\n";
         $result_array = array();
         if ($this->_unParsedReturn) {
             $unparsed_str = $str;
@@ -3594,6 +3599,7 @@ class Net_IMAP_Protocol
         $cmdid = $this->_getCmdId();
         $this->_putCMD($cmdid, $command, $params);
         $args = $this->_getRawResponse($cmdid);
+        //echo "server got\n ";print_R($args);
         return $this->_genericImapResponseParser($args, $cmdid);
     }
 
