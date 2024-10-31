@@ -868,7 +868,7 @@ class Net_IMAP extends Net_IMAP_Protocol
             }
         }
         
-        if (is_array($subMimeParts)) {
+        if (isset($subMimeParts) && is_array($subMimeParts)) {
             $part->subParts = $subMimeParts;
         }
         $part->partID = $_partID;
