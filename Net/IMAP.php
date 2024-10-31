@@ -663,24 +663,24 @@ class Net_IMAP extends Net_IMAP_Protocol
             $this->_parseStructureMultipartArray($_structure, $_mimeParts, $_partID);
         } else {
             switch (strtoupper($_structure[0])) {
-            case 'TEXT':
-                $this->_parseStructureTextArray($_structure, 
-                                                $_mimeParts, 
-                                                $partID . $subPartID);
-                break;
-
-            case 'MESSAGE':
-                $this->_parseStructureMessageArray($_structure, 
-                                                   $_mimeParts, 
-                                                   $partID . $subPartID);
-                break;
-
-            default:
-                $this->_parseStructureApplicationArray($_structure, 
+                case 'TEXT':
+                    $this->_parseStructureTextArray($_structure, 
+                                                    $_mimeParts, 
+                                                    $partID . $subPartID);
+                    break;
+    
+                case 'MESSAGE':
+                    $this->_parseStructureMessageArray($_structure, 
                                                        $_mimeParts, 
                                                        $partID . $subPartID);
-                break;
-            }
+                    break;
+    
+                default:
+                    $this->_parseStructureApplicationArray($_structure, 
+                                                           $_mimeParts, 
+                                                           $partID . $subPartID);
+                    break;
+                }
         }
     }
     
@@ -852,7 +852,7 @@ class Net_IMAP extends Net_IMAP_Protocol
      */
     function _parseStructureMessageArray($_structure, &$_mimeParts, $_partID)
     {
-        // print "Net_IMAP::_parseStructureMessageArray _partID: $_partID<br>";
+        //echo  "Net_IMAP::_parseStructureMessageArray _partID: $_partID\n";
         $part = $this->_parseStructureCommonFields($_structure);
         
         if (is_array($_structure[8][0])) {
@@ -861,9 +861,11 @@ class Net_IMAP extends Net_IMAP_Protocol
                                                  $_partID . '.1', 
                                                  true);
         } else {
-            $this->_parseStructureArray($_structure[8], 
-                                        $subMimeParts, 
+            if ($_structure[1] != 'delivery-status') {
+                $this->_parseStructureArray($_structure[8], 
+                                         $subMimeParts, 
                                         $_partID);
+            }
         }
         
         if (is_array($subMimeParts)) {
@@ -938,6 +940,7 @@ class Net_IMAP extends Net_IMAP_Protocol
     function _parseStructureCommonFields(&$_structure) 
     {
         // print "Net_IMAP::_parseStructureTextArray _partID: $_partID<br>";
+         
         $part          = new stdClass;
         $part->type    = strtoupper($_structure[0]);
         $part->subType = strtoupper($_structure[1]);
