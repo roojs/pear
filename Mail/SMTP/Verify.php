@@ -1,9 +1,11 @@
 <?PHP
+
 require_once 'Mail/smtpmx.php';
+require_once 'Net/SMTP.php';
 
 class Mail_SMTP_Verify extends Mail_smtpmx {
     /**
-     * Implements Mail::send() function using SMTP direct delivery
+     * Implements Mail::verify() function using SMTP direct delivery
      *
      * @access public
      * @param mixed $recipients in RFC822 style or array
@@ -11,7 +13,7 @@ class Mail_SMTP_Verify extends Mail_smtpmx {
      * @param string $body The full text of the message body,
      * @return mixed Returns true on success, or a PEAR_Error
      */
-    function send($recipients, $headers, $body)
+    function verify($recipients, $headers, $body)
     {
         if (!is_array($headers)) {
             return PEAR::raiseError('$headers must be an array');
