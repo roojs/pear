@@ -1,3 +1,4 @@
+<?PHP
 require_once 'Mail/smtpmx.php';
 
 class Mail_SMTP_Verify extends Mail_smtpmx {
