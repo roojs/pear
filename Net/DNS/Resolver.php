@@ -626,6 +626,7 @@ class Net_DNS_Resolver
      */
     function rawQuery($name, $type = 'A', $class = 'IN')
     {
+        var_dump($name);
         /*
          * If the name does not contain any dots then append the default domain.
          */
