@@ -419,6 +419,7 @@ class Mail_smtpmx extends Mail {
         $mx = array();
 
         if ($this->withNetDns) {
+            var_dump('DDD');
             $res = $this->_loadNetDns();
             if (is_a($res, 'PEAR_Error')) {
                 return $res;
