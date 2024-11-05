@@ -297,7 +297,7 @@ class Mail_smtpmx extends Mail {
             return $this->_raiseError('no_from');
         }
 
-        var_dump('A');
+        var_dump($recipients);
 
         // Prepare recipients
         $recipients = $this->parseRecipients($recipients);
