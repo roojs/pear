@@ -469,6 +469,8 @@ class Mail_smtpmx extends Mail {
             return $this->_raiseError('no_resolver');
         }
 
+        var_dump('GGG');
+
         $this->resolver = new Net_DNS_Resolver();
         if ($this->debug) {
             $this->resolver->test = 1;
