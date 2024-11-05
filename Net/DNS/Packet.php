@@ -563,8 +563,9 @@ class Net_DNS_Packet
         $ttl = $a['ttl'];
         $rdlength = $a['rdlength'];
 
-        $type = Net_DNS::typesbyval($type);
-        $class = Net_DNS::classesbyval($class);
+        $netDns = new Net_DNS();
+        $type = $netDns->typesbyval($type);
+        $class = $netDns->classesbyval($class);
 
         $offset += 10;
         if (strlen($data) < ($offset + $rdlength)) {
