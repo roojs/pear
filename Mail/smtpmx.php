@@ -372,8 +372,6 @@ class Mail_smtpmx extends Mail {
                 return $this->_raiseError('failed_set_rcpt', $info);
             }
 
-            var_dump($this->test);
-
             // Don't send anything in test mode
             if ($this->test) {
                 $result = $this->_smtp->rset();
