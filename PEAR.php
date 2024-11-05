@@ -500,6 +500,8 @@ class PEAR
             }
         }
 
+        var_dump($mode);
+
         // No mode given, try global ones
         if ($mode === null) {
             // Class error handler
