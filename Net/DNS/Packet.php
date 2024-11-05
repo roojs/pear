@@ -140,7 +140,8 @@ class Net_DNS_Packet
      *
      * @param boolean $debug Turns debugging on or off
      */
-    function Net_DNS_Packet($debug = false)
+    // function Net_DNS_Packet($debug = false)
+    function __construct($debug = false)
     {
         $this->debug = $debug;
         $this->compnames = array();
