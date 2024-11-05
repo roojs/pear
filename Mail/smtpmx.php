@@ -420,10 +420,9 @@ class Mail_smtpmx extends Mail {
 
             $response = $this->resolver->query($host, 'MX');
             if (!$response) {
+                die('test');
                 return false;
             }
-
-            var_dump($response);
 
             foreach ($response->answer as $rr) {
                 if ($rr->type == 'MX') {
