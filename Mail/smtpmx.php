@@ -284,6 +284,7 @@ class Mail_smtpmx extends Mail {
 
         // Prepare headers
         $headerElements = $this->prepareHeaders($headers);
+        var_dump($headerElements);
         if (is_a($headerElements, 'PEAR_Error')) {
             return $headerElements;
         }
