@@ -39,6 +39,8 @@ class Net_DNS_Question
         $qtype  = !is_null($qtype)  ? strtoupper($qtype)  : 'ANY';
         $qclass = !is_null($qclass) ? strtoupper($qclass) : 'ANY';
 
+        $ndns = new Net_DNS();
+
         // Check if the caller has the type and class reversed.
         // We are not that kind for unknown types.... :-)
         if ( ( is_null(Net_DNS::typesbyname($qtype)) ||
