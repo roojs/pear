@@ -696,9 +696,7 @@ class Net_DNS_Resolver
     function send($packetORname, $qtype = '', $qclass = '')
     {
         $packet = $this->make_query_packet($packetORname, $qtype, $qclass);
-        var_dump($packet);
         $packet_data = $packet->data();
-        var_dump($packet_data);
 
         if (($this->usevc != 0) || (strlen($packet_data) > 512)) {
             $ans = $this->send_tcp($packet, $packet_data);
