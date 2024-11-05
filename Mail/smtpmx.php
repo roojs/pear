@@ -306,16 +306,10 @@ class Mail_smtpmx extends Mail {
         foreach ($recipients as $rcpt) {
             list($user, $host) = explode('@', $rcpt);
 
-            var_dumP('A');
-
             $mx = $this->_getMx($host);
-            var_dumP('B');
             if (is_a($mx, 'PEAR_Error')) {
-                var_dumP('C');
                 return $mx;
             }
-
-            var_dumP('D');
 
             if (empty($mx)) {
                 $info = array('rcpt' => $rcpt);
@@ -419,7 +413,6 @@ class Mail_smtpmx extends Mail {
         $mx = array();
 
         if ($this->withNetDns) {
-            var_dump('DDD');
             $res = $this->_loadNetDns();
             if (is_a($res, 'PEAR_Error')) {
                 return $res;
@@ -459,19 +452,13 @@ class Mail_smtpmx extends Mail {
      */
     function _loadNetDns()
     {
-        var_dump('EEE');
         if (is_object($this->resolver)) {
-            var_dump('FFF');
             return true;
         }
 
-        var_dump('HHH');
         if (!include_once 'Net/DNS.php') {
-            var_dump('RRR');
             return $this->_raiseError('no_resolver');
         }
-
-        var_dump('GGG');
 
         $this->resolver = new Net_DNS_Resolver();
         if ($this->debug) {
