@@ -423,6 +423,8 @@ class Mail_smtpmx extends Mail {
                 return false;
             }
 
+            var_dump($response);
+
             foreach ($response->answer as $rr) {
                 if ($rr->type == 'MX') {
                     $mx[$rr->exchange] = $rr->preference;
