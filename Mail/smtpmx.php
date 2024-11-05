@@ -306,16 +306,16 @@ class Mail_smtpmx extends Mail {
         foreach ($recipients as $rcpt) {
             list($user, $host) = explode('@', $rcpt);
 
-            var_dumP($host);
+            var_dumP('A');
 
             $mx = $this->_getMx($host);
-            var_dumP($mx);
+            var_dumP('B');
             if (is_a($mx, 'PEAR_Error')) {
-                var_dumP($mx);
+                var_dumP('C');
                 return $mx;
             }
 
-            var_dumP($mx);
+            var_dumP('D');
 
             if (empty($mx)) {
                 $info = array('rcpt' => $rcpt);
