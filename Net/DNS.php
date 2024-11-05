@@ -126,7 +126,7 @@ class Net_DNS
                 'NS_NOTIFY_OP' => 4,   // RFC 1996
                 'UPDATE'       => 5,   // RFC 2136
                 );
-        if (! strlen($op[$opcode])) {
+        if (!isset($op[$opcode] || ! strlen($op[$opcode])) {
             $op[$opcode] = null;
         }
         return $op[$opcode];
@@ -197,7 +197,7 @@ class Net_DNS
                 'NOTAUTH'   => 9,   // RFC 2136
                 'NOTZONE'   => 10,    // RFC 2136
                 );
-        if (! strlen($rc[$rcode])) {
+        if (!isset($rc[$rcode] || ! strlen($rc[$rcode])) {
             $rc[$rcode] = null;
         }
         return $rc[$rcode];
