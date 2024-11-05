@@ -522,8 +522,9 @@ class Net_DNS_Packet
         $qclass = $q['int2'];
         $offset += 4;
 
-        $qtype = Net_DNS::typesbyval($qtype);
-        $qclass = Net_DNS::classesbyval($qclass);
+        $netDns = new Net_DNS();
+        $qtype = $netDns->typesbyval($qtype);
+        $qclass = $netDns->classesbyval($qclass);
 
         $q = new Net_DNS_Question($qname, $qtype, $qclass);
         return array($q, $offset);
