@@ -632,7 +632,6 @@ class Net_DNS_Resolver
         if ((strchr($name, '.') < 0) && $this->defnames) {
             $name .= '.' . $this->domain;
         }
-        var_dump($name);
 
         /*
          * If the name looks like an IP address then do an appropriate
