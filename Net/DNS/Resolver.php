@@ -630,6 +630,7 @@ class Net_DNS_Resolver
          * If the name does not contain any dots then append the default domain.
          */
         var_dump(strchr($name, '.'));
+        var_dump(strchr($name, '.') < 0);
         if ((strchr($name, '.') < 0) && $this->defnames) {
             $name .= '.' . $this->domain;
         }
