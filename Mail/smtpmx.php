@@ -461,6 +461,7 @@ class Mail_smtpmx extends Mail {
     {
         var_dump('EEE');
         if (is_object($this->resolver)) {
+            var_dump('FFF');
             return true;
         }
 
