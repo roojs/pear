@@ -131,6 +131,7 @@ class Net_DNS
         }
         var_dump($opcode);
         var_dump($op[$opcode]);
+        var_dump($null);
         return $op[$opcode];
     }
 
