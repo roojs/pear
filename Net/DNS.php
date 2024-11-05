@@ -95,7 +95,7 @@ class Net_DNS
      * @return Net_DNS
      */
     // function Net_DNS($defaults = array())
-    function __construct($debug = false)
+    function __construct($defaults = array())
     {
         $this->resolver = new Net_DNS_Resolver($defaults);
     }
