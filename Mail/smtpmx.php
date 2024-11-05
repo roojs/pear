@@ -309,6 +309,7 @@ class Mail_smtpmx extends Mail {
             var_dumP($host);
 
             $mx = $this->_getMx($host);
+            var_dumP($mx);
             if (is_a($mx, 'PEAR_Error')) {
                 return $mx;
             }
