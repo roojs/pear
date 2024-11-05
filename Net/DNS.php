@@ -195,7 +195,7 @@ class Net_DNS
                 'YXRRSET'   => 7,   // RFC 2136
                 'NXRRSET'   => 8,   // RFC 2136
                 'NOTAUTH'   => 9,   // RFC 2136
-                'NOTZONE'   => 10    // RFC 2136
+                'NOTZONE'   => 10,    // RFC 2136
                 );
         if (! strlen($rc[$rcode])) {
             $rc[$rcode] = null;
