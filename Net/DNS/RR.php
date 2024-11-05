@@ -59,7 +59,8 @@ class Net_DNS_RR
      * @access private
      */
     /* class constructor - Net_DNS_RR($rrdata) {{{ */
-    function Net_DNS_RR($rrdata)
+    // function Net_DNS_RR($rrdata)
+    function __construct($rrdata)
     {
         if ($rrdata != 'getRR') { //BC check/warning remove later
             trigger_error("Please use Net_DNS_RR::factory() instead");
