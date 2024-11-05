@@ -34,7 +34,8 @@ class Net_DNS_Question
 
     /* }}} */
     /* class constructor Net_DNS_Question($qname, $qtype, $qclass) {{{ */
-    function Net_DNS_Question($qname, $qtype, $qclass)
+    // function Net_DNS_Question($qname, $qtype, $qclass)
+    function __construct($qname, $qtype, $qclass)
     {
         $qtype  = !is_null($qtype)  ? strtoupper($qtype)  : 'ANY';
         $qclass = !is_null($qclass) ? strtoupper($qclass) : 'ANY';
