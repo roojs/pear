@@ -54,7 +54,6 @@ class Net_DNS_Question
         $this->qname = $qname;
         $this->qtype = $qtype;
         $this->qclass = $qclass;
-        print_r($this);
     }
     /* }}} */
     /* Net_DNS_Question::display() {{{*/
