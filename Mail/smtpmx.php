@@ -459,6 +459,7 @@ class Mail_smtpmx extends Mail {
      */
     function _loadNetDns()
     {
+        var_dump('EEE');
         if (is_object($this->resolver)) {
             return true;
         }
