@@ -513,8 +513,6 @@ class PEAR
             }
         }
 
-        var_dump($mode);
-
         if ($error_class !== null) {
             $ec = $error_class;
         } elseif (isset($this) && isset($this->_error_class)) {
