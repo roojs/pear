@@ -626,13 +626,13 @@ class Net_DNS_Resolver
      */
     function rawQuery($name, $type = 'A', $class = 'IN')
     {
-        var_dump($name);
         /*
          * If the name does not contain any dots then append the default domain.
          */
         if ((strchr($name, '.') < 0) && $this->defnames) {
             $name .= '.' . $this->domain;
         }
+        var_dump($name);
 
         /*
          * If the name looks like an IP address then do an appropriate
