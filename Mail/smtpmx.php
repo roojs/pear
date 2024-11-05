@@ -420,7 +420,6 @@ class Mail_smtpmx extends Mail {
 
             $response = $this->resolver->query($host, 'MX');
             if (!$response) {
-                die('test');
                 return false;
             }
 
