@@ -306,6 +306,8 @@ class Mail_smtpmx extends Mail {
         foreach ($recipients as $rcpt) {
             list($user, $host) = explode('@', $rcpt);
 
+            var_dumP($host);
+
             $mx = $this->_getMx($host);
             if (is_a($mx, 'PEAR_Error')) {
                 return $mx;
