@@ -129,6 +129,7 @@ class Net_DNS
         if (! strlen($op[$opcode])) {
             $op[$opcode] = null;
         }
+        var_dump($op[$opcode]);
         return $op[$opcode];
     }
 
