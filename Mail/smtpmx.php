@@ -418,6 +418,8 @@ class Mail_smtpmx extends Mail {
                 return $res;
             }
 
+            var_dump($this->resolver);
+            die('test');
             $response = $this->resolver->query($host, 'MX');
             if (!$response) {
                 return false;
