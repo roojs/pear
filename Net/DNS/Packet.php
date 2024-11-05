@@ -161,7 +161,6 @@ class Net_DNS_Packet
         $this->header = new Net_DNS_Header();
         $this->header->qdcount = 1;
         $this->question[0] = new Net_DNS_Question($name, $type, $class);
-        var_dumP($this->question[0]);
         $this->answer = null;
         $this->authority = null;
         $this->additional = null;
