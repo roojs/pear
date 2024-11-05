@@ -74,6 +74,9 @@ class Net_DNS_Question
     /* Net_DNS_Question::data(&$packet, $offset) {{{*/
     function data($packet, $offset)
     {
+        var_dump($this->qname);
+        var_dump($ndns->typesbyname(strtoupper($this->qtype)));
+        var_dumP($ndns->classesbyname(strtoupper($this->qclass)));
         $ndns = new Net_DNS();
         $data = $packet->dn_comp($this->qname, $offset);
         $data .= pack('n', $ndns->typesbyname(strtoupper($this->qtype)));
