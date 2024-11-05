@@ -465,6 +465,7 @@ class Mail_smtpmx extends Mail {
             return true;
         }
 
+        var_dump('HHH');
         if (!include_once 'Net/DNS.php') {
             return $this->_raiseError('no_resolver');
         }
