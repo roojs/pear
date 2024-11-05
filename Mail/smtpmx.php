@@ -498,7 +498,6 @@ class Mail_smtpmx extends Mail {
 
         $p = new PEAR();
         return $p->raiseError($msg,$code);
-        //return PEAR::raiseError($msg, $code);
     }
 
 }
