@@ -160,7 +160,6 @@ class Net_DNS_Packet
     {
         $this->header = new Net_DNS_Header();
         $this->header->qdcount = 1;
-        var_dump('NET DNS QUESTION');
         $this->question[0] = new Net_DNS_Question($name, $type, $class);
         $this->answer = null;
         $this->authority = null;
