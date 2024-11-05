@@ -40,14 +40,14 @@ class Net_DNS_Question
         $qtype  = !is_null($qtype)  ? strtoupper($qtype)  : 'ANY';
         $qclass = !is_null($qclass) ? strtoupper($qclass) : 'ANY';
 
-        $ndns = new Net_DNS();
+        $netDns = new Net_DNS();
 
         // Check if the caller has the type and class reversed.
         // We are not that kind for unknown types.... :-)
-        if ( ( is_null($ndns->typesbyname($qtype)) ||
-               is_null($ndns->classesbyname($qtype)) )
-          && !is_null($ndns->classesbyname($qclass))
-          && !is_null($ndns->typesbyname($qclass)))
+        if ( ( is_null($netDns->typesbyname($qtype)) ||
+               is_null($netDns->classesbyname($qtype)) )
+          && !is_null($netDns->classesbyname($qclass))
+          && !is_null($netDns->typesbyname($qclass)))
         {
             list($qtype, $qclass) = array($qclass, $qtype);
         }
@@ -74,14 +74,10 @@ class Net_DNS_Question
     /* Net_DNS_Question::data(&$packet, $offset) {{{*/
     function data($packet, $offset)
     {
-        $ndns = new Net_DNS();
-        var_dump($this->qname);
-        var_dump($offset);
-        var_dump($ndns->typesbyname(strtoupper($this->qtype)));
-        var_dumP($ndns->classesbyname(strtoupper($this->qclass)));
+        $netDns = new Net_DNS();
         $data = $packet->dn_comp($this->qname, $offset);
-        $data .= pack('n', $ndns->typesbyname(strtoupper($this->qtype)));
-        $data .= pack('n', $ndns->classesbyname(strtoupper($this->qclass)));
+        $data .= pack('n', $netDns->typesbyname(strtoupper($this->qtype)));
+        $data .= pack('n', $netDns->classesbyname(strtoupper($this->qclass)));
         return $data;
     }
 
