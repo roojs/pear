@@ -417,7 +417,6 @@ class Mail_smtpmx extends Mail {
             if (is_a($res, 'PEAR_Error')) {
                 return $res;
             }
-            $this->resolver->debug = 1;
 
             $response = $this->resolver->query($host, 'MX');
             if (!$response) {
