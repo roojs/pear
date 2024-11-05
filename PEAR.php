@@ -500,8 +500,6 @@ class PEAR
             }
         }
 
-        var_dump($mode);
-
         // No mode given, try global ones
         if ($mode === null) {
             // Class error handler
@@ -514,6 +512,8 @@ class PEAR
                 $options = $GLOBALS['_PEAR_default_error_options'];
             }
         }
+
+        var_dump($mode);
 
         if ($error_class !== null) {
             $ec = $error_class;
