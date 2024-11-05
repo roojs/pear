@@ -43,7 +43,7 @@ class Net_DNS_Question
 
         // Check if the caller has the type and class reversed.
         // We are not that kind for unknown types.... :-)
-        if ( ( is_null(Net_DNS::typesbyname($qtype)) ||
+        if ( ( is_null($ndns->typesbyname($qtype)) ||
                is_null(Net_DNS::classesbyname($qtype)) )
           && !is_null(Net_DNS::classesbyname($qclass))
           && !is_null(Net_DNS::typesbyname($qclass)))
