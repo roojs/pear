@@ -327,10 +327,7 @@ class Net_DNS_Packet
         $nscount = $this->header->nscount;
         $arcount = $this->header->arcount;
         for ($ctr = 0; $ctr < $qdcount; $ctr++) {
-            var_dumP($this->question);
-            var_dumP($data);
             $data .= $this->question[$ctr]->data($this, strlen($data));
-            var_dump($data);
         }
 
         for ($ctr = 0; $ctr < $ancount; $ctr++) {
