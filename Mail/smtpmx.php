@@ -303,7 +303,7 @@ class Mail_smtpmx extends Mail {
             return $recipients;
         }
 
-        var_dump($recipeitns);
+        var_dump($recipeints);
 
         foreach ($recipients as $rcpt) {
             list($user, $host) = explode('@', $rcpt);
