@@ -425,8 +425,6 @@ class Mail_smtpmx extends Mail {
                 return $res;
             }
 
-            var_dump('DDD');
-
             $response = $this->resolver->query($host, 'MX');
             if (!$response) {
                 return false;
