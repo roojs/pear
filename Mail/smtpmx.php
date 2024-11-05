@@ -459,8 +459,6 @@ class Mail_smtpmx extends Mail {
         if (!include_once 'Net/DNS.php') {
             return $this->_raiseError('no_resolver');
         }
-        var_dump('LOAD NET DNS');
-        die('test');
 
         $this->resolver = new Net_DNS_Resolver();
         if ($this->debug) {
