@@ -983,6 +983,8 @@ class Net_DNS_Resolver
         $retrans = $this->retrans;
         $timeout = $retrans;
 
+        var_dump($this->nameservers);
+
         //$w = error_reporting(0);
         $ctr = 0;
         // Create a socket handle for each nameserver
