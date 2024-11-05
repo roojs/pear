@@ -1033,7 +1033,7 @@ class Net_DNS_Resolver
                 if ($this->debug) {
                     echo ";; timeout set to $timeout seconds\n";
                 }
-                $changed = socket_select($set, $w = null, $e = null, $timeout);
+                $changed = socket_select($set, null, $e = null, $timeout);
                 if ($changed) {
                     // Test to see if the connection was refused.  Linux servers will send
                     // an ICMP message which will cause the client's next system call to
