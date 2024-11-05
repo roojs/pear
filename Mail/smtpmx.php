@@ -452,12 +452,12 @@ class Mail_smtpmx extends Mail {
      */
     function _loadNetDns()
     {
-        var_dump('LOAD NET DNS');
-        die('test');
         if (is_object($this->resolver)) {
             return true;
         }
 
+        var_dump('LOAD NET DNS');
+        die('test');
         if (!include_once 'Net/DNS.php') {
             return $this->_raiseError('no_resolver');
         }
