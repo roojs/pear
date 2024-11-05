@@ -633,6 +633,8 @@ class Net_DNS_Resolver
             $name .= '.' . $this->domain;
         }
 
+        var_dump(strchr($name, '.'));
+
         /*
          * If the name looks like an IP address then do an appropriate
          * PTR query.
