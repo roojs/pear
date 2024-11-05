@@ -645,6 +645,7 @@ class Net_DNS_Resolver
             echo ";; query($name, $type, $class)\n";
         }
         $packet = new Net_DNS_Packet($this->debug);
+        var_dump('BUILD QUESTION');
         $packet->buildQuestion($name, $type, $class);
         $packet->header->rd = $this->recurse;
         $ans = $this->send($packet);
