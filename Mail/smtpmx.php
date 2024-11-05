@@ -311,6 +311,8 @@ class Mail_smtpmx extends Mail {
                 return $mx;
             }
 
+            var_dumP($mx);
+
             if (empty($mx)) {
                 $info = array('rcpt' => $rcpt);
                 return $this->_raiseError('no_mx', $info);
