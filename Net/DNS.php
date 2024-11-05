@@ -152,7 +152,7 @@ class Net_DNS
                 4 => 'NS_NOTIFY_OP',
                 5 => 'UPDATE',
                 );
-        if (! strlen($opval[$opcodeval])) {
+        if (!isset($opval[$opcodeval] || ! strlen($opval[$opcodeval])) {
             $opval[$opcodeval] = null;
         }
         return $opval[$opcodeval];
