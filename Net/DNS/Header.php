@@ -140,8 +140,9 @@ class Net_DNS_Header
     // function Net_DNS_Header($data = '')
     function __construct($data = '')
     {
+        $netDnsResolver = new Net_DNS_Resolver();
         if (empty($data)) {
-            $this->id      = Net_DNS_Resolver::nextid();
+            $this->id      = $netDnsResolver->nextid();
             $this->qr      = 0;
             $this->opcode  = 0;
             $this->aa      = 0;
