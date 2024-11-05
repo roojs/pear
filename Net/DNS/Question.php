@@ -40,8 +40,6 @@ class Net_DNS_Question
         $qclass = !is_null($qclass) ? strtoupper($qclass) : 'ANY';
 
         $ndns = new Net_DNS();
-        var_dump($ndns);
-        die('test');
 
         // Check if the caller has the type and class reversed.
         // We are not that kind for unknown types.... :-)
