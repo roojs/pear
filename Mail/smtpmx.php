@@ -297,15 +297,11 @@ class Mail_smtpmx extends Mail {
             return $this->_raiseError('no_from');
         }
 
-        var_dump($recipients);
-
         // Prepare recipients
         $recipients = $this->parseRecipients($recipients);
         if (is_a($recipients, 'PEAR_Error')) {
             return $recipients;
         }
-
-        var_dump($recipients);
 
         foreach ($recipients as $rcpt) {
             list($user, $host) = explode('@', $rcpt);
