@@ -629,13 +629,10 @@ class Net_DNS_Resolver
         /*
          * If the name does not contain any dots then append the default domain.
          */
-        var_dump(strchr($name, '.'));
-        var_dump(strchr($name, '.') < 0);
-        if ((strchr($name, '.') < 0) && $this->defnames) {
+        var_dump(strpos($name, '.') === false);
+        if ((strpos($name, '.') === false) && $this->defnames) {
             $name .= '.' . $this->domain;
         }
-
-        var_dump(strchr($name, '.'));
 
         /*
          * If the name looks like an IP address then do an appropriate
