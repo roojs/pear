@@ -477,6 +477,15 @@ class Net_IMAP extends Net_IMAP_Protocol
 
         if (isset($ret['PARSED'])) {
             for ($i=0; $i<count($ret['PARSED']); $i++) {
+                
+                if (isset($ret['PARSED'][$i]['COMMAND']) && $ret['PARSED'][$i]['COMMAND'] != 'FETCH') {
+                    continue;
+                }
+                if (!isset( $ret['PARSED'][$i]['EXT']['ENVELOPE'])) {
+                    print_r($ret['PARSED'][$i]);
+                    die("missing envelope?\n");
+                }  
+                
                 $a                 = $ret['PARSED'][$i]['EXT']['ENVELOPE'];
                 $a['MSG_NUM']      = $ret["PARSED"][$i]['NRO'];
                 $a['UID']          = $ret["PARSED"][$i]['EXT']['UID'];
