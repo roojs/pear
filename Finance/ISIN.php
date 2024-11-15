@@ -74,7 +74,9 @@ class Finance_ISIN
         if(!empty($ret->isin)) {
             return $ret->isin;
         }
-
+        if(!empty($ret->isin_displayed)) {
+            return $ret->isin_displayed;
+        }
         return false;
     }
 
