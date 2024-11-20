@@ -257,7 +257,8 @@ class Net_DNS_Resolver
      *
      * @return Net_DNS_Resolver
      */
-    function Net_DNS_Resolver($defaults = array())
+    // function Net_DNS_Resolver($defaults = array())
+    function __construct($defaults = array())
     {
         $mydefaults = array(
                 'nameservers' => array(),
@@ -451,12 +452,13 @@ class Net_DNS_Resolver
     /**
      * Returns the next request Id to be used for the DNS packet header
      */
-    function nextid()
+    static function nextid()
     {
-		if (++$GLOBALS['_Net_DNS_packet_id'] > 65535) {
-            $GLOBALS['_Net_DNS_packet_id']= 1;
+        static $id  = 0;
+        if (++$id  > 65535) {
+            $id = 1;
         }
-        return $GLOBALS['_Net_DNS_packet_id'];
+        return $id;
     }
     /* }}} */
     /* Net_DNS_Resolver::nameservers() {{{ */
@@ -628,7 +630,7 @@ class Net_DNS_Resolver
         /*
          * If the name does not contain any dots then append the default domain.
          */
-        if ((strchr($name, '.') < 0) && $this->defnames) {
+        if ((strpos($name, '.') === false) && $this->defnames) {
             $name .= '.' . $this->domain;
         }
 
@@ -1032,7 +1034,9 @@ class Net_DNS_Resolver
                 if ($this->debug) {
                     echo ";; timeout set to $timeout seconds\n";
                 }
-                $changed = socket_select($set, $w = null, $e = null, $timeout);
+                $w = null;
+                $e = null;
+                $changed = socket_select($set, $w, $e, $timeout);
                 if ($changed) {
                     // Test to see if the connection was refused.  Linux servers will send
                     // an ICMP message which will cause the client's next system call to

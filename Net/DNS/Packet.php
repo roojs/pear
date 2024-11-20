@@ -140,7 +140,8 @@ class Net_DNS_Packet
      *
      * @param boolean $debug Turns debugging on or off
      */
-    function Net_DNS_Packet($debug = false)
+    // function Net_DNS_Packet($debug = false)
+    function __construct($debug = false)
     {
         $this->debug = $debug;
         $this->compnames = array();
@@ -521,6 +522,7 @@ class Net_DNS_Packet
         $qclass = $q['int2'];
         $offset += 4;
 
+        
         $qtype = Net_DNS::typesbyval($qtype);
         $qclass = Net_DNS::classesbyval($qclass);
 
@@ -561,6 +563,7 @@ class Net_DNS_Packet
         $ttl = $a['ttl'];
         $rdlength = $a['rdlength'];
 
+        
         $type = Net_DNS::typesbyval($type);
         $class = Net_DNS::classesbyval($class);
 
@@ -569,7 +572,8 @@ class Net_DNS_Packet
             return array(null, null);
         }
 
-        $rrobj = &Net_DNS_RR::factory(array($name,
+
+        $rrobj = Net_DNS_RR::factory(array($name,
                     $type,
                     $class,
                     $ttl,

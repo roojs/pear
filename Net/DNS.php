@@ -94,7 +94,8 @@ class Net_DNS
      * @param array $defaults
      * @return Net_DNS
      */
-    function Net_DNS($defaults = array())
+    // function Net_DNS($defaults = array())
+    function __construct($defaults = array())
     {
         $this->resolver = new Net_DNS_Resolver($defaults);
     }
@@ -117,9 +118,9 @@ class Net_DNS
      * @return  integer The integer value of an OPCODE
      * @see     Net_DNS::opcodesbyval()
      */
-    function opcodesbyname($opcode)
+    static function opcodesbyname($opcode)
     {
-        $op = array(
+        static $op = array(
                 'QUERY'        => 0,   // RFC 1035
                 'IQUERY'       => 1,   // RFC 1035
                 'STATUS'       => 2,   // RFC 1035
@@ -143,9 +144,9 @@ class Net_DNS
      * @return  string  The name of the OPCODE
      * @see     Net_DNS::opcodesbyname()
      */
-    function opcodesbyval($opcodeval)
+    static function opcodesbyval($opcodeval)
     {
-        $opval = array(
+        static $opval = array(
                 0 => 'QUERY',
                 1 => 'IQUERY',
                 2 => 'STATUS',
@@ -182,9 +183,9 @@ class Net_DNS
      * @return  integer The integer value of an RCODE
      * @see     Net_DNS::rcodesbyval()
      */
-    function rcodesbyname($rcode)
+    static function rcodesbyname($rcode)
     {
-        $rc = array(
+        static $rc = array(
                 'NOERROR'   => 0,   // RFC 1035
                 'FORMERR'   => 1,   // RFC 1035
                 'SERVFAIL'  => 2,   // RFC 1035
@@ -214,9 +215,9 @@ class Net_DNS
      * @return  string  The name of the RCODE
      * @see     Net_DNS::rcodesbyname()
      */
-    function rcodesbyval($rcodeval)
+    static function rcodesbyval($rcodeval)
     {
-        $rc = array(
+        static $rc = array(
                 0 => 'NOERROR',
                 1 => 'FORMERR',
                 2 => 'SERVFAIL',
@@ -296,9 +297,9 @@ class Net_DNS
      * @return  integer The integer value of an RR type
      * @see     Net_DNS::typesbyval()
      */
-    function typesbyname($rrtype)
+    static function typesbyname($rrtype)
     {
-        $rc = array(
+        static $rc = array(
                 'A'             => 1,
                 'NS'            => 2,
                 'MD'            => 3,
@@ -363,9 +364,9 @@ class Net_DNS
      * @return  string  The name of the RR type
      * @see     Net_DNS::typesbyname()
      */
-    function typesbyval($rrtypeval)
+    static function typesbyval($rrtypeval)
     {
-        $rc = array(
+        static $rc = array(
                 1 => 'A',
                 2 => 'NS',
                 3 => 'MD',
@@ -437,9 +438,9 @@ class Net_DNS
      * @return  integer The integer value of an class type
      * @see     Net_DNS::classesbyval()
      */
-    function classesbyname($class)
+    static function classesbyname($class)
     {
-        $rc = array(
+        static $rc = array(
                 'IN'   => 1,   // RFC 1035
                 'CH'   => 3,   // RFC 1035
                 'HS'   => 4,   // RFC 1035
@@ -463,9 +464,9 @@ class Net_DNS
      * @return  string  The name of the RR class
      * @see     Net_DNS::classesbyname()
      */
-    function classesbyval($classval)
+    static function classesbyval($classval)
     {
-        $rc = array(
+        static $rc = array(
                 1 => 'IN',
                 3 => 'CH',
                 4 => 'HS',
