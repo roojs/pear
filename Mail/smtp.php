@@ -169,6 +169,11 @@ class Mail_smtp extends Mail {
      * @var bool
      */
     var $pipelining;
+    /**
+     * Use STARTTLS
+     * @var bool
+     */
+    var $tls = false;
 
     /**
      * @see  stream_context_create
@@ -201,6 +206,7 @@ class Mail_smtp extends Mail {
      *     debug_handler    Callable for SMTP debug mode? Defaults to null
      *     persist     Should the SMTP connection persist?
      *     pipelining  Use SMTP command pipelining
+     *     tls         Use STARTTLS
      *
      * If a parameter is present in the $params array, it replaces the
      * default.
@@ -223,6 +229,7 @@ class Mail_smtp extends Mail {
         if (isset($params['persist'])) $this->persist = (bool)$params['persist'];
         if (isset($params['pipelining'])) $this->pipelining = (bool)$params['pipelining'];
         if (isset($params['socket_options'])) $this->socket_options = $params['socket_options'];
+        if (isset($params['tls'])) $this->socket_options = $params['tls'];
 
         // Deprecated options
         if (isset($params['verp'])) {
@@ -468,7 +475,9 @@ class Mail_smtp extends Mail {
 
             if (PEAR::isError($res = $this->_smtp->auth($this->username,
                                                         $this->password,
-                                                        $method))) {
+                                                        $method,
+                                                        $this->tls
+                                                    ))) {
                 
                 list($code, $error) =$this->_error("$method authentication failure",
                                        $res);
