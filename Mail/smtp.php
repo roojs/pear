@@ -319,28 +319,11 @@ class Mail_smtp extends Mail {
             
             if($code == 530 && preg_match("/STARTTLS/", implode("", $this->_smtp->_arguments))) {
                 /* Issue a STARTTLS after getting "530 Must issue a STARTTLS command first"  */
-                if (PEAR::isError($res = $this->_smtp->starttls())) {
-                    list($code, $error) = $this->_error('Failed to issue a STARTTLS after getting "530 Must issue a STARTTLS command first"', $res);
-                    $txt = implode("\n" , $this->_smtp->_arguments);
-                    return $this->raiseError($error, null,
-                            null,null,    array(
-                                'smtpcode' => $code,
-                                'smtptext' => $txt
-                            ));
+                
+                if (PEAR::isError($res = $this->upgradeToTLS())) {
+                    return $res;
                 }
-
-                /* Upon completion of the TLS handshake, the SMTP protocol is reset to the initial state */
-                /* Send EHLO again */
-                if (PEAR::isError($res = $this->_smtp->_negotiate())) {
-                    list($code, $error) = $this->_error('Failed to negotiate after TLS handshake', $res);
-                    $txt = implode("\n" , $this->_smtp->_arguments);
-                    return $this->raiseError($error, null,
-                            null,null,    array(
-                                    'smtpcode' => $code,
-                                    'smtptext' => $txt
-                            ));
-                }
-
+ 
                 /* Set sender again */
                 $mailFromError = false;
                 if (PEAR::isError($res = $this->_smtp->mailFrom($from, ltrim($params)))) {
@@ -479,22 +462,61 @@ class Mail_smtp extends Mail {
                                                         $this->tls
                                                     ))) {
                 
-                list($code, $error) =$this->_error("$method authentication failure",
-                                       $res);
+                list($code, $error) =$this->_error("$method authentication failure",  $res);
                 $txt = implode("\n" , $this->_smtp->_arguments);
                 $this->_smtp->rset();
-                return $p = new PEAR();raiseError($error, PEAR_MAIL_SMTP_ERROR_AUTH,
+                return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_AUTH,
                     null,null,    array(
                             'smtpcode' => $code,
                             'smtptext' => $txt
                     )
                 );
             }
+        } else {
+            if ($this->tls) {
+                if (PEAR::isError($res = $this->upgradeToTLS())) {
+                    return $res;
+                }
+                
+            }
         }
 
         return $this->_smtp;
     }
+    /**
+     * Upgrade to a TLS connection - and resend helo
+     * @return (bool|PEAR_Error)
+     */
+    function upgradeToTLS()
+    {
+        /* Issue a STARTTLS after getting "530 Must issue a STARTTLS command first"  */
+        if (PEAR::isError($res = $this->_smtp->starttls())) {
+            //??? why?
+            list($code, $error) = $this->_error('Failed to issue a STARTTLS after getting "530 Must issue a STARTTLS command first"', $res);
+            $txt = implode("\n" , $this->_smtp->_arguments);
+            return $this->raiseError($error, null,
+                    null,null,    array(
+                        'smtpcode' => $code,
+                        'smtptext' => $txt
+                    ));
+        }
 
+        /* Upon completion of the TLS handshake, the SMTP protocol is reset to the initial state */
+        /* Send EHLO again */
+        if (PEAR::isError($res = $this->_smtp->_negotiate())) {
+            list($code, $error) = $this->_error('Failed to negotiate after TLS handshake', $res);
+            $txt = implode("\n" , $this->_smtp->_arguments);
+            return $this->raiseError($error, null,
+                    null,null,    array(
+                            'smtpcode' => $code,
+                            'smtptext' => $txt
+                    ));
+        }
+        $this->tls = false; /// no need to upgrade anymore
+        return true;
+        
+    }
+    
     /**
      * Add parameter associated with a SMTP service extension.
      *
