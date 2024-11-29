@@ -2927,8 +2927,9 @@ class Net_IMAP_Protocol
             // The command
             $this->_getNextToken($str, $token);
             $token = strtoupper($token);
-
+           // var_dump($token);
             if (($ret = $this->_retrParsedResponse($str, $token)) != false) {
+              //  var_dump($ret);
                 //$struct_arr[$token] = $ret;
                 $struct_arr = array_merge($struct_arr, $ret);
             }
@@ -2982,8 +2983,8 @@ class Net_IMAP_Protocol
 
         case 'FLAGS':
         case 'PERMANENTFLAGS':
-            return array($token => $this->_parseFLAGSresponse($str));
-            break;
+            return  array($token => $this->_parseFLAGSresponse($str));
+            
 
         case 'ENVELOPE':
             return array($token => $this->_parseENVELOPEresponse($str));
@@ -3131,14 +3132,14 @@ class Net_IMAP_Protocol
             $mused = $this->_parseOneStringResponse($str, __LINE__, __FILE__);
             $mmax  = $this->_parseOneStringResponse($str, __LINE__, __FILE__);
             return array($token=>array("MUSED"=> $mused, "MMAX" => $mmax));
-            break;
+            
 
         case 'FETCH':
             $this->_parseSpace($str, __LINE__, __FILE__);
             // Get the parsed pathenthesis
             $struct_arr = $this->_getEXTarray($str);
             return $struct_arr;
-            break;
+            
 
         case 'NAMESPACE':
             $this->_parseSpace($str, __LINE__, __FILE__);
@@ -3593,16 +3594,17 @@ class Net_IMAP_Protocol
         $ret = $response;
         if (!empty($result_array)) {
             $ret = array_merge($ret, array('PARSED' => $result_array));
-        } else if ($cmd_status == 'OK' && $str_line != '') {
+        }
+        if ($cmd_status == 'OK' && $str_line != '') {
             
             $pr = $this->_retrParsedResponse($str_line, $cmd_status);
             if (is_array($pr)) {
-                $ret = array_merge($ret, array('PARSED' => $pr));
+                $ret = array_merge($ret, array('OK' => $pr));
             }
             
             
         }
-
+        
         if ($this->_unParsedReturn) {
             $unparsed['UNPARSED'] = $unparsed_str;
             $ret                  = array_merge($ret, $unparsed);

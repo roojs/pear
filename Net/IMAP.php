@@ -1400,7 +1400,9 @@ class Net_IMAP extends Net_IMAP_Protocol
                                   . ', '
                                   . $ret['RESPONSE']['STR_CODE']);
         }
-        print_R($ret);
+        if (isset($ret['OK'])) {
+            return $ret['OK']['UID']; // might be a range it we sent a range..
+        }
         return true;
     }
 
@@ -1910,11 +1912,13 @@ class Net_IMAP extends Net_IMAP_Protocol
                                   . ', ' 
                                   . $ret['RESPONSE']['STR_CODE']);
         }
+        
+        
         $flags = array();
         if (isset($ret['PARSED'])) {
             foreach ($ret['PARSED'] as $msg_flags) {
                 if (isset($msg_flags['EXT']['FLAGS'])) {
-                    $flags[] = $msg_flags['EXT']['FLAGS'];
+                    $flags[$msg_flags['EXT']['UID']] = $msg_flags['EXT']['FLAGS'];
                 }
             }
         }
