@@ -3216,16 +3216,32 @@ class Net_IMAP_Protocol
             return array($token => $struct_arr);
             break;
 
+        case 'COPYUID':
+            $this->_parseSpace($str, __LINE__, __FILE__);
+            $this->_getNextToken($str, $unknown);
+            $this->_parseSpace($str, __LINE__, __FILE__);
+            $this->_getNextToken($str, $olduid);
+            $this->_parseSpace($str, __LINE__, __FILE__);
+            $this->_getNextToken($str, $newuid);
+            return array('OLDUID' => $olduid, 'UID' => $newuid);
+            
+            
         case 'OK':
             /* TODO:
                 parse the [ .... ] part of the response, use the method
                 _getEXTarray(&$str,'[',$stopDelim=']')
             */
-            $str_line = rtrim(substr($this->_getToEOL($str, false), 1));
+           //  var_dump($str);
+            $str_line = trim($this->_getToEOL($str, false));
+            // var_dump($str_line);
             if ($str_line[0] == '[') {
+                // var_dump($str_line); 
                 $braceLen = $this->_getClosingBracesPos($str_line, '[', ']');
                 $str_aux  = '('. substr($str_line, 1, $braceLen -1). ')';
+               // var_dump($str_aux);
                 $ext_arr  = $this->_getEXTarray($str_aux);
+                
+                //var_dump($ext_arr);
                 //$ext_arr=array($token=>$this->_getEXTarray($str_aux));
             } else {
                 $ext_arr = $str_line;
@@ -3470,10 +3486,16 @@ class Net_IMAP_Protocol
         if ($this->_unParsedReturn) {
             $unparsed_str = $str;
         }
-
+        
         $this->_getNextToken($str, $token);
-
+        
+        
+            
+            
+        
+        // look for line that has matching command id.. (if current doesnt)
         while ($token != $cmdid && $str != '') {
+            //echo "got token?\n";
             if ($token == '+' ) {
                 //if the token  is + ignore the line
                 // TODO: verify that this is correct!!!
@@ -3484,6 +3506,7 @@ class Net_IMAP_Protocol
             $this->_parseString($str, ' ', __LINE__, __FILE__);
 
             $this->_getNextToken($str, $token);
+            // print_r(array($str, $token));
             if ($token == '+') {
                 $this->_getToEOL($str);
                 $this->_getNextToken($str, $token);
@@ -3530,7 +3553,8 @@ class Net_IMAP_Protocol
 
 
             $this->_getNextToken($str, $token);
-
+            
+           
             $token = strtoupper($token);
             if ($token != "\r\n" && $token != '') {
                 $this->_protError('PARSE ERROR!!! must be a "\r\n" here but '
@@ -3540,7 +3564,7 @@ class Net_IMAP_Protocol
                                   __FILE__);
             }            
             $this->_getNextToken($str, $token);
-
+ 
             if ($token == '+') {
                 //if the token  is + ignore the line
                 // TODO: verify that this is correct!!!
@@ -3552,9 +3576,13 @@ class Net_IMAP_Protocol
         // the FINAL TAGGED RESPONSE
         // TODO: make this a litle more elegant!
         $this->_parseSpace($str, __LINE__, __FILE__, false);
+        
+        
 
         $this->_getNextToken($str, $cmd_status);
 
+  
+        
         $str_line = rtrim(substr($this->_getToEOL($str), 1));
 
 
@@ -3565,6 +3593,14 @@ class Net_IMAP_Protocol
         $ret = $response;
         if (!empty($result_array)) {
             $ret = array_merge($ret, array('PARSED' => $result_array));
+        } else if ($cmd_status == 'OK' && $str_line != '') {
+            
+            $pr = $this->_retrParsedResponse($str_line, $cmd_status);
+            if (is_array($pr)) {
+                $ret = array_merge($ret, array('PARSED' => $pr));
+            }
+            
+            
         }
 
         if ($this->_unParsedReturn) {
@@ -3599,6 +3635,7 @@ class Net_IMAP_Protocol
         $cmdid = $this->_getCmdId();
         $this->_putCMD($cmdid, $command, $params);
         $args = $this->_getRawResponse($cmdid);
+        
         //echo "server got\n ";print_R($args);
         return $this->_genericImapResponseParser($args, $cmdid);
     }
