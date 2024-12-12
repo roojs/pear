@@ -91,7 +91,7 @@ class Net_DNS_RR_LOC extends Net_DNS_RR
      * @param string $data   String to parse
      * @param int    $offset
      */
-    function Net_DNS_RR_LOC($rro, $data, $offset = 0)
+    function __construct($rro, $data, $offset = 0)
     {      
         // Keep all of the common fields.
         $this->name = $rro->name;
