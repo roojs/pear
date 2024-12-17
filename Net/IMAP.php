@@ -480,6 +480,11 @@ class Net_IMAP extends Net_IMAP_Protocol
                     continue;
                 }
                 if (!isset( $ret['PARSED'][$i]['EXT']['ENVELOPE'])) {
+                    if (isset($ret['EXT']['FLAGS']) && in_array("\Deleted", $ret['EXT']['FLAGS'])) {
+                       continue;
+                    }
+                    
+                    
                     print_r($ret['PARSED'][$i]);
                     die("missing envelope?\n");
                 }  
