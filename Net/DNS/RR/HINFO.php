@@ -37,7 +37,7 @@ class Net_DNS_RR_HINFO extends Net_DNS_RR
 
     /* }}} */
     /* class constructor - RR(&$rro, $data, $offset = '') {{{ */
-    function __construct(&$rro, $data, $offset = '')
+    function __construct($rro, $data, $offset = '')
     {
         $this->name = $rro->name;
         $this->type = $rro->type;

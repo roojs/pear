@@ -63,7 +63,7 @@ class Net_DNS_RR
     function __construct($rrdata)
     {
         if ($rrdata != 'getRR') { //BC check/warning remove later
-            trigger_error("Please use Net_DNS_RR::factory() instead");
+            trigger_error("Please use Net_DNS_RR::factory() instead - " . get_class($this));
         }
     }
 
