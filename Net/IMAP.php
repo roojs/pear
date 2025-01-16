@@ -472,7 +472,7 @@ class Net_IMAP extends Net_IMAP_Protocol
                                   . ', ' 
                                   . $ret['RESPONSE']['STR_CODE']);
         }
-
+        $env = array();
         if (isset($ret['PARSED'])) {
             for ($i=0; $i<count($ret['PARSED']); $i++) {
                 
@@ -533,7 +533,7 @@ class Net_IMAP extends Net_IMAP_Protocol
             return $env;
         }
 
-        //return $ret;
+        return array(); // nothing returned - or fetch completed.
     }
 
 

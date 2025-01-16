@@ -574,7 +574,7 @@ class PEAR
         return $a;
     }
 
-    function staticPushErrorHandling($mode, $options = null)
+    static function staticPushErrorHandling($mode, $options = null)
     {
         $stack       = &$GLOBALS['_PEAR_error_handler_stack'];
         $def_mode    = &$GLOBALS['_PEAR_default_error_mode'];
@@ -609,7 +609,7 @@ class PEAR
         return true;
     }
 
-    function staticPopErrorHandling()
+    static function staticPopErrorHandling()
     {
         $stack = &$GLOBALS['_PEAR_error_handler_stack'];
         $setmode     = &$GLOBALS['_PEAR_default_error_mode'];
