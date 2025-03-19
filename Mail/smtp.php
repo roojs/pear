@@ -491,7 +491,8 @@ class Mail_smtp extends Mail {
     function upgradeToTLS()
     {
         /* Issue a STARTTLS after getting "530 Must issue a STARTTLS command first"  */
-        if (PEAR::isError($res = $this->_smtp->starttls())) {
+        $res = $this->_smtp->starttls();
+        if (PEAR::isError($res)) {
             //??? why?
             list($code, $error) = $this->_error('Failed to issue a STARTTLS after getting "530 Must issue a STARTTLS command first"', $res);
             $txt = implode("\n" , $this->_smtp->_arguments);
@@ -501,7 +502,10 @@ class Mail_smtp extends Mail {
                         'smtptext' => $txt
                     ));
         }
-
+        if ($res === false) {
+            return true; // allow us to continue
+        }
+        
         /* Upon completion of the TLS handshake, the SMTP protocol is reset to the initial state */
         /* Send EHLO again */
         if (PEAR::isError($res = $this->_smtp->_negotiate())) {

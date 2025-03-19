@@ -1306,8 +1306,9 @@ class Net_SMTP
         if (PEAR::isError($result = $this->_socket->enableCrypto(true, STREAM_CRYPTO_METHOD_TLS_CLIENT))) {
             return $result;
         } elseif ($result !== true) {
-            $p = new PEAR();
-            return $p->raiseError('STARTTLS failed');
+            return false; // technically we can fail..
+            //$p = new PEAR();
+            //return $p->raiseError('STARTTLS failed');
         }
 
         return true;
