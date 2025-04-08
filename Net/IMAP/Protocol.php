@@ -348,7 +348,7 @@ class Net_IMAP_Protocol
         if ($this->_debug) {
             // C: means this data was sent by  the client (this class)
             echo 'C: ' . $data;
-            $this->dbgDialog .= 'C: ' . $data;
+            $this->dbgDialog .= 'C: ' . $data . "\n";
         }
         return true;
     }
