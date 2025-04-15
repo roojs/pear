@@ -136,6 +136,9 @@ class Services_Cloudflare_Firewall {
             if (!$ret['success']) {
                 return $this->raiseError("Failed : $method : $params returned {$httpCode} - ". json_encode($ret['errors']));
             }
+            if (isset($ret['result_info'])) {
+                return $ret;
+            }
             return $ret['result'];
         }
         return $this->raiseError("Failed : $method : $params returned {$httpCode} - {$response}");
