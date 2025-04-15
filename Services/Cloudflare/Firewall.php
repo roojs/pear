@@ -55,7 +55,10 @@ class Services_Cloudflare_Firewall {
             if (empty($add)) {
                 return $ret;
             }
-            $ret = array_merge($ret, $add);
+            $ret = array_merge($ret, $add['result']);
+            if ($page > $add['result_info']['count']) {
+                return $ret;
+            }
             
         }
         // should not get here...
