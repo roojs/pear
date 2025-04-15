@@ -38,6 +38,15 @@ class Services_Cloudflare_Firewall {
         $ret = array();
         $page = 1;
 
+        
+        //"result_info": {
+            //"count": 1,
+            //"page": 1,
+            //"per_page": 20,
+            //"total_count": 2000
+        //}
+ 
+        
         while(true) {
             $add = $this->request("GET", '?per_page=1000&page=' . $page++);
             if (is_a($add, 'PEAR_Error')) {
