@@ -134,14 +134,14 @@ class Services_Cloudflare_Firewall {
         curl_close($ch);
 
         if ($httpCode == 200 ) {
-            $ret = json_decode($response, true);
-            if (!$ret['success']) {
+            $ret = json_decode($response);
+            if (!$ret->success) {
                 return $this->raiseError("Failed : $method : $params returned {$httpCode} - ". json_encode($ret['errors']));
             }
-            if (isset($ret['result_info'])) {
+            if (isset($ret->result_info)) {
                 return $ret;
             }
-            return $ret['result'];
+            return $ret->result;
         }
         return $this->raiseError("Failed : $method : $params returned {$httpCode} - {$response}");
         
