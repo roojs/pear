@@ -80,7 +80,7 @@ class Services_Cloudflare_Firewall {
         
         // no such rule -> add
         if(empty($rules)) {
-            $this->add($mode, $ip, $notes);
+            $this->create($mode, $ip, $notes);
             return;
         }
 
@@ -155,7 +155,7 @@ class Services_Cloudflare_Firewall {
     
 
     // Function to add a firewall rule
-    function add($mode, $ip,  $notes) 
+    function create($mode, $ip,  $notes) 
     {
         return $this->request("POST", "",    array(
             'mode' => $mode,
@@ -171,7 +171,7 @@ class Services_Cloudflare_Firewall {
  
  
     // Function to add a firewall rule
-    function remove($id) 
+    function delete($id) 
     {
         return $this->request("DELETE", "/"  . $id);
     }
