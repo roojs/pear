@@ -52,11 +52,11 @@ class Services_Cloudflare_Firewall {
             if (is_a($add, 'PEAR_Error')) {
                 return $add;
             }
-            if (empty($add)) {
+            if (empty($add->result)) {
                 return $ret;
             }
-            $ret = array_merge($ret, $add['result']);
-            if ($page > $add['result_info']['count']) {
+            $ret = array_merge($ret, $add->result);
+            if ($page > $add->result_info->count) {
                 return $ret;
             }
             
@@ -115,6 +115,10 @@ class Services_Cloudflare_Firewall {
             
             case 'GET':
                 break;
+           
+            case 'DELETE':
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+                break;
             
             case 'POST' :
                 curl_setopt($ch, CURLOPT_POST, true);
@@ -154,6 +158,22 @@ class Services_Cloudflare_Firewall {
     function add($mode, $ip,  $notes) 
     {
         return $this->request("POST", "",    array(
+            'mode' => $mode,
+            'configuration' => array(
+                'target' => 'ip',
+                'value' => $ip
+            ),
+            'notes' => $notes
+        ));
+         
+    }
+ 
+ 
+ 
+    // Function to add a firewall rule
+    function remove($id) 
+    {
+        return $this->request("DELETE", "",    array(
             'mode' => $mode,
             'configuration' => array(
                 'target' => 'ip',
