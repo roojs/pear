@@ -173,15 +173,7 @@ class Services_Cloudflare_Firewall {
     // Function to add a firewall rule
     function remove($id) 
     {
-        return $this->request("DELETE", "",    array(
-            'mode' => $mode,
-            'configuration' => array(
-                'target' => 'ip',
-                'value' => $ip
-            ),
-            'notes' => $notes
-        ));
-         
+        return $this->request("DELETE", "/"  . $id);
     }
  
     function raiseError($message = null,
