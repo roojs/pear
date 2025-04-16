@@ -109,7 +109,7 @@ class Services_Cloudflare_Firewall {
             "Content-Type: application/json"
         );
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->$baseURL . $param);
+        curl_setopt($ch, CURLOPT_URL, $this->baseURL . $param);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         switch($method) {
             
