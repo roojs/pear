@@ -70,8 +70,6 @@ class Services_Cloudflare_Firewall {
     
     function update($ip, $notes, $mode = 'whitelist')
     {
-         
-         
         $rules = $this->get($ip);
         
         if (is_a($rules , 'PEAR_Error')) {
