@@ -30,7 +30,7 @@ class Text_SearchParser
     {
         var_dump("XXXXXXXXXXXXXXXXXX");
         var_dump($str);
-        $str = preg_replace('/\s(and|or)$', ' "$1"', $str);
+        $str = preg_replace('/\s(and|or)$/', ' "$1"', $str);
         var_dump($str);
         //var_dump($str);
         $x = new Text_SearchParser_Tokenizer ($str);
