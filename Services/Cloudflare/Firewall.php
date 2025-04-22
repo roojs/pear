@@ -7,6 +7,14 @@ class Services_Cloudflare_Firewall {
     var $apiToken;
     var $account;
     
+    /**
+     *  apiToken
+     *
+     *
+     */
+    
+    
+    
     function __construct($cfg)
     {
         // no error checking - should result in warnings if done wrong...
@@ -55,8 +63,12 @@ class Services_Cloudflare_Firewall {
             if (empty($add->result)) {
                 return $ret;
             }
+            
+             
             $ret = array_merge($ret, $add->result);
-            if ($page > $add->result_info->count) {
+            
+             
+            if ($page > $add->result_info->total_pages) {
                 return $ret;
             }
             
@@ -137,6 +149,9 @@ class Services_Cloudflare_Firewall {
 
         if ($httpCode == 200 ) {
             $ret = json_decode($response);
+            
+            
+            
             if (!$ret->success) {
                 return $this->raiseError("Failed : $method : $params returned {$httpCode} - ". json_encode($ret['errors']));
             }
@@ -145,7 +160,7 @@ class Services_Cloudflare_Firewall {
             }
             return $ret->result;
         }
-        return $this->raiseError("Failed : $method : $params returned {$httpCode} - {$response}");
+        return $this->raiseError("Failed : $method : $param returned {$httpCode} - {$response}");
         
     }
     
