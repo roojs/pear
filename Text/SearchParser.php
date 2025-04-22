@@ -31,7 +31,7 @@ class Text_SearchParser
         //var_dump($str);
         $x = new Text_SearchParser_Tokenizer ($str);
         $ar = $x->parse();
-        var_dump('ar');
+        var_dump('XXXXXXXXXXXXXXXXXXXXXXXXxx');
         var_dump($ar);
         // catch eq
         $l = count($ar) -1;
