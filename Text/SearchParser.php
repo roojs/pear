@@ -28,6 +28,7 @@ class Text_SearchParser
     var $ar;
     function __construct($str)
     {
+        $str = preg_replace('/\s(and|or)$', ' "$1"', $str);
         //var_dump($str);
         $x = new Text_SearchParser_Tokenizer ($str);
         $ar = $x->parse();
