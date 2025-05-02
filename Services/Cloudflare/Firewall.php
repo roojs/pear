@@ -63,10 +63,13 @@ class Services_Cloudflare_Firewall {
             if (empty($add->result)) {
                 return $ret;
             }
-            
-             
-            $ret = array_merge($ret, $add->result);
-            
+            foreach($add->result as $r) {
+                if (isset($dupes[$r->id])) {
+                    continue;
+                }
+                $dupes[$r->id] = true;
+                $ret[] = $r;
+            }
              
             if ($page > $add->result_info->total_pages) {
                 return $ret;
