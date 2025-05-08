@@ -912,7 +912,7 @@ class Net_SMTP
      *               kind of failure, or true on success.
      * @access private
      */
-    function _authXOAUTH2($uid, $pwd)
+    function _authXOAUTH2($uid, $pwd, $authz = '')
     {
         if (PEAR::isError($error = $this->_put(
             'AUTH', 
