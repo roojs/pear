@@ -101,17 +101,23 @@ class Services_Cloudflare_Firewall {
 
         // matching rule's mode is not 'whitelist' -> update
         if($rule['mode'] != $mode) {
-            return $this->request("PATCH", "/{$rule['id']}",    array(
-                'mode' => $mode,    
-                'configuration' => array(
-                    'target' => 'ip',
-                    'value' => $ip
-                ),
-                'notes' => $notes
-            ));
-           
-            return;
+            return $this->updateID($rule['id'], $notes, $mode);
+            
         }
+    }
+    
+    function updateID($id, $notes, $mode = 'whitelist')
+    {
+        
+        return $this->request("PATCH", "/{$id}",    array(
+            'mode' => $mode,    
+            'configuration' => array(
+                'target' => 'ip',
+                'value' => $ip
+            ),
+            'notes' => $notes
+        ));
+         
     }
     
     function request($method, $param, $data = array()) 
