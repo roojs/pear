@@ -40,8 +40,10 @@ class Services_Cloudflare_Firewall {
     
     function get($ip = false)
     {
+        $target = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? 'ip' : 'ip6';
+        
         if ($ip !== false) {
-             return $this->request("GET", "?configuration.target=ip&configuration.value={$ip}");
+             return $this->request("GET", "?configuration.target={$target}&configuration.value={$ip}");
         }
         $ret = array();
         $page = 1;
@@ -101,18 +103,23 @@ class Services_Cloudflare_Firewall {
 
         // matching rule's mode is not 'whitelist' -> update
         if($rule['mode'] != $mode) {
-            return $this->updateID($rule['id'], $notes, $mode);
+            return $this->updateID(
+                $rule['id'],
+                $rule['configuration']['target'],
+                $rule['configuration']['value'] ,
+                $notes,
+                $mode);
             
         }
     }
     
-    function updateID($id, $notes, $mode = 'whitelist')
+    function updateID($id, $target, $ip, $notes, $mode = 'whitelist')
     {
         
         return $this->request("PATCH", "/{$id}",    array(
             'mode' => $mode,    
             'configuration' => array(
-                'target' => 'ip',
+                'target' => $target,
                 'value' => $ip
             ),
             'notes' => $notes
@@ -182,7 +189,7 @@ class Services_Cloudflare_Firewall {
         return $this->request("POST", "",    array(
             'mode' => $mode,
             'configuration' => array(
-                'target' => 'ip',
+                'target' => filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? 'ip' : 'ip6',
                 'value' => $ip
             ),
             'notes' => $notes
