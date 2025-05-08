@@ -901,6 +901,10 @@ class Net_SMTP
         return true;
     }
 
+    function _authXOAUTH2()
+    {
+    }
+
     /**
      * Send the HELO command.
      *
