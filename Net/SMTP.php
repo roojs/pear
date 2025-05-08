@@ -197,6 +197,7 @@ class Net_SMTP
         /* These standard authentication methods are always available. */
         $this->setAuthMethod('LOGIN', array($this, '_authLogin'), false);
         $this->setAuthMethod('PLAIN', array($this, '_authPlain'), false);
+        $this->setAuthMethod('XOAUTH2', array($this, '_authXOAUTH2'), false);
     }
 
     /**
