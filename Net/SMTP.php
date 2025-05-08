@@ -921,6 +921,11 @@ class Net_SMTP
             return $error;
         }
 
+        /* 235: Authentication successful */
+        if (PEAR::isError($error = $this->_parseResponse(235))) {
+            return $error;
+        }
+
         return true;
     }
 
