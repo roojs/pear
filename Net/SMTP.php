@@ -921,7 +921,7 @@ class Net_SMTP
             return $error;
         }
 
-        return true
+        return true;
     }
 
     /**
