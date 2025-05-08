@@ -108,7 +108,8 @@ class Services_Cloudflare_Firewall {
                 $rule['configuration']['target'],
                 $rule['configuration']['value'] ,
                 $notes,
-                $mode);
+                $mode
+            );
             
         }
     }
@@ -149,13 +150,13 @@ class Services_Cloudflare_Firewall {
             case 'POST' :
                 curl_setopt($ch, CURLOPT_POST, true);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-                $params .= " / " . json_encode($data);
+                $param .= " / " . json_encode($data);
                 break;
             
             case 'PATCH':
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-                $params .= " / " . json_encode($data);
+                $param .= " / " . json_encode($data);
                 break;
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
