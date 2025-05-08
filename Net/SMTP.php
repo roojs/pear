@@ -603,6 +603,8 @@ class Net_SMTP
      */
     function auth($uid, $pwd , $method = '', $tls = true, $authz = '')
     {
+        var_dump($method);
+        die('testa');
         /* We can only attempt a TLS connection if one has been requested,
          * we're running PHP 5.1.0 or later, have access to the OpenSSL 
          * extension, are connected to an SMTP server which supports the 
