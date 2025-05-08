@@ -901,7 +901,7 @@ class Net_SMTP
         return true;
     }
 
-    function _authXOAUTH2()
+    function _authXOAUTH2($uid, $pwd)
     {
         if (PEAR::isError($error = $this->_put(
             'AUTH', 
@@ -909,7 +909,8 @@ class Net_SMTP
         ))) {
             return $error;
         }
-        
+
+        return true
     }
 
     /**
