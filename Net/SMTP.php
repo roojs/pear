@@ -915,6 +915,8 @@ class Net_SMTP
     function _authXOAUTH2($uid, $pwd, $authz = '')
     {
         var_dump("XOAUTH2");
+        var_dumP($uid);
+        var_dump($pwd);
         die('testbbb');
         if (PEAR::isError($error = $this->_put(
             'AUTH', 
