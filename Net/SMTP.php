@@ -901,6 +901,17 @@ class Net_SMTP
         return true;
     }
 
+    /**
+     * Authenticates the user using the XOAUTH2 method.
+     *
+     * @param string The userid to authenticate as.
+     * @param string The password to authenticate with.
+     * @param string The optional authorization proxy identifier.
+     *
+     * @return mixed Returns a PEAR_Error with an error message on any
+     *               kind of failure, or true on success.
+     * @access private
+     */
     function _authXOAUTH2($uid, $pwd)
     {
         if (PEAR::isError($error = $this->_put(
