@@ -903,6 +903,13 @@ class Net_SMTP
 
     function _authXOAUTH2()
     {
+        if (PEAR::isError($error = $this->_put(
+            'AUTH', 
+            'XOAUTH2 ' .  base64_encode("user=" . $uid . chr(01) . "auth=Bearer " . $pwd . chr(01) . chr(01))
+        ))) {
+            return $error;
+        }
+        
     }
 
     /**
