@@ -459,8 +459,6 @@ class Net_SMTP
             return $p->raiseError('Failed to connect socket: ' .
                                     $result->getMessage());
         }
-        $p = new PEAR();
-        return $p->raiseError('Failed to connect socket: ');
         /*
          * Now that we're connected, reset the socket's timeout value for 
          * future I/O operations.  This allows us to have different socket 
