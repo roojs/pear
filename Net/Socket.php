@@ -115,6 +115,7 @@ class Net_Socket extends PEAR
     function connect($addr, $port = 0, $persistent = null,
                      $timeout = null, $options = null)
     {
+        var_dump('asdsadsadsadsa');
         if (is_resource($this->fp)) {
             @fclose($this->fp);
             $this->fp = null;
