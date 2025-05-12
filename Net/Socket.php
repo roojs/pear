@@ -116,6 +116,7 @@ class Net_Socket extends PEAR
                      $timeout = null, $options = null)
     {
         var_dump('asdsadsadsadsa');
+        die('test');
         if (is_resource($this->fp)) {
             @fclose($this->fp);
             $this->fp = null;
