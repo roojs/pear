@@ -197,6 +197,7 @@ class Net_SMTP
         /* These standard authentication methods are always available. */
         $this->setAuthMethod('LOGIN', array($this, '_authLogin'), false);
         $this->setAuthMethod('PLAIN', array($this, '_authPlain'), false);
+        $this->setAuthMethod('XOAUTH2', array($this, '_authXOAUTH2'), false);
     }
 
     /**
@@ -458,7 +459,6 @@ class Net_SMTP
             return $p->raiseError('Failed to connect socket: ' .
                                     $result->getMessage());
         }
-
         /*
          * Now that we're connected, reset the socket's timeout value for 
          * future I/O operations.  This allows us to have different socket 
@@ -889,6 +889,34 @@ class Net_SMTP
         $auth_str = base64_encode($authz . chr(0) . $uid . chr(0) . $pwd);
 
         if (PEAR::isError($error = $this->_put($auth_str))) {
+            return $error;
+        }
+
+        /* 235: Authentication successful */
+        if (PEAR::isError($error = $this->_parseResponse(235))) {
+            return $error;
+        }
+
+        return true;
+    }
+
+    /**
+     * Authenticates the user using the XOAUTH2 method.
+     *
+     * @param string The userid to authenticate as.
+     * @param string The password to authenticate with.
+     * @param string The optional authorization proxy identifier.
+     *
+     * @return mixed Returns a PEAR_Error with an error message on any
+     *               kind of failure, or true on success.
+     * @access private
+     */
+    function _authXOAUTH2($uid, $pwd, $authz = '')
+    {
+        if (PEAR::isError($error = $this->_put(
+            'AUTH', 
+            'XOAUTH2 ' .  base64_encode("user=" . $uid . chr(01) . "auth=Bearer " . $pwd . chr(01) . chr(01))
+        ))) {
             return $error;
         }
 
