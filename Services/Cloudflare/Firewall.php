@@ -40,8 +40,10 @@ class Services_Cloudflare_Firewall {
     
     function get($ip = false)
     {
+        $target = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? 'ip' : 'ip6';
+        
         if ($ip !== false) {
-             return $this->request("GET", "?configuration.target=ip&configuration.value={$ip}");
+             return $this->request("GET", "?configuration.target={$target}&configuration.value={$ip}");
         }
         $ret = array();
         $page = 1;
@@ -101,17 +103,29 @@ class Services_Cloudflare_Firewall {
 
         // matching rule's mode is not 'whitelist' -> update
         if($rule['mode'] != $mode) {
-            return $this->request("PATCH", "/{$rule['id']}",    array(
-                'mode' => $mode,    
-                'configuration' => array(
-                    'target' => 'ip',
-                    'value' => $ip
-                ),
-                'notes' => $notes
-            ));
-           
-            return;
+            return $this->updateID(
+                $rule['id'],
+                $rule['configuration']['target'],
+                $rule['configuration']['value'] ,
+                $notes,
+                $mode
+            );
+            
         }
+    }
+    
+    function updateID($id, $target, $ip, $notes, $mode = 'whitelist')
+    {
+        
+        return $this->request("PATCH", "/{$id}",    array(
+            'mode' => $mode,    
+            'configuration' => array(
+                'target' => $target,
+                'value' => $ip
+            ),
+            'notes' => $notes
+        ));
+         
     }
     
     function request($method, $param, $data = array()) 
@@ -136,13 +150,13 @@ class Services_Cloudflare_Firewall {
             case 'POST' :
                 curl_setopt($ch, CURLOPT_POST, true);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-                $params .= " / " . json_encode($data);
+                $param .= " / " . json_encode($data);
                 break;
             
             case 'PATCH':
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
                 curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-                $params .= " / " . json_encode($data);
+                $param .= " / " . json_encode($data);
                 break;
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -176,7 +190,7 @@ class Services_Cloudflare_Firewall {
         return $this->request("POST", "",    array(
             'mode' => $mode,
             'configuration' => array(
-                'target' => 'ip',
+                'target' => filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? 'ip' : 'ip6',
                 'value' => $ip
             ),
             'notes' => $notes
