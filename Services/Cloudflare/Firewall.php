@@ -94,9 +94,6 @@ class Services_Cloudflare_Firewall {
         }
 
         $rules = !empty($rules->result) ? $rules->result : $rules;
-
-        var_dump($rules);
-        die('test');
         
         // no such rule -> add
         if(empty($rules)) {
@@ -107,7 +104,7 @@ class Services_Cloudflare_Firewall {
         $rule = $rules[0];
 
         // matching rule's mode is not 'whitelist' -> update
-        if($rule['mode'] != $mode) {
+        if($rule->mode != $mode) {
             return $this->updateID(
                 $rule['id'],
                 $rule['configuration']['target'],
