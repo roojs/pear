@@ -106,9 +106,9 @@ class Services_Cloudflare_Firewall {
         // matching rule's mode is not 'whitelist' -> update
         if($rule->mode != $mode) {
             return $this->updateID(
-                $rule['id'],
-                $rule['configuration']['target'],
-                $rule['configuration']['value'] ,
+                $rule->id,
+                $rule->configuration->target,
+                $rule->configuration->value,
                 $notes,
                 $mode
             );
