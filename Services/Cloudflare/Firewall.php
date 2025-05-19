@@ -94,6 +94,9 @@ class Services_Cloudflare_Firewall {
         }
 
         $rules = isset($rules->result) ? $rules->result : $rules;
+
+        var_dump($rules);
+        die('test');
         
         // no such rule -> add
         if(empty($rules)) {
