@@ -93,7 +93,7 @@ class Services_Cloudflare_Firewall {
             return $rules;
         }
 
-        $result = !empty($rules->result) ? $rules->result : $rules;
+        $rules = !empty($rules->result) ? $rules->result : $rules;
         
         // no such rule -> add
         if(empty($rules)) {
