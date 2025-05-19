@@ -101,9 +101,7 @@ class Services_Cloudflare_Firewall {
             return;
         }
 
-        var_dump($rules);
-
-        $rule = $rules->result[0];
+        $rule = $rules[0];
 
         // matching rule's mode is not 'whitelist' -> update
         if($rule['mode'] != $mode) {
