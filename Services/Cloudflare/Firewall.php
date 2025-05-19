@@ -92,6 +92,8 @@ class Services_Cloudflare_Firewall {
         if (is_a($rules , 'PEAR_Error')) {
             return $rules;
         }
+
+        $result = !empty($rules->result) ? $rules->result : $rules;
         
         // no such rule -> add
         if(empty($rules)) {
