@@ -167,7 +167,9 @@ class HTML_Template_Flexy
         'charset'       => 'UTF-8',    // charset used with htmlspecialchars to render data.
                                             // experimental
         
- 
+        // output options           ------------------------------------------
+        'strict'        => false,       // All elements in the template must be defined - 
+                                        // makes php E_NOTICE warnings appear when outputing template.
                                         
         'fatalError'    => HTML_TEMPLATE_FLEXY_ERROR_DIE,       // default behavior is to die on errors in template.
         
@@ -619,6 +621,7 @@ class HTML_Template_Flexy
         
         self::$activeEngine = $__old_engine;
         
+         
     }
     /**
     *   Outputs an object as $t, buffers the result and returns it.
