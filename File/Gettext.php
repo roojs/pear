@@ -268,7 +268,8 @@ class File_Gettext
     function raiseError($error = null, $code = null)
     {
         require_once 'PEAR.php';
-        return PEAR::raiseError($error, $code);
+        $p = new PEAR();
+        return $p->raiseError($error, $code);
     }
 }
  
