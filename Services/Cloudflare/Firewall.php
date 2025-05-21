@@ -19,7 +19,9 @@ class Services_Cloudflare_Firewall {
     {
         // no error checking - should result in warnings if done wrong...
         foreach($cfg as $k=>$v) {
-            $this->$k = $v;
+            if (property_exists($this, $k)) {
+                $this->$k = $v;
+            }
         }
         $this->baseURL = "https://api.cloudflare.com/client/v4/accounts/{$this->account}/firewall/access_rules/rules";
     }
