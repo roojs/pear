@@ -92,6 +92,8 @@ class Services_Cloudflare_Firewall {
         if (is_a($rules , 'PEAR_Error')) {
             return $rules;
         }
+
+        $rules = isset($rules->result) ? $rules->result : $rules;
         
         // no such rule -> add
         if(empty($rules)) {
@@ -102,11 +104,11 @@ class Services_Cloudflare_Firewall {
         $rule = $rules[0];
 
         // matching rule's mode is not 'whitelist' -> update
-        if($rule['mode'] != $mode) {
+        if($rule->mode != $mode) {
             return $this->updateID(
-                $rule['id'],
-                $rule['configuration']['target'],
-                $rule['configuration']['value'] ,
+                $rule->id,
+                $rule->configuration->target,
+                $rule->configuration->value,
                 $notes,
                 $mode
             );
