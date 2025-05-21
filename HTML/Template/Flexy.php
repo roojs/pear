@@ -588,11 +588,7 @@ class HTML_Template_Flexy
         // use $options['strict'] - if you want to force declaration of
         // all variables in the template
         
-        
-        $_error_reporting = false;
-        if (!$this->options['strict']) {
-            $_error_reporting = error_reporting(E_ALL & ~E_STRICT & ~E_NOTICE);
-        }
+         
         if (!is_readable($this->compiledTemplate)) {
               return $this->raiseError( "Could not open the template: <b>'{$this->compiledTemplate}'</b><BR>".
                             "Please check the file permissions on the directory and file ",
@@ -625,12 +621,7 @@ class HTML_Template_Flexy
         
         self::$activeEngine = $__old_engine;
         
-        
-        // Return the error handler to its previous state. 
-        
-        if ($_error_reporting !== false) {
-            error_reporting($_error_reporting);
-        }
+         
     }
     /**
     *   Outputs an object as $t, buffers the result and returns it.
