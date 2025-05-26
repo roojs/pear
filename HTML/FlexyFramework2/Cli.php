@@ -172,10 +172,8 @@ Available commands:
         if (empty($val)) {
             return;
         }
-        echo str_pad($p,40," ") . $val ."\n";
         
-        
-         
+        echo str_pad($p,55," ") . $val ."\n";
     }
      
     /**
