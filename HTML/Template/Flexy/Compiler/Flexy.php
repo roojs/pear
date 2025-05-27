@@ -538,8 +538,8 @@ class HTML_Template_Flexy_Compiler_Flexy extends HTML_Template_Flexy_Compiler {
             case 'n': 
                 // blank or value..
                 $numberformat = @$GLOBALS['_HTML_TEMPLATE_FLEXY']['currentOptions']['numberFormat'];
-                $prefix = 'echo number_format((float)(';
-                $suffix = $GLOBALS['_HTML_TEMPLATE_FLEXY']['currentOptions']['numberFormat'] . '))';
+                $prefix = 'echo number_format((float)';
+                $suffix = $GLOBALS['_HTML_TEMPLATE_FLEXY']['currentOptions']['numberFormat'] . ')';
                 break;
             case 'b': // nl2br + htmlspecialchars
                 $prefix = 'echo nl2br(self::htmlspecialchars(';
