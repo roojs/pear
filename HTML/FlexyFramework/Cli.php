@@ -171,10 +171,9 @@ Available commands:
         if (empty($val)) {
             return;
         }
-        echo str_pad($p,40," ") . $val ."\n";
-        
-        
-         
+        // try not to make commands over 55 chars...
+        echo str_pad($p,55," ") . $val ."\n";
+          
     }
      
     /**

@@ -194,7 +194,8 @@ class HTML_FlexyFramework_Generator extends DB_DataObject_Generator
                 $old = parse_ini_file($iniCache,true);
                 $new = parse_ini_file($iniCacheTmp,true);
                 if (count(array_keys($new)) < count(array_keys($old))) {
-                    die("Generated INI file failed, try reloading");
+                    print_r(array_diff(array_keys($new), array_keys($old)));
+                    die("Generated INI file failed, try reloading - new file is missing the above fields");
                 }
             }
             
