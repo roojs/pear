@@ -28,6 +28,19 @@
  *
  * @link http://code.google.com/p/php-mail-domain-signer/
  *
+ * Creating keys:
+ *   
+     openssl rsa -in /etc/dkim/domain-private.key-pubout -out domain-public.key.key
+
+** decide on a selectore (eg. 20250530._domainkey.{domain} --- eg. today date..
+** set its' value to v=DKIM1; k=rsa; p={value in public key}
+** 
+
+
+ *
+ *
+ *
+ *
  * @package mailDomainSigner
  * @author Ahmad Amarullah
  */
@@ -37,9 +50,9 @@ class Mail_DKIM
     ///////////////////////
     // PRIVATE VARIABLES //
     ///////////////////////
-    private $pkid=null;
-    private $s;
-    private $d;
+    private $pkid=false;
+    private $s = false;  // eg the subdomin part for the dkim key
+    private $d = false;  
     
     //////////////////////
     // AGENT PROPERTIES //
@@ -50,18 +63,33 @@ class Mail_DKIM
     
     /**
      * Constructor
-     * @param string $private_key Raw Private Key to Sign the mail
-     * @param string $d The domain name of the signing domain
-     * @param string $s The selector used to form the query for the public key
+     * @param string $domain Raw Private Key to Sign the mail
+     *   // assumes files in /etc/dkim/{domain}-private.key / {domain}-selector
+     * note it supports the original signature (private key / domain / selector)
+     *  old param string $private_key Raw Private Key to Sign the mail
+     *  old aram string $d The domain name of the signing domain
+     *  oldparam string $s The selector used to form the query for the public key
      * @author Ahmad Amarullah
      */
-    public function __construct($private_key,$d,$s){  
+    public function __construct($private_key,$domain= '',$selsector ='')
+    {  
         // Get a private key
+        if (empty($domain)) {
+            $domain = $private_key;
+            if (!file_exists("/etc/dkim/{$domain}-private.key")) {
+                $this->pkid = false;
+            }
+            $private_key = file_get_contents("/etc/dkim/{$domain}-private.key");
+        }
         $this->pkid = openssl_pkey_get_private($private_key);
         
         // Save Domain and Selector
-        $this->d    = $d;
-        $this->s    = $s;
+        $this->d    = $domain;
+        $this->s    = $selector;
+        if (empty($s)) {
+            $this->s = file_get_contents("/etc/dkim/{$domain}-selector");
+        }
+            
     }
     
     ///////////////////////
@@ -360,7 +388,9 @@ class Mail_DKIM
           $out_sign_header_only = false								// Return Signature Header Only without original data
       ){
           
-      if (!$suggested_h) $suggested_h = "from:to:subject"; // Default Suggested Signed Header Fields
+            if (!$suggested_h) {
+                   $suggested_h = "from:to:subject"; // Default Suggested Signed Header Fields
+            }
           
           // Remove all space and Lowercase Suggested Signed header fields then split it into array
           $_h = explode(":",strtolower(preg_replace('/[\r\t\n ]++/','',$suggested_h)));
@@ -383,21 +413,21 @@ class Mail_DKIM
               $key = strtolower(trim($key));
           
           // If header with current key was exists
-          // Change it into array
-          if (isset($headers[$key])){
-              // If header not yet array set as Array
-              if (!is_array($headers[$key]))
-                  $headers[$key] = array($headers[$key]);
-              
-              // Add Current Header as next element
-              $headers[$key][] = $header;    	
-          }
+            // Change it into array
+            if (isset($headers[$key])){
+                // If header not yet array set as Array
+                if (!is_array($headers[$key]))
+                    $headers[$key] = array($headers[$key]);
+                
+                // Add Current Header as next element
+                $headers[$key][] = $header;    	
+            } else{
           
-          // If header with current key not exists
-          // Insert header as string
-          else{
-              $headers[$key] = $header;
-          }
+            // If header with current key not exists
+            // Insert header as string
+           
+                $headers[$key] = $header;
+            }
           }
           
           // Now, lets find accepted Suggested Signed header fields
@@ -456,5 +486,80 @@ class Mail_DKIM
           // Return signed headers with original data
           return "{$to_be_appended_headers}\r\n{$mail_data}";
     }
-  }
+    
+    /**
+     * Auto Sign RAW Mail Data with DKIM-Signature
+     * and DomailKey-Signature
+     *
+     * It Support auto positioning Signed header fields
+     *
+     * @param string $mail_data Raw Mail Data to be signed
+     * @param string $suggested_h Suggested Signed Header Fields, separated by colon ":"
+     *                                      Default: string("from:to:subject")
+     * @param bool $create_dkim If true, it will generate DKIM-Signature for $mail_data
+     *                                      Default: boolean(true)
+     * @param bool $create_domainkey If true, it will generate DomailKey-Signature for $mail_data
+     *                                      Default: boolean(true)
+     * @param integer $out_sign_header_only If true or 1, it will only return signature headers as String
+     *                                      If 2, it will only return signature headers as Array
+     *                                      If false or 0, it will return signature headers with original mail data as String
+     *                                      Default: boolean(false)
+     * @return headers with DKIM
+     * @access public
+     * @author Ahmad Amarullah
+     */
+    public function signMail( $headers, $body )
+    {
+        if ($this->pkid == false) {
+            return $headers;
+        }
+             
+        $_h = array('from', 'to', 'subject');
+        
+        // Now, lets find accepted Suggested Signed header fields
+        // and reorder it to match headers position
+        
+        $accepted_h = array();					// For Accepted Signed header fields
+        $accepted_headers = array();		// For Accepted Header
+        
+        // Loop the Headers Array
+        foreach ($headers as $key=>$val){
+            // Check if $val wasn't array
+            // We don't want to include multiple headers as Signed header fields
+            if (!is_array($val)){
+                // Check if this header exists in Suggested Signed header fields
+                if (in_array(strtolower($key),$_h)){
+                    // If Exists, add it into accepted headers and accepted header fields
+                    $accepted_h[] = strtolower($key);
+                    $accepted_H[] = $key;
+                    $accepted_headers[] = $val;
+                }
+            }
+        }
+        
+        // If it doesn't contain any $accepted_h
+        // return false, because we don't have enough data
+        // for signing email
+        if (count($accepted_h)==0)
+            return false;
+    
+        // Create $_hdata for Signed header fields
+        // by imploding it with colon
+        $_hdata = implode(":",$accepted_h);
+        
+        // New Headers Variable
+        $headers["x-domain-signer"] = "X-Domain-Signer: {$this->__app_name} {$this->__app_ver} <$this->__app_url>";
+        
+        // Create DKIM First
+        if ($create_dkim)
+            $headers['dkim-signature'] = $this->getDKIM($_hdata,$accepted_headers,$body);
+        
+        // Now Create Domain-Signature (do we need this?)
+        // Fix: http://code.google.com/p/php-mail-domain-signer/issues/detail?id=1
+        //if ($create_domainkey)
+        //    $_nh['domainKey-signature'] = $this->getDomainKey($_hdata,$accepted_headers,$body);	
+        return $headers;
+    }
+    
+}
  

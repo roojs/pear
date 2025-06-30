@@ -176,13 +176,15 @@ class Mail_smtp extends Mail {
     var $tls = false;
 
     /**
-     * @see  stream_context_create
-     * 
-     *
+     * Use DKIM add heards
+     * @var bool|string - true or domain name
      */
-    
-    
-    
+    var $dkim = false;
+    /**
+     * @see  stream_context_create
+     * @var array  soket options
+     */
+     
     var $socket_options = null;
     
     var $greeting;
@@ -207,6 +209,7 @@ class Mail_smtp extends Mail {
      *     persist     Should the SMTP connection persist?
      *     pipelining  Use SMTP command pipelining
      *     tls         Use STARTTLS
+     *     dkim  (bool) or domain name
      *
      * If a parameter is present in the $params array, it replaces the
      * default.
@@ -230,7 +233,7 @@ class Mail_smtp extends Mail {
         if (isset($params['pipelining'])) $this->pipelining = (bool)$params['pipelining'];
         if (isset($params['socket_options'])) $this->socket_options = $params['socket_options'];
         if (isset($params['tls'])) $this->socket_options = $params['tls'];
-
+        if (isset($params['dkim'])) $this->dkim = $params['dkim'];
         // Deprecated options
         if (isset($params['verp'])) {
             $this->addServiceExtensionParameter('XVERP', is_bool($params['verp']) ? null : $params['verp']);
@@ -312,6 +315,17 @@ class Mail_smtp extends Mail {
                 $params .= ' ' . $key . (is_null($val) ? '' : '=' . $val);
             }
         }
+        
+        // before we send try and sign the thing.
+        if (!empty($this->dkim)) {
+            require_once 'DKIM.php';
+            $dom = explode('@', $from);
+            $dkim = new Mail_DKIM(is_string($this->dkim) ? $this->dkim : $dom[1]);
+            $headers = $dkim->addHeaders($headers,$body);
+            list($from, $textHeaders) = $this->prepareHeaders($headers); // do it again!
+        }
+         
+        
         if (PEAR::isError($res = $this->_smtp->mailFrom($from, ltrim($params)))) {
             $mailFromError = true;
             list($code, $error) = $this->_error(
