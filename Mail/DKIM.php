@@ -553,8 +553,8 @@ class Mail_DKIM
         $headers["x-domain-signer"] = "X-Domain-Signer: {$this->__app_name} {$this->__app_ver} <$this->__app_url>";
         
         // Create DKIM First
-        if ($create_dkim)
-            $headers['dkim-signature'] = $this->getDKIM($_hdata,$accepted_headers,$body);
+        
+        $headers['dkim-signature'] = $this->getDKIM($_hdata,$accepted_headers,$body);
         
         // Now Create Domain-Signature (do we need this?)
         // Fix: http://code.google.com/p/php-mail-domain-signer/issues/detail?id=1
