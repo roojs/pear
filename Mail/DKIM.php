@@ -80,6 +80,7 @@ class Mail_DKIM
             $domain = $private_key;
             if (!file_exists("/etc/dkim/{$domain}-private.key")) {
                 $this->pkid = false;
+                return;
             }
             $private_key = file_get_contents("/etc/dkim/{$domain}-private.key");
         }
