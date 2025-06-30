@@ -510,7 +510,7 @@ class Mail_DKIM
      * @access public
      * @author Ahmad Amarullah
      */
-    public function signMail( $headers, $body )
+    public function addHeaders( $headers, $body )
     {
         if ($this->pkid == false) {
             return $headers;
