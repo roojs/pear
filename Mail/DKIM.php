@@ -89,7 +89,7 @@ class Mail_DKIM
         $this->d    = $domain;
         $this->s    = $selector;
         if (empty($s)) {
-            $this->s = file_get_contents("/etc/dkim/{$domain}-selector");
+            $this->s = trim(file_get_contents("/etc/dkim/{$domain}-selector"));
         }
             
     }
@@ -282,19 +282,19 @@ class Mail_DKIM
         
         // Creating DKIM-Signature
         $_dkim = "DKIM-Signature: ".
-                    "v=1; ".                  // DKIM Version
-                    "a=rsa-sha1; ".           // The algorithm used to generate the signature "rsa-sha1"
-                    "s={$this->s}; ".         // The selector subdividing the namespace for the "d=" (domain) tag
-                    "d={$this->d}; ".         // The domain of the signing entity
-                    "l={$_l}; ".              // Canonicalizated Body length count
-                    "t={$_t}; ".              // Signature Timestamp
-                    "c=relaxed/relaxed; ".    // Message (Headers/Body) Canonicalization "relaxed/relaxed"
-                    "h={$h}; ".               // Signed header fields
+                    "v=1; \r\n\t".                  // DKIM Version
+                    "a=rsa-sha1;\r\n\t".           // The algorithm used to generate the signature "rsa-sha1"
+                    "s={$this->s};\r\n\t".         // The selector subdividing the namespace for the "d=" (domain) tag
+                    "d={$this->d};\r\n\t".         // The domain of the signing entity
+                    "l={$_l};\r\n\t".              // Canonicalizated Body length count
+                    "t={$_t};\r\n\t".              // Signature Timestamp
+                    "c=relaxed/relaxed;\r\n\t".    // Message (Headers/Body) Canonicalization "relaxed/relaxed"
+                    "h={$h};\r\n\t".               // Signed header fields
                     "bh={$_bh};\r\n\t".       // The hash of the canonicalized body part of the message
                     "b=";                     // The signature data (Empty because we will calculate it later)
     
         // Wrap DKIM Header
-        $_dkim = wordwrap($_dkim,76,"\r\n\t");
+        //$_dkim = wordwrap($_dkim,76,"\r\n\t");
         
         // Canonicalization Header Data
         $_unsigned  = $this->headRelaxCanon(implode("\r\n",$_h)."\r\n{$_dkim}");
@@ -308,7 +308,7 @@ class Mail_DKIM
         $_dkim   .= chunk_split(base64_encode($_signed),76,"\r\n\t");
         
         // Return trimmed $_dkim
-        return trim($_dkim);
+        return trim(str_replace('DKIM-Signature: ', '', $_dkim));
     }
     
     /**
@@ -538,7 +538,7 @@ class Mail_DKIM
                     // If Exists, add it into accepted headers and accepted header fields
                     $accepted_h[] = strtolower($key);
                     $accepted_H[] = $key;
-                    $accepted_headers[] = strtolower($k) . ': ' . $val;
+                    $accepted_headers[] = strtolower($key) . ': ' . $val;
                 }
             }
         }
@@ -554,13 +554,12 @@ class Mail_DKIM
         $_hdata = implode(":",$accepted_h);
         
         // New Headers Variable
-        $headers["x-domain-signer"] = "X-Domain-Signer: {$this->__app_name} {$this->__app_ver} <$this->__app_url>";
+        $headers["X-Domain-Signer"] = "X-Domain-Signer: {$this->__app_name} {$this->__app_ver} <$this->__app_url>";
         
         // Create DKIM First
         
-        print_r(array($_hdata, $accepted_headers));exit;
         
-        $headers['dkim-signature'] = $this->getDKIM($_hdata,$accepted_headers,$body);
+        $headers['DKIM-Signature'] = $this->getDKIM($_hdata,$accepted_headers,$body);
         
         // Now Create Domain-Signature (do we need this?)
         // Fix: http://code.google.com/p/php-mail-domain-signer/issues/detail?id=1
