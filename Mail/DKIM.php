@@ -30,7 +30,9 @@
  *
  * Creating keys:
  *   
-     openssl rsa -in /etc/dkim/domain-private.key-pubout -out domain-public.key.key
+    openssl genrsa -out /etc/dkim/domain-private.key 1024
+
+    openssl rsa -in /etc/dkim/domain-private.key  -out domain-public.key.key
 
 ** decide on a selectore (eg. 20250530._domainkey.{domain} --- eg. today date..
 ** set its' value to v=DKIM1; k=rsa; p={value in public key}
