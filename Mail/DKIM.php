@@ -73,7 +73,7 @@ class Mail_DKIM
      *  oldparam string $s The selector used to form the query for the public key
      * @author Ahmad Amarullah
      */
-    public function __construct($private_key,$domain= '',$selsector ='')
+    public function __construct($private_key,$domain= '',$selector ='')
     {  
         // Get a private key
         if (empty($domain)) {
