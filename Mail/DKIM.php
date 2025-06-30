@@ -168,6 +168,10 @@ class Mail_DKIM
         // Loop the lines
         foreach ($lines as $key=>$line) {
           // Split the key and value
+          if (false === strpos($line, ':')) {
+            echo "missing colon: $line";
+            continue;
+            }
           list($heading,$value)=explode(":",$line,2) ;
           
           // Lowercase heading key
@@ -534,7 +538,7 @@ class Mail_DKIM
                     // If Exists, add it into accepted headers and accepted header fields
                     $accepted_h[] = strtolower($key);
                     $accepted_H[] = $key;
-                    $accepted_headers[] = $val;
+                    $accepted_headers[] = strtolower($k) . ': ' . $val;
                 }
             }
         }
@@ -553,6 +557,8 @@ class Mail_DKIM
         $headers["x-domain-signer"] = "X-Domain-Signer: {$this->__app_name} {$this->__app_ver} <$this->__app_url>";
         
         // Create DKIM First
+        
+        print_r(array($_hdata, $accepted_headers));exit;
         
         $headers['dkim-signature'] = $this->getDKIM($_hdata,$accepted_headers,$body);
         
