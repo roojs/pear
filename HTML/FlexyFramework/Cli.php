@@ -100,12 +100,18 @@ Available commands:
             $class_path = array_merge($class_path, $path);
         }
         //print_r("CHKDIR:    ". implode('/', $full_path)."\n");
+
+        // only show files inside directories listed in 'enable' if 'enable' is set
+        if(!empty($path) && !empty($this->ff->enableArray) && !in_array($path[0], $this->ff->enableArray)) {
+            return;
+        }
         
         foreach(scandir(implode('/', $full_path)) as $d) {
             
             if (!strlen($d) || $d[0] == '.') {
                 continue;
             }
+
             $chk = $full_path;
             $chk[] = $d;
             
