@@ -103,6 +103,9 @@ Available commands:
 
         var_dump('++++ ' . $path[0]);
         var_dump($this->ff->enableArray);
+        if(!empty($path) && !empty($this->ff->enableArray) && !in_array($path[0], $this->ff->enableArray)) {
+            return;
+        }
         
         foreach(scandir(implode('/', $full_path)) as $d) {
             
