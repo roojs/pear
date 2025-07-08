@@ -101,6 +101,7 @@ Available commands:
         }
         //print_r("CHKDIR:    ". implode('/', $full_path)."\n");
 
+        // only show files inside directories listed in 'enable' if any
         if(!empty($path) && !empty($this->ff->enableArray) && !in_array($path[0], $this->ff->enableArray)) {
             return;
         }
