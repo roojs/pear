@@ -94,7 +94,7 @@ Available commands:
         
         
         $full_path = array($p,$pr);
-        var_dump($this->enable);
+        var_dump($this->ff->enable);
         die('test');
         $class_path = array();
         if ($path !== false)  {
