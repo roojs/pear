@@ -95,6 +95,7 @@ Available commands:
         
         $full_path = array($p,$pr);
         var_dump($full_path);
+        var_dump($_SERVER);
         die('test');
         $class_path = array();
         if ($path !== false)  {
