@@ -271,6 +271,8 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
                 $this->enableArray = explode(',', $this->enable);
             }
         }
+        var_dump($this->enable);
+        die('test');
         // are we running cli?
         $this->cli = php_sapi_name() == 'cli'; 
         
