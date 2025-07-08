@@ -94,8 +94,7 @@ Available commands:
         
         
         $full_path = array($p,$pr);
-        var_dump($full_path);
-        var_dump($_SERVER);
+        var_dump($this->enable);
         die('test');
         $class_path = array();
         if ($path !== false)  {
