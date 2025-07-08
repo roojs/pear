@@ -100,9 +100,8 @@ Available commands:
             $class_path = array_merge($class_path, $path);
         }
         //print_r("CHKDIR:    ". implode('/', $full_path)."\n");
-        
+
         if(!empty($path) && !empty($this->ff->enableArray) && !in_array($path[0], $this->ff->enableArray)) {
-            var_dump('++++ ' . $path[0]);
             return;
         }
         
