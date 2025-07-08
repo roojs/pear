@@ -102,6 +102,9 @@ Available commands:
         //print_r("CHKDIR:    ". implode('/', $full_path)."\n");
         
         foreach(scandir(implode('/', $full_path)) as $d) {
+
+            var_dump($d);
+            die('test');
             
             if (!strlen($d) || $d[0] == '.') {
                 continue;
