@@ -72,6 +72,8 @@ Available commands:
 ";
         // add cli files..
         //$this->cliShortHelp('Database');
+
+        var_dump('HELP');
         
         
         $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
@@ -80,7 +82,6 @@ Available commands:
         $this->cliHelpSearch($p,$pr);
         if (!empty($this->ff->projectExtends)) {
             foreach($this->ff->projectExtends as $pr) {
-                die('test');
                 $this->cliHelpSearch($p,$pr);
             }
         }
