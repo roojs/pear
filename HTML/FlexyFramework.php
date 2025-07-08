@@ -316,6 +316,7 @@ RewriteRule ^(.+)$ /web.hpasite/index.local.php [L,NC,E=URL:$1]
             require_once 'HTML/FlexyFramework/Cli.php';
             $fcli = new HTML_FlexyFramework_Cli($this);
             $fcli->cliHelp();
+            die('test');
             exit;
         }
         
