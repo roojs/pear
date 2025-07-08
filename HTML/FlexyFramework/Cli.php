@@ -107,6 +107,7 @@ Available commands:
                 continue;
             }
 
+            var_dump('++++ ' . $fullePath);
             var_dump('----- ' . $d);
             $chk = $full_path;
             $chk[] = $d;
