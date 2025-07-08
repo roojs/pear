@@ -72,8 +72,6 @@ Available commands:
 ";
         // add cli files..
         //$this->cliShortHelp('Database');
-
-        var_dump('HELP');
         
         
         $p = dirname(realpath($_SERVER["SCRIPT_FILENAME"])); 
