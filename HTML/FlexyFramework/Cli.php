@@ -100,6 +100,8 @@ Available commands:
             $class_path = array_merge($class_path, $path);
         }
         //print_r("CHKDIR:    ". implode('/', $full_path)."\n");
+
+        var_dump('++++ ' . implode('/', $full_path));
         
         foreach(scandir(implode('/', $full_path)) as $d) {
             
