@@ -80,6 +80,7 @@ Available commands:
         $this->cliHelpSearch($p,$pr);
         if (!empty($this->ff->projectExtends)) {
             foreach($this->ff->projectExtends as $pr) {
+                die('test');
                 $this->cliHelpSearch($p,$pr);
             }
         }
