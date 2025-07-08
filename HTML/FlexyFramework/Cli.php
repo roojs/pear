@@ -101,7 +101,7 @@ Available commands:
         }
         //print_r("CHKDIR:    ". implode('/', $full_path)."\n");
 
-        var_dump($path);
+        var_dump('++++ ' . $path[0]);
         
         foreach(scandir(implode('/', $full_path)) as $d) {
             
