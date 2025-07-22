@@ -309,13 +309,13 @@ class File_Convert
         $ext = $fmt->toExt($mt);
         $sfn = basename($fn);
         $sfn = preg_match('#\.'.$ext.'$#', $sfn) ? $sfn : $sfn. '.' .$ext;
-        //var_dump($sfn);
+        //var_dump($sfn);iconv
         
         if (empty($filename)) {
             $filename = $sfn;
         }
-
-        $filename = preg_replace('/[^\x00-\x7E]/', '', $filename);
+        $filename = iconv("UTF8", "UTF8//IGNORE", $filename);
+        //$filename = preg_replace('/[^\x00-\x7E]/', '', $filename);
         
         header('Content-length: '. filesize($fn));
        // if ($type != 'inline') {
