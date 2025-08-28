@@ -189,12 +189,12 @@ class Services_Cloudflare_Firewall {
     
 
     // Function to add a firewall rule
-    function create($mode, $ip,  $notes) 
+    function create($mode, $ip,  $notes, $target = false) 
     {
         return $this->request("POST", "",    array(
             'mode' => $mode,
             'configuration' => array(
-                'target' => filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? 'ip' : 'ip6',
+                'target' => $target === false ? (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? 'ip' : 'ip6' ) : $target,
                 'value' => $ip
             ),
             'notes' => $notes

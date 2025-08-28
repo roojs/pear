@@ -111,7 +111,7 @@ class Net_SMTP
      * @var array
      * @access private
      */
-    var $_socket_options = null;
+    var $_socket_options = array();
 
     /**
      * The socket I/O timeout value in seconds.
