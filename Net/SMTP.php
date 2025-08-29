@@ -450,6 +450,8 @@ class Net_SMTP
      */
     function connect($timeout = null, $persistent = false)
     {
+     
+        
         $this->_greeting = null;
         $result = $this->_socket->connect($this->host, $this->port,
                                           $persistent, $timeout,

@@ -232,7 +232,7 @@ class Mail_smtp extends Mail {
         if (isset($params['persist'])) $this->persist = (bool)$params['persist'];
         if (isset($params['pipelining'])) $this->pipelining = (bool)$params['pipelining'];
         if (isset($params['socket_options'])) $this->socket_options = $params['socket_options'];
-        if (isset($params['tls'])) $this->socket_options = $params['tls'];
+        if (isset($params['tls'])) $this->tls = $params['tls'];
         if (isset($params['dkim'])) $this->dkim = $params['dkim'];
         // Deprecated options
         if (isset($params['verp'])) {
