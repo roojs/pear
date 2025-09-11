@@ -213,7 +213,7 @@ class XML_RSS extends XML_Parser
      * @return void
      * @access private
      */
-    function startHandler($parser, $element, &$attribs)
+    function startHandler($parser, $element, $attribs)
     {
         if (substr($element, 0, 4) == "RSS:") {
             $element = substr($element, 4);
