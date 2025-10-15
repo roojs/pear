@@ -226,7 +226,7 @@ Available commands:
                         }
                          
                     }
-                    $val = array_merge($val, is_array($vadd) ? $vadd : array()  );
+                    $val = array_merge(is_array($vadd) ? $vadd : array(), $val);
                 } catch (ReflectionException $e) {
                     continue;
                 }
