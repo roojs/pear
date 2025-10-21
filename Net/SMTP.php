@@ -457,14 +457,7 @@ class Net_SMTP
         var_dump($this->port);
         var_dump($timeout);
         var_dump($this->_socket_options);
-        $this->_socket_options = array(
-            'ssl' => array(
-                'verify_peer_name' => false,
-                'verify_peer' => false, 
-                'allow_self_signed' => true
-            )
-        );
-        // die('test');
+        die('test');
         $result = $this->_socket->connect($this->host, $this->port,
                                           $persistent, $timeout,
                                           $this->_socket_options);
