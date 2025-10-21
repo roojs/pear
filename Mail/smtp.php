@@ -359,8 +359,6 @@ class Mail_smtp extends Mail {
             }
         }
 
-        die('test');
-
         $recipients = $this->parseRecipients($recipients);
         if (is_a($recipients, 'PEAR_Error')) {
             $this->_smtp->rset();
@@ -383,6 +381,8 @@ class Mail_smtp extends Mail {
                 );
             }
         }
+
+        die('test');
 
         /* Send the message's headers and the body as SMTP data. */
         $res = $this->_smtp->data($textHeaders . "\r\n\r\n" . $body);
