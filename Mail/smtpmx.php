@@ -496,7 +496,7 @@ class Mail_smtpmx extends Mail {
             $msg = str_replace($search, $replace, $msg);
         }
 
-        PEAR::staticRaiseError($msg,$code);
+        return PEAR::staticRaiseError($msg,$code);
     }
 
 }
