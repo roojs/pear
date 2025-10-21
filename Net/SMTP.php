@@ -457,7 +457,6 @@ class Net_SMTP
         var_dump($this->port);
         var_dump($timeout);
         var_dump($this->_socket_options);
-        die('test');
         $result = $this->_socket->connect($this->host, $this->port,
                                           $persistent, $timeout,
                                           $this->_socket_options);
