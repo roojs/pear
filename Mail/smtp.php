@@ -430,6 +430,9 @@ class Mail_smtp extends Mail {
             return $this->_smtp;
         }
 
+        var_dump($this->host);
+        die('test');
+
         include_once 'Net/SMTP.php';
         $this->_smtp = new Net_SMTP($this->host,
                                      $this->port,
