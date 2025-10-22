@@ -75,120 +75,69 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         $timeout = System::which('timeout');
         // fix the home directory - as we can't normally write to www-data's home directory.
-          
         putenv('HOME='. ini_get('session.save_path'));
-        $xvfb = System::which('xvfb-run');
-        if (empty($xvfb)) {
-            $this->debug("missing xvfb-run");
-            $this->cmd = "Missing xvfb";
+        $libreoffice = System::which('libreoffice');
+        if (empty($libreoffice)) {
+            $this->debug("missing libreoffice");
+            $this->cmd = "Missing libreoffice";
             return false;
         }
-        $uno = System::which('unoconv');
-        if (empty($uno)) {
-            $this->debug("missing unoconv");
-            $this->cmd = "Missing unoconv";
-            return false;
-        }
-        // before we used stdout -- not sure why.
-        //$cmd = "$xvfb -a  $uno -f $ext --stdout " . escapeshellarg($fn) . " 1> " . escapeshellarg($target);
-        $cmd = "$timeout 5m $xvfb -a  $uno -f $ext -o " . escapeshellarg($to) . " " . escapeshellarg($from);
+        $output_dir = dirname($to);
+        
+        // Use LibreOffice headless conversion (no xvfb-run needed)
+        $cmd = "$timeout 5m $libreoffice --headless --convert-to $ext --outdir " . 
+                escapeshellarg($output_dir) . " " . escapeshellarg($from) . " 2>&1";
         ////  echo $cmd;
-        
-        /*
-        // do some locking WHY? 
-        $lock = fopen(ini_get('session.save_path') . '/file-convert-unoconv.lock', 'wr+');
-        $tries = 3;
-        while ($tries >0) {
-            if (!flock($lock, LOCK_EX | LOCK_NB)) {
-                sleep(10);
-                $tries--;
-                continue;
-            }
-            $tries = -10;
-            break; // got a lock.
-        
-        }
-        if ($tries != -10) {
-            die("could not get a lock to run unoconv - " . ini_get('session.save_path') . '/file-convert-unoconv.lock');
-        }
-        */
+      
         $res = $this->exec($cmd);
         
         //fclose($lock);
         
         /// this is to prevent soffice staying alive if we timeout...
-        `/usr/bin/killall -9 soffice.bin`;
+      //  `/usr/bin/killall -9 soffice.bin`;
         
         clearstatcache();
         
+        // LibreOffice creates output file with same base name as input but with new extension
+        $input_basename = pathinfo($from, PATHINFO_FILENAME);
+        $libreoffice_output = $output_dir . '/' . $input_basename . '.' . $ext;
         
-        
-//        print_R($target);
-//        print_r("--------\n");
-//        var_dump(file_exists($target));
-//        var_dump(is_dir($target));
-       
-        
-        if (is_dir($to)) {
-            // it's an old version of unoconv.
-            $tmp = '/tmp/temp_pdf';
-            if(!is_dir($tmp)){
-                mkdir($tmp);
-            }
-            
-            
-            $dir = scandir($to, 1);
-            
-//            print_r($dir);
-            
-            $filename = $dir[0];
-            $file = $to.'/'.$filename;
-            
-            copy($file, $target);
-            
-            
-            unlink($to.'/'.$filename);
-            rmdir($to);
-            
+        // Check if LibreOffice created the output file
+        if (file_exists($libreoffice_output)) {
+            copy($libreoffice_output, $target);
+            @unlink($libreoffice_output);
             @unlink($from);
-            
-//            exit;
-//            create temporary directory 
-//            use scandir($target)[0]; to find first file
-//            move it to the temporary directory
-//            delete the target
-//            move the new file to the target
-            
             clearstatcache();
             return $target;
         }
         
-//         exit;
-        if (!file_exists($to) || (file_exists($to)  && filesize($to) < 400)) {
-            //$this->cmd .= "\n" . filesize($target) . "\n" . file_get_contents($target);
-            
+        // If conversion failed, try again
+        if (!file_exists($libreoffice_output) || (file_exists($libreoffice_output) && filesize($libreoffice_output) < 400)) {
             // try again!!!!
-            @unlink($to);
+            @unlink($libreoffice_output);
             clearstatcache();
             sleep(3);
             
             $res = $this->exec($cmd);
             clearstatcache();
-        
-            
         }
+        
         @unlink($from);
-        if (!file_exists($to)) {    
+        if (!file_exists($libreoffice_output)) {    
             return false;
         }
+        
+        // Copy the LibreOffice output to the target location
+        copy($libreoffice_output, $target);
+        @unlink($libreoffice_output);
         if ($ext == 'html') {
             $doc = new DOMDocument();
-            $doc->loadHTMLFile($to,LIBXML_NOERROR + LIBXML_NOWARNING   );
+            $doc->loadHTMLFile($target, LIBXML_NOERROR + LIBXML_NOWARNING);
             $imgs = $doc->getElementsByTagName('img');
             foreach($imgs as $im) {
                 $path = $im->getAttribute('src');
-                if (file_exists(dirname($to).'/'. $path)) {
-                    $ifn = dirname($to).'/'. $path;
+                if (file_exists(dirname($target).'/'. $path)) {
+                    $ifn = dirname($target).'/'. $path;
                     $type = image_type_to_mime_type(exif_imagetype($ifn));
                     $im->setAttribute('src', 'data:'.$type.';base64,' . base64_encode(file_get_contents($ifn)));
                 }
@@ -196,10 +145,6 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             }
             
             $doc->saveHTMLFile($target);
-            
-        } else {
-        
-            copy($to, $target);
         }
         return $target;
      
