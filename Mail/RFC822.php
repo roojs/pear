@@ -1048,11 +1048,10 @@ class Mail_RFC822 {
         }
 
         $address = $this->encode($mailbox, 'address') . '@' . $host;
-        $person_encoded = $this->encode($this->name, 'personal');
 
         $personal = empty($opts['encode'])
             ? $this->name
-            : $person_encoded;
+            : mb_encode_mimeheader($this->name, "UTF-8", "B");
         
         return (strlen($personal) && ($personal != $address))
             ? $this->encode($this->name, 'personal') . ' <' . $address . '>'
