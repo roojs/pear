@@ -138,11 +138,23 @@ class Mail_RFC822 {
     var $limit = null;
 
     /**
+     * The name property for creating email addresses
+     * @var string $name
+     */
+    var $name = '';
+
+    /**
+     * The email property for creating email addresses
+     * @var string $email
+     */
+    var $email = '';
+
+    /**
      * Sets up the object. The address must either be set here or when
      * calling parseAddressList(). One or the other.
      *
      * @access public
-     * @param string  $address         The address(es) to validate.
+     * @param mixed   $address         The address(es) to validate, or array with 'name' and 'email' keys, or name string.
      * @param string  $default_domain  Default domain/host etc. If not supplied, will be set to localhost.
      * @param boolean $nest_groups     Whether to return the structure with groups nested for easier viewing.
      * @param boolean $validate        Whether to validate atoms. Turn this off if you need to run addresses through before encoding the personal names, for instance.
@@ -151,7 +163,27 @@ class Mail_RFC822 {
      */
     function __construct($address = null, $default_domain = null, $nest_groups = null, $validate = null, $limit = null)
     {
-        if (isset($address))        $this->address        = $address;
+        // Handle array input for universal constructor
+        if (is_array($address)) {
+            if (isset($address['name'])) {
+                $this->name = $address['name'];
+            }
+            if (isset($address['email'])) {
+                $this->email = $address['email'];
+                $this->address = $address['email'];
+            }
+        } elseif (is_string($address)) {
+            // If it's a string, check if it contains @ to determine if it's an email or name
+            if (strpos($address, '@') !== false) {
+                $this->email = $address;
+                $this->address = $address;
+            } else {
+                $this->name = $address;
+            }
+        } else {
+            if (isset($address))        $this->address        = $address;
+        }
+        
         if (isset($default_domain)) $this->default_domain = $default_domain;
         if (isset($nest_groups))    $this->nestGroups     = $nest_groups;
         if (isset($validate))       $this->validate       = $validate;
