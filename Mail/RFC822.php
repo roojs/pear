@@ -1055,7 +1055,7 @@ class Mail_RFC822 {
             : $person_encoded;
         
         return (strlen($personal) && ($personal != $address))
-            ? $person_encoded . ' <' . $address . '>'
+            ? $this->encode($this->name, 'personal') . ' <' . $address . '>'
             : $address;
     }
 }
