@@ -144,46 +144,34 @@ class Mail_RFC822 {
     var $name = '';
 
     /**
-     * The email property for creating email addresses
-     * @var string $email
-     */
-    var $email = '';
-
-    /**
      * Sets up the object. The address must either be set here or when
      * calling parseAddressList(). One or the other.
      *
      * @access public
-     * @param mixed   $address         The address(es) to validate, or array with 'name' and 'email' keys, or name string.
+     * @param mixed   $cfg             Configuration array or legacy parameters
      * @param string  $default_domain  Default domain/host etc. If not supplied, will be set to localhost.
      * @param boolean $nest_groups     Whether to return the structure with groups nested for easier viewing.
      * @param boolean $validate        Whether to validate atoms. Turn this off if you need to run addresses through before encoding the personal names, for instance.
      *
      * @return object Mail_RFC822 A new Mail_RFC822 object.
      */
-    function __construct($address = null, $default_domain = null, $nest_groups = null, $validate = null, $limit = null)
+    function __construct($cfg = null, $default_domain = null, $nest_groups = null, $validate = null, $limit = null)
     {
-        // Handle array input for universal constructor
-        if (is_array($address)) {
-            if (isset($address['name'])) {
-                $this->name = $address['name'];
-            }
-            if (isset($address['email'])) {
-                $this->email = $address['email'];
-                $this->address = $address['email'];
-            }
-        } elseif (is_string($address)) {
-            // If it's a string, check if it contains @ to determine if it's an email or name
-            if (strpos($address, '@') !== false) {
-                $this->email = $address;
-                $this->address = $address;
-            } else {
-                $this->name = $address;
-            }
+        // Universal constructor - handle configuration array
+        if (is_array($cfg)) {
+            if (isset($cfg['name'])) $this->name = $cfg['name'];
+            if (isset($cfg['address'])) $this->address = $cfg['address'];
+            if (isset($cfg['email'])) $this->address = $cfg['email']; // email is same as address
+            if (isset($cfg['default_domain'])) $this->default_domain = $cfg['default_domain'];
+            if (isset($cfg['nest_groups'])) $this->nestGroups = $cfg['nest_groups'];
+            if (isset($cfg['validate'])) $this->validate = $cfg['validate'];
+            if (isset($cfg['limit'])) $this->limit = $cfg['limit'];
         } else {
-            if (isset($address))        $this->address        = $address;
+            // Legacy constructor support
+            if (isset($cfg)) $this->address = $cfg;
         }
         
+        // Legacy parameter support
         if (isset($default_domain)) $this->default_domain = $default_domain;
         if (isset($nest_groups))    $this->nestGroups     = $nest_groups;
         if (isset($validate))       $this->validate       = $validate;
@@ -980,6 +968,216 @@ class Mail_RFC822 {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Static factory method to create a Mail_RFC822 object from name and address
+     *
+     * @param string $name  The personal name
+     * @param string $address The email address
+     * @return object Mail_RFC822 A new Mail_RFC822 object
+     */
+    static function create($name = '', $address = '')
+    {
+        return new Mail_RFC822(array('name' => $name, 'address' => $address));
+    }
+
+    /**
+     * Encode a personal name according to RFC822 standards
+     * Based on Horde's RFC822 encoding implementation
+     * Handles special characters by quoting and escaping as needed
+     *
+     * @param string $name The name to encode
+     * @return string The encoded name
+     */
+    function encodeName($name)
+    {
+        if (empty($name)) {
+            return '';
+        }
+
+        // Trim whitespace
+        $name = trim($name);
+
+        // Check if the name needs encoding (contains special characters)
+        if ($this->_needsEncoding($name)) {
+            // Escape backslashes and quotes
+            $name = str_replace('\\', '\\\\', $name);
+            $name = str_replace('"', '\\"', $name);
+            
+            // Quote the entire name
+            return '"' . $name . '"';
+        }
+
+        return $name;
+    }
+
+    /**
+     * Check if a string needs RFC822 encoding
+     * Based on Horde's implementation
+     *
+     * @param string $str The string to check
+     * @return boolean True if encoding is needed
+     */
+    function _needsEncoding($str)
+    {
+        // Check for special characters that require quoting
+        if (preg_match('/[<>"\\\\,;:@\[\]()]/', $str)) {
+            return true;
+        }
+        
+        // Check if starts or ends with non-alphanumeric characters
+        if (preg_match('/^[^a-zA-Z0-9]/', $str) || preg_match('/[^a-zA-Z0-9]$/', $str)) {
+            return true;
+        }
+        
+        // Check for control characters (ASCII 0-31 and 127)
+        if (preg_match('/[\x00-\x1F\x7F]/', $str)) {
+            return true;
+        }
+        
+        // Check for non-ASCII characters (international characters)
+        if (preg_match('/[^\x20-\x7E]/', $str)) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    /**
+     * MIME encodes a string (RFC 2047) - copied from Horde implementation
+     *
+     * @param string $text    The text to encode (UTF-8).
+     * @param string $charset The character set to encode to.
+     *
+     * @return string  The MIME encoded string (US-ASCII).
+     */
+    static function encode($text, $charset = 'UTF-8')
+    {
+        if (empty($text)) {
+            return '';
+        }
+
+        // Check if the text contains non-ASCII characters
+        if (!preg_match('/[\x80-\xFF]/', $text)) {
+            return $text;
+        }
+
+        // Base64 encode the text
+        $encoded = base64_encode($text);
+
+        // Split the encoded text into chunks of 75 characters
+        $chunks = str_split($encoded, 75);
+
+        // Prefix each chunk with the encoding information
+        foreach ($chunks as &$chunk) {
+            $chunk = '=?' . $charset . '?B?' . $chunk . '?=';
+        }
+
+        // Join the chunks with a space
+        return implode(' ', $chunks);
+    }
+
+    /**
+     * Encode the local part of an email address
+     * Handles special characters in the local part
+     *
+     * @param string $local The local part to encode
+     * @return string The encoded local part
+     */
+    function _encodeLocalPart($local)
+    {
+        // If the local part contains special characters, quote it
+        if (preg_match('/[<>"\\\\,;:@\[\]()\s]/', $local)) {
+            $local = str_replace('\\', '\\\\', $local);
+            $local = str_replace('"', '\\"', $local);
+            return '"' . $local . '"';
+        }
+        
+        return $local;
+    }
+
+    /**
+     * Convert the object to a properly formatted MIME email address
+     * Based on Horde's writeAddress method implementation
+     * Returns a string in the format: "Name" <email@domain.com> or just email@domain.com
+     *
+     * @param array $opts Optional arguments:
+     *   - encode: (boolean) MIME encode the personal part? (default: false)
+     *   - idn: (boolean) Handle IDN domain names (default: true)
+     *
+     * @return string The formatted email address
+     */
+    function toMime($opts = array())
+    {
+        if (empty($this->address)) {
+            return '';
+        }
+
+        // Default options (matching Horde implementation)
+        $opts = array_merge(array(
+            'encode' => false,
+            'idn' => true
+        ), $opts);
+
+        // Handle IDN domain names if requested
+        $address = $this->address;
+
+        if(strpos($address, '@') !== false) {
+            list($local, $domain) = explode('@', $address, 2);
+            switch ($opts['idn']) {
+                case true:
+                    if (function_exists('idn_to_utf8')) {
+                        $domain = idn_to_utf8($domain);
+                    }
+                    break;
+                case false:
+                    if (function_exists('idn_to_ascii')) {
+                        $domain = idn_to_ascii($domain);
+                    }
+                    break;
+            }
+            $address = $local . '@' . $domain;
+        }
+        
+
+
+        // Encode the address (handle local part if needed)
+        $encodedAddress = $address;
+        if (strpos($address, '@') !== false) {
+            list($local, $domain) = explode('@', $address, 2);
+            $encodedLocal = $this->_encodeLocalPart($local);
+            $encodedAddress = $encodedLocal . '@' . $domain;
+        } else {
+            $encodedAddress = $this->_encodeLocalPart($address);
+        }
+        
+        // Encode the personal name using Horde's MIME encoding
+        $personal = $opts['encode'] ? self::encode($this->name) : $this->name;
+        
+        // Return formatted address (similar to Horde's logic)
+        return (strlen($personal) && ($personal != $encodedAddress))
+            ? $personal . ' <' . $encodedAddress . '>'
+            : $encodedAddress;
+    }
+
+    /**
+     * Write address method similar to Horde's writeAddress and imap_rfc822_write_address
+     * Creates a properly formatted email address from components
+     *
+     * @param string $mailbox The mailbox (local part)
+     * @param string $host    The host (domain part)
+     * @param string $personal The personal name
+     * @param array $opts Optional arguments:
+     *   - encode: (boolean) MIME encode the personal part? (default: true)
+     *   - idn: (boolean) Handle IDN domain names (default: false)
+     * @return string The formatted address
+     */
+    static function writeAddress($mailbox, $host, $personal = '', $opts = array())
+    {
+        $address = $mailbox . '@' . $host;
+        $rfc822 = new Mail_RFC822(array('name' => $personal, 'address' => $address));
+        return $rfc822->toMime($opts);
     }
 
 }
