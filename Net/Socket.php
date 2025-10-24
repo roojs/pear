@@ -158,8 +158,23 @@ class Net_Socket extends PEAR
                 }
 
                 $addr = $this->addr . ':' . $this->port;
+                // Set custom error handler to suppress connection timeout warnings
+                $original_handler = set_error_handler(function($severity, $message, $file, $line) {
+                    // Only suppress warnings that contain "Connection timed out" and errno 110
+                    if ($severity === E_WARNING && 
+                        (strpos($message, 'Connection timed out') !== false || 
+                         strpos($message, 'errno=110') !== false)) {
+                        return true; // Suppress this warning
+                    }
+                    // Let other warnings pass through
+                    return false;
+                });
+                
                 $fp   = stream_socket_client($addr, $errno, $errstr,
                                              $timeout, $flags, $context);
+                
+                // Restore original error handler
+                set_error_handler($original_handler);
             } else {
                 $fp = @$openfunc($this->addr, $this->port, $errno,
                                  $errstr, $timeout, $context);
