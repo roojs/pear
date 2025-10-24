@@ -159,13 +159,9 @@ class Mail_RFC822 {
     {
         // Universal constructor - handle configuration array
         if (is_array($cfg)) {
-            if (isset($cfg['name'])) $this->name = $cfg['name'];
-            if (isset($cfg['address'])) $this->address = $cfg['address'];
-            if (isset($cfg['email'])) $this->address = $cfg['email']; // email is same as address
-            if (isset($cfg['default_domain'])) $this->default_domain = $cfg['default_domain'];
-            if (isset($cfg['nest_groups'])) $this->nestGroups = $cfg['nest_groups'];
-            if (isset($cfg['validate'])) $this->validate = $cfg['validate'];
-            if (isset($cfg['limit'])) $this->limit = $cfg['limit'];
+            foreach($cfg as $key => $value) {
+                $this->$key = $value;
+            }
         } else {
             // Legacy constructor support
             if (isset($cfg)) $this->address = $cfg;
