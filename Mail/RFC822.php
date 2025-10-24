@@ -1049,15 +1049,12 @@ class Mail_RFC822 {
 
         $address = $this->encode($mailbox, 'address') . '@' . $host;
 
-        var_dump($this->name);
-        var_dump(mb_encode_mimeheader($this->name, "UTF-8", "B"));
-
         $personal = empty($opts['encode'])
             ? $this->name
             : mb_encode_mimeheader($this->name, "UTF-8", "B");
         
         return (strlen($personal) && ($personal != $address))
-            ? $this->encode($this->name, 'personal') . ' <' . $address . '>'
+            ? $this->encode($personal, 'personal') . ' <' . $address . '>'
             : $address;
     }
 }
