@@ -51,6 +51,7 @@ class File_Convert_Solution_html2text extends File_Convert_Solution {
             $opts[] = '-style ' .  escapeshellarg($opt_ar['style']);
             
         }
+        $opts[] = '-style fancy';
         $cmd = "$html2text " . implode(' ', $opts)
             . "-utf8 -o " . escapeshellarg($target) . "  " . escapeshellarg($fn);
 
