@@ -1326,6 +1326,10 @@ class Net_SMTP
      */
     function starttls()
     {
+        /* Clear any previous error state before attempting STARTTLS */
+        $this->_code = -1;
+        $this->_arguments = array();
+        
         /* Start the TLS connection attempt. */
         if (PEAR::isError($result = $this->_put('STARTTLS'))) {
             return $result;

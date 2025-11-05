@@ -8,6 +8,7 @@ class Net_Ollama_Response {
     {
         $this->oai = $oai;
         $this->id = isset($data['id']) ? $data['id'] : Net_Ollama::$id++;
+        $this->oai->debug("response ctor", $data);
         foreach ((array)$data as $k => $v) {
             if ($k != 'id') { // id already set
                 $this->$k = $v;

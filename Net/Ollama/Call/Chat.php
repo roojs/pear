@@ -17,7 +17,7 @@ class Net_Ollama_Call_Chat extends Net_Ollama_Call {
      */
     var $tools = array();
     /**
-     * @var bool Stream response (default: true)
+     * @var bool Stream response (set to true automatically if callback is provided)
      */
     var $stream;
     /**
@@ -52,6 +52,11 @@ class Net_Ollama_Call_Chat extends Net_Ollama_Call {
                 $this->tools[] = $tool;
             }
         }
+        
+        // If callback is set on the Ollama instance, enable streaming
+        if (!empty($this->oai->callback) && is_callable($this->oai->callback)) {
+            $this->stream = true;
+        }
     }
     
     function execute()
@@ -61,12 +66,13 @@ class Net_Ollama_Call_Chat extends Net_Ollama_Call {
     
     function process($response)
     {
-        $data = json_decode($response, true);
-        // Include original messages in response data for reply() functionality
-         
-        $this->response = $this->oai->response('Chat', $data);
+        if (!is_object($response)) {
+            $response = $this->oai->response('Chat', json_decode($response, true));
+        }
+        $this->response = $response;
         $this->response->call = $this;
-        return $this->response;
+        return $response;
+          
     }
 }
 
