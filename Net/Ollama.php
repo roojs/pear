@@ -5,6 +5,8 @@ class Net_Ollama {
     var $url = 'http://localhost:11434/api'; // ollama url
     var $tools = array();
     var $calls = array();
+    var $callback = null; // Callback function for streaming: function($partial_response, $full_response)
+    var $debug = false; // Debug mode - when true, prints all send/receive data
     static $id = 0;
     
     function __construct($options = array())
@@ -12,10 +14,9 @@ class Net_Ollama {
         // Universal constructor - accepts array or object
         $options = (array)$options;
         
-         
         // Populate properties from options
         foreach ($options as $k => $v) {
-            if (property_exists($this, $k) && $k !== 'url') {
+            if (property_exists($this, $k)) {
                 $this->$k = $v;
             }
         }
@@ -67,7 +68,7 @@ class Net_Ollama {
     
     function chat($params)
     {
-        return $this->call('Chat', array($params));
+        return $this->call('Chat', $params);
     }
      
     function models($params = array())
@@ -75,9 +76,31 @@ class Net_Ollama {
         return $this->call('Models', array($params));
     }
     
+    function ps($params = array())
+    {
+        return $this->call('Ps', array($params));
+    }
+    
     function to_string()
     {
         return json_encode((array)$this);
+    }
+    
+    /**
+     * Debug output method - only outputs if $this->debug is true
+     * Can be called without checking - it checks internally
+     */
+    function debug($message, $data)
+    {
+        if (!$this->debug) {
+            return;
+        }
+        echo "[DEBUG] " . $message . "\n";
+       
+        print_r(json_decode(json_encode($data)));
+        echo "\n";
+       
+        flush();
     }
 }
 
