@@ -488,7 +488,8 @@ class Mail_smtp extends Mail {
             }
         } else {
             // we try and force it if available..
-            if ($this->tls && isset($this->_smtp->_esmtp['STARTTLS']) ) {
+            // if STARTTLS is supported by the server, we upgrade to TLS and ignore the $this->tls setting
+            if (isset($this->_smtp->_esmtp['STARTTLS']) ) {
                 if (PEAR::isError($res = $this->upgradeToTLS())) {
                     return $res;
                 }
