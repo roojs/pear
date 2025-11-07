@@ -493,7 +493,7 @@ class Mail_smtp extends Mail {
             if (
                 isset($this->_smtp->_esmtp['STARTTLS']) 
                 &&
-                !in_array($this->localhost, array('localhost', '127.0.0.1'))
+                !in_array($this->host, array('localhost', '127.0.0.1'))
             ) {
                 if (PEAR::isError($res = $this->upgradeToTLS())) {
                     return $res;
