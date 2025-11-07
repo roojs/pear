@@ -489,7 +489,7 @@ class Mail_smtp extends Mail {
         } else {
             // we try and force it if available..
             // if STARTTLS is supported by the server, we upgrade to TLS and ignore the $this->tls setting
-            // unless the host is localhost or 127.0.0.1
+            // unless we are connecting to localhost or 127.0.0.1
             if (
                 isset($this->_smtp->_esmtp['STARTTLS']) 
                 &&
