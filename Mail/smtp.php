@@ -383,7 +383,8 @@ class Mail_smtp extends Mail {
             }
         }
 
-        var_dump($this);
+        var_dump($this->host);
+        var_dump($this->localhost);
         die('test');
 
         /* Send the message's headers and the body as SMTP data. */
