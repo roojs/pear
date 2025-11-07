@@ -228,7 +228,6 @@ class Mail_smtp extends Mail {
         if (isset($params['localhost'])) $this->localhost = $params['localhost'];
         if (isset($params['timeout'])) $this->timeout = $params['timeout'];
         if (isset($params['debug'])) $this->debug = (bool)$params['debug'];
-        $this->debug = true;
         if (isset($params['debug_handler'])) $this->debug_handler = $params['debug_handler'];
         if (isset($params['persist'])) $this->persist = (bool)$params['persist'];
         if (isset($params['pipelining'])) $this->pipelining = (bool)$params['pipelining'];
