@@ -377,8 +377,8 @@ class Net_SMTP
 
         $p = new PEAR();
         // Include the actual SMTP response message in the error
-        $responseMsg = $this->_code . " " . (!empty($this->_arguments) ? implode(" ", $this->_arguments) : 'Unknown error');
-        $errorMsg = 'Invalid response code received from server: ' . $responseMsg;
+        $responseMsg = !empty($this->_arguments) ? implode(" ", $this->_arguments) : 'Unknown error';
+        $errorMsg = 'Invalid response code received from server: ' . $this->_code . ' ' . $responseMsg;
         return $p->raiseError($errorMsg, $this->_code, PEAR_ERROR_RETURN);
     }
 
