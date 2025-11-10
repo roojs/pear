@@ -173,7 +173,7 @@ class Mail_smtpmx extends Mail {
         ),
         'send_data' => array(
             'code'  => 7,
-            'msg'   => 'Failed to create Net_SMTP object. {ERROR}'
+            'msg'   => 'Failed to create Net_SMTP object.'
         ),
         'no_mx' => array(
             'code'  => 8,
