@@ -153,19 +153,19 @@ class Mail_smtpmx extends Mail {
         ),
         'failed_vrfy_rcpt' => array(
             'code'  => 2,
-            'msg'   => 'Recipient "{RCPT}" could not be veryfied.'
+            'msg'   => 'Recipient "{RCPT}" could not be veryfied. {ERROR}'
         ),
         'failed_set_from' => array(
             'code'  => 3,
-            'msg'   => 'Failed to set sender: {FROM}.'
+            'msg'   => 'Failed to set sender: {FROM}. {ERROR}'
         ),
         'failed_set_rcpt' => array(
             'code'  => 4,
-            'msg'   => 'Failed to set recipient: {RCPT}.'
+            'msg'   => 'Failed to set recipient: {RCPT}. {ERROR}'
         ),
         'failed_send_data' => array(
             'code'  => 5,
-            'msg'   => 'Failed to send mail to: {RCPT}.'
+            'msg'   => 'Failed to send mail to: {RCPT}. {ERROR}'
         ),
         'no_from' => array(
             'code'  => 5,
@@ -173,7 +173,7 @@ class Mail_smtpmx extends Mail {
         ),
         'send_data' => array(
             'code'  => 7,
-            'msg'   => 'Failed to create Net_SMTP object.'
+            'msg'   => 'Failed to create Net_SMTP object. {ERROR}'
         ),
         'no_mx' => array(
             'code'  => 8,
