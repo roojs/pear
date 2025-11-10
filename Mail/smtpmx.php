@@ -185,7 +185,7 @@ class Mail_smtpmx extends Mail {
         ),
         'failed_rset' => array(
             'code'  => 10,
-            'msg'   => 'RSET command failed, SMTP-connection corrupt.'
+            'msg'   => 'RSET command failed, SMTP-connection corrupt. {ERROR}'
         ),
     );
 
