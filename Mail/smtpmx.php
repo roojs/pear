@@ -362,10 +362,7 @@ class Mail_smtpmx extends Mail {
             $res = $this->_smtp->mailFrom($from, $args);
             if (is_a($res, 'PEAR_Error')) {
                 $info = array('from' => $from);
-                $originalError = $res->getMessage();
-                // Append the original SMTP error to the message
-                $errorMsg = 'Failed to set sender: ' . $from . '. ' . $originalError;
-                return PEAR::staticRaiseError($errorMsg, 3);
+                return $this->_raiseError('failed_set_from', $info);
             }
 
             // rcpt to:
