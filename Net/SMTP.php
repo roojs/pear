@@ -376,8 +376,10 @@ class Net_SMTP
         }
 
         $p = new PEAR();
-        return $p->raiseError('Invalid response code received from server',
-                                $this->_code, PEAR_ERROR_RETURN);
+        // Include the actual SMTP response message in the error
+        $responseMsg = !empty($this->_arguments) ? implode(" ", $this->_arguments) : 'Unknown error';
+        $errorMsg = 'Invalid response code received from server: ' . $this->_code . ' ' . $responseMsg;
+        return $p->raiseError($errorMsg, $this->_code, PEAR_ERROR_RETURN);
     }
 
     /**
@@ -1326,6 +1328,10 @@ class Net_SMTP
      */
     function starttls()
     {
+        /* Clear any previous error state before attempting STARTTLS */
+        $this->_code = -1;
+        $this->_arguments = array();
+        
         /* Start the TLS connection attempt. */
         if (PEAR::isError($result = $this->_put('STARTTLS'))) {
             return $result;

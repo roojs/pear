@@ -488,7 +488,8 @@ class Mail_smtp extends Mail {
             }
         } else {
             // we try and force it if available..
-            if ($this->tls && isset($this->_smtp->_esmtp['STARTTLS']) ) {
+            // if STARTTLS is supported by the server, we upgrade to TLS and ignore the $this->tls setting
+            if (isset($this->_smtp->_esmtp['STARTTLS']) ) {
                 if (PEAR::isError($res = $this->upgradeToTLS())) {
                     return $res;
                 }
@@ -507,7 +508,7 @@ class Mail_smtp extends Mail {
         /* Issue a STARTTLS after getting "530 Must issue a STARTTLS command first"  */
         if (PEAR::isError($res = $this->_smtp->starttls())) {
             //??? why?
-            list($code, $error) = $this->_error('Failed to issue a STARTTLS after getting "530 Must issue a STARTTLS command first"', $res);
+            list($code, $error) = $this->_error('Failed to start a TLS session after issuing a STARTTLS command first"', $res);
             $txt = implode("\n" , $this->_smtp->_arguments);
             return $this->raiseError($error, null,
                     null,null,    array(
