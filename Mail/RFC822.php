@@ -144,46 +144,30 @@ class Mail_RFC822 {
     var $name = '';
 
     /**
-     * The email property for creating email addresses
-     * @var string $email
-     */
-    var $email = '';
-
-    /**
      * Sets up the object. The address must either be set here or when
      * calling parseAddressList(). One or the other.
      *
      * @access public
-     * @param mixed   $address         The address(es) to validate, or array with 'name' and 'email' keys, or name string.
+     * @param mixed   $cfg             Configuration array or legacy parameters
      * @param string  $default_domain  Default domain/host etc. If not supplied, will be set to localhost.
      * @param boolean $nest_groups     Whether to return the structure with groups nested for easier viewing.
      * @param boolean $validate        Whether to validate atoms. Turn this off if you need to run addresses through before encoding the personal names, for instance.
      *
      * @return object Mail_RFC822 A new Mail_RFC822 object.
      */
-    function __construct($address = null, $default_domain = null, $nest_groups = null, $validate = null, $limit = null)
+    function __construct($cfg = null, $default_domain = null, $nest_groups = null, $validate = null, $limit = null)
     {
-        // Handle array input for universal constructor
-        if (is_array($address)) {
-            if (isset($address['name'])) {
-                $this->name = $address['name'];
-            }
-            if (isset($address['email'])) {
-                $this->email = $address['email'];
-                $this->address = $address['email'];
-            }
-        } elseif (is_string($address)) {
-            // If it's a string, check if it contains @ to determine if it's an email or name
-            if (strpos($address, '@') !== false) {
-                $this->email = $address;
-                $this->address = $address;
-            } else {
-                $this->name = $address;
+        // Universal constructor - handle configuration array
+        if (is_array($cfg)) {
+            foreach($cfg as $key => $value) {
+                $this->$key = $value;
             }
         } else {
-            if (isset($address))        $this->address        = $address;
+            // Legacy constructor support
+            if (isset($cfg)) $this->address = $cfg;
         }
         
+        // Legacy parameter support
         if (isset($default_domain)) $this->default_domain = $default_domain;
         if (isset($nest_groups))    $this->nestGroups     = $nest_groups;
         if (isset($validate))       $this->validate       = $validate;
@@ -982,4 +966,95 @@ class Mail_RFC822 {
         }
     }
 
+    /**
+     * Quotes and escapes the given string if necessary using rules contained
+     * in RFC 2822 [3.2.5].
+     *
+     * @param string $str   The string to be quoted and escaped.
+     * @param string $type  Either 'address', or 'personal'.
+     *
+     * @return string  The correctly quoted and escaped string.
+     */
+    function encode($str, $type = 'address')
+    {
+        // Excluded (in ASCII): 0-8, 10-31, 34, 40-41, 44, 58-60, 62, 64,
+        // 91-93, 127
+        $filter = "\0\1\2\3\4\5\6\7\10\12\13\14\15\16\17\20\21\22\23\24\25\26\27\30\31\32\33\34\35\36\37\"(),:;<>@[\\]\177";
+
+        switch ($type) {
+            case 'personal':
+                // RFC 2822 [3.4]: Period not allowed in display name
+                $filter .= '.';
+                break;
+            case 'address':
+            default:
+                // RFC 2822 [3.4.1]: (HTAB, SPACE) not allowed in address
+                $filter .= "\11\40";
+                break;
+        }
+
+        // Strip double quotes if they are around the string already.
+        // If quoted, we know that the contents are already escaped, so
+        // unescape now.
+        $str = trim($str);
+        if ($str && ($str[0] == '"') && (substr($str, -1) == '"')) {
+            $str = stripslashes(substr($str, 1, -1));
+        }
+        return (strcspn($str, $filter) != strlen($str))
+            ? '"' . addcslashes($str, '\\"') . '"'
+            : $str;
+    }
+
+    /**
+     * Convert the object to a properly formatted MIME email address
+     * Based on Horde's writeAddress method implementation
+     * Returns a string in the format: "Name" <email@domain.com> or just email@domain.com
+     *
+     * @param array $opts Optional arguments:
+     *   - encode: (boolean) MIME encode the personal part? (default: true)
+     *   - idn: (boolean) Handle IDN domain names (default: false)
+     *
+     * @return string The formatted email address
+     */
+    function toMime($opts = array())
+    {
+        if (empty($this->address)) {
+            return '';
+        }
+
+        if(strpos($this->address, '@') === false) {
+            return $this->address;
+        }
+
+        list($mailbox, $host) = explode('@', $this->address, 2);
+
+        // Default options (matching Horde implementation)
+        $opts = array_merge(array(
+            'encode' => true,
+            'idn' => false
+        ), $opts);
+
+        switch ($opts['idn']) {
+            case true:
+                if (function_exists('idn_to_utf8')) {
+                    $host = idn_to_utf8($host);
+                }
+                break;
+            case false:
+                if (function_exists('idn_to_ascii')) {
+                    $host = idn_to_ascii($host);
+                }
+                break;
+        }
+
+        $address = $this->encode($mailbox, 'address') . '@' . $host;
+
+        $personal = empty($opts['encode'])
+            ? $this->name
+            : mb_encode_mimeheader($this->name, "UTF-8", "B");
+        
+        return (strlen($personal) && ($personal != $address))
+            ? $this->encode($personal, 'personal') . ' <' . $address . '>'
+            : $address;
+    }
 }

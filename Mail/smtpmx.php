@@ -153,19 +153,19 @@ class Mail_smtpmx extends Mail {
         ),
         'failed_vrfy_rcpt' => array(
             'code'  => 2,
-            'msg'   => 'Recipient "{RCPT}" could not be veryfied.'
+            'msg'   => 'Recipient "{RCPT}" could not be veryfied. {ERROR}'
         ),
         'failed_set_from' => array(
             'code'  => 3,
-            'msg'   => 'Failed to set sender: {FROM}.'
+            'msg'   => 'Failed to set sender: {FROM}. {ERROR}'
         ),
         'failed_set_rcpt' => array(
             'code'  => 4,
-            'msg'   => 'Failed to set recipient: {RCPT}.'
+            'msg'   => 'Failed to set recipient: {RCPT}. {ERROR}'
         ),
         'failed_send_data' => array(
             'code'  => 5,
-            'msg'   => 'Failed to send mail to: {RCPT}.'
+            'msg'   => 'Failed to send mail to: {RCPT}. {ERROR}'
         ),
         'no_from' => array(
             'code'  => 5,
@@ -185,7 +185,7 @@ class Mail_smtpmx extends Mail {
         ),
         'failed_rset' => array(
             'code'  => 10,
-            'msg'   => 'RSET command failed, SMTP-connection corrupt.'
+            'msg'   => 'RSET command failed, SMTP-connection corrupt. {ERROR}'
         ),
     );
 
@@ -352,7 +352,7 @@ class Mail_smtpmx extends Mail {
             if ($this->vrfy) {
                 $res = $this->_smtp->vrfy($rcpt);
                 if (is_a($res, 'PEAR_Error')) {
-                    $info = array('rcpt' => $rcpt);
+                    $info = array('rcpt' => $rcpt, 'error' => $res->getMessage());
                     return $this->_raiseError('failed_vrfy_rcpt', $info);
                 }
             }
@@ -361,14 +361,14 @@ class Mail_smtpmx extends Mail {
             $args['verp'] = $this->verp;
             $res = $this->_smtp->mailFrom($from, $args);
             if (is_a($res, 'PEAR_Error')) {
-                $info = array('from' => $from);
+                $info = array('from' => $from, 'error' => $res->getMessage());
                 return $this->_raiseError('failed_set_from', $info);
             }
 
             // rcpt to:
             $res = $this->_smtp->rcptTo($rcpt);
             if (is_a($res, 'PEAR_Error')) {
-                $info = array('rcpt' => $rcpt);
+                $info = array('rcpt' => $rcpt, 'error' => $res->getMessage());
                 return $this->_raiseError('failed_set_rcpt', $info);
             }
 
@@ -377,7 +377,8 @@ class Mail_smtpmx extends Mail {
                 $result = $this->_smtp->rset();
                 $res = $this->_smtp->rset();
                 if (is_a($res, 'PEAR_Error')) {
-                    return $this->_raiseError('failed_rset');
+                    $info = array('error' => $res->getMessage());
+                    return $this->_raiseError('failed_rset', $info);
                 }
 
                 $this->_smtp->disconnect();
@@ -388,7 +389,7 @@ class Mail_smtpmx extends Mail {
             // Send data
             $res = $this->_smtp->data("$textHeaders\r\n$body");
             if (is_a($res, 'PEAR_Error')) {
-                $info = array('rcpt' => $rcpt);
+                $info = array('rcpt' => $rcpt, 'error' => $res->getMessage());
                 return $this->_raiseError('failed_send_data', $info);
             }
 
