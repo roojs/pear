@@ -96,6 +96,7 @@ class Net_Ollama {
             return;
         }
         echo "[DEBUG] " . $message . "\n";
+
         print_r(json_decode(json_encode($data)));
         echo "\n";
        
