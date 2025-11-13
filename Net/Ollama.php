@@ -96,13 +96,6 @@ class Net_Ollama {
             return;
         }
         echo "[DEBUG] " . $message . "\n";
-       
-        // var_dump("DATA");
-        // var_dump($data);
-        // var_dump("JSON ENCODE DATA");
-        // var_dump(json_encode($data));
-        // var_dump("JSON DECODE DATA");
-        // var_dump(json_decode(json_encode($data)));
         print_r(json_decode(json_encode($data)));
         echo "\n";
        
