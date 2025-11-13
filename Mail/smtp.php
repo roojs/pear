@@ -412,11 +412,8 @@ class Mail_smtp extends Mail {
                 $this->disconnect();
             }
 
-            var_dump("testing");
-
             return true;
         }
-        die('test');
 
         /* Send the message's headers and the body as SMTP data. */
         $res = $this->_smtp->data($textHeaders . "\r\n\r\n" . $body);
