@@ -302,11 +302,8 @@ class DB_mysqli extends DB_common
         @ini_set('track_errors', 1);
         $php_errormsg = '';
 
-        // Use mysqli_init() and mysqli_real_connect() for all connections
-        // This allows better compatibility with modern MySQL authentication plugins
-        $init = mysqli_init();
-        
         if (((int) $this->getOption('ssl')) === 1) {
+            $init = mysqli_init();
             mysqli_ssl_set(
                 $init,
                 empty($dsn['key'])    ? null : $dsn['key'],
@@ -315,20 +312,26 @@ class DB_mysqli extends DB_common
                 empty($dsn['capath']) ? null : $dsn['capath'],
                 empty($dsn['cipher']) ? null : $dsn['cipher']
             );
-        }
-        
-        if ($this->connection = @mysqli_real_connect(
-                $init,
+            if ($this->connection = @mysqli_real_connect(
+                    $init,
+                    $dsn['hostspec'],
+                    $dsn['username'],
+                    $dsn['password'],
+                    $dsn['database'],
+                    $dsn['port'],
+                    $dsn['socket']))
+            {
+                $this->connection = $init;
+            }
+        } else {
+            $this->connection = @mysqli_connect(
                 $dsn['hostspec'],
                 $dsn['username'],
                 $dsn['password'],
                 $dsn['database'],
                 $dsn['port'],
-                $dsn['socket']))
-        {
-            $this->connection = $init;
-        } else {
-            $this->connection = false;
+                $dsn['socket']
+            );
         }
         
         @ini_set('track_errors', $ini);
