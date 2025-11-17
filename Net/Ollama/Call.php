@@ -38,6 +38,9 @@ abstract class Net_Ollama_Call {
             if (isset($this->$k) && $this->$k !== false) {
                 $params[$k] = $this->$k;
             }
+            if($k == 'stream' && $this->$k == false) {
+                $params[$k] = false;
+            }
         }
         
         // Use _url property for endpoint, _method for HTTP method
