@@ -39,6 +39,7 @@ class Net_Ollama_Call_Chat extends Net_Ollama_Call {
     
     function __construct($oai, $args = array())
     {
+        var_dump("ARGS");
         var_dump($args);
         die('testt');
         // If args is a string, convert it to messages array
