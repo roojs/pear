@@ -122,6 +122,7 @@ abstract class Net_Ollama_Call {
             return  $this->_chat_stream;
         } 
         $result = curl_exec($ch);
+        var_dump($result);
         curl_close($ch);
         
         $this->oai->debug("Received Response", json_decode($result, true));
