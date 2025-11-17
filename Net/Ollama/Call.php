@@ -64,6 +64,9 @@ abstract class Net_Ollama_Call {
         if (!empty($this->oai->key)) {
             $headers[] = 'Authorization: Bearer ' . $this->oai->key;
         }
+
+        var_dump("PARAM STREAM");
+        var_dump($params['stream']);
         
         // Check if streaming is enabled (API always streams when stream=true)
         if (!empty($params['stream'])) {
