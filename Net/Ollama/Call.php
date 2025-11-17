@@ -13,6 +13,8 @@ abstract class Net_Ollama_Call {
      
     function __construct($oai, $args = array())
     {
+        var_dump($args);
+        die('test');
         $this->oai = $oai;
         $this->id = count($oai->calls);
         // Universal constructor - populate properties from args
