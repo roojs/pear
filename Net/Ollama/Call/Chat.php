@@ -39,15 +39,15 @@ class Net_Ollama_Call_Chat extends Net_Ollama_Call {
     
     function __construct($oai, $args = array())
     {
-        var_dump("ARGS");
-        var_dump($args);
-        die('testt');
         // If args is a string, convert it to messages array
         if (is_string($args)) {
             $args = array('messages' => array(array('role' => 'user', 'content' => $args)));
         }
         
         parent::__construct($oai, $args);
+
+        var_dump($this->stream);
+        die('test');
         
         // If tools are configured at Ollama level, merge them into $this->tools
         if (!empty($this->oai->tools)) {
