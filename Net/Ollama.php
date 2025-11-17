@@ -70,6 +70,11 @@ class Net_Ollama {
     {
         return $this->call('Chat', $params);
     }
+    
+    function generate($params)
+    {
+        return $this->call('Generate', $params);
+    }
      
     function models($params = array())
     {
