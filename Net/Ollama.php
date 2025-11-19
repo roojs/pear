@@ -102,7 +102,11 @@ class Net_Ollama {
         }
         echo "[DEBUG] " . $message . "\n";
 
-        print_r(json_decode(json_encode($data)));
+        // print_r(json_decode(json_encode($data)));
+        if(is_array($data) && isset($data['context'])) {
+            $data['context'] = 'array length: ' . count($data['context']);
+        }
+        var_dump($data);
         echo "\n";
        
         flush();
