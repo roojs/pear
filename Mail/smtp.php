@@ -180,7 +180,7 @@ class Mail_smtp extends Mail {
      * Use STARTTLS
      * @var bool
      */
-    var $tls = false;
+    var $tls = true;
 
     /**
      * Use DKIM add heards
