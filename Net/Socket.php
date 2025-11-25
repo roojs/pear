@@ -163,8 +163,8 @@ class Net_Socket extends PEAR
                     // Only suppress warnings that contain "Connection timed out" and errno 110
                     if ($severity === E_WARNING && 
                         (strpos($message, 'Connection timed out') !== false || 
-                         strpos($message, 'errno=110') !== false) // ||
-                        //  strpos($message, 'Connection refused') !== false
+                         strpos($message, 'errno=110') !== false) ||
+                         strpos($message, 'Connection refused') !== false
                     ) {
                         return true; // Suppress this warning
                     }
