@@ -415,6 +415,8 @@ class Mail_smtp extends Mail {
             return true;
         }
 
+        die('test');
+
         /* Send the message's headers and the body as SMTP data. */
         $res = $this->_smtp->data($textHeaders . "\r\n\r\n" . $body);
 		list(,$args) = $this->_smtp->getResponse();
