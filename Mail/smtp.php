@@ -155,6 +155,13 @@ class Mail_smtp extends Mail {
     var $debug_handler = null;
 
     /**
+     * Switch to test mode - don't send emails for real
+     *
+     * @var boolean $test
+     */
+    var $test = false;
+
+    /**
      * Indicates whether or not the SMTP connection should persist over
      * multiple calls to the send() method.
      *
@@ -173,7 +180,7 @@ class Mail_smtp extends Mail {
      * Use STARTTLS
      * @var bool
      */
-    var $tls = false;
+    var $tls = true;
 
     /**
      * Use DKIM add heards
@@ -206,6 +213,7 @@ class Mail_smtp extends Mail {
      *                 DEPRECATED as of 1.2.0 (use setMailParams()).
      *     debug       Activate SMTP debug mode? Defaults to false.
      *     debug_handler    Callable for SMTP debug mode? Defaults to null
+     *     test        Activate test mode? Defaults to false.
      *     persist     Should the SMTP connection persist?
      *     pipelining  Use SMTP command pipelining
      *     tls         Use STARTTLS
@@ -229,6 +237,7 @@ class Mail_smtp extends Mail {
         if (isset($params['timeout'])) $this->timeout = $params['timeout'];
         if (isset($params['debug'])) $this->debug = (bool)$params['debug'];
         if (isset($params['debug_handler'])) $this->debug_handler = $params['debug_handler'];
+        if (isset($params['test'])) $this->test = (bool)$params['test'];
         if (isset($params['persist'])) $this->persist = (bool)$params['persist'];
         if (isset($params['pipelining'])) $this->pipelining = (bool)$params['pipelining'];
         if (isset($params['socket_options'])) $this->socket_options = $params['socket_options'];
@@ -372,7 +381,7 @@ class Mail_smtp extends Mail {
                 $txt = implode("\n" , $this->_smtp->_arguments);
                 
                 $this->_smtp->rset();
-                return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_RECIPIENT,
+                return $this->raiseError($error, $code, // repaced teh pear code with the SMPT one as it's more meaningfull
                     null,null,
                     array(
                             'smtpcode' => $code,
@@ -380,6 +389,30 @@ class Mail_smtp extends Mail {
                     )
                 );
             }
+        }
+
+        // Don't send anything in test mode
+        if ($this->test) {
+            $res = $this->_smtp->rset();
+            if (is_a($res, 'PEAR_Error')) {
+                list($code, $error) = $this->_error("Failed to reset SMTP connection", $res);
+                $txt = implode("\n" , $this->_smtp->_arguments);
+                $this->_smtp->rset();
+                return $this->raiseError($error, null,
+                    null,null,
+                    array(
+                            'smtpcode' => $code,
+                            'smtptext' => $txt
+                    )
+                );
+            }
+
+            /* If persistent connections are disabled, destroy our SMTP object. */
+            if ($this->persist === false) {
+                $this->disconnect();
+            }
+
+            return true;
         }
 
         /* Send the message's headers and the body as SMTP data. */
