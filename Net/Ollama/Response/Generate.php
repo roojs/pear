@@ -57,6 +57,8 @@ class Net_Ollama_Response_Generate extends Net_Ollama_Response {
      * @var int Time spent generating tokens in nanoseconds
      */
     var $eval_duration;
+
+    var $context;
     
     function __construct($oai, $data)
     {
