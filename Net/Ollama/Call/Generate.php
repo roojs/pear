@@ -48,8 +48,6 @@ class Net_Ollama_Call_Generate extends Net_Ollama_Call {
      * @var string|number Model keep-alive duration (for example '5m' or 0 to unload immediately)
      */
     var $keep_alive;
-
-    var $context;
     
     function __construct($oai, $args = array())
     {
