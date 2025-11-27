@@ -42,6 +42,9 @@ abstract class Net_Ollama_Call {
                 $params[$k] = false;
             }
         }
+
+        var_dump($params);
+        die('test');
         
         // Use _url property for endpoint, _method for HTTP method
         $url = $this->oai->url . '/' . $this->_url;
