@@ -165,6 +165,15 @@ class Services_Cloudflare_Firewall {
         }
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
+        
+        // Check for curl errors
+        if ($response === false) {
+            $curlError = curl_error($ch);
+            $curlErrno = curl_errno($ch);
+            curl_close($ch);
+            return $this->raiseError("Curl error: $method : $param - Error #{$curlErrno}: {$curlError}");
+        }
+        
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
@@ -174,7 +183,7 @@ class Services_Cloudflare_Firewall {
             
             
             if (!$ret->success) {
-                return $this->raiseError("Failed : $method : $params returned {$httpCode} - ". json_encode($ret['errors']));
+                return $this->raiseError("Failed : $method : $param returned {$httpCode} - ". json_encode($ret->errors));
             }
             if (isset($ret->result_info)) {
                 return $ret;
@@ -210,17 +219,10 @@ class Services_Cloudflare_Firewall {
         return $this->request("DELETE", "/"  . $id);
     }
  
-    function raiseError($message = null,
-                         $code = null,
-                         $mode = null,
-                         $options = null,
-                         $userinfo = null,
-                         $error_class = null,
-                         $skipmsg = false)
+    function raiseError($message = null)
     {
-        //$this->debug("ERROR: $message");
         require_once 'PEAR.php';
         $p = new PEAR();
-        return $p->raiseError($message,$code,$mode,$options,$userinfo,$error_class,$skipmsg);
+        return $p->raiseError($message, null, PEAR_ERROR_RETURN);
     }
 }

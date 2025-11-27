@@ -381,7 +381,7 @@ class Mail_smtp extends Mail {
                 $txt = implode("\n" , $this->_smtp->_arguments);
                 
                 $this->_smtp->rset();
-                return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_RECIPIENT,
+                return $this->raiseError($error, $code, // repaced teh pear code with the SMPT one as it's more meaningfull
                     null,null,
                     array(
                             'smtpcode' => $code,
