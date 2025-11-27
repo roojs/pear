@@ -131,8 +131,6 @@ abstract class Net_Ollama_Call {
         } 
         $result = curl_exec($ch);
         curl_close($ch);
-        var_dump("RESULT");
-        var_dump($result);
         
         $this->oai->debug("Received Response", json_decode($result, true));
         
