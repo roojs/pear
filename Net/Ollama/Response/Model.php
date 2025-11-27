@@ -63,6 +63,10 @@ class Net_Ollama_Response_Model extends Net_Ollama_Response {
      * @var int Context length of the model (ps endpoint)
      */
     var $context_length;
+
+    var $remote_model;
+
+    var $remote_host;
     
     function __construct($oai, $data)
     {
