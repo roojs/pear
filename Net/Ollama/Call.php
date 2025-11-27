@@ -28,6 +28,7 @@ abstract class Net_Ollama_Call {
     
     function send()
     {
+        var_dump($this->stream);
         // Build params from object properties
         $params = array();
         // exclude should look at values in this->exclude and static $exclude and also ignore '_' prefixed properties
