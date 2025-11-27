@@ -43,6 +43,7 @@ abstract class Net_Ollama_Call {
             }
         }
 
+        var_dump($this->stream);
         var_dump($params);
         die('test');
         
