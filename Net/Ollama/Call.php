@@ -21,8 +21,6 @@ abstract class Net_Ollama_Call {
                 $this->$k = $v;
             }
         }
-
-        var_dump($this->stream);
     }
     
     abstract function execute();
