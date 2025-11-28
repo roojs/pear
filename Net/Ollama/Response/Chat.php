@@ -119,6 +119,7 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
     
     function reply($message)
     {
+        die('test');
         // Start with conversation history
         $messages = isset($this->messages) ? $this->messages : array();
         
