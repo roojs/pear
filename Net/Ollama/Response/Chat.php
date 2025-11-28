@@ -138,7 +138,10 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
         // Send new request with conversation history
         return $this->oai->chat(array(
             'model' => $this->model,
-            'messages' => $messages
+            'messages' => $messages,
+            'options' => array(
+                'num_ctx' => 32768
+            )
         ));
     }
 }
