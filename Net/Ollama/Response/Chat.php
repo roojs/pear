@@ -126,9 +126,6 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
             // add the last response from the model to the messages
             $messages[] = array('role' => 'assistant', 'content' => $this->content);
         }
-
-        var_dump($this);
-        die('test');
         
         // Add assistant response from this object (if available)
         if (!empty($this->choices) && isset($this->choices[0]['message'])) {
