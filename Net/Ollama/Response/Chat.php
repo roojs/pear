@@ -91,7 +91,7 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
         }
 
         var_dump("MESSAGE");
-        var_dump($data['message']);
+        var_dump($data);
         // Store messages for reply functionality
         $this->messages = !empty($data['messages']) ? $data['messages'] : array();
     }
