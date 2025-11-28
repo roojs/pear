@@ -70,10 +70,6 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
      */
     var $eval_duration;
     /**
-     * @var array Chat history as an array of message objects (for chat endpoint)
-     */
-    var $messages; // Conversation history for reply()
-    /**
      * @var array Array of choice objects (OpenAI compatibility)
      */
     var $choices;
@@ -89,14 +85,6 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
             $this->role = $data['message']['role'];
             $this->content = $data['message']['content'];
         }
-
-        var_dump($this);
-        die('test');
-
-        var_dump($data);
-        
-        // Store messages for reply functionality
-        $this->messages = !empty($data['messages']) ? $data['messages'] : array();
     }
     
     /**
