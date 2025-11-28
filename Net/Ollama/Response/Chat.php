@@ -134,6 +134,10 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
         
         // Add new user message
         $messages[] = array('role' => 'user', 'content' => $message);
+
+
+
+        var_dump($messages);
         
         // Send new request with conversation history
         return $this->oai->chat(array(
