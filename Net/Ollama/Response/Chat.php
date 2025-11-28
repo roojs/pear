@@ -133,7 +133,6 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
         }
 
         var_dump($messages);
-        die('test');
         
         // Add new user message
         $messages[] = array('role' => 'user', 'content' => $message);
