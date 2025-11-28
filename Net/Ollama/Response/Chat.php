@@ -131,6 +131,9 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
         if (!empty($this->choices) && isset($this->choices[0]['message'])) {
             $messages[] = $this->choices[0]['message'];
         }
+
+        var_dump($messages);
+        die('test');
         
         // Add new user message
         $messages[] = array('role' => 'user', 'content' => $message);
