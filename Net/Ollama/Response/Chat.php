@@ -90,13 +90,13 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
             $this->content = $data['message']['content'];
         }
 
+        var_dump($this);
+        die('test');
+
         var_dump($data);
         
         // Store messages for reply functionality
         $this->messages = !empty($data['messages']) ? $data['messages'] : array();
-
-
-        // $this->messages[] = $data['message'];
     }
     
     /**
