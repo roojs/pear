@@ -121,6 +121,9 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
     {
         // Start with conversation history
         $messages = isset($this->call->messages) ? $this->call->messages : array();
+
+        var_dump($this->message);
+        die('test');
         
         // Add assistant response from this object (if available)
         if (!empty($this->choices) && isset($this->choices[0]['message'])) {
