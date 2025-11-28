@@ -121,13 +121,13 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
     {
         // Start with conversation history
         $messages = isset($this->call->messages) ? $this->call->messages : array();
-
-
-        var_dump($this);
+        
         if(!empty($this->content)) {
             // add the last response from the model to the messages
             $messages[] = array('role' => 'assistant', 'content' => $this->content);
         }
+
+        var_dump($messages);
         die('test');
         
         // Add assistant response from this object (if available)
