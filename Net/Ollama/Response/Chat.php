@@ -139,9 +139,9 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
         return $this->oai->chat(array(
             'model' => $this->model,
             'messages' => $messages,
-            'options' => array(
-                'num_ctx' => 32768
-            )
+            // 'options' => array(
+                // 'num_ctx' => 32768
+            // )
         ));
     }
 }
