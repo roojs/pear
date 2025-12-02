@@ -32,7 +32,7 @@ class  HTML_Clean_Filter
                 
                 case $this->isTagMatch(e):
                 
-                    if (false === $this->replaceTag(e)) {
+                    if (false === $this->replaceTag($e)) {
                         return;
                     }
                     if ($e->hasChildNodes()) {
