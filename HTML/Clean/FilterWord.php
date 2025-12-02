@@ -92,8 +92,6 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
         $this->replaceClassList($this->getElementsByClassName($doc, 'MsoListParagraphCxSpLast'));
         $this->replaceClassList($this->getElementsByClassName($doc, 'ql-indent-1'));
 
-        die('test');
-
            
         // this is a bit hacky - we had one word document where h2 had a miso-list attribute.
         $htwo =  $this->arrayFrom($doc->getElementsByTagName('h2'));
