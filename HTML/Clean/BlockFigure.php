@@ -131,7 +131,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                         'font-size' => '16px',
                         'line-height' => '24px',
                         'display' => $this->caption_display,
-                        'max-width' => ($this->align == 'center' ?  $this->width : '100%' ) + ' !important',
+                        'max-width' => ($this->align == 'center' ?  $this->width : '100%' ) . ' !important',
                         'margin'=> $m,
                         'width'=> $this->align == 'center' ?  $this->width : '100%' 
                     
