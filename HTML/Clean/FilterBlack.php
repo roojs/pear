@@ -38,7 +38,7 @@ class HTML_Clean_FilterBlack extends HTML_Clean_Filter
     function simpleReplace()
     {
         foreach(is_array($this->tag) ? $this->tag : array($this->tag) as $t) {
-            $ar = $this->fromArray($this->node->getElementsByTagName($t));
+            $ar = $this->arrayFrom($this->node->getElementsByTagName($t));
             foreach($ar as $k) {
                 if ($k->parentNode) {
                     $k->parentNode->removeChild($k);
