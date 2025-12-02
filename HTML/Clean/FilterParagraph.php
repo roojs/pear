@@ -36,10 +36,7 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
             // remove and replace with '<BR>';
             $node->parentNode->replaceChild($node->ownerDocument->createElement('BR'),$node);
         }
-        var_dump($node->childNodes);
         $ar = $this->arrayFrom($node->childNodes);
-        var_dump($ar);
-        die('test');
         foreach($ar as $a) {
             $node->removeChild($a);
             // what if we need to walk these???
