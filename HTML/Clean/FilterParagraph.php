@@ -21,7 +21,7 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
         parent::__construct($cfg);
         $pp = $this->arrayFrom($this->node->getElementsByTagName('p'));
         // var_dump($pp);
-        foreach($this->node->getElementsByTagName('figure') as $p) {
+        foreach($this->node->getElementsByTagName('p') as $p) {
             var_dumP($p);
             die('test');
         }
