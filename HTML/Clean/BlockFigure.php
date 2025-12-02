@@ -102,7 +102,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         
   
         return  array(
-            'tag '=> 'figure',
+            'tag' => 'figure',
             'data-block' => 'Figure',
             'data-width' => $this->width, 
             
