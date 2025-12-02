@@ -52,8 +52,6 @@ class HTML_Clean {
             $this->{$k} = $v;
         }
         $d = $this->dom->documentElement;
-        var_dumP($d);
-        die('test');
         $this->filter('Word',array( 'node' =>  $d ));
             
         $this->filter('StyleToTag', array(
