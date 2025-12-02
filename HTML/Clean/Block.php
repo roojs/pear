@@ -191,7 +191,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             $o['tag'] = "div";
         }
         
-        $el = $doc.createElement($o->tag);
+        $el = $doc->createElement($o['tag']);
         
         foreach ($o as $attr => $val) {
             
