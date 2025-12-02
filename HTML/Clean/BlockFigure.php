@@ -14,7 +14,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             $this->readElement($cfg['node']);
             $this->updateElement($cfg['node']);
         }
-        parent::__construct();
+        parent::__construct($cfg);
     }
      
   
