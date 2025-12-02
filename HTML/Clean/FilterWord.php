@@ -134,7 +134,7 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
                 $items[] = $ns;
                 $ns = $ns->nextSibling;
                 $has_list = true;
-                if ($spans->length && spans->item(0).hasAttribute('style')) {
+                if ($spans->length && $spans->item(0)->hasAttribute('style')) {
                     $style = $this->styleToObject($spans->item(0), true);
                     if (!empty($style['font-family']) && !preg_match('/Symbol/', $style['font-family'])) {
                         $listtype = 'ol';
@@ -149,7 +149,7 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
                 break;
             }
             $has_list  = false;
-            foreach($spasn as $s) {
+            foreach($this->arrayFrom($spans) as $s) {
                 if ($s->hasAttribute('style') &&  preg_match('/mso-list/', $s->getAttribute('style'))) {
                     $has_list = true;
                     break;
