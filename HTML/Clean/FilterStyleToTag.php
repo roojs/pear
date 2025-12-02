@@ -34,7 +34,6 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
     {
         parent::__construct($cfg);
         var_dump($this->node);
-        die('test');
         $this->walk($this->node);
     }
     
