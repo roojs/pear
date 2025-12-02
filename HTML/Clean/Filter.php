@@ -30,7 +30,7 @@ class  HTML_Clean_Filter
             switch(true) {
                 
                 
-                case $this->isTagMatch(e):
+                case $this->isTagMatch($e):
                 
                     if (false === $this->replaceTag($e)) {
                         return;
