@@ -83,7 +83,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         }
         
         
-        if (!empty($this->video_url.length )) {
+        if (!empty(strlen($this->video_url))) {
             $img = array(
                 'tag' => 'div',
                 'cls' => $this->cls,
