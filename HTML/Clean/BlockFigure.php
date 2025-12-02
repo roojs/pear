@@ -59,7 +59,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             'alt' => $caption_plain,
             'style'=> array(
                 'width' => $iw,
-                'max-width' =>$iw + ' !important', // this is not getting rendered?
+                'max-width' =>$iw . ' !important', // this is not getting rendered?
                 'margin' => $m  
                 
             )
