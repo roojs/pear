@@ -137,7 +137,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                     
                          
                     ),
-                    'cls' => $this->cls.length > 0 ? ($this->cls  + '-thumbnail' ) : '',
+                    'cls' => strlen($this->cls) > 0 ? ($this->cls  + '-thumbnail' ) : '',
                     'cn' => array(
                         array(
                             'tag' => 'div',
