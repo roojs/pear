@@ -54,6 +54,8 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
     {
         // this is a bit odd - but it appears some indents use ql-indent-1
          //Roo.log(doc.innerHTML);
+         var_dump($doc);
+         die('test');
         
         $this->replaceClassList($doc->getElementsByClassName('MsoListParagraphCxSpFirst'));
         $this->replaceClassList($doc->getElementsByClassName('MsoListParagraphCxSpMiddle'));
