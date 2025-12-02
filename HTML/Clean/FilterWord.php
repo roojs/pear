@@ -16,8 +16,28 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
     
     function __construct($cfg)
     {
-        $this->replaceDocBullets($cfg['node']);
-        $this->replaceAname($cfg['node']);
+        parent::__construct($cfg);
+        $this->replaceDocBullets($this->node);
+        $this->replaceAname($this->node);
+    }
+    
+    /**
+     * Get elements by class name using XPath (since PHP DOMElement doesn't have getElementsByClassName)
+     * 
+     * @param DOMNode $node The node to search within
+     * @param string $className The class name to search for
+     * @return DOMNodeList List of matching elements
+     */
+    function getElementsByClassName($node, $className)
+    {
+        if (!$node || !$node->ownerDocument) {
+            return new DOMNodeList();
+        }
+        
+        $xpath = new DOMXPath($node->ownerDocument);
+        // XPath to find elements with the class name (handles multiple classes)
+        $query = ".//*[contains(concat(' ', normalize-space(@class), ' '), ' {$className} ')]";
+        return $xpath->query($query, $node);
     }
    
     
