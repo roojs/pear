@@ -26,18 +26,31 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
      * 
      * @param DOMNode $node The node to search within
      * @param string $className The class name to search for
-     * @return DOMNodeList List of matching elements
+     * @return DOMNodeList List of matching elements (empty if node is invalid)
      */
     function getElementsByClassName($node, $className)
     {
-        if (!$node || !$node->ownerDocument) {
-            return new DOMNodeList();
+        if (!$node) {
+            // Return empty result by querying a non-existent element
+            $dummyDoc = new DOMDocument();
+            $xpath = new DOMXPath($dummyDoc);
+            return $xpath->query('//*[@nonexistent]');
         }
         
-        $xpath = new DOMXPath($node->ownerDocument);
+        $doc = $node->ownerDocument ? $node->ownerDocument : ($node instanceof DOMDocument ? $node : null);
+        if (!$doc) {
+            $dummyDoc = new DOMDocument();
+            $xpath = new DOMXPath($dummyDoc);
+            return $xpath->query('//*[@nonexistent]');
+        }
+        
+        $xpath = new DOMXPath($doc);
         // XPath to find elements with the class name (handles multiple classes)
-        $query = ".//*[contains(concat(' ', normalize-space(@class), ' '), ' {$className} ')]";
-        return $xpath->query($query, $node);
+        // Escape the className for XPath
+        $escapedClassName = addslashes($className);
+        $query = ".//*[contains(concat(' ', normalize-space(@class), ' '), ' {$escapedClassName} ')]";
+        $result = $xpath->query($query, $node);
+        return $result ? $result : $xpath->query('//*[@nonexistent]');
     }
    
     
