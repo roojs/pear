@@ -33,6 +33,8 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
     function __construct($cfg)
     {
         parent::__construct($cfg);
+        var_dump($this->node);
+        die('test');
         $this->walk($this->node);
     }
     
