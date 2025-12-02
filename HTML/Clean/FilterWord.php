@@ -76,9 +76,6 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
     }
     function replaceClassList($list)
     {
-        var_dump($list);
-        var_dump($this->arrayFrom($list));
-        die('test');
         foreach($this->arrayFrom($list) as $l) {
             $l->setAttribute('class', "MsoListParagraph");
         }
