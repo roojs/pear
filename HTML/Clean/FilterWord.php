@@ -90,7 +90,7 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
         $this->replaceClassList($this->getElementsByClassName($doc, 'MsoListParagraphCxSpFirst'));
         $this->replaceClassList($this->getElementsByClassName($doc, 'MsoListParagraphCxSpMiddle'));
         $this->replaceClassList($this->getElementsByClassName($doc, 'MsoListParagraphCxSpLast'));
-        $this->replaceClassList($this->getElementsByClassName($doc, 'ql-indent-1'));
+        $this->replaceClassList($this->getElementsByClassName($doc, 'q1-indent-1'));
 
            
         // this is a bit hacky - we had one word document where h2 had a miso-list attribute.
@@ -100,9 +100,18 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
                 $a->setAttribute('class', "MsoListParagraph");
             }
         }
+        // Note: Filter.php uses getElementsByTagName('MsoNormal') which is incorrect (MsoNormal is a class, not tag)
+        // But we'll match the behavior by checking elements with class MsoNormal
         $ar =  $this->arrayFrom($this->getElementsByClassName($doc, 'MsoNormal'));
         foreach($ar as $a) {
-            if ($a->hasAttribute('style') && preg_match('/mso-list:/', $a->getAttribute('style'))) {
+            $style = $a->getAttribute('style');
+            
+            // no attribute 'style'
+            if(empty($style)) {
+                continue;
+            }
+            
+            if(preg_match('/mso-list:/', $style)) {
                 $a->setAttribute('class', "MsoListParagraph");
             } else {
                 $a->setAttribute('class', "MsoNormalx");
@@ -123,149 +132,192 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
     
      
     
+    /**
+     * Convert style attribute to array (matching Filter.php styleToArray behavior)
+     * 
+     * @param DOMNode $node The node to get style from
+     * @return array Array of style properties (keys not lowercased, values not trimmed)
+     */
+    function styleToArray($node)
+    {
+        $ret = array();
+        $style = $node->getAttribute('style');
+        if(empty($style)) {
+            return $ret;
+        }
+        
+        $styles = explode(';', $style);
+        foreach($styles as $s) {
+            if(!preg_match('/:/', $s)) {
+                continue;
+            }
+            $kv = explode(':', $s, 2);
+            $ret[trim($kv[0])] = isset($kv[1]) ? $kv[1] : '';
+        }
+        
+        return $ret;
+    }
+    
     function replaceDocBullet  ($p)
     {
-        // gather all the siblings.
+        // removed already => skip
+        if(empty($p->parentNode)) {
+            return;
+        }
+        
+        $items = array();
+        $type = 'ul';
         $ns = $p;
-        $parent = $p->parentNode;
-        $doc = $parent->ownerDocument;
-        $items = array();;
-            
-        $listtype = 'ul';   
-        while ($ns) {
-            if ($ns->nodeType != 1) {
+        
+        // read a list, it's type and it's items
+        while($ns) {
+            if($ns->nodeType != 1) {
                 $ns = $ns->nextSibling;
                 continue;
             }
-            $cln = $ns->hasAttribute('class') ? $ns->getAttribute('class') : '';
-            if (preg_match('/(MsoListParagraph|ql-indent-1)/i', $cln)) {
+            
+            $class = $ns->getAttribute('class');
+            
+            // stop if not list paragraph
+            if(empty($class) || !preg_match('/(MsoListParagraph|ql-indent-1)/i', $class)) {
                 break;
             }
+            
             $spans = $ns->getElementsByTagName('span');
-            if ($ns->hasAttribute('style') && preg_match('/mso-list/', $ns->getAttribute('style'))) {
+            $styles = $this->styleToArray($ns);
+            
+            // paragraph with style 'mso-list'
+            if(!empty($styles['mso-list'])){
                 $items[] = $ns;
                 $ns = $ns->nextSibling;
-                $has_list = true;
-                if ($spans->length && $spans->item(0)->hasAttribute('style')) {
-                    $style = $this->styleToObject($spans->item(0), true);
-                    if (!empty($style['font-family']) && !preg_match('/Symbol/', $style['font-family'])) {
-                        $listtype = 'ol';
+                if(!count($spans)) {
+                    continue;
+                }
+                
+                // get font family from span
+                $fontFamily = '';
+                foreach($spans as $span) {
+                    $styles = $this->styleToArray($span);
+                    
+                    foreach($styles as $k => $v) {
+                        if(preg_match('/font-family/', $k)) {
+                            $fontFamily = $v;
+                        }
+                    }
+                    
+                    if(!empty($fontFamily)) {
+                        break;
                     }
                 }
                 
+                if(!empty($fontFamily) && !preg_match('/(Symbol|Wingdings)/', $fontFamily)) {
+                    $type = 'ol';
+                }
                 continue;
             }
             
-            $spans = $ns->getElementsByTagName('span');
-            if (!$spans->length) {
+            // paragraph without style 'mso-list'
+            if (!count($spans)) {
                 break;
             }
-            $has_list  = false;
-            foreach($this->arrayFrom($spans) as $s) {
-                if ($s->hasAttribute('style') &&  preg_match('/mso-list/', $s->getAttribute('style'))) {
+            
+            $has_list = false;
+            foreach($spans as $span) {
+                $styles = $this->styleToArray($span);
+                // span with style 'mso-list'
+                if(!empty($styles['mso-list'])){
                     $has_list = true;
                     break;
                 }
             }
-            if (!$has_list) {
+            
+            if(!$has_list) {
                 break;
             }
+            
             $items[] = $ns;
             $ns = $ns->nextSibling;
-            
-            
         }
-        if (!count($items)) {
-            $ns->setAttribute('class', '');
+        
+        if(!count($items)) {
             return;
         }
         
-        $ul = $parent->ownerDocument->createElement($listtype); // what about number lists...
-        $parent->insertBefore($ul, $p);
+        // create elements for the list and the items
+        $doc = $p->ownerDocument;
+        $list = $doc->createElement($type);
+        $p->parentNode->insertBefore($list, $p);
+        
+        $marginToDepth = array();
+        $depth = 0;
         $lvl = 0;
-        $stack = array ( $ul );
-        $last_li = false;
+        $stack = array($list);
+        $lastLi = false;
         
-        $margin_to_depth = array();
-        $max_margins = -1;
-        
-        foreach($items as $ipos => $n)
-        {
-        
-            //Roo.log("got innertHMLT=" + n.innerHTML);
+        foreach($items as $item) {
+            $spans = $item->getElementsByTagName('span');
             
-            $spans = $this->arrayFrom($n->getElementsByTagName('span'));
-            if (!count($spans)) {
-                //Roo.log("No spans found");
-                 
-                $parent->removeChild($n);
-                
-                
-                continue; // skip it...
-            }
-           
-                
-            $num = 1;
-            $style = array();
-            foreach($spans as $i => $span) {
-            
-                $style = $this->styleToObject($span, true);
-                if (empty($style['mso-list']) ) {
-                    continue;
-                }
-                if ($listtype == 'ol') {
-                   $num = preg_replace('/[^0-9]+]/g', '', $span->textContent)  * 1;
-                }
-                $span->parentNode->removeChild($span); // remove the fake bullet.
-                break;
-            }
-            //Roo.log("NOW GOT innertHMLT=" + n.innerHTML);
-            $style = $this->styleToObject($n, true); // mo-list is from the parent node.
-            if (empty($style['mso-list'])) {
-                  
-                $parent->removeChild($n);
-                 
+            // no span => remove and skip
+            if(!count($spans)) {
+                $item->parentNode->removeChild($item);
                 continue;
             }
             
-            $margin = $style['margin-left'];
-            if (empty($margin_to_depth[$margin]) ) {
-                $max_margins++;
-                $margin_to_depth[$margin] = $max_margins;
-            }
-            $nlvl = $margin_to_depth[$margin] ;
-             
-            if ($nlvl > $lvl) {
-                //new indent
-                $nul = $doc->createElement($listtype); // what about number lists...
-                if (!$last_li) {
-                    $last_li = $doc->createElement('li');
-                    $stack[$lvl]->appendChild($last_li);
+            $num = 1; // default starting number
+            foreach($spans as $span) {
+                $styles = $this->styleToArray($span);
+                if(empty($styles['mso-list'])) {
+                    continue;
                 }
-                $last_li->appendChild($nul);
-                $stack[$nlvl] = $nul;
                 
+                // get starting number from span for ordered list
+                if($type == 'ol') {
+                    $textContent = property_exists($span, 'textContent') ? $span->textContent : $span->nodeValue;
+                    $num = preg_replace('/[^0-9]+/', '', $textContent);
+                }
+                break;
+            }
+            
+            $styles = $this->styleToArray($item);
+            
+            if(empty($styles['mso-list'])) {
+                $item->parentNode->removeChild($item);
+                continue;
+            }
+            
+            $margin = empty($styles['margin-left']) ? 0 : $styles['margin-left'];
+            if(!isset($marginToDepth[$margin])) {
+                $marginToDepth[$margin] = $depth;
+                $depth++;
+            }
+            
+            // get nested level based on margin left
+            $nlvl = $marginToDepth[$margin];
+            
+            if($nlvl > $lvl) {
+                // new list for a new nested level
+                $newList = $doc->createElement($type);
+                if(!$lastLi) {
+                    $lastLi = $stack[$lvl]->appendChild($doc->createElement('li'));   
+                }
+                $lastLi->appendChild($newList);
+                $stack[$nlvl] = $newList;
             }
             $lvl = $nlvl;
             
-            // not starting at 1..
-            if (!$stack[$nlvl]->hasAttribute("start") && $listtype == "ol") {
-                $stack[$nlvl]->setAttribute("start", $num);
-            }
+            // set starting number for ordered list
+            if(empty($stack[$nlvl]->getAttribute('start')) && $type == 'ol') {
+                $stack[$nlvl]->setAttribute('start', $num);
+            } 
             
+            // add list item to the list
             $nli = $stack[$nlvl]->appendChild($doc->createElement('li'));
-            $last_li = $nli;
-            $this->copyInnerHtml($n, $nli);
-            //$nli->innerHTML = $n->innerHTML;
-            //Roo.log("innerHTML = " + n.innerHTML);
-            $parent->removeChild($n);
+            $nli->nodeValue = $item->nodeValue;
+            $lastLi = $nli;
             
-              
+            // remove the paragraph
+            $item->parentNode->removeChild($item);
         }
-        
-        
-        
-        
     }
     
     
