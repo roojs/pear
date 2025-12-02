@@ -22,6 +22,10 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
         var_dump($this->node->getElementsByTagName('p'));
         $pp = $this->arrayFrom($this->node->getElementsByTagName('p'));
         // var_dump($pp);
+        foreach($this->node->getElementsByTagName('p') as $p) {
+            var_dumP($p);
+            die('test');
+        }
         die('test');
         while($pp->length) {
             $this->replaceIt($p);
