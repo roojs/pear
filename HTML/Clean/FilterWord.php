@@ -74,23 +74,21 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
     {
         // this is a bit odd - but it appears some indents use ql-indent-1
          //Roo.log(doc.innerHTML);
-         var_dump($doc);
-         die('test');
         
-        $this->replaceClassList($doc->getElementsByClassName('MsoListParagraphCxSpFirst'));
-        $this->replaceClassList($doc->getElementsByClassName('MsoListParagraphCxSpMiddle'));
-        $this->replaceClassList($doc->getElementsByClassName('MsoListParagraphCxSpLast'));
-        $this->replaceClassList($doc->getElementsByClassName('ql-indent-1'));
+        $this->replaceClassList($this->getElementsByClassName($doc, 'MsoListParagraphCxSpFirst'));
+        $this->replaceClassList($this->getElementsByClassName($doc, 'MsoListParagraphCxSpMiddle'));
+        $this->replaceClassList($this->getElementsByClassName($doc, 'MsoListParagraphCxSpLast'));
+        $this->replaceClassList($this->getElementsByClassName($doc, 'ql-indent-1'));
 
            
         // this is a bit hacky - we had one word document where h2 had a miso-list attribute.
         $htwo =  $this->arrayFrom($doc->getElementsByTagName('h2'));
-        foreach($htow as $a) {
+        foreach($htwo as $a) {
             if ($a->hasAttribute('style') && preg_match('/mso-list:/', $a->getAttribute('style'))) {
                 $a->setAttribute('class', "MsoListParagraph");
             }
         }
-        $ar =  $this->arrayFrom($doc->getElementsByClassName('MsoNormal'));
+        $ar =  $this->arrayFrom($this->getElementsByClassName($doc, 'MsoNormal'));
         foreach($ar as $a) {
             if ($a->hasAttribute('style') && preg_match('/mso-list:/', $a->getAttribute('style'))) {
                 $a->setAttribute('class', "MsoListParagraph");
@@ -99,7 +97,7 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
             }
         }
        
-        $listpara = $doc->getElementsByClassName('MsoListParagraph');
+        $listpara = $this->getElementsByClassName($doc, 'MsoListParagraph');
         // Roo.log(doc.innerHTML);
         
         
