@@ -161,6 +161,8 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
                 break;
             }
             $has_list  = false;
+            var_dump($spans);
+            die('test');
             foreach($this->arrayFrom($spans) as $s) {
                 if ($s->hasAttribute('style') &&  preg_match('/mso-list/', $s->getAttribute('style'))) {
                     $has_list = true;
