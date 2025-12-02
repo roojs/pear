@@ -49,8 +49,7 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
         // Escape the className for XPath
         $escapedClassName = addslashes($className);
         $query = ".//*[contains(concat(' ', normalize-space(@class), ' '), ' {$escapedClassName} ')]";
-        $result = $xpath->query($query, $node);
-        return $result ? $result : $xpath->query('//*[@nonexistent]');
+        return $xpath->query($query, $node);
     }
    
     
