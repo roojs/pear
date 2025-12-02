@@ -107,6 +107,43 @@ class HTML_Clean {
         return $ret;
     }
     
+    /**
+     * Find a parent element with the specified tag name
+     * Traverses up the DOM tree from the given node
+     * 
+     * @param DOMNode $node The node to start searching from
+     * @param string $tagName The tag name to search for (case-insensitive)
+     * @param int $maxDepth Maximum depth to search (default: 50)
+     * @return DOMElement|null The matching parent element or null if not found
+     */
+    function findParent($node, $tagName, $maxDepth = 50)
+    {
+        if (!$node) {
+            return null;
+        }
+        
+        $parent = $node->parentNode;
+        $depth = 0;
+        $tagNameLower = strtolower($tagName);
+        
+        while ($parent && $parent->nodeType == XML_ELEMENT_NODE && $depth < $maxDepth) {
+            // Check if this is the body element (stop here)
+            if (strtolower($parent->tagName) === 'body') {
+                break;
+            }
+            
+            // Check if tag name matches (case-insensitive)
+            if (strtolower($parent->tagName) === $tagNameLower) {
+                return $parent;
+            }
+            
+            $depth++;
+            $parent = $parent->parentNode;
+        }
+        
+        return null;
+    }
+    
     function filter($type, $args)
     {
         require_once 'HTML/Clean/Filter'. $type .'.php';
