@@ -185,7 +185,6 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         $doc = new DOMDocument('1.0', 'utf8');
         
         var_dump($o);
-        die('aa');
         if (is_string($o)) {
             return  $parentNode ? $parentNode->appendChild($doc->createTextNode($o)) : $doc->createTextNode($o);
         }
