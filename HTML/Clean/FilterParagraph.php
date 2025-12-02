@@ -19,10 +19,9 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
     function __construct($cfg)
     {
         parent::__construct($cfg);
-        var_dump($this->node->getElementsByTagName('p'));
         $pp = $this->arrayFrom($this->node->getElementsByTagName('p'));
         // var_dump($pp);
-        foreach($this->node->getElementsByTagName('p') as $p) {
+        foreach($this->node->getElementsByTagName('figure') as $p) {
             var_dumP($p);
             die('test');
         }
