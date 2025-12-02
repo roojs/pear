@@ -76,7 +76,8 @@ class HTML_Clean {
         $this->filter('Paragraph',array( 'node' =>  $d ));
         $this->filter('Span',array( 'node' =>  $d ));
         $this->filter('LongBr',array( 'node' =>  $d ));
-         
+
+
         $ar = $this->arrayFrom($d->getElementsByTagName('img'));
         foreach($ar as $img) {
             if ($this->findParent($img, 'figure')) {
@@ -95,6 +96,15 @@ class HTML_Clean {
         require_once 'HTML/Clean/Block.php';
         HTML_Clean_Block::initAll($d);
 
+    }
+
+    function arrayFrom($list)
+    {
+        $ret = array();
+        foreach($list as $k=> $l) {
+            $ret[$k] = $l;
+        }
+        return $ret;
     }
     
     function filter($type, $args)
