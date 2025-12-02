@@ -9,9 +9,10 @@ class HTML_Clean {
     
     static function fromHTML($str, $opts = array())
     {
+        $str= self::cleanWordChars($str);
+
         var_dump($str);
         die('test');
-        $str= self::cleanWordChars($str);
         $dom = new DOMDocument('1.0', 'utf8');
         $dom->loadHTML($str);
         $opts['dom'] = $dom;
