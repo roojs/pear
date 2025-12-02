@@ -187,6 +187,8 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         if (is_string($o)) {
             return  $parentNode ? $parentNode->appendChild($doc->createTextNode($o)) : $doc->createTextNode($o);
         }
+        var_dump($o);
+        die('test');
         var_dump($o['tag']);
         if(empty($o['tag'])){
             $o['tag'] = "div";
