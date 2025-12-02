@@ -13,7 +13,7 @@
 
 require_once 'Filter.php';
 
-class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
+class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
 {
    
     var $tag =  true; // all tags
