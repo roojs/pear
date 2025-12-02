@@ -180,8 +180,6 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
     }
     
     static function createDom ($o, $parentNode = false) {
-        var_dump($o);
-        die('test');
         // defininition craeted..
         $ns = false;
         $doc = new DOMDocument('1.0', 'utf8');
