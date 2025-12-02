@@ -55,9 +55,13 @@ class HTML_Clean {
         $this->filter('Word',array( 'node' =>  $d ));
             
         $this->filter('StyleToTag', array(
-            'node' =>  $d   // this could add nodes to tree, so not very good to nest the walk.
-            
+            'node' =>  $d   // this could add nodes to tree, so not very good to nest the walk. 
         ));
+
+        $result = '';
+        foreach ($d->childNodes as $child) {
+            $result .= ($this->dom->saveHTML($child));
+        }
         
         $this->filter('Attributes',array(    // does walk as well.
             'node' => $d,
@@ -66,6 +70,7 @@ class HTML_Clean {
             
             'replaceComment' => true   // this is sneaked in here - as walk will get rid of comments at the same time.
         ));
+
         // is this used?!?!
         $this->filter('Black', array( 'node' =>  $d, 'tag'  =>  $this->black ));
         // we don't use the whitelist?
