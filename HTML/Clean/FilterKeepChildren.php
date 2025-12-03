@@ -27,13 +27,6 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
  
     function replaceTag ($n)
     {
-        self::$counter++;
-        var_dump(self::$counter);
-        var_dump($n);
-        if(self::$counter == 4) {
-            die('test');
-        }
-
         // walk children first
         // as the parent may be removed
         $this->walk($n);
