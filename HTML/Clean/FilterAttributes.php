@@ -38,9 +38,6 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
             return true;
         }
 
-        var_dump($node->attributes);
-        die('test');
-
         $removeAttributes = array();
 
         foreach($node->attributes as $a) {
