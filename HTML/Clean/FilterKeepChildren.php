@@ -33,7 +33,6 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
 
         $this->removeNodeKeepChildren($n);
         return false; // don't walk children
-        
     }
     
      
