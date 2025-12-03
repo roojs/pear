@@ -54,7 +54,6 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
 
         // no attribute 'style'
         if(empty($style)) {
-            var_dumP(" NO STYLE");
             return true;
         }
 
@@ -76,10 +75,8 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
             }
         }
 
-        /*
-
         if(empty($tags)){
-            return;
+            return true;
         }
 
         $node->setAttribute('style', $style);
