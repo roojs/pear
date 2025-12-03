@@ -27,6 +27,49 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
     
     function replaceIt($node)
     {
+        /*
+        // return if not 'p' tag
+        if(strtoupper($node->tagName) != 'P') {
+            return;
+        }
+
+        // replace empty p tag with br
+        // e.g. '<p> </p>' to '<br>'
+        if(
+            count($node->childNodes) == 1 &&
+            $node->childNodes->item(0)->nodeType == 3 &&
+            trim($node->childNodes->item(0)->textContent) == ''
+        ) {
+            $new = $node->ownerDocument->createElement('BR');
+            $node->parentNode->insertBefore($new, $node);
+            $node->parentNode->removeChild($node);
+
+            return;
+        }
+
+        // remove p tag but keep children
+        // e.g. '<p><b>abc</b></p>' to '<b>abc</b>'
+
+        // copy of child nodes
+        $childNodes = array();
+
+        foreach($node->childNodes as $n) {
+            $childNodes[] = $n;
+        }
+
+        foreach($childNodes as $n) {
+            $node->parentNode->insertBefore($n, $node);
+            $this->walk($n);
+        }
+
+        // insert two br after the children
+        $new = $node->ownerDocument->createElement('BR');
+        $node->parentNode->insertBefore($new, $node);
+        $new = $node->ownerDocument->createElement('BR');
+        $node->parentNode->insertBefore($new, $node);
+
+        $node->parentNode->removeChild($node);
+        */
         
         if ($node->childNodes->length == 1 &&
             $node->childNodes->item(0)->nodeType == 3 &&
