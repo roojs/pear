@@ -55,10 +55,10 @@ class  HTML_Clean_Filter
                     return false;
             
             case $this->tag === true: // everything
-            case strpos(':', $e->tagName) !== false && is_array($this->tag) && in_array(":", $this->tag):
-            case strpos(':', $e->tagName) !== false && is_string($this->tag)  && $this->tag == ":":
-            case is_array($this->tag) && in_array($e->tagName, $this->tag):
-            case is_string($this->tag) && $e->tagName ==  $this->tag:
+            case strpos(':', strtoupper($e->tagName)) !== false && is_array($this->tag) && in_array(":", $this->tag):
+            case strpos(':', strtoupper($e->tagName)) !== false && is_string($this->tag)  && $this->tag == ":":
+            case is_array($this->tag) && in_array(strtoupper($e->tagName), $this->tag):
+            case is_string($this->tag) && strtoupper($e->tagName) ==  $this->tag:
                 return true;
         }
          
