@@ -31,8 +31,50 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
         $this->walk($this->node);
     } 
     
-     function replaceTag ($node)
+    function replaceTag ($node)
     {
+        /*
+        // return if no attribute
+        if(!count($node->attributes)) {
+            return;
+        }
+
+        $removeAttributes = array();
+
+        foreach($node->attributes as $a) {
+            if(!in_array(strtoupper($a->name), $this->attributeWhite)) {
+                $removeAttributes[] = $a;
+                continue;
+            }
+
+            if(in_array(strtoupper($a->name), array('HREF', 'SRC'))) {
+                if(!(
+                    preg_match('/^\./', $a->nodeValue) 
+                    || 
+                    preg_match('/^\//', $a->nodeValue)
+                    || 
+                    preg_match('/^(http|https):\/\//', $a->nodeValue)
+                    || 
+                    preg_match('/^mailto:/', $a->nodeValue)
+                    || 
+                    preg_match('/^ftp:/', $a->nodeValue)
+                    || 
+                    preg_match('/^data:/', $a->nodeValue)
+                    || 
+                    preg_match('/^#/', $a->nodeValue)
+                    || 
+                    preg_match('/^\{/', $a->nodeValue)
+                )) {
+                    $removeAttributes[] = $a;
+                }
+                continue;
+            }
+        }
+
+        foreach($removeAttributes as $a) {
+            $node->removeAttribute($a->name);
+        }
+        */
         if (!$node->hasAttributes()) {
             return true; // do children.
         }
