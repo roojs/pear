@@ -52,6 +52,11 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
                 continue;
             }
 
+            if (in_array(strtolower($a->name), $this->attrib_black)) {
+                $removeAttributes[] = $a;
+                continue;
+            }
+
             if(in_array(strtoupper($a->name), $this->attrib_clean)) {
                 if(!(
                     preg_match('/^\./', $a->nodeValue) 
@@ -83,18 +88,6 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
         return true;
         */
         foreach($ats as $a) {
-            
-            // always remove 'on'
-            if (substr(strtolower($a->name),0,2) == 'on')  {
-                $node->removeAttribute($a->name);
-                continue;
-            }
-            
-            
-            if (in_array( strtolower($a->name),$this->attrib_black)) {
-                $node->removeAttribute($a->name);
-                continue;
-            }
             if (in_array( strtolower($a->name),$this->attrib_clean))  {
                 $this->cleanAttr($node,$a->name,$a->value); // fixme..
                 continue;
