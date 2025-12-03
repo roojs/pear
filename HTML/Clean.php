@@ -51,9 +51,10 @@ class HTML_Clean {
         foreach($opts as $k=>$v) {
             $this->{$k} = $v;
         }
-        $d = $this->dom->documentElement;
-        var_dump($this->dom);
-        die('test');
+        $d = $this->dom->getElementsByTagName('body')->item(0);
+        if (!$d) {
+            $d = $this->dom->documentElement;
+        }
         // var_dump($this->dom);
         $this->filter('Word',array( 'node' =>  $d ));
             
