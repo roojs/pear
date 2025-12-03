@@ -57,7 +57,7 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
                 continue;
             }
 
-            if(in_array(strtoupper($a->name), $this->attrib_clean)) {
+            if(in_array(strtolower($a->name), $this->attrib_clean)) {
                 if(!(
                     preg_match('/^\./', $a->nodeValue) 
                     || 
