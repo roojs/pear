@@ -27,7 +27,7 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
  
     function replaceTag ($n)
     {
-        // walk children first
+        // children is always walked before the parent
         // as the parent may be removed
         $this->walk($n);
 
