@@ -67,6 +67,8 @@ class HTML_Clean {
             'replaceComment' => true   // this is sneaked in here - as walk will get rid of comments at the same time.
         ));
 
+        die('test2');
+
         // is this used?!?!
         $this->filter('Black', array( 'node' =>  $d, 'tag'  =>  $this->black ));
         // we don't use the whitelist?
