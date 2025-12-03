@@ -14,6 +14,7 @@ require_once 'Filter.php';
 
 class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
 {
+    static $counter = 0;
     function __construct($cfg)
     {
         parent::__construct($cfg);
@@ -26,6 +27,12 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
  
     function replaceTag ($n)
     {
+        self::$counter++;
+        var_dump(self::$counter);
+        var_dump($n->tagName);
+        if(self::$counter == 2) {
+            die('test');
+        }
         // $ar = $this->arrayFrom($n->childNodes);
 
         // // remove first.. - otherwise due to our walking method - the parent will not look at them.
