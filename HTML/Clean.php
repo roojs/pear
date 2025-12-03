@@ -77,17 +77,15 @@ class HTML_Clean {
         // is this used?!?!
         $this->filter('Black', array( 'node'=> $d, 'tag'  => $this->black));
         // we don't use the whitelist?
-
-        $result = '';
-        foreach ($this->dom->documentElement->childNodes as $child) {
-            $result .= ($this->dom->saveHTML($child));
-        }
-        var_dump($result);
-        die('test3');
-        
         
         // should be fonts..
         $this->filter('KeepChildren',array( 'node' =>  $d, 'tag'  =>   array(   'FONT', ':' )) );  
+        $result = '';
+        foreach ($d->childNodes as $child) {
+            $result .= ($this->dom->saveHTML($child));
+        }
+        var_dump($result);
+        die('test4');
         $this->filter('Paragraph',array( 'node' =>  $d ));
         $this->filter('Span',array( 'node' =>  $d ));
         $this->filter('LongBr',array( 'node' =>  $d ));
