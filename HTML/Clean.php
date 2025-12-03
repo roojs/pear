@@ -69,6 +69,7 @@ class HTML_Clean {
             'attrib_clean' => array('href', 'src' ),
             
             'replaceComment' => true   // this is sneaked in here - as walk will get rid of comments at the same time.
+            'lang' => $language
         ));
 
         // is this used?!?!
