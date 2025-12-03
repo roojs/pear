@@ -55,30 +55,15 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
         if(empty($style)) {
             return true;
         }
-        // styles to be converted to tags
-        $styles = array(
-            'B' => array(
-                'font-weight',
-                'bold'
-            ),
-            'I' => array(
-                'font-style',
-                'italic'
-            ),
-            'SUP' => array(
-                'vertical-align',
-                'super'
-            ),
-            'SUB' => array(
-                'vertical-align',
-                'sub'
-            )
-        );
 
         $tags = array();
 
-        foreach($styles as $tag => $s) {
+        foreach($this->tags as $tag => $s) {
             $pattern = '/' . $s[0] . '\s*:\s*' . $s[1] . '\s*;/';
+
+            var_dump($pattern);
+            var_dump($style);
+            die('test');
 
             $matches = array();
 
