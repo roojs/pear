@@ -80,6 +80,11 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
                 continue;
             }
 
+            if ($a->name == 'style') {
+                $this->cleanStyle($node);
+                continue;
+            }
+
             if ($a->name == 'class') {
                 if (preg_match('/^Mso/', $a->value)) {
                     $removeAttributes[] = $a;
@@ -108,18 +113,6 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
         }
 
         return true;
-        */
-        foreach($ats as $a) {
-                
-            if ($a->name == 'style') {
-                $this->cleanStyle($node);
-                continue;
-            }
-            /// clean up MS crap..
-            // tecnically this should be a list of valid class'es..
-            
-        }
-        return true; // clean children
     }
     
     function cleanStyle ($node)
