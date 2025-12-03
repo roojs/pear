@@ -83,15 +83,6 @@ class  HTML_Clean_Filter
         $node->parentNode->removeChild($node);
     }
     
-    function arrayFrom($list)
-    {
-        $ret = array();
-        foreach($list as $k=> $l) {
-            $ret[$k] = $l;
-        }
-        return $ret;
-    }
-    
     function innerHTML($n)
     {
         $ret = "";
@@ -108,6 +99,15 @@ class  HTML_Clean_Filter
             $from->removeChild($n);
             $to->appendChild($n);
         }
+    }
+
+    function arrayFrom($list)
+    {
+        $ret = array();
+        foreach($list as $k => $l) {
+            $ret[$k] = $l;
+        }
+        return $ret;
     }
 
     function styleToArray($node)
