@@ -33,15 +33,19 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
         // if(self::$counter == 2) {
         //     die('test');
         // }
-        $ar = $this->arrayFrom($n->childNodes);
+        // $ar = $this->arrayFrom($n->childNodes);
 
-        // remove first.. - otherwise due to our walking method - the parent will not look at them.
-        foreach($ar as $t) {
-            if (!$this->isTagMatch($t)) {
-                continue;
-            }
-            $this->replaceTag($t); // this effetively walks all the children.
-        }
+        // // remove first.. - otherwise due to our walking method - the parent will not look at them.
+        // foreach($ar as $t) {
+        //     if (!$this->isTagMatch($t)) {
+        //         continue;
+        //     }
+        //     $this->replaceTag($t); // this effetively walks all the children.
+        // }
+
+        // walk children first
+        // as the parent may be removed
+        $this->walk($n);
 
         $this->removeNodeKeepChildren($n);
         return false; // don't walk children
