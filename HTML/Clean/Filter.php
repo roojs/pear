@@ -28,10 +28,7 @@ class  HTML_Clean_Filter
         foreach($ar as $e) {
         
             switch(true) {
-                
-                
                 case $this->isTagMatch($e):
-                
                     if (false === $this->replaceTag($e)) {
                         return;
                     }
@@ -39,7 +36,6 @@ class  HTML_Clean_Filter
                         $this->walk($e);
                     }
                     return;
-                
                 default:    // tags .. that do not match.
                     if ($e->hasChildNodes()) {
                         $this->walk($e);
