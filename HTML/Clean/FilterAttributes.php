@@ -97,14 +97,14 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
                     continue;
                 }
             }
-            
+
             if($a->name == 'dir') {
                 $documentDir = ['ar', 'he', 'fa', 'ur', 'ps', 'syr', 'dv', 'arc', 'nqo', 'sam', 'tzm', 'ug', 'yi'].includes($this->lang) ? 'rtl' : 'ltr';
                 $nodeDir = $a->value->toLowerCase();
 
                 // remove span dir if it is same as the document dir
                 if($node->tagName->toLowerCase() == 'span' && $nodeDir == $documentDir) {
-                    $node->removeAttribute($a->name);
+                    $removeAttributes[] = $a;
                 }
             }
         }
