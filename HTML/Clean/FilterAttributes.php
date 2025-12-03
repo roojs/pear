@@ -41,7 +41,7 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
         $removeAttributes = array();
 
         foreach($node->attributes as $a) {
-            if(!in_array(strtoupper($a->name), $this->attributeWhite)) {
+            if(!in_array(strtoupper($a->name), $this->attrib_white)) {
                 $removeAttributes[] = $a;
                 continue;
             }
