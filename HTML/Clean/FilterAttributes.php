@@ -33,13 +33,12 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
     
     function replaceTag ($node)
     {
-        var_dump($node->tagName);
-        die('test');
-        /*
         // return if no attribute
         if(!count($node->attributes)) {
-            return;
+            return true;
         }
+
+        /*
 
         $removeAttributes = array();
 
