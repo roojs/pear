@@ -130,6 +130,8 @@ class  HTML_Clean_Filter
 
         return $ret;
     }
+
+    /*
     
     function styleToObject($node, $lower = false)
     {
@@ -146,6 +148,9 @@ class  HTML_Clean_Filter
         }
         return $ret;
     }
+
+    */
+    
     function nodeSetStyle($node, $style)
     {
         $str = array();
