@@ -68,7 +68,7 @@ class HTML_Clean {
         ));
 
         // is this used?!?!
-        $this->filter('Black', array( 'node' =>  $d, 'tag'  =>  $this->black));
+        $this->filter('Black', array( 'node'=> $d, 'tag'  => $this->black));
         // we don't use the whitelist?
 
         $result = '';
