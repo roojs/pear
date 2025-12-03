@@ -54,11 +54,11 @@ class HTML_Clean {
         $d = $this->dom->documentElement;
         // var_dump($this->dom);
         $this->filter('Word',array( 'node' =>  $d ));
-        die('test');
             
         $this->filter('StyleToTag', array(
             'node' =>  $d   // this could add nodes to tree, so not very good to nest the walk. 
         ));
+        die('test2');
 
         $result = '';
         foreach ($d->childNodes as $child) {
