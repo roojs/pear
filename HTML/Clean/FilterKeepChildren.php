@@ -29,7 +29,7 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
     function replaceTag ($n)
     {
         $ar = $this->arrayFrom($node->childNodes);
-        
+
         //remove first.. - otherwise due to our walking method - the parent will not look at them.
         foreach($ar as $t) {
             if (!$this->isTagMatch($t)) {
@@ -37,16 +37,9 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
             }
             $this->replaceTag($t); // this effetively walks all the children.
         }
+
+        $this->removeNodeKeepChildren($n);
         $ar = $this->arrayFrom($node->childNodes);
-        foreach($ar as $t) {
-         
-            $node->removeChild($t);
-            // what if we need to walk these???
-            $node->parentNode->insertBefore($t, $node);
-            // js code walks again.
-        }
-        //Roo.log("REMOVE:" + node.tagName);
-        $node->parentNode->removeChild(node);
         return false; // don't walk children
         
     }
