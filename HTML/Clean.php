@@ -56,6 +56,8 @@ class HTML_Clean {
             // no body?
             return;
         }
+        $language = $d->getAttribute('lang') ?? 'en';
+
         // var_dump($this->dom);
         $this->filter('Word',array( 'node' =>  $d ));
             
@@ -68,7 +70,7 @@ class HTML_Clean {
             'attrib_white' => array('href', 'src', 'name', 'align', 'colspan', 'rowspan', 'data-display', 'data-width', 'start'),
             'attrib_clean' => array('href', 'src' ),
             
-            'replaceComment' => true   // this is sneaked in here - as walk will get rid of comments at the same time.
+            'replaceComment' => true,   // this is sneaked in here - as walk will get rid of comments at the same time.
             'lang' => $language
         ));
 
