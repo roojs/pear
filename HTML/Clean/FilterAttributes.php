@@ -46,7 +46,7 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
                 continue;
             }
 
-            if(in_array(strtoupper($a->name), array('HREF', 'SRC'))) {
+            if(in_array(strtolower($a->name), array('HREF', 'SRC'))) {
                 if(!(
                     preg_match('/^\./', $a->nodeValue) 
                     || 
