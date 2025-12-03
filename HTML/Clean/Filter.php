@@ -72,16 +72,6 @@ class  HTML_Clean_Filter
         return true;
     }
     
-    function removeNodeKeepChildren  ( $node)
-    {
-        $ar = $this->arrayFrom($node->childNodes);
-        foreach($ar as $n) {
-            $node->removeChild($n);
-            $node->parentNode->insertBefore($n, $node);
-        }
-        $node->parentNode->removeChild($node);
-    }
-    
     function innerHTML($n)
     {
         $ret = "";
@@ -137,6 +127,16 @@ class  HTML_Clean_Filter
             $str[] = "$k:$v";
         }
         $node->setAttribute('style', implode(";", $str));
+    }
+
+    function removeNodeKeepChildren  ( $node)
+    {
+        $ar = $this->arrayFrom($node->childNodes);
+        foreach($ar as $n) {
+            $node->removeChild($n);
+            $node->parentNode->insertBefore($n, $node);
+        }
+        $node->parentNode->removeChild($node);
     }
 
     /*
