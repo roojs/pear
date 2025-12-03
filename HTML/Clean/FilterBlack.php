@@ -40,6 +40,10 @@ class HTML_Clean_FilterBlack extends HTML_Clean_Filter
         foreach(is_array($this->tag) ? $this->tag : array($this->tag) as $t) {
             $ar = $this->arrayFrom($this->node->getElementsByTagName(strtolower($t)));
             foreach($ar as $k) {
+                if($k->tagName == 'body') {
+                    var_dump($k->parentNode);
+                }
+                die('test');
                 if ($k->parentNode) {
                     $k->parentNode->removeChild($k);
                 }
