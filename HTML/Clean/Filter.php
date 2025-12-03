@@ -29,12 +29,12 @@ class  HTML_Clean_Filter
             switch(true) {
                 case $this->isTagMatch($e):
                     if (false === $this->replaceTag($e)) {
-                        continue;
+                        continue 2; // Continue the foreach loop, not the switch
                     }
                     if ($e->hasChildNodes()) {
                         $this->walk($e);
                     }
-                    continue;
+                    continue 2; // Continue the foreach loop, not the switch
                 default:    // tags .. that do not match.
                     if ($e->hasChildNodes()) {
                         $this->walk($e);
