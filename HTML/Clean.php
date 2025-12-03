@@ -52,7 +52,7 @@ class HTML_Clean {
             $this->{$k} = $v;
         }
         $d = $this->dom->documentElement;
-        var_dump($d->body);
+        var_dump($this->dom);
         die('test');
         // var_dump($this->dom);
         $this->filter('Word',array( 'node' =>  $d ));
