@@ -63,10 +63,6 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
         foreach($this->tags as $tag => $s) {
             $pattern = '/' . $s[0] . '\s*:\s*' . $s[1] . '\s*;/';
 
-            var_dump($pattern);
-            var_dump($style);
-            die('test');
-
             $matches = array();
 
             preg_match($pattern, $style, $matches);
