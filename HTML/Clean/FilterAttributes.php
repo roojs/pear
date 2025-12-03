@@ -41,12 +41,12 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
         $removeAttributes = array();
 
         foreach($node->attributes as $a) {
-            if(!in_array(strtoupper($a->name), $this->attrib_white)) {
+            if(!in_array(strtolower($a->name), $this->attrib_white)) {
                 $removeAttributes[] = $a;
                 continue;
             }
 
-            if(in_array(strtolower($a->name), array('HREF', 'SRC'))) {
+            if(in_array(strtoupper($a->name), array('HREF', 'SRC'))) {
                 if(!(
                     preg_match('/^\./', $a->nodeValue) 
                     || 
