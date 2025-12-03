@@ -99,6 +99,8 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
             }
 
             var_dump($this->lang);
+            var_dump($a->name);
+            var_dump($a->value);
             die('test');
             if($a->name == 'dir') {
                 $documentDir = ['ar', 'he', 'fa', 'ur', 'ps', 'syr', 'dv', 'arc', 'nqo', 'sam', 'tzm', 'ug', 'yi'].includes($this->lang) ? 'rtl' : 'ltr';
