@@ -28,13 +28,13 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
     {
         $ar = $this->arrayFrom($n->childNodes);
 
-        // remove first.. - otherwise due to our walking method - the parent will not look at them.
-        foreach($ar as $t) {
-            if (!$this->isTagMatch($t)) {
-                continue;
-            }
-            $this->replaceTag($t); // this effetively walks all the children.
-        }
+        // // remove first.. - otherwise due to our walking method - the parent will not look at them.
+        // foreach($ar as $t) {
+        //     if (!$this->isTagMatch($t)) {
+        //         continue;
+        //     }
+        //     $this->replaceTag($t); // this effetively walks all the children.
+        // }
 
         $this->removeNodeKeepChildren($n);
         return false; // don't walk children
