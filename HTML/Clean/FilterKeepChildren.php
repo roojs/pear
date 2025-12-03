@@ -30,7 +30,7 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
         self::$counter++;
         var_dump(self::$counter);
         var_dump($n);
-        if(self::$counter == 2) {
+        if(self::$counter == 3) {
             die('test');
         }
 
