@@ -31,7 +31,9 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
     {
         var_dump(self::$counter);
         var_dump($n->tagName);
-        var_dump($n);
+        // var_dump($n);
+        self::$counter++;
+
         $ar = $this->arrayFrom($n->childNodes);
 
         // remove first.. - otherwise due to our walking method - the parent will not look at them.
