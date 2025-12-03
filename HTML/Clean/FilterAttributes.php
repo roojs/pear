@@ -125,7 +125,7 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
         $update = false;
         foreach($style as $k=>$v) {
             
-            if ( in_array(strtolower($k), $this->style_black)) {
+            if (in_array(strtolower($k), $this->style_black)) {
                 unset($style[$k]);
                 $update = true;
                 continue;
