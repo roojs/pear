@@ -129,7 +129,7 @@ class  HTML_Clean_Filter
         $node->setAttribute('style', implode(";", $str));
     }
 
-    function removeNodeKeepChildren  ( $node)
+    function removeNodeKeepChildren($node)
     {
         $ar = $this->arrayFrom($node->childNodes);
         foreach($ar as $n) {
