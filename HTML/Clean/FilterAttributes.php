@@ -88,10 +88,6 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
         return true;
         */
         foreach($ats as $a) {
-            if (in_array( strtolower($a->name),$this->attrib_clean))  {
-                $this->cleanAttr($node,$a->name,$a->value); // fixme..
-                continue;
-            }
                 
             if ($a->name == 'style') {
                 $this->cleanStyle($node);
