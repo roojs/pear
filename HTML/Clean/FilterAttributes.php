@@ -98,7 +98,8 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
                 }
             }
 
-            // FIXME: DO WE NEED THIS??
+            var_dump($this->lang);
+            die('test');
             if($a->name == 'dir') {
                 $documentDir = ['ar', 'he', 'fa', 'ur', 'ps', 'syr', 'dv', 'arc', 'nqo', 'sam', 'tzm', 'ug', 'yi'].includes($this->lang) ? 'rtl' : 'ltr';
                 $nodeDir = $a->value->toLowerCase();
