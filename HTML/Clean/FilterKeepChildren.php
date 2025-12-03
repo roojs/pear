@@ -14,9 +14,6 @@ require_once 'Filter.php';
 
 class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
 {
-    static $counter = 0;
-   
- 
     function __construct($cfg)
     {
         parent::__construct($cfg);
@@ -32,10 +29,6 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
         var_dump(self::$counter);
         var_dump($n->tagName);
         var_dump($n);
-
-        if(self::$counter == 1) {
-            die('testttt');
-        }
         $ar = $this->arrayFrom($n->childNodes);
 
         // remove first.. - otherwise due to our walking method - the parent will not look at them.
@@ -47,8 +40,6 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
         }
 
         $this->removeNodeKeepChildren($n);
-
-        self::$counter++;
         return false; // don't walk children
         
     }
