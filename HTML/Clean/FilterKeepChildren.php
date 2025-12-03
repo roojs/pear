@@ -30,7 +30,6 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
     {
         $ar = $this->arrayFrom($node->childNodes);
         
-        
         //remove first.. - otherwise due to our walking method - the parent will not look at them.
         foreach($ar as $t) {
             if (!$this->isTagMatch($t)) {
