@@ -115,22 +115,6 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
         }
         return true; // clean children
     }
-    // cleans urls...
-    function cleanAttr($node, $n,$v)
-    {
-        // starts with 'dot' or 'slash', 'hash' or '{' << template
-        if (preg_match('/^(\.|\/|#|\{)/' , $v)) {
-            return;
-        }
-        // standard stuff? - should we allow data?
-        if (preg_match('/(http|https|mailto|ftp|data):/' , $v)) {
-            return;
-        }
-        
-//            Roo.log("(REMOVE TAG)"+ node.tagName +'.' + n + '=' + v);
-        $node->removeAttribute($n);
-        
-    }
     
     function cleanStyle ($node)
     {
