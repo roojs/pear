@@ -271,28 +271,6 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
 
         return $ret;
     }
-    
-    function replaceAname  ($doc)
-    {
-        // replace all the a/name without..
-        $aa= $this->arrayFrom($doc->getElementsByTagName('a'));
-        
-        for ($i = 0; $i  < count($aa); $i++) {
-            $a = $aa[$i];
-            if ($a->hasAttribute("name")) {
-                $a->removeAttribute("name");
-            }
-            if ($a->hasAttribute("href")) {
-                continue;
-            }
-            // reparent children.
-            $this->removeNodeKeepChildren($a);
-            
-        }
-        
-        
-        
-    }
 
     function replaceAname()
     {
