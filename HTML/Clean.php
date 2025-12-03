@@ -53,7 +53,8 @@ class HTML_Clean {
         }
         $d = $this->dom->getElementsByTagName('body')->item(0);
         if (!$d) {
-            $d = $this->dom->documentElement;
+            // no body?
+            return;
         }
         // var_dump($this->dom);
         $this->filter('Word',array( 'node' =>  $d ));
