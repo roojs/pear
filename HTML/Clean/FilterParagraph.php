@@ -34,10 +34,7 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
             $node->childNodes->item(0)->nodeType == 3 &&
             trim($node->childNodes->item(0)->textContent) == ''
         ) {
-            $new = $node->ownerDocument->createElement('BR');
-            $node->parentNode->insertBefore($new, $node);
-            $node->parentNode->removeChild($node);
-
+            $node->parentNode->replaceChild($node->ownerDocument->createElement('BR'), $node);
             return false;
         }
 
