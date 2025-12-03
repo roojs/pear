@@ -28,7 +28,7 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
  
     function replaceTag ($n)
     {
-        $ar = $this->arrayFrom($node->childNodes);
+        $ar = $this->arrayFrom($n->childNodes);
 
         // remove first.. - otherwise due to our walking method - the parent will not look at them.
         foreach($ar as $t) {
