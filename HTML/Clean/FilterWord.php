@@ -272,38 +272,6 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
         return $ret;
     }
     
-    /**
-     * Get elements by class name using XPath (since PHP DOMElement doesn't have getElementsByClassName)
-     * 
-     * @param DOMNode $node The node to search within
-     * @param string $className The class name to search for
-     * @return DOMNodeList List of matching elements (empty if node is invalid)
-     */
-    function getElementsByClassName($node, $className)
-    {
-        if (!$node) {
-            // Return empty result by querying a non-existent element
-            $dummyDoc = new DOMDocument();
-            $xpath = new DOMXPath($dummyDoc);
-            return $xpath->query('//*[@nonexistent]');
-        }
-        
-        $doc = $node->ownerDocument ? $node->ownerDocument : ($node instanceof DOMDocument ? $node : null);
-        if (!$doc) {
-            $dummyDoc = new DOMDocument();
-            $xpath = new DOMXPath($dummyDoc);
-            return $xpath->query('//*[@nonexistent]');
-        }
-        
-        $xpath = new DOMXPath($doc);
-        // XPath to find elements with the class name (handles multiple classes)
-        // Escape the className for XPath
-        $escapedClassName = addslashes($className);
-        $query = ".//*[contains(concat(' ', normalize-space(@class), ' '), ' {$escapedClassName} ')]";
-        return $xpath->query($query, $node);
-    }
-   
-    
     function replaceAname  ($doc)
     {
         // replace all the a/name without..
@@ -324,5 +292,44 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
         
         
         
+    }
+
+    function replaceAname()
+    {
+        $doc = $this->node->ownerDocument;
+
+        $removeNodes = array();
+
+        $nodes = $doc->getElementsByTagName('a');
+        foreach($nodes as $n) {
+            $name = $n->getAttribute('name');
+
+            if(!empty($name)) {
+                $n->removeAttribute('name');
+            }
+
+            $href = $n->getAttribute('href');
+
+            if(!empty($href)) {
+                continue;
+            }
+
+            $removeNodes[] = $n;
+        }
+
+        foreach($removeNodes as $n) {
+            // copy of child nodes
+            $childNodes = array();
+
+            foreach($n->childNodes as $nn) {
+                $childNodes[] = $nn;
+            }
+
+            foreach($childNodes as $nn) {
+                $n->parentNode->insertBefore($nn, $n);
+            }
+
+            $n->parentNode->removeChild($n);
+        }
     }
 }
