@@ -252,27 +252,6 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
         }
     }
 
-    function styleToArray($node)
-    {
-        $ret = array();
-        $style = $node->getAttribute('style');
-        if(empty($style)) {
-            return $ret;
-        }
-
-        $styles = explode(';', $style);
-        foreach($styles as $s) {
-            if(!preg_match('/:/', $s)) {
-                continue;
-            }
-            $kv = explode(':', $s);
-
-            $ret[trim($kv[0])] = $kv[1];
-        }
-
-        return $ret;
-    }
-
     function replaceAname()
     {
         $doc = $this->node->ownerDocument;
