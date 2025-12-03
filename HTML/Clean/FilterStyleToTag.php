@@ -78,7 +78,6 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
                 $style = preg_replace($pattern, '', $style);
             }
         }
-        die('end');
 
         /*
 
