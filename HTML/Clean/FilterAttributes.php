@@ -138,7 +138,6 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
             }
             unset($style[$k]);
             $update = true;
-            
         }
         if ($update) {
             $this->nodeSetStyle($node, $style);
