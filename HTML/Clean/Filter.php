@@ -22,10 +22,7 @@ class  HTML_Clean_Filter
     }
     
     function walk ($dom)
-    {
-
-        var_dump($dom->tagName);
-        
+    {   
         $ar = $this->arrayFrom($dom->childNodes);
         foreach($ar as $e) {
         
