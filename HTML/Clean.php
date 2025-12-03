@@ -79,7 +79,7 @@ class HTML_Clean {
         // we don't use the whitelist?
 
         $result = '';
-        foreach ($d->childNodes as $child) {
+        foreach ($this->dom->documentElement->childNodes as $child) {
             $result .= ($this->dom->saveHTML($child));
         }
         var_dump($result);
