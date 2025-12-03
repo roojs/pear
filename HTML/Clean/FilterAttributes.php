@@ -115,7 +115,7 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
         return true;
     }
     
-    function cleanStyle ($node)
+    function cleanStyle($node)
     {
         if (preg_match('/expression/', $node->getAttribute('style'))) { //XSS?? should we even bother..
             $node->removeAttribute('style');
@@ -131,7 +131,6 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
                 continue;
             }
             
-            //Roo.log()
             // only allow 'c whitelisted system attributes'
             if (count($this->style_white) && in_array(strtolower($k), $this->style_white)) {
                 continue;
@@ -139,10 +138,9 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
             unset($style[$k]);
             $update = true;
         }
-        
+
         if ($update) {
             $this->nodeSetStyle($node, $style);
         }
-        
     }
 }
