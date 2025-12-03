@@ -277,6 +277,9 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
     {
         $doc = $this->node->ownerDocument;
 
+        var_dump($doc);
+        die('test');
+
         $removeNodes = array();
 
         $nodes = $doc->getElementsByTagName('a');
