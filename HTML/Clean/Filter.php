@@ -125,7 +125,7 @@ class  HTML_Clean_Filter
             }
             $kv = explode(':', $s);
 
-            $ret[trim($kv[0])] = $kv[1];
+            $ret[trim($kv[0])] = trim($kv[1]);
         }
 
         return $ret;
