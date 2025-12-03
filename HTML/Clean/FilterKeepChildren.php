@@ -23,7 +23,7 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
             return;
         }
         
-        $this->walk($cfg['node']);
+        $this->walk($this->node);
     } 
  
     function replaceTag ($n)
