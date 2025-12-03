@@ -28,10 +28,6 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
  
     function replaceTag ($n)
     {
-        
-          // walk children...
-        //Roo.log(node.tagName);
-        
         $ar = $this->arrayFrom($node->childNodes);
         
         
