@@ -49,8 +49,7 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
     
     function replaceTag($node)
     {
-        var_dump($node);
-        die('test');
+        var_dump($node->tagName);
         $style = $node->getAttribute('style');
 
         // no attribute 'style'
