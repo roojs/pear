@@ -123,7 +123,7 @@ class  HTML_Clean_Filter
             if(strpos($s, ':') === false) {
                 continue;
             }
-            $kv = explode(':', $s);
+            $kv = explode(':', $s, 2);
 
             $ret[trim($kv[0])] = trim($kv[1]);
         }
