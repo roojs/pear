@@ -28,7 +28,7 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
     function __construct($cfg)
     {
         parent::__construct($cfg);
-        $this->walk($cfg['node']);
+        $this->walk($this->node);
     } 
     
      function replaceTag ($node)
