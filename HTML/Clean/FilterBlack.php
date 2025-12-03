@@ -18,6 +18,8 @@ class HTML_Clean_FilterBlack extends HTML_Clean_Filter
     function __construct($cfg)
     {
         parent::__construct($cfg);
+        var_dump($this->tag);
+        die('test');
         if (is_array($this->tag) && !in_array(':', $this->tag)) {
             $this->simpleReplace();
             return;
