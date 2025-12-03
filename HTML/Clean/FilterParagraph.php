@@ -38,40 +38,8 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
             return false;
         }
 
-        /*
-
         // remove p tag but keep children
         // e.g. '<p><b>abc</b></p>' to '<b>abc</b>'
-
-        // copy of child nodes
-        $childNodes = array();
-
-        foreach($node->childNodes as $n) {
-            $childNodes[] = $n;
-        }
-
-        foreach($childNodes as $n) {
-            $node->parentNode->insertBefore($n, $node);
-            $this->walk($n);
-        }
-
-        // insert two br after the children
-        $new = $node->ownerDocument->createElement('BR');
-        $node->parentNode->insertBefore($new, $node);
-        $new = $node->ownerDocument->createElement('BR');
-        $node->parentNode->insertBefore($new, $node);
-
-        $node->parentNode->removeChild($node);
-        */
-        
-        if ($node->childNodes->length == 1 &&
-            $node->childNodes->item(0)->nodeType == 3 &&
-            strlen(trim($node->childNodes->item(0)->textContent)) < 1
-            ) {
-            
-            // remove and replace with '<BR>';
-            $node->parentNode->replaceChild($node->ownerDocument->createElement('BR'),$node);
-        }
         $ar = $this->arrayFrom($node->childNodes);
         foreach($ar as $a) {
             $node->removeChild($a);
