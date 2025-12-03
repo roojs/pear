@@ -310,4 +310,46 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
             $n->parentNode->removeChild($n);
         }
     }
+
+    function replaceImageTable($doc)
+    {
+        $nodes = $doc->getElementsByTagName('img');
+
+        foreach($nodes as $n) {
+            $td = $n->parentNode;
+            if(empty($td) || strtoupper($td->nodeName) != 'TD') {
+                return;
+            }
+
+            $tr = $td->parentNode;
+            if(empty($tr) || strtoupper($tr->nodeName) != 'TR') {
+                return;
+            }
+
+            $tbody = $tr->parentNode;
+            if(empty($tbody) || strtoupper($tbody->nodeName) != 'TBODY') {
+                return;
+            }
+
+            $table = $tbody->parentNode;
+            if(empty($table) || strtoupper($table->nodeName) != 'TABLE') {
+                return;
+            }
+
+            if(count($table->getElementsByTagName('tr')) != 2) {
+                return;
+            }
+
+            if(count($table->getElementsByTagName('td')) != 3) {
+                return;
+            }
+
+            if(trim($table->textContent) != '') {
+                return;
+            }
+
+            $table->parentNode->insertBefore($n, $table);
+            $table->parentNode->removeChild($table);
+        }
+    }
 }
