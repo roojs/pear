@@ -56,7 +56,7 @@ class HTML_Clean {
             // no body?
             return;
         }
-        $language = $d->getAttribute('lang') ?? 'en';
+        $language = $d->getAttribute('lang') ?: 'en';
 
         // var_dump($this->dom);
         $this->filter('Word',array( 'node' =>  $d ));
