@@ -51,9 +51,6 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
     {
         $style = $node->getAttribute('style');
 
-        var_dump($node->tagName);
-        var_dump($style);
-
         // no attribute 'style'
         if(empty($style)) {
             return true;
