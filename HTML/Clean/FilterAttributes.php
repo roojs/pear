@@ -24,6 +24,8 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
     
     var $style_black = array(); // array
     var $style_white = array(); // array
+
+    var $lang = 'en';
     
     function __construct($cfg)
     {
