@@ -121,7 +121,7 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
             $node->removeAttribute('style');
             return;
         }
-        $style = $this->styleToObject($node);
+        $style = $this->styleToArray($node);
         $update = false;
         foreach($style as $k=>$v) {
             
