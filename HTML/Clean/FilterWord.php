@@ -315,6 +315,8 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
     function replaceImageTable()
     {
         $doc = $this->node->ownerDocument;
+        var_dump($doc);
+        die('test');
         $nodes = $doc->getElementsByTagName('img');
 
         foreach($nodes as $n) {
