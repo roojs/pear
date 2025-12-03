@@ -78,6 +78,8 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
             }
         }
 
+        /*
+
         if(empty($tags)){
             return;
         }
