@@ -17,7 +17,7 @@ class HTML_Clean_FilterWord extends HTML_Clean_Filter
     function __construct($cfg)
     {
         parent::__construct($cfg);
-        $this->replaceDocBullets($this->node);
+        $this->replaceDocBullets();
         $this->replaceAname($this->node);
     }
 
