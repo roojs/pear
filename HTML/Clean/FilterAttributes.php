@@ -41,7 +41,7 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
         $removeAttributes = array();
 
         foreach($node->attributes as $a) {
-            if(!in_array(strtolower($a->name), $this->attrib_white)) {
+            if(count($this->attrib_white) && !in_array(strtolower($a->name), $this->attrib_white)) {
                 $removeAttributes[] = $a;
                 continue;
             }
@@ -76,10 +76,6 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
 
         return true;
         */
-        if (!$node->hasAttributes()) {
-            return true; // do children.
-        }
-        $ats = $this->arrayFrom($node->attributes);
         foreach($ats as $a) {
             
             // remove all if we have a white list..
