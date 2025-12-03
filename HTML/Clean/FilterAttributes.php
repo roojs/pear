@@ -73,6 +73,8 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
         foreach($removeAttributes as $a) {
             $node->removeAttribute($a->name);
         }
+
+        return true;
         */
         if (!$node->hasAttributes()) {
             return true; // do children.
