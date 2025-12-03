@@ -49,7 +49,6 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
     
     function replaceTag($node)
     {
-        var_dump($node->tagName);
         $style = $node->getAttribute('style');
 
         // no attribute 'style'
@@ -69,6 +68,8 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
             if(!empty($matches)) {
                 // tags to add
                 $tags[] = $tag;
+
+                var_dump("REPLACE $style");
 
                 // remove styles
                 $style = preg_replace($pattern, '', $style);
