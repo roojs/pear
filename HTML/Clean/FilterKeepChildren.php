@@ -32,6 +32,9 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
         var_dump(self::$counter);
         var_dump($n->tagName);
         // var_dump($n);
+        if(self::$counter == 1) {
+            die('testttt');
+        }
         self::$counter++;
 
         $ar = $this->arrayFrom($n->childNodes);
