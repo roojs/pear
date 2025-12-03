@@ -108,7 +108,6 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
             // }
         }
         
-        var_dump("REMOVNIG ATTRIBUTES FROM $node->tagName");
         foreach($removeAttributes as $a) {
             var_dump($a->name);
             $node->removeAttribute($a->name);
