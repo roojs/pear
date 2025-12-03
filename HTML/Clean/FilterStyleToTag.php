@@ -19,15 +19,22 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
     
     // what we are going to change..
     var $tags = array(
-        
-        
-        'B'  => array( 'font-weight' => 'bold' ),
-        'I' =>   array(  'font-style'  => 'italic' ),
-        
-        // h1.. h6 ?? font-size?
-        'SUP'  => array(   'vertical-align'  => 'super'),
-        'SUB' => array(   'vertical-align' => 'sub' )
-        
+        'B' => array(
+            'font-weight',
+            'bold'
+        ),
+        'I' => array(
+            'font-style',
+            'italic'
+        ),
+        'SUP' => array(
+            'vertical-align',
+            'super'
+        ),
+        'SUB' => array(
+            'vertical-align',
+            'sub'
+        )
     );
     
     function __construct($cfg)
@@ -48,9 +55,6 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
         if(empty($style)) {
             return true;
         }
-
-        /*
-
         // styles to be converted to tags
         $styles = array(
             'B' => array(
