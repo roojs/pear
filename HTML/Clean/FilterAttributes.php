@@ -79,6 +79,17 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
                 }
                 continue;
             }
+
+            if ($a->name == 'class') {
+                if (preg_match('/^Mso/', $a->value)) {
+                    $removeAttributes[] = $a;
+                    continue;
+                }
+                if (preg_match('/^body$/', $a->value)) {
+                    $removeAttributes[] = $a;
+                    continue;
+                }
+            }
         }
 
         foreach($removeAttributes as $a) {
