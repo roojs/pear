@@ -74,7 +74,6 @@ class  HTML_Clean_Filter
     
     function removeNodeKeepChildren  ( $node)
     {
-    
         $ar = $this->arrayFrom($node->childNodes);
         foreach($ar as $n) {
             $node->removeChild($n);
