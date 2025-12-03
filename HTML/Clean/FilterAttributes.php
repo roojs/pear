@@ -133,7 +133,7 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
             
             //Roo.log()
             // only allow 'c whitelisted system attributes'
-            if ( count($this->style_white) &&  in_array(strtolower($k), $this->style_white)) {
+            if (count($this->style_white) && in_array(strtolower($k), $this->style_white)) {
                 continue;
             }
             unset($style[$k]);
