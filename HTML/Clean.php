@@ -80,13 +80,13 @@ class HTML_Clean {
         
         // should be fonts..
         $this->filter('KeepChildren',array( 'node' =>  $d, 'tag'  =>   array(   'FONT', ':' )) );  
-        $result = '';
-        foreach ($d->childNodes as $child) {
-            $result .= ($this->dom->saveHTML($child));
-        }
-        var_dump("RESULT");
-        var_dump($result);
-        die('test4');
+        // $result = '';
+        // foreach ($d->childNodes as $child) {
+        //     $result .= ($this->dom->saveHTML($child));
+        // }
+        // var_dump("RESULT");
+        // var_dump($result);
+        // die('test4');
         $this->filter('Paragraph',array( 'node' =>  $d ));
         $result = '';
         foreach ($d->childNodes as $child) {
