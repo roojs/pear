@@ -120,7 +120,7 @@ class  HTML_Clean_Filter
 
         $styles = explode(';', $style);
         foreach($styles as $s) {
-            if(!preg_match('/:/', $s)) {
+            if(strpos($s, ':') === false) {
                 continue;
             }
             $kv = explode(':', $s);
