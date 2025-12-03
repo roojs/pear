@@ -32,12 +32,12 @@ class  HTML_Clean_Filter
             switch(true) {
                 case $this->isTagMatch($e):
                     if (false === $this->replaceTag($e)) {
-                        return;
+                        continue;
                     }
                     if ($e->hasChildNodes()) {
                         $this->walk($e);
                     }
-                    return;
+                    continue;
                 default:    // tags .. that do not match.
                     if ($e->hasChildNodes()) {
                         $this->walk($e);
