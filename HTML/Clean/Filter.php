@@ -131,6 +131,15 @@ class  HTML_Clean_Filter
         return $ret;
     }
 
+    function nodeSetStyle($node, $style)
+    {
+        $str = array();
+        foreach($style as $k=>$v) {
+            $str[] = "$k:$v";
+        }
+        $node->setAttribute('style', implode(";", $str));
+    }
+
     /*
     
     function styleToObject($node, $lower = false)
@@ -150,14 +159,4 @@ class  HTML_Clean_Filter
     }
 
     */
-    
-    function nodeSetStyle($node, $style)
-    {
-        $str = array();
-        foreach($style as $k=>$v) {
-            $str[] = "$k:$v";
-        }
-        $node->setAttribute('style', implode(";", $str));
-    }
-    
 }
