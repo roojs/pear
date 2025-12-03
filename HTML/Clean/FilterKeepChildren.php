@@ -14,6 +14,9 @@ require_once 'Filter.php';
 
 class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
 {
+    static $counter = 0;
+   
+ 
     function __construct($cfg)
     {
         parent::__construct($cfg);
