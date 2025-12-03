@@ -46,8 +46,6 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
             // what if we need to walk these???
             $node->parentNode->insertBefore($a, $node);
         }
-        // now what about this?
-        // <p> &nbsp; </p>
         
         // double BR.
         $node->parentNode->insertBefore($node->ownerDocument->createElement('BR'), $node);
