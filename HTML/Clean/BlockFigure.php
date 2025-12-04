@@ -44,6 +44,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
     {
         $doc = new DOMDocument('1.0', 'utf8');
         
+        // plain text caption
         // alt text for the image
         $alt = '';
         if(!empty($this->caption)) {
