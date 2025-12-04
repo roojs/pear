@@ -213,11 +213,10 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             }
             $el->setAttribute('style', implode(";", $styles));
         }
-        $cn = isset($o->cn) ? $o->cn :
-                (isset($o->children) ? $o->children : false);
+        $cn = isset($o['cn']) ? $o['cn'] :
+                (isset($o['children']) ? $o['children'] : false);
            
         if($cn) {
-            var_dump("CN");
             //http://bugs.kde.org/show_bug.cgi?id=71506
             if (is_array($cn)) {
                 foreach($cn as $c) {
