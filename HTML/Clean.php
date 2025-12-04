@@ -99,10 +99,6 @@ class HTML_Clean {
             $result .= ($this->dom->saveHTML($child));
         }
         $this->filter('LongBr',array( 'node' =>  $d ));
-        $result = '';
-        foreach ($d->childNodes as $child) {
-            $result .= ($this->dom->saveHTML($child));
-        }
 
 
         $ar = $this->arrayFrom($d->getElementsByTagName('img'));
@@ -114,9 +110,16 @@ class HTML_Clean {
             $fig = new HTML_Clean_BlockFigure(array(
                 'image_src' => $img->getAttribute('src')
             ));
-            $fig->updateElement($img);
-            
+            $fig->updateElement($img);   
         }
+
+        $result = '';
+        foreach ($d->childNodes as $child) {
+            $result .= ($this->dom->saveHTML($child));
+        }
+        var_dump("RESULT");
+        var_dump($result);
+        die('test7');
          
         
         
