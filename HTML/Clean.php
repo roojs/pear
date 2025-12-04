@@ -93,6 +93,7 @@ class HTML_Clean {
         $this->filter('KeepChildren',array( 'node' =>  $d, 'tag'  =>   array(   'FONT', ':' )) );  
         $this->filter('Paragraph',array( 'node' =>  $d, 'lang' => $language ));
         $this->filter('HashLink',array( 'node' =>  $d ));
+        $this->filter('Span',array( 'node' =>  $d ));
         $result = '';
         foreach ($d->childNodes as $child) {
             $result .= ($this->dom->saveHTML($child));
@@ -100,7 +101,6 @@ class HTML_Clean {
         var_dump("RESULT");
         var_dump($result);
         die('test8');
-        $this->filter('Span',array( 'node' =>  $d ));
         $this->filter('LongBr',array( 'node' =>  $d ));
         $this->filter('Empty',array( 'node' =>  $d ));
 
