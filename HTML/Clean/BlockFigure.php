@@ -158,7 +158,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                         'margin-top' => '16px',
                         'text-align' => 'start'
                     ),
-                    'align' => 'left',
+                    // 'align' => 'left',
                     'cn' => array(
                         'tag' => 'i',
                         'contenteditable' => 'true',
