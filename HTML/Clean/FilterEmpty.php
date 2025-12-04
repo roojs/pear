@@ -23,8 +23,7 @@ class HTML_Clean_FilterEmpty extends HTML_Clean_Filter
     {
         var_dump($node->tagName);
         // children is always walked before the parent
-        // as the parent may be removed
-        // $this->walk($n);
+        $this->walk($node);
 
         // only filter empty leaf element with certain tags
         if(
