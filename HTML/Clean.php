@@ -9,7 +9,7 @@ class HTML_Clean {
     
     static function fromHTML($str, $opts = array())
     {
-        // $str = "<body lang='ar'><h1>Hello</h1><p dir='ltr'><b>Hello</b></p><span dir='rtl'>World</span></body>";
+        $str = "<body lang='ar'><h1>Hello</h1><p dir='ltr'><b>Hello</b></p><span dir='rtl'>World</span></body>";
         $str= self::cleanWordChars($str);
         $dom = new DOMDocument('1.0', 'utf8');
         $dom->loadHTML($str);
@@ -98,9 +98,6 @@ class HTML_Clean {
         foreach ($d->childNodes as $child) {
             $result .= ($this->dom->saveHTML($child));
         }
-        var_dump("RESULT");
-        var_dump($result);
-        die('test6');
         $this->filter('LongBr',array( 'node' =>  $d ));
         $result = '';
         foreach ($d->childNodes as $child) {
@@ -108,7 +105,7 @@ class HTML_Clean {
         }
         var_dump("RESULT");
         var_dump($result);
-        die('test6');
+        die('test7');
 
 
         $ar = $this->arrayFrom($d->getElementsByTagName('img'));
