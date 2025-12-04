@@ -14,7 +14,7 @@ require_once 'Filter.php';
 
 class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
 {
-   
+    var $lang = 'en';
  
     function __construct($cfg)
     {
