@@ -152,7 +152,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                     'margin' => $m,
                     'width' => $this->align == 'center' ?  $this->width : '100%' 
                 ),
-                'cls' => strlen($this->cls) > 0 ? ($this->cls  + '-thumbnail' ) : '',
+                'cls' => strlen($this->cls) > 0 ? ($this->cls  . '-thumbnail' ) : '',
                 'cn' => array(
                     'tag' => 'div',
                     'style' => array(
