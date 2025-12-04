@@ -97,14 +97,6 @@ class HTML_Clean {
         $this->filter('Span',array( 'node' =>  $d ));
         $this->filter('LongBr',array( 'node' =>  $d ));
         $this->filter('Empty',array( 'node' =>  $d, 'tag' => array('B', 'I', 'U', 'S') ));
-        $result = '';
-        foreach ($d->childNodes as $child) {
-            $result .= ($this->dom->saveHTML($child));
-        }
-        var_dump("RESULT");
-        var_dump($result);
-        die('test8');
-
 
         $ar = $this->arrayFrom($d->getElementsByTagName('img'));
         foreach($ar as $img) {
