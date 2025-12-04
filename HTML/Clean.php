@@ -10,7 +10,7 @@ class HTML_Clean {
     static function fromHTML($str, $opts = array())
     {
         $str = "<h1>aaa</h1><P></P><p dir='ltr'><b>Hello</b></p><span dir='rtl'>World</span>";
-        // $str = "<?xml encoding='utf-8'?> <div id='tmp_dom_wrapper'><div>";
+        $str = "<?xml encoding='utf-8'?> <div id='tmp_dom_wrapper'>" . $str . "<div>";
         $str= self::cleanWordChars($str);
         $dom = new DOMDocument('1.0', 'utf8');
         $dom->loadHTML($str);
