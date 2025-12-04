@@ -59,7 +59,7 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
 
         if($nodeDir && $nodeDir != $documentDir) {
             // keep direction
-            $span.setAttribute('dir', $nodeDir);
+            $span->setAttribute('dir', $nodeDir);
             $node->parentNode->insertBefore($span, $node);
         }
         
