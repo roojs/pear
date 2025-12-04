@@ -87,6 +87,9 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             );
         }
 
+        $image_width = $this->image_width * 1;
+        $image_height = $this->image_height * 1;
+
         
         // if video url is set, wrap the image in a video div
         if (!empty(strlen($this->video_url))) {
@@ -95,8 +98,8 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 'cls' => $this->cls,
                 'frameborder' => 0,
                 'allowfullscreen' => true,
-                'width' => 420,  // these are for video tricks - that we replace the outer
-                'height' => 315,
+                'width' => 768,  // these are for video tricks - that we replace the outer
+                'height' => (image_width && image_height) ? (Math.round(768 / image_width * image_height)) : 576,
                 'src' => $this->video_url,
                 'cn' => array(
                     $img
