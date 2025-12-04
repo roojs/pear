@@ -80,8 +80,6 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 '</div>',
         */
               
-        var_dump($img->href);
-        die('test');
         if (!empty($this->href)) {
             $img = array(
                 'tag ' => 'a',
