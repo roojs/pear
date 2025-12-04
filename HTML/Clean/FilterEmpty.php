@@ -21,7 +21,6 @@ class HTML_Clean_FilterEmpty extends HTML_Clean_Filter
 
     function replaceTag($node)
     {
-        var_dump($node->tagName);
         // children is always walked before the parent
         $this->walk($node);
 
