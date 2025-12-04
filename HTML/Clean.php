@@ -66,13 +66,6 @@ class HTML_Clean {
         $this->filter('StyleToTag', array(
             'node' =>  $d   // this could add nodes to tree, so not very good to nest the walk. 
         ));
-
-        $ar = $this->arrayFrom($d->getElementsByTagName('img'));
-        foreach($ar as $img) {
-            var_dump($this->dom->saveHTML($img));
-            var_dump($img->getAttribute('src'));
-            die('b');
-        }
         
         $this->filter('Attributes',array(    // does walk as well.
             'node' => $d,
@@ -92,6 +85,13 @@ class HTML_Clean {
             'replaceComment' => true,   // this is sneaked in here - as walk will get rid of comments at the same time.
             'lang' => $language
         ));
+
+        $ar = $this->arrayFrom($d->getElementsByTagName('img'));
+        foreach($ar as $img) {
+            var_dump($this->dom->saveHTML($img));
+            var_dump($img->getAttribute('src'));
+            die('b');
+        }
 
         // is this used?!?!
         $this->filter('Black', array( 'node'=> $d, 'tag'  => $this->black));
