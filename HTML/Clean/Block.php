@@ -240,9 +240,9 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
            $parentNode->appendChild($el);
         }
 
-        var_dump($o);
+        var_dump($doc);
         die('test');
-        return $doc->saveHTML();
+        return $doc->saveHTML($el);
     }
     
     static function updateNode ($from, $to)
