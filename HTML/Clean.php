@@ -13,10 +13,6 @@ class HTML_Clean {
         $str= self::cleanWordChars($str);
         $dom = new DOMDocument('1.0', 'utf8');
         $dom->loadHTML($str);
-
-        foreach ($dom->getElementsByTagName('*') as $el) {
-            echo $el->nodeName . "\n";
-        }
         $opts['dom'] = $dom;
         return new HTML_Clean($opts);    
     }
