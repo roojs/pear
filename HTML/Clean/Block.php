@@ -58,6 +58,8 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
     {
         $o = $this->toObject();
         var_dump($o);
+        $el = self::createDom($o, false, $node->ownerDocument);
+        var_dump($el);
         die('test');
         // self::updateNode(empty($node) ? $this->node : $node, self::createDom($this->toObject()));
         
