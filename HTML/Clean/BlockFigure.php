@@ -113,9 +113,33 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 )
             );
         }
-        
-        // we remove caption totally if its hidden... - will delete data.. but otherwise we end up with fake caption
-        $captionhtml = $this->caption_display == 'none' || !strlen($this->caption) ? '' : $this->caption;
+
+        $ret = array(
+            'tag' => 'figure',
+            'data-block' => 'Figure',
+            'data-width' => $this->width,
+            'data-caption' => $this->caption, 
+            'data-caption-display' => $this->caption_display,
+            'data-image-width' => $this->image_width,
+            'data-image-height' => $this->image_height,
+            'contenteditable' => 'false',
+            
+            style : {
+                display: 'block',
+                float :  this.align ,
+                maxWidth :  this.align == 'center' ? '100% !important' : (this.width + ' !important'),
+                width : this.align == 'center' ? '100%' : this.width,
+                margin:  '0px',
+                padding: this.align == 'center' ? '0' : '0 10px' ,
+                textAlign : this.align   // seems to work for email..
+                
+            },
+            
+            align : this.align,
+            cn : [
+                img
+            ]
+        );
         
   
         return  array(
