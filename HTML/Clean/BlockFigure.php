@@ -54,9 +54,6 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             $d->appendChild($f);
             $caption_plain = $this->caption_display == "block" ? trim(preg_replace('/\s+/', ' ', str_replace("\n", " ", $d->textContent))) : '';
         }
-
-        var_dump($caption_plain);
-        die('test');
         
         // margin
         $m = $this->width != '100%' && $this->align == 'center' ? '0 auto' : 0; 
@@ -71,7 +68,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             'alt' => $caption_plain,
             'style'=> array(
                 'width' => $iw,
-                'max-width' => $iw . ' !important',
+                'max-width' => $iw . ' !important', 
                 'margin' => $m  
                 
             )
