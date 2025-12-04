@@ -65,7 +65,7 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
         
         // double BR.
         $node->parentNode->insertBefore($node->ownerDocument->createElement('BR'), $node);
-        $node->parentNode->insertBefore($node->ownerDocument->createElement('BR'), $node);
+        $node->parentNode->insertBefore($node->ownerDocument->createElement('br'), $node);
         
         $node->parentNode->removeChild($node);
         
