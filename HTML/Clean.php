@@ -106,6 +106,8 @@ class HTML_Clean {
             if ($this->findParent($img, 'figure')) {
                 continue;
             }
+            var_dump($img->getAttribute('src'));
+            die('b');
             require_once 'HTML/Clean/BlockFigure.php';
             $fig = new HTML_Clean_BlockFigure(array(
                 'image_src' => $img->getAttribute('src')
