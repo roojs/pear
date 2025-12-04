@@ -56,14 +56,10 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
      */
     function updateElement ($node)
     {
-        var_dump($node);
-        die('test');
         $o = $this->toObject();
         var_dump($o);
-        $dom = self::createDom($o);
-        var_dump($dom);
         die('test');
-        self::updateNode(empty($node) ? $this->node : $node, self::createDom($this->toObject()));
+        // self::updateNode(empty($node) ? $this->node : $node, self::createDom($this->toObject()));
         
     }
      /**
