@@ -56,6 +56,12 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
 
             $node->parentNode->insertBefore($a, $node);
         }
+
+        if($nodeDir && $nodeDir != $documentDir) {
+            // keep direction
+            $span.setAttribute('dir', $nodeDir);
+            $node->parentNode->insertBefore($span, $node);
+        }
         
         // double BR.
         $node->parentNode->insertBefore($node->ownerDocument->createElement('BR'), $node);
