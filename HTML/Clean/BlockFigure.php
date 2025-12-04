@@ -58,16 +58,20 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         var_dump($caption_plain);
         die('test');
         
+        // margin
         $m = $this->width != '100%' && $this->align == 'center' ? '0 auto' : 0; 
         
+        // image width
         $iw = $this->align == 'center' ? $this->width : '100%';
+
+
         $img =   array(
             'tag' => 'img',
             'src' => $this->image_src,
             'alt' => $caption_plain,
             'style'=> array(
                 'width' => $iw,
-                'max-width' => $iw . ' !important', // this is not getting rendered?
+                'max-width' => $iw . ' !important',
                 'margin' => $m  
                 
             )
