@@ -40,7 +40,7 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
 
         $documentDir = in_array($this->lang, ['ar', 'he', 'fa', 'ur', 'ps', 'syr', 'dv', 'arc', 'nqo', 'sam', 'tzm', 'ug', 'yi']) ? 'rtl' : 'ltr';
         $nodeDir = $node->hasAttribute('dir') ? strtolower($node->getAttribute('dir')) : false;
-        var span = node.ownerDocument.createElement('span');
+        $span = $node->ownerDocument->createElement('span');
 
         // remove p tag but keep children
         // e.g. '<p><b>abc</b></p>' to '<b>abc</b>'
