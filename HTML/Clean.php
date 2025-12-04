@@ -92,12 +92,10 @@ class HTML_Clean {
         // should be fonts..
         $this->filter('KeepChildren',array( 'node' =>  $d, 'tag'  =>   array(   'FONT', ':' )) );  
         $this->filter('Paragraph',array( 'node' =>  $d, 'lang' => $language ));
+        $this->filter('HashLink',array( 'node' =>  $d ));
         $this->filter('Span',array( 'node' =>  $d ));
-        $result = '';
-        foreach ($d->childNodes as $child) {
-            $result .= ($this->dom->saveHTML($child));
-        }
         $this->filter('LongBr',array( 'node' =>  $d ));
+        $this->filter('Empty',array( 'node' =>  $d ));
 
 
         $ar = $this->arrayFrom($d->getElementsByTagName('img'));
