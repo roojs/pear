@@ -85,6 +85,8 @@ class HTML_Clean {
             'replaceComment' => true,   // this is sneaked in here - as walk will get rid of comments at the same time.
             'lang' => $language
         ));
+        var_dump($this->dom->saveHTML($img));
+        die('test');
 
         // is this used?!?!
         $this->filter('Black', array( 'node'=> $d, 'tag'  => $this->black));
