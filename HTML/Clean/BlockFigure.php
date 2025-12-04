@@ -153,16 +153,20 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 ),
                 'cls' => strlen($this->cls) > 0 ? ($this->cls  . '-thumbnail' ) : '',
                 'cn' => array(
-                    'tag' => 'div',
-                    'style' => array(
-                        'margin-top' => '16px',
-                        'text-align' => 'start'
-                    ),
-                    // 'align' => 'left',
-                    'cn' => array(
-                        'tag' => 'i',
-                        'contenteditable' => 'true',
-                        'html' => strlen($this->caption) ? $this->caption : "Caption" // fake caption
+                    array(
+                        'tag' => 'div',
+                        'style' => array(
+                            'margin-top' => '16px',
+                            'text-align' => 'start'
+                        ),
+                        'align' => 'left',
+                        'cn' => array(
+                            array(
+                                'tag' => 'i',
+                                'contenteditable' => 'true',
+                                'html' => strlen($this->caption) ? $this->caption : "Caption" // fake caption
+                            )
+                        )
                     )
                 )
             );
