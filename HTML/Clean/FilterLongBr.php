@@ -38,13 +38,13 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
             $ns = $ns->nextSibling;
         }
 
-        /*
-
         // remove last br tag inside one of these tags
         if(empty($ns) && in_array(strtoupper($node->parentNode->tagName), array('TD', 'TH', 'LI', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'))) {
             $node->parentNode->removeChild($node);
-            return;
+            return false;
         }
+
+        /*
 
         // return if the next sibling is not a br tag
         if(empty($ns) || $ns->nodeType != 1 || strtoupper($ns->tagName) != 'BR') {
@@ -64,17 +64,6 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
 
         $node->parentNode->removeChild($node);
         */
-        
-        $ps = $node->nextSibling;
-        // find the nex sibling that is a node, 
-        while ($ps && $ps->nodeType == 3 && strlen(trim($ps->nodeValue)) < 1) {
-            $ps = $ps->nextSibling;
-        }
-        // we have no next sibling, and are inside one of these tags
-        if (!$ps &&  in_array(strtoupper($node->parentNode->tagName), array( 'TD', 'TH', 'LI', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6' ))) {
-            $node->parentNode->removeChild($node); // remove last BR inside one fo these tags
-            return false;
-        }
         
         if (!$ps || $ps->nodeType != 1) {
             return;
