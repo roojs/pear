@@ -176,13 +176,6 @@ class HTML_Clean {
         return null;
     }
     
-    function filter($type, $args)
-    {
-        require_once 'HTML/Clean/Filter'. $type .'.php';
-        $cls = 'HTML_Clean_Filter'. $type;
-        new $cls($args);
-    }
-    
     function toString()
     {
         $this->dom->saveHTML();
