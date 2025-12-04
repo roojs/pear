@@ -125,11 +125,11 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             'style' => array(
                 'display' => 'block',
                 'float' =>  $this->align,
-                'maxWidth' =>  $this->align == 'center' ? '100% !important' : ($this->width . ' !important'),
+                'max-width' =>  $this->align == 'center' ? '100% !important' : ($this->width . ' !important'),
                 'width' => $this->align == 'center' ? '100%' : $this->width,
                 'margin' =>  '0px',
                 'padding' => $this->align == 'center' ? '0' : '0 10px' ,
-                'textAlign' => $this->align
+                'text-align' => $this->align
                 
             ),
             'align' => $this->align,
@@ -143,11 +143,11 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             $ret['cn'][] = array(
                 'tag' => 'figcaption',
                 'style' => array(
-                    'textAlign' => 'left',
-                    'fontSize' => '16px',
-                    'lineHeight' => '24px',
+                    'text-align' => 'left',
+                    'font-size' => '16px',
+                    'line-height' => '24px',
                     'display' => $this->caption_display,
-                    'maxWidth' => ($this->align == 'center' ?  $this->width : '100%' ) . ' !important',
+                    'max-width' => ($this->align == 'center' ?  $this->width : '100%' ) . ' !important',
                     'margin' => $m,
                     'width' => $this->align == 'center' ?  $this->width : '100%' 
                 ),
@@ -155,8 +155,8 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 'cn' => array(
                     'tag' => 'div',
                     'style' => array(
-                        'marginTop' => '16px',
-                        'textAlign' => 'start'
+                        'margin-top' => '16px',
+                        'text-align' => 'start'
                     ),
                     'align' => 'left',
                     'cn' => array(
