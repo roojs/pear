@@ -63,6 +63,8 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
             $node->parentNode->insertBefore($span, $node);
         }
         
+        var_dump($this->node->getElementsByTagName('br'));
+        
         // double BR.
         $node->parentNode->insertBefore($node->ownerDocument->createElement('BR'), $node);
         $node->parentNode->insertBefore($node->ownerDocument->createElement('BR'), $node);
