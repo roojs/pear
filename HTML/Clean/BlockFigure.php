@@ -139,7 +139,37 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             )
         );
 
-        var_dump($ret);
+        // show figcaption only if caption_display is 'block'
+        if($this->caption_display == 'block') {
+            $ret['cn'][] = array(
+                'tag' => 'figcaption',
+                'style' => array(
+                    'textAlign' => 'left',
+                    'fontSize' => '16px',
+                    'lineHeight' => '24px',
+                    'display' => $this->caption_display,
+                    'maxWidth' => ($this->align == 'center' ?  $this->width : '100%' ) + ' !important',
+                    'margin' => $m,
+                    'width' => $this->align == 'center' ?  $this->width : '100%' 
+                ),
+                'cls' => strlen($this->cls) > 0 ? ($this->cls  + '-thumbnail' ) : '',
+                'cn' => array(
+                    'tag' => 'div',
+                    'style' => array(
+                        'marginTop' => '16px',
+                        'textAlign' => 'start'
+                    ),
+                    'align' => 'left',
+                    'cn' => array(
+                        'tag' => 'i',
+                        'contenteditable' => 'false',
+                        'html' => $this->caption
+                    )
+                    
+                )
+                
+            );
+        }
         die('test');
         
   
