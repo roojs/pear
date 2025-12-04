@@ -220,10 +220,10 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             //http://bugs.kde.org/show_bug.cgi?id=71506
             if (is_array($cn)) {
                 foreach($cn as $c) {
-                    self::createDom($c, $el);
+                    self::createDom($c, $el, $doc);
                 }
             }else{
-                self::createDom($cn, $el);
+                self::createDom($cn, $el, $doc);
             }
         }
         if(isset($o->html)) {
