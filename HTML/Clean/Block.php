@@ -239,9 +239,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         if($parentNode){
            $parentNode->appendChild($el);
         }
-
-        var_dump($doc);
-        die('test');
+        
         return $doc->saveHTML($el);
     }
     
