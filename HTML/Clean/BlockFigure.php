@@ -47,13 +47,13 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         
         // plain text caption
         $this->caption = '<b>test caption</b>';
-        $caption_plain = '';
+        $alt = '';
         if(!empty($this->caption)) {
             $d = $doc->createElement('div');
             $f = $doc->createDocumentFragment();
             $f->appendXML($this->caption); // caption could include html
             $d->appendChild($f);
-            $caption_plain = trim(
+            $alt = trim(
                 str_replace('"', '&quot;',
                     preg_replace('/\s+/', ' ',
                         str_replace("\n", " ", $d->textContent)
@@ -73,7 +73,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             'tag' => 'img',
             'contenteditable' => 'false',
             'src' => $this->image_src,
-            'alt' => $caption_plain,
+            'alt' => $alt,
             'style'=> array(
                 'width' => $iw,
                 'max-width' => $iw . ' !important', 
@@ -168,7 +168,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 )
             );
         }
-        
+
         return $ret;
     }
     
