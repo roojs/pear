@@ -34,7 +34,7 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
             $node->childNodes->item(0)->nodeType == 3 &&
             trim($node->childNodes->item(0)->textContent) == ''
         ) {
-            $node->parentNode->replaceChild($node->ownerDocument->createElement('BR'), $node);
+            $node->parentNode->replaceChild($node->ownerDocument->createElement('br'), $node);
             return false;
         }
 
@@ -64,8 +64,8 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
         }
         
         // double BR.
-        $node->parentNode->insertBefore($node->ownerDocument->createElement('BR'), $node);
-        $node->parentNode->insertBefore($node->ownerDocument->createElement('BR'), $node);
+        $node->parentNode->insertBefore($node->ownerDocument->createElement('br'), $node);
+        $node->parentNode->insertBefore($node->ownerDocument->createElement('br'), $node);
         
         $node->parentNode->removeChild($node);
         
