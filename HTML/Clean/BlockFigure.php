@@ -52,6 +52,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             $f = $doc->createDocumentFragment();
             $f->appendXML($this->caption); // caption could include html
             $d->appendChild($f);
+            var_dump($d->textContent);
             $caption_plain = $this->caption_display == "block" ? trim(preg_replace('/\s+/', ' ', str_replace("\n", " ", $d->textContent))) : '';
         }
         
