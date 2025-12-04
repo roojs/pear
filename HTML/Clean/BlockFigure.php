@@ -163,7 +163,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                     'cn' => array(
                         'tag' => 'i',
                         'contenteditable' => 'true',
-                        'html' => $this->caption
+                        'html' => strlen($this->caption) ? $this->caption : "Caption" // fake caption
                     )
                 )
             );
