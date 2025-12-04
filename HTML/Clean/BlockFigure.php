@@ -62,7 +62,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             );
         }
 
-        var_dump($this->caption);
+        var_dump($caption_plain);
         die('test');
         
         // margin
