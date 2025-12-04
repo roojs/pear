@@ -38,8 +38,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
     // used by context menu
     
     /**
-     * create a DomHelper friendly object - for use with
-     * Roo.DomHelper.markup / overwrite / etc..
+     * use with HTML_Clean_Block::createDom()
      */
     function toObject ()
     {
