@@ -168,9 +168,6 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             );
         }
 
-        var_dump($ret);
-        die('test');
-
         return $ret;
     }
     
