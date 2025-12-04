@@ -44,12 +44,12 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
             return;
         }
 
-        /*
-
         // return if the next sibling is not a br tag
         if(empty($ns) || $ns->nodeType != 1 || strtoupper($ns->tagName) != 'BR') {
             return;
         }
+
+        /*
 
         $ps = $node->previousSibling;
 
@@ -64,15 +64,6 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
 
         $node->parentNode->removeChild($node);
         */
-        
-        if (!$ps || $ps->nodeType != 1) {
-            return;
-        }
-        // next node node a BR.
-        
-        if (!$ps || $ps->tagName != 'BR') {
-            return; 
-        }
         
         
         $ps = $node->previousSibling;
