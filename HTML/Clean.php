@@ -110,8 +110,8 @@ class HTML_Clean {
             $fig = new HTML_Clean_BlockFigure(array(
                 'image_src' => $img->getAttribute('src')
             ));
-            die('test');
             $fig->updateElement($img);   
+            die('test');
         }
 
         $result = '';
