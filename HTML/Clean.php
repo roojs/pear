@@ -54,7 +54,7 @@ class HTML_Clean {
             $this->{$k} = $v;
         }
         $d = $this->dom->getElementsByTagName('body')->item(0);
-        var_dump($this->node->getElementsByTagName('BR'));
+        var_dump($d->getElementsByTagName('BR'));
         die('test');
         if (!$d) {
             // no body?
