@@ -171,69 +171,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
 
         var_dump($ret);
         die('test');
-        
-  
-        return  array(
-            'tag' => 'figure',
-            'data-block' => 'Figure',
-            'data-width' => $this->width, 
-            
-            
-            'style' => array(
-                'display' => 'block',
-                'float' =>  $this->align ,
-                'max-width' =>  $this->align == 'center' ? '100% !important' : ($this->width + ' !important'),
-                'width' => $this->align == 'center' ? '100%' : $this->width,
-                'margin' =>  '0px',
-                'padding' => $this->align == 'center' ? '0' : '0 10px' ,
-                'text-align' => $this->align   // seems to work for email..
-                
-            ),
-           
-            
-            'align' => $this->align,
-            'cn' => array(
-                $img,
-              
-                array (
-                    'tag'=> 'figcaption',
-                    'data-display' => $this->caption_display,
-                    'style' => array(
-                        'text-align' => 'left',
-                        'font-size' => '16px',
-                        'line-height' => '24px',
-                        'display' => $this->caption_display,
-                        'max-width' => ($this->align == 'center' ?  $this->width : '100%' ) . ' !important',
-                        'margin'=> $m,
-                        'width'=> $this->align == 'center' ?  $this->width : '100%' 
-                    
-                         
-                    ),
-                    'cls' => strlen($this->cls) > 0 ? ($this->cls  + '-thumbnail' ) : '',
-                    'cn' => array(
-                        array(
-                            'tag' => 'div',
-                            'style'  => array(
-                                'margin-top' => '16px',
-                                'text-align' => 'left'
-                            ),
-                            'align'=> 'left',
-                            'cn' => array(
-                                array( 
-                                    // we can not rely on yahoo syndication to use CSS elements - so have to use  '<i>' to encase stuff.
-                                    'tag' => 'i',
-                                    'html' => $captionhtml
-                                )
-                                
-                            )
-                        )
-                        
-                    )
-                    
-                )
-            )
-        );
-         
+        return $ret;
     }
     
     function readElement ($node)
