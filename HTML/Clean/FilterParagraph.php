@@ -43,7 +43,6 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
         $ar = $this->arrayFrom($node->childNodes);
         foreach($ar as $a) {
             $node->removeChild($a);
-            // what if we need to walk these???
             $node->parentNode->insertBefore($a, $node);
         }
         
