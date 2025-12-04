@@ -17,6 +17,7 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
     function __construct($cfg)
     {
         parent::__construct($cfg);
+        var_dump($this->node);
         $pp = $this->arrayFrom($this->node->getElementsByTagName('br'));
         var_dump($this->node->getElementsByTagName('br'));
         die('test');
