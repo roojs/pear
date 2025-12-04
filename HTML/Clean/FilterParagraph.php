@@ -47,6 +47,13 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
         $ar = $this->arrayFrom($node->childNodes);
         foreach($ar as $a) {
             $node->removeChild($a);
+
+            // copy content to span with if the direction is needed
+            if($nodeDir && nodeDir != documentDir) {
+                span.appendChild(ar[i]);
+                continue;
+            }
+
             $node->parentNode->insertBefore($a, $node);
         }
         
