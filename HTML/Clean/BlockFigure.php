@@ -133,11 +133,10 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 'textAlign' => $this->align
                 
             ),
-            
-            align : this.align,
-            cn : [
-                img
-            ]
+            'align' => $this->align,
+            'cn' => array(
+                $img
+            )
         );
         
   
