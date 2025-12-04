@@ -69,7 +69,6 @@ class HTML_Clean {
         
         $this->filter('Attributes',array(    // does walk as well.
             'node' => $d,
-            // 'attrib_white' => array('href', 'src', 'name', 'align', 'colspan', 'rowspan', 'data-display', 'data-width', 'start'),
             'attrib_white' => array(
                 'href',
                 'src',
