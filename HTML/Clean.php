@@ -111,7 +111,7 @@ class HTML_Clean {
                 'image_src' => $img->getAttribute('src')
             ));
             $fig->updateElement($img);   
-            die('test');
+            die('test2');
         }
 
         $result = '';
