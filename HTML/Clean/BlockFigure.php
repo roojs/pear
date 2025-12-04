@@ -78,8 +78,8 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 'width' => $iw,
                 'max-width' => $iw . ' !important', 
                 'margin' => $m  
-                
-            )
+            ),
+            'width' => $iw
         );
         
         // if href is set, wrap the image in a link
