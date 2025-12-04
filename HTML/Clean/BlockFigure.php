@@ -162,7 +162,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                     'align' => 'left',
                     'cn' => array(
                         'tag' => 'i',
-                        'contenteditable' => 'false',
+                        'contenteditable' => 'true',
                         'html' => $this->caption
                     )
                 )
