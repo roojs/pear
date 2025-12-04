@@ -16,9 +16,6 @@ class HTML_Clean {
         foreach ($dom->getElementsByTagName('*') as $el) {
             echo $el->nodeName . "\n";
         }
-        var_dump($dom->getElementsByTagName('p'));
-        var_dump($dom->getElementsByTagName('P'));
-        die('test');
         $opts['dom'] = $dom;
         return new HTML_Clean($opts);    
     }
