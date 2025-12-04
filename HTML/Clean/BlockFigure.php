@@ -28,7 +28,8 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
     var $cls = '';
     var $href = '';
     var $video_url = '';
-    
+    var $image_width = 0;
+    var $image_height = 0;
     // margin: '2%', not used
     
     var $text_align = 'left'; //   (left|right) alignment for the text caption default left. - not used at present
