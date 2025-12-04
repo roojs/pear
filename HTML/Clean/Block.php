@@ -211,7 +211,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             foreach($o['style'] as $k=>$v) {
                 $styles[] = "$k:$v";
             }
-            $node->setAttribute('style', implode(";", $styles));
+            $el->setAttribute('style', implode(";", $styles));
         }
         $cn = isset($o->cn) ? $o->cn :
                 (isset($o->children) ? $o->children : false);
