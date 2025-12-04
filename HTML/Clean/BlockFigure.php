@@ -44,7 +44,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
     {
         $doc = new DOMDocument('1.0', 'utf8');
         
-        // get the plain text version of the caption
+        // plain text caption
         // $this->caption = '<b>test caption</b>';
         $caption_plain = '';
         if(!empty($this->caption)) {
