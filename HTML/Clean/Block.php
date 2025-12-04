@@ -231,9 +231,9 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
                 self::createDom($cn, $el, $doc);
             }
         }
-        if(isset($o->html)) {
+        if(isset($o['html'])) {
             $f = $doc->createDocumentFragment();
-            $f->appendXML($o->html);
+            $f->appendXML($o['html']);
             $el->appendChild($f);
         }
         if($parentNode){
