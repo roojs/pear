@@ -86,13 +86,6 @@ class HTML_Clean {
             'lang' => $language
         ));
 
-        $ar = $this->arrayFrom($d->getElementsByTagName('img'));
-        foreach($ar as $img) {
-            var_dump($this->dom->saveHTML($img));
-            var_dump($img->getAttribute('src'));
-            die('b');
-        }
-
         // is this used?!?!
         $this->filter('Black', array( 'node'=> $d, 'tag'  => $this->black));
         // we don't use the whitelist?
