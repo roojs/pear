@@ -61,9 +61,6 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 )
             );
         }
-
-        var_dump($caption_plain);
-        die('test');
         
         // margin
         $m = $this->width != '100%' && $this->align == 'center' ? '0 auto' : 0; 
