@@ -72,6 +72,9 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 
             )
         );
+
+        var_dump($img);
+        die('test');
         /*
         '<div class="{0}" width="420" height="315" src="{1}" frameborder="0" allowfullscreen>' +
                     '<a href="{2}">' + 
