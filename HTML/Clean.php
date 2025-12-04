@@ -103,11 +103,12 @@ class HTML_Clean {
 
         $ar = $this->arrayFrom($d->getElementsByTagName('img'));
         foreach($ar as $img) {
-            var_dump($img);
-            die('test');
             if ($this->findParent($img, 'figure')) {
+                die('a');
                 continue;
             }
+            var_dump($img);
+            die('test');
             require_once 'HTML/Clean/BlockFigure.php';
             $fig = new HTML_Clean_BlockFigure(array(
                 'image_src' => $img->getAttribute('src')
