@@ -22,6 +22,7 @@ class HTML_Clean_FilterEmpty extends HTML_Clean_Filter
     function replaceTag($node)
     {
         // children is always walked before the parent
+        // as there can be another empty node to be removed inside the children
         $this->walk($node);
 
         // only filter empty leaf element with certain tags
