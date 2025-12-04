@@ -98,9 +98,6 @@ class HTML_Clean {
         foreach ($d->childNodes as $child) {
             $result .= ($this->dom->saveHTML($child));
         }
-        var_dump("RESULT");
-        var_dump($result);
-        die('test7');
         $this->filter('LongBr',array( 'node' =>  $d ));
         $result = '';
         foreach ($d->childNodes as $child) {
