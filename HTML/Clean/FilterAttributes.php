@@ -110,9 +110,6 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
         }
 
         foreach($removeAttributes as $a) {
-            if($node->tagName == 'img') {
-                var_dump($a->name);
-            }
             $node->removeAttribute($a->name);
         }
 
