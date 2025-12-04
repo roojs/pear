@@ -15,6 +15,10 @@ class HTML_Clean {
         $dom = new DOMDocument('1.0', 'utf8');
         $dom->loadHTML($str);
 
+        foreach ($dom->getElementsByTagName('*') as $el) {
+            echo $el->nodeName . "\n";
+            break;
+        }
         var_dump($dom->getElementsByTagName('p'));
         var_dump($dom->getElementsByTagName('P'));
         die('test');
