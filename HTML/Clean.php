@@ -121,7 +121,7 @@ class HTML_Clean {
         }
         var_dump("RESULT");
         var_dump($result);
-        die('test7');
+        die('test8');
          
         
         
