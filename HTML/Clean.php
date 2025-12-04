@@ -10,7 +10,8 @@ class HTML_Clean {
     static function fromHTML($str, $opts = array())
     {
         $str = "<body lang='ar'><h1>aaa</h1><P></P><p dir='ltr'><b>Hello</b></p><span dir='rtl'>World</span></body>";
-        $str = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"><html>" . $str . "</html>";
+        $str = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\">
+<html><body><p>Test</p></body></html>";
         $str= self::cleanWordChars($str);
         $dom = new DOMDocument('1.0', 'utf8');
         $dom->loadHTML($str);
