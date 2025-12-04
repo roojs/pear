@@ -20,7 +20,7 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
     {
         parent::__construct($cfg);
         $pp = $this->arrayFrom($this->node->getElementsByTagName('p'));
-        while($pp->length) {
+        foreach($pp as $p)
             $this->replaceIt($p);
         }
     }
