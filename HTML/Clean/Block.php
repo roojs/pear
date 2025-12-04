@@ -206,8 +206,8 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
                 $el->setAttribute($attr, $val);
             }
         }
-        if (isset($o->style)) {
-            foreach ($styles as $k=>$v){
+        if (isset($o['style'])) {
+            foreach ($o['style'] as $k=>$v){
                 $el->setAttribute($k,$v);
             }
         }
