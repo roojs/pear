@@ -41,7 +41,7 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
         // remove last br tag inside one of these tags
         if(empty($ns) && in_array(strtoupper($node->parentNode->tagName), array('TD', 'TH', 'LI', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'))) {
             $node->parentNode->removeChild($node);
-            return false;
+            return;
         }
 
         /*
