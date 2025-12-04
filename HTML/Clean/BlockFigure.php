@@ -113,6 +113,9 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 )
             );
         }
+
+        var_dump($img);
+        die('test');
         // we remove caption totally if its hidden... - will delete data.. but otherwise we end up with fake caption
         $captionhtml = $this->caption_display == 'none' || !strlen($this->caption) ? '' : $this->caption;
         
