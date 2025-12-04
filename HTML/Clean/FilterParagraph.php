@@ -63,17 +63,9 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
             $node->parentNode->insertBefore($span, $node);
         }
         
-        var_dump($this->node->getElementsByTagName('BR'));
-        var_dump($this->node->getElementsByTagName('br'));
-        
         // double BR.
-        $node->parentNode->insertBefore($node->ownerDocument->createElement('BR'), $node);
-        $node->parentNode->insertBefore($node->ownerDocument->createElement('BR'), $node);
         $node->parentNode->insertBefore($node->ownerDocument->createElement('br'), $node);
-
-        var_dump($this->node->getElementsByTagName('BR'));
-        var_dump($this->node->getElementsByTagName('br'));
-        die('test');
+        $node->parentNode->insertBefore($node->ownerDocument->createElement('br'), $node);
         
         $node->parentNode->removeChild($node);
         
