@@ -79,7 +79,9 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                     '</a>' + 
                 '</div>',
         */
-                
+              
+        var_dump($img->href);
+        die('test');
         if (!empty($this->href)) {
             $img = array(
                 'tag ' => 'a',
@@ -89,6 +91,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 )
             );
         }
+
         
         
         if (!empty(strlen($this->video_url))) {
