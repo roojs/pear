@@ -46,7 +46,6 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         $doc = new DOMDocument('1.0', 'utf8');
         
         // alt text for the image
-        $this->caption = '<b>test caption</b>';
         $alt = '';
         if(!empty($this->caption)) {
             $d = $doc->createElement('div');
