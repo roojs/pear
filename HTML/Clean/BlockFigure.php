@@ -126,7 +126,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             'style' => array(
                 'display' => 'block',
                 'float' =>  $this->align,
-                'maxWidth' =>  $this->align == 'center' ? '100% !important' : ($this->width + ' !important'),
+                'maxWidth' =>  $this->align == 'center' ? '100% !important' : ($this->width . ' !important'),
                 'width' => $this->align == 'center' ? '100%' : $this->width,
                 'margin' =>  '0px',
                 'padding' => $this->align == 'center' ? '0' : '0 10px' ,
