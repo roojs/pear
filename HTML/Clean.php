@@ -9,7 +9,7 @@ class HTML_Clean {
     
     static function fromHTML($str, $opts = array())
     {
-        $str = "<body lang='ar'><h1>aaa</h1><p></p><p dir='ltr'><b>Hello</b></p><span dir='rtl'>World</span></body>";
+        // $str = "<body lang='ar'><h1>aaa</h1><p></p><p dir='ltr'><b>Hello</b></p><span dir='rtl'>World</span></body>";
         $str= self::cleanWordChars($str);
         $dom = new DOMDocument('1.0', 'utf8');
         $dom->loadHTML($str);
@@ -54,7 +54,7 @@ class HTML_Clean {
             $this->{$k} = $v;
         }
         $d = $this->dom->getElementsByTagName('body')->item(0);
-        var_dump($d->getElementsByTagName('P'));
+        var_dump($d->getElementsByTagName('p'));
         die('test');
         if (!$d) {
             // no body?
