@@ -53,7 +53,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             $f = $doc->createDocumentFragment();
             $f->appendXML($this->caption); // caption could include html
             $d->appendChild($f);
-            $caption_plain = $this->caption_display == "block" ? trim(preg_replace('/\s+/', ' ', str_replace("\n", " ", $d->textContent))) : '';
+            $caption_plain = trim(preg_replace('/\s+/', ' ', str_replace("\n", " ", $d->textContent)));
         }
         
         // margin
