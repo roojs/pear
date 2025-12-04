@@ -67,7 +67,17 @@ class HTML_Clean {
         
         $this->filter('Attributes',array(    // does walk as well.
             'node' => $d,
-            'attrib_white' => array('href', 'src', 'name', 'align', 'colspan', 'rowspan', 'data-display', 'data-width', 'start', 'dir'),
+            // 'attrib_white' => array('href', 'src', 'name', 'align', 'colspan', 'rowspan', 'data-display', 'data-width', 'start'),
+            'attrib_white' => array(
+                'href',
+                'src',
+                'name',
+                'align',
+                'colspan',
+                'rowspan',
+                'start',
+                'dir'
+            ),
             'attrib_clean' => array('href', 'src' ),
             
             'replaceComment' => true,   // this is sneaked in here - as walk will get rid of comments at the same time.
