@@ -14,13 +14,6 @@ class HTML_Clean {
         $dom = new DOMDocument('1.0', 'utf8');
         $dom->loadHTML($str);
         $opts['dom'] = $dom;
-        $result = '';
-        foreach ($d->childNodes as $child) {
-            $result .= ($this->dom->saveHTML($child));
-        }
-        var_dump("RESULT");
-        var_dump($result);
-        die('test7');
         return new HTML_Clean($opts);    
     }
     static function cleanWordChars($str)
@@ -61,6 +54,13 @@ class HTML_Clean {
             $this->{$k} = $v;
         }
         $d = $this->dom->getElementsByTagName('body')->item(0);
+        $result = '';
+        foreach ($d->childNodes as $child) {
+            $result .= ($this->dom->saveHTML($child));
+        }
+        var_dump("RESULT");
+        var_dump($result);
+        die('test7');
         if (!$d) {
             // no body?
             return;
