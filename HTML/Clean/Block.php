@@ -217,6 +217,8 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
                 (isset($o['children']) ? $o['children'] : false);
            
         if($cn) {
+            var_dump($cn);
+            die('test');
             //http://bugs.kde.org/show_bug.cgi?id=71506
             if (is_array($cn)) {
                 foreach($cn as $c) {
