@@ -10,6 +10,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
 {
     
     function __construct($cfg) {
+        parent::__construct($cfg);
         var_dump($this);
         die('test');
         if ($cfg['node']) {
