@@ -44,6 +44,7 @@ class HTML_Clean {
         'SCRIPT', 'STYLE' ,'TITLE',  'XML',
         //'FONT' // CLEAN LATER..
         'COLGROUP', 'COL'   // messy tables.
+        'SDFIELD'
     ); // blacklist of elements.
     
     function __construct($opts)
