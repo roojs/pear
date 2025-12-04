@@ -97,7 +97,7 @@ class HTML_Clean {
         // var_dump("RESULT");
         // var_dump($result);
         // die('test4');
-        $this->filter('Paragraph',array( 'node' =>  $d ));
+        $this->filter('Paragraph',array( 'node' =>  $d, 'lang' => $language ));
         $result = '';
         foreach ($d->childNodes as $child) {
             $result .= ($this->dom->saveHTML($child));
