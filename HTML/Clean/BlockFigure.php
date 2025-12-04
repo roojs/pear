@@ -10,7 +10,6 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
 {
     
     function __construct($cfg) {
-        parent::__construct($cfg);
         if ($cfg['node']) {
             $this->readElement($cfg['node']);
             $this->updateElement($cfg['node']);
@@ -43,6 +42,8 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
      */
     function toObject ()
     {
+        var_dump('TO OBJECT');
+        die('test');
         $doc = new DOMDocument('1.0', 'utf8');
         
         $d = $doc->createElement('div');
