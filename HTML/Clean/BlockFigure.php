@@ -46,11 +46,15 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         
         // get the plain text version of the caption
         // $this->caption = '<b>test caption</b>';
-        $d = $doc->createElement('div');
-        $f = $doc->createDocumentFragment();
-        $f->appendXML($this->caption); // caption could include html
-        $d->appendChild($f);
-        $caption_plain = $this->caption_display == "block" ? trim(preg_replace('/\s+/', ' ', str_replace("\n", " ", $d->textContent))) : '';
+        $caption_plain = '';
+        if(!empty($this->caption)) {
+            $d = $doc->createElement('div');
+            $f = $doc->createDocumentFragment();
+            $f->appendXML($this->caption); // caption could include html
+            $d->appendChild($f);
+            $caption_plain = $this->caption_display == "block" ? trim(preg_replace('/\s+/', ' ', str_replace("\n", " ", $d->textContent))) : '';
+        }
+
         var_dump($caption_plain);
         die('test');
         
