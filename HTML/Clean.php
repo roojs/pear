@@ -103,7 +103,7 @@ class HTML_Clean {
 
         $ar = $this->arrayFrom($d->getElementsByTagName('img'));
         foreach($ar as $img) {
-            if ($this->findParent($img, 'div')) {
+            if ($this->findParent($img, 'h1')) {
                 die('a');
                 continue;
             }
