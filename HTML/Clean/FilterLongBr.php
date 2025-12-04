@@ -49,8 +49,6 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
             return;
         }
 
-        /*
-
         $ps = $node->previousSibling;
 
         while(!empty($ps) && $ps->nodeType == 3 && trim($ps->nodeValue) == '') {
@@ -64,13 +62,6 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
 
         $node->parentNode->removeChild($node);
         */
-        
-        
-        $ps = $node->previousSibling;
-        
-        while ($ps && $ps->nodeType == 3 &&  strlen(trim($ps->nodeValue)) < 1) {
-            $ps = $ps->previousSibling;
-        }
         
         if (!$ps || $ps->nodeType != 1) {
             return;
