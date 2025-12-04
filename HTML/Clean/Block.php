@@ -230,7 +230,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             $el->appendChild($f);
         }
         if($parentNode){
-           $parentNode->appendChild(el);
+           $parentNode->appendChild($el);
         }
         return $el;
     }
