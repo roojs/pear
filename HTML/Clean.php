@@ -103,6 +103,8 @@ class HTML_Clean {
 
         $ar = $this->arrayFrom($d->getElementsByTagName('img'));
         foreach($ar as $img) {
+            var_dump($img);
+            die('test');
             if ($this->findParent($img, 'figure')) {
                 continue;
             }
