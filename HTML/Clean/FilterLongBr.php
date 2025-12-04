@@ -28,10 +28,42 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
     
     function replaceIt($node)
     {
-        
-        if (!$node->previousSibling) { // not hing before us...
+        if (!$node->previousSibling) { // nothing before us...
             return false;
         }
+
+
+        $ns = $node->nextSibling;
+        while(!empty($ns) && $ns->nodeType == 3 && trim($ns->nodeValue) == '') {
+            $ns = $ns->nextSibling;
+        }
+
+        /*
+
+        // remove last br tag inside one of these tags
+        if(empty($ns) && in_array(strtoupper($node->parentNode->tagName), array('TD', 'TH', 'LI', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'))) {
+            $node->parentNode->removeChild($node);
+            return;
+        }
+
+        // return if the next sibling is not a br tag
+        if(empty($ns) || $ns->nodeType != 1 || strtoupper($ns->tagName) != 'BR') {
+            return;
+        }
+
+        $ps = $node->previousSibling;
+
+        while(!empty($ps) && $ps->nodeType == 3 && trim($ps->nodeValue) == '') {
+            $ps = $ps->previousSibling;
+        }
+
+        // return if the previous sibling is not a br tag or a heading
+        if(empty($ps) || $ps->nodeType != 1 || !in_array(strtoupper($ps->tagName), array('BR', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6'))) {
+            return;
+        }
+
+        $node->parentNode->removeChild($node);
+        */
         
         $ps = $node->nextSibling;
         // find the nex sibling that is a node, 
