@@ -61,11 +61,6 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         // image width
         $iw = $this->align == 'center' ? $this->width : '100%';
 
-        var_dump($m);
-        var_dump($iw);
-        die('test');
-
-
         $img =   array(
             'tag' => 'img',
             'src' => $this->image_src,
