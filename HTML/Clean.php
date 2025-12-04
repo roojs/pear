@@ -130,6 +130,13 @@ class HTML_Clean {
 
     }
 
+    function filter($type, $args)
+    {
+        require_once 'HTML/Clean/Filter'. $type .'.php';
+        $cls = 'HTML_Clean_Filter'. $type;
+        new $cls($args);
+    }
+
     function arrayFrom($list)
     {
         $ret = array();
