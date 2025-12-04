@@ -56,6 +56,8 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
      */
     function updateElement ($node)
     {
+        var_dump($node);
+        die('test');
         $o = $this->toObject();
         var_dump($o);
         $dom = self::createDom($o);
@@ -239,7 +241,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         if($parentNode){
            $parentNode->appendChild($el);
         }
-        
+
         return $doc->saveHTML($el);
     }
     
