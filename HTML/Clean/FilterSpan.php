@@ -18,7 +18,7 @@ class HTML_Clean_FilterSpan extends HTML_Clean_Filter
     {
         parent::__construct($cfg);
         $ar = $this->arrayFrom($this->node->getElementsByTagName('span'));
-        foreach($as as $a) {
+        foreach($ar as $a) {
             if ($a->hasAttributes()) {
                 continue;
             }
