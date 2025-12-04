@@ -20,6 +20,8 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
     {
         parent::__construct($cfg);
         $pp = $this->arrayFrom($this->node->getElementsByTagName('p'));
+        var_dump($this->node->getElementsByTagName('p'));
+        die('test');
         foreach($pp as $p) {
             $this->replaceIt($p);
         }
