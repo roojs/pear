@@ -21,27 +21,12 @@ class HTML_Clean_FilterEmpty extends HTML_Clean_Filter
 
     function replaceTag($node)
     {
-        // start from leaf node
-        if($node->hasChildNodes()) {
-            // copy of child nodes
-            $childNodes = array();
+        // children is always walked before the parent
+        // as the parent may be removed
+        $this->walk($n);
 
-            foreach($node->childNodes as $n) {
-                $childNodes[] = $n;
-            }
-            foreach($childNodes as $n) {
-                $this->walk($n);
-            }
-        }
-
-        $tags = array(
-            'B', 'I', 'U', 'S'
-        );
-
-        // only filter empty leaf element with certain tags
+        // only filter empty leaf element
         if(
-            !in_array(strtoupper($node->tagName), $tags)
-            ||
             count($node->attributes)
             ||
             $node->hasChildNodes()
