@@ -138,6 +138,9 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 $img
             )
         );
+
+        var_dump($ret);
+        die('test');
         
   
         return  array(
