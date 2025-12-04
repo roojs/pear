@@ -233,7 +233,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
            $parentNode->appendChild($el);
         }
 
-        var_dump($el);
+        var_dump($doc->saveHTML($el));
         die('test');
         return $el;
     }
