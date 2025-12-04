@@ -165,9 +165,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                         'contenteditable' => 'false',
                         'html' => $this->caption
                     )
-                    
                 )
-                
             );
         }
         die('test');
