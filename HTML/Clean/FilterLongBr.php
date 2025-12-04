@@ -28,6 +28,8 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
     
     function replaceIt($node)
     {
+        var_dump($node);
+        
         if (!$node->previousSibling) { // nothing before us...
             return false;
         }
