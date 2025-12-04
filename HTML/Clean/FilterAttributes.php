@@ -109,7 +109,6 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
                 }
             }
         }
-        die('test');
         
         foreach($removeAttributes as $a) {
             $node->removeAttribute($a->name);
