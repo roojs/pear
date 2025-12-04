@@ -17,7 +17,7 @@ class HTML_Clean_FilterLongBR extends HTML_Clean_Filter
     function __construct($cfg)
     {
         parent::__construct($cfg);
-        $pp = $this->arrayFrom($this->node->getElementsByTagName('br'));
+        $pp = $this->arrayFrom($this->node->getElementsByTagName('BR'));
         foreach($pp as $p) {
             if (!$p->parentNode) { // should not happen as we only walk forwards.
                 continue;
