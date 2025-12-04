@@ -17,7 +17,6 @@ class HTML_Clean {
 
         foreach ($dom->getElementsByTagName('*') as $el) {
             echo $el->nodeName . "\n";
-            break;
         }
         var_dump($dom->getElementsByTagName('p'));
         var_dump($dom->getElementsByTagName('P'));
