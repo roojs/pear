@@ -49,8 +49,8 @@ class HTML_Clean_FilterParagraph extends HTML_Clean_Filter
             $node->removeChild($a);
 
             // copy content to span with if the direction is needed
-            if($nodeDir && nodeDir != documentDir) {
-                span.appendChild(ar[i]);
+            if($nodeDir && $nodeDir != $documentDir) {
+                $span.appendChild($a);
                 continue;
             }
 
