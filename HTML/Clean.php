@@ -43,8 +43,8 @@ class HTML_Clean {
         'IFRAME', 'LAYER',  'LINK',     'META',    'OBJECT',   
         'SCRIPT', 'STYLE' ,'TITLE',  'XML',
         //'FONT' // CLEAN LATER..
-        'COLGROUP', 'COL'   // messy tables.
-        'SDFIELD'
+        'COLGROUP', 'COL',   // messy tables.
+        'SDFIELD' // generated when extracting html from word using 'libreoffice'
     ); // blacklist of elements.
     
     function __construct($opts)
