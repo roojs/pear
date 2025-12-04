@@ -61,8 +61,10 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         // image width
         $iw = $this->align == 'center' ? $this->width : '100%';
 
+        // image element array
         $img =   array(
             'tag' => 'img',
+            'contenteditable' => 'false',
             'src' => $this->image_src,
             'alt' => $caption_plain,
             'style'=> array(
@@ -72,17 +74,12 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
                 
             )
         );
-        /*
-        '<div class="{0}" width="420" height="315" src="{1}" frameborder="0" allowfullscreen>' +
-                    '<a href="{2}">' + 
-                        '<img class="{0}-thumbnail" src="{3}/Images/{4}/{5}#image-{4}" />' + 
-                    '</a>' + 
-                '</div>',
-        */
-              
+        
+        // if href is set, wrap the image in a link
         if (!empty($this->href)) {
             $img = array(
                 'tag ' => 'a',
+                'contenteditable' => 'false',
                 'href' => $this->href,
                 'cn' => array(
                     $img
@@ -91,7 +88,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         }
 
         
-        
+        // if video url is set, wrap the image in a video div
         if (!empty(strlen($this->video_url))) {
             $img = array(
                 'tag' => 'div',
