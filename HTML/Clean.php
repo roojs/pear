@@ -87,9 +87,6 @@ class HTML_Clean {
         ));
         $ar = $this->arrayFrom($d->getElementsByTagName('img'));
         foreach($ar as $img) {
-            if ($this->findParent($img, 'figure')) {
-                continue;
-            }
             var_dump($this->dom->saveHTML($img));
             var_dump($img->getAttribute('src'));
             die('b');
