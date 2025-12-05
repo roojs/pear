@@ -199,9 +199,10 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
                 continue;
             }
 
-            // if(empty($val)) {
-            //     continue;
-            // }
+            // skip empty attribute
+            if(empty($val)) {
+                continue;
+            }
                     
             if ($attr=="cls"){
                 $el->setAttribute('class',$val);
