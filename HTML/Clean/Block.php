@@ -98,7 +98,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         }
 
         var_dump($attr);
-        var_dump($attr);
+        var_dump($style);
         die('test');
 
         if ($attr == 'style') {
