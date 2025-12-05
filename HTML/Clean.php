@@ -109,18 +109,16 @@ class HTML_Clean {
             ));
             $fig->updateElement($img);
         }
-
-        // $result = '';
-        // foreach ($d->childNodes as $child) {
-        //     $result .= ($this->dom->saveHTML($child));
-        // }
-        // var_dump($result);
-        // die('test');
-         
-        
         
         require_once 'HTML/Clean/Block.php';
         HTML_Clean_Block::initAll($d);
+
+        $result = '';
+        foreach ($d->childNodes as $child) {
+            $result .= ($this->dom->saveHTML($child));
+        }
+        var_dump($result);
+        die('test');
     }
 
     function filter($type, $args)
