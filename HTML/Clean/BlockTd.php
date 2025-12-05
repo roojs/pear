@@ -27,7 +27,7 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
          
     }
     
-    function toObject ()
+    function toObject()
     {
         $ret = array(
             'tag' => 'td',
@@ -59,7 +59,7 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
     }
     
     
-    function readElement ($node)
+    function readElement($node)
     {
         $node  = $node ? $node : $this->node ;
         $this->width = $node->getAttribute('width');
