@@ -82,6 +82,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         $n = $node;
         var_dump($tag);
         if ($tag !== true && $n->tagName != strtoupper($tag)) {
+            var_dumP("TAG");
             // in theory we could do figure[3] << 3rd figure? or some more complex search..?
             // but kiss for now.
             $n = $node->getElementsByTagName($tag)->item(0);
