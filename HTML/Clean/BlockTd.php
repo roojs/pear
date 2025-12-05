@@ -24,6 +24,9 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
             $this->updateElement($cfg['node']);
         } 
         parent::__construct($cfg);
+
+        var_dump($this);
+        die('test');
          
     }
     
