@@ -177,8 +177,6 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
     
     function readElement ($node)
     {
-        var_dump($node);
-        die('test');
         // this should not really come from the link...
         $this->video_url = $this->getVal($node, 'div', 'src');
         $this->cls = $this->getVal($node, 'div', 'class');
