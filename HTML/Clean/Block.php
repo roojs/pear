@@ -22,8 +22,6 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         if (!$db) {
             $db = ucfirst($node->nodeName);
         }
-        var_dump($node);
-        die('test');
         require_once 'HTML/Clean/Block'.$db . '.php';
         $cls = 'HTML_Clean_Block'. $db;
         
