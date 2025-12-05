@@ -54,7 +54,6 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
             )
         );
         
-        // do we have a head = not really 
         $ncols = 0;
         foreach($this->rows as $row) {
             $tr = array(
