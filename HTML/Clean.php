@@ -59,6 +59,8 @@ class HTML_Clean {
             // no body?
             return;
         }
+        var_dump($d->getAttribute('style'));
+        die('test');
         $language = $d->getAttribute('lang') ?: 'en';
 
         // var_dump($this->dom);
