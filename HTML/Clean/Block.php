@@ -44,7 +44,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             self::initAll($body,'figure');
             return;
         }
-        $ar = self::arrayFrom($body->getElementsByTagName($type));
+        $ar = $body->getElementsByTagName($type);
         var_dump($ar);
         die('test');
         foreach($ar as $a) {
