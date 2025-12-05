@@ -19,7 +19,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
          
         
         $db  = $node->hasAttribute('data-block') ? $node->getAttribute('data-block') : false;
-        if ($db) {
+        if (!$db) {
             $db = ucfirst($node->nodeName);
         }
         var_dump($db);
