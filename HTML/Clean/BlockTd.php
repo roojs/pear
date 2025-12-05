@@ -31,7 +31,7 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
     {
         $ret = array(
             'tag' => 'td',
-            'contenteditable' => 'false', // this stops cell selection from picking the table.
+            'contenteditable' => 'true',
             'data-block' => 'Td',
             'valign' => $this->valign,
             'style' => array(
