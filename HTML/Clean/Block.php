@@ -103,7 +103,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             return isset($styles[strtolower($style)]) ? $styles[strtolower($style)] : '';
         }
         
-        return n->hasAttribute($attr) ? n->getAttribute($attr) : '';
+        return $n->hasAttribute($attr) ? $n->getAttribute($attr) : '';
             
     }
     /**
