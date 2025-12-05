@@ -192,13 +192,13 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             $this->caption_display = $this->getVal($node, 'figcaption', 'data-display');
         }
         
+        // read caption from figcaption
         $figcaption = $this->getVal($node, 'figcaption', false);
         if ($figcaption !== '') {
             $this->caption = $this->getVal($figcaption, 'i', 'html');
         }
         
 
-        $this->caption_display = $this->getVal($node, 'figcaption', 'data-display');
         //$this->text_align = $this->getVal(node, 'figcaption', 'style','text-align');
         $this->width = $this->getVal($node, true, 'data-width');
         //$this->margin = $this->getVal(node, 'figure', 'style', 'margin');
