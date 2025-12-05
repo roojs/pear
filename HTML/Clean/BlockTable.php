@@ -100,8 +100,6 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
     
     function readElement($node)
     {
-        var_dump($node);
-        die('test');
         $node  = $node ? $node : $this->node ;
         $this->width = $this->getVal($node, true, 'style', 'width') || '100%';
         
