@@ -117,9 +117,6 @@ class  HTML_Clean_Filter
             $ret[trim(strtolower($kv[0]))] = trim($kv[1]);
         }
 
-        var_dump($ret);
-        die('aaaaa');
-
         return $ret;
     }
 
