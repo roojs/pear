@@ -37,7 +37,6 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
      */
     static function initAll ($body, $type=false)
     {
-        die("INIT");
         if ($type === false) {
             
             self::initAll($body,'table');
