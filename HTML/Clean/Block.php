@@ -243,9 +243,6 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
     
     static function updateNode ($from, $to)
     {
-        var_dump($from->nodeType);
-        var_dump($to->nodeType);
-        die('test');
         // should we handle non-standard elements?
         
         if ($from->nodeType != $to->nodeType) {
