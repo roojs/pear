@@ -114,9 +114,6 @@ class HTML_Clean {
         foreach ($d->childNodes as $child) {
             $result .= ($this->dom->saveHTML($child));
         }
-        var_dump("RESULT");
-        var_dump($result);
-        die('test8');
          
         
         
