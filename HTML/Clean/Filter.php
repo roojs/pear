@@ -114,7 +114,7 @@ class  HTML_Clean_Filter
             }
             $kv = explode(':', $s, 2);
 
-            $ret[trim($kv[0])] = trim($kv[1]);
+            $ret[trim(strtolower($kv[0]))] = trim($kv[1]);
         }
 
         var_dump($ret);
