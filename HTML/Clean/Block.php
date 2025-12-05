@@ -249,7 +249,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             //Roo.log(["ReplaceChild - mismatch notType" , to, from ]);
             $from->parentNode->replaceChild($to, $from);
         }
-        
+
         if ($from->nodeType == 3) {
             // assume it's text?!
             if ($from->data == $to->data) {
@@ -270,6 +270,8 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         
         // compare attributes
         $ar = $this->arrayFrom($from->attributes);
+        var_dump($ar);
+        die('test');
         foreach($ar as $k=>$v) {
             if ($to->hasAttribute($k)) {
                 continue;
