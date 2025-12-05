@@ -70,17 +70,12 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
         $this->rowspan = max(1, (int) $node->getAttribute('rowspan'));
         $this->html = $this->innerHTML($node);
         $styles = $this->styleToArray($node);
-        var_dump($styles);
         if (!empty($styles['text-align'])) {
             $this->textAlign = $styles['text-align'];
         }
         if ($node->hasAttribute('valign')) {
             $this->valign = $node->getAttribute('valign');
         }
-        var_dump($this->textAlign);
-        var_dump($this->valign);
-        die('test');
-        
     }
     
 }
