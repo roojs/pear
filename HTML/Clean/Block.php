@@ -45,6 +45,9 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             return;
         }
         $ar = $body->getElementsByTagName($type);
+        var_dump($ar);
+        var_dump($type);
+        die('test');
         foreach($ar as $a) {
             self::factory($a);
         }
