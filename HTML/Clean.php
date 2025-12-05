@@ -114,7 +114,6 @@ class HTML_Clean {
         
         require_once 'HTML/Clean/Block.php';
         HTML_Clean_Block::initAll($d);
-
     }
 
     function filter($type, $args)
