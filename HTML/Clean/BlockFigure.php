@@ -198,10 +198,9 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             $this->caption = $this->getVal($figcaption, 'i', 'html');
         }
         
-
-        //$this->text_align = $this->getVal(node, 'figcaption', 'style','text-align');
         $this->width = $this->getVal($node, true, 'data-width');
-        //$this->margin = $this->getVal(node, 'figure', 'style', 'margin');
+        $this->image_width = $this->getVal($node, true, 'data-image-width');
+        $this->image_height = $this->getVal($node, true, 'data-image-height');
 
         var_dump($this);
         die('test');
