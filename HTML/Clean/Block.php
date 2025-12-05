@@ -69,7 +69,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         return self::createHTML($this->toObject());
     }
     /**
-     * used by readEleemnt to extract data from a node
+     * used by readElement to extract data from a node
      * may need improving as it's pretty basic
      
      * @param {DomElement} node
