@@ -65,6 +65,8 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
     {
         $node  = $node ? $node : $this->node ;
         $this->width = $node->getAttribute('width');
+        var_dump($this->width);
+        die('test');
         $this->colspan = max(1, (int) $node->getAttribute('colspan'));
         $this->rowspan = max(1, (int) $node->getAttribute('rowspan'));
         $this->html = $this->innerHTML($node);
