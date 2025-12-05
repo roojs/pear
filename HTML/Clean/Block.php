@@ -86,6 +86,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             // in theory we could do figure[3] << 3rd figure? or some more complex search..?
             // but kiss for now.
             $n = $node->getElementsByTagName($tag)->item(0);
+            var_dump($n);
         }
         if (!$n) {
             return '';
@@ -98,7 +99,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         }
 
         if ($attr == 'style') {
-            $styles = $this->styleToArray($node);
+            $styles = $this->styleToArray($n);
             return isset($styles[strtolower($style)]) ? $styles[strtolower($style)] : '';
         }
         
