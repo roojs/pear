@@ -15,10 +15,8 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
     var $no_row = 1;
     var $width = '100%';
     
-    function __construct($cfg) {
-        
-        
-        
+    function __construct($cfg) 
+    {    
         if ($cfg['node']) {
             $this->readElement($cfg['node']);
             $this->updateElement($cfg['node']);
