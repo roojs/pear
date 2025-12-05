@@ -60,7 +60,7 @@ class HTML_Clean {
             return;
         }
         var_dump($d->getAttribute('style'));
-        die('test');
+        die('tests');
         $language = $d->getAttribute('lang') ?: 'en';
 
         // var_dump($this->dom);
