@@ -17,17 +17,13 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
     
     
      
-    function __construct($cfg) {
-         
+    function __construct($cfg) 
+    {     
         if ($cfg['node']) {
             $this->readElement($cfg['node']);
             $this->updateElement($cfg['node']);
         } 
         parent::__construct($cfg);
-
-        var_dump($this);
-        die('test');
-         
     }
     
     function toObject()
