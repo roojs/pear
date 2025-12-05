@@ -80,15 +80,6 @@ class  HTML_Clean_Filter
         }
         return $ret;
     }
-    
-    function copyInnerHTML($from, $to)
-    {
-        $ar = $this->arrayFrom($from->childNodes);
-        foreach($ar as $n) {
-            $from->removeChild($n);
-            $to->appendChild($n);
-        }
-    }
 
     function arrayFrom($list)
     {
@@ -138,24 +129,4 @@ class  HTML_Clean_Filter
         }
         $node->parentNode->removeChild($node);
     }
-
-    /*
-    
-    function styleToObject($node, $lower = false)
-    {
-        $styles = explode(';',$node->hasAttribute("style") ? $node->getAttribute("style")  : '');
-        $ret = array();
-        foreach($styles as $s) {
-            if (strpos($s, ':') === false) {
-                return;
-            }
-            $kv = explode(':', $s, 2);
-             
-            // what ever is left... we allow.
-            $ret[$lower ? strtotrim($kv[0]) : $kv[0]] = trim($kv[1]);
-        }
-        return $ret;
-    }
-
-    */
 }
