@@ -249,6 +249,9 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             //Roo.log(["ReplaceChild - mismatch notType" , to, from ]);
             $from->parentNode->replaceChild($to, $from);
         }
+
+        var_dump($from->data);
+        die('test');
         
         if ($from->nodeType == 3) {
             // assume it's text?!
