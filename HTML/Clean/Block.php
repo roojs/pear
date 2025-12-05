@@ -100,6 +100,8 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         }
         if ($attr == 'style') {
             $style = $this->styleToArray($node);
+            var_dump($style);
+            die('test');
             return isset($style[strtolower($style)]) ? $style[strtolower($style)] : '';
         }
         
