@@ -69,7 +69,7 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
         $this->colspan = max(1, (int) $node->getAttribute('colspan'));
         $this->rowspan = max(1, (int) $node->getAttribute('rowspan'));
         $this->html = $this->innerHTML($node);
-        $styles = $this->styleToObject($node,true);
+        $styles = $this->styleToArray($node);
         
         if (!empty($styles['text-align'])) {
             $this->textAlign = $styles['text-align'];
