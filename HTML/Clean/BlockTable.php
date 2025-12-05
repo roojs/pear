@@ -22,7 +22,7 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
         if ($cfg['node']) {
             $this->readElement($cfg['node']);
             $this->updateElement($cfg['node']);
-        } 
+        }
         parent::__construct();
         if (!$cfg['node']) {
             for($r = 0; $r < $this->no_row; $r++) {
