@@ -80,6 +80,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
     function getVal($node, $tag , $attr = false, $style = false)
     {
         $n = $node;
+        var_dump($n->tagName);
         if ($tag !== true && $n->tagName != strtoupper($tag)) {
             // in theory we could do figure[3] << 3rd figure? or some more complex search..?
             // but kiss for now.
