@@ -40,6 +40,7 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
         
         $ret = array(
             'tag' => 'table',
+            'contenteditable' => 'false',
             'data-block' => 'Table',
             'style' => array(
                 'width'=>  $this->width,
