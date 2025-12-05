@@ -14,6 +14,7 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
     
     var $colspan = 1;
     var $rowspan = 1;
+    var $html = '';
     
     
      
