@@ -118,6 +118,7 @@ class  HTML_Clean_Filter
         }
 
         var_dump($ret);
+        die('aa');
 
         return $ret;
     }
