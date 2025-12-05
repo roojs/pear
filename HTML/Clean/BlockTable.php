@@ -67,7 +67,6 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
             );
             
             
-            // does the row have any properties? ?? height?
             $nc = 0;
             foreach($row as $cell) {
                 
