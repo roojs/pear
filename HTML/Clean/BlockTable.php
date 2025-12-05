@@ -70,9 +70,6 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
             $ret['cn'][0]['cn'][] = $tr;
         }
 
-        var_dump($ret);
-        die('test');
-
         return $ret;
     }
     
