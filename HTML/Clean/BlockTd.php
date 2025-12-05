@@ -36,9 +36,9 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
             'valign' => $this->valign,
             'style' => array(
                 'text-align' =>  $this->textAlign,
-                'border' => 'solid 1px rgb(0, 0, 0)', // ??? hard coded?
+                'border' => 'solid 1px rgb(0, 0, 0)',
                 'border-collapse' => 'collapse',
-                'padding' => '6px', // 8 for desktop / 4 for mobile
+                'padding' => '6px',
                 'vertical-align'=> $this->valign
             ),
             'html' => $this->html
@@ -53,9 +53,6 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
         if ($this->rowspan > 1) {
             $ret['rowspan'] = $this->rowspan ;
         }
-
-        var_dump($ret);
-        die('test');
         
         return $ret;
          
