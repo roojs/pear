@@ -71,6 +71,9 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
             foreach($row as $cell) {
                 
                 $td = $cell->toObject();
+
+                var_dump($td);
+                die('aaa');
                 
                 if ($cell->colspan > 1) {
                     $nc += $cell->colspan;
