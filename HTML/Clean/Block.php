@@ -97,12 +97,13 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             return $this->innerHTML($node);
         }
 
-        var_dump($attr);
-        var_dump($style);
-        die('test');
-
         if ($attr == 'style') {
             $styles = $this->styleToArray($node);
+
+            var_dump($attr);
+            var_dump($style);
+            var_dump($styles);
+            die('test');
             return isset($styles[strtolower($style)]) ? $styles[strtolower($style)] : '';
         }
         
