@@ -196,8 +196,8 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         $figcaption = $this->getVal($node, 'figcaption', false);
         if ($figcaption !== '') {
             $this->caption = $this->getVal($figcaption, 'i', 'html');
-            // var_dump($this->caption);
-            // die('test');
+            var_dump($this->caption);
+            die('test');
         }
         
         $this->width = $this->getVal($node, true, 'data-width');
