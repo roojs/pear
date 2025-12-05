@@ -117,6 +117,9 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
             $this->rows[] = $row;     
             $this->no_col = max($this->no_col, $no_column);
         }
+
+        var_dump($this);
+        die('test');
     }
     
     function emptyCell () {
