@@ -54,7 +54,6 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
             )
         );
         
-        $ncols = 0;
         foreach($this->rows as $row) {
             $tr = array(
                 'tag' => 'tr',
@@ -89,17 +88,10 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
             
             $ret->cn[0]->cn[] = $tr;
             
-            $ncols = max($nc, $ncols);
-            
             
         }
-        // add the header row..
-        
-        $ncols++; // not used?
-         
-        
+
         return $ret;
-         
     }
     
     function readElement($node)
