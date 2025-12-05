@@ -109,14 +109,6 @@ class HTML_Clean {
             ));
             $fig->updateElement($img);
         }
-
-        $result = '';
-        foreach ($d->childNodes as $child) {
-            $result .= ($this->dom->saveHTML($child));
-        }
-        var_dump("RESULT");
-        var_dump($result);
-        die('test8');
          
         
         
