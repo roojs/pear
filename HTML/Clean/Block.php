@@ -40,9 +40,8 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         if ($type === false) {
             
             self::initAll($body,'table');
-            die('test');
-            self::initAll($body,'td');
-            self::initAll($body,'figure');
+            // self::initAll($body,'td');
+            // self::initAll($body,'figure');
             return;
         }
         $ar = $body->getElementsByTagName($type);
