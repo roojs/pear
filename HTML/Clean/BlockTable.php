@@ -107,35 +107,16 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
         $trs = $this->arrayFrom($node->getElementsByTagName('tr'));
         foreach($trs as $tr) {
             $row =  array();
-            
-            
             $this->no_row++;
             $no_column = 0;
             foreach($node->getElementsByTagName('td') as $td) {
-                
-                
                 $add = new HTML_Clean_Block_Td( array('node' => $td ));
-                    /*'colspan : td.hasAttribute('colspan') ? td.getAttribute('colspan')*1 : 1,
-                    rowspan : td.hasAttribute('rowspan') ? td.getAttribute('rowspan')*1 : 1,
-                    style : td.hasAttribute('style') ? td.getAttribute('style') : '',
-                    html : td.innerHTML
-                    
-                };
-                */
                 $no_column += $add->colspan;
-                     
-                
                 $row[] =   $add;
-                
-                
             }
             $this->rows[] = $row;     
             $this->no_col = max($this->no_col, $no_column);
-            
-            
           }
-        
-        
     }
     
     function emptyCell () {
