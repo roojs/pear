@@ -292,8 +292,8 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             $from->setAttribute($k, $v);
         }
         // children
-        $far = $this->arrayFrom(from.childNodes);
-        $tar = $this->arrayFrom(to.childNodes);
+        $far = $this->arrayFrom($from->childNodes);
+        $tar = $this->arrayFrom($to->childNodes);
         // if the lengths are different.. then it's probably a editable content change, rather than
         // a change of the block definition..
         
