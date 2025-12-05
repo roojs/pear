@@ -60,13 +60,6 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         $node->parentNode->replaceChild($el, $node);
         
     }
-     /**
-     * convert to plain HTML for calling insertAtCursor..
-     */
-    function toHTML ()
-    {
-        return self::createHTML($this->toObject());
-    }
     /**
      * used by readElement to extract data from a node
      * may need improving as it's pretty basic
@@ -111,71 +104,6 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
      * @param {DomElement} node - the node
      */
     abstract function readElement ($node);
-    
-    static function createHTML($o)
-    {
-        
-        if (is_string($o)) {
-            return $o;
-        }
-        $b  = "";
-        if(empty($o->tag)){
-            $o->tag = "div";
-        }
-        $b .= "<" . $o->tag;
-        
-        foreach($o as $attr => $val) {
-            if ($attr == "tag" || $attr == "children" || $attr == "cn" || $attr == "html") {
-                continue;
-            }
-            if($attr == "style"){
-                
-                if (is_string($val)) {
-                    $b .= ' style="' . $val . '"';
-                } else if(is_array($val)) {
-                    $b .= ' style="';
-                    foreach($val as $kk=>$vv) {
-                        $b .= $kk . ":" . $vv . ";";
-                    
-                    }
-                    $b .= '"';
-                }
-            } else {
-                if($attr == "cls"){
-                    $b .= ' class="' + $val + '"';
-                }else if($attr == "htmlFor"){
-                    $b .= ' for="' + $val + '"';
-                } else {
-                    $b .= " " + $attr + '="' + $val + '"';
-                }
-            }
-        }
-        if (preg_match('/^(?:br|frame|hr|img|input|link|meta|range|spacer|wbr|area|param|col)$/i', $o->tag)) {
-            $b .= "/>"; // empty
-        } else { 
-            $b .= ">";
-            $cn = isset($o->cn) ? $o->cn :
-                (isset($o->children) ? $o->children : false);
-            
-            if($cn !== false){
-                
-                if(is_array($cn)) {
-                    foreach($cn as $v) {
-                        $b .= self::createHtml($v);
-                    }
-                }else{
-                    $b .= self::createHtml(cn);
-                }
-            }
-            if(isset($o->html)){
-                $b .= $o->html;
-            }
-            $b .= "</" + $o->tag + ">";
-        }
-        return $b;
-         
-        
-    }
     
     static function createDom ($o, $parentNode = false, $doc = false) {
         if($doc === false) {
