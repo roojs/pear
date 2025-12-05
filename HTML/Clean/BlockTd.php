@@ -44,11 +44,9 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
             'html' => $this->html
         );
         if ($this->width != '') {
-            $ret->width = $this->width;
+            $ret['width'] = $this->width;
             $ret['style']['width'] = $this->width;  
         }
-        
-        
         if ($this->colspan > 1) {
             $ret['colspan'] = $this->colspan ;
         } 
