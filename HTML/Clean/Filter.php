@@ -75,6 +75,8 @@ class  HTML_Clean_Filter
     function innerHTML($n)
     {
         $ret = "";
+        var_dump($n->children);
+        die('test');
         foreach($n->children as $c) {
             $ret .= $c->ownerDocument->saveXML($c);
         }
