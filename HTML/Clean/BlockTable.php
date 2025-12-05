@@ -65,10 +65,13 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
                 'cn' => array()
             );
             foreach($row as $cell) {
-                $tr->cn[] = $cell->toObject();
+                $tr['cn'][] = $cell->toObject();
             }
             $ret['cn'][0]['cn'][] = $tr;
         }
+
+        var_dump($ret);
+        die('test');
 
         return $ret;
     }
