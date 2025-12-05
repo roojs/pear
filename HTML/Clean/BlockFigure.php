@@ -93,8 +93,8 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
             );
         }
 
-        $image_width = $this->image_width * 1;
-        $image_height = $this->image_height * 1;
+        $image_width = (int) $this->image_width;
+        $image_height = (int) $this->image_height;
 
         
         // if video url is set, wrap the image in a video div
