@@ -194,6 +194,8 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         
         // read caption from figcaption
         $figcaption = $this->getVal($node, 'figcaption', false);
+        var_dump($this->innerHTML($figcaption));
+        die('test');
         if ($figcaption !== '') {
             $this->caption = $this->getVal($figcaption, 'i', 'html');
             // var_dump($this->caption);
