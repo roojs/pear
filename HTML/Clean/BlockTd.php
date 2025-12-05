@@ -23,7 +23,7 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
             $this->readElement($cfg['node']);
             $this->updateElement($cfg['node']);
         } 
-        parent::__construct();
+        parent::__construct($cfg);
          
     }
     
