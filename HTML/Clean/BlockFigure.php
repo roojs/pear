@@ -188,8 +188,8 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
 
         // backward compatible
         // it was stored in figcaption
-        if(this.caption_display == '') {
-            this.caption_display = this.getVal(node, 'figcaption', 'data-display');
+        if($this->caption_display == '') {
+            $this->caption_display = this.getVal(node, 'figcaption', 'data-display');
         }
         
         $figcaption = $this->getVal($node, 'figcaption', false);
