@@ -79,6 +79,7 @@ class  HTML_Clean_Filter
             $ret .= $c->ownerDocument->saveXML($c);
         }
         var_dump($ret);
+        die('test');
         return $ret;
     }
     
