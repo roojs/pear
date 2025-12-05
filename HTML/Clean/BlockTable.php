@@ -20,6 +20,7 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
         
         
         if ($cfg['node']) {
+            die('read');
             $this->readElement($cfg['node']);
             $this->updateElement($cfg['node']);
         } 
