@@ -44,7 +44,7 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
             'data-block' => 'Table',
             'style' => array(
                 'width'=>  $this->width,
-                'border' => 'solid 1px #000', // ??? hard coded?
+                'border' => 'solid 1px #000',
                 'border-collapse' => 'collapse' 
             ),
             'cn' => array(
