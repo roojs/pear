@@ -202,8 +202,8 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         $this->image_width = $this->getVal($node, true, 'data-image-width');
         $this->image_height = $this->getVal($node, true, 'data-image-height');
 
-        // var_dump($this);
-        // die('test');
+        var_dump($this);
+        die('test');
         
     }
     
