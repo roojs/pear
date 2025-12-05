@@ -31,6 +31,7 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
     {
         $ret = array(
             'tag' => 'td',
+            'contenteditable' => 'true', // this stops cell selection from picking the table.
             'data-block' => 'Td',
             'valign' => $this->valign,
             'style' => array(
@@ -40,7 +41,7 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
                 'padding' => '6px', // 8 for desktop / 4 for mobile
                 'vertical-align'=> $this->valign
             ),
-            html => $this->html
+            'html' => $this->html
         );
         if ($this->width != '') {
             $ret->width = $this->width;
