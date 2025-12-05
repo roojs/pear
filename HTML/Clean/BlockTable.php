@@ -102,6 +102,9 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
     {
         $node  = $node ? $node : $this->node ;
         $this->width = $this->getVal($node, true, 'style', 'width') || '100%';
+
+        var_dump($this->width);
+        die('test');
         
         $this->rows = array();
         $this->no_row = 0;
