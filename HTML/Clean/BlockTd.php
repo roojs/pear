@@ -64,6 +64,8 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
     
     function readElement ($node)
     {
+        var_dump($node);
+        die('test');
         $node  = $node ? $node : $this->node ;
         
         
