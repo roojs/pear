@@ -48,7 +48,10 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
                 'border-collapse' => 'collapse' 
             ),
             'cn' => array(
-                array( 'tag' => 'tbody' , 'cn' => array() ) 
+                array(
+                    'tag' => 'tbody', 
+                    'cn' => array()
+                ) 
             )
         );
         
