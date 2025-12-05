@@ -92,6 +92,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
             return $n;
         }
         if ($attr == 'html') {
+            var_dump('INNER');
             return $this->innerHTML($node);
         }
 
