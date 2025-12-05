@@ -64,26 +64,9 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
                 ),
                 'cn' => array()
             );
-            
-            
-            $nc = 0;
             foreach($row as $cell) {
-                
                 $td = $cell->toObject();
-
-                var_dump($td);
-                die('aaa');
-                
-                if ($cell->colspan > 1) {
-                    $nc += $cell->colspan;
-                } else {
-                    $nc++;
-                }
-                
-                // widths ?
                 $tr->cn[] = $td;
-                    
-                
             }
             
             $ret->cn[0]->cn[] = $tr;
