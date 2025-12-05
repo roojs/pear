@@ -117,6 +117,8 @@ class  HTML_Clean_Filter
             $ret[trim($kv[0])] = trim($kv[1]);
         }
 
+        var_dump($ret);
+
         return $ret;
     }
 
