@@ -110,7 +110,7 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
             $this->no_row++;
             $no_column = 0;
             foreach($node->getElementsByTagName('td') as $td) {
-                $add = new HTML_Clean_Block_Td( array('node' => $td ));
+                $add = new HTML_Clean_BlockTd( array('node' => $td ));
                 $no_column += $add->colspan;
                 $row[] =   $add;
             }
