@@ -37,7 +37,6 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
     
     function toObject ()
     {
-        
         $ret = array(
             'tag' => 'table',
             'contenteditable' => 'false',
