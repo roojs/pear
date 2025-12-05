@@ -68,10 +68,6 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
         $this->width = $node->getAttribute('width');
         $this->colspan = max(1, (int) $node->getAttribute('colspan'));
         $this->rowspan = max(1, (int) $node->getAttribute('rowspan'));
-        var_dump($this->width);
-        var_dump($this->colspan);
-        var_dump($this->rowspan);
-        die('test');
         $this->html = $this->innerHTML($node);
         $styles = $this->styleToObject($node,true);
         
