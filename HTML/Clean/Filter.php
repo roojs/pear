@@ -78,8 +78,6 @@ class  HTML_Clean_Filter
         foreach($n->childNodes as $c) {
             $ret .= $c->ownerDocument->saveXML($c);
         }
-        var_dump($ret);
-        die('test');
         return $ret;
     }
     
