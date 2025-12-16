@@ -359,7 +359,7 @@ class Mail_smtp extends Mail {
             if($mailFromError) {
                 $txt = implode("\n" , $this->_smtp->_arguments);
                 $this->_smtp->rset();
-                return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_SENDER,
+                return $this->raiseError($error, $code, // replaced the pear code with the SMTP one as it's more meaningful
                         null,null,    array(
                                 'smtpcode' => $code,
                                 'smtptext' => $txt
@@ -398,7 +398,7 @@ class Mail_smtp extends Mail {
                 list($code, $error) = $this->_error("Failed to reset SMTP connection", $res);
                 $txt = implode("\n" , $this->_smtp->_arguments);
                 $this->_smtp->rset();
-                return $this->raiseError($error, null,
+                return $this->raiseError($error, $code ? $code : null, // use SMTP code if available
                     null,null,
                     array(
                             'smtpcode' => $code,
@@ -431,7 +431,7 @@ class Mail_smtp extends Mail {
             list($code,$error) = $this->_error('Failed to send data', $res);
             $txt = implode("\n" , $this->_smtp->_arguments);
             $this->_smtp->rset();
-            return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_DATA,
+            return $this->raiseError($error, $code, // replaced the pear code with the SMTP one as it's more meaningful
                 null,null,    array(
                             'smtpcode' => $code,
                             'smtptext' => $txt
@@ -492,7 +492,7 @@ class Mail_smtp extends Mail {
                                    $this->host . ':' . $this->port,
                                    $res);
             $txt = implode("\n" , $this->_smtp->_arguments);
-            return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_CONNECT,
+            return $this->raiseError($error, $code ? $code : PEAR_MAIL_SMTP_ERROR_CONNECT, // use SMTP code if available, otherwise fallback to PEAR code
                     null,null,    array(
                             'smtpcode' => $code,
                             'smtptext' => $txt
@@ -512,7 +512,7 @@ class Mail_smtp extends Mail {
                 list($code, $error) =$this->_error("$method authentication failure",  $res);
                 $txt = implode("\n" , $this->_smtp->_arguments);
                 $this->_smtp->rset();
-                return $this->raiseError($error, PEAR_MAIL_SMTP_ERROR_AUTH,
+                return $this->raiseError($error, $code ? $code : PEAR_MAIL_SMTP_ERROR_AUTH, // use SMTP code if available, otherwise fallback to PEAR code
                     null,null,    array(
                             'smtpcode' => $code,
                             'smtptext' => $txt
@@ -548,7 +548,7 @@ class Mail_smtp extends Mail {
             //??? why?
             list($code, $error) = $this->_error('Failed to start a TLS session after issuing a STARTTLS command first"', $res);
             $txt = implode("\n" , $this->_smtp->_arguments);
-            return $this->raiseError($error, null,
+            return $this->raiseError($error, $code ? $code : null, // use SMTP code if available
                     null,null,    array(
                         'smtpcode' => $code,
                         'smtptext' => $txt
@@ -560,7 +560,7 @@ class Mail_smtp extends Mail {
         if (PEAR::isError($res = $this->_smtp->_negotiate())) {
             list($code, $error) = $this->_error('Failed to negotiate after TLS handshake', $res);
             $txt = implode("\n" , $this->_smtp->_arguments);
-            return $this->raiseError($error, null,
+            return $this->raiseError($error, $code ? $code : null, // use SMTP code if available
                     null,null,    array(
                             'smtpcode' => $code,
                             'smtptext' => $txt
