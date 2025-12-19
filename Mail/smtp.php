@@ -369,8 +369,6 @@ class Mail_smtp extends Mail {
 
         $recipients = $this->parseRecipients($recipients);
         if (is_a($recipients, 'PEAR_Error')) {
-            var_dump($recipients);
-            die('test');
             $this->_smtp->rset();
             return $recipients;
         }
@@ -380,6 +378,10 @@ class Mail_smtp extends Mail {
             if (is_a($res, 'PEAR_Error')) {
                 list($code, $error) = $this->_error("Failed to add recipient: $recipient", $res);
                 $txt = implode("\n" , $this->_smtp->_arguments);
+                $code = 452;
+                $txt = "4.2.2 The recipient's inbox is out of storage space. Please direct the
+4.2.2 recipient to
+4.2.2  https://support.google.com/mail/?p=OverQuotaTemp 41be03b00d2f7-c1d301e57aesi2512751a12.124 - gsmtp";
                 
                 $this->_smtp->rset();
                 return $this->raiseError($error, $code, // repaced teh pear code with the SMPT one as it's more meaningfull
