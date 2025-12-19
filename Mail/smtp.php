@@ -374,6 +374,7 @@ class Mail_smtp extends Mail {
         }
 
         foreach ($recipients as $recipient) {
+            die('test');
             $res = $this->_smtp->rcptTo($recipient);
             if (is_a($res, 'PEAR_Error')) {
                 list($code, $error) = $this->_error("Failed to add recipient: $recipient", $res);
