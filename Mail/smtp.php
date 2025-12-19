@@ -369,6 +369,8 @@ class Mail_smtp extends Mail {
 
         $recipients = $this->parseRecipients($recipients);
         if (is_a($recipients, 'PEAR_Error')) {
+            var_dump($recipients);
+            die('test');
             $this->_smtp->rset();
             return $recipients;
         }
