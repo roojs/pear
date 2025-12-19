@@ -378,10 +378,6 @@ class Mail_smtp extends Mail {
             if (is_a($res, 'PEAR_Error')) {
                 list($code, $error) = $this->_error("Failed to add recipient: $recipient", $res);
                 $txt = implode("\n" , $this->_smtp->_arguments);
-                $code = 452;
-                $txt = "4.2.2 The recipient's inbox is out of storage space. Please direct the
-4.2.2 recipient to
-4.2.2  https://support.google.com/mail/?p=OverQuotaTemp 41be03b00d2f7-c1d301e57aesi2512751a12.124 - gsmtp";
                 
                 $this->_smtp->rset();
                 return $this->raiseError($error, $code, // repaced teh pear code with the SMPT one as it's more meaningfull
@@ -395,7 +391,7 @@ class Mail_smtp extends Mail {
         }
 
         // Don't send anything in test mode
-        // if ($this->test) {
+        if ($this->test) {
             $res = $this->_smtp->rset();
             if (is_a($res, 'PEAR_Error')) {
                 list($code, $error) = $this->_error("Failed to reset SMTP connection", $res);
@@ -416,7 +412,7 @@ class Mail_smtp extends Mail {
             }
 
             return true;
-        // }
+        }
         
         /* Send the message's headers and the body as SMTP data. */
         $res = $this->_smtp->data($textHeaders . "\r\n\r\n" . $body);
