@@ -334,6 +334,7 @@ class Mail_smtp extends Mail {
             list($from, $textHeaders) = $this->prepareHeaders($headers); // do it again!
         }
          
+        
         if (PEAR::isError($res = $this->_smtp->mailFrom($from, ltrim($params)))) {
             $mailFromError = true;
             list($code, $error) = $this->_error(
