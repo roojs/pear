@@ -358,8 +358,10 @@ class Mail_smtp extends Mail {
 
             if($mailFromError) {
                 $txt = implode("\n" , $this->_smtp->_arguments);
-                $code = 421;
-                $txt = "4.7.0 [TSS04] Messages from 172.105.114.67 temporarily deferred due to unexpected volume or user complaints - 4.16.55.1; see https://postmaster.yahooinc.com/error-codes";
+                $code = 452;
+                $txt = "4.2.2 The recipient's inbox is out of storage space. Please direct the
+4.2.2 recipient to
+4.2.2  https://support.google.com/mail/?p=OverQuotaTemp 41be03b00d2f7-c1d301e57aesi2512751a12.124 - gsmtp";
                 $this->_smtp->rset();
                 return $this->raiseError($error, $code, // replaced the pear code with the SMTP one as it's more meaningful
                         null,null,    array(
