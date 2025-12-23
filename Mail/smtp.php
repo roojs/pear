@@ -379,6 +379,9 @@ class Mail_smtp extends Mail {
             if (is_a($res, 'PEAR_Error')) {
                 list($code, $error) = $this->_error("Failed to add recipient: $recipient", $res);
                 $txt = implode("\n" , $this->_smtp->_arguments);
+
+                var_dump($error);
+                die('test');
                 
                 $this->_smtp->rset();
                 return $this->raiseError($error, $code, // repaced teh pear code with the SMPT one as it's more meaningfull
