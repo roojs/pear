@@ -104,7 +104,17 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
         $yscale =  floor( ($match[2] / $match[1]) * $xscale) * 3;
         $xscale = floor($xscale) * 3;
         
+        // Apply maximum dimension limits to prevent cairo errors
+        // Cairo has limits around 32767 pixels, but we'll use 20000 as a safe maximum
+        $maxDimension = 20000;
         
+        if ($xscale > $maxDimension || $yscale > $maxDimension) {
+            // Calculate scale factor to fit within max dimensions while maintaining aspect ratio
+            $scaleFactor = min($maxDimension / $xscale, $maxDimension / $yscale);
+            $xscale = floor($xscale * $scaleFactor);
+            $yscale = floor($yscale * $scaleFactor);
+            $this->debug("Scaled down dimensions to fit max limit: {$xscale}x{$yscale}");
+        }
         
         $pg = ($pg === false) ? 1 : $pg;
         
@@ -277,6 +287,19 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
         
         $yscale =  floor( ($match[2] / $match[1]) * $xscale) * 3;
         $xscale = floor($xscale) * 3;
+        
+        // Apply maximum dimension limits to prevent cairo errors
+        // Cairo has limits around 32767 pixels, but we'll use 8000 as a safe maximum
+        $maxDimension = 8000;
+        
+        if ($xscale > $maxDimension || $yscale > $maxDimension) {
+            // Calculate scale factor to fit within max dimensions while maintaining aspect ratio
+            $scaleFactor = min($maxDimension / $xscale, $maxDimension / $yscale);
+            $xscale = floor($xscale * $scaleFactor);
+            $yscale = floor($yscale * $scaleFactor);
+            $this->debug("Scaled down dimensions to fit max limit: {$xscale}x{$yscale}");
+        }
+        
         $pg = ($pg === false) ? 1 : $pg;
         
         
