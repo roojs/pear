@@ -412,6 +412,8 @@ class Mail_smtp extends Mail {
                 $this->disconnect();
             }
 
+            die('test');
+
             return true;
         // }
         
