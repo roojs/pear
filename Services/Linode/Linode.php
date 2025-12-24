@@ -4,6 +4,7 @@ class Services_Linode_Linode {
     
     var $apiToken;
     var $baseURL = "https://api.linode.com/v4";
+    var $debug = false;
     
     /**
      * Constructor - sets properties from config array
@@ -30,6 +31,29 @@ class Services_Linode_Linode {
     }
     
     /**
+     * Debug output method
+     * 
+     * @param string $message Debug message
+     * @param mixed $data Optional data to output
+     */
+    
+    function debug($message, $data = null)
+    {
+        if (!$this->debug) {
+            return;
+        }
+        
+        echo "[Linode API Debug] {$message}\n";
+        if ($data !== null) {
+            if (is_string($data)) {
+                echo "  {$data}\n";
+            } else {
+                echo "  " . json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n";
+            }
+        }
+    }
+    
+    /**
      * Make HTTP request to Linode API
      * 
      * @param string $method HTTP method (GET, POST, PUT, PATCH, DELETE)
@@ -46,6 +70,12 @@ class Services_Linode_Linode {
             'Authorization: Bearer ' . $this->apiToken,
             'Content-Type: application/json'
         ];
+        
+        if ($data !== null) {
+            $this->debug("Request: {$method} {$path}", $data);
+        } else {
+            $this->debug("Request: {$method} {$path}");
+        }
         
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -72,6 +102,16 @@ class Services_Linode_Linode {
         $response = curl_exec($ch);
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
+        
+        $responseData = $response;
+        if (is_string($response)) {
+            $decoded = json_decode($response, true);
+            if ($decoded !== null) {
+                $responseData = $decoded;
+            }
+        }
+        
+        $this->debug("Response: {$method} {$path}", $responseData);
         
         if ($httpCode < 200 || $httpCode >= 300) {
             error_log("Linode API request failed: $method $path returned $httpCode - $response");
