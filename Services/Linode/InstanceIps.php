@@ -30,6 +30,18 @@ class Services_Linode_InstanceIps extends Services_Linode_Linode {
     }
     
     /**
+     * Get IP address information (including reverse DNS)
+     * 
+     * @param string $ip IP address
+     * @return array|false IP data array or false on failure
+     */
+    
+    public function getIpInfo($ip) {
+        $data = $this->request('GET', "/networking/ips/{$ip}");
+        return $data;
+    }
+    
+    /**
      * Update reverse pointer for an IP address
      * 
      * @param string $ip IP address
@@ -39,11 +51,10 @@ class Services_Linode_InstanceIps extends Services_Linode_Linode {
     
     public function updateReversePointer($ip, $hostname) {
         $data = [
-            'ipv6' => $ip,
-            'reverse_pointer' => $hostname
+            'rdns' => $hostname
         ];
         
-        $response = $this->request('PUT', "/linode/instances/{$this->instanceId}/ips", $data);
+        $response = $this->request('PUT', "/networking/ips/{$ip}", $data);
         
         return $response !== false;
     }
