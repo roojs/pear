@@ -26,6 +26,17 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
     
     function convert($fn, $x, $y, $pg)
     {
+        // Handle 'c' parameter (crop mode) - extract numeric width value
+        if (is_string($x) && strpos($x, 'c') !== false) {
+            // Extract width before 'c' (e.g., '200c289' -> '200')
+            $x = preg_replace('/c.*$/', '', $x);
+        }
+        if (is_string($x) && strpos($x, 'x') !== false) {
+            // Extract width before 'x' (e.g., '200x289' -> '200')
+            $bits = explode('x', $x);
+            $x = $bits[0];
+        }
+        $x = is_numeric($x) ? (int)$x : 0;
         
         $xscale = 600; // min size?
         if (!empty($x) && $x> $xscale ) {
@@ -93,7 +104,17 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
         $yscale =  floor( ($match[2] / $match[1]) * $xscale) * 3;
         $xscale = floor($xscale) * 3;
         
+        // Apply maximum dimension limits to prevent cairo errors
+        // Cairo has limits around 32767 pixels, but we'll use 20000 as a safe maximum
+        $maxDimension = 20000;
         
+        if ($xscale > $maxDimension || $yscale > $maxDimension) {
+            // Calculate scale factor to fit within max dimensions while maintaining aspect ratio
+            $scaleFactor = min($maxDimension / $xscale, $maxDimension / $yscale);
+            $xscale = floor($xscale * $scaleFactor);
+            $yscale = floor($yscale * $scaleFactor);
+            $this->debug("Scaled down dimensions to fit max limit: {$xscale}x{$yscale}");
+        }
         
         $pg = ($pg === false) ? 1 : $pg;
         
@@ -109,6 +130,17 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
             return $this->pdftoppm($fn,$x,$y, $pg);
             
         }
+        // When only width is specified (y is empty), use only -scale-to-x to maintain aspect ratio
+        // This prevents squashing of tall PDFs (like converted images)
+        $scaleCmd = '';
+        if (empty($y)) {
+            // Only scale by width, let height scale proportionally
+            $scaleCmd = " -scale-to-x {$xscale} ";
+        } else {
+            // Both dimensions specified, scale to fit both
+            $scaleCmd = " -scale-to-x {$xscale} -scale-to-y {$yscale} ";
+        }
+        
         $cmd = "$PDFTOPPM   -f $pg " 
                     . "-l $pg  " 
                     //. "-png "
@@ -116,8 +148,7 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
 //                    . "-rx 1200 "
 //                    . "-ry 1200 "
                     . '-' . $ext . " "
-                    . " -scale-to-x {$xscale} " 
-                    . " -scale-to-y {$yscale} " 
+                    . $scaleCmd
                     .  escapeshellarg($fn) . " " 
                     . escapeshellarg($fn.'-conv');
         
@@ -199,6 +230,18 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
     
     function pdftoppm($fn, $x, $y, $pg=false)
     {
+        // Handle 'c' parameter (crop mode) - extract numeric width value
+        if (is_string($x) && strpos($x, 'c') !== false) {
+            // Extract width before 'c' (e.g., '200c289' -> '200')
+            $x = preg_replace('/c.*$/', '', $x);
+        }
+        if (is_string($x) && strpos($x, 'x') !== false) {
+            // Extract width before 'x' (e.g., '200x289' -> '200')
+            $bits = explode('x', $x);
+            $x = $bits[0];
+        }
+        $x = is_numeric($x) ? (int)$x : 0;
+        
         $xscale = 400; // min size?
         if (!empty($x) && $x> $xscale ) {
             $xscale = $x;
@@ -244,6 +287,19 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
         
         $yscale =  floor( ($match[2] / $match[1]) * $xscale) * 3;
         $xscale = floor($xscale) * 3;
+        
+        // Apply maximum dimension limits to prevent cairo errors
+        // Cairo has limits around 32767 pixels, but we'll use 8000 as a safe maximum
+        $maxDimension = 8000;
+        
+        if ($xscale > $maxDimension || $yscale > $maxDimension) {
+            // Calculate scale factor to fit within max dimensions while maintaining aspect ratio
+            $scaleFactor = min($maxDimension / $xscale, $maxDimension / $yscale);
+            $xscale = floor($xscale * $scaleFactor);
+            $yscale = floor($yscale * $scaleFactor);
+            $this->debug("Scaled down dimensions to fit max limit: {$xscale}x{$yscale}");
+        }
+        
         $pg = ($pg === false) ? 1 : $pg;
         
         
@@ -258,6 +314,17 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
             return false;
             
         }
+        // When only width is specified (y is empty), use only -scale-to-x to maintain aspect ratio
+        // This prevents squashing of tall PDFs (like converted images)
+        $scaleCmd = '';
+        if (empty($y)) {
+            // Only scale by width, let height scale proportionally
+            $scaleCmd = " -scale-to-x {$xscale} ";
+        } else {
+            // Both dimensions specified, scale to fit both
+            $scaleCmd = " -scale-to-x {$xscale} -scale-to-y {$yscale} ";
+        }
+        
         $cmd = "$PDFTOPPM -f $pg " 
                     . "-l $pg  " 
                     //. "-png "
@@ -265,8 +332,7 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
 //                    . "-rx 1200 "
 //                    . "-ry 1200 "
                     . '-' . $ext . " "
-                    . " -scale-to-x {$xscale} " 
-                    . " -scale-to-y {$yscale} " 
+                    . $scaleCmd
                     .  escapeshellarg($fn) . " " 
                     . escapeshellarg($fn.'-conv');
         
