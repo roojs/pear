@@ -59,10 +59,6 @@ abstract class Net_Ollama_Call {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         
-        // // TEST: Short timeout for testing - REMOVE AFTER TESTING
-        // curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);  // 5 second connect timeout
-        // curl_setopt($ch, CURLOPT_TIMEOUT, 10);        // 10 second total timeout
-        
         // Build headers first (needed for curl command output)
         $headers = array();
         if ($this->_method === 'POST') {
