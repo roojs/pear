@@ -392,7 +392,7 @@ class Mail_smtp extends Mail {
         }
 
         // Don't send anything in test mode
-        if ($this->test) {
+        // if ($this->test) {
             $res = $this->_smtp->rset();
             if (is_a($res, 'PEAR_Error')) {
                 list($code, $error) = $this->_error("Failed to reset SMTP connection", $res);
@@ -412,8 +412,10 @@ class Mail_smtp extends Mail {
                 $this->disconnect();
             }
 
+            die('test');
+
             return true;
-        }
+        // }
         
         /* Send the message's headers and the body as SMTP data. */
         $res = $this->_smtp->data($textHeaders . "\r\n\r\n" . $body);
