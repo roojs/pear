@@ -60,6 +60,7 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
             }
 
             if(in_array(strtolower($a->name), $this->attrib_clean)) {
+                // URL decode the value for pattern matching (handles DOMDocument encoding)
                 $valueToCheck = urldecode($a->nodeValue);
                 if(!(
                     preg_match('/^\./', $valueToCheck) 
