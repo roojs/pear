@@ -60,11 +60,6 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
             }
 
             if(in_array(strtolower($a->name), $this->attrib_clean)) {
-                // Temporary debug
-                if ($a->name == 'src') {
-                    error_log("FilterAttributes: src value = " . $a->nodeValue);
-                    error_log("Matches pattern: " . (preg_match('/^\{/', $a->nodeValue) ? 'YES' : 'NO'));
-                }
                 if(!(
                     preg_match('/^\./', $a->nodeValue) 
                     || 
