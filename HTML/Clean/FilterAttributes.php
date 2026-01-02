@@ -63,25 +63,25 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
                 $valueToCheck = urldecode($a->nodeValue);
                 // Temporary debug
                 if ($a->name == 'src') {
-                    error_log("FilterAttributes: src value = " . $a->nodeValue);
-                    error_log("Matches pattern: " . (preg_match('/^\{/', $a->nodeValue) ? 'YES' : 'NO'));
+                    error_log("FilterAttributes: src value = " . $valueToCheck);
+                    error_log("Matches pattern: " . (preg_match('/^\{/', $valueToCheck) ? 'YES' : 'NO'));
                 }
                 if(!(
-                    preg_match('/^\./', $a->nodeValue) 
+                    preg_match('/^\./', $valueToCheck) 
                     || 
-                    preg_match('/^\//', $a->nodeValue)
+                    preg_match('/^\//', $valueToCheck)
                     || 
-                    preg_match('/^(http|https):\/\//', $a->nodeValue)
+                    preg_match('/^(http|https):\/\//', $valueToCheck)
                     || 
-                    preg_match('/^mailto:/', $a->nodeValue)
+                    preg_match('/^mailto:/', $valueToCheck)
                     || 
-                    preg_match('/^ftp:/', $a->nodeValue)
+                    preg_match('/^ftp:/', $valueToCheck)
                     || 
-                    preg_match('/^data:/', $a->nodeValue)
+                    preg_match('/^data:/', $valueToCheck)
                     || 
-                    preg_match('/^#/', $a->nodeValue)
+                    preg_match('/^#/', $valueToCheck)
                     || 
-                    preg_match('/^\{/', $a->nodeValue)
+                    preg_match('/^\{/', $valueToCheck)
                 )) {
                     $removeAttributes[] = $a;
                 }
