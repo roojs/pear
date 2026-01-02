@@ -76,6 +76,8 @@ class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
                     preg_match('/^#/', $a->nodeValue)
                     || 
                     preg_match('/^\{/', $a->nodeValue)
+                    ||
+                    preg_match('/^__IMAGE_\d+__/', $a->nodeValue)
                 )) {
                     $removeAttributes[] = $a;
                 }
