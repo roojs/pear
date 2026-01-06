@@ -379,10 +379,6 @@ class Mail_smtp extends Mail {
             if (is_a($res, 'PEAR_Error')) {
                 list($code, $error) = $this->_error("Failed to add recipient: $recipient", $res);
                 $txt = implode("\n" , $this->_smtp->_arguments);
-
-                $code = 550;
-                $txt = "Rejected because 172.105.114.67 is in a black list at zen.spamhaus.org
-Error: open resolver; https://check.spamhaus.org/returnc/pub/2400:cb00:721:1024::6ca2:dc27/";
                 
                 $this->_smtp->rset();
                 return $this->raiseError($error, $code, // repaced teh pear code with the SMPT one as it's more meaningfull
@@ -396,7 +392,7 @@ Error: open resolver; https://check.spamhaus.org/returnc/pub/2400:cb00:721:1024:
         }
 
         // Don't send anything in test mode
-        // if ($this->test) {
+        if ($this->test) {
             $res = $this->_smtp->rset();
             if (is_a($res, 'PEAR_Error')) {
                 list($code, $error) = $this->_error("Failed to reset SMTP connection", $res);
@@ -415,9 +411,8 @@ Error: open resolver; https://check.spamhaus.org/returnc/pub/2400:cb00:721:1024:
             if ($this->persist === false) {
                 $this->disconnect();
             }
-            die('test');
             return true;
-        // }
+        }
         
         /* Send the message's headers and the body as SMTP data. */
         $res = $this->_smtp->data($textHeaders . "\r\n\r\n" . $body);
