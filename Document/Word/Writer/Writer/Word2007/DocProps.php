@@ -121,7 +121,7 @@ class Document_Word_Writer_Writer_Word2007_DocProps extends Document_Word_Writer
 	}
 
 
-	public function writeDocPropsCore(Document_Word_Writer $pPHPWord = null) 
+	public function writeDocPropsCore(?Document_Word_Writer $pPHPWord = null) 
         {
 		// Create XML writer
 		$objWriter = null;

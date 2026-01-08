@@ -1,10 +1,10 @@
 <?php
 
-class Services_Cloudflare_Firewall {
+require_once 'Services/Cloudflare.php';
+
+class Services_Cloudflare_Firewall extends Services_Cloudflare {
     
     
-    var $baseURL;
-    var $apiToken;
     var $account;
     
     /**
@@ -17,12 +17,7 @@ class Services_Cloudflare_Firewall {
     
     function __construct($cfg)
     {
-        // no error checking - should result in warnings if done wrong...
-        foreach($cfg as $k=>$v) {
-            if (property_exists($this, $k)) {
-                $this->$k = $v;
-            }
-        }
+        parent::__construct($cfg);
         $this->baseURL = "https://api.cloudflare.com/client/v4/accounts/{$this->account}/firewall/access_rules/rules";
     }
     /**
@@ -95,7 +90,8 @@ class Services_Cloudflare_Firewall {
             return $rules;
         }
 
-        $rules = isset($rules->result) ? $rules->result : $rules;
+        // get() returns an array when fetching multiple records
+        $rules = is_array($rules) ? $rules : (isset($rules->result) ? $rules->result : array());
         
         // no such rule -> add
         if(empty($rules)) {
@@ -132,71 +128,6 @@ class Services_Cloudflare_Firewall {
          
     }
     
-    function request($method, $param, $data = array()) 
-    {
-         // Headers for API requests
-        $headers = array(
-            "Authorization: Bearer {$this->apiToken}",
-            "Content-Type: application/json"
-        );
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $this->baseURL . $param);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        switch($method) {
-            
-            case 'GET':
-                break;
-           
-            case 'DELETE':
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
-                break;
-            
-            case 'POST' :
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-                $param .= " / " . json_encode($data);
-                break;
-            
-            case 'PATCH':
-                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PATCH");
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-                $param .= " / " . json_encode($data);
-                break;
-        }
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        
-        // Check for curl errors
-        if ($response === false) {
-            $curlError = curl_error($ch);
-            $curlErrno = curl_errno($ch);
-            curl_close($ch);
-            return $this->raiseError("Curl error: $method : $param - Error #{$curlErrno}: {$curlError}");
-        }
-        
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-
-        if ($httpCode == 200 ) {
-            $ret = json_decode($response);
-            
-            
-            
-            if (!$ret->success) {
-                return $this->raiseError("Failed : $method : $param returned {$httpCode} - ". json_encode($ret->errors));
-            }
-            if (isset($ret->result_info)) {
-                return $ret;
-            }
-            return $ret->result;
-        }
-        return $this->raiseError("Failed : $method : $param returned {$httpCode} - {$response}");
-        
-    }
-    
-    
-    
-
     // Function to add a firewall rule
     function create($mode, $ip,  $notes, $target = false) 
     {
@@ -217,12 +148,5 @@ class Services_Cloudflare_Firewall {
     function delete($id) 
     {
         return $this->request("DELETE", "/"  . $id);
-    }
- 
-    function raiseError($message = null)
-    {
-        require_once 'PEAR.php';
-        $p = new PEAR();
-        return $p->raiseError($message, null, PEAR_ERROR_RETURN);
     }
 }
