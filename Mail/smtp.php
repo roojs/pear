@@ -379,6 +379,9 @@ class Mail_smtp extends Mail {
             if (is_a($res, 'PEAR_Error')) {
                 list($code, $error) = $this->_error("Failed to add recipient: $recipient", $res);
                 $txt = implode("\n" , $this->_smtp->_arguments);
+                $code = 550;
+                $txt = '5.7.1 Service unavailable, Client host [43.250.60.254] blocked using Spamhaus. To request removal from this list see https://www.spamhaus.org/query/ip/43.250.60.254 AS(1450) [SG1PEPF000082E8.apcprd02.prod.outlook.com 2025-10-23T03:11:02.606Z 08DE11D356D55035]';
+    
                 
                 $this->_smtp->rset();
                 return $this->raiseError($error, $code, // repaced teh pear code with the SMPT one as it's more meaningfull
@@ -392,7 +395,7 @@ class Mail_smtp extends Mail {
         }
 
         // Don't send anything in test mode
-        if ($this->test) {
+        // if ($this->test) {
             $res = $this->_smtp->rset();
             if (is_a($res, 'PEAR_Error')) {
                 list($code, $error) = $this->_error("Failed to reset SMTP connection", $res);
@@ -411,9 +414,10 @@ class Mail_smtp extends Mail {
             if ($this->persist === false) {
                 $this->disconnect();
             }
+            die('test');
 
             return true;
-        }
+        // }
         
         /* Send the message's headers and the body as SMTP data. */
         $res = $this->_smtp->data($textHeaders . "\r\n\r\n" . $body);
@@ -492,6 +496,7 @@ class Mail_smtp extends Mail {
                                    $this->host . ':' . $this->port,
                                    $res);
             $txt = implode("\n" , $this->_smtp->_arguments);
+
             return $this->raiseError($error, $code ? $code : PEAR_MAIL_SMTP_ERROR_CONNECT, // use SMTP code if available, otherwise fallback to PEAR code
                     null,null,    array(
                             'smtpcode' => $code,
