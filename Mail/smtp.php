@@ -358,7 +358,6 @@ class Mail_smtp extends Mail {
 
             if($mailFromError) {
                 $txt = implode("\n" , $this->_smtp->_arguments);
-
                 $this->_smtp->rset();
                 return $this->raiseError($error, $code, // replaced the pear code with the SMTP one as it's more meaningful
                         null,null,    array(
@@ -380,7 +379,6 @@ class Mail_smtp extends Mail {
             if (is_a($res, 'PEAR_Error')) {
                 list($code, $error) = $this->_error("Failed to add recipient: $recipient", $res);
                 $txt = implode("\n" , $this->_smtp->_arguments);
-
                 
                 $this->_smtp->rset();
                 return $this->raiseError($error, $code, // repaced teh pear code with the SMPT one as it's more meaningfull
@@ -494,7 +492,6 @@ class Mail_smtp extends Mail {
                                    $this->host . ':' . $this->port,
                                    $res);
             $txt = implode("\n" , $this->_smtp->_arguments);
-
             return $this->raiseError($error, $code ? $code : PEAR_MAIL_SMTP_ERROR_CONNECT, // use SMTP code if available, otherwise fallback to PEAR code
                     null,null,    array(
                             'smtpcode' => $code,
