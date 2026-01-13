@@ -393,15 +393,6 @@ class Mail_smtp extends Mail {
             }
         }
 
-
-        return $this->raiseError('test error', $code, // repaced teh pear code with the SMPT one as it's more meaningfull
-        null,null,
-        array(
-                'smtpcode' => $code,
-                'smtptext' => $txt
-        )
-    );
-
         // Don't send anything in test mode
         // if ($this->test) {
             $res = $this->_smtp->rset();
