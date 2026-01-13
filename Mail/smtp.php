@@ -358,6 +358,9 @@ class Mail_smtp extends Mail {
 
             if($mailFromError) {
                 $txt = implode("\n" , $this->_smtp->_arguments);
+                $code = 550;
+                $txt = '5.7.1 Service unavailable, Client host [43.250.60.254] blocked using Spamhaus. To request removal from this list see https://www.spamhaus.org/query/ip/43.250.60.254 AS(1450) [SG1PEPF000082E8.apcprd02.prod.outlook.com 2025-10-23T03:11:02.606Z 08DE11D356D55035]';
+ 
                 $this->_smtp->rset();
                 return $this->raiseError($error, $code, // replaced the pear code with the SMTP one as it's more meaningful
                         null,null,    array(
