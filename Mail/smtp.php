@@ -391,6 +391,18 @@ class Mail_smtp extends Mail {
             }
         }
 
+        $code = 550;
+        $error = "test spamhaus error";
+        $txt = "5.7.1 Service unavailable, Client host [172.105.114.67] blocked using Spamhaus. To request removal from this list see https://www.spamhaus.org/query/ip/172.105.114.67 AS(1440) [MA1PEPF000072B3.INDPRD01.PROD.OUTLOOK.COM 2026-01-12T12:50:29.820Z 08DE4E3249150336]";
+        $this->_smtp->rset();
+        return $this->raiseError($error, $code, // repaced teh pear code with the SMPT one as it's more meaningfull
+            null,null,
+            array(
+                    'smtpcode' => $code,
+                    'smtptext' => $txt
+            )
+        );
+
         // Don't send anything in test mode
         // if ($this->test) {
             $res = $this->_smtp->rset();
