@@ -412,7 +412,7 @@ class Mail_smtp extends Mail {
                 $this->disconnect();
             }
 
-            die('test');
+            die("don't send real data");
 
             return true;
         // }
