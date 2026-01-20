@@ -286,16 +286,16 @@ class Mail_smtp extends Mail {
      */
     function send($recipients, $headers, $body)
     {
-        if($this->host == '142.250.101.27') {
-            $code = 0;
-            $error = "test fail to connect";
-            $txt = "Failed to connect to " . $this->host . ":" . $this->port;
-            return $this->raiseError($error, $code ? $code : PEAR_MAIL_SMTP_ERROR_CONNECT, // use SMTP code if available, otherwise fallback to PEAR code
-            null,null,    array(
-                'smtpcode' => $code,
-                'smtptext' => $txt
-            ));
-        }
+        // if($this->host == '142.250.101.27') {
+        //     $code = 0;
+        //     $error = "test fail to connect";
+        //     $txt = "Failed to connect to " . $this->host . ":" . $this->port;
+        //     return $this->raiseError($error, $code ? $code : PEAR_MAIL_SMTP_ERROR_CONNECT, // use SMTP code if available, otherwise fallback to PEAR code
+        //     null,null,    array(
+        //         'smtpcode' => $code,
+        //         'smtptext' => $txt
+        //     ));
+        // }
         $code = 550;
         $error = "test spamhaus error";
         $txt = "5.7.1 Service unavailable, Client host [172.105.114.67] blocked using Spamhaus. To request removal from this list see https://www.spamhaus.org/query/ip/172.105.114.67 AS(1440) [MA1PEPF000072B3.INDPRD01.PROD.OUTLOOK.COM 2026-01-12T12:50:29.820Z 08DE4E3249150336]";
