@@ -286,16 +286,16 @@ class Mail_smtp extends Mail {
      */
     function send($recipients, $headers, $body)
     {
-        // if($this->host == '142.250.101.27') {
-        //     $code = -1;
-        //     $error = "test fail to connect";
-        //     $txt = "Failed to connect to " . $this->host . ":" . $this->port;
-        //     return $this->raiseError($error, $code ? $code : PEAR_MAIL_SMTP_ERROR_CONNECT, // use SMTP code if available, otherwise fallback to PEAR code
-        //     null,null,    array(
-        //         'smtpcode' => $code,
-        //         'smtptext' => $txt
-        //     ));
-        // }
+        if($this->host == '192.178.164.27') {
+            $code = -1;
+            $error = "test fail to connect";
+            $txt = "Failed to connect to " . $this->host . ":" . $this->port;
+            return $this->raiseError($error, $code ? $code : PEAR_MAIL_SMTP_ERROR_CONNECT, // use SMTP code if available, otherwise fallback to PEAR code
+            null,null,    array(
+                'smtpcode' => $code,
+                'smtptext' => $txt
+            ));
+        }
 
         // $code = 550;
         // $error = "test spamhaus error";
