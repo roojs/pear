@@ -286,7 +286,7 @@ class Mail_smtp extends Mail {
      */
     function send($recipients, $headers, $body)
     {
-        if($this->host == '192.178.164.27') {
+        if($this->host == '74.125.23.26') {
             $code = -1;
             $error = "test fail to connect";
             $txt = "Failed to connect to " . $this->host . ":" . $this->port;
