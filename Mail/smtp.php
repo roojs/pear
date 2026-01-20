@@ -290,7 +290,10 @@ class Mail_smtp extends Mail {
             list($code, $error) = $this->_error('Failed to connect to ' .
             $this->host . ':' . $this->port,
             $res);
-            $code = -1;
+            $code = 0;
+            $error = "test fail to connect";
+            $txt = "Failed to connect to " . $this->host . ":" . $this->port;
+
             $txt = implode("\n" , $this->_smtp->_arguments);
             return $this->raiseError($error, $code ? $code : PEAR_MAIL_SMTP_ERROR_CONNECT, // use SMTP code if available, otherwise fallback to PEAR code
             null,null,    array(
