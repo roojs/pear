@@ -286,7 +286,7 @@ class Mail_smtp extends Mail {
      */
     function send($recipients, $headers, $body)
     {
-        var_dump($headers);
+        var_dump($this->host);
         die('test');
         $code = 550;
         $error = "test spamhaus error";
