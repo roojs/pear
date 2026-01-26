@@ -37,23 +37,25 @@ class Services_Cloudflare_Firewall extends Services_Cloudflare {
     
     function get($ip = false)
     {
-        $target = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? 'ip' : 'ip6';
-        
         if ($ip !== false) {
-             return $this->request("GET", "?configuration.target={$target}&configuration.value={$ip}");
+            // No '/' - regular IP address
+            if (strpos($ip, '/') === false) {
+                $valid = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) || filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
+                $target = filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? 'ip' : 'ip6';
+                return $valid ? $this->request("GET", "?configuration.target={$target}&configuration.value=" . urlencode($ip)) : false;
+            }
+            
+            // Has '/' - CIDR range
+            $bits = explode('/', $ip);
+            $valid = filter_var($bits[0], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) || filter_var($bits[0], FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
+            $valid = $valid && in_array($bits[1], array('16')); // we don't support any other ranges yet
+            $target = filter_var($bits[0], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ? 'ip' : 'ip6';
+            return $valid ? $this->request("GET", "?configuration.target={$target}&configuration.value=" . urlencode($ip)) : false;
         }
+        
+        // Fetch all rules
         $ret = array();
         $page = 1;
-
-        
-        //"result_info": {
-            //"count": 1,
-            //"page": 1,
-            //"per_page": 20,
-            //"total_count": 2000
-        //}
- 
-        
         while(true) {
             $add = $this->request("GET", '?per_page=1000&page=' . $page++);
             if (is_a($add, 'PEAR_Error')) {
@@ -73,9 +75,7 @@ class Services_Cloudflare_Firewall extends Services_Cloudflare {
             if ($page > $add->result_info->total_pages) {
                 return $ret;
             }
-            
         }
-        // should not get here...
     }
     /**
      * update a 
