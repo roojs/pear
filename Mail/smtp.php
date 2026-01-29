@@ -483,7 +483,7 @@ class Mail_smtp extends Mail {
                                      $this->port,
                                      $this->localhost,
                                      false, // $pipelining
-                                     0, // timeout
+                                     $this->timeout, // timeout - pass the actual timeout value so SSL handshake respects it
                                      $this->socket_options
                                      );
                                      
