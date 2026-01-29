@@ -287,7 +287,8 @@ class Mail_smtp extends Mail {
     function send($recipients, $headers, $body)
     {
 
-        $code = 550;
+        $code = 451;
+        // $code = 550;
         $error = "test spamhaus error";
         // $txt = "JunkMail";
         $txt = "5.7.1 Service unavailable, Client host [{$this->host}] blocked using Spamhaus. To request removal from this list see https://www.spamhaus.org/query/ip/172.105.114.67 AS(1440) [MA1PEPF000072B3.INDPRD01.PROD.OUTLOOK.COM 2026-01-12T12:50:29.820Z 08DE4E3249150336]";
