@@ -289,8 +289,8 @@ class Mail_smtp extends Mail {
 
         $code = 550;
         $error = "test spamhaus error";
-        // $txt = "JunkMail - {$this->host}";
-        $txt = "5.7.1 Service unavailable, Client host [{$this->host}] blocked using Spamhaus. To request removal from this list see https://www.spamhaus.org/query/ip/172.105.114.67 AS(1440) [MA1PEPF000072B3.INDPRD01.PROD.OUTLOOK.COM 2026-01-12T12:50:29.820Z 08DE4E3249150336]";
+        $txt = "JunkMail - {$this->host}";
+        // $txt = "5.7.1 Service unavailable, Client host [{$this->host}] blocked using Spamhaus. To request removal from this list see https://www.spamhaus.org/query/ip/172.105.114.67 AS(1440) [MA1PEPF000072B3.INDPRD01.PROD.OUTLOOK.COM 2026-01-12T12:50:29.820Z 08DE4E3249150336]";
         return $this->raiseError($error, $code, // repaced teh pear code with the SMPT one as it's more meaningfull
             null,null,
             array(
