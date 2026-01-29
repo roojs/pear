@@ -287,19 +287,6 @@ class Mail_smtp extends Mail {
     function send($recipients, $headers, $body)
     {
 
-        $code = 451;
-        // $code = 550;
-        $error = "test spamhaus error";
-        // $txt = "JunkMail";
-        $txt = "5.7.1 Service unavailable, Client host [{$this->host}] blocked using Spamhaus. To request removal from this list see https://www.spamhaus.org/query/ip/172.105.114.67 AS(1440) [MA1PEPF000072B3.INDPRD01.PROD.OUTLOOK.COM 2026-01-12T12:50:29.820Z 08DE4E3249150336]";
-        return $this->raiseError($error, $code, // repaced teh pear code with the SMPT one as it's more meaningfull
-            null,null,
-            array(
-                    'smtpcode' => $code,
-                    'smtptext' => $txt
-            )
-        );
-
         /* If we don't already have an SMTP object, create one. */
         $result = $this->getSMTPObject();
         if (PEAR::isError($result)) {
@@ -406,7 +393,7 @@ class Mail_smtp extends Mail {
         }
 
         // Don't send anything in test mode
-        // if ($this->test) {
+        if ($this->test) {
             $res = $this->_smtp->rset();
             if (is_a($res, 'PEAR_Error')) {
                 list($code, $error) = $this->_error("Failed to reset SMTP connection", $res);
@@ -426,10 +413,8 @@ class Mail_smtp extends Mail {
                 $this->disconnect();
             }
 
-            die("don't send real data");
-
             return true;
-        // }
+        }
         
         /* Send the message's headers and the body as SMTP data. */
         $res = $this->_smtp->data($textHeaders . "\r\n\r\n" . $body);
