@@ -285,8 +285,7 @@ class Mail_smtp extends Mail {
      * @access public
      */
     function send($recipients, $headers, $body)
-    {
-        
+    {   
         /* If we don't already have an SMTP object, create one. */
         $result = $this->getSMTPObject();
         if (PEAR::isError($result)) {
