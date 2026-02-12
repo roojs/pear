@@ -144,6 +144,7 @@ class Net_Socket extends PEAR
         if ($timeout <= 0) {
             $timeout = @ini_get('default_socket_timeout');
         }
+        $this->timeout = (int) $timeout;
 
         if (is_array($options) && function_exists('stream_context_create')) {
             //print_R($options);

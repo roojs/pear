@@ -464,15 +464,18 @@ class Net_SMTP
                                     $result->getMessage());
         }
         /*
-         * Now that we're connected, reset the socket's timeout value for 
-         * future I/O operations.  This allows us to have different socket 
-         * timeout values for the initial connection (our $timeout parameter) 
-         * and all other socket operations.
+         * Now that we're connected, set the socket's I/O timeout so that
+         * _parseResponse(220) (waiting for server greeting) and subsequent
+         * readLine() calls don't block indefinitely when the server hangs.
+         * Use the connect $timeout parameter so it's always applied when
+         * Mail_smtp passes it, even if Net_SMTP was constructed with 0.
          */
-        if ($this->_timeout > 0) {
-            if (PEAR::isError($error = $this->setTimeout($this->_timeout))) {
+        $io_timeout = ($timeout !== null && $timeout > 0) ? $timeout : $this->_timeout;
+        if ($io_timeout > 0) {
+            if (PEAR::isError($error = $this->setTimeout($io_timeout))) {
                 return $error;
             }
+            $this->_socket->timeout = $io_timeout;
         }
 
         if (PEAR::isError($error = $this->_parseResponse(220))) {
