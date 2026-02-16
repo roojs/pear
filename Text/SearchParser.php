@@ -328,8 +328,22 @@ class Text_SearchParser_Token_String extends Text_SearchParser_Token {
         // should use mapping in conf..
         $ar = array();
         $v= $this->escape($conf,$this->str);
+        // check if this token is a phone number
+        $isPhoneToken = preg_match('/^[0-9 +()-]+$/', $this->str) && preg_match_all('/[0-9]/', $this->str) >= 8;
+        $phoneFields = !empty($conf['phone']) ? $conf['phone'] : array();
+        
         foreach($conf['default'] as $k) {
-            $ar[] = "$k LIKE '".$v. "'";
+            // if search token is a phone number AND this column is a phone column, use REGEXP_REPLACE
+            if ($isPhoneToken && in_array($k, $phoneFields)) {
+                $escapedSearch = call_user_func($conf['escape'], preg_replace('/[^0-9]/', '', $this->str));
+                if (strpos($escapedSearch, '%') === false) {
+                    $escapedSearch = '%' . $escapedSearch . '%';
+                }
+                $ar[] = "REGEXP_REPLACE({$k}, '[^0-9]', '') LIKE '{$escapedSearch}'";
+            } else {
+                // normal match
+                $ar[] = "$k LIKE '".$v. "'";
+            }
         }
         
         return '( ' . implode(' OR ', $ar) . ' )';
