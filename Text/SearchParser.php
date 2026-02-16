@@ -331,7 +331,7 @@ class Text_SearchParser_Token_String extends Text_SearchParser_Token {
         
         foreach($conf['default'] as $k) {
             // if search token is a phone number AND this column is a phone column, use REGEXP_REPLACE
-            if ((preg_match('/^[0-9 +()-]+$/', $this->str) && preg_match_all('/[0-9]/', $this->str) >= 8) && in_array($k, !empty($conf['phone']) ? $conf['phone'] : array())) {
+            if (preg_match('/^[0-9 +()-]+$/', $this->str && in_array($k, !empty($conf['phone']) ? $conf['phone'] : array())) {
                 $escapedSearch = call_user_func($conf['escape'], preg_replace('/[^0-9]/', '', $this->str));
                 if (strpos($escapedSearch, '%') === false) {
                     $escapedSearch = '%' . $escapedSearch . '%';
