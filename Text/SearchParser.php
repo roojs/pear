@@ -320,7 +320,7 @@ class Text_SearchParser_Token {
 class Text_SearchParser_Token_String extends Text_SearchParser_Token {
     var $type = 's';
     var $str;
-    function __construct($s) {
+    function __construct($s) {z
         $this->str = $s;
     }
     function toSQL($conf)
@@ -340,10 +340,10 @@ class Text_SearchParser_Token_String extends Text_SearchParser_Token {
                     $escapedSearch = '%' . $escapedSearch . '%';
                 }
                 $ar[] = "REGEXP_REPLACE({$k}, '[^0-9]', '') LIKE '{$escapedSearch}'";
-            } else {
-                // normal match
-                $ar[] = "$k LIKE '".$v. "'";
+                continue;
             }
+            // normal match
+            $ar[] = "$k LIKE '".$v. "'";
         }
         
         return '( ' . implode(' OR ', $ar) . ' )';
