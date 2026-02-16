@@ -26,13 +26,8 @@ xxx: -- if xxx is not part of the 'map', then xxx: is dropped..
 class Text_SearchParser
 {
     var $ar;
-    var $originalSearch;
-    var $isPhoneSearch;
     function __construct($str)
     {
-        $this->originalSearch = $str;
-        // check if the full search is a phone number
-        $this->isPhoneSearch = preg_match('/^[0-9 +()-]+$/', $str) && preg_match_all('/[0-9]/', $str) >= 8;
         $str = preg_replace('/\s(and|or)$/i', ' "$1"', $str);
         //var_dump($str);
         $x = new Text_SearchParser_Tokenizer ($str);
@@ -336,21 +331,8 @@ class Text_SearchParser_Token_String extends Text_SearchParser_Token {
         // should use mapping in conf..
         $ar = array();
         $v= $this->escape($conf,$this->str);
-        $isPhoneSearch = !empty($conf['isPhoneSearch']);
-        $phoneFields = !empty($conf['phone']) ? $conf['phone'] : array();
-        
         foreach($conf['default'] as $k) {
-            // if full search is a phone number AND this column is a phone column, use REGEXP_REPLACE
-            if ($isPhoneSearch && in_array($k, $phoneFields)) {
-                $escapedSearch = call_user_func($conf['escape'], preg_replace('/[^0-9]/', '', $conf['originalSearch']));
-                if (strpos($escapedSearch, '%') === false) {
-                    $escapedSearch = '%' . $escapedSearch . '%';
-                }
-                $ar[] = "REGEXP_REPLACE({$k}, '[^0-9]', '') LIKE '{$escapedSearch}'";
-            } else {
-                // normal match
-                $ar[] = "$k LIKE '".$v. "'";
-            }
+            $ar[] = "$k LIKE '".$v. "'";
         }
         
         return '( ' . implode(' OR ', $ar) . ' )';
