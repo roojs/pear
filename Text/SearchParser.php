@@ -429,43 +429,6 @@ class Text_SearchParser_Token_GrpE extends Text_SearchParser_Token
     var $type = ')';
 }
 
-class Text_SearchParser_Token_Phone extends Text_SearchParser_Token {
-    var $type = 'phone';
-    var $digits;
-    function __construct($digits) {
-        $this->digits = $digits;
-    }
-    function toSQL($conf)
-    {
-        // Find phone fields in the default array
-        $phoneFields = array();
-        foreach($conf['default'] as $field) {
-            if (stripos($field, 'phone') !== false) {
-                $phoneFields[] = $field;
-            }
-        }
-        
-        // If no phone field found, return empty condition
-        if (empty($phoneFields)) {
-            return '1=0'; // No match if no phone field
-        }
-        
-        // Escape the search digits
-        $escapedSearch = call_user_func($conf['escape'], $this->digits);
-        if (strpos($escapedSearch, '%') === false) {
-            $escapedSearch = '%' . $escapedSearch . '%';
-        }
-        
-        // Build REGEXP_REPLACE conditions for each phone field
-        $ar = array();
-        foreach($phoneFields as $field) {
-            $ar[] = "REGEXP_REPLACE({$field}, '[^0-9]', '') LIKE '{$escapedSearch}'";
-        }
-        
-        return '( ' . implode(' OR ', $ar) . ' )';
-    }
-}
-
 class Text_SearchParser_Token_Eq extends Text_SearchParser_Token
 { // :  or = ?
     var $type = ':';
