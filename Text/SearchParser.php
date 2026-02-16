@@ -28,14 +28,6 @@ class Text_SearchParser
     var $ar;
     function __construct($str)
     {
-        // if the search is a phone number
-        if(preg_match('/^[0-9 +()-]+$/', $str) && preg_match_all('/[0-9]/', $str) >= 8) {
-            // create a phone token with only digits
-            $this->ar = new Text_SearchParser_Token_Grp(array(
-                new Text_SearchParser_Token_Phone(preg_replace('/[^0-9]/', '', $str))
-            ));
-            return;
-        }
         $str = preg_replace('/\s(and|or)$/i', ' "$1"', $str);
         //var_dump($str);
         $x = new Text_SearchParser_Tokenizer ($str);
