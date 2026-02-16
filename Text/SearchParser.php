@@ -320,7 +320,7 @@ class Text_SearchParser_Token {
 class Text_SearchParser_Token_String extends Text_SearchParser_Token {
     var $type = 's';
     var $str;
-    function __construct($s) {z
+    function __construct($s) {
         $this->str = $s;
     }
     function toSQL($conf)
