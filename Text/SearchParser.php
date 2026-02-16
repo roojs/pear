@@ -64,9 +64,6 @@ class Text_SearchParser
     
     function toSQL($conf)
     {
-        // pass phone search info to tokens
-        $conf['isPhoneSearch'] = $this->isPhoneSearch;
-        $conf['originalSearch'] = $this->originalSearch;
         return $this->ar->toSQL($conf);
     }
     
