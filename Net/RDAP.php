@@ -209,7 +209,6 @@ class Net_RDAP {
             return '';
         }
         
-        // return json_encode($this->result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-        return json_encode($this->result);
+        return json_encode($this->result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
     }
 }
