@@ -1,9 +1,8 @@
 <?php
 
 class Net_RDAP {
-    var $domain = '';
-    var $result = false;
-    var $servers = array(
+    
+    static $servers = array(
         // gTLDs - use bootstrap service
         'com' => 'https://rdap.org/domain/',
         'net' => 'https://rdap.org/domain/',
@@ -77,68 +76,52 @@ class Net_RDAP {
         'so' => 'https://rdap.nic.so/domain/',
         'lb' => 'https://rdap.lbdr.org.lb/domain/',
     );
-    
+    var $domain = '';
+    var $result = false;
+
     function __construct($domain = '')
     {
-        $this->domain = $domain;
-        
-        if (!empty($this->domain) && $this->isRdapSupported()) {
-            $this->query();
-        }
+        $this->domain = preg_replace('/^www\./i', '', trim(strtolower((string) $domain)));
+        $this->result = false;
     }
-    
+
     function isRdapSupported()
     {
         if (empty($this->domain)) {
             return false;
         }
         
-        // Normalize domain - remove www, convert to lowercase
-        $domain = trim(strtolower($this->domain));
-        $domain = preg_replace('/^www\./i', '', $domain);
-        
-        // Extract TLD parts
-        $parts = explode('.', $domain);
+        $parts = explode('.', $this->domain);
         if (count($parts) < 1) {
             return false;
         }
         
-        // Get last part (single TLD like .com, .uk)
         $tld = array_pop($parts);
-        
-        // Check if TLD is in servers list
-        return isset($this->servers[$tld]);
+        return isset(self::$servers[$tld]);
     }
-    
+
     function query()
     {
         if (empty($this->domain)) {
-            $this->result = false;
-            return;
+            return false;
         }
         
-        // Normalize domain
-        $domain = trim(strtolower($this->domain));
-        $domain = preg_replace('/^www\./i', '', $domain);
-        
         // Extract TLD
-        $parts = explode('.', $domain);
+        $parts = explode('.', $this->domain);
         if (count($parts) < 1) {
-            $this->result = false;
-            return;
+            return false;
         }
         
         $tld = array_pop($parts);
         
         // Check if TLD is supported
-        if (!isset($this->servers[$tld])) {
-            $this->result = false;
-            return;
+        if (!isset(self::$servers[$tld])) {
+            return false;
         }
         
         // Build URL
-        $baseUrl = $this->servers[$tld];
-        $url = $baseUrl . $domain;
+        $baseUrl = self::$servers[$tld];
+        $url = $baseUrl . $this->domain;
         
         // Create HTTP context
         $context = stream_context_create(array(
@@ -153,28 +136,26 @@ class Net_RDAP {
         // Fetch RDAP data
         $json_data = @file_get_contents($url, false, $context);
         if (empty($json_data)) {
-            $this->result = false;
-            return;
+            return false;
         }
         
         // Decode JSON
         $data = json_decode($json_data, true);
         if (empty($data) || json_last_error() !== JSON_ERROR_NONE) {
-            $this->result = false;
-            return;
+            return false;
         }
         // Check for error responses
         if (isset($data['errorCode']) || isset($data['error'])) {
-            $this->result = false;
-            return;
+            return false;
         }
         
         $this->result = $data;
+        return true;
     }
-    
-    function getExpirationDate()
+
+    function expirationDate()
     {
-        if ($this->result === false || !is_array($this->result)) {
+        if ($this->result === false) {
             return false;
         }
         
@@ -183,31 +164,20 @@ class Net_RDAP {
         }
         
         foreach ($this->result['events'] as $event) {
-            if (isset($event['eventAction']) && $event['eventAction'] == 'expiration') {
-                if (isset($event['eventDate'])) {
-                    $date = DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $event['eventDate']);
-                    if ($date === false) {
-                        // Try alternative format with timezone offset
-                        $date = DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $event['eventDate']);
-                    }
-                    if ($date === false) {
-                        // Try ISO 8601 format
-                        $date = new DateTime($event['eventDate']);
-                    }
-                    return $date;
-                }
+            if (!isset($event['eventAction']) || $event['eventAction'] != 'expiration' || !isset($event['eventDate'])) {
+                continue;
             }
+            $date = DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $event['eventDate']);
+            if ($date === false) {
+                $date = DateTime::createFromFormat('Y-m-d\TH:i:s.u\Z', $event['eventDate']);
+            }
+            if ($date === false) {
+                $date = new DateTime($event['eventDate']);
+            }
+            return $date;
         }
         
         return false;
     }
-    
-    function toJson()
-    {
-        if ($this->result === false) {
-            return '';
-        }
-        
-        return json_encode($this->result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-    }
+     
 }
