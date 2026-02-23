@@ -163,7 +163,8 @@ class Net_RDAP {
             $this->result = false;
             return;
         }
-        
+        var_dump($data);
+        die('test');
         // Check for error responses
         if (isset($data['errorCode']) || isset($data['error'])) {
             $this->result = false;
