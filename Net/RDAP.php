@@ -83,6 +83,8 @@ class Net_RDAP {
         $this->domain = $domain;
         
         if (!empty($this->domain) && $this->isRdapSupported()) {
+            var_dump("QUERY");
+            die('test');
             $this->query();
         }
     }
