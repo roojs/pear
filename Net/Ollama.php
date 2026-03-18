@@ -13,6 +13,10 @@ class Net_Ollama {
     {
         // Universal constructor - accepts array or object
         $options = (array)$options;
+
+        if($this->$_url == 'chat') {
+            die('test');
+        }
         
         // Populate properties from options
         foreach ($options as $k => $v) {
