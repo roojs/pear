@@ -123,9 +123,6 @@ abstract class Net_Ollama_Call {
             }
               
             call_user_func($this->oai->callback, $final_new_text, $this->_chat_stream);
-
-            var_dump($content);
-            die('test');
              
             $this->oai->debug("Received Stream Response", (array)$this->_chat_stream);
             
