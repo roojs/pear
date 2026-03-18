@@ -28,6 +28,9 @@ abstract class Net_Ollama_Call {
     
     function send()
     {
+        if(!empty($this->oai->callback)) {
+            die('test');
+        }
         // Build params from object properties
         $params = array();
         // exclude should look at values in this->exclude and static $exclude and also ignore '_' prefixed properties
