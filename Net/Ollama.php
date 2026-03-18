@@ -13,6 +13,9 @@ class Net_Ollama {
     {
         // Universal constructor - accepts array or object
         $options = (array)$options;
+
+        var_dump($options);
+        die('test');
         
         // Populate properties from options
         foreach ($options as $k => $v) {
