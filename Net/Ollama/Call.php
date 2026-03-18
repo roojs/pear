@@ -186,7 +186,6 @@ abstract class Net_Ollama_Call {
         $new_text = '';
         // Process complete lines (JSON objects separated by newlines)
         while (($pos = strpos($this->_stream_buffer, "\n")) !== false) {
-            die('test');
             $line = substr($this->_stream_buffer, 0, $pos);
             $this->_stream_buffer = substr($this->_stream_buffer, $pos + 1);
             /*
