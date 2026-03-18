@@ -18,7 +18,7 @@ class Net_Ollama {
             var_dump($k);
         }
         if(isset($options['callback'])) {
-            var_dump($k['callback']);
+            var_dump($options['callback']);
             die('test');
         }
         
