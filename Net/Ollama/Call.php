@@ -182,7 +182,6 @@ abstract class Net_Ollama_Call {
         */
         // Append data to buffer
         $this->_stream_buffer .= $data;
-        var_dump($data);
         $new_text = '';
         // Process complete lines (JSON objects separated by newlines)
         while (($pos = strpos($this->_stream_buffer, "\n")) !== false) {
