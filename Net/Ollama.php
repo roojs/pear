@@ -14,7 +14,9 @@ class Net_Ollama {
         // Universal constructor - accepts array or object
         $options = (array)$options;
 
-        var_dump("POTIONS");
+        foreach($options as $k => $v) {
+            var_dump($k);
+        }
         if(isset($options['callback'])) {
             die('test');
         }
