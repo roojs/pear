@@ -56,7 +56,9 @@ abstract class Net_Ollama_Call {
             'params' => $params
         ));
 
-        die('test');
+        if($this->$_url == 'chat') {
+            die('test');
+        }
         
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
