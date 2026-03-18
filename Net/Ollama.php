@@ -15,7 +15,9 @@ class Net_Ollama {
         $options = (array)$options;
 
         var_dump($options);
-        die('bb');
+        if(isset($options['callback'])) {
+            die('test');
+        }
         
         // Populate properties from options
         foreach ($options as $k => $v) {
