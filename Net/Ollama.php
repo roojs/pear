@@ -97,7 +97,6 @@ class Net_Ollama {
      */
     function debug($message, $data)
     {
-        var_dump($this->debug);
         if (!$this->debug) {
             return;
         }
