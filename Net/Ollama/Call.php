@@ -116,6 +116,8 @@ abstract class Net_Ollama_Call {
             // Get content - Chat uses 'content', Generate uses 'response'
             $content = isset($this->_chat_stream->content) ? $this->_chat_stream->content : 
                        (isset($this->_chat_stream->response) ? $this->_chat_stream->response : '');
+            var_dump($content);
+            die('test');
             if (strlen($content) > 0) {
                 // For final callback, pass the full content as new text since we can't track
                 // the last length from the static variable in this scope
