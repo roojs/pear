@@ -68,8 +68,6 @@ class Net_Ollama_Call_Chat extends Net_Ollama_Call {
     {
         if (!is_object($response)) {
             $response = $this->oai->response('Chat', json_decode($response, true));
-            var_dump($response);
-            die('test');
         }
         $this->response = $response;
         $this->response->call = $this;
