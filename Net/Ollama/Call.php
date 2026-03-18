@@ -93,7 +93,7 @@ abstract class Net_Ollama_Call {
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
             curl_setopt($ch, CURLOPT_WRITEFUNCTION, array($this, '_stream_write_callback'));
             $this->_stream_buffer = '';
-            // Determine response type from _url (chat -> Chat, generate -> Generate)
+            // Determine response type from _url (chat -> Chat)
             $response_type = ucfirst($this->_url);
             $this->_chat_stream = $this->oai->response($response_type, array());
         }
@@ -113,9 +113,8 @@ abstract class Net_Ollama_Call {
             // Note: We can't access the static variable here, so we'll pass empty string
             // and let the callback use the full content from the stream object
             $final_new_text = '';
-            // Get content - Chat uses 'content', Generate uses 'response'
-            $content = isset($this->_chat_stream->content) ? $this->_chat_stream->content : 
-                       (isset($this->_chat_stream->response) ? $this->_chat_stream->response : '');
+            // Get content - Chat uses 'content'
+            $content = isset($this->_chat_stream->content) ? $this->_chat_stream->content : '';
             if (strlen($content) > 0) {
                 // For final callback, pass the full content as new text since we can't track
                 // the last length from the static variable in this scope
