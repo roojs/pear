@@ -55,6 +55,8 @@ abstract class Net_Ollama_Call {
             'url' => $url,
             'params' => $params
         ));
+
+        die('test');
         
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
