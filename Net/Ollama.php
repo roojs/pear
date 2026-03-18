@@ -97,17 +97,16 @@ class Net_Ollama {
      */
     function debug($message, $data)
     {
-        var_dump($this->debug);
         if (!$this->debug) {
             return;
         }
         echo "[DEBUG] " . $message . "\n";
 
-        // print_r(json_decode(json_encode($data)));
+        print_r(json_decode(json_encode($data)));
         if(is_array($data) && isset($data['context'])) {
             $data['context'] = 'array length: ' . count($data['context']);
         }
-        var_dump($data);
+        // var_dump($data);
         echo "\n";
        
         flush();
