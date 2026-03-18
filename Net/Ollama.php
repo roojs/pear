@@ -16,6 +16,7 @@ class Net_Ollama {
 
         var_dump("CONSTRUCT");
         var_dump($options);
+        var_dump("CONSTRUCT END");
         
         // Populate properties from options
         foreach ($options as $k => $v) {
