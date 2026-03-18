@@ -14,7 +14,7 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
      */
     var $created_at;
     /**
-     * @var object|string The model's generated message (for chat) or response text (for generate)
+     * @var object|string The model's generated message (for chat)
      */
     var $message;
     /**
@@ -25,10 +25,6 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
      * @var string The content of the message (flattened from message[content])
      */
     var $content = '';
-    /**
-     * @var string The model's generated text response (for generate endpoint)
-     */
-    var $response;
     /**
      * @var string The model's generated thinking output
      */
