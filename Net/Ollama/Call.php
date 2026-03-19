@@ -59,10 +59,9 @@ abstract class Net_Ollama_Call {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         
-        // Set timeout
-        $timeout = isset($this->oai->timeout) ? $this->oai->timeout : 300;
-        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10); // Connection timeout (10 seconds)
+        // Set connection timeout
+        $connectTimeout = isset($this->oai->timeout) ? $this->oai->timeout : 300;
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $connectTimeout);
         
         // Build headers first (needed for curl command output)
         $headers = array();
@@ -122,7 +121,7 @@ abstract class Net_Ollama_Call {
             
             // Check for timeout or other errors
             if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
-                throw new Exception("Request timeout: No response received within {$timeout} seconds");
+                throw new Exception("Connection timeout: Failed to connect within {$connectTimeout} seconds");
             } elseif ($curlError) {
                 throw new Exception("cURL error: {$curlError}");
             } elseif ($httpCode !== 200 && $httpCode !== 0) {
@@ -156,7 +155,7 @@ abstract class Net_Ollama_Call {
         
         // Check for timeout or other errors
         if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
-            throw new Exception("Request timeout: No response received within {$timeout} seconds");
+            throw new Exception("Connection timeout: Failed to connect within {$connectTimeout} seconds");
         } elseif ($curlError) {
             throw new Exception("cURL error: {$curlError}");
         } elseif ($httpCode !== 200 && $httpCode !== 0) {
