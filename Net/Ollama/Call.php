@@ -98,9 +98,9 @@ abstract class Net_Ollama_Call {
             curl_setopt($ch, CURLOPT_WRITEFUNCTION, array($this, '_stream_write_callback'));
             $this->_stream_buffer = '';
             // Determine response type from _url (chat -> Chat)
-            // Allow subclasses to override response type via _getResponseType()
-            $response_type = method_exists($this, '_getResponseType') 
-                ? $this->_getResponseType() 
+            // Allow subclasses to override response type via getResponseType()
+            $response_type = method_exists($this, 'getResponseType') 
+                ? $this->getResponseType() 
                 : ucfirst($this->_url);
             $this->_chat_stream = $this->oai->response($response_type, array());
         }

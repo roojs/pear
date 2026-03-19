@@ -34,7 +34,7 @@ class Net_Ollama_Call_ChatCompletions extends Net_Ollama_Call_Chat {
     /**
      * Override response type determination for parent's send() and process() methods
      */
-    function _getResponseType()
+    function getResponseType()
     {
         return 'ChatCompletions';
     }
