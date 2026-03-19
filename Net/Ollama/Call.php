@@ -3,7 +3,7 @@
 abstract class Net_Ollama_Call {
     protected $oai; // to prevent looping
     var $id;
-    var $response;
+    protected $response;
     static $excluded = array('id', 'response');
     protected $exclude = array(); // eg.'id', 'response');
     protected $_url = '';
