@@ -23,7 +23,7 @@ class Net_Ollama {
         }
          
         // Only append /api if URL doesn't already end with /api and is not OpenAI-compatible
-        if (!$this->_isOpenAICompatible($this->url)) {
+        if (!$this->isOpenAICompatible($this->url)) {
             if (!preg_match('#/api$#', rtrim($this->url, '/'))) {
                 $this->url = rtrim($this->url, '/') . '/api';
             }
@@ -72,7 +72,7 @@ class Net_Ollama {
     /**
      * Detect if URL is OpenAI-compatible (DeepSeek)
      */
-    function _isOpenAICompatible($url)
+    private function isOpenAICompatible($url)
     {
         $url = strtolower($url);
         // Check for DeepSeek domain
@@ -85,7 +85,7 @@ class Net_Ollama {
     function chat($params)
     {
         // Detect if we should use OpenAI-compatible endpoint
-        if ($this->_isOpenAICompatible($this->url)) {
+        if ($this->isOpenAICompatible($this->url)) {
             return $this->call('ChatCompletions', $params);
         }
         return $this->call('Chat', $params);
