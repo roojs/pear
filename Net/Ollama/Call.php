@@ -59,6 +59,11 @@ abstract class Net_Ollama_Call {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         
+        // Set timeout
+        $timeout = isset($this->oai->timeout) ? $this->oai->timeout : 300;
+        curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10); // Connection timeout (10 seconds)
+        
         // Build headers first (needed for curl command output)
         $headers = array();
         if ($this->_method === 'POST') {
@@ -109,8 +114,20 @@ abstract class Net_Ollama_Call {
         }
         
         if (!empty($params['stream'])) {
-            curl_exec($ch);
+            $curlResult = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $curlError = curl_error($ch);
+            $curlErrno = curl_errno($ch);
             curl_close($ch);
+            
+            // Check for timeout or other errors
+            if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
+                throw new Exception("Request timeout: No response received within {$timeout} seconds");
+            } elseif ($curlError) {
+                throw new Exception("cURL error: {$curlError}");
+            } elseif ($httpCode !== 200 && $httpCode !== 0) {
+                throw new Exception("HTTP error: {$httpCode}");
+            }
               
             // Call callback once at the end with any remaining new text and final response
             // Note: We can't access the static variable here, so we'll pass empty string
@@ -132,7 +149,19 @@ abstract class Net_Ollama_Call {
             return  $this->_chat_stream;
         } 
         $result = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlError = curl_error($ch);
+        $curlErrno = curl_errno($ch);
         curl_close($ch);
+        
+        // Check for timeout or other errors
+        if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
+            throw new Exception("Request timeout: No response received within {$timeout} seconds");
+        } elseif ($curlError) {
+            throw new Exception("cURL error: {$curlError}");
+        } elseif ($httpCode !== 200 && $httpCode !== 0) {
+            throw new Exception("HTTP error: {$httpCode}");
+        }
         
         $this->oai->debug("Received Response", json_decode($result, true));
         
