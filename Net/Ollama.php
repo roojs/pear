@@ -7,6 +7,7 @@ class Net_Ollama {
     var $calls = array();
     var $callback = null; // Callback function for streaming: function($partial_response, $full_response)
     var $debug = false; // Debug mode - when true, prints all send/receive data
+    var $timeout = 300; // Request timeout in seconds (default: 5 minutes)
     static $id = 0;
     
     function __construct($options = array())
