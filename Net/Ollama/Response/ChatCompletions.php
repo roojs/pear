@@ -27,7 +27,7 @@ class Net_Ollama_Response_ChatCompletions extends Net_Ollama_Response_Chat {
      * @param array $data Data array to convert (modified in place)
      * @param string $sourceField Field to use from choices[0]: 'message' for non-streaming, 'delta' for streaming
      */
-    function _convertOpenAIToOllama(&$data, $sourceField = 'message')
+    function convertOpenAIToOllama(&$data, $sourceField = 'message')
     {
         // Convert 'created' to 'created_at' (keep created as-is, also add created_at for Ollama compatibility)
         if (isset($data['created'])) {
@@ -55,7 +55,7 @@ class Net_Ollama_Response_ChatCompletions extends Net_Ollama_Response_Chat {
     function __construct($oai, $data)
     {
         // Convert OpenAI format to Ollama format
-        $this->_convertOpenAIToOllama($data, 'message');
+        $this->convertOpenAIToOllama($data, 'message');
         
         // Call parent constructor (handles message extraction)
         parent::__construct($oai, $data);
@@ -69,7 +69,7 @@ class Net_Ollama_Response_ChatCompletions extends Net_Ollama_Response_Chat {
     function addChunk($openaiChunk)
     {
         // Convert OpenAI format to Ollama format
-        $this->_convertOpenAIToOllama($openaiChunk, 'delta');
+        $this->convertOpenAIToOllama($openaiChunk, 'delta');
         
         // Call parent addChunk with converted Ollama-formatted chunk
         return parent::addChunk($openaiChunk);
