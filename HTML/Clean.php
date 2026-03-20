@@ -167,7 +167,7 @@ class HTML_Clean {
     
     function toString()
     {
-        $this->dom->saveHTML();
+        return $this->dom->saveHTML();
     }
     
     
