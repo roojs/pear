@@ -95,8 +95,7 @@ class Services_Cloudflare_Firewall extends Services_Cloudflare {
         
         // no such rule -> add
         if(empty($rules)) {
-            $this->create($mode, $ip, $notes);
-            return;
+            return $this->create($mode, $ip, $notes);
         }
 
         $rule = $rules[0];
