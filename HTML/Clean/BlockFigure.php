@@ -84,7 +84,7 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         // if href is set, wrap the image in a link
         if (!empty($this->href)) {
             $img = array(
-                'tag ' => 'a',
+                'tag' => 'a',
                 'contenteditable' => 'false',
                 'href' => $this->href,
                 'cn' => array(
