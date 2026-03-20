@@ -69,8 +69,6 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
                 // tags to add
                 $tags[] = $tag;
 
-                var_dump("REPLACE $style");
-
                 // remove styles
                 $style = preg_replace($pattern, '', $style);
             }
