@@ -2,7 +2,8 @@
 
 class_exists('Net_Ollama_Call') || require_once 'Net/Ollama/Call.php';
 
-class Net_Ollama_Call_Chat extends Net_Ollama_Call {
+class Net_Ollama_Call_Chat extends Net_Ollama_Call 
+{
     var $_url = 'chat';
     /**
      * @var string Model name (required)
@@ -67,11 +68,7 @@ class Net_Ollama_Call_Chat extends Net_Ollama_Call {
     function process($response)
     {
         if (!is_object($response)) {
-            // Use getResponseType() if available, otherwise default to 'Chat'
-            $response_type = method_exists($this, 'getResponseType') 
-                ? $this->getResponseType() 
-                : 'Chat';
-            $response = $this->oai->response($response_type, json_decode($response, true));
+            $response = $this->oai->response($this->getResponseType(), json_decode($response, true));
         }
         $this->response = $response;
         $this->response->call = $this;

@@ -96,7 +96,7 @@ class HTML_Clean {
         $this->filter('LongBr',array( 'node' =>  $d ));
         $this->filter('Empty',array( 'node' =>  $d, 'tag' => array('B', 'I', 'U', 'S') ));
 
-        $ar = $this->arrayFrom($d->getElementsByTagName('img'));
+        $ar = iterator_to_array($d->getElementsByTagName('img'));
         foreach($ar as $img) {
             if ($this->findParent($img, 'figure')) {
                 continue;
@@ -119,15 +119,6 @@ class HTML_Clean {
         new $cls($args);
     }
 
-    function arrayFrom($list)
-    {
-        $ret = array();
-        foreach($list as $k=> $l) {
-            $ret[$k] = $l;
-        }
-        return $ret;
-    }
-    
     /**
      * Find a parent element with the specified tag name
      * Traverses up the DOM tree from the given node

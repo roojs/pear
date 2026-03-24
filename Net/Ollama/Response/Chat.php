@@ -10,9 +10,21 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
      */
     var $model;
     /**
+     * @var string OpenAI object type (e.g. chat.completion) when present
+     */
+    var $object;
+    /**
+     * @var int|null Unix creation time from OpenAI-compatible responses
+     */
+    var $created;
+    /**
      * @var string ISO 8601 timestamp of response creation
      */
     var $created_at;
+    /**
+     * @var string|null OpenAI system_fingerprint when present
+     */
+    var $system_fingerprint;
     /**
      * @var object|string The model's generated message (for chat)
      */
@@ -76,10 +88,27 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
     
     function __construct($oai, $data)
     {
+        // OpenAI-compatible /v1/chat/completions (non-streaming): normalize to Ollama-style top-level fields.
+        if (isset($data['choices'])) {
+            if (isset($data['created'])) {
+                $data['created_at'] = gmdate('Y-m-d\TH:i:s\Z', $data['created']);
+            }
+            if (isset($data['choices'][0]['message'])) {
+                $data['message'] = $data['choices'][0]['message'];
+                if (isset($data['message']['reasoning_content'])) {
+                    $data['message']['thinking'] = $data['message']['reasoning_content'];
+                }
+            }
+            if (isset($data['choices'][0]['finish_reason'])) {
+                $data['done'] = true;
+                $data['done_reason'] = $data['choices'][0]['finish_reason'];
+            }
+        }
+
         parent::__construct($oai, $data);
-        if (isset($data['message'])) { // message only comes on api - not when we rebuild the object.
+        if (isset($data['message'])) {
             $this->role = $data['message']['role'];
-            $this->content = $data['message']['content'];
+            $this->content = isset($data['message']['content']) ? $data['message']['content'] : '';
         }
     }
     
@@ -89,6 +118,23 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
      */
     function addChunk($chunk)
     {
+        // OpenAI-compatible streaming chunk: choices[0].delta -> message, etc.
+        if (isset($chunk['choices'])) {
+            if (isset($chunk['created'])) {
+                $chunk['created_at'] = gmdate('Y-m-d\TH:i:s\Z', $chunk['created']);
+            }
+            if (isset($chunk['choices'][0]['delta'])) {
+                $chunk['message'] = $chunk['choices'][0]['delta'];
+                if (isset($chunk['message']['reasoning_content'])) {
+                    $chunk['message']['thinking'] = $chunk['message']['reasoning_content'];
+                }
+            }
+            if (isset($chunk['choices'][0]['finish_reason'])) {
+                $chunk['done'] = true;
+                $chunk['done_reason'] = $chunk['choices'][0]['finish_reason'];
+            }
+        }
+
         //$this->oai->debug("Adding Chunk", $chunk);
         foreach ($chunk as $key => $value) {
             if ($key === 'message') {
@@ -96,17 +142,19 @@ class Net_Ollama_Response_Chat extends Net_Ollama_Response {
             }
             $this->$key = $value;
         }
-        
- 
-        
+
+        if (!isset($chunk['message']) || !is_array($chunk['message'])) {
+            return '';
+        }
+
         // Handle message content (regular content)
         if (!isset($chunk['message']['thinking'])) {
-            
-            $this->content .= $chunk['message']['content'];
+            $piece = isset($chunk['message']['content']) ? $chunk['message']['content'] : '';
+            $this->content .= $piece;
             $this->is_thinking = false;
-            return $chunk['message']['content'];
+            return $piece;
         }
-        
+
         $this->thinking .= $chunk['message']['thinking'];
         $this->is_thinking = true;
         return $chunk['message']['thinking'];

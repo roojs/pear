@@ -4,30 +4,37 @@ class_exists('Net_Ollama_Call_Chat') || require_once 'Net/Ollama/Call/Chat.php';
 
 class Net_Ollama_Call_ChatCompletions extends Net_Ollama_Call_Chat {
     var $_url = 'v1/chat/completions';
+    /** Ollama-native /chat fields not sent on /v1/chat/completions (see Net_Ollama_Call::send). */
+    var $_exclude = array('format', 'think', 'options', 'keep_alive');
+
     /**
      * @var string|object OpenAI response_format (converted from format)
      */
     var $response_format;
     /**
-     * @var array OpenAI thinking object (converted from think)
+     * DeepSeek Chat Completions request field "thinking" with "type" enabled|disabled.
+     * Not OpenAI Responses API "reasoning.effort"; see constructor comments for OpenAI vs DeepSeek.
+     * @link https://api-docs.deepseek.com/api/create-chat-completion
      */
     var $thinking;
     
     function __construct($oai, $args = array())
     {
-        // Convert Ollama-native 'format' to OpenAI 'response_format'
+        $args = (array)$args;
+
+        // Ollama `format` is not sent; map JSON mode to Chat Completions `response_format` only.
         if (isset($args['format']) && $args['format'] == 'json') {
             $args['response_format'] = array('type' => 'json_object');
         }
-        
-        // Convert Ollama-native 'think' to OpenAI 'thinking' object
-        if (isset($args['think'])) {
+
+        // `thinking` is a DeepSeek Chat Completions extension only (URL contains "deepseek").
+        // @link https://api-docs.deepseek.com/api/create-chat-completion
+        if (stripos($oai->url, 'deepseek') !== false && isset($args['think']) && !isset($args['thinking'])) {
             $args['thinking'] = array(
                 'type' => $args['think'] ? 'enabled' : 'disabled'
             );
         }
-        
-        // Call parent constructor (handles string conversion, callback, etc.)
+
         parent::__construct($oai, $args);
     }
     
@@ -36,16 +43,15 @@ class Net_Ollama_Call_ChatCompletions extends Net_Ollama_Call_Chat {
      */
     function getResponseType()
     {
-        return 'ChatCompletions';
+        return 'Chat';
     }
     
     
     
     /**
-     * CURL write callback for handling SSE (Server-Sent Events) streaming responses
-     * Handles OpenAI-compatible format: data: {...}
+     * cURL write callback: OpenAI-style SSE (lines like "data: {...}").
      */
-    function _stream_write_callback($ch, $data)
+    function streamWriteCallback($ch, $data)
     {
         // Append data to buffer
         $this->_stream_buffer .= $data;

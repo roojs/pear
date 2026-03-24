@@ -1,15 +1,21 @@
 <?php
 
 abstract class Net_Ollama_Call {
-    protected $oai; // to prevent looping
+    /** @var Net_Ollama Client reference; listed in {@see $excluded} so it is never JSON-encoded. */
+    var $oai;
     var $id;
-    protected $response;
-    static $excluded = array('id', 'response');
-    protected $exclude = array(); // eg.'id', 'response');
-    protected $_url = '';
-    protected $_method = 'POST';
-    protected $_stream_buffer = '';
-    protected $_chat_stream = false;
+    var $response;
+    /** @var string[] Property names never sent in the API JSON body (always skip). */
+    static $excluded = array('id', 'response', 'oai');
+    /**
+     * @var string[] Extra property names for this call to omit from the JSON body (subclass / per-request).
+     * Leading underscore keeps this property out of the request (see send() and '_' rule below).
+     */
+    var $_exclude = array();
+    var $_url = '';
+    var $_method = 'POST';
+    var $_stream_buffer = '';
+    var $_chat_stream = false;
      
     function __construct($oai, $args = array())
     {
@@ -25,20 +31,30 @@ abstract class Net_Ollama_Call {
     
     abstract function execute();
     abstract function process($response);
+
+    /**
+     * Response wrapper class name suffix (Net_Ollama_Response_{type}).
+     * Override when {@see $_url} is not a single segment (e.g. v1/chat/completions -> Chat).
+     */
+    function getResponseType()
+    {
+        return ucfirst($this->_url);
+    }
     
     function send()
     {
         // Build params from object properties
         $params = array();
-        // exclude should look at values in this->exclude and static $exclude and also ignore '_' prefixed properties
+        // Skip static::$excluded, per-instance $_exclude list, and '_' prefixed props (incl. $_exclude)
         foreach ((array)$this as $k => $v) {
-            if (in_array($k, self::$excluded) || in_array($k, $this->exclude) || strpos($k, '_') === 0) {
+            if (in_array($k, self::$excluded, true) || in_array($k, $this->_exclude, true) || strpos($k, '_') === 0) {
                 continue;
             }
             if (isset($this->$k) && $this->$k !== false) {
                 $params[$k] = $this->$k;
+                continue;
             }
-            if($k == 'stream' && $this->$k == false) {
+            if($k == 'stream' && $this->$k === false) {
                 $params[$k] = false;
             }
         }
@@ -95,14 +111,9 @@ abstract class Net_Ollama_Call {
             
             // For streaming, we need to read the response line by line
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
-            curl_setopt($ch, CURLOPT_WRITEFUNCTION, array($this, '_stream_write_callback'));
+            curl_setopt($ch, CURLOPT_WRITEFUNCTION, array($this, 'streamWriteCallback'));
             $this->_stream_buffer = '';
-            // Determine response type from _url (chat -> Chat)
-            // Allow subclasses to override response type via getResponseType()
-            $response_type = method_exists($this, 'getResponseType') 
-                ? $this->getResponseType() 
-                : ucfirst($this->_url);
-            $this->_chat_stream = $this->oai->response($response_type, array());
+            $this->_chat_stream = $this->oai->response($this->getResponseType(), array());
         }
         
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -122,9 +133,11 @@ abstract class Net_Ollama_Call {
             // Check for timeout or other errors
             if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
                 throw new Exception("Connection timeout: Failed to connect within {$connectTimeout} seconds");
-            } elseif ($curlError) {
+            }
+            if ($curlError) {
                 throw new Exception("cURL error: {$curlError}");
-            } elseif ($httpCode !== 200 && $httpCode !== 0) {
+            }
+            if ($httpCode !== 200 && $httpCode !== 0) {
                 throw new Exception("HTTP error: {$httpCode}");
             }
               
@@ -156,9 +169,11 @@ abstract class Net_Ollama_Call {
         // Check for timeout or other errors
         if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
             throw new Exception("Connection timeout: Failed to connect within {$connectTimeout} seconds");
-        } elseif ($curlError) {
+        }
+        if ($curlError) {
             throw new Exception("cURL error: {$curlError}");
-        } elseif ($httpCode !== 200 && $httpCode !== 0) {
+        }
+        if ($httpCode !== 200 && $httpCode !== 0) {
             throw new Exception("HTTP error: {$httpCode}");
         }
         
@@ -198,9 +213,9 @@ abstract class Net_Ollama_Call {
     }
     
     /**
-     * CURL write callback for handling streaming responses
+     * cURL write callback for native Ollama streaming (newline-delimited JSON chunks).
      */
-    function _stream_write_callback($ch, $data)
+    function streamWriteCallback($ch, $data)
     {
         static $last_content_length = 0;
         /*
