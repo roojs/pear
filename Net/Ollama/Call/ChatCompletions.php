@@ -35,6 +35,9 @@ class Net_Ollama_Call_ChatCompletions extends Net_Ollama_Call_Chat {
             );
         }
 
+        var_dump($args);
+        die('test');
+
         parent::__construct($oai, $args);
     }
     
