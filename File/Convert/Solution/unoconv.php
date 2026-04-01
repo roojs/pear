@@ -99,11 +99,29 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         $timeout = System::which('timeout');
         // fix the home directory - as we can't normally write to www-data's home directory.
-        putenv('HOME='. ini_get('session.save_path'));
+        $sessionPath = ini_get('session.save_path');
+        if ($sessionPath === '' || $sessionPath === false) {
+            $sessionPath = sys_get_temp_dir();
+        }
+        $sessionPath = rtrim($sessionPath, '/\\');
+        $loHome = $sessionPath . '/tmp-lo-' . str_replace('.', '', uniqid('', true));
+        if (!@mkdir($loHome, 0700, true)) {
+            $this->debug("Could not create LibreOffice HOME: {$loHome}");
+            @unlink($from);
+            return false;
+        }
+        $previousHome = getenv('HOME');
+        putenv('HOME=' . $loHome);
         $libreoffice = System::which('libreoffice');
         if (empty($libreoffice)) {
             $this->debug("missing libreoffice");
             $this->cmd = "Missing libreoffice";
+            if ($previousHome !== false) {
+                putenv('HOME=' . $previousHome);
+            } else {
+                putenv('HOME=');
+            }
+            self::removeLibreOfficeHomeDir($loHome);
             return false;
         }
         $output_dir = dirname($to);
@@ -132,6 +150,12 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             @unlink($libreoffice_output);
             @unlink($from);
             clearstatcache();
+            if ($previousHome !== false) {
+                putenv('HOME=' . $previousHome);
+            } else {
+                putenv('HOME=');
+            }
+            self::removeLibreOfficeHomeDir($loHome);
             return $target;
         }
         
@@ -147,7 +171,13 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         }
         
         @unlink($from);
-        if (!file_exists($libreoffice_output)) {    
+        if (!file_exists($libreoffice_output)) {
+            if ($previousHome !== false) {
+                putenv('HOME=' . $previousHome);
+            } else {
+                putenv('HOME=');
+            }
+            self::removeLibreOfficeHomeDir($loHome);
             return false;
         }
         
@@ -170,6 +200,12 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             
             $doc->saveHTMLFile($target);
         }
+        if ($previousHome !== false) {
+            putenv('HOME=' . $previousHome);
+        } else {
+            putenv('HOME=');
+        }
+        self::removeLibreOfficeHomeDir($loHome);
         return $target;
      
     }
