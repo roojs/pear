@@ -73,6 +73,9 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
     {
         $try = $x;
         $ext = $this->ext;
+
+        var_dump($fn);
+        die('test');
         
         
         $target =   $fn  . '.' . $ext;
