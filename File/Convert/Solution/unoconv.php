@@ -98,8 +98,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             $this->cmd = "Missing libreoffice";
             return false;
         }
-
-        // fix the home directory - as we can't normally write to www-data's home directory.
+        
         $loHome = rtrim(ini_get('session.save_path'), '/\\') . '/tmp-lo-' . str_replace('.', '', uniqid('', true));
         if (!@mkdir($loHome, 0700, true)) {
             $this->debug("Could not create LibreOffice HOME: {$loHome}");
