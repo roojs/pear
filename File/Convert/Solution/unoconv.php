@@ -154,8 +154,6 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             sleep(3);
             
             $res = $this->exec($cmd);
-            putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
-            self::removeLibreOfficeHomeDir($loHome);
             clearstatcache();
         }
         
