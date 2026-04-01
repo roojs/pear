@@ -86,6 +86,9 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         $from = $this->tempName(array_pop($bits),true);
         $to = $this->tempName($ext,true);
+
+        var_dump($from);
+        var_dump($to);
         
         copy($fn, $from);
         
