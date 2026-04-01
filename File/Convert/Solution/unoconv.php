@@ -75,7 +75,6 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         $timeout = System::which('timeout');
         // fix the home directory - as we can't normally write to www-data's home directory.
-        die(ini_get('session.save_path'));
         putenv('HOME='. ini_get('session.save_path'));
         $libreoffice = System::which('libreoffice');
         if (empty($libreoffice)) {
