@@ -99,11 +99,9 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         $timeout = System::which('timeout');
         // fix the home directory - as we can't normally write to www-data's home directory.
-        $sessionPath = ini_get('session.save_path');
-        if ($sessionPath === '' || $sessionPath === false) {
-            $sessionPath = sys_get_temp_dir();
-        }
-        $sessionPath = rtrim($sessionPath, '/\\');
+        var_dump(ini_get('session.save_path'));
+        die('test');
+        $sessionPath = rtrim(ini_get('session.save_path'), '/\\');
         $loHome = $sessionPath . '/tmp-lo-' . str_replace('.', '', uniqid('', true));
         if (!@mkdir($loHome, 0700, true)) {
             $this->debug("Could not create LibreOffice HOME: {$loHome}");
