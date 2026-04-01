@@ -92,6 +92,9 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         var_dump($from);
         
         copy($fn, $from);
+
+        var_dump($fn);
+        die('test');
         
         require_once 'System.php';
         
