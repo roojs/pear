@@ -47,9 +47,33 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         ),
         
     );
-    
-      
-    
+
+    /**
+     * Remove a directory tree (LibreOffice profile under tmp-lo-*).
+     */
+    private static function removeLibreOfficeHomeDir($dir)
+    {
+        if ($dir === '' || !is_dir($dir)) {
+            return;
+        }
+        $items = @scandir($dir);
+        if ($items === false) {
+            return;
+        }
+        foreach ($items as $item) {
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
+            $path = $dir . '/' . $item;
+            if (is_dir($path)) {
+                self::removeLibreOfficeHomeDir($path);
+                continue;
+            }
+            @unlink($path);
+        }
+        @rmdir($dir);
+    }
+
     //FIXME this method run 3 times??
     function convert($fn,$x,$y,$pg) 
     {
