@@ -98,6 +98,13 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         require_once 'System.php';
         
         $timeout = System::which('timeout');
+        $libreoffice = System::which('libreoffice');
+        if (empty($libreoffice)) {
+            $this->debug("missing libreoffice");
+            $this->cmd = "Missing libreoffice";
+            return false;
+        }
+        
         // fix the home directory - as we can't normally write to www-data's home directory.
         $loHome = rtrim(ini_get('session.save_path') ?: sys_get_temp_dir(), '/\\') . '/tmp-lo-' . str_replace('.', '', uniqid('', true));
         if (!@mkdir($loHome, 0700, true)) {
@@ -107,14 +114,6 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         }
         $previousHome = getenv('HOME');
         putenv('HOME=' . $loHome);
-        $libreoffice = System::which('libreoffice');
-        if (empty($libreoffice)) {
-            $this->debug("missing libreoffice");
-            $this->cmd = "Missing libreoffice";
-            putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
-            self::removeLibreOfficeHomeDir($loHome);
-            return false;
-        }
         $output_dir = dirname($to);
         
         // Use LibreOffice headless conversion (no xvfb-run needed)
