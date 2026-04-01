@@ -110,11 +110,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         if (empty($libreoffice)) {
             $this->debug("missing libreoffice");
             $this->cmd = "Missing libreoffice";
-            if ($previousHome !== false) {
-                putenv('HOME=' . $previousHome);
-            } else {
-                putenv('HOME=');
-            }
+            putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
             self::removeLibreOfficeHomeDir($loHome);
             return false;
         }
@@ -144,11 +140,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             @unlink($libreoffice_output);
             @unlink($from);
             clearstatcache();
-            if ($previousHome !== false) {
-                putenv('HOME=' . $previousHome);
-            } else {
-                putenv('HOME=');
-            }
+            putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
             self::removeLibreOfficeHomeDir($loHome);
             return $target;
         }
@@ -166,11 +158,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         @unlink($from);
         if (!file_exists($libreoffice_output)) {
-            if ($previousHome !== false) {
-                putenv('HOME=' . $previousHome);
-            } else {
-                putenv('HOME=');
-            }
+            putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
             self::removeLibreOfficeHomeDir($loHome);
             return false;
         }
@@ -194,11 +182,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             
             $doc->saveHTMLFile($target);
         }
-        if ($previousHome !== false) {
-            putenv('HOME=' . $previousHome);
-        } else {
-            putenv('HOME=');
-        }
+        putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
         self::removeLibreOfficeHomeDir($loHome);
         return $target;
      
