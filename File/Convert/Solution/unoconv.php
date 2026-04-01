@@ -126,75 +126,79 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         ////  echo $cmd;
 
         $previousHome = getenv('HOME');
-        try {
-            putenv('HOME=' . $loHome);
+        putenv('HOME=' . $loHome);
 
-            $res = $this->exec($cmd);
-            
-            //fclose($lock);
-            
-            /// this is to prevent soffice staying alive if we timeout...
-          //  `/usr/bin/killall -9 soffice.bin`;
-            
+        $res = $this->exec($cmd);
+
+        //fclose($lock);
+
+        /// this is to prevent soffice staying alive if we timeout...
+      //  `/usr/bin/killall -9 soffice.bin`;
+
+        clearstatcache();
+
+        // LibreOffice creates output file with same base name as input but with new extension
+        $input_basename = pathinfo($from, PATHINFO_FILENAME);
+        $libreoffice_output = $output_dir . '/' . $input_basename . '.' . $ext;
+
+        $ret = false;
+
+        // Check if LibreOffice created the output file
+        if (file_exists($libreoffice_output)) {
+            copy($libreoffice_output, $target);
+            @unlink($libreoffice_output);
+            @unlink($from);
             clearstatcache();
-            
-            // LibreOffice creates output file with same base name as input but with new extension
-            $input_basename = pathinfo($from, PATHINFO_FILENAME);
-            $libreoffice_output = $output_dir . '/' . $input_basename . '.' . $ext;
-            
-            // Check if LibreOffice created the output file
-            if (file_exists($libreoffice_output)) {
-                copy($libreoffice_output, $target);
-                @unlink($libreoffice_output);
-                @unlink($from);
-                clearstatcache();
-                return $target;
-            }
-            
+            $ret = $target;
+        }
+
+        if ($ret === false) {
             // If conversion failed, try again
             if (!file_exists($libreoffice_output) || (file_exists($libreoffice_output) && filesize($libreoffice_output) < 400)) {
                 // try again!!!!
                 @unlink($libreoffice_output);
                 clearstatcache();
                 sleep(3);
-                
+
                 $res = $this->exec($cmd);
                 clearstatcache();
             }
-            
+
             @unlink($from);
-            if (!file_exists($libreoffice_output)) {    
-                return false;
-            }
-            
-            // Copy the LibreOffice output to the target location
-            copy($libreoffice_output, $target);
-            @unlink($libreoffice_output);
-            if ($ext == 'html') {
-                $doc = new DOMDocument();
-                $doc->loadHTMLFile($target, LIBXML_NOERROR + LIBXML_NOWARNING);
-                $imgs = $doc->getElementsByTagName('img');
-                foreach($imgs as $im) {
-                    $path = $im->getAttribute('src');
-                    if (file_exists(dirname($target).'/'. $path)) {
-                        $ifn = dirname($target).'/'. $path;
-                        $type = image_type_to_mime_type(exif_imagetype($ifn));
-                        $im->setAttribute('src', 'data:'.$type.';base64,' . base64_encode(file_get_contents($ifn)));
-                    }
-                    
-                }
-                
-                $doc->saveHTMLFile($target);
-            }
-            return $target;
-        } finally {
-            if ($previousHome !== false) {
-                putenv('HOME=' . $previousHome);
+            if (!file_exists($libreoffice_output)) {
+                $ret = false;
             } else {
-                putenv('HOME=');
+                // Copy the LibreOffice output to the target location
+                copy($libreoffice_output, $target);
+                @unlink($libreoffice_output);
+                if ($ext == 'html') {
+                    $doc = new DOMDocument();
+                    $doc->loadHTMLFile($target, LIBXML_NOERROR + LIBXML_NOWARNING);
+                    $imgs = $doc->getElementsByTagName('img');
+                    foreach ($imgs as $im) {
+                        $path = $im->getAttribute('src');
+                        if (file_exists(dirname($target).'/'.$path)) {
+                            $ifn = dirname($target).'/'.$path;
+                            $type = image_type_to_mime_type(exif_imagetype($ifn));
+                            $im->setAttribute('src', 'data:'.$type.';base64,' . base64_encode(file_get_contents($ifn)));
+                        }
+
+                    }
+
+                    $doc->saveHTMLFile($target);
+                }
+                $ret = $target;
             }
-            self::removeLibreOfficeHomeDir($loHome);
         }
+
+        if ($previousHome !== false) {
+            putenv('HOME=' . $previousHome);
+        } else {
+            putenv('HOME=');
+        }
+        self::removeLibreOfficeHomeDir($loHome);
+
+        return $ret;
      
     }
 }
