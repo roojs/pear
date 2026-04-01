@@ -140,17 +140,13 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             copy($libreoffice_output, $target);
             @unlink($libreoffice_output);
             @unlink($from);
-            clearstatcache();
-            return $target;
-        }
-        
-        // If conversion failed, try again
-        if (!file_exists($libreoffice_output) || (file_exists($libreoffice_output) && filesize($libreoffice_output) < 400)) {
-            // try again!!!!
-            @unlink($libreoffice_output);
-            clearstatcache();
-            sleep(3);
-            
+            clearstatcache();            $previousHome = getenv('HOME');
+            $loHome = rtrim(ini_get('session.save_path') ?: sys_get_temp_dir(), '/\\') . '/tmp-lo-' . str_replace('.', '', uniqid('', true));
+            if (!@mkdir($loHome, 0700, true)) {
+                $this->debug("Could not create LibreOffice HOME: {$loHome}");
+                return false;
+            }
+            putenv('HOME=' . $loHome);
             $res = $this->exec($cmd);
             clearstatcache();
         }
