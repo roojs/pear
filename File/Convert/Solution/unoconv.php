@@ -76,6 +76,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         
         $target =   $fn  . '.' . $ext;
+        var_dump($target);
         
         
         if ( file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
