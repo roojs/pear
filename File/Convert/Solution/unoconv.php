@@ -114,7 +114,6 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         //  echo $cmd;
       
         $res = $this->exec($cmd);
-        die('test');
         
         //fclose($lock);
         
