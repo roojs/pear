@@ -111,80 +111,83 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         if (empty($libreoffice)) {
             $this->debug("missing libreoffice");
             $this->cmd = "Missing libreoffice";
-            $ret = false;
-        } else {
-            $output_dir = dirname($to);
-            
-            // Use LibreOffice headless conversion (no xvfb-run needed)
-            $cmd = "$timeout 5m $libreoffice --headless --convert-to $ext --outdir " . 
-                    escapeshellarg($output_dir) . " " . escapeshellarg($from) . " 2>&1";
-            ////  echo $cmd;
-          
-            $res = $this->exec($cmd);
-            
-            //fclose($lock);
-            
-            /// this is to prevent soffice staying alive if we timeout...
-          //  `/usr/bin/killall -9 soffice.bin`;
-            
+            putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
+            self::removeLibreOfficeHomeDir($loHome);
+            return false;
+        }
+        $output_dir = dirname($to);
+        
+        // Use LibreOffice headless conversion (no xvfb-run needed)
+        $cmd = "$timeout 5m $libreoffice --headless --convert-to $ext --outdir " . 
+                escapeshellarg($output_dir) . " " . escapeshellarg($from) . " 2>&1";
+        ////  echo $cmd;
+      
+        $res = $this->exec($cmd);
+        
+        //fclose($lock);
+        
+        /// this is to prevent soffice staying alive if we timeout...
+      //  `/usr/bin/killall -9 soffice.bin`;
+        
+        clearstatcache();
+        
+        // LibreOffice creates output file with same base name as input but with new extension
+        $input_basename = pathinfo($from, PATHINFO_FILENAME);
+        $libreoffice_output = $output_dir . '/' . $input_basename . '.' . $ext;
+        
+        // Check if LibreOffice created the output file
+        if (file_exists($libreoffice_output)) {
+            copy($libreoffice_output, $target);
+            @unlink($libreoffice_output);
+            @unlink($from);
             clearstatcache();
+            putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
+            self::removeLibreOfficeHomeDir($loHome);
+            return $target;
+        }
+        
+        // If conversion failed, try again
+        if (!file_exists($libreoffice_output) || (file_exists($libreoffice_output) && filesize($libreoffice_output) < 400)) {
+            // try again!!!!
+            @unlink($libreoffice_output);
+            clearstatcache();
+            sleep(3);
             
-            // LibreOffice creates output file with same base name as input but with new extension
-            $input_basename = pathinfo($from, PATHINFO_FILENAME);
-            $libreoffice_output = $output_dir . '/' . $input_basename . '.' . $ext;
-            
-            $ret = false;
-            // Check if LibreOffice created the output file
-            if (file_exists($libreoffice_output)) {
-                copy($libreoffice_output, $target);
-                @unlink($libreoffice_output);
-                @unlink($from);
-                clearstatcache();
-                $ret = $target;
-            }
-            
-            if ($ret === false) {
-                // If conversion failed, try again
-                if (!file_exists($libreoffice_output) || (file_exists($libreoffice_output) && filesize($libreoffice_output) < 400)) {
-                    // try again!!!!
-                    @unlink($libreoffice_output);
-                    clearstatcache();
-                    sleep(3);
-                    
-                    $res = $this->exec($cmd);
-                    clearstatcache();
+            $res = $this->exec($cmd);
+            putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
+            self::removeLibreOfficeHomeDir($loHome);
+            clearstatcache();
+        }
+        
+        @unlink($from);
+        if (!file_exists($libreoffice_output)) {    
+            putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
+            self::removeLibreOfficeHomeDir($loHome);
+            return false;
+        }
+        
+        // Copy the LibreOffice output to the target location
+        copy($libreoffice_output, $target);
+        @unlink($libreoffice_output);
+        if ($ext == 'html') {
+            $doc = new DOMDocument();
+            $doc->loadHTMLFile($target, LIBXML_NOERROR + LIBXML_NOWARNING);
+            $imgs = $doc->getElementsByTagName('img');
+            foreach($imgs as $im) {
+                $path = $im->getAttribute('src');
+                if (file_exists(dirname($target).'/'. $path)) {
+                    $ifn = dirname($target).'/'. $path;
+                    $type = image_type_to_mime_type(exif_imagetype($ifn));
+                    $im->setAttribute('src', 'data:'.$type.';base64,' . base64_encode(file_get_contents($ifn)));
                 }
                 
-                @unlink($from);
-                if (!file_exists($libreoffice_output)) {
-                    $ret = false;
-                } else {
-                    // Copy the LibreOffice output to the target location
-                    copy($libreoffice_output, $target);
-                    @unlink($libreoffice_output);
-                    if ($ext == 'html') {
-                        $doc = new DOMDocument();
-                        $doc->loadHTMLFile($target, LIBXML_NOERROR + LIBXML_NOWARNING);
-                        $imgs = $doc->getElementsByTagName('img');
-                        foreach($imgs as $im) {
-                            $path = $im->getAttribute('src');
-                            if (file_exists(dirname($target).'/'. $path)) {
-                                $ifn = dirname($target).'/'. $path;
-                                $type = image_type_to_mime_type(exif_imagetype($ifn));
-                                $im->setAttribute('src', 'data:'.$type.';base64,' . base64_encode(file_get_contents($ifn)));
-                            }
-                            
-                        }
-                        
-                        $doc->saveHTMLFile($target);
-                    }
-                    $ret = $target;
-                }
             }
+            
+            $doc->saveHTMLFile($target);
         }
         putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
         self::removeLibreOfficeHomeDir($loHome);
-        return $ret;
+        return $target;
      
     }
 }
