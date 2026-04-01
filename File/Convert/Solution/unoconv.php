@@ -102,7 +102,6 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         $loHome = rtrim(ini_get('session.save_path') ?: sys_get_temp_dir(), '/\\') . '/tmp-lo-' . str_replace('.', '', uniqid('', true));
         if (!@mkdir($loHome, 0700, true)) {
             $this->debug("Could not create LibreOffice HOME: {$loHome}");
-            @unlink($from);
             return false;
         }
         $previousHome = getenv('HOME');
