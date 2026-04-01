@@ -53,13 +53,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
      */
     private static function removeLibreOfficeHomeDir($dir)
     {
-        if ($dir === '' || !is_dir($dir)) {
-            return;
-        }
         $items = @scandir($dir);
-        if ($items === false) {
-            return;
-        }
         foreach ($items as $item) {
             if ($item === '.' || $item === '..') {
                 continue;
