@@ -98,7 +98,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             $this->cmd = "Missing libreoffice";
             return false;
         }
-        
+
         $loHome = rtrim(ini_get('session.save_path'), '/\\') . '/tmp-lo-' . str_replace('.', '', uniqid('', true));
         if (!@mkdir($loHome, 0700, true)) {
             $this->debug("Could not create LibreOffice HOME: {$loHome}");
@@ -108,6 +108,8 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         $previousHome = getenv('HOME');
         putenv('HOME=' . $loHome);
         $output_dir = dirname($to);
+
+        var_dump($output_dir);
         
         // Use LibreOffice headless conversion (no xvfb-run needed)
         $cmd = "$timeout 5m $libreoffice --headless --convert-to $ext --outdir " . 
