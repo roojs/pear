@@ -125,6 +125,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
                 escapeshellarg($output_dir) . " " . escapeshellarg($from) . " 2>&1";
         ////  echo $cmd;
 
+        $previousHome = getenv('HOME');
         try {
             putenv('HOME=' . $loHome);
 
@@ -187,7 +188,11 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             }
             return $target;
         } finally {
-            putenv('HOME');
+            if ($previousHome !== false) {
+                putenv('HOME=' . $previousHome);
+            } else {
+                putenv('HOME=');
+            }
             self::removeLibreOfficeHomeDir($loHome);
         }
      
