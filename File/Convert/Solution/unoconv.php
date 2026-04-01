@@ -82,12 +82,8 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             $this->debug("UNOCONV SKIP target exists");
             return $target;
         }
-
-        $bits = pathinfo($fn, PATHINFO_EXTENSION);
-        var_dump($bits);
-        die('test');
         
-        $from = $this->tempName(array_pop($bits),true);
+        $from = $this->tempName(pathinfo($fn, PATHINFO_EXTENSION),true);
         $to = $this->tempName($ext,true);
         
         copy($fn, $from);
