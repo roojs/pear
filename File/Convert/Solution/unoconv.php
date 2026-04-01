@@ -108,14 +108,11 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         $previousHome = getenv('HOME');
         putenv('HOME=' . $loHome);
         $output_dir = dirname($to);
-
-        var_dump($output_dir);
-        var_dump($to);
         
         // Use LibreOffice headless conversion (no xvfb-run needed)
         $cmd = "$timeout 5m $libreoffice --headless --convert-to $ext --outdir " . 
                 escapeshellarg($output_dir) . " " . escapeshellarg($from) . " 2>&1";
-        ////  echo $cmd;
+         echo $cmd;
       
         $res = $this->exec($cmd);
         
