@@ -123,8 +123,6 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         ////  echo $cmd;
       
         $res = $this->exec($cmd);
-        putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
-        self::removeLibreOfficeHomeDir($loHome);
         
         //fclose($lock);
         
@@ -165,6 +163,9 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             self::removeLibreOfficeHomeDir($loHome);
             clearstatcache();
         }
+
+        putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
+        self::removeLibreOfficeHomeDir($loHome);
         
         @unlink($from);
         if (!file_exists($libreoffice_output)) {    
