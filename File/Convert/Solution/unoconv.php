@@ -127,6 +127,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         $input_basename = pathinfo($from, PATHINFO_FILENAME);
         $libreoffice_output = $output_dir . '/' . $input_basename . '.' . $ext;
         var_dump($libreoffice_output);
+        var_dump($target);
         
         // Check if LibreOffice created the output file
         if (file_exists($libreoffice_output)) {
