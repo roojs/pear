@@ -86,6 +86,8 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         $from = $this->tempName(array_pop($bits),true);
         $to = $this->tempName($ext,true);
+
+        var_dump($from);
         
         copy($fn, $from);
         
@@ -127,7 +129,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         $input_basename = pathinfo($from, PATHINFO_FILENAME);
         $libreoffice_output = $output_dir . '/' . $input_basename . '.' . $ext;
         var_dump($libreoffice_output);
-        
+
         // Check if LibreOffice created the output file
         if (file_exists($libreoffice_output)) {
             copy($libreoffice_output, $target);
