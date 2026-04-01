@@ -83,18 +83,12 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             return $target;
         }
 
-        var_dump($fn);
         $bits = explode('.', $fn);
         
         $from = $this->tempName(array_pop($bits),true);
         $to = $this->tempName($ext,true);
-
-        var_dump($from);
         
         copy($fn, $from);
-
-        var_dump($fn);
-        die('test');
         
         require_once 'System.php';
         
