@@ -130,8 +130,6 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         // Check if LibreOffice created the output file
         if (file_exists($libreoffice_output)) {
-            var_dump($libreoffice_output);
-            var_dump($target);
             copy($libreoffice_output, $target);
             @unlink($libreoffice_output);
             @unlink($from);
