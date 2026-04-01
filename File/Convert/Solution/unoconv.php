@@ -112,7 +112,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         // Use LibreOffice headless conversion (no xvfb-run needed)
         $cmd = "$timeout 5m $libreoffice --headless --convert-to $ext --outdir " . 
                 escapeshellarg($output_dir) . " " . escapeshellarg($from) . " 2>&1";
-         echo $cmd;
+        //  echo $cmd;
       
         $res = $this->exec($cmd);
         
