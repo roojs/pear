@@ -123,6 +123,8 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         ////  echo $cmd;
       
         $res = $this->exec($cmd);
+        putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
+        self::removeLibreOfficeHomeDir($loHome);
         
         //fclose($lock);
         
@@ -141,8 +143,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             @unlink($libreoffice_output);
             @unlink($from);
             clearstatcache();
-            $ret = $target;
-            goto cleanup_lo;
+            return $target;
         }
         
         // If conversion failed, try again
@@ -152,14 +153,22 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             clearstatcache();
             sleep(3);
             
+            $previousHome = getenv('HOME');
+            $loHome = rtrim(ini_get('session.save_path') ?: sys_get_temp_dir(), '/\\') . '/tmp-lo-' . str_replace('.', '', uniqid('', true));
+            if (!@mkdir($loHome, 0700, true)) {
+                $this->debug("Could not create LibreOffice HOME: {$loHome}");
+                return false;
+            }
+            putenv('HOME=' . $loHome);
             $res = $this->exec($cmd);
+            putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
+            self::removeLibreOfficeHomeDir($loHome);
             clearstatcache();
         }
         
         @unlink($from);
-        if (!file_exists($libreoffice_output)) {
-            $ret = false;
-            goto cleanup_lo;
+        if (!file_exists($libreoffice_output)) {    
+            return false;
         }
         
         // Copy the LibreOffice output to the target location
@@ -181,11 +190,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             
             $doc->saveHTMLFile($target);
         }
-        $ret = $target;
-        cleanup_lo:
-        putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
-        self::removeLibreOfficeHomeDir($loHome);
-        return $ret;
+        return $target;
      
     }
 }
