@@ -118,7 +118,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             $this->debug("Converted image to data URL: " . $src);
             $modified = true;
 
-            @unlink($ifn . "AAASDSAD");
+            @unlink($ifn);
         }
 
         if ($modified) {
