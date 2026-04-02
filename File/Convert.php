@@ -15,6 +15,8 @@
  * options 
  * {
  *   delete_all : delete all the generated files after script execution when we call convert()
+ *   imageToDataUrl : (default false) when true, File_Convert_Solution_unoconv embeds local img src files
+ *                    as data: URLs in the output HTML when converting to text/html (no placeholders).
  * }
  * 
  */
@@ -154,10 +156,6 @@ class File_Convert
 
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
 
-            var_dump($action);
-            die('test');
-             
-            //echo '<PRE>';print_r($action);
             if (!$action) {
                 
                 $this->debug("No methods found to convert {$this->mimetype} to {$toMimetype}");
@@ -432,7 +430,7 @@ class File_Convert
             }
             if (in_array($to,$t['to'])) {
                 $cls = $t['cls'];
-                $ret =  new $cls($from, $to);  // found a solid match - returns the method.
+                $ret =  new $cls($from, $to, self::$options);  // found a solid match - returns the method.
                 //$ret->convert = $this; // recursion?
                 $this->solutions[] = $ret;
 
@@ -471,7 +469,7 @@ class File_Convert
                 }
 //                print_r($conv);exit;
 
-                $first = new $conv($from, $targ);
+                $first = new $conv($from, $targ, self::$options);
                 //$first->convert = $this;
                 $sol_list= $first->add($try);
                 
