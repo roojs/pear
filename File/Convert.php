@@ -153,6 +153,9 @@ class File_Convert
         ) {
 
             $action = $this->getConvMethods($this->mimetype, $toMimetype);
+
+            var_dump($action);
+            die('test');
              
             //echo '<PRE>';print_r($action);
             if (!$action) {
