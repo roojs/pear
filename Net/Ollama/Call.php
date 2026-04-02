@@ -132,13 +132,13 @@ abstract class Net_Ollama_Call {
             
             // Check for timeout or other errors
             if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
-                throw new Exception("Connection timeout: Failed to connect within {$connectTimeout} seconds");
+                self::raise(Net_Ollama::ERROR_CONNECTION_TIMEOUT, "Connection timeout: Failed to connect within {$connectTimeout} seconds");
             }
             if ($curlError) {
-                throw new Exception("cURL error: {$curlError}");
+                self::raise(Net_Ollama::ERROR_CURL_ERROR, "cURL error: {$curlError}");
             }
             if ($httpCode !== 200 && $httpCode !== 0) {
-                throw new Exception("HTTP error: {$httpCode}");
+                self::raise(Net_Ollama::ERROR_HTTP_ERROR, "HTTP error: {$httpCode}");
             }
               
             // Call callback once at the end with any remaining new text and final response
