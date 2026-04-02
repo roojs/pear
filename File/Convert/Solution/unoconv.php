@@ -102,8 +102,8 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             }
             $decodedSrc = urldecode($src);
             $candidates = array(
-                $dir . '/' . $decodedSrc,
-                $dir . '/' . $src,
+                $output_dir . '/' . $decodedSrc,
+                $output_dir . '/' . $src,
             );
             $ifn = false;
             foreach ($candidates as $c) {
