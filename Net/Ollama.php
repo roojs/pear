@@ -140,7 +140,7 @@ class Net_Ollama {
     function raise($message, $type, $previous = null)
     {
         require_once 'Net/Ollama/Exception.php';
-        throw  Net_Ollama_Exception::factory($message, $type, $previous_exception);
+        throw  Net_Ollama_Exception::factory($message, $type, $previous);
     }
 }
 
