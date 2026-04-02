@@ -63,7 +63,6 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
                 self::removeLibreOfficeHomeDir($path);
                 continue;
             }
-            var_dump("Removing LibreOffice HOME file: " . $path);
             @unlink($path);
         }
         @rmdir($dir);
