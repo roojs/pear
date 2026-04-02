@@ -73,6 +73,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
      * Runs only when option imageToDataUrl is true and target mime is text/html.
      *
      * @param string $target Absolute path to HTML file
+     * @param string $output_dir Absolute path to output directory
      */
     private function embedHtmlImagesAsDataUrlsIfRequested($target, $output_dir)
     {
