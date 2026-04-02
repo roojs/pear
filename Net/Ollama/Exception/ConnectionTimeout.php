@@ -10,5 +10,9 @@ class Net_Ollama_Exception_ConnectionTimeout extends Net_Ollama_Exception
         if(!empty($options['connectionTimeout'])) {
             $this->connectionTimeout = $options['connectionTimeout'];
         }
+
+        $this->message = "Failed to connect within {$this->connectionTimeout} seconds";
     }
+
+
 }
