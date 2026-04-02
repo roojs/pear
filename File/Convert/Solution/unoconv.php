@@ -68,6 +68,69 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         @rmdir($dir);
     }
 
+    /**
+     * Inline local image files as data: URLs in saved HTML (no placeholders).
+     * Runs only when option imageToDataUrl is true and target mime is text/html.
+     *
+     * @param string $target Absolute path to HTML file
+     */
+    private function embedHtmlImagesAsDataUrlsIfRequested($target)
+    {
+        if (empty(self::$options['imageToDataUrl']) || $this->to !== 'text/html') {
+            return;
+        }
+        if (!is_string($target) || !file_exists($target) || !filesize($target)) {
+            return;
+        }
+        $ext = strtolower(pathinfo($target, PATHINFO_EXTENSION));
+        if ($ext !== 'html' && $ext !== 'htm') {
+            return;
+        }
+
+        libxml_use_internal_errors(true);
+        $doc = new DOMDocument();
+        $doc->loadHTMLFile($target, LIBXML_NOERROR | LIBXML_NOWARNING);
+        $imgs = $doc->getElementsByTagName('img');
+        $dir = dirname($target);
+        $modified = false;
+
+        foreach ($imgs as $im) {
+            $src = $im->getAttribute('src');
+            if ($src === '') {
+                continue;
+            }
+            if (preg_match('#^data:#i', $src) || preg_match('#^https?://#i', $src)) {
+                continue;
+            }
+            $decodedSrc = urldecode($src);
+            $candidates = array(
+                $dir . '/' . $decodedSrc,
+                $dir . '/' . $src,
+            );
+            $ifn = false;
+            foreach ($candidates as $c) {
+                if (file_exists($c) && is_file($c)) {
+                    $ifn = $c;
+                    break;
+                }
+            }
+            if (!$ifn) {
+                continue;
+            }
+            $imgType = @exif_imagetype($ifn);
+            if ($imgType === false) {
+                continue;
+            }
+            $mime = image_type_to_mime_type($imgType);
+            $im->setAttribute('src', 'data:' . $mime . ';base64,' . base64_encode(file_get_contents($ifn)));
+            $modified = true;
+        }
+
+        if ($modified) {
+            $doc->saveHTMLFile($target);
+        }
+    }
+
     //FIXME this method run 3 times??
     function convert($fn,$x,$y,$pg) 
     {
@@ -80,6 +143,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         if ( file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             $this->debug("UNOCONV SKIP target exists");
+            $this->embedHtmlImagesAsDataUrlsIfRequested($target);
             return $target;
         }
         
@@ -135,6 +199,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
 
             putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
             self::removeLibreOfficeHomeDir($loHome);
+            $this->embedHtmlImagesAsDataUrlsIfRequested($target);
             return $target;
         }
         
@@ -160,22 +225,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         // Copy the LibreOffice output to the target location
         copy($libreoffice_output, $target);
         @unlink($libreoffice_output);
-        if ($ext == 'html') {
-            $doc = new DOMDocument();
-            $doc->loadHTMLFile($target, LIBXML_NOERROR + LIBXML_NOWARNING);
-            $imgs = $doc->getElementsByTagName('img');
-            foreach($imgs as $im) {
-                $path = $im->getAttribute('src');
-                if (file_exists(dirname($target).'/'. $path)) {
-                    $ifn = dirname($target).'/'. $path;
-                    $type = image_type_to_mime_type(exif_imagetype($ifn));
-                    $im->setAttribute('src', 'data:'.$type.';base64,' . base64_encode(file_get_contents($ifn)));
-                }
-                
-            }
-            
-            $doc->saveHTMLFile($target);
-        }
+        $this->embedHtmlImagesAsDataUrlsIfRequested($target);
         return $target;
      
     }
