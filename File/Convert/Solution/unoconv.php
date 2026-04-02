@@ -132,6 +132,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         
         $target =   $fn  . '.' . $ext;
+        $this->debug("UNOCONV target: " . $target);
         
         if ( file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             $this->debug("UNOCONV SKIP target exists");
