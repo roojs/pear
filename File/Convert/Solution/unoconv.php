@@ -83,10 +83,6 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         if (!is_string($target) || !file_exists($target) || !filesize($target)) {
             return;
         }
-        $ext = strtolower(pathinfo($target, PATHINFO_EXTENSION));
-        if ($ext !== 'html' && $ext !== 'htm') {
-            return;
-        }
 
         libxml_use_internal_errors(true);
         $doc = new DOMDocument();
