@@ -138,8 +138,6 @@ abstract class Net_Ollama_Call {
                 Net_Ollama::raise(Net_Ollama::ERROR_CURL_ERROR, "cURL error: {$curlError}");
             }
             if ($httpCode !== 200 && $httpCode !== 0) {
-                var_dump(Net_Ollama::ERROR_HTTP_ERROR);
-                die('test');
                 Net_Ollama::raise(Net_Ollama::ERROR_HTTP_ERROR, "HTTP error: {$httpCode}");
             }
               
