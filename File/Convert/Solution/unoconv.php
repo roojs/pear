@@ -117,6 +117,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
                 continue;
             }
             $imgType = @exif_imagetype($ifn);
+            $this->debug("Image type: " . $imgType);
             if ($imgType === false) {
                 $this->debug("Failed to get image type: " . $src);
                 continue;
