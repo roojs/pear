@@ -91,7 +91,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         $doc = new DOMDocument();
         $doc->loadHTMLFile($target, LIBXML_NOERROR | LIBXML_NOWARNING);
         $imgs = $doc->getElementsByTagName('img');
-        $dir = dirname($target);
+        $dir = '/var/lib/php/sessions';
         $modified = false;
 
         foreach ($imgs as $im) {
@@ -109,7 +109,6 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
                 $dir . '/' . $decodedSrc,
                 $dir . '/' . $src,
             );
-            var_dump($candidates);
             $ifn = false;
             foreach ($candidates as $c) {
                 if (file_exists($c) && is_file($c)) {
