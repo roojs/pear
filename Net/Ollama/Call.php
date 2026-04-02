@@ -133,7 +133,7 @@ abstract class Net_Ollama_Call {
             // Check for timeout or other errors
             if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
                 require_once 'Net/Ollama/Exception/ConnectionTimeout.php';
-                throw new Net_Ollama_Exception_ConnectionTimeout($connectTimeout);;
+                throw new Net_Ollama_Exception_ConnectionTimeout(array('connectionTimeout' => $connectTimeout));
             }
             if ($curlError) {
                 require_once 'Net/Ollama/Exception/HttpError.php';
