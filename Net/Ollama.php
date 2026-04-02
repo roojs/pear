@@ -124,23 +124,5 @@ class Net_Ollama {
        
         flush();
     }
-
-    const ERROR_CONNECTION_TIMEOUT = 'ConnectionTimeout';  // fails to establish a connection
-    const ERROR_CURL_ERROR = 'CurlError';  // curl error
-    const ERROR_HTTP_ERROR = 'HttpError';  // http error
-
-    /**
-     * wrapper around throw exception.
-     *
-     * @param  string $message The Exception message to throw
-     * @param  string $type The Exception code
-     * @param  Throwable (optional) The previous exception used for the exception chaining
-     * @throws Net_Ollama_Exception
-     */
-    static function raise($message, $type, $previous = null)
-    {
-        require_once 'Net/Ollama/Exception.php';
-        throw  Net_Ollama_Exception::factory($message, $type, $previous);
-    }
 }
 
