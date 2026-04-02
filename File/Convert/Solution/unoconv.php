@@ -117,6 +117,8 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             $im->setAttribute('src', 'data:' . $mime . ';base64,' . base64_encode(file_get_contents($ifn)));
             $this->debug("Converted image to data URL: " . $src);
             $modified = true;
+
+            @unlink($ifn);
         }
 
         if ($modified) {
