@@ -198,15 +198,12 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         }
         
         // If conversion failed, try again
-        if (!file_exists($libreoffice_output) || (file_exists($libreoffice_output) && filesize($libreoffice_output) < 400)) {
-            // try again!!!!
-            @unlink($libreoffice_output);
-            clearstatcache();
-            sleep(3);
-            
-            $res = $this->exec($cmd);
-            clearstatcache();
-        }
+        @unlink($libreoffice_output);
+        clearstatcache();
+        sleep(3);
+        
+        $res = $this->exec($cmd);
+        clearstatcache();
 
         putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
         self::removeLibreOfficeHomeDir($loHome);
