@@ -203,7 +203,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
 
             putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
             self::removeLibreOfficeHomeDir($loHome);
-            $this->embedHtmlImagesAsDataUrlsIfRequested($target);
+            $this->embedHtmlImagesAsDataUrlsIfRequested($target, $output_dir);
             return $target;
         }
         
