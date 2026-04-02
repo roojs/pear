@@ -74,7 +74,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
      *
      * @param string $target Absolute path to HTML file
      */
-    private function embedHtmlImagesAsDataUrlsIfRequested($target)
+    private function embedHtmlImagesAsDataUrlsIfRequested($target, $output_dir)
     {
         if (empty(self::$options['imageToDataUrl']) || $this->to !== 'text/html') {
             return;
@@ -91,7 +91,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         $doc = new DOMDocument();
         $doc->loadHTMLFile($target, LIBXML_NOERROR | LIBXML_NOWARNING);
         $imgs = $doc->getElementsByTagName('img');
-        $dir = '/var/lib/php/sessions';
+        $dir = $output_dir;
         $modified = false;
 
         foreach ($imgs as $im) {
