@@ -77,10 +77,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
      */
     private function embedHtmlImagesAsDataUrlsIfRequested($target, $output_dir)
     {
-        if (empty(self::$options['imageToDataUrl']) || $this->to !== 'text/html') {
-            return;
-        }
-        if (!file_exists($target)) {
+        if (empty(self::$options['imageToDataUrl']) || $this->to !== 'text/html' || !file_exists($target)) {
             return;
         }
 
