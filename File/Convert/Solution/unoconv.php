@@ -116,12 +116,12 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
                 $this->debug("No image file found: " . $src);
                 continue;
             }
-            $imgType = @exif_imagetype($ifn);
-            if ($imgType === false) {
-                $this->debug("Failed to get image type: " . $src);
+            $imageInfo = @getimagesize($imagePath);
+            if ($imageInfo === false) {
+                $this->debug("Failed to get image info: " . $src);
                 continue;
             }
-            $mime = image_type_to_mime_type($imgType);
+            $mime = $imageInfo['mime'];
             $im->setAttribute('src', 'data:' . $mime . ';base64,' . base64_encode(file_get_contents($ifn)));
             $this->debug("Converted image to data URL: " . $src);
             $modified = true;
