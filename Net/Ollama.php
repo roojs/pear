@@ -137,7 +137,7 @@ class Net_Ollama {
      * @param  Throwable (optional) The previous exception used for the exception chaining
      * @throws Net_Ollama_Exception
      */
-    function raise($message, $type, $previous = null)
+    static function raise($message, $type, $previous = null)
     {
         require_once 'Net/Ollama/Exception.php';
         throw  Net_Ollama_Exception::factory($message, $type, $previous);
