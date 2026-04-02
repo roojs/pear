@@ -115,10 +115,12 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
                 }
             }
             if (!$ifn) {
+                $this->debug("No image file found: " . $src);
                 continue;
             }
             $imgType = @exif_imagetype($ifn);
             if ($imgType === false) {
+                $this->debug("Failed to get image type: " . $src);
                 continue;
             }
             $mime = image_type_to_mime_type($imgType);
