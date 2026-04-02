@@ -93,9 +93,8 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
                 $this->debug("Skipping image src: " . $src);
                 continue;
             }
-            $decodedSrc = urldecode($src);
             $candidates = array(
-                $output_dir . '/' . $decodedSrc,
+                $output_dir . '/' . urldecode($src),
                 $output_dir . '/' . $src,
             );
             $ifn = false;
