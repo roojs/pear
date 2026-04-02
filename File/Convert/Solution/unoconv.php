@@ -147,7 +147,6 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         if ( file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             $this->debug("UNOCONV SKIP target exists");
-            $this->embedHtmlImagesAsDataUrlsIfRequested($target);
             return $target;
         }
         
