@@ -118,6 +118,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
             $this->debug("Converted image to data URL: " . $src);
             $modified = true;
 
+            // delete the generated image file
             @unlink($ifn);
         }
 
