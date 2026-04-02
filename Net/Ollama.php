@@ -124,5 +124,19 @@ class Net_Ollama {
        
         flush();
     }
+
+    /**
+     * wrapper around throw exception.
+     *
+     * @param  string $message The Exception message to throw
+     * @param  string $type The Exception code
+     * @param  Throwable (optional)The previous exception used for the exception chaining
+     * @throws Net_Ollama_Exception
+     */
+    function raise($message, $type, $previous = null)
+    {
+        require_once 'Net/Ollama/Exception.php';
+        throw  Net_Ollama_Exception::factory($message, $type, $previous_exception);
+    }
 }
 
