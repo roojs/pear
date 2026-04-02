@@ -171,13 +171,16 @@ abstract class Net_Ollama_Call {
         
         // Check for timeout or other errors
         if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
-            throw new Exception("Connection timeout: Failed to connect within {$connectTimeout} seconds");
+            require_once 'Net/Ollama/Exception/ConnectionTimeout.php';
+            throw new Net_Ollama_Exception_ConnectionTimeout($connectTimeout);;
         }
         if ($curlError) {
-            throw new Exception("cURL error: {$curlError}");
+            require_once 'Net/Ollama/Exception/HttpError.php';
+            throw new Net_Ollama_Exception_CurlError($curlError);
         }
         if ($httpCode !== 200 && $httpCode !== 0) {
-            throw new Exception("HTTP error: {$httpCode}");
+            require_once 'Net/Ollama/Exception/HttpError.php';
+            throw new Net_Ollama_Exception_HttpError($httpCode);
         }
         
         $this->oai->debug("Received Response", json_decode($result, true));
