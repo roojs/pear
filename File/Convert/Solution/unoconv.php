@@ -116,7 +116,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
                 $this->debug("No image file found: " . $src);
                 continue;
             }
-            $imageInfo = @getimagesize($imagePath);
+            $imageInfo = @getimagesize($ifn);
             if ($imageInfo === false) {
                 $this->debug("Failed to get image info: " . $src);
                 continue;
