@@ -109,6 +109,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
                 $dir . '/' . $decodedSrc,
                 $dir . '/' . $src,
             );
+            var_dump($candidates);
             $ifn = false;
             foreach ($candidates as $c) {
                 if (file_exists($c) && is_file($c)) {
