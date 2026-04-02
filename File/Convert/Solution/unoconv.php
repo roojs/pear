@@ -92,7 +92,6 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         $doc = new DOMDocument();
         $doc->loadHTMLFile($target, LIBXML_NOERROR | LIBXML_NOWARNING);
         $imgs = $doc->getElementsByTagName('img');
-        $dir = $output_dir;
         $modified = false;
 
         foreach ($imgs as $im) {
