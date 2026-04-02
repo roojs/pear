@@ -97,9 +97,11 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         foreach ($imgs as $im) {
             $src = $im->getAttribute('src');
             if ($src === '') {
+                $this->debug("Skipping empty image: " . $src);
                 continue;
             }
             if (preg_match('#^data:#i', $src) || preg_match('#^https?://#i', $src)) {
+                $this->debug("Skipping image: " . $src);
                 continue;
             }
             $decodedSrc = urldecode($src);
