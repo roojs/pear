@@ -229,7 +229,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         // Copy the LibreOffice output to the target location
         copy($libreoffice_output, $target);
         @unlink($libreoffice_output);
-        $this->embedHtmlImagesAsDataUrlsIfRequested($target);
+        $this->embedHtmlImagesAsDataUrlsIfRequested($target, $output_dir);
         return $target;
      
     }
