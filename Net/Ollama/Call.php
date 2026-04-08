@@ -136,7 +136,7 @@ abstract class Net_Ollama_Call {
                 throw new Net_Ollama_Exception_ConnectionTimeout(array('connectionTimeout' => $connectTimeout));
             }
             // if ($curlError) {
-                require_once 'Net/Ollama/Exception/HttpError.php';
+                require_once 'Net/Ollama/Exception/CurlError.php';
                 throw new Net_Ollama_Exception_CurlError(array('curlError' => $curlError));
             // }
             // if ($httpCode !== 200 && $httpCode !== 0) {
