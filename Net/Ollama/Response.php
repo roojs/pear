@@ -22,10 +22,7 @@ class Net_Ollama_Response {
         foreach($this as $k => $v) {
             if($k == 'call') {
                 $arr[$k] = $v->toObjectArray();
-                foreach($arr[$k] as $k2 => $v2) {
-                    var_dump('---- ' . $k2);
-                }
-                die('test');
+                continue;
             }
             $arr[$k] = $v;
         }
