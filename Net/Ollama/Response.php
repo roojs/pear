@@ -16,6 +16,7 @@ class Net_Ollama_Response {
         }
     }
 
+    // to array compatible with json_encode
     function toObjectArray()
     {
         $arr = array();
