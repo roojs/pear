@@ -2,9 +2,9 @@
 
 abstract class Net_Ollama_Call {
     /** @var Net_Ollama Client reference; listed in {@see $excluded} so it is never JSON-encoded. */
-    var $oai;
+    protected $oai;
     var $id;
-    var $response;
+    protected $response;
     /** @var string[] Property names never sent in the API JSON body (always skip). */
     static $excluded = array('id', 'response', 'oai');
     /**
