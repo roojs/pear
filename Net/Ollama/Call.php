@@ -42,6 +42,8 @@ abstract class Net_Ollama_Call {
             }
             $arr[$k] = $v;
         }
+        var_dump($arr);
+        die('test');
         return $arr;
     }
 
