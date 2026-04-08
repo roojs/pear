@@ -32,6 +32,7 @@ abstract class Net_Ollama_Call {
     abstract function execute();
     abstract function process($response);
 
+    // to array compatible with json_encode
     function toObjectArray()
     {
         $arr = array();
