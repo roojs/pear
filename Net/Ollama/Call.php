@@ -182,6 +182,8 @@ abstract class Net_Ollama_Call {
             require_once 'Net/Ollama/Exception/HttpError.php';
             throw new Net_Ollama_Exception_HttpError(array('httpCode' => $httpCode));
         }
+
+        die('test');
         
         $this->oai->debug("Received Response", json_decode($result, true));
         
