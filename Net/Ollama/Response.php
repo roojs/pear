@@ -20,6 +20,9 @@ class Net_Ollama_Response {
     {
         $arr = array();
         foreach($this as $k => $v) {
+            if(in_array($k, array('oai'))) {
+                continue;
+            }
             if($k == 'call') {
                 $arr[$k] = $v->toObjectArray();
                 continue;
