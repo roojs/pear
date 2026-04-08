@@ -139,7 +139,6 @@ abstract class Net_Ollama_Call {
                 require_once 'Net/Ollama/Exception/CurlError.php';
                 throw new Net_Ollama_Exception_CurlError(array('curlError' => $curlError));
             }
-            $httpCode = 123;
             if ($httpCode !== 200 && $httpCode !== 0) {
                 require_once 'Net/Ollama/Exception/HttpError.php';
                 throw new Net_Ollama_Exception_HttpError(array('httpCode' => $httpCode));
