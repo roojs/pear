@@ -41,6 +41,10 @@ abstract class Net_Ollama_Call {
             if(in_array($k, array('oai', 'response'))) {
                 continue;
             }
+            if($k == '_chat_stream') {
+                var_dump($k);
+                die('test');
+            }
             $arr[$k] = $v;
         }
         return $arr;
