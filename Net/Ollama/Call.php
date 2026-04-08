@@ -32,6 +32,19 @@ abstract class Net_Ollama_Call {
     abstract function execute();
     abstract function process($response);
 
+    function toArray()
+    {
+        $arr = array();
+        foreach($this as $k => $v) {
+            // skip properties which may will form circular references
+            if(in_array($k, self::$excluded, true) || in_array($k, $this->_exclude, true) || strpos($k, '_') === 0) {
+                continue;
+            }
+            $arr[$k] = $v;
+        }
+        return $arr;
+    }
+
     /**
      * Response wrapper class name suffix (Net_Ollama_Response_{type}).
      * Override when {@see $_url} is not a single segment (e.g. v1/chat/completions -> Chat).
