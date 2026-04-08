@@ -4,6 +4,7 @@ require_once 'Net/Ollama/Exception.php';
 
 class Net_Ollama_Exception_ConnectionTimeout extends Net_Ollama_Exception
 {
+    var $connectionTimeout = 0;
     function __construct($options = array()) 
     {
         $message = "Failed to connect";
