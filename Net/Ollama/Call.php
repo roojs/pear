@@ -37,7 +37,7 @@ abstract class Net_Ollama_Call {
         $arr = array();
         foreach($this as $k => $v) {
             // skip properties which may will form circular references
-            if(in_array($k, self::$excluded, true) || in_array($k, $this->_exclude, true) || strpos($k, '_') === 0) {
+            if(in_array($k, array('oai', 'response', '_chat_stream'))) {
                 continue;
             }
             $arr[$k] = $v;
