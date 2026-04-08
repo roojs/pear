@@ -15,5 +15,10 @@ class Net_Ollama_Response {
             }
         }
     }
+
+    function toObject()
+    {
+        
+    }
 }
 
