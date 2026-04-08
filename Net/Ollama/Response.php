@@ -16,9 +16,14 @@ class Net_Ollama_Response {
         }
     }
 
-    function toObject()
+    function toArray()
     {
-        
+        $arr = array();
+        foreach((array)$this as $k => $v) {
+            if($k == 'call') {
+
+            }
+        }
     }
 }
 
