@@ -15,7 +15,7 @@ abstract class Net_Ollama_Call {
     var $_url = '';
     var $_method = 'POST';
     var $_stream_buffer = '';
-    var $_chat_stream = false;
+    protected $_chat_stream = false;
      
     function __construct($oai, $args = array())
     {
