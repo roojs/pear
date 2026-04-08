@@ -16,7 +16,7 @@ class Net_Ollama_Response {
         }
     }
 
-    function toArray()
+    function toObjectArray()
     {
         $arr = array();
         foreach($this as $k => $v) {

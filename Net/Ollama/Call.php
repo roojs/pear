@@ -32,7 +32,7 @@ abstract class Net_Ollama_Call {
     abstract function execute();
     abstract function process($response);
 
-    function toArray()
+    function toObjectArray()
     {
         $arr = array();
         foreach($this as $k => $v) {
