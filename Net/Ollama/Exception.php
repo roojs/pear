@@ -11,5 +11,5 @@ abstract class Net_Ollama_Exception extends Exception
         }
     }
 
-    abstract function getMessage() : string;
+    abstract function buildMessage() : string;
 }
