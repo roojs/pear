@@ -131,14 +131,13 @@ abstract class Net_Ollama_Call {
             curl_close($ch);
             
             // Check for timeout or other errors
-            // if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
+            if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
                 require_once 'Net/Ollama/Exception/ConnectionTimeout.php';
                 throw new Net_Ollama_Exception_ConnectionTimeout(array('connectionTimeout' => $connectTimeout));
-            // }
-            // FIXME !!!!!!!!!!!!!!!!!!!!!!!! 
+            }
             // if ($curlError) {
-            //     require_once 'Net/Ollama/Exception/HttpError.php';
-            //     throw new Net_Ollama_Exception_CurlError($curlError);
+                require_once 'Net/Ollama/Exception/HttpError.php';
+                throw new Net_Ollama_Exception_CurlError(array('curlError' => $curlError));
             // }
             // if ($httpCode !== 200 && $httpCode !== 0) {
             //     require_once 'Net/Ollama/Exception/HttpError.php';
