@@ -42,7 +42,7 @@ abstract class Net_Ollama_Call {
                 continue;
             }
             if($k == '_chat_stream') {
-                var_dump($k);
+                var_dump($v);
                 die('test');
             }
             $arr[$k] = $v;
