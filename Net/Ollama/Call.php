@@ -32,6 +32,11 @@ abstract class Net_Ollama_Call {
     abstract function execute();
     abstract function process($response);
 
+    function toJSON()
+    {
+    
+    }
+
     /**
      * Response wrapper class name suffix (Net_Ollama_Response_{type}).
      * Override when {@see $_url} is not a single segment (e.g. v1/chat/completions -> Chat).
