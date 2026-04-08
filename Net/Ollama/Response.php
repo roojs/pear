@@ -19,11 +19,13 @@ class Net_Ollama_Response {
     function toArray()
     {
         $arr = array();
-        foreach((array)$this as $k => $v) {
+        foreach($this as $k => $v) {
             if($k == 'call') {
-
+                $arr[$k] = $v->toArray();
             }
+            $arr[$k] = $v;
         }
+        return $arr;
     }
 }
 
