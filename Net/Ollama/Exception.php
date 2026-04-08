@@ -9,6 +9,8 @@ abstract class Net_Ollama_Exception extends Exception
                 $this->{$k} = $v;
             }
         }
+
+        parent::__construct($this->buildMessage());
     }
 
     abstract function buildMessage() : string;
