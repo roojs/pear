@@ -21,7 +21,7 @@ class Net_Ollama_Response {
         $arr = array();
         foreach($this as $k => $v) {
             if($k == 'call') {
-                $arr[$k] = $v->toArray();
+                $arr[$k] = $v->toObjectArray();
             }
             $arr[$k] = $v;
         }
