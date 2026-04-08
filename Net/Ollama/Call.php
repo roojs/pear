@@ -136,14 +136,14 @@ abstract class Net_Ollama_Call {
                 throw new Net_Ollama_Exception_ConnectionTimeout(array('connectionTimeout' => $connectTimeout));
             }
             // FIXME !!!!!!!!!!!!!!!!!!!!!!!! 
-            if ($curlError) {
-                require_once 'Net/Ollama/Exception/HttpError.php';
-                throw new Net_Ollama_Exception_CurlError($curlError);
-            }
-            if ($httpCode !== 200 && $httpCode !== 0) {
-                require_once 'Net/Ollama/Exception/HttpError.php';
-                throw new Net_Ollama_Exception_HttpError($httpCode);
-            }
+            // if ($curlError) {
+            //     require_once 'Net/Ollama/Exception/HttpError.php';
+            //     throw new Net_Ollama_Exception_CurlError($curlError);
+            // }
+            // if ($httpCode !== 200 && $httpCode !== 0) {
+            //     require_once 'Net/Ollama/Exception/HttpError.php';
+            //     throw new Net_Ollama_Exception_HttpError($httpCode);
+            // }
               
             // Call callback once at the end with any remaining new text and final response
             // Note: We can't access the static variable here, so we'll pass empty string
