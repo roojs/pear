@@ -9,7 +9,5 @@ class Net_Ollama_Exception extends Exception
                 $this->{$k} = $v;
             }
         }
-
-        parent::__construct($message);
     }
 }
