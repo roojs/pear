@@ -40,6 +40,10 @@ abstract class Net_Ollama_Call {
             if(in_array($k, self::$excluded, true) || in_array($k, $this->_exclude, true) || strpos($k, '_') === 0) {
                 continue;
             }
+            if($k == 'response') {
+                $arr[$k] = $v->toObjectArray();
+                continue;
+            }
             $arr[$k] = $v;
         }
         return $arr;
