@@ -1,6 +1,6 @@
 <?php
 
-class Net_Ollama_Exception extends Exception
+abstract class Net_Ollama_Exception extends Exception
 {
     function __construct($options = array()) 
     {
