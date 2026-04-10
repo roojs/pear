@@ -1,0 +1,413 @@
+diff --git a/File/Convert.php b/File/Convert.php
+index e77ff0d4..253c545f 100644
+--- a/File/Convert.php
++++ b/File/Convert.php
+@@ -15,6 +15,8 @@
+  * options 
+  * {
+  *   delete_all : delete all the generated files after script execution when we call convert()
++ *   imageToDataUrl : (default false) when true, File_Convert_Solution_unoconv embeds local img src files
++ *                    as data: URLs in the output HTML when converting to text/html (no placeholders).
+  * }
+  * 
+  */
+@@ -153,8 +155,7 @@ class File_Convert
+         ) {
+ 
+             $action = $this->getConvMethods($this->mimetype, $toMimetype);
+-             
+-            //echo '<PRE>';print_r($action);
++
+             if (!$action) {
+                 
+                 $this->debug("No methods found to convert {$this->mimetype} to {$toMimetype}");
+@@ -429,7 +430,7 @@ class File_Convert
+             }
+             if (in_array($to,$t['to'])) {
+                 $cls = $t['cls'];
+-                $ret =  new $cls($from, $to);  // found a solid match - returns the method.
++                $ret =  new $cls($from, $to, self::$options);  // found a solid match - returns the method.
+                 //$ret->convert = $this; // recursion?
+                 $this->solutions[] = $ret;
+ 
+@@ -468,7 +469,7 @@ class File_Convert
+                 }
+ //                print_r($conv);exit;
+ 
+-                $first = new $conv($from, $targ);
++                $first = new $conv($from, $targ, self::$options);
+                 //$first->convert = $this;
+                 $sol_list= $first->add($try);
+                 
+diff --git a/File/Convert/Solution/unoconv.php b/File/Convert/Solution/unoconv.php
+index 7c077a41..2f3e2244 100644
+--- a/File/Convert/Solution/unoconv.php
++++ b/File/Convert/Solution/unoconv.php
+@@ -47,9 +47,83 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
+         ),
+         
+     );
+-    
+-      
+-    
++
++    /**
++     * Remove a directory tree (LibreOffice profile under tmp-lo-*).
++     */
++    private static function removeLibreOfficeHomeDir($dir)
++    {
++        $items = @scandir($dir);
++        foreach ($items as $item) {
++            if ($item === '.' || $item === '..') {
++                continue;
++            }
++            $path = $dir . '/' . $item;
++            if (is_dir($path)) {
++                self::removeLibreOfficeHomeDir($path);
++                continue;
++            }
++            @unlink($path);
++        }
++        @rmdir($dir);
++    }
++
++    /**
++     * Inline local image files as data: URLs in saved HTML (no placeholders).
++     * Runs only when option imageToDataUrl is true and target mime is text/html.
++     *
++     * @param string $target Absolute path to HTML file
++     * @param string $output_dir Absolute path to output directory
++     */
++    private function embedHtmlImagesAsDataUrlsIfRequested($target, $output_dir)
++    {
++        if (empty(self::$options['imageToDataUrl']) || $this->to !== 'text/html' || !file_exists($target)) {
++            return;
++        }
++
++        libxml_use_internal_errors(true);
++        $doc = new DOMDocument();
++        $doc->loadHTMLFile($target, LIBXML_NOERROR | LIBXML_NOWARNING);
++        $imgs = $doc->getElementsByTagName('img');
++        $modified = false;
++
++        foreach ($imgs as $im) {
++            $src = $im->getAttribute('src');
++            if ($src === '' || preg_match('#^data:#i', $src) || preg_match('#^https?://#i', $src)) {
++                $this->debug("Skipping image src: " . $src);
++                continue;
++            }
++            $candidates = array(
++                $output_dir . '/' . urldecode($src),
++                $output_dir . '/' . $src,
++            );
++            $ifn = false;
++            foreach ($candidates as $c) {
++                if (file_exists($c) && is_file($c)) {
++                    $ifn = $c;
++                    break;
++                }
++            }
++            if (!$ifn) {
++                $this->debug("No image file found: " . $src);
++                continue;
++            }
++            $imageInfo = @getimagesize($ifn);
++            if ($imageInfo === false) {
++                $this->debug("Failed to get image info: " . $src);
++                continue;
++            }
++            $mime = $imageInfo['mime'];
++            $im->setAttribute('src', 'data:' . $mime . ';base64,' . base64_encode(file_get_contents($ifn)));
++            $this->debug("Converted image to data URL: " . $src);
++            $modified = true;
++        }
++
++        if ($modified) {
++            $doc->saveHTMLFile($target);
++        }
++    }
++
+     //FIXME this method run 3 times??
+     function convert($fn,$x,$y,$pg) 
+     {
+@@ -59,14 +133,12 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
+         
+         $target =   $fn  . '.' . $ext;
+         
+-        
+         if ( file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
+             $this->debug("UNOCONV SKIP target exists");
+             return $target;
+         }
+-        $bits = explode('.', $fn);
+         
+-        $from = $this->tempName(array_pop($bits),true);
++        $from = $this->tempName(pathinfo($fn, PATHINFO_EXTENSION),true);
+         $to = $this->tempName($ext,true);
+         
+         copy($fn, $from);
+@@ -74,20 +146,27 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
+         require_once 'System.php';
+         
+         $timeout = System::which('timeout');
+-        // fix the home directory - as we can't normally write to www-data's home directory.
+-        putenv('HOME='. ini_get('session.save_path'));
+         $libreoffice = System::which('libreoffice');
+         if (empty($libreoffice)) {
+             $this->debug("missing libreoffice");
+             $this->cmd = "Missing libreoffice";
+             return false;
+         }
++
++        $loHome = rtrim(ini_get('session.save_path'), '/\\') . '/tmp-lo-' . str_replace('.', '', uniqid('', true));
++        if (!@mkdir($loHome, 0700, true)) {
++            $this->debug("Could not create LibreOffice HOME: {$loHome}");
++            @unlink($from);
++            return false;
++        }
++        $previousHome = getenv('HOME');
++        putenv('HOME=' . $loHome);
+         $output_dir = dirname($to);
+         
+         // Use LibreOffice headless conversion (no xvfb-run needed)
+         $cmd = "$timeout 5m $libreoffice --headless --convert-to $ext --outdir " . 
+                 escapeshellarg($output_dir) . " " . escapeshellarg($from) . " 2>&1";
+-        ////  echo $cmd;
++        //  echo $cmd;
+       
+         $res = $this->exec($cmd);
+         
+@@ -101,26 +180,30 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
+         // LibreOffice creates output file with same base name as input but with new extension
+         $input_basename = pathinfo($from, PATHINFO_FILENAME);
+         $libreoffice_output = $output_dir . '/' . $input_basename . '.' . $ext;
+-        
++
+         // Check if LibreOffice created the output file
+         if (file_exists($libreoffice_output)) {
+             copy($libreoffice_output, $target);
+             @unlink($libreoffice_output);
+             @unlink($from);
+             clearstatcache();
++
++            putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
++            self::removeLibreOfficeHomeDir($loHome);
++            $this->embedHtmlImagesAsDataUrlsIfRequested($target, $output_dir);
+             return $target;
+         }
+         
+         // If conversion failed, try again
+-        if (!file_exists($libreoffice_output) || (file_exists($libreoffice_output) && filesize($libreoffice_output) < 400)) {
+-            // try again!!!!
+-            @unlink($libreoffice_output);
+-            clearstatcache();
+-            sleep(3);
+-            
+-            $res = $this->exec($cmd);
+-            clearstatcache();
+-        }
++        @unlink($libreoffice_output);
++        clearstatcache();
++        sleep(3);
++        
++        $res = $this->exec($cmd);
++        clearstatcache();
++
++        putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
++        self::removeLibreOfficeHomeDir($loHome);
+         
+         @unlink($from);
+         if (!file_exists($libreoffice_output)) {    
+@@ -130,22 +213,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
+         // Copy the LibreOffice output to the target location
+         copy($libreoffice_output, $target);
+         @unlink($libreoffice_output);
+-        if ($ext == 'html') {
+-            $doc = new DOMDocument();
+-            $doc->loadHTMLFile($target, LIBXML_NOERROR + LIBXML_NOWARNING);
+-            $imgs = $doc->getElementsByTagName('img');
+-            foreach($imgs as $im) {
+-                $path = $im->getAttribute('src');
+-                if (file_exists(dirname($target).'/'. $path)) {
+-                    $ifn = dirname($target).'/'. $path;
+-                    $type = image_type_to_mime_type(exif_imagetype($ifn));
+-                    $im->setAttribute('src', 'data:'.$type.';base64,' . base64_encode(file_get_contents($ifn)));
+-                }
+-                
+-            }
+-            
+-            $doc->saveHTMLFile($target);
+-        }
++        $this->embedHtmlImagesAsDataUrlsIfRequested($target, $output_dir);
+         return $target;
+      
+     }
+diff --git a/Net/Ollama/Call.php b/Net/Ollama/Call.php
+index 8b9cb076..2c7b7e8e 100644
+--- a/Net/Ollama/Call.php
++++ b/Net/Ollama/Call.php
+@@ -32,6 +32,20 @@ abstract class Net_Ollama_Call {
+     abstract function execute();
+     abstract function process($response);
+ 
++    // to array compatible with json_encode
++    function toObjectArray()
++    {
++        $arr = array();
++        foreach($this as $k => $v) {
++            // skip properties which may will form circular references
++            if(in_array($k, array('oai', 'response', '_chat_stream'))) {
++                continue;
++            }
++            $arr[$k] = $v;
++        }
++        return $arr;
++    }
++
+     /**
+      * Response wrapper class name suffix (Net_Ollama_Response_{type}).
+      * Override when {@see $_url} is not a single segment (e.g. v1/chat/completions -> Chat).
+@@ -132,13 +146,16 @@ abstract class Net_Ollama_Call {
+             
+             // Check for timeout or other errors
+             if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
+-                throw new Exception("Connection timeout: Failed to connect within {$connectTimeout} seconds");
++                require_once 'Net/Ollama/Exception/ConnectionTimeout.php';
++                throw new Net_Ollama_Exception_ConnectionTimeout(array('connectionTimeout' => $connectTimeout));
+             }
+             if ($curlError) {
+-                throw new Exception("cURL error: {$curlError}");
++                require_once 'Net/Ollama/Exception/CurlError.php';
++                throw new Net_Ollama_Exception_CurlError(array('curlError' => $curlError));
+             }
+             if ($httpCode !== 200 && $httpCode !== 0) {
+-                throw new Exception("HTTP error: {$httpCode}");
++                require_once 'Net/Ollama/Exception/HttpError.php';
++                throw new Net_Ollama_Exception_HttpError(array('httpCode' => $httpCode));
+             }
+               
+             // Call callback once at the end with any remaining new text and final response
+@@ -168,13 +185,16 @@ abstract class Net_Ollama_Call {
+         
+         // Check for timeout or other errors
+         if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
+-            throw new Exception("Connection timeout: Failed to connect within {$connectTimeout} seconds");
++            require_once 'Net/Ollama/Exception/ConnectionTimeout.php';
++            throw new Net_Ollama_Exception_ConnectionTimeout(array('connectionTimeout' => $connectTimeout));
+         }
+         if ($curlError) {
+-            throw new Exception("cURL error: {$curlError}");
++            require_once 'Net/Ollama/Exception/CurlError.php';
++            throw new Net_Ollama_Exception_CurlError(array('curlError' => $curlError));
+         }
+         if ($httpCode !== 200 && $httpCode !== 0) {
+-            throw new Exception("HTTP error: {$httpCode}");
++            require_once 'Net/Ollama/Exception/HttpError.php';
++            throw new Net_Ollama_Exception_HttpError(array('httpCode' => $httpCode));
+         }
+         
+         $this->oai->debug("Received Response", json_decode($result, true));
+diff --git a/Net/Ollama/Exception.php b/Net/Ollama/Exception.php
+new file mode 100644
+index 00000000..0fe13ec4
+--- /dev/null
++++ b/Net/Ollama/Exception.php
+@@ -0,0 +1,17 @@
++<?php
++
++abstract class Net_Ollama_Exception extends Exception
++{
++    function __construct($options = array()) 
++    {
++        foreach((array)$options as $k => $v) {
++            if(property_exists($this, $k)) {
++                $this->{$k} = $v;
++            }
++        }
++
++        parent::__construct($this->buildMessage());
++    }
++
++    abstract function buildMessage() : string;
++}
+\ No newline at end of file
+diff --git a/Net/Ollama/Exception/ConnectionTimeout.php b/Net/Ollama/Exception/ConnectionTimeout.php
+new file mode 100644
+index 00000000..477735e5
+--- /dev/null
++++ b/Net/Ollama/Exception/ConnectionTimeout.php
+@@ -0,0 +1,12 @@
++<?php
++
++require_once 'Net/Ollama/Exception.php';
++
++class Net_Ollama_Exception_ConnectionTimeout extends Net_Ollama_Exception
++{
++    var $connectionTimeout = 0;
++
++    function buildMessage() : string {
++        return "Failed to connect within {$this->connectionTimeout} seconds";
++    }
++}
+\ No newline at end of file
+diff --git a/Net/Ollama/Exception/CurlError.php b/Net/Ollama/Exception/CurlError.php
+new file mode 100644
+index 00000000..d08acb97
+--- /dev/null
++++ b/Net/Ollama/Exception/CurlError.php
+@@ -0,0 +1,12 @@
++<?php
++
++require_once 'Net/Ollama/Exception.php';
++
++class Net_Ollama_Exception_CurlError extends Net_Ollama_Exception
++{
++    var $curlError = '';
++
++    function buildMessage() : string {
++        return "cURL error: {$this->curlError}";
++    }
++}
+\ No newline at end of file
+diff --git a/Net/Ollama/Exception/HttpError.php b/Net/Ollama/Exception/HttpError.php
+new file mode 100644
+index 00000000..77f65364
+--- /dev/null
++++ b/Net/Ollama/Exception/HttpError.php
+@@ -0,0 +1,12 @@
++<?php
++
++require_once 'Net/Ollama/Exception.php';
++
++class Net_Ollama_Exception_HttpError extends Net_Ollama_Exception
++{
++    var $httpCode = 0;
++
++    function buildMessage() : string {
++        return "HTTP error: {$this->httpCode}";
++    }
++}
+\ No newline at end of file
+diff --git a/Net/Ollama/Response.php b/Net/Ollama/Response.php
+index 52c29d8c..ec682001 100644
+--- a/Net/Ollama/Response.php
++++ b/Net/Ollama/Response.php
+@@ -15,5 +15,18 @@ class Net_Ollama_Response {
+             }
+         }
+     }
++
++    // to array compatible with json_encode
++    function toObjectArray()
++    {
++        $arr = array();
++        foreach($this as $k => $v) {
++            if(in_array($k, array('oai', 'call'))) {
++                continue;
++            }
++            $arr[$k] = $v;
++        }
++        return $arr;
++    }
+ }
+ 
