@@ -153,6 +153,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         if (empty($libreoffice)) {
             $this->debug("missing libreoffice");
             $this->cmd = "Missing libreoffice";
+            @unlink($from);
             return false;
         }
 
