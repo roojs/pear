@@ -60,6 +60,7 @@ class Net_Ollama_Call_ChatCompletions extends Net_Ollama_Call_Chat {
         // Process complete lines (SSE format: "data: {...}\n")
         while (($pos = strpos($this->_stream_buffer, "\n")) !== false) {
             $line = substr($this->_stream_buffer, 0, $pos);
+            var_dump($line);
             $this->_stream_buffer = substr($this->_stream_buffer, $pos + 1);
             
             // Skip empty lines
