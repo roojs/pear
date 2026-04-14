@@ -3597,7 +3597,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * @var     string
      */
     var $_join = '';
-    var $_count_extra_join; // Extra join requried in count query
+    var $_count_extra_join; // Extra join (not from autoJoin) requried in count query
 
     /**
      * joinAdd - adds another dataobject to this, building a joined query.
