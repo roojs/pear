@@ -4158,8 +4158,6 @@ class DB_DataObject extends DB_DataObject_Overload
         }
         
         
-        var_dump($map);
-        die('test');
         foreach($map as $ocl=>$info) {
             if (strpos($info, ':') === false) {
                 $this->raiseError(
