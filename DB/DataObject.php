@@ -4160,6 +4160,10 @@ class DB_DataObject extends DB_DataObject_Overload
         if(!empty($_REQUEST['_count_join_exclude'])) {
             die('test');
         }
+        if(!empty($cfg['exclude_join']) {
+            var_dump($map);
+            die('test');
+        })
         foreach($map as $ocl=>$info) {
             if (strpos($info, ':') === false) {
                 $this->raiseError(
