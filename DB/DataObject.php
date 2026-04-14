@@ -3597,6 +3597,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * @var     string
      */
     var $_join = '';
+    var $_join_parts = array();
 
     /**
      * joinAdd - adds another dataobject to this, building a joined query.
@@ -3668,6 +3669,7 @@ class DB_DataObject extends DB_DataObject_Overload
         global $_DB_DATAOBJECT;
         if ($obj === false) {
             $this->_join = '';
+            $this->_join_parts = array();
             return;
         }
          
@@ -4033,10 +4035,12 @@ class DB_DataObject extends DB_DataObject_Overload
                 // jadd avaliable for debugging join build.
                 //echo $jadd ."\n";
                 $this->_join .= $jadd;
+                $this->_join_parts[] = $jadd;
                 break;
                 
             case '': // this is just a standard multitable select..
                 $this->_join .= "\n , {$objTable} {$fullJoinAs} {$appendJoin}";
+                $this->_join_parts[] = "\n , {$objTable} {$fullJoinAs} {$appendJoin}";
                 $this->whereAdd("{$joinAs}.{$ofield}={$table}.{$tfield}");
         }
          
