@@ -3597,6 +3597,7 @@ class DB_DataObject extends DB_DataObject_Overload
      * @var     string
      */
     var $_join = '';
+    var $_join_count;
     var $_join_parts = array();
 
     /**
