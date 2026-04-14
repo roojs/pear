@@ -4156,11 +4156,7 @@ class DB_DataObject extends DB_DataObject_Overload
         foreach($keys as $k) {
             $ret['cols'][$k] = $this->tableName(). '.' . $k;
         }
-        
-        if(!empty($cfg['exclude_join'])) {
-            var_dump($map);
-            die('test');
-        }
+
         foreach($map as $ocl=>$info) {
             if (strpos($info, ':') === false) {
                 $this->raiseError(
@@ -4176,6 +4172,10 @@ class DB_DataObject extends DB_DataObject_Overload
                 continue;
             }
              if (!empty($cfg['exclude']) && in_array($tab .'.*', $cfg['exclude'])) {
+                continue;
+            }
+
+            if(!empty($cfg['exclude_join']) && in_array($ocl, $cfg['exclude_join'])) {
                 continue;
             }
             
