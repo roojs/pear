@@ -4157,9 +4157,6 @@ class DB_DataObject extends DB_DataObject_Overload
             $ret['cols'][$k] = $this->tableName(). '.' . $k;
         }
         
-        if(!empty($_REQUEST['_count_join_exclude'])) {
-            die('test');
-        }
         if(!empty($cfg['exclude_join'])) {
             var_dump($map);
             die('test');
