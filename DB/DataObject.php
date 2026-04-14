@@ -4176,6 +4176,9 @@ class DB_DataObject extends DB_DataObject_Overload
             }
 
             if(!empty($cfg['exclude_join']) && in_array($ocl, $cfg['exclude_join'])) {
+                var_dump($cfg['exclude_join']);
+                var_dump($ocl);
+                die('test');
                 continue;
             }
             
