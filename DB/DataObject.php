@@ -4174,10 +4174,6 @@ class DB_DataObject extends DB_DataObject_Overload
              if (!empty($cfg['exclude']) && in_array($tab .'.*', $cfg['exclude'])) {
                 continue;
             }
-
-            if(!empty($cfg['exclude_join']) && in_array($ocl, $cfg['exclude_join'])) {
-                continue;
-            }
             
             $xx = DB_DataObject::factory($tab);
             if (!is_object($xx) || !is_a($xx, 'DB_DataObject')) {
