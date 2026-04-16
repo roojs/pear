@@ -10,11 +10,11 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
 {
     
     function __construct($cfg) {
-        if ($cfg['node']) {
+        if (!empty($cfg['node'])) {
             $this->readElement($cfg['node']);
             $this->updateElement($cfg['node']);
         }
-        parent::__construct();
+        parent::__construct($cfg);
     }
      
   
@@ -28,7 +28,8 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
     var $cls = '';
     var $href = '';
     var $video_url = '';
-    
+    var $image_width = 0;
+    var $image_height = 0;
     // margin: '2%', not used
     
     var $text_align = 'left'; //   (left|right) alignment for the text caption default left. - not used at present
@@ -37,131 +38,141 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
     // used by context menu
     
     /**
-     * create a DomHelper friendly object - for use with
-     * Roo.DomHelper.markup / overwrite / etc..
+     * use with HTML_Clean_Block::createDom()
      */
     function toObject ()
     {
         $doc = new DOMDocument('1.0', 'utf8');
         
-        $d = $doc->createElement('div');
-        $f = $doc->createDocumentFragment();
-        $f->appendXML($o->caption); // caption could include html
-        $d->appendChild($f);
-        $caption_plain = $this->caption_display == "block" ? trim(preg_replace('/\s+/g', ' ', str_replace("\n", " ", $d->textContent))) : '';
+        // plain text caption
+        // alt text for the image
+        $alt = '';
+        if(!empty($this->caption)) {
+            $d = $doc->createElement('div');
+            $f = $doc->createDocumentFragment();
+            $f->appendXML($this->caption); // caption could include html
+            $d->appendChild($f);
+            $alt = trim(
+                str_replace('"', '&quot;',
+                    preg_replace('/\s+/', ' ',
+                        str_replace("\n", " ", $d->textContent)
+                    )
+                )
+            );
+        }
         
+        // margin
         $m = $this->width != '100%' && $this->align == 'center' ? '0 auto' : 0; 
         
+        // image width
         $iw = $this->align == 'center' ? $this->width : '100%';
+
+        // image element array
         $img =   array(
             'tag' => 'img',
+            'contenteditable' => 'false',
             'src' => $this->image_src,
-            'alt' => $caption_plain,
+            'alt' => $alt,
             'style'=> array(
                 'width' => $iw,
-                'max-width' =>$iw + ' !important', // this is not getting rendered?
+                'max-width' => $iw . ' !important', 
                 'margin' => $m  
-                
-            )
+            ),
+            'width' => $iw
         );
-        /*
-        '<div class="{0}" width="420" height="315" src="{1}" frameborder="0" allowfullscreen>' +
-                    '<a href="{2}">' + 
-                        '<img class="{0}-thumbnail" src="{3}/Images/{4}/{5}#image-{4}" />' + 
-                    '</a>' + 
-                '</div>',
-        */
-                
+        
+        // if href is set, wrap the image in a link
         if (!empty($this->href)) {
             $img = array(
-                'tag ' => 'a',
+                'tag' => 'a',
+                'contenteditable' => 'false',
                 'href' => $this->href,
                 'cn' => array(
                     $img
                 )
             );
         }
+
+        $image_width = (int) $this->image_width;
+        $image_height = (int) $this->image_height;
+
         
-        
-        if (!empty($this->video_url.length )) {
+        // if video url is set, wrap the image in a video div
+        if (!empty(strlen($this->video_url))) {
             $img = array(
                 'tag' => 'div',
                 'cls' => $this->cls,
                 'frameborder' => 0,
                 'allowfullscreen' => true,
-                'width' => 420,  // these are for video tricks - that we replace the outer
-                'height' => 315,
+                'width' => 768,  // these are for video tricks - that we replace the outer
+                'height' => (!empty($image_width) && !empty($image_height)) ? (round(768 / $image_width * $image_height)) : 576,
                 'src' => $this->video_url,
                 'cn' => array(
                     $img
                 )
             );
         }
-        // we remove caption totally if its hidden... - will delete data.. but otherwise we end up with fake caption
-        $captionhtml = $this->caption_display == 'none' || !strlen($this->caption) ? '' : $this->caption;
-        
-  
-        return  array(
-            'tag '=> 'figure',
+
+        $ret = array(
+            'tag' => 'figure',
             'data-block' => 'Figure',
-            'data-width' => $this->width, 
-            
-            
+            'data-width' => $this->width,
+            'data-caption' => $this->caption, 
+            'data-caption-display' => $this->caption_display,
+            'data-image-width' => $this->image_width,
+            'data-image-height' => $this->image_height,
+            'contenteditable' => 'false',
             'style' => array(
                 'display' => 'block',
-                'float' =>  $this->align ,
-                'max-width' =>  $this->align == 'center' ? '100% !important' : ($this->width + ' !important'),
+                'float' =>  $this->align,
+                'max-width' =>  $this->align == 'center' ? '100% !important' : ($this->width . ' !important'),
                 'width' => $this->align == 'center' ? '100%' : $this->width,
                 'margin' =>  '0px',
                 'padding' => $this->align == 'center' ? '0' : '0 10px' ,
-                'text-align' => $this->align   // seems to work for email..
+                'text-align' => $this->align
                 
             ),
-           
-            
             'align' => $this->align,
             'cn' => array(
-                $img,
-              
-                array (
-                    'tag'=> 'figcaption',
-                    'data-display' => $this->caption_display,
-                    'style' => array(
-                        'text-align' => 'left',
-                        'font-size' => '16px',
-                        'line-height' => '24px',
-                        'display' => $this->caption_display,
-                        'max-width' => ($this->align == 'center' ?  $this->width : '100%' ) + ' !important',
-                        'margin'=> $m,
-                        'width'=> $this->align == 'center' ?  $this->width : '100%' 
-                    
-                         
-                    ),
-                    'cls' => $this->cls.length > 0 ? ($this->cls  + '-thumbnail' ) : '',
-                    'cn' => array(
-                        array(
-                            'tag' => 'div',
-                            'style'  => array(
-                                'margin-top' => '16px',
-                                'text-align' => 'left'
-                            ),
-                            'align'=> 'left',
-                            'cn' => array(
-                                array( 
-                                    // we can not rely on yahoo syndication to use CSS elements - so have to use  '<i>' to encase stuff.
-                                    'tag' => 'i',
-                                    'html' => $captionhtml
-                                )
-                                
-                            )
-                        )
-                        
-                    )
-                    
-                )
+                $img
             )
         );
-         
+
+        // show figcaption only if caption_display is 'block'
+        if($this->caption_display == 'block') {
+            $ret['cn'][] = array(
+                'tag' => 'figcaption',
+                'style' => array(
+                    'text-align' => 'left',
+                    'font-size' => '16px',
+                    'line-height' => '24px',
+                    'display' => $this->caption_display,
+                    'max-width' => ($this->align == 'center' ?  $this->width : '100%' ) . ' !important',
+                    'margin' => $m,
+                    'width' => $this->align == 'center' ?  $this->width : '100%' 
+                ),
+                'cls' => strlen($this->cls) > 0 ? ($this->cls  . '-thumbnail' ) : '',
+                'cn' => array(
+                    array(
+                        'tag' => 'div',
+                        'style' => array(
+                            'margin-top' => '16px',
+                            'text-align' => 'start'
+                        ),
+                        'align' => 'left',
+                        'cn' => array(
+                            array(
+                                'tag' => 'i',
+                                'contenteditable' => 'true',
+                                'html' => strlen($this->caption) ? $this->caption : "Caption" // fake caption
+                            )
+                        )
+                    )
+                )
+            );
+        }
+
+        return $ret;
     }
     
     function readElement ($node)
@@ -170,23 +181,26 @@ class  HTML_Clean_BlockFigure extends HTML_Clean_Block
         $this->video_url = $this->getVal($node, 'div', 'src');
         $this->cls = $this->getVal($node, 'div', 'class');
         $this->href = $this->getVal($node, 'a', 'href');
-        
-        
         $this->image_src = $this->getVal($node, 'img', 'src');
-         
         $this->align = $this->getVal($node, 'figure', 'align');
+        // caption display is stored in figure
+        $this->caption_display = $this->getVal($node, true, 'data-caption-display');
+
+        // backward compatible
+        // it was stored in figcaption
+        if($this->caption_display == '') {
+            $this->caption_display = $this->getVal($node, 'figcaption', 'data-display');
+        }
         
+        // read caption from figcaption
         $figcaption = $this->getVal($node, 'figcaption', false);
         if ($figcaption !== '') {
             $this->caption = $this->getVal($figcaption, 'i', 'html');
         }
         
-
-        $this->caption_display = $this->getVal($node, 'figcaption', 'data-display');
-        //$this->text_align = $this->getVal(node, 'figcaption', 'style','text-align');
         $this->width = $this->getVal($node, true, 'data-width');
-        //$this->margin = $this->getVal(node, 'figure', 'style', 'margin');
-        
+        $this->image_width = $this->getVal($node, true, 'data-image-width');
+        $this->image_height = $this->getVal($node, true, 'data-image-height');
     }
     
     

@@ -14,8 +14,7 @@ require_once 'Filter.php';
 
 class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
 {
-   
- 
+    static $counter = 0;
     function __construct($cfg)
     {
         parent::__construct($cfg);
@@ -23,37 +22,17 @@ class HTML_Clean_FilterKeepChildren extends HTML_Clean_Filter
             return;
         }
         
-        $this->walk($cfg['node']);
+        $this->walk($this->node);
     } 
  
     function replaceTag ($n)
     {
-        
-          // walk children...
-        //Roo.log(node.tagName);
-        
-        $ar = $this->arrayFrom($node->childNodes);
-        
-        
-        //remove first.. - otherwise due to our walking method - the parent will not look at them.
-        foreach($ar as $t) {
-            if (!$this->isTagMatch($t)) {
-                continue;
-            }
-            $this->replaceTag($t); // this effetively walks all the children.
-        }
-        $ar = $this->arrayFrom($node->childNodes);
-        foreach($ar as $t) {
-         
-            $node->removeChild($t);
-            // what if we need to walk these???
-            $node->parentNode->insertBefore($t, $node);
-            // js code walks again.
-        }
-        //Roo.log("REMOVE:" + node.tagName);
-        $node->parentNode->removeChild(node);
+        // children is always walked before the parent
+        // as the parent may be removed
+        $this->walk($n);
+
+        $this->removeNodeKeepChildren($n);
         return false; // don't walk children
-        
     }
     
      

@@ -19,21 +19,28 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
     
     // what we are going to change..
     var $tags = array(
-        
-        
-        'B'  => array( 'font-weight' => 'bold' ),
-        'I' =>   array(  'font-style'  => 'italic' ),
-        
-        // h1.. h6 ?? font-size?
-        'SUP'  => array(   'vertical-align'  => 'super'),
-        'SUB' => array(   'vertical-align' => 'sub' )
-        
+        'B' => array(
+            'font-weight',
+            'bold'
+        ),
+        'I' => array(
+            'font-style',
+            'italic'
+        ),
+        'SUP' => array(
+            'vertical-align',
+            'super'
+        ),
+        'SUB' => array(
+            'vertical-align',
+            'sub'
+        )
     );
     
     function __construct($cfg)
     {
         parent::__construct($cfg);
-        $this->walk($cfg['node']);
+        $this->walk($this->node);
     }
     
  
@@ -42,39 +49,60 @@ class HTML_Clean_FilterStyleToTag extends HTML_Clean_Filter
     
     function replaceTag($node)
     {
-        
-        
-        if (!$node->hasAttribute("style")) {
+        $style = $node->getAttribute('style');
+
+        // no attribute 'style'
+        if(empty($style)) {
             return true;
         }
-        $inject = array();
-        $style = $this->styleToObject($node, true);
-        foreach ($this->tags as $tn => $kv) {
-            list($k,$v) = $kv;
-            if (!isset($style[$k]) || $style[$k] != $v) {
-                continue;
+
+        $tags = array();
+
+        foreach($this->tags as $tag => $s) {
+            $pattern = '/' . $s[0] . '\s*:\s*' . $s[1] . '\s*;/';
+
+            $matches = array();
+
+            preg_match($pattern, $style, $matches);
+
+            if(!empty($matches)) {
+                // tags to add
+                $tags[] = $tag;
+
+                // remove styles
+                $style = preg_replace($pattern, '', $style);
             }
-            unset($style[$k]);
-            $inject[] = $tn;
         }
-        if (!count($inject)) {
-            return true; 
+
+        if(empty($tags)){
+            return true;
         }
-        $this->nodeSetStyle($node, $style);
-        $cn = $this->arrayFrom($node->childNodes);
-        $nn = $node;
-        foreach($inject as $t) { 
+
+        $node->setAttribute('style', $style);
         
-            $nc = $node->ownerDocument->createElement($t);
-            $nn->appendChild($nc);
-            $nn = $nc;
+        // copy of child nodes
+        $childNodes = array();
+
+        foreach($node->childNodes as $n) {
+            $childNodes[] = $n;
         }
-        foreach($cn as $n) {
+
+        $current = $node;
+
+        // add tags
+        foreach($tags as $tag) {
+            $new = $node->ownerDocument->createElement($tag);
+            $current->append($new);
+            $current = $new;
+        }
+
+        // move children
+        foreach($childNodes as $n) {
             $node->removeChild($n);
-            $nn->appendChild($n);
+            $new->append($n);
         }
-        
-        return true; /// iterate thru
+
+        return true;
     }
     
  

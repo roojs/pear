@@ -1,15 +1,21 @@
 <?php
 
 abstract class Net_Ollama_Call {
-    protected $oai; // to prevent looping
+    /** @var Net_Ollama Client reference; listed in {@see $excluded} so it is never JSON-encoded. */
+    var $oai;
     var $id;
     var $response;
-    static $excluded = array('id', 'response');
-    protected $exclude = array(); // eg.'id', 'response');
-    protected $_url = '';
-    protected $_method = 'POST';
-    protected $_stream_buffer = '';
-    protected $_chat_stream = false;
+    /** @var string[] Property names never sent in the API JSON body (always skip). */
+    static $excluded = array('id', 'response', 'oai');
+    /**
+     * @var string[] Extra property names for this call to omit from the JSON body (subclass / per-request).
+     * Leading underscore keeps this property out of the request (see send() and '_' rule below).
+     */
+    var $_exclude = array();
+    var $_url = '';
+    var $_method = 'POST';
+    var $_stream_buffer = '';
+    var $_chat_stream = false;
      
     function __construct($oai, $args = array())
     {
@@ -25,18 +31,45 @@ abstract class Net_Ollama_Call {
     
     abstract function execute();
     abstract function process($response);
+
+    // to array compatible with json_encode
+    function toObjectArray()
+    {
+        $arr = array();
+        foreach($this as $k => $v) {
+            // skip properties which may will form circular references
+            if(in_array($k, array('oai', 'response', '_chat_stream'))) {
+                continue;
+            }
+            $arr[$k] = $v;
+        }
+        return $arr;
+    }
+
+    /**
+     * Response wrapper class name suffix (Net_Ollama_Response_{type}).
+     * Override when {@see $_url} is not a single segment (e.g. v1/chat/completions -> Chat).
+     */
+    function getResponseType()
+    {
+        return ucfirst($this->_url);
+    }
     
     function send()
     {
         // Build params from object properties
         $params = array();
-        // exclude should look at values in this->exclude and static $exclude and also ignore '_' prefixed properties
+        // Skip static::$excluded, per-instance $_exclude list, and '_' prefixed props (incl. $_exclude)
         foreach ((array)$this as $k => $v) {
-            if (in_array($k, self::$excluded) || in_array($k, $this->exclude) || strpos($k, '_') === 0) {
+            if (in_array($k, self::$excluded, true) || in_array($k, $this->_exclude, true) || strpos($k, '_') === 0) {
                 continue;
             }
             if (isset($this->$k) && $this->$k !== false) {
                 $params[$k] = $this->$k;
+                continue;
+            }
+            if($k == 'stream' && $this->$k === false) {
+                $params[$k] = false;
             }
         }
         
@@ -55,6 +88,10 @@ abstract class Net_Ollama_Call {
         
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        
+        // Set connection timeout
+        $connectTimeout = isset($this->oai->timeout) ? $this->oai->timeout : 300;
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $connectTimeout);
         
         // Build headers first (needed for curl command output)
         $headers = array();
@@ -88,9 +125,9 @@ abstract class Net_Ollama_Call {
             
             // For streaming, we need to read the response line by line
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, false);
-            curl_setopt($ch, CURLOPT_WRITEFUNCTION, array($this, '_stream_write_callback'));
+            curl_setopt($ch, CURLOPT_WRITEFUNCTION, array($this, 'streamWriteCallback'));
             $this->_stream_buffer = '';
-            $this->_chat_stream =   $this->oai->response('Chat', array());
+            $this->_chat_stream = $this->oai->response($this->getResponseType(), array());
         }
         
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
@@ -101,17 +138,36 @@ abstract class Net_Ollama_Call {
         }
         
         if (!empty($params['stream'])) {
-            curl_exec($ch);
+            $curlResult = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $curlError = curl_error($ch);
+            $curlErrno = curl_errno($ch);
             curl_close($ch);
+            
+            // Check for timeout or other errors
+            if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
+                require_once 'Net/Ollama/Exception/ConnectionTimeout.php';
+                throw new Net_Ollama_Exception_ConnectionTimeout(array('connectionTimeout' => $connectTimeout));
+            }
+            if ($curlError) {
+                require_once 'Net/Ollama/Exception/CurlError.php';
+                throw new Net_Ollama_Exception_CurlError(array('curlError' => $curlError));
+            }
+            if ($httpCode !== 200 && $httpCode !== 0) {
+                require_once 'Net/Ollama/Exception/HttpError.php';
+                throw new Net_Ollama_Exception_HttpError(array('httpCode' => $httpCode));
+            }
               
             // Call callback once at the end with any remaining new text and final response
             // Note: We can't access the static variable here, so we'll pass empty string
             // and let the callback use the full content from the stream object
             $final_new_text = '';
-            if (strlen($this->_chat_stream->content) > 0) {
+            // Get content - Chat uses 'content'
+            $content = isset($this->_chat_stream->content) ? $this->_chat_stream->content : '';
+            if (strlen($content) > 0) {
                 // For final callback, pass the full content as new text since we can't track
                 // the last length from the static variable in this scope
-                $final_new_text = $this->_chat_stream->content;
+                $final_new_text = $content;
             }
               
             call_user_func($this->oai->callback, $final_new_text, $this->_chat_stream);
@@ -122,7 +178,24 @@ abstract class Net_Ollama_Call {
             return  $this->_chat_stream;
         } 
         $result = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlError = curl_error($ch);
+        $curlErrno = curl_errno($ch);
         curl_close($ch);
+        
+        // Check for timeout or other errors
+        if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
+            require_once 'Net/Ollama/Exception/ConnectionTimeout.php';
+            throw new Net_Ollama_Exception_ConnectionTimeout(array('connectionTimeout' => $connectTimeout));
+        }
+        if ($curlError) {
+            require_once 'Net/Ollama/Exception/CurlError.php';
+            throw new Net_Ollama_Exception_CurlError(array('curlError' => $curlError));
+        }
+        if ($httpCode !== 200 && $httpCode !== 0) {
+            require_once 'Net/Ollama/Exception/HttpError.php';
+            throw new Net_Ollama_Exception_HttpError(array('httpCode' => $httpCode));
+        }
         
         $this->oai->debug("Received Response", json_decode($result, true));
         
@@ -160,9 +233,9 @@ abstract class Net_Ollama_Call {
     }
     
     /**
-     * CURL write callback for handling streaming responses
+     * cURL write callback for native Ollama streaming (newline-delimited JSON chunks).
      */
-    function _stream_write_callback($ch, $data)
+    function streamWriteCallback($ch, $data)
     {
         static $last_content_length = 0;
         /*

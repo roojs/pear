@@ -22,27 +22,22 @@ class  HTML_Clean_Filter
     }
     
     function walk ($dom)
-    {
-        
+    {   
         $ar = $this->arrayFrom($dom->childNodes);
         foreach($ar as $e) {
         
             switch(true) {
-                
-                
-                case $this->isTagMatch(e):
-                
-                    if (false === $this->replaceTag(e)) {
-                        return;
+                case $this->isTagMatch($e):
+                    if (false === $this->replaceTag($e)) {
+                        continue 2; // Continue the foreach loop, not the switch
                     }
                     if ($e->hasChildNodes()) {
                         $this->walk($e);
                     }
-                    return;
-                
+                    continue 2; // Continue the foreach loop, not the switch
                 default:    // tags .. that do not match.
                     if ($e->hasChildNodes()) {
-                        this->walk($e);
+                        $this->walk($e);
                     }
             }
             
@@ -60,10 +55,10 @@ class  HTML_Clean_Filter
                     return false;
             
             case $this->tag === true: // everything
-            case strpos(':', $e->tagName) !== false && is_array($this->tag) && in_array(":", $this->tag):
-            case strpos(':', $e->tagName) !== false && is_string($this->tag)  && $this->tag == ":":
-            case is_array($this->tag) && in_array($e->tagName, $this->tag):
-            case is_string($this->tag) && $e->tagName ==  $this->tag:
+            case strpos(':', strtoupper($e->tagName)) !== false && is_array($this->tag) && in_array(":", $this->tag):
+            case strpos(':', strtoupper($e->tagName)) !== false && is_string($this->tag)  && $this->tag == ":":
+            case is_array($this->tag) && in_array(strtoupper($e->tagName), $this->tag):
+            case is_string($this->tag) && strtoupper($e->tagName) ==  $this->tag:
                 return true;
         }
          
@@ -77,59 +72,45 @@ class  HTML_Clean_Filter
         return true;
     }
     
-    function removeNodeKeepChildren  ( $node)
-    {
-    
-        $ar = $this->arrayFrom($node->childNodes);
-        foreach($ar as $n) {
-            $node->removeChild($n);
-            $node->parentNode->insertBefore($n, $node);
-        }
-        $node->parentNode->removeChild($node);
-    }
-    
-    function arrayFrom($list)
-    {
-        $ret = array();
-        foreach($list as $k=> $l) {
-            $ret[$k] = $l;
-        }
-        return $ret;
-    }
-    
     function innerHTML($n)
     {
         $ret = "";
-        foreach($n->children as $c) {
+        foreach($n->childNodes as $c) {
             $ret .= $c->ownerDocument->saveXML($c);
         }
         return $ret;
     }
-    
-    function copyInnerHTML($from, $to)
+
+    function arrayFrom($list)
     {
-        $ar = $this->arrayFrom($from->childNodes);
-        foreach($ar as $n) {
-            $from->removeChild($n);
-            $to->appendChild($n);
-        }
-    }
-    
-    function styleToObject($node, $lower = false)
-    {
-        $styles = explode(';',$node->hasAttribute("style") ? $node->getAttribute("style")  : '');
         $ret = array();
-        foreach($styles as $s) {
-            if (strpos($s, ':') === false) {
-                return;
-            }
-            $kv = explode(':', $s, 2);
-             
-            // what ever is left... we allow.
-            $ret[$lower ? strtotrim($kv[0]) : $kv[0]] = trim($kv[1]);
+        foreach($list as $k => $l) {
+            $ret[$k] = $l;
         }
         return $ret;
     }
+
+    function styleToArray($node)
+    {
+        $ret = array();
+        $style = $node->getAttribute('style');
+        if(empty($style)) {
+            return $ret;
+        }
+
+        $styles = explode(';', $style);
+        foreach($styles as $s) {
+            if(strpos($s, ':') === false) {
+                continue;
+            }
+            $kv = explode(':', $s, 2);
+
+            $ret[trim(strtolower($kv[0]))] = trim($kv[1]);
+        }
+
+        return $ret;
+    }
+
     function nodeSetStyle($node, $style)
     {
         $str = array();
@@ -138,5 +119,14 @@ class  HTML_Clean_Filter
         }
         $node->setAttribute('style', implode(";", $str));
     }
-    
+
+    function removeNodeKeepChildren($node)
+    {
+        $ar = $this->arrayFrom($node->childNodes);
+        foreach($ar as $n) {
+            $node->removeChild($n);
+            $node->parentNode->insertBefore($n, $node);
+        }
+        $node->parentNode->removeChild($node);
+    }
 }
