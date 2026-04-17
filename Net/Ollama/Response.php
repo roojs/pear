@@ -15,5 +15,18 @@ class Net_Ollama_Response {
             }
         }
     }
+
+    // to array compatible with json_encode
+    function toObjectArray()
+    {
+        $arr = array();
+        foreach($this as $k => $v) {
+            if(in_array($k, array('oai', 'call'))) {
+                continue;
+            }
+            $arr[$k] = $v;
+        }
+        return $arr;
+    }
 }
 

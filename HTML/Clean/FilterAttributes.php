@@ -13,7 +13,7 @@
 
 require_once 'Filter.php';
 
-class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
+class HTML_Clean_FilterAttributes  extends HTML_Clean_Filter
 {
    
     var $tag =  true; // all tags
@@ -24,114 +24,126 @@ class HTML_Clean_FilterAttribute  extends HTML_Clean_Filter
     
     var $style_black = array(); // array
     var $style_white = array(); // array
+
+    var $lang = 'en';
     
     function __construct($cfg)
     {
         parent::__construct($cfg);
-        $this->walk($cfg['node']);
+        $this->walk($this->node);
     } 
     
-     function replaceTag ($node)
+    function replaceTag ($node)
     {
-        if (!$node->hasAttributes()) {
-            return true; // do children.
+        // return if no attribute
+        if(!count($node->attributes)) {
+            return true;
         }
-        $ats = $this->arrayFrom($node->attributes);
-        foreach($ats as $a) {
-            
-            // remove all if we have a white list..
-            if (count($this->attrib_white) && in_array(strtolower($a->name), $this->attrib_white)) {
-                $node->removeAttribute($a->name);
+
+        $removeAttributes = array();
+
+        foreach($node->attributes as $a) {
+            if(count($this->attrib_white) && !in_array(strtolower($a->name), $this->attrib_white)) {
+                $removeAttributes[] = $a;
                 continue;
             }
-            
+
             // always remove 'on'
             if (substr(strtolower($a->name),0,2) == 'on')  {
-                $node->removeAttribute($a->name);
+                $removeAttributes[] = $a;
                 continue;
             }
-            
-            
-            if (in_array( strtolower($a->name),$this->attrib_black)) {
-                $node->removeAttribute($a->name);
+
+            if (in_array(strtolower($a->name), $this->attrib_black)) {
+                $removeAttributes[] = $a;
                 continue;
             }
-            if (in_array( strtolower($a->name),$this->attrib_clean))  {
-                $this->cleanAttr($node,$a->name,$a->value); // fixme..
+
+            if(in_array(strtolower($a->name), $this->attrib_clean)) {
+                if(!(
+                    preg_match('/^\./', $a->nodeValue) 
+                    || 
+                    preg_match('/^\//', $a->nodeValue)
+                    || 
+                    preg_match('/^(http|https):\/\//', $a->nodeValue)
+                    || 
+                    preg_match('/^mailto:/', $a->nodeValue)
+                    || 
+                    preg_match('/^ftp:/', $a->nodeValue)
+                    || 
+                    preg_match('/^data:/', $a->nodeValue)
+                    || 
+                    preg_match('/^#/', $a->nodeValue)
+                    || 
+                    preg_match('/^\{/', $a->nodeValue)
+                    ||
+                    preg_match('/^__IMAGE_\d+__/', $a->nodeValue)
+                )) {
+                    $removeAttributes[] = $a;
+                }
                 continue;
             }
-                
+
             if ($a->name == 'style') {
                 $this->cleanStyle($node);
                 continue;
             }
-            /// clean up MS crap..
-            // tecnically this should be a list of valid class'es..
-            
-            
+
             if ($a->name == 'class') {
                 if (preg_match('/^Mso/', $a->value)) {
-                    $node->removeAttribute('class');
+                    $removeAttributes[] = $a;
                     continue;
                 }
                 if (preg_match('/^body$/', $a->value)) {
-                    $node->removeAttribute('class');
+                    $removeAttributes[] = $a;
                     continue;
                 }
             }
-            
-            
-            // style cleanup!?
-            // class cleanup?
-            
+
+            if($a->name == 'dir') {
+                $documentDir = in_array($this->lang, ['ar', 'he', 'fa', 'ur', 'ps', 'syr', 'dv', 'arc', 'nqo', 'sam', 'tzm', 'ug', 'yi']) ? 'rtl' : 'ltr';
+                $nodeDir = strtolower($a->value);
+
+                // remove span dir if it is same as the document dir
+                if(strtolower($node->tagName) == 'span' && $nodeDir == $documentDir) {
+                    $removeAttributes[] = $a;
+                }
+            }
         }
-        return true; // clean children
-    }
-    // cleans urls...
-    function cleanAttr($node, $n,$v)
-    {
-        // starts with 'dot' or 'slash', 'hash' or '{' << template
-        if (preg_match('/^(\.|\/|#|\{)/' , $v)) {
-            return;
+
+        foreach($removeAttributes as $a) {
+            $node->removeAttribute($a->name);
         }
-        // standard stuff? - should we allow data?
-        if (preg_match('/(http|https|mailto|ftp|data):/' , $v)) {
-            return;
-        }
-        
-//            Roo.log("(REMOVE TAG)"+ node.tagName +'.' + n + '=' + v);
-        $node->removeAttribute($n);
-        
+
+        return true;
     }
     
-    function cleanStyle ($node)
+    function cleanStyle($node)
     {
         if (preg_match('/expression/', $node->getAttribute('style'))) { //XSS?? should we even bother..
             $node->removeAttribute('style');
             return;
         }
-        $style = $this->styleToObject($node);
+        $style = $this->styleToArray($node);
         $update = false;
         foreach($style as $k=>$v) {
             
-            if ( in_array(strtolower($k), $this->style_black)) {
+            if (in_array(strtolower($k), $this->style_black)) {
                 unset($style[$k]);
                 $update = true;
                 continue;
             }
             
-            //Roo.log()
             // only allow 'c whitelisted system attributes'
-            if ( count($this->style_white) &&  in_array(strtolower($k), $this->style_white)) {
+            if (count($this->style_white) && in_array(strtolower($k), $this->style_white)) {
                 continue;
             }
             unset($style[$k]);
             $update = true;
-            
         }
+
         if ($update) {
             $this->nodeSetStyle($node, $style);
         }
-        
     }
 }

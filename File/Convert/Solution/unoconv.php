@@ -47,9 +47,86 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         ),
         
     );
-    
-      
-    
+
+    /**
+     * Remove a directory tree (LibreOffice profile under tmp-lo-*).
+     */
+    private static function removeLibreOfficeHomeDir($dir)
+    {
+        $items = @scandir($dir);
+        if($items === false) {
+            return;
+        }
+        foreach ($items as $item) {
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
+            $path = $dir . '/' . $item;
+            if (is_dir($path)) {
+                self::removeLibreOfficeHomeDir($path);
+                continue;
+            }
+            @unlink($path);
+        }
+        @rmdir($dir);
+    }
+
+    /**
+     * Inline local image files as data: URLs in saved HTML (no placeholders).
+     * Runs only when option imageToDataUrl is true and target mime is text/html.
+     *
+     * @param string $target Absolute path to HTML file
+     * @param string $output_dir Absolute path to output directory
+     */
+    private function embedHtmlImagesAsDataUrlsIfRequested($target, $output_dir)
+    {
+        if (empty(self::$options['imageToDataUrl']) || $this->to !== 'text/html' || !file_exists($target)) {
+            return;
+        }
+
+        libxml_use_internal_errors(true);
+        $doc = new DOMDocument();
+        $doc->loadHTMLFile($target, LIBXML_NOERROR | LIBXML_NOWARNING);
+        $imgs = $doc->getElementsByTagName('img');
+        $modified = false;
+
+        foreach ($imgs as $im) {
+            $src = $im->getAttribute('src');
+            if ($src === '' || preg_match('#^data:#i', $src) || preg_match('#^https?://#i', $src)) {
+                $this->debug("Skipping image src: " . $src);
+                continue;
+            }
+            $candidates = array(
+                $output_dir . '/' . urldecode($src),
+                $output_dir . '/' . $src,
+            );
+            $ifn = false;
+            foreach ($candidates as $c) {
+                if (file_exists($c) && is_file($c)) {
+                    $ifn = $c;
+                    break;
+                }
+            }
+            if (!$ifn) {
+                $this->debug("No image file found: " . $src);
+                continue;
+            }
+            $imageInfo = @getimagesize($ifn);
+            if ($imageInfo === false) {
+                $this->debug("Failed to get image info: " . $src);
+                continue;
+            }
+            $mime = $imageInfo['mime'];
+            $im->setAttribute('src', 'data:' . $mime . ';base64,' . base64_encode(file_get_contents($ifn)));
+            $this->debug("Converted image to data URL: " . $src);
+            $modified = true;
+        }
+
+        if ($modified) {
+            $doc->saveHTMLFile($target);
+        }
+    }
+
     //FIXME this method run 3 times??
     function convert($fn,$x,$y,$pg) 
     {
@@ -59,14 +136,12 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         
         $target =   $fn  . '.' . $ext;
         
-        
         if ( file_exists($target)  && filesize($target) && filemtime($target) > filemtime($fn)) {
             $this->debug("UNOCONV SKIP target exists");
             return $target;
         }
-        $bits = explode('.', $fn);
         
-        $from = $this->tempName(array_pop($bits),true);
+        $from = $this->tempName(pathinfo($fn, PATHINFO_EXTENSION),true);
         $to = $this->tempName($ext,true);
         
         copy($fn, $from);
@@ -74,20 +149,28 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         require_once 'System.php';
         
         $timeout = System::which('timeout');
-        // fix the home directory - as we can't normally write to www-data's home directory.
-        putenv('HOME='. ini_get('session.save_path'));
         $libreoffice = System::which('libreoffice');
         if (empty($libreoffice)) {
             $this->debug("missing libreoffice");
             $this->cmd = "Missing libreoffice";
+            @unlink($from);
             return false;
         }
+
+        $loHome = rtrim(ini_get('session.save_path'), '/\\') . '/tmp-lo-' . str_replace('.', '', uniqid('', true));
+        if (!@mkdir($loHome, 0700, true)) {
+            $this->debug("Could not create LibreOffice HOME: {$loHome}");
+            @unlink($from);
+            return false;
+        }
+        $previousHome = getenv('HOME');
+        putenv('HOME=' . $loHome);
         $output_dir = dirname($to);
         
         // Use LibreOffice headless conversion (no xvfb-run needed)
         $cmd = "$timeout 5m $libreoffice --headless --convert-to $ext --outdir " . 
                 escapeshellarg($output_dir) . " " . escapeshellarg($from) . " 2>&1";
-        ////  echo $cmd;
+        //  echo $cmd;
       
         $res = $this->exec($cmd);
         
@@ -101,26 +184,30 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         // LibreOffice creates output file with same base name as input but with new extension
         $input_basename = pathinfo($from, PATHINFO_FILENAME);
         $libreoffice_output = $output_dir . '/' . $input_basename . '.' . $ext;
-        
+
         // Check if LibreOffice created the output file
         if (file_exists($libreoffice_output)) {
             copy($libreoffice_output, $target);
             @unlink($libreoffice_output);
             @unlink($from);
             clearstatcache();
+
+            putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
+            self::removeLibreOfficeHomeDir($loHome);
+            $this->embedHtmlImagesAsDataUrlsIfRequested($target, $output_dir);
             return $target;
         }
         
         // If conversion failed, try again
-        if (!file_exists($libreoffice_output) || (file_exists($libreoffice_output) && filesize($libreoffice_output) < 400)) {
-            // try again!!!!
-            @unlink($libreoffice_output);
-            clearstatcache();
-            sleep(3);
-            
-            $res = $this->exec($cmd);
-            clearstatcache();
-        }
+        @unlink($libreoffice_output);
+        clearstatcache();
+        sleep(3);
+        
+        $res = $this->exec($cmd);
+        clearstatcache();
+
+        putenv('HOME=' . ($previousHome !== false ? $previousHome : ''));
+        self::removeLibreOfficeHomeDir($loHome);
         
         @unlink($from);
         if (!file_exists($libreoffice_output)) {    
@@ -130,22 +217,7 @@ class File_Convert_Solution_unoconv extends File_Convert_Solution
         // Copy the LibreOffice output to the target location
         copy($libreoffice_output, $target);
         @unlink($libreoffice_output);
-        if ($ext == 'html') {
-            $doc = new DOMDocument();
-            $doc->loadHTMLFile($target, LIBXML_NOERROR + LIBXML_NOWARNING);
-            $imgs = $doc->getElementsByTagName('img');
-            foreach($imgs as $im) {
-                $path = $im->getAttribute('src');
-                if (file_exists(dirname($target).'/'. $path)) {
-                    $ifn = dirname($target).'/'. $path;
-                    $type = image_type_to_mime_type(exif_imagetype($ifn));
-                    $im->setAttribute('src', 'data:'.$type.';base64,' . base64_encode(file_get_contents($ifn)));
-                }
-                
-            }
-            
-            $doc->saveHTMLFile($target);
-        }
+        $this->embedHtmlImagesAsDataUrlsIfRequested($target, $output_dir);
         return $target;
      
     }

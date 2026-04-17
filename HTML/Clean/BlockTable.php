@@ -15,17 +15,14 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
     var $no_row = 1;
     var $width = '100%';
     
-    function __construct($cfg) {
-        
-        
-        
+    function __construct($cfg) 
+    {    
         if ($cfg['node']) {
             $this->readElement($cfg['node']);
             $this->updateElement($cfg['node']);
-        } 
-        parent::__construct();
-        if (!$this->node) {
-        
+        }
+        parent::__construct($cfg);
+        if (!$cfg['node']) {
             for($r = 0; $r < $this->no_row; $r++) {
                 $this->rows[$r] = array();
                 for($c = 0; $c < $this->no_col; $c++) {
@@ -37,22 +34,23 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
     
     function toObject ()
     {
-        
         $ret = array(
             'tag' => 'table',
+            'contenteditable' => 'false',
             'data-block' => 'Table',
             'style' => array(
                 'width'=>  $this->width,
-                'border' => 'solid 1px #000', // ??? hard coded?
+                'border' => 'solid 1px #000',
                 'border-collapse' => 'collapse' 
             ),
             'cn' => array(
-                array( 'tag' => 'tbody' , 'cn' => array() ) 
+                array(
+                    'tag' => 'tbody', 
+                    'cn' => array()
+                ) 
             )
         );
         
-        // do we have a head = not really 
-        $ncols = 0;
         foreach($this->rows as $row) {
             $tr = array(
                 'tag' => 'tr',
@@ -63,81 +61,34 @@ class  HTML_Clean_BlockTable extends HTML_Clean_Block
                 ),
                 'cn' => array()
             );
-            
-            
-            // does the row have any properties? ?? height?
-            $nc = 0;
             foreach($row as $cell) {
-                
-                $td = $cell->toObject();
-                
-                if ($cell->colspan > 1) {
-                    $nc += $cell->colspan;
-                } else {
-                    $nc++;
-                }
-                
-                // widths ?
-                $tr->cn[] = $td;
-                    
-                
+                $tr['cn'][] = $cell->toObject();
             }
-            
-            $ret->cn[0]->cn[] = $tr;
-            
-            $ncols = max($nc, $ncols);
-            
-            
+            $ret['cn'][0]['cn'][] = $tr;
         }
-        // add the header row..
-        
-        $ncols++; // not used?
-         
-        
+
         return $ret;
-         
     }
     
     function readElement($node)
     {
-        
         $node  = $node ? $node : $this->node ;
-        $this->width = this.getVal($node, true, 'style', 'width') || '100%';
-        
+        $this->width = $this->getVal($node, true, 'style', 'width') ?: '100%';
         $this->rows = array();
         $this->no_row = 0;
         $trs = $this->arrayFrom($node->getElementsByTagName('tr'));
         foreach($trs as $tr) {
             $row =  array();
-            
-            
             $this->no_row++;
             $no_column = 0;
-            foreach($node->getElementsByTagName('td') as $td) {
-                
-                
-                $add = new HTML_Clean_Block_Td( array('node' => $td ));
-                    /*'colspan : td.hasAttribute('colspan') ? td.getAttribute('colspan')*1 : 1,
-                    rowspan : td.hasAttribute('rowspan') ? td.getAttribute('rowspan')*1 : 1,
-                    style : td.hasAttribute('style') ? td.getAttribute('style') : '',
-                    html : td.innerHTML
-                    
-                };
-                */
+            foreach($tr->getElementsByTagName('td') as $td) {
+                $add = new HTML_Clean_BlockTd( array('node' => $td ));
                 $no_column += $add->colspan;
-                     
-                
                 $row[] =   $add;
-                
-                
             }
             $this->rows[] = $row;     
             $this->no_col = max($this->no_col, $no_column);
-            
-            
-          }
-        
-        
+        }
     }
     
     function emptyCell () {

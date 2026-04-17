@@ -14,40 +14,39 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
     
     var $colspan = 1;
     var $rowspan = 1;
+    var $html = '';
     
     
      
-    function __construct($cfg) {
-         
+    function __construct($cfg) 
+    {     
         if ($cfg['node']) {
             $this->readElement($cfg['node']);
             $this->updateElement($cfg['node']);
         } 
-        parent::__construct();
-         
+        parent::__construct($cfg);
     }
     
-    function toObject ()
+    function toObject()
     {
         $ret = array(
             'tag' => 'td',
+            'contenteditable' => 'true',
             'data-block' => 'Td',
             'valign' => $this->valign,
             'style' => array(
                 'text-align' =>  $this->textAlign,
-                'border' => 'solid 1px rgb(0, 0, 0)', // ??? hard coded?
+                'border' => 'solid 1px rgb(0, 0, 0)',
                 'border-collapse' => 'collapse',
-                'padding' => '6px', // 8 for desktop / 4 for mobile
+                'padding' => '6px',
                 'vertical-align'=> $this->valign
             ),
-            html => $this->html
+            'html' => $this->html
         );
         if ($this->width != '') {
-            $ret->width = $this->width;
+            $ret['width'] = $this->width;
             $ret['style']['width'] = $this->width;  
         }
-        
-        
         if ($this->colspan > 1) {
             $ret['colspan'] = $this->colspan ;
         } 
@@ -55,31 +54,25 @@ class  HTML_Clean_BlockTd extends HTML_Clean_Block
             $ret['rowspan'] = $this->rowspan ;
         }
         
-           
-        
         return $ret;
          
     }
     
     
-    function readElement ($node)
+    function readElement($node)
     {
         $node  = $node ? $node : $this->node ;
-        
-        
         $this->width = $node->getAttribute('width');
-        $this->colspan = max(1,1*$node->getAttribute('colspan'));
-        $this->rowspan = max(1,1*$node->getAttribute('rowspan'));
+        $this->colspan = max(1, (int) $node->getAttribute('colspan'));
+        $this->rowspan = max(1, (int) $node->getAttribute('rowspan'));
         $this->html = $this->innerHTML($node);
-        $styles = $this->styleToObject($node,true);
-        
+        $styles = $this->styleToArray($node);
         if (!empty($styles['text-align'])) {
             $this->textAlign = $styles['text-align'];
         }
         if ($node->hasAttribute('valign')) {
             $this->valign = $node->getAttribute('valign');
         }
-        
     }
     
 }

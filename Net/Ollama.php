@@ -1,12 +1,21 @@
 <?php
 
+/**
+ * HTTP client for Ollama and OpenAI-compatible chat APIs.
+ *
+ * {@see $url}: For native Ollama, use a base ending in `/api` (see default). For
+ * OpenAI-compatible servers, use the API origin without `/api` (e.g. `https://api.deepseek.com`)
+ * and call {@see chatCompletions()}.
+ */
 class Net_Ollama {
     var $key = ''; // ollama key
-    var $url = 'http://localhost:11434/api'; // ollama url
+    /** @var string Base URL: native Ollama ends with `/api`; OpenAI-compatible origin has no `/api`. */
+    var $url = 'http://localhost:11434/api';
     var $tools = array();
     var $calls = array();
     var $callback = null; // Callback function for streaming: function($partial_response, $full_response)
     var $debug = false; // Debug mode - when true, prints all send/receive data
+    var $timeout = 300; // Request timeout in seconds (default: 5 minutes)
     static $id = 0;
     
     function __construct($options = array())
@@ -20,12 +29,7 @@ class Net_Ollama {
                 $this->$k = $v;
             }
         }
-         
-        // Only append /api if URL doesn't already end with /api
-        if (!preg_match('#/api$#', rtrim($this->url, '/'))) {
-            $this->url = rtrim($this->url, '/') . '/api';
-        } 
-        
+
         // Process tools if provided
         if (isset($options['tools'])) {
             class_exists('Net_Ollama_Tool') || require_once 'Net/Ollama/Tool.php';
@@ -66,11 +70,29 @@ class Net_Ollama {
         return $call->execute();
     }
     
+    /**
+     * Native Ollama chat: `POST {url}/chat` (url should end with `/api`).
+     * For OpenAI-compatible `…/v1/chat/completions`, use {@see chatCompletions()} instead.
+     *
+     * @param array|string $params See Net_Ollama_Call_Chat
+     */
     function chat($params)
     {
         return $this->call('Chat', $params);
     }
-     
+
+    /**
+     * OpenAI-compatible chat: `POST {url}/v1/chat/completions`.
+     * Set {@see $url} to the service root without a trailing `/api` (e.g. `https://api.deepseek.com`).
+     *
+     * @param array|string $params See Net_Ollama_Call_ChatCompletions
+     * @return Net_Ollama_Response_Chat Normalized like native chat (OpenAI payloads adapted in that class).
+     */
+    function chatCompletions($params)
+    {
+        return $this->call('ChatCompletions', $params);
+    }
+
     function models($params = array())
     {
         return $this->call('Models', array($params));
@@ -96,7 +118,7 @@ class Net_Ollama {
             return;
         }
         echo "[DEBUG] " . $message . "\n";
-       
+
         print_r(json_decode(json_encode($data)));
         echo "\n";
        
