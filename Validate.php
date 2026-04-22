@@ -657,6 +657,8 @@ class Validate
      * NOTE 3: the full complience to rfc2396 is not achieved by default
      *         the characters ';/?:@$,' will not be accepted in the query part
      *         if not urlencoded, refer to the option "strict'"
+     * NOTE 4: A trailing dot on the hostname (DNS FQDN form) is not accepted;
+     *         typical HTTP(S) URLs do not use that form.
      *
      * @param string $url     URI to validate
      * @param array  $options Options used by the validation method.
@@ -683,6 +685,10 @@ class Validate
         if (is_array($options)) {
             extract($options);
         }
+        // Reject control characters (e.g. stray newline after URL); not valid in HTTP(S) URIs.
+        if ($url !== '' && preg_match('/[\x00-\x1F\x7F]/', $url)) {
+            return false;
+        }
         if (is_array($allowed_schemes) &&
             in_array("tag", $allowed_schemes)
         ) {
@@ -695,7 +701,7 @@ class Validate
              '&^(?:([a-z][-+.a-z0-9]*):)?                             # 1. scheme
               (?://                                                   # authority start
               (?:((?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'();:\&=+$,])*)@)?    # 2. authority-userinfo
-              (?:((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z](?:[a-z0-9]+)?\.?)  # 3. authority-hostname OR
+              (?:((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z](?:[a-z0-9]+)?)  # 3. authority-hostname (no trailing dot)
               |([0-9]{1,3}(?:\.[0-9]{1,3}){3}))                       # 4. authority-ipv4
               (?::([0-9]*))?)                                        # 5. authority-port
               ((?:/(?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'():@\&=+$,;])*)*/?)? # 6. path
