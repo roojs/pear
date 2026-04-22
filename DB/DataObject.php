@@ -3597,7 +3597,6 @@ class DB_DataObject extends DB_DataObject_Overload
      * @var     string
      */
     var $_join = '';
-    var $_count_extra_join; // Extra join (not from autoJoin, but added elsewhere (e.g. applyFilters)) required in the count query
 
     /**
      * joinAdd - adds another dataobject to this, building a joined query.
@@ -4156,7 +4155,9 @@ class DB_DataObject extends DB_DataObject_Overload
         foreach($keys as $k) {
             $ret['cols'][$k] = $this->tableName(). '.' . $k;
         }
-
+        
+        
+        
         foreach($map as $ocl=>$info) {
             if (strpos($info, ':') === false) {
                 $this->raiseError(
