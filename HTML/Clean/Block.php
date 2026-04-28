@@ -52,7 +52,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
      * Update a node with values from this object
      * @param {DomElement} node
      */
-    function updateElement ($node)
+    function updateElement ($node = null)
     {
         $o = $this->toObject();
         $n = empty($node) ? $this->node : $node;
