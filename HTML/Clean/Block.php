@@ -57,7 +57,7 @@ abstract class  HTML_Clean_Block extends HTML_Clean_Filter
         $o = $this->toObject();
         $n = empty($node) ? $this->node : $node;
         $el = self::createDom($o, false, $n->ownerDocument);
-        $node->parentNode->replaceChild($el, $node);
+        $n->parentNode->replaceChild($el, $n);
         
     }
     /**
