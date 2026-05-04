@@ -5,7 +5,7 @@
  * Example (HTML export via legacy writers):
  *
  * ```php
- * require_once 'Document/Word/Word.php';
+ * require_once 'Document/Word.php';
  * require_once 'Document/Word/IOFactory.php';
  *
  * $doc = new Document_Word();
