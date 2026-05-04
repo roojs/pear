@@ -42,12 +42,12 @@ class Document_Word
         return $this;
     }
 
-    /** @return Document_Word_Writer_Section */
+    /** @return Document_Word_Section */
     public function createSection($settings = null)
     {
-        require_once __DIR__ . '/Word/Writer/Section.php';
+        require_once __DIR__ . '/Word/Section.php';
         $sectionCount = $this->_countSections() + 1;
-        $section = new Document_Word_Writer_Section($sectionCount, $settings);
+        $section = new Document_Word_Section($sectionCount, $settings);
         $this->_sectionCollection[] = $section;
 
         return $section;
@@ -104,7 +104,7 @@ class Document_Word
         Document_Word_Style::addLinkStyle($styleName, $styles);
     }
 
-    /** @return Document_Word_Writer_Section[] */
+    /** @return Document_Word_Section[] */
     public function getSections()
     {
         return $this->_sectionCollection;
