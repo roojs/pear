@@ -184,14 +184,15 @@ class File_Convert
             //var_dump(array($toMimetype));
                
             require_once 'File/Convert/Solution.php';
-            $scf = (strpos($x, 'c')  !== false ? 'scaleimagec' : 'scaleimage' );
+            $scf = (strpos($x, 'c')  !== false ? 'scaleimagec'
+                : (strpos($x, 'q')  !== false ? 'scaleimageq' : 'scaleimage' ));
             require_once 'File/Convert/Solution/'. $scf . '.php';
             $scls = 'File_Convert_Solution_' . $scf;
                 
             $sc = new $scls($toMimetype, $toMimetype, self::$options);
             $sc->debug=  $this->debug;
             $this->solutions[] = $sc;
-            $x  = str_replace('c', 'x', $x);
+            $x  = str_replace(array('c', 'q'), 'x', $x);
             
             if (strpos($x, 'x') !== false ) {
                 $bits = explode('x', $x);
