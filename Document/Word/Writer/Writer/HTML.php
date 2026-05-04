@@ -9,7 +9,7 @@ require_once __DIR__ . '/../Section/Footer/PreserveText.php';
 
 class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IWriter
 {
-    /** @var Document_Word_Writer|null */
+    /** @var Document_Word|Document_Word_Writer|null */
     private $_document;
 
     public function __construct($PHPWord = null)
