@@ -33,7 +33,7 @@
  * @package    PHPWord_Section
  * @copyright  Copyright (c) 2011 PHPWord
  */
-class Document_Word_Writer_Section 
+class Document_Word_Section 
 {
 	
 	/**
@@ -82,7 +82,7 @@ class Document_Word_Writer_Section
         {
                 require_once __DIR__ . '/Section/Settings.php';
 		$this->_sectionCount = $sectionCount;
-		$this->_settings = new Document_Word_Writer_Section_Settings();
+		$this->_settings = new Document_Word_Section_Settings();
 		
 		if(!is_null($settings) && is_array($settings)) {
 			foreach($settings as $key => $value) {
@@ -117,7 +117,7 @@ class Document_Word_Writer_Section
                 require_once __DIR__ . '/Section/Text.php';
 		//$givenText = utf8_encode($text);
                 $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
-		$text = new Document_Word_Writer_Section_Text($text, $styleFont, $styleParagraph);
+		$text = new Document_Word_Section_Text($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $text;
 		return $text;
 	}
@@ -133,14 +133,14 @@ class Document_Word_Writer_Section
 	 */
 	public function addLink($linkSrc, $linkName = null, $styleFont = null, $styleParagraph = null) 
         {       
-                require_once __DIR__ . '/Media.php';
+                require_once __DIR__ . '/Writer/Media.php';
                 require_once __DIR__ . '/Section/Link.php';
 		$linkSrc = utf8_encode($linkSrc);
 		if(!is_null($linkName)) {
 			$linkName = utf8_encode($linkName);
 		}
 		
-		$link = new Document_Word_Writer_Section_Link($linkSrc, $linkName, $styleFont, $styleParagraph);
+		$link = new Document_Word_Section_Link($linkSrc, $linkName, $styleFont, $styleParagraph);
 		$rID = Document_Word_Writer_Media::addSectionLinkElement($linkSrc);
 		$link->setRelationId($rID);
 		
@@ -161,7 +161,7 @@ class Document_Word_Writer_Section
     {
         require_once __DIR__ . '/Section/TextBreak.php';
         for($i=1; $i<=$count; $i++) {
-            $th->_elementCollection[] = new Document_Word_Writer_Section_TextBreak();
+            $th->_elementCollection[] = new Document_Word_Section_TextBreak();
         }
 	}
 	
@@ -176,7 +176,7 @@ class Document_Word_Writer_Section
 	public static function staticAddPageBreak($th) 
     {
         require_once __DIR__ . '/Section/PageBreak.php';
-		$th->_elementCollection[] = new Document_Word_Writer_Section_PageBreak();
+		$th->_elementCollection[] = new Document_Word_Section_PageBreak();
 	}
 	
 	/**
@@ -192,7 +192,7 @@ class Document_Word_Writer_Section
 	public static function staticAddTable($th, $style = null) 
     {
         require_once __DIR__.'/Section/Table.php';
-		$table = new Document_Word_Writer_Section_Table('section', $th->_sectionCount, $style);
+		$table = new Document_Word_Section_Table('section', $th->_sectionCount, $style);
 		$th->_elementCollection[] = $table;
 		return $table;
 	}
@@ -210,7 +210,7 @@ class Document_Word_Writer_Section
         {
                 require_once __DIR__ . '/Section/ListItem.php';
 		$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
-		$listItem = new Document_Word_Writer_Section_ListItem($text, $depth, $styleFont, $styleList, $styleParagraph);
+		$listItem = new Document_Word_Section_ListItem($text, $depth, $styleFont, $styleList, $styleParagraph);
 		$this->_elementCollection[] = $listItem;
 		return $listItem;
 	}
@@ -225,8 +225,8 @@ class Document_Word_Writer_Section
 	public function addObject($src, $style = null) 
         {
                 require_once __DIR__ . '/Section/Object.php';
-                require_once __DIR__ . '/Media.php';
-		$object = new Document_Word_Writer_Section_Object($src, $style);
+                require_once __DIR__ . '/Writer/Media.php';
+		$object = new Document_Word_Section_Object($src, $style);
 		
 		if(!is_null($object->getSource())) {
 			$inf = pathinfo($src);
@@ -272,8 +272,8 @@ class Document_Word_Writer_Section
 	public static function staticAddImage($th, $src, $style = null) 
         {
         require_once __DIR__ . '/Section/Image.php';
-        require_once __DIR__ . '/Media.php';
-		$image = new Document_Word_Writer_Section_Image($src, $style);
+        require_once __DIR__ . '/Writer/Media.php';
+		$image = new Document_Word_Section_Image($src, $style);
 		if(is_null($image->getSource())) {
             return false;
             trigger_error('Source does not exist or unsupported image type.');
@@ -297,7 +297,7 @@ class Document_Word_Writer_Section
 	 */
 	public function addMemoryImage($link, $style = null) 
         {
-		$memoryImage = new Document_Word_Writer_Section_MemoryImage($link, $style);
+		$memoryImage = new Document_Word_Section_MemoryImage($link, $style);
 		if(!is_null($memoryImage->getSource())) {
 			$rID = Document_Word_Writer_Media::addSectionMediaElement($link, 'image', $memoryImage);
 			$memoryImage->setRelationId($rID);
@@ -318,7 +318,7 @@ class Document_Word_Writer_Section
 	 */
 	public function addTOC($styleFont = null, $styleTOC = null) 
         {
-                require_once __DIR__ . '/TOC.php';
+                require_once __DIR__ . '/Writer/TOC.php';
 		$toc = new Document_Word_Writer_TOC($styleFont, $styleTOC);
 		$this->_elementCollection[] = $toc;
 		return $toc;
@@ -341,7 +341,7 @@ class Document_Word_Writer_Section
 			$style = null;
 		}
 		require_once __DIR__ . '/Section/Title.php';
-		$title = new Document_Word_Writer_Section_Title($text, $depth, $style);
+		$title = new Document_Word_Section_Title($text, $depth, $style);
 		
 		$data = Document_Word_Writer_TOC::addTitle($text, $depth);
 		$anchor = $data[0];
@@ -362,7 +362,7 @@ class Document_Word_Writer_Section
 	public function createTextRun($styleParagraph = null) 
         {
                 require_once __DIR__ . '/Section/TextRun.php';
-		$textRun = new Document_Word_Writer_Section_TextRun($styleParagraph);
+		$textRun = new Document_Word_Section_TextRun($styleParagraph);
 		$this->_elementCollection[] = $textRun;
 		return $textRun;
 	}
@@ -385,7 +385,7 @@ class Document_Word_Writer_Section
 	public function createHeader() 
         {
                 require_once __DIR__ . '/Section/Header.php';
-		$header = new Document_Word_Writer_Section_Header($this->_sectionCount);
+		$header = new Document_Word_Section_Header($this->_sectionCount);
 		$this->_header = $header;
 		return $header;
 	}
@@ -408,7 +408,7 @@ class Document_Word_Writer_Section
 	public function createFooter() 
         {
                 require_once __DIR__ . '/Section/Footer.php';
-		$footer = new Document_Word_Writer_Section_Footer($this->_sectionCount);
+		$footer = new Document_Word_Section_Footer($this->_sectionCount);
 		$this->_footer = $footer;
 		return $footer;
 	}
