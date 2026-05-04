@@ -89,7 +89,7 @@ class Document_Word_Writer_Section_Table_Cell
 		
 		if(!is_null($style)) {
 			if(is_array($style)) {
-				$this->_style = new Document_Word_Writer_Style_Cell();
+				$this->_style = new Document_Word_Style_Cell();
 				
 				foreach($style as $key => $value) {
 					if(substr($key, 0, 1) != '_') {

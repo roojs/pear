@@ -57,10 +57,10 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 		
 		// Write Style Definitions
                 require_once __DIR__.'/../../Style.php';
-		$styles = Document_Word_Writer_Style::getStyles();
+		$styles = Document_Word_Style::getStyles();
 		if(count($styles) > 0) {
 			foreach($styles as $styleName => $style) {
-				if($style instanceof Document_Word_Writer_Style_Font) {
+				if($style instanceof Document_Word_Style_Font) {
 					
 					$paragraphStyle = $style->getParagraphStyle();
 					$styleType = $style->getStyleType();
@@ -98,7 +98,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 						
 					$objWriter->endElement();
 		
-				} elseif($style instanceof Document_Word_Writer_Style_Paragraph) {
+				} elseif($style instanceof Document_Word_Style_Paragraph) {
 					$objWriter->startElement('w:style');
 						$objWriter->writeAttribute('w:type', 'paragraph');
 						$objWriter->writeAttribute('w:customStyle', '1');
@@ -111,7 +111,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 						$this->_writeParagraphStyle($objWriter, $style);
 					$objWriter->endElement();
 					
-				} elseif($style instanceof Document_Word_Writer_Style_TableFull) {
+				} elseif($style instanceof Document_Word_Style_TableFull) {
 					$objWriter->startElement('w:style');
 						$objWriter->writeAttribute('w:type', 'table');
 						$objWriter->writeAttribute('w:customStyle', '1');
@@ -138,7 +138,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 		return $objWriter->getData();
 	}
 	
-	private function _writeFullTableStyle(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Style_TableFull $style) 
+	private function _writeFullTableStyle(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Style_TableFull $style) 
         {
 
 		$brdSz = $style->getBorderSize();
@@ -259,7 +259,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 		}
 	}
 	
-	private function _writeRowStyle(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $type, Document_Word_Writer_Style_TableFull $style) 
+	private function _writeRowStyle(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $type, Document_Word_Style_TableFull $style) 
         {
 		$brdSz = $style->getBorderSize();
 		$brdCol = $style->getBorderColor();

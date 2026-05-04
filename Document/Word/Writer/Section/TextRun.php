@@ -61,7 +61,7 @@ class Document_Word_Writer_Section_TextRun
 		
 		// Set paragraph style
 		if(is_array($styleParagraph)) {
-			$this->_styleParagraph = new Document_Word_Writer_Style_Paragraph();
+			$this->_styleParagraph = new Document_Word_Style_Paragraph();
 			
 			foreach($styleParagraph as $key => $value) {
 				if(substr($key, 0, 1) != '_') {

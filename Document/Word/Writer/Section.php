@@ -334,7 +334,7 @@ class Document_Word_Writer_Section
 	public function addTitle($text, $depth = 1) 
         {
 		$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
-		$styles = Document_Word_Writer_Style::getStyles();
+		$styles = Document_Word_Style::getStyles();
 		if(array_key_exists('Heading_'.$depth, $styles)) {
 			$style = 'Heading'.$depth;
 		} else {
