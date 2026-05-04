@@ -33,9 +33,9 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
         {
 		// Create XML writer
 		if($this->getParentWriter()->getUseDiskCaching()) {
-			$objWriter = new Document_Word_Writer_Shared_XMLWriter(Document_Word_Writer_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
 		} else {
-			$objWriter = new Document_Word_Writer_Shared_XMLWriter(Document_Word_Writer_Shared_XMLWriter::STORAGE_MEMORY);
+			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_MEMORY);
 		}
 		
 		// XML header
@@ -110,7 +110,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		return $objWriter->getData();
 	}
 	
-	private function _writeSection(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section $section) 
+	private function _writeSection(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section $section) 
         {
 		$objWriter->startElement('w:p');
 			$objWriter->startElement('w:pPr');
@@ -119,7 +119,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$objWriter->endElement();
 	}
 	
-	private function _writeEndSection(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section $section) 
+	private function _writeEndSection(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section $section) 
         {
 		$_settings = $section->getSettings();
 		$_header = $section->getHeader();
@@ -227,7 +227,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$objWriter->endElement();
 	}
 	
-	private function _writePageBreak(?Document_Word_Writer_Shared_XMLWriter $objWriter = null) 
+	private function _writePageBreak(?Document_Word_Shared_XMLWriter $objWriter = null) 
         {
 		$objWriter->startElement('w:p');
 			$objWriter->startElement('w:r');
@@ -238,7 +238,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$objWriter->endElement();
 	}
 	
-	private function _writeListItem(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_ListItem $listItem) 
+	private function _writeListItem(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_ListItem $listItem) 
         {
 		$textObject = $listItem->getTextObject();
 		$text = $textObject->getText();
@@ -277,7 +277,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$objWriter->endElement();
 	}
 	
-	protected function _writeObject(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Object $object) 
+	protected function _writeObject(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Object $object) 
         {
 		$rIdObject = $object->getRelationId();
 		$rIdImage = $object->getImageRelationId();
@@ -336,7 +336,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$objWriter->endElement(); // w:p
 	}
 	
-	private function _writeTOC(?Document_Word_Writer_Shared_XMLWriter $objWriter = null) 
+	private function _writeTOC(?Document_Word_Shared_XMLWriter $objWriter = null) 
         {
 		$titles = Document_Word_Writer_TOC::getTitles();
 		$styleFont = Document_Word_Writer_TOC::getStyleFont();

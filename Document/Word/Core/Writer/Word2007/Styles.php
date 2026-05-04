@@ -36,9 +36,9 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 		// Create XML writer
 		$objWriter = null;
 		if($this->getParentWriter()->getUseDiskCaching()) {
-			$objWriter = new Document_Word_Writer_Shared_XMLWriter(Document_Word_Writer_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
 		} else {
-			$objWriter = new Document_Word_Writer_Shared_XMLWriter(Document_Word_Writer_Shared_XMLWriter::STORAGE_MEMORY);
+			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_MEMORY);
 		}
 		
 		$this->_document = $pPHPWord;
@@ -138,7 +138,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 		return $objWriter->getData();
 	}
 	
-	private function _writeFullTableStyle(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Style_TableFull $style) 
+	private function _writeFullTableStyle(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Style_TableFull $style) 
         {
 
 		$brdSz = $style->getBorderSize();
@@ -259,7 +259,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 		}
 	}
 	
-	private function _writeRowStyle(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $type, Document_Word_Writer_Style_TableFull $style) 
+	private function _writeRowStyle(?Document_Word_Shared_XMLWriter $objWriter = null, $type, Document_Word_Writer_Style_TableFull $style) 
         {
 		$brdSz = $style->getBorderSize();
 		$brdCol = $style->getBorderColor();
@@ -320,7 +320,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 	}
 	
 	
-	private function _writeDocDefaults(?Document_Word_Writer_Shared_XMLWriter $objWriter = null) 
+	private function _writeDocDefaults(?Document_Word_Shared_XMLWriter $objWriter = null) 
         {
 		$fontName = $this->_document->getDefaultFontName();
 		$fontSize = $this->_document->getDefaultFontSize();

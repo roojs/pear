@@ -35,9 +35,9 @@ class Document_Word_Writer_Writer_Word2007_ContentTypes extends Document_Word_Wr
 		// Create XML writer
 		$objWriter = null;
 		if ($this->getParentWriter()->getUseDiskCaching()) {
-			$objWriter = new Document_Word_Writer_Shared_XMLWriter(Document_Word_Writer_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
 		} else {
-			$objWriter = new Document_Word_Writer_Shared_XMLWriter(Document_Word_Writer_Shared_XMLWriter::STORAGE_MEMORY);
+			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_MEMORY);
 		}
 
 		// XML header
@@ -139,7 +139,7 @@ class Document_Word_Writer_Writer_Word2007_ContentTypes extends Document_Word_Wr
 	 */
 	private function _getImageMimeType($pFile = '') 
         {
-		if(Document_Word_Writer_Shared_File::file_exists($pFile)) {
+		if(Document_Word_Shared_File::file_exists($pFile)) {
 			$image = getimagesize($pFile);
 			return image_type_to_mime_type($image[2]);
 		} else {
@@ -155,7 +155,7 @@ class Document_Word_Writer_Writer_Word2007_ContentTypes extends Document_Word_Wr
 	 * @param 	string 						$pContentType 	Content type
 	 * @throws 	Exception
 	 */
-	private function _writeDefaultContentType(Document_Word_Writer_Shared_XMLWriter $objWriter = null, $pPartname = '', $pContentType = '') 
+	private function _writeDefaultContentType(Document_Word_Shared_XMLWriter $objWriter = null, $pPartname = '', $pContentType = '') 
         {
 		if($pPartname != '' && $pContentType != '') {
 			// Write content type
@@ -176,7 +176,7 @@ class Document_Word_Writer_Writer_Word2007_ContentTypes extends Document_Word_Wr
 	 * @param 	string 						$pContentType 	Content type
 	 * @throws 	Exception
 	 */
-	private function _writeOverrideContentType(Document_Word_Writer_Shared_XMLWriter $objWriter = null, $pPartname = '', $pContentType = '') 
+	private function _writeOverrideContentType(Document_Word_Shared_XMLWriter $objWriter = null, $pPartname = '', $pContentType = '') 
         {
 		if($pPartname != '' && $pContentType != '') {
 			// Write content type

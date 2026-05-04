@@ -188,7 +188,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     private function _writeTextRunContentFromText($text)
     {
         require_once __DIR__ . '/../Shared/String.php';
-        $raw = Document_Word_Writer_Shared_String::ControlCharacterPHP2OOXML($text->getText());
+        $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML($text->getText());
         $inner = $this->_escapeHtml($raw);
         return $this->_wrapWithFontStyle($inner, $text->getFontStyle());
     }
@@ -297,12 +297,12 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
         $t = $pt->getText();
         require_once __DIR__ . '/../Shared/String.php';
         if (!is_array($t)) {
-            $raw = Document_Word_Writer_Shared_String::ControlCharacterPHP2OOXML((string) $t);
+            $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML((string) $t);
             return $this->_wrapWithFontStyle($this->_escapeHtml($raw), $pt->getFontStyle());
         }
         $chunk = '';
         foreach ($t as $part) {
-            $raw = Document_Word_Writer_Shared_String::ControlCharacterPHP2OOXML((string) $part);
+            $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML((string) $part);
             $chunk .= $this->_wrapWithFontStyle($this->_escapeHtml($raw), $pt->getFontStyle());
         }
         return $chunk;
@@ -329,7 +329,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
             $label = $link->getLinkSrc();
         }
         require_once __DIR__ . '/../Shared/String.php';
-        $raw = Document_Word_Writer_Shared_String::ControlCharacterPHP2OOXML((string) $label);
+        $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML((string) $label);
         $inner = $this->_wrapWithFontStyle($this->_escapeHtml($raw), $link->getFontStyle());
         return '<a href="' . $href . '">' . $inner . '</a>';
     }

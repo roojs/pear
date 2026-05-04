@@ -34,9 +34,9 @@ class Document_Word_Writer_Writer_Word2007_DocumentRels extends Document_Word_Wr
 		// Create XML writer
 		$objWriter = null;
 		if ($this->getParentWriter()->getUseDiskCaching()) {
-			$objWriter = new Document_Word_Writer_Shared_XMLWriter(Document_Word_Writer_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
 		} else {
-			$objWriter = new Document_Word_Writer_Shared_XMLWriter(Document_Word_Writer_Shared_XMLWriter::STORAGE_MEMORY);
+			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_MEMORY);
 		}
 		
 		// XML header
@@ -123,9 +123,9 @@ class Document_Word_Writer_Writer_Word2007_DocumentRels extends Document_Word_Wr
 		// Create XML writer
 		$objWriter = null;
 		if ($this->getParentWriter()->getUseDiskCaching()) {
-			$objWriter = new Document_Word_Writer_Shared_XMLWriter(Document_Word_Writer_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
 		} else {
-			$objWriter = new Document_Word_Writer_Shared_XMLWriter(Document_Word_Writer_Shared_XMLWriter::STORAGE_MEMORY);
+			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_MEMORY);
 		}
 		
 		// XML header
@@ -158,7 +158,7 @@ class Document_Word_Writer_Writer_Word2007_DocumentRels extends Document_Word_Wr
 	
 	
 	
-	private function _writeRelationship(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '') 
+	private function _writeRelationship(?Document_Word_Shared_XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '') 
         {
 		if(strlen($pType)  && strlen($pTarget)) {
 			if(strpos($pId, 'rId') === false) {

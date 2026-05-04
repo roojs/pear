@@ -34,9 +34,9 @@ class Document_Word_Writer_Writer_Word2007_Header extends Document_Word_Writer_W
                 require_once __DIR__ . '/../../Shared/XMLWriter.php';
 		// Create XML writer
 		if ($this->getParentWriter()->getUseDiskCaching()) {
-			$objWriter = new Document_Word_Writer_Shared_XMLWriter(Document_Word_Writer_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
+			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
 		} else {
-			$objWriter = new Document_Word_Writer_Shared_XMLWriter(Document_Word_Writer_Shared_XMLWriter::STORAGE_MEMORY);
+			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_MEMORY);
 		}
 		
 		// XML header
