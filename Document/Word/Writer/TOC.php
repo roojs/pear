@@ -80,7 +80,7 @@ class Document_Word_Writer_TOC
 	 */
 	public function __construct($styleFont = null, $styleTOC = null) 
         {
-                require_once __DIR__ . '/../Style/TOC.php';
+                require_once __DIR__ . '/Style/TOC.php';
 		self::$_styleTOC = new Document_Word_Writer_Style_TOC();
 		
 		if(!is_null($styleTOC) && is_array($styleTOC)) {

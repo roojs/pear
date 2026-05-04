@@ -80,7 +80,7 @@ class Document_Word_Writer_Section_Object
 	 */
 	public function __construct($src, $style = null) 
         {
-                require_once __DIR__ . '/../../Style/Image.php';
+                require_once __DIR__ . '/../Style/Image.php';
 		$_supportedObjectTypes = array('xls', 'doc', 'ppt');
 		$inf = pathinfo($src);
 		

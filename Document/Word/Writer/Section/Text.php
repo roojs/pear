@@ -68,7 +68,7 @@ class Document_Word_Writer_Section_Text
         {
 		// Set font style
 		if(is_array($styleFont)) {
-                        require_once __DIR__ . '/../../Style/Font.php';
+                        require_once __DIR__ . '/../Style/Font.php';
 			$this->_styleFont = new Document_Word_Writer_Style_Font('text');
 			
 			foreach($styleFont as $key => $value) {
@@ -83,7 +83,7 @@ class Document_Word_Writer_Section_Text
 		
 		// Set paragraph style
 		if(is_array($styleParagraph)) {
-                        require_once __DIR__ . '/../../Style/Paragraph.php';
+                        require_once __DIR__ . '/../Style/Paragraph.php';
 			$this->_styleParagraph = new Document_Word_Writer_Style_Paragraph();
 			
 			foreach($styleParagraph as $key => $value) {
