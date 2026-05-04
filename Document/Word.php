@@ -122,6 +122,6 @@ class Document_Word
         if (file_exists($strFilename)) {
             return new Document_Word_Template($strFilename);
         }
-        trigger_error('Template file '.$strFilename.' not found.', E_USER_ERROR);
+        trigger_error('Template file '.$strFilename.' not found.', E_ERROR);
     }
 }

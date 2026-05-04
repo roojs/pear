@@ -2,7 +2,7 @@
 /**
  * Generic IO entry points for {@see Document_Word}.
  *
- * Example (HTML export via legacy writers):
+ * Example (HTML export):
  *
  * ```php
  * require_once 'Document/Word.php';
@@ -12,6 +12,8 @@
  * $doc->createSection()->addText('Hello');
  * Document_Word_IOFactory::createWriter($doc, 'HTML')->save('/path/out.html');
  * ```
+ *
+ * Legacy duplicate: {@see Document_Word_Writer_IOFactory} (remove after migration).
  *
  * @category Document_Word
  */
@@ -26,7 +28,7 @@ class Document_Word_IOFactory
      *
      * @param string $path Path to source file (e.g. .docx)
      * @return Document_Word
-     * @throws Exception Not implemented in Phase 1
+     * @throws Exception Not implemented yet
      */
     public static function load($path)
     {
@@ -34,16 +36,20 @@ class Document_Word_IOFactory
     }
 
     /**
-     * Create a writer for the wrapped legacy {@see Document_Word_Writer}.
-     *
      * @param Document_Word $documentWord
      * @param string $writerType e.g. Word2007, HTML
-     * @return Document_Word_Writer_Writer_IWriter
+     * @return Document_Word_Output_IWriter
+     * @throws Exception
      */
     public static function createWriter(Document_Word $documentWord, $writerType = '')
     {
-        require_once __DIR__ . '/Writer/IOFactory.php';
+        $file = __DIR__ . '/Core/Output/' . $writerType . '.php';
+        if (!is_readable($file)) {
+            throw new Exception('No IWriter found for type '.$writerType);
+        }
+        require_once $file;
+        $className = 'Document_Word_Output_'.$writerType;
 
-        return Document_Word_Writer_IOFactory::createWriter($documentWord->getWriterDocument(), $writerType);
+        return new $className($documentWord);
     }
 }
