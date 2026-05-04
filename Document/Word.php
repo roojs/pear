@@ -1,17 +1,79 @@
 <?php
-require_once __DIR__ . '/Word/Writer.php';
-
 /**
- * Generic document type: same behaviour as {@see Document_Word_Writer} (sections, properties,
- * template, writers) using implementations under Document/Word/Writer/.
- *
- * Style registration uses {@see Document_Word_Style} (Document/Word/Style.php). Output writers
- * under Writer/ still read the legacy style registry until those are migrated.
+ * In-memory Word document (generic namespace). Logic mirrors {@see Document_Word_Writer};
+ * uses Document/Word/* when present (styles) and Document/Word/Writer/* for legacy pieces
+ * until those are replaced.
  *
  * @category Document_Word
  */
-class Document_Word extends Document_Word_Writer
+class Document_Word
 {
+    /** @var Document_Word_Writer_DocumentProperties */
+    private $_properties;
+
+    /** @var string */
+    private $_defaultFontName;
+
+    /** @var int */
+    private $_defaultFontSize;
+
+    /** @var array */
+    private $_sectionCollection = array();
+
+    public function __construct()
+    {
+        require_once __DIR__ . '/Word/Writer/DocumentProperties.php';
+        $this->_properties = new Document_Word_Writer_DocumentProperties();
+        $this->_defaultFontName = 'Arial';
+        $this->_defaultFontSize = 20;
+    }
+
+    /** @return Document_Word_Writer_DocumentProperties */
+    public function getProperties()
+    {
+        return $this->_properties;
+    }
+
+    /** @return Document_Word */
+    public function setProperties(Document_Word_Writer_DocumentProperties $value)
+    {
+        $this->_properties = $value;
+
+        return $this;
+    }
+
+    /** @return Document_Word_Writer_Section */
+    public function createSection($settings = null)
+    {
+        require_once __DIR__ . '/Word/Writer/Section.php';
+        $sectionCount = $this->_countSections() + 1;
+        $section = new Document_Word_Writer_Section($sectionCount, $settings);
+        $this->_sectionCollection[] = $section;
+
+        return $section;
+    }
+
+    public function getDefaultFontName()
+    {
+        return $this->_defaultFontName;
+    }
+
+    public function setDefaultFontName($pValue)
+    {
+        $this->_defaultFontName = $pValue;
+    }
+
+    public function getDefaultFontSize()
+    {
+        return $this->_defaultFontSize;
+    }
+
+    public function setDefaultFontSize($pValue)
+    {
+        $pValue = $pValue * 2;
+        $this->_defaultFontSize = $pValue;
+    }
+
     public function addParagraphStyle($styleName, $styles)
     {
         require_once __DIR__ . '/Word/Style.php';
@@ -40,5 +102,26 @@ class Document_Word extends Document_Word_Writer
     {
         require_once __DIR__ . '/Word/Style.php';
         Document_Word_Style::addLinkStyle($styleName, $styles);
+    }
+
+    /** @return Document_Word_Writer_Section[] */
+    public function getSections()
+    {
+        return $this->_sectionCollection;
+    }
+
+    private function _countSections()
+    {
+        return count($this->_sectionCollection);
+    }
+
+    /** @return Document_Word_Writer_Template */
+    public function loadTemplate($strFilename)
+    {
+        require_once __DIR__ . '/Word/Writer/Template.php';
+        if (file_exists($strFilename)) {
+            return new Document_Word_Writer_Template($strFilename);
+        }
+        trigger_error('Template file '.$strFilename.' not found.', E_ERROR);
     }
 }

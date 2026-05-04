@@ -31,7 +31,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 	
 	private $_document;
 	
-	public function writeStyles(?Document_Word_Writer $pPHPWord = null) 
+	public function writeStyles($pPHPWord = null) 
         {
 		// Create XML writer
 		$objWriter = null;

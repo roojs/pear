@@ -29,7 +29,7 @@ require_once 'Base.php';
 class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer_Writer_Word2007_Base 
 {
 	
-	public function writeDocument(?Document_Word_Writer $pPHPWord = null) 
+	public function writeDocument($pPHPWord = null) 
         {
 		// Create XML writer
 		if($this->getParentWriter()->getUseDiskCaching()) {

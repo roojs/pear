@@ -12,7 +12,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     /** @var Document_Word_Writer|null */
     private $_document;
 
-    public function __construct(Document_Word_Writer $PHPWord = null)
+    public function __construct($PHPWord = null)
     {
         $this->_document = $PHPWord;
     }
