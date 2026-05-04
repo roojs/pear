@@ -4,7 +4,7 @@
  *
  * Phase 1: thin wrapper only; DOCX loading will attach via {@see Document_Word_IOFactory::load()} later.
  *
- * Lives under Document/ (not Document/Word/) so Document/Word/ remains the legacy writer tree only.
+ * Facade lives at Document/Word.php; {@see Document_Word_IOFactory} is Document/Word/IOFactory.php beside the legacy writer tree.
  */
 
 /**
