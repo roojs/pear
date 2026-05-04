@@ -133,7 +133,7 @@ class Document_Word_Section
 	 */
 	public function addLink($linkSrc, $linkName = null, $styleFont = null, $styleParagraph = null) 
         {       
-                require_once __DIR__ . '/Writer/Media.php';
+                require_once __DIR__ . '/Media.php';
                 require_once __DIR__ . '/Section/Link.php';
 		$linkSrc = utf8_encode($linkSrc);
 		if(!is_null($linkName)) {
@@ -141,7 +141,7 @@ class Document_Word_Section
 		}
 		
 		$link = new Document_Word_Section_Link($linkSrc, $linkName, $styleFont, $styleParagraph);
-		$rID = Document_Word_Writer_Media::addSectionLinkElement($linkSrc);
+		$rID = Document_Word_Media::addSectionLinkElement($linkSrc);
 		$link->setRelationId($rID);
 		
 		$this->_elementCollection[] = $link;
@@ -225,7 +225,7 @@ class Document_Word_Section
 	public function addObject($src, $style = null) 
         {
                 require_once __DIR__ . '/Section/Object.php';
-                require_once __DIR__ . '/Writer/Media.php';
+                require_once __DIR__ . '/Media.php';
 		$object = new Document_Word_Section_Object($src, $style);
 		
 		if(!is_null($object->getSource())) {
@@ -242,8 +242,8 @@ class Document_Word_Section
 				$iconSrc .= '_'.$ext.'.png';
 			}
 			
-			$rIDimg = Document_Word_Writer_Media::addSectionMediaElement($iconSrc, 'image');
-			$data = Document_Word_Writer_Media::addSectionMediaElement($src, 'oleObject');
+			$rIDimg = Document_Word_Media::addSectionMediaElement($iconSrc, 'image');
+			$data = Document_Word_Media::addSectionMediaElement($src, 'oleObject');
 			$rID = $data[0];
 			$objectId = $data[1];
 			
@@ -272,14 +272,14 @@ class Document_Word_Section
 	public static function staticAddImage($th, $src, $style = null) 
         {
         require_once __DIR__ . '/Section/Image.php';
-        require_once __DIR__ . '/Writer/Media.php';
+        require_once __DIR__ . '/Media.php';
 		$image = new Document_Word_Section_Image($src, $style);
 		if(is_null($image->getSource())) {
             return false;
             trigger_error('Source does not exist or unsupported image type.');
 		}
                 
-        $rID = Document_Word_Writer_Media::addSectionMediaElement($src, 'image');
+        $rID = Document_Word_Media::addSectionMediaElement($src, 'image');
         $image->setRelationId($rID);
 
         $th->_elementCollection[] = $image;
@@ -297,9 +297,10 @@ class Document_Word_Section
 	 */
 	public function addMemoryImage($link, $style = null) 
         {
+		require_once __DIR__ . '/Media.php';
 		$memoryImage = new Document_Word_Section_MemoryImage($link, $style);
 		if(!is_null($memoryImage->getSource())) {
-			$rID = Document_Word_Writer_Media::addSectionMediaElement($link, 'image', $memoryImage);
+			$rID = Document_Word_Media::addSectionMediaElement($link, 'image', $memoryImage);
 			$memoryImage->setRelationId($rID);
 			
 			$this->_elementCollection[] = $memoryImage;
