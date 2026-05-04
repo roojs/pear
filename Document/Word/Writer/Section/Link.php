@@ -83,6 +83,7 @@ class Document_Word_Writer_Section_Link
 	public function __construct($linkSrc, $linkName = null, $styleFont = null, $styleParagraph = null) 
         {
                 require_once __DIR__ . '/../../Style/Font.php';
+		require_once __DIR__ . '/../../Style/Paragraph.php';
 		$this->_linkSrc = $linkSrc;
 		$this->_linkName = $linkName;
 		

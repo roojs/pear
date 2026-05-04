@@ -27,11 +27,11 @@
 
 
 /**
- * PHPWord_Style
+ * Named document styles registry (paragraph, font, table, title, link).
  *
- * @category   PHPWord
- * @package    PHPWord_Style
- * @copyright  Copyright (c) 2011 PHPWord
+ * Generic model under Document/Word/; writers consume {@see self::getStyles()} and style objects.
+ *
+ * @category Document_Word
  */
 class Document_Word_Style 
 {
