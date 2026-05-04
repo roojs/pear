@@ -160,7 +160,7 @@ class Document_Word_Writer
 	 */
 	public function addParagraphStyle($styleName, $styles) 
         {
-		require_once __DIR__ . '/Writer/Style.php';
+		require_once __DIR__ . '/Style.php';
 
 		Document_Word_Style::addParagraphStyle($styleName, $styles);
 	}
@@ -173,7 +173,7 @@ class Document_Word_Writer
 	 */
 	public function addFontStyle($styleName, $styleFont, $styleParagraph = null) 
         {
-                require_once __DIR__ . '/Writer/Style.php';
+                require_once __DIR__ . '/Style.php';
 		Document_Word_Style::addFontStyle($styleName, $styleFont, $styleParagraph);
 	}
 	
@@ -185,7 +185,7 @@ class Document_Word_Writer
 	 */
 	public function addTableStyle($styleName, $styleTable, $styleFirstRow = null) 
         {
-                require_once __DIR__ . '/Writer/Style.php';
+                require_once __DIR__ . '/Style.php';
 		Document_Word_Style::addTableStyle($styleName, $styleTable, $styleFirstRow);
 	}
 	
@@ -197,7 +197,7 @@ class Document_Word_Writer
 	 */
 	public function addTitleStyle($titleCount, $styleFont, $styleParagraph = null) 
 	{
-                require_once __DIR__ . '/Writer/Style.php';
+                require_once __DIR__ . '/Style.php';
 		Document_Word_Style::addTitleStyle($titleCount, $styleFont, $styleParagraph);
 	}
 	
@@ -209,7 +209,7 @@ class Document_Word_Writer
 	 */
 	public function addLinkStyle($styleName, $styles) 
         {
-                require_once __DIR__ . '/Writer/Style.php';
+                require_once __DIR__ . '/Style.php';
 		Document_Word_Style::addLinkStyle($styleName, $styles);
 	}
 	

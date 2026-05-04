@@ -82,7 +82,7 @@ class Document_Word_Writer_Section_Table_Cell
 	 */
 	public function __construct($insideOf, $pCount, $width = null, $style = null) 
         {
-                require_once __DIR__ . '/../../Style/Cell.php';
+                require_once __DIR__ . '/../../../Style/Cell.php';
 		$this->_insideOf = $insideOf;
 		$this->_pCount = $pCount;
 		$this->_width = $width;
