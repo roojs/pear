@@ -1,5 +1,12 @@
 <?php
 /**
+ * Generic document styles (non-writer-specific namespace).
+ *
+ * ```php
+ * require_once 'Document/Word/Style.php';
+ * Document_Word_Style::addParagraphStyle('Body', array('align' => 'left'));
+ * ```
+ *
  * PHPWord
  *
  * Copyright (c) 2011 PHPWord
