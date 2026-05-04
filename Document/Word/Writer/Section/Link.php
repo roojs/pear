@@ -89,7 +89,7 @@ class Document_Word_Writer_Section_Link
 		
 		// Set font style
 		if(is_array($styleFont)) {
-			$this->_styleFont = new Document_Word_Style_Font('text');
+			$this->_styleFont = new Document_Word_Writer_Style_Font('text');
 			
 			foreach($styleFont as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
@@ -103,7 +103,7 @@ class Document_Word_Writer_Section_Link
 		
 		// Set paragraph style
 		if(is_array($styleParagraph)) {
-			$this->_styleParagraph = new Document_Word_Style_Paragraph();
+			$this->_styleParagraph = new Document_Word_Writer_Style_Paragraph();
 			
 			foreach($styleParagraph as $key => $value) {
 				if(substr($key, 0, 1) != '_') {

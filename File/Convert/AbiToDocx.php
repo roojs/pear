@@ -191,7 +191,7 @@ class File_Convert_AbiToDocx
         
         $style =  $this->parseProps();
         if(!empty($style)){
-            $this->style = array_merge($style, Document_Word_Style::getStyles());
+            $this->style = array_merge($style, Document_Word_Writer_Style::getStyles());
         }else{
             $this->style = $this->xr->getAttribute('style');
         }

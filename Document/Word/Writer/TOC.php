@@ -81,7 +81,7 @@ class Document_Word_Writer_TOC
 	public function __construct($styleFont = null, $styleTOC = null) 
         {
                 require_once __DIR__ . '/../Style/TOC.php';
-		self::$_styleTOC = new Document_Word_Style_TOC();
+		self::$_styleTOC = new Document_Word_Writer_Style_TOC();
 		
 		if(!is_null($styleTOC) && is_array($styleTOC)) {
 			foreach($styleTOC as $key => $value) {
@@ -94,7 +94,7 @@ class Document_Word_Writer_TOC
 		
 		if(!is_null($styleFont)) {
 			if(is_array($styleFont)) {
-				self::$_styleFont = new Document_Word_Style_Font();
+				self::$_styleFont = new Document_Word_Writer_Style_Font();
 				
 				foreach($styleFont as $key => $value) {
 					if(substr($key, 0, 1) != '_') {

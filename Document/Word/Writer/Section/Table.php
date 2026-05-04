@@ -99,7 +99,7 @@ class Document_Word_Writer_Section_Table
             }
             
             require_once 'Document/Word/Style/Table.php';
-            $this->_style = new Document_Word_Style_Table();
+            $this->_style = new Document_Word_Writer_Style_Table();
             
             foreach ($style as $key => $value) {
                 if (substr($key, 0, 1) != '_') {

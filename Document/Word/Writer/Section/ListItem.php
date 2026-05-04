@@ -70,7 +70,7 @@ class Document_Word_Writer_Section_ListItem
         {
                 require_once __DIR__ . '/Text.php';
                 require_once __DIR__ . '/../../Style/ListItem.php';
-		$this->_style = new Document_Word_Style_ListItem();
+		$this->_style = new Document_Word_Writer_Style_ListItem();
 		$this->_textObject = new Document_Word_Writer_Section_Text($text, $styleFont, $styleParagraph);
 		$this->_depth = $depth;
 		

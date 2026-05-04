@@ -99,7 +99,7 @@ class Document_Word_Writer_Section_MemoryImage {
 		
 		if(in_array($this->_imageType, $_supportedImageTypes)) {
 			$this->_src = $src;
-			$this->_style = new Document_Word_Style_Image();
+			$this->_style = new Document_Word_Writer_Style_Image();
 			
 			if(!is_null($style) && is_array($style)) {
 				foreach($style as $key => $value) {
