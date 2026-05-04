@@ -99,7 +99,7 @@ class Document_Word_Writer_IOFactory
 	/**
 	 * Create PHPWord_Writer_IWriter
 	 *
-	 * @param PHPWord $PHPWord
+	 * @param Document_Word|Document_Word_Writer $PHPWord
 	 * @param string  $writerType    Example: Word2007
 	 * @return PHPWord_Writer_IWriter
 	 */
