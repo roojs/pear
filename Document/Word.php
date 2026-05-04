@@ -8,7 +8,7 @@
  */
 class Document_Word
 {
-    /** @var Document_Word_Writer_DocumentProperties */
+    /** @var Document_Word_DocumentProperties */
     private $_properties;
 
     /** @var string */
@@ -22,20 +22,23 @@ class Document_Word
 
     public function __construct()
     {
-        require_once __DIR__ . '/Word/Writer/DocumentProperties.php';
-        $this->_properties = new Document_Word_Writer_DocumentProperties();
+        require_once __DIR__ . '/Word/DocumentProperties.php';
+        $this->_properties = new Document_Word_DocumentProperties();
         $this->_defaultFontName = 'Arial';
         $this->_defaultFontSize = 20;
     }
 
-    /** @return Document_Word_Writer_DocumentProperties */
+    /** @return Document_Word_DocumentProperties */
     public function getProperties()
     {
         return $this->_properties;
     }
 
-    /** @return Document_Word */
-    public function setProperties(Document_Word_Writer_DocumentProperties $value)
+    /**
+     * @param Document_Word_DocumentProperties|Document_Word_Writer_DocumentProperties $value
+     * @return Document_Word
+     */
+    public function setProperties($value)
     {
         $this->_properties = $value;
 
