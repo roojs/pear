@@ -29,7 +29,7 @@ require_once __DIR__.'/WriterPart.php';
 class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Writer_Word2007_WriterPart 
 {
 	
-	protected function _writeText(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Text $text, $withoutP = false) 
+	protected function _writeText(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $text, $withoutP = false) 
         {
                 
 		$styleFont = $text->getFontStyle();
@@ -81,7 +81,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 	}
 	
-	protected function _writeTextRun(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_TextRun $textrun) 
+	protected function _writeTextRun(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $textrun) 
         {
 		
               
@@ -105,18 +105,18 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		if(count($elements) > 0) {
 			foreach($elements as $element) {
                                 //echo get_class($element) .'<br/>';
-				if($element instanceof Document_Word_Writer_Section_Text) {
+				if($element instanceof Document_Word_Writer_Section_Text || $element instanceof Document_Word_Section_Text) {
 					$this->_writeText($objWriter, $element, true);
-				} elseif($element instanceof Document_Word_Writer_Section_Link) {
+				} elseif($element instanceof Document_Word_Writer_Section_Link || $element instanceof Document_Word_Section_Link) {
 					$this->_writeLink($objWriter, $element, true);
-				} elseif($element instanceof Document_Word_Writer_Section_Image ||
-                                        $element instanceof Document_Word_Writer_Section_MemoryImage) {
+				} elseif($element instanceof Document_Word_Writer_Section_Image || $element instanceof Document_Word_Section_Image ||
+                                        $element instanceof Document_Word_Writer_Section_MemoryImage || $element instanceof Document_Word_Section_MemoryImage) {
                                         $this->_writeImage($objWriter, $element, true); // skip the image para
-                                } elseif($element instanceof Document_Word_Writer_Section_TextBreak) {
+                                } elseif($element instanceof Document_Word_Writer_Section_TextBreak || $element instanceof Document_Word_Section_TextBreak) {
                                         $this->_writeTextBreak($objWriter);
-                                } elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText) {
+                                } elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText || $element instanceof Document_Word_Section_Footer_PreserveText) {
                                         $this->_writePreserveText($objWriter, $element,true);
-                                } elseif($element instanceof Document_Word_Writer_Section_PageBreak) {
+                                } elseif($element instanceof Document_Word_Writer_Section_PageBreak || $element instanceof Document_Word_Section_PageBreak) {
                                         $this->_writePageBreak($objWriter , true);
                                 } else {
                                     throw Exception("unhandled class" . get_class($element));
@@ -198,7 +198,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 	}
 	
-	protected function _writeLink(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Link $link, $withoutP = false) 
+	protected function _writeLink(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $link, $withoutP = false) 
         {
 		$rID = $link->getRelationId();
 		$linkName = $link->getLinkName();
@@ -254,7 +254,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 	}
 	
-	protected function _writePreserveText(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Footer_PreserveText $textrun, $skip_para = false) 
+	protected function _writePreserveText(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $textrun, $skip_para = false) 
         {
 		$styleFont = $textrun->getFontStyle();
 		$styleParagraph = $textrun->getParagraphStyle();
@@ -423,7 +423,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
             $objWriter->endElement();
 	}
 	
-	protected function _writeTable(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Table $table) 
+	protected function _writeTable(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $table) 
         {
             $_rows = $table->getRows();
             $_cRows = count($_rows);
@@ -564,22 +564,22 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         
                         if(count($_elements) > 0) {
                                 foreach($_elements as $element) {
-                                        if($element instanceof Document_Word_Writer_Section_Text) {
+                                        if($element instanceof Document_Word_Writer_Section_Text || $element instanceof Document_Word_Section_Text) {
                                                 $this->_writeText($objWriter, $element);
-                                        } elseif($element instanceof Document_Word_Writer_Section_TextRun) {
+                                        } elseif($element instanceof Document_Word_Writer_Section_TextRun || $element instanceof Document_Word_Section_TextRun) {
                                                 $this->_writeTextRun($objWriter, $element);
-                                        } elseif($element instanceof Document_Word_Writer_Section_Link) {
+                                        } elseif($element instanceof Document_Word_Writer_Section_Link || $element instanceof Document_Word_Section_Link) {
                                                 $this->_writeLink($objWriter, $element);
-                                        } elseif($element instanceof Document_Word_Writer_Section_TextBreak) {
+                                        } elseif($element instanceof Document_Word_Writer_Section_TextBreak || $element instanceof Document_Word_Section_TextBreak) {
                                                 $this->_writeTextBreak($objWriter);
-                                        } elseif($element instanceof Document_Word_Writer_Section_ListItem) {
+                                        } elseif($element instanceof Document_Word_Writer_Section_ListItem || $element instanceof Document_Word_Section_ListItem) {
                                                 $this->_writeListItem($objWriter, $element);
-                                        } elseif($element instanceof Document_Word_Writer_Section_Image ||
-                                                 $element instanceof Document_Word_Writer_Section_MemoryImage) {
+                                        } elseif($element instanceof Document_Word_Writer_Section_Image || $element instanceof Document_Word_Section_Image ||
+                                                 $element instanceof Document_Word_Writer_Section_MemoryImage || $element instanceof Document_Word_Section_MemoryImage) {
                                                 $this->_writeImage($objWriter, $element);
-                                        } elseif($element instanceof Document_Word_Writer_Section_Object) {
+                                        } elseif($element instanceof Document_Word_Writer_Section_Object || $element instanceof Document_Word_Section_Object) {
                                                 $this->_writeObject($objWriter, $element);
-                                        } elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText) {
+                                        } elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText || $element instanceof Document_Word_Section_Footer_PreserveText) {
                                                 $this->_writePreserveText($objWriter, $element);
                                         }
                                 }
@@ -996,7 +996,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$objWriter->endElement();
 	}
 	
-	protected function _writeTitle(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Title $title) 
+	protected function _writeTitle(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $title) 
         {
 		$text = htmlspecialchars($title->getText());
 		$text = Document_Word_Writer_Shared_String::ControlCharacterPHP2OOXML($text);

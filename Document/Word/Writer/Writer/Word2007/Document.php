@@ -69,26 +69,26 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
                         $_elements = $section->getElements();
 
                         foreach($_elements as $element) {
-                                if($element instanceof Document_Word_Writer_Section_Text) {
+                                if($element instanceof Document_Word_Writer_Section_Text || $element instanceof Document_Word_Section_Text) {
                                         $this->_writeText($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_TextRun) {
+                                } elseif($element instanceof Document_Word_Writer_Section_TextRun || $element instanceof Document_Word_Section_TextRun) {
                                         $this->_writeTextRun($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_Link) {
+                                } elseif($element instanceof Document_Word_Writer_Section_Link || $element instanceof Document_Word_Section_Link) {
                                         $this->_writeLink($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_Title) {
+                                } elseif($element instanceof Document_Word_Writer_Section_Title || $element instanceof Document_Word_Section_Title) {
                                         $this->_writeTitle($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_TextBreak) {
+                                } elseif($element instanceof Document_Word_Writer_Section_TextBreak || $element instanceof Document_Word_Section_TextBreak) {
                                         $this->_writeTextBreak($objWriter);
-                                } elseif($element instanceof Document_Word_Writer_Section_PageBreak) {
+                                } elseif($element instanceof Document_Word_Writer_Section_PageBreak || $element instanceof Document_Word_Section_PageBreak) {
                                         $this->_writePageBreak($objWriter);
-                                } elseif($element instanceof Document_Word_Writer_Section_Table) {
+                                } elseif($element instanceof Document_Word_Writer_Section_Table || $element instanceof Document_Word_Section_Table) {
                                         $this->_writeTable($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_ListItem) {
+                                } elseif($element instanceof Document_Word_Writer_Section_ListItem || $element instanceof Document_Word_Section_ListItem) {
                                         $this->_writeListItem($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_Image ||
-                                                 $element instanceof Document_Word_Writer_Section_MemoryImage) {
+                                } elseif($element instanceof Document_Word_Writer_Section_Image || $element instanceof Document_Word_Section_Image ||
+                                                 $element instanceof Document_Word_Writer_Section_MemoryImage || $element instanceof Document_Word_Section_MemoryImage) {
                                         $this->_writeImage($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_Object) {
+                                } elseif($element instanceof Document_Word_Writer_Section_Object || $element instanceof Document_Word_Section_Object) {
                                         $this->_writeObject($objWriter, $element);
                                 } elseif($element instanceof Document_Word_Writer_TOC) {
                                         $this->_writeTOC($objWriter);
@@ -110,7 +110,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		return $objWriter->getData();
 	}
 	
-	private function _writeSection(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section $section) 
+	private function _writeSection(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $section) 
         {
 		$objWriter->startElement('w:p');
 			$objWriter->startElement('w:pPr');
@@ -119,7 +119,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$objWriter->endElement();
 	}
 	
-	private function _writeEndSection(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section $section) 
+	private function _writeEndSection(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $section) 
         {
 		$_settings = $section->getSettings();
 		$_header = $section->getHeader();
@@ -238,7 +238,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$objWriter->endElement();
 	}
 	
-	private function _writeListItem(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_ListItem $listItem) 
+	private function _writeListItem(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $listItem) 
         {
 		$textObject = $listItem->getTextObject();
 		$text = $textObject->getText();
@@ -277,7 +277,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$objWriter->endElement();
 	}
 	
-	protected function _writeObject(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Section_Object $object) 
+	protected function _writeObject(?Document_Word_Writer_Shared_XMLWriter $objWriter = null, $object) 
         {
 		$rIdObject = $object->getRelationId();
 		$rIdImage = $object->getImageRelationId();

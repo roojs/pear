@@ -29,7 +29,7 @@ require_once __DIR__.'/Base.php';
 class Document_Word_Writer_Writer_Word2007_Header extends Document_Word_Writer_Writer_Word2007_Base 
 {
 	
-	public function writeHeader(Document_Word_Writer_Section_Header $header) 
+	public function writeHeader($header) 
         {
                 require_once __DIR__ . '/../../Shared/XMLWriter.php';
 		// Create XML writer
@@ -57,22 +57,22 @@ class Document_Word_Writer_Writer_Word2007_Header extends Document_Word_Writer_W
 		$_elements = $header->getElements();
 		
 		foreach($_elements as $element) {
-			if($element instanceof Document_Word_Writer_Section_Text) {
+			if($element instanceof Document_Word_Writer_Section_Text || $element instanceof Document_Word_Section_Text) {
 				$this->_writeText($objWriter, $element);
-			} elseif($element instanceof Document_Word_Writer_Section_TextRun) {
+			} elseif($element instanceof Document_Word_Writer_Section_TextRun || $element instanceof Document_Word_Section_TextRun) {
 				$this->_writeTextRun($objWriter, $element);
-			} elseif($element instanceof Document_Word_Writer_Section_TextBreak) {
+			} elseif($element instanceof Document_Word_Writer_Section_TextBreak || $element instanceof Document_Word_Section_TextBreak) {
 				$this->_writeTextBreak($objWriter);
-			} elseif($element instanceof Document_Word_Writer_Section_Table) {
+			} elseif($element instanceof Document_Word_Writer_Section_Table || $element instanceof Document_Word_Section_Table) {
 				$this->_writeTable($objWriter, $element);
-			} elseif($element instanceof Document_Word_Writer_Section_Image ||
-					 $element instanceof Document_Word_Writer_Section_MemoryImage) {
+			} elseif($element instanceof Document_Word_Writer_Section_Image || $element instanceof Document_Word_Section_Image ||
+					 $element instanceof Document_Word_Writer_Section_MemoryImage || $element instanceof Document_Word_Section_MemoryImage) {
 				if(!$element->getIsWatermark()) {
 					$this->_writeImage($objWriter, $element);
 				} else {
 					$this->_writeWatermark($objWriter, $element);
 				}
-			} elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText) {
+			} elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText || $element instanceof Document_Word_Section_Footer_PreserveText) {
 				$this->_writePreserveText($objWriter, $element,true);
 			}
 		}

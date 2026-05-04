@@ -105,35 +105,35 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
      */
     private function _writeElement($element)
     {
-        if ($element instanceof Document_Word_Writer_Section_Text) {
+        if ($element instanceof Document_Word_Writer_Section_Text || $element instanceof Document_Word_Section_Text) {
             return $this->_writeParagraphFromText($element);
         }
-        if ($element instanceof Document_Word_Writer_Section_TextRun) {
+        if ($element instanceof Document_Word_Writer_Section_TextRun || $element instanceof Document_Word_Section_TextRun) {
             return $this->_writeTextRunBlock($element);
         }
-        if ($element instanceof Document_Word_Writer_Section_Link) {
+        if ($element instanceof Document_Word_Writer_Section_Link || $element instanceof Document_Word_Section_Link) {
             return $this->_writeLinkBlock($element);
         }
-        if ($element instanceof Document_Word_Writer_Section_Title) {
+        if ($element instanceof Document_Word_Writer_Section_Title || $element instanceof Document_Word_Section_Title) {
             return $this->_writeTitle($element);
         }
-        if ($element instanceof Document_Word_Writer_Section_TextBreak) {
+        if ($element instanceof Document_Word_Writer_Section_TextBreak || $element instanceof Document_Word_Section_TextBreak) {
             return "<br>\n";
         }
-        if ($element instanceof Document_Word_Writer_Section_PageBreak) {
+        if ($element instanceof Document_Word_Writer_Section_PageBreak || $element instanceof Document_Word_Section_PageBreak) {
             return '<div style="page-break-before:always"></div>' . "\n";
         }
-        if ($element instanceof Document_Word_Writer_Section_Table) {
+        if ($element instanceof Document_Word_Writer_Section_Table || $element instanceof Document_Word_Section_Table) {
             return $this->_writeTable($element);
         }
-        if ($element instanceof Document_Word_Writer_Section_ListItem) {
+        if ($element instanceof Document_Word_Writer_Section_ListItem || $element instanceof Document_Word_Section_ListItem) {
             return $this->_writeListItem($element);
         }
-        if ($element instanceof Document_Word_Writer_Section_Image
-            || $element instanceof Document_Word_Writer_Section_MemoryImage) {
+        if ($element instanceof Document_Word_Writer_Section_Image || $element instanceof Document_Word_Section_Image
+            || $element instanceof Document_Word_Writer_Section_MemoryImage || $element instanceof Document_Word_Section_MemoryImage) {
             return $this->_writeImageBlock($element);
         }
-        if ($element instanceof Document_Word_Writer_Section_Object) {
+        if ($element instanceof Document_Word_Writer_Section_Object || $element instanceof Document_Word_Section_Object) {
             return "<!-- embedded OLE object omitted -->\n";
         }
         if ($element instanceof Document_Word_Writer_TOC) {
@@ -144,7 +144,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param Document_Word_Writer_Section_Table $table
+     * @param $table
      * @return string
      */
     private function _writeTable($table)
@@ -169,7 +169,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param Document_Word_Writer_Section_ListItem $item
+     * @param $item
      * @return string
      */
     private function _writeListItem($item)
@@ -182,7 +182,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param Document_Word_Writer_Section_Text $text
+     * @param $text
      * @return string
      */
     private function _writeTextRunContentFromText($text)
@@ -194,7 +194,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param Document_Word_Writer_Section_Text $text
+     * @param $text
      * @return string
      */
     private function _writeParagraphFromText($text)
@@ -247,7 +247,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param Document_Word_Writer_Section_TextRun $textrun
+     * @param $textrun
      * @return string
      */
     private function _writeTextRunBlock($textrun)
@@ -265,23 +265,23 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
      */
     private function _writeInlineElement($el)
     {
-        if ($el instanceof Document_Word_Writer_Section_Text) {
+        if ($el instanceof Document_Word_Writer_Section_Text || $el instanceof Document_Word_Section_Text) {
             return $this->_writeTextRunContentFromText($el);
         }
-        if ($el instanceof Document_Word_Writer_Section_Link) {
+        if ($el instanceof Document_Word_Writer_Section_Link || $el instanceof Document_Word_Section_Link) {
             return $this->_writeLinkInline($el);
         }
-        if ($el instanceof Document_Word_Writer_Section_Image
-            || $el instanceof Document_Word_Writer_Section_MemoryImage) {
+        if ($el instanceof Document_Word_Writer_Section_Image || $el instanceof Document_Word_Section_Image
+            || $el instanceof Document_Word_Writer_Section_MemoryImage || $el instanceof Document_Word_Section_MemoryImage) {
             return $this->_writeImageInline($el);
         }
-        if ($el instanceof Document_Word_Writer_Section_TextBreak) {
+        if ($el instanceof Document_Word_Writer_Section_TextBreak || $el instanceof Document_Word_Section_TextBreak) {
             return '<br>';
         }
-        if ($el instanceof Document_Word_Writer_Section_PageBreak) {
+        if ($el instanceof Document_Word_Writer_Section_PageBreak || $el instanceof Document_Word_Section_PageBreak) {
             return '<span style="page-break-before:always"></span>';
         }
-        if ($el instanceof Document_Word_Writer_Section_Footer_PreserveText) {
+        if ($el instanceof Document_Word_Writer_Section_Footer_PreserveText || $el instanceof Document_Word_Section_Footer_PreserveText) {
             return $this->_writePreserveTextInline($el);
         }
 
@@ -289,7 +289,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param Document_Word_Writer_Section_Footer_PreserveText $pt
+     * @param $pt
      * @return string
      */
     private function _writePreserveTextInline($pt)
@@ -309,7 +309,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param Document_Word_Writer_Section_Link $link
+     * @param $link
      * @return string
      */
     private function _writeLinkBlock($link)
@@ -318,7 +318,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param Document_Word_Writer_Section_Link $link
+     * @param $link
      * @return string
      */
     private function _writeLinkInline($link)
@@ -335,7 +335,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param Document_Word_Writer_Section_Title $title
+     * @param $title
      * @return string
      */
     private function _writeTitle($title)
@@ -357,7 +357,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param Document_Word_Writer_Section_Image|Document_Word_Writer_Section_MemoryImage $img
+     * @param Document_Word_Writer_Section_Image|$img
      * @return string
      */
     private function _writeImageBlock($img)
@@ -366,7 +366,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param Document_Word_Writer_Section_Image|Document_Word_Writer_Section_MemoryImage $img
+     * @param Document_Word_Writer_Section_Image|$img
      * @return string
      */
     private function _writeImageInline($img)
