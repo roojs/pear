@@ -134,8 +134,11 @@ class Document_Word_Section_TextRun
         
     public function addPreserveText($text, $styleFont = null, $styleParagraph = null) 
     {
-        require_once __DIR__ . '/Footer.php';
-        Document_Word_Section_Footer::addPreserveText($text, $styleFont, $styleParagraph);
+        require_once __DIR__ . '/Footer/PreserveText.php';
+        $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
+        $ptext = new Document_Word_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
+        $this->_elementCollection[] = $ptext;
+        return $ptext;
 	}
         
 	/**
