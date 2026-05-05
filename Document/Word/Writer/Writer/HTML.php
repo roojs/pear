@@ -222,7 +222,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
      */
     private function _paragraphStyleAttr($styleParagraph)
     {
-        if (!($styleParagraph instanceof Document_Word_Writer_Style_Paragraph)) {
+        if (!($styleParagraph instanceof Document_Word_Writer_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph)) {
             return '';
         }
         $parts = array();

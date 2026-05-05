@@ -243,7 +243,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$textObject = $listItem->getTextObject();
 		$text = $textObject->getText();
         $styleParagraph = $textObject->getParagraphStyle();
-        $SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph) ? true : false;
+        $SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
         
 		$depth = $listItem->getDepth();
 		$listType = $listItem->getStyle()->getListType();
