@@ -416,7 +416,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
                 $inner = '<i>' . $inner . '</i>';
             }
             if ($f->getUnderline() !== null
-                && $f->getUnderline() !== Document_Word_Writer_Style_Font::UNDERLINE_NONE) {
+                && $f->getUnderline() !== Document_Word_Style_Font::UNDERLINE_NONE) {
                 $inner = '<u>' . $inner . '</u>';
             }
             if ($f->getStrikethrough()) {
