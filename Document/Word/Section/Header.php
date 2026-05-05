@@ -33,7 +33,7 @@
  * @package    PHPWord_Section
  * @copyright  Copyright (c) 2011 PHPWord
  */
-class Document_Word_Writer_Section_Header 
+class Document_Word_Section_Header 
 {
 	
 	/**
@@ -78,7 +78,7 @@ class Document_Word_Writer_Section_Header
                 require_once __DIR__ . '/Text.php';
 		//$givenText = utf8_encode($text);
                 $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
-		$text = new Document_Word_Writer_Section_Text($text, $styleFont, $styleParagraph);
+		$text = new Document_Word_Section_Text($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $text;
 		return $text;
 	}
@@ -91,7 +91,7 @@ class Document_Word_Writer_Section_Header
 	public function addTextBreak($count = 1) 
         {
 		for($i=1; $i<=$count; $i++) {
-			$this->_elementCollection[] = new Document_Word_Writer_Section_TextBreak();
+			$this->_elementCollection[] = new Document_Word_Section_TextBreak();
 		}
 	}
 	
@@ -102,7 +102,7 @@ class Document_Word_Writer_Section_Header
 	 */
 	public function createTextRun($styleParagraph = null) 
         {
-		$textRun = new Document_Word_Writer_Section_TextRun($styleParagraph);
+		$textRun = new Document_Word_Section_TextRun($styleParagraph);
 		$this->_elementCollection[] = $textRun;
 		return $textRun;
 	}
@@ -116,7 +116,7 @@ class Document_Word_Writer_Section_Header
 	public function addTable($style = null) 
         {
                 require_once __DIR__ . '/Table.php';
-		$table = new Document_Word_Writer_Section_Table('header', $this->_headerCount, $style);
+		$table = new Document_Word_Section_Table('header', $this->_headerCount, $style);
 		$this->_elementCollection[] = $table;
 		return $table;
 	}
@@ -130,10 +130,10 @@ class Document_Word_Writer_Section_Header
 	 */
 	public function addImage($src, $style = null) 
         {
-		$image = new Document_Word_Writer_Section_Image($src, $style);
+		$image = new Document_Word_Section_Image($src, $style);
 		
 		if(!is_null($image->getSource())) {
-			$rID = Document_Word_Writer_Media::addHeaderMediaElement($this->_headerCount, $src);
+			$rID = Document_Word_Media::addHeaderMediaElement($this->_headerCount, $src);
 			$image->setRelationId($rID);
 			
 			$this->_elementCollection[] = $image;
@@ -152,9 +152,9 @@ class Document_Word_Writer_Section_Header
 	 */
 	public function addMemoryImage($link, $style = null) 
         {
-		$memoryImage = new Document_Word_Writer_Section_MemoryImage($link, $style);
+		$memoryImage = new Document_Word_Section_MemoryImage($link, $style);
 		if(!is_null($memoryImage->getSource())) {
-			$rID = Document_Word_Writer_Media::addHeaderMediaElement($this->_headerCount, $link, $memoryImage);
+			$rID = Document_Word_Media::addHeaderMediaElement($this->_headerCount, $link, $memoryImage);
 			$memoryImage->setRelationId($rID);
 			
 			$this->_elementCollection[] = $memoryImage;
@@ -176,7 +176,7 @@ class Document_Word_Writer_Section_Header
         {
                 require_once __DIR__ . '/Footer/PreserveText.php';
 		$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
-		$ptext = new Document_Word_Writer_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
+		$ptext = new Document_Word_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $ptext;
 		return $ptext;
 	}
@@ -190,10 +190,10 @@ class Document_Word_Writer_Section_Header
 	 */
 	public function addWatermark($src, $style = null) 
         {
-		$image = new Document_Word_Writer_Section_Image($src, $style, true);
+		$image = new Document_Word_Section_Image($src, $style, true);
 		
 		if(!is_null($image->getSource())) {
-			$rID = Document_Word_Writer_Media::addHeaderMediaElement($this->_headerCount, $src);
+			$rID = Document_Word_Media::addHeaderMediaElement($this->_headerCount, $src);
 			$image->setRelationId($rID);
 			
 			$this->_elementCollection[] = $image;

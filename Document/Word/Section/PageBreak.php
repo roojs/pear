@@ -33,7 +33,7 @@
  * @package    PHPWord_Section
  * @copyright  Copyright (c) 2011 PHPWord
  */
-class Document_Word_Writer_Section_PageBreak {
+class Document_Word_Section_PageBreak {
 
 	/**
 	 * Create a new PageBreak Element

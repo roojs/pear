@@ -33,7 +33,7 @@
  * @package    PHPWord_Section
  * @copyright  Copyright (c) 2011 PHPWord
  */
-class Document_Word_Writer_Section_Table 
+class Document_Word_Section_Table 
 {
 	
 	/**
@@ -99,7 +99,7 @@ class Document_Word_Writer_Section_Table
             }
             
             require_once 'Document/Word/Writer/Style/Table.php';
-            $this->_style = new Document_Word_Writer_Style_Table();
+            $this->_style = new Document_Word_Style_Table();
             
             foreach ($style as $key => $value) {
                 if (substr($key, 0, 1) != '_') {
@@ -132,7 +132,7 @@ class Document_Word_Writer_Section_Table
         {
             $width = (int) $width;
             require_once __DIR__.'/Table/Cell.php';
-            $cell = new Document_Word_Writer_Section_Table_Cell($this->_insideOf, $this->_pCount, $width, $style);
+            $cell = new Document_Word_Section_Table_Cell($this->_insideOf, $this->_pCount, $width, $style);
             $i = count($this->_rows) - 1;
             $this->_rows[$i][] = $cell;
             $col = count($this->_rows[$i] ) -1;

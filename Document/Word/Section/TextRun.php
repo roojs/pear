@@ -33,7 +33,7 @@
  * @package    PHPWord_Section
  * @copyright  Copyright (c) 2011 PHPWord
  */
-class Document_Word_Writer_Section_TextRun 
+class Document_Word_Section_TextRun 
 {
 	
 	/**
@@ -61,7 +61,7 @@ class Document_Word_Writer_Section_TextRun
 		
 		// Set paragraph style
 		if(is_array($styleParagraph)) {
-			$this->_styleParagraph = new Document_Word_Writer_Style_Paragraph();
+			$this->_styleParagraph = new Document_Word_Style_Paragraph();
 			
 			foreach($styleParagraph as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
@@ -87,7 +87,7 @@ class Document_Word_Writer_Section_TextRun
                 require_once __DIR__ . '/Text.php';
 		//$text = utf8_encode($text);
                 $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
-		$text = new Document_Word_Writer_Section_Text($text, $styleFont);
+		$text = new Document_Word_Section_Text($text, $styleFont);
 		$this->_elementCollection[] = $text;
 		return $text;
 	}
@@ -111,8 +111,8 @@ class Document_Word_Writer_Section_TextRun
 //			$linkName = utf8_encode($linkName);
 		}
 		
-		$link = new Document_Word_Writer_Section_Link($linkSrc, $linkName, $styleFont);
-		$rID = Document_Word_Writer_Media::addSectionLinkElement($linkSrc);
+		$link = new Document_Word_Section_Link($linkSrc, $linkName, $styleFont);
+		$rID = Document_Word_Media::addSectionLinkElement($linkSrc);
 		$link->setRelationId($rID);
 		
 		$this->_elementCollection[] = $link;
@@ -135,7 +135,7 @@ class Document_Word_Writer_Section_TextRun
     public function addPreserveText($text, $styleFont = null, $styleParagraph = null) 
     {
         require_once __DIR__ . '/Footer.php';
-        Document_Word_Writer_Section_Footer::addPreserveText($text, $styleFont, $styleParagraph);
+        Document_Word_Section_Footer::addPreserveText($text, $styleFont, $styleParagraph);
 	}
         
 	/**

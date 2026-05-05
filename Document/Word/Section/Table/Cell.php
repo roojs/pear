@@ -33,7 +33,7 @@
  * @package    PHPWord_Section_Table
  * @copyright  Copyright (c) 2011 PHPWord
  */
-class Document_Word_Writer_Section_Table_Cell 
+class Document_Word_Section_Table_Cell 
 {
 	
 	/**
@@ -89,7 +89,7 @@ class Document_Word_Writer_Section_Table_Cell
 		
 		if(!is_null($style)) {
 			if(is_array($style)) {
-				$this->_style = new Document_Word_Writer_Style_Cell();
+				$this->_style = new Document_Word_Style_Cell();
 				
 				foreach($style as $key => $value) {
 					if(substr($key, 0, 1) != '_') {
@@ -115,7 +115,7 @@ class Document_Word_Writer_Section_Table_Cell
                 require_once __DIR__ . '/../Text.php';
 		//$text = utf8_encode($text);
                 $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
-		$text = new Document_Word_Writer_Section_Text($text, $styleFont, $styleParagraph);
+		$text = new Document_Word_Section_Text($text, $styleFont, $styleParagraph);
 		$this->_elementCollection[] = $text;
 		return $text;
 	}
@@ -138,8 +138,8 @@ class Document_Word_Writer_Section_Table_Cell
 				$linkName = utf8_encode($linkName);
 			}
 			
-			$link = new Document_Word_Writer_Section_Link($linkSrc, $linkName, $style);
-			$rID = Document_Word_Writer_Media::addSectionLinkElement($linkSrc);
+			$link = new Document_Word_Section_Link($linkSrc, $linkName, $style);
+			$rID = Document_Word_Media::addSectionLinkElement($linkSrc);
 			$link->setRelationId($rID);
 			
 			$this->_elementCollection[] = $link;
@@ -157,7 +157,7 @@ class Document_Word_Writer_Section_Table_Cell
 	 */
 	public function addTextBreak() 
         {
-		$this->_elementCollection[] = new Document_Word_Writer_Section_TextBreak();
+		$this->_elementCollection[] = new Document_Word_Section_TextBreak();
 	}
 	
 	/**
@@ -172,7 +172,7 @@ class Document_Word_Writer_Section_Table_Cell
 	public function addListItem($text, $depth = 0, $styleText = null, $styleList = null) 
         {
 		$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
-		$listItem = new Document_Word_Writer_Section_ListItem($text, $depth, $styleText, $styleList);
+		$listItem = new Document_Word_Section_ListItem($text, $depth, $styleText, $styleList);
 		$this->_elementCollection[] = $listItem;
 		return $listItem;
 	}
@@ -187,16 +187,16 @@ class Document_Word_Writer_Section_Table_Cell
 	public function addImage($src, $style = null) 
         {
                 require_once __DIR__ . '/../Image.php';
-		$image = new Document_Word_Writer_Section_Image($src, $style);
+		$image = new Document_Word_Section_Image($src, $style);
 		
 		if(!is_null($image->getSource())) {
                         require_once __DIR__ . '/../../Media.php';
 			if($this->_insideOf == 'section') {
-				$rID = Document_Word_Writer_Media::addSectionMediaElement($src, 'image');
+				$rID = Document_Word_Media::addSectionMediaElement($src, 'image');
 			} elseif($this->_insideOf == 'header') {
-				$rID = Document_Word_Writer_Media::addHeaderMediaElement($this->_pCount, $src);
+				$rID = Document_Word_Media::addHeaderMediaElement($this->_pCount, $src);
 			} elseif($this->_insideOf == 'footer') {
-				$rID = Document_Word_Writer_Media::addFooterMediaElement($this->_pCount, $src);
+				$rID = Document_Word_Media::addFooterMediaElement($this->_pCount, $src);
 			}
 			$image->setRelationId($rID);
 			
@@ -216,14 +216,14 @@ class Document_Word_Writer_Section_Table_Cell
 	 */
 	public function addMemoryImage($link, $style = null) 
         {
-		$memoryImage = new Document_Word_Writer_Section_MemoryImage($link, $style);
+		$memoryImage = new Document_Word_Section_MemoryImage($link, $style);
 		if(!is_null($memoryImage->getSource())) {
 			if($this->_insideOf == 'section') {
-				$rID = Document_Word_Writer_Media::addSectionMediaElement($link, 'image', $memoryImage);
+				$rID = Document_Word_Media::addSectionMediaElement($link, 'image', $memoryImage);
 			} elseif($this->_insideOf == 'header') {
-				$rID = Document_Word_Writer_Media::addHeaderMediaElement($this->_pCount, $link, $memoryImage);
+				$rID = Document_Word_Media::addHeaderMediaElement($this->_pCount, $link, $memoryImage);
 			} elseif($this->_insideOf == 'footer') {
-				$rID = Document_Word_Writer_Media::addFooterMediaElement($this->_pCount, $link, $memoryImage);
+				$rID = Document_Word_Media::addFooterMediaElement($this->_pCount, $link, $memoryImage);
 			}
 			$memoryImage->setRelationId($rID);
 			
@@ -243,7 +243,7 @@ class Document_Word_Writer_Section_Table_Cell
 	 */
 	public function addObject($src, $style = null) 
         {
-		$object = new Document_Word_Writer_Section_Object($src, $style);
+		$object = new Document_Word_Section_Object($src, $style);
 		
 		if(!is_null($object->getSource())) {
 			$inf = pathinfo($src);
@@ -259,8 +259,8 @@ class Document_Word_Writer_Section_Table_Cell
 				$iconSrc .= '_'.$ext.'.png';
 			}
 			
-			$rIDimg = Document_Word_Writer_Media::addSectionMediaElement($iconSrc, 'image');
-			$data = Document_Word_Writer_Media::addSectionMediaElement($src, 'oleObject');
+			$rIDimg = Document_Word_Media::addSectionMediaElement($iconSrc, 'image');
+			$data = Document_Word_Media::addSectionMediaElement($src, 'oleObject');
 			$rID = $data[0];
 			$objectId = $data[1];
 			
@@ -288,7 +288,7 @@ class Document_Word_Writer_Section_Table_Cell
                 require_once __DIR__ . '/../Footer/PreserveText.php';
 		if($this->_insideOf == 'footer' || $this->_insideOf == 'header') {
 			$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
-			$ptext = new Document_Word_Writer_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
+			$ptext = new Document_Word_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
 			$this->_elementCollection[] = $ptext;
 			return $ptext;
 		} else {
@@ -304,7 +304,7 @@ class Document_Word_Writer_Section_Table_Cell
 	public function createTextRun($styleParagraph = null) 
         {
                 require_once __DIR__ . '/../TextRun.php';
-		$textRun = new Document_Word_Writer_Section_TextRun($styleParagraph);
+		$textRun = new Document_Word_Section_TextRun($styleParagraph);
 		$this->_elementCollection[] = $textRun;
 		return $textRun;
 	}

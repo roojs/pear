@@ -33,7 +33,7 @@
  * @package    PHPWord_Section
  * @copyright  Copyright (c) 2011 PHPWord
  */
-class Document_Word_Writer_Section_TextBreak  
+class Document_Word_Section_TextBreak  
 {
 	
 	/**

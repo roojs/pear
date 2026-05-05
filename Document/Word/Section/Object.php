@@ -33,7 +33,7 @@
  * @package    PHPWord_Section
  * @copyright  Copyright (c) 2011 PHPWord
  */
-class Document_Word_Writer_Section_Object 
+class Document_Word_Section_Object 
 {
 	
 	/**
@@ -86,7 +86,7 @@ class Document_Word_Writer_Section_Object
 		
 		if(file_exists($src) && in_array($inf['extension'], $_supportedObjectTypes)) {
 			$this->_src = $src;
-			$this->_style = new Document_Word_Writer_Style_Image();
+			$this->_style = new Document_Word_Style_Image();
 			
 			if(!is_null($style) && is_array($style)) {
 				foreach($style as $key => $value) {
