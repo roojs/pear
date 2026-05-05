@@ -142,7 +142,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 }
 	}
 	
-	protected function _writeParagraphStyle(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Writer_Style_Paragraph $style, $withoutPPR = false) 
+	protected function _writeParagraphStyle(?Document_Word_Shared_XMLWriter $objWriter = null, $style, $withoutPPR = false) 
         {
 		$align = $style->getAlign();
                 // microsoft office default line spacing is 10pt, we need to set it to 0 if we have not set the spacing..
@@ -447,7 +447,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                
                 $tblStyle = $table->getStyle();
                 
-                if ($tblStyle instanceof Document_Word_Writer_Style_Table) {
+                if ($tblStyle instanceof Document_Word_Writer_Style_Table || $tblStyle instanceof Document_Word_Style_Table) {
                     $this->_writeTableStyle($objWriter, $tblStyle);
                 } else {
                     if (!empty($tblStyle)) {
@@ -511,7 +511,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         $merge = 0;
                         
                         if(
-                                $cellStyle instanceof Document_Word_Writer_Style_Cell && 
+                                ($cellStyle instanceof Document_Word_Writer_Style_Cell || $cellStyle instanceof Document_Word_Style_Cell) && 
                                 isset($cellStyle->_columnNum) && 
                                 isset($cellStyle->_mergeto) && 
                                 ($cellStyle->_mergeto - $cellStyle->_columnNum) > 1
@@ -554,7 +554,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                             $objWriter->endElement();
                         }
 
-                        if($cellStyle instanceof Document_Word_Writer_Style_Cell) {
+                        if($cellStyle instanceof Document_Word_Writer_Style_Cell || $cellStyle instanceof Document_Word_Style_Cell) {
                                 $this->_writeCellStyle($objWriter, $cellStyle);
                         }
 
@@ -595,7 +595,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 	}
 	
-	protected function _writeTableStyle(?Document_Word_Shared_XMLWriter $objWriter = null, ?Document_Word_Writer_Style_Table $style = null) 
+	protected function _writeTableStyle(?Document_Word_Shared_XMLWriter $objWriter = null, $style = null) 
         {
 		$margins = $style->getCellMargin();
 		$mTop = (!is_null($margins[0])) ? true : false;
@@ -646,7 +646,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 	}
 	
-	protected function _writeCellStyle(?Document_Word_Shared_XMLWriter $objWriter = null, ?Document_Word_Writer_Style_Cell $style = null) 
+	protected function _writeCellStyle(?Document_Word_Shared_XMLWriter $objWriter = null, $style = null) 
         {
 		$bgColor = $style->getBgColor();
 		$valign = $style->getVAlign();
