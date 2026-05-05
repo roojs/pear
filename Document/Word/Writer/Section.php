@@ -319,7 +319,7 @@ class Document_Word_Writer_Section
 	public function addTOC($styleFont = null, $styleTOC = null) 
         {
                 require_once __DIR__ . '/TOC.php';
-		$toc = new Document_Word_TOC($styleFont, $styleTOC);
+		$toc = new Document_Word_Writer_TOC($styleFont, $styleTOC);
 		$this->_elementCollection[] = $toc;
 		return $toc;
 	}
@@ -343,7 +343,7 @@ class Document_Word_Writer_Section
 		require_once __DIR__ . '/Section/Title.php';
 		$title = new Document_Word_Writer_Section_Title($text, $depth, $style);
 		
-		$data = Document_Word_TOC::addTitle($text, $depth);
+		$data = Document_Word_Writer_TOC::addTitle($text, $depth);
 		$anchor = $data[0];
 		$bookmarkId = $data[1];
 		

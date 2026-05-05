@@ -90,8 +90,8 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
                                         $this->_writeImage($objWriter, $element);
                                 } elseif($element instanceof Document_Word_Writer_Section_Object || $element instanceof Document_Word_Section_Object) {
                                         $this->_writeObject($objWriter, $element);
-                                } elseif($element instanceof Document_Word_TOC) {
-                                        $this->_writeTOC($objWriter);
+                                } elseif($element instanceof Document_Word_Writer_TOC || $element instanceof Document_Word_TOC) {
+                                        $this->_writeTOC($objWriter, $pPHPWord);
                                 }
                         }
 
@@ -336,12 +336,18 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$objWriter->endElement(); // w:p
 	}
 	
-	private function _writeTOC(?Document_Word_Shared_XMLWriter $objWriter = null) 
+	private function _writeTOC(?Document_Word_Shared_XMLWriter $objWriter = null, $pPHPWord = null) 
         {
-		$titles = Document_Word_TOC::getTitles();
-		$styleFont = Document_Word_TOC::getStyleFont();
+		if (class_exists('Document_Word', false) && $pPHPWord instanceof Document_Word) {
+			require_once __DIR__ . '/../../../TOC.php';
+			$_tocClass = 'Document_Word_TOC';
+		} else {
+			$_tocClass = 'Document_Word_Writer_TOC';
+		}
+		$titles = $_tocClass::getTitles();
+		$styleFont = $_tocClass::getStyleFont();
 		
-		$styleTOC = Document_Word_TOC::getStyleTOC();
+		$styleTOC = $_tocClass::getStyleTOC();
 		$fIndent = $styleTOC->getIndent();
 		$tabLeader = $styleTOC->getTabLeader();
 		$tabPos = $styleTOC->getTabPos();
