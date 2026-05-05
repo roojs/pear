@@ -118,12 +118,12 @@ class Document_Word
         return count($this->_sectionCollection);
     }
 
-    /** @return Document_Word_Writer_Template */
+    /** @return Document_Word_Template */
     public function loadTemplate($strFilename)
     {
-        require_once __DIR__ . '/Word/Writer/Template.php';
+        require_once __DIR__ . '/Word/Template.php';
         if (file_exists($strFilename)) {
-            return new Document_Word_Writer_Template($strFilename);
+            return new Document_Word_Template($strFilename);
         }
         trigger_error('Template file '.$strFilename.' not found.', E_ERROR);
     }
