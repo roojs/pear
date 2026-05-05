@@ -342,6 +342,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 			require_once __DIR__ . '/../../../TOC.php';
 			$_tocClass = 'Document_Word_TOC';
 		} else {
+			require_once __DIR__ . '/../../TOC.php';
 			$_tocClass = 'Document_Word_Writer_TOC';
 		}
 		$titles = $_tocClass::getTitles();
