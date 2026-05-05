@@ -34,13 +34,13 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 
 		$styleFont = $text->getFontStyle();
 		
-		$SfIsObject = ($styleFont instanceof Document_Word_Writer_Style_Font) ? true : false;
+		$SfIsObject = ($styleFont instanceof Document_Word_Writer_Style_Font || $styleFont instanceof Document_Word_Style_Font) ? true : false;
 		
 		if(!$withoutP) {
 			$objWriter->startElement('w:p');
 			
 			$styleParagraph = $text->getParagraphStyle();
-			$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph) ? true : false;
+			$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
 			
 			if($SpIsObject) {
 				$this->_writeParagraphStyle($objWriter, $styleParagraph);
@@ -88,7 +88,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                $elements = $textrun->getElements();
 		$styleParagraph = $textrun->getParagraphStyle();
 		
-		$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph) ? true : false;
+		$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
 		
 		$objWriter->startElement('w:p');
 		
@@ -207,13 +207,13 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 		
 		$styleFont = $link->getFontStyle();
-		$SfIsObject = ($styleFont instanceof Document_Word_Writer_Style_Font) ? true : false;
+		$SfIsObject = ($styleFont instanceof Document_Word_Writer_Style_Font || $styleFont instanceof Document_Word_Style_Font) ? true : false;
 		
 		if(!$withoutP) {
 			$objWriter->startElement('w:p');
 			
 			$styleParagraph = $link->getParagraphStyle();
-			$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph) ? true : false;
+			$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
 			
 			if($SpIsObject) {
 				$this->_writeParagraphStyle($objWriter, $styleParagraph);
@@ -259,8 +259,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$styleFont = $textrun->getFontStyle();
 		$styleParagraph = $textrun->getParagraphStyle();
 		
-		$SfIsObject = ($styleFont instanceof Document_Word_Writer_Style_Font) ? true : false;
-		$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph) ? true : false;
+		$SfIsObject = ($styleFont instanceof Document_Word_Writer_Style_Font || $styleFont instanceof Document_Word_Style_Font) ? true : false;
+		$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
 		
                 
 		$arrText = $textrun->getText();

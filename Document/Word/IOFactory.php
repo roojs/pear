@@ -2,7 +2,7 @@
 /**
  * Generic IO entry points for {@see Document_Word}.
  *
- * Example (HTML export via legacy writers under Document/Word/Writer):
+ * Example (HTML export via writers under Document/Word/Writer/Writer):
  *
  * ```php
  * require_once 'Document/Word.php';
@@ -41,8 +41,8 @@ class Document_Word_IOFactory
      */
     public static function createWriter(Document_Word $documentWord, $writerType = '')
     {
-        require_once __DIR__ . '/Writer/IOFactory.php';
-
-        return Document_Word_Writer_IOFactory::createWriter($documentWord, $writerType);
+        require_once __DIR__ . '/Writer/Writer/' . $writerType . '.php';
+        $className = 'Document_Word_Writer_Writer_' . $writerType;
+        return new $className($documentWord);
     }
 }
