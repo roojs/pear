@@ -345,6 +345,7 @@ class Document_Word_Section
 		require_once __DIR__ . '/Section/Title.php';
 		$title = new Document_Word_Section_Title($text, $depth, $style);
 		
+		require_once __DIR__ . '/TOC.php';
 		$data = Document_Word_TOC::addTitle($text, $depth);
 		$anchor = $data[0];
 		$bookmarkId = $data[1];
