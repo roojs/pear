@@ -139,16 +139,6 @@ class Document_Word_Writer_Section_Title
         {
 		return $this->_text;
 	}
-
-	/**
-	 * Heading level for HTML export: 1 = largest title.
-	 *
-	 * @return int
-	 */
-	public function getDepth()
-        {
-		return (int) $this->_depth;
-	}
 	
 	/**
 	 * Get Title style

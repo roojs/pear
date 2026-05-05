@@ -99,11 +99,11 @@ class Document_Word_Writer_IOFactory
 	/**
 	 * Create PHPWord_Writer_IWriter
 	 *
-	 * @param Document_Word|Document_Word_Writer $PHPWord
+	 * @param PHPWord $PHPWord
 	 * @param string  $writerType    Example: Word2007
 	 * @return PHPWord_Writer_IWriter
 	 */
-	public static function createWriter($PHPWord, $writerType = '') 
+	public static function createWriter(Document_Word_Writer $PHPWord, $writerType = '') 
         {
                 require_once __DIR__.'/Writer/' . $writerType . '.php';
 		$searchType = 'IWriter';

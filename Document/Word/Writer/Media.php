@@ -75,7 +75,7 @@ class Document_Word_Writer_Media
 	 * 
 	 * @return mixed
 	 */
-	public static function addSectionMediaElement($src, $type, $memoryImage = null) 
+	public static function addSectionMediaElement($src, $type, Document_Word_Writer_Section_MemoryImage $memoryImage = null) 
         {
 		$mediaId = md5($src);
 		$key = ($type == 'image') ? 'images' : 'embeddings';
@@ -199,7 +199,7 @@ class Document_Word_Writer_Media
 	 * @param string $src
 	 * @return int
 	 */
-	public static function addHeaderMediaElement($headerCount, $src, $memoryImage = null) 
+	public static function addHeaderMediaElement($headerCount, $src, Document_Word_Writer_Section_MemoryImage $memoryImage = null) 
         {
 		$mediaId = md5($src);
 		$key = 'header'.$headerCount;
@@ -271,7 +271,7 @@ class Document_Word_Writer_Media
 	 * @param string $src
 	 * @return int
 	 */
-	public static function addFooterMediaElement($footerCount, $src, $memoryImage = null) 
+	public static function addFooterMediaElement($footerCount, $src, Document_Word_Writer_Section_MemoryImage $memoryImage = null) 
         {
 		$mediaId = md5($src);
 		$key = 'footer'.$footerCount;
