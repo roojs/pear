@@ -165,11 +165,16 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 			$objZip->addFromString('word/styles.xml', $this->getWriterPart('styles')->writeStyles($this->_document));
             
                         // Write static files
-			$objZip->addFile(__DIR__ . '/../_staticDocParts/numbering.xml', 'word/numbering.xml');
-			$objZip->addFile(__DIR__ . '/../_staticDocParts/settings.xml', 'word/settings.xml');
-			$objZip->addFile(__DIR__ . '/../_staticDocParts/theme1.xml', 'word/theme/theme1.xml');
-			$objZip->addFile(__DIR__ . '/../_staticDocParts/webSettings.xml', 'word/webSettings.xml');
-			$objZip->addFile(__DIR__ . '/../_staticDocParts/fontTable.xml', 'word/fontTable.xml');
+			if (class_exists('Document_Word', false) && $this->_document instanceof Document_Word) {
+				$_staticPartsDir = __DIR__ . '/../../../_staticDocParts';
+			} else {
+				$_staticPartsDir = __DIR__ . '/../_staticDocParts';
+			}
+			$objZip->addFile($_staticPartsDir.'/numbering.xml', 'word/numbering.xml');
+			$objZip->addFile($_staticPartsDir.'/settings.xml', 'word/settings.xml');
+			$objZip->addFile($_staticPartsDir.'/theme1.xml', 'word/theme/theme1.xml');
+			$objZip->addFile($_staticPartsDir.'/webSettings.xml', 'word/webSettings.xml');
+			$objZip->addFile($_staticPartsDir.'/fontTable.xml', 'word/fontTable.xml');
 		
 			// Close file
 			if($objZip->close() === false) {
