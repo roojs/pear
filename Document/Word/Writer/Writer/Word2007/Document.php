@@ -90,7 +90,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
                                         $this->_writeImage($objWriter, $element);
                                 } elseif($element instanceof Document_Word_Writer_Section_Object || $element instanceof Document_Word_Section_Object) {
                                         $this->_writeObject($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_TOC) {
+                                } elseif($element instanceof Document_Word_TOC) {
                                         $this->_writeTOC($objWriter);
                                 }
                         }
@@ -338,15 +338,15 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 	
 	private function _writeTOC(?Document_Word_Shared_XMLWriter $objWriter = null) 
         {
-		$titles = Document_Word_Writer_TOC::getTitles();
-		$styleFont = Document_Word_Writer_TOC::getStyleFont();
+		$titles = Document_Word_TOC::getTitles();
+		$styleFont = Document_Word_TOC::getStyleFont();
 		
-		$styleTOC = Document_Word_Writer_TOC::getStyleTOC();
+		$styleTOC = Document_Word_TOC::getStyleTOC();
 		$fIndent = $styleTOC->getIndent();
 		$tabLeader = $styleTOC->getTabLeader();
 		$tabPos = $styleTOC->getTabPos();
 		
-		$isObject = ($styleFont instanceof Document_Word_Writer_Style_Font) ? true : false;
+		$isObject = ($styleFont instanceof Document_Word_Writer_Style_Font || $styleFont instanceof Document_Word_Style_Font) ? true : false;
 		
 		for($i=0; $i<count($titles); $i++) {
 			$title = $titles[$i];

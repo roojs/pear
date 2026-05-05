@@ -136,7 +136,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
         if ($element instanceof Document_Word_Writer_Section_Object || $element instanceof Document_Word_Section_Object) {
             return "<!-- embedded OLE object omitted -->\n";
         }
-        if ($element instanceof Document_Word_Writer_TOC) {
+        if ($element instanceof Document_Word_TOC) {
             return "<!-- table of contents omitted -->\n";
         }
 
