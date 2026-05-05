@@ -1,8 +1,7 @@
 <?php
 /**
- * In-memory Word document (generic namespace). Logic mirrors {@see Document_Word_Writer};
- * uses Document/Word/* when present (styles) and Document/Word/Writer/* for legacy pieces
- * until those are replaced.
+ * In-memory Word document (generic namespace). Model lives under Document/Word/*;
+ * {@see Document_Word_IOFactory} loads serializers from Document/Word/Writer/Writer (e.g. HTML, Word2007).
  *
  * @category Document_Word
  */
