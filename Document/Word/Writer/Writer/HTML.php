@@ -93,10 +93,79 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
      */
     private function _writeElementList($elements)
     {
+        if (!is_array($elements)) {
+            return '';
+        }
         $html = '';
-        foreach ($elements as $element) {
+        $n = count($elements);
+        for ($i = 0; $i < $n; $i++) {
+            $element = $elements[$i];
+            if ($this->_elementIsListItem($element)) {
+                $group = array($element);
+                $ordered = $element->getStyle()->getIsOrdered();
+                $depth = (int) $element->getDepth();
+                $j = $i + 1;
+                while ($j < $n && $this->_listItemMatchesRun($elements[$j], $ordered, $depth)) {
+                    $group[] = $elements[$j];
+                    $j++;
+                }
+                $html .= $this->_writeListItemGroup($group);
+                $i = $j - 1;
+                continue;
+            }
             $html .= $this->_writeElement($element);
         }
+        return $html;
+    }
+
+    /**
+     * @param mixed $element
+     * @return bool
+     */
+    private function _elementIsListItem($element)
+    {
+        return $element instanceof Document_Word_Writer_Section_ListItem || $element instanceof Document_Word_Section_ListItem;
+    }
+
+    /**
+     * @param mixed $element
+     * @param bool $ordered
+     * @param int $depth
+     * @return bool
+     */
+    private function _listItemMatchesRun($element, $ordered, $depth)
+    {
+        if (!$this->_elementIsListItem($element)) {
+            return false;
+        }
+        if ($element->getStyle()->getIsOrdered() !== $ordered) {
+            return false;
+        }
+
+        return (int) $element->getDepth() === $depth;
+    }
+
+    /**
+     * @param array<int, Document_Word_Section_ListItem|Document_Word_Writer_Section_ListItem> $items
+     * @return string
+     */
+    private function _writeListItemGroup($items)
+    {
+        if ($items === array()) {
+            return '';
+        }
+        $first = $items[0];
+        $depth = (int) $first->getDepth();
+        $margin = 1.5 * (1 + max(0, $depth));
+        $tag = $first->getStyle()->getIsOrdered() ? 'ol' : 'ul';
+        $html = '<' . $tag . ' style="margin:0.3em 0;padding-left:' . $margin . 'em">' . "\n";
+        foreach ($items as $item) {
+            $textObj = $item->getTextObject();
+            $inner = $this->_writeTextRunContentFromText($textObj);
+            $html .= '<li>' . $inner . "</li>\n";
+        }
+        $html .= '</' . $tag . ">\n";
+
         return $html;
     }
 
@@ -128,7 +197,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
             return $this->_writeTable($element);
         }
         if ($element instanceof Document_Word_Writer_Section_ListItem || $element instanceof Document_Word_Section_ListItem) {
-            return $this->_writeListItem($element);
+            return $this->_writeListItemGroup(array($element));
         }
         if ($element instanceof Document_Word_Writer_Section_Image || $element instanceof Document_Word_Section_Image
             || $element instanceof Document_Word_Writer_Section_MemoryImage || $element instanceof Document_Word_Section_MemoryImage) {
@@ -167,20 +236,6 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
         }
         $html .= "</table>\n";
         return $html;
-    }
-
-    /**
-     * @param $item
-     * @return string
-     */
-    private function _writeListItem($item)
-    {
-        $textObj = $item->getTextObject();
-        $inner = $this->_writeTextRunContentFromText($textObj);
-        $depth = (int) $item->getDepth();
-        $margin = 1.5 * (1 + max(0, $depth));
-        $tag = $item->getStyle()->getIsOrdered() ? 'ol' : 'ul';
-        return '<' . $tag . ' style="margin:0.3em 0;padding-left:' . $margin . 'em"><li>' . $inner . '</li></' . $tag . ">\n";
     }
 
     /**
