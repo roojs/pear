@@ -15,6 +15,12 @@
  * $doc = new Document_Word();
  * $doc->createSection()->addText('Hello');
  * Document_Word_IOFactory::createWriter($doc, 'HTML')->save('/path/out.html');
+ *
+ * Load OOXML (.docx) and export to HTML:
+ *
+ * ```php
+ * $word = Document_Word_IOFactory::load('/path/in.docx');
+ * Document_Word_IOFactory::createWriter($word, 'HTML')->save('/path/out.html');
  * ```
  *
  * @category Document_Word
@@ -75,15 +81,31 @@ class Document_Word_IOFactory
     }
 
     /**
+     * @param string $readerType e.g. Docx
+     * @return Document_Word_Reader_Docx
+     * @throws Exception
+     */
+    public static function createReader($readerType = 'Docx')
+    {
+        require_once __DIR__ . '/Reader/' . $readerType . '.php';
+        $class = 'Document_Word_Reader_' . $readerType;
+        if (!class_exists($class, false)) {
+            throw new Exception('Document_Word_IOFactory::createReader() unknown reader type: ' . $readerType);
+        }
+
+        return new $class();
+    }
+
+    /**
      * Load a document from disk into {@see Document_Word}.
      *
      * @param string $path Path to source file (e.g. .docx)
      * @return Document_Word
-     * @throws Exception Not implemented yet
+     * @throws Exception
      */
     public static function load($path)
     {
-        throw new Exception('Document_Word_IOFactory::load() is not implemented yet.');
+        return self::createReader()->load($path);
     }
 
     /**
