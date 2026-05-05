@@ -376,6 +376,25 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
         if ($src === null || $src === '') {
             return '';
         }
+        if (stripos($src, 'data:') !== 0 && stripos($src, 'http://') !== 0 && stripos($src, 'https://') !== 0 && stripos($src, '//') !== 0) {
+            if (is_file($src) && is_readable($src)) {
+                $info = @getimagesize($src);
+                $mime = is_array($info) && !empty($info['mime']) ? $info['mime'] : '';
+                if ($mime === '' && function_exists('finfo_open')) {
+                    $fi = @finfo_open(FILEINFO_MIME_TYPE);
+                    if ($fi) {
+                        $mime = (string) @finfo_file($fi, $src);
+                        finfo_close($fi);
+                    }
+                }
+                if ($mime !== '' && strpos($mime, 'image/') === 0) {
+                    $raw = @file_get_contents($src);
+                    if ($raw !== false && $raw !== '') {
+                        $src = 'data:' . $mime . ';base64,' . base64_encode($raw);
+                    }
+                }
+            }
+        }
         $esc = $this->_escapeHtml($src);
         $style = $img->getStyle();
         $attrs = ' src="' . $esc . '" alt=""';
