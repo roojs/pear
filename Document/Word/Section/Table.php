@@ -98,7 +98,7 @@ class Document_Word_Section_Table
                 return;
             }
             
-            require_once 'Document/Word/Writer/Style/Table.php';
+            require_once __DIR__ . '/../Style/Table.php';
             $this->_style = new Document_Word_Style_Table();
             
             foreach ($style as $key => $value) {

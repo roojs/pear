@@ -120,16 +120,16 @@ class Document_Word_Section_TextRun
 	}
 	public function addImage($src, $style = null) 
     {
-        Document_Word_Writer_Section::staticAddImage($this,$src, $style);
+        Document_Word_Section::staticAddImage($this,$src, $style);
     }
         
     public function addTextBreak($count = 1) 
     {
-        Document_Word_Writer_Section::staticAddTextBreak($this,$count);
+        Document_Word_Section::staticAddTextBreak($this,$count);
     }
     public function addPageBreak() 
     {      
-        Document_Word_Writer_Section::staticAddPageBreak($this);
+        Document_Word_Section::staticAddPageBreak($this);
 	}
         
     public function addPreserveText($text, $styleFont = null, $styleParagraph = null) 
