@@ -179,7 +179,8 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
         $inner = $this->_writeTextRunContentFromText($textObj);
         $depth = (int) $item->getDepth();
         $margin = 1.5 * (1 + max(0, $depth));
-        return '<ul style="margin:0.3em 0;padding-left:' . $margin . 'em"><li>' . $inner . "</li></ul>\n";
+        $tag = $item->getStyle()->getIsOrdered() ? 'ol' : 'ul';
+        return '<' . $tag . ' style="margin:0.3em 0;padding-left:' . $margin . 'em"><li>' . $inner . '</li></' . $tag . ">\n";
     }
 
     /**

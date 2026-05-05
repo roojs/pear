@@ -43,9 +43,12 @@ class Document_Word_Style_ListItem
 	const TYPE_SQUARE_FILLED    = 1;
 	
 	/**
-	 * List Type
+	 * List Type (OOXML w:numId when round-tripping via Word2007 writer)
 	 */
 	private $_listType;
+
+	/** @var bool When true, HTML writer emits ol; when false, ul */
+	private $_isOrdered = false;
 	
 	/**
 	 * Create a new ListItem Style
@@ -82,6 +85,14 @@ class Document_Word_Style_ListItem
 	public function getListType() 
         {
 		return $this->_listType;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getIsOrdered()
+	{
+		return $this->_isOrdered;
 	}
 }
 ?>
