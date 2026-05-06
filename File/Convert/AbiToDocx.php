@@ -43,7 +43,6 @@ class File_Convert_AbiToDocx
     function save($fn)
     {
         require_once __DIR__ . '/../../Document/Word.php';
-        require_once __DIR__ . '/../../Document/Word/IOFactory.php';
         require_once __DIR__ . '/../../Document/Word/Style.php';
         require_once __DIR__ . '/../../System.php';
         $this->tmpdir  = System::mktemp("-d abitodocx");
