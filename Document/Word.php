@@ -1,7 +1,6 @@
 <?php
 /**
- * In-memory Word document (generic namespace). Model lives under Document/Word/*;
- * {@see Document_Word_IOFactory} loads serializers from Document/Word/Writer/Writer (e.g. HTML, Word2007).
+ * In-memory Word document (generic namespace).
  *
  * @category Document_Word
  */
