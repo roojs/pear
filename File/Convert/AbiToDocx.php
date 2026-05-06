@@ -44,6 +44,7 @@ class File_Convert_AbiToDocx
     {
         require_once __DIR__ . '/../../Document/Word.php';
         require_once __DIR__ . '/../../Document/Word/IOFactory.php';
+        require_once __DIR__ . '/../../Document/Word/Style.php';
         require_once __DIR__ . '/../../System.php';
         $this->tmpdir  = System::mktemp("-d abitodocx");
         //$this->tmpdir  = '/tmp';
@@ -192,7 +193,7 @@ class File_Convert_AbiToDocx
         
         $style =  $this->parseProps();
         if(!empty($style)){
-            $this->style = array_merge($style, Document_Word_Writer_Style::getStyles());
+            $this->style = array_merge($style, Document_Word_Style::getStyles());
         }else{
             $this->style = $this->xr->getAttribute('style');
         }
