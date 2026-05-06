@@ -42,14 +42,15 @@ class File_Convert_AbiToDocx
 
     function save($fn)
     {
-        require_once __DIR__ . '/../../Document/Word/Writer.php';
+        require_once __DIR__ . '/../../Document/Word.php';
+        require_once __DIR__ . '/../../Document/Word/IOFactory.php';
         require_once __DIR__ . '/../../System.php';
         $this->tmpdir  = System::mktemp("-d abitodocx");
         //$this->tmpdir  = '/tmp';
         $this->link = '';
         $this->style[] = array();
         $this->keepSection = false;
-        $this->writer = new Document_Word_Writer(); // New Word Document
+        $this->writer = new Document_Word();
         $this->section = $this->writer->createSection();
         $this->pass = 1;
         $this->parseAbi();
@@ -465,8 +466,7 @@ class File_Convert_AbiToDocx
     }
 
     function saveDocx($fn){
-        require_once __DIR__ . '/../../Document/Word/Writer/IOFactory.php';
-        $objWriter = Document_Word_Writer_IOFactory::createWriter($this->writer, 'Word2007');
+        $objWriter = Document_Word_IOFactory::createWriter($this->writer, 'Word2007');
         $objWriter->save($fn);
         
     }
