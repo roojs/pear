@@ -145,7 +145,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param array<int, Document_Word_Section_ListItem|Document_Word_Section_ListItem> $items
+     * @param array<int, Document_Word_Section_ListItem> $items
      * @return string
      */
     private function _writeListItemGroup($items)
@@ -413,7 +413,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param Document_Word_Section_Image|$img
+     * @param Document_Word_Section_Image|Document_Word_Section_MemoryImage $img
      * @return string
      */
     private function _writeImageBlock($img)
@@ -422,7 +422,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     }
 
     /**
-     * @param Document_Word_Section_Image|$img
+     * @param Document_Word_Section_Image|Document_Word_Section_MemoryImage $img
      * @return string
      */
     private function _writeImageInline($img)
