@@ -38,7 +38,7 @@ class Document_Word
             throw new Exception('Document_Word::__construct() expects file path as string or null.');
         }
 
-        require_once __DIR__ . '/Word/Document_Word_Reader.php';
+        require_once __DIR__ . '/Word/Reader.php';
         $loaded = (new Document_Word_Reader())->load($filePath);
         $this->_properties = $loaded->getProperties();
         $this->_defaultFontName = $loaded->getDefaultFontName();
