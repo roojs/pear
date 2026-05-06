@@ -160,7 +160,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 			$objZip->addFromString('word/styles.xml', $this->getWriterPart('styles')->writeStyles($this->_document));
             
                         // Write static files
-			$_staticPartsDir = __DIR__ . '/../../../_staticDocParts';
+			$_staticPartsDir = __DIR__ . '/../../_staticDocParts';
 			$objZip->addFile($_staticPartsDir.'/numbering.xml', 'word/numbering.xml');
 			$objZip->addFile($_staticPartsDir.'/settings.xml', 'word/settings.xml');
 			$objZip->addFile($_staticPartsDir.'/theme1.xml', 'word/theme/theme1.xml');
