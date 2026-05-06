@@ -33,7 +33,7 @@ class Document_Word
     }
 
     /**
-     * @param Document_Word_DocumentProperties|Document_Word_Writer_DocumentProperties $value
+     * @param Document_Word_DocumentProperties $value
      * @return Document_Word
      */
     public function setProperties($value)

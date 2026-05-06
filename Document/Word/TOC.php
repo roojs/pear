@@ -2,8 +2,6 @@
 /**
  * Generic table-of-contents registry for {@see Document_Word}.
  *
- * Legacy load path: Document/Word/Writer/TOC.php (bridge).
- *
  * PHPWord
  *
  * Copyright (c) 2011 PHPWord

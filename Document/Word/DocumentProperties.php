@@ -2,9 +2,6 @@
 /**
  * Generic document metadata (creator, title, timestamps, etc.).
  *
- * Legacy writer copy: {@see Document_Word_Writer_DocumentProperties} in
- * Document/Word/Writer/DocumentProperties.php (kept in sync by duplication).
- *
  * PHPWord
  *
  * Copyright (c) 2011 PHPWord

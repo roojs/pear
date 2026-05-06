@@ -36,8 +36,6 @@
 /**
  * Generic named document styles registry (paragraph, font, table, title, link).
  *
- * Legacy writer copy: {@see Document_Word_Writer_Style} in Document/Word/Writer/Style.php (kept in sync by duplication).
- *
  * @category Document_Word
  */
 class Document_Word_Style 

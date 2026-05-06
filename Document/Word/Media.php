@@ -1,10 +1,7 @@
 <?php
 /**
  * Generic media registry for {@see Document_Word} (section/header/footer images, objects, links).
- *
- * Legacy writer copy: {@see Document_Word_Writer_Media} in Document/Word/Writer/Media.php
- * (kept in sync by duplication). Word2007 export selects this class when the document is
- * {@see Document_Word}, so static state stays separate from legacy {@see Document_Word_Writer} builds.
+ * Used when serializing {@see Document_Word} documents (e.g. Word2007 export).
  *
  * PHPWord
  *

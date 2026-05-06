@@ -2,8 +2,6 @@
 /**
  * Generic .docx template (placeholder replace) for {@see Document_Word}.
  *
- * Legacy copy: {@see Document_Word_Writer_Template} in Document/Word/Writer/Template.php.
- *
  * PHPWord
  *
  * Copyright (c) 2011 PHPWord

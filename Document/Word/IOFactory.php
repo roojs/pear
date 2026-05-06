@@ -2,9 +2,8 @@
 /**
  * Generic IO entry points for {@see Document_Word}.
  *
- * Writer discovery matches the former {@see Document_Word_Writer_IOFactory} (search locations,
- * IWriter loop) so custom {@see Document_Word_IOFactory::addSearchLocation} registrations keep working
- * after {@see Document_Word_Writer_IOFactory} is removed.
+ * Writers are resolved from {@see Document_Word_IOFactory::addSearchLocation} search paths
+ * (default: PHP files under Document/Word/Writer/Writer).
  *
  * Example (HTML export via writers under Document/Word/Writer/Writer):
  *
@@ -28,7 +27,7 @@
 class Document_Word_IOFactory
 {
     /**
-     * Search locations (same shape as legacy Document_Word_Writer_IOFactory).
+     * Search locations for writer class resolution ({type, path, class} with {0} placeholder).
      *
      * @var array
      */
@@ -73,7 +72,7 @@ class Document_Word_IOFactory
     /**
      * @param string $type       Example: IWriter
      * @param string $location   Example: Document/Word/Writer/Writer/{0}.php
-     * @param string $classname  Example: Document_Word_Writer_Writer_{0}
+     * @param string $classname  Class name template; use {0} for the writer type (e.g. HTML)
      */
     public static function addSearchLocation($type = '', $location = '', $classname = '')
     {
@@ -111,7 +110,7 @@ class Document_Word_IOFactory
     /**
      * @param Document_Word $documentWord
      * @param string $writerType e.g. Word2007, HTML
-     * @return Document_Word_Writer_Writer_IWriter
+     * @return object Writer instance (implements Writer/Writer/IWriter)
      * @throws Exception
      */
     public static function createWriter(Document_Word $documentWord, $writerType = '')
