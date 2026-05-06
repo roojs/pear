@@ -2,6 +2,8 @@
 /**
  * In-memory Word document (generic namespace).
  *
+ * Pass a file path (e.g. `.docx`) to load from disk; omit for an empty document.
+ *
  * @category Document_Word
  */
 class Document_Word
@@ -18,12 +20,30 @@ class Document_Word
     /** @var array */
     private $_sectionCollection = array();
 
-    public function __construct()
+    /**
+     * @param string|null $filePath Path to a document file (e.g. OOXML `.docx`), or null for an empty document
+     * @throws Exception
+     */
+    public function __construct($filePath = null)
     {
         require_once __DIR__ . '/Word/DocumentProperties.php';
         $this->_properties = new Document_Word_DocumentProperties();
         $this->_defaultFontName = 'Arial';
         $this->_defaultFontSize = 20;
+
+        if ($filePath === null || $filePath === '') {
+            return;
+        }
+        if (!is_string($filePath)) {
+            throw new Exception('Document_Word::__construct() expects file path as string or null.');
+        }
+
+        require_once __DIR__ . '/Word/IOFactory.php';
+        $loaded = Document_Word_IOFactory::createReader()->load($filePath);
+        $this->_properties = $loaded->getProperties();
+        $this->_defaultFontName = $loaded->getDefaultFontName();
+        $this->_defaultFontSize = $loaded->getDefaultFontSize();
+        $this->_sectionCollection = $loaded->getSections();
     }
 
     /** @return Document_Word_DocumentProperties */

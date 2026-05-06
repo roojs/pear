@@ -18,7 +18,8 @@
  * Load OOXML (.docx) and export to HTML:
  *
  * ```php
- * $word = Document_Word_IOFactory::load('/path/in.docx');
+ * $word = new Document_Word('/path/in.docx');
+ * // equivalent: $word = Document_Word_IOFactory::load('/path/in.docx');
  * Document_Word_IOFactory::createWriter($word, 'HTML')->save('/path/out.html');
  * ```
  *
@@ -104,7 +105,7 @@ class Document_Word_IOFactory
      */
     public static function load($path)
     {
-        return self::createReader()->load($path);
+        return new Document_Word($path);
     }
 
     /**
