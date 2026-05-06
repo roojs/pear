@@ -80,22 +80,6 @@ class Document_Word_IOFactory
     }
 
     /**
-     * @param string $readerType e.g. Docx
-     * @return Document_Word_Reader_Docx
-     * @throws Exception
-     */
-    public static function createReader($readerType = 'Docx')
-    {
-        require_once __DIR__ . '/Reader/' . $readerType . '.php';
-        $class = 'Document_Word_Reader_' . $readerType;
-        if (!class_exists($class, false)) {
-            throw new Exception('Document_Word_IOFactory::createReader() unknown reader type: ' . $readerType);
-        }
-
-        return new $class();
-    }
-
-    /**
      * @param Document_Word $documentWord
      * @param string $writerType e.g. Word2007, HTML
      * @return object Writer instance (implements Document_Word_Writer_IWriter)
