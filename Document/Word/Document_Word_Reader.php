@@ -39,7 +39,7 @@
  *
  * @category Document_Word
  */
-class Document_Word_Reader_Docx
+class Document_Word_Reader
 {
     const NS_W = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
 
@@ -87,23 +87,23 @@ class Document_Word_Reader_Docx
     public function load($path)
     {
         if (!is_string($path) || $path === '') {
-            throw new Exception('Document_Word_Reader_Docx::load() requires a non-empty path.');
+            throw new Exception('Document_Word_Reader::load() requires a non-empty path.');
         }
         if (!is_readable($path)) {
-            throw new Exception('Document_Word_Reader_Docx::load() cannot read file: ' . $path);
+            throw new Exception('Document_Word_Reader::load() cannot read file: ' . $path);
         }
 
         self::$_shutdownCleanupRegistered = false;
 
         $zip = new ZipArchive();
         if ($zip->open($path) !== true) {
-            throw new Exception('Document_Word_Reader_Docx::load() could not open OOXML package: ' . $path);
+            throw new Exception('Document_Word_Reader::load() could not open OOXML package: ' . $path);
         }
 
         $documentXml = $zip->getFromName('word/document.xml');
         if ($documentXml === false) {
             $zip->close();
-            throw new Exception('Document_Word_Reader_Docx::load() missing word/document.xml in ' . $path);
+            throw new Exception('Document_Word_Reader::load() missing word/document.xml in ' . $path);
         }
 
         $relsXml = $zip->getFromName('word/_rels/document.xml.rels');
@@ -114,10 +114,10 @@ class Document_Word_Reader_Docx
         $dom = new DOMDocument();
         if (@$dom->loadXML($documentXml, LIBXML_NONET) === false) {
             $zip->close();
-            throw new Exception('Document_Word_Reader_Docx::load() invalid XML in word/document.xml');
+            throw new Exception('Document_Word_Reader::load() invalid XML in word/document.xml');
         }
 
-        require_once __DIR__ . '/../../Word.php';
+        require_once __DIR__ . '/../Word.php';
         $doc = new Document_Word();
         $this->_applyCoreProperties($zip, $doc);
 
@@ -128,7 +128,7 @@ class Document_Word_Reader_Docx
         $body = $xp->query('//w:body')->item(0);
         if (!$body instanceof DOMElement) {
             $zip->close();
-            throw new Exception('Document_Word_Reader_Docx::load() missing w:body');
+            throw new Exception('Document_Word_Reader::load() missing w:body');
         }
 
         $this->_zip = $zip;
@@ -356,7 +356,7 @@ class Document_Word_Reader_Docx
      */
     private function _fontStylePartialFromRPr(DOMElement $rPr)
     {
-        require_once __DIR__ . '/../Style/Font.php';
+        require_once __DIR__ . '/Style/Font.php';
         $style = array();
         $b = $this->_firstChildW($rPr, 'b');
         if ($b instanceof DOMElement) {
@@ -536,7 +536,7 @@ class Document_Word_Reader_Docx
         self::$_extractedImageTemps[] = $path;
         if (!self::$_shutdownCleanupRegistered) {
             self::$_shutdownCleanupRegistered = true;
-            register_shutdown_function(array('Document_Word_Reader_Docx', '_unlinkQueuedImageTemps'));
+            register_shutdown_function(array('Document_Word_Reader', '_unlinkQueuedImageTemps'));
         }
     }
 
@@ -1124,7 +1124,7 @@ class Document_Word_Reader_Docx
      */
     private function _mapUnderline($val)
     {
-        require_once __DIR__ . '/../Style/Font.php';
+        require_once __DIR__ . '/Style/Font.php';
         if ($val === null || $val === '') {
             return Document_Word_Style_Font::UNDERLINE_SINGLE;
         }
