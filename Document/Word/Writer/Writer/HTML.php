@@ -279,7 +279,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
      */
     private function _paragraphStyleAttr($styleParagraph)
     {
-        if (!($styleParagraph instanceof Document_Word_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph)) {
+        if (!($styleParagraph instanceof Document_Word_Style_Paragraph)) {
             return '';
         }
         $parts = array();
@@ -475,7 +475,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     private function _wrapWithFontStyle($escaped, $styleFont)
     {
         require_once __DIR__ . '/../../Style/Font.php';
-        if ($styleFont instanceof Document_Word_Style_Font || $styleFont instanceof Document_Word_Style_Font) {
+        if ($styleFont instanceof Document_Word_Style_Font) {
             $f = $styleFont;
             $inner = $escaped;
             if ($f->getSuperScript()) {

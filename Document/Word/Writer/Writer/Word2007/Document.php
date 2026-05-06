@@ -243,7 +243,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$textObject = $listItem->getTextObject();
 		$text = $textObject->getText();
         $styleParagraph = $textObject->getParagraphStyle();
-        $SpIsObject = ($styleParagraph instanceof Document_Word_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
+        $SpIsObject = ($styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
         
 		$depth = $listItem->getDepth();
 		$listType = $listItem->getStyle()->getListType();
@@ -353,7 +353,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$tabLeader = $styleTOC->getTabLeader();
 		$tabPos = $styleTOC->getTabPos();
 		
-		$isObject = ($styleFont instanceof Document_Word_Style_Font || $styleFont instanceof Document_Word_Style_Font) ? true : false;
+		$isObject = ($styleFont instanceof Document_Word_Style_Font) ? true : false;
 		
 		for($i=0; $i<count($titles); $i++) {
 			$title = $titles[$i];
