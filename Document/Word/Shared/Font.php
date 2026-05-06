@@ -1,5 +1,7 @@
 <?php
 /**
+ * Generic font/size conversion helpers. Legacy load path: Document/Word/Writer/Shared/Font.php (bridge).
+ *
  * PHPWord
  *
  * Copyright (c) 2011 PHPWord

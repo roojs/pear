@@ -1,5 +1,7 @@
 <?php
 /**
+ * Generic drawing unit conversions (EMU, pixels, points). Legacy load path: Document/Word/Writer/Shared/Drawing.php (bridge).
+ *
  * PHPWord
  *
  * Copyright (c) 2011 PHPWord

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Generic zip:// stream wrapper. Legacy load path: Document/Word/Writer/Shared/ZipStreamWrapper.php (bridge).
+ *
  * PHPWord
  *
  * Copyright (c) 2011 PHPWord
@@ -72,7 +74,7 @@ class Document_Word_Shared_ZipStreamWrapper {
 	 */
 	public function stream_open($path, $mode, $options, &$opened_path) {
 		// Check for mode
-		if ($mode{0} != 'r') {
+		if ($mode[0] != 'r') {
 			throw new Exception('Mode ' . $mode . ' is not supported. Only read mode is supported.');
 		}
 

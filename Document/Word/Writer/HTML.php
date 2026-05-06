@@ -4,15 +4,16 @@
  * Serializes in-memory documents to a minimal HTML5 file via IOFactory createWriter(..., 'HTML').
  */
 
+require_once __DIR__ . '/../../Word.php';
 require_once __DIR__ . '/IWriter.php';
-require_once __DIR__ . '/../../Section/Footer/PreserveText.php';
+require_once __DIR__ . '/../Section/Footer/PreserveText.php';
 
-class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IWriter
+class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
 {
     /** @var Document_Word|null */
     private $_document;
 
-    public function __construct($PHPWord = null)
+    public function __construct(Document_Word $PHPWord = null)
     {
         $this->_document = $PHPWord;
     }
@@ -243,7 +244,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
      */
     private function _writeTextRunContentFromText($text)
     {
-        require_once __DIR__ . '/../../Shared/String.php';
+        require_once __DIR__ . '/../Shared/String.php';
         $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML($text->getText());
         $inner = $this->_escapeHtml($raw);
         return $this->_wrapWithFontStyle($inner, $text->getFontStyle());
@@ -351,7 +352,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
     private function _writePreserveTextInline($pt)
     {
         $t = $pt->getText();
-        require_once __DIR__ . '/../../Shared/String.php';
+        require_once __DIR__ . '/../Shared/String.php';
         if (!is_array($t)) {
             $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML((string) $t);
             return $this->_wrapWithFontStyle($this->_escapeHtml($raw), $pt->getFontStyle());
@@ -384,7 +385,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
         if ($label === null || $label === '') {
             $label = $link->getLinkSrc();
         }
-        require_once __DIR__ . '/../../Shared/String.php';
+        require_once __DIR__ . '/../Shared/String.php';
         $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML((string) $label);
         $inner = $this->_wrapWithFontStyle($this->_escapeHtml($raw), $link->getFontStyle());
         return '<a href="' . $href . '">' . $inner . '</a>';
@@ -473,7 +474,7 @@ class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IW
      */
     private function _wrapWithFontStyle($escaped, $styleFont)
     {
-        require_once __DIR__ . '/../../Style/Font.php';
+        require_once __DIR__ . '/../Style/Font.php';
         if ($styleFont instanceof Document_Word_Style_Font) {
             $f = $styleFont;
             $inner = $escaped;

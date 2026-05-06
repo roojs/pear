@@ -26,12 +26,12 @@
  */
 
 require_once __DIR__.'/WriterPart.php';
-class Document_Word_Writer_Writer_Word2007_ContentTypes extends Document_Word_Writer_Writer_Word2007_WriterPart 
+class Document_Word_Writer_Word2007_ContentTypes extends Document_Word_Writer_Word2007_WriterPart 
 {
 	
 	public function writeContentTypes($_imageTypes, $_objectTypes, $_cHdrs, $_cFtrs) 
         {
-        require_once __DIR__.'/../../../Shared/XMLWriter.php';
+        require_once __DIR__.'/../../Shared/XMLWriter.php';
 		// Create XML writer
 		$objWriter = null;
 		if ($this->getParentWriter()->getUseDiskCaching()) {

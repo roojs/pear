@@ -26,10 +26,10 @@
  */
 
 require_once __DIR__.'/WriterPart.php';
-class Document_Word_Writer_Writer_Word2007_DocProps extends Document_Word_Writer_Writer_Word2007_WriterPart 
+class Document_Word_Writer_Word2007_DocProps extends Document_Word_Writer_Word2007_WriterPart 
 {
 
-	public function writeDocPropsApp($pPHPWord = null) 
+	public function writeDocPropsApp(Document_Word $pPHPWord = null)
         {
 		// Create XML writer
 		$objWriter = null;
@@ -121,7 +121,7 @@ class Document_Word_Writer_Writer_Word2007_DocProps extends Document_Word_Writer
 	}
 
 
-	public function writeDocPropsCore($pPHPWord = null) 
+	public function writeDocPropsCore(Document_Word $pPHPWord = null)
         {
 		// Create XML writer
 		$objWriter = null;

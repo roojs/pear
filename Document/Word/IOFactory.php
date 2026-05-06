@@ -3,9 +3,9 @@
  * Generic IO entry points for {@see Document_Word}.
  *
  * Writers are resolved from {@see Document_Word_IOFactory::addSearchLocation} search paths
- * (default: PHP files under Document/Word/Writer/Writer).
+ * (default: PHP files under Document/Word/Writer).
  *
- * Example (HTML export via writers under Document/Word/Writer/Writer):
+ * Example (HTML export via writers under Document/Word/Writer):
  *
  * ```php
  * require_once 'Document/Word.php';
@@ -32,7 +32,7 @@ class Document_Word_IOFactory
      * @var array
      */
     private static $_searchLocations = array(
-        array('type' => 'IWriter', 'path' => 'Document/Word/Writer/Writer/{0}.php', 'class' => 'Document_Word_Writer_Writer_{0}')
+        array('type' => 'IWriter', 'path' => 'Document/Word/Writer/{0}.php', 'class' => 'Document_Word_Writer_{0}')
     );
 
     /**
@@ -71,7 +71,7 @@ class Document_Word_IOFactory
 
     /**
      * @param string $type       Example: IWriter
-     * @param string $location   Example: Document/Word/Writer/Writer/{0}.php
+     * @param string $location   Example: Document/Word/Writer/{0}.php
      * @param string $classname  Class name template; use {0} for the writer type (e.g. HTML)
      */
     public static function addSearchLocation($type = '', $location = '', $classname = '')
@@ -110,12 +110,12 @@ class Document_Word_IOFactory
     /**
      * @param Document_Word $documentWord
      * @param string $writerType e.g. Word2007, HTML
-     * @return object Writer instance (implements Writer/Writer/IWriter)
+     * @return object Writer instance (implements Document_Word_Writer_IWriter)
      * @throws Exception
      */
     public static function createWriter(Document_Word $documentWord, $writerType = '')
     {
-        require_once __DIR__ . '/Writer/Writer/' . $writerType . '.php';
+        require_once __DIR__ . '/Writer/' . $writerType . '.php';
         $searchType = 'IWriter';
 
         foreach (self::$_searchLocations as $searchLocation) {

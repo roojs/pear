@@ -1,5 +1,7 @@
 <?php
 /**
+ * Generic string/encoding helpers. Legacy load path: Document/Word/Writer/Shared/String.php (bridge).
+ *
  * PHPWord
  *
  * Copyright (c) 2011 PHPWord

@@ -26,12 +26,12 @@
  */
 
 require_once __DIR__.'/Base.php';
-class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_Writer_Word2007_Base 
+class Document_Word_Writer_Word2007_Styles extends Document_Word_Writer_Word2007_Base 
 {
 	
 	private $_document;
 	
-	public function writeStyles($pPHPWord = null) 
+	public function writeStyles(Document_Word $pPHPWord = null)
         {
 		// Create XML writer
 		$objWriter = null;
@@ -56,7 +56,7 @@ class Document_Word_Writer_Writer_Word2007_Styles extends Document_Word_Writer_W
 
 		
 		// Write Style Definitions
-                require_once __DIR__.'/../../../Style.php';
+                require_once __DIR__.'/../../Style.php';
 		$styles = Document_Word_Style::getStyles();
 		if(count($styles) > 0) {
 			foreach($styles as $styleName => $style) {

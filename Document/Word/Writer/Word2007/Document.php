@@ -26,10 +26,10 @@
  */
 
 require_once 'Base.php';
-class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer_Writer_Word2007_Base 
+class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word2007_Base 
 {
 	
-	public function writeDocument($pPHPWord = null) 
+	public function writeDocument(Document_Word $pPHPWord = null)
         {
 		// Create XML writer
 		if($this->getParentWriter()->getUseDiskCaching()) {
@@ -91,7 +91,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
                                 } elseif($element instanceof Document_Word_Section_Object) {
                                         $this->_writeObject($objWriter, $element);
                                 } elseif($element instanceof Document_Word_TOC) {
-                                        $this->_writeTOC($objWriter, $pPHPWord);
+                                        $this->_writeTOC($objWriter);
                                 }
                         }
 
@@ -110,16 +110,16 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		return $objWriter->getData();
 	}
 	
-	private function _writeSection(?Document_Word_Shared_XMLWriter $objWriter = null, $section) 
+	private function _writeSection(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section $section)
         {
 		$objWriter->startElement('w:p');
 			$objWriter->startElement('w:pPr');
-				$this->_writeEndSection($objWriter, $section, 3);
+				$this->_writeEndSection($objWriter, $section);
 			$objWriter->endElement();
 		$objWriter->endElement();
 	}
 	
-	private function _writeEndSection(?Document_Word_Shared_XMLWriter $objWriter = null, $section) 
+	private function _writeEndSection(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section $section)
         {
 		$_settings = $section->getSettings();
 		$_header = $section->getHeader();
@@ -238,7 +238,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$objWriter->endElement();
 	}
 	
-	private function _writeListItem(?Document_Word_Shared_XMLWriter $objWriter = null, $listItem) 
+	private function _writeListItem(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_ListItem $listItem)
         {
 		$textObject = $listItem->getTextObject();
 		$text = $textObject->getText();
@@ -277,7 +277,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$objWriter->endElement();
 	}
 	
-	protected function _writeObject(?Document_Word_Shared_XMLWriter $objWriter = null, $object) 
+	protected function _writeObject(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_Object $object)
         {
 		$rIdObject = $object->getRelationId();
 		$rIdImage = $object->getImageRelationId();
@@ -336,14 +336,12 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$objWriter->endElement(); // w:p
 	}
 	
-	private function _writeTOC(?Document_Word_Shared_XMLWriter $objWriter = null, $pPHPWord = null) 
+	private function _writeTOC(?Document_Word_Shared_XMLWriter $objWriter = null)
         {
-		require_once __DIR__ . '/../../../TOC.php';
-		$_tocClass = 'Document_Word_TOC';
-		$titles = $_tocClass::getTitles();
-		$styleFont = $_tocClass::getStyleFont();
-		
-		$styleTOC = $_tocClass::getStyleTOC();
+		require_once __DIR__ . '/../../TOC.php';
+		$titles = Document_Word_TOC::getTitles();
+		$styleFont = Document_Word_TOC::getStyleFont();
+		$styleTOC = Document_Word_TOC::getStyleTOC();
 		$fIndent = $styleTOC->getIndent();
 		$tabLeader = $styleTOC->getTabLeader();
 		$tabPos = $styleTOC->getTabPos();

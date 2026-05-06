@@ -26,7 +26,7 @@
  */
 
 require_once __DIR__.'/WriterPart.php';
-class Document_Word_Writer_Writer_Word2007_DocumentRels extends Document_Word_Writer_Writer_Word2007_WriterPart 
+class Document_Word_Writer_Word2007_DocumentRels extends Document_Word_Writer_Word2007_WriterPart 
 {
 	
 	public function writeDocumentRels($_relsCollection) 
@@ -119,7 +119,7 @@ class Document_Word_Writer_Writer_Word2007_DocumentRels extends Document_Word_Wr
 	
 	public function writeHeaderFooterRels($_relsCollection) 
         {
-                require_once __DIR__ . '/../../../Shared/XMLWriter.php';
+                require_once __DIR__ . '/../../Shared/XMLWriter.php';
 		// Create XML writer
 		$objWriter = null;
 		if ($this->getParentWriter()->getUseDiskCaching()) {

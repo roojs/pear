@@ -1,5 +1,7 @@
 <?php
 /**
+ * Generic file/zip path helpers. Legacy load path: Document/Word/Writer/Shared/File.php (bridge).
+ *
  * PHPWord
  *
  * Copyright (c) 2011 PHPWord

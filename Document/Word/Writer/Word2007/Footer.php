@@ -26,13 +26,14 @@
  */
 
 require_once __DIR__.'/Base.php';
-class Document_Word_Writer_Writer_Word2007_Header extends Document_Word_Writer_Writer_Word2007_Base 
+class Document_Word_Writer_Word2007_Footer extends Document_Word_Writer_Word2007_Base 
 {
 	
-	public function writeHeader($header) 
+	public function writeFooter(Document_Word_Section_Footer $footer)
         {
-                require_once __DIR__ . '/../../../Shared/XMLWriter.php';
+                require_once __DIR__ . '/../../Shared/XMLWriter.php';
 		// Create XML writer
+		$objWriter = null;
 		if ($this->getParentWriter()->getUseDiskCaching()) {
 			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_DISK, $this->getParentWriter()->getDiskCachingDirectory());
 		} else {
@@ -42,7 +43,7 @@ class Document_Word_Writer_Writer_Word2007_Header extends Document_Word_Writer_W
 		// XML header
 		$objWriter->startDocument('1.0', 'UTF-8', 'yes');
 		
-		$objWriter->startElement('w:hdr');
+		$objWriter->startElement('w:ftr');
 			$objWriter->writeAttribute('xmlns:ve','http://schemas.openxmlformats.org/markup-compatibility/2006');
 			$objWriter->writeAttribute('xmlns:o','urn:schemas-microsoft-com:office:office');
 			$objWriter->writeAttribute('xmlns:r','http://schemas.openxmlformats.org/officeDocument/2006/relationships');
@@ -53,8 +54,7 @@ class Document_Word_Writer_Writer_Word2007_Header extends Document_Word_Writer_W
 			$objWriter->writeAttribute('xmlns:w','http://schemas.openxmlformats.org/wordprocessingml/2006/main');
 			$objWriter->writeAttribute('xmlns:wne','http://schemas.microsoft.com/office/word/2006/wordml');
 		
-		
-		$_elements = $header->getElements();
+		$_elements = $footer->getElements();
 		
 		foreach($_elements as $element) {
 			if($element instanceof Document_Word_Section_Text) {
@@ -67,11 +67,7 @@ class Document_Word_Writer_Writer_Word2007_Header extends Document_Word_Writer_W
 				$this->_writeTable($objWriter, $element);
 			} elseif($element instanceof Document_Word_Section_Image ||
 					 $element instanceof Document_Word_Section_MemoryImage) {
-				if(!$element->getIsWatermark()) {
-					$this->_writeImage($objWriter, $element);
-				} else {
-					$this->_writeWatermark($objWriter, $element);
-				}
+				$this->_writeImage($objWriter, $element);
 			} elseif($element instanceof Document_Word_Section_Footer_PreserveText) {
 				$this->_writePreserveText($objWriter, $element,true);
 			}

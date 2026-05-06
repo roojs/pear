@@ -26,10 +26,10 @@
  */
 
 require_once __DIR__.'/WriterPart.php';
-class Document_Word_Writer_Writer_Word2007_Rels extends Document_Word_Writer_Writer_Word2007_WriterPart 
+class Document_Word_Writer_Word2007_Rels extends Document_Word_Writer_Word2007_WriterPart 
 {
 	
-	public function writeRelationships($pPHPWord = null) 
+	public function writeRelationships(Document_Word $pPHPWord = null)
         {
 		// Create XML writer
 		$objWriter = null;

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Generic shared XML writer wrapper. Legacy load path: Document/Word/Writer/Shared/XMLWriter.php (bridge).
+ *
  * PHPWord
  *
  * Copyright (c) 2011 PHPWord

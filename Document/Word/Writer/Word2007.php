@@ -25,8 +25,9 @@
  * @version    Beta 0.6.3, 08.07.2011
  */
 
+require_once __DIR__ . '/../../Word.php';
 require_once __DIR__.'/IWriter.php';
-class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Writer_IWriter 
+class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter 
 {
 	
 	private $_document;
@@ -36,7 +37,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 	private $_imageTypes = array();
 	private $_objectTypes = array();
 	
-	public function __construct($PHPWord = null) 
+	public function __construct(Document_Word $PHPWord = null)
         {
 		$this->_document = $PHPWord;
 		
@@ -59,7 +60,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
         function factory($n) 
         {
                 require_once __DIR__ . '/Word2007/'. $n .'.php';
-                $cls = "Document_Word_Writer_Writer_Word2007_$n";
+                $cls = "Document_Word_Writer_Word2007_$n";
                 return new $cls();
         }
 	
@@ -86,10 +87,9 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 				}
 			}
 			
-			require_once __DIR__ . '/../../Media.php';
-			$_mediaClass = 'Document_Word_Media';
+			require_once __DIR__ . '/../Media.php';
 			$sectionElements = array();
-			$_secElements = $_mediaClass::getSectionMediaElements();
+			$_secElements = Document_Word_Media::getSectionMediaElements();
 			foreach($_secElements as $element) { // loop through section media elements
 				if($element['type'] != 'hyperlink') {
 					$this->_addFileToPackage($objZip, $element);
@@ -97,7 +97,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 				$sectionElements[] = $element;
 			}
 			
-			$_hdrElements = $_mediaClass::getHeaderMediaElements();
+			$_hdrElements = Document_Word_Media::getHeaderMediaElements();
 			foreach($_hdrElements as $_headerFile => $_hdrMedia) { // loop through headers
 				if(count($_hdrMedia) > 0) {
 					$objZip->addFromString('word/_rels/'.$_headerFile.'.xml.rels', $this->getWriterPart('documentrels')->writeHeaderFooterRels($_hdrMedia));
@@ -107,7 +107,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 				}
 			}
 			
-			$_ftrElements = $_mediaClass::getFooterMediaElements();
+			$_ftrElements = Document_Word_Media::getFooterMediaElements();
 			foreach($_ftrElements as $_footerFile => $_ftrMedia) { // loop through footers
 				if(count($_ftrMedia) > 0) {
 					$objZip->addFromString('word/_rels/'.$_footerFile.'.xml.rels', $this->getWriterPart('documentrels')->writeHeaderFooterRels($_ftrMedia));
@@ -121,7 +121,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 			
 			$_cHdrs    = 0;
 			$_cFtrs    = 0;
-			$rID       = $_mediaClass::countSectionMediaElements() + 6;
+			$rID       = Document_Word_Media::countSectionMediaElements() + 6;
 			$_sections = $this->_document->getSections();
 			//echo '<PRE>';print_r($_sections);exit;
 			foreach($_sections as $section) {
@@ -160,12 +160,11 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 			$objZip->addFromString('word/styles.xml', $this->getWriterPart('styles')->writeStyles($this->_document));
             
                         // Write static files
-			$_staticPartsDir = __DIR__ . '/../../_staticDocParts';
-			$objZip->addFile($_staticPartsDir.'/numbering.xml', 'word/numbering.xml');
-			$objZip->addFile($_staticPartsDir.'/settings.xml', 'word/settings.xml');
-			$objZip->addFile($_staticPartsDir.'/theme1.xml', 'word/theme/theme1.xml');
-			$objZip->addFile($_staticPartsDir.'/webSettings.xml', 'word/webSettings.xml');
-			$objZip->addFile($_staticPartsDir.'/fontTable.xml', 'word/fontTable.xml');
+			$objZip->addFile(__DIR__ . '/../_staticDocParts/numbering.xml', 'word/numbering.xml');
+			$objZip->addFile(__DIR__ . '/../_staticDocParts/settings.xml', 'word/settings.xml');
+			$objZip->addFile(__DIR__ . '/../_staticDocParts/theme1.xml', 'word/theme/theme1.xml');
+			$objZip->addFile(__DIR__ . '/../_staticDocParts/webSettings.xml', 'word/webSettings.xml');
+			$objZip->addFile(__DIR__ . '/../_staticDocParts/fontTable.xml', 'word/fontTable.xml');
 		
 			// Close file
 			if($objZip->close() === false) {

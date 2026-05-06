@@ -26,10 +26,10 @@
  */
 
 require_once __DIR__.'/WriterPart.php';
-class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Writer_Word2007_WriterPart 
+class Document_Word_Writer_Word2007_Base extends Document_Word_Writer_Word2007_WriterPart 
 {
 	
-	protected function _writeText(?Document_Word_Shared_XMLWriter $objWriter = null, $text, $withoutP = false) 
+	protected function _writeText(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_Text $text, $withoutP = false)
         {
                 
 		$styleFont = $text->getFontStyle();
@@ -52,7 +52,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 				$objWriter->endElement();
 			}
 		}
-		require_once __DIR__ . '/../../../Shared/String.php';
+		require_once __DIR__ . '/../../Shared/String.php';
 		$strText = $text->getText(); //htmlspecialchars($text->getText()); // technically write->text() does this..
 		$strText = Document_Word_Shared_String::ControlCharacterPHP2OOXML($strText);
 //		$strText = str_replace('&amp;', '&', $strText); // htmlspecialchars going overboard..
@@ -81,7 +81,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 	}
 	
-	protected function _writeTextRun(?Document_Word_Shared_XMLWriter $objWriter = null, $textrun) 
+	protected function _writeTextRun(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_TextRun $textrun)
         {
 		
               
@@ -142,7 +142,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 }
 	}
 	
-	protected function _writeParagraphStyle(?Document_Word_Shared_XMLWriter $objWriter = null, $style, $withoutPPR = false) 
+	protected function _writeParagraphStyle(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Style_Paragraph $style, $withoutPPR = false)
         {
 		$align = $style->getAlign();
                 // microsoft office default line spacing is 10pt, we need to set it to 0 if we have not set the spacing..
@@ -198,7 +198,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 	}
 	
-	protected function _writeLink(?Document_Word_Shared_XMLWriter $objWriter = null, $link, $withoutP = false) 
+	protected function _writeLink(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_Link $link, $withoutP = false)
         {
 		$rID = $link->getRelationId();
 		$linkName = $link->getLinkName();
@@ -254,7 +254,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 	}
 	
-	protected function _writePreserveText(?Document_Word_Shared_XMLWriter $objWriter = null, $textrun, $skip_para = false) 
+	protected function _writePreserveText(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_Footer_PreserveText $textrun, $skip_para = false)
         {
 		$styleFont = $textrun->getFontStyle();
 		$styleParagraph = $textrun->getParagraphStyle();
@@ -343,7 +343,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                
 	}
 	
-	protected function _writeTextStyle(?Document_Word_Shared_XMLWriter $objWriter = null, $style) 
+	protected function _writeTextStyle(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Style_Font $style)
         {
 		$font = $style->getName();
 		$bold = $style->getBold();
@@ -423,7 +423,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
             $objWriter->endElement();
 	}
 	
-	protected function _writeTable(?Document_Word_Shared_XMLWriter $objWriter = null, $table) 
+	protected function _writeTable(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_Table $table)
         {
             $_rows = $table->getRows();
             $_cRows = count($_rows);
@@ -595,7 +595,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 	}
 	
-	protected function _writeTableStyle(?Document_Word_Shared_XMLWriter $objWriter = null, $style = null) 
+	protected function _writeTableStyle(?Document_Word_Shared_XMLWriter $objWriter = null, ?Document_Word_Style_Table $style = null)
         {
 		$margins = $style->getCellMargin();
 		$mTop = (!is_null($margins[0])) ? true : false;
@@ -646,7 +646,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 	}
 	
-	protected function _writeCellStyle(?Document_Word_Shared_XMLWriter $objWriter = null, $style = null) 
+	protected function _writeCellStyle(?Document_Word_Shared_XMLWriter $objWriter = null, ?Document_Word_Style_Cell $style = null)
         {
 		$bgColor = $style->getBgColor();
 		$valign = $style->getVAlign();
@@ -996,7 +996,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$objWriter->endElement();
 	}
 	
-	protected function _writeTitle(?Document_Word_Shared_XMLWriter $objWriter = null, $title) 
+	protected function _writeTitle(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_Title $title)
         {
 		$text = htmlspecialchars($title->getText());
 		$text = Document_Word_Shared_String::ControlCharacterPHP2OOXML($text);

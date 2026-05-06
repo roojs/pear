@@ -26,21 +26,14 @@
  */
 
 
-abstract class Document_Word_Writer_Writer_Word2007_WriterPart 
+interface Document_Word_Writer_IWriter
 {
-	private $_parentWriter;
-	
-	public function setParentWriter(Document_Word_Writer_Writer_IWriter $pWriter = null) 
-        {
-		$this->_parentWriter = $pWriter;
-	}
-	
-	public function getParentWriter() 
-        {
-		if (!is_null($this->_parentWriter)) {
-			return $this->_parentWriter;
-		} else {
-			throw new Exception("No parent Document_Word_Writer_Writer_IWriter assigned.");
-		}
-	}
+	/**
+	 * Save PHPWord to file
+	 *
+	 * @param     string         $pFileName
+	 * @throws     Exception
+	 */
+	public function save($pFilename = null);
 }
+?>
