@@ -105,6 +105,8 @@ class Document_Word_IOFactory
      */
     public static function load($path)
     {
+        require_once __DIR__ . '/../Word.php';
+
         return new Document_Word($path);
     }
 
