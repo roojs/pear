@@ -69,28 +69,28 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
                         $_elements = $section->getElements();
 
                         foreach($_elements as $element) {
-                                if($element instanceof Document_Word_Writer_Section_Text || $element instanceof Document_Word_Section_Text) {
+                                if($element instanceof Document_Word_Section_Text) {
                                         $this->_writeText($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_TextRun || $element instanceof Document_Word_Section_TextRun) {
+                                } elseif($element instanceof Document_Word_Section_TextRun) {
                                         $this->_writeTextRun($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_Link || $element instanceof Document_Word_Section_Link) {
+                                } elseif($element instanceof Document_Word_Section_Link) {
                                         $this->_writeLink($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_Title || $element instanceof Document_Word_Section_Title) {
+                                } elseif($element instanceof Document_Word_Section_Title) {
                                         $this->_writeTitle($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_TextBreak || $element instanceof Document_Word_Section_TextBreak) {
+                                } elseif($element instanceof Document_Word_Section_TextBreak) {
                                         $this->_writeTextBreak($objWriter);
-                                } elseif($element instanceof Document_Word_Writer_Section_PageBreak || $element instanceof Document_Word_Section_PageBreak) {
+                                } elseif($element instanceof Document_Word_Section_PageBreak) {
                                         $this->_writePageBreak($objWriter);
-                                } elseif($element instanceof Document_Word_Writer_Section_Table || $element instanceof Document_Word_Section_Table) {
+                                } elseif($element instanceof Document_Word_Section_Table) {
                                         $this->_writeTable($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_ListItem || $element instanceof Document_Word_Section_ListItem) {
+                                } elseif($element instanceof Document_Word_Section_ListItem) {
                                         $this->_writeListItem($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_Image || $element instanceof Document_Word_Section_Image ||
-                                                 $element instanceof Document_Word_Writer_Section_MemoryImage || $element instanceof Document_Word_Section_MemoryImage) {
+                                } elseif($element instanceof Document_Word_Section_Image ||
+                                                 $element instanceof Document_Word_Section_MemoryImage) {
                                         $this->_writeImage($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_Section_Object || $element instanceof Document_Word_Section_Object) {
+                                } elseif($element instanceof Document_Word_Section_Object) {
                                         $this->_writeObject($objWriter, $element);
-                                } elseif($element instanceof Document_Word_Writer_TOC || $element instanceof Document_Word_TOC) {
+                                } elseif($element instanceof Document_Word_TOC) {
                                         $this->_writeTOC($objWriter, $pPHPWord);
                                 }
                         }
@@ -243,7 +243,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$textObject = $listItem->getTextObject();
 		$text = $textObject->getText();
         $styleParagraph = $textObject->getParagraphStyle();
-        $SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
+        $SpIsObject = ($styleParagraph instanceof Document_Word_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
         
 		$depth = $listItem->getDepth();
 		$listType = $listItem->getStyle()->getListType();
@@ -343,7 +343,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 			$_tocClass = 'Document_Word_TOC';
 		} else {
 			require_once __DIR__ . '/../../TOC.php';
-			$_tocClass = 'Document_Word_Writer_TOC';
+			$_tocClass = 'Document_Word_TOC';
 		}
 		$titles = $_tocClass::getTitles();
 		$styleFont = $_tocClass::getStyleFont();
@@ -353,7 +353,7 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 		$tabLeader = $styleTOC->getTabLeader();
 		$tabPos = $styleTOC->getTabPos();
 		
-		$isObject = ($styleFont instanceof Document_Word_Writer_Style_Font || $styleFont instanceof Document_Word_Style_Font) ? true : false;
+		$isObject = ($styleFont instanceof Document_Word_Style_Font || $styleFont instanceof Document_Word_Style_Font) ? true : false;
 		
 		for($i=0; $i<count($titles); $i++) {
 			$title = $titles[$i];

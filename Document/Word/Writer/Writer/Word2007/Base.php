@@ -34,13 +34,13 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                 
 		$styleFont = $text->getFontStyle();
 		
-		$SfIsObject = ($styleFont instanceof Document_Word_Writer_Style_Font || $styleFont instanceof Document_Word_Style_Font) ? true : false;
+		$SfIsObject = ($styleFont instanceof Document_Word_Style_Font || $styleFont instanceof Document_Word_Style_Font) ? true : false;
 		
 		if(!$withoutP) {
 			$objWriter->startElement('w:p');
 			
 			$styleParagraph = $text->getParagraphStyle();
-			$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
+			$SpIsObject = ($styleParagraph instanceof Document_Word_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
 			
 			if($SpIsObject) {
 				$this->_writeParagraphStyle($objWriter, $styleParagraph);
@@ -88,7 +88,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                $elements = $textrun->getElements();
 		$styleParagraph = $textrun->getParagraphStyle();
 		
-		$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
+		$SpIsObject = ($styleParagraph instanceof Document_Word_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
 		
 		$objWriter->startElement('w:p');
 		
@@ -105,18 +105,18 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		if(count($elements) > 0) {
 			foreach($elements as $element) {
                                 //echo get_class($element) .'<br/>';
-				if($element instanceof Document_Word_Writer_Section_Text || $element instanceof Document_Word_Section_Text) {
+				if($element instanceof Document_Word_Section_Text) {
 					$this->_writeText($objWriter, $element, true);
-				} elseif($element instanceof Document_Word_Writer_Section_Link || $element instanceof Document_Word_Section_Link) {
+				} elseif($element instanceof Document_Word_Section_Link) {
 					$this->_writeLink($objWriter, $element, true);
-				} elseif($element instanceof Document_Word_Writer_Section_Image || $element instanceof Document_Word_Section_Image ||
-                                        $element instanceof Document_Word_Writer_Section_MemoryImage || $element instanceof Document_Word_Section_MemoryImage) {
+				} elseif($element instanceof Document_Word_Section_Image ||
+                                        $element instanceof Document_Word_Section_MemoryImage) {
                                         $this->_writeImage($objWriter, $element, true); // skip the image para
-                                } elseif($element instanceof Document_Word_Writer_Section_TextBreak || $element instanceof Document_Word_Section_TextBreak) {
+                                } elseif($element instanceof Document_Word_Section_TextBreak) {
                                         $this->_writeTextBreak($objWriter);
-                                } elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText || $element instanceof Document_Word_Section_Footer_PreserveText) {
+                                } elseif($element instanceof Document_Word_Section_Footer_PreserveText) {
                                         $this->_writePreserveText($objWriter, $element,true);
-                                } elseif($element instanceof Document_Word_Writer_Section_PageBreak || $element instanceof Document_Word_Section_PageBreak) {
+                                } elseif($element instanceof Document_Word_Section_PageBreak) {
                                         $this->_writePageBreak($objWriter , true);
                                 } else {
                                     throw Exception("unhandled class" . get_class($element));
@@ -207,13 +207,13 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		}
 		
 		$styleFont = $link->getFontStyle();
-		$SfIsObject = ($styleFont instanceof Document_Word_Writer_Style_Font || $styleFont instanceof Document_Word_Style_Font) ? true : false;
+		$SfIsObject = ($styleFont instanceof Document_Word_Style_Font || $styleFont instanceof Document_Word_Style_Font) ? true : false;
 		
 		if(!$withoutP) {
 			$objWriter->startElement('w:p');
 			
 			$styleParagraph = $link->getParagraphStyle();
-			$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
+			$SpIsObject = ($styleParagraph instanceof Document_Word_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
 			
 			if($SpIsObject) {
 				$this->_writeParagraphStyle($objWriter, $styleParagraph);
@@ -259,8 +259,8 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
 		$styleFont = $textrun->getFontStyle();
 		$styleParagraph = $textrun->getParagraphStyle();
 		
-		$SfIsObject = ($styleFont instanceof Document_Word_Writer_Style_Font || $styleFont instanceof Document_Word_Style_Font) ? true : false;
-		$SpIsObject = ($styleParagraph instanceof Document_Word_Writer_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
+		$SfIsObject = ($styleFont instanceof Document_Word_Style_Font || $styleFont instanceof Document_Word_Style_Font) ? true : false;
+		$SpIsObject = ($styleParagraph instanceof Document_Word_Style_Paragraph || $styleParagraph instanceof Document_Word_Style_Paragraph) ? true : false;
 		
                 
 		$arrText = $textrun->getText();
@@ -447,7 +447,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                
                 $tblStyle = $table->getStyle();
                 
-                if ($tblStyle instanceof Document_Word_Writer_Style_Table || $tblStyle instanceof Document_Word_Style_Table) {
+                if ($tblStyle instanceof Document_Word_Style_Table || $tblStyle instanceof Document_Word_Style_Table) {
                     $this->_writeTableStyle($objWriter, $tblStyle);
                 } else {
                     if (!empty($tblStyle)) {
@@ -511,7 +511,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         $merge = 0;
                         
                         if(
-                                ($cellStyle instanceof Document_Word_Writer_Style_Cell || $cellStyle instanceof Document_Word_Style_Cell) && 
+                                ($cellStyle instanceof Document_Word_Style_Cell || $cellStyle instanceof Document_Word_Style_Cell) && 
                                 isset($cellStyle->_columnNum) && 
                                 isset($cellStyle->_mergeto) && 
                                 ($cellStyle->_mergeto - $cellStyle->_columnNum) > 1
@@ -554,7 +554,7 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                             $objWriter->endElement();
                         }
 
-                        if($cellStyle instanceof Document_Word_Writer_Style_Cell || $cellStyle instanceof Document_Word_Style_Cell) {
+                        if($cellStyle instanceof Document_Word_Style_Cell || $cellStyle instanceof Document_Word_Style_Cell) {
                                 $this->_writeCellStyle($objWriter, $cellStyle);
                         }
 
@@ -564,22 +564,22 @@ class Document_Word_Writer_Writer_Word2007_Base extends Document_Word_Writer_Wri
                         
                         if(count($_elements) > 0) {
                                 foreach($_elements as $element) {
-                                        if($element instanceof Document_Word_Writer_Section_Text || $element instanceof Document_Word_Section_Text) {
+                                        if($element instanceof Document_Word_Section_Text) {
                                                 $this->_writeText($objWriter, $element);
-                                        } elseif($element instanceof Document_Word_Writer_Section_TextRun || $element instanceof Document_Word_Section_TextRun) {
+                                        } elseif($element instanceof Document_Word_Section_TextRun) {
                                                 $this->_writeTextRun($objWriter, $element);
-                                        } elseif($element instanceof Document_Word_Writer_Section_Link || $element instanceof Document_Word_Section_Link) {
+                                        } elseif($element instanceof Document_Word_Section_Link) {
                                                 $this->_writeLink($objWriter, $element);
-                                        } elseif($element instanceof Document_Word_Writer_Section_TextBreak || $element instanceof Document_Word_Section_TextBreak) {
+                                        } elseif($element instanceof Document_Word_Section_TextBreak) {
                                                 $this->_writeTextBreak($objWriter);
-                                        } elseif($element instanceof Document_Word_Writer_Section_ListItem || $element instanceof Document_Word_Section_ListItem) {
+                                        } elseif($element instanceof Document_Word_Section_ListItem) {
                                                 $this->_writeListItem($objWriter, $element);
-                                        } elseif($element instanceof Document_Word_Writer_Section_Image || $element instanceof Document_Word_Section_Image ||
-                                                 $element instanceof Document_Word_Writer_Section_MemoryImage || $element instanceof Document_Word_Section_MemoryImage) {
+                                        } elseif($element instanceof Document_Word_Section_Image ||
+                                                 $element instanceof Document_Word_Section_MemoryImage) {
                                                 $this->_writeImage($objWriter, $element);
-                                        } elseif($element instanceof Document_Word_Writer_Section_Object || $element instanceof Document_Word_Section_Object) {
+                                        } elseif($element instanceof Document_Word_Section_Object) {
                                                 $this->_writeObject($objWriter, $element);
-                                        } elseif($element instanceof Document_Word_Writer_Section_Footer_PreserveText || $element instanceof Document_Word_Section_Footer_PreserveText) {
+                                        } elseif($element instanceof Document_Word_Section_Footer_PreserveText) {
                                                 $this->_writePreserveText($objWriter, $element);
                                         }
                                 }
