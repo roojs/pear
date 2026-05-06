@@ -131,6 +131,22 @@ class Document_Word
         return $this->_sectionCollection;
     }
 
+    /**
+     * Export this document using a named writer (e.g. Word2007, HTML).
+     *
+     * @param string $format
+     * @param string $filename
+     * @return Document_Word
+     * @throws Exception
+     */
+    public function exportAs($format, $filename)
+    {
+        require_once __DIR__ . '/Word/IOFactory.php';
+        Document_Word_IOFactory::createWriter($this, $format)->save($filename);
+
+        return $this;
+    }
+
     private function _countSections()
     {
         return count($this->_sectionCollection);
