@@ -467,8 +467,7 @@ class File_Convert_AbiToDocx
     }
 
     function saveDocx($fn){
-        $objWriter = Document_Word_IOFactory::createWriter($this->writer, 'Word2007');
-        $objWriter->save($fn);
+        $this->writer->exportAs('Word2007', $fn);
         
     }
     
