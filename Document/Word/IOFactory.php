@@ -19,7 +19,6 @@
  *
  * ```php
  * $word = new Document_Word('/path/in.docx');
- * // equivalent: $word = Document_Word_IOFactory::load('/path/in.docx');
  * Document_Word_IOFactory::createWriter($word, 'HTML')->save('/path/out.html');
  * ```
  *
@@ -94,20 +93,6 @@ class Document_Word_IOFactory
         }
 
         return new $class();
-    }
-
-    /**
-     * Load a document from disk into {@see Document_Word}.
-     *
-     * @param string $path Path to source file (e.g. .docx)
-     * @return Document_Word
-     * @throws Exception
-     */
-    public static function load($path)
-    {
-        require_once __DIR__ . '/../Word.php';
-
-        return new Document_Word($path);
     }
 
     /**

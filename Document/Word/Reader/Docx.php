@@ -25,7 +25,7 @@
  * $z->close();
  * require_once "Document/Word.php";
  * require_once "Document/Word/IOFactory.php";
- * $w = Document_Word_IOFactory::load($docx);
+ * $w = new Document_Word($docx);
  * if (strpos($w->getProperties()->getTitle(), "SmokeTitle") === false) { fwrite(STDERR, "title fail\n"); exit(1); }
  * $html = Document_Word_IOFactory::createWriter($w, "HTML")->getContent();
  * if (strpos($html, "Hello DOCX") === false || strpos($html, "example.com") === false) { fwrite(STDERR, "html fail\n"); exit(1); }
