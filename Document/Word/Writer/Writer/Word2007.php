@@ -86,13 +86,8 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 				}
 			}
 			
-			if (class_exists('Document_Word', false) && $this->_document instanceof Document_Word) {
-				require_once __DIR__ . '/../../Media.php';
-				$_mediaClass = 'Document_Word_Media';
-			} else {
-				require_once __DIR__ . '/../Media.php';
-				$_mediaClass = 'Document_Word_Writer_Media';
-			}
+			require_once __DIR__ . '/../../Media.php';
+			$_mediaClass = 'Document_Word_Media';
 			$sectionElements = array();
 			$_secElements = $_mediaClass::getSectionMediaElements();
 			foreach($_secElements as $element) { // loop through section media elements
@@ -165,11 +160,7 @@ class Document_Word_Writer_Writer_Word2007 implements Document_Word_Writer_Write
 			$objZip->addFromString('word/styles.xml', $this->getWriterPart('styles')->writeStyles($this->_document));
             
                         // Write static files
-			if (class_exists('Document_Word', false) && $this->_document instanceof Document_Word) {
-				$_staticPartsDir = __DIR__ . '/../../../_staticDocParts';
-			} else {
-				$_staticPartsDir = __DIR__ . '/../_staticDocParts';
-			}
+			$_staticPartsDir = __DIR__ . '/../../../_staticDocParts';
 			$objZip->addFile($_staticPartsDir.'/numbering.xml', 'word/numbering.xml');
 			$objZip->addFile($_staticPartsDir.'/settings.xml', 'word/settings.xml');
 			$objZip->addFile($_staticPartsDir.'/theme1.xml', 'word/theme/theme1.xml');

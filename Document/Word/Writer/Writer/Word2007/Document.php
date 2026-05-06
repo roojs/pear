@@ -338,13 +338,8 @@ class Document_Word_Writer_Writer_Word2007_Document extends Document_Word_Writer
 	
 	private function _writeTOC(?Document_Word_Shared_XMLWriter $objWriter = null, $pPHPWord = null) 
         {
-		if (class_exists('Document_Word', false) && $pPHPWord instanceof Document_Word) {
-			require_once __DIR__ . '/../../../TOC.php';
-			$_tocClass = 'Document_Word_TOC';
-		} else {
-			require_once __DIR__ . '/../../TOC.php';
-			$_tocClass = 'Document_Word_TOC';
-		}
+		require_once __DIR__ . '/../../../TOC.php';
+		$_tocClass = 'Document_Word_TOC';
 		$titles = $_tocClass::getTitles();
 		$styleFont = $_tocClass::getStyleFont();
 		

@@ -1,16 +1,15 @@
 <?php
 /**
- * HTML writer for Document_Word_Writer (legacy PHPWord 0.6.x API).
+ * HTML writer for {@see Document_Word}.
  * Serializes in-memory documents to a minimal HTML5 file via IOFactory createWriter(..., 'HTML').
  */
 
 require_once __DIR__ . '/IWriter.php';
-require_once __DIR__ . '/../Section/Footer/PreserveText.php';
 require_once __DIR__ . '/../../Section/Footer/PreserveText.php';
 
 class Document_Word_Writer_Writer_HTML implements Document_Word_Writer_Writer_IWriter
 {
-    /** @var Document_Word|Document_Word_Writer|null */
+    /** @var Document_Word|null */
     private $_document;
 
     public function __construct($PHPWord = null)
