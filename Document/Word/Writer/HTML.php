@@ -102,10 +102,8 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
             $element = $elements[$i];
             if ($this->_elementIsListItem($element)) {
                 $group = array($element);
-                $ordered = $element->getStyle()->getIsOrdered();
-                $depth = (int) $element->getDepth();
                 $j = $i + 1;
-                while ($j < $n && $this->_listItemMatchesRun($elements[$j], $ordered, $depth)) {
+                while ($j < $n && $this->_elementIsListItem($elements[$j])) {
                     $group[] = $elements[$j];
                     $j++;
                 }
@@ -128,24 +126,6 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
     }
 
     /**
-     * @param mixed $element
-     * @param bool $ordered
-     * @param int $depth
-     * @return bool
-     */
-    private function _listItemMatchesRun($element, $ordered, $depth)
-    {
-        if (!$this->_elementIsListItem($element)) {
-            return false;
-        }
-        if ($element->getStyle()->getIsOrdered() !== $ordered) {
-            return false;
-        }
-
-        return (int) $element->getDepth() === $depth;
-    }
-
-    /**
      * @param array<int, Document_Word_Section_ListItem> $items
      * @return string
      */
@@ -154,17 +134,84 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
         if ($items === array()) {
             return '';
         }
-        $first = $items[0];
-        $depth = (int) $first->getDepth();
-        $margin = 1.5 * (1 + max(0, $depth));
-        $tag = $first->getStyle()->getIsOrdered() ? 'ol' : 'ul';
-        $html = '<' . $tag . ' style="margin:0.3em 0;padding-left:' . $margin . 'em">' . "\n";
+
+        $roots = array();
+        $stack = array();
+
         foreach ($items as $item) {
-            $textObj = $item->getTextObject();
+            $depth = max(0, (int) $item->getDepth());
+            if ($depth > count($stack)) {
+                $depth = count($stack);
+            }
+            while (count($stack) > $depth) {
+                array_pop($stack);
+            }
+
+            $node = array(
+                'item' => $item,
+                'tag' => $this->_listItemTag($item),
+                'children' => array(),
+            );
+
+            if ($depth === 0) {
+                $roots[] = $node;
+                $stack[] = &$roots[count($roots) - 1];
+                continue;
+            }
+
+            $parent = &$stack[$depth - 1];
+            $parent['children'][] = $node;
+            $stack[] = &$parent['children'][count($parent['children']) - 1];
+        }
+
+        return $this->_writeListNodeLevel($roots);
+    }
+
+    /**
+     * @param Document_Word_Section_ListItem $item
+     * @return string
+     */
+    private function _listItemTag($item)
+    {
+        $style = $item->getStyle();
+        if ($style->getIsOrdered()) {
+            return 'ol';
+        }
+        return 'ul';
+    }
+
+    /**
+     * @param array<int, array{item:Document_Word_Section_ListItem,tag:string,children:array}> $nodes
+     * @return string
+     */
+    private function _writeListNodeLevel($nodes)
+    {
+        if ($nodes === array()) {
+            return '';
+        }
+
+        $html = '';
+        $currentTag = '';
+        foreach ($nodes as $node) {
+            $tag = $node['tag'];
+            if ($currentTag !== $tag) {
+                if ($currentTag !== '') {
+                    $html .= '</' . $currentTag . ">\n";
+                }
+                $html .= '<' . $tag . ' style="margin:0.3em 0;padding-left:1.5em">' . "\n";
+                $currentTag = $tag;
+            }
+
+            $textObj = $node['item']->getTextObject();
             $inner = $this->_writeTextRunContentFromText($textObj);
+            if ($node['children'] !== array()) {
+                $inner .= "\n" . $this->_writeListNodeLevel($node['children']);
+            }
             $html .= '<li>' . $inner . "</li>\n";
         }
-        $html .= '</' . $tag . ">\n";
+        if ($currentTag !== '') {
+            $html .= '</' . $currentTag . ">\n";
+        }
 
         return $html;
     }
