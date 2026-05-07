@@ -202,8 +202,17 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
                 $currentTag = $tag;
             }
 
-            $textObj = $node['item']->getTextObject();
-            $inner = $this->_writeTextRunContentFromText($textObj);
+            $inner = '';
+            $inlineElements = $node['item']->getElements();
+            if (is_array($inlineElements) && $inlineElements !== array()) {
+                foreach ($inlineElements as $inline) {
+                    $inner .= $this->_writeInlineElement($inline);
+                }
+            }
+            if ($inner === '') {
+                $textObj = $node['item']->getTextObject();
+                $inner = $this->_writeTextRunContentFromText($textObj);
+            }
             if ($node['children'] !== array()) {
                 $inner .= "\n" . $this->_writeListNodeLevel($node['children']);
             }
