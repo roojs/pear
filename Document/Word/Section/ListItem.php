@@ -56,6 +56,14 @@ class Document_Word_Section_ListItem
 	 * @var int
 	 */
 	private $_depth;
+
+	/**
+	 * Optional rich inline elements for this list item (texts/links/textbreaks),
+	 * populated by the DOCX reader when available.
+	 *
+	 * @var array
+	 */
+	private $_elements = array();
 	
 	
 	/**
@@ -106,6 +114,26 @@ class Document_Word_Section_ListItem
 	public function getDepth() 
         {
 		return $this->_depth;
+	}
+
+	/**
+	 * Set rich inline elements for this list item.
+	 *
+	 * @param array $elements
+	 */
+	public function setElements($elements)
+	{
+		$this->_elements = is_array($elements) ? $elements : array();
+	}
+
+	/**
+	 * Get rich inline elements for this list item.
+	 *
+	 * @return array
+	 */
+	public function getElements()
+	{
+		return $this->_elements;
 	}
 }
 ?>
