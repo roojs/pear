@@ -714,10 +714,14 @@ class Document_Word_Reader
             $numId = $listNum['numId'];
             $ordered = $this->_listNumIdIsOrdered($numId, $depth);
             $font = $this->_firstParagraphRunFontStyle($p);
-            $target->addListItem($plainList, $depth, $font === array() ? null : $font, array(
+            $listItem = $target->addListItem($plainList, $depth, $font === array() ? null : $font, array(
                 'listType' => $numId,
                 'isOrdered' => $ordered,
             ));
+            require_once __DIR__ . '/Section/TextRun.php';
+            $tr = new Document_Word_Section_TextRun();
+            $this->_emitParagraphInlines($tr, $p, false);
+            $listItem->setElements($tr->getElements());
             return;
         }
 
