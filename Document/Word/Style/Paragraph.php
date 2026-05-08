@@ -109,11 +109,14 @@ class Document_Word_Style_Paragraph
 	 */
 	public function setStyleValue($key, $value) 
         {
+		if(substr($key, 0, 1) == '_' && !property_exists($this, $key) && property_exists($this, substr($key, 1))) {
+			$key = substr($key, 1);
+		}
 		if($key == 'spacing') {
 			$value += 240; // because line height of 1 matches 240 twips
 		}
                 
-		if($key == '_list-style'){
+		if($key == 'list-style'){
 			$key = str_replace('-', '_', $key);
 		}
         $cache = array();
