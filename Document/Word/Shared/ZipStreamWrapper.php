@@ -38,28 +38,28 @@ class Document_Word_Shared_ZipStreamWrapper {
 	 *
 	 * @var ZipAcrhive
 	 */
-	private $_archive;
+	private $archive;
 
 	/**
 	 * Filename in ZipAcrhive
 	 *
 	 * @var string
 	 */
-	private $_fileNameInArchive = '';
+	private $fileNameInArchive = '';
 
 	/**
 	 * Position in file
 	 *
 	 * @var int
 	 */
-	private $_position = 0;
+	private $position = 0;
 
 	/**
 	 * Data
 	 *
 	 * @var mixed
 	 */
-	private $_data = '';
+	private $data = '';
 
 	/**
 	 * Register wrapper
@@ -98,12 +98,12 @@ class Document_Word_Shared_ZipStreamWrapper {
 		}
 
 		// Open archive
-		$this->_archive = new ZipArchive();
-		$this->_archive->open($url['host']);
+		$this->archive = new ZipArchive();
+		$this->archive->open($url['host']);
 
-		$this->_fileNameInArchive = $url['fragment'];
-		$this->_position = 0;
-		$this->_data = $this->_archive->getFromName( $this->_fileNameInArchive );
+		$this->fileNameInArchive = $url['fragment'];
+		$this->position = 0;
+		$this->data = $this->archive->getFromName( $this->fileNameInArchive );
 
 		return true;
 	}
@@ -112,15 +112,15 @@ class Document_Word_Shared_ZipStreamWrapper {
 	 * Stat stream
 	 */
 	public function stream_stat() {
-		return $this->_archive->statName( $this->_fileNameInArchive );
+		return $this->archive->statName( $this->fileNameInArchive );
 	}
 
 	/**
 	 * Read stream
 	 */
 	function stream_read($count) {
-		$ret = substr($this->_data, $this->_position, $count);
-		$this->_position += strlen($ret);
+		$ret = substr($this->data, $this->position, $count);
+		$this->position += strlen($ret);
 		return $ret;
 	}
 
@@ -128,14 +128,14 @@ class Document_Word_Shared_ZipStreamWrapper {
 	 * Tell stream
 	 */
 	public function stream_tell() {
-		return $this->_position;
+		return $this->position;
 	}
 
 	/**
 	 * EOF stream
 	 */
 	public function stream_eof() {
-		return $this->_position >= strlen($this->_data);
+		return $this->position >= strlen($this->data);
 	}
 
 	/**
@@ -144,8 +144,8 @@ class Document_Word_Shared_ZipStreamWrapper {
 	public function stream_seek($offset, $whence) {
 		switch ($whence) {
 			case SEEK_SET:
-				if ($offset < strlen($this->_data) && $offset >= 0) {
-					 $this->_position = $offset;
+				if ($offset < strlen($this->data) && $offset >= 0) {
+					 $this->position = $offset;
 					 return true;
 				} else {
 					 return false;
@@ -154,7 +154,7 @@ class Document_Word_Shared_ZipStreamWrapper {
 
 			case SEEK_CUR:
 				if ($offset >= 0) {
-					 $this->_position += $offset;
+					 $this->position += $offset;
 					 return true;
 				} else {
 					 return false;
@@ -162,8 +162,8 @@ class Document_Word_Shared_ZipStreamWrapper {
 				break;
 
 			case SEEK_END:
-				if (strlen($this->_data) + $offset >= 0) {
-					 $this->_position = strlen($this->_data) + $offset;
+				if (strlen($this->data) + $offset >= 0) {
+					 $this->position = strlen($this->data) + $offset;
 					 return true;
 				} else {
 					 return false;

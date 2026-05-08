@@ -41,28 +41,28 @@ class Document_Word_Section_Footer
 	 * 
 	 * @var int
 	 */
-	private $_footerCount;
+	private $footerCount;
 	
 	/**
 	 * Footer Relation ID
 	 * 
 	 * @var int
 	 */
-	private $_rId;
+	private $rId;
 	
 	/**
 	 * Footer Element Collection
 	 * 
 	 * @var int
 	 */
-	private $_elementCollection = array();
+	private $elementCollection = array();
 	
 	/**
 	 * Create a new Footer
 	 */
 	public function __construct($sectionCount) 
         {
-		$this->_footerCount = $sectionCount;
+		$this->footerCount = $sectionCount;
 	}
 	
 	/**
@@ -80,7 +80,7 @@ class Document_Word_Section_Footer
         $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		
 		$text = new Document_Word_Section_Text($text, $styleFont, $styleParagraph);
-		$this->_elementCollection[] = $text;
+		$this->elementCollection[] = $text;
 		return $text;
 	}
 	
@@ -93,7 +93,7 @@ class Document_Word_Section_Footer
 		{
 		require_once __DIR__  . '/TextBreak.php';
 		for($i=1; $i<=$count; $i++) {
-			$this->_elementCollection[] = new Document_Word_Section_TextBreak();
+			$this->elementCollection[] = new Document_Word_Section_TextBreak();
 		}
 	}
 	
@@ -106,7 +106,7 @@ class Document_Word_Section_Footer
         {
 		require_once __DIR__  . '/TextRun.php';
 		$textRun = new Document_Word_Section_TextRun($styleParagraph);
-		$this->_elementCollection[] = $textRun;
+		$this->elementCollection[] = $textRun;
 		return $textRun;
 	}
 	
@@ -119,8 +119,8 @@ class Document_Word_Section_Footer
 	public function addTable($style = null) 
         {
 		require_once __DIR__  . '/Table.php';
-		$table = new Document_Word_Section_Table('footer', $this->_footerCount, $style);
-		$this->_elementCollection[] = $table;
+		$table = new Document_Word_Section_Table('footer', $this->footerCount, $style);
+		$this->elementCollection[] = $table;
 		return $table;
 	}
 	
@@ -137,10 +137,10 @@ class Document_Word_Section_Footer
 		$image = new Document_Word_Section_Image($src, $style);
 		
 		if(!is_null($image->getSource())) {
-			$rID = Document_Word_Media::addFooterMediaElement($this->_footerCount, $src);
+			$rID = Document_Word_Media::addFooterMediaElement($this->footerCount, $src);
 			$image->setRelationId($rID);
 			
-			$this->_elementCollection[] = $image;
+			$this->elementCollection[] = $image;
 			return $image;
 		} else {
 			trigger_error('Src does not exist or invalid image type.', E_ERROR);
@@ -159,10 +159,10 @@ class Document_Word_Section_Footer
 		require_once __DIR__  . '/MemoryImage.php';
 		$memoryImage = new Document_Word_Section_MemoryImage($link, $style);
 		if(!is_null($memoryImage->getSource())) {
-			$rID = Document_Word_Media::addFooterMediaElement($this->_footerCount, $link, $memoryImage);
+			$rID = Document_Word_Media::addFooterMediaElement($this->footerCount, $link, $memoryImage);
 			$memoryImage->setRelationId($rID);
 			
-			$this->_elementCollection[] = $memoryImage;
+			$this->elementCollection[] = $memoryImage;
 			return $memoryImage;
 		} else {
 			trigger_error('Unsupported image type.');
@@ -183,7 +183,7 @@ class Document_Word_Section_Footer
         require_once __DIR__ . '/Footer/PreserveText.php';
 
 		$ptext = new Document_Word_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
-		$this->_elementCollection[] = $ptext;
+		$this->elementCollection[] = $ptext;
 		return $ptext;
 	}
 	
@@ -192,7 +192,7 @@ class Document_Word_Section_Footer
 	 */
 	public function getRelationId() 
         {
-		return $this->_rId;
+		return $this->rId;
 	}
 	
 	/**
@@ -202,7 +202,7 @@ class Document_Word_Section_Footer
 	 */
 	public function setRelationId($rId) 
         {
-		$this->_rId = $rId;
+		$this->rId = $rId;
 	}
 	
 	/**
@@ -210,7 +210,7 @@ class Document_Word_Section_Footer
 	 */
 	public function getElements() 
         {
-		return $this->_elementCollection;
+		return $this->elementCollection;
 	}
 	
 	/**
@@ -218,7 +218,7 @@ class Document_Word_Section_Footer
 	 */
 	public function getFooterCount() 
         {
-		return $this->_footerCount;
+		return $this->footerCount;
 	}
 }
 ?>

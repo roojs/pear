@@ -11,11 +11,11 @@ require_once __DIR__ . '/../Section/Footer/PreserveText.php';
 class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
 {
     /** @var Document_Word|null */
-    private $_document;
+    private $document;
 
     public function __construct(Document_Word $PHPWord = null)
     {
-        $this->_document = $PHPWord;
+        $this->document = $PHPWord;
     }
 
     /**
@@ -50,14 +50,14 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
     public function getContent()
     {
         $title = '';
-        if ($this->_document !== null) {
-            $props = $this->_document->getProperties();
+        if ($this->document !== null) {
+            $props = $this->document->getProperties();
             if ($props !== null && method_exists($props, 'getTitle')) {
                 $title = (string) $props->getTitle();
             }
         }
 
-        $body = $this->_writeBody();
+        $body = $this->writeBody();
         $safeTitle = htmlspecialchars($title !== '' ? $title : 'Document', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
         return '<!DOCTYPE html>' . "\n"
@@ -75,14 +75,14 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
     /**
      * @return string
      */
-    private function _writeBody()
+    private function writeBody()
     {
-        if ($this->_document === null) {
+        if ($this->document === null) {
             return '';
         }
         $html = '';
-        foreach ($this->_document->getSections() as $section) {
-            $html .= $this->_writeElementList($section->getElements());
+        foreach ($this->document->getSections() as $section) {
+            $html .= $this->writeElementList($section->getElements());
         }
         return $html;
     }
@@ -91,7 +91,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param array $elements
      * @return string
      */
-    private function _writeElementList($elements)
+    private function writeElementList($elements)
     {
         if (!is_array($elements)) {
             return '';
@@ -100,18 +100,18 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
         $n = count($elements);
         for ($i = 0; $i < $n; $i++) {
             $element = $elements[$i];
-            if ($this->_elementIsListItem($element)) {
+            if ($this->elementIsListItem($element)) {
                 $group = array($element);
                 $j = $i + 1;
-                while ($j < $n && $this->_elementIsListItem($elements[$j])) {
+                while ($j < $n && $this->elementIsListItem($elements[$j])) {
                     $group[] = $elements[$j];
                     $j++;
                 }
-                $html .= $this->_writeListItemGroup($group);
+                $html .= $this->writeListItemGroup($group);
                 $i = $j - 1;
                 continue;
             }
-            $html .= $this->_writeElement($element);
+            $html .= $this->writeElement($element);
         }
         return $html;
     }
@@ -120,7 +120,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param mixed $element
      * @return bool
      */
-    private function _elementIsListItem($element)
+    private function elementIsListItem($element)
     {
         return $element instanceof Document_Word_Section_ListItem;
     }
@@ -129,7 +129,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param array<int, Document_Word_Section_ListItem> $items
      * @return string
      */
-    private function _writeListItemGroup($items)
+    private function writeListItemGroup($items)
     {
         if ($items === array()) {
             return '';
@@ -149,7 +149,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
 
             $node = array(
                 'item' => $item,
-                'tag' => $this->_listItemTag($item),
+                'tag' => $this->listItemTag($item),
                 'children' => array(),
             );
 
@@ -164,14 +164,14 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
             $stack[] = &$parent['children'][count($parent['children']) - 1];
         }
 
-        return $this->_writeListNodeLevel($roots);
+        return $this->writeListNodeLevel($roots);
     }
 
     /**
      * @param Document_Word_Section_ListItem $item
      * @return string
      */
-    private function _listItemTag($item)
+    private function listItemTag($item)
     {
         $style = $item->getStyle();
         if ($style->getIsOrdered()) {
@@ -184,7 +184,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param array<int, array{item:Document_Word_Section_ListItem,tag:string,children:array}> $nodes
      * @return string
      */
-    private function _writeListNodeLevel($nodes)
+    private function writeListNodeLevel($nodes)
     {
         if ($nodes === array()) {
             return '';
@@ -206,15 +206,15 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
             $inlineElements = $node['item']->getElements();
             if (is_array($inlineElements) && $inlineElements !== array()) {
                 foreach ($inlineElements as $inline) {
-                    $inner .= $this->_writeInlineElement($inline);
+                    $inner .= $this->writeInlineElement($inline);
                 }
             }
             if ($inner === '') {
                 $textObj = $node['item']->getTextObject();
-                $inner = $this->_writeTextRunContentFromText($textObj);
+                $inner = $this->writeTextRunContentFromText($textObj);
             }
             if ($node['children'] !== array()) {
-                $inner .= "\n" . $this->_writeListNodeLevel($node['children']);
+                $inner .= "\n" . $this->writeListNodeLevel($node['children']);
             }
             $html .= '<li>' . $inner . "</li>\n";
         }
@@ -229,19 +229,19 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param mixed $element
      * @return string
      */
-    private function _writeElement($element)
+    private function writeElement($element)
     {
         if ($element instanceof Document_Word_Section_Text) {
-            return $this->_writeParagraphFromText($element);
+            return $this->writeParagraphFromText($element);
         }
         if ($element instanceof Document_Word_Section_TextRun) {
-            return $this->_writeTextRunBlock($element);
+            return $this->writeTextRunBlock($element);
         }
         if ($element instanceof Document_Word_Section_Link) {
-            return $this->_writeLinkBlock($element);
+            return $this->writeLinkBlock($element);
         }
         if ($element instanceof Document_Word_Section_Title) {
-            return $this->_writeTitle($element);
+            return $this->writeTitle($element);
         }
         if ($element instanceof Document_Word_Section_TextBreak) {
             return "<br>\n";
@@ -250,14 +250,14 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
             return '<div style="page-break-before:always"></div>' . "\n";
         }
         if ($element instanceof Document_Word_Section_Table) {
-            return $this->_writeTable($element);
+            return $this->writeTable($element);
         }
         if ($element instanceof Document_Word_Section_ListItem) {
-            return $this->_writeListItemGroup(array($element));
+            return $this->writeListItemGroup(array($element));
         }
         if ($element instanceof Document_Word_Section_Image
             || $element instanceof Document_Word_Section_MemoryImage) {
-            return $this->_writeImageBlock($element);
+            return $this->writeImageBlock($element);
         }
         if ($element instanceof Document_Word_Section_Object) {
             return "<!-- embedded OLE object omitted -->\n";
@@ -273,7 +273,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param $table
      * @return string
      */
-    private function _writeTable($table)
+    private function writeTable($table)
     {
         $html = "<table border=\"1\" style=\"border-collapse:collapse\">\n";
         foreach ($table->getRows() as $row) {
@@ -285,7 +285,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
                     $html .= ' style="width:' . (int) $w . 'px"';
                 }
                 $html .= '>';
-                $html .= $this->_writeElementList($cell->getElements());
+                $html .= $this->writeElementList($cell->getElements());
                 $html .= "</td>\n";
             }
             $html .= "</tr>\n";
@@ -298,31 +298,31 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param $text
      * @return string
      */
-    private function _writeTextRunContentFromText($text)
+    private function writeTextRunContentFromText($text)
     {
         require_once __DIR__ . '/../Shared/String.php';
         $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML($text->getText());
-        $inner = $this->_escapeHtml($raw);
-        return $this->_wrapWithFontStyle($inner, $text->getFontStyle());
+        $inner = $this->escapeHtml($raw);
+        return $this->wrapWithFontStyle($inner, $text->getFontStyle());
     }
 
     /**
      * @param $text
      * @return string
      */
-    private function _writeParagraphFromText($text)
+    private function writeParagraphFromText($text)
     {
-        $pOpen = $this->_paragraphOpenTag($text->getParagraphStyle());
-        return $pOpen . $this->_writeTextRunContentFromText($text) . "</p>\n";
+        $pOpen = $this->paragraphOpenTag($text->getParagraphStyle());
+        return $pOpen . $this->writeTextRunContentFromText($text) . "</p>\n";
     }
 
     /**
      * @param mixed $styleParagraph
      * @return string opening tag
      */
-    private function _paragraphOpenTag($styleParagraph)
+    private function paragraphOpenTag($styleParagraph)
     {
-        $attr = $this->_paragraphStyleAttr($styleParagraph);
+        $attr = $this->paragraphStyleAttr($styleParagraph);
         if ($attr === '') {
             return '<p>';
         }
@@ -333,7 +333,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param mixed $styleParagraph
      * @return string CSS for style attribute
      */
-    private function _paragraphStyleAttr($styleParagraph)
+    private function paragraphStyleAttr($styleParagraph)
     {
         if (!($styleParagraph instanceof Document_Word_Style_Paragraph)) {
             return '';
@@ -363,11 +363,11 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param $textrun
      * @return string
      */
-    private function _writeTextRunBlock($textrun)
+    private function writeTextRunBlock($textrun)
     {
-        $html = $this->_paragraphOpenTag($textrun->getParagraphStyle());
+        $html = $this->paragraphOpenTag($textrun->getParagraphStyle());
         foreach ($textrun->getElements() as $el) {
-            $html .= $this->_writeInlineElement($el);
+            $html .= $this->writeInlineElement($el);
         }
         return $html . "</p>\n";
     }
@@ -376,17 +376,17 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param mixed $el
      * @return string
      */
-    private function _writeInlineElement($el)
+    private function writeInlineElement($el)
     {
         if ($el instanceof Document_Word_Section_Text) {
-            return $this->_writeTextRunContentFromText($el);
+            return $this->writeTextRunContentFromText($el);
         }
         if ($el instanceof Document_Word_Section_Link) {
-            return $this->_writeLinkInline($el);
+            return $this->writeLinkInline($el);
         }
         if ($el instanceof Document_Word_Section_Image
             || $el instanceof Document_Word_Section_MemoryImage) {
-            return $this->_writeImageInline($el);
+            return $this->writeImageInline($el);
         }
         if ($el instanceof Document_Word_Section_TextBreak) {
             return '<br>';
@@ -395,7 +395,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
             return '<span style="page-break-before:always"></span>';
         }
         if ($el instanceof Document_Word_Section_Footer_PreserveText) {
-            return $this->_writePreserveTextInline($el);
+            return $this->writePreserveTextInline($el);
         }
 
         return '';
@@ -405,18 +405,18 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param $pt
      * @return string
      */
-    private function _writePreserveTextInline($pt)
+    private function writePreserveTextInline($pt)
     {
         $t = $pt->getText();
         require_once __DIR__ . '/../Shared/String.php';
         if (!is_array($t)) {
             $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML((string) $t);
-            return $this->_wrapWithFontStyle($this->_escapeHtml($raw), $pt->getFontStyle());
+            return $this->wrapWithFontStyle($this->escapeHtml($raw), $pt->getFontStyle());
         }
         $chunk = '';
         foreach ($t as $part) {
             $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML((string) $part);
-            $chunk .= $this->_wrapWithFontStyle($this->_escapeHtml($raw), $pt->getFontStyle());
+            $chunk .= $this->wrapWithFontStyle($this->escapeHtml($raw), $pt->getFontStyle());
         }
         return $chunk;
     }
@@ -425,25 +425,25 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param $link
      * @return string
      */
-    private function _writeLinkBlock($link)
+    private function writeLinkBlock($link)
     {
-        return $this->_paragraphOpenTag($link->getParagraphStyle()) . $this->_writeLinkInline($link) . "</p>\n";
+        return $this->paragraphOpenTag($link->getParagraphStyle()) . $this->writeLinkInline($link) . "</p>\n";
     }
 
     /**
      * @param $link
      * @return string
      */
-    private function _writeLinkInline($link)
+    private function writeLinkInline($link)
     {
-        $href = $this->_escapeHtml($link->getLinkSrc());
+        $href = $this->escapeHtml($link->getLinkSrc());
         $label = $link->getLinkName();
         if ($label === null || $label === '') {
             $label = $link->getLinkSrc();
         }
         require_once __DIR__ . '/../Shared/String.php';
         $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML((string) $label);
-        $inner = $this->_wrapWithFontStyle($this->_escapeHtml($raw), $link->getFontStyle());
+        $inner = $this->wrapWithFontStyle($this->escapeHtml($raw), $link->getFontStyle());
         return '<a href="' . $href . '">' . $inner . '</a>';
     }
 
@@ -451,7 +451,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param $title
      * @return string
      */
-    private function _writeTitle($title)
+    private function writeTitle($title)
     {
         $level = $title->getDepth();
         if ($level < 1) {
@@ -460,7 +460,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
         if ($level > 6) {
             $level = 6;
         }
-        $t = $this->_escapeHtml($title->getText());
+        $t = $this->escapeHtml($title->getText());
         $h = 'h' . $level;
         $id = $title->getAnchor();
         if ($id !== null && $id !== '') {
@@ -473,16 +473,16 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param Document_Word_Section_Image|Document_Word_Section_MemoryImage $img
      * @return string
      */
-    private function _writeImageBlock($img)
+    private function writeImageBlock($img)
     {
-        return '<p>' . $this->_writeImageInline($img) . "</p>\n";
+        return '<p>' . $this->writeImageInline($img) . "</p>\n";
     }
 
     /**
      * @param Document_Word_Section_Image|Document_Word_Section_MemoryImage $img
      * @return string
      */
-    private function _writeImageInline($img)
+    private function writeImageInline($img)
     {
         $src = $img->getSource();
         if ($src === null || $src === '') {
@@ -507,7 +507,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
                 }
             }
         }
-        $esc = $this->_escapeHtml($src);
+        $esc = $this->escapeHtml($src);
         $style = $img->getStyle();
         $attrs = ' src="' . $esc . '" alt=""';
         if ($style !== null) {
@@ -528,7 +528,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param mixed $styleFont
      * @return string
      */
-    private function _wrapWithFontStyle($escaped, $styleFont)
+    private function wrapWithFontStyle($escaped, $styleFont)
     {
         require_once __DIR__ . '/../Style/Font.php';
         if ($styleFont instanceof Document_Word_Style_Font) {
@@ -556,7 +556,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
             $spanStyles = array();
             $name = $f->getName();
             if ($name !== null && $name !== '' && $name !== 'Arial') {
-                $spanStyles[] = 'font-family:' . $this->_escapeHtml($name);
+                $spanStyles[] = 'font-family:' . $this->escapeHtml($name);
             }
             $size = $f->getSize();
             if ($size !== null && is_numeric($size)) {
@@ -565,7 +565,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
             $color = $f->getColor();
             if ($color !== null && $color !== '' && strtolower($color) !== '000000') {
                 $hex = strlen($color) === 6 ? '#' . $color : $color;
-                $spanStyles[] = 'color:' . $this->_escapeHtml($hex);
+                $spanStyles[] = 'color:' . $this->escapeHtml($hex);
             }
             if (count($spanStyles) > 0) {
                 $inner = '<span style="' . implode(';', $spanStyles) . '">' . $inner . '</span>';
@@ -573,7 +573,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
             return $inner;
         }
         if (is_string($styleFont) && $styleFont !== '') {
-            return '<span class="' . $this->_escapeHtml($styleFont) . '">' . $escaped . '</span>';
+            return '<span class="' . $this->escapeHtml($styleFont) . '">' . $escaped . '</span>';
         }
 
         return $escaped;
@@ -583,7 +583,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      * @param string $s
      * @return string
      */
-    private function _escapeHtml($s)
+    private function escapeHtml($s)
     {
         return htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }

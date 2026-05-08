@@ -41,30 +41,30 @@ class Document_Word_Style_Paragraph
 	 * 
 	 * @var string
 	 */
-	private $_align;
+	private $align;
 	
 	/**
 	 * Space before Paragraph
 	 * 
 	 * @var int
 	 */
-	private $_spaceBefore;
+	private $spaceBefore;
 	
 	/**
 	 * Space after Paragraph
 	 * 
 	 * @var int
 	 */
-	private $_spaceAfter;
+	private $spaceAfter;
 	
 	/**
 	 * Spacing between breaks
 	 * 
 	 * @var int
 	 */
-	private $_spacing;
+	private $spacing;
         
-    private $_liststyle;
+    private $liststyle;
 	
 	// not used? but set by setter
 	var $_bgcolor;
@@ -94,11 +94,11 @@ class Document_Word_Style_Paragraph
 	 */
 	public function __construct() 
         {
-		$this->_align           = null;
-		$this->_spaceBefore     = null;
-		$this->_spaceAfter      = null;
-		$this->_spacing         = null;
-        $this->_liststyle      = null;
+		$this->align           = null;
+		$this->spaceBefore     = null;
+		$this->spaceAfter      = null;
+		$this->spacing         = null;
+        $this->liststyle      = null;
 	}
 	
 	/**
@@ -138,7 +138,7 @@ class Document_Word_Style_Paragraph
 	 */
 	public function getAlign() 
         {
-		return $this->_align;
+		return $this->align;
 	}
 
 	/**
@@ -153,7 +153,7 @@ class Document_Word_Style_Paragraph
 			// justify becames both
 			$pValue = 'both';
 		}
-		$this->_align = $pValue;
+		$this->align = $pValue;
 		return $this;
 	}
 
@@ -164,7 +164,7 @@ class Document_Word_Style_Paragraph
 	 */
 	public function getSpaceBefore() 
         {
-		return $this->_spaceBefore;
+		return $this->spaceBefore;
 	}
 
 	/**
@@ -175,7 +175,7 @@ class Document_Word_Style_Paragraph
 	 */
 	public function setSpaceBefore($pValue = null) 
         {
-	   $this->_spaceBefore = $pValue;
+	   $this->spaceBefore = $pValue;
 	   return $this;
 	}
 
@@ -186,7 +186,7 @@ class Document_Word_Style_Paragraph
 	 */
 	public function getSpaceAfter() 
         {
-		return $this->_spaceAfter;
+		return $this->spaceAfter;
 	}
 
 	/**
@@ -197,7 +197,7 @@ class Document_Word_Style_Paragraph
 	 */
 	public function setSpaceAfter($pValue = null) 
         {
-	   $this->_spaceAfter = $pValue;
+	   $this->spaceAfter = $pValue;
 	   return $this;
 	}
 
@@ -208,7 +208,7 @@ class Document_Word_Style_Paragraph
 	 */
 	public function getSpacing() 
         {
-		return $this->_spacing;
+		return $this->spacing;
 	}
 
 	/**
@@ -219,7 +219,7 @@ class Document_Word_Style_Paragraph
 	 */
 	public function setSpacing($pValue = null) 
 	{
-	   $this->_spacing = $pValue;
+	   $this->spacing = $pValue;
 	   return $this;
 	}
         
@@ -230,6 +230,6 @@ class Document_Word_Style_Paragraph
 	 */
 	public function getListStyle() 
         {
-            return $this->_liststyle;
+            return $this->liststyle;
 	}
 }

@@ -80,25 +80,25 @@ class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word20
                                 } elseif($element instanceof Document_Word_Section_TextBreak) {
                                         $this->_writeTextBreak($objWriter);
                                 } elseif($element instanceof Document_Word_Section_PageBreak) {
-                                        $this->_writePageBreak($objWriter);
+                                        $this->writePageBreak($objWriter);
                                 } elseif($element instanceof Document_Word_Section_Table) {
                                         $this->_writeTable($objWriter, $element);
                                 } elseif($element instanceof Document_Word_Section_ListItem) {
-                                        $this->_writeListItem($objWriter, $element);
+                                        $this->writeListItem($objWriter, $element);
                                 } elseif($element instanceof Document_Word_Section_Image ||
                                                  $element instanceof Document_Word_Section_MemoryImage) {
                                         $this->_writeImage($objWriter, $element);
                                 } elseif($element instanceof Document_Word_Section_Object) {
                                         $this->_writeObject($objWriter, $element);
                                 } elseif($element instanceof Document_Word_TOC) {
-                                        $this->_writeTOC($objWriter);
+                                        $this->writeTOC($objWriter);
                                 }
                         }
 
                         if($pSection == $countSections) {
-                                $this->_writeEndSection($objWriter, $section);
+                                $this->writeEndSection($objWriter, $section);
                         } else {
-                                $this->_writeSection($objWriter, $section);
+                                $this->writeSection($objWriter, $section);
                         }
                 }
         
@@ -110,16 +110,16 @@ class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word20
 		return $objWriter->getData();
 	}
 	
-	private function _writeSection(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section $section)
+	private function writeSection(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section $section)
         {
 		$objWriter->startElement('w:p');
 			$objWriter->startElement('w:pPr');
-				$this->_writeEndSection($objWriter, $section);
+				$this->writeEndSection($objWriter, $section);
 			$objWriter->endElement();
 		$objWriter->endElement();
 	}
 	
-	private function _writeEndSection(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section $section)
+	private function writeEndSection(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section $section)
         {
 		$_settings = $section->getSettings();
 		$_header = $section->getHeader();
@@ -227,7 +227,7 @@ class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word20
 		$objWriter->endElement();
 	}
 	
-	private function _writePageBreak(?Document_Word_Shared_XMLWriter $objWriter = null) 
+	private function writePageBreak(?Document_Word_Shared_XMLWriter $objWriter = null) 
         {
 		$objWriter->startElement('w:p');
 			$objWriter->startElement('w:r');
@@ -238,7 +238,7 @@ class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word20
 		$objWriter->endElement();
 	}
 	
-	private function _writeListItem(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_ListItem $listItem)
+	private function writeListItem(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_ListItem $listItem)
         {
 		$textObject = $listItem->getTextObject();
 		$text = $textObject->getText();
@@ -336,7 +336,7 @@ class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word20
 		$objWriter->endElement(); // w:p
 	}
 	
-	private function _writeTOC(?Document_Word_Shared_XMLWriter $objWriter = null)
+	private function writeTOC(?Document_Word_Shared_XMLWriter $objWriter = null)
         {
 		require_once __DIR__ . '/../../TOC.php';
 		$titles = Document_Word_TOC::getTitles();

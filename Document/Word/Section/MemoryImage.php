@@ -40,49 +40,49 @@ class Document_Word_Section_MemoryImage {
 	 * 
 	 * @var string
 	 */
-	private $_src;
+	private $src;
 	
 	/**
 	 * Image Style
 	 * 
 	 * @var PHPWord_Style_Image
 	 */
-	private $_style;
+	private $style;
 	
 	/**
 	 * Image Relation ID
 	 * 
 	 * @var string
 	 */
-	private $_rId;
+	private $rId;
 	
 	/**
 	 * Image Type
 	 * 
 	 * @var string
 	 */
-	private $_imageType;
+	private $imageType;
 	
 	/**
 	 * Image Create function
 	 * 
 	 * @var string
 	 */
-	private $_imageCreateFunc;
+	private $imageCreateFunc;
 	
 	/**
 	 * Image function
 	 * 
 	 * @var string
 	 */
-	private $_imageFunc;
+	private $imageFunc;
 	
 	/**
 	 * Image function
 	 * 
 	 * @var string
 	 */
-	private $_imageExtension;
+	private $imageExtension;
 	
 	
 	/**
@@ -93,29 +93,29 @@ class Document_Word_Section_MemoryImage {
 	 */
 	public function __construct($src, $style = null) {
 		$imgData = getimagesize($src);
-		$this->_imageType = $imgData['mime'];
+		$this->imageType = $imgData['mime'];
 		
 		$_supportedImageTypes = array('image/jpeg', 'image/gif', 'image/png');
 		
-		if(in_array($this->_imageType, $_supportedImageTypes)) {
-			$this->_src = $src;
-			$this->_style = new Document_Word_Style_Image();
+		if(in_array($this->imageType, $_supportedImageTypes)) {
+			$this->src = $src;
+			$this->style = new Document_Word_Style_Image();
 			
 			if(!is_null($style) && is_array($style)) {
 				foreach($style as $key => $value) {
 					if(substr($key, 0, 1) != '_') {
 						$key = '_'.$key;
 					}
-					$this->_style->setStyleValue($key, $value);
+					$this->style->setStyleValue($key, $value);
 				}
 			}
 			
-			if($this->_style->getWidth() == null && $this->_style->getHeight() == null) {
-				$this->_style->setWidth($imgData[0]);
-				$this->_style->setHeight($imgData[1]);
+			if($this->style->getWidth() == null && $this->style->getHeight() == null) {
+				$this->style->setWidth($imgData[0]);
+				$this->style->setHeight($imgData[1]);
 			}
 			
-			$this->_setFunctions();
+			$this->setFunctions();
 			
 			return $this;
 		} else {
@@ -126,22 +126,22 @@ class Document_Word_Section_MemoryImage {
 	/**
 	 * Set Functions
 	 */
-	private function _setFunctions() {
-		switch($this->_imageType) {
+	private function setFunctions() {
+		switch($this->imageType) {
 			case 'image/png':
-				$this->_imageCreateFunc = 'imagecreatefrompng';
-				$this->_imageFunc = 'imagepng';
-				$this->_imageExtension = 'png';
+				$this->imageCreateFunc = 'imagecreatefrompng';
+				$this->imageFunc = 'imagepng';
+				$this->imageExtension = 'png';
 				break;
 			case 'image/gif':
-				$this->_imageCreateFunc = 'imagecreatefromgif';
-				$this->_imageFunc = 'imagegif';
-				$this->_imageExtension = 'gif';
+				$this->imageCreateFunc = 'imagecreatefromgif';
+				$this->imageFunc = 'imagegif';
+				$this->imageExtension = 'gif';
 				break;
 			case 'image/jpeg': case 'image/jpg':
-				$this->_imageCreateFunc = 'imagecreatefromjpeg';
-				$this->_imageFunc = 'imagejpeg';
-				$this->_imageExtension = 'jpg';
+				$this->imageCreateFunc = 'imagecreatefromjpeg';
+				$this->imageFunc = 'imagejpeg';
+				$this->imageExtension = 'jpg';
 				break;
 		}
 	}
@@ -153,7 +153,7 @@ class Document_Word_Section_MemoryImage {
 	 * @return PHPWord_Style_Image
 	 */
 	public function getStyle() {
-		return $this->_style;
+		return $this->style;
 	}
 	
 	/**
@@ -162,7 +162,7 @@ class Document_Word_Section_MemoryImage {
 	 * @return int
 	 */
 	public function getRelationId() {
-		return $this->_rId;
+		return $this->rId;
 	}
 	
 	/**
@@ -171,7 +171,7 @@ class Document_Word_Section_MemoryImage {
 	 * @param int $rId
 	 */
 	public function setRelationId($rId) {
-		$this->_rId = $rId;
+		$this->rId = $rId;
 	}
 	
 	/**
@@ -180,7 +180,7 @@ class Document_Word_Section_MemoryImage {
 	 * @return string
 	 */
 	public function getSource() {
-		return $this->_src;
+		return $this->src;
 	}
 	
 	/**
@@ -189,7 +189,7 @@ class Document_Word_Section_MemoryImage {
 	 * @return string
 	 */
 	public function getMediaId() {
-		return md5($this->_src);
+		return md5($this->src);
 	}
 	
 	/**
@@ -198,7 +198,7 @@ class Document_Word_Section_MemoryImage {
 	 * @return string
 	 */
 	public function getImageType() {
-		return $this->_imageType;
+		return $this->imageType;
 	}
 	
 	/**
@@ -207,7 +207,7 @@ class Document_Word_Section_MemoryImage {
 	 * @return string
 	 */
 	public function getImageCreateFunction() {
-		return $this->_imageCreateFunc;
+		return $this->imageCreateFunc;
 	}
 	
 	/**
@@ -216,7 +216,7 @@ class Document_Word_Section_MemoryImage {
 	 * @return string
 	 */
 	public function getImageFunction() {
-		return $this->_imageFunc;
+		return $this->imageFunc;
 	}
 	
 	/**
@@ -225,7 +225,7 @@ class Document_Word_Section_MemoryImage {
 	 * @return string
 	 */
 	public function getImageExtension() {
-		return $this->_imageExtension;
+		return $this->imageExtension;
 	}
 }
 ?>

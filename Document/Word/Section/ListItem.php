@@ -41,21 +41,21 @@ class Document_Word_Section_ListItem
 	 * 
 	 * @var PHPWord_Style_ListItem
 	 */
-	private $_style;
+	private $style;
 	
 	/**
 	 * Textrun
 	 * 
 	 * @var PHPWord_Section_Text
 	 */
-	private $_textObject;
+	private $textObject;
 	
 	/**
 	 * ListItem Depth
 	 * 
 	 * @var int
 	 */
-	private $_depth;
+	private $depth;
 
 	/**
 	 * Optional rich inline elements for this list item (texts/links/textbreaks),
@@ -63,7 +63,7 @@ class Document_Word_Section_ListItem
 	 *
 	 * @var array
 	 */
-	private $_elements = array();
+	private $elements = array();
 	
 	
 	/**
@@ -78,16 +78,16 @@ class Document_Word_Section_ListItem
         {
                 require_once __DIR__ . '/Text.php';
                 require_once __DIR__ . '/../Style/ListItem.php';
-		$this->_style = new Document_Word_Style_ListItem();
-		$this->_textObject = new Document_Word_Section_Text($text, $styleFont, $styleParagraph);
-		$this->_depth = $depth;
+		$this->style = new Document_Word_Style_ListItem();
+		$this->textObject = new Document_Word_Section_Text($text, $styleFont, $styleParagraph);
+		$this->depth = $depth;
 		
 		if(!is_null($styleList) && is_array($styleList)) {
 			foreach($styleList as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
 					$key = '_'.$key;
 				}
-				$this->_style->setStyleValue($key, $value);
+				$this->style->setStyleValue($key, $value);
 			}
 		}
 	}
@@ -97,7 +97,7 @@ class Document_Word_Section_ListItem
 	 */
 	public function getStyle() 
         {
-		return $this->_style;
+		return $this->style;
 	}
 	
 	/**
@@ -105,7 +105,7 @@ class Document_Word_Section_ListItem
 	 */
 	public function getTextObject() 
         {
-		return $this->_textObject;
+		return $this->textObject;
 	}
 	
 	/**
@@ -113,7 +113,7 @@ class Document_Word_Section_ListItem
 	 */
 	public function getDepth() 
         {
-		return $this->_depth;
+		return $this->depth;
 	}
 
 	/**
@@ -123,7 +123,7 @@ class Document_Word_Section_ListItem
 	 */
 	public function setElements($elements)
 	{
-		$this->_elements = is_array($elements) ? $elements : array();
+		$this->elements = is_array($elements) ? $elements : array();
 	}
 
 	/**
@@ -133,7 +133,7 @@ class Document_Word_Section_ListItem
 	 */
 	public function getElements()
 	{
-		return $this->_elements;
+		return $this->elements;
 	}
 }
 ?>

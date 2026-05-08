@@ -43,21 +43,21 @@ class Document_Word_Template
      * 
      * @var ZipArchive
      */
-    private $_objZip;
+    private $objZip;
     
     /**
      * Temporary Filename
      * 
      * @var string
      */
-    private $_tempFileName;
+    private $tempFileName;
     
     /**
      * Document XML
      * 
      * @var string
      */
-    private $_documentXML;
+    private $documentXML;
     
     
     /**
@@ -68,14 +68,14 @@ class Document_Word_Template
     public function __construct($strFilename) 
     {
         $path = dirname($strFilename);
-        $this->_tempFileName = $path.DIRECTORY_SEPARATOR.time().'.docx';
+        $this->tempFileName = $path.DIRECTORY_SEPARATOR.time().'.docx';
         
-        copy($strFilename, $this->_tempFileName); // Copy the source File to the temp File
+        copy($strFilename, $this->tempFileName); // Copy the source File to the temp File
 
-        $this->_objZip = new ZipArchive();
-        $this->_objZip->open($this->_tempFileName);
+        $this->objZip = new ZipArchive();
+        $this->objZip->open($this->tempFileName);
         
-        $this->_documentXML = $this->_objZip->getFromName('word/document.xml');
+        $this->documentXML = $this->objZip->getFromName('word/document.xml');
     }
     
     /**
@@ -94,7 +94,7 @@ class Document_Word_Template
             $replace = utf8_encode($replace);
         }
         
-        $this->_documentXML = str_replace($search, $replace, $this->_documentXML);
+        $this->documentXML = str_replace($search, $replace, $this->documentXML);
     }
     
     /**
@@ -108,14 +108,14 @@ class Document_Word_Template
             unlink($strFilename);
         }
         
-        $this->_objZip->addFromString('word/document.xml', $this->_documentXML);
+        $this->objZip->addFromString('word/document.xml', $this->documentXML);
         
         // Close zip file
-        if($this->_objZip->close() === false) {
+        if($this->objZip->close() === false) {
             throw new Exception('Could not close zip file.');
         }
         
-        rename($this->_tempFileName, $strFilename);
+        rename($this->tempFileName, $strFilename);
     }
 }
 ?>

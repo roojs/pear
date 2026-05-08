@@ -41,35 +41,35 @@ class Document_Word_Section_Link
 	 * 
 	 * @var string
 	 */
-	private $_linkSrc;
+	private $linkSrc;
 	
 	/**
 	 * Link name
 	 * 
 	 * @var string
 	 */
-	private $_linkName;
+	private $linkName;
 	
 	/**
 	 * Link Relation ID
 	 * 
 	 * @var string
 	 */
-	private $_rId;
+	private $rId;
 	
 	/**
 	 * Link style
 	 * 
 	 * @var PHPWord_Style_Font
 	 */
-	private $_styleFont;
+	private $styleFont;
 	
 	/**
 	 * Paragraph style
 	 * 
 	 * @var PHPWord_Style_Font
 	 */
-	private $_styleParagraph;
+	private $styleParagraph;
 	
 	
 	/**
@@ -83,35 +83,35 @@ class Document_Word_Section_Link
 	public function __construct($linkSrc, $linkName = null, $styleFont = null, $styleParagraph = null) 
         {
                 require_once __DIR__ . '/../Style/Font.php';
-		$this->_linkSrc = $linkSrc;
-		$this->_linkName = $linkName;
+		$this->linkSrc = $linkSrc;
+		$this->linkName = $linkName;
 		
 		// Set font style
 		if(is_array($styleFont)) {
-			$this->_styleFont = new Document_Word_Style_Font('text');
+			$this->styleFont = new Document_Word_Style_Font('text');
 			
 			foreach($styleFont as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
 					$key = '_'.$key;
 				}
-				$this->_styleFont->setStyleValue($key, $value);
+				$this->styleFont->setStyleValue($key, $value);
 			}
 		} else {
-			$this->_styleFont = $styleFont;
+			$this->styleFont = $styleFont;
 		}
 		
 		// Set paragraph style
 		if(is_array($styleParagraph)) {
-			$this->_styleParagraph = new Document_Word_Style_Paragraph();
+			$this->styleParagraph = new Document_Word_Style_Paragraph();
 			
 			foreach($styleParagraph as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
 					$key = '_'.$key;
 				}
-				$this->_styleParagraph->setStyleValue($key, $value);
+				$this->styleParagraph->setStyleValue($key, $value);
 			}
 		} else {
-			$this->_styleParagraph = $styleParagraph;
+			$this->styleParagraph = $styleParagraph;
 		}
 		
 		return $this;
@@ -124,7 +124,7 @@ class Document_Word_Section_Link
 	 */
 	public function getRelationId() 
         {
-		return $this->_rId;
+		return $this->rId;
 	}
 	
 	/**
@@ -134,7 +134,7 @@ class Document_Word_Section_Link
 	 */
 	public function setRelationId($rId) 
         {
-		$this->_rId = $rId;
+		$this->rId = $rId;
 	}
 	
 	/**
@@ -144,7 +144,7 @@ class Document_Word_Section_Link
 	 */
 	public function getLinkSrc() 
         {
-		return $this->_linkSrc;
+		return $this->linkSrc;
 	}
 	
 	/**
@@ -154,7 +154,7 @@ class Document_Word_Section_Link
 	 */
 	public function getLinkName() 
         {
-		return $this->_linkName;
+		return $this->linkName;
 	}
 	
 	/**
@@ -164,7 +164,7 @@ class Document_Word_Section_Link
 	 */
 	public function getFontStyle() 
         {
-		return $this->_styleFont;
+		return $this->styleFont;
 	}
 	
 	/**
@@ -174,7 +174,7 @@ class Document_Word_Section_Link
 	 */
 	public function getParagraphStyle() 
         {
-		return $this->_styleParagraph;
+		return $this->styleParagraph;
 	}
 }
 ?>

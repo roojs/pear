@@ -41,35 +41,35 @@ class Document_Word_Section
 	 * 
 	 * @var int
 	 */
-	private $_sectionCount;
+	private $sectionCount;
 	
 	/**
 	 * Section settings
 	 * 
 	 * @var PHPWord_Section_Settings
 	 */
-	private $_settings;
+	private $settings;
 	
 	/**
 	 * Section Element Collection
 	 * 
 	 * @var array
 	 */
-	private $_elementCollection = array();
+	private $elementCollection = array();
 	
 	/**
 	 * Section Header
 	 * 
 	 * @var PHPWord_Section_Header
 	 */
-	private $_header = null;
+	private $header = null;
 	
 	/**
 	 * Section Footer
 	 * 
 	 * @var PHPWord_Section_Footer
 	 */
-	private $_footer = null;
+	private $footer = null;
 	
 	
 	/**
@@ -81,15 +81,15 @@ class Document_Word_Section
 	public function __construct($sectionCount, $settings = null) 
         {
                 require_once __DIR__ . '/Section/Settings.php';
-		$this->_sectionCount = $sectionCount;
-		$this->_settings = new Document_Word_Section_Settings();
+		$this->sectionCount = $sectionCount;
+		$this->settings = new Document_Word_Section_Settings();
 		
 		if(!is_null($settings) && is_array($settings)) {
 			foreach($settings as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
 					$key = '_'.$key;
 				}
-				$this->_settings->setSettingValue($key, $value);
+				$this->settings->setSettingValue($key, $value);
 			}
 		}
 	}
@@ -101,7 +101,7 @@ class Document_Word_Section
 	 */
 	public function getSettings() 
         {
-		return $this->_settings;
+		return $this->settings;
 	}
 	
 	/**
@@ -118,7 +118,7 @@ class Document_Word_Section
 		//$givenText = utf8_encode($text);
                 $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$text = new Document_Word_Section_Text($text, $styleFont, $styleParagraph);
-		$this->_elementCollection[] = $text;
+		$this->elementCollection[] = $text;
 		return $text;
 	}
 	
@@ -144,7 +144,7 @@ class Document_Word_Section
 		$rID = Document_Word_Media::addSectionLinkElement($linkSrc);
 		$link->setRelationId($rID);
 		
-		$this->_elementCollection[] = $link;
+		$this->elementCollection[] = $link;
 		return $link;
 	}
 	
@@ -211,7 +211,7 @@ class Document_Word_Section
                 require_once __DIR__ . '/Section/ListItem.php';
 		$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$listItem = new Document_Word_Section_ListItem($text, $depth, $styleFont, $styleList, $styleParagraph);
-		$this->_elementCollection[] = $listItem;
+		$this->elementCollection[] = $listItem;
 		return $listItem;
 	}
 	
@@ -251,7 +251,7 @@ class Document_Word_Section
 			$object->setObjectId($objectId);
 			$object->setImageRelationId($rIDimg);
 			
-			$this->_elementCollection[] = $object;
+			$this->elementCollection[] = $object;
 			return $object;
 		} else {
 			trigger_error('Source does not exist or unsupported object type.');
@@ -303,7 +303,7 @@ class Document_Word_Section
 			$rID = Document_Word_Media::addSectionMediaElement($link, 'image', $memoryImage);
 			$memoryImage->setRelationId($rID);
 			
-			$this->_elementCollection[] = $memoryImage;
+			$this->elementCollection[] = $memoryImage;
 			return $memoryImage;
 		} else {
 			trigger_error('Unsupported image type.');
@@ -321,7 +321,7 @@ class Document_Word_Section
         {
                 require_once __DIR__ . '/TOC.php';
 		$toc = new Document_Word_TOC($styleFont, $styleTOC);
-		$this->_elementCollection[] = $toc;
+		$this->elementCollection[] = $toc;
 		return $toc;
 	}
 	
@@ -353,7 +353,7 @@ class Document_Word_Section
 		$title->setAnchor($anchor);
 		$title->setBookmarkId($bookmarkId);
 		
-		$this->_elementCollection[] = $title;
+		$this->elementCollection[] = $title;
 		return $title;
 	}
 	
@@ -366,7 +366,7 @@ class Document_Word_Section
         {
                 require_once __DIR__ . '/Section/TextRun.php';
 		$textRun = new Document_Word_Section_TextRun($styleParagraph);
-		$this->_elementCollection[] = $textRun;
+		$this->elementCollection[] = $textRun;
 		return $textRun;
 	}
 	
@@ -377,7 +377,7 @@ class Document_Word_Section
 	 */
 	public function getElements() 
         {
-		return $this->_elementCollection;
+		return $this->elementCollection;
 	}
 	
 	/**
@@ -388,8 +388,8 @@ class Document_Word_Section
 	public function createHeader() 
         {
                 require_once __DIR__ . '/Section/Header.php';
-		$header = new Document_Word_Section_Header($this->_sectionCount);
-		$this->_header = $header;
+		$header = new Document_Word_Section_Header($this->sectionCount);
+		$this->header = $header;
 		return $header;
 	}
 	
@@ -400,7 +400,7 @@ class Document_Word_Section
 	 */
 	public function getHeader() 
         {
-		return $this->_header;
+		return $this->header;
 	}
 	
 	/**
@@ -411,8 +411,8 @@ class Document_Word_Section
 	public function createFooter() 
         {
                 require_once __DIR__ . '/Section/Footer.php';
-		$footer = new Document_Word_Section_Footer($this->_sectionCount);
-		$this->_footer = $footer;
+		$footer = new Document_Word_Section_Footer($this->sectionCount);
+		$this->footer = $footer;
 		return $footer;
 	}
 	
@@ -423,7 +423,7 @@ class Document_Word_Section
 	 */
 	public function getFooter() 
         {
-		return $this->_footer;
+		return $this->footer;
 	}
 }
 ?>

@@ -46,7 +46,7 @@ class Document_Word_Style
 	 *
 	 * @var array
 	 */
-	private static $_styleElements = array();
+	private static $styleElements = array();
 	
 	
 	/**
@@ -58,7 +58,7 @@ class Document_Word_Style
 	public static function addParagraphStyle($styleName, $styles) 
         {
                 require_once __DIR__ . '/Style/Paragraph.php';
-		if(!array_key_exists($styleName, self::$_styleElements)) {
+		if(!array_key_exists($styleName, self::$styleElements)) {
 			$style = new Document_Word_Style_Paragraph();
 			foreach($styles as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
@@ -67,7 +67,7 @@ class Document_Word_Style
 				$style->setStyleValue($key, $value);
 			}
 			
-			self::$_styleElements[$styleName] = $style;
+			self::$styleElements[$styleName] = $style;
 		}
 	}
 	
@@ -81,7 +81,7 @@ class Document_Word_Style
 	public static function addFontStyle($styleName, $styleFont, $styleParagraph = null) 
         {
                 require_once __DIR__ . '/Style/Font.php';
-		if(!array_key_exists($styleName, self::$_styleElements)) {
+		if(!array_key_exists($styleName, self::$styleElements)) {
 			$font = new Document_Word_Style_Font('text', $styleParagraph);
 			foreach($styleFont as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
@@ -89,7 +89,7 @@ class Document_Word_Style
 				}
 				$font->setStyleValue($key, $value);
 			}
-			self::$_styleElements[$styleName] = $font;
+			self::$styleElements[$styleName] = $font;
 		}
 	}
 	
@@ -102,7 +102,7 @@ class Document_Word_Style
 	public static function addLinkStyle($styleName, $styles) 
         {
                 require_once __DIR__ . '/Style/Font.php';
-		if(!array_key_exists($styleName, self::$_styleElements)) {
+		if(!array_key_exists($styleName, self::$styleElements)) {
 			$style = new Document_Word_Style_Font('link');
 			foreach($styles as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
@@ -111,7 +111,7 @@ class Document_Word_Style
 				$style->setStyleValue($key, $value);
 			}
 			
-			self::$_styleElements[$styleName] = $style;
+			self::$styleElements[$styleName] = $style;
 		}
 	}
 	
@@ -124,10 +124,10 @@ class Document_Word_Style
 	public static function addTableStyle($styleName, $styleTable, $styleFirstRow = null, $styleLastRow = null) 
         {
                 require_once __DIR__ . '/Style/TableFull.php';
-		if(!array_key_exists($styleName, self::$_styleElements)) {
+		if(!array_key_exists($styleName, self::$styleElements)) {
 			$style = new Document_Word_Style_TableFull($styleTable, $styleFirstRow, $styleLastRow);
 			
-			self::$_styleElements[$styleName] = $style;
+			self::$styleElements[$styleName] = $style;
 		}
 	}
 	
@@ -142,7 +142,7 @@ class Document_Word_Style
         {
                 require_once __DIR__ . '/Style/Font.php';
 		$styleName = 'Heading_'.$titleCount;
-		if(!array_key_exists($styleName, self::$_styleElements)) {
+		if(!array_key_exists($styleName, self::$styleElements)) {
 			$font = new Document_Word_Style_Font('title', $styleParagraph);
 			foreach($styleFont as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
@@ -151,7 +151,7 @@ class Document_Word_Style
 				$font->setStyleValue($key, $value);
 			}
 			
-			self::$_styleElements[$styleName] = $font;
+			self::$styleElements[$styleName] = $font;
 		}
 	}
 	
@@ -162,7 +162,7 @@ class Document_Word_Style
 	 */
 	public static function getStyles() 
         {
-		return self::$_styleElements;
+		return self::$styleElements;
 	}
 }
 ?>

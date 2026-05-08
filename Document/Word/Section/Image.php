@@ -41,28 +41,28 @@ class Document_Word_Section_Image
 	 * 
 	 * @var string
 	 */
-	private $_src;
+	private $src;
 	
 	/**
 	 * Image Style
 	 * 
 	 * @var PHPWord_Style_Image
 	 */
-	private $_style;
+	private $style;
 	
 	/**
 	 * Image Relation ID
 	 * 
 	 * @var string
 	 */
-	private $_rId;
+	private $rId;
 	
 	/**
 	 * Is Watermark
 	 * 
 	 * @var bool
 	 */
-	private $_isWatermark;
+	private $isWatermark;
 	
 	
 	/**
@@ -84,21 +84,21 @@ class Document_Word_Section_Image
 		$ext = strtolower($inf['extension']);
 		if(file_exists($src) && in_array($ext, $_supportedImageTypes)) {
                         require_once __DIR__ . '/../Style/Image.php';
-			$this->_src = $src;
-			$this->_isWatermark = $isWatermark;
-			$this->_style = new Document_Word_Style_Image();
+			$this->src = $src;
+			$this->isWatermark = $isWatermark;
+			$this->style = new Document_Word_Style_Image();
 			if(!is_null($style) && is_array($style)) {
 				foreach($style as $key => $value) {
 					if(substr($key, 0, 1) != '_') {
 						$key = '_'.$key;
 					}
-					$this->_style->setStyleValue($key, $value);
+					$this->style->setStyleValue($key, $value);
 				}
 			}
-			if($this->_style->getWidth() == null && $this->_style->getHeight() == null) {
-				$imgData = getimagesize($this->_src);
-				$this->_style->setWidth($imgData[0]);
-				$this->_style->setHeight($imgData[1]);
+			if($this->style->getWidth() == null && $this->style->getHeight() == null) {
+				$imgData = getimagesize($this->src);
+				$this->style->setWidth($imgData[0]);
+				$this->style->setHeight($imgData[1]);
 			}
 			
 			return $this;
@@ -114,7 +114,7 @@ class Document_Word_Section_Image
 	 */
 	public function getStyle() 
         {
-		return $this->_style;
+		return $this->style;
 	}
 	
 	/**
@@ -124,7 +124,7 @@ class Document_Word_Section_Image
 	 */
 	public function getRelationId() 
         {
-		return $this->_rId;
+		return $this->rId;
 	}
 	
 	/**
@@ -134,7 +134,7 @@ class Document_Word_Section_Image
 	 */
 	public function setRelationId($rId) 
         {
-		$this->_rId = $rId;
+		$this->rId = $rId;
 	}
 	
 	/**
@@ -144,7 +144,7 @@ class Document_Word_Section_Image
 	 */
 	public function getSource() 
         {
-		return $this->_src;
+		return $this->src;
 	}
 	
 	/**
@@ -154,7 +154,7 @@ class Document_Word_Section_Image
 	 */
 	public function getMediaId() 
         {
-		return md5($this->_src);
+		return md5($this->src);
 	}
 	
 	/**
@@ -164,7 +164,7 @@ class Document_Word_Section_Image
 	 */
 	public function getIsWatermark() 
         {
-		return $this->_isWatermark;
+		return $this->isWatermark;
 	}
 	
 	/**
@@ -174,7 +174,7 @@ class Document_Word_Section_Image
 	 */
 	public function setIsWatermark($pValue) 
         {
-		$this->_isWatermark = $pValue;
+		$this->isWatermark = $pValue;
 	}
 }
 ?>

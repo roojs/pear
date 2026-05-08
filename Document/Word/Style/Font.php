@@ -76,25 +76,25 @@ class Document_Word_Style_Font
 	 * 
 	 * @var string
 	 */
-	private $_type;
+	private $type;
 	
 	/**
 	 * Paragraph Style
 	 * 
 	 * @var PHPWord_Style_Paragraph
 	 */
-	private $_paragraphStyle;
+	private $paragraphStyle;
 	
-	private $_size;
-	private $_name;
-	private $_bold;
-	private $_italic;
-	private $_superScript;
-	private $_subScript;
-	private $_underline;
-	private $_strikethrough;
-	private $_color;
-	private $_fgColor;
+	private $size;
+	private $name;
+	private $bold;
+	private $italic;
+	private $superScript;
+	private $subScript;
+	private $underline;
+	private $strikethrough;
+	private $color;
+	private $fgColor;
 
 	/// not used - but set by setstyle	
 	var $_align;
@@ -120,17 +120,17 @@ class Document_Word_Style_Font
 	
 	public function __construct($type = 'text', $styleParagraph = null) 
         {
-		$this->_type            = $type;
-		$this->_name            = 'Arial';
-		$this->_size            = 20;
-		$this->_bold		    = false;
-		$this->_italic		    = false;
-		$this->_superScript	    = false;
-		$this->_subScript	    = false;
-		$this->_underline	    = Document_Word_Style_Font::UNDERLINE_NONE;
-		$this->_strikethrough   = false;
-		$this->_color           = '000000';
-		$this->_fgColor         = null;
+		$this->type            = $type;
+		$this->name            = 'Arial';
+		$this->size            = 20;
+		$this->bold		    = false;
+		$this->italic		    = false;
+		$this->superScript	    = false;
+		$this->subScript	    = false;
+		$this->underline	    = Document_Word_Style_Font::UNDERLINE_NONE;
+		$this->strikethrough   = false;
+		$this->color           = '000000';
+		$this->fgColor         = null;
 		
 		if(!is_null($styleParagraph)) {
                         require_once __DIR__ . '/Paragraph.php';
@@ -141,15 +141,15 @@ class Document_Word_Style_Font
 				}
 				$paragraph->setStyleValue($key, $value);
 			}
-			$this->_paragraphStyle = $paragraph;
+			$this->paragraphStyle = $paragraph;
 		} else {
-			$this->_paragraphStyle = null;
+			$this->paragraphStyle = null;
 		}
 	}
 
 	public function getName() 
         {
-		return $this->_name;
+		return $this->name;
 	}
 	
 	public function setStyleValue($key, $value) 
@@ -177,13 +177,13 @@ class Document_Word_Style_Font
 		if($pValue == '') {
 			$pValue = 'Arial';
 		}
-		$this->_name = $pValue;
+		$this->name = $pValue;
 		return $this;
 	}
 
 	public function getSize() 
         {
-		return $this->_size;
+		return $this->size;
 	}
 
 	public function setSize($pValue = 20) 
@@ -191,13 +191,13 @@ class Document_Word_Style_Font
 		if($pValue == '') {
 			$pValue = 20;
 		}
-		$this->_size = ($pValue*2);
+		$this->size = ($pValue*2);
 		return $this;
 	}
 
 	public function getBold() 
         {
-		return $this->_bold;
+		return $this->bold;
 	}
 
 	public function setBold($pValue = false) 
@@ -205,13 +205,13 @@ class Document_Word_Style_Font
 		if($pValue == '') {
 			$pValue = false;
 		}
-		$this->_bold = $pValue;
+		$this->bold = $pValue;
 		return $this;
 	}
 
 	public function getItalic() 
         {
-		return $this->_italic;
+		return $this->italic;
 	}
 
 	public function setItalic($pValue = false) 
@@ -219,13 +219,13 @@ class Document_Word_Style_Font
 		if($pValue == '') {
 			$pValue = false;
 		}
-		$this->_italic = $pValue;
+		$this->italic = $pValue;
 		return $this;
 	}
 
 	public function getSuperScript() 
         {
-		return $this->_superScript;
+		return $this->superScript;
 	}
 
 	public function setSuperScript($pValue = false) 
@@ -233,14 +233,14 @@ class Document_Word_Style_Font
 		if($pValue == '') {
 			$pValue = false;
 		}
-		$this->_superScript = $pValue;
-		$this->_subScript = !$pValue;
+		$this->superScript = $pValue;
+		$this->subScript = !$pValue;
 		return $this;
 	}
 
 	public function getSubScript() 
         {
-		return $this->_subScript;
+		return $this->subScript;
 	}
 
 	public function setSubScript($pValue = false) 
@@ -248,14 +248,14 @@ class Document_Word_Style_Font
 		if($pValue == '') {
 			$pValue = false;
 		}
-		$this->_subScript = $pValue;
-		$this->_superScript = !$pValue;
+		$this->subScript = $pValue;
+		$this->superScript = !$pValue;
 		return $this;
 	}
 
 	public function getUnderline() 
         {
-		return $this->_underline;
+		return $this->underline;
 	}
 
 	public function setUnderline($pValue = Document_Word_Style_Font::UNDERLINE_NONE) 
@@ -263,13 +263,13 @@ class Document_Word_Style_Font
 		if ($pValue == '') {
 			$pValue = Document_Word_Style_Font::UNDERLINE_NONE;
 		}
-		$this->_underline = $pValue;
+		$this->underline = $pValue;
 		return $this;
 	}
 
 	public function getStrikethrough() 
         {
-		return $this->_strikethrough;
+		return $this->strikethrough;
 	}
 
 	public function setStrikethrough($pValue = false) 
@@ -277,35 +277,35 @@ class Document_Word_Style_Font
 		if($pValue == '') {
 			$pValue = false;
 		}
-		$this->_strikethrough = $pValue;
+		$this->strikethrough = $pValue;
 		return $this;
 	}
 	
 	public function getColor() 
         {
-		return $this->_color;
+		return $this->color;
 	}
 
 	public function setColor($pValue = '000000') 
         {
-	   $this->_color = $pValue;
+	   $this->color = $pValue;
 	   return $this;
 	}
 
 	public function getFgColor() 
         {
-		return $this->_fgColor;
+		return $this->fgColor;
 	}
 
 	public function setFgColor($pValue = null) 
         {
-	   $this->_fgColor = $pValue;
+	   $this->fgColor = $pValue;
 	   return $this;
 	}
 	
 	public function getStyleType() 
         {
-		return $this->_type;
+		return $this->type;
 	}
 	
 	/**
@@ -315,7 +315,7 @@ class Document_Word_Style_Font
 	 */
 	public function getParagraphStyle() 
         {
-		return $this->_paragraphStyle;
+		return $this->paragraphStyle;
 	}
 }
 ?>

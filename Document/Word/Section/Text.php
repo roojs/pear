@@ -41,21 +41,21 @@ class Document_Word_Section_Text
 	 * 
 	 * @var string
 	 */
-	private $_text;
+	private $text;
 	
 	/**
 	 * Text style
 	 * 
 	 * @var PHPWord_Style_Font
 	 */
-	private $_styleFont;
+	private $styleFont;
 	
 	/**
 	 * Paragraph style
 	 * 
 	 * @var PHPWord_Style_Font
 	 */
-	private $_styleParagraph;
+	private $styleParagraph;
 	
 	
 	/**
@@ -69,34 +69,34 @@ class Document_Word_Section_Text
 		// Set font style
 		if(is_array($styleFont)) {
                         require_once __DIR__ . '/../Style/Font.php';
-			$this->_styleFont = new Document_Word_Style_Font('text');
+			$this->styleFont = new Document_Word_Style_Font('text');
 			
 			foreach($styleFont as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
 					$key = '_'.$key;
 				}
-				$this->_styleFont->setStyleValue($key, $value);
+				$this->styleFont->setStyleValue($key, $value);
 			}
 		} else {
-			$this->_styleFont = $styleFont;
+			$this->styleFont = $styleFont;
 		}
 		
 		// Set paragraph style
 		if(is_array($styleParagraph)) {
                         require_once __DIR__ . '/../Style/Paragraph.php';
-			$this->_styleParagraph = new Document_Word_Style_Paragraph();
+			$this->styleParagraph = new Document_Word_Style_Paragraph();
 			
 			foreach($styleParagraph as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
 					$key = '_'.$key;
 				}
-				$this->_styleParagraph->setStyleValue($key, $value);
+				$this->styleParagraph->setStyleValue($key, $value);
 			}
 		} else {
-			$this->_styleParagraph = $styleParagraph;
+			$this->styleParagraph = $styleParagraph;
 		}
 		
-		$this->_text = $text;
+		$this->text = $text;
 		
 		return $this;
 	}
@@ -108,7 +108,7 @@ class Document_Word_Section_Text
 	 */
 	public function getFontStyle() 
         {
-		return $this->_styleFont;
+		return $this->styleFont;
 	}
 	
 	/**
@@ -118,7 +118,7 @@ class Document_Word_Section_Text
 	 */
 	public function getParagraphStyle() 
         {
-		return $this->_styleParagraph;
+		return $this->styleParagraph;
 	}
 	
 	/**
@@ -128,7 +128,7 @@ class Document_Word_Section_Text
 	 */
 	public function getText() 
         {
-		return $this->_text;
+		return $this->text;
 	}
 }
 ?>

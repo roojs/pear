@@ -41,35 +41,35 @@ class Document_Word_Section_Object
 	 * 
 	 * @var string
 	 */
-	private $_src;
+	private $src;
 	
 	/**
 	 * Image Style
 	 * 
 	 * @var PHPWord_Style_Image
 	 */
-	private $_style;
+	private $style;
 	
 	/**
 	 * Object Relation ID
 	 * 
 	 * @var int
 	 */
-	private $_rId;
+	private $rId;
 	
 	/**
 	 * Image Relation ID
 	 * 
 	 * @var int
 	 */
-	private $_rIdImg;
+	private $rIdImg;
 	
 	/**
 	 * Object ID
 	 * 
 	 * @var int
 	 */
-	private $_objId;
+	private $objId;
 	
 	
 	/**
@@ -85,15 +85,15 @@ class Document_Word_Section_Object
 		$inf = pathinfo($src);
 		
 		if(file_exists($src) && in_array($inf['extension'], $_supportedObjectTypes)) {
-			$this->_src = $src;
-			$this->_style = new Document_Word_Style_Image();
+			$this->src = $src;
+			$this->style = new Document_Word_Style_Image();
 			
 			if(!is_null($style) && is_array($style)) {
 				foreach($style as $key => $value) {
 					if(substr($key, 0, 1) != '_') {
 						$key = '_'.$key;
 					}
-					$this->_style->setStyleValue($key, $value);
+					$this->style->setStyleValue($key, $value);
 				}
 			}
 			
@@ -110,7 +110,7 @@ class Document_Word_Section_Object
 	 */
 	public function getStyle() 
         {
-		return $this->_style;
+		return $this->style;
 	}
 	
 	/**
@@ -120,7 +120,7 @@ class Document_Word_Section_Object
 	 */
 	public function getSource() 
         {
-		return $this->_src;
+		return $this->src;
 	}
 	
 	/**
@@ -130,7 +130,7 @@ class Document_Word_Section_Object
 	 */
 	public function getRelationId() 
         {
-		return $this->_rId;
+		return $this->rId;
 	}
 	
 	/**
@@ -140,7 +140,7 @@ class Document_Word_Section_Object
 	 */
 	public function setRelationId($rId) 
         {
-		$this->_rId = $rId;
+		$this->rId = $rId;
 	}
 	
 	/**
@@ -150,7 +150,7 @@ class Document_Word_Section_Object
 	 */
 	public function getImageRelationId() 
         {
-		return $this->_rIdImg;
+		return $this->rIdImg;
 	}
 	
 	/**
@@ -160,7 +160,7 @@ class Document_Word_Section_Object
 	 */
 	public function setImageRelationId($rId) 
         {
-		$this->_rIdImg = $rId;
+		$this->rIdImg = $rId;
 	}
 	
 	/**
@@ -170,7 +170,7 @@ class Document_Word_Section_Object
 	 */
 	public function getObjectId() 
         {
-		return $this->_objId;
+		return $this->objId;
 	}
 	
 	/**
@@ -180,7 +180,7 @@ class Document_Word_Section_Object
 	 */
 	public function setObjectId($objId) 
         {
-		$this->_objId = $objId;
+		$this->objId = $objId;
 	}
 }
 ?>

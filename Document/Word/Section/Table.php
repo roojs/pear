@@ -41,41 +41,41 @@ class Document_Word_Section_Table
 	 *
 	 * @var PHPWord_Style_Table
 	 */
-	private $_style;
+	private $style;
 	
 	/**
 	 * Table rows
 	 *
 	 * @var array
 	 */
-	private $_rows = array();
+	private $rows = array();
 	
 	/**
 	 * Row heights
 	 *
 	 * @var array
 	 */
-	private $_rowHeights = array();
+	private $rowHeights = array();
         /**
 	 * Row heights
 	 *
 	 * @var array
 	 */
-	private $_colWidths = array();
+	private $colWidths = array();
         
 	/**
 	 * Table holder
 	 *
 	 * @var string
 	 */
-	private $_insideOf = null;
+	private $insideOf = null;
 	
 	/**
 	 * Table holder count
 	 *
 	 * @var array
 	 */
-	private $_pCount;
+	private $pCount;
 	
 	
 	/**
@@ -87,25 +87,25 @@ class Document_Word_Section_Table
 	 */
 	public function __construct($insideOf, $pCount, $style = null) 
         {
-            $this->_insideOf = $insideOf;
-            $this->_pCount = $pCount;
+            $this->insideOf = $insideOf;
+            $this->pCount = $pCount;
             
             if (is_null($style)) {
                 return;
             }
             if (!is_array($style)) {
-                $this->_style = $style;
+                $this->style = $style;
                 return;
             }
             
             require_once __DIR__ . '/../Style/Table.php';
-            $this->_style = new Document_Word_Style_Table();
+            $this->style = new Document_Word_Style_Table();
             
             foreach ($style as $key => $value) {
                 if (substr($key, 0, 1) != '_') {
                     $key = '_' . $key;
                 }
-                $this->_style->setStyleValue($key, $value);
+                $this->style->setStyleValue($key, $value);
             }
 
 	}
@@ -117,8 +117,8 @@ class Document_Word_Section_Table
 	*/
 	public function addRow($height = null) 
         {
-		$this->_rows[] = array();
-		$this->_rowHeights[] = $height;
+		$this->rows[] = array();
+		$this->rowHeights[] = $height;
 	}
 	
 	/**
@@ -132,13 +132,13 @@ class Document_Word_Section_Table
         {
             $width = (int) $width;
             require_once __DIR__.'/Table/Cell.php';
-            $cell = new Document_Word_Section_Table_Cell($this->_insideOf, $this->_pCount, $width, $style);
-            $i = count($this->_rows) - 1;
-            $this->_rows[$i][] = $cell;
-            $col = count($this->_rows[$i] ) -1;
+            $cell = new Document_Word_Section_Table_Cell($this->insideOf, $this->pCount, $width, $style);
+            $i = count($this->rows) - 1;
+            $this->rows[$i][] = $cell;
+            $col = count($this->rows[$i] ) -1;
 
             if (!empty($width)) {
-                $this->_colWidths[$col] = max($width, empty($this->_colWidths[$col] ) ? 0 : $this->_colWidths[$col] ); 
+                $this->colWidths[$col] = max($width, empty($this->colWidths[$col] ) ? 0 : $this->colWidths[$col] ); 
             }
             return $cell;
 	}
@@ -150,7 +150,7 @@ class Document_Word_Section_Table
 	 */
 	public function getRows() 
         {
-		return $this->_rows;
+		return $this->rows;
 	}
 	
 	/**
@@ -160,11 +160,11 @@ class Document_Word_Section_Table
 	 */
 	public function getRowHeights() 
         {
-		return $this->_rowHeights;
+		return $this->rowHeights;
 	}
 	function getColumnWidths()
         {
-            return $this->_colWidths;
+            return $this->colWidths;
         }
 	/**
 	 * Get table style
@@ -173,7 +173,7 @@ class Document_Word_Section_Table
 	 */
 	public function getStyle() 
         {
-		return $this->_style;
+		return $this->style;
 	}
 }
  

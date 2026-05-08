@@ -29,10 +29,10 @@
 class Document_Word_Style_Table 
 {
 	
-	private $_cellMarginTop;
-	private $_cellMarginLeft;
-	private $_cellMarginRight;
-	private $_cellMarginBottom;
+	private $cellMarginTop;
+	private $cellMarginLeft;
+	private $cellMarginRight;
+	private $cellMarginBottom;
     public  $_fixed = false;
 	
 	// not used..
@@ -74,10 +74,10 @@ class Document_Word_Style_Table
 
 	public function __construct() 
         {
-		$this->_cellMarginTop = null;
-		$this->_cellMarginLeft = null;
-		$this->_cellMarginRight = null;
-		$this->_cellMarginBottom = null;
+		$this->cellMarginTop = null;
+		$this->cellMarginLeft = null;
+		$this->cellMarginRight = null;
+		$this->cellMarginBottom = null;
 	}
 	
 	public function setStyleValue($key, $value) 
@@ -96,47 +96,47 @@ class Document_Word_Style_Table
 	
 	public function setCellMarginTop($pValue = null) 
         {
-		$this->_cellMarginTop = $pValue;
+		$this->cellMarginTop = $pValue;
 	}
 	
 	public function getCellMarginTop() 
         {
-		return $this->_cellMarginTop;
+		return $this->cellMarginTop;
 	}
 	
 	public function setCellMarginLeft($pValue = null) 
         {
-		$this->_cellMarginLeft = $pValue;
+		$this->cellMarginLeft = $pValue;
 	}
 	
 	public function getCellMarginLeft() 
         {
-		return $this->_cellMarginLeft;
+		return $this->cellMarginLeft;
 	}
 	
 	public function setCellMarginRight($pValue = null) 
         {
-		$this->_cellMarginRight = $pValue;
+		$this->cellMarginRight = $pValue;
 	}
 	
 	public function getCellMarginRight() 
         {
-		return $this->_cellMarginRight;
+		return $this->cellMarginRight;
 	}
 	
 	public function setCellMarginBottom($pValue = null) 
         {
-		$this->_cellMarginBottom = $pValue;
+		$this->cellMarginBottom = $pValue;
 	}
 	
 	public function getCellMarginBottom() 
         {
-		return $this->_cellMarginBottom;
+		return $this->cellMarginBottom;
 	}
 	
 	public function getCellMargin() 
         {
-		return array($this->_cellMarginTop, $this->_cellMarginLeft, $this->_cellMarginRight, $this->_cellMarginBottom);
+		return array($this->cellMarginTop, $this->cellMarginLeft, $this->cellMarginRight, $this->cellMarginBottom);
 	}
 }
 ?>

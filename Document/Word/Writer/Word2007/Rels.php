@@ -49,7 +49,7 @@ class Document_Word_Writer_Word2007_Rels extends Document_Word_Writer_Word2007_W
 			$relationId = 1;
 			
 			// Relationship word/document.xml
-			$this->_writeRelationship(
+			$this->writeRelationship(
 				$objWriter,
 				$relationId,
 				'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument',
@@ -57,7 +57,7 @@ class Document_Word_Writer_Word2007_Rels extends Document_Word_Writer_Word2007_W
 			);
 			
 			// Relationship docProps/core.xml
-			$this->_writeRelationship(
+			$this->writeRelationship(
 				$objWriter,
 				++$relationId,
 				'http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties',
@@ -65,7 +65,7 @@ class Document_Word_Writer_Word2007_Rels extends Document_Word_Writer_Word2007_W
 			);
 			
 			// Relationship docProps/app.xml
-			$this->_writeRelationship(
+			$this->writeRelationship(
 				$objWriter,
 				++$relationId,
 				'http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties',
@@ -88,7 +88,7 @@ class Document_Word_Writer_Word2007_Rels extends Document_Word_Writer_Word2007_W
 	 * @param 	string 						$pTargetMode	Relationship target mode
 	 * @throws 	Exception
 	 */
-	private function _writeRelationship(Document_Word_Shared_XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '') 
+	private function writeRelationship(Document_Word_Shared_XMLWriter $objWriter = null, $pId = 1, $pType = '', $pTarget = '', $pTargetMode = '') 
         {
 		if($pType != '' && $pTarget != '') {
 			if(strpos($pId, 'rId') === false) {

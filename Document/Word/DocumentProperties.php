@@ -43,86 +43,86 @@ class Document_Word_DocumentProperties
 	 *
 	 * @var string
 	 */
-	private $_creator;
+	private $creator;
 	
 	/**
 	 * LastModifiedBy
 	 *
 	 * @var string
 	 */
-	private $_lastModifiedBy;
+	private $lastModifiedBy;
 	
 	/**
 	 * Created
 	 *
 	 * @var datetime
 	 */
-	private $_created;
+	private $created;
 	
 	/**
 	 * Modified
 	 *
 	 * @var datetime
 	 */
-	private $_modified;
+	private $modified;
 	
 	/**
 	 * Title
 	 *
 	 * @var string
 	 */
-	private $_title;
+	private $title;
 	
 	/**
 	 * Description
 	 *
 	 * @var string
 	 */
-	private $_description;
+	private $description;
 	
 	/**
 	 * Subject
 	 *
 	 * @var string
 	 */
-	private $_subject;
+	private $subject;
 	
 	/**
 	 * Keywords
 	 *
 	 * @var string
 	 */
-	private $_keywords;
+	private $keywords;
 	
 	/**
 	 * Category
 	 *
 	 * @var string
 	 */
-	private $_category;
+	private $category;
 	
 	/**
 	 * Company
 	 * 
 	 * @var string
 	 */
-	private $_company;
+	private $company;
 
 	/**
 	 * Create new PHPWord_DocumentProperties
 	 */
 	public function __construct() 
         {
-		$this->_creator 		= '';
-		$this->_lastModifiedBy  = $this->_creator;
-		$this->_created 		= time();
-		$this->_modified 		= time();
-		$this->_title			= '';
-		$this->_subject			= '';
-		$this->_description		= '';
-		$this->_keywords		= '';
-		$this->_category		= '';
-		$this->_company 		= '';
+		$this->creator 		= '';
+		$this->lastModifiedBy  = $this->creator;
+		$this->created 		= time();
+		$this->modified 		= time();
+		$this->title			= '';
+		$this->subject			= '';
+		$this->description		= '';
+		$this->keywords		= '';
+		$this->category		= '';
+		$this->company 		= '';
 	}
 
 	/**
@@ -132,7 +132,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function getCreator() 
         {
-		return $this->_creator;
+		return $this->creator;
 	}
 	
 	/**
@@ -143,7 +143,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function setCreator($pValue = '') 
         {
-		$this->_creator = $pValue;
+		$this->creator = $pValue;
 		return $this;
 	}
 	
@@ -154,7 +154,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function getLastModifiedBy() 
         {
-		return $this->_lastModifiedBy;
+		return $this->lastModifiedBy;
 	}
 	
 	/**
@@ -165,7 +165,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function setLastModifiedBy($pValue = '') 
         {
-		$this->_lastModifiedBy = $pValue;
+		$this->lastModifiedBy = $pValue;
 		return $this;
 	}
 	
@@ -176,7 +176,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function getCreated() 
         {
-		return $this->_created;
+		return $this->created;
 	}
 	
 	/**
@@ -190,7 +190,7 @@ class Document_Word_DocumentProperties
 		if (is_null($pValue)) {
 			$pValue = time();
 		}
-		$this->_created = $pValue;
+		$this->created = $pValue;
 		return $this;
 	}
 	
@@ -201,7 +201,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function getModified() 
         {
-		return $this->_modified;
+		return $this->modified;
 	}
 	
 	/**
@@ -215,7 +215,7 @@ class Document_Word_DocumentProperties
 		if (is_null($pValue)) {
 			$pValue = time();
 		}
-		$this->_modified = $pValue;
+		$this->modified = $pValue;
 		return $this;
 	}
 	
@@ -226,7 +226,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function getTitle() 
         {
-		return $this->_title;
+		return $this->title;
 	}
 	
 	/**
@@ -237,7 +237,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function setTitle($pValue = '') 
         {
-		$this->_title = $pValue;
+		$this->title = $pValue;
 		return $this;
 	}
 	
@@ -248,7 +248,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function getDescription() 
         {
-		return $this->_description;
+		return $this->description;
 	}
 	
 	/**
@@ -259,7 +259,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function setDescription($pValue = '') 
         {
-		$this->_description = $pValue;
+		$this->description = $pValue;
 		return $this;
 	}
 	
@@ -270,7 +270,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function getSubject() 
         {
-		return $this->_subject;
+		return $this->subject;
 	}
 	
 	/**
@@ -281,7 +281,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function setSubject($pValue = '') 
         {
-		$this->_subject = $pValue;
+		$this->subject = $pValue;
 		return $this;
 	}
 	
@@ -292,7 +292,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function getKeywords() 
         {
-		return $this->_keywords;
+		return $this->keywords;
 	}
 	
 	/**
@@ -303,7 +303,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function setKeywords($pValue = '') 
         {
-		$this->_keywords = $pValue;
+		$this->keywords = $pValue;
 		return $this;
 	}
 	
@@ -314,7 +314,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function getCategory() 
         {
-		return $this->_category;
+		return $this->category;
 	}
 	
 	/**
@@ -325,7 +325,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function setCategory($pValue = '') 
         {
-		$this->_category = $pValue;
+		$this->category = $pValue;
 		return $this;
 	}
 	
@@ -336,7 +336,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function getCompany() 
         {
-		return $this->_company;
+		return $this->company;
 	}
 	
 	/**
@@ -347,7 +347,7 @@ class Document_Word_DocumentProperties
 	 */
 	public function setCompany($pValue = '') 
         {
-		$this->_company = $pValue;
+		$this->company = $pValue;
 		return $this;
 	}
 }

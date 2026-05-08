@@ -54,30 +54,30 @@ class Document_Word_Reader
     const NS_WP = 'http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing';
 
     /** @var ZipArchive|null */
-    private $_zip;
+    private $zip;
 
     /** @var array<string, array{type:string,target:string,external:bool}> */
-    private $_rels = array();
+    private $rels = array();
 
     /** @var array<int, int> w:numId to w:abstractNumId */
-    private $_numberingNumAbstract = array();
+    private $numberingNumAbstract = array();
 
     /** @var array<int, array<int, string>> abstractNumId -> ilvl -> w:numFmt @w:val (lowercase) */
-    private $_numberingAbstractLevels = array();
+    private $numberingAbstractLevels = array();
 
     /** @var array<string, DOMElement> w:styleId -> w:style */
-    private $_stylesById = array();
+    private $stylesById = array();
 
     /** @var array<string, array> merged font partials from each style's w:rPr chain */
-    private $_charStyleResolvedCache = array();
+    private $charStyleResolvedCache = array();
 
     /** @var array<string, bool> */
-    private $_styleResolving = array();
+    private $styleResolving = array();
 
     /** @var array<int, string> */
-    private static $_extractedImageTemps = array();
+    private static $extractedImageTemps = array();
 
-    private static $_shutdownCleanupRegistered = false;
+    private static $shutdownCleanupRegistered = false;
 
     /**
      * @param string $path Absolute or relative path to a .docx file
@@ -93,7 +93,7 @@ class Document_Word_Reader
             throw new Exception('Document_Word_Reader::load() cannot read file: ' . $path);
         }
 
-        self::$_shutdownCleanupRegistered = false;
+        self::$shutdownCleanupRegistered = false;
 
         $zip = new ZipArchive();
         if ($zip->open($path) !== true) {
@@ -107,9 +107,9 @@ class Document_Word_Reader
         }
 
         $relsXml = $zip->getFromName('word/_rels/document.xml.rels');
-        $this->_rels = $relsXml !== false ? $this->_parseRelsXml($relsXml) : array();
-        $this->_loadNumberingMaps($zip);
-        $this->_loadStylesMaps($zip);
+        $this->rels = $relsXml !== false ? $this->parseRelsXml($relsXml) : array();
+        $this->loadNumberingMaps($zip);
+        $this->loadStylesMaps($zip);
 
         $dom = new DOMDocument();
         if (@$dom->loadXML($documentXml, LIBXML_NONET) === false) {
@@ -119,7 +119,7 @@ class Document_Word_Reader
 
         require_once __DIR__ . '/../Word.php';
         $doc = new Document_Word();
-        $this->_applyCoreProperties($zip, $doc);
+        $this->applyCoreProperties($zip, $doc);
 
         $xp = new DOMXPath($dom);
         $xp->registerNamespace('w', self::NS_W);
@@ -131,10 +131,10 @@ class Document_Word_Reader
             throw new Exception('Document_Word_Reader::load() missing w:body');
         }
 
-        $this->_zip = $zip;
+        $this->zip = $zip;
         $section = $doc->createSection();
-        $this->_walkBlockContainer($section, $body, true, $xp);
-        $this->_zip = null;
+        $this->walkBlockContainer($section, $body, true, $xp);
+        $this->zip = null;
         $zip->close();
 
         return $doc;
@@ -144,7 +144,7 @@ class Document_Word_Reader
      * @param string $xml
      * @return array<string, array{type:string,target:string,external:bool}>
      */
-    private function _parseRelsXml($xml)
+    private function parseRelsXml($xml)
     {
         $out = array();
         $dom = new DOMDocument();
@@ -183,10 +183,10 @@ class Document_Word_Reader
      *
      * @param ZipArchive $zip
      */
-    private function _loadNumberingMaps($zip)
+    private function loadNumberingMaps($zip)
     {
-        $this->_numberingNumAbstract = array();
-        $this->_numberingAbstractLevels = array();
+        $this->numberingNumAbstract = array();
+        $this->numberingAbstractLevels = array();
         $xml = $zip->getFromName('word/numbering.xml');
         if ($xml === false) {
             return;
@@ -204,9 +204,9 @@ class Document_Word_Reader
                 continue;
             }
             $abstractId = (int) $aid;
-            $this->_numberingAbstractLevels[$abstractId] = array();
+            $this->numberingAbstractLevels[$abstractId] = array();
             foreach ($an->childNodes as $lvlCandidate) {
-                if (!$lvlCandidate instanceof DOMElement || !$this->_isW($lvlCandidate) || $lvlCandidate->localName !== 'lvl') {
+                if (!$lvlCandidate instanceof DOMElement || !$this->isW($lvlCandidate) || $lvlCandidate->localName !== 'lvl') {
                     continue;
                 }
                 $lvl = $lvlCandidate;
@@ -214,13 +214,13 @@ class Document_Word_Reader
                 if ($ilvl === '' || !ctype_digit($ilvl)) {
                     continue;
                 }
-                $nfEl = $this->_firstChildW($lvl, 'numFmt');
+                $nfEl = $this->firstChildW($lvl, 'numFmt');
                 if (!$nfEl instanceof DOMElement) {
                     continue;
                 }
                 $fmt = strtolower((string) $nfEl->getAttributeNS(self::NS_W, 'val'));
                 if ($fmt !== '') {
-                    $this->_numberingAbstractLevels[$abstractId][(int) $ilvl] = $fmt;
+                    $this->numberingAbstractLevels[$abstractId][(int) $ilvl] = $fmt;
                 }
             }
         }
@@ -232,13 +232,13 @@ class Document_Word_Reader
             if ($nid === '' || !ctype_digit($nid)) {
                 continue;
             }
-            $abi = $this->_firstChildW($num, 'abstractNumId');
+            $abi = $this->firstChildW($num, 'abstractNumId');
             if (!$abi instanceof DOMElement) {
                 continue;
             }
             $aval = $abi->getAttributeNS(self::NS_W, 'val');
             if ($aval !== '' && ctype_digit($aval)) {
-                $this->_numberingNumAbstract[(int) $nid] = (int) $aval;
+                $this->numberingNumAbstract[(int) $nid] = (int) $aval;
             }
         }
     }
@@ -248,11 +248,11 @@ class Document_Word_Reader
      *
      * @param ZipArchive $zip
      */
-    private function _loadStylesMaps($zip)
+    private function loadStylesMaps($zip)
     {
-        $this->_stylesById = array();
-        $this->_charStyleResolvedCache = array();
-        $this->_styleResolving = array();
+        $this->stylesById = array();
+        $this->charStyleResolvedCache = array();
+        $this->styleResolving = array();
         $xml = $zip->getFromName('word/styles.xml');
         if ($xml === false) {
             return;
@@ -269,7 +269,7 @@ class Document_Word_Reader
             if ($sid === '') {
                 continue;
             }
-            $this->_stylesById[$sid] = $st;
+            $this->stylesById[$sid] = $st;
         }
     }
 
@@ -277,35 +277,35 @@ class Document_Word_Reader
      * @param string $styleId w:rStyle/@w:val
      * @return array partial font style from w:basedOn chain + this style's w:rPr
      */
-    private function _resolvedCharStyleFont($styleId)
+    private function resolvedCharStyleFont($styleId)
     {
         if ($styleId === '') {
             return array();
         }
-        if (isset($this->_charStyleResolvedCache[$styleId])) {
-            return $this->_charStyleResolvedCache[$styleId];
+        if (isset($this->charStyleResolvedCache[$styleId])) {
+            return $this->charStyleResolvedCache[$styleId];
         }
-        if (isset($this->_styleResolving[$styleId])) {
+        if (isset($this->styleResolving[$styleId])) {
             return array();
         }
-        $this->_styleResolving[$styleId] = true;
+        $this->styleResolving[$styleId] = true;
         $merged = array();
-        $node = isset($this->_stylesById[$styleId]) ? $this->_stylesById[$styleId] : null;
+        $node = isset($this->stylesById[$styleId]) ? $this->stylesById[$styleId] : null;
         if ($node instanceof DOMElement) {
             $basePartial = array();
-            $basedOn = $this->_firstChildW($node, 'basedOn');
+            $basedOn = $this->firstChildW($node, 'basedOn');
             if ($basedOn instanceof DOMElement) {
                 $pid = $basedOn->getAttributeNS(self::NS_W, 'val');
                 if ($pid !== '') {
-                    $basePartial = $this->_resolvedCharStyleFont($pid);
+                    $basePartial = $this->resolvedCharStyleFont($pid);
                 }
             }
-            $rPr = $this->_firstChildW($node, 'rPr');
-            $thisPartial = $rPr instanceof DOMElement ? $this->_fontStylePartialFromRPr($rPr) : array();
-            $merged = $this->_mergeFontStylePartials($basePartial, $thisPartial);
+            $rPr = $this->firstChildW($node, 'rPr');
+            $thisPartial = $rPr instanceof DOMElement ? $this->fontStylePartialFromRPr($rPr) : array();
+            $merged = $this->mergeFontStylePartials($basePartial, $thisPartial);
         }
-        unset($this->_styleResolving[$styleId]);
-        $this->_charStyleResolvedCache[$styleId] = $merged;
+        unset($this->styleResolving[$styleId]);
+        $this->charStyleResolvedCache[$styleId] = $merged;
 
         return $merged;
     }
@@ -315,7 +315,7 @@ class Document_Word_Reader
      * @param array $overlay explicit run/style keys in $overlay replace $base
      * @return array
      */
-    private function _mergeFontStylePartials($base, $overlay)
+    private function mergeFontStylePartials($base, $overlay)
     {
         if ($overlay === array()) {
             return $base;
@@ -335,7 +335,7 @@ class Document_Word_Reader
      * @param DOMElement $el w:b, w:i, …
      * @return bool
      */
-    private function _wOnOffIsTrue(DOMElement $el)
+    private function wOnOffIsTrue(DOMElement $el)
     {
         if (!$el->hasAttributeNS(self::NS_W, 'val')) {
             return true;
@@ -354,34 +354,34 @@ class Document_Word_Reader
      * @param DOMElement $rPr
      * @return array
      */
-    private function _fontStylePartialFromRPr(DOMElement $rPr)
+    private function fontStylePartialFromRPr(DOMElement $rPr)
     {
         require_once __DIR__ . '/Style/Font.php';
         $style = array();
-        $b = $this->_firstChildW($rPr, 'b');
+        $b = $this->firstChildW($rPr, 'b');
         if ($b instanceof DOMElement) {
-            $style['bold'] = $this->_wOnOffIsTrue($b);
+            $style['bold'] = $this->wOnOffIsTrue($b);
         }
-        $i = $this->_firstChildW($rPr, 'i');
+        $i = $this->firstChildW($rPr, 'i');
         if ($i instanceof DOMElement) {
-            $style['italic'] = $this->_wOnOffIsTrue($i);
+            $style['italic'] = $this->wOnOffIsTrue($i);
         }
-        $u = $this->_firstChildW($rPr, 'u');
+        $u = $this->firstChildW($rPr, 'u');
         if ($u instanceof DOMElement) {
             $uv = $u->getAttributeNS(self::NS_W, 'val');
-            $mapped = $this->_mapUnderline($uv);
+            $mapped = $this->mapUnderline($uv);
             if ($mapped !== Document_Word_Style_Font::UNDERLINE_NONE) {
                 $style['underline'] = $mapped;
             }
         }
-        $sz = $this->_firstChildW($rPr, 'sz');
+        $sz = $this->firstChildW($rPr, 'sz');
         if ($sz instanceof DOMElement) {
             $half = $sz->getAttributeNS(self::NS_W, 'val');
             if ($half !== '' && ctype_digit($half)) {
                 $style['size'] = max(1, (int) round(((int) $half) / 2));
             }
         }
-        $color = $this->_firstChildW($rPr, 'color');
+        $color = $this->firstChildW($rPr, 'color');
         if ($color instanceof DOMElement) {
             $cv = $color->getAttributeNS(self::NS_W, 'val');
             if ($cv !== '' && strcasecmp($cv, 'auto') !== 0) {
@@ -391,7 +391,7 @@ class Document_Word_Reader
                 $style['color'] = $cv;
             }
         }
-        $fonts = $this->_firstChildW($rPr, 'rFonts');
+        $fonts = $this->firstChildW($rPr, 'rFonts');
         if ($fonts instanceof DOMElement) {
             $name = $fonts->getAttributeNS(self::NS_W, 'ascii');
             if ($name === '') {
@@ -409,7 +409,7 @@ class Document_Word_Reader
      * @param string $numFmtLower
      * @return bool true if ordered (decimal, letters, roman, …)
      */
-    private function _numFmtIsOrdered($numFmtLower)
+    private function numFmtIsOrdered($numFmtLower)
     {
         static $unordered = array('bullet' => true, 'none' => true, 'image' => true);
         if ($numFmtLower === '') {
@@ -427,21 +427,21 @@ class Document_Word_Reader
      * @param int $ilvl
      * @return bool
      */
-    private function _listNumIdIsOrdered($numId, $ilvl)
+    private function listNumIdIsOrdered($numId, $ilvl)
     {
-        if (!isset($this->_numberingNumAbstract[$numId])) {
+        if (!isset($this->numberingNumAbstract[$numId])) {
             return false;
         }
-        $abstractId = $this->_numberingNumAbstract[$numId];
-        if (!isset($this->_numberingAbstractLevels[$abstractId])) {
+        $abstractId = $this->numberingNumAbstract[$numId];
+        if (!isset($this->numberingAbstractLevels[$abstractId])) {
             return false;
         }
-        $levels = $this->_numberingAbstractLevels[$abstractId];
+        $levels = $this->numberingAbstractLevels[$abstractId];
         if (isset($levels[$ilvl])) {
-            return $this->_numFmtIsOrdered($levels[$ilvl]);
+            return $this->numFmtIsOrdered($levels[$ilvl]);
         }
         if (isset($levels[0])) {
-            return $this->_numFmtIsOrdered($levels[0]);
+            return $this->numFmtIsOrdered($levels[0]);
         }
 
         return false;
@@ -450,18 +450,18 @@ class Document_Word_Reader
     /**
      * @return array{numId:int,ilvl:int}|null
      */
-    private function _paragraphListNumPr(DOMElement $p)
+    private function paragraphListNumPr(DOMElement $p)
     {
-        $pPr = $this->_firstChildW($p, 'pPr');
+        $pPr = $this->firstChildW($p, 'pPr');
         if (!$pPr instanceof DOMElement) {
             return null;
         }
-        $numPr = $this->_firstChildW($pPr, 'numPr');
+        $numPr = $this->firstChildW($pPr, 'numPr');
         if (!$numPr instanceof DOMElement) {
             return null;
         }
-        $ilvlEl = $this->_firstChildW($numPr, 'ilvl');
-        $numIdEl = $this->_firstChildW($numPr, 'numId');
+        $ilvlEl = $this->firstChildW($numPr, 'ilvl');
+        $numIdEl = $this->firstChildW($numPr, 'numId');
         if (!$ilvlEl instanceof DOMElement || !$numIdEl instanceof DOMElement) {
             return null;
         }
@@ -477,11 +477,11 @@ class Document_Word_Reader
     /**
      * @return array
      */
-    private function _firstParagraphRunFontStyle(DOMElement $p)
+    private function firstParagraphRunFontStyle(DOMElement $p)
     {
         foreach ($p->getElementsByTagNameNS(self::NS_W, 'r') as $r) {
             if ($r instanceof DOMElement) {
-                return $this->_fontStyleFromRun($r);
+                return $this->fontStyleFromRun($r);
             }
         }
 
@@ -492,7 +492,7 @@ class Document_Word_Reader
      * @param ZipArchive $zip
      * @param Document_Word $doc
      */
-    private function _applyCoreProperties($zip, $doc)
+    private function applyCoreProperties($zip, $doc)
     {
         $xml = $zip->getFromName('docProps/core.xml');
         if ($xml === false) {
@@ -522,20 +522,20 @@ class Document_Word_Reader
 
     public static function _unlinkQueuedImageTemps()
     {
-        foreach (self::$_extractedImageTemps as $p) {
+        foreach (self::$extractedImageTemps as $p) {
             @unlink($p);
         }
-        self::$_extractedImageTemps = array();
+        self::$extractedImageTemps = array();
     }
 
     /**
      * @param string $path
      */
-    private function _queueImageTemp($path)
+    private function queueImageTemp($path)
     {
-        self::$_extractedImageTemps[] = $path;
-        if (!self::$_shutdownCleanupRegistered) {
-            self::$_shutdownCleanupRegistered = true;
+        self::$extractedImageTemps[] = $path;
+        if (!self::$shutdownCleanupRegistered) {
+            self::$shutdownCleanupRegistered = true;
             register_shutdown_function(array('Document_Word_Reader', '_unlinkQueuedImageTemps'));
         }
     }
@@ -544,12 +544,12 @@ class Document_Word_Reader
      * @param string $rid
      * @return string|null Package path for ZipArchive::getFromName, or null
      */
-    private function _imagePackagePartPath($rid)
+    private function imagePackagePartPath($rid)
     {
-        if ($rid === '' || !isset($this->_rels[$rid])) {
+        if ($rid === '' || !isset($this->rels[$rid])) {
             return null;
         }
-        $rel = $this->_rels[$rid];
+        $rel = $this->rels[$rid];
         if ($rel['external'] || $rel['type'] !== 'image') {
             return null;
         }
@@ -568,7 +568,7 @@ class Document_Word_Reader
     /**
      * @return array<int, string>
      */
-    private function _supportedRasterImageExtensions()
+    private function supportedRasterImageExtensions()
     {
         return array('jpg', 'jpeg', 'gif', 'png', 'bmp', 'tif', 'tiff');
     }
@@ -577,28 +577,28 @@ class Document_Word_Reader
      * @param string $rid
      * @return string|null Absolute temp path
      */
-    private function _extractEmbeddedImageToTemp($rid)
+    private function extractEmbeddedImageToTemp($rid)
     {
-        if (!($this->_zip instanceof ZipArchive)) {
+        if (!($this->zip instanceof ZipArchive)) {
             return null;
         }
-        $part = $this->_imagePackagePartPath($rid);
+        $part = $this->imagePackagePartPath($rid);
         if ($part === null) {
             return null;
         }
-        $bytes = $this->_zip->getFromName($part);
+        $bytes = $this->zip->getFromName($part);
         if ($bytes === false || $bytes === '') {
             return null;
         }
         $ext = strtolower(pathinfo($part, PATHINFO_EXTENSION));
-        if ($ext === '' || !in_array($ext, $this->_supportedRasterImageExtensions(), true)) {
+        if ($ext === '' || !in_array($ext, $this->supportedRasterImageExtensions(), true)) {
             return null;
         }
         $tmp = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'dw-docx-img-' . uniqid('', true) . '.' . $ext;
         if (@file_put_contents($tmp, $bytes) === false) {
             return null;
         }
-        $this->_queueImageTemp($tmp);
+        $this->queueImageTemp($tmp);
 
         return $tmp;
     }
@@ -606,7 +606,7 @@ class Document_Word_Reader
     /**
      * @return array{width?:int,height?:int}
      */
-    private function _docxImageStyleFromDrawing(DOMElement $drawing)
+    private function docxImageStyleFromDrawing(DOMElement $drawing)
     {
         foreach ($drawing->getElementsByTagNameNS(self::NS_WP, 'extent') as $ext) {
             if (!$ext instanceof DOMElement) {
@@ -630,7 +630,7 @@ class Document_Word_Reader
     /**
      * @param Document_Word_Section_TextRun $tr
      */
-    private function _emitDrawing($tr, DOMElement $drawing)
+    private function emitDrawing($tr, DOMElement $drawing)
     {
         $blips = $drawing->getElementsByTagNameNS(self::NS_A, 'blip');
         foreach ($blips as $blip) {
@@ -641,11 +641,11 @@ class Document_Word_Reader
             if ($embed === '') {
                 continue;
             }
-            $tmp = $this->_extractEmbeddedImageToTemp($embed);
+            $tmp = $this->extractEmbeddedImageToTemp($embed);
             if ($tmp === null) {
                 continue;
             }
-            $style = $this->_docxImageStyleFromDrawing($drawing);
+            $style = $this->docxImageStyleFromDrawing($drawing);
             $tr->addImage($tmp, $style === array() ? null : $style);
             break;
         }
@@ -654,31 +654,31 @@ class Document_Word_Reader
     /**
      * @param Document_Word_Section|Document_Word_Section_Table_Cell $target
      */
-    private function _walkBlockContainer($target, DOMElement $container, $isSection, DOMXPath $xp)
+    private function walkBlockContainer($target, DOMElement $container, $isSection, DOMXPath $xp)
     {
         foreach ($container->childNodes as $child) {
             if (!$child instanceof DOMElement) {
                 continue;
             }
-            if (!$this->_isW($child)) {
+            if (!$this->isW($child)) {
                 continue;
             }
             $ln = $child->localName;
             if ($ln === 'p') {
-                $this->_readParagraph($target, $child, $isSection, $xp);
+                $this->readParagraph($target, $child, $isSection, $xp);
                 continue;
             }
             if ($ln === 'tbl') {
                 if (!$isSection || !($target instanceof Document_Word_Section)) {
                     continue;
                 }
-                $this->_readTable($target, $child, $xp);
+                $this->readTable($target, $child, $xp);
                 continue;
             }
             if ($ln === 'sdt') {
-                $content = $this->_firstChildW($child, 'sdtContent');
+                $content = $this->firstChildW($child, 'sdtContent');
                 if ($content instanceof DOMElement) {
-                    $this->_walkBlockContainer($target, $content, $isSection, $xp);
+                    $this->walkBlockContainer($target, $content, $isSection, $xp);
                 }
                 continue;
             }
@@ -688,50 +688,50 @@ class Document_Word_Reader
     /**
      * @param Document_Word_Section|Document_Word_Section_Table_Cell $target
      */
-    private function _readParagraph($target, DOMElement $p, $isSection, DOMXPath $xp)
+    private function readParagraph($target, DOMElement $p, $isSection, DOMXPath $xp)
     {
         if ($isSection && $target instanceof Document_Word_Section) {
-            $pPr = $this->_firstChildW($p, 'pPr');
-            if ($pPr instanceof DOMElement && $this->_firstChildW($pPr, 'pageBreakBefore') !== null) {
+            $pPr = $this->firstChildW($p, 'pPr');
+            if ($pPr instanceof DOMElement && $this->firstChildW($pPr, 'pageBreakBefore') !== null) {
                 $target->addPageBreak();
             }
         }
 
-        if ($this->_paragraphIsPageBreakOnly($p)) {
+        if ($this->paragraphIsPageBreakOnly($p)) {
             if ($isSection && $target instanceof Document_Word_Section) {
                 $target->addPageBreak();
             }
             return;
         }
 
-        $listNum = $this->_paragraphListNumPr($p);
+        $listNum = $this->paragraphListNumPr($p);
         if ($listNum !== null) {
-            $plainList = $this->_paragraphPlainText($p);
-            if ($plainList === '' && !$this->_paragraphHasRenderableContent($p)) {
+            $plainList = $this->paragraphPlainText($p);
+            if ($plainList === '' && !$this->paragraphHasRenderableContent($p)) {
                 return;
             }
             $depth = min(8, max(0, $listNum['ilvl']));
             $numId = $listNum['numId'];
-            $ordered = $this->_listNumIdIsOrdered($numId, $depth);
-            $font = $this->_firstParagraphRunFontStyle($p);
+            $ordered = $this->listNumIdIsOrdered($numId, $depth);
+            $font = $this->firstParagraphRunFontStyle($p);
             $listItem = $target->addListItem($plainList, $depth, $font === array() ? null : $font, array(
                 'listType' => $numId,
                 'isOrdered' => $ordered,
             ));
             require_once __DIR__ . '/Section/TextRun.php';
             $tr = new Document_Word_Section_TextRun();
-            $this->_emitParagraphInlines($tr, $p, false);
+            $this->emitParagraphInlines($tr, $p, false);
             $listItem->setElements($tr->getElements());
             return;
         }
 
-        $plain = $this->_paragraphPlainText($p);
-        if ($plain === '' && !$this->_paragraphHasRenderableContent($p)) {
+        $plain = $this->paragraphPlainText($p);
+        if ($plain === '' && !$this->paragraphHasRenderableContent($p)) {
             return;
         }
 
-        $headingDepth = $this->_paragraphHeadingDepth($p);
-        $hasHyperlink = $this->_paragraphHasDirectHyperlink($p);
+        $headingDepth = $this->paragraphHeadingDepth($p);
+        $hasHyperlink = $this->paragraphHasDirectHyperlink($p);
 
         if ($isSection && $target instanceof Document_Word_Section && $headingDepth > 0 && !$hasHyperlink && $plain !== '') {
             $target->addTitle($plain, $headingDepth);
@@ -747,26 +747,26 @@ class Document_Word_Reader
             return;
         }
 
-        $paraStyle = $this->_paragraphStyleArray($p);
-        if ($this->_paragraphIsSingleUniformText($p) && !$hasHyperlink) {
-            $r = $this->_firstChildW($p, 'r');
+        $paraStyle = $this->paragraphStyleArray($p);
+        if ($this->paragraphIsSingleUniformText($p) && !$hasHyperlink) {
+            $r = $this->firstChildW($p, 'r');
             if ($r instanceof DOMElement) {
-                $font = $this->_fontStyleFromRun($r);
+                $font = $this->fontStyleFromRun($r);
                 $target->addText($plain, $font === array() ? null : $font, $paraStyle === array() ? null : $paraStyle);
                 return;
             }
         }
 
         $tr = $target->createTextRun($paraStyle === array() ? null : $paraStyle);
-        $this->_emitParagraphInlines($tr, $p, $isSection && $target instanceof Document_Word_Section);
+        $this->emitParagraphInlines($tr, $p, $isSection && $target instanceof Document_Word_Section);
     }
 
     /**
      * @return bool
      */
-    private function _paragraphIsPageBreakOnly(DOMElement $p)
+    private function paragraphIsPageBreakOnly(DOMElement $p)
     {
-        $text = $this->_paragraphPlainText($p);
+        $text = $this->paragraphPlainText($p);
         if ($text !== '') {
             return false;
         }
@@ -785,10 +785,10 @@ class Document_Word_Reader
     /**
      * @return bool
      */
-    private function _paragraphHasRenderableContent(DOMElement $p)
+    private function paragraphHasRenderableContent(DOMElement $p)
     {
         foreach ($p->childNodes as $c) {
-            if (!$c instanceof DOMElement || !$this->_isW($c)) {
+            if (!$c instanceof DOMElement || !$this->isW($c)) {
                 continue;
             }
             if ($c->localName === 'r' || $c->localName === 'hyperlink') {
@@ -803,32 +803,32 @@ class Document_Word_Reader
      * @param Document_Word_Section_TextRun $tr
      * @param bool $allowPageBreak
      */
-    private function _emitParagraphInlines($tr, DOMElement $p, $allowPageBreak)
+    private function emitParagraphInlines($tr, DOMElement $p, $allowPageBreak)
     {
         foreach ($p->childNodes as $c) {
-            if (!$c instanceof DOMElement || !$this->_isW($c)) {
+            if (!$c instanceof DOMElement || !$this->isW($c)) {
                 continue;
             }
             if ($c->localName === 'r') {
-                $this->_emitRun($tr, $c, $allowPageBreak);
+                $this->emitRun($tr, $c, $allowPageBreak);
                 continue;
             }
             if ($c->localName === 'hyperlink') {
-                $this->_emitHyperlink($tr, $c);
+                $this->emitHyperlink($tr, $c);
                 continue;
             }
             if ($c->localName === 'sdt') {
-                $inner = $this->_firstChildW($c, 'sdtContent');
+                $inner = $this->firstChildW($c, 'sdtContent');
                 if ($inner instanceof DOMElement) {
                     foreach ($inner->childNodes as $cc) {
-                        if (!$cc instanceof DOMElement || !$this->_isW($cc)) {
+                        if (!$cc instanceof DOMElement || !$this->isW($cc)) {
                             continue;
                         }
                         if ($cc->localName === 'r') {
-                            $this->_emitRun($tr, $cc, $allowPageBreak);
+                            $this->emitRun($tr, $cc, $allowPageBreak);
                         }
                         if ($cc->localName === 'hyperlink') {
-                            $this->_emitHyperlink($tr, $cc);
+                            $this->emitHyperlink($tr, $cc);
                         }
                     }
                 }
@@ -840,15 +840,15 @@ class Document_Word_Reader
      * @param Document_Word_Section_TextRun $tr
      * @param bool $allowPageBreak
      */
-    private function _emitRun($tr, DOMElement $r, $allowPageBreak)
+    private function emitRun($tr, DOMElement $r, $allowPageBreak)
     {
-        $fontBase = $this->_fontStyleFromRun($r);
+        $fontBase = $this->fontStyleFromRun($r);
         foreach ($r->childNodes as $c) {
-            if (!$c instanceof DOMElement || !$this->_isW($c)) {
+            if (!$c instanceof DOMElement || !$this->isW($c)) {
                 continue;
             }
             if ($c->localName === 't') {
-                $text = $this->_textFromT($c);
+                $text = $this->textFromT($c);
                 if ($text !== '') {
                     $tr->addText($text, $fontBase === array() ? null : $fontBase);
                 }
@@ -870,7 +870,7 @@ class Document_Word_Reader
                 continue;
             }
             if ($c->localName === 'drawing' && $c->namespaceURI === self::NS_W) {
-                $this->_emitDrawing($tr, $c);
+                $this->emitDrawing($tr, $c);
             }
         }
     }
@@ -878,15 +878,15 @@ class Document_Word_Reader
     /**
      * @param Document_Word_Section_TextRun $tr
      */
-    private function _emitHyperlink($tr, DOMElement $h)
+    private function emitHyperlink($tr, DOMElement $h)
     {
         $rid = $h->getAttributeNS(self::NS_R, 'id');
-        $href = $this->_hyperlinkHref($rid);
-        $label = $this->_hyperlinkPlainText($h);
+        $href = $this->hyperlinkHref($rid);
+        $label = $this->hyperlinkPlainText($h);
         $font = null;
         foreach ($h->getElementsByTagNameNS(self::NS_W, 'r') as $r) {
             if ($r instanceof DOMElement) {
-                $f = $this->_fontStyleFromRun($r);
+                $f = $this->fontStyleFromRun($r);
                 if ($f !== array()) {
                     $font = $f;
                 }
@@ -898,8 +898,8 @@ class Document_Word_Reader
             return;
         }
         foreach ($h->childNodes as $c) {
-            if ($c instanceof DOMElement && $this->_isW($c) && $c->localName === 'r') {
-                $this->_emitRun($tr, $c, false);
+            if ($c instanceof DOMElement && $this->isW($c) && $c->localName === 'r') {
+                $this->emitRun($tr, $c, false);
             }
         }
     }
@@ -907,12 +907,12 @@ class Document_Word_Reader
     /**
      * @return string|null
      */
-    private function _hyperlinkHref($rid)
+    private function hyperlinkHref($rid)
     {
-        if ($rid === '' || !isset($this->_rels[$rid])) {
+        if ($rid === '' || !isset($this->rels[$rid])) {
             return null;
         }
-        $rel = $this->_rels[$rid];
+        $rel = $this->rels[$rid];
         if ($rel['type'] !== 'hyperlink') {
             return null;
         }
@@ -926,26 +926,26 @@ class Document_Word_Reader
     /**
      * @param Document_Word_Section $section
      */
-    private function _readTable($section, DOMElement $tbl, DOMXPath $xp)
+    private function readTable($section, DOMElement $tbl, DOMXPath $xp)
     {
         $table = $section->addTable();
         foreach ($tbl->childNodes as $rowEl) {
-            if (!$rowEl instanceof DOMElement || !$this->_isW($rowEl) || $rowEl->localName !== 'tr') {
+            if (!$rowEl instanceof DOMElement || !$this->isW($rowEl) || $rowEl->localName !== 'tr') {
                 continue;
             }
             $table->addRow();
             foreach ($rowEl->childNodes as $cellEl) {
-                if (!$cellEl instanceof DOMElement || !$this->_isW($cellEl) || $cellEl->localName !== 'tc') {
+                if (!$cellEl instanceof DOMElement || !$this->isW($cellEl) || $cellEl->localName !== 'tc') {
                     continue;
                 }
-                $width = $this->_cellWidthTwips($cellEl);
+                $width = $this->cellWidthTwips($cellEl);
                 $cell = $table->addCell($width > 0 ? (int) max(1, round($width / 20)) : 0);
                 foreach ($cellEl->childNodes as $inner) {
-                    if (!$inner instanceof DOMElement || !$this->_isW($inner)) {
+                    if (!$inner instanceof DOMElement || !$this->isW($inner)) {
                         continue;
                     }
                     if ($inner->localName === 'p') {
-                        $this->_readParagraph($cell, $inner, false, $xp);
+                        $this->readParagraph($cell, $inner, false, $xp);
                     }
                 }
             }
@@ -955,13 +955,13 @@ class Document_Word_Reader
     /**
      * @return int
      */
-    private function _cellWidthTwips(DOMElement $tc)
+    private function cellWidthTwips(DOMElement $tc)
     {
-        $tcPr = $this->_firstChildW($tc, 'tcPr');
+        $tcPr = $this->firstChildW($tc, 'tcPr');
         if (!$tcPr instanceof DOMElement) {
             return 0;
         }
-        $tcW = $this->_firstChildW($tcPr, 'tcW');
+        $tcW = $this->firstChildW($tcPr, 'tcW');
         if (!$tcW instanceof DOMElement) {
             return 0;
         }
@@ -976,10 +976,10 @@ class Document_Word_Reader
     /**
      * @return bool
      */
-    private function _paragraphHasDirectHyperlink(DOMElement $p)
+    private function paragraphHasDirectHyperlink(DOMElement $p)
     {
         foreach ($p->childNodes as $c) {
-            if ($c instanceof DOMElement && $this->_isW($c) && $c->localName === 'hyperlink') {
+            if ($c instanceof DOMElement && $this->isW($c) && $c->localName === 'hyperlink') {
                 return true;
             }
         }
@@ -990,11 +990,11 @@ class Document_Word_Reader
     /**
      * @return bool
      */
-    private function _paragraphIsSingleUniformText(DOMElement $p)
+    private function paragraphIsSingleUniformText(DOMElement $p)
     {
         $rCount = 0;
         foreach ($p->childNodes as $c) {
-            if (!$c instanceof DOMElement || !$this->_isW($c)) {
+            if (!$c instanceof DOMElement || !$this->isW($c)) {
                 continue;
             }
             if ($c->localName === 'hyperlink' || $c->localName === 'sdt') {
@@ -1005,7 +1005,7 @@ class Document_Word_Reader
                 if ($rCount > 1) {
                     return false;
                 }
-                if (!$this->_runIsPlainTextOnly($c)) {
+                if (!$this->runIsPlainTextOnly($c)) {
                     return false;
                 }
             }
@@ -1017,10 +1017,10 @@ class Document_Word_Reader
     /**
      * @return bool
      */
-    private function _runIsPlainTextOnly(DOMElement $r)
+    private function runIsPlainTextOnly(DOMElement $r)
     {
         foreach ($r->childNodes as $c) {
-            if (!$c instanceof DOMElement || !$this->_isW($c)) {
+            if (!$c instanceof DOMElement || !$this->isW($c)) {
                 continue;
             }
             if ($c->localName !== 't' && $c->localName !== 'rPr') {
@@ -1034,20 +1034,20 @@ class Document_Word_Reader
     /**
      * @return int 0 if not a heading
      */
-    private function _paragraphHeadingDepth(DOMElement $p)
+    private function paragraphHeadingDepth(DOMElement $p)
     {
-        $pPr = $this->_firstChildW($p, 'pPr');
+        $pPr = $this->firstChildW($p, 'pPr');
         if (!$pPr instanceof DOMElement) {
             return 0;
         }
-        $outline = $this->_firstChildW($pPr, 'outlineLvl');
+        $outline = $this->firstChildW($pPr, 'outlineLvl');
         if ($outline instanceof DOMElement) {
             $v = $outline->getAttributeNS(self::NS_W, 'val');
             if ($v !== '' && ctype_digit($v)) {
                 return min(6, max(1, (int) $v + 1));
             }
         }
-        $pStyle = $this->_firstChildW($pPr, 'pStyle');
+        $pStyle = $this->firstChildW($pPr, 'pStyle');
         if (!$pStyle instanceof DOMElement) {
             return 0;
         }
@@ -1071,13 +1071,13 @@ class Document_Word_Reader
     /**
      * @return array
      */
-    private function _paragraphStyleArray(DOMElement $p)
+    private function paragraphStyleArray(DOMElement $p)
     {
-        $pPr = $this->_firstChildW($p, 'pPr');
+        $pPr = $this->firstChildW($p, 'pPr');
         if (!$pPr instanceof DOMElement) {
             return array();
         }
-        $jc = $this->_firstChildW($pPr, 'jc');
+        $jc = $this->firstChildW($pPr, 'jc');
         if (!$jc instanceof DOMElement) {
             return array();
         }
@@ -1103,30 +1103,30 @@ class Document_Word_Reader
     /**
      * @return array
      */
-    private function _fontStyleFromRun(DOMElement $r)
+    private function fontStyleFromRun(DOMElement $r)
     {
-        $rPr = $this->_firstChildW($r, 'rPr');
+        $rPr = $this->firstChildW($r, 'rPr');
         $rStyleId = '';
         if ($rPr instanceof DOMElement) {
-            $rs = $this->_firstChildW($rPr, 'rStyle');
+            $rs = $this->firstChildW($rPr, 'rStyle');
             if ($rs instanceof DOMElement) {
                 $rStyleId = $rs->getAttributeNS(self::NS_W, 'val');
             }
         }
-        $fromStyle = $rStyleId !== '' ? $this->_resolvedCharStyleFont($rStyleId) : array();
+        $fromStyle = $rStyleId !== '' ? $this->resolvedCharStyleFont($rStyleId) : array();
         if (!$rPr instanceof DOMElement) {
             return $fromStyle;
         }
-        $fromRun = $this->_fontStylePartialFromRPr($rPr);
+        $fromRun = $this->fontStylePartialFromRPr($rPr);
 
-        return $this->_mergeFontStylePartials($fromStyle, $fromRun);
+        return $this->mergeFontStylePartials($fromStyle, $fromRun);
     }
 
     /**
      * @param string|null $val
      * @return string
      */
-    private function _mapUnderline($val)
+    private function mapUnderline($val)
     {
         require_once __DIR__ . '/Style/Font.php';
         if ($val === null || $val === '') {
@@ -1160,7 +1160,7 @@ class Document_Word_Reader
     /**
      * @return string
      */
-    private function _paragraphPlainText(DOMElement $p)
+    private function paragraphPlainText(DOMElement $p)
     {
         $xp = new DOMXPath($p->ownerDocument);
         $xp->registerNamespace('w', self::NS_W);
@@ -1171,7 +1171,7 @@ class Document_Word_Reader
         $parts = array();
         foreach ($nodes as $t) {
             if ($t instanceof DOMElement) {
-                $parts[] = $this->_textFromT($t);
+                $parts[] = $this->textFromT($t);
             }
         }
 
@@ -1181,7 +1181,7 @@ class Document_Word_Reader
     /**
      * @return string
      */
-    private function _hyperlinkPlainText(DOMElement $h)
+    private function hyperlinkPlainText(DOMElement $h)
     {
         $xp = new DOMXPath($h->ownerDocument);
         $xp->registerNamespace('w', self::NS_W);
@@ -1192,7 +1192,7 @@ class Document_Word_Reader
         $parts = array();
         foreach ($nodes as $t) {
             if ($t instanceof DOMElement) {
-                $parts[] = $this->_textFromT($t);
+                $parts[] = $this->textFromT($t);
             }
         }
 
@@ -1202,7 +1202,7 @@ class Document_Word_Reader
     /**
      * @return string
      */
-    private function _textFromT(DOMElement $t)
+    private function textFromT(DOMElement $t)
     {
         return $t->textContent;
     }
@@ -1210,7 +1210,7 @@ class Document_Word_Reader
     /**
      * @return bool
      */
-    private function _isW(DOMElement $el)
+    private function isW(DOMElement $el)
     {
         return $el->namespaceURI === self::NS_W;
     }
@@ -1221,10 +1221,10 @@ class Document_Word_Reader
      * @param string $local
      * @return DOMElement|null
      */
-    private function _firstChildW(DOMElement $parent, $local)
+    private function firstChildW(DOMElement $parent, $local)
     {
         foreach ($parent->childNodes as $c) {
-            if ($c instanceof DOMElement && $this->_isW($c) && $c->localName === $local) {
+            if ($c instanceof DOMElement && $this->isW($c) && $c->localName === $local) {
                 return $c;
             }
         }

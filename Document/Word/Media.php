@@ -44,7 +44,7 @@ class Document_Word_Media
 	 * 
 	 * @var array
 	 */
-	private static $_sectionMedia = array('images'=>array(),
+	private static $sectionMedia = array('images'=>array(),
 										  'embeddings'=>array(),
 										  'links'=>array());
 	
@@ -53,21 +53,21 @@ class Document_Word_Media
 	 * 
 	 * @var array
 	 */
-	private static $_headerMedia = array();
+	private static $headerMedia = array();
 	
 	/**
 	 * Footer Media Elements
 	 * 
 	 * @var array
 	 */
-	private static $_footerMedia = array();
+	private static $footerMedia = array();
 	
 	/**
 	 * ObjectID Counter
 	 * 
 	 * @var int
 	 */
-	private static $_objectId = 1325353440;
+	private static $objectId = 1325353440;
 	
 	
 	/**
@@ -83,7 +83,7 @@ class Document_Word_Media
 		$mediaId = md5($src);
 		$key = ($type == 'image') ? 'images' : 'embeddings';
 		
-		if(!array_key_exists($mediaId, self::$_sectionMedia[$key])) {
+		if(!array_key_exists($mediaId, self::$sectionMedia[$key])) {
 			$cImg = self::countSectionMediaElements('images');
 			$cObj = self::countSectionMediaElements('embeddings');
 			$rID = self::countSectionMediaElements() + 7;
@@ -120,19 +120,19 @@ class Document_Word_Media
 			$media['type'] = $type;
 			$media['rID'] = $rID;
 			
-			self::$_sectionMedia[$key][$mediaId] = $media;
+			self::$sectionMedia[$key][$mediaId] = $media;
 			
 			if($type == 'oleObject') {
-				return array($rID, ++self::$_objectId);
+				return array($rID, ++self::$objectId);
 			} else {
 				return $rID;
 			}
 		} else {
 			if($type == 'oleObject') {
-				$rID = self::$_sectionMedia[$key][$mediaId]['rID'];
-				return array($rID, ++self::$_objectId);
+				$rID = self::$sectionMedia[$key][$mediaId]['rID'];
+				return array($rID, ++self::$objectId);
 			} else {
-				return self::$_sectionMedia[$key][$mediaId]['rID'];
+				return self::$sectionMedia[$key][$mediaId]['rID'];
 			}
 		}
 	}
@@ -154,7 +154,7 @@ class Document_Word_Media
 		$link['rID'] = $rID;
 		$link['type'] = 'hyperlink';
 		
-		self::$_sectionMedia['links'][] = $link;
+		self::$sectionMedia['links'][] = $link;
 		
 		return $rID;
 	}
@@ -168,11 +168,11 @@ class Document_Word_Media
 	public static function getSectionMediaElements($key = null) 
         {
 		if(!is_null($key)) {
-			return self::$_sectionMedia[$key];
+			return self::$sectionMedia[$key];
 		} else {
-			$arrImages = self::$_sectionMedia['images'];
-			$arrObjects = self::$_sectionMedia['embeddings'];
-			$arrLinks = self::$_sectionMedia['links'];
+			$arrImages = self::$sectionMedia['images'];
+			$arrObjects = self::$sectionMedia['embeddings'];
+			$arrLinks = self::$sectionMedia['links'];
 			return array_merge($arrImages, $arrObjects, $arrLinks);
 		}
 	}
@@ -186,11 +186,11 @@ class Document_Word_Media
 	public static function countSectionMediaElements($key = null) 
         {
 		if(!is_null($key)) {
-			return count(self::$_sectionMedia[$key]);
+			return count(self::$sectionMedia[$key]);
 		} else {
-			$cImages = count(self::$_sectionMedia['images']);
-			$cObjects = count(self::$_sectionMedia['embeddings']);
-			$cLinks = count(self::$_sectionMedia['links']);
+			$cImages = count(self::$sectionMedia['images']);
+			$cObjects = count(self::$sectionMedia['embeddings']);
+			$cLinks = count(self::$sectionMedia['links']);
 			return ($cImages + $cObjects + $cLinks);
 		}
 	}
@@ -207,11 +207,11 @@ class Document_Word_Media
 		$mediaId = md5($src);
 		$key = 'header'.$headerCount;
 		
-		if(!array_key_exists($key, self::$_headerMedia)) {
-			self::$_headerMedia[$key] = array();
+		if(!array_key_exists($key, self::$headerMedia)) {
+			self::$headerMedia[$key] = array();
 		}
 		
-		if(!array_key_exists($mediaId, self::$_headerMedia[$key])) {
+		if(!array_key_exists($mediaId, self::$headerMedia[$key])) {
 			$cImg = self::countHeaderMediaElements($key);
 			$rID = $cImg + 1;
 			
@@ -238,11 +238,11 @@ class Document_Word_Media
 			$media['type'] = 'image';
 			$media['rID'] = $rID;
 			
-			self::$_headerMedia[$key][$mediaId] = $media;
+			self::$headerMedia[$key][$mediaId] = $media;
 			
 			return $rID;
 		} else {
-			return self::$_headerMedia[$key][$mediaId]['rID'];
+			return self::$headerMedia[$key][$mediaId]['rID'];
 		}
 	}
 	
@@ -254,7 +254,7 @@ class Document_Word_Media
 	 */
 	public static function countHeaderMediaElements($key) 
         {
-		return count(self::$_headerMedia[$key]);
+		return count(self::$headerMedia[$key]);
 	}
 	
 	/**
@@ -264,7 +264,7 @@ class Document_Word_Media
 	 */
 	public static function getHeaderMediaElements() 
         {
-		return self::$_headerMedia;
+		return self::$headerMedia;
 	}
 	
 	/**
@@ -279,11 +279,11 @@ class Document_Word_Media
 		$mediaId = md5($src);
 		$key = 'footer'.$footerCount;
 		
-		if(!array_key_exists($key, self::$_footerMedia)) {
-			self::$_footerMedia[$key] = array();
+		if(!array_key_exists($key, self::$footerMedia)) {
+			self::$footerMedia[$key] = array();
 		}
 		
-		if(!array_key_exists($mediaId, self::$_footerMedia[$key])) {
+		if(!array_key_exists($mediaId, self::$footerMedia[$key])) {
 			$cImg = self::countFooterMediaElements($key);
 			$rID = $cImg + 1;
 			
@@ -310,11 +310,11 @@ class Document_Word_Media
 			$media['type'] = 'image';
 			$media['rID'] = $rID;
 			
-			self::$_footerMedia[$key][$mediaId] = $media;
+			self::$footerMedia[$key][$mediaId] = $media;
 			
 			return $rID;
 		} else {
-			return self::$_footerMedia[$key][$mediaId]['rID'];
+			return self::$footerMedia[$key][$mediaId]['rID'];
 		}
 	}
 	
@@ -326,7 +326,7 @@ class Document_Word_Media
 	 */
 	public static function countFooterMediaElements($key) 
         {
-		return count(self::$_footerMedia[$key]);
+		return count(self::$footerMedia[$key]);
 	}
 	
 	/**
@@ -336,7 +336,7 @@ class Document_Word_Media
 	 */
 	public static function getFooterMediaElements() 
         {
-		return self::$_footerMedia;
+		return self::$footerMedia;
 	}
 }
 ?>

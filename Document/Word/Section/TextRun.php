@@ -41,7 +41,7 @@ class Document_Word_Section_TextRun
 	 * 
 	 * @var PHPWord_Style_Font
 	 */
-	private $_styleParagraph;
+	private $styleParagraph;
 	
 	/**
 	 * Text collection
@@ -61,16 +61,16 @@ class Document_Word_Section_TextRun
 		
 		// Set paragraph style
 		if(is_array($styleParagraph)) {
-			$this->_styleParagraph = new Document_Word_Style_Paragraph();
+			$this->styleParagraph = new Document_Word_Style_Paragraph();
 			
 			foreach($styleParagraph as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
 					$key = '_'.$key;
 				}
-				$this->_styleParagraph->setStyleValue($key, $value);
+				$this->styleParagraph->setStyleValue($key, $value);
 			}
 		} else {
-			$this->_styleParagraph = $styleParagraph;
+			$this->styleParagraph = $styleParagraph;
 		}
 	}
 	
@@ -155,7 +155,7 @@ class Document_Word_Section_TextRun
 	 */
 	public function getParagraphStyle() 
         {
-		return $this->_styleParagraph;
+		return $this->styleParagraph;
 	}
     
 }

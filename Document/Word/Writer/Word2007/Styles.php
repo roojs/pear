@@ -29,7 +29,7 @@ require_once __DIR__.'/Base.php';
 class Document_Word_Writer_Word2007_Styles extends Document_Word_Writer_Word2007_Base 
 {
 	
-	private $_document;
+	private $document;
 	
 	public function writeStyles(Document_Word $pPHPWord = null)
         {
@@ -41,7 +41,7 @@ class Document_Word_Writer_Word2007_Styles extends Document_Word_Writer_Word2007
 			$objWriter = new Document_Word_Shared_XMLWriter(Document_Word_Shared_XMLWriter::STORAGE_MEMORY);
 		}
 		
-		$this->_document = $pPHPWord;
+		$this->document = $pPHPWord;
 		
 		// XML header
 		$objWriter->startDocument('1.0','UTF-8','yes');
@@ -52,7 +52,7 @@ class Document_Word_Writer_Word2007_Styles extends Document_Word_Writer_Word2007
 		$objWriter->writeAttribute('xmlns:w', 'http://schemas.openxmlformats.org/wordprocessingml/2006/main');
 		
 		// Write DocDefaults
-		$this->_writeDocDefaults($objWriter);
+		$this->writeDocDefaults($objWriter);
 
 		
 		// Write Style Definitions
@@ -125,7 +125,7 @@ class Document_Word_Writer_Word2007_Styles extends Document_Word_Writer_Word2007
 							$objWriter->writeAttribute('w:val', '99');
 						$objWriter->endElement();
 						
-						$this->_writeFullTableStyle($objWriter, $style);
+						$this->writeFullTableStyle($objWriter, $style);
 						
 					$objWriter->endElement();
 				}
@@ -138,7 +138,7 @@ class Document_Word_Writer_Word2007_Styles extends Document_Word_Writer_Word2007
 		return $objWriter->getData();
 	}
 	
-	private function _writeFullTableStyle(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Style_TableFull $style) 
+	private function writeFullTableStyle(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Style_TableFull $style) 
         {
 
 		$brdSz = $style->getBorderSize();
@@ -255,11 +255,11 @@ class Document_Word_Writer_Word2007_Styles extends Document_Word_Writer_Word2007
 		// First Row
 		$firstRow = $style->getFirstRow();
 		if(!is_null($firstRow)) {
-			$this->_writeRowStyle($objWriter, 'firstRow', $firstRow);
+			$this->writeRowStyle($objWriter, 'firstRow', $firstRow);
 		}
 	}
 	
-	private function _writeRowStyle(?Document_Word_Shared_XMLWriter $objWriter = null, $type, Document_Word_Style_TableFull $style) 
+	private function writeRowStyle(?Document_Word_Shared_XMLWriter $objWriter = null, $type, Document_Word_Style_TableFull $style) 
         {
 		$brdSz = $style->getBorderSize();
 		$brdCol = $style->getBorderColor();
@@ -320,10 +320,10 @@ class Document_Word_Writer_Word2007_Styles extends Document_Word_Writer_Word2007
 	}
 	
 	
-	private function _writeDocDefaults(?Document_Word_Shared_XMLWriter $objWriter = null) 
+	private function writeDocDefaults(?Document_Word_Shared_XMLWriter $objWriter = null) 
         {
-		$fontName = $this->_document->getDefaultFontName();
-		$fontSize = $this->_document->getDefaultFontSize();
+		$fontName = $this->document->getDefaultFontName();
+		$fontSize = $this->document->getDefaultFontSize();
 		
 		$objWriter->startElement('w:docDefaults');
 			$objWriter->startElement('w:rPrDefault');

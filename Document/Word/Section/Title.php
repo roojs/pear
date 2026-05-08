@@ -41,35 +41,35 @@ class Document_Word_Section_Title
 	 * 
 	 * @var string
 	 */
-	private $_text;
+	private $text;
 	
 	/**
 	 * Title depth
 	 * 
 	 * @var int
 	 */
-	private $_depth;
+	private $depth;
 	
 	/**
 	 * Title anchor
 	 * 
 	 * @var int
 	 */
-	private $_anchor;
+	private $anchor;
 	
 	/**
 	 * Title Bookmark ID
 	 * 
 	 * @var int
 	 */
-	private $_bookmarkId;
+	private $bookmarkId;
 	
 	/**
 	 * Title style
 	 * 
 	 * @var string
 	 */
-	private $_style;
+	private $style;
 	
 	
 	/**
@@ -81,11 +81,11 @@ class Document_Word_Section_Title
 	public function __construct($text, $depth = 1, $style = null) 
         {
 		if(!is_null($style)) {
-			$this->_style = $style;
+			$this->style = $style;
 		}
 		
-		$this->_text = $text;
-		$this->_depth = $depth;
+		$this->text = $text;
+		$this->depth = $depth;
 		
 		return $this;
 	}
@@ -97,7 +97,7 @@ class Document_Word_Section_Title
 	 */
 	public function setAnchor($anchor) 
         {
-		$this->_anchor = $anchor;
+		$this->anchor = $anchor;
 	}
 	
 	/**
@@ -107,7 +107,7 @@ class Document_Word_Section_Title
 	 */
 	public function getAnchor() 
         {
-		return $this->_anchor;
+		return $this->anchor;
 	}
 	
 	/**
@@ -117,7 +117,7 @@ class Document_Word_Section_Title
 	 */
 	public function setBookmarkId($bookmarkId) 
         {
-		$this->_bookmarkId = $bookmarkId;
+		$this->bookmarkId = $bookmarkId;
 	}
 	
 	/**
@@ -127,7 +127,7 @@ class Document_Word_Section_Title
 	 */
 	public function getBookmarkId() 
         {
-		return $this->_bookmarkId;
+		return $this->bookmarkId;
 	}
 	
 	/**
@@ -137,7 +137,7 @@ class Document_Word_Section_Title
 	 */
 	public function getText() 
         {
-		return $this->_text;
+		return $this->text;
 	}
 
 	/**
@@ -147,7 +147,7 @@ class Document_Word_Section_Title
 	 */
 	public function getDepth()
         {
-		return (int) $this->_depth;
+		return (int) $this->depth;
 	}
 	
 	/**
@@ -156,7 +156,7 @@ class Document_Word_Section_Title
 	 * @return string
 	 */
 	public function getStyle() {
-		return $this->_style;
+		return $this->style;
 	}
 }
 ?>

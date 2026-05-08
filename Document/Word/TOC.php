@@ -43,35 +43,35 @@ class Document_Word_TOC
 	 *
 	 * @var array
 	 */
-	private static $_titles = array();
+	private static $titles = array();
 	
 	/**
 	 * TOC Style
 	 *
 	 * @var array
 	 */
-	private static $_styleTOC;
+	private static $styleTOC;
 	
 	/**
 	 * Font Style
 	 *
 	 * @var array
 	 */
-	private static $_styleFont;
+	private static $styleFont;
 	
 	/**
 	 * Title Anchor
 	 *
 	 * @var array
 	 */
-	private static $_anchor = 252634154;
+	private static $anchor = 252634154;
 	
 	/**
 	 * Title Bookmark
 	 *
 	 * @var array
 	 */
-	private static $_bookmarkId = 0;
+	private static $bookmarkId = 0;
 	
 	
 	/**
@@ -83,30 +83,30 @@ class Document_Word_TOC
 	public function __construct($styleFont = null, $styleTOC = null) 
         {
                 require_once __DIR__ . '/Style/TOC.php';
-		self::$_styleTOC = new Document_Word_Style_TOC();
+		self::$styleTOC = new Document_Word_Style_TOC();
 		
 		if(!is_null($styleTOC) && is_array($styleTOC)) {
 			foreach($styleTOC as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
 					$key = '_'.$key;
 				}
-				self::$_styleTOC->setStyleValue($key, $value);
+				self::$styleTOC->setStyleValue($key, $value);
 			}
 		}
 		
 		if(!is_null($styleFont)) {
 			if(is_array($styleFont)) {
 				require_once __DIR__ . '/Style/Font.php';
-				self::$_styleFont = new Document_Word_Style_Font();
+				self::$styleFont = new Document_Word_Style_Font();
 				
 				foreach($styleFont as $key => $value) {
 					if(substr($key, 0, 1) != '_') {
 						$key = '_'.$key;
 					}
-					self::$_styleFont->setStyleValue($key, $value);
+					self::$styleFont->setStyleValue($key, $value);
 				}
 			} else {
-				self::$_styleFont = $styleFont;
+				self::$styleFont = $styleFont;
 			}
 		}
 	}
@@ -118,8 +118,8 @@ class Document_Word_TOC
 	*/
 	public static function addTitle($text, $depth = 0) 
         {
-		$anchor = '_Toc'.++self::$_anchor;
-		$bookmarkId = self::$_bookmarkId++;
+		$anchor = '_Toc'.++self::$anchor;
+		$bookmarkId = self::$bookmarkId++;
 		
 		$title = array();
 		$title['text'] = $text;
@@ -127,7 +127,7 @@ class Document_Word_TOC
 		$title['anchor'] = $anchor;
 		$title['bookmarkId'] = $bookmarkId;
 		
-		self::$_titles[] = $title;
+		self::$titles[] = $title;
 		
 		return array($anchor, $bookmarkId);
 	}
@@ -139,7 +139,7 @@ class Document_Word_TOC
 	 */
 	public static function getTitles() 
         {
-		return self::$_titles;
+		return self::$titles;
 	}
 	
 	/**
@@ -149,7 +149,7 @@ class Document_Word_TOC
 	 */
 	public static function getStyleTOC() 
         {
-		return self::$_styleTOC;
+		return self::$styleTOC;
 	}
 	
 	/**
@@ -158,7 +158,7 @@ class Document_Word_TOC
 	 * @return Document_Word_Style_Font|string|null
 	 */
 	public static function getStyleFont() {
-		return self::$_styleFont;
+		return self::$styleFont;
 	}
 }
 ?>

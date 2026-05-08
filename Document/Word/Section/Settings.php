@@ -41,140 +41,140 @@ class Document_Word_Section_Settings
 	 * 
 	 * @var int
 	 */
-	private $_defaultPageSizeW = 11906;
+	private $defaultPageSizeW = 11906;
 	
 	/**
 	 * Default Page Size Height
 	 * 
 	 * @var int
 	 */
-	private $_defaultPageSizeH = 16838;
+	private $defaultPageSizeH = 16838;
 	
 	/**
 	 * Page Orientation
 	 * 
 	 * @var string
 	 */
-	private $_orientation;
+	private $orientation;
 	
 	/**
 	 * Page Margin Top
 	 * 
 	 * @var int
 	 */
-	private $_marginTop;
+	private $marginTop;
 	
 	/**
 	 * Page Margin Left
 	 * 
 	 * @var int
 	 */
-	private $_marginLeft;
+	private $marginLeft;
 	
 	/**
 	 * Page Margin Right
 	 * 
 	 * @var int
 	 */
-	private $_marginRight;
+	private $marginRight;
 	
 	/**
 	 * Page Margin Bottom
 	 * 
 	 * @var int
 	 */
-	private $_marginBottom;
+	private $marginBottom;
 	
 	/**
 	 * Page Size Width
 	 * 
 	 * @var int
 	 */
-	private $_pageSizeW;
+	private $pageSizeW;
 	
 	/**
 	 * Page Size Height
 	 * 
 	 * @var int
 	 */
-	private $_pageSizeH;
+	private $pageSizeH;
 
 	/**
 	 * Page Border Top Size
 	 * 
 	 * @var int
 	 */
-	private $_borderTopSize;
+	private $borderTopSize;
 
 	/**
 	 * Page Border Top Color
 	 * 
 	 * @var int
 	 */
-	private $_borderTopColor;
+	private $borderTopColor;
 
 	/**
 	 * Page Border Left Size
 	 * 
 	 * @var int
 	 */
-	private $_borderLeftSize;
+	private $borderLeftSize;
 
 	/**
 	 * Page Border Left Color
 	 * 
 	 * @var int
 	 */
-	private $_borderLeftColor;
+	private $borderLeftColor;
 
 	/**
 	 * Page Border Right Size
 	 * 
 	 * @var int
 	 */
-	private $_borderRightSize;
+	private $borderRightSize;
 
 	/**
 	 * Page Border Right Color
 	 * 
 	 * @var int
 	 */
-	private $_borderRightColor;
+	private $borderRightColor;
 
 	/**
 	 * Page Border Bottom Size
 	 * 
 	 * @var int
 	 */
-	private $_borderBottomSize;
+	private $borderBottomSize;
 
 	/**
 	 * Page Border Bottom Color
 	 * 
 	 * @var int
 	 */
-	private $_borderBottomColor;
+	private $borderBottomColor;
 	
 	/**
 	 * Create new Section Settings
 	 */
 	public function __construct() 
         {
-		$this->_orientation = null;
-		$this->_marginTop = 1418;
-		$this->_marginLeft = 1418;
-		$this->_marginRight	= 1418;
-		$this->_marginBottom = 1134;
-		$this->_pageSizeW = $this->_defaultPageSizeW;
-		$this->_pageSizeH = $this->_defaultPageSizeH;
-		$this->_borderTopSize = null;
-		$this->_borderTopColor = null;
-		$this->_borderLeftSize = null;
-		$this->_borderLeftColor = null;
-		$this->_borderRightSize = null;
-		$this->_borderRightColor = null;
-		$this->_borderBottomSize = null;
-		$this->_borderBottomColor = null;
+		$this->orientation = null;
+		$this->marginTop = 1418;
+		$this->marginLeft = 1418;
+		$this->marginRight	= 1418;
+		$this->marginBottom = 1134;
+		$this->pageSizeW = $this->defaultPageSizeW;
+		$this->pageSizeH = $this->defaultPageSizeH;
+		$this->borderTopSize = null;
+		$this->borderTopColor = null;
+		$this->borderLeftSize = null;
+		$this->borderLeftColor = null;
+		$this->borderRightSize = null;
+		$this->borderRightColor = null;
+		$this->borderBottomSize = null;
+		$this->borderBottomColor = null;
 	}
 	
 	/**
@@ -205,7 +205,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getMarginTop() 
         {
-		return $this->_marginTop;
+		return $this->marginTop;
 	}
 
 	/**
@@ -215,7 +215,7 @@ class Document_Word_Section_Settings
 	 */
 	public function setMarginTop($pValue = '') 
         {
-		$this->_marginTop = $pValue;
+		$this->marginTop = $pValue;
 		return $this;
 	}
 
@@ -226,7 +226,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getMarginLeft() 
         {
-		return $this->_marginLeft;
+		return $this->marginLeft;
 	}
 
 	/**
@@ -236,7 +236,7 @@ class Document_Word_Section_Settings
 	 */
 	public function setMarginLeft($pValue = '') 
         {
-		$this->_marginLeft = $pValue;
+		$this->marginLeft = $pValue;
 		return $this;
 	}
 
@@ -247,7 +247,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getMarginRight() 
         {
-		return $this->_marginRight;
+		return $this->marginRight;
 	}
 
 	/**
@@ -257,7 +257,7 @@ class Document_Word_Section_Settings
 	 */
 	public function setMarginRight($pValue = '') 
         {
-		$this->_marginRight = $pValue;
+		$this->marginRight = $pValue;
 		return $this;
 	}
 
@@ -268,7 +268,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getMarginBottom() 
         {
-		return $this->_marginBottom;
+		return $this->marginBottom;
 	}
 
 	/**
@@ -278,7 +278,7 @@ class Document_Word_Section_Settings
 	 */
 	public function setMarginBottom($pValue = '') 
         {
-		$this->_marginBottom = $pValue;
+		$this->marginBottom = $pValue;
 		return $this;
 	}
 	
@@ -287,9 +287,9 @@ class Document_Word_Section_Settings
 	 */
 	public function setLandscape() 
         {
-		$this->_orientation = 'landscape';
-		$this->_pageSizeW = $this->_defaultPageSizeH;
-		$this->_pageSizeH = $this->_defaultPageSizeW;
+		$this->orientation = 'landscape';
+		$this->pageSizeW = $this->defaultPageSizeH;
+		$this->pageSizeH = $this->defaultPageSizeW;
 	}
 	
 	/**
@@ -297,9 +297,9 @@ class Document_Word_Section_Settings
 	 */
 	public function setPortrait() 
         {
-		$this->_orientation = null;
-		$this->_pageSizeW = $this->_defaultPageSizeW;
-		$this->_pageSizeH = $this->_defaultPageSizeH;
+		$this->orientation = null;
+		$this->pageSizeW = $this->defaultPageSizeW;
+		$this->pageSizeH = $this->defaultPageSizeH;
 	}
 	
 	/**
@@ -309,7 +309,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getPageSizeW() 
         {
-		return $this->_pageSizeW;
+		return $this->pageSizeW;
 	}
 	
 	/**
@@ -319,7 +319,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getPageSizeH() 
         {
-		return $this->_pageSizeH;
+		return $this->pageSizeH;
 	}
 	
 	/**
@@ -329,7 +329,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getOrientation() 
         {
-		return $this->_orientation;
+		return $this->orientation;
 	}
 	
 	/**
@@ -339,10 +339,10 @@ class Document_Word_Section_Settings
 	 */
 	public function setBorderSize($pValue = null) 
         {
-		$this->_borderTopSize = $pValue;
-		$this->_borderLeftSize = $pValue;
-		$this->_borderRightSize = $pValue;
-		$this->_borderBottomSize = $pValue;
+		$this->borderTopSize = $pValue;
+		$this->borderLeftSize = $pValue;
+		$this->borderRightSize = $pValue;
+		$this->borderBottomSize = $pValue;
 	}
 	
 	/**
@@ -367,10 +367,10 @@ class Document_Word_Section_Settings
 	 */
 	public function setBorderColor($pValue = null) 
         {
-		$this->_borderTopColor = $pValue;
-		$this->_borderLeftColor = $pValue;
-		$this->_borderRightColor = $pValue;
-		$this->_borderBottomColor = $pValue;
+		$this->borderTopColor = $pValue;
+		$this->borderLeftColor = $pValue;
+		$this->borderRightColor = $pValue;
+		$this->borderBottomColor = $pValue;
 	}
 	
 	/**
@@ -395,7 +395,7 @@ class Document_Word_Section_Settings
 	 */
 	public function setBorderTopSize($pValue = null) 
         {
-		$this->_borderTopSize = $pValue;
+		$this->borderTopSize = $pValue;
 	}
 	
 	/**
@@ -405,7 +405,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getBorderTopSize() 
         {
-		return $this->_borderTopSize;
+		return $this->borderTopSize;
 	}
 	
 	/**
@@ -415,7 +415,7 @@ class Document_Word_Section_Settings
 	 */
 	public function setBorderTopColor($pValue = null) 
         {
-		$this->_borderTopColor = $pValue;
+		$this->borderTopColor = $pValue;
 	}
 	
 	/**
@@ -425,7 +425,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getBorderTopColor() 
         {
-		return $this->_borderTopColor;
+		return $this->borderTopColor;
 	}
 	
 	/**
@@ -435,7 +435,7 @@ class Document_Word_Section_Settings
 	 */
 	public function setBorderLeftSize($pValue = null) 
         {
-		$this->_borderLeftSize = $pValue;
+		$this->borderLeftSize = $pValue;
 	}
 	
 	/**
@@ -445,7 +445,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getBorderLeftSize() 
         {
-		return $this->_borderLeftSize;
+		return $this->borderLeftSize;
 	}
 	
 	/**
@@ -455,7 +455,7 @@ class Document_Word_Section_Settings
 	 */
 	public function setBorderLeftColor($pValue = null) 
         {
-		$this->_borderLeftColor = $pValue;
+		$this->borderLeftColor = $pValue;
 	}
 	
 	/**
@@ -465,7 +465,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getBorderLeftColor() 
         {
-		return $this->_borderLeftColor;
+		return $this->borderLeftColor;
 	}
 	
 	/**
@@ -475,7 +475,7 @@ class Document_Word_Section_Settings
 	 */
 	public function setBorderRightSize($pValue = null) 
         {
-		$this->_borderRightSize = $pValue;
+		$this->borderRightSize = $pValue;
 	}
 	
 	/**
@@ -485,7 +485,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getBorderRightSize() 
         {
-		return $this->_borderRightSize;
+		return $this->borderRightSize;
 	}
 	
 	/**
@@ -495,7 +495,7 @@ class Document_Word_Section_Settings
 	 */
 	public function setBorderRightColor($pValue = null) 
         {
-		$this->_borderRightColor = $pValue;
+		$this->borderRightColor = $pValue;
 	}
 	
 	/**
@@ -505,7 +505,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getBorderRightColor() 
         {
-		return $this->_borderRightColor;
+		return $this->borderRightColor;
 	}
 	
 	/**
@@ -515,7 +515,7 @@ class Document_Word_Section_Settings
 	 */
 	public function setBorderBottomSize($pValue = null) 
         {
-		$this->_borderBottomSize = $pValue;
+		$this->borderBottomSize = $pValue;
 	}
 	
 	/**
@@ -525,7 +525,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getBorderBottomSize() 
         {
-		return $this->_borderBottomSize;
+		return $this->borderBottomSize;
 	}
 	
 	/**
@@ -535,7 +535,7 @@ class Document_Word_Section_Settings
 	 */
 	public function setBorderBottomColor($pValue = null) 
         {
-		$this->_borderBottomColor = $pValue;
+		$this->borderBottomColor = $pValue;
 	}
 	
 	/**
@@ -545,7 +545,7 @@ class Document_Word_Section_Settings
 	 */
 	public function getBorderBottomColor() 
         {
-		return $this->_borderBottomColor;
+		return $this->borderBottomColor;
 	}
 }
 ?>

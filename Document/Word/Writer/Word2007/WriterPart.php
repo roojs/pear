@@ -28,17 +28,17 @@
 
 abstract class Document_Word_Writer_Word2007_WriterPart 
 {
-	private $_parentWriter;
+	private $parentWriter;
 	
 	public function setParentWriter(Document_Word_Writer_IWriter $pWriter = null) 
         {
-		$this->_parentWriter = $pWriter;
+		$this->parentWriter = $pWriter;
 	}
 	
 	public function getParentWriter() 
         {
-		if (!is_null($this->_parentWriter)) {
-			return $this->_parentWriter;
+		if (!is_null($this->parentWriter)) {
+			return $this->parentWriter;
 		} else {
 			throw new Exception("No parent Document_Word_Writer_IWriter assigned.");
 		}

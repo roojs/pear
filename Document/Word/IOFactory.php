@@ -31,7 +31,7 @@ class Document_Word_IOFactory
      *
      * @var array
      */
-    private static $_searchLocations = array(
+    private static $searchLocations = array(
         array('type' => 'IWriter', 'path' => 'Document/Word/Writer/{0}.php', 'class' => 'Document_Word_Writer_{0}')
     );
 
@@ -40,7 +40,7 @@ class Document_Word_IOFactory
      *
      * @var array
      */
-    private static $_autoResolveClasses = array(
+    private static $autoResolveClasses = array(
         'Serialized'
     );
 
@@ -53,7 +53,7 @@ class Document_Word_IOFactory
      */
     public static function getSearchLocations()
     {
-        return self::$_searchLocations;
+        return self::$searchLocations;
     }
 
     /**
@@ -63,7 +63,7 @@ class Document_Word_IOFactory
     public static function setSearchLocations($value)
     {
         if (is_array($value)) {
-            self::$_searchLocations = $value;
+            self::$searchLocations = $value;
             return;
         }
         throw new Exception('Invalid parameter passed.');
@@ -76,7 +76,7 @@ class Document_Word_IOFactory
      */
     public static function addSearchLocation($type = '', $location = '', $classname = '')
     {
-        self::$_searchLocations[] = array('type' => $type, 'path' => $location, 'class' => $classname);
+        self::$searchLocations[] = array('type' => $type, 'path' => $location, 'class' => $classname);
     }
 
     /**
@@ -90,7 +90,7 @@ class Document_Word_IOFactory
         require_once __DIR__ . '/Writer/' . $writerType . '.php';
         $searchType = 'IWriter';
 
-        foreach (self::$_searchLocations as $searchLocation) {
+        foreach (self::$searchLocations as $searchLocation) {
             if ($searchLocation['type'] == $searchType) {
                 $className = str_replace('{0}', $writerType, $searchLocation['class']);
                 $instance = new $className($documentWord);

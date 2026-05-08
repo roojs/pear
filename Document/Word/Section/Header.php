@@ -41,28 +41,28 @@ class Document_Word_Section_Header
 	 * 
 	 * @var int
 	 */
-	private $_headerCount;
+	private $headerCount;
 	
 	/**
 	 * Header Relation ID
 	 * 
 	 * @var int
 	 */
-	private $_rId;
+	private $rId;
 	
 	/**
 	 * Header Element Collection
 	 * 
 	 * @var int
 	 */
-	private $_elementCollection = array();
+	private $elementCollection = array();
 	
 	/**
 	 * Create a new Header
 	 */
 	public function __construct($sectionCount) 
         {
-		$this->_headerCount = $sectionCount;
+		$this->headerCount = $sectionCount;
 	}
 	
 	/**
@@ -79,7 +79,7 @@ class Document_Word_Section_Header
 		//$givenText = utf8_encode($text);
                 $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$text = new Document_Word_Section_Text($text, $styleFont, $styleParagraph);
-		$this->_elementCollection[] = $text;
+		$this->elementCollection[] = $text;
 		return $text;
 	}
 	
@@ -91,7 +91,7 @@ class Document_Word_Section_Header
 	public function addTextBreak($count = 1) 
         {
 		for($i=1; $i<=$count; $i++) {
-			$this->_elementCollection[] = new Document_Word_Section_TextBreak();
+			$this->elementCollection[] = new Document_Word_Section_TextBreak();
 		}
 	}
 	
@@ -103,7 +103,7 @@ class Document_Word_Section_Header
 	public function createTextRun($styleParagraph = null) 
         {
 		$textRun = new Document_Word_Section_TextRun($styleParagraph);
-		$this->_elementCollection[] = $textRun;
+		$this->elementCollection[] = $textRun;
 		return $textRun;
 	}
 	
@@ -116,8 +116,8 @@ class Document_Word_Section_Header
 	public function addTable($style = null) 
         {
                 require_once __DIR__ . '/Table.php';
-		$table = new Document_Word_Section_Table('header', $this->_headerCount, $style);
-		$this->_elementCollection[] = $table;
+		$table = new Document_Word_Section_Table('header', $this->headerCount, $style);
+		$this->elementCollection[] = $table;
 		return $table;
 	}
 	
@@ -133,10 +133,10 @@ class Document_Word_Section_Header
 		$image = new Document_Word_Section_Image($src, $style);
 		
 		if(!is_null($image->getSource())) {
-			$rID = Document_Word_Media::addHeaderMediaElement($this->_headerCount, $src);
+			$rID = Document_Word_Media::addHeaderMediaElement($this->headerCount, $src);
 			$image->setRelationId($rID);
 			
-			$this->_elementCollection[] = $image;
+			$this->elementCollection[] = $image;
 			return $image;
 		} else {
 			trigger_error('Src does not exist or invalid image type.', E_ERROR);
@@ -154,10 +154,10 @@ class Document_Word_Section_Header
         {
 		$memoryImage = new Document_Word_Section_MemoryImage($link, $style);
 		if(!is_null($memoryImage->getSource())) {
-			$rID = Document_Word_Media::addHeaderMediaElement($this->_headerCount, $link, $memoryImage);
+			$rID = Document_Word_Media::addHeaderMediaElement($this->headerCount, $link, $memoryImage);
 			$memoryImage->setRelationId($rID);
 			
-			$this->_elementCollection[] = $memoryImage;
+			$this->elementCollection[] = $memoryImage;
 			return $memoryImage;
 		} else {
 			trigger_error('Unsupported image type.');
@@ -177,7 +177,7 @@ class Document_Word_Section_Header
                 require_once __DIR__ . '/Footer/PreserveText.php';
 		$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$ptext = new Document_Word_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
-		$this->_elementCollection[] = $ptext;
+		$this->elementCollection[] = $ptext;
 		return $ptext;
 	}
 	
@@ -193,10 +193,10 @@ class Document_Word_Section_Header
 		$image = new Document_Word_Section_Image($src, $style, true);
 		
 		if(!is_null($image->getSource())) {
-			$rID = Document_Word_Media::addHeaderMediaElement($this->_headerCount, $src);
+			$rID = Document_Word_Media::addHeaderMediaElement($this->headerCount, $src);
 			$image->setRelationId($rID);
 			
-			$this->_elementCollection[] = $image;
+			$this->elementCollection[] = $image;
 			return $image;
 		} else {
 			trigger_error('Src does not exist or invalid image type.', E_ERROR);
@@ -208,7 +208,7 @@ class Document_Word_Section_Header
 	 */
 	public function getRelationId() 
         {
-		return $this->_rId;
+		return $this->rId;
 	}
 	
 	/**
@@ -218,7 +218,7 @@ class Document_Word_Section_Header
 	 */
 	public function setRelationId($rId) 
         {
-		$this->_rId = $rId;
+		$this->rId = $rId;
 	}
 	
 	/**
@@ -226,7 +226,7 @@ class Document_Word_Section_Header
 	 */
 	public function getElements() 
         {
-		return $this->_elementCollection;
+		return $this->elementCollection;
 	}
 	
 	/**
@@ -234,7 +234,7 @@ class Document_Word_Section_Header
 	 */
 	public function getHeaderCount() 
         {
-		return $this->_headerCount;
+		return $this->headerCount;
 	}
 }
 ?>

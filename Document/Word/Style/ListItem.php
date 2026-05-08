@@ -45,17 +45,17 @@ class Document_Word_Style_ListItem
 	/**
 	 * List Type (OOXML w:numId when round-tripping via Word2007 writer)
 	 */
-	private $_listType;
+	private $listType;
 
 	/** @var bool When true, HTML writer emits ol; when false, ul */
-	private $_isOrdered = false;
+	private $isOrdered = false;
 	
 	/**
 	 * Create a new ListItem Style
 	 */
 	public function __construct() 
         {
-		$this->_listType = Document_Word_Style_ListItem::TYPE_BULLET_FILLED;
+		$this->listType = Document_Word_Style_ListItem::TYPE_BULLET_FILLED;
 	}
 	
 	/**
@@ -76,7 +76,7 @@ class Document_Word_Style_ListItem
 	 */
 	public function setListType($pValue = Document_Word_Style_ListItem::TYPE_BULLET_FILLED) 
         {
-		$this->_listType = $pValue;
+		$this->listType = $pValue;
 	}
 	
 	/**
@@ -84,7 +84,7 @@ class Document_Word_Style_ListItem
 	 */
 	public function getListType() 
         {
-		return $this->_listType;
+		return $this->listType;
 	}
 
 	/**
@@ -92,7 +92,7 @@ class Document_Word_Style_ListItem
 	 */
 	public function getIsOrdered()
 	{
-		return $this->_isOrdered;
+		return $this->isOrdered;
 	}
 }
 ?>

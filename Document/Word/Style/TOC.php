@@ -46,21 +46,21 @@ class Document_Word_Style_TOC
 	 * 
 	 * @var string
 	 */
-	private $_tabLeader;
+	private $tabLeader;
 	
 	/**
 	 * Tab Position
 	 * 
 	 * @var int
 	 */
-	private $_tabPos;
+	private $tabPos;
 	
 	/**
 	 * Indent
 	 * 
 	 * @var int
 	 */
-	private $_indent;
+	private $indent;
 	
 	
 	/**
@@ -68,9 +68,9 @@ class Document_Word_Style_TOC
 	 */
 	public function __construct() 
         {
-		$this->_tabPos      = 9062;
-		$this->_tabLeader   = Document_Word_Style_TOC::TABLEADER_DOT;
-		$this->_indent      = 200;
+		$this->tabPos      = 9062;
+		$this->tabLeader   = Document_Word_Style_TOC::TABLEADER_DOT;
+		$this->indent      = 200;
 	}
 	
 	/**
@@ -80,7 +80,7 @@ class Document_Word_Style_TOC
 	 */
 	public function getTabPos() 
         {
-		return $this->_tabPos;
+		return $this->tabPos;
 	}
 	
 	/**
@@ -90,7 +90,7 @@ class Document_Word_Style_TOC
 	 */
 	public function setTabPos($pValue) 
         {
-		$this->_tabLeader = $pValue;
+		$this->tabLeader = $pValue;
 	}
 	
 	/**
@@ -100,7 +100,7 @@ class Document_Word_Style_TOC
 	 */
 	public function getTabLeader() 
         {
-		return $this->_tabLeader;
+		return $this->tabLeader;
 	}
 	
 	/**
@@ -110,7 +110,7 @@ class Document_Word_Style_TOC
 	 */
 	public function setTabLeader($pValue = Document_Word_Style_TOC::TABLEADER_DOT) 
         {
-		$this->_tabLeader = $pValue;
+		$this->tabLeader = $pValue;
 	}
 	
 	/**
@@ -120,7 +120,7 @@ class Document_Word_Style_TOC
 	 */
 	public function getIndent() 
         {
-		return $this->_indent;
+		return $this->indent;
 	}
 	
 	/**
@@ -130,7 +130,7 @@ class Document_Word_Style_TOC
 	 */
 	public function setIndent($pValue) 
         {
-		$this->_indent = $pValue;
+		$this->indent = $pValue;
 	}
 	
 	/**

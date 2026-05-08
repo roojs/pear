@@ -35,21 +35,21 @@ class Document_Word_Shared_String
 	 *
 	 * @var string[]
 	 */
-	private static $_controlCharacters = array();
+	private static $controlCharacters = array();
 
 	/**
 	 * Is mbstring extension avalable?
 	 *
 	 * @var boolean
 	 */
-	private static $_isMbstringEnabled;
+	private static $isMbstringEnabled;
 
 	/**
 	 * Is iconv extension avalable?
 	 *
 	 * @var boolean
 	 */
-	private static $_isIconvEnabled;
+	private static $isIconvEnabled;
 
 	/**
 	 * Build control characters array
@@ -59,7 +59,7 @@ class Document_Word_Shared_String
 			if ($i != 9 && $i != 10 && $i != 13) {
 				$find = '_x' . sprintf('%04s' , strtoupper(dechex($i))) . '_';
 				$replace = chr($i);
-				self::$_controlCharacters[$find] = $replace;
+				self::$controlCharacters[$find] = $replace;
 			}
 		}
 	}
@@ -71,14 +71,14 @@ class Document_Word_Shared_String
 	 */
 	public static function getIsMbstringEnabled()
 	{
-		if (isset(self::$_isMbstringEnabled)) {
-			return self::$_isMbstringEnabled;
+		if (isset(self::$isMbstringEnabled)) {
+			return self::$isMbstringEnabled;
 		}
 
-		self::$_isMbstringEnabled = function_exists('mb_convert_encoding') ?
+		self::$isMbstringEnabled = function_exists('mb_convert_encoding') ?
 			true : false;
 
-		return self::$_isMbstringEnabled;
+		return self::$isMbstringEnabled;
 	}
 
 	/**
@@ -88,14 +88,14 @@ class Document_Word_Shared_String
 	 */
 	public static function getIsIconvEnabled()
 	{
-		if (isset(self::$_isIconvEnabled)) {
-			return self::$_isIconvEnabled;
+		if (isset(self::$isIconvEnabled)) {
+			return self::$isIconvEnabled;
 		}
 
-		self::$_isIconvEnabled = function_exists('iconv') ?
+		self::$isIconvEnabled = function_exists('iconv') ?
 			true : false;
 
-		return self::$_isIconvEnabled;
+		return self::$isIconvEnabled;
 	}
 
 	/**
@@ -113,11 +113,11 @@ class Document_Word_Shared_String
 	 * @return 	string
 	 */
 	public static function ControlCharacterOOXML2PHP($value = '') {
-		if(empty(self::$_controlCharacters)) {
+		if(empty(self::$controlCharacters)) {
 			self::_buildControlCharacters();
 		}
 
-		return str_replace( array_keys(self::$_controlCharacters), array_values(self::$_controlCharacters), $value );
+		return str_replace( array_keys(self::$controlCharacters), array_values(self::$controlCharacters), $value );
 	}
 
 	/**
@@ -135,11 +135,11 @@ class Document_Word_Shared_String
 	 * @return 	string
 	 */
 	public static function ControlCharacterPHP2OOXML($value = '') {
-		if(empty(self::$_controlCharacters)) {
+		if(empty(self::$controlCharacters)) {
 			self::_buildControlCharacters();
 		}
 
-		return str_replace( array_values(self::$_controlCharacters), array_keys(self::$_controlCharacters), $value );
+		return str_replace( array_values(self::$controlCharacters), array_keys(self::$controlCharacters), $value );
 	}
 
 	/**

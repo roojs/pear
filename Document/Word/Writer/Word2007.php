@@ -30,29 +30,29 @@ require_once __DIR__.'/IWriter.php';
 class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter 
 {
 	
-	private $_document;
-	private $_writerParts;
-	private $_diskCachingDirectory;
-	private $_useDiskCaching = false;
-	private $_imageTypes = array();
-	private $_objectTypes = array();
+	private $document;
+	private $writerParts;
+	private $diskCachingDirectory;
+	private $useDiskCaching = false;
+	private $imageTypes = array();
+	private $objectTypes = array();
 	
 	public function __construct(Document_Word $PHPWord = null)
         {
-		$this->_document = $PHPWord;
+		$this->document = $PHPWord;
 		
-		$this->_diskCachingDirectory = './';
+		$this->diskCachingDirectory = './';
                 
-		$this->_writerParts['contenttypes'] = $this->factory('ContentTypes');
-		$this->_writerParts['rels'] = $this->factory('Rels');
-		$this->_writerParts['docprops'] = $this->factory('DocProps');
-		$this->_writerParts['documentrels'] = $this->factory('DocumentRels');
-		$this->_writerParts['document'] = $this->factory('Document');
-		$this->_writerParts['styles'] = $this->factory('Styles');
-		$this->_writerParts['header'] = $this->factory('Header');
-		$this->_writerParts['footer'] = $this->factory('Footer');
+		$this->writerParts['contenttypes'] = $this->factory('ContentTypes');
+		$this->writerParts['rels'] = $this->factory('Rels');
+		$this->writerParts['docprops'] = $this->factory('DocProps');
+		$this->writerParts['documentrels'] = $this->factory('DocumentRels');
+		$this->writerParts['document'] = $this->factory('Document');
+		$this->writerParts['styles'] = $this->factory('Styles');
+		$this->writerParts['header'] = $this->factory('Header');
+		$this->writerParts['footer'] = $this->factory('Footer');
 		
-		foreach($this->_writerParts as $writer) {
+		foreach($this->writerParts as $writer) {
 			$writer->setParentWriter($this);
 		}
 	}
@@ -66,7 +66,7 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 	
 	public function save($pFilename = null) 
         {
-		if(!is_null($this->_document)) {
+		if(!is_null($this->document)) {
 			
 			// If $pFilename is php://output or php://stdout, make it a temporary file...
 			$originalFilename = $pFilename;
@@ -92,7 +92,7 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 			$_secElements = Document_Word_Media::getSectionMediaElements();
 			foreach($_secElements as $element) { // loop through section media elements
 				if($element['type'] != 'hyperlink') {
-					$this->_addFileToPackage($objZip, $element);
+					$this->addFileToPackage($objZip, $element);
 				}
 				$sectionElements[] = $element;
 			}
@@ -102,7 +102,7 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 				if(count($_hdrMedia) > 0) {
 					$objZip->addFromString('word/_rels/'.$_headerFile.'.xml.rels', $this->getWriterPart('documentrels')->writeHeaderFooterRels($_hdrMedia));
 					foreach($_hdrMedia as $element) { // loop through header media elements
-						$this->_addFileToPackage($objZip, $element);
+						$this->addFileToPackage($objZip, $element);
 					}
 				}
 			}
@@ -112,7 +112,7 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 				if(count($_ftrMedia) > 0) {
 					$objZip->addFromString('word/_rels/'.$_footerFile.'.xml.rels', $this->getWriterPart('documentrels')->writeHeaderFooterRels($_ftrMedia));
 					foreach($_ftrMedia as $element) { // loop through footers media elements
-						$this->_addFileToPackage($objZip, $element);
+						$this->addFileToPackage($objZip, $element);
 					}
 				}
 			}
@@ -122,7 +122,7 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 			$_cHdrs    = 0;
 			$_cFtrs    = 0;
 			$rID       = Document_Word_Media::countSectionMediaElements() + 6;
-			$_sections = $this->_document->getSections();
+			$_sections = $this->document->getSections();
 			//echo '<PRE>';print_r($_sections);exit;
 			foreach($_sections as $section) {
 				$_header = $section->getHeader();
@@ -151,13 +151,13 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 			 
 			
             $objZip->addFromString('[Content_Types].xml',
-							$this->getWriterPart('contenttypes')->writeContentTypes($this->_imageTypes, $this->_objectTypes, $_cHdrs, $_cFtrs));
-			$objZip->addFromString('_rels/.rels', $this->getWriterPart('rels')->writeRelationships($this->_document));
-			$objZip->addFromString('docProps/app.xml', $this->getWriterPart('docprops')->writeDocPropsApp($this->_document));
-			$objZip->addFromString('docProps/core.xml', $this->getWriterPart('docprops')->writeDocPropsCore($this->_document));
-			$objZip->addFromString('word/document.xml', $this->getWriterPart('document')->writeDocument($this->_document));
+							$this->getWriterPart('contenttypes')->writeContentTypes($this->imageTypes, $this->objectTypes, $_cHdrs, $_cFtrs));
+			$objZip->addFromString('_rels/.rels', $this->getWriterPart('rels')->writeRelationships($this->document));
+			$objZip->addFromString('docProps/app.xml', $this->getWriterPart('docprops')->writeDocPropsApp($this->document));
+			$objZip->addFromString('docProps/core.xml', $this->getWriterPart('docprops')->writeDocPropsCore($this->document));
+			$objZip->addFromString('word/document.xml', $this->getWriterPart('document')->writeDocument($this->document));
 			$objZip->addFromString('word/_rels/document.xml.rels', $this->getWriterPart('documentrels')->writeDocumentRels($sectionElements));
-			$objZip->addFromString('word/styles.xml', $this->getWriterPart('styles')->writeStyles($this->_document));
+			$objZip->addFromString('word/styles.xml', $this->getWriterPart('styles')->writeStyles($this->document));
             
                         // Write static files
 			$objZip->addFile(__DIR__ . '/../_staticDocParts/numbering.xml', 'word/numbering.xml');
@@ -183,7 +183,7 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 		}
 	}
 	
-	private function _chkContentTypes($src) 
+	private function chkContentTypes($src) 
         {
 		$srcInfo   = pathinfo($src);
 		$extension = strtolower($srcInfo['extension']);
@@ -204,20 +204,20 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
                             $imageext = 'jpg';
 			}
 			
-			if(!in_array($imagetype, $this->_imageTypes)) {
-                            $this->_imageTypes[$imageext] = $imagetype;
+			if(!in_array($imagetype, $this->imageTypes)) {
+                            $this->imageTypes[$imageext] = $imagetype;
 			}
 		} else {
-			if(!in_array($extension, $this->_objectTypes)) {
-				$this->_objectTypes[] = $extension;
+			if(!in_array($extension, $this->objectTypes)) {
+				$this->objectTypes[] = $extension;
 			}
 		}
 	}
 	
 	public function getWriterPart($pPartName = '') 
         {
-		if ($pPartName != '' && isset($this->_writerParts[strtolower($pPartName)])) {
-			return $this->_writerParts[strtolower($pPartName)];
+		if ($pPartName != '' && isset($this->writerParts[strtolower($pPartName)])) {
+			return $this->writerParts[strtolower($pPartName)];
 		} else {
 			return null;
 		}
@@ -225,16 +225,16 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 	
 	public function getUseDiskCaching() 
         {
-		return $this->_useDiskCaching;
+		return $this->useDiskCaching;
 	}
 
 	public function setUseDiskCaching($pValue = false, $pDirectory = null) 
         {
-		$this->_useDiskCaching = $pValue;
+		$this->useDiskCaching = $pValue;
 		
 		if (!is_null($pDirectory)) {
 			if (is_dir($pDirectory)) {
-				$this->_diskCachingDirectory = $pDirectory;
+				$this->diskCachingDirectory = $pDirectory;
 			} else {
 				throw new Exception("Directory does not exist: $pDirectory");
 			}
@@ -243,7 +243,7 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 		return $this;
 	}
 	
-	private function _addFileToPackage($objZip, $element) 
+	private function addFileToPackage($objZip, $element) 
         {
 		if(isset($element['isMemImage']) && $element['isMemImage']) {
 			$image = call_user_func($element['createfunction'], $element['source']);
@@ -254,10 +254,10 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 			$objZip->addFromString('word/'.$element['target'], $imageContents);
 			imagedestroy($image);
 			
-			$this->_chkContentTypes($element['source']);
+			$this->chkContentTypes($element['source']);
 		} else {
 			$objZip->addFile($element['source'], 'word/'.$element['target']);
-			$this->_chkContentTypes($element['source']);
+			$this->chkContentTypes($element['source']);
 		}
 	}
 }

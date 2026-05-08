@@ -41,35 +41,35 @@ class Document_Word_Section_Table_Cell
 	 * 
 	 * @var int
 	 */
-	private $_width = null;
+	private $width = null;
 	
 	/**
 	 * Cell Style
 	 * 
 	 * @var PHPWord_Style_Cell
 	 */
-	private $_style;
+	private $style;
 	
 	/**
 	 * Cell Element Collection
 	 * 
 	 * @var array
 	 */
-	private $_elementCollection = array();
+	private $elementCollection = array();
 	
 	/**
 	 * Table holder
 	 * 
 	 * @var string
 	 */
-	private $_insideOf;
+	private $insideOf;
 	
 	/**
 	 * Section/Header/Footer count
 	 * 
 	 * @var int
 	 */
-	private $_pCount;
+	private $pCount;
 	
 	
 	/**
@@ -83,22 +83,22 @@ class Document_Word_Section_Table_Cell
 	public function __construct($insideOf, $pCount, $width = null, $style = null) 
         {
                 require_once __DIR__ . '/../../Style/Cell.php';
-		$this->_insideOf = $insideOf;
-		$this->_pCount = $pCount;
-		$this->_width = $width;
+		$this->insideOf = $insideOf;
+		$this->pCount = $pCount;
+		$this->width = $width;
 		
 		if(!is_null($style)) {
 			if(is_array($style)) {
-				$this->_style = new Document_Word_Style_Cell();
+				$this->style = new Document_Word_Style_Cell();
 				
 				foreach($style as $key => $value) {
 					if(substr($key, 0, 1) != '_') {
 						$key = '_'.$key;
 					}
-					$this->_style->setStyleValue($key, $value);
+					$this->style->setStyleValue($key, $value);
 				}
 			} else {
-				$this->_style = $style;
+				$this->style = $style;
 			}
 		}
 	}
@@ -116,7 +116,7 @@ class Document_Word_Section_Table_Cell
 		//$text = utf8_encode($text);
                 $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$text = new Document_Word_Section_Text($text, $styleFont, $styleParagraph);
-		$this->_elementCollection[] = $text;
+		$this->elementCollection[] = $text;
 		return $text;
 	}
 	
@@ -132,7 +132,7 @@ class Document_Word_Section_Table_Cell
         {
                 require_once __DIR__ . '/../../Media.php';
                 require_once __DIR__ . '/../Link.php';
-		if($this->_insideOf == 'section') {
+		if($this->insideOf == 'section') {
 			$linkSrc = utf8_encode($linkSrc);
 			if(!is_null($linkName)) {
 				$linkName = utf8_encode($linkName);
@@ -142,7 +142,7 @@ class Document_Word_Section_Table_Cell
 			$rID = Document_Word_Media::addSectionLinkElement($linkSrc);
 			$link->setRelationId($rID);
 			
-			$this->_elementCollection[] = $link;
+			$this->elementCollection[] = $link;
 			return $link;
 		} else {
 			trigger_error('Unsupported Link header / footer reference');
@@ -157,7 +157,7 @@ class Document_Word_Section_Table_Cell
 	 */
 	public function addTextBreak() 
         {
-		$this->_elementCollection[] = new Document_Word_Section_TextBreak();
+		$this->elementCollection[] = new Document_Word_Section_TextBreak();
 	}
 	
 	/**
@@ -173,7 +173,7 @@ class Document_Word_Section_Table_Cell
         {
 		$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$listItem = new Document_Word_Section_ListItem($text, $depth, $styleText, $styleList);
-		$this->_elementCollection[] = $listItem;
+		$this->elementCollection[] = $listItem;
 		return $listItem;
 	}
 	
@@ -191,16 +191,16 @@ class Document_Word_Section_Table_Cell
 		
 		if(!is_null($image->getSource())) {
                         require_once __DIR__ . '/../../Media.php';
-			if($this->_insideOf == 'section') {
+			if($this->insideOf == 'section') {
 				$rID = Document_Word_Media::addSectionMediaElement($src, 'image');
-			} elseif($this->_insideOf == 'header') {
-				$rID = Document_Word_Media::addHeaderMediaElement($this->_pCount, $src);
-			} elseif($this->_insideOf == 'footer') {
-				$rID = Document_Word_Media::addFooterMediaElement($this->_pCount, $src);
+			} elseif($this->insideOf == 'header') {
+				$rID = Document_Word_Media::addHeaderMediaElement($this->pCount, $src);
+			} elseif($this->insideOf == 'footer') {
+				$rID = Document_Word_Media::addFooterMediaElement($this->pCount, $src);
 			}
 			$image->setRelationId($rID);
 			
-			$this->_elementCollection[] = $image;
+			$this->elementCollection[] = $image;
 			return $image;
 		} else {
 			trigger_error('Source does not exist or unsupported image type.');
@@ -218,16 +218,16 @@ class Document_Word_Section_Table_Cell
         {
 		$memoryImage = new Document_Word_Section_MemoryImage($link, $style);
 		if(!is_null($memoryImage->getSource())) {
-			if($this->_insideOf == 'section') {
+			if($this->insideOf == 'section') {
 				$rID = Document_Word_Media::addSectionMediaElement($link, 'image', $memoryImage);
-			} elseif($this->_insideOf == 'header') {
-				$rID = Document_Word_Media::addHeaderMediaElement($this->_pCount, $link, $memoryImage);
-			} elseif($this->_insideOf == 'footer') {
-				$rID = Document_Word_Media::addFooterMediaElement($this->_pCount, $link, $memoryImage);
+			} elseif($this->insideOf == 'header') {
+				$rID = Document_Word_Media::addHeaderMediaElement($this->pCount, $link, $memoryImage);
+			} elseif($this->insideOf == 'footer') {
+				$rID = Document_Word_Media::addFooterMediaElement($this->pCount, $link, $memoryImage);
 			}
 			$memoryImage->setRelationId($rID);
 			
-			$this->_elementCollection[] = $memoryImage;
+			$this->elementCollection[] = $memoryImage;
 			return $memoryImage;
 		} else {
 			trigger_error('Unsupported image type.');
@@ -268,7 +268,7 @@ class Document_Word_Section_Table_Cell
 			$object->setObjectId($objectId);
 			$object->setImageRelationId($rIDimg);
 			
-			$this->_elementCollection[] = $object;
+			$this->elementCollection[] = $object;
 			return $object;
 		} else {
 			trigger_error('Source does not exist or unsupported object type.');
@@ -286,10 +286,10 @@ class Document_Word_Section_Table_Cell
 	public function addPreserveText($text, $styleFont = null, $styleParagraph = null) 
         {
                 require_once __DIR__ . '/../Footer/PreserveText.php';
-		if($this->_insideOf == 'footer' || $this->_insideOf == 'header') {
+		if($this->insideOf == 'footer' || $this->insideOf == 'header') {
 			$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 			$ptext = new Document_Word_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
-			$this->_elementCollection[] = $ptext;
+			$this->elementCollection[] = $ptext;
 			return $ptext;
 		} else {
 			trigger_error('addPreserveText only supported in footer/header.');
@@ -305,7 +305,7 @@ class Document_Word_Section_Table_Cell
         {
                 require_once __DIR__ . '/../TextRun.php';
 		$textRun = new Document_Word_Section_TextRun($styleParagraph);
-		$this->_elementCollection[] = $textRun;
+		$this->elementCollection[] = $textRun;
 		return $textRun;
 	}
 	
@@ -316,7 +316,7 @@ class Document_Word_Section_Table_Cell
 	 */
 	public function getElements() 
         {
-		return $this->_elementCollection;
+		return $this->elementCollection;
 	}
 	
 	/**
@@ -326,7 +326,7 @@ class Document_Word_Section_Table_Cell
 	 */
 	public function getStyle() 
         {
-		return $this->_style;
+		return $this->style;
 	}
 	
 	/**
@@ -336,6 +336,6 @@ class Document_Word_Section_Table_Cell
 	 */
 	public function getWidth() 
         {
-		return $this->_width;
+		return $this->width;
 	}
 }

@@ -36,9 +36,9 @@
 class Document_Word_Style_Image 
 {
 	
-	private $_width;
-	private $_height;
-	private $_align;
+	private $width;
+	private $height;
+	private $align;
 	
 	var $_cropb;
 	var $_cropl;
@@ -50,22 +50,22 @@ class Document_Word_Style_Image
 	 * 
 	 * @var int
 	 */
-	private $_marginTop;
+	private $marginTop;
 	
 	/**
 	 * Margin Left
 	 * 
 	 * @var int
 	 */
-	private $_marginLeft;
+	private $marginLeft;
 	
 	public function __construct() 
         {
-		$this->_width  = null;
-		$this->_height = null;
-		$this->_align = null;
-		$this->_marginTop = null;
-		$this->_marginLeft = null;
+		$this->width  = null;
+		$this->height = null;
+		$this->align = null;
+		$this->marginTop = null;
+		$this->marginLeft = null;
 	}
 	
 	public function setStyleValue($key, $value) 
@@ -75,32 +75,32 @@ class Document_Word_Style_Image
 	
 	public function getWidth() 
         {
-		return $this->_width;
+		return $this->width;
 	}
 	
 	public function setWidth($pValue = null) 
         {
-		$this->_width = $pValue;
+		$this->width = $pValue;
 	}
 	
 	public function getHeight() 
         {
-		return $this->_height;
+		return $this->height;
 	}
 	
 	public function setHeight($pValue = null) 
         {
-		$this->_height = $pValue;
+		$this->height = $pValue;
 	}
 	
 	public function getAlign() 
         {
-		return $this->_align;
+		return $this->align;
 	}
 	
 	public function setAlign($pValue = null) 
         {
-		$this->_align = $pValue;
+		$this->align = $pValue;
 	}
 	
 	/**
@@ -110,7 +110,7 @@ class Document_Word_Style_Image
 	 */
 	public function getMarginTop() 
         {
-		return $this->_marginTop;
+		return $this->marginTop;
 	}
 
 	/**
@@ -120,7 +120,7 @@ class Document_Word_Style_Image
 	 */
 	public function setMarginTop($pValue = null) 
         {
-		$this->_marginTop = $pValue;
+		$this->marginTop = $pValue;
 		return $this;
 	}
 
@@ -131,7 +131,7 @@ class Document_Word_Style_Image
 	 */
 	public function getMarginLeft() 
         {
-		return $this->_marginLeft;
+		return $this->marginLeft;
 	}
 
 	/**
@@ -141,7 +141,7 @@ class Document_Word_Style_Image
 	 */
 	public function setMarginLeft($pValue = null) 
         {
-		$this->_marginLeft = $pValue;
+		$this->marginLeft = $pValue;
 		return $this;
 	}
 }
