@@ -185,13 +185,16 @@ class Document_Word_Section_Settings
 	 */
 	public function setSettingValue($key, $value) 
         {
+		if(substr($key, 0, 1) == '_' && !property_exists($this, $key) && property_exists($this, substr($key, 1))) {
+			$key = substr($key, 1);
+		}
 		if($key == 'orientation' && $value == 'landscape') {
 			$this->setLandscape();
 		} elseif($key == 'orientation' && is_null($value)) {
 			$this->setPortrait();
-		} elseif($key == '_borderSize') {
+		} elseif($key == 'borderSize') {
 			$this->setBorderSize($value);
-		} elseif($key == '_borderColor') {
+		} elseif($key == 'borderColor') {
 			$this->setBorderColor($value);
 		} else {
 			$this->$key = $value;

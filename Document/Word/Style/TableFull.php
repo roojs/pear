@@ -208,11 +208,14 @@ class Document_Word_Style_TableFull
 	 */
 	public function setStyleValue($key, $value) 
         {
-		if($key == '_borderSize') {
+		if(substr($key, 0, 1) == '_' && !property_exists($this, $key) && property_exists($this, substr($key, 1))) {
+			$key = substr($key, 1);
+		}
+		if($key == 'borderSize') {
 			$this->setBorderSize($value);
-		} elseif($key == '_borderColor') {
+		} elseif($key == 'borderColor') {
 			$this->setBorderColor($value);
-		} elseif($key == '_cellMargin') {
+		} elseif($key == 'cellMargin') {
 			$this->setCellMargin($value);
 		} else {
 			$this->$key = $value;
