@@ -54,7 +54,7 @@ class Document_Word_Shared_String
 	/**
 	 * Build control characters array
 	 */
-	private static function _buildControlCharacters() {
+	private static function buildControlCharacters() {
 		for ($i = 0; $i <= 19; ++$i) {
 			if ($i != 9 && $i != 10 && $i != 13) {
 				$find = '_x' . sprintf('%04s' , strtoupper(dechex($i))) . '_';
@@ -114,7 +114,7 @@ class Document_Word_Shared_String
 	 */
 	public static function ControlCharacterOOXML2PHP($value = '') {
 		if(empty(self::$controlCharacters)) {
-			self::_buildControlCharacters();
+			self::buildControlCharacters();
 		}
 
 		return str_replace( array_keys(self::$controlCharacters), array_values(self::$controlCharacters), $value );
@@ -136,7 +136,7 @@ class Document_Word_Shared_String
 	 */
 	public static function ControlCharacterPHP2OOXML($value = '') {
 		if(empty(self::$controlCharacters)) {
-			self::_buildControlCharacters();
+			self::buildControlCharacters();
 		}
 
 		return str_replace( array_values(self::$controlCharacters), array_keys(self::$controlCharacters), $value );

@@ -185,9 +185,9 @@ class Document_Word_Section_Settings
 	 */
 	public function setSettingValue($key, $value) 
         {
-		if($key == '_orientation' && $value == 'landscape') {
+		if($key == 'orientation' && $value == 'landscape') {
 			$this->setLandscape();
-		} elseif($key == '_orientation' && is_null($value)) {
+		} elseif($key == 'orientation' && is_null($value)) {
 			$this->setPortrait();
 		} elseif($key == '_borderSize') {
 			$this->setBorderSize($value);

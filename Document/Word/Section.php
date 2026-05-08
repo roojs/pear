@@ -161,7 +161,7 @@ class Document_Word_Section
     {
         require_once __DIR__ . '/Section/TextBreak.php';
         for($i=1; $i<=$count; $i++) {
-            $th->_elementCollection[] = new Document_Word_Section_TextBreak();
+            $th->elementCollection[] = new Document_Word_Section_TextBreak();
         }
 	}
 	
@@ -176,7 +176,7 @@ class Document_Word_Section
 	public static function staticAddPageBreak($th) 
     {
         require_once __DIR__ . '/Section/PageBreak.php';
-		$th->_elementCollection[] = new Document_Word_Section_PageBreak();
+		$th->elementCollection[] = new Document_Word_Section_PageBreak();
 	}
 	
 	/**
@@ -192,8 +192,8 @@ class Document_Word_Section
 	public static function staticAddTable($th, $style = null) 
     {
         require_once __DIR__.'/Section/Table.php';
-		$table = new Document_Word_Section_Table('section', $th->_sectionCount, $style);
-		$th->_elementCollection[] = $table;
+		$table = new Document_Word_Section_Table('section', $th->sectionCount, $style);
+		$th->elementCollection[] = $table;
 		return $table;
 	}
 	/**
@@ -282,7 +282,7 @@ class Document_Word_Section
         $rID = Document_Word_Media::addSectionMediaElement($src, 'image');
         $image->setRelationId($rID);
 
-        $th->_elementCollection[] = $image;
+        $th->elementCollection[] = $image;
         return $image;
 		 
 			

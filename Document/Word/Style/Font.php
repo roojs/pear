@@ -154,7 +154,7 @@ class Document_Word_Style_Font
 	
 	public function setStyleValue($key, $value) 
      {
-		if($key == '_size') {
+		if($key == 'size') {
 			$value = (int) $value;
 			$value *= 2;
 		}

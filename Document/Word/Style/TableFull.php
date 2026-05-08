@@ -172,15 +172,15 @@ class Document_Word_Style_TableFull
 		if(!is_null($styleFirstRow) && is_array($styleFirstRow)) {
 			$this->firstRow = clone $this;
 			
-			unset($this->firstRow->_firstRow);
-			unset($this->firstRow->_cellMarginBottom);
-			unset($this->firstRow->_cellMarginTop);
-			unset($this->firstRow->_cellMarginLeft);
-			unset($this->firstRow->_cellMarginRight);
-			unset($this->firstRow->_borderInsideVColor);
-			unset($this->firstRow->_borderInsideVSize);
-			unset($this->firstRow->_borderInsideHColor);
-			unset($this->firstRow->_borderInsideHSize);
+			unset($this->firstRow->firstRow);
+			unset($this->firstRow->cellMarginBottom);
+			unset($this->firstRow->cellMarginTop);
+			unset($this->firstRow->cellMarginLeft);
+			unset($this->firstRow->cellMarginRight);
+			unset($this->firstRow->borderInsideVColor);
+			unset($this->firstRow->borderInsideVSize);
+			unset($this->firstRow->borderInsideHColor);
+			unset($this->firstRow->borderInsideHSize);
 			foreach($styleFirstRow as $key => $value) {
 				if(substr($key, 0, 1) != '_') {
 					$key = '_'.$key;
