@@ -157,11 +157,14 @@ class Document_Word_Style_Cell
 	 */
 	public function setStyleValue($key, $value) 
         {
-		if($key == '_borderSize') {
+		if(substr($key, 0, 1) == '_' && !property_exists($this, $key) && property_exists($this, substr($key, 1))) {
+			$key = substr($key, 1);
+		}
+		if($key == 'borderSize') {
 			$this->setBorderSize($value);
 			return;
 		} 
-		if ($key == '_borderColor') {
+		if ($key == 'borderColor') {
 			$this->setBorderColor($value);
 			return;
 		}

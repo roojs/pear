@@ -66,6 +66,9 @@ class Document_Word_Style_ListItem
 	 */
 	public function setStyleValue($key, $value) 
         {
+		if(substr($key, 0, 1) == '_' && !property_exists($this, $key) && property_exists($this, substr($key, 1))) {
+			$key = substr($key, 1);
+		}
 		$this->$key = $value;
 	}
 	

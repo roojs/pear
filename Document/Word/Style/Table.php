@@ -82,6 +82,9 @@ class Document_Word_Style_Table
 	
 	public function setStyleValue($key, $value) 
     {
+		if(substr($key, 0, 1) == '_' && !property_exists($this, $key) && property_exists($this, substr($key, 1))) {
+			$key = substr($key, 1);
+		}
 		$cache = array();
 		if (empty($cache)) {
 			$ar = get_class_vars(get_class($this));
