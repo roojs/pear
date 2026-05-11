@@ -44,20 +44,19 @@ class Document_Word_Section_TextRun
 	private $styleParagraph;
 	
 	/**
-	 * Text collection
-	 * 
+	 * Element collection (same property name as {@see Document_Word_Section::$elementCollection}; used by staticAdd*).
+	 *
 	 * @var array
 	 */
-	public $_elementCollection;
-	
-	
+	public $elementCollection = array();
+
 	/**
 	 * Create a new TextRun Element
 	 */
 	public function __construct($styleParagraph = null) 
         {
                 require_once __DIR__ . '/../Style/Paragraph.php';
-		$this->_elementCollection = array();
+		$this->elementCollection = array();
 		
 		// Set paragraph style
 		if(is_array($styleParagraph)) {
@@ -88,7 +87,7 @@ class Document_Word_Section_TextRun
 		//$text = utf8_encode($text);
                 $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
 		$text = new Document_Word_Section_Text($text, $styleFont);
-		$this->_elementCollection[] = $text;
+		$this->elementCollection[] = $text;
 		return $text;
 	}
 	
@@ -115,7 +114,7 @@ class Document_Word_Section_TextRun
 		$rID = Document_Word_Media::addSectionLinkElement($linkSrc);
 		$link->setRelationId($rID);
 		
-		$this->_elementCollection[] = $link;
+		$this->elementCollection[] = $link;
 		return $link;
 	}
 	public function addImage($src, $style = null) 
@@ -145,7 +144,7 @@ class Document_Word_Section_TextRun
 	 */
 	public function getElements() 
         {
-		return $this->_elementCollection;
+		return $this->elementCollection;
 	}
 	
 	/**
