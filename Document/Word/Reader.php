@@ -271,9 +271,6 @@ class Document_Word_Reader
             }
             $this->stylesById[$sid] = $st;
         }
-
-        var_dump($this->stylesById);
-        die('test');
     }
 
     /**
