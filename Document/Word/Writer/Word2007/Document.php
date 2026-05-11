@@ -56,40 +56,40 @@ class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word20
 		
 		$objWriter->startElement('w:body');
 		
-		$_sections = $pPHPWord->getSections();
-		$countSections = count($_sections);
+		$sections = $pPHPWord->getSections();
+		$countSections = count($sections);
 		$pSection = 0;
 		
 		if($countSections < 1 ) {
-                    $_sections = array();
+                    $sections = array();
                 }
-                foreach($_sections as $section) {
+                foreach($sections as $section) {
                         $pSection++;
 
-                        $_elements = $section->getElements();
+                        $elements = $section->getElements();
 
-                        foreach($_elements as $element) {
+                        foreach($elements as $element) {
                                 if($element instanceof Document_Word_Section_Text) {
-                                        $this->_writeText($objWriter, $element);
+                                        $this->writeText($objWriter, $element);
                                 } elseif($element instanceof Document_Word_Section_TextRun) {
-                                        $this->_writeTextRun($objWriter, $element);
+                                        $this->writeTextRun($objWriter, $element);
                                 } elseif($element instanceof Document_Word_Section_Link) {
-                                        $this->_writeLink($objWriter, $element);
+                                        $this->writeLink($objWriter, $element);
                                 } elseif($element instanceof Document_Word_Section_Title) {
-                                        $this->_writeTitle($objWriter, $element);
+                                        $this->writeTitle($objWriter, $element);
                                 } elseif($element instanceof Document_Word_Section_TextBreak) {
-                                        $this->_writeTextBreak($objWriter);
+                                        $this->writeTextBreak($objWriter);
                                 } elseif($element instanceof Document_Word_Section_PageBreak) {
                                         $this->writePageBreak($objWriter);
                                 } elseif($element instanceof Document_Word_Section_Table) {
-                                        $this->_writeTable($objWriter, $element);
+                                        $this->writeTable($objWriter, $element);
                                 } elseif($element instanceof Document_Word_Section_ListItem) {
                                         $this->writeListItem($objWriter, $element);
                                 } elseif($element instanceof Document_Word_Section_Image ||
                                                  $element instanceof Document_Word_Section_MemoryImage) {
-                                        $this->_writeImage($objWriter, $element);
+                                        $this->writeImage($objWriter, $element);
                                 } elseif($element instanceof Document_Word_Section_Object) {
-                                        $this->_writeObject($objWriter, $element);
+                                        $this->writeObject($objWriter, $element);
                                 } elseif($element instanceof Document_Word_TOC) {
                                         $this->writeTOC($objWriter);
                                 }
@@ -121,32 +121,32 @@ class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word20
 	
 	private function writeEndSection(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section $section)
         {
-		$_settings = $section->getSettings();
-		$_header = $section->getHeader();
-		$_footer = $section->getFooter();
-		$pgSzW = $_settings->getPageSizeW();
-		$pgSzH = $_settings->getPageSizeH();
-		$orientation = $_settings->getOrientation();
+		$settings = $section->getSettings();
+		$header = $section->getHeader();
+		$footer = $section->getFooter();
+		$pgSzW = $settings->getPageSizeW();
+		$pgSzH = $settings->getPageSizeH();
+		$orientation = $settings->getOrientation();
 		
-		$marginTop = $_settings->getMarginTop();
-		$marginLeft = $_settings->getMarginLeft();
-		$marginRight = $_settings->getMarginRight();
-		$marginBottom = $_settings->getMarginBottom();
+		$marginTop = $settings->getMarginTop();
+		$marginLeft = $settings->getMarginLeft();
+		$marginRight = $settings->getMarginRight();
+		$marginBottom = $settings->getMarginBottom();
 		
-		$borders = $_settings->getBorderSize();
+		$borders = $settings->getBorderSize();
 		
 		$objWriter->startElement('w:sectPr');
 			
-			if(!is_null($_header)) {
-				$rId = $_header->getRelationId();
+			if(!is_null($header)) {
+				$rId = $header->getRelationId();
 				$objWriter->startElement('w:headerReference');
 					$objWriter->writeAttribute('w:type', 'default');
 					$objWriter->writeAttribute('r:id', 'rId'.$rId);
 				$objWriter->endElement();
 			}
 			
-			if(!is_null($_footer)) {
-				$rId = $_footer->getRelationId();
+			if(!is_null($footer)) {
+				$rId = $footer->getRelationId();
 				$objWriter->startElement('w:footerReference');
 					$objWriter->writeAttribute('w:type', 'default');
 					$objWriter->writeAttribute('r:id', 'rId'.$rId);
@@ -175,7 +175,7 @@ class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word20
 			
 			
 			if(!is_null($borders[0]) || !is_null($borders[1]) || !is_null($borders[2]) || !is_null($borders[3])) {
-				$borderColor = $_settings->getBorderColor();
+				$borderColor = $settings->getBorderColor();
 				
 				$objWriter->startElement('w:pgBorders');
 					$objWriter->writeAttribute('w:offsetFrom', 'page');
@@ -252,7 +252,7 @@ class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word20
 			$objWriter->startElement('w:pPr');
             
                 if($SpIsObject) {
-                    $this->_writeParagraphStyle($objWriter, $styleParagraph, true);
+                    $this->writeParagraphStyle($objWriter, $styleParagraph, true);
                 } elseif(!$SpIsObject && !is_null($styleParagraph)) {
                     $objWriter->startElement('w:pStyle');
                         $objWriter->writeAttribute('w:val', $styleParagraph);
@@ -272,12 +272,12 @@ class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word20
 				$objWriter->endElement();
 			$objWriter->endElement();
 			
-			$this->_writeText($objWriter, $textObject, true);
+			$this->writeText($objWriter, $textObject, true);
 			
 		$objWriter->endElement();
 	}
 	
-	protected function _writeObject(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_Object $object)
+	protected function writeObject(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_Object $object)
         {
 		$rIdObject = $object->getRelationId();
 		$rIdImage = $object->getImageRelationId();
@@ -357,7 +357,7 @@ class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word20
 				$objWriter->startElement('w:pPr');
 					
                     if($isObject && !is_null($styleFont->getParagraphStyle())) {
-                        $this->_writeParagraphStyle($objWriter, $styleFont->getParagraphStyle());
+                        $this->writeParagraphStyle($objWriter, $styleFont->getParagraphStyle());
                     }
 					
 					if($indent > 0) {
@@ -415,7 +415,7 @@ class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word20
 					$objWriter->startElement('w:r');
 					
 						if($isObject) {
-							$this->_writeTextStyle($objWriter, $styleFont);
+							$this->writeTextStyle($objWriter, $styleFont);
 						}
 						
 						$objWriter->startElement('w:t');

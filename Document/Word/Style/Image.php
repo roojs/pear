@@ -40,10 +40,10 @@ class Document_Word_Style_Image
 	private $height;
 	private $align;
 	
-	var $_cropb;
-	var $_cropl;
-	var $_cropr;
-	var $_cropt;
+	var $cropb;
+	var $cropl;
+	var $cropr;
+	var $cropt;
 
 	/**
 	 * Margin Top

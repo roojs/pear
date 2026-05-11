@@ -91,10 +91,10 @@ class Document_Word_Writer_Word2007_Styles extends Document_Word_Writer_Word2007
 						
 						if(!is_null($paragraphStyle)) {
                                                   //  print_r($paragraphStyle);exit;
-							$this->_writeParagraphStyle($objWriter, $paragraphStyle);
+							$this->writeParagraphStyle($objWriter, $paragraphStyle);
 						}
 						
-						$this->_writeTextStyle($objWriter, $style);
+						$this->writeTextStyle($objWriter, $style);
 						
 					$objWriter->endElement();
 		
@@ -108,7 +108,7 @@ class Document_Word_Writer_Word2007_Styles extends Document_Word_Writer_Word2007
 							$objWriter->writeAttribute('w:val', $styleName);
 						$objWriter->endElement();
 						
-						$this->_writeParagraphStyle($objWriter, $style);
+						$this->writeParagraphStyle($objWriter, $style);
 					$objWriter->endElement();
 					
 				} elseif($style instanceof Document_Word_Style_TableFull) {

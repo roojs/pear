@@ -97,24 +97,24 @@ class Document_Word_Style_Font
 	private $fgColor;
 
 	/// not used - but set by setstyle	
-	var $_align;
-	var $_bgcolor;
-	var $_fontStretch;
-	var $_fontVariant;
-	var $_href;
-	var $_lang;
-	var $_lineHeight;
-	var $_marginBottom;
-	var $_marginLeft;
-	var $_marginRight;
-	var $_marginTop;
-	var $_Normal;
-	var $_Reference;
-	var $_textDecoration;
-	var $_textIndent;
-	var $_textPosition;
-	var $_textTransform;
-	var $_widows;
+	var $align;
+	var $bgcolor;
+	var $fontStretch;
+	var $fontVariant;
+	var $href;
+	var $lang;
+	var $lineHeight;
+	var $marginBottom;
+	var $marginLeft;
+	var $marginRight;
+	var $marginTop;
+	var $Normal;
+	var $Reference;
+	var $textDecoration;
+	var $textIndent;
+	var $textPosition;
+	var $textTransform;
+	var $widows;
 	
 	
 	

@@ -54,22 +54,22 @@ class Document_Word_Writer_Word2007_Footer extends Document_Word_Writer_Word2007
 			$objWriter->writeAttribute('xmlns:w','http://schemas.openxmlformats.org/wordprocessingml/2006/main');
 			$objWriter->writeAttribute('xmlns:wne','http://schemas.microsoft.com/office/word/2006/wordml');
 		
-		$_elements = $footer->getElements();
+		$elements = $footer->getElements();
 		
-		foreach($_elements as $element) {
+		foreach($elements as $element) {
 			if($element instanceof Document_Word_Section_Text) {
-				$this->_writeText($objWriter, $element);
+				$this->writeText($objWriter, $element);
 			} elseif($element instanceof Document_Word_Section_TextRun) {
-				$this->_writeTextRun($objWriter, $element);
+				$this->writeTextRun($objWriter, $element);
 			} elseif($element instanceof Document_Word_Section_TextBreak) {
-				$this->_writeTextBreak($objWriter);
+				$this->writeTextBreak($objWriter);
 			} elseif($element instanceof Document_Word_Section_Table) {
-				$this->_writeTable($objWriter, $element);
+				$this->writeTable($objWriter, $element);
 			} elseif($element instanceof Document_Word_Section_Image ||
 					 $element instanceof Document_Word_Section_MemoryImage) {
-				$this->_writeImage($objWriter, $element);
+				$this->writeImage($objWriter, $element);
 			} elseif($element instanceof Document_Word_Section_Footer_PreserveText) {
-				$this->_writePreserveText($objWriter, $element,true);
+				$this->writePreserveText($objWriter, $element,true);
 			}
 		}
 		

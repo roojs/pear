@@ -523,7 +523,7 @@ class Document_Word_Reader
         }
     }
 
-    public static function _unlinkQueuedImageTemps()
+    public static function unlinkQueuedImageTemps()
     {
         foreach (self::$extractedImageTemps as $p) {
             @unlink($p);
@@ -539,7 +539,7 @@ class Document_Word_Reader
         self::$extractedImageTemps[] = $path;
         if (!self::$shutdownCleanupRegistered) {
             self::$shutdownCleanupRegistered = true;
-            register_shutdown_function(array('Document_Word_Reader', '_unlinkQueuedImageTemps'));
+            register_shutdown_function(array('Document_Word_Reader', 'unlinkQueuedImageTemps'));
         }
     }
 

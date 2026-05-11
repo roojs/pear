@@ -239,7 +239,7 @@ class Document_Word_Style_TableFull
 	 */
 	public function getLastRow() 
         {
-		return $this->_lastRow;
+		return $this->lastRow;
 	}
 	
 	public function getBgColor() 

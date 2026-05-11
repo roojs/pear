@@ -33,42 +33,42 @@ class Document_Word_Style_Table
 	private $cellMarginLeft;
 	private $cellMarginRight;
 	private $cellMarginBottom;
-    public  $_fixed = false;
+    public  $fixed = false;
 	
 	// not used..
-	var $_width0;
-	var $_width0_dax;
-	var $_width1;
-	var $_width1_dax;
-	var $_width2;
-	var $_width2_dax;
-	var $_width3;
-	var $_width3_dax;
-	var $_width4;
-	var $_width4_dax;
-	var $_width5;
-	var $_width5_dax;
+	var $width0;
+	var $width0_dax;
+	var $width1;
+	var $width1_dax;
+	var $width2;
+	var $width2_dax;
+	var $width3;
+	var $width3_dax;
+	var $width4;
+	var $width4_dax;
+	var $width5;
+	var $width5_dax;
 	
-	var $_listtag;
+	var $listtag;
 	
-	var $_height0;
-	var $_height1;
-	var $_height2;
-	var $_height3;
-	var $_height4;
-	var $_height5;
-	var $_height6;
-	var $_height7;
-	var $_height8;
-	var $_height9;
-	var $_height10;
-	var $_height11;
-	var $_height12;
+	var $height0;
+	var $height1;
+	var $height2;
+	var $height3;
+	var $height4;
+	var $height5;
+	var $height6;
+	var $height7;
+	var $height8;
+	var $height9;
+	var $height10;
+	var $height11;
+	var $height12;
 
-	var $_leftstyle;
-	var $_borderleftcolor;
-	var $_bgstyle;
-	var $_bgcolor;
+	var $leftstyle;
+	var $borderleftcolor;
+	var $bgstyle;
+	var $bgcolor;
 	
 		
 

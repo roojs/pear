@@ -81,10 +81,10 @@ class Document_Word_Section_Object
 	public function __construct($src, $style = null) 
         {
                 require_once __DIR__ . '/../Style/Image.php';
-		$_supportedObjectTypes = array('xls', 'doc', 'ppt');
+		$supportedObjectTypes = array('xls', 'doc', 'ppt');
 		$inf = pathinfo($src);
 		
-		if(file_exists($src) && in_array($inf['extension'], $_supportedObjectTypes)) {
+		if(file_exists($src) && in_array($inf['extension'], $supportedObjectTypes)) {
 			$this->src = $src;
 			$this->style = new Document_Word_Style_Image();
 			

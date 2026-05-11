@@ -67,26 +67,26 @@ class Document_Word_Style_Paragraph
     private $liststyle;
 	
 	// not used? but set by setter
-	var $_bgcolor;
-	var $_bold;
-	var $_color;
-	var $_fontStretch;
-	var $_fontVariant;
-	var $_italic;
-	var $_lineHeight;
-	var $_marginBottom;
-	var $_marginLeft;
-	var $_marginRight;
-	var $_marginTop;
-	var $_name;
-	var $_Normal;
-	var $_Reference;
-	var $_size;
-	var $_textDecoration;
-	var $_textIndent;
-	var $_textPosition;
-	var $_widows;
-	var $_domdir;
+	var $bgcolor;
+	var $bold;
+	var $color;
+	var $fontStretch;
+	var $fontVariant;
+	var $italic;
+	var $lineHeight;
+	var $marginBottom;
+	var $marginLeft;
+	var $marginRight;
+	var $marginTop;
+	var $name;
+	var $Normal;
+	var $Reference;
+	var $size;
+	var $textDecoration;
+	var $textIndent;
+	var $textPosition;
+	var $widows;
+	var $domdir;
 	
 	
 	/**

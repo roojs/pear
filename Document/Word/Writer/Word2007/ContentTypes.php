@@ -29,7 +29,7 @@ require_once __DIR__.'/WriterPart.php';
 class Document_Word_Writer_Word2007_ContentTypes extends Document_Word_Writer_Word2007_WriterPart 
 {
 	
-	public function writeContentTypes($_imageTypes, $_objectTypes, $_cHdrs, $_cFtrs) 
+	public function writeContentTypes($imageTypes, $objectTypes, $cHdrs, $cFtrs) 
         {
         require_once __DIR__.'/../../Shared/XMLWriter.php';
 		// Create XML writer
@@ -58,12 +58,12 @@ class Document_Word_Writer_Word2007_ContentTypes extends Document_Word_Writer_Wo
 			);
 			
 			// Add media content-types
-			foreach($_imageTypes as $key => $value) {
+			foreach($imageTypes as $key => $value) {
 				$this->writeDefaultContentType($objWriter, $key, $value);
 			}
 			
 			// Add embedding content-types
-			if(count($_objectTypes) > 0) {
+			if(count($objectTypes) > 0) {
 				$this->writeDefaultContentType($objWriter, 'bin', 'application/vnd.openxmlformats-officedocument.oleObject');
 			}
 			
@@ -111,13 +111,13 @@ class Document_Word_Writer_Word2007_ContentTypes extends Document_Word_Writer_Wo
 				$objWriter, '/word/fontTable.xml', 'application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml'
 			);
 
-			for($i=1; $i<=$_cHdrs; $i++) {
+			for($i=1; $i<=$cHdrs; $i++) {
 				$this->writeOverrideContentType(
 					$objWriter, '/word/header'.$i.'.xml', 'application/vnd.openxmlformats-officedocument.wordprocessingml.header+xml'
 				);
 			}
 			
-			for($i=1; $i<=$_cFtrs; $i++) {
+			for($i=1; $i<=$cFtrs; $i++) {
 				$this->writeOverrideContentType(
 					$objWriter, '/word/footer'.$i.'.xml', 'application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml'
 				);

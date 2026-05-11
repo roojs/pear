@@ -95,9 +95,9 @@ class Document_Word_Section_MemoryImage {
 		$imgData = getimagesize($src);
 		$this->imageType = $imgData['mime'];
 		
-		$_supportedImageTypes = array('image/jpeg', 'image/gif', 'image/png');
+		$supportedImageTypes = array('image/jpeg', 'image/gif', 'image/png');
 		
-		if(in_array($this->imageType, $_supportedImageTypes)) {
+		if(in_array($this->imageType, $supportedImageTypes)) {
 			$this->src = $src;
 			$this->style = new Document_Word_Style_Image();
 			

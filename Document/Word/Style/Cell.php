@@ -123,12 +123,12 @@ class Document_Word_Style_Cell
 	 */
 	private $defaultBorderColor;
 	
-	var $_bgStyle;
-	var $_botAttach;
-	var $_columnNum;
-	var $_mergeto;
-	var $_rowNum;
-	var $_leftstyle;
+	var $bgStyle;
+	var $botAttach;
+	var $columnNum;
+	var $mergeto;
+	var $rowNum;
+	var $leftstyle;
 
 	/**
 	 * Create a new Cell Style
@@ -215,7 +215,7 @@ class Document_Word_Style_Cell
 
 	public function setHeight($pValue = null) 
         {
-	   $this->_height = $pValue;
+	   $this->height = $pValue;
 	}
 	
 	public function setBorderSize($pValue = null) 

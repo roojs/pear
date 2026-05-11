@@ -89,29 +89,29 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 			
 			require_once __DIR__ . '/../Media.php';
 			$sectionElements = array();
-			$_secElements = Document_Word_Media::getSectionMediaElements();
-			foreach($_secElements as $element) { // loop through section media elements
+			$secElements = Document_Word_Media::getSectionMediaElements();
+			foreach($secElements as $element) { // loop through section media elements
 				if($element['type'] != 'hyperlink') {
 					$this->addFileToPackage($objZip, $element);
 				}
 				$sectionElements[] = $element;
 			}
 			
-			$_hdrElements = Document_Word_Media::getHeaderMediaElements();
-			foreach($_hdrElements as $_headerFile => $_hdrMedia) { // loop through headers
-				if(count($_hdrMedia) > 0) {
-					$objZip->addFromString('word/_rels/'.$_headerFile.'.xml.rels', $this->getWriterPart('documentrels')->writeHeaderFooterRels($_hdrMedia));
-					foreach($_hdrMedia as $element) { // loop through header media elements
+			$hdrElements = Document_Word_Media::getHeaderMediaElements();
+			foreach($hdrElements as $headerFile => $hdrMedia) { // loop through headers
+				if(count($hdrMedia) > 0) {
+					$objZip->addFromString('word/_rels/'.$headerFile.'.xml.rels', $this->getWriterPart('documentrels')->writeHeaderFooterRels($hdrMedia));
+					foreach($hdrMedia as $element) { // loop through header media elements
 						$this->addFileToPackage($objZip, $element);
 					}
 				}
 			}
 			
-			$_ftrElements = Document_Word_Media::getFooterMediaElements();
-			foreach($_ftrElements as $_footerFile => $_ftrMedia) { // loop through footers
-				if(count($_ftrMedia) > 0) {
-					$objZip->addFromString('word/_rels/'.$_footerFile.'.xml.rels', $this->getWriterPart('documentrels')->writeHeaderFooterRels($_ftrMedia));
-					foreach($_ftrMedia as $element) { // loop through footers media elements
+			$ftrElements = Document_Word_Media::getFooterMediaElements();
+			foreach($ftrElements as $footerFile => $ftrMedia) { // loop through footers
+				if(count($ftrMedia) > 0) {
+					$objZip->addFromString('word/_rels/'.$footerFile.'.xml.rels', $this->getWriterPart('documentrels')->writeHeaderFooterRels($ftrMedia));
+					foreach($ftrMedia as $element) { // loop through footers media elements
 						$this->addFileToPackage($objZip, $element);
 					}
 				}
@@ -119,30 +119,30 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 			
 			
 			
-			$_cHdrs    = 0;
-			$_cFtrs    = 0;
+			$cHdrs    = 0;
+			$cFtrs    = 0;
 			$rID       = Document_Word_Media::countSectionMediaElements() + 6;
-			$_sections = $this->document->getSections();
-			//echo '<PRE>';print_r($_sections);exit;
-			foreach($_sections as $section) {
-				$_header = $section->getHeader();
-				if(!is_null($_header)) {
-					$_cHdrs++;
-					$_header->setRelationId(++$rID);
-					$_headerCount = $_header->getHeaderCount();
-					$_headerFile = 'header'.$_headerCount.'.xml';
-					$sectionElements[] = array('target'=>$_headerFile, 'type'=>'header', 'rID'=>$rID);
-					$objZip->addFromString('word/'.$_headerFile, $this->getWriterPart('header')->writeHeader($_header));
+			$sections = $this->document->getSections();
+			//echo '<PRE>';print_r($sections);exit;
+			foreach($sections as $section) {
+				$header = $section->getHeader();
+				if(!is_null($header)) {
+					$cHdrs++;
+					$header->setRelationId(++$rID);
+					$headerCount = $header->getHeaderCount();
+					$headerFile = 'header'.$headerCount.'.xml';
+					$sectionElements[] = array('target'=>$headerFile, 'type'=>'header', 'rID'=>$rID);
+					$objZip->addFromString('word/'.$headerFile, $this->getWriterPart('header')->writeHeader($header));
 				}
 				
-				$_footer = $section->getFooter();
-				if(!is_null($_footer)) {
-					$_cFtrs++;
-					$_footer->setRelationId(++$rID);
-					$_footerCount = $_footer->getFooterCount();
-					$_footerFile = 'footer'.$_footerCount.'.xml';
-					$sectionElements[] = array('target'=>$_footerFile, 'type'=>'footer', 'rID'=>$rID);
-					$objZip->addFromString('word/'.$_footerFile, $this->getWriterPart('footer')->writeFooter($_footer));
+				$footer = $section->getFooter();
+				if(!is_null($footer)) {
+					$cFtrs++;
+					$footer->setRelationId(++$rID);
+					$footerCount = $footer->getFooterCount();
+					$footerFile = 'footer'.$footerCount.'.xml';
+					$sectionElements[] = array('target'=>$footerFile, 'type'=>'footer', 'rID'=>$rID);
+					$objZip->addFromString('word/'.$footerFile, $this->getWriterPart('footer')->writeFooter($footer));
 				}
 			}
 		
@@ -151,7 +151,7 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 			 
 			
             $objZip->addFromString('[Content_Types].xml',
-							$this->getWriterPart('contenttypes')->writeContentTypes($this->imageTypes, $this->objectTypes, $_cHdrs, $_cFtrs));
+							$this->getWriterPart('contenttypes')->writeContentTypes($this->imageTypes, $this->objectTypes, $cHdrs, $cFtrs));
 			$objZip->addFromString('_rels/.rels', $this->getWriterPart('rels')->writeRelationships($this->document));
 			$objZip->addFromString('docProps/app.xml', $this->getWriterPart('docprops')->writeDocPropsApp($this->document));
 			$objZip->addFromString('docProps/core.xml', $this->getWriterPart('docprops')->writeDocPropsCore($this->document));
@@ -190,9 +190,9 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 		if(substr($extension, 0, 3) == 'php') {
 			$extension = 'php';
 		}
-		$_supportedImageTypes = array('jpg', 'jpeg', 'gif', 'png', 'bmp', 'tif', 'tiff', 'php');
+		$supportedImageTypes = array('jpg', 'jpeg', 'gif', 'png', 'bmp', 'tif', 'tiff', 'php');
 		
-		if(in_array($extension, $_supportedImageTypes)) {
+		if(in_array($extension, $supportedImageTypes)) {
 			$imagedata = getimagesize($src);
 			$imagetype = image_type_to_mime_type($imagedata[2]);
 			$imageext = image_type_to_extension($imagedata[2]);

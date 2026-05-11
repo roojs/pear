@@ -73,7 +73,7 @@ class Document_Word_Section_Image
 	 */
 	public function __construct($src, $style = null, $isWatermark = false) 
         {
-		$_supportedImageTypes = array('jpg', 'jpeg', 'gif', 'png', 'bmp', 'tif', 'tiff');
+		$supportedImageTypes = array('jpg', 'jpeg', 'gif', 'png', 'bmp', 'tif', 'tiff');
 		
 		$inf = pathinfo($src);
                 
@@ -82,7 +82,7 @@ class Document_Word_Section_Image
                 }
                 
 		$ext = strtolower($inf['extension']);
-		if(file_exists($src) && in_array($ext, $_supportedImageTypes)) {
+		if(file_exists($src) && in_array($ext, $supportedImageTypes)) {
                         require_once __DIR__ . '/../Style/Image.php';
 			$this->src = $src;
 			$this->isWatermark = $isWatermark;

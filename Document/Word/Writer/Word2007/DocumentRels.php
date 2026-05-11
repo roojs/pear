@@ -29,7 +29,7 @@ require_once __DIR__.'/WriterPart.php';
 class Document_Word_Writer_Word2007_DocumentRels extends Document_Word_Writer_Word2007_WriterPart 
 {
 	
-	public function writeDocumentRels($_relsCollection) 
+	public function writeDocumentRels($relsCollection) 
         {
 		// Create XML writer
 		$objWriter = null;
@@ -95,7 +95,7 @@ class Document_Word_Writer_Word2007_DocumentRels extends Document_Word_Writer_Wo
 			);
 			
 			// Relationships to Images / Embeddings / Headers / Footers
-			foreach($_relsCollection as $relation) {
+			foreach($relsCollection as $relation) {
 				$relationType = $relation['type'];
 				$relationName = $relation['target'];
 				$relationId = $relation['rID'];
@@ -117,7 +117,7 @@ class Document_Word_Writer_Word2007_DocumentRels extends Document_Word_Writer_Wo
 		return $objWriter->getData();
 	}
 	
-	public function writeHeaderFooterRels($_relsCollection) 
+	public function writeHeaderFooterRels($relsCollection) 
         {
                 require_once __DIR__ . '/../../Shared/XMLWriter.php';
 		// Create XML writer
@@ -136,7 +136,7 @@ class Document_Word_Writer_Word2007_DocumentRels extends Document_Word_Writer_Wo
 		$objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/package/2006/relationships');
 			
 			// Relationships to Images / Embeddings / Headers / Footers
-			foreach($_relsCollection as $relation) {
+			foreach($relsCollection as $relation) {
 				$relationType = $relation['type'];
 				$relationName = $relation['target'];
 				$relationId = $relation['rID'];
