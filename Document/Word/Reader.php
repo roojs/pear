@@ -152,7 +152,7 @@ class Document_Word_Reader
             return $out;
         }
         $xp = new DOMXPath($dom);
-        $xp->registerNamespace('pkg', self::NS_REL_PKG);
+        // $xp->registerNamespace('pkg', self::NS_REL_PKG);
         $nodes = $xp->query('//pkg:Relationship');
         if ($nodes === false) {
             return $out;
