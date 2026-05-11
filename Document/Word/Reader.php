@@ -851,7 +851,7 @@ class Document_Word_Reader
                 continue;
             }
             if ($c->localName === 't') {
-                $text = $this->textFromT($c);
+                $text = $c->textContent;
                 if ($text !== '') {
                     $tr->addText($text, $fontBase === array() ? null : $fontBase);
                 }
@@ -1174,7 +1174,7 @@ class Document_Word_Reader
         $parts = array();
         foreach ($nodes as $t) {
             if ($t instanceof DOMElement) {
-                $parts[] = $this->textFromT($t);
+                $parts[] = $t->textContent;
             }
         }
 
@@ -1195,20 +1195,13 @@ class Document_Word_Reader
         $parts = array();
         foreach ($nodes as $t) {
             if ($t instanceof DOMElement) {
-                $parts[] = $this->textFromT($t);
+                $parts[] = $t->textContent;
             }
         }
 
         return implode('', $parts);
     }
 
-    /**
-     * @return string
-     */
-    private function textFromT(DOMElement $t)
-    {
-        return $t->textContent;
-    }
 
     /**
      * @return bool
