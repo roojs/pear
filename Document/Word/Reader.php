@@ -512,7 +512,7 @@ class Document_Word_Reader
             $creator = trim($n->textContent);
             break;
         }
-        
+
         if ($title !== '') {
             $doc->getProperties()->setTitle($title);
         }
