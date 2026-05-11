@@ -175,9 +175,6 @@ class Document_Word_Reader
             );
         }
 
-        var_dump($out);
-        die('test');
-
         return $out;
     }
 
