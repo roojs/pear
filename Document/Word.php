@@ -27,9 +27,9 @@ class Document_Word
     public function __construct($filePath = null)
     {
         require_once __DIR__ . '/Word/DocumentProperties.php';
-        $this->_properties = new Document_Word_DocumentProperties();
-        $this->_defaultFontName = 'Arial';
-        $this->_defaultFontSize = 20;
+        $this->properties = new Document_Word_DocumentProperties();
+        $this->defaultFontName = 'Arial';
+        $this->defaultFontSize = 20;
 
         if ($filePath === null || $filePath === '') {
             return;
@@ -45,7 +45,7 @@ class Document_Word
     /** @return Document_Word_DocumentProperties */
     public function getProperties()
     {
-        return $this->_properties;
+        return $this->properties;
     }
 
     /**
@@ -54,7 +54,7 @@ class Document_Word
      */
     public function setProperties($value)
     {
-        $this->_properties = $value;
+        $this->properties = $value;
 
         return $this;
     }
@@ -65,30 +65,30 @@ class Document_Word
         require_once __DIR__ . '/Word/Section.php';
         $sectionCount = $this->countSections() + 1;
         $section = new Document_Word_Section($sectionCount, $settings);
-        $this->_sectionCollection[] = $section;
+        $this->sectionCollection[] = $section;
 
         return $section;
     }
 
     public function getDefaultFontName()
     {
-        return $this->_defaultFontName;
+        return $this->defaultFontName;
     }
 
     public function setDefaultFontName($pValue)
     {
-        $this->_defaultFontName = $pValue;
+        $this->defaultFontName = $pValue;
     }
 
     public function getDefaultFontSize()
     {
-        return $this->_defaultFontSize;
+        return $this->defaultFontSize;
     }
 
     public function setDefaultFontSize($pValue)
     {
         $pValue = $pValue * 2;
-        $this->_defaultFontSize = $pValue;
+        $this->defaultFontSize = $pValue;
     }
 
     public function addParagraphStyle($styleName, $styles)
@@ -124,7 +124,7 @@ class Document_Word
     /** @return Document_Word_Section[] */
     public function getSections()
     {
-        return $this->_sectionCollection;
+        return $this->sectionCollection;
     }
 
     /**
@@ -134,7 +134,7 @@ class Document_Word
      */
     public function clearSections()
     {
-        $this->_sectionCollection = array();
+        $this->sectionCollection = array();
 
         return $this;
     }
@@ -157,7 +157,7 @@ class Document_Word
 
     private function countSections()
     {
-        return count($this->_sectionCollection);
+        return count($this->sectionCollection);
     }
 
     /** @return Document_Word_Template */
