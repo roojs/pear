@@ -241,6 +241,10 @@ class Document_Word_Reader
                 $this->numberingNumAbstract[(int) $nid] = (int) $aval;
             }
         }
+
+        var_dump($this->numberingNumAbstract);
+        var_dump($this->numberingAbstractLevels);
+        die('test');
     }
 
     /**
