@@ -116,6 +116,7 @@ class Document_Word_Style_Paragraph
 			$value += 240; // because line height of 1 matches 240 twips
 		}
                 
+		// ???? Why
 		if($key == 'list-style'){
 			$key = str_replace('-', '_', $key);
 		}
