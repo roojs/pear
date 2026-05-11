@@ -33,7 +33,7 @@ class Document_Word_Style_Table
 	private $cellMarginLeft;
 	private $cellMarginRight;
 	private $cellMarginBottom;
-    public  $fixed = false;
+    public $fixed = false;
 	
 	// not used..
 	var $width0;
