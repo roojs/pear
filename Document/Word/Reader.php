@@ -208,7 +208,7 @@ class Document_Word_Reader
             $abstractId = (int) $aid;
             $this->numberingAbstractLevels[$abstractId] = array();
             foreach ($an->childNodes as $lvlCandidate) {
-                if (!$lvlCandidate instanceof DOMElement || !$this->isW($lvlCandidate) || $lvlCandidate->localName !== 'lvl') {
+                if (!$lvlCandidate instanceof DOMElement || $lvlCandidate->namespaceURI !== self::NS_W || $lvlCandidate->localName !== 'lvl') {
                     continue;
                 }
                 $lvl = $lvlCandidate;
@@ -663,7 +663,7 @@ class Document_Word_Reader
             if (!$child instanceof DOMElement) {
                 continue;
             }
-            if (!$this->isW($child)) {
+            if ($child->namespaceURI !== self::NS_W) {
                 continue;
             }
             $ln = $child->localName;
@@ -791,7 +791,7 @@ class Document_Word_Reader
     private function paragraphHasRenderableContent(DOMElement $p)
     {
         foreach ($p->childNodes as $c) {
-            if (!$c instanceof DOMElement || !$this->isW($c)) {
+            if (!$c instanceof DOMElement || $c->namespaceURI !== self::NS_W) {
                 continue;
             }
             if ($c->localName === 'r' || $c->localName === 'hyperlink') {
@@ -809,7 +809,7 @@ class Document_Word_Reader
     private function emitParagraphInlines($tr, DOMElement $p, $allowPageBreak)
     {
         foreach ($p->childNodes as $c) {
-            if (!$c instanceof DOMElement || !$this->isW($c)) {
+            if (!$c instanceof DOMElement || $c->namespaceURI !== self::NS_W) {
                 continue;
             }
             if ($c->localName === 'r') {
@@ -824,7 +824,7 @@ class Document_Word_Reader
                 $inner = $this->firstChildW($c, 'sdtContent');
                 if ($inner instanceof DOMElement) {
                     foreach ($inner->childNodes as $cc) {
-                        if (!$cc instanceof DOMElement || !$this->isW($cc)) {
+                        if (!$cc instanceof DOMElement || $cc->namespaceURI !== self::NS_W) {
                             continue;
                         }
                         if ($cc->localName === 'r') {
@@ -847,7 +847,7 @@ class Document_Word_Reader
     {
         $fontBase = $this->fontStyleFromRun($r);
         foreach ($r->childNodes as $c) {
-            if (!$c instanceof DOMElement || !$this->isW($c)) {
+            if (!$c instanceof DOMElement || $c->namespaceURI !== self::NS_W) {
                 continue;
             }
             if ($c->localName === 't') {
@@ -901,7 +901,7 @@ class Document_Word_Reader
             return;
         }
         foreach ($h->childNodes as $c) {
-            if ($c instanceof DOMElement && $this->isW($c) && $c->localName === 'r') {
+            if ($c instanceof DOMElement && $c->namespaceURI === self::NS_W && $c->localName === 'r') {
                 $this->emitRun($tr, $c, false);
             }
         }
@@ -933,18 +933,18 @@ class Document_Word_Reader
     {
         $table = $section->addTable();
         foreach ($tbl->childNodes as $rowEl) {
-            if (!$rowEl instanceof DOMElement || !$this->isW($rowEl) || $rowEl->localName !== 'tr') {
+            if (!$rowEl instanceof DOMElement || $rowEl->namespaceURI !== self::NS_W || $rowEl->localName !== 'tr') {
                 continue;
             }
             $table->addRow();
             foreach ($rowEl->childNodes as $cellEl) {
-                if (!$cellEl instanceof DOMElement || !$this->isW($cellEl) || $cellEl->localName !== 'tc') {
+                if (!$cellEl instanceof DOMElement || $cellEl->namespaceURI !== self::NS_W || $cellEl->localName !== 'tc') {
                     continue;
                 }
                 $width = $this->cellWidthTwips($cellEl);
                 $cell = $table->addCell($width > 0 ? (int) max(1, round($width / 20)) : 0);
                 foreach ($cellEl->childNodes as $inner) {
-                    if (!$inner instanceof DOMElement || !$this->isW($inner)) {
+                    if (!$inner instanceof DOMElement || $inner->namespaceURI !== self::NS_W) {
                         continue;
                     }
                     if ($inner->localName === 'p') {
@@ -982,7 +982,7 @@ class Document_Word_Reader
     private function paragraphHasDirectHyperlink(DOMElement $p)
     {
         foreach ($p->childNodes as $c) {
-            if ($c instanceof DOMElement && $this->isW($c) && $c->localName === 'hyperlink') {
+            if ($c instanceof DOMElement && $c->namespaceURI === self::NS_W && $c->localName === 'hyperlink') {
                 return true;
             }
         }
@@ -997,7 +997,7 @@ class Document_Word_Reader
     {
         $rCount = 0;
         foreach ($p->childNodes as $c) {
-            if (!$c instanceof DOMElement || !$this->isW($c)) {
+            if (!$c instanceof DOMElement || $c->namespaceURI !== self::NS_W) {
                 continue;
             }
             if ($c->localName === 'hyperlink' || $c->localName === 'sdt') {
@@ -1023,7 +1023,7 @@ class Document_Word_Reader
     private function runIsPlainTextOnly(DOMElement $r)
     {
         foreach ($r->childNodes as $c) {
-            if (!$c instanceof DOMElement || !$this->isW($c)) {
+            if (!$c instanceof DOMElement || $c->namespaceURI !== self::NS_W) {
                 continue;
             }
             if ($c->localName !== 't' && $c->localName !== 'rPr') {
@@ -1203,14 +1203,6 @@ class Document_Word_Reader
     }
 
     /**
-     * @return bool
-     */
-    private function isW(DOMElement $el)
-    {
-        return $el->namespaceURI === self::NS_W;
-    }
-
-    /**
      * First direct child in the w: namespace with the given local name.
      *
      * @param string $local
@@ -1219,7 +1211,7 @@ class Document_Word_Reader
     private function firstChildW(DOMElement $parent, $local)
     {
         foreach ($parent->childNodes as $c) {
-            if ($c instanceof DOMElement && $this->isW($c) && $c->localName === $local) {
+            if ($c instanceof DOMElement && $c->namespaceURI === self::NS_W && $c->localName === $local) {
                 return $c;
             }
         }
