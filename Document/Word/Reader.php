@@ -1202,7 +1202,6 @@ class Document_Word_Reader
         return implode('', $parts);
     }
 
-
     /**
      * @return bool
      */
