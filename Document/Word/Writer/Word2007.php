@@ -37,7 +37,7 @@ class Document_Word_Writer_Word2007 implements Document_Word_Writer_IWriter
 	private $imageTypes = array();
 	private $objectTypes = array();
 	
-	public function __construct(Document_Word $PHPWord = null)
+	public function __construct(?Document_Word $PHPWord = null)
         {
 		$this->document = $PHPWord;
 		

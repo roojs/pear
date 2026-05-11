@@ -238,7 +238,7 @@ class Document_Word_Writer_Word2007_Document extends Document_Word_Writer_Word20
 		$objWriter->endElement();
 	}
 	
-	private function writeListItem(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_ListItem $listItem)
+	protected function writeListItem(?Document_Word_Shared_XMLWriter $objWriter = null, Document_Word_Section_ListItem $listItem)
         {
 		$textObject = $listItem->getTextObject();
 		$text = $textObject->getText();

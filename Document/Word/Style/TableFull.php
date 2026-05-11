@@ -42,6 +42,9 @@ class Document_Word_Style_TableFull
 	 * @var PHPWord_Style_Table
 	 */
 	private $firstRow = null;
+
+	/** @var Document_Word_Style_TableFull|null */
+	private $lastRow = null;
 	
 	/**
 	 * Cell Margin Top

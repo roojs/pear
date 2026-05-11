@@ -122,6 +122,9 @@ class Document_Word_Style_Cell
 	 * @var string
 	 */
 	private $defaultBorderColor;
+
+	/** @var mixed row height (legacy setter; not exposed via getter) */
+	private $height;
 	
 	var $bgStyle;
 	var $botAttach;

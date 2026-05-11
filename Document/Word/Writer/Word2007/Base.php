@@ -728,7 +728,7 @@ class Document_Word_Writer_Word2007_Base extends Document_Word_Writer_Word2007_W
 		}
 	}
 	
-	function writeImage(Document_Word_Shared_XMLWriter $objWriter, $image, $skip_para = false) 
+	protected function writeImage(Document_Word_Shared_XMLWriter $objWriter, $image, $skip_para = false) 
     {
              
             static $embedid = 0;
