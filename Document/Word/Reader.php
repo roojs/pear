@@ -81,10 +81,11 @@ class Document_Word_Reader
 
     /**
      * @param string $path Absolute or relative path to a .docx file
-     * @return Document_Word
+     * @param Document_Word $doc Document to populate; existing sections are cleared first
+     * @return Document_Word same instance as $doc
      * @throws Exception
      */
-    public function load($path)
+    public function load($path, Document_Word $doc)
     {
         if (!is_string($path) || $path === '') {
             throw new Exception('Document_Word_Reader::load() requires a non-empty path.');
@@ -118,8 +119,6 @@ class Document_Word_Reader
         }
 
         require_once __DIR__ . '/../Word.php';
-        $doc = new Document_Word();
-        $this->applyCoreProperties($zip, $doc);
 
         $xp = new DOMXPath($dom);
         $xp->registerNamespace('w', self::NS_W);
@@ -130,6 +129,9 @@ class Document_Word_Reader
             $zip->close();
             throw new Exception('Document_Word_Reader::load() missing w:body');
         }
+
+        $doc->clearSections();
+        $this->applyCoreProperties($zip, $doc);
 
         $this->zip = $zip;
         $section = $doc->createSection();

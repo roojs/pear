@@ -39,11 +39,7 @@ class Document_Word
         }
 
         require_once __DIR__ . '/Word/Reader.php';
-        $loaded = (new Document_Word_Reader())->load($filePath);
-        $this->_properties = $loaded->getProperties();
-        $this->_defaultFontName = $loaded->getDefaultFontName();
-        $this->_defaultFontSize = $loaded->getDefaultFontSize();
-        $this->_sectionCollection = $loaded->getSections();
+        (new Document_Word_Reader())->load($filePath, $this);
     }
 
     /** @return Document_Word_DocumentProperties */
@@ -129,6 +125,18 @@ class Document_Word
     public function getSections()
     {
         return $this->_sectionCollection;
+    }
+
+    /**
+     * Remove all sections (used by {@see Document_Word_Reader::load} before repopulating from a file).
+     *
+     * @return Document_Word
+     */
+    public function clearSections()
+    {
+        $this->_sectionCollection = array();
+
+        return $this;
     }
 
     /**
