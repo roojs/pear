@@ -9,16 +9,16 @@
 class Document_Word
 {
     /** @var Document_Word_DocumentProperties */
-    private $_properties;
+    private $properties;
 
     /** @var string */
-    private $_defaultFontName;
+    private $defaultFontName;
 
     /** @var int */
-    private $_defaultFontSize;
+    private $defaultFontSize;
 
     /** @var array */
-    private $_sectionCollection = array();
+    private $sectionCollection = array();
 
     /**
      * @param string|null $filePath Path to a document file (e.g. OOXML `.docx`), or null for an empty document
@@ -63,7 +63,7 @@ class Document_Word
     public function createSection($settings = null)
     {
         require_once __DIR__ . '/Word/Section.php';
-        $sectionCount = $this->_countSections() + 1;
+        $sectionCount = $this->countSections() + 1;
         $section = new Document_Word_Section($sectionCount, $settings);
         $this->_sectionCollection[] = $section;
 
@@ -155,7 +155,7 @@ class Document_Word
         return $this;
     }
 
-    private function _countSections()
+    private function countSections()
     {
         return count($this->_sectionCollection);
     }
