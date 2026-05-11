@@ -515,6 +515,10 @@ class Document_Word_Reader
             $creator = trim($n->textContent);
             break;
         }
+
+        var_dump($title);
+        var_dump($creator);
+        die('test');
         if ($title !== '') {
             $doc->getProperties()->setTitle($title);
         }
