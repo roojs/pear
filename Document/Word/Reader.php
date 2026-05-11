@@ -135,8 +135,6 @@ class Document_Word_Reader
 
         $this->zip = $zip;
         $section = $doc->createSection();
-        var_dump($section);
-        die('test');
         $this->walkBlockContainer($section, $body, true, $xp);
         $this->zip = null;
         $zip->close();
