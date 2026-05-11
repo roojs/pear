@@ -473,6 +473,9 @@ class Document_Word_Reader
             return null;
         }
 
+        var_dump($nid);
+        var_dump($iv);
+
         return array('numId' => (int) $nid, 'ilvl' => (int) $iv);
     }
 
