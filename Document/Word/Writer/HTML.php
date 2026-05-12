@@ -282,7 +282,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
     {
         require_once __DIR__ . '/../Shared/String.php';
         $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML($text->getText());
-        $inner = $this->escapeHtml($raw);
+        $inner = htmlspecialchars($raw, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         return $this->wrapWithFontStyle($inner, $text->getFontStyle());
     }
 
@@ -391,12 +391,12 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
         require_once __DIR__ . '/../Shared/String.php';
         if (!is_array($t)) {
             $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML((string) $t);
-            return $this->wrapWithFontStyle($this->escapeHtml($raw), $pt->getFontStyle());
+            return $this->wrapWithFontStyle(htmlspecialchars($raw, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'), $pt->getFontStyle());
         }
         $chunk = '';
         foreach ($t as $part) {
             $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML((string) $part);
-            $chunk .= $this->wrapWithFontStyle($this->escapeHtml($raw), $pt->getFontStyle());
+            $chunk .= $this->wrapWithFontStyle(htmlspecialchars($raw, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'), $pt->getFontStyle());
         }
         return $chunk;
     }
@@ -416,14 +416,14 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
      */
     private function writeLinkInline($link)
     {
-        $href = $this->escapeHtml($link->getLinkSrc());
+        $href = htmlspecialchars($link->getLinkSrc(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         $label = $link->getLinkName();
         if ($label === null || $label === '') {
             $label = $link->getLinkSrc();
         }
         require_once __DIR__ . '/../Shared/String.php';
         $raw = Document_Word_Shared_String::ControlCharacterPHP2OOXML((string) $label);
-        $inner = $this->wrapWithFontStyle($this->escapeHtml($raw), $link->getFontStyle());
+        $inner = $this->wrapWithFontStyle(htmlspecialchars($raw, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'), $link->getFontStyle());
         return '<a href="' . $href . '">' . $inner . '</a>';
     }
 
@@ -440,7 +440,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
         if ($level > 6) {
             $level = 6;
         }
-        $t = $this->escapeHtml($title->getText());
+        $t = htmlspecialchars($title->getText(), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         $h = 'h' . $level;
         $id = $title->getAnchor();
         if ($id !== null && $id !== '') {
@@ -487,7 +487,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
                 }
             }
         }
-        $esc = $this->escapeHtml($src);
+        $esc = htmlspecialchars($src, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         $style = $img->getStyle();
         $attrs = ' src="' . $esc . '" alt=""';
         if ($style !== null) {
@@ -536,7 +536,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
             $spanStyles = array();
             $name = $f->getName();
             if ($name !== null && $name !== '' && $name !== 'Arial') {
-                $spanStyles[] = 'font-family:' . $this->escapeHtml($name);
+                $spanStyles[] = 'font-family:' . htmlspecialchars($name, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
             }
             $size = $f->getSize();
             if ($size !== null && is_numeric($size)) {
@@ -545,7 +545,7 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
             $color = $f->getColor();
             if ($color !== null && $color !== '' && strtolower($color) !== '000000') {
                 $hex = strlen($color) === 6 ? '#' . $color : $color;
-                $spanStyles[] = 'color:' . $this->escapeHtml($hex);
+                $spanStyles[] = 'color:' . htmlspecialchars($hex, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
             }
             if (count($spanStyles) > 0) {
                 $inner = '<span style="' . implode(';', $spanStyles) . '">' . $inner . '</span>';
@@ -553,18 +553,9 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
             return $inner;
         }
         if (is_string($styleFont) && $styleFont !== '') {
-            return '<span class="' . $this->escapeHtml($styleFont) . '">' . $escaped . '</span>';
+            return '<span class="' . htmlspecialchars($styleFont, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') . '">' . $escaped . '</span>';
         }
 
         return $escaped;
-    }
-
-    /**
-     * @param string $s
-     * @return string
-     */
-    private function escapeHtml($s)
-    {
-        return htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     }
 }
