@@ -100,10 +100,10 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
         $n = count($elements);
         for ($i = 0; $i < $n; $i++) {
             $element = $elements[$i];
-            if ($this->elementIsListItem($element)) {
+            if ($element instanceof Document_Word_Section_ListItem) {
                 $group = array($element);
                 $j = $i + 1;
-                while ($j < $n && $this->elementIsListItem($elements[$j])) {
+                while ($j < $n && $elements[$j] instanceof Document_Word_Section_ListItem) {
                     $group[] = $elements[$j];
                     $j++;
                 }
@@ -114,15 +114,6 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
             $html .= $this->writeElement($element);
         }
         return $html;
-    }
-
-    /**
-     * @param mixed $element
-     * @return bool
-     */
-    private function elementIsListItem($element)
-    {
-        return $element instanceof Document_Word_Section_ListItem;
     }
 
     /**
