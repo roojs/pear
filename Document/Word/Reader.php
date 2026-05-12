@@ -569,14 +569,6 @@ class Document_Word_Reader
     }
 
     /**
-     * @return array<int, string>
-     */
-    private function supportedRasterImageExtensions()
-    {
-        return array('jpg', 'jpeg', 'gif', 'png', 'bmp', 'tif', 'tiff');
-    }
-
-    /**
      * @param string $rid
      * @return string|null Absolute temp path
      */
@@ -594,7 +586,7 @@ class Document_Word_Reader
             return null;
         }
         $ext = strtolower(pathinfo($part, PATHINFO_EXTENSION));
-        if ($ext === '' || !in_array($ext, $this->supportedRasterImageExtensions(), true)) {
+        if ($ext === '' || !in_array($ext, array('jpg', 'jpeg', 'gif', 'png', 'bmp', 'tif', 'tiff'), true)) {
             return null;
         }
         $tmp = rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'dw-docx-img-' . uniqid('', true) . '.' . $ext;
