@@ -126,6 +126,9 @@ class Document_Word_TOC
 		$title['depth'] = $depth;
 		$title['anchor'] = $anchor;
 		$title['bookmarkId'] = $bookmarkId;
+
+		var_dump($title);
+		die('test');
 		
 		self::$titles[] = $title;
 		
