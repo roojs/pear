@@ -927,8 +927,6 @@ class Document_Word_Reader
                     continue;
                 }
                 $width = $this->cellWidthTwips($cellEl);
-                var_dump($width);
-                die('test');
                 $cell = $table->addCell($width > 0 ? (int) max(1, round($width / 20)) : 0);
                 foreach ($cellEl->childNodes as $inner) {
                     if (!$inner instanceof DOMElement || $inner->namespaceURI !== self::NS_W) {
