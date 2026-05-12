@@ -593,7 +593,12 @@ class Document_Word_Reader
         if (@file_put_contents($tmp, $bytes) === false) {
             return null;
         }
-        $this->queueImageTemp($tmp);
+        
+        self::$extractedImageTemps[] = $tmp;
+        if (!self::$shutdownCleanupRegistered) {
+            self::$shutdownCleanupRegistered = true;
+            register_shutdown_function(array('Document_Word_Reader', 'unlinkQueuedImageTemps'));
+        }
 
         return $tmp;
     }
