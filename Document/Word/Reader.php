@@ -1044,6 +1044,8 @@ class Document_Word_Reader
             return 0;
         }
         if (preg_match('/heading\s*(\d+)/i', $val, $m)) {
+            var_dump($val);
+            die('test');
             return min(6, max(1, (int) $m[1]));
         }
         if (preg_match('/^Heading\s*(\d+)$/i', $val, $m)) {
