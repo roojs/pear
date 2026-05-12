@@ -532,18 +532,6 @@ class Document_Word_Reader
     }
 
     /**
-     * @param string $path
-     */
-    private function queueImageTemp($path)
-    {
-        self::$extractedImageTemps[] = $path;
-        if (!self::$shutdownCleanupRegistered) {
-            self::$shutdownCleanupRegistered = true;
-            register_shutdown_function(array('Document_Word_Reader', 'unlinkQueuedImageTemps'));
-        }
-    }
-
-    /**
      * @param string $rid
      * @return string|null Package path for ZipArchive::getFromName, or null
      */
@@ -593,7 +581,7 @@ class Document_Word_Reader
         if (@file_put_contents($tmp, $bytes) === false) {
             return null;
         }
-        
+
         self::$extractedImageTemps[] = $tmp;
         if (!self::$shutdownCleanupRegistered) {
             self::$shutdownCleanupRegistered = true;
