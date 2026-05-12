@@ -138,9 +138,11 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
                 array_pop($stack);
             }
 
+            $style = $item->getStyle();
+
             $node = array(
                 'item' => $item,
-                'tag' => $this->listItemTag($item),
+                'tag' => $style->getIsOrdered() ? 'ol' : 'ul',
                 'children' => array(),
             );
 
@@ -156,19 +158,6 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
         }
 
         return $this->writeListNodeLevel($roots);
-    }
-
-    /**
-     * @param Document_Word_Section_ListItem $item
-     * @return string
-     */
-    private function listItemTag($item)
-    {
-        $style = $item->getStyle();
-        if ($style->getIsOrdered()) {
-            return 'ol';
-        }
-        return 'ul';
     }
 
     /**
