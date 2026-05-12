@@ -444,7 +444,8 @@ class Document_Word_Writer_HTML implements Document_Word_Writer_IWriter
         $h = 'h' . $level;
         $id = $title->getAnchor();
         if ($id !== null && $id !== '') {
-            return '<' . $h . ' id="h-' . (int) $id . '">' . $t . '</' . $h . ">\n";
+            $safeId = htmlspecialchars((string) $id, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+            return '<' . $h . ' id="h-' . $safeId . '">' . $t . '</' . $h . ">\n";
         }
         return '<' . $h . '>' . $t . '</' . $h . ">\n";
     }
