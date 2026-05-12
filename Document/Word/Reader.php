@@ -586,8 +586,6 @@ class Document_Word_Reader
             return null;
         }
         $part = $this->imagePackagePartPath($rid);
-        var_dump($part);
-        die('test');
         if ($part === null) {
             return null;
         }
