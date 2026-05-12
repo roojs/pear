@@ -1085,9 +1085,6 @@ class Document_Word_Reader
             return array();
         }
 
-        var_dump($map[$k]); 
-        die('test');
-
         return array('align' => $map[$k]);
     }
 
