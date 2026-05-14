@@ -1,0 +1,240 @@
+<?php
+/**
+ * PHPWord
+ *
+ * Copyright (c) 2011 PHPWord
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ * @category   PHPWord
+ * @package    PHPWord
+ * @copyright  Copyright (c) 010 PHPWord
+ * @license    http://www.gnu.org/licenses/old-licenses/lgpl-2.1.txt    LGPL
+ * @version    Beta 0.6.3, 08.07.2011
+ */
+
+
+/**
+ * PHPWord_Section_Header
+ *
+ * @category   PHPWord
+ * @package    PHPWord_Section
+ * @copyright  Copyright (c) 2011 PHPWord
+ */
+class Document_Word_Section_Header 
+{
+	
+	/**
+	 * Header Count
+	 * 
+	 * @var int
+	 */
+	private $headerCount;
+	
+	/**
+	 * Header Relation ID
+	 * 
+	 * @var int
+	 */
+	private $rId;
+	
+	/**
+	 * Header Element Collection
+	 * 
+	 * @var int
+	 */
+	private $elementCollection = array();
+	
+	/**
+	 * Create a new Header
+	 */
+	public function __construct($sectionCount) 
+        {
+		$this->headerCount = $sectionCount;
+	}
+	
+	/**
+	 * Add a Text Element
+	 * 
+	 * @param string $text
+	 * @param mixed $styleFont
+	 * @param mixed $styleParagraph
+	 * @return PHPWord_Section_Text
+	 */
+	public function addText($text, $styleFont = null, $styleParagraph = null) 
+        {
+                require_once __DIR__ . '/Text.php';
+		//$givenText = utf8_encode($text);
+                $text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
+		$text = new Document_Word_Section_Text($text, $styleFont, $styleParagraph);
+		$this->elementCollection[] = $text;
+		return $text;
+	}
+	
+	/**
+	 * Add a TextBreak Element
+	 * 
+	 * @param int $count
+	 */
+	public function addTextBreak($count = 1) 
+        {
+		for($i=1; $i<=$count; $i++) {
+			$this->elementCollection[] = new Document_Word_Section_TextBreak();
+		}
+	}
+	
+	/**
+	 * Create a new TextRun
+	 * 
+	 * @return PHPWord_Section_TextRun
+	 */
+	public function createTextRun($styleParagraph = null) 
+        {
+		$textRun = new Document_Word_Section_TextRun($styleParagraph);
+		$this->elementCollection[] = $textRun;
+		return $textRun;
+	}
+	
+	/**
+	 * Add a Table Element
+	 * 
+	 * @param mixed $style
+	 * @return PHPWord_Section_Table
+	 */
+	public function addTable($style = null) 
+        {
+                require_once __DIR__ . '/Table.php';
+		$table = new Document_Word_Section_Table('header', $this->headerCount, $style);
+		$this->elementCollection[] = $table;
+		return $table;
+	}
+	
+	/**
+	 * Add a Image Element
+	 * 
+	 * @param string $src
+	 * @param mixed $style
+	 * @return PHPWord_Section_Image
+	 */
+	public function addImage($src, $style = null) 
+        {
+		$image = new Document_Word_Section_Image($src, $style);
+		
+		if(!is_null($image->getSource())) {
+			$rID = Document_Word_Media::addHeaderMediaElement($this->headerCount, $src);
+			$image->setRelationId($rID);
+			
+			$this->elementCollection[] = $image;
+			return $image;
+		} else {
+			trigger_error('Src does not exist or invalid image type.', E_ERROR);
+		}
+	}
+	
+	/**
+	 * Add a by PHP created Image Element
+	 * 
+	 * @param string $link
+	 * @param mixed $style
+	 * @return PHPWord_Section_MemoryImage
+	 */
+	public function addMemoryImage($link, $style = null) 
+        {
+		$memoryImage = new Document_Word_Section_MemoryImage($link, $style);
+		if(!is_null($memoryImage->getSource())) {
+			$rID = Document_Word_Media::addHeaderMediaElement($this->headerCount, $link, $memoryImage);
+			$memoryImage->setRelationId($rID);
+			
+			$this->elementCollection[] = $memoryImage;
+			return $memoryImage;
+		} else {
+			trigger_error('Unsupported image type.');
+		}
+	}
+	
+	/**
+	 * Add a PreserveText Element
+	 * 
+	 * @param string $text
+	 * @param mixed $styleFont
+	 * @param mixed $styleParagraph
+	 * @return PHPWord_Section_Footer_PreserveText
+	 */
+	public function addPreserveText($text, $styleFont = null, $styleParagraph = null) 
+        {
+                require_once __DIR__ . '/Footer/PreserveText.php';
+		$text = @iconv("UTF-8", "UTF-8//IGNORE", $text);
+		$ptext = new Document_Word_Section_Footer_PreserveText($text, $styleFont, $styleParagraph);
+		$this->elementCollection[] = $ptext;
+		return $ptext;
+	}
+	
+	/**
+	 * Add a Watermark Element
+	 * 
+	 * @param string $src
+	 * @param mixed $style
+	 * @return PHPWord_Section_Image
+	 */
+	public function addWatermark($src, $style = null) 
+        {
+		$image = new Document_Word_Section_Image($src, $style, true);
+		
+		if(!is_null($image->getSource())) {
+			$rID = Document_Word_Media::addHeaderMediaElement($this->headerCount, $src);
+			$image->setRelationId($rID);
+			
+			$this->elementCollection[] = $image;
+			return $image;
+		} else {
+			trigger_error('Src does not exist or invalid image type.', E_ERROR);
+		}
+	}
+	
+	/**
+	 * Get Header Relation ID
+	 */
+	public function getRelationId() 
+        {
+		return $this->rId;
+	}
+	
+	/**
+	 * Set Header Relation ID
+	 * 
+	 * @param int $rId
+	 */
+	public function setRelationId($rId) 
+        {
+		$this->rId = $rId;
+	}
+	
+	/**
+	 * Get all Header Elements
+	 */
+	public function getElements() 
+        {
+		return $this->elementCollection;
+	}
+	
+	/**
+	 * Get Header Count
+	 */
+	public function getHeaderCount() 
+        {
+		return $this->headerCount;
+	}
+}
+?>
