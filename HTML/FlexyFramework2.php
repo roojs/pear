@@ -154,6 +154,10 @@ class HTML_FlexyFramework2 {
             $this->$k = $v;
         }
         $this->_parseConfig();
+
+        if (!empty($this->initOnly)) {
+            return;
+        }
         
         // echo '<PRE>'; print_r($this);exit;
         if ($this->cli) {
@@ -166,11 +170,6 @@ class HTML_FlexyFramework2 {
     
         // handle apache mod_rewrite..
         // it looks like this might not work anymore..
-        
-        if ($this->initOnly) {
-            return;
-        }
-        
         
         if (!empty($_SERVER['REDIRECT_URL'])) {
             
