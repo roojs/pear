@@ -666,7 +666,7 @@ class DB_mysqli extends DB_common
      */
     function rollback()
     {
-        if ($this->transaction_opcount == 0) {
+        if ($this->transaction_opcount > 0) {
             if ($this->_db) {
                 if (!@mysqli_select_db($this->connection, $this->_db)) {
                     return $this->mysqliRaiseError(DB_ERROR_NODBSELECTED);
