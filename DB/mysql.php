@@ -535,7 +535,6 @@ class DB_mysql extends DB_common
      */
     function rollback()
     {
-        var_dump("rollback");
         if ($this->transaction_opcount > 0) {
             if ($this->_db) {
                 if (!@mysql_select_db($this->_db, $this->connection)) {
