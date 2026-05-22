@@ -640,7 +640,6 @@ class DB_mysqli extends DB_common
      */
     function commit()
     {
-        var_dump($this->transaction_opcount);
         if ($this->transaction_opcount > 0) {
             if ($this->_db) {
                 if (!@mysqli_select_db($this->connection, $this->_db)) {
