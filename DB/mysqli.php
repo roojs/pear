@@ -678,6 +678,7 @@ class DB_mysqli extends DB_common
             if (!$result) {
                 return $this->mysqliRaiseError();
             }
+        } elseif (!$this->autocommit) {
         }
         return DB_OK;
     }
