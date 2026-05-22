@@ -679,6 +679,10 @@ class DB_mysqli extends DB_common
                 return $this->mysqliRaiseError();
             }
         } elseif (!$this->autocommit) {
+            $result = @mysqli_query($this->connection, 'SET AUTOCOMMIT=1');
+            if (!$result) {
+                return $this->mysqliRaiseError();
+            }
         }
         return DB_OK;
     }
