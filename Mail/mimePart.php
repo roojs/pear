@@ -779,7 +779,7 @@ class Mail_mimePart
      * @access public
      * @since 1.6.1
      */
-    static function encodeHeader($name, $value, $charset='ISO-8859-1',
+    static function encodeHeader($name, $value, $charset='UTF-8',
         $encoding='quoted-printable', $eol="\r\n"
     ) {
         // Structured headers
@@ -802,7 +802,7 @@ class Mail_mimePart
         }
 
         if (!$charset) {
-            $charset = 'ISO-8859-1';
+            $charset = 'UTF-8';
         }
 
         // Structured header (make sure addr-spec inside is not encoded)
