@@ -102,6 +102,17 @@ class Net_Ollama {
     {
         return $this->call('Ps', array($params));
     }
+
+    /**
+     * Native Ollama embed: `POST {url}/embed` (url should end with `/api`).
+     *
+     * @param array $params See Net_Ollama_Call_Embed
+     * @return Net_Ollama_Response_Embed
+     */
+    function embed($params)
+    {
+        return $this->call('Embed', $params);
+    }
     
     function to_string()
     {
