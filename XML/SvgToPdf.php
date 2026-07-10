@@ -105,7 +105,7 @@ class XML_SvgToPDF {
         */
          //echo "<PRE>";
          if (!file_exists($svg)) {
-           trigger_error("invalid file $svg", E_USER_ERROR);
+           throw new RuntimeException("invalid file $svg");
          }
         $tree = $t->parseSvg($svg);
        //echo "<PRE>";print_r($tree);exit;
@@ -274,7 +274,7 @@ class XML_SvgToPDF {
     }
     function buildObject($node, $children)
     {
-        $class = 'XML_SvgToPDF_'.$node->tagName;
+        $class = 'XML_SvgToPDF_'.ucfirst(strtolower($node->tagName));
         /*
         if (strlen(trim($node->content)) && (@$this->language)) {
             $node->language = $this->language;

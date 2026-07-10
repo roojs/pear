@@ -38,12 +38,26 @@ class XML_SvgToPDF_Base {
     var $maxchars;
     var $nodetypes;
     var $docbase;
+    var $dynamic;
+    var $rows;
+    var $cols;
+    var $nonprintable;
+    var $role;
+    var $linespacing;
+    var $d;
+    var $content;
+    var $xx;
+    var $yy;
+    var $maxWidth;
     
     function fromXmlNode($node)
     {
         // extract attributes
         foreach($node->attributes as $k=>$v) {
             if (in_array($k, array('style'))) {
+                continue;
+            }
+            if (!preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $k)) {
                 continue;
             }
             
