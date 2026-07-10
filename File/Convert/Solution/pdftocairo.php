@@ -154,6 +154,7 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
         
         // expect this file..
 //        echo "$cmd <br/>";exit;
+        error_log($cmd);exit;
          
         $res = $this->exec($cmd);
         $this->result = $res;
