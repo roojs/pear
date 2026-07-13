@@ -135,7 +135,7 @@ class File_Convert_Solution_pdftocairo extends File_Convert_Solution
         $scaleCmd = '';
         if (empty($y)) {
             // Only scale by width, let height scale proportionally
-            $scaleCmd = " -scale-to-x {$xscale} ";
+            $scaleCmd = " -scale-to-x {$xscale} -scale-to-y -1 ";
         } else {
             // Both dimensions specified, scale to fit both
             $scaleCmd = " -scale-to-x {$xscale} -scale-to-y {$yscale} ";
