@@ -10,6 +10,12 @@
 class HTML_Template_Flexy_Plugin_StripAttributes
 {
     /**
+     * Set by HTML_Template_Flexy_Plugin when the plugin is loaded.
+     * @var HTML_Template_Flexy
+     */
+    var $flexy;
+
+    /**
      * @param array $tag  element AST node (type, tag, attrs, children)
      * @return array
      */

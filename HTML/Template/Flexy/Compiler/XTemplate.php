@@ -272,7 +272,8 @@ class HTML_Template_Flexy_Compiler_XTemplate extends HTML_Template_Flexy_Compile
     {
         $attrs = array();
         foreach ($child->attributes as $attr) {
-            $attrs[$attr->name] = $attr->value;
+            // libxml percent-encodes { } in URL-ish attrs (href/src) before we see them
+            $attrs[$attr->name] = rawurldecode($attr->value);
         }
 
         $children = $this->parseNodes($child);
@@ -329,7 +330,7 @@ class HTML_Template_Flexy_Compiler_XTemplate extends HTML_Template_Flexy_Compile
     function emitNode($node, $scopes, $scope)
     {
         if ($node['type'] === 'element') {
-            list($open, $close) = $this->elementTags($node);
+            list($open, $close) = $this->elementTags($node, $scope);
             $children = $this->emitNodes($node['children'], $scopes);
             if ($this->is_a($children, 'PEAR_Error')) {
                 return $children;
@@ -379,7 +380,7 @@ class HTML_Template_Flexy_Compiler_XTemplate extends HTML_Template_Flexy_Compile
     {
         $expr = trim($expr);
 
-        // cms_platforms_list.length
+        // tags_list.length
         if (substr($expr, -7) === '.length') {
             $field = substr($expr, 0, -7);
             if (preg_match('/^\w+$/', $field)) {
@@ -433,15 +434,22 @@ class HTML_Template_Flexy_Compiler_XTemplate extends HTML_Template_Flexy_Compile
 
     /**
      * Build open and close tag strings for an element node.
+     * Attribute values may contain {fields} (same split / emit as text nodes).
      *
      * @param array $node
+     * @param array $scope
      * @return array  [open, close]
      */
-    function elementTags($node)
+    function elementTags($node, $scope)
     {
         $attrs = array();
         foreach ($node['attrs'] as $name => $value) {
-            $attrs[] = "{$name}=\"" . htmlspecialchars($value, ENT_QUOTES) . '"';
+            if (strpos($value, '{') === false) {
+                $attrs[] = $name . '="' . htmlspecialchars($value, ENT_QUOTES) . '"';
+                continue;
+            }
+            $attrs[] = $name . '="'
+                . $this->emitLiteral($this->parseLiteral($value), $scope) . '"';
         }
 
         $attrStr = count($attrs) ? ' ' . implode(' ', $attrs) : '';
