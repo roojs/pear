@@ -187,20 +187,20 @@ class HTML_Template_Flexy_Compiler_XTemplate extends HTML_Template_Flexy_Compile
         }
 
         $parts = array();
-        $re = '/(\{[\w\-\.]+(?:\:[\w\.]*)?\})/';
+        $re = '/(\{[\w\-\.]+(?:\:[\w\.]+(?:\([^)]*\))?)?\})/';
         $bits = preg_split($re, $text, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
         if (!is_array($bits)) {
             $bits = array($text);
         }
         foreach ($bits as $bit) {
-            if ($bit !== '' && $bit[0] === '{') {
-                $inner = substr($bit, 1, -1);
-                $mod = '';
-                if (($c = strpos($inner, ':')) !== false) {
-                    $mod = substr($inner, $c + 1);
-                    $inner = substr($inner, 0, $c);
-                }
-                $parts[] = array('name' => $inner, 'mod' => $mod);
+            if ($bit !== '' && $bit[0] === '{'
+                && preg_match('/^\{([\w\-\.]+)(?:\:([\w\.]+)(?:\((.*?)\))?)?\}$/', $bit, $m)
+            ) {
+                $parts[] = array(
+                    'name' => $m[1],
+                    'mod' => isset($m[2]) ? $m[2] : '',
+                    'args' => isset($m[3]) ? $m[3] : '',
+                );
                 continue;
             }
             if ($bit !== '') {
@@ -478,6 +478,12 @@ class HTML_Template_Flexy_Compiler_XTemplate extends HTML_Template_Flexy_Compile
             $php = $this->emitFieldPath($part['name'], $scope);
             if ($part['mod'] === 'raw') {
                 $out .= "<?= {$php} ?>";
+                continue;
+            }
+            if ($part['mod'] === 'date') {
+                $fmt = empty($part['args']) ? 'j M Y' : trim($part['args'], "\"'");
+                $out .= '<?= (($__d = strtotime(' . $php . ')) ? date('
+                    . var_export($fmt, true) . ', $__d) : \'\') ?>';
                 continue;
             }
             $out .= "<?= htmlspecialchars({$php}) ?>";
