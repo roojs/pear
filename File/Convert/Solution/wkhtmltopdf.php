@@ -14,6 +14,7 @@ class File_Convert_Solution_wkhtmltopdf extends File_Convert_Solution
             ),
             'to' =>    array( //target
                  'application/pdf',
+                 'image/png',
             )
         ),
     );
@@ -25,6 +26,21 @@ class File_Convert_Solution_wkhtmltopdf extends File_Convert_Solution
     {
         // need a remove version for this..
 
+        if (!empty(File_Convert::$options['webkit.url'])) {
+            $target = $fn . '.png';
+            if (file_exists($target) && filesize($target)) {
+                if (is_file($fn) && filemtime($target) > filemtime($fn)) {
+                    return $target;
+                }
+            }
+            return $this->convertWebkit($fn, $target);
+        }
+
+        if ($this->to == 'image/png') {
+            $this->debug('webkit.url required for text/html to image/png');
+            return false;
+        }
+
         $target = $fn . '.pdf';
 
         // should check dates...!!!!
@@ -32,10 +48,6 @@ class File_Convert_Solution_wkhtmltopdf extends File_Convert_Solution
             if (is_file($fn) && filemtime($target) > filemtime($fn)) {
                 return $target;
             }
-        }
-
-        if (!empty(File_Convert::$options['webkit.url'])) {
-            return $this->convertWebkit($fn, $target);
         }
 
         return $this->convertWkhtmltopdf($fn, $target);
@@ -102,7 +114,7 @@ class File_Convert_Solution_wkhtmltopdf extends File_Convert_Solution
             . ' --url ' . escapeshellarg(File_Convert::$options['webkit.url'])
             . ' --width ' . (int) $width
             . ' --delay 3'
-            . ' --pdf ' . escapeshellarg($target);
+            . ' --png ' . escapeshellarg($target);
 
         $this->exec('timeout 90s ' . $cmd . ' 2>&1');
         clearstatcache();

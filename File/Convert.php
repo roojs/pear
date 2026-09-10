@@ -17,7 +17,7 @@
  *   delete_all : delete all the generated files after script execution when we call convert()
  *   imageToDataUrl : (default false) when true, File_Convert_Solution_unoconv embeds local img src files
  *                    as data: URLs in the output HTML when converting to text/html (no placeholders).
- *   webkit.url : if set, convert() calls convertWebkit() instead of convertWkhtmltopdf()
+ *   webkit.url : if set, convertWebkit() captures via webkitpdf2 --png (text/html → image/png)
  *   webkit.width : optional viewport width for convertWebkit() (default 1200)
  * }
  * 
