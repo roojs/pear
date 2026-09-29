@@ -36,6 +36,7 @@ class HTML_Template_Flexy_Plugin
     */
     var $flexy; // reference to flexy.
     var $pluginCache = array(); // store of instanced plugins..
+    var $plugins = array(); // class-name => plugin instance (PHP 8.2+ must declare)
     
     /**
     * Call a Plugin method.

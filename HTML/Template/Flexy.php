@@ -238,6 +238,14 @@ class HTML_Template_Flexy
     
     
     var $compiler;
+
+    /**
+    * Plugin manager (HTML_Template_Flexy_Plugin). Declared so PHP 8.2+
+    * does not deprecate assigning it in plugin().
+    *
+    * @var HTML_Template_Flexy_Plugin
+    */
+    var $plugin;
     
     
     /**
