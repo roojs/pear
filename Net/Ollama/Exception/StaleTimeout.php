@@ -2,7 +2,7 @@
 
 require_once 'Net/Ollama/Exception.php';
 
-class Net_Ollama_Exception_StallTimeout extends Net_Ollama_Exception
+class Net_Ollama_Exception_StaleTimeout extends Net_Ollama_Exception
 {
     var $seconds = 0;
 
