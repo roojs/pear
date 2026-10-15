@@ -92,6 +92,12 @@ abstract class Net_Ollama_Call {
         // Set connection timeout
         $connectTimeout = isset($this->oai->timeout) ? $this->oai->timeout : 300;
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $connectTimeout);
+
+        // Abort if the provider sends less than 1 byte/s for $staleTimeout seconds
+        $staleTimeout = 30;
+        curl_setopt($ch, CURLOPT_TIMEOUT, 9999);
+        curl_setopt($ch, CURLOPT_LOW_SPEED_LIMIT, 1);
+        curl_setopt($ch, CURLOPT_LOW_SPEED_TIME, $staleTimeout);
         
         // Build headers first (needed for curl command output)
         $headers = array();
@@ -146,6 +152,10 @@ abstract class Net_Ollama_Call {
             
             // Check for timeout or other errors
             if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
+                if (stripos($curlError, 'too slow') !== false) {
+                    require_once 'Net/Ollama/Exception/StallTimeout.php';
+                    throw new Net_Ollama_Exception_StallTimeout(array('seconds' => $staleTimeout));
+                }
                 require_once 'Net/Ollama/Exception/ConnectionTimeout.php';
                 throw new Net_Ollama_Exception_ConnectionTimeout(array('connectionTimeout' => $connectTimeout));
             }
@@ -185,6 +195,10 @@ abstract class Net_Ollama_Call {
         
         // Check for timeout or other errors
         if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
+            if (stripos($curlError, 'too slow') !== false) {
+                require_once 'Net/Ollama/Exception/StallTimeout.php';
+                throw new Net_Ollama_Exception_StallTimeout(array('seconds' => $staleTimeout));
+            }
             require_once 'Net/Ollama/Exception/ConnectionTimeout.php';
             throw new Net_Ollama_Exception_ConnectionTimeout(array('connectionTimeout' => $connectTimeout));
         }
