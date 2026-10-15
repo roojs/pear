@@ -99,7 +99,7 @@ abstract class Net_Ollama_Call {
         $lastDown = -1;
         $waitingSince = null;
         curl_setopt($ch, CURLOPT_NOPROGRESS, false);
-        curl_setopt($ch, CURLOPT_PROGRESSFUNCTION, function ($ch, $dltotal, $dlnow, $ultotal, $ulnow) use (&$lastDown, &$waitingSince, $staleTimeout) {
+        curl_setopt($ch, CURLOPT_XFERINFOFUNCTION, function ($ch, $dltotal, $dlnow, $ultotal, $ulnow) use (&$lastDown, &$waitingSince, $staleTimeout) {
             if ($ultotal > 0 && $ulnow < $ultotal) {
                 return 0;
             }
