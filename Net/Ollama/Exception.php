@@ -13,14 +13,14 @@ abstract class Net_Ollama_Exception extends Exception
         parent::__construct($this->buildMessage());
     }
 
-    abstract function buildMessage() : string;
+    abstract function buildMessage();
 }
 
 class Net_Ollama_Exception_StaleTimeout extends Net_Ollama_Exception
 {
     var $seconds = 0;
 
-    function buildMessage() : string {
+    function buildMessage() {
         return "No response from provider for {$this->seconds} seconds";
     }
 }
@@ -29,7 +29,7 @@ class Net_Ollama_Exception_ConnectionTimeout extends Net_Ollama_Exception
 {
     var $connectionTimeout = 0;
 
-    function buildMessage() : string {
+    function buildMessage() {
         return "Failed to connect within {$this->connectionTimeout} seconds";
     }
 }
@@ -38,7 +38,7 @@ class Net_Ollama_Exception_CurlError extends Net_Ollama_Exception
 {
     var $curlError = '';
 
-    function buildMessage() : string {
+    function buildMessage() {
         return "cURL error: {$this->curlError}";
     }
 }
@@ -47,7 +47,7 @@ class Net_Ollama_Exception_HttpError extends Net_Ollama_Exception
 {
     var $httpCode = 0;
 
-    function buildMessage() : string {
+    function buildMessage() {
         return "HTTP error: {$this->httpCode}";
     }
 }
