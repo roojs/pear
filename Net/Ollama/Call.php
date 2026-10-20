@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Net/Ollama/Exception.php';
-
 abstract class Net_Ollama_Call {
     /** @var Net_Ollama Client reference; listed in {@see $excluded} so it is never JSON-encoded. */
     var $oai;
@@ -172,6 +170,7 @@ abstract class Net_Ollama_Call {
             curl_close($ch);
             
             // Check for timeout or other errors
+            require_once 'Net/Ollama/Exception.php';
             if ($curlErrno === CURLE_ABORTED_BY_CALLBACK) {
                 throw new Net_Ollama_Exception_StaleTimeout(array('seconds' => $staleTimeout));
             }
@@ -211,6 +210,7 @@ abstract class Net_Ollama_Call {
         curl_close($ch);
         
         // Check for timeout or other errors
+        require_once 'Net/Ollama/Exception.php';
         if ($curlErrno === CURLE_ABORTED_BY_CALLBACK) {
             throw new Net_Ollama_Exception_StaleTimeout(array('seconds' => $staleTimeout));
         }
