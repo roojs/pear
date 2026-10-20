@@ -92,6 +92,31 @@ abstract class Net_Ollama_Call {
         // Set connection timeout
         $connectTimeout = isset($this->oai->timeout) ? $this->oai->timeout : 300;
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $connectTimeout);
+
+        // Abort if the reply byte count does not move for $staleTimeout seconds.
+        // Starts after the request body is sent, so a zero-byte hang retries.
+        $staleTimeout = 30;
+        $lastDown = -1;
+        $waitingSince = null;
+        curl_setopt($ch, CURLOPT_NOPROGRESS, false);
+        curl_setopt($ch, CURLOPT_XFERINFOFUNCTION, function ($ch, $dltotal, $dlnow, $ultotal, $ulnow) use (&$lastDown, &$waitingSince, $staleTimeout) {
+            if ($ultotal > 0 && $ulnow < $ultotal) {
+                return 0;
+            }
+            if ($dlnow !== $lastDown) {
+                $lastDown = $dlnow;
+                $waitingSince = time();
+                return 0;
+            }
+            if ($waitingSince === null) {
+                $waitingSince = time();
+                return 0;
+            }
+            if (time() - $waitingSince >= $staleTimeout) {
+                return 1;
+            }
+            return 0;
+        });
         
         // Build headers first (needed for curl command output)
         $headers = array();
@@ -145,16 +170,20 @@ abstract class Net_Ollama_Call {
             curl_close($ch);
             
             // Check for timeout or other errors
+            if ($curlErrno === CURLE_ABORTED_BY_CALLBACK) {
+                require_once 'Net/Ollama/Exception.php';
+                throw new Net_Ollama_Exception_StaleTimeout(array('seconds' => $staleTimeout));
+            }
             if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
-                require_once 'Net/Ollama/Exception/ConnectionTimeout.php';
+                require_once 'Net/Ollama/Exception.php';
                 throw new Net_Ollama_Exception_ConnectionTimeout(array('connectionTimeout' => $connectTimeout));
             }
             if ($curlError) {
-                require_once 'Net/Ollama/Exception/CurlError.php';
+                require_once 'Net/Ollama/Exception.php';
                 throw new Net_Ollama_Exception_CurlError(array('curlError' => $curlError));
             }
             if ($httpCode !== 200 && $httpCode !== 0) {
-                require_once 'Net/Ollama/Exception/HttpError.php';
+                require_once 'Net/Ollama/Exception.php';
                 throw new Net_Ollama_Exception_HttpError(array('httpCode' => $httpCode));
             }
               
@@ -184,16 +213,20 @@ abstract class Net_Ollama_Call {
         curl_close($ch);
         
         // Check for timeout or other errors
+        if ($curlErrno === CURLE_ABORTED_BY_CALLBACK) {
+            require_once 'Net/Ollama/Exception.php';
+            throw new Net_Ollama_Exception_StaleTimeout(array('seconds' => $staleTimeout));
+        }
         if ($curlErrno === CURLE_OPERATION_TIMEDOUT || $curlErrno === CURLE_OPERATION_TIMEOUTED) {
-            require_once 'Net/Ollama/Exception/ConnectionTimeout.php';
+            require_once 'Net/Ollama/Exception.php';
             throw new Net_Ollama_Exception_ConnectionTimeout(array('connectionTimeout' => $connectTimeout));
         }
         if ($curlError) {
-            require_once 'Net/Ollama/Exception/CurlError.php';
+            require_once 'Net/Ollama/Exception.php';
             throw new Net_Ollama_Exception_CurlError(array('curlError' => $curlError));
         }
         if ($httpCode !== 200 && $httpCode !== 0) {
-            require_once 'Net/Ollama/Exception/HttpError.php';
+            require_once 'Net/Ollama/Exception.php';
             throw new Net_Ollama_Exception_HttpError(array('httpCode' => $httpCode));
         }
         
