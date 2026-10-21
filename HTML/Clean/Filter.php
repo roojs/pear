@@ -48,7 +48,9 @@ class  HTML_Clean_Filter
         switch(true) {
             
             case $e->nodeType == 8 &&  $this->replaceComment  !== false: // comment
-                    $this->replaceComment($e);
+                    if ($e->parentNode) {
+                        $e->parentNode->removeChild($e);
+                    }
                     return false;
                 
                 case $e->nodeType != 1: //not a node.
