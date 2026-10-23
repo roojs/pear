@@ -36,6 +36,7 @@
  *
  * writeString, writeNumber, writeDate, and writeBlank accept an array.
  * Each value is written in order, with the same style.
+ * writeString writes null as an empty string.
  * writeBlank() skips one column. writeBlank(n) skips n columns.
  */
 class Document_Excel_Sheet
@@ -103,9 +104,12 @@ class Document_Excel_Sheet
     {
         if (is_array($value)) {
             foreach ($value as $one) {
-                $this->writeCell('s', $one, $style);
+                $this->writeString($one, $style);
             }
             return $this;
+        }
+        if ($value === null) {
+            $value = '';
         }
         $this->writeCell('s', $value, $style);
         return $this;
