@@ -37,11 +37,14 @@ class Document_Excel
 {
     var $properties;
     var $sheets = array();
+    var $styles;
 
     function __construct()
     {
         require_once 'Document/Word/DocumentProperties.php';
         $this->properties = new Document_Word_DocumentProperties();
+        require_once 'Document/Excel/Writer/Excel2007/Styles.php';
+        $this->styles = new Document_Excel_Writer_Excel2007_Styles();
     }
 
     /**
@@ -51,6 +54,7 @@ class Document_Excel
     {
         require_once 'Document/Excel/Sheet.php';
         $sheet = new Document_Excel_Sheet($this->cleanSheetName($name));
+        $sheet->styles = $this->styles;
         $this->sheets[] = $sheet;
         return $sheet;
     }

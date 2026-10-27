@@ -25,29 +25,28 @@
 require_once 'Document/Excel/Writer/Excel2007/WriterPart.php';
 
 /**
- * Fixed stylesheet. Cell style indexes stay in this order:
- *   0 general
- *   1 header  (bold, wrap, grey fill)
- *   2 date    (yyyy-mm-dd)
- *   3 money   (0.000)
- *   4 int     (0)
+ * Styles for one workbook.
+ * Index 0 is General. Index 1 is header (bold, wrap, grey fill).
+ * A number format is the format code passed to writeNumber or writeDate.
+ * The first use of a code takes the next index from 2. Later uses reuse it.
  */
 class Document_Excel_Writer_Excel2007_Styles extends Document_Excel_Writer_Excel2007_WriterPart
 {
+    var $used = array();
+
     function index($name)
     {
-        $map = array(
-            '' => 0,
-            'general' => 0,
-            'header' => 1,
-            'date' => 2,
-            'money' => 3,
-            'int' => 4,
-        );
-        if (!isset($map[$name])) {
-            throw new Exception('Unknown Document_Excel style: ' . $name);
+        if ($name === '' || $name === 'general') {
+            return 0;
         }
-        return $map[$name];
+        if ($name === 'header') {
+            return 1;
+        }
+        if (isset($this->used[$name])) {
+            return $this->used[$name];
+        }
+        $this->used[$name] = count($this->used) + 2;
+        return $this->used[$name];
     }
 
     function writeStyles()
@@ -57,11 +56,30 @@ class Document_Excel_Writer_Excel2007_Styles extends Document_Excel_Writer_Excel
         $objWriter->startElement('styleSheet');
         $objWriter->writeAttribute('xmlns', 'http://schemas.openxmlformats.org/spreadsheetml/2006/main');
 
-        $objWriter->startElement('numFmts');
-        $objWriter->writeAttribute('count', '2');
-        $this->numFmt($objWriter, '164', 'yyyy-mm-dd');
-        $this->numFmt($objWriter, '165', '0.000');
-        $objWriter->endElement();
+        $builtin = array(
+            '0' => '1',
+            '0.00' => '2',
+            '#,##0' => '3',
+            '#,##0.00' => '4',
+            '0%' => '9',
+            '0.00%' => '10',
+        );
+        $custom = array();
+        $nextCustom = 164;
+        foreach ($this->used as $code => $index) {
+            if (!isset($builtin[$code])) {
+                $custom[$code] = (string) $nextCustom;
+                $nextCustom++;
+            }
+        }
+        if (count($custom)) {
+            $objWriter->startElement('numFmts');
+            $objWriter->writeAttribute('count', count($custom));
+            foreach ($custom as $code => $id) {
+                $this->numFmt($objWriter, $id, $code);
+            }
+            $objWriter->endElement();
+        }
 
         $objWriter->startElement('fonts');
         $objWriter->writeAttribute('count', '2');
@@ -91,12 +109,13 @@ class Document_Excel_Writer_Excel2007_Styles extends Document_Excel_Writer_Excel
         $objWriter->endElement();
 
         $objWriter->startElement('cellXfs');
-        $objWriter->writeAttribute('count', '5');
+        $objWriter->writeAttribute('count', 2 + count($this->used));
         $this->xf($objWriter, '0', '0', '0', false);
         $this->xf($objWriter, '0', '1', '2', true);
-        $this->xf($objWriter, '164', '0', '0', false);
-        $this->xf($objWriter, '165', '0', '0', false);
-        $this->xf($objWriter, '1', '0', '0', false);
+        foreach ($this->used as $code => $index) {
+            $fmt = isset($builtin[$code]) ? $builtin[$code] : $custom[$code];
+            $this->xf($objWriter, $fmt, '0', '0', false);
+        }
         $objWriter->endElement();
 
         $objWriter->startElement('cellStyles');

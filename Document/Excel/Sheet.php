@@ -30,7 +30,8 @@
  * Set column widths before finish(). Row height is the optional argument
  * to startRow(), because the row tag is already on disk after that call.
  *
- * Styles: general (default), header, date, money, int.
+ * writeNumber and writeDate take an Excel format code.
+ * writeString(..., 'header') is the header look. Other strings are General.
  * A date before 1970-01-01 leaves the cell blank, including the
  * 1000-01-01 sentinel. The next write still goes in the next column.
  *
@@ -152,11 +153,11 @@ class Document_Excel_Sheet
     }
 
     /**
-     * $value is Y-m-d, or a string starting with Y-m-d. $style defaults to date.
+     * $value is Y-m-d, or a string starting with Y-m-d. $style defaults to yyyy-mm-dd.
      * An empty value, or a date before 1970-01-01, leaves this column blank.
      * An array writes each date in order.
      */
-    function writeDate($value, $style = 'date')
+    function writeDate($value, $style = 'yyyy-mm-dd')
     {
         if (is_array($value)) {
             foreach ($value as $one) {
@@ -323,8 +324,7 @@ class Document_Excel_Sheet
     function styleIndex($name)
     {
         if ($this->styles === false) {
-            require_once 'Document/Excel/Writer/Excel2007/Styles.php';
-            $this->styles = new Document_Excel_Writer_Excel2007_Styles();
+            throw new Exception('Document_Excel_Sheet has no style table.');
         }
         return $this->styles->index($name);
     }

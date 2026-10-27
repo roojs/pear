@@ -73,7 +73,7 @@ class Document_Excel_Writer_Excel2007 implements Document_Excel_Writer_IWriter
         $this->addPart($zip, 'docProps/core.xml', $this->writerParts['docprops']->writeDocPropsCore($this->document));
         $this->addPart($zip, 'xl/workbook.xml', $this->writerParts['workbook']->writeWorkbook($this->document));
         $this->addPart($zip, 'xl/_rels/workbook.xml.rels', $this->writerParts['workbook']->writeWorkbookRels($sheetCount));
-        $this->addPart($zip, 'xl/styles.xml', $this->writerParts['styles']->writeStyles());
+        $this->addPart($zip, 'xl/styles.xml', $this->document->styles->writeStyles());
         $zip->addFile($this->themePath(), 'xl/theme/theme1.xml');
 
         $n = 1;
