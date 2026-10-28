@@ -54,6 +54,7 @@ class Document_Excel_Sheet
     var $wroteCell = false;
     var $finishedFile = '';
     var $styles = false;
+    var $images = array();
 
     function __construct($name)
     {
@@ -152,6 +153,21 @@ class Document_Excel_Sheet
         return $this;
     }
 
+    function writeImage($path)
+    {
+        $this->requireRow();
+        $this->images[] = array(
+            'path' => $path,
+            'row' => $this->rowIndex,
+            'col' => $this->colIndex,
+        );
+        $this->colIndex++;
+        if (!$this->wroteCell || $this->colIndex - 1 > $this->maxCol) {
+            $this->maxCol = $this->colIndex - 1;
+        }
+        return $this;
+    }
+
     /**
      * $value is Y-m-d, or a string starting with Y-m-d. $style defaults to yyyy-mm-dd.
      * An empty value, or a date before 1970-01-01, leaves this column blank.
@@ -219,7 +235,11 @@ class Document_Excel_Sheet
             $this->cellFile = '';
             @unlink($cellFile);
         }
-        fwrite($out, '</sheetData></worksheet>');
+        fwrite($out, '</sheetData>');
+        if (count($this->images)) {
+            fwrite($out, '<drawing r:id="rId1"/>');
+        }
+        fwrite($out, '</worksheet>');
         fclose($out);
         $this->finishedFile = $outPath;
         return $outPath;

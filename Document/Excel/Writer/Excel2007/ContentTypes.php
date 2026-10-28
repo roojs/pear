@@ -26,8 +26,9 @@ require_once 'Document/Excel/Writer/Excel2007/WriterPart.php';
 
 class Document_Excel_Writer_Excel2007_ContentTypes extends Document_Excel_Writer_Excel2007_WriterPart
 {
-    function writeContentTypes($sheetCount)
+    function writeContentTypes($document)
     {
+        $sheetCount = count($document->sheets);
         $objWriter = $this->xmlWriter();
         $objWriter->startDocument('1.0', 'UTF-8', 'yes');
         $objWriter->startElement('Types');
@@ -68,6 +69,23 @@ class Document_Excel_Writer_Excel2007_ContentTypes extends Document_Excel_Writer
             '/docProps/app.xml',
             'application/vnd.openxmlformats-officedocument.extended-properties+xml'
         );
+
+        $n = 1;
+        $wroteJpeg = false;
+        foreach ($document->sheets as $sheet) {
+            if (count($sheet->images)) {
+                if (!$wroteJpeg) {
+                    $this->writeDefault($objWriter, 'jpeg', 'image/jpeg');
+                    $wroteJpeg = true;
+                }
+                $this->writeOverride(
+                    $objWriter,
+                    '/xl/drawings/drawing' . $n . '.xml',
+                    'application/vnd.openxmlformats-officedocument.drawing+xml'
+                );
+            }
+            $n++;
+        }
 
         $objWriter->endElement();
         return $this->finish($objWriter);

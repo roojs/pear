@@ -33,6 +33,7 @@ class Document_Excel_Writer_Excel2007 implements Document_Excel_Writer_IWriter
     var $document;
     var $writerParts = array();
     var $tempFiles = array();
+    var $imageNum = 0;
 
     function __construct($document = null)
     {
@@ -43,6 +44,7 @@ class Document_Excel_Writer_Excel2007 implements Document_Excel_Writer_IWriter
             'DocProps',
             'Workbook',
             'Styles',
+            'Drawing',
         ) as $name) {
             require_once 'Document/Excel/Writer/Excel2007/' . $name . '.php';
             $className = 'Document_Excel_Writer_Excel2007_' . $name;
@@ -67,7 +69,7 @@ class Document_Excel_Writer_Excel2007 implements Document_Excel_Writer_IWriter
         }
 
         $sheetCount = count($sheets);
-        $this->addPart($zip, '[Content_Types].xml', $this->writerParts['contenttypes']->writeContentTypes($sheetCount));
+        $this->addPart($zip, '[Content_Types].xml', $this->writerParts['contenttypes']->writeContentTypes($this->document));
         $this->addPart($zip, '_rels/.rels', $this->writerParts['rels']->writeRelationships());
         $this->addPart($zip, 'docProps/app.xml', $this->writerParts['docprops']->writeDocPropsApp($this->document));
         $this->addPart($zip, 'docProps/core.xml', $this->writerParts['docprops']->writeDocPropsCore($this->document));
@@ -83,6 +85,17 @@ class Document_Excel_Writer_Excel2007 implements Document_Excel_Writer_IWriter
                 'xl/worksheets/sheet' . $n . '.xml',
                 $sheet->finish()
             );
+            if (count($sheet->images)) {
+                $parts = $this->writerParts['drawing']->write($sheet->images, $n, $this->imageNum);
+                $this->addPart($zip, 'xl/drawings/drawing' . $n . '.xml', $parts['drawing']);
+                $this->addPart($zip, 'xl/drawings/_rels/drawing' . $n . '.xml.rels', $parts['rels']);
+                $this->addPart($zip, 'xl/worksheets/_rels/sheet' . $n . '.xml.rels', $parts['sheetRels']);
+                foreach ($parts['media'] as $no => $path) {
+                    if ($zip->addFile($path, 'xl/media/image' . $no . '.jpeg') !== true) {
+                        throw new Exception('Could not add image ' . $path);
+                    }
+                }
+            }
             $n++;
         }
 
